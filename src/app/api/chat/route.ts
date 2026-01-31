@@ -36,16 +36,15 @@ Guidelines:
 - Encourage students to apply what they're learning`;
 
     // Format conversation history for Claude API
-    const messages = [];
+    const messages: { role: 'user' | 'assistant'; content: string }[] = [];
 
     // Add conversation history
     if (conversationHistory && Array.isArray(conversationHistory)) {
-      conversationHistory.forEach((msg: any) => {
-        messages.push({
-          role: msg.role === 'user' ? 'user' : 'assistant',
-          content: msg.content,
-        });
-      });
+      const historyMessages = conversationHistory.map((msg: any) => ({
+        role: msg.role as "user" | "assistant",
+        content: msg.content
+      }));
+      messages.push(...historyMessages);
     }
 
     // Add current message
