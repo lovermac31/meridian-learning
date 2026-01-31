@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { Send, Play, Pause } from 'lucide-react';
+import Link from 'next/link';
 
 interface Message {
   id: string;
@@ -103,9 +104,30 @@ export default function MeridianLearning() {
   }, [messages]);
 
   return (
-    <div className="flex h-screen w-full flex-col bg-background lg:flex-row">
-      {/* Left Panel - Video Player */}
-      <div className="flex h-1/2 w-full flex-col bg-black lg:h-full lg:w-3/5">
+    <div className="flex flex-col h-screen">
+      {/* Header Bar */}
+      <div className="bg-blue-600 text-white px-6 py-4 flex items-center justify-between">
+        <h1 className="text-xl font-bold">Meridian Learning</h1>
+        <div className="flex gap-4">
+          <Link
+            href="/auth"
+            className="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 transition-colors font-medium"
+          >
+            Sign In
+          </Link>
+          <Link
+            href="/admin"
+            className="px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 transition-colors font-medium"
+          >
+            Admin
+          </Link>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex flex-1 w-full flex-col bg-background lg:flex-row">
+        {/* Left Panel - Video Player */}
+        <div className="flex h-1/2 w-full flex-col bg-black lg:h-full lg:w-3/5">
         {/* Video Container */}
         <div className="relative flex flex-1 items-center justify-center bg-black">
           <video
@@ -226,6 +248,7 @@ export default function MeridianLearning() {
             </button>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

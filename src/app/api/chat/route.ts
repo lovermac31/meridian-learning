@@ -1,62 +1,50 @@
-import Anthropic from "@anthropic-ai/sdk";
-import { NextRequest, NextResponse } from "next/server";
+import { Anthropic } from '@anthropic-ai/sdk';
+import { NextRequest, NextResponse } from 'next/server';
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+const KETO_SYSTEM_PROMPT = `You are an AI teaching assistant for high school literature.
+CRITICAL RULES:
+- Respond in EXACTLY 4-5 lines maximum
+- Use bilingual English/Vietnamese when appropriate
+- NEVER reference content the student hasn't seen yet
+- Match the teaching style of the course material
+- Encourage critical thinking, not just answers
+- Be concise and clear`;
+
 export async function POST(request: NextRequest) {
   try {
-    const { message, episodeTitle, episodeTranscript } = await request.json();
+    const body = await request.json();
+    const { message, videoId, conversationHistory } = body;
 
-    if (!message) {
-      return NextResponse.json(
-        { error: "Message is required" },
-        { status: 400 }
-      );
+    if (!message || message.trim().length === 0) {
+      return NextResponse.json({ error: 'Message required' }, { status: 400 });
     }
 
-    const systemPrompt = `You are a learning assistant for Meridian Learning, an AI-enhanced education platform.
-
-Your role:
-- Help students understand ${episodeTitle || "the lesson"}
-- Ask clarifying questions to deepen understanding
-- Encourage critical thinking
-- Keep responses concise (4-5 lines maximum)
-- Use simple, clear language
-
-Important constraints:
-- Only reference content from the current episode
-- Do not jump ahead to future topics
-- If asked about content not yet covered, guide student back to current material
-- Respond in English and Vietnamese (if student uses Vietnamese)
-
-Episode context:
-${episodeTranscript || "No transcript available"}`;
+    const messages = (conversationHistory || []).concat([
+      { role: 'user', content: message }
+    ]);
 
     const response = await client.messages.create({
-      model: "claude-opus-4-1-20250805",
-      max_tokens: 200,
-      system: systemPrompt,
-      messages: [
-        {
-          role: "user",
-          content: message,
-        },
-      ],
+      model: 'claude-opus-4.5-20251101',
+      max_tokens: 300,
+      system: KETO_SYSTEM_PROMPT,
+      messages: messages as any,
     });
 
-    const textContent = response.content[0];
-    if (textContent.type !== "text") {
-      throw new Error("Unexpected response type");
-    }
+    const reply = response.content[0].type === 'text' ? response.content[0].text : 'Error';
 
-    return NextResponse.json({ response: textContent.text });
+    return NextResponse.json({ success: true, reply });
   } catch (error) {
-    console.error("Error calling Claude:", error);
-    return NextResponse.json(
-      { error: "Failed to get response from Claude" },
-      { status: 500 }
-    );
+    console.error('Chat error:', error);
+    if (error instanceof Anthropic.APIError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status || 500 }
+      );
+    }
+    return NextResponse.json({ error: 'Failed to process chat' }, { status: 500 });
   }
 }
