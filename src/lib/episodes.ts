@@ -1,44 +1,45 @@
 export interface Episode {
   id: string;
   title: string;
-  description: string;
-  courseType: string; // e.g., "HS Literature"
-  duration: number; // seconds
+  duration: string;
   videoUrl: string;
-  transcript: string;
-  thumbnailUrl?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  description: string;
 }
 
-export const SAMPLE_EPISODES: Episode[] = [
+export const episodes: Episode[] = [
   {
-    id: "understanding-react-hooks",
-    title: "Understanding React Hooks",
-    description: "Learn how to use React Hooks to manage state in functional components",
-    courseType: "HS Literature",
-    duration: 1263, // 21 minutes
-    videoUrl: "https://example.com/videos/react-hooks.mp4",
-    transcript: `In this lesson, we explore React Hooks, a feature that lets you use state in functional components.
-
-Before Hooks, you could only use state in class components. Hooks changed that.
-
-The most common Hook is useState. It lets you add state to a functional component.
-
-Another important Hook is useEffect. It handles side effects like data fetching or DOM updates.
-
-Hooks follow two rules: only call them at the top level, and only from React functions.
-
-Understanding these concepts will make you a better React developer.`,
-    createdAt: new Date("2026-01-30"),
-    updatedAt: new Date("2026-01-30"),
+    id: '1',
+    title: 'Understanding React Hooks',
+    duration: '21:03',
+    videoUrl: '/videos/react-hooks-intro.mp4',
+    description: 'Learn the fundamentals of React Hooks including useState, useEffect, and custom hooks. Perfect for developers transitioning from class components to modern React patterns.'
   },
+  {
+    id: '2',
+    title: 'State Management Patterns',
+    duration: '30:00',
+    videoUrl: '/videos/state-management.mp4',
+    description: 'Explore advanced state management patterns using Context API, useReducer, and best practices for organizing application state in large-scale React applications.'
+  },
+  {
+    id: '3',
+    title: 'Component Lifecycle Methods',
+    duration: '24:00',
+    videoUrl: '/videos/lifecycle-methods.mp4',
+    description: 'Deep dive into React component lifecycle, understanding mounting, updating, and unmounting phases with practical examples and common use cases.'
+  },
+  {
+    id: '4',
+    title: 'Advanced Hooks Patterns',
+    duration: '35:00',
+    videoUrl: '/videos/advanced-hooks.mp4',
+    description: 'Master advanced hook patterns including useCallback, useMemo, useRef, and creating your own custom hooks for reusable logic across your application.'
+  },
+  {
+    id: '5',
+    title: 'Performance Optimization',
+    duration: '32:00',
+    videoUrl: '/videos/performance-optimization.mp4',
+    description: 'Learn techniques to optimize React application performance including code splitting, lazy loading, and React.memo for component memoization and efficient rendering.'
+  }
 ];
-
-export async function getEpisodeById(id: string): Promise<Episode | null> {
-  return SAMPLE_EPISODES.find((ep) => ep.id === id) || null;
-}
-
-export async function getAllEpisodes(): Promise<Episode[]> {
-  return SAMPLE_EPISODES;
-}
