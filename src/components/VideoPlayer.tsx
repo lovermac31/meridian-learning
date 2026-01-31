@@ -6,14 +6,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Episode } from '@/lib/episodes';
 import { saveVideoProgress, getVideoProgress, markEpisodeComplete } from '@/lib/firestore-service';
+import { getUserId } from '@/lib/auth-service';
 
 interface VideoPlayerProps {
   episode: Episode;
   onComplete?: () => void;
 }
-
-// Mock user ID - will be replaced with real auth in Build 7
-const MOCK_USER_ID = 'mock-user-123';
 
 export default function VideoPlayer({ episode, onComplete }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -31,7 +29,13 @@ export default function VideoPlayer({ episode, onComplete }: VideoPlayerProps) {
   useEffect(() => {
     const loadProgress = async () => {
       try {
-        const progress = await getVideoProgress(MOCK_USER_ID, episode.id);
+        const userId = getUserId();
+        if (!userId) {
+          setHasLoadedProgress(true);
+          return;
+        }
+
+        const progress = await getVideoProgress(userId, episode.id);
 
         if (progress && progress.lastPosition > 0 && videoRef.current) {
           // Only resume if not already completed and has meaningful progress (> 5 seconds)
@@ -62,8 +66,11 @@ export default function VideoPlayer({ episode, onComplete }: VideoPlayerProps) {
 
     // Save if 15 seconds have passed since last save
     if (timeSinceLastSave >= 15000) {
+      const userId = getUserId();
+      if (!userId) return;
+
       try {
-        await saveVideoProgress(MOCK_USER_ID, episode.id, {
+        await saveVideoProgress(userId, episode.id, {
           lastPosition: position,
           isCompleted: false,
         });
@@ -103,8 +110,11 @@ export default function VideoPlayer({ episode, onComplete }: VideoPlayerProps) {
 
     hasMarkedComplete.current = true;
 
+    const userId = getUserId();
+    if (!userId) return;
+
     try {
-      await markEpisodeComplete(MOCK_USER_ID, episode.id, position);
+      await markEpisodeComplete(userId, episode.id, position);
       console.log(`Episode ${episode.id} marked complete at ${position}s`);
 
       if (onComplete) {
@@ -120,9 +130,12 @@ export default function VideoPlayer({ episode, onComplete }: VideoPlayerProps) {
     setIsPlaying(false);
 
     if (videoRef.current && hasLoadedProgress) {
+      const userId = getUserId();
+      if (!userId) return;
+
       const position = videoRef.current.currentTime;
       try {
-        await saveVideoProgress(MOCK_USER_ID, episode.id, {
+        await saveVideoProgress(userId, episode.id, {
           lastPosition: position,
           isCompleted: false,
         });
@@ -137,9 +150,12 @@ export default function VideoPlayer({ episode, onComplete }: VideoPlayerProps) {
   useEffect(() => {
     return () => {
       if (videoRef.current && hasLoadedProgress) {
+        const userId = getUserId();
+        if (!userId) return;
+
         const position = videoRef.current.currentTime;
         // Use synchronous save for unmount
-        saveVideoProgress(MOCK_USER_ID, episode.id, {
+        saveVideoProgress(userId, episode.id, {
           lastPosition: position,
           isCompleted: false,
         }).catch(console.error);

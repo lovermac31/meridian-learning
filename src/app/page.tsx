@@ -1,15 +1,46 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import VideoPlayer from '@/components/VideoPlayer';
 import ChatPanel from '@/components/ChatPanel';
 import { episodes } from '@/lib/episodes';
-import { Play, CheckCircle2, ChevronRight } from 'lucide-react';
+import { Play, CheckCircle2, ChevronRight, LogOut } from 'lucide-react';
+import { getCurrentUser, logoutUser, isAuthenticated } from '@/lib/auth-service';
 
 export default function Home() {
+  const router = useRouter();
   const [currentEpisode, setCurrentEpisode] = useState(0);
   const [completedEpisodes, setCompletedEpisodes] = useState<number[]>([0, 1]); // Mock: Episodes 1 and 2 completed
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<{ email: string; displayName: string } | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  // Check authentication on mount
+  useEffect(() => {
+    try {
+      const user = getCurrentUser();
+      
+      if (!user) {
+        router.push('/login');
+        return;
+      }
+      
+      setCurrentUser(user);
+      setIsCheckingAuth(false);
+    } catch (error) {
+      console.error('Auth check failed:', error);
+      setIsCheckingAuth(false);
+      router.push('/login');
+    }
+  }, [router]);
+
+  const handleLogout = () => {
+    if (confirm('Are you sure you want to log out?')) {
+      logoutUser();
+      router.push('/login');
+    }
+  };
 
   const handleEpisodeComplete = () => {
     if (!completedEpisodes.includes(currentEpisode)) {
@@ -32,6 +63,25 @@ export default function Home() {
   const completedCount = completedEpisodes.length;
   const progressPercentage = (completedCount / episodes.length) * 100;
 
+  console.log('Page rendering, currentUser:', currentUser, 'isCheckingAuth:', isCheckingAuth);
+
+  // Show loading while checking auth
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render if not authenticated (will redirect)
+  if (!currentUser) {
+    return null;
+  }
+
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-gray-50">
       {/* Mobile Episode Toggle Button */}
@@ -42,6 +92,17 @@ export default function Home() {
         <span className="text-sm font-medium">Episodes</span>
         <ChevronRight className={`w-4 h-4 transition-transform ${isMobileMenuOpen ? 'rotate-90' : ''}`} />
       </button>
+
+      {currentUser && (
+        <button
+          onClick={handleLogout}
+          className="fixed top-4 right-4 z-50 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg transition-all flex items-center gap-2"
+          title={`Logged in as ${currentUser.email}`}
+        >
+          <span className="text-sm font-medium hidden sm:inline">{currentUser.displayName}</span>
+          <LogOut className="w-4 h-4" />
+        </button>
+      )}
 
       {/* Episode List Sidebar */}
       <div className={`
