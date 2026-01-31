@@ -10,104 +10,124 @@ import Link from 'next/link';
 import { loginUser } from '@/lib/auth-service';
 import { BookOpen, Brain, Sparkles, GraduationCap, Shield } from 'lucide-react';
 
-// Enhanced floating geometric shapes with dynamic animations
+// 3D Halogen floating shapes that move across entire screen
 const FloatingShapes = () => {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Brain/Neural Network Icon - Top Left - Large Float + Rotate */}
-      <div className="absolute top-20 left-10 opacity-15 animate-float-rotate-slow">
-        <div className="w-32 h-32 relative animate-pulse-slow">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-2xl transform rotate-12 animate-spin-very-slow"></div>
-          <div className="absolute inset-2 bg-white/5 backdrop-blur-sm rounded-xl"></div>
-          <svg className="absolute inset-4 text-white animate-float-subtle" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-          </svg>
+    <>
+      {/* Add perspective container */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none perspective-container">
+        {/* Brain/Neural Network - Diagonal traverse with 3D rotation */}
+        <div className="absolute animate-traverse-diagonal-1">
+          <div className="w-40 h-40 relative transform-3d">
+            {/* Halogen glow layers */}
+            <div className="absolute inset-0 bg-purple-500 rounded-2xl blur-2xl opacity-50 animate-pulse-glow"></div>
+            <div className="absolute inset-0 bg-purple-400 rounded-2xl blur-xl opacity-60 animate-pulse-glow-delayed"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-2xl shadow-2xl shadow-purple-500/50 animate-rotate-3d"></div>
+            <div className="absolute inset-2 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"></div>
+            <svg className="absolute inset-4 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+            </svg>
+          </div>
         </div>
-      </div>
 
-      {/* Book/Learning Icon - Top Right - Swing + Scale */}
-      <div className="absolute top-32 right-20 opacity-15 animate-swing">
-        <div className="w-28 h-28 relative animate-scale-pulse">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-600 rounded-xl transform -rotate-12"></div>
-          <svg className="absolute inset-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-          </svg>
+        {/* Book - Horizontal sweep with 3D tilt */}
+        <div className="absolute animate-traverse-horizontal">
+          <div className="w-36 h-36 relative transform-3d">
+            <div className="absolute inset-0 bg-blue-500 rounded-xl blur-2xl opacity-50 animate-pulse-glow"></div>
+            <div className="absolute inset-0 bg-blue-400 rounded-xl blur-xl opacity-60"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-600 rounded-xl shadow-2xl shadow-blue-500/50 animate-tilt-3d"></div>
+            <svg className="absolute inset-4 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
         </div>
-      </div>
 
-      {/* Lightbulb/Ideas Icon - Bottom Left - Bounce + Glow */}
-      <div className="absolute bottom-32 left-16 opacity-20 animate-bounce-gentle">
-        <div className="w-24 h-24 relative animate-glow">
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full blur-sm"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full"></div>
-          <svg className="absolute inset-4 text-white animate-wiggle" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-          </svg>
+        {/* Lightbulb - Vertical float with intense glow */}
+        <div className="absolute animate-traverse-vertical">
+          <div className="w-32 h-32 relative transform-3d">
+            <div className="absolute inset-0 bg-yellow-400 rounded-full blur-3xl opacity-70 animate-pulse-glow"></div>
+            <div className="absolute inset-0 bg-orange-400 rounded-full blur-2xl opacity-50 animate-pulse-glow-delayed"></div>
+            <div className="absolute -inset-2 bg-yellow-500/30 rounded-full blur-xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full shadow-2xl shadow-yellow-500/70 animate-rotate-3d-slow"></div>
+            <svg className="absolute inset-4 text-white drop-shadow-[0_0_12px_rgba(255,255,255,1)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
         </div>
-      </div>
 
-      {/* Chip/AI Icon - Bottom Right - Spin + Float */}
-      <div className="absolute bottom-20 right-10 opacity-15 animate-float-up-down">
-        <div className="w-36 h-36 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-2xl transform rotate-45 animate-spin-slow"></div>
-          <div className="absolute inset-4 bg-white/5 backdrop-blur-sm rounded-xl animate-pulse-slow"></div>
-          <svg className="absolute inset-6 text-white transform -rotate-45" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-          </svg>
+        {/* Chip/AI - Diagonal opposite with 3D spin */}
+        <div className="absolute animate-traverse-diagonal-2">
+          <div className="w-44 h-44 relative transform-3d">
+            <div className="absolute inset-0 bg-indigo-500 rounded-2xl blur-2xl opacity-50 animate-pulse-glow-delayed"></div>
+            <div className="absolute inset-0 bg-purple-500 rounded-2xl blur-xl opacity-60"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-2xl transform rotate-45 shadow-2xl shadow-indigo-500/50 animate-spin-3d"></div>
+            <div className="absolute inset-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 animate-rotate-3d-reverse"></div>
+            <svg className="absolute inset-6 text-white transform -rotate-45 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+            </svg>
+          </div>
         </div>
-      </div>
 
-      {/* Atom/Science Icon - Middle Right - Orbit Spin */}
-      <div className="absolute top-1/2 right-32 opacity-15 animate-orbit">
-        <div className="w-20 h-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full animate-pulse-slow"></div>
-          <svg className="absolute inset-3 text-white animate-spin-slow" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
-            <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/>
-            <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-60 12 12)"/>
-            <ellipse cx="12" cy="12" rx="10" ry="4"/>
-          </svg>
+        {/* Atom - Circular orbit path */}
+        <div className="absolute animate-traverse-orbit">
+          <div className="w-28 h-28 relative transform-3d">
+            <div className="absolute inset-0 bg-cyan-500 rounded-full blur-2xl opacity-60 animate-pulse-glow"></div>
+            <div className="absolute inset-0 bg-blue-400 rounded-full blur-xl opacity-50"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full shadow-2xl shadow-cyan-500/50 animate-rotate-3d"></div>
+            <svg className="absolute inset-3 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] animate-spin-3d" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-60 12 12)"/>
+              <ellipse cx="12" cy="12" rx="10" ry="4"/>
+            </svg>
+          </div>
         </div>
-      </div>
 
-      {/* Graduation Cap - Middle Left - Tilt + Scale */}
-      <div className="absolute top-1/3 left-24 opacity-15 animate-tilt">
-        <div className="w-28 h-28 relative animate-scale-pulse">
-          <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl transform rotate-12"></div>
-          <svg className="absolute inset-5 text-white animate-wiggle" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
-          </svg>
+        {/* Graduation Cap - Zigzag pattern */}
+        <div className="absolute animate-traverse-zigzag">
+          <div className="w-36 h-36 relative transform-3d">
+            <div className="absolute inset-0 bg-green-500 rounded-xl blur-2xl opacity-50 animate-pulse-glow-delayed"></div>
+            <div className="absolute inset-0 bg-emerald-400 rounded-xl blur-xl opacity-60"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl shadow-2xl shadow-green-500/50 animate-tilt-3d"></div>
+            <svg className="absolute inset-5 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+            </svg>
+          </div>
         </div>
-      </div>
 
-      {/* NEW: Code Brackets - Top Center - Type Effect */}
-      <div className="absolute top-16 left-1/2 -translate-x-1/2 opacity-10 animate-float-rotate-slow">
-        <div className="w-24 h-24 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-pink-400 to-rose-600 rounded-lg"></div>
-          <svg className="absolute inset-4 text-white animate-pulse" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-          </svg>
+        {/* Code Brackets - Wave motion */}
+        <div className="absolute animate-traverse-wave">
+          <div className="w-32 h-32 relative transform-3d">
+            <div className="absolute inset-0 bg-pink-500 rounded-lg blur-2xl opacity-50 animate-pulse-glow"></div>
+            <div className="absolute inset-0 bg-rose-400 rounded-lg blur-xl opacity-60"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-400 to-rose-600 rounded-lg shadow-2xl shadow-pink-500/50 animate-rotate-3d-slow"></div>
+            <svg className="absolute inset-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+            </svg>
+          </div>
         </div>
-      </div>
 
-      {/* NEW: Network Nodes - Bottom Center - Pulse */}
-      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 opacity-10 animate-pulse-grow">
-        <div className="w-32 h-32 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-400 to-purple-600 rounded-full blur-md"></div>
-          <svg className="absolute inset-4 text-white animate-spin-very-slow" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="2" fill="currentColor"/>
-            <circle cx="6" cy="6" r="2" fill="currentColor"/>
-            <circle cx="18" cy="6" r="2" fill="currentColor"/>
-            <circle cx="6" cy="18" r="2" fill="currentColor"/>
-            <circle cx="18" cy="18" r="2" fill="currentColor"/>
-            <line x1="12" y1="12" x2="6" y2="6"/>
-            <line x1="12" y1="12" x2="18" y2="6"/>
-            <line x1="12" y1="12" x2="6" y2="18"/>
-            <line x1="12" y1="12" x2="18" y2="18"/>
-          </svg>
+        {/* Network Nodes - Spiral motion */}
+        <div className="absolute animate-traverse-spiral">
+          <div className="w-40 h-40 relative transform-3d">
+            <div className="absolute inset-0 bg-violet-500 rounded-full blur-3xl opacity-60 animate-pulse-glow-delayed"></div>
+            <div className="absolute inset-0 bg-purple-400 rounded-full blur-2xl opacity-50"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-400 to-purple-600 rounded-full shadow-2xl shadow-violet-500/60 animate-rotate-3d"></div>
+            <svg className="absolute inset-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="2" fill="currentColor"/>
+              <circle cx="6" cy="6" r="2" fill="currentColor"/>
+              <circle cx="18" cy="6" r="2" fill="currentColor"/>
+              <circle cx="6" cy="18" r="2" fill="currentColor"/>
+              <circle cx="18" cy="18" r="2" fill="currentColor"/>
+              <line x1="12" y1="12" x2="6" y2="6"/>
+              <line x1="12" y1="12" x2="18" y2="6"/>
+              <line x1="12" y1="12" x2="6" y2="18"/>
+              <line x1="12" y1="12" x2="18" y2="18"/>
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -159,7 +179,7 @@ export default function LoginPage() {
       <FloatingShapes />
 
       {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-indigo-500/5 animate-pulse-slow pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-indigo-500/5 animate-pulse pointer-events-none"></div>
 
       <div className="max-w-md w-full relative z-10">
         {/* Hero Section - Logo/Brand */}
