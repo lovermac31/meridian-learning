@@ -1,6 +1,6 @@
 import { db } from "./firebase";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { User } from "./users";
+import { User } from "./user";
 
 export async function createUserDocument(userId: string, userData: Partial<User>) {
   try {
