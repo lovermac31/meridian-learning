@@ -188,14 +188,23 @@ export default function HelpPage() {
             </div>
             <Link
               href="/"
-              className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors backdrop-blur-sm border border-white/30 flex items-center gap-2"
+              className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all shadow-lg border-2 border-purple-500 flex items-center gap-2 font-semibold"
             >
-              <Home className="w-4 h-4" />
-              <span className="hidden sm:inline">Back to Learning</span>
+              <Home className="w-5 h-5" />
+              <span>Home</span>
             </Link>
           </div>
         </div>
       </div>
+
+      {/* Floating Home Button - Mobile */}
+      <Link
+        href="/"
+        className="md:hidden fixed bottom-6 right-6 z-50 p-4 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-2xl transition-all border-2 border-purple-500"
+        title="Return to Home"
+      >
+        <Home className="w-6 h-6" />
+      </Link>
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
