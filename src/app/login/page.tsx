@@ -10,6 +10,107 @@ import Link from 'next/link';
 import { loginUser } from '@/lib/auth-service';
 import { BookOpen, Brain, Sparkles, GraduationCap, Shield } from 'lucide-react';
 
+// Enhanced floating geometric shapes with dynamic animations
+const FloatingShapes = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Brain/Neural Network Icon - Top Left - Large Float + Rotate */}
+      <div className="absolute top-20 left-10 opacity-15 animate-float-rotate-slow">
+        <div className="w-32 h-32 relative animate-pulse-slow">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-2xl transform rotate-12 animate-spin-very-slow"></div>
+          <div className="absolute inset-2 bg-white/5 backdrop-blur-sm rounded-xl"></div>
+          <svg className="absolute inset-4 text-white animate-float-subtle" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* Book/Learning Icon - Top Right - Swing + Scale */}
+      <div className="absolute top-32 right-20 opacity-15 animate-swing">
+        <div className="w-28 h-28 relative animate-scale-pulse">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-600 rounded-xl transform -rotate-12"></div>
+          <svg className="absolute inset-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* Lightbulb/Ideas Icon - Bottom Left - Bounce + Glow */}
+      <div className="absolute bottom-32 left-16 opacity-20 animate-bounce-gentle">
+        <div className="w-24 h-24 relative animate-glow">
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full blur-sm"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full"></div>
+          <svg className="absolute inset-4 text-white animate-wiggle" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* Chip/AI Icon - Bottom Right - Spin + Float */}
+      <div className="absolute bottom-20 right-10 opacity-15 animate-float-up-down">
+        <div className="w-36 h-36 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 to-purple-600 rounded-2xl transform rotate-45 animate-spin-slow"></div>
+          <div className="absolute inset-4 bg-white/5 backdrop-blur-sm rounded-xl animate-pulse-slow"></div>
+          <svg className="absolute inset-6 text-white transform -rotate-45" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* Atom/Science Icon - Middle Right - Orbit Spin */}
+      <div className="absolute top-1/2 right-32 opacity-15 animate-orbit">
+        <div className="w-20 h-20 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full animate-pulse-slow"></div>
+          <svg className="absolute inset-3 text-white animate-spin-slow" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-60 12 12)"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* Graduation Cap - Middle Left - Tilt + Scale */}
+      <div className="absolute top-1/3 left-24 opacity-15 animate-tilt">
+        <div className="w-28 h-28 relative animate-scale-pulse">
+          <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-600 rounded-xl transform rotate-12"></div>
+          <svg className="absolute inset-5 text-white animate-wiggle" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* NEW: Code Brackets - Top Center - Type Effect */}
+      <div className="absolute top-16 left-1/2 -translate-x-1/2 opacity-10 animate-float-rotate-slow">
+        <div className="w-24 h-24 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-400 to-rose-600 rounded-lg"></div>
+          <svg className="absolute inset-4 text-white animate-pulse" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* NEW: Network Nodes - Bottom Center - Pulse */}
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 opacity-10 animate-pulse-grow">
+        <div className="w-32 h-32 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-400 to-purple-600 rounded-full blur-md"></div>
+          <svg className="absolute inset-4 text-white animate-spin-very-slow" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="2" fill="currentColor"/>
+            <circle cx="6" cy="6" r="2" fill="currentColor"/>
+            <circle cx="18" cy="6" r="2" fill="currentColor"/>
+            <circle cx="6" cy="18" r="2" fill="currentColor"/>
+            <circle cx="18" cy="18" r="2" fill="currentColor"/>
+            <line x1="12" y1="12" x2="6" y2="6"/>
+            <line x1="12" y1="12" x2="18" y2="6"/>
+            <line x1="12" y1="12" x2="6" y2="18"/>
+            <line x1="12" y1="12" x2="18" y2="18"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -53,6 +154,12 @@ export default function LoginPage() {
         <div className="absolute top-20 left-20 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-indigo-300 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
+
+      {/* Animated Geometric Shapes */}
+      <FloatingShapes />
+
+      {/* Animated gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-indigo-500/5 animate-pulse-slow pointer-events-none"></div>
 
       <div className="max-w-md w-full relative z-10">
         {/* Hero Section - Logo/Brand */}
