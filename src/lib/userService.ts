@@ -6,15 +6,17 @@ export async function createUserDocument(userId: string, userData: Partial<User>
   try {
     const userRef = doc(db, "users", userId);
     const newUser: User = {
-      id: userId,
+      uid: userId,
       email: userData.email || "",
       displayName: userData.displayName || "New User",
       createdAt: new Date(),
-      lastLoginAt: new Date(),
-      subscriptionStatus: "free",
-      couponsRedeemed: [],
-      episodesWatched: [],
-      totalChatMessages: 0,
+      lastLogin: new Date(),
+      subscription: {
+        type: userData.subscription?.type || "free",
+        startDate: userData.subscription?.startDate || new Date(),
+        endDate: userData.subscription?.endDate,
+      },
+      episodeProgress: userData.episodeProgress || {},
       ...userData,
     };
     await setDoc(userRef, newUser);
