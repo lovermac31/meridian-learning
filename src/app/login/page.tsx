@@ -4,24 +4,105 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { loginUser } from '@/lib/auth-service';
 import { BookOpen, Brain, Sparkles, GraduationCap, Shield } from 'lucide-react';
 
+// Particle connection system - connects nearby shapes
+const ParticleConnections = () => {
+  return (
+    <svg className="absolute inset-0 w-full h-full pointer-events-none z-[1]" style={{ mixBlendMode: 'screen' }}>
+      <defs>
+        <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="rgba(139, 92, 246, 0.4)">
+            <animate attributeName="stop-opacity" values="0.2;0.6;0.2" dur="3s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="100%" stopColor="rgba(59, 130, 246, 0.4)">
+            <animate attributeName="stop-opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite" />
+          </stop>
+        </linearGradient>
+        
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      {/* Animated connection lines between shapes */}
+      {/* Brain to Atom */}
+      <line className="animate-dash" x1="15%" y1="15%" x2="85%" y2="50%" 
+            stroke="url(#connectionGradient)" strokeWidth="1" opacity="0.6" 
+            strokeDasharray="5,5" filter="url(#glow)" />
+      
+      {/* Book to Graduation Cap */}
+      <line className="animate-dash-delayed" x1="30%" y1="35%" x2="24%" y2="33%" 
+            stroke="url(#connectionGradient)" strokeWidth="1" opacity="0.5" 
+            strokeDasharray="5,5" filter="url(#glow)" />
+      
+      {/* Lightbulb to Network */}
+      <line className="animate-dash" x1="20%" y1="85%" x2="50%" y2="50%" 
+            stroke="url(#connectionGradient)" strokeWidth="1" opacity="0.6" 
+            strokeDasharray="5,5" filter="url(#glow)" />
+      
+      {/* Chip to Code */}
+      <line className="animate-dash-delayed" x1="85%" y1="85%" x2="50%" y2="50%" 
+            stroke="url(#connectionGradient)" strokeWidth="1" opacity="0.5" 
+            strokeDasharray="5,5" filter="url(#glow)" />
+
+      {/* Floating particles */}
+      <circle className="animate-particle-1" r="2" fill="rgba(167, 139, 250, 0.8)" filter="url(#glow)">
+        <animateMotion dur="20s" repeatCount="indefinite" path="M 100,100 Q 200,50 300,100 T 500,100" />
+      </circle>
+      <circle className="animate-particle-2" r="1.5" fill="rgba(96, 165, 250, 0.8)" filter="url(#glow)">
+        <animateMotion dur="25s" repeatCount="indefinite" path="M 500,100 Q 400,150 300,100 T 100,100" />
+      </circle>
+      <circle className="animate-particle-3" r="2.5" fill="rgba(192, 132, 252, 0.8)" filter="url(#glow)">
+        <animateMotion dur="30s" repeatCount="indefinite" path="M 300,50 Q 200,100 300,150 T 300,250" />
+      </circle>
+    </svg>
+  );
+};
+
 // 3D Halogen floating shapes that move across entire screen
-const FloatingShapes = () => {
+const FloatingShapes = ({ focusedField }: { focusedField: string | null }) => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+      });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <>
       {/* Add perspective container */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none perspective-container">
         {/* Brain/Neural Network - Diagonal traverse with 3D rotation */}
-        <div className="absolute animate-traverse-diagonal-1">
+        <div 
+          className="absolute animate-traverse-diagonal-1"
+          style={{
+            transform: `translate(${(mousePosition.x - 50) * 0.02}px, ${(mousePosition.y - 50) * 0.02}px)`
+          }}
+        >
           <div className="w-40 h-40 relative transform-3d">
             {/* Halogen glow layers */}
-            <div className="absolute inset-0 bg-purple-500 rounded-2xl blur-2xl opacity-50 animate-pulse-glow"></div>
-            <div className="absolute inset-0 bg-purple-400 rounded-2xl blur-xl opacity-60 animate-pulse-glow-delayed"></div>
+            <div className={`absolute inset-0 bg-purple-500 rounded-2xl blur-2xl transition-opacity duration-500 ${
+              focusedField ? 'opacity-70 animate-pulse-glow' : 'opacity-50 animate-pulse-glow'
+            }`}></div>
+            <div className={`absolute inset-0 bg-purple-400 rounded-2xl blur-xl transition-opacity duration-500 ${
+              focusedField ? 'opacity-80 animate-pulse-glow-delayed' : 'opacity-60 animate-pulse-glow-delayed'
+            }`}></div>
             <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-2xl shadow-2xl shadow-purple-500/50 animate-rotate-3d"></div>
             <div className="absolute inset-2 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"></div>
             <svg className="absolute inset-4 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" fill="currentColor" viewBox="0 0 24 24">
@@ -31,7 +112,12 @@ const FloatingShapes = () => {
         </div>
 
         {/* Book - Horizontal sweep with 3D tilt */}
-        <div className="absolute animate-traverse-horizontal">
+        <div 
+          className="absolute animate-traverse-horizontal"
+          style={{
+            transform: `translate(${(mousePosition.x - 50) * -0.03}px, ${(mousePosition.y - 50) * -0.03}px)`
+          }}
+        >
           <div className="w-36 h-36 relative transform-3d">
             <div className="absolute inset-0 bg-blue-500 rounded-xl blur-2xl opacity-50 animate-pulse-glow"></div>
             <div className="absolute inset-0 bg-blue-400 rounded-xl blur-xl opacity-60"></div>
@@ -43,7 +129,12 @@ const FloatingShapes = () => {
         </div>
 
         {/* Lightbulb - Vertical float with intense glow */}
-        <div className="absolute animate-traverse-vertical">
+        <div 
+          className="absolute animate-traverse-vertical"
+          style={{
+            transform: `translate(${(mousePosition.x - 50) * 0.025}px, ${(mousePosition.y - 50) * 0.025}px)`
+          }}
+        >
           <div className="w-32 h-32 relative transform-3d">
             <div className="absolute inset-0 bg-yellow-400 rounded-full blur-3xl opacity-70 animate-pulse-glow"></div>
             <div className="absolute inset-0 bg-orange-400 rounded-full blur-2xl opacity-50 animate-pulse-glow-delayed"></div>
@@ -56,7 +147,12 @@ const FloatingShapes = () => {
         </div>
 
         {/* Chip/AI - Diagonal opposite with 3D spin */}
-        <div className="absolute animate-traverse-diagonal-2">
+        <div 
+          className="absolute animate-traverse-diagonal-2"
+          style={{
+            transform: `translate(${(mousePosition.x - 50) * -0.02}px, ${(mousePosition.y - 50) * -0.02}px)`
+          }}
+        >
           <div className="w-44 h-44 relative transform-3d">
             <div className="absolute inset-0 bg-indigo-500 rounded-2xl blur-2xl opacity-50 animate-pulse-glow-delayed"></div>
             <div className="absolute inset-0 bg-purple-500 rounded-2xl blur-xl opacity-60"></div>
@@ -69,7 +165,12 @@ const FloatingShapes = () => {
         </div>
 
         {/* Atom - Circular orbit path */}
-        <div className="absolute animate-traverse-orbit">
+        <div 
+          className="absolute animate-traverse-orbit"
+          style={{
+            transform: `translate(${(mousePosition.x - 50) * 0.04}px, ${(mousePosition.y - 50) * 0.04}px)`
+          }}
+        >
           <div className="w-28 h-28 relative transform-3d">
             <div className="absolute inset-0 bg-cyan-500 rounded-full blur-2xl opacity-60 animate-pulse-glow"></div>
             <div className="absolute inset-0 bg-blue-400 rounded-full blur-xl opacity-50"></div>
@@ -84,7 +185,12 @@ const FloatingShapes = () => {
         </div>
 
         {/* Graduation Cap - Zigzag pattern */}
-        <div className="absolute animate-traverse-zigzag">
+        <div 
+          className="absolute animate-traverse-zigzag"
+          style={{
+            transform: `translate(${(mousePosition.x - 50) * -0.025}px, ${(mousePosition.y - 50) * -0.025}px)`
+          }}
+        >
           <div className="w-36 h-36 relative transform-3d">
             <div className="absolute inset-0 bg-green-500 rounded-xl blur-2xl opacity-50 animate-pulse-glow-delayed"></div>
             <div className="absolute inset-0 bg-emerald-400 rounded-xl blur-xl opacity-60"></div>
@@ -96,7 +202,12 @@ const FloatingShapes = () => {
         </div>
 
         {/* Code Brackets - Wave motion */}
-        <div className="absolute animate-traverse-wave">
+        <div 
+          className="absolute animate-traverse-wave"
+          style={{
+            transform: `translate(${(mousePosition.x - 50) * 0.03}px, ${(mousePosition.y - 50) * 0.03}px)`
+          }}
+        >
           <div className="w-32 h-32 relative transform-3d">
             <div className="absolute inset-0 bg-pink-500 rounded-lg blur-2xl opacity-50 animate-pulse-glow"></div>
             <div className="absolute inset-0 bg-rose-400 rounded-lg blur-xl opacity-60"></div>
@@ -108,7 +219,12 @@ const FloatingShapes = () => {
         </div>
 
         {/* Network Nodes - Spiral motion */}
-        <div className="absolute animate-traverse-spiral">
+        <div 
+          className="absolute animate-traverse-spiral"
+          style={{
+            transform: `translate(${(mousePosition.x - 50) * -0.04}px, ${(mousePosition.y - 50) * -0.04}px)`
+          }}
+        >
           <div className="w-40 h-40 relative transform-3d">
             <div className="absolute inset-0 bg-violet-500 rounded-full blur-3xl opacity-60 animate-pulse-glow-delayed"></div>
             <div className="absolute inset-0 bg-purple-400 rounded-full blur-2xl opacity-50"></div>
@@ -135,6 +251,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -176,10 +293,21 @@ export default function LoginPage() {
       </div>
 
       {/* Animated Geometric Shapes */}
-      <FloatingShapes />
+      <FloatingShapes focusedField={focusedField} />
+
+      {/* Particle Connection System */}
+      <ParticleConnections />
 
       {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-indigo-500/5 animate-pulse pointer-events-none"></div>
+      <div 
+        className={`absolute inset-0 bg-gradient-to-br transition-all duration-500 pointer-events-none ${
+          focusedField === 'email' 
+            ? 'from-blue-500/10 via-transparent to-purple-500/10' 
+            : focusedField === 'name'
+            ? 'from-green-500/10 via-transparent to-indigo-500/10'
+            : 'from-purple-500/5 via-transparent to-indigo-500/5'
+        }`}
+      ></div>
 
       <div className="max-w-md w-full relative z-10">
         {/* Hero Section - Logo/Brand */}
@@ -225,6 +353,8 @@ export default function LoginPage() {
                 type="text"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
+                onFocus={() => setFocusedField('name')}
+                onBlur={() => setFocusedField(null)}
                 placeholder="John Doe"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all hover:border-indigo-300"
                 disabled={isLoading}
@@ -245,6 +375,8 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => setFocusedField('email')}
+                onBlur={() => setFocusedField(null)}
                 placeholder="you@example.com"
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all hover:border-indigo-300"
