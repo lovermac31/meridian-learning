@@ -6,8 +6,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { loginUser } from '@/lib/auth-service';
-import { BookOpen, Brain, Sparkles, GraduationCap } from 'lucide-react';
+import { BookOpen, Brain, Sparkles, GraduationCap, Shield } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -155,6 +156,33 @@ export default function LoginPage() {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Admin Access Section */}
+          <div className="mt-8">
+            {/* Divider */}
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-4 bg-white text-gray-500">Administrator Access</span>
+              </div>
+            </div>
+
+            {/* Security Notice */}
+            <p className="text-xs text-gray-500 text-center mb-3">
+              🔒 Secure admin access with password authentication
+            </p>
+
+            {/* Admin Login Button */}
+            <Link
+              href="/admin/login"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 border-2 border-purple-600 text-purple-600 hover:bg-purple-50 rounded-lg transition-all font-medium group"
+            >
+              <Shield className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span>Admin Portal</span>
+            </Link>
           </div>
         </div>
 
