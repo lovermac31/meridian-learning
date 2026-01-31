@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 import VideoPlayer from '@/components/VideoPlayer';
 import ChatPanel from '@/components/ChatPanel';
 import { episodes } from '@/lib/episodes';
-import { Play, CheckCircle2, ChevronRight, LogOut } from 'lucide-react';
+import { Play, CheckCircle2, ChevronRight, LogOut, HelpCircle } from 'lucide-react';
 import { getCurrentUser, logoutUser, isAuthenticated } from '@/lib/auth-service';
+import Link from 'next/link';
 
 export default function Home() {
   const router = useRouter();
@@ -92,6 +93,16 @@ export default function Home() {
         <span className="text-sm font-medium">Episodes</span>
         <ChevronRight className={`w-4 h-4 transition-transform ${isMobileMenuOpen ? 'rotate-90' : ''}`} />
       </button>
+
+      {/* Help Button */}
+      <Link
+        href="/help"
+        className="fixed top-4 right-36 sm:right-44 z-50 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all flex items-center gap-2"
+        title="Help & FAQ"
+      >
+        <HelpCircle className="w-4 h-4" />
+        <span className="text-sm font-medium hidden sm:inline">Help</span>
+      </Link>
 
       {currentUser && (
         <button
@@ -184,6 +195,17 @@ export default function Home() {
               </button>
             );
           })}
+        </div>
+
+        {/* Help Link in Sidebar */}
+        <div className="p-4 sm:p-6 border-t border-gray-200">
+          <Link
+            href="/help"
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all shadow-sm"
+          >
+            <HelpCircle className="w-4 h-4" />
+            <span className="text-sm font-medium">Help & FAQ</span>
+          </Link>
         </div>
       </div>
 
