@@ -1,50 +1,107 @@
-import { Anthropic } from '@anthropic-ai/sdk';
+// File: src/app/api/chat/route.ts
+// Claude API endpoint for chat integration
+
 import { NextRequest, NextResponse } from 'next/server';
+import Anthropic from '@anthropic-ai/sdk';
 
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
+const anthropic = new Anthropic({
+  apiKey: process.env.CLAUDE_API_KEY,
 });
-
-const KETO_SYSTEM_PROMPT = `You are an AI teaching assistant for high school literature.
-CRITICAL RULES:
-- Respond in EXACTLY 4-5 lines maximum
-- Use bilingual English/Vietnamese when appropriate
-- NEVER reference content the student hasn't seen yet
-- Match the teaching style of the course material
-- Encourage critical thinking, not just answers
-- Be concise and clear`;
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { message, videoId, conversationHistory } = body;
+    const { message, episodeTitle, conversationHistory } = await request.json();
 
-    if (!message || message.trim().length === 0) {
-      return NextResponse.json({ error: 'Message required' }, { status: 400 });
-    }
-
-    const messages = (conversationHistory || []).concat([
-      { role: 'user', content: message }
-    ]);
-
-    const response = await client.messages.create({
-      model: 'claude-opus-4.5-20251101',
-      max_tokens: 300,
-      system: KETO_SYSTEM_PROMPT,
-      messages: messages as any,
-    });
-
-    const reply = response.content[0].type === 'text' ? response.content[0].text : 'Error';
-
-    return NextResponse.json({ success: true, reply });
-  } catch (error) {
-    console.error('Chat error:', error);
-    if (error instanceof Anthropic.APIError) {
+    if (!message || typeof message !== 'string') {
       return NextResponse.json(
-        { error: error.message },
-        { status: error.status || 500 }
+        { error: 'Message is required' },
+        { status: 400 }
       );
     }
-    return NextResponse.json({ error: 'Failed to process chat' }, { status: 500 });
+
+    // Build conversation context
+    const systemPrompt = `You are a helpful learning assistant for the Meridian Learning platform. The student is currently watching: "${episodeTitle}".
+
+Your role:
+- Answer questions about the current episode and related programming concepts
+- Provide clear, concise explanations suitable for learners
+- Encourage critical thinking and deeper understanding
+- Be friendly and supportive
+- Keep responses focused and practical
+
+Guidelines:
+- Responses should be 2-4 paragraphs maximum
+- Use simple language and concrete examples
+- If asked about topics outside the current episode, gently redirect to the lesson content
+- Encourage students to apply what they're learning`;
+
+    // Format conversation history for Claude API
+    const messages = [];
+
+    // Add conversation history
+    if (conversationHistory && Array.isArray(conversationHistory)) {
+      conversationHistory.forEach((msg: any) => {
+        messages.push({
+          role: msg.role === 'user' ? 'user' : 'assistant',
+          content: msg.content,
+        });
+      });
+    }
+
+    // Add current message
+    messages.push({
+      role: 'user',
+      content: message,
+    });
+
+    // Call Claude API with streaming
+    const stream = await anthropic.messages.stream({
+      model: 'claude-sonnet-4-5-20250929',
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: messages,
+    });
+
+    // Create a readable stream for the response
+    const encoder = new TextEncoder();
+    const readableStream = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of stream) {
+            if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
+              const text = chunk.delta.text;
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+            }
+          }
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+          controller.close();
+        } catch (error) {
+          console.error('Streaming error:', error);
+          controller.error(error);
+        }
+      },
+    });
+
+    return new Response(readableStream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
+    });
+
+  } catch (error: any) {
+    console.error('Chat API error:', error);
+
+    return NextResponse.json(
+      {
+        error: 'Failed to process chat request',
+        details: error.message
+      },
+      { status: 500 }
+    );
   }
 }
+
+// Enable streaming responses
+export const runtime = 'edge';

@@ -5,7 +5,6 @@ import VideoPlayer from '@/components/VideoPlayer';
 import ChatPanel from '@/components/ChatPanel';
 import { episodes } from '@/lib/episodes';
 import { Play, CheckCircle2, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 
 export default function Home() {
   const [currentEpisode, setCurrentEpisode] = useState(0);
@@ -34,31 +33,11 @@ export default function Home() {
   const progressPercentage = (completedCount / episodes.length) * 100;
 
   return (
-    <div className="flex flex-col h-screen">
-      {/* Header Bar */}
-      <div className="bg-blue-600 text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-        <h1 className="text-lg sm:text-xl font-bold">Meridian Learning</h1>
-        <div className="flex gap-2 sm:gap-4">
-          <Link
-            href="/auth"
-            className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-blue-700 hover:bg-blue-800 transition-colors font-medium text-sm sm:text-base"
-          >
-            Sign In
-          </Link>
-          <Link
-            href="/admin"
-            className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-blue-700 hover:bg-blue-800 transition-colors font-medium text-sm sm:text-base"
-          >
-            Admin
-          </Link>
-        </div>
-      </div>
-
-      <div className="flex flex-col lg:flex-row flex-1 bg-gray-50 overflow-hidden">
+    <div className="flex flex-col lg:flex-row h-screen bg-gray-50">
       {/* Mobile Episode Toggle Button */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-16 sm:top-20 left-4 z-50 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+        className="lg:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
       >
         <span className="text-sm font-medium">Episodes</span>
         <ChevronRight className={`w-4 h-4 transition-transform ${isMobileMenuOpen ? 'rotate-90' : ''}`} />
@@ -156,7 +135,7 @@ export default function Home() {
       )}
 
       {/* Main Content Area - Video Player */}
-      <div className="flex-1 lg:w-2/5 flex flex-col bg-white p-4 sm:p-6 lg:p-8 overflow-y-auto">
+      <div className="flex-1 lg:w-2/5 flex flex-col bg-white p-4 sm:p-6 lg:p-8 overflow-y-auto mt-16 lg:mt-0">
         <div className="max-w-4xl mx-auto w-full">
           <div className="mb-4 sm:mb-6">
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
@@ -195,10 +174,9 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Chat Panel */}
-      <div className="lg:w-2/5 border-t lg:border-t-0 lg:border-l border-gray-200 flex flex-col h-[60vh] lg:h-full">
-        <ChatPanel />
-      </div>
+      {/* Chat Panel - Pass current episode title */}
+      <div className="lg:w-2/5 border-t lg:border-t-0 lg:border-l border-gray-200 flex flex-col h-[60vh] lg:h-screen">
+        <ChatPanel episodeTitle={episodes[currentEpisode].title} />
       </div>
     </div>
   );
