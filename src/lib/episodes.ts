@@ -11,7 +11,7 @@ export const episodes: Episode[] = [
     id: '1',
     title: 'Understanding React Hooks',
     duration: '21:03',
-    videoUrl: '/videos/react-hooks-intro.mp4',
+    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', // Test video
     description: 'Learn the fundamentals of React Hooks including useState, useEffect, and custom hooks. Perfect for developers transitioning from class components to modern React patterns.'
   },
   {
