@@ -15,9 +15,9 @@ export const Contact = () => {
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
               Inquiries & Partnerships
             </span>
-            <h2 className="text-4xl font-bold mb-6 tracking-tight text-jurassic-dark">Begin the Excavation.</h2>
+            <h2 className="text-4xl font-bold mb-6 tracking-tight text-jurassic-dark">Choose the right next step.</h2>
             <p className="text-gray-600 mb-10 leading-relaxed font-light">
-              We work with individual teachers, private centers, international schools, and national boards. Whether launching from scratch or transforming programmes, our team is ready to support you.
+              Whether you need teacher training, school licensing, curriculum review, academic consulting, or a longer-term institutional partnership, we can route your enquiry to the right conversation.
             </p>
             
             <div className="space-y-6">
@@ -48,13 +48,14 @@ export const Contact = () => {
             viewport={{ once: true }}
             className="md:w-1/2 bg-jurassic-dark p-12 md:p-16 text-white flex flex-col justify-center bg-gradient-to-br from-jurassic-dark via-jurassic-dark to-black"
           >
-            <h3 className="text-2xl font-bold mb-8 tracking-tight border-b border-white/10 pb-4">Partnership Options</h3>
+            <h3 className="text-2xl font-bold mb-8 tracking-tight border-b border-white/10 pb-4">Offer Pathways</h3>
             <div className="space-y-6">
               {[
-                { title: "Training Enquiries", desc: "Certified in-person, online, and blended formats" },
-                { title: "Licensing", desc: "School, academy, and institutional licensing available" },
-                { title: "Curriculum Review", desc: "Consultancy for new and existing English programmes" },
-                { title: "Academic Board", desc: "Long-term research and commercial integration welcome" },
+                { title: "Teacher Training", desc: "Certification, lesson design, questioning practice, and implementation training" },
+                { title: "School Licensing", desc: "Licensing pathways for schools, academies, and institutional programmes" },
+                { title: "Curriculum Review", desc: "Review of progression, standards fit, text selection, and assessment architecture" },
+                { title: "Academic Consulting", desc: "Support for rollout planning, CEFR mapping, and programme design decisions" },
+                { title: "Institutional Partnerships", desc: "Long-term implementation, moderation, and scale support for networks and system-level partners" },
               ].map((item, i) => (
                 <div key={i} className="group cursor-pointer border-b border-white/5 pb-4 last:border-b-0 last:pb-0 hover:bg-white/5 p-3 rounded-xl transition-all duration-300">
                   <h4 className="font-bold text-jurassic-accent mb-1 flex items-center gap-1 group-hover:text-jurassic-gold transition-colors text-sm">

@@ -3,6 +3,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
+import { sendGetStartedNotification } from './lib/getStartedNotification';
+import {
+  coerceGetStartedFormValues,
+  normalizeGetStartedPayload,
+  validateGetStartedPayload,
+} from './src/lib/getStartedSchema';
 
 // Load environment variables from .env.local (local dev) or .env (production fallback)
 dotenv.config({ path: '.env.local' });
@@ -13,6 +19,20 @@ const PORT = parseInt(process.env.PORT || '3001', 10);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(express.json({ limit: '1mb' }));
+
+const MIN_SUBMISSION_DELAY_MS = 1500;
+const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
+
+function isSpamSubmission(startedAt: string, website: string) {
+  if (website.trim().length > 0) return true;
+  if (!startedAt) return true;
+
+  const startedTime = new Date(startedAt).getTime();
+  if (Number.isNaN(startedTime)) return true;
+
+  const elapsed = Date.now() - startedTime;
+  return elapsed < MIN_SUBMISSION_DELAY_MS || elapsed > MAX_SUBMISSION_AGE_MS;
+}
 
 // --- API Routes ---
 
@@ -85,6 +105,49 @@ app.post('/api/generate-image', async (req, res) => {
 // Health check
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+app.post('/api/get-started', async (req, res) => {
+  const values = coerceGetStartedFormValues(req.body);
+
+  if (isSpamSubmission(values.startedAt, values.website)) {
+    return res.status(400).json({ ok: false, error: 'Submission could not be accepted.' });
+  }
+
+  const errors = validateGetStartedPayload(values);
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({
+      ok: false,
+      error: 'Please review the required fields and try again.',
+      fieldErrors: errors,
+    });
+  }
+
+  const submission = normalizeGetStartedPayload(values);
+  const notification = await sendGetStartedNotification(submission);
+
+  console.info('[API] Get Started submission received:', {
+    submissionId: submission.submissionId,
+    submittedAt: submission.submittedAt,
+    primaryInterest: submission.primaryInterest,
+    organizationType: submission.organizationType,
+    organizationName: submission.organizationName,
+    workEmail: submission.workEmail,
+    notificationStatus: notification.status,
+    payload: submission,
+  });
+
+  if (notification.status !== 'sent') {
+    console.warn('[API] Get Started notification fallback:', {
+      submissionId: submission.submissionId,
+      notification,
+    });
+  }
+
+  return res.status(200).json({
+    ok: true,
+    submissionId: submission.submissionId,
+  });
 });
 
 // --- Static file serving (production only) ---

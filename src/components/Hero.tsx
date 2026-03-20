@@ -3,7 +3,12 @@ import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { KeyIcon } from './Icons';
 
-export const Hero = () => {
+type HeroProps = {
+  onGetStarted: () => void;
+  onExploreFramework: () => void;
+};
+
+export const Hero = ({ onGetStarted, onExploreFramework }: HeroProps) => {
   const [heroImageAvailable, setHeroImageAvailable] = useState(true);
 
   return (
@@ -43,7 +48,7 @@ export const Hero = () => {
               transition: { staggerChildren: 0.15, duration: 0.8, ease: "easeOut" }
             }
           }}
-          className="max-w-2xl"
+          className="max-w-3xl"
         >
           <motion.span 
             variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
@@ -54,13 +59,13 @@ export const Hero = () => {
           
           <motion.h1 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="text-6xl md:text-8xl text-white font-bold leading-[1.1] mb-6 tracking-tight"
+            className="font-display text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.0] mb-6 tracking-tight"
           >
             Critical Thinking <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-jurassic-accent to-jurassic-gold italic">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-jurassic-accent to-jurassic-gold">
               Moral Reasoning
             </span> <br />
-            Through Text
+            Through Literature
           </motion.h1>
 
           <motion.p 
@@ -68,18 +73,24 @@ export const Hero = () => {
             className="text-xl text-white/70 mb-10 max-w-lg leading-relaxed font-light"
           >
             Excavate. Analyze. Justify. Reflect. <br />
-            A framework for learners who believe language is not just a skill—it is a tool for thought.
+            Literature-centered English education with pathways for teacher training, school licensing, curriculum review, consulting, and institutional partnerships.
           </motion.p>
 
           <motion.div 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             className="flex flex-wrap gap-4"
           >
-            <button className="bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover flex items-center gap-2 group shadow-premium">
-              Begin the Excavation <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <button
+              onClick={onGetStarted}
+              className="bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover flex items-center gap-2 group shadow-premium"
+            >
+              Get Started <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all">
-              Watch the Framework
+            <button
+              onClick={onExploreFramework}
+              className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all"
+            >
+              Explore the Framework
             </button>
           </motion.div>
           
@@ -88,7 +99,7 @@ export const Hero = () => {
             className="mt-16 pt-8 border-t border-white/5 flex gap-8 items-center"
           >
             <div className="text-white/40 text-xs uppercase tracking-widest font-semibold">Published by</div>
-            <div className="text-white/80 font-serif text-lg italic tracking-wide">The Jurassic English™ Academic Board</div>
+            <div className="text-white/80 font-serif text-lg italic tracking-wide">World Wise Learning</div>
           </motion.div>
         </motion.div>
       </div>

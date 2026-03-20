@@ -31,7 +31,7 @@ export const AboutSection = () => {
               <p className="text-white font-serif italic text-xl leading-relaxed">
                 "Language is the fossil record of thought."
               </p>
-              <div className="mt-4 text-jurassic-accent text-sm font-semibold tracking-wide">— Academic Board</div>
+              <div className="mt-4 text-jurassic-accent text-sm font-semibold tracking-wide">— World Wise Learning</div>
             </div>
           </motion.div>
 

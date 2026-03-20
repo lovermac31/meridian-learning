@@ -1,27 +1,42 @@
-import { Users, ShieldCheck, BookOpen, Globe } from 'lucide-react';
+import { Users, ShieldCheck, BookOpenCheck, Compass, Handshake } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const Services = () => {
   const services = [
-    { 
-      title: "Certified Teacher Training", 
-      desc: "Comprehensive training in the Jurassic Thinking Cycle™, lesson architecture, and rubric application.",
-      icon: <Users className="w-6 h-6" />
+    {
+      title: 'Teacher Training',
+      audience: 'For licensed educators, coordinators, and school teams',
+      desc: 'Professional training and certification in the Jurassic Thinking Cycle™, lesson architecture, questioning routines, and rubric-based implementation.',
+      outcome: 'Supports confident classroom delivery and implementation fidelity.',
+      icon: <Users className="w-6 h-6" />,
     },
-    { 
-      title: "Ongoing Site Support", 
-      desc: "Academic consultants work directly with schools to ensure fidelity and address implementation challenges.",
-      icon: <ShieldCheck className="w-6 h-6" />
+    {
+      title: 'School Licensing',
+      audience: 'For schools, academies, and institutional programmes',
+      desc: 'Programme licensing for institutions adopting Jurassic English™ as a structured literature-based English framework with quality assurance and update pathways.',
+      outcome: 'Supports consistent rollout, governance, and long-term programme continuity.',
+      icon: <ShieldCheck className="w-6 h-6" />,
     },
-    { 
-      title: "Digital Resource Hub", 
-      desc: "Complete library of lesson plans, vocabulary cards, graphic organizers, and assessment rubrics.",
-      icon: <BookOpen className="w-6 h-6" />
+    {
+      title: 'Curriculum Review',
+      audience: 'For leaders reviewing a current English programme',
+      desc: 'Academic review of curriculum structure, standards alignment, text selection, assessment architecture, and progression across levels.',
+      outcome: 'Supports sharper sequencing, stronger reasoning demand, and clearer standards fit.',
+      icon: <BookOpenCheck className="w-6 h-6" />,
     },
-    { 
-      title: "Teacher Community", 
-      desc: "Connect with a global network of educators sharing innovations and student work exemplars.",
-      icon: <Globe className="w-6 h-6" />
+    {
+      title: 'Academic Consulting',
+      audience: 'For implementation planning and programme design',
+      desc: 'Consultancy for CEFR crosswalks, scope and sequence planning, rollout design, and regulation-aware implementation across classrooms or departments.',
+      outcome: 'Supports practical decision-making before launch, pilot, or expansion.',
+      icon: <Compass className="w-6 h-6" />,
+    },
+    {
+      title: 'Institutional Partnerships',
+      audience: 'For school groups, networks, and system-level partners',
+      desc: 'Long-term partnership pathways for whole-school implementation, multi-school rollout, and formal collaboration with governance, moderation, and review structures.',
+      outcome: 'Supports scale without dilution through tiered implementation support.',
+      icon: <Handshake className="w-6 h-6" />,
     },
   ];
 
@@ -30,11 +45,13 @@ export const Services = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-            Professional Development
+            Services & Partnerships
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-jurassic-dark">Grow With Us</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-jurassic-dark">
+            Choose the right implementation path.
+          </h2>
           <p className="text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
-            Jurassic English™ is not just a curriculum. It is a professional community — and we support every teacher, coordinator, and school leader who joins it.
+            Jurassic English™ supports institutions at different stages of adoption, from teacher preparation and curriculum review to licensing, consulting, and long-term partnership.
           </p>
         </div>
 
@@ -46,20 +63,26 @@ export const Services = () => {
             hidden: { opacity: 0 },
             visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
           }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid md:grid-cols-2 xl:grid-cols-5 gap-6"
         >
           {services.map((service, i) => (
             <motion.div 
               key={i} 
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="p-8 rounded-2xl bg-jurassic-soft/20 border border-transparent hover:border-jurassic-accent/20 hover:bg-white hover:shadow-premium transition-all duration-300 group cursor-pointer"
+              className="p-8 rounded-2xl bg-jurassic-soft/20 border border-transparent hover:border-jurassic-accent/20 hover:bg-white hover:shadow-premium transition-all duration-300 group"
             >
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-jurassic-accent group-hover:text-white group-hover:rotate-3 transition-all duration-300 border border-gray-100">
                 {service.icon}
               </div>
               <h3 className="text-xl font-bold mb-3 text-jurassic-dark tracking-tight">{service.title}</h3>
+              <p className="text-xs font-semibold uppercase tracking-widest text-jurassic-accent/80 mb-3">
+                {service.audience}
+              </p>
               <p className="text-gray-500 text-sm leading-relaxed font-light">
                 {service.desc}
+              </p>
+              <p className="text-sm text-jurassic-dark/80 leading-relaxed mt-4 pt-4 border-t border-gray-100">
+                {service.outcome}
               </p>
             </motion.div>
           ))}
@@ -67,7 +90,7 @@ export const Services = () => {
         
         <div className="mt-20 text-center">
           <p className="text-2xl font-serif italic text-gray-400 max-w-xl mx-auto leading-relaxed">
-            "We are not a product you purchase. We are a partnership you build."
+            "Implementation quality depends on teacher quality, programme clarity, and support at the right scale."
           </p>
         </div>
       </div>

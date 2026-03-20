@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 
-export const Navbar = () => {
+type NavbarProps = {
+  onGetStarted: () => void;
+  isPortalView?: boolean;
+};
+
+export const Navbar = ({ onGetStarted, isPortalView = false }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -13,19 +18,19 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Framework', href: '#framework' },
-    { name: 'Series', href: '#series' },
-    { name: 'Creative Studio', href: '#studio' },
-    { name: 'Training', href: '#training' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'About', href: isPortalView ? '/#about' : '#about' },
+    { name: 'Framework', href: isPortalView ? '/#framework' : '#framework' },
+    { name: 'Series', href: isPortalView ? '/#series' : '#series' },
+    { name: 'Creative Studio', href: isPortalView ? '/#studio' : '#studio' },
+    { name: 'Services', href: isPortalView ? '/#training' : '#training' },
+    { name: 'Contact', href: isPortalView ? '/#contact' : '#contact' },
   ];
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-premium py-4 border-b border-white/5' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <span className="text-2xl font-serif font-bold tracking-tight text-white">
+          <span className="text-2xl font-display tracking-tight text-white">
             Jurassic English<span className="text-xs align-top text-jurassic-accent">™</span>
           </span>
         </div>
@@ -41,7 +46,10 @@ export const Navbar = () => {
               {link.name}
             </a>
           ))}
-          <button className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-bold glow-hover shadow-premium">
+          <button
+            onClick={onGetStarted}
+            className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-bold glow-hover shadow-premium"
+          >
             Get Started
           </button>
         </div>
@@ -74,7 +82,13 @@ export const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <button className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-bold">
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                onGetStarted();
+              }}
+              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-bold"
+            >
               Get Started
             </button>
           </motion.div>
