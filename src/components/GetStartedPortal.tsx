@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
 import {
@@ -38,6 +38,26 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
     () => (values.primaryInterest ? getStartedLabel(values.primaryInterest) : 'your enquiry'),
     [values.primaryInterest]
   );
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const interest = params.get('interest');
+
+    if (!interest || !primaryInterestOptions.includes(interest as GetStartedFormValues['primaryInterest'])) {
+      return;
+    }
+
+    setValues((current) => {
+      if (current.primaryInterest === interest) {
+        return current;
+      }
+
+      return {
+        ...current,
+        primaryInterest: interest as GetStartedFormValues['primaryInterest'],
+      };
+    });
+  }, []);
 
   const updateValue = <K extends keyof GetStartedFormValues>(key: K, value: GetStartedFormValues[K]) => {
     setValues((current) => ({ ...current, [key]: value }));
@@ -158,7 +178,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
             className="rounded-3xl border border-gray-200 bg-white p-8 shadow-premium"
           >
             {submitState.status === 'success' ? (
-              <div className="flex min-h-[640px] flex-col justify-center text-center">
+              <div className="flex min-h-[640px] flex-col justify-center text-center" role="status" aria-live="polite">
                 <CheckCircle2 className="w-16 h-16 text-jurassic-accent mx-auto mb-6" />
                 <h2 className="text-4xl font-bold text-jurassic-dark mb-4">Enquiry received</h2>
                 <p className="text-gray-600 leading-relaxed max-w-xl mx-auto">
@@ -185,7 +205,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="space-y-8">
+              <form onSubmit={handleSubmit} noValidate className="space-y-8" aria-describedby="get-started-status">
                 <div>
                   <h2 className="text-3xl font-bold text-jurassic-dark">Institutional intake form</h2>
                   <p className="text-gray-500 text-sm mt-2">
@@ -196,48 +216,62 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                 <div className="grid gap-5 md:grid-cols-2">
                   <Field
                     label="Full name"
+                    fieldId="fullName"
                     required
                     error={errors.fullName}
                     input={
                       <input
+                        id="fullName"
                         className={requiredFieldClass}
                         value={values.fullName}
                         onChange={(e) => updateValue('fullName', e.target.value)}
                         autoComplete="name"
+                        aria-invalid={errors.fullName ? 'true' : 'false'}
+                        aria-describedby={errors.fullName ? 'fullName-error' : undefined}
                       />
                     }
                   />
                   <Field
                     label="Work email"
+                    fieldId="workEmail"
                     required
                     error={errors.workEmail}
                     input={
                       <input
+                        id="workEmail"
                         type="email"
                         className={requiredFieldClass}
                         value={values.workEmail}
                         onChange={(e) => updateValue('workEmail', e.target.value)}
                         autoComplete="email"
+                        aria-invalid={errors.workEmail ? 'true' : 'false'}
+                        aria-describedby={errors.workEmail ? 'workEmail-error' : undefined}
                       />
                     }
                   />
                   <Field
                     label="Organization name"
+                    fieldId="organizationName"
                     required
                     error={errors.organizationName}
                     input={
                       <input
+                        id="organizationName"
                         className={requiredFieldClass}
                         value={values.organizationName}
                         onChange={(e) => updateValue('organizationName', e.target.value)}
                         autoComplete="organization"
+                        aria-invalid={errors.organizationName ? 'true' : 'false'}
+                        aria-describedby={errors.organizationName ? 'organizationName-error' : undefined}
                       />
                     }
                   />
                   <Field
                     label="Role / title"
+                    fieldId="roleTitle"
                     input={
                       <input
+                        id="roleTitle"
                         className={requiredFieldClass}
                         value={values.roleTitle}
                         onChange={(e) => updateValue('roleTitle', e.target.value)}
@@ -246,13 +280,17 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="Organization type"
+                    fieldId="organizationType"
                     required
                     error={errors.organizationType}
                     input={
                       <select
+                        id="organizationType"
                         className={requiredFieldClass}
                         value={values.organizationType}
                         onChange={(e) => updateValue('organizationType', e.target.value as GetStartedFormValues['organizationType'])}
+                        aria-invalid={errors.organizationType ? 'true' : 'false'}
+                        aria-describedby={errors.organizationType ? 'organizationType-error' : undefined}
                       >
                         <option value="">Select organization type</option>
                         {organizationTypeOptions.map((option) => (
@@ -265,8 +303,10 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="Country / region"
+                    fieldId="countryRegion"
                     input={
                       <input
+                        id="countryRegion"
                         className={requiredFieldClass}
                         value={values.countryRegion}
                         onChange={(e) => updateValue('countryRegion', e.target.value)}
@@ -275,8 +315,10 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="Age range served"
+                    fieldId="ageRange"
                     input={
                       <input
+                        id="ageRange"
                         className={requiredFieldClass}
                         value={values.ageRange}
                         onChange={(e) => updateValue('ageRange', e.target.value)}
@@ -286,8 +328,10 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="Approximate learner count"
+                    fieldId="learnerCount"
                     input={
                       <input
+                        id="learnerCount"
                         className={requiredFieldClass}
                         value={values.learnerCount}
                         onChange={(e) => updateValue('learnerCount', e.target.value)}
@@ -297,13 +341,17 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="Primary interest"
+                    fieldId="primaryInterest"
                     required
                     error={errors.primaryInterest}
                     input={
                       <select
+                        id="primaryInterest"
                         className={requiredFieldClass}
                         value={values.primaryInterest}
                         onChange={(e) => updateValue('primaryInterest', e.target.value as GetStartedFormValues['primaryInterest'])}
+                        aria-invalid={errors.primaryInterest ? 'true' : 'false'}
+                        aria-describedby={errors.primaryInterest ? 'primaryInterest-error' : undefined}
                       >
                         <option value="">Select primary interest</option>
                         {primaryInterestOptions.map((option) => (
@@ -316,8 +364,10 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="Implementation timeline"
+                    fieldId="timeline"
                     input={
                       <select
+                        id="timeline"
                         className={requiredFieldClass}
                         value={values.timeline}
                         onChange={(e) => updateValue('timeline', e.target.value as GetStartedFormValues['timeline'])}
@@ -333,8 +383,10 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="Decision stage"
+                    fieldId="decisionStage"
                     input={
                       <select
+                        id="decisionStage"
                         className={requiredFieldClass}
                         value={values.decisionStage}
                         onChange={(e) => updateValue('decisionStage', e.target.value as GetStartedFormValues['decisionStage'])}
@@ -350,9 +402,11 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="Standards context"
+                    fieldId="standardsContext"
                     className="md:col-span-2"
                     input={
                       <input
+                        id="standardsContext"
                         className={requiredFieldClass}
                         value={values.standardsContext}
                         onChange={(e) => updateValue('standardsContext', e.target.value)}
@@ -362,22 +416,28 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="What challenge are you trying to solve?"
+                    fieldId="challenge"
                     required
                     error={errors.challenge}
                     className="md:col-span-2"
                     input={
                       <textarea
+                        id="challenge"
                         className={`${requiredFieldClass} min-h-[120px]`}
                         value={values.challenge}
                         onChange={(e) => updateValue('challenge', e.target.value)}
+                        aria-invalid={errors.challenge ? 'true' : 'false'}
+                        aria-describedby={errors.challenge ? 'challenge-error' : undefined}
                       />
                     }
                   />
                   <Field
                     label="What would success look like?"
+                    fieldId="successDefinition"
                     className="md:col-span-2"
                     input={
                       <textarea
+                        id="successDefinition"
                         className={`${requiredFieldClass} min-h-[110px]`}
                         value={values.successDefinition}
                         onChange={(e) => updateValue('successDefinition', e.target.value)}
@@ -386,9 +446,11 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   />
                   <Field
                     label="Additional notes"
+                    fieldId="notes"
                     className="md:col-span-2"
                     input={
                       <textarea
+                        id="notes"
                         className={`${requiredFieldClass} min-h-[100px]`}
                         value={values.notes}
                         onChange={(e) => updateValue('notes', e.target.value)}
@@ -409,23 +471,29 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                 </div>
 
                 <div className="space-y-4 rounded-2xl bg-jurassic-soft/35 p-5">
-                  <label className="flex items-start gap-3 text-sm text-gray-700">
+                  <label className="flex items-start gap-3 text-sm text-gray-700" htmlFor="contactConsent">
                     <input
+                      id="contactConsent"
                       type="checkbox"
                       checked={values.contactConsent}
                       onChange={(e) => updateValue('contactConsent', e.target.checked)}
                       className="mt-1 accent-[var(--color-jurassic-accent)]"
+                      aria-invalid={errors.contactConsent ? 'true' : 'false'}
+                      aria-describedby={errors.contactConsent ? 'contactConsent-error' : undefined}
                     />
                     <span>
                       I agree to be contacted about this enquiry.
                       {errors.contactConsent ? (
-                        <span className="block text-red-500 mt-1">{errors.contactConsent}</span>
+                        <span id="contactConsent-error" className="block text-red-500 mt-1">
+                          {errors.contactConsent}
+                        </span>
                       ) : null}
                     </span>
                   </label>
 
-                  <label className="flex items-start gap-3 text-sm text-gray-700">
+                  <label className="flex items-start gap-3 text-sm text-gray-700" htmlFor="newsletterOptIn">
                     <input
+                      id="newsletterOptIn"
                       type="checkbox"
                       checked={values.newsletterOptIn}
                       onChange={(e) => updateValue('newsletterOptIn', e.target.checked)}
@@ -435,8 +503,18 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   </label>
                 </div>
 
+                <div id="get-started-status" className="sr-only" role="status" aria-live="polite">
+                  {submitState.status === 'submitting'
+                    ? 'Submitting your enquiry.'
+                    : submitState.status === 'success'
+                      ? `Enquiry received. Submission reference ${submitState.submissionId}.`
+                      : submitState.status === 'error'
+                        ? submitState.message
+                        : ''}
+                </div>
+
                 {submitState.status === 'error' ? (
-                  <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
                     {submitState.message}
                   </div>
                 ) : null}
@@ -475,20 +553,25 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
 
 type FieldProps = {
   label: string;
+  fieldId: string;
   input: ReactNode;
   required?: boolean;
   error?: string;
   className?: string;
 };
 
-function Field({ label, input, required, error, className }: FieldProps) {
+function Field({ label, fieldId, input, required, error, className }: FieldProps) {
   return (
     <div className={className}>
-      <label className="mb-2 block text-xs font-bold uppercase tracking-widest text-gray-500">
+      <label htmlFor={fieldId} className="mb-2 block text-xs font-bold uppercase tracking-widest text-gray-500">
         {label} {required ? <span className="text-jurassic-accent">*</span> : null}
       </label>
       {input}
-      {error ? <p className="mt-2 text-sm text-red-500">{error}</p> : null}
+      {error ? (
+        <p id={`${fieldId}-error`} className="mt-2 text-sm text-red-500">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }

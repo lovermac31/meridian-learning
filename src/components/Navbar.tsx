@@ -4,10 +4,19 @@ import { Menu, X } from 'lucide-react';
 
 type NavbarProps = {
   onGetStarted: () => void;
+  onNavigateHome: () => void;
+  onNavigate: (path: string) => void;
+  onPricingClick: () => void;
   isPortalView?: boolean;
 };
 
-export const Navbar = ({ onGetStarted, isPortalView = false }: NavbarProps) => {
+export const Navbar = ({
+  onGetStarted,
+  onNavigateHome,
+  onNavigate,
+  onPricingClick,
+  isPortalView = false,
+}: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -26,13 +35,35 @@ export const Navbar = ({ onGetStarted, isPortalView = false }: NavbarProps) => {
     { name: 'Contact', href: isPortalView ? '/#contact' : '#contact' },
   ];
 
+  const handleNavLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    event.preventDefault();
+    setIsMobileMenuOpen(false);
+    onNavigate(href);
+  };
+
+  const handlePricingClick = () => {
+    setIsMobileMenuOpen(false);
+    onPricingClick();
+  };
+
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-premium py-4 border-b border-white/5' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <span className="text-2xl font-display tracking-tight text-white">
+          <button
+            type="button"
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onNavigateHome();
+            }}
+            className="rounded-md px-1 py-0.5 text-2xl font-display tracking-tight text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            aria-label="Jurassic English home"
+          >
             Jurassic English<span className="text-xs align-top text-jurassic-accent">™</span>
-          </span>
+          </button>
         </div>
 
         {/* Desktop Nav */}
@@ -41,12 +72,21 @@ export const Navbar = ({ onGetStarted, isPortalView = false }: NavbarProps) => {
             <a 
               key={link.name} 
               href={link.href} 
+              onClick={(event) => handleNavLinkClick(event, link.href)}
               className="text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300"
             >
               {link.name}
             </a>
           ))}
           <button
+            type="button"
+            onClick={handlePricingClick}
+            className="text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300"
+          >
+            Plans & Pricing
+          </button>
+          <button
+            type="button"
             onClick={onGetStarted}
             className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-bold glow-hover shadow-premium"
           >
@@ -55,9 +95,11 @@ export const Navbar = ({ onGetStarted, isPortalView = false }: NavbarProps) => {
         </div>
 
         {/* Mobile Toggle */}
-        <button 
+        <button
           className="md:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMobileMenuOpen}
         >
           {isMobileMenuOpen ? <X /> : <Menu />}
         </button>
@@ -77,12 +119,20 @@ export const Navbar = ({ onGetStarted, isPortalView = false }: NavbarProps) => {
                 key={link.name} 
                 href={link.href} 
                 className="text-lg font-medium text-white/90 hover:text-jurassic-accent"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(event) => handleNavLinkClick(event, link.href)}
               >
                 {link.name}
               </a>
             ))}
             <button
+              type="button"
+              onClick={handlePricingClick}
+              className="text-left text-lg font-medium text-white/90 hover:text-jurassic-accent"
+            >
+              Plans & Pricing
+            </button>
+            <button
+              type="button"
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 onGetStarted();

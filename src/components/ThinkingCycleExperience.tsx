@@ -226,7 +226,7 @@ export const ThinkingCycleExperience = ({
                   <div key={item} className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-premium">
                     <div className="flex items-center gap-3 mb-3">
                       <ClipboardList className="w-4 h-4 text-jurassic-accent" />
-                      <p className="text-xs uppercase tracking-widest text-white/45 font-bold">Assessment</p>
+                      <p className="text-xs uppercase tracking-widest text-white/55 font-bold">Assessment</p>
                     </div>
                     <p className="text-white/80 leading-relaxed">{item}</p>
                   </div>
@@ -238,7 +238,7 @@ export const ThinkingCycleExperience = ({
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-premium">
                 <div className="flex items-center gap-3 mb-4">
                   <LibraryBig className="w-5 h-5 text-jurassic-accent" />
-                  <p className="text-xs uppercase tracking-widest text-white/45 font-bold">Instructional Architecture</p>
+                  <p className="text-xs uppercase tracking-widest text-white/55 font-bold">Instructional Architecture</p>
                 </div>
                 <p className="text-white/80 leading-relaxed"><span className="text-white font-semibold">Primary Activity:</span> {stage.primaryActivity}</p>
                 <p className="mt-4 text-white/80 leading-relaxed"><span className="text-white font-semibold">Teacher Action:</span> {stage.teacherAction}</p>
@@ -247,7 +247,7 @@ export const ThinkingCycleExperience = ({
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-premium">
                 <div className="flex items-center gap-3 mb-4">
                   <Leaf className="w-5 h-5 text-jurassic-accent" />
-                  <p className="text-xs uppercase tracking-widest text-white/45 font-bold">Eco Extension / Cross-Stage Connection</p>
+                  <p className="text-xs uppercase tracking-widest text-white/55 font-bold">Eco Extension / Cross-Stage Connection</p>
                 </div>
                 <p className="text-white/80 leading-relaxed">{stage.ecoExtension}</p>
                 <p className="mt-4 text-white/65 leading-relaxed">{stage.crossStageConnection}</p>

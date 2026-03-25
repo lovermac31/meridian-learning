@@ -116,7 +116,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
               <div className="w-12 h-12 rounded-2xl bg-white/10 text-jurassic-accent flex items-center justify-center mb-6">
                 <GraduationCap className="w-5 h-5" />
               </div>
-              <p className="text-xs uppercase tracking-widest text-white/45 font-bold mb-4">
+              <p className="text-xs uppercase tracking-widest text-white/55 font-bold mb-4">
                 Cognitive Focus
               </p>
               <h2 className="text-3xl font-bold leading-tight mb-5">{level.cognitiveFocus}</h2>
@@ -214,7 +214,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
               <div className="w-12 h-12 rounded-2xl bg-white/10 text-jurassic-accent flex items-center justify-center mb-6">
                 <Layers3 className="w-5 h-5" />
               </div>
-              <p className="text-xs uppercase tracking-widest text-white/45 font-bold mb-3">
+              <p className="text-xs uppercase tracking-widest text-white/55 font-bold mb-3">
                 This level develops
               </p>
               <p className="text-lg text-white/80 leading-relaxed">{level.progression.thisLevel}</p>
@@ -224,7 +224,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
               <div className="w-12 h-12 rounded-2xl bg-white/10 text-jurassic-accent flex items-center justify-center mb-6">
                 <ChevronRight className="w-5 h-5" />
               </div>
-              <p className="text-xs uppercase tracking-widest text-white/45 font-bold mb-3">
+              <p className="text-xs uppercase tracking-widest text-white/55 font-bold mb-3">
                 Next stage
               </p>
               <h3 className="text-2xl font-bold mb-4">{level.progression.nextStageTitle}</h3>

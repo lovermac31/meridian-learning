@@ -8,19 +8,35 @@
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jurassic English™" />
+    <meta property="og:locale" content="en_GB" />
     <meta property="og:title" content="Jurassic English™ — Critical Thinking & Moral Reasoning Through Literature" />
     <meta property="og:description" content="Literature-centered English education with pathways for teacher training, school licensing, curriculum review, academic consulting, and institutional partnerships." />
-    <meta property="og:url" content="https://www.jurassicenglish.com" />
-    <meta property="og:image" content="/images/og-image.png" />
+    <meta property="og:url" content="https://jurassicenglish.com" />
+    <link rel="canonical" href="https://jurassicenglish.com" />
+    <meta property="og:image" content="https://jurassicenglish.com/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Jurassic English™" />
     <meta name="twitter:description" content="Literature-centered English education with clear institutional implementation pathways." />
-    <meta name="twitter:image" content="/images/og-image.png" />
+    <meta name="twitter:image" content="https://jurassicenglish.com/images/og-image.png" />
 
-    <!-- Favicon -->
+    <!-- LCP hero image — preload WebP (JPG fallback via <picture> in Hero.tsx) -->
+    <link rel="preload" as="image" href="/images/hero-compass.webp" type="image/webp" />
+
+    <!-- Fonts — loaded here to avoid render-blocking CSS @import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" />
+    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline" />
+
+    <!-- Favicon & touch icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Theme color for mobile browsers -->
     <meta name="theme-color" content="#101820" />

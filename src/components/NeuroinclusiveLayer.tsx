@@ -1,14 +1,54 @@
-import { Brain } from 'lucide-react';
+import { useState } from 'react';
 import { EcologyIcon } from './Icons';
 import { motion } from 'motion/react';
 
 export const NeuroinclusiveLayer = () => {
+  const [imageAvailable, setImageAvailable] = useState(true);
+
   return (
     <section className="py-28 bg-jurassic-dark text-white overflow-hidden relative border-t border-white/5">
-      <div className="absolute top-0 right-0 w-1/3 h-full opacity-5 pointer-events-none">
-        <Brain className="w-full h-full" />
-      </div>
-      
+      {/* Right-side atmospheric image with right-to-left fade */}
+      {imageAvailable && (
+        <div className="absolute inset-0 pointer-events-none hidden lg:block">
+          <div className="absolute top-0 right-0 w-[55%] h-full">
+            <picture>
+              <source srcSet="/images/neuroinclusive-binoculars.webp" type="image/webp" />
+              <img
+                src="/images/neuroinclusive-binoculars.jpg"
+                alt=""
+                aria-hidden="true"
+                className="w-full h-full object-cover object-center opacity-30"
+                onError={() => setImageAvailable(false)}
+              />
+            </picture>
+            {/* Right-to-left fade: image dissolves into the dark background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-jurassic-dark via-jurassic-dark/90 via-[35%] to-transparent" />
+            {/* Top/bottom vignette for seamless blending */}
+            <div className="absolute inset-0 bg-gradient-to-b from-jurassic-dark/60 via-transparent to-jurassic-dark/70" />
+          </div>
+        </div>
+      )}
+
+      {/* Tablet: subtler version */}
+      {imageAvailable && (
+        <div className="absolute inset-0 pointer-events-none hidden md:block lg:hidden">
+          <div className="absolute top-0 right-0 w-[45%] h-full">
+            <picture>
+              <source srcSet="/images/neuroinclusive-binoculars.webp" type="image/webp" />
+              <img
+                src="/images/neuroinclusive-binoculars.jpg"
+                alt=""
+                aria-hidden="true"
+                className="w-full h-full object-cover object-center opacity-15"
+                onError={() => setImageAvailable(false)}
+              />
+            </picture>
+            <div className="absolute inset-0 bg-gradient-to-r from-jurassic-dark via-jurassic-dark/95 via-[30%] to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-jurassic-dark/70 via-transparent to-jurassic-dark/80" />
+          </div>
+        </div>
+      )}
+
       {/* Decorative Background */}
       <div className="absolute bottom-0 left-0 w-96 h-96 text-white/[0.02] pointer-events-none -translate-x-1/4 translate-y-1/4">
         <EcologyIcon className="w-full h-full" />

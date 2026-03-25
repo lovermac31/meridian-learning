@@ -39,7 +39,7 @@ export const seriesLevels: SeriesLevelDetail[] = [
     title: 'Level 1: Foundation',
     levelName: 'Foundation',
     tagline: 'First Stories. First Thinking.',
-    ageBand: '6–8 years',
+    ageBand: '4–8 years',
     cefrRange: 'Pre-A1 → A1',
     lessonsPerYear: '40 structured lessons per academic year',
     coreTexts: '10 core texts (4 lessons each)',

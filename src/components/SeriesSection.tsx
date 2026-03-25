@@ -59,22 +59,15 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
 
         <div className="space-y-4">
           {levels.map((level, i) => (
-            <motion.div 
+            <motion.button 
               key={level.name} 
+              type="button"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
               onClick={() => onSelectLevel(level.path)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  onSelectLevel(level.path);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              className={`group bg-white rounded-2xl border border-gray-100 border-l-4 ${level.color} shadow-sm p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:shadow-premium hover:scale-[1.01] transition-all duration-300 cursor-pointer`}
+              className={`group w-full appearance-none rounded-2xl border border-gray-100 border-l-4 bg-white p-6 text-left shadow-sm transition-all duration-300 hover:scale-[1.01] hover:shadow-premium ${level.color} flex flex-col justify-between gap-4 md:flex-row md:items-center`}
             >
               <div className="flex items-center gap-6">
                 <div className="text-2xl font-black text-gray-100 font-sans group-hover:text-jurassic-soft transition-colors text-right w-12">
@@ -99,7 +92,7 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
                 <span className="text-xs font-bold mr-1">View Level Details</span>
                 <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
       </div>

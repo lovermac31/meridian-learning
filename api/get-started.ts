@@ -84,10 +84,122 @@ type NormalizedGetStartedSubmission = {
 
 type ValidationErrorMap = Partial<Record<keyof GetStartedFormValues, string>>;
 
+type MailConfig = {
+  apiKey: string | null;
+  notifyEmail: string | null;
+  fromEmail: string;
+  isTransportReady: boolean;
+  diagnosticReason: 'missing_api_key' | 'missing_notify_email' | null;
+};
+
+type MailConfigDiagnostics = {
+  hasApiKey: boolean;
+  hasNotifyEmailEnv: boolean;
+  hasFromEmailEnv: boolean;
+  notifyEmailReady: boolean;
+  fromEmailReady: boolean;
+  isTransportReady: boolean;
+  diagnosticReason: MailConfig['diagnosticReason'];
+};
+
 type NotificationResult =
-  | { status: 'sent' }
-  | { status: 'skipped'; reason: string }
-  | { status: 'failed'; reason: string };
+  | { status: 'sent'; diagnostics: Record<string, unknown> }
+  | { status: 'skipped'; reason: string; diagnostics: Record<string, unknown> }
+  | { status: 'failed'; reason: string; diagnostics: Record<string, unknown> };
+
+function resolveMailConfig(): MailConfig {
+  const apiKey = process.env.RESEND_API_KEY?.trim() || null;
+  const notifyEmail = process.env.GET_STARTED_NOTIFY_EMAIL?.trim() || null;
+  const fromEmail =
+    process.env.GET_STARTED_FROM_EMAIL?.trim() ||
+    'Jurassic English <onboarding@jurassicenglish.com>';
+
+  if (!apiKey) {
+    return {
+      apiKey: null,
+      notifyEmail,
+      fromEmail,
+      isTransportReady: false,
+      diagnosticReason: 'missing_api_key',
+    };
+  }
+
+  if (!notifyEmail) {
+    return {
+      apiKey,
+      notifyEmail: null,
+      fromEmail,
+      isTransportReady: false,
+      diagnosticReason: 'missing_notify_email',
+    };
+  }
+
+  return {
+    apiKey,
+    notifyEmail,
+    fromEmail,
+    isTransportReady: true,
+    diagnosticReason: null,
+  };
+}
+
+function getMailConfigDiagnostics(mailConfig: MailConfig): MailConfigDiagnostics {
+  return {
+    hasApiKey: Boolean(process.env.RESEND_API_KEY?.trim()),
+    hasNotifyEmailEnv: Boolean(process.env.GET_STARTED_NOTIFY_EMAIL?.trim()),
+    hasFromEmailEnv: Boolean(process.env.GET_STARTED_FROM_EMAIL?.trim()),
+    notifyEmailReady: Boolean(mailConfig.notifyEmail),
+    fromEmailReady: Boolean(mailConfig.fromEmail.trim()),
+    isTransportReady: mailConfig.isTransportReady,
+    diagnosticReason: mailConfig.diagnosticReason,
+  };
+}
+
+function redactProviderMessage(value: string) {
+  return value
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[redacted-email]')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 220);
+}
+
+function parseProviderFailure(status: number, body: string) {
+  const contentType = 'application/json';
+
+  try {
+    const parsed = JSON.parse(body) as Record<string, unknown>;
+    return {
+      providerStatus: status,
+      providerCategory:
+        typeof parsed.name === 'string'
+          ? parsed.name
+          : typeof parsed.type === 'string'
+            ? parsed.type
+            : 'provider_error',
+      providerCode:
+        typeof parsed.code === 'string'
+          ? parsed.code
+          : typeof parsed.statusCode === 'number'
+            ? String(parsed.statusCode)
+            : null,
+      providerMessage:
+        typeof parsed.message === 'string'
+          ? redactProviderMessage(parsed.message)
+          : typeof parsed.error === 'string'
+            ? redactProviderMessage(parsed.error)
+            : null,
+      providerContentType: contentType,
+    };
+  } catch {
+    return {
+      providerStatus: status,
+      providerCategory: 'provider_error',
+      providerCode: null,
+      providerMessage: redactProviderMessage(body),
+      providerContentType: contentType,
+    };
+  }
+}
 
 function isEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -236,29 +348,45 @@ function formatSubmissionBody(submission: NormalizedGetStartedSubmission) {
 async function sendGetStartedNotification(
   submission: NormalizedGetStartedSubmission
 ): Promise<NotificationResult> {
-  const resendApiKey = process.env.RESEND_API_KEY;
-  const notifyEmail = process.env.GET_STARTED_NOTIFY_EMAIL;
-  const fromEmail = process.env.GET_STARTED_FROM_EMAIL || 'Jurassic English <onboarding@jurassicenglish.com>';
+  const mailConfig = resolveMailConfig();
+  const configDiagnostics = getMailConfigDiagnostics(mailConfig);
 
-  if (!resendApiKey || !notifyEmail) {
+  if (!mailConfig.isTransportReady || !mailConfig.apiKey || !mailConfig.notifyEmail) {
     return {
       status: 'skipped',
       reason: 'Notification transport is not configured.',
+      diagnostics: {
+        ...configDiagnostics,
+        configResolved: true,
+        transportReady: false,
+        configReason: mailConfig.diagnosticReason,
+      },
     };
   }
 
   const subject = `[Get Started] ${submission.primaryInterest} · ${submission.organizationName}`;
+  const payloadDiagnostics = {
+    ...configDiagnostics,
+    configResolved: true,
+    transportReady: true,
+    configReason: mailConfig.diagnosticReason,
+    subjectKind: 'get_started',
+    fromPresent: Boolean(mailConfig.fromEmail),
+    toCount: mailConfig.notifyEmail ? 1 : 0,
+    replyToPresent: Boolean(submission.workEmail),
+    bodyLength: formatSubmissionBody(submission).length,
+  };
 
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${resendApiKey}`,
+        Authorization: `Bearer ${mailConfig.apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: fromEmail,
-        to: [notifyEmail],
+        from: mailConfig.fromEmail,
+        to: [mailConfig.notifyEmail],
         reply_to: submission.workEmail,
         subject,
         text: formatSubmissionBody(submission),
@@ -269,15 +397,32 @@ async function sendGetStartedNotification(
       const errorText = await response.text();
       return {
         status: 'failed',
-        reason: `Resend request failed: ${response.status} ${errorText}`,
+        reason: `Resend request failed: ${response.status}`,
+        diagnostics: {
+          ...payloadDiagnostics,
+          ...parseProviderFailure(response.status, errorText),
+          rejectedBeforeDispatch: response.status >= 400 && response.status < 500,
+        },
       };
     }
 
-    return { status: 'sent' };
+    return {
+      status: 'sent',
+      diagnostics: {
+        ...payloadDiagnostics,
+      },
+    };
   } catch (error: any) {
     return {
       status: 'failed',
       reason: error?.message || 'Unknown notification transport error.',
+      diagnostics: {
+        ...payloadDiagnostics,
+        providerCategory: 'transport_exception',
+        providerCode: error?.code || null,
+        providerMessage: redactProviderMessage(error?.message || 'Unknown notification transport error.'),
+        rejectedBeforeDispatch: false,
+      },
     };
   }
 }
@@ -324,18 +469,65 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     organizationName: submission.organizationName,
     workEmail: submission.workEmail,
     notificationStatus: notification.status,
+    notificationDiagnostics: notification.diagnostics,
     payload: submission,
   });
 
-  if (notification.status !== 'sent') {
-    console.warn('[get-started] notification fallback', {
+  if (notification.status === 'skipped') {
+    console.warn('[get-started] notification skipped', {
       submissionId: submission.submissionId,
-      notification,
+      notificationReason: notification.reason,
+      notificationDiagnostics: notification.diagnostics,
+    });
+    return res.status(503).json({
+      ok: false,
+      error:
+        'Get Started submissions are temporarily unavailable. Please email info@jurassicenglish.com directly.',
+      deliveryCategory:
+        typeof notification.diagnostics?.providerCategory === 'string'
+          ? notification.diagnostics.providerCategory
+          : 'notification_skipped',
+      deliveryCode:
+        typeof notification.diagnostics?.providerCode === 'string'
+          ? notification.diagnostics.providerCode
+          : null,
+      deliveryMessage:
+        typeof notification.diagnostics?.providerMessage === 'string'
+          ? notification.diagnostics.providerMessage
+          : null,
+      deliveryDiagnostics: notification.diagnostics,
+    });
+  }
+
+  if (notification.status === 'failed') {
+    console.warn('[get-started] notification failure', {
+      submissionId: submission.submissionId,
+      notificationReason: notification.reason,
+      notificationDiagnostics: notification.diagnostics,
+    });
+    return res.status(502).json({
+      ok: false,
+      error:
+        'We could not deliver your Get Started submission just now. Please try again shortly or email info@jurassicenglish.com directly.',
+      deliveryCategory:
+        typeof notification.diagnostics?.providerCategory === 'string'
+          ? notification.diagnostics.providerCategory
+          : 'notification_failed',
+      deliveryCode:
+        typeof notification.diagnostics?.providerCode === 'string'
+          ? notification.diagnostics.providerCode
+          : null,
+      deliveryMessage:
+        typeof notification.diagnostics?.providerMessage === 'string'
+          ? notification.diagnostics.providerMessage
+          : null,
+      deliveryDiagnostics: notification.diagnostics,
     });
   }
 
   return res.status(200).json({
     ok: true,
     submissionId: submission.submissionId,
+    deliveryDiagnostics: notification.diagnostics,
   });
 }

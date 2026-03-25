@@ -4,11 +4,17 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import { sendGetStartedNotification } from './lib/getStartedNotification';
+import { sendPricingRegistrationNotification } from './lib/pricingRegistrationNotification';
 import {
   coerceGetStartedFormValues,
   normalizeGetStartedPayload,
   validateGetStartedPayload,
 } from './src/lib/getStartedSchema';
+import {
+  coercePricingRegistrationValues,
+  normalizePricingRegistration,
+  validatePricingRegistration,
+} from './src/lib/pricingRegistrationSchema';
 
 // Load environment variables from .env.local (local dev) or .env (production fallback)
 dotenv.config({ path: '.env.local' });
@@ -147,6 +153,65 @@ app.post('/api/get-started', async (req, res) => {
   return res.status(200).json({
     ok: true,
     submissionId: submission.submissionId,
+  });
+});
+
+app.post('/api/pricing-registration', async (req, res) => {
+  const values = coercePricingRegistrationValues(req.body);
+
+  if (isSpamSubmission(values.startedAt, values.website)) {
+    return res.status(400).json({ ok: false, error: 'Submission could not be accepted.' });
+  }
+
+  const errors = validatePricingRegistration(values);
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({
+      ok: false,
+      error: 'Please review the required fields and try again.',
+      fieldErrors: errors,
+    });
+  }
+
+  const registration = normalizePricingRegistration(values);
+  const notification = await sendPricingRegistrationNotification(registration);
+
+  console.info('[API] Pricing registration received:', {
+    submissionId: registration.submissionId,
+    submittedAt: registration.submittedAt,
+    buyerType: registration.buyerType,
+    interestArea: registration.interestArea,
+    organizationName: registration.organizationName,
+    workEmail: registration.workEmail,
+    notificationStatus: notification.status,
+    payload: registration,
+  });
+
+  if (notification.status !== 'sent') {
+    console.warn('[API] Pricing registration notification fallback:', {
+      submissionId: registration.submissionId,
+      notification,
+    });
+  }
+
+  if (notification.status === 'skipped') {
+    return res.status(503).json({
+      ok: false,
+      error:
+        'Plans & Pricing registration is temporarily unavailable. Please email info@jurassicenglish.com directly.',
+    });
+  }
+
+  if (notification.status === 'failed') {
+    return res.status(502).json({
+      ok: false,
+      error:
+        'We could not deliver your registration just now. Please try again shortly or email info@jurassicenglish.com directly.',
+    });
+  }
+
+  return res.status(200).json({
+    ok: true,
+    submissionId: registration.submissionId,
   });
 });
 

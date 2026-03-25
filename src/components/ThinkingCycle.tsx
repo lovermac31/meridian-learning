@@ -86,22 +86,15 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
           className="grid md:grid-cols-4 gap-6"
         >
           {stages.map((stage, i) => (
-            <motion.div 
+            <motion.button 
               key={stage.title}
+              type="button"
               variants={{
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
               }}
               onClick={() => onSelectStage(stage.path)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  onSelectStage(stage.path);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              className="group relative h-full flex"
+              className="group relative flex h-full w-full appearance-none bg-transparent p-0 text-left"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl border border-white/5 group-hover:border-white/10 transition-all duration-500 glass-dark" />
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-jurassic-accent/5 to-transparent rounded-2xl transition-opacity duration-500" />
@@ -121,7 +114,7 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
                   <p><span className="text-white/70 font-semibold">Primary Target:</span> {stage.target}</p>
                   <p><span className="text-white/70 font-semibold">Lesson Slot:</span> {stage.slot}</p>
                 </div>
-                <p className="mt-5 text-white/45 text-xs leading-relaxed font-light">
+                <p className="mt-5 text-white/55 text-xs leading-relaxed font-light">
                   Four stages. Every lesson. No stage may be skipped.
                 </p>
                 <div className="mt-auto pt-6 flex items-center gap-2 text-xs font-bold text-jurassic-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -129,7 +122,7 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
                   <Search className="w-3 h-3" />
                 </div>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </motion.div>
 

@@ -36,7 +36,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">Official Website</div>
-                  <a href="https://www.jurassicenglish.com" className="text-base font-semibold text-jurassic-dark hover:text-jurassic-accent transition-colors">www.jurassicenglish.com</a>
+                  <a href="https://jurassicenglish.com" className="text-base font-semibold text-jurassic-dark hover:text-jurassic-accent transition-colors">jurassicenglish.com</a>
                 </div>
               </div>
             </div>
@@ -61,7 +61,7 @@ export const Contact = () => {
                   <h4 className="font-bold text-jurassic-accent mb-1 flex items-center gap-1 group-hover:text-jurassic-gold transition-colors text-sm">
                     {item.title} <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                   </h4>
-                  <p className="text-white/40 text-xs font-light">{item.desc}</p>
+                  <p className="text-white/55 text-xs font-light">{item.desc}</p>
                 </div>
               ))}
             </div>

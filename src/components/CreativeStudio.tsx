@@ -4,6 +4,7 @@ import { Sparkles, Image as ImageIcon, Loader2, AlertCircle } from 'lucide-react
 import { KeyIcon } from './Icons';
 
 const PROMPT_MAX_LENGTH = 500;
+const isCreativeStudioLive = false;
 
 export const CreativeStudio = () => {
   const [prompt, setPrompt] = useState('');
@@ -12,6 +13,11 @@ export const CreativeStudio = () => {
   const [error, setError] = useState<string | null>(null);
 
   const generateImage = async () => {
+    if (!isCreativeStudioLive) {
+      setError('Creative Studio is not available on the public site yet.');
+      return;
+    }
+
     const trimmed = prompt.trim();
     if (!trimmed) return;
     if (trimmed.length > PROMPT_MAX_LENGTH) {
@@ -68,25 +74,37 @@ export const CreativeStudio = () => {
             </p>
 
             <div className="space-y-4">
+              {!isCreativeStudioLive ? (
+                <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm leading-relaxed text-white/70">
+                  Creative Studio is being prepared for a later public release. Image generation is not available on the live site yet.
+                </div>
+              ) : null}
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 maxLength={PROMPT_MAX_LENGTH}
+                aria-label="Creative Studio prompt"
                 placeholder="Describe a literary scene... (e.g., 'A child standing at a crossroads of ancient stone paths')"
-                className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white placeholder:text-white/20 focus:outline-none focus:border-jurassic-accent min-h-[120px] transition-all font-light text-sm"
+                disabled={!isCreativeStudioLive}
+                className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white placeholder:text-white/20 focus:outline-none focus:border-jurassic-accent min-h-[120px] transition-all font-light text-sm disabled:cursor-not-allowed disabled:opacity-50"
               />
               <div className="flex justify-between items-center">
                 <span className="text-white/20 text-xs">{prompt.length}/{PROMPT_MAX_LENGTH}</span>
               </div>
               <button
                 onClick={generateImage}
-                disabled={isGenerating || !prompt.trim()}
+                disabled={!isCreativeStudioLive || isGenerating || !prompt.trim()}
                 className="w-full bg-jurassic-accent text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all glow-hover"
               >
                 {isGenerating ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
                     Excavating...
+                  </>
+                ) : !isCreativeStudioLive ? (
+                  <>
+                    <AlertCircle className="w-5 h-5" />
+                    Studio Coming Soon
                   </>
                 ) : (
                   <>
@@ -129,7 +147,11 @@ export const CreativeStudio = () => {
                   <div className="w-20 h-20 mx-auto mb-4 border border-white/5 rounded-full flex items-center justify-center bg-white/5">
                     <ImageIcon className="w-10 h-10 opacity-30" />
                   </div>
-                  <p className="text-sm font-serif italic max-w-xs mx-auto">Your excavated imagination will appear here.</p>
+                  <p className="text-sm font-serif italic max-w-xs mx-auto">
+                    {isCreativeStudioLive
+                      ? 'Your excavated imagination will appear here.'
+                      : 'Creative Studio visuals will appear here when the feature is released.'}
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>

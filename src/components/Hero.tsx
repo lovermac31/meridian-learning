@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-import { KeyIcon } from './Icons';
 
 type HeroProps = {
   onGetStarted: () => void;
@@ -12,29 +11,36 @@ export const Hero = ({ onGetStarted, onExploreFramework }: HeroProps) => {
   const [heroImageAvailable, setHeroImageAvailable] = useState(true);
 
   return (
-    <section className="relative h-screen flex items-center overflow-hidden bg-jurassic-dark">
+    <section className="relative min-h-screen flex items-end sm:items-center overflow-hidden bg-jurassic-dark pt-28 pb-10 sm:pt-24 sm:pb-0">
+      {/* Hero Background — Compass Image */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(242,100,25,0.12),transparent_35%),linear-gradient(180deg,rgba(16,24,32,0.72)_0%,rgba(16,24,32,0.94)_55%,rgba(16,24,32,1)_100%)]" />
-        {/* TODO: Replace /images/hero-bg.jpg with final branded asset (1920x1080 recommended) */}
         {heroImageAvailable ? (
-          <img
-            src="/images/hero-bg.jpg"
-            alt="Jurassic Landscape"
-            className="w-full h-full object-cover opacity-20 scale-105"
-            onError={() => setHeroImageAvailable(false)}
-          />
+          <picture>
+            <source srcSet="/images/hero-compass.webp" type="image/webp" />
+            <img
+              src="/images/hero-compass.jpg"
+              alt="Jurassic English compass and curated book collection"
+              className="w-full h-full object-cover object-[65%_center] md:object-[60%_center] lg:object-[55%_center]"
+              fetchPriority="high"
+              onError={() => setHeroImageAvailable(false)}
+            />
+          </picture>
         ) : null}
-        <div className="absolute inset-0 bg-gradient-to-b from-jurassic-dark/70 via-jurassic-dark/95 to-jurassic-dark" />
-      </div>
 
-      {/* Decorative Background Living Icon */}
-      <motion.div 
-        animate={{ y: [0, -20, 0], rotate: [12, 10, 12] }}
-        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-        className="absolute top-1/4 -right-24 w-96 h-96 text-white/[0.03] pointer-events-none transform"
-      >
-        <KeyIcon className="w-full h-full filter drop-shadow-[0_0_80px_rgba(242,100,25,0.2)]" />
-      </motion.div>
+        {/* Left-to-right gradient overlay for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-jurassic-dark via-jurassic-dark/95 via-[55%] to-jurassic-dark/40 sm:via-jurassic-dark/90 sm:via-[45%] sm:to-jurassic-dark/20 lg:to-transparent" />
+
+        {/* Top/bottom vignette for nav and footer bleed */}
+        <div className="absolute inset-0 bg-gradient-to-b from-jurassic-dark/60 via-transparent to-jurassic-dark/80" />
+
+        {/* Subtle warm accent glow top-left */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(242,100,25,0.08),transparent_50%)]" />
+
+        {/* Fallback dark fill when image fails */}
+        {!heroImageAvailable && (
+          <div className="absolute inset-0 bg-jurassic-dark" />
+        )}
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <motion.div 
@@ -70,7 +76,7 @@ export const Hero = ({ onGetStarted, onExploreFramework }: HeroProps) => {
 
           <motion.p 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="text-xl text-white/70 mb-10 max-w-lg leading-relaxed font-light"
+            className="text-base sm:text-xl text-white/70 mb-6 sm:mb-10 max-w-lg leading-relaxed font-light"
           >
             Excavate. Analyze. Justify. Reflect. <br />
             Literature-centered English education with pathways for teacher training, school licensing, curriculum review, consulting, and institutional partnerships.
@@ -96,9 +102,9 @@ export const Hero = ({ onGetStarted, onExploreFramework }: HeroProps) => {
           
           <motion.div 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="mt-16 pt-8 border-t border-white/5 flex gap-8 items-center"
+            className="mt-8 sm:mt-16 pt-6 sm:pt-8 border-t border-white/5 flex gap-8 items-center"
           >
-            <div className="text-white/40 text-xs uppercase tracking-widest font-semibold">Published by</div>
+            <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">Published by</div>
             <div className="text-white/80 font-serif text-lg italic tracking-wide">World Wise Learning</div>
           </motion.div>
         </motion.div>
