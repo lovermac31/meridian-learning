@@ -110,9 +110,7 @@ type NotificationResult =
 function resolveMailConfig(): MailConfig {
   const apiKey = process.env.RESEND_API_KEY?.trim() || null;
   const notifyEmail = process.env.GET_STARTED_NOTIFY_EMAIL?.trim() || null;
-  const fromEmail =
-    process.env.GET_STARTED_FROM_EMAIL?.trim() ||
-    'Jurassic English <onboarding@jurassicenglish.com>';
+  const fromEmail = process.env.GET_STARTED_FROM_EMAIL?.trim() || 'onboarding@resend.dev';
 
   if (!apiKey) {
     return {
