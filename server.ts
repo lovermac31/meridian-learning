@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import { sendGetStartedNotification } from './lib/getStartedNotification';
-import { sendPricingRegistrationNotification } from './lib/pricingRegistrationNotification';
+import { sendPricingRegistrationNotification } from './api/_lib/pricingRegistrationNotification';
 import {
   coerceGetStartedFormValues,
   normalizeGetStartedPayload,
