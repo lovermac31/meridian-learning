@@ -4,8 +4,8 @@ import {
   normaliseMAOI,
   generateRegistrationId,
   map as crmMap,
-} from './_lib/je-crm-mapper';
-import { buildCrmIntakeEmail } from './_lib/pricingRegistrationNotification';
+} from './_lib/je-crm-mapper.js';
+import { buildCrmIntakeEmail } from './_lib/pricingRegistrationNotification.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;

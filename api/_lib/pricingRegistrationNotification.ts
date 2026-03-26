@@ -10,7 +10,7 @@ import {
   ALIGNMENT_COLOURS,
   COLOURS,
   type CrmContext,
-} from './je-crm-mapper';
+} from './je-crm-mapper.js';
 
 type NotificationResult =
   | { status: 'sent' }
