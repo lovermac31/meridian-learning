@@ -33,10 +33,13 @@ export type AlignmentStatus = 'primary' | 'secondary' | 'context_dependent' | 'm
 export type LeadStatus =
   | 'New'
   | 'Reviewed'
-  | 'Awaiting Discovery Call'
   | 'Access Sent'
+  | 'Awaiting Discovery Call'
   | 'Qualified'
-  | 'Proposal Pending';
+  | 'Proposal Pending'
+  | 'Closed Won'
+  | 'Closed Lost'
+  | 'On Hold';
 
 // ─── Label Maps ───────────────────────────────────────────────────────────────
 
