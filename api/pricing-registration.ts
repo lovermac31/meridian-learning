@@ -1,4 +1,11 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import {
+  normaliseBuyerType,
+  normaliseMAOI,
+  generateRegistrationId,
+  map as crmMap,
+} from '../lib/je-crm-mapper';
+import { buildCrmIntakeEmail } from '../lib/pricingRegistrationNotification';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
@@ -200,6 +207,14 @@ function cleanOptional(value: string) {
   return trimmed.length ? trimmed : undefined;
 }
 
+function formatLabel(value: string) {
+  return value
+    .split('_')
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
 function isOption<T extends readonly string[]>(value: string, options: T): value is T[number] {
   return (options as readonly string[]).includes(value);
 }
@@ -281,10 +296,10 @@ function normalizePricingRegistration(
   values: PricingRegistrationValues
 ): NormalizedPricingRegistration {
   return {
-    submissionId:
-      typeof crypto !== 'undefined' && 'randomUUID' in crypto
-        ? crypto.randomUUID()
-        : `pr_${Date.now().toString(36)}`,
+    submissionId: generateRegistrationId(
+      normaliseBuyerType(values.buyerType),
+      normaliseMAOI(values.interestArea)
+    ),
     submittedAt: new Date().toISOString(),
     fullName: values.fullName.trim(),
     workEmail: values.workEmail.trim().toLowerCase(),
@@ -302,29 +317,126 @@ function normalizePricingRegistration(
   };
 }
 
+function formatRegistrationSubject(registration: NormalizedPricingRegistration) {
+  return `New Plans & Pricing Registration — ${registration.fullName} | ${registration.organizationName}`;
+}
+
 function formatRegistrationBody(registration: NormalizedPricingRegistration) {
   const lines = [
-    'Form Type: Plans and Pricing pre-launch registration',
-    `Registration ID: ${registration.submissionId}`,
-    `Submitted At: ${registration.submittedAt}`,
+    'Plans & Pricing Registration',
+    '============================',
     '',
-    `Full Name: ${registration.fullName}`,
+    'Header',
+    '------',
+    `Applicant: ${registration.fullName}`,
+    `Organisation: ${registration.organizationName}`,
+    `Buyer Type: ${formatLabel(registration.buyerType)}`,
+    `Interest Area: ${formatLabel(registration.interestArea)}`,
+    `Submitted At: ${registration.submittedAt}`,
+    `Registration ID: ${registration.submissionId}`,
+    '',
+    'Contact Details',
+    '---------------',
     `Work Email: ${registration.workEmail}`,
     `Role / Title: ${registration.roleTitle}`,
-    `Organisation / School / Company: ${registration.organizationName}`,
     `Country / Region: ${registration.countryRegion}`,
-    `Buyer Type: ${registration.buyerType}`,
-    `Main Area of Interest: ${registration.interestArea}`,
-    `Organisation Size / Learner Range: ${registration.organizationSize || 'Not provided'}`,
     `Phone / WhatsApp: ${registration.phoneWhatsapp || 'Not provided'}`,
-    `Preferred Contact Method: ${registration.preferredContactMethod || 'Not provided'}`,
+    `Preferred Contact Method: ${
+      registration.preferredContactMethod ? formatLabel(registration.preferredContactMethod) : 'Not provided'
+    }`,
+    '',
+    'Context',
+    '-------',
+    `Organisation Size / Learner Range: ${registration.organizationSize || 'Not provided'}`,
     `Timeline / Implementation Horizon: ${registration.timeline || 'Not provided'}`,
     '',
-    'Message / Notes:',
+    'Message / Notes',
+    '---------------',
     registration.message || 'Not provided',
+    '',
+    'Internal Action',
+    '---------------',
+    'Next step: review this lead, generate an approved access link, and send the Plans & Pricing access email if approved.',
   ];
 
   return lines.join('\n');
+}
+
+function formatRegistrationHtml(registration: NormalizedPricingRegistration) {
+  const optionalContact = registration.phoneWhatsapp
+    ? `<div style="margin-top:6px;"><strong>Phone / WhatsApp:</strong> ${registration.phoneWhatsapp}</div>`
+    : '';
+  const optionalMethod = registration.preferredContactMethod
+    ? `<div style="margin-top:6px;"><strong>Preferred Contact Method:</strong> ${formatLabel(registration.preferredContactMethod)}</div>`
+    : '';
+
+  return `
+    <div style="font-family:Segoe UI,Arial,sans-serif;color:#111120;line-height:1.6;background:#f8f9fb;padding:24px;">
+      <div style="max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e7eaee;border-radius:20px;overflow:hidden;">
+        <div style="background:#101521;color:#ffffff;padding:28px 32px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#f57c00;">Internal Intake</div>
+          <h1 style="margin:10px 0 0;font-size:28px;line-height:1.2;">New Plans & Pricing Registration</h1>
+        </div>
+
+        <div style="padding:28px 32px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:26px;">
+            <div style="border:1px solid #eceff1;border-radius:16px;padding:16px;background:#fafbfc;">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:#6b7280;">Applicant</div>
+              <div style="margin-top:8px;font-size:16px;font-weight:700;">${registration.fullName}</div>
+            </div>
+            <div style="border:1px solid #eceff1;border-radius:16px;padding:16px;background:#fafbfc;">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:#6b7280;">Organisation</div>
+              <div style="margin-top:8px;font-size:16px;font-weight:700;">${registration.organizationName}</div>
+            </div>
+            <div style="border:1px solid #eceff1;border-radius:16px;padding:16px;background:#fafbfc;">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:#6b7280;">Buyer Type</div>
+              <div style="margin-top:8px;font-size:16px;font-weight:700;">${formatLabel(registration.buyerType)}</div>
+            </div>
+            <div style="border:1px solid #eceff1;border-radius:16px;padding:16px;background:#fafbfc;">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:#6b7280;">Interest Area</div>
+              <div style="margin-top:8px;font-size:16px;font-weight:700;">${formatLabel(registration.interestArea)}</div>
+            </div>
+            <div style="border:1px solid #eceff1;border-radius:16px;padding:16px;background:#fafbfc;">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:#6b7280;">Submitted At</div>
+              <div style="margin-top:8px;font-size:16px;font-weight:700;">${registration.submittedAt}</div>
+            </div>
+            <div style="border:1px solid #eceff1;border-radius:16px;padding:16px;background:#fafbfc;">
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:#6b7280;">Registration ID</div>
+              <div style="margin-top:8px;font-size:16px;font-weight:700;">${registration.submissionId}</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:26px;">
+            <h2 style="margin:0 0 12px;font-size:18px;">Contact Details</h2>
+            <div style="border:1px solid #eceff1;border-radius:16px;padding:18px;background:#ffffff;">
+              <div><strong>Work Email:</strong> ${registration.workEmail}</div>
+              <div style="margin-top:6px;"><strong>Role / Title:</strong> ${registration.roleTitle}</div>
+              <div style="margin-top:6px;"><strong>Country / Region:</strong> ${registration.countryRegion}</div>
+              ${optionalContact}
+              ${optionalMethod}
+            </div>
+          </div>
+
+          <div style="margin-bottom:26px;">
+            <h2 style="margin:0 0 12px;font-size:18px;">Context</h2>
+            <div style="border:1px solid #eceff1;border-radius:16px;padding:18px;background:#ffffff;">
+              <div><strong>Organisation Size / Learner Range:</strong> ${registration.organizationSize || 'Not provided'}</div>
+              <div style="margin-top:6px;"><strong>Timeline / Implementation Horizon:</strong> ${registration.timeline || 'Not provided'}</div>
+              <div style="margin-top:16px;"><strong>Message / Notes</strong></div>
+              <div style="margin-top:6px;color:#4b5563;">${registration.message || 'Not provided'}</div>
+            </div>
+          </div>
+
+          <div style="border-left:4px solid #f57c00;background:#fff5ec;padding:16px 18px;border-radius:0 12px 12px 0;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#f57c00;">Internal Action</div>
+            <div style="margin-top:8px;color:#27323a;">
+              Next step: review this lead, generate an approved access link, and send the Plans & Pricing access email if approved.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `.trim();
 }
 
 async function sendPricingRegistrationNotification(
@@ -346,7 +458,10 @@ async function sendPricingRegistrationNotification(
     };
   }
 
-  const subject = `[Plans and Pricing] ${registration.interestArea} · ${registration.organizationName}`;
+  const subject = formatRegistrationSubject(registration);
+  const btKey   = normaliseBuyerType(registration.buyerType);
+  const maoiKey = normaliseMAOI(registration.interestArea);
+  const ctx     = crmMap(btKey, maoiKey);
   const payloadDiagnostics = {
     ...configDiagnostics,
     configResolved: true,
@@ -376,6 +491,7 @@ async function sendPricingRegistrationNotification(
         reply_to: registration.workEmail,
         subject,
         text: messageText,
+        html: buildCrmIntakeEmail(registration as any, ctx),
       }),
     });
 

@@ -14,6 +14,7 @@ export default defineConfig(() => {
       },
     },
     server: {
+      port: process.env.PORT ? parseInt(process.env.PORT, 10) : 5173,
       hmr: process.env.DISABLE_HMR !== 'true',
       // Proxy API requests to the Express backend during development
       proxy: {

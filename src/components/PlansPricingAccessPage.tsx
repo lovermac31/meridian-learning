@@ -282,6 +282,103 @@ function UnlockedPricingContent({
 
           <section className="rounded-[2rem] border border-jurassic-dark/8 bg-white p-8 shadow-premium">
             <SectionHeading
+              eyebrow="Indicative Pricing"
+              title="Core pricing bands and package ranges"
+              description="These figures are provided for approved review so institutions can understand the expected investment range before Discovery Call scoping confirms the final proposal."
+            />
+            <div className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
+              <div className="overflow-hidden rounded-2xl border border-jurassic-dark/8">
+                <table className="w-full text-sm">
+                  <thead className="bg-jurassic-dark text-white">
+                    <tr>
+                      <th className="px-4 py-3 text-left font-semibold">School size</th>
+                      <th className="px-4 py-3 text-left font-semibold">Foundation</th>
+                      <th className="px-4 py-3 text-left font-semibold">Intermediate</th>
+                      <th className="px-4 py-3 text-left font-semibold">Advanced</th>
+                      <th className="px-4 py-3 text-left font-semibold">Full school</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-jurassic-dark/8">
+                    {[
+                      ['Up to 150 students', '$2,500/yr', '$3,500/yr', '$5,000/yr', '$8,500/yr'],
+                      ['151-400 students', '$3,500/yr', '$5,000/yr', '$7,000/yr', '$12,000/yr'],
+                      ['401-800 students', '$4,500/yr', '$6,500/yr', '$9,000/yr', '$16,500/yr'],
+                      ['801-1,500 students', '$6,000/yr', '$8,500/yr', '$11,000/yr', '$21,000/yr'],
+                      ['1,500+ / Multi-campus', 'Proposal', 'Proposal', 'Proposal', 'Proposal'],
+                    ].map((row, index) => (
+                      <tr
+                        key={row[0]}
+                        className={index === 2 ? 'bg-jurassic-accent/8' : index % 2 ? 'bg-jurassic-soft/28' : 'bg-white'}
+                      >
+                        {row.map((cell, cellIndex) => (
+                          <td key={cellIndex} className="px-4 py-3 text-jurassic-dark/78">
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="space-y-4">
+                <InfoPanel
+                  title="Digital Reasoning Engine"
+                  items={[
+                    'DRE Free: included with all licences.',
+                    'DRE Standard: $18 per student per year.',
+                    'DRE Advanced: $32 per student per year.',
+                    'DRE Institutional: $45 per student per year.',
+                  ]}
+                />
+                <InfoPanel
+                  title="Consulting and review ranges"
+                  items={[
+                    'CEFR Alignment Audit: $2,500-$5,000.',
+                    'Curriculum Review (Full): $5,000-$12,000.',
+                    'Implementation Strategy: $8,000-$18,000.',
+                    'Standards Rollout Consulting: $3,500-$7,000 per month.',
+                  ]}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className="rounded-[2rem] border border-jurassic-dark/8 bg-white p-8 shadow-premium">
+            <SectionHeading
+              eyebrow="Audience Relevance"
+              title="Which pathway usually fits which buyer"
+              description="Approved access should help each buyer type identify the most relevant next conversation rather than interpret the framework in the abstract."
+            />
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                [
+                  'School leaders and academic directors',
+                  'Usually begin with School Licensing, Curriculum Review, or Implementation Strategy depending on whether the need is adoption, audit, or rollout design.',
+                ],
+                [
+                  'Teachers and CPD leads',
+                  'Most often move into Teacher Training, certification pathways, or cohort-based implementation support before wider school licensing.',
+                ],
+                [
+                  'Institutional partners',
+                  'Typically require bespoke partnership terms covering governance, co-delivery, and multi-site or network-level quality assurance.',
+                ],
+                [
+                  'Digital-first evaluators',
+                  'Can review DRE bands separately, but platform access is usually paired with institutional licensing and implementation expectations.',
+                ],
+              ].map(([title, body]) => (
+                <div key={title} className="rounded-2xl border border-jurassic-dark/8 bg-jurassic-soft/35 p-5">
+                  <h3 className="text-lg font-bold text-jurassic-dark">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-jurassic-dark/70">{body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="rounded-[2rem] border border-jurassic-dark/8 bg-white p-8 shadow-premium">
+            <SectionHeading
               eyebrow="Implementation Pathway"
               title="Standard next-step sequence"
               description="Approved access is intended to support the next institutional conversation, not replace it."
