@@ -6,6 +6,7 @@ import {
   map as crmMap,
 } from './_lib/je-crm-mapper.js';
 import { buildCrmIntakeEmail } from './_lib/pricingRegistrationNotification.js';
+import { writeNotionLead } from './_lib/notionCrmWriter.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
@@ -531,6 +532,28 @@ async function sendPricingRegistrationNotification(
   }
 }
 
+/**
+ * Attempt a Notion CRM write with a 4-second hard cap.
+ * Never throws and never affects the user-facing HTTP response — Notion
+ * availability is independent of the submission success path.
+ */
+async function safeNotionWrite(
+  registration: NormalizedPricingRegistration,
+): Promise<{ ok: boolean; reason?: string; pageId?: string }> {
+  try {
+    return await Promise.race([
+      writeNotionLead(registration),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('notion_timeout')), 4000),
+      ),
+    ]);
+  } catch (err) {
+    const reason = err instanceof Error ? err.message : 'unknown';
+    console.warn('[pricing-registration] notion write did not complete in time', { reason });
+    return { ok: false, reason };
+  }
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
@@ -553,8 +576,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const registration = normalizePricingRegistration(values);
-    const mailConfig = resolveMailConfig();
-    const notification = await sendPricingRegistrationNotification(registration, mailConfig);
+    const mailConfig   = resolveMailConfig();
+
+    // Run Notion write and email notification in parallel.
+    // The Notion write is capped at 4 s and never influences the HTTP response —
+    // email outcome alone determines 200 / 502 / 503.
+    const [notionResult, notification] = await Promise.all([
+      safeNotionWrite(registration),
+      sendPricingRegistrationNotification(registration, mailConfig),
+    ]);
+
+    console.info('[pricing-registration] notion write', {
+      submissionId: registration.submissionId,
+      notionOk:     notionResult.ok,
+      notionReason: notionResult.reason,
+      notionPageId: (notionResult as any).pageId ?? null,
+    });
 
     console.info('[pricing-registration] submission received', {
       submissionId: registration.submissionId,
