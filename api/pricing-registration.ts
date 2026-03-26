@@ -577,19 +577,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         ok: false,
         error:
           'Plans & Pricing registration is temporarily unavailable. Please email info@jurassicenglish.com directly.',
-        deliveryCategory:
-          typeof notification.diagnostics?.providerCategory === 'string'
-            ? notification.diagnostics.providerCategory
-            : 'notification_skipped',
-        deliveryCode:
-          typeof notification.diagnostics?.providerCode === 'string'
-            ? notification.diagnostics.providerCode
-            : null,
-        deliveryMessage:
-          typeof notification.diagnostics?.providerMessage === 'string'
-            ? notification.diagnostics.providerMessage
-            : null,
-        deliveryDiagnostics: notification.diagnostics ?? null,
       });
     }
 
@@ -603,26 +590,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         ok: false,
         error:
           'We could not deliver your registration just now. Please try again shortly or email info@jurassicenglish.com directly.',
-        deliveryCategory:
-          typeof notification.diagnostics?.providerCategory === 'string'
-            ? notification.diagnostics.providerCategory
-            : 'notification_failed',
-        deliveryCode:
-          typeof notification.diagnostics?.providerCode === 'string'
-            ? notification.diagnostics.providerCode
-            : null,
-        deliveryMessage:
-          typeof notification.diagnostics?.providerMessage === 'string'
-            ? notification.diagnostics.providerMessage
-            : null,
-        deliveryDiagnostics: notification.diagnostics ?? null,
       });
     }
 
     return res.status(200).json({
       ok: true,
       submissionId: registration.submissionId,
-      deliveryDiagnostics: notification.diagnostics ?? null,
     });
   } catch (error: any) {
     console.error('[pricing-registration] unhandled serverless error', {
