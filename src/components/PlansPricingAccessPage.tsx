@@ -23,21 +23,6 @@ export function PlansPricingAccessPage({ onBack }: PlansPricingAccessPageProps) 
   }, []);
 
   useEffect(() => {
-    const existing = document.querySelector('meta[name="robots"][data-pricing-access="true"]');
-    if (existing) return;
-
-    const meta = document.createElement('meta');
-    meta.name = 'robots';
-    meta.content = 'noindex, nofollow';
-    meta.dataset.pricingAccess = 'true';
-    document.head.appendChild(meta);
-
-    return () => {
-      meta.remove();
-    };
-  }, []);
-
-  useEffect(() => {
     if (!token) {
       setAccessState({ status: 'missing' });
       return;
@@ -135,22 +120,23 @@ function AccessStatePanel({ state }: { state: AccessState }) {
                 'This secure Plans & Pricing link has expired. Please contact info@jurassicenglish.com to request a refreshed access link.',
               iconClass: 'text-jurassic-accent',
             }
-          : state.status === 'invalid'
-            ? {
-                icon: MailWarning,
-                title: 'Access not available',
-                body:
-                  'This access link is invalid or no longer available. Please contact info@jurassicenglish.com if you need a new approved link.',
-                iconClass: 'text-jurassic-accent',
-              }
-            : {
-                icon: MailWarning,
-                title: 'Verification unavailable',
-                body:
-                  state.message ||
-                  'Access verification is temporarily unavailable. Please contact info@jurassicenglish.com directly.',
-                iconClass: 'text-jurassic-accent',
-              };
+        : state.status === 'invalid'
+          ? {
+              icon: MailWarning,
+              title: 'Access not available',
+              body:
+                'This access link is invalid or no longer available. Please contact info@jurassicenglish.com if you need a new approved link.',
+              iconClass: 'text-jurassic-accent',
+            }
+          : {
+              icon: MailWarning,
+              title: 'Verification unavailable',
+              body:
+                state.status === 'error'
+                  ? state.message
+                  : 'Access verification is temporarily unavailable. Please contact info@jurassicenglish.com directly.',
+              iconClass: 'text-jurassic-accent',
+            };
 
   const Icon = config.icon;
 

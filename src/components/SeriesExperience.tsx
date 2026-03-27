@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowLeft, ChevronRight, ClipboardList, Download, GraduationCap, Layers3, LibraryBig } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronRight, ClipboardList, FileText, GraduationCap, Layers3, LibraryBig } from 'lucide-react';
 import { seriesLevels, type SeriesLevelDetail } from '../lib/seriesContent';
 
 type SeriesExperienceProps = {
@@ -7,9 +7,10 @@ type SeriesExperienceProps = {
   onBack: () => void;
   onSelectLevel: (path: string) => void;
   onCompareLevels: () => void;
+  onViewSyllabus: () => void;
 };
 
-export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels }: SeriesExperienceProps) => {
+export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels, onViewSyllabus }: SeriesExperienceProps) => {
   return (
     <main className="bg-white pt-32 pb-24">
       <section className="relative overflow-hidden">
@@ -59,13 +60,20 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
               </button>
             ))}
             <a
-              href={level.syllabusPath}
-              download={level.syllabusFileName}
+              href={level.demoMaterialPath}
+              download={level.demoMaterialFileName}
+              className="inline-flex items-center gap-2 rounded-full border border-jurassic-accent/40 bg-jurassic-accent/15 px-4 py-2 text-sm font-semibold text-white transition hover:bg-jurassic-accent/25"
+            >
+              <FileText className="w-4 h-4" />
+              Demo Material
+            </a>
+            <button
+              onClick={onViewSyllabus}
               className="inline-flex items-center gap-2 rounded-full border border-jurassic-gold/30 bg-jurassic-gold/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-jurassic-gold/20"
             >
-              <Download className="w-4 h-4" />
-              Download Syllabus
-            </a>
+              <BookOpen className="w-4 h-4" />
+              View Syllabus
+            </button>
             <button
               onClick={onCompareLevels}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"

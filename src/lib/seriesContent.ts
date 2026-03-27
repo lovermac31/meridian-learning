@@ -2,8 +2,9 @@ export type SeriesLevelDetail = {
   order: number;
   slug: string;
   path: string;
-  syllabusPath: string;
-  syllabusFileName: string;
+  syllabusRoutePath: string;
+  demoMaterialPath: string;
+  demoMaterialFileName: string;
   title: string;
   levelName: string;
   tagline: string;
@@ -34,8 +35,9 @@ export const seriesLevels: SeriesLevelDetail[] = [
     order: 1,
     slug: 'level-1-foundation',
     path: '/series/level-1-foundation',
-    syllabusPath: '/syllabus/JE-Level1-Foundation-Syllabus-2025-26.docx',
-    syllabusFileName: 'JE-Level1-Foundation-Syllabus-2025-26.docx',
+    syllabusRoutePath: '/series/level-1-foundation/syllabus',
+    demoMaterialPath: '/demo/JE-Level1-Foundation-Demo.pdf',
+    demoMaterialFileName: 'JE-Level1-Foundation-Demo.pdf',
     title: 'Level 1: Foundation',
     levelName: 'Foundation',
     tagline: 'First Stories. First Thinking.',
@@ -93,8 +95,9 @@ export const seriesLevels: SeriesLevelDetail[] = [
     order: 2,
     slug: 'level-2-development',
     path: '/series/level-2-development',
-    syllabusPath: '/syllabus/JE-Level2-Development-Syllabus-2025-26.docx',
-    syllabusFileName: 'JE-Level2-Development-Syllabus-2025-26.docx',
+    syllabusRoutePath: '/series/level-2-development/syllabus',
+    demoMaterialPath: '/demo/JE-Level2-Development-Demo.pdf',
+    demoMaterialFileName: 'JE-Level2-Development-Demo.pdf',
     title: 'Level 2: Development',
     levelName: 'Development',
     tagline: 'Growing Thinkers. Growing Readers.',
@@ -153,8 +156,9 @@ export const seriesLevels: SeriesLevelDetail[] = [
     order: 3,
     slug: 'level-3-expansion',
     path: '/series/level-3-expansion',
-    syllabusPath: '/syllabus/JE-Level3-Expansion-Syllabus-2025-26.docx',
-    syllabusFileName: 'JE-Level3-Expansion-Syllabus-2025-26.docx',
+    syllabusRoutePath: '/series/level-3-expansion/syllabus',
+    demoMaterialPath: '/demo/JE-Level3-Expansion-Demo.pdf',
+    demoMaterialFileName: 'JE-Level3-Expansion-Demo.pdf',
     title: 'Level 3: Expansion',
     levelName: 'Expansion',
     tagline: 'Complex Texts. Deeper Thinking.',
@@ -213,8 +217,9 @@ export const seriesLevels: SeriesLevelDetail[] = [
     order: 4,
     slug: 'level-4-mastery',
     path: '/series/level-4-mastery',
-    syllabusPath: '/syllabus/JE-Level4-Mastery-Syllabus-2025-26.docx',
-    syllabusFileName: 'JE-Level4-Mastery-Syllabus-2025-26.docx',
+    syllabusRoutePath: '/series/level-4-mastery/syllabus',
+    demoMaterialPath: '/demo/JE-Level4-Mastery-Demo.pdf',
+    demoMaterialFileName: 'JE-Level4-Mastery-Demo.pdf',
     title: 'Level 4: Mastery',
     levelName: 'Mastery',
     tagline: 'Novels. Nuance. Real-World Stakes.',
@@ -273,8 +278,9 @@ export const seriesLevels: SeriesLevelDetail[] = [
     order: 5,
     slug: 'level-5-advanced',
     path: '/series/level-5-advanced',
-    syllabusPath: '/syllabus/JE-Level5-Advanced-Syllabus-2025-26.docx',
-    syllabusFileName: 'JE-Level5-Advanced-Syllabus-2025-26.docx',
+    syllabusRoutePath: '/series/level-5-advanced/syllabus',
+    demoMaterialPath: '/demo/JE-Level5-Advanced-Demo.docx',
+    demoMaterialFileName: 'JE-Level5-Advanced-Demo.docx',
     title: 'Level 5: Advanced',
     levelName: 'Advanced',
     tagline: 'Academic Excellence. Global Responsibility.',

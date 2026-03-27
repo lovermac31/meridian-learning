@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite --host=0.0.0.0",
     "dev:server": "tsx server.ts",
-    "build": "vite build",
+    "build": "vite build && node --import tsx scripts/prerender-route-metadata.mjs",
     "start": "NODE_ENV=production tsx server.ts",
     "preview": "vite preview",
+    "test:metadata": "node --import tsx --test tests/metadata.test.ts",
+    "validate:prerender": "node --import tsx scripts/validate-prerender-routes.mjs",
     "pricing:access-link": "node scripts/generate-pricing-access-link.mjs",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"

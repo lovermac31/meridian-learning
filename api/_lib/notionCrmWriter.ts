@@ -33,6 +33,17 @@ const NOTION_BASE    = 'https://api.notion.com/v1';
 // Notion's rich_text block hard limit per property value
 const NOTION_TEXT_LIMIT = 2000;
 
+type NotionPropertyType =
+  | 'title'
+  | 'rich_text'
+  | 'email'
+  | 'date'
+  | 'select'
+  | 'status'
+  | string;
+
+type NotionDatabaseSchema = Record<string, NotionPropertyType>;
+
 // ─── Result type ──────────────────────────────────────────────────────────────
 
 export type NotionWriteResult =
@@ -55,6 +66,52 @@ function notionHeaders(token: string): Record<string, string> {
   };
 }
 
+function supportsType(
+  schema: NotionDatabaseSchema | null,
+  propertyName: string,
+  allowedTypes: readonly NotionPropertyType[],
+): boolean {
+  if (!schema) return true;
+  const actualType = schema[propertyName];
+  return Boolean(actualType && allowedTypes.includes(actualType));
+}
+
+async function fetchDatabaseSchema(
+  token: string,
+  dbId: string,
+): Promise<NotionDatabaseSchema | null> {
+  try {
+    const res = await fetch(`${NOTION_BASE}/databases/${encodeURIComponent(dbId)}`, {
+      method: 'GET',
+      headers: notionHeaders(token),
+    });
+
+    if (!res.ok) {
+      console.warn('[notion] schema lookup returned non-OK — continuing without schema gating', {
+        status: res.status,
+      });
+      return null;
+    }
+
+    const data = await res.json() as {
+      properties?: Record<string, { type?: string }>;
+    };
+
+    if (!data.properties || typeof data.properties !== 'object') {
+      return null;
+    }
+
+    return Object.fromEntries(
+      Object.entries(data.properties).map(([name, meta]) => [name, meta?.type ?? 'unknown']),
+    );
+  } catch (err) {
+    console.warn('[notion] schema lookup threw — continuing without schema gating', {
+      error: String(err),
+    });
+    return null;
+  }
+}
+
 // ─── Property builder ─────────────────────────────────────────────────────────
 
 /**
@@ -62,7 +119,10 @@ function notionHeaders(token: string): Record<string, string> {
  * The CRM mapping engine is called here independently — this keeps the email
  * notification path completely untouched.
  */
-function buildProperties(r: NormalizedPricingRegistration): Record<string, unknown> {
+function buildProperties(
+  r: NormalizedPricingRegistration,
+  schema: NotionDatabaseSchema | null,
+): Record<string, unknown> {
   const btKey   = normaliseBuyerType(r.buyerType);
   const maoiKey = normaliseMAOI(r.interestArea);
   const ctx     = crmMap(btKey, maoiKey);
@@ -92,15 +152,28 @@ function buildProperties(r: NormalizedPricingRegistration): Record<string, unkno
     'Recommended Next Step': { rich_text: rt(ctx.cta) },
 
     // Pipeline entry — always New on first write; updated manually by operator
-    'Lead Status': { select: { name: 'New' } },
+    'Lead Status': { status: { name: 'New' } },
   };
 
   // ── Optional properties — only written when present on the submission ───────
-  if (r.organizationSize)       props['Organisation Size']        = { rich_text: rt(r.organizationSize) };
-  if (r.timeline)               props['Timeline']                 = { rich_text: rt(r.timeline) };
-  if (r.message)                props['Notes']                    = { rich_text: rt(r.message) };
-  if (r.phoneWhatsapp)          props['Phone / WhatsApp']         = { rich_text: rt(r.phoneWhatsapp) };
-  if (r.preferredContactMethod) props['Preferred Contact Method'] = { select: { name: r.preferredContactMethod } };
+  if (r.organizationSize && supportsType(schema, 'Organisation Size', ['rich_text'])) {
+    props['Organisation Size'] = { rich_text: rt(r.organizationSize) };
+  }
+  if (r.timeline && supportsType(schema, 'Timeline', ['rich_text'])) {
+    props['Timeline'] = { rich_text: rt(r.timeline) };
+  }
+  if (r.message && supportsType(schema, 'Notes', ['rich_text'])) {
+    props['Notes'] = { rich_text: rt(r.message) };
+  }
+  if (r.phoneWhatsapp && supportsType(schema, 'Phone / WhatsApp', ['rich_text'])) {
+    props['Phone / WhatsApp'] = { rich_text: rt(r.phoneWhatsapp) };
+  }
+  if (
+    r.preferredContactMethod &&
+    supportsType(schema, 'Preferred Contact Method', ['select', 'status'])
+  ) {
+    props['Preferred Contact Method'] = { select: { name: r.preferredContactMethod } };
+  }
 
   return props;
 }
@@ -170,6 +243,8 @@ export async function writeNotionLead(
     return { ok: false, reason: 'not_configured' };
   }
 
+  const schema = await fetchDatabaseSchema(token, dbId);
+
   // Duplicate guard — skip if this registration ID already exists
   const duplicate = await isDuplicate(token, dbId, registration.submissionId);
   if (duplicate) {
@@ -187,7 +262,7 @@ export async function writeNotionLead(
       headers: notionHeaders(token),
       body:    JSON.stringify({
         parent:     { database_id: dbId },
-        properties: buildProperties(registration),
+        properties: buildProperties(registration, schema),
       }),
     });
   } catch (err) {

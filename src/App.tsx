@@ -9,6 +9,7 @@ import { ThinkingCycleComparisonExperience } from './components/ThinkingCycleCom
 import { SeriesSection } from './components/SeriesSection';
 import { SeriesExperience } from './components/SeriesExperience';
 import { SeriesComparisonExperience } from './components/SeriesComparisonExperience';
+import { SyllabusExperience } from './components/SyllabusExperience';
 import { CreativeStudio } from './components/CreativeStudio';
 import { NeuroinclusiveLayer } from './components/NeuroinclusiveLayer';
 import { Services } from './components/Services';
@@ -17,7 +18,10 @@ import { Footer } from './components/Footer';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { PricingModal } from './components/PricingModal';
 import { getSeriesLevelByPath } from './lib/seriesContent';
+import { getSyllabusByRoutePath } from './lib/syllabusContent';
 import { getThinkingCycleStageByPath } from './lib/thinkingCycleContent';
+import { applyHeadMetadata } from './lib/headManager';
+import { resolveRouteMetadata } from './lib/routeMetadata';
 
 /* ── Lazy-loaded subpages (code-split) ──────────────────────────── */
 const GetStartedPortal = lazy(() =>
@@ -40,37 +44,6 @@ const isLegalPath = (pathname: string): boolean =>
 const getCurrentRoute = () => `${window.location.pathname}${window.location.search}${window.location.hash}`;
 const normalizeNavigationTarget = (target: string) => (target.startsWith('#') ? `/${target}` : target);
 
-const defaultTitle = 'Jurassic English™ — Critical Thinking & Moral Reasoning Through Literature';
-
-const legalTitleByPath: Record<string, string> = {
-  '/legal/terms': 'Terms & Conditions | Jurassic English™',
-  '/legal/privacy': 'Privacy Policy | Jurassic English™',
-  '/legal/cookies': 'Cookie Policy | Jurassic English™',
-  '/legal/accessibility': 'Accessibility Statement | Jurassic English™',
-  '/legal/disclaimer': 'Disclaimer | Jurassic English™',
-};
-
-const getPageTitle = (pathname: string): string => {
-  if (pathname === '/') return defaultTitle;
-  if (pathname === '/framework') return 'Framework | Jurassic English™';
-  if (pathname === '/get-started') return 'Get Started | Jurassic English™';
-  if (pathname === '/plans-pricing-access') return 'Plans & Pricing Access | Jurassic English™';
-  if (pathname === '/series/compare') return 'Compare Series Levels | Jurassic English™';
-  if (pathname === '/thinking-cycle/compare') return 'Compare Thinking Cycle Stages | Jurassic English™';
-
-  const seriesLevel = getSeriesLevelByPath(pathname);
-  if (seriesLevel) {
-    return `${seriesLevel.title} | Jurassic English™`;
-  }
-
-  const stage = getThinkingCycleStageByPath(pathname);
-  if (stage) {
-    return `${stage.title} Stage | Jurassic English™`;
-  }
-
-  return legalTitleByPath[pathname] ?? defaultTitle;
-};
-
 function App() {
   const [route, setRoute] = useState(getCurrentRoute());
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
@@ -83,13 +56,18 @@ function App() {
   const isLegalView = isLegalPath(pathname);
   const currentSeriesLevel = getSeriesLevelByPath(pathname);
   const currentThinkingCycleStage = getThinkingCycleStageByPath(pathname);
+  const currentSyllabusData = getSyllabusByRoutePath(pathname);
   const isThinkingCycleView = currentThinkingCycleStage !== null;
   const isSeriesView = currentSeriesLevel !== null;
+  const isSyllabusView = currentSyllabusData !== null;
+  const syllabusLevelPath = isSyllabusView ? pathname.replace('/syllabus', '') : null;
+  const currentSyllabusLevel = syllabusLevelPath ? getSeriesLevelByPath(syllabusLevelPath) : null;
   const isSubpageView =
     isGetStartedView ||
     isPlansPricingAccessView ||
     isFrameworkView ||
     isSeriesView ||
+    isSyllabusView ||
     isSeriesComparisonView ||
     isThinkingCycleView ||
     isThinkingCycleComparisonView ||
@@ -107,7 +85,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    document.title = getPageTitle(pathname);
+    applyHeadMetadata(resolveRouteMetadata(pathname));
   }, [pathname]);
 
   useEffect(() => {
@@ -199,6 +177,14 @@ function App() {
         <SeriesComparisonExperience
           onBack={() => navigateTo('/')}
           onSelectLevel={(path) => navigateTo(path)}
+          onViewSyllabus={(path) => navigateTo(path)}
+        />
+      ) : isSyllabusView && currentSyllabusData && currentSyllabusLevel ? (
+        <SyllabusExperience
+          level={currentSyllabusLevel}
+          syllabus={currentSyllabusData}
+          onBack={() => navigateTo(syllabusLevelPath ?? '/')}
+          onViewLevel={() => navigateTo(syllabusLevelPath ?? '/')}
         />
       ) : isLegalView ? (
         <LegalPage onBack={() => navigateTo('/')} />
@@ -208,6 +194,7 @@ function App() {
           onBack={() => navigateTo('/')}
           onSelectLevel={(path) => navigateTo(path)}
           onCompareLevels={() => navigateTo('/series/compare')}
+          onViewSyllabus={() => navigateTo(currentSeriesLevel.syllabusRoutePath)}
         />
       ) : (
         <main id="main-content">

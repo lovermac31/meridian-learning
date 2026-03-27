@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /plans-pricing-access
 
 Sitemap: https://jurassicenglish.com/sitemap.xml

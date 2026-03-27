@@ -1,15 +1,17 @@
 import { motion } from 'motion/react';
-import { ArrowLeft, ChevronRight, FileDown, GitCompareArrows, GraduationCap, LibraryBig } from 'lucide-react';
+import { ArrowLeft, BookOpen, ChevronRight, FileText, GitCompareArrows, GraduationCap, LibraryBig } from 'lucide-react';
 import { seriesLevels } from '../lib/seriesContent';
 
 type SeriesComparisonExperienceProps = {
   onBack: () => void;
   onSelectLevel: (path: string) => void;
+  onViewSyllabus: (path: string) => void;
 };
 
 export const SeriesComparisonExperience = ({
   onBack,
   onSelectLevel,
+  onViewSyllabus,
 }: SeriesComparisonExperienceProps) => {
   return (
     <main className="bg-white pt-32 pb-24">
@@ -132,13 +134,20 @@ export const SeriesComparisonExperience = ({
                       <ChevronRight className="w-4 h-4" />
                     </button>
                     <a
-                      href={level.syllabusPath}
-                      download={level.syllabusFileName}
+                      href={level.demoMaterialPath}
+                      download={level.demoMaterialFileName}
+                      className="inline-flex items-center gap-2 rounded-full bg-jurassic-accent/10 border border-jurassic-accent/30 px-5 py-3 text-sm font-semibold text-jurassic-accent transition hover:bg-jurassic-accent/20"
+                    >
+                      <FileText className="w-4 h-4" />
+                      Demo Material
+                    </a>
+                    <button
+                      onClick={() => onViewSyllabus(level.syllabusRoutePath)}
                       className="inline-flex items-center gap-2 rounded-full border border-jurassic-soft bg-white px-5 py-3 text-sm font-semibold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent"
                     >
-                      <FileDown className="w-4 h-4" />
-                      Download Syllabus
-                    </a>
+                      <BookOpen className="w-4 h-4" />
+                      View Syllabus
+                    </button>
                   </div>
                 </div>
               </div>
