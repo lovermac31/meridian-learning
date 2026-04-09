@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
@@ -144,6 +145,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Analytics />
       <Navbar
         onGetStarted={() => navigateTo('/get-started')}
         onNavigateHome={() => navigateTo('/')}
