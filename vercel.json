@@ -5,6 +5,11 @@
   "framework": "vite",
   "redirects": [
     {
+      "source": "/vi/plans-pricing-access",
+      "destination": "/plans-pricing-access",
+      "permanent": false
+    },
+    {
       "source": "/:path(.*)",
       "has": [{ "type": "host", "value": "www.jurassicenglish.com" }],
       "destination": "https://jurassicenglish.com/:path",
@@ -15,6 +20,16 @@
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
+  "functions": {
+    "api/health.ts":                        { "maxDuration": 5  },
+    "api/verify-pricing-access.ts":         { "maxDuration": 5  },
+    "api/generate-pricing-access-link.ts":  { "maxDuration": 5  },
+    "api/get-started.ts":                   { "maxDuration": 10 },
+    "api/pricing-registration.ts":          { "maxDuration": 15 },
+    "api/inspect-notion-lead.ts":           { "maxDuration": 10 },
+    "api/update-notion-je-leads-schema.ts": { "maxDuration": 10 },
+    "api/generate-image.ts":               { "maxDuration": 25 }
+  },
   "headers": [
     {
       "source": "/plans-pricing-access(.*)",
@@ -26,6 +41,24 @@
       "source": "/assets/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/api/health",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, s-maxage=30, stale-while-revalidate=60" }
+      ]
+    },
+    {
+      "source": "/((?!assets|api|images).*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" }
       ]
     }
   ]

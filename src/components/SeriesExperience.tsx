@@ -1,6 +1,12 @@
 import { motion } from 'motion/react';
 import { ArrowLeft, BookOpen, ChevronRight, ClipboardList, FileText, GraduationCap, Layers3, LibraryBig } from 'lucide-react';
-import { seriesLevels, type SeriesLevelDetail } from '../lib/seriesContent';
+import type { SeriesLevelDetail } from '../lib/seriesContent';
+import {
+  getLocalizedSeriesLevelByPath,
+  getLocalizedSeriesLevels,
+  getSeriesDetailPageContent,
+} from '../i18n/content/series';
+import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
 
 type SeriesExperienceProps = {
   level: SeriesLevelDetail;
@@ -11,11 +17,19 @@ type SeriesExperienceProps = {
 };
 
 export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels, onViewSyllabus }: SeriesExperienceProps) => {
+  const locale = getCurrentLocale();
+  const localizedLevel = getLocalizedSeriesLevelByPath(level.path, locale) ?? level;
+  const localizedSeriesLevels = getLocalizedSeriesLevels(locale);
+  const pageContent = getSeriesDetailPageContent(locale);
+  const demoHref = level.demoMaterialPath.startsWith('/available-soon')
+    ? localizeRouteTarget(level.demoMaterialPath, locale)
+    : level.demoMaterialPath;
+
   return (
     <main className="bg-white pt-32 pb-24">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-jurassic-dark via-jurassic-dark to-[#1c2c18]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(242,100,25,0.18),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent_30%)]" />
+        <div className="absolute inset-0 bg-overlay-accent-dark" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 py-20">
           <button
@@ -23,7 +37,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
             className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition hover:text-white"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to homepage
+            {pageContent.hero.backCta}
           </button>
 
           <motion.div
@@ -32,26 +46,26 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
             className="mt-10 max-w-4xl"
           >
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Series Level Detail
+              {pageContent.hero.eyebrow}
             </span>
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-              {level.title}
+              {localizedLevel.title}
             </h1>
-            <p className="mt-4 text-jurassic-gold text-lg font-semibold">{level.tagline}</p>
+            <p className="mt-4 text-jurassic-gold text-lg font-semibold">{localizedLevel.tagline}</p>
             <div className="mt-6 space-y-4 text-lg text-white/72 leading-relaxed max-w-3xl">
-              {level.intro.map((paragraph) => (
+              {localizedLevel.intro.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </motion.div>
 
           <div className="mt-12 flex flex-wrap gap-3">
-            {seriesLevels.map((item) => (
+            {localizedSeriesLevels.map((item) => (
               <button
                 key={item.slug}
                 onClick={() => onSelectLevel(item.path)}
                 className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                  item.slug === level.slug
+                  item.slug === localizedLevel.slug
                     ? 'border-jurassic-accent bg-jurassic-accent text-white'
                     : 'border-white/15 bg-white/5 text-white/75 hover:bg-white/10'
                 }`}
@@ -60,25 +74,29 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
               </button>
             ))}
             <a
-              href={level.demoMaterialPath}
-              download={level.demoMaterialFileName}
+              href={demoHref}
+              download={
+                level.demoMaterialPath.startsWith('/available-soon')
+                  ? undefined
+                  : level.demoMaterialFileName
+              }
               className="inline-flex items-center gap-2 rounded-full border border-jurassic-accent/40 bg-jurassic-accent/15 px-4 py-2 text-sm font-semibold text-white transition hover:bg-jurassic-accent/25"
             >
               <FileText className="w-4 h-4" />
-              Demo Material
+              {pageContent.hero.demoMaterial}
             </a>
             <button
               onClick={onViewSyllabus}
               className="inline-flex items-center gap-2 rounded-full border border-jurassic-gold/30 bg-jurassic-gold/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-jurassic-gold/20"
             >
               <BookOpen className="w-4 h-4" />
-              View Syllabus
+              {pageContent.hero.viewSyllabus}
             </button>
             <button
               onClick={onCompareLevels}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
             >
-              Compare All Levels
+              {pageContent.hero.compareLevels}
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -89,19 +107,19 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              At A Glance
+              {pageContent.sections.glance.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Core level profile
+              {pageContent.sections.glance.title}
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
             {[
-              { label: 'Age Band', value: level.ageBand },
-              { label: 'CEFR Range', value: level.cefrRange },
-              { label: 'Lessons / Year', value: level.lessonsPerYear },
-              { label: 'Core Texts', value: level.coreTexts },
+              { label: pageContent.sections.glance.labels.ageBand, value: localizedLevel.ageBand },
+              { label: pageContent.sections.glance.labels.cefrRange, value: localizedLevel.cefrRange },
+              { label: pageContent.sections.glance.labels.lessonsPerYear, value: localizedLevel.lessonsPerYear },
+              { label: pageContent.sections.glance.labels.coreTexts, value: localizedLevel.coreTexts },
             ].map((item) => (
               <div
                 key={item.label}
@@ -125,10 +143,10 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
                 <GraduationCap className="w-5 h-5" />
               </div>
               <p className="text-xs uppercase tracking-widest text-white/55 font-bold mb-4">
-                Cognitive Focus
+                {pageContent.sections.cognitiveFocus.label}
               </p>
-              <h2 className="text-3xl font-bold leading-tight mb-5">{level.cognitiveFocus}</h2>
-              <p className="text-white/68 leading-relaxed">{level.cefrProgression}</p>
+              <h2 className="text-3xl font-bold leading-tight mb-5">{localizedLevel.cognitiveFocus}</h2>
+              <p className="text-white/68 leading-relaxed">{localizedLevel.cefrProgression}</p>
             </div>
 
             <div className="rounded-3xl border border-jurassic-soft/60 bg-jurassic-soft/20 p-8 shadow-premium">
@@ -136,13 +154,13 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
                 <LibraryBig className="w-5 h-5" />
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-4">
-                Text Complexity
+                {pageContent.sections.textComplexity.label}
               </p>
               <h2 className="text-3xl font-bold tracking-tight text-jurassic-dark mb-5">
-                {level.textComplexity}
+                {localizedLevel.textComplexity}
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                This is the reading focus named in the syllabus for {level.title}.
+                {pageContent.sections.textComplexity.body.replace('{{title}}', localizedLevel.title)}
               </p>
             </div>
           </div>
@@ -153,15 +171,15 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Competency Focus
+              {pageContent.sections.competencies.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Four competencies define the work at this level.
+              {pageContent.sections.competencies.title}
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {level.competencies.map((competency) => (
+            {localizedLevel.competencies.map((competency) => (
               <div
                 key={competency.title}
                 className="rounded-3xl bg-white border border-jurassic-soft/60 p-7 shadow-premium"
@@ -180,18 +198,18 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Assessment Snapshot
+              {pageContent.sections.assessment.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Assessment tracks the quality of reasoning.
+              {pageContent.sections.assessment.title}
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-light max-w-3xl">
-              {level.assessmentNote}
+              {localizedLevel.assessmentNote}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-5">
-            {level.assessmentSnapshot.map((item) => (
+            {localizedLevel.assessmentSnapshot.map((item) => (
               <div
                 key={item}
                 className="rounded-3xl border border-jurassic-soft/60 bg-jurassic-soft/15 p-6 shadow-premium"
@@ -210,10 +228,10 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Progression
+              {pageContent.sections.progression.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight mb-4">
-              What this level builds toward
+              {pageContent.sections.progression.title}
             </h2>
           </div>
 
@@ -223,9 +241,9 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
                 <Layers3 className="w-5 h-5" />
               </div>
               <p className="text-xs uppercase tracking-widest text-white/55 font-bold mb-3">
-                This level develops
+                {pageContent.sections.progression.thisLevel}
               </p>
-              <p className="text-lg text-white/80 leading-relaxed">{level.progression.thisLevel}</p>
+              <p className="text-lg text-white/80 leading-relaxed">{localizedLevel.progression.thisLevel}</p>
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-premium">
@@ -233,10 +251,10 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
                 <ChevronRight className="w-5 h-5" />
               </div>
               <p className="text-xs uppercase tracking-widest text-white/55 font-bold mb-3">
-                Next stage
+                {pageContent.sections.progression.nextStage}
               </p>
-              <h3 className="text-2xl font-bold mb-4">{level.progression.nextStageTitle}</h3>
-              <p className="text-white/80 leading-relaxed">{level.progression.nextStageSummary}</p>
+              <h3 className="text-2xl font-bold mb-4">{localizedLevel.progression.nextStageTitle}</h3>
+              <p className="text-white/80 leading-relaxed">{localizedLevel.progression.nextStageSummary}</p>
             </div>
           </div>
         </div>

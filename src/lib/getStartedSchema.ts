@@ -79,6 +79,80 @@ export type NormalizedGetStartedSubmission = {
 
 export type ValidationErrorMap = Partial<Record<keyof GetStartedFormValues, string>>;
 
+const getStartedLabels: Record<Locale, Record<string, string>> = {
+  en: {
+    school: 'School',
+    language_academy: 'Language Academy',
+    educator: 'Educator',
+    school_group: 'School Group',
+    other: 'Other',
+    teacher_training: 'Teacher Training',
+    school_licensing: 'School Licensing',
+    curriculum_review: 'Curriculum Review',
+    consulting: 'Academic Consulting',
+    partnership: 'Institutional Partnership',
+    immediately: 'Immediately',
+    within_3_months: 'Within 3 Months',
+    within_6_months: 'Within 6 Months',
+    exploring: 'Exploring',
+    researching: 'Researching',
+    comparing: 'Comparing',
+    ready_for_consultation: 'Ready for Consultation',
+    ready_to_pilot: 'Ready to Pilot',
+  },
+  vi: {
+    school: 'Trường học',
+    language_academy: 'Học viện ngôn ngữ',
+    educator: 'Nhà giáo dục',
+    school_group: 'Hệ thống trường',
+    other: 'Khác',
+    teacher_training: 'Đào tạo giáo viên',
+    school_licensing: 'Cấp phép cho trường',
+    curriculum_review: 'Rà soát chương trình',
+    consulting: 'Tư vấn học thuật',
+    partnership: 'Hợp tác tổ chức',
+    immediately: 'Ngay lập tức',
+    within_3_months: 'Trong 3 tháng',
+    within_6_months: 'Trong 6 tháng',
+    exploring: 'Đang tìm hiểu',
+    researching: 'Đang nghiên cứu',
+    comparing: 'Đang so sánh',
+    ready_for_consultation: 'Sẵn sàng tư vấn',
+    ready_to_pilot: 'Sẵn sàng thí điểm',
+  },
+};
+
+const getStartedErrorMessages: Record<Locale, Record<string, string>> = {
+  en: {
+    fullNameRequired: 'Full name is required.',
+    workEmailRequired: 'Work email is required.',
+    workEmailInvalid: 'Enter a valid work email.',
+    organizationNameRequired: 'Organization name is required.',
+    organizationTypeRequired: 'Select an organization type.',
+    primaryInterestRequired: 'Select a primary interest.',
+    challengeRequired: 'Tell us what challenge you are trying to solve.',
+    challengeShort: 'Please add a little more context.',
+    contactConsentRequired: 'You must agree to be contacted to submit this form.',
+    timelineInvalid: 'Select a valid timeline.',
+    decisionStageInvalid: 'Select a valid decision stage.',
+    spamDetected: 'Spam detected.',
+  },
+  vi: {
+    fullNameRequired: 'Họ và tên là bắt buộc.',
+    workEmailRequired: 'Email công việc là bắt buộc.',
+    workEmailInvalid: 'Vui lòng nhập email công việc hợp lệ.',
+    organizationNameRequired: 'Tên tổ chức là bắt buộc.',
+    organizationTypeRequired: 'Vui lòng chọn loại hình tổ chức.',
+    primaryInterestRequired: 'Vui lòng chọn mối quan tâm chính.',
+    challengeRequired: 'Hãy cho chúng tôi biết thách thức bạn đang muốn giải quyết.',
+    challengeShort: 'Vui lòng bổ sung thêm một chút bối cảnh.',
+    contactConsentRequired: 'Bạn phải đồng ý để được liên hệ mới có thể gửi biểu mẫu này.',
+    timelineInvalid: 'Vui lòng chọn mốc thời gian hợp lệ.',
+    decisionStageInvalid: 'Vui lòng chọn giai đoạn quyết định hợp lệ.',
+    spamDetected: 'Đã phát hiện spam.',
+  },
+};
+
 export const initialGetStartedValues: GetStartedFormValues = {
   fullName: '',
   workEmail: '',
@@ -114,42 +188,46 @@ function isOption<T extends readonly string[]>(value: string, options: T): value
   return (options as readonly string[]).includes(value);
 }
 
-export function validateGetStartedPayload(values: GetStartedFormValues): ValidationErrorMap {
+export function validateGetStartedPayload(
+  values: GetStartedFormValues,
+  locale: Locale = 'en',
+): ValidationErrorMap {
   const errors: ValidationErrorMap = {};
+  const messages = getStartedErrorMessages[locale];
 
-  if (!values.fullName.trim()) errors.fullName = 'Full name is required.';
-  if (!values.workEmail.trim()) errors.workEmail = 'Work email is required.';
-  else if (!isEmail(values.workEmail.trim())) errors.workEmail = 'Enter a valid work email.';
+  if (!values.fullName.trim()) errors.fullName = messages.fullNameRequired;
+  if (!values.workEmail.trim()) errors.workEmail = messages.workEmailRequired;
+  else if (!isEmail(values.workEmail.trim())) errors.workEmail = messages.workEmailInvalid;
 
   if (!values.organizationName.trim()) {
-    errors.organizationName = 'Organization name is required.';
+    errors.organizationName = messages.organizationNameRequired;
   }
 
   if (!isOption(values.organizationType, organizationTypeOptions)) {
-    errors.organizationType = 'Select an organization type.';
+    errors.organizationType = messages.organizationTypeRequired;
   }
 
   if (!isOption(values.primaryInterest, primaryInterestOptions)) {
-    errors.primaryInterest = 'Select a primary interest.';
+    errors.primaryInterest = messages.primaryInterestRequired;
   }
 
-  if (!values.challenge.trim()) errors.challenge = 'Tell us what challenge you are trying to solve.';
-  else if (values.challenge.trim().length < 20) errors.challenge = 'Please add a little more context.';
+  if (!values.challenge.trim()) errors.challenge = messages.challengeRequired;
+  else if (values.challenge.trim().length < 20) errors.challenge = messages.challengeShort;
 
   if (!values.contactConsent) {
-    errors.contactConsent = 'You must agree to be contacted to submit this form.';
+    errors.contactConsent = messages.contactConsentRequired;
   }
 
   if (values.timeline && !isOption(values.timeline, timelineOptions)) {
-    errors.timeline = 'Select a valid timeline.';
+    errors.timeline = messages.timelineInvalid;
   }
 
   if (values.decisionStage && !isOption(values.decisionStage, decisionStageOptions)) {
-    errors.decisionStage = 'Select a valid decision stage.';
+    errors.decisionStage = messages.decisionStageInvalid;
   }
 
   if (values.website.trim()) {
-    errors.website = 'Spam detected.';
+    errors.website = messages.spamDetected;
   }
 
   return errors;
@@ -213,9 +291,16 @@ export function normalizeGetStartedPayload(
   };
 }
 
-export function getStartedLabel(value: string) {
+export function getStartedLabel(value: string, locale: Locale = 'en') {
+  const localized = getStartedLabels[locale][value];
+
+  if (localized) {
+    return localized;
+  }
+
   return value
     .split('_')
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 }
+import type { Locale } from '../i18n/locales';

@@ -3,6 +3,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
+import {
+  checkRateLimit,
+  createThrottleLogContext,
+  getEmailDomain,
+} from './api/_lib/requestSecurity.js';
 import { sendGetStartedNotification } from './lib/getStartedNotification';
 import { sendPricingRegistrationNotification } from './api/_lib/pricingRegistrationNotification';
 import {
@@ -40,6 +45,41 @@ function isSpamSubmission(startedAt: string, website: string) {
   return elapsed < MIN_SUBMISSION_DELAY_MS || elapsed > MAX_SUBMISSION_AGE_MS;
 }
 
+function createGetStartedLogContext(submission: ReturnType<typeof normalizeGetStartedPayload>) {
+  return {
+    submissionId: submission.submissionId,
+    submittedAt: submission.submittedAt,
+    primaryInterest: submission.primaryInterest,
+    organizationType: submission.organizationType,
+    hasRoleTitle: Boolean(submission.roleTitle),
+    hasCountryRegion: Boolean(submission.countryRegion),
+    hasAgeRange: Boolean(submission.ageRange),
+    hasLearnerCount: Boolean(submission.learnerCount),
+    hasStandardsContext: Boolean(submission.standardsContext),
+    hasTimeline: Boolean(submission.timeline),
+    hasDecisionStage: Boolean(submission.decisionStage),
+    hasSuccessDefinition: Boolean(submission.successDefinition),
+    hasNotes: Boolean(submission.notes),
+    newsletterOptIn: submission.newsletterOptIn,
+    emailDomain: getEmailDomain(submission.workEmail),
+  };
+}
+
+function createPricingLogContext(registration: ReturnType<typeof normalizePricingRegistration>) {
+  return {
+    submissionId: registration.submissionId,
+    submittedAt: registration.submittedAt,
+    buyerType: registration.buyerType,
+    interestArea: registration.interestArea,
+    hasOrganizationSize: Boolean(registration.organizationSize),
+    hasPhoneWhatsapp: Boolean(registration.phoneWhatsapp),
+    hasPreferredContactMethod: Boolean(registration.preferredContactMethod),
+    hasTimeline: Boolean(registration.timeline),
+    hasMessage: Boolean(registration.message),
+    emailDomain: getEmailDomain(registration.workEmail),
+  };
+}
+
 // --- API Routes ---
 
 /**
@@ -51,6 +91,24 @@ function isSpamSubmission(startedAt: string, website: string) {
  * It is NEVER sent to or accessible from the client.
  */
 app.post('/api/generate-image', async (req, res) => {
+  const rateLimit = checkRateLimit(req, {
+    key: 'generate-image',
+    windowMs: 60 * 1000,
+    max: 5,
+  });
+
+  if (!rateLimit.allowed) {
+    console.warn('[API] Image generation throttled', createThrottleLogContext(
+      req,
+      '/api/generate-image',
+      rateLimit.retryAfterSeconds,
+    ));
+    res.setHeader('Retry-After', String(rateLimit.retryAfterSeconds));
+    return res.status(429).json({
+      error: 'Too many image requests. Please wait a moment and try again.',
+    });
+  }
+
   const { prompt } = req.body;
 
   if (!prompt || typeof prompt !== 'string') {
@@ -114,6 +172,25 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.post('/api/get-started', async (req, res) => {
+  const rateLimit = checkRateLimit(req, {
+    key: 'get-started',
+    windowMs: 10 * 60 * 1000,
+    max: 5,
+  });
+
+  if (!rateLimit.allowed) {
+    console.warn('[API] Get Started request throttled', createThrottleLogContext(
+      req,
+      '/api/get-started',
+      rateLimit.retryAfterSeconds,
+    ));
+    res.setHeader('Retry-After', String(rateLimit.retryAfterSeconds));
+    return res.status(429).json({
+      ok: false,
+      error: 'Too many submissions were received from this connection. Please wait a few minutes and try again.',
+    });
+  }
+
   const values = coerceGetStartedFormValues(req.body);
 
   if (isSpamSubmission(values.startedAt, values.website)) {
@@ -133,14 +210,8 @@ app.post('/api/get-started', async (req, res) => {
   const notification = await sendGetStartedNotification(submission);
 
   console.info('[API] Get Started submission received:', {
-    submissionId: submission.submissionId,
-    submittedAt: submission.submittedAt,
-    primaryInterest: submission.primaryInterest,
-    organizationType: submission.organizationType,
-    organizationName: submission.organizationName,
-    workEmail: submission.workEmail,
+    ...createGetStartedLogContext(submission),
     notificationStatus: notification.status,
-    payload: submission,
   });
 
   if (notification.status !== 'sent') {
@@ -157,6 +228,25 @@ app.post('/api/get-started', async (req, res) => {
 });
 
 app.post('/api/pricing-registration', async (req, res) => {
+  const rateLimit = checkRateLimit(req, {
+    key: 'pricing-registration',
+    windowMs: 10 * 60 * 1000,
+    max: 5,
+  });
+
+  if (!rateLimit.allowed) {
+    console.warn('[API] Pricing registration throttled', createThrottleLogContext(
+      req,
+      '/api/pricing-registration',
+      rateLimit.retryAfterSeconds,
+    ));
+    res.setHeader('Retry-After', String(rateLimit.retryAfterSeconds));
+    return res.status(429).json({
+      ok: false,
+      error: 'Too many submissions were received from this connection. Please wait a few minutes and try again.',
+    });
+  }
+
   const values = coercePricingRegistrationValues(req.body);
 
   if (isSpamSubmission(values.startedAt, values.website)) {
@@ -176,14 +266,8 @@ app.post('/api/pricing-registration', async (req, res) => {
   const notification = await sendPricingRegistrationNotification(registration);
 
   console.info('[API] Pricing registration received:', {
-    submissionId: registration.submissionId,
-    submittedAt: registration.submittedAt,
-    buyerType: registration.buyerType,
-    interestArea: registration.interestArea,
-    organizationName: registration.organizationName,
-    workEmail: registration.workEmail,
+    ...createPricingLogContext(registration),
     notificationStatus: notification.status,
-    payload: registration,
   });
 
   if (notification.status !== 'sent') {

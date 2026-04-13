@@ -9,15 +9,8 @@ import {
   Scaling,
   ShieldCheck,
 } from 'lucide-react';
-import {
-  frameworkConceptualModel,
-  frameworkEcocentricExtension,
-  frameworkEvidenceBase,
-  frameworkGovernance,
-  frameworkInstructionalStandards,
-  frameworkResearchDomains,
-  frameworkScalability,
-} from '../lib/frameworkContent';
+import { getFrameworkContent, getFrameworkPageContent } from '../i18n/content/framework';
+import { getCurrentLocale } from '../i18n/routing';
 
 type FrameworkExperienceProps = {
   onBack: () => void;
@@ -28,11 +21,29 @@ export const FrameworkExperience = ({
   onBack,
   onGetStarted,
 }: FrameworkExperienceProps) => {
+  const locale = getCurrentLocale();
+  const frameworkContent = getFrameworkContent(locale) ?? getFrameworkContent('en');
+  const frameworkPageContent = getFrameworkPageContent(locale) ?? getFrameworkPageContent('en');
+
+  if (!frameworkPageContent || !frameworkContent) {
+    return null;
+  }
+
+  const {
+    frameworkConceptualModel,
+    frameworkEcocentricExtension,
+    frameworkEvidenceBase,
+    frameworkGovernance,
+    frameworkInstructionalStandards,
+    frameworkResearchDomains,
+    frameworkScalability,
+  } = frameworkContent;
+
   return (
     <main className="bg-white pt-32 pb-24">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-jurassic-dark via-jurassic-dark to-[#1c2c18]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(242,100,25,0.18),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent_30%)]" />
+        <div className="absolute inset-0 bg-overlay-accent-dark" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 py-20">
           <button
@@ -40,7 +51,7 @@ export const FrameworkExperience = ({
             className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition hover:text-white"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to homepage
+            {frameworkPageContent.hero.backCta}
           </button>
 
           <motion.div
@@ -49,24 +60,18 @@ export const FrameworkExperience = ({
             className="mt-10 max-w-4xl"
           >
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Framework Deep Dive
+              {frameworkPageContent.hero.eyebrow}
             </span>
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-              The deeper architecture behind Jurassic English<span className="text-xl align-top text-jurassic-accent">™</span>
+              {frameworkPageContent.hero.title}
             </h1>
             <p className="mt-6 text-lg text-white/70 leading-relaxed max-w-3xl">
-              This is the detailed view for curriculum leaders, academic reviewers, and institutional
-              decision-makers who need to understand the framework’s research base, instructional
-              standards, ecological extension, governance, and implementation logic.
+              {frameworkPageContent.hero.body}
             </p>
           </motion.div>
 
           <div className="mt-14 grid md:grid-cols-3 gap-5">
-            {[
-              'Research-informed and literature-centered',
-              'Instructionally disciplined and standards-aware',
-              'Governed for fidelity, scalability, and long-term implementation',
-            ].map((item) => (
+            {frameworkPageContent.hero.highlights.map((item) => (
               <div
                 key={item}
                 className="rounded-2xl border border-white/10 bg-white/5 px-5 py-5 text-white/80 shadow-premium"
@@ -82,14 +87,13 @@ export const FrameworkExperience = ({
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Core Model
+              {frameworkPageContent.sections.coreModel.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Three levels hold the framework together.
+              {frameworkPageContent.sections.coreModel.title}
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-light">
-              The guidebook frames Jurassic English™ at three linked levels: what counts as sound
-              judgment, how reasoning is taught, and what teachers and students actually do in the lesson.
+              {frameworkPageContent.sections.coreModel.body}
             </p>
           </div>
 
@@ -114,15 +118,13 @@ export const FrameworkExperience = ({
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Research Base
+              {frameworkPageContent.sections.researchBase.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              The framework stands on a clear research spine.
+              {frameworkPageContent.sections.researchBase.title}
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-light">
-              The v3.0 guidebook grounds the framework in critical thinking, moral development,
-              disciplinary literacy, cognitive apprenticeship, culturally sustaining pedagogy,
-              language progression, ecocentric education, and Education for Sustainable Development.
+              {frameworkPageContent.sections.researchBase.body}
             </p>
           </div>
 
@@ -147,9 +149,9 @@ export const FrameworkExperience = ({
                 <BookOpenCheck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold">Evidence in Practice</h3>
+                <h3 className="text-2xl font-bold">{frameworkPageContent.sections.researchBase.practiceTitle}</h3>
                 <p className="text-white/60 text-sm">
-                  The guidebook’s empirical base translated into classroom relevance
+                  {frameworkPageContent.sections.researchBase.practiceBody}
                 </p>
               </div>
             </div>
@@ -169,14 +171,13 @@ export const FrameworkExperience = ({
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Instructional Design Standards
+              {frameworkPageContent.sections.instructionalStandards.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Access varies. Cognitive challenge does not.
+              {frameworkPageContent.sections.instructionalStandards.title}
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-light">
-              The framework combines UDL, differentiation, and self-regulation principles so students
-              can reach the same reasoning architecture through different access pathways.
+              {frameworkPageContent.sections.instructionalStandards.body}
             </p>
           </div>
 
@@ -202,10 +203,10 @@ export const FrameworkExperience = ({
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
             <div>
               <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-                Ecocentric Reasoning Extension
+                {frameworkPageContent.sections.ecocentricExtension.eyebrow}
               </span>
               <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-5">
-                Version 3.0 expands the framework without replacing it.
+                {frameworkPageContent.sections.ecocentricExtension.title}
               </h2>
               <div className="space-y-5 text-lg text-gray-600 leading-relaxed font-light">
                 <p>{frameworkEcocentricExtension.intro}</p>
@@ -218,7 +219,7 @@ export const FrameworkExperience = ({
               <div className="w-12 h-12 rounded-2xl bg-white/10 text-jurassic-accent flex items-center justify-center mb-6">
                 <Leaf className="w-5 h-5" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">What changes in practice</h3>
+              <h3 className="text-2xl font-bold mb-4">{frameworkPageContent.sections.ecocentricExtension.practiceTitle}</h3>
               <div className="space-y-4">
                 {frameworkEcocentricExtension.reflectionTypes.map((item) => (
                   <div key={item} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white/75">
@@ -231,7 +232,7 @@ export const FrameworkExperience = ({
 
           <div className="mt-10 rounded-3xl border border-jurassic-soft/60 bg-jurassic-soft/15 p-8 shadow-premium">
             <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-4">
-              Ecocentric Text Selection Criteria
+              {frameworkPageContent.sections.ecocentricExtension.criteriaLabel}
             </p>
             <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-4">
               {frameworkEcocentricExtension.textCriteria.map((item) => (
@@ -248,14 +249,13 @@ export const FrameworkExperience = ({
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Governance and Fidelity
+              {frameworkPageContent.sections.governance.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              The framework is governed, audited, and versioned.
+              {frameworkPageContent.sections.governance.title}
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-light">
-              The guidebook positions quality assurance as a formal part of implementation, not an
-              optional add-on. Review, moderation, and renewal are built into the model.
+              {frameworkPageContent.sections.governance.body}
             </p>
           </div>
 
@@ -283,14 +283,13 @@ export const FrameworkExperience = ({
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Scalability and Implementation
+              {frameworkPageContent.sections.scalability.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Growth is only valid when fidelity stays intact.
+              {frameworkPageContent.sections.scalability.title}
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-light">
-              The v3.0 guidebook frames expansion as a tiered implementation pathway supported by
-              shared protocols, certification, and quality assurance.
+              {frameworkPageContent.sections.scalability.body}
             </p>
           </div>
 
@@ -315,14 +314,13 @@ export const FrameworkExperience = ({
         <div className="max-w-5xl mx-auto px-6">
           <div className="rounded-[2rem] bg-jurassic-dark text-white shadow-premium p-10 md:p-14">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Next Step
+              {frameworkPageContent.sections.nextStep.eyebrow}
             </span>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-5">
-              Explore implementation with the full framework in view.
+              {frameworkPageContent.sections.nextStep.title}
             </h2>
             <p className="text-white/70 text-lg leading-relaxed max-w-3xl">
-              If you are reviewing Jurassic English™ for school adoption, training, licensing, or
-              curriculum design, the next conversation should begin from both pedagogy and implementation.
+              {frameworkPageContent.sections.nextStep.body}
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -330,14 +328,14 @@ export const FrameworkExperience = ({
                 onClick={onGetStarted}
                 className="inline-flex items-center justify-center gap-2 bg-jurassic-accent text-white px-6 py-3 rounded-full font-bold shadow-premium"
               >
-                Get Started
+                {frameworkPageContent.sections.nextStep.primaryCta}
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
                 onClick={onBack}
                 className="inline-flex items-center justify-center gap-2 border border-white/15 text-white/80 px-6 py-3 rounded-full font-semibold hover:text-white hover:border-white/30 transition"
               >
-                Return to homepage
+                {frameworkPageContent.sections.nextStep.secondaryCta}
               </button>
             </div>
           </div>

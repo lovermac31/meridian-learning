@@ -22,8 +22,19 @@ import {
   normaliseBuyerType,
   normaliseMAOI,
   map as crmMap,
+  type AlignmentStatus,
 } from './je-crm-mapper.js';
 import type { NormalizedPricingRegistration } from '../../src/lib/pricingRegistrationSchema';
+
+// ─── Notion select label maps ─────────────────────────────────────────────────
+
+/** Map alignment-status keys → Notion select option names (must match DB exactly). */
+const ALIGNMENT_NOTION_LABELS: Record<AlignmentStatus, string> = {
+  primary:           'Primary',
+  secondary:         'Secondary',
+  context_dependent: 'Context-dependent',
+  manual_review:     'Manual Review',
+};
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -144,9 +155,9 @@ function buildProperties(
     'Country / Region': { rich_text: rt(r.countryRegion) },
 
     // CRM classification — derived from the JE CRM Mapping Engine
-    'Buyer Type':            { select: { name: ctx.buyerType.key } },
-    'Main Area of Interest': { select: { name: ctx.maoi.key } },
-    'Alignment Status':      { select: { name: ctx.alignment.status } },
+    'Buyer Type':            { select: { name: ctx.buyerType.label } },
+    'Main Area of Interest': { select: { name: ctx.maoi.label } },
+    'Alignment Status':      { select: { name: ALIGNMENT_NOTION_LABELS[ctx.alignment.status] } },
     'Service Category':      { rich_text: rt(ctx.maoi.label) },
     'Pricing Range Summary': { rich_text: rt(ctx.service.rangeSummary) },
     'Recommended Next Step': { rich_text: rt(ctx.cta) },

@@ -1,57 +1,41 @@
 import { Users, ShieldCheck, BookOpenCheck, Compass, Handshake } from 'lucide-react';
 import { motion } from 'motion/react';
+import { getCurrentLocale } from '../i18n/routing';
+import { getHomeContent } from '../i18n/content/home';
 
 export const Services = () => {
-  const services = [
-    {
-      title: 'Teacher Training',
-      audience: 'For licensed educators, coordinators, and school teams',
-      desc: 'Professional training and certification in the Jurassic Thinking Cycle™, lesson architecture, questioning routines, and rubric-based implementation.',
-      outcome: 'Supports confident classroom delivery and implementation fidelity.',
-      icon: <Users className="w-6 h-6" />,
-    },
-    {
-      title: 'School Licensing',
-      audience: 'For schools, academies, and institutional programmes',
-      desc: 'Programme licensing for institutions adopting Jurassic English™ as a structured literature-based English framework with quality assurance and update pathways.',
-      outcome: 'Supports consistent rollout, governance, and long-term programme continuity.',
-      icon: <ShieldCheck className="w-6 h-6" />,
-    },
-    {
-      title: 'Curriculum Review',
-      audience: 'For leaders reviewing a current English programme',
-      desc: 'Academic review of curriculum structure, standards alignment, text selection, assessment architecture, and progression across levels.',
-      outcome: 'Supports sharper sequencing, stronger reasoning demand, and clearer standards fit.',
-      icon: <BookOpenCheck className="w-6 h-6" />,
-    },
-    {
-      title: 'Academic Consulting',
-      audience: 'For implementation planning and programme design',
-      desc: 'Consultancy for CEFR crosswalks, scope and sequence planning, rollout design, and regulation-aware implementation across classrooms or departments.',
-      outcome: 'Supports practical decision-making before launch, pilot, or expansion.',
-      icon: <Compass className="w-6 h-6" />,
-    },
-    {
-      title: 'Institutional Partnerships',
-      audience: 'For school groups, networks, and system-level partners',
-      desc: 'Long-term partnership pathways for whole-school implementation, multi-school rollout, and formal collaboration with governance, moderation, and review structures.',
-      outcome: 'Supports scale without dilution through tiered implementation support.',
-      icon: <Handshake className="w-6 h-6" />,
-    },
+  const locale = getCurrentLocale();
+  const homeContent = getHomeContent(locale) ?? getHomeContent('en');
+
+  if (!homeContent) {
+    return null;
+  }
+
+  const icons = [
+    <Users className="w-6 h-6" />,
+    <ShieldCheck className="w-6 h-6" />,
+    <BookOpenCheck className="w-6 h-6" />,
+    <Compass className="w-6 h-6" />,
+    <Handshake className="w-6 h-6" />,
   ];
+
+  const services = homeContent.services.cards.map((service, index) => ({
+    ...service,
+    icon: icons[index],
+  }));
 
   return (
     <section id="training" className="py-28 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-            Services & Partnerships
+            {homeContent.services.eyebrow}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-jurassic-dark">
-            Choose the right implementation path.
+            {homeContent.services.title}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
-            Jurassic English™ supports institutions at different stages of adoption, from teacher preparation and curriculum review to licensing, consulting, and long-term partnership.
+            {homeContent.services.body}
           </p>
         </div>
 
@@ -90,7 +74,7 @@ export const Services = () => {
         
         <div className="mt-20 text-center">
           <p className="text-2xl font-serif italic text-gray-400 max-w-xl mx-auto leading-relaxed">
-            "Implementation quality depends on teacher quality, programme clarity, and support at the right scale."
+            {homeContent.services.quote}
           </p>
         </div>
       </div>

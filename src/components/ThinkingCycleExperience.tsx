@@ -1,6 +1,12 @@
 import { motion } from 'motion/react';
 import { ArrowLeft, ChevronRight, ClipboardList, Download, Leaf, LibraryBig, MessagesSquare } from 'lucide-react';
-import { thinkingCycleStages, type ThinkingCycleStageDetail } from '../lib/thinkingCycleContent';
+import { type ThinkingCycleStageDetail } from '../lib/thinkingCycleContent';
+import { getCurrentLocale } from '../i18n/routing';
+import {
+  getLocalizedThinkingCycleStageByPath,
+  getLocalizedThinkingCycleStages,
+  getThinkingCycleDetailPageContent,
+} from '../i18n/content/thinkingCycle';
 
 type ThinkingCycleExperienceProps = {
   stage: ThinkingCycleStageDetail;
@@ -15,11 +21,15 @@ export const ThinkingCycleExperience = ({
   onSelectStage,
   onCompareStages,
 }: ThinkingCycleExperienceProps) => {
+  const locale = getCurrentLocale();
+  const localizedStage = getLocalizedThinkingCycleStageByPath(stage.path, locale) ?? stage;
+  const localizedStages = getLocalizedThinkingCycleStages(locale);
+  const pageContent = getThinkingCycleDetailPageContent(locale);
   return (
     <main className="bg-white pt-32 pb-24">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-jurassic-dark via-jurassic-dark to-[#1c2c18]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(242,100,25,0.18),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent_30%)]" />
+        <div className="absolute inset-0 bg-overlay-accent-dark" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 py-20">
           <button
@@ -27,7 +37,7 @@ export const ThinkingCycleExperience = ({
             className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition hover:text-white"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to homepage
+            {pageContent.hero.backCta}
           </button>
 
           <motion.div
@@ -35,22 +45,20 @@ export const ThinkingCycleExperience = ({
             animate={{ opacity: 1, y: 0 }}
             className="mt-10 max-w-5xl"
           >
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Thinking Cycle Stage Detail
-            </span>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.hero.eyebrow}</span>
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-              {stage.title}
+              {localizedStage.title}
             </h1>
-            <p className={`mt-4 text-lg font-semibold ${stage.accent}`}>{stage.line}</p>
+            <p className={`mt-4 text-lg font-semibold ${stage.accent}`}>{localizedStage.line}</p>
             <div className="mt-6 space-y-4 text-lg text-white/72 leading-relaxed max-w-3xl">
-              {stage.intro.map((paragraph) => (
+              {localizedStage.intro.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </motion.div>
 
           <div className="mt-12 flex flex-wrap gap-3">
-            {thinkingCycleStages.map((item) => (
+            {localizedStages.map((item) => (
               <button
                 key={item.slug}
                 onClick={() => onSelectStage(item.path)}
@@ -69,7 +77,7 @@ export const ThinkingCycleExperience = ({
               className="inline-flex items-center gap-2 rounded-full border border-jurassic-gold/30 bg-jurassic-gold/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-jurassic-gold/20"
             >
               <Download className="w-4 h-4" />
-              Student Manual
+              {pageContent.hero.studentManual}
             </a>
             <a
               href={stage.teacherManualPath}
@@ -77,13 +85,13 @@ export const ThinkingCycleExperience = ({
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
             >
               <Download className="w-4 h-4" />
-              Teacher Manual
+              {pageContent.hero.teacherManual}
             </a>
             <button
               onClick={onCompareStages}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
             >
-              Compare All Stages
+              {pageContent.hero.compareAllStages}
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -93,20 +101,16 @@ export const ThinkingCycleExperience = ({
       <section className="py-24 bg-jurassic-soft/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              At A Glance
-            </span>
-            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Stage architecture
-            </h2>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.glance.eyebrow}</span>
+            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.glance.title}</h2>
           </div>
 
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
             {[
-              { label: 'Cognitive Operation', value: stage.cognitiveOperation },
-              { label: 'Bloom Level', value: stage.bloomLevel },
-              { label: 'Primary Target', value: stage.primaryTarget },
-              { label: 'Lesson Slot', value: stage.lessonSlot },
+              { label: pageContent.glance.labels.cognitiveOperation, value: localizedStage.cognitiveOperation },
+              { label: pageContent.glance.labels.bloomLevel, value: localizedStage.bloomLevel },
+              { label: pageContent.glance.labels.primaryTarget, value: localizedStage.primaryTarget },
+              { label: pageContent.glance.labels.lessonSlot, value: localizedStage.lessonSlot },
             ].map((item) => (
               <div
                 key={item.label}
@@ -125,16 +129,12 @@ export const ThinkingCycleExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Student Expectations
-            </span>
-            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              What students are expected to do
-            </h2>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.studentExpectations.eyebrow}</span>
+            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.studentExpectations.title}</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-5">
-            {stage.studentExpectations.map((item) => (
+            {localizedStage.studentExpectations.map((item) => (
               <div
                 key={item}
                 className="rounded-3xl border border-jurassic-soft/60 bg-jurassic-soft/15 p-6 shadow-premium"
@@ -150,14 +150,10 @@ export const ThinkingCycleExperience = ({
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <div>
-              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-                Prompt Bank Summary
-              </span>
-              <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-6">
-                Prompt types used at this stage
-              </h2>
+              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.promptBank.eyebrow}</span>
+              <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-6">{pageContent.promptBank.title}</h2>
               <div className="space-y-4">
-                {stage.promptBank.map((item) => (
+                {localizedStage.promptBank.map((item) => (
                   <div key={item.type} className="rounded-3xl bg-white border border-jurassic-soft/60 p-6 shadow-premium">
                     <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">{item.type}</p>
                     <p className="text-gray-700 leading-relaxed">{item.summary}</p>
@@ -167,14 +163,10 @@ export const ThinkingCycleExperience = ({
             </div>
 
             <div>
-              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-                Academic Language Bank
-              </span>
-              <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-6">
-                Sentence frames used at this stage
-              </h2>
+              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.languageBank.eyebrow}</span>
+              <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-6">{pageContent.languageBank.title}</h2>
               <div className="space-y-4">
-                {stage.languageBank.map((item) => (
+                {localizedStage.languageBank.map((item) => (
                   <div key={item.function} className="rounded-3xl bg-white border border-jurassic-soft/60 p-6 shadow-premium">
                     <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">{item.function}</p>
                     <p className="text-gray-700 leading-relaxed">{item.frame}</p>
@@ -189,16 +181,12 @@ export const ThinkingCycleExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Practice Prompts by Level
-            </span>
-            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              One stage, different level bands
-            </h2>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.practicePrompts.eyebrow}</span>
+            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.practicePrompts.title}</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-5">
-            {stage.practicePrompts.map((item) => (
+            {localizedStage.practicePrompts.map((item) => (
               <div key={item.levelBand} className="rounded-3xl border border-jurassic-soft/60 bg-jurassic-soft/15 p-6 shadow-premium">
                 <div className="flex items-center gap-3 mb-4">
                   <MessagesSquare className="w-4 h-4 text-jurassic-accent" />
@@ -215,18 +203,14 @@ export const ThinkingCycleExperience = ({
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <div>
-              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-                Assessment Snapshot
-              </span>
-              <h2 className="text-4xl font-bold tracking-tight mb-6">
-                How this stage is checked in the lesson
-              </h2>
+              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.assessment.eyebrow}</span>
+              <h2 className="text-4xl font-bold tracking-tight mb-6">{pageContent.assessment.title}</h2>
               <div className="space-y-4">
-                {stage.assessmentSnapshot.map((item) => (
+                {localizedStage.assessmentSnapshot.map((item) => (
                   <div key={item} className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-premium">
                     <div className="flex items-center gap-3 mb-3">
                       <ClipboardList className="w-4 h-4 text-jurassic-accent" />
-                      <p className="text-xs uppercase tracking-widest text-white/55 font-bold">Assessment</p>
+                      <p className="text-xs uppercase tracking-widest text-white/55 font-bold">{pageContent.assessment.label}</p>
                     </div>
                     <p className="text-white/80 leading-relaxed">{item}</p>
                   </div>
@@ -238,19 +222,19 @@ export const ThinkingCycleExperience = ({
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-premium">
                 <div className="flex items-center gap-3 mb-4">
                   <LibraryBig className="w-5 h-5 text-jurassic-accent" />
-                  <p className="text-xs uppercase tracking-widest text-white/55 font-bold">Instructional Architecture</p>
+                  <p className="text-xs uppercase tracking-widest text-white/55 font-bold">{pageContent.architecture.eyebrow}</p>
                 </div>
-                <p className="text-white/80 leading-relaxed"><span className="text-white font-semibold">Primary Activity:</span> {stage.primaryActivity}</p>
-                <p className="mt-4 text-white/80 leading-relaxed"><span className="text-white font-semibold">Teacher Action:</span> {stage.teacherAction}</p>
+                <p className="text-white/80 leading-relaxed"><span className="text-white font-semibold">{pageContent.architecture.primaryActivity}:</span> {localizedStage.primaryActivity}</p>
+                <p className="mt-4 text-white/80 leading-relaxed"><span className="text-white font-semibold">{pageContent.architecture.teacherAction}:</span> {localizedStage.teacherAction}</p>
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-premium">
                 <div className="flex items-center gap-3 mb-4">
                   <Leaf className="w-5 h-5 text-jurassic-accent" />
-                  <p className="text-xs uppercase tracking-widest text-white/55 font-bold">Eco Extension / Cross-Stage Connection</p>
+                  <p className="text-xs uppercase tracking-widest text-white/55 font-bold">{pageContent.eco.eyebrow}</p>
                 </div>
-                <p className="text-white/80 leading-relaxed">{stage.ecoExtension}</p>
-                <p className="mt-4 text-white/65 leading-relaxed">{stage.crossStageConnection}</p>
+                <p className="text-white/80 leading-relaxed">{localizedStage.ecoExtension}</p>
+                <p className="mt-4 text-white/65 leading-relaxed">{localizedStage.crossStageConnection}</p>
               </div>
             </div>
           </div>

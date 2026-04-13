@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { auditOperatorAction, requireOperatorAccess } from './_lib/operatorSecurity.js';
 
 const PRICING_ACCESS_TOKEN_TTL_SECONDS = 60 * 60 * 24 * 7;
 
@@ -23,31 +24,25 @@ function formatAccessDate(unixSeconds: number) {
   return new Date(unixSeconds * 1000).toISOString();
 }
 
-function readBearerToken(req: VercelRequest) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) return null;
-  return authHeader.slice('Bearer '.length).trim();
-}
-
 export default function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
   }
 
-  const operatorKey = process.env.PRICING_ACCESS_OPERATOR_KEY?.trim();
   const signingSecret = process.env.PRICING_ACCESS_SIGNING_SECRET?.trim();
-  const presentedKey = readBearerToken(req);
-
-  if (!operatorKey || operatorKey.length < 24) {
-    return res.status(503).json({ ok: false, error: 'Operator access is not configured.' });
-  }
+  const access = requireOperatorAccess(req, res, {
+    endpoint: '/api/generate-pricing-access-link',
+    action: 'generate_pricing_access_link',
+    scopedKeyEnv: 'PRICING_ACCESS_LINK_OPERATOR_KEY',
+    scopedIpAllowlistEnv: 'PRICING_ACCESS_LINK_OPERATOR_IP_ALLOWLIST',
+  });
 
   if (!signingSecret || signingSecret.length < 32) {
     return res.status(503).json({ ok: false, error: 'Signing secret is not configured.' });
   }
 
-  if (!presentedKey || presentedKey !== operatorKey) {
-    return res.status(401).json({ ok: false, error: 'Unauthorized.' });
+  if (!access.ok) {
+    return;
   }
 
   const body = (req.body && typeof req.body === 'object' ? req.body : {}) as Record<string, unknown>;
@@ -74,6 +69,18 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   const signature = sign(encodedPayload, signingSecret);
   const token = `${encodedPayload}.${signature}`;
   const url = `${baseUrl}/plans-pricing-access?token=${encodeURIComponent(token)}`;
+
+  auditOperatorAction(req, {
+    endpoint: '/api/generate-pricing-access-link',
+    action: 'generate_pricing_access_link',
+    scopedKeyEnv: 'PRICING_ACCESS_LINK_OPERATOR_KEY',
+    scopedIpAllowlistEnv: 'PRICING_ACCESS_LINK_OPERATOR_IP_ALLOWLIST',
+  }, {
+    authMode: access.authMode,
+    approvedEmailDomain: approvedEmail.split('@')[1] ?? null,
+    referenceIdPresent: Boolean(referenceId),
+    baseUrl,
+  });
 
   return res.status(200).json({
     ok: true,

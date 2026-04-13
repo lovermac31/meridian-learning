@@ -81,34 +81,87 @@ export const initialPricingValues: PricingRegistrationValues = {
   startedAt: '',
 };
 
-const buyerTypeLabels: Record<BuyerType, string> = {
-  school_administrator: 'School Administrator / Academic Director',
-  teacher_cpd_lead: 'Teacher / CPD Lead',
-  parent_guardian: 'Parent / Guardian',
-  institutional_partner: 'Institutional Partner',
-  other: 'Other',
+const buyerTypeLabels: Record<Locale, Record<BuyerType, string>> = {
+  en: {
+    school_administrator: 'School Administrator / Academic Director',
+    teacher_cpd_lead: 'Teacher / CPD Lead',
+    parent_guardian: 'Parent / Guardian',
+    institutional_partner: 'Institutional Partner',
+    other: 'Other',
+  },
+  vi: {
+    school_administrator: 'Quản trị trường / Giám đốc học thuật',
+    teacher_cpd_lead: 'Giáo viên / Phụ trách phát triển chuyên môn',
+    parent_guardian: 'Phụ huynh / Người giám hộ',
+    institutional_partner: 'Đối tác tổ chức',
+    other: 'Khác',
+  },
 };
 
-const interestAreaLabels: Record<InterestArea, string> = {
-  teacher_training: 'Teacher Training',
-  school_licensing: 'School Licensing',
-  curriculum_review: 'Curriculum Review',
-  academic_consulting: 'Academic Consulting',
-  institutional_partnerships: 'Institutional Partnerships',
-  digital_reasoning_engine: 'Digital Reasoning Engine',
+const interestAreaLabels: Record<Locale, Record<InterestArea, string>> = {
+  en: {
+    teacher_training: 'Teacher Training',
+    school_licensing: 'School Licensing',
+    curriculum_review: 'Curriculum Review',
+    academic_consulting: 'Academic Consulting',
+    institutional_partnerships: 'Institutional Partnerships',
+    digital_reasoning_engine: 'Digital Reasoning Engine',
+  },
+  vi: {
+    teacher_training: 'Đào tạo giáo viên',
+    school_licensing: 'Cấp phép cho trường',
+    curriculum_review: 'Rà soát chương trình',
+    academic_consulting: 'Tư vấn học thuật',
+    institutional_partnerships: 'Hợp tác tổ chức',
+    digital_reasoning_engine: 'Digital Reasoning Engine',
+  },
 };
 
-const preferredContactMethodLabels: Record<PreferredContactMethod, string> = {
-  email: 'Email',
-  phone_whatsapp: 'Phone / WhatsApp',
-  either: 'Either',
+const preferredContactMethodLabels: Record<Locale, Record<PreferredContactMethod, string>> = {
+  en: {
+    email: 'Email',
+    phone_whatsapp: 'Phone / WhatsApp',
+    either: 'Either',
+  },
+  vi: {
+    email: 'Email',
+    phone_whatsapp: 'Điện thoại / WhatsApp',
+    either: 'Cả hai đều được',
+  },
 };
 
-export function pricingLabel(value: string): string {
-  if (value in buyerTypeLabels) return buyerTypeLabels[value as BuyerType];
-  if (value in interestAreaLabels) return interestAreaLabels[value as InterestArea];
-  if (value in preferredContactMethodLabels) {
-    return preferredContactMethodLabels[value as PreferredContactMethod];
+const pricingErrorMessages: Record<Locale, Record<string, string>> = {
+  en: {
+    fullNameRequired: 'Full name is required.',
+    workEmailRequired: 'Work email is required.',
+    workEmailInvalid: 'Enter a valid work email.',
+    roleTitleRequired: 'Role or title is required.',
+    organizationNameRequired: 'Organisation name is required.',
+    countryRegionRequired: 'Country or region is required.',
+    buyerTypeRequired: 'Select a buyer type.',
+    interestAreaRequired: 'Select an area of interest.',
+    contactConsentRequired: 'You must agree to be contacted to submit this form.',
+    spamDetected: 'Spam detected.',
+  },
+  vi: {
+    fullNameRequired: 'Họ và tên là bắt buộc.',
+    workEmailRequired: 'Email công việc là bắt buộc.',
+    workEmailInvalid: 'Vui lòng nhập email công việc hợp lệ.',
+    roleTitleRequired: 'Vai trò hoặc chức danh là bắt buộc.',
+    organizationNameRequired: 'Tên tổ chức là bắt buộc.',
+    countryRegionRequired: 'Quốc gia hoặc khu vực là bắt buộc.',
+    buyerTypeRequired: 'Vui lòng chọn nhóm người mua.',
+    interestAreaRequired: 'Vui lòng chọn lĩnh vực quan tâm.',
+    contactConsentRequired: 'Bạn phải đồng ý để được liên hệ mới có thể gửi biểu mẫu này.',
+    spamDetected: 'Đã phát hiện spam.',
+  },
+};
+
+export function pricingLabel(value: string, locale: Locale = 'en'): string {
+  if (value in buyerTypeLabels[locale]) return buyerTypeLabels[locale][value as BuyerType];
+  if (value in interestAreaLabels[locale]) return interestAreaLabels[locale][value as InterestArea];
+  if (value in preferredContactMethodLabels[locale]) {
+    return preferredContactMethodLabels[locale][value as PreferredContactMethod];
   }
   return value
     .split('_')
@@ -129,31 +182,35 @@ function cleanOptional(value: string) {
   return trimmed.length ? trimmed : undefined;
 }
 
-export function validatePricingRegistration(values: PricingRegistrationValues): PricingValidationErrors {
+export function validatePricingRegistration(
+  values: PricingRegistrationValues,
+  locale: Locale = 'en',
+): PricingValidationErrors {
   const errors: PricingValidationErrors = {};
+  const messages = pricingErrorMessages[locale];
 
-  if (!values.fullName.trim()) errors.fullName = 'Full name is required.';
-  if (!values.workEmail.trim()) errors.workEmail = 'Work email is required.';
-  else if (!isEmail(values.workEmail.trim())) errors.workEmail = 'Enter a valid work email.';
+  if (!values.fullName.trim()) errors.fullName = messages.fullNameRequired;
+  if (!values.workEmail.trim()) errors.workEmail = messages.workEmailRequired;
+  else if (!isEmail(values.workEmail.trim())) errors.workEmail = messages.workEmailInvalid;
 
-  if (!values.roleTitle.trim()) errors.roleTitle = 'Role or title is required.';
-  if (!values.organizationName.trim()) errors.organizationName = 'Organisation name is required.';
-  if (!values.countryRegion.trim()) errors.countryRegion = 'Country or region is required.';
+  if (!values.roleTitle.trim()) errors.roleTitle = messages.roleTitleRequired;
+  if (!values.organizationName.trim()) errors.organizationName = messages.organizationNameRequired;
+  if (!values.countryRegion.trim()) errors.countryRegion = messages.countryRegionRequired;
 
   if (!isOption(values.buyerType, buyerTypeOptions)) {
-    errors.buyerType = 'Select a buyer type.';
+    errors.buyerType = messages.buyerTypeRequired;
   }
 
   if (!isOption(values.interestArea, interestAreaOptions)) {
-    errors.interestArea = 'Select an area of interest.';
+    errors.interestArea = messages.interestAreaRequired;
   }
 
   if (!values.contactConsent) {
-    errors.contactConsent = 'You must agree to be contacted to submit this form.';
+    errors.contactConsent = messages.contactConsentRequired;
   }
 
   if (values.website.trim()) {
-    errors.website = 'Spam detected.';
+    errors.website = messages.spamDetected;
   }
 
   return errors;
@@ -208,3 +265,4 @@ export function normalizePricingRegistration(
     contactConsent: true,
   };
 }
+import type { Locale } from '../i18n/locales';

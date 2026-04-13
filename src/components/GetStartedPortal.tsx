@@ -1,6 +1,10 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
+import { trackFormStart, trackFormSubmit, trackLowFrictionClick } from '../lib/analytics';
+import { getGetStartedContent } from '../i18n/content/getStarted';
+import { getCurrentLocale } from '../i18n/routing';
+import { getUiString } from '../i18n/ui';
 import {
   decisionStageOptions,
   getStartedLabel,
@@ -27,23 +31,47 @@ const requiredFieldClass =
   'w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm text-jurassic-dark shadow-sm outline-none transition focus:border-jurassic-accent';
 
 export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
+  const locale = getCurrentLocale();
+  const pageContent = getGetStartedContent(locale);
   const [values, setValues] = useState<GetStartedFormValues>({
     ...initialGetStartedValues,
     startedAt: new Date().toISOString(),
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitState, setSubmitState] = useState<SubmitState>({ status: 'idle' });
+  const hasTrackedFormStart = useRef(false);
 
   const interestLabel = useMemo(
-    () => (values.primaryInterest ? getStartedLabel(values.primaryInterest) : 'your enquiry'),
-    [values.primaryInterest]
+    () =>
+      values.primaryInterest
+        ? getStartedLabel(values.primaryInterest, locale)
+        : locale === 'vi'
+          ? 'yêu cầu của bạn'
+          : 'your enquiry',
+    [locale, values.primaryInterest]
   );
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const interest = params.get('interest');
+    const raw = params.get('interest');
 
-    if (!interest || !primaryInterestOptions.includes(interest as GetStartedFormValues['primaryInterest'])) {
+    // Alias map: URL params that don't map 1:1 to a primaryInterestOption.
+    // audit_sprint and discovery_call both resolve to curriculum_review as the
+    // closest intake category — operators see the full context in the CRM intake email.
+    const INTEREST_ALIASES: Record<string, string> = {
+      audit_sprint:    'curriculum_review',
+      discovery_call:  'curriculum_review',
+      curriculum_overview: 'curriculum_review',
+    };
+
+    const interest = raw ? (INTEREST_ALIASES[raw] ?? raw) : null;
+
+    if (
+      !interest ||
+      !primaryInterestOptions.includes(
+        interest as (typeof primaryInterestOptions)[number]
+      )
+    ) {
       return;
     }
 
@@ -60,6 +88,10 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
   }, []);
 
   const updateValue = <K extends keyof GetStartedFormValues>(key: K, value: GetStartedFormValues[K]) => {
+    if (!hasTrackedFormStart.current) {
+      hasTrackedFormStart.current = true;
+      trackFormStart('/get-started');
+    }
     setValues((current) => ({ ...current, [key]: value }));
     setErrors((current) => {
       const next = { ...current };
@@ -71,13 +103,13 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const nextErrors = validateGetStartedPayload(values);
+    const nextErrors = validateGetStartedPayload(values, locale);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmitState({
         status: 'error',
-        message: 'Please review the highlighted fields and try again.',
+        message: getUiString(locale, 'getStarted.status.reviewFields'),
       });
       return;
     }
@@ -99,9 +131,10 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
       const data = await response.json();
 
       if (!response.ok || !data.ok) {
-        throw new Error(data.error || 'We could not submit your enquiry. Please try again.');
+        throw new Error(data.error || getUiString(locale, 'getStarted.status.submitFailed'));
       }
 
+      trackFormSubmit(data.submissionId);
       setSubmitState({
         status: 'success',
         submissionId: data.submissionId,
@@ -109,7 +142,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
     } catch (error: any) {
       setSubmitState({
         status: 'error',
-        message: error?.message || 'We could not submit your enquiry. Please try again shortly.',
+        message: error?.message || getUiString(locale, 'getStarted.status.submitFailedShortly'),
       });
     }
   };
@@ -122,8 +155,32 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
           className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-jurassic-dark/70 transition hover:text-jurassic-accent"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to main site
+          {getUiString(locale, 'common.backToMainSite')}
         </button>
+
+        {/* Phase 2 — Audience framing + low-friction alternative */}
+        {locale !== 'vi' && (
+          <div className="mb-8 rounded-2xl border border-jurassic-accent/15 bg-white px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4 shadow-sm">
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-jurassic-dark mb-0.5">
+                This form is for institutional enquiries — schools, training centres, and organisations.
+              </p>
+              <p className="text-xs text-jurassic-dark/55">
+                Not a decision-maker yet? Request a Curriculum Overview first — no call required.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                trackLowFrictionClick('Request a Curriculum Overview');
+                window.location.href = '/get-started?interest=curriculum_overview&mode=overview';
+              }}
+              className="shrink-0 rounded-full border border-jurassic-accent/40 px-5 py-2.5 text-sm font-semibold text-jurassic-accent hover:bg-jurassic-accent hover:text-white transition-all"
+            >
+              Request a Curriculum Overview
+            </button>
+          </div>
+        )}
 
         <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <motion.div
@@ -132,21 +189,19 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
             className="rounded-3xl bg-jurassic-dark p-10 text-white shadow-premium"
           >
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Get Started
+              {pageContent.badge}
             </span>
-            <h1 className="text-5xl font-bold tracking-tight mb-6">Start the Jurassic English conversation.</h1>
+            <h1 className="text-5xl font-bold tracking-tight mb-6">{pageContent.title}</h1>
             <p className="text-white/70 leading-relaxed font-light text-lg mb-8">
-              This intake form helps us route your enquiry to the right pathway for teacher
-              training, school licensing, curriculum review, academic consulting, or
-              institutional partnership discussions.
+              {pageContent.intro}
             </p>
 
             <div className="space-y-4 mb-10">
               {[
-                'For schools, academies, educators, and institutional partners',
-                'Takes around 3 minutes to complete',
-                'Choose the path that best matches your implementation goal',
-                'Reviewed by the Jurassic English team for the next best response',
+                pageContent.audienceCards[0],
+                pageContent.audienceCards[1],
+                pageContent.audienceCards[2],
+                pageContent.audienceCards[3],
               ].map((item) => (
                 <div
                   key={item}
@@ -161,10 +216,9 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
               <div className="flex items-start gap-3">
                 <ShieldCheck className="w-5 h-5 text-jurassic-accent mt-0.5" />
                 <div>
-                  <p className="font-semibold text-white">Professional intake only</p>
+                  <p className="font-semibold text-white">{pageContent.professionalIntakeTitle}</p>
                   <p className="text-sm text-white/65 leading-relaxed mt-1">
-                    We collect only the information needed to respond to your enquiry and recommend
-                    the most appropriate offer path for your institution or team.
+                    {pageContent.professionalIntakeBody}
                   </p>
                 </div>
               </div>
@@ -180,21 +234,20 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
             {submitState.status === 'success' ? (
               <div className="flex min-h-[640px] flex-col justify-center text-center" role="status" aria-live="polite">
                 <CheckCircle2 className="w-16 h-16 text-jurassic-accent mx-auto mb-6" />
-                <h2 className="text-4xl font-bold text-jurassic-dark mb-4">Enquiry received</h2>
+                <h2 className="text-4xl font-bold text-jurassic-dark mb-4">{pageContent.successTitle}</h2>
                 <p className="text-gray-600 leading-relaxed max-w-xl mx-auto">
-                  Thank you. We’ve received your {interestLabel.toLowerCase()} enquiry and will
-                  review it shortly.
+                  {pageContent.successBody.replace('{{interest}}', interestLabel.toLowerCase())}
                 </p>
                 <div className="mt-8 rounded-2xl bg-jurassic-soft/40 px-6 py-5 text-left max-w-xl mx-auto">
                   <p className="text-xs font-bold uppercase tracking-widest text-gray-400">
-                    Submission reference
+                    {pageContent.submissionReference}
                   </p>
                   <p className="mt-2 text-lg font-semibold text-jurassic-dark">
                     {submitState.submissionId}
                   </p>
                 </div>
                 <p className="mt-8 text-sm text-gray-500">
-                  If your request is urgent, you can also contact{' '}
+                  {pageContent.urgentContact}{' '}
                   <a
                     href="mailto:info@jurassicenglish.com"
                     className="font-semibold text-jurassic-accent hover:underline"
@@ -207,15 +260,15 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-8" aria-describedby="get-started-status">
                 <div>
-                  <h2 className="text-3xl font-bold text-jurassic-dark">Institutional intake form</h2>
+                  <h2 className="text-3xl font-bold text-jurassic-dark">{pageContent.formTitle}</h2>
                   <p className="text-gray-500 text-sm mt-2">
-                    Select the offer path that best fits your current goal, then add the context we need to respond accurately.
+                    {pageContent.formIntro}
                   </p>
                 </div>
 
                 <div className="grid gap-5 md:grid-cols-2">
                   <Field
-                    label="Full name"
+                    label={getUiString(locale, 'getStarted.labels.fullName')}
                     fieldId="fullName"
                     required
                     error={errors.fullName}
@@ -232,7 +285,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label="Work email"
+                    label={getUiString(locale, 'getStarted.labels.workEmail')}
                     fieldId="workEmail"
                     required
                     error={errors.workEmail}
@@ -250,7 +303,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label="Organization name"
+                    label={getUiString(locale, 'getStarted.labels.organizationName')}
                     fieldId="organizationName"
                     required
                     error={errors.organizationName}
@@ -267,7 +320,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label="Role / title"
+                    label={getUiString(locale, 'getStarted.labels.roleTitle')}
                     fieldId="roleTitle"
                     input={
                       <input
@@ -279,7 +332,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label="Organization type"
+                    label={getUiString(locale, 'getStarted.labels.organizationType')}
                     fieldId="organizationType"
                     required
                     error={errors.organizationType}
@@ -292,17 +345,17 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                         aria-invalid={errors.organizationType ? 'true' : 'false'}
                         aria-describedby={errors.organizationType ? 'organizationType-error' : undefined}
                       >
-                        <option value="">Select organization type</option>
+                        <option value="">{getUiString(locale, 'getStarted.placeholders.selectOrganizationType')}</option>
                         {organizationTypeOptions.map((option) => (
                           <option key={option} value={option}>
-                            {getStartedLabel(option)}
+                            {getStartedLabel(option, locale)}
                           </option>
                         ))}
                       </select>
                     }
                   />
                   <Field
-                    label="Country / region"
+                    label={getUiString(locale, 'getStarted.labels.countryRegion')}
                     fieldId="countryRegion"
                     input={
                       <input
@@ -314,7 +367,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label="Age range served"
+                    label={getUiString(locale, 'getStarted.labels.ageRange')}
                     fieldId="ageRange"
                     input={
                       <input
@@ -322,12 +375,12 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                         className={requiredFieldClass}
                         value={values.ageRange}
                         onChange={(e) => updateValue('ageRange', e.target.value)}
-                        placeholder="e.g. 6–12, secondary, mixed"
+                        placeholder={getUiString(locale, 'getStarted.placeholders.ageRange')}
                       />
                     }
                   />
                   <Field
-                    label="Approximate learner count"
+                    label={getUiString(locale, 'getStarted.labels.learnerCount')}
                     fieldId="learnerCount"
                     input={
                       <input
@@ -335,12 +388,12 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                         className={requiredFieldClass}
                         value={values.learnerCount}
                         onChange={(e) => updateValue('learnerCount', e.target.value)}
-                        placeholder="e.g. 250"
+                        placeholder={getUiString(locale, 'getStarted.placeholders.learnerCount')}
                       />
                     }
                   />
                   <Field
-                    label="Primary interest"
+                    label={getUiString(locale, 'getStarted.labels.primaryInterest')}
                     fieldId="primaryInterest"
                     required
                     error={errors.primaryInterest}
@@ -353,17 +406,17 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                         aria-invalid={errors.primaryInterest ? 'true' : 'false'}
                         aria-describedby={errors.primaryInterest ? 'primaryInterest-error' : undefined}
                       >
-                        <option value="">Select primary interest</option>
+                        <option value="">{getUiString(locale, 'getStarted.placeholders.selectPrimaryInterest')}</option>
                         {primaryInterestOptions.map((option) => (
                           <option key={option} value={option}>
-                            {getStartedLabel(option)}
+                            {getStartedLabel(option, locale)}
                           </option>
                         ))}
                       </select>
                     }
                   />
                   <Field
-                    label="Implementation timeline"
+                    label={getUiString(locale, 'getStarted.labels.timeline')}
                     fieldId="timeline"
                     input={
                       <select
@@ -372,17 +425,17 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                         value={values.timeline}
                         onChange={(e) => updateValue('timeline', e.target.value as GetStartedFormValues['timeline'])}
                       >
-                        <option value="">Select timeline</option>
+                        <option value="">{getUiString(locale, 'getStarted.placeholders.selectTimeline')}</option>
                         {timelineOptions.map((option) => (
                           <option key={option} value={option}>
-                            {getStartedLabel(option)}
+                            {getStartedLabel(option, locale)}
                           </option>
                         ))}
                       </select>
                     }
                   />
                   <Field
-                    label="Decision stage"
+                    label={getUiString(locale, 'getStarted.labels.decisionStage')}
                     fieldId="decisionStage"
                     input={
                       <select
@@ -391,17 +444,17 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                         value={values.decisionStage}
                         onChange={(e) => updateValue('decisionStage', e.target.value as GetStartedFormValues['decisionStage'])}
                       >
-                        <option value="">Select decision stage</option>
+                        <option value="">{getUiString(locale, 'getStarted.placeholders.selectDecisionStage')}</option>
                         {decisionStageOptions.map((option) => (
                           <option key={option} value={option}>
-                            {getStartedLabel(option)}
+                            {getStartedLabel(option, locale)}
                           </option>
                         ))}
                       </select>
                     }
                   />
                   <Field
-                    label="Standards context"
+                    label={getUiString(locale, 'getStarted.labels.standardsContext')}
                     fieldId="standardsContext"
                     className="md:col-span-2"
                     input={
@@ -410,12 +463,12 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                         className={requiredFieldClass}
                         value={values.standardsContext}
                         onChange={(e) => updateValue('standardsContext', e.target.value)}
-                        placeholder="e.g. CEFR, IB, Cambridge, national curriculum"
+                        placeholder={getUiString(locale, 'getStarted.placeholders.standardsContext')}
                       />
                     }
                   />
                   <Field
-                    label="What challenge are you trying to solve?"
+                    label={getUiString(locale, 'getStarted.labels.challenge')}
                     fieldId="challenge"
                     required
                     error={errors.challenge}
@@ -432,7 +485,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label="What would success look like?"
+                    label={getUiString(locale, 'getStarted.labels.successDefinition')}
                     fieldId="successDefinition"
                     className="md:col-span-2"
                     input={
@@ -445,7 +498,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label="Additional notes"
+                    label={getUiString(locale, 'getStarted.labels.notes')}
                     fieldId="notes"
                     className="md:col-span-2"
                     input={
@@ -482,7 +535,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                       aria-describedby={errors.contactConsent ? 'contactConsent-error' : undefined}
                     />
                     <span>
-                      I agree to be contacted about this enquiry.
+                      {getUiString(locale, 'getStarted.labels.contactConsent')}
                       {errors.contactConsent ? (
                         <span id="contactConsent-error" className="block text-red-500 mt-1">
                           {errors.contactConsent}
@@ -499,18 +552,15 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                       onChange={(e) => updateValue('newsletterOptIn', e.target.checked)}
                       className="mt-1 accent-[var(--color-jurassic-accent)]"
                     />
-                    <span>Send me occasional Jurassic English insights and updates.</span>
+                    <span>{getUiString(locale, 'getStarted.labels.newsletterOptIn')}</span>
                   </label>
                 </div>
 
                 <div id="get-started-status" className="sr-only" role="status" aria-live="polite">
-                  {submitState.status === 'submitting'
-                    ? 'Submitting your enquiry.'
-                    : submitState.status === 'success'
-                      ? `Enquiry received. Submission reference ${submitState.submissionId}.`
-                      : submitState.status === 'error'
-                        ? submitState.message
-                        : ''}
+                  {submitState.status === 'submitting' && getUiString(locale, 'getStarted.status.submitting')}
+                  {submitState.status === 'success' &&
+                    getUiString(locale, 'getStarted.status.success').replace('{{id}}', submitState.submissionId)}
+                  {submitState.status === 'error' && submitState.message}
                 </div>
 
                 {submitState.status === 'error' ? (
@@ -528,14 +578,14 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     {submitState.status === 'submitting' ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        Submitting
+                        {getUiString(locale, 'common.submitting')}
                       </>
                     ) : (
-                      'Submit enquiry'
+                      getUiString(locale, 'common.submitEnquiry')
                     )}
                   </button>
                   <p className="text-sm text-gray-500">
-                    Prefer direct contact? Email{' '}
+                    {getUiString(locale, 'common.emailDirect')}{' '}
                     <a href="mailto:info@jurassicenglish.com" className="font-semibold text-jurassic-accent hover:underline">
                       info@jurassicenglish.com
                     </a>

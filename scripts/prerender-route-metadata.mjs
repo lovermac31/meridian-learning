@@ -2,6 +2,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getPrerenderRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata.ts';
+import { getLocaleDefinition } from '../src/i18n/locales.ts';
+import { resolveLocalizedRoute } from '../src/i18n/routing.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, '..', 'dist');
@@ -38,8 +40,11 @@ function replaceMetaTag(html, pattern, replacement) {
 
 function injectMetadata(html, pathname) {
   const metadata = resolveRouteMetadata(pathname);
+  const locale = resolveLocalizedRoute(pathname).locale;
+  const htmlLang = getLocaleDefinition(locale).htmlLang;
 
-  let output = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(metadata.title)}</title>`);
+  let output = html.replace(/<html lang="[^"]*">/, `<html lang="${escapeHtml(htmlLang)}">`);
+  output = output.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(metadata.title)}</title>`);
   output = replaceMetaTag(
     output,
     /<meta name="description" content="[^"]*"\s*\/>/,

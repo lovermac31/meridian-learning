@@ -1,10 +1,12 @@
 import type { JsonLd } from './structuredData';
 
 type HeadMetadata = {
+  htmlLang: string;
   title: string;
   description: string;
   canonical?: string;
   robots?: string;
+  alternates?: Array<{ hrefLang: string; href: string }>;
   og?: {
     title: string;
     description: string;
@@ -25,6 +27,7 @@ type HeadMetadata = {
 
 const CONTROLLED_ATTRIBUTE = 'data-seo-controlled';
 const JSON_LD_SELECTOR = 'script[type="application/ld+json"][data-seo-controlled="json-ld"]';
+const ALTERNATE_SELECTOR = 'link[rel="alternate"][data-seo-controlled="alternate"]';
 
 function upsertMetaByName(name: string, content?: string) {
   const selector = `meta[name="${name}"]`;
@@ -82,6 +85,19 @@ function upsertCanonical(href?: string) {
   element.href = href;
 }
 
+function replaceAlternateLinks(alternates: Array<{ hrefLang: string; href: string }> = []) {
+  document.head.querySelectorAll(ALTERNATE_SELECTOR).forEach((element) => element.remove());
+
+  for (const alternate of alternates) {
+    const element = document.createElement('link');
+    element.rel = 'alternate';
+    element.hreflang = alternate.hrefLang;
+    element.href = alternate.href;
+    element.setAttribute(CONTROLLED_ATTRIBUTE, 'alternate');
+    document.head.appendChild(element);
+  }
+}
+
 function replaceJsonLd(blocks: JsonLd[] = []) {
   document.head.querySelectorAll(JSON_LD_SELECTOR).forEach((element) => element.remove());
 
@@ -95,12 +111,14 @@ function replaceJsonLd(blocks: JsonLd[] = []) {
 }
 
 export function applyHeadMetadata(metadata: HeadMetadata) {
+  document.documentElement.lang = metadata.htmlLang;
   document.title = metadata.title;
 
   upsertMetaByName('description', metadata.description);
   upsertMetaByName('robots', metadata.robots);
 
   upsertCanonical(metadata.canonical);
+  replaceAlternateLinks(metadata.alternates);
 
   upsertMetaByProperty('og:title', metadata.og?.title);
   upsertMetaByProperty('og:description', metadata.og?.description);

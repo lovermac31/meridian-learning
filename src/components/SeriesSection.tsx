@@ -1,7 +1,9 @@
 import { motion } from 'motion/react';
 import { TriceratopsIcon } from './Icons';
 import { ChevronRight, FileText } from 'lucide-react';
-import { seriesLevels } from '../lib/seriesContent';
+import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
+import { getHomeContent } from '../i18n/content/home';
+import { getLocalizedSeriesLevels } from '../i18n/content/series';
 
 type SeriesSectionProps = {
   onSelectLevel: (path: string) => void;
@@ -9,7 +11,14 @@ type SeriesSectionProps = {
 };
 
 export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionProps) => {
-  const levels = seriesLevels.map((level) => ({
+  const locale = getCurrentLocale();
+  const homeContent = getHomeContent(locale) ?? getHomeContent('en');
+
+  if (!homeContent) {
+    return null;
+  }
+
+  const levels = getLocalizedSeriesLevels(locale).map((level) => ({
     name: level.title,
     age: level.ageBand,
     cefr: level.cefrRange,
@@ -21,6 +30,8 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
     demoMaterialPath: level.demoMaterialPath,
     demoMaterialFileName: level.demoMaterialFileName,
   }));
+  const resolveDemoHref = (href: string) =>
+    href.startsWith('/available-soon') ? localizeRouteTarget(href, locale) : href;
 
   return (
     <section id="series" className="py-28 bg-white relative overflow-hidden">
@@ -33,28 +44,28 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-2xl">
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Curriculum Map
+              {homeContent.series.eyebrow}
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-jurassic-dark">The Jurassic English<span className="text-xl align-top text-jurassic-accent">™</span> Series</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-jurassic-dark">{homeContent.series.title}</h2>
             <p className="text-gray-600 font-light leading-relaxed">
-              A complete, vertically aligned curriculum — from first stories to full novels. Each syllabus includes 40 structured lessons per academic year and 10 core texts (4 lessons each).
+              {homeContent.series.body}
             </p>
             <button
               onClick={onCompareLevels}
               className="mt-6 inline-flex items-center gap-2 rounded-full border border-jurassic-soft bg-white px-5 py-3 text-sm font-semibold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent"
             >
-              Compare All Levels
+              {homeContent.series.compareAllCta}
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
           <div className="flex gap-4">
             <div className="bg-jurassic-soft/30 backdrop-blur-sm border border-jurassic-soft px-5 py-3 rounded-2xl text-center">
-              <div className="text-3xl font-bold text-jurassic-dark">40</div>
-              <div className="text-[10px] uppercase tracking-wider font-bold text-gray-400">Lessons / Year</div>
+              <div className="text-3xl font-bold text-jurassic-dark">{homeContent.series.stats.lessonsValue}</div>
+              <div className="text-[10px] uppercase tracking-wider font-bold text-gray-400">{homeContent.series.stats.lessonsLabel}</div>
             </div>
             <div className="bg-jurassic-soft/30 backdrop-blur-sm border border-jurassic-soft px-5 py-3 rounded-2xl text-center">
-              <div className="text-3xl font-bold text-jurassic-dark">10</div>
-              <div className="text-[10px] uppercase tracking-wider font-bold text-gray-400">Core Texts</div>
+              <div className="text-3xl font-bold text-jurassic-dark">{homeContent.series.stats.textsValue}</div>
+              <div className="text-[10px] uppercase tracking-wider font-bold text-gray-400">{homeContent.series.stats.textsLabel}</div>
             </div>
           </div>
         </div>
@@ -79,7 +90,7 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
                 </div>
                 <div className="min-w-0">
                   <h3 className="text-xl font-bold text-jurassic-dark">{level.name}</h3>
-                  <p className="text-sm text-gray-400 font-medium">Age {level.age} <span className="mx-1.5 text-jurassic-accent">•</span> CEFR {level.cefr}</p>
+                  <p className="text-sm text-gray-400 font-medium">{homeContent.series.labels.age} {level.age} <span className="mx-1.5 text-jurassic-accent">•</span> CEFR {level.cefr}</p>
                   <p className="mt-1 text-xs text-gray-400 font-medium">
                     {level.lessons} <span className="mx-1.5 text-jurassic-accent">•</span> {level.texts}
                   </p>
@@ -98,17 +109,21 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
                   onClick={() => onSelectLevel(level.path)}
                   className="inline-flex items-center gap-1.5 rounded-full border border-jurassic-soft bg-white px-4 py-2 text-xs font-bold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent"
                 >
-                  View Level Details
+                  {homeContent.series.labels.viewLevelDetails}
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
                 <a
-                  href={level.demoMaterialPath}
-                  download={level.demoMaterialFileName}
+                  href={resolveDemoHref(level.demoMaterialPath)}
+                  download={
+                    level.demoMaterialPath.startsWith('/available-soon')
+                      ? undefined
+                      : level.demoMaterialFileName
+                  }
                   className="inline-flex items-center gap-1.5 rounded-full border border-jurassic-accent/30 bg-jurassic-accent/8 px-4 py-2 text-xs font-bold text-jurassic-accent transition hover:bg-jurassic-accent/15"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <FileText className="w-3.5 h-3.5" />
-                  Demo Material
+                  {homeContent.series.labels.demoMaterial}
                 </a>
               </div>
             </motion.div>

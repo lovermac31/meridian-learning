@@ -1,5 +1,8 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react';
 import { AlertCircle } from 'lucide-react';
+import { DEFAULT_LOCALE } from '../i18n/locales';
+import { getCurrentLocale } from '../i18n/routing';
+import { getUiString } from '../i18n/ui';
 
 interface Props {
   children: ReactNode;
@@ -41,6 +44,14 @@ export class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
+      const locale =
+        typeof window === 'undefined'
+          ? DEFAULT_LOCALE
+          : getCurrentLocale();
+      const title = this.props.sectionName
+        ? `${getUiString(locale, 'errorBoundary.sectionTitlePrefix')} ${this.props.sectionName}`
+        : getUiString(locale, 'errorBoundary.title');
+
       return (
         <section className="py-20 px-6">
           <div className="max-w-xl mx-auto text-center">
@@ -48,18 +59,16 @@ export class ErrorBoundary extends Component<Props, State> {
               <AlertCircle className="w-7 h-7 text-red-500" />
             </div>
             <h2 className="text-2xl font-serif font-bold text-jurassic-dark mb-3">
-              {this.props.sectionName
-                ? `Something went wrong in ${this.props.sectionName}`
-                : 'Something went wrong'}
+              {title}
             </h2>
             <p className="text-gray-500 text-sm mb-6 font-light leading-relaxed">
-              This section encountered an unexpected error. The rest of the site continues to work normally.
+              {getUiString(locale, 'errorBoundary.body')}
             </p>
             <button
               onClick={this.handleRetry}
               className="px-6 py-3 bg-jurassic-accent text-white rounded-full font-bold text-sm hover:bg-opacity-90 transition-all"
             >
-              Try Again
+              {getUiString(locale, 'errorBoundary.retry')}
             </button>
           </div>
         </section>

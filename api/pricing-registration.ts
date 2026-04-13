@@ -7,9 +7,14 @@ import {
 } from './_lib/je-crm-mapper.js';
 import { buildCrmIntakeEmail } from './_lib/pricingRegistrationNotification.js';
 import { writeNotionLead } from './_lib/notionCrmWriter.js';
+import {
+  checkRateLimit,
+  createThrottleLogContext,
+} from './_lib/requestSecurity.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
+const RESEND_TIMEOUT_MS = 8_000;
 
 const buyerTypeOptions = [
   'school_administrator',
@@ -479,9 +484,13 @@ async function sendPricingRegistrationNotification(
   };
   const messageText = formatRegistrationBody(registration);
 
+  const abortController = new AbortController();
+  const abortTimer = setTimeout(() => abortController.abort(), RESEND_TIMEOUT_MS);
+
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
+      signal: abortController.signal,
       headers: {
         Authorization: `Bearer ${mailConfig.apiKey}`,
         'Content-Type': 'application/json',
@@ -517,18 +526,23 @@ async function sendPricingRegistrationNotification(
       },
     };
   } catch (error: any) {
+    const isTimeout = error?.name === 'AbortError';
     const diagnostics = {
       ...payloadDiagnostics,
-      providerCategory: 'transport_exception',
+      providerCategory: isTimeout ? 'timeout' : 'transport_exception',
       providerCode: error?.code || null,
-      providerMessage: redactProviderMessage(error?.message || 'Unknown notification transport error.'),
+      providerMessage: redactProviderMessage(
+        isTimeout ? 'Resend request timed out.' : (error?.message || 'Unknown notification transport error.')
+      ),
       rejectedBeforeDispatch: false,
     };
     return {
       status: 'failed',
-      reason: error?.message || 'Unknown notification transport error.',
+      reason: isTimeout ? 'resend_timeout' : (error?.message || 'Unknown notification transport error.'),
       diagnostics,
     };
+  } finally {
+    clearTimeout(abortTimer);
   }
 }
 
@@ -554,9 +568,43 @@ async function safeNotionWrite(
   }
 }
 
+function createRegistrationLogContext(registration: NormalizedPricingRegistration) {
+  return {
+    submissionId: registration.submissionId,
+    submittedAt: registration.submittedAt,
+    buyerType: registration.buyerType,
+    interestArea: registration.interestArea,
+    hasOrganizationSize: Boolean(registration.organizationSize),
+    hasPhoneWhatsapp: Boolean(registration.phoneWhatsapp),
+    hasPreferredContactMethod: Boolean(registration.preferredContactMethod),
+    hasTimeline: Boolean(registration.timeline),
+    hasMessage: Boolean(registration.message),
+    emailDomain: getEmailDomain(registration.workEmail),
+  };
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
+  }
+
+  const rateLimit = checkRateLimit(req, {
+    key: 'pricing-registration',
+    windowMs: 10 * 60 * 1000,
+    max: 5,
+  });
+
+  if (!rateLimit.allowed) {
+    console.warn('[pricing-registration] request throttled', createThrottleLogContext(
+      req,
+      '/api/pricing-registration',
+      rateLimit.retryAfterSeconds,
+    ));
+    res.setHeader('Retry-After', String(rateLimit.retryAfterSeconds));
+    return res.status(429).json({
+      ok: false,
+      error: 'Too many submissions were received from this connection. Please wait a few minutes and try again.',
+    });
   }
 
   try {
@@ -594,12 +642,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     console.info('[pricing-registration] submission received', {
-      submissionId: registration.submissionId,
-      submittedAt: registration.submittedAt,
-      buyerType: registration.buyerType,
-      interestArea: registration.interestArea,
-      organizationName: registration.organizationName,
-      workEmail: registration.workEmail,
+      ...createRegistrationLogContext(registration),
       notificationStatus: notification.status,
       notificationReason: notification.status === 'sent' ? undefined : notification.reason,
     });

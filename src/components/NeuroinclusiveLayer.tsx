@@ -1,9 +1,17 @@
 import { useState } from 'react';
 import { EcologyIcon } from './Icons';
 import { motion } from 'motion/react';
+import { getCurrentLocale } from '../i18n/routing';
+import { getHomeContent } from '../i18n/content/home';
 
 export const NeuroinclusiveLayer = () => {
+  const locale = getCurrentLocale();
+  const homeContent = getHomeContent(locale) ?? getHomeContent('en');
   const [imageAvailable, setImageAvailable] = useState(true);
+
+  if (!homeContent) {
+    return null;
+  }
 
   return (
     <section className="py-28 bg-jurassic-dark text-white overflow-hidden relative border-t border-white/5">
@@ -33,16 +41,13 @@ export const NeuroinclusiveLayer = () => {
       {imageAvailable && (
         <div className="absolute inset-0 pointer-events-none hidden md:block lg:hidden">
           <div className="absolute top-0 right-0 w-[45%] h-full">
-            <picture>
-              <source srcSet="/images/neuroinclusive-binoculars.webp" type="image/webp" />
-              <img
-                src="/images/neuroinclusive-binoculars.jpg"
-                alt=""
-                aria-hidden="true"
-                className="w-full h-full object-cover object-center opacity-15"
-                onError={() => setImageAvailable(false)}
-              />
-            </picture>
+            <img
+              src="/images/neuroinclusive-binoculars.png"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover object-center opacity-15"
+              onError={() => setImageAvailable(false)}
+            />
             <div className="absolute inset-0 bg-gradient-to-r from-jurassic-dark via-jurassic-dark/95 via-[30%] to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-b from-jurassic-dark/70 via-transparent to-jurassic-dark/80" />
           </div>
@@ -57,11 +62,11 @@ export const NeuroinclusiveLayer = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="max-w-3xl">
           <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-            Accessibility & Inclusion
+            {homeContent.neuroinclusive.eyebrow}
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">Built for Every Learner</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight">{homeContent.neuroinclusive.title}</h2>
           <p className="text-xl text-white/70 mb-12 font-light leading-relaxed">
-            Jurassic English™ Version 2.1 introduces the most comprehensive neuroinclusive layer in any literature-based English framework.
+            {homeContent.neuroinclusive.body}
           </p>
           
           <motion.div 
@@ -70,27 +75,14 @@ export const NeuroinclusiveLayer = () => {
             viewport={{ once: true }}
             className="glass-dark p-8 rounded-2xl border border-white/10 mb-12 glow-hover"
           >
-            <h3 className="text-jurassic-accent font-bold uppercase tracking-widest text-sm mb-4">The Regulation-Before-Reasoning Principle</h3>
+            <h3 className="text-jurassic-accent font-bold uppercase tracking-widest text-sm mb-4">{homeContent.neuroinclusive.principleTitle}</h3>
             <p className="text-xl italic leading-relaxed font-light text-white/90">
-              "Cognitive performance is state-dependent. A learner who is physiologically dysregulated does not have access to higher-order reasoning. We address the state before demanding the task."
+              {homeContent.neuroinclusive.principleQuote}
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "For ADHD Learners",
-                items: ["Movement & sensory supports", "Visual countdown timers", "Oral rehearsal before writing", "Writing-sprint protocol"]
-              },
-              {
-                title: "For Anxiety-Sensitive",
-                items: ["Private reflection options", "No cold-calling protocols", "Predictable task architecture", "Inclusive choice boards"]
-              },
-              {
-                title: "For All Learners",
-                items: ["30–90s regulation resets", "Visual visual agendas", "Accommodated reasoning", "Sensory-load adjustments"]
-              }
-            ].map((box, i) => (
+            {homeContent.neuroinclusive.cards.map((box, i) => (
               <motion.div 
                 key={box.title}
                 initial={{ opacity: 0, y: 20 }}

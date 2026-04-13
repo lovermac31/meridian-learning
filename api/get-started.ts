@@ -1,7 +1,13 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import {
+  checkRateLimit,
+  createThrottleLogContext,
+  getEmailDomain,
+} from './_lib/requestSecurity.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
+const RESEND_TIMEOUT_MS = 7_000;
 
 const organizationTypeOptions = [
   'school',
@@ -375,9 +381,13 @@ async function sendGetStartedNotification(
     bodyLength: formatSubmissionBody(submission).length,
   };
 
+  const abortController = new AbortController();
+  const abortTimer = setTimeout(() => abortController.abort(), RESEND_TIMEOUT_MS);
+
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
+      signal: abortController.signal,
       headers: {
         Authorization: `Bearer ${mailConfig.apiKey}`,
         'Content-Type': 'application/json',
@@ -411,17 +421,22 @@ async function sendGetStartedNotification(
       },
     };
   } catch (error: any) {
+    const isTimeout = error?.name === 'AbortError';
     return {
       status: 'failed',
-      reason: error?.message || 'Unknown notification transport error.',
+      reason: isTimeout ? 'resend_timeout' : (error?.message || 'Unknown notification transport error.'),
       diagnostics: {
         ...payloadDiagnostics,
-        providerCategory: 'transport_exception',
+        providerCategory: isTimeout ? 'timeout' : 'transport_exception',
         providerCode: error?.code || null,
-        providerMessage: redactProviderMessage(error?.message || 'Unknown notification transport error.'),
+        providerMessage: redactProviderMessage(
+          isTimeout ? 'Resend request timed out.' : (error?.message || 'Unknown notification transport error.')
+        ),
         rejectedBeforeDispatch: false,
       },
     };
+  } finally {
+    clearTimeout(abortTimer);
   }
 }
 
@@ -436,9 +451,48 @@ function isSpam(startedAt: string, website: string) {
   return elapsed < MIN_SUBMISSION_DELAY_MS || elapsed > MAX_SUBMISSION_AGE_MS;
 }
 
+function createSubmissionLogContext(submission: NormalizedGetStartedSubmission) {
+  return {
+    submissionId: submission.submissionId,
+    submittedAt: submission.submittedAt,
+    primaryInterest: submission.primaryInterest,
+    organizationType: submission.organizationType,
+    hasRoleTitle: Boolean(submission.roleTitle),
+    hasCountryRegion: Boolean(submission.countryRegion),
+    hasAgeRange: Boolean(submission.ageRange),
+    hasLearnerCount: Boolean(submission.learnerCount),
+    hasStandardsContext: Boolean(submission.standardsContext),
+    hasTimeline: Boolean(submission.timeline),
+    hasDecisionStage: Boolean(submission.decisionStage),
+    hasSuccessDefinition: Boolean(submission.successDefinition),
+    hasNotes: Boolean(submission.notes),
+    newsletterOptIn: submission.newsletterOptIn,
+    emailDomain: getEmailDomain(submission.workEmail),
+  };
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
+  }
+
+  const rateLimit = checkRateLimit(req, {
+    key: 'get-started',
+    windowMs: 10 * 60 * 1000,
+    max: 5,
+  });
+
+  if (!rateLimit.allowed) {
+    console.warn('[get-started] request throttled', createThrottleLogContext(
+      req,
+      '/api/get-started',
+      rateLimit.retryAfterSeconds,
+    ));
+    res.setHeader('Retry-After', String(rateLimit.retryAfterSeconds));
+    return res.status(429).json({
+      ok: false,
+      error: 'Too many submissions were received from this connection. Please wait a few minutes and try again.',
+    });
   }
 
   const values = coerceGetStartedFormValues(req.body);
@@ -460,15 +514,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const notification = await sendGetStartedNotification(submission);
 
   console.info('[get-started] submission received', {
-    submissionId: submission.submissionId,
-    submittedAt: submission.submittedAt,
-    primaryInterest: submission.primaryInterest,
-    organizationType: submission.organizationType,
-    organizationName: submission.organizationName,
-    workEmail: submission.workEmail,
+    ...createSubmissionLogContext(submission),
     notificationStatus: notification.status,
     notificationDiagnostics: notification.diagnostics,
-    payload: submission,
   });
 
   if (notification.status === 'skipped') {
@@ -481,19 +529,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ok: false,
       error:
         'Get Started submissions are temporarily unavailable. Please email info@jurassicenglish.com directly.',
-      deliveryCategory:
-        typeof notification.diagnostics?.providerCategory === 'string'
-          ? notification.diagnostics.providerCategory
-          : 'notification_skipped',
-      deliveryCode:
-        typeof notification.diagnostics?.providerCode === 'string'
-          ? notification.diagnostics.providerCode
-          : null,
-      deliveryMessage:
-        typeof notification.diagnostics?.providerMessage === 'string'
-          ? notification.diagnostics.providerMessage
-          : null,
-      deliveryDiagnostics: notification.diagnostics,
     });
   }
 
@@ -507,25 +542,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ok: false,
       error:
         'We could not deliver your Get Started submission just now. Please try again shortly or email info@jurassicenglish.com directly.',
-      deliveryCategory:
-        typeof notification.diagnostics?.providerCategory === 'string'
-          ? notification.diagnostics.providerCategory
-          : 'notification_failed',
-      deliveryCode:
-        typeof notification.diagnostics?.providerCode === 'string'
-          ? notification.diagnostics.providerCode
-          : null,
-      deliveryMessage:
-        typeof notification.diagnostics?.providerMessage === 'string'
-          ? notification.diagnostics.providerMessage
-          : null,
-      deliveryDiagnostics: notification.diagnostics,
     });
   }
 
   return res.status(200).json({
     ok: true,
     submissionId: submission.submissionId,
-    deliveryDiagnostics: notification.diagnostics,
   });
 }

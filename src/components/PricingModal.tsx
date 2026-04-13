@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, CheckCircle2, Loader2 } from 'lucide-react';
+import type { Locale } from '../i18n/locales';
+import { getCurrentLocale } from '../i18n/routing';
+import { getUiString } from '../i18n/ui';
 import {
   buyerTypeOptions,
   initialPricingValues,
@@ -27,6 +30,7 @@ const fieldClass =
   'w-full rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-sm text-white placeholder-white/30 outline-none transition focus:border-jurassic-accent/60 focus:bg-white/[0.07]';
 
 export function PricingModal({ isOpen, onClose }: PricingModalProps) {
+  const locale = getCurrentLocale();
   const [values, setValues] = useState<PricingRegistrationValues>({
     ...initialPricingValues,
     startedAt: new Date().toISOString(),
@@ -36,7 +40,6 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  // Reset form when modal opens
   useEffect(() => {
     if (isOpen) {
       setValues({ ...initialPricingValues, startedAt: new Date().toISOString() });
@@ -45,7 +48,6 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
     }
   }, [isOpen]);
 
-  // Lock body scroll when open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -55,7 +57,6 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
     }
   }, [isOpen]);
 
-  // Escape key closes modal
   useEffect(() => {
     if (!isOpen) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -65,13 +66,13 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
     return () => document.removeEventListener('keydown', handleKey);
   }, [isOpen, onClose]);
 
-  // Focus trap
   useEffect(() => {
     if (!isOpen || !panelRef.current) return;
     const panel = panelRef.current;
     const focusable = panel.querySelectorAll<HTMLElement>(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
+
     if (focusable.length > 0) focusable[0].focus();
 
     const handleTab = (e: KeyboardEvent) => {
@@ -86,6 +87,7 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
         first.focus();
       }
     };
+
     document.addEventListener('keydown', handleTab);
     return () => document.removeEventListener('keydown', handleTab);
   }, [isOpen]);
@@ -105,13 +107,13 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const nextErrors = validatePricingRegistration(values);
+    const nextErrors = validatePricingRegistration(values, locale);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmitState({
         status: 'error',
-        message: 'Please review the highlighted fields.',
+        message: getUiString(locale, 'pricingModal.status.reviewFields'),
       });
       return;
     }
@@ -133,14 +135,14 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
       const data = await response.json();
 
       if (!response.ok || !data.ok) {
-        throw new Error(data.error || 'Registration could not be submitted. Please try again.');
+        throw new Error(data.error || getUiString(locale, 'pricingModal.status.submitFailed'));
       }
 
       setSubmitState({ status: 'success' });
     } catch (error: any) {
       setSubmitState({
         status: 'error',
-        message: error?.message || 'Registration could not be submitted. Please try again shortly.',
+        message: error?.message || getUiString(locale, 'pricingModal.status.submitFailedShortly'),
       });
     }
   };
@@ -162,7 +164,7 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 py-6"
           role="dialog"
           aria-modal="true"
-          aria-label="Plans & Pricing pre-launch registration"
+          aria-label={getUiString(locale, 'pricingModal.dialogLabel')}
         >
           <motion.div
             ref={panelRef}
@@ -172,22 +174,22 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full max-w-[480px] max-h-[calc(100vh-3rem)] overflow-y-auto rounded-3xl border border-white/10 bg-gradient-to-b from-[#0f1a26] to-[#131f2e] shadow-[0_32px_64px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.05)] scrollbar-thin"
           >
-            {/* Close button */}
             <button
               onClick={onClose}
               className="absolute top-4 right-4 z-10 rounded-full bg-white/5 p-2 text-white/50 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent"
-              aria-label="Close modal"
+              aria-label={getUiString(locale, 'pricingModal.closeModal')}
             >
               <X className="w-4 h-4" />
             </button>
 
             <div className="p-7 pb-8">
               {submitState.status === 'success' ? (
-                <SuccessState onClose={onClose} />
+                <SuccessState onClose={onClose} locale={locale} />
               ) : (
                 <>
-                  <ModalHeader />
+                  <ModalHeader locale={locale} />
                   <RegistrationForm
+                    locale={locale}
                     values={values}
                     errors={errors}
                     submitState={submitState}
@@ -204,24 +206,21 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
   );
 }
 
-function ModalHeader() {
+function ModalHeader({ locale }: { locale: Locale }) {
   return (
     <div className="mb-6">
       <span className="text-jurassic-accent font-bold uppercase tracking-[0.2em] text-[10px] mb-2 block">
-        Pre-Launch Access
+        {getUiString(locale, 'pricingModal.badge')}
       </span>
-      <h2 className="text-2xl font-bold text-white tracking-tight">Plans & Pricing</h2>
+      <h2 className="text-2xl font-bold text-white tracking-tight">
+        {getUiString(locale, 'pricingModal.title')}
+      </h2>
       <p className="mt-3 text-sm text-white/55 leading-relaxed">
-        Plans and pricing are currently available by pre-launch registration only.
-        Register your details to receive the most relevant pricing pathway and
-        next-step guidance for your school, team, or organisation.
+        {getUiString(locale, 'pricingModal.intro')}
       </p>
       <div className="mt-4 rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3">
         <p className="text-xs text-white/40 leading-relaxed">
-          Institutional proposals are typically scoped through a Discovery Call
-          and Resource Allocation Audit before formal pricing is confirmed.
-          This allows proposals to reflect implementation level, learner context,
-          and procurement requirements with accuracy.
+          {getUiString(locale, 'pricingModal.auditNote')}
         </p>
       </div>
     </div>
@@ -229,6 +228,7 @@ function ModalHeader() {
 }
 
 type RegistrationFormProps = {
+  locale: Locale;
   values: PricingRegistrationValues;
   errors: Record<string, string>;
   submitState: SubmitState;
@@ -239,12 +239,19 @@ type RegistrationFormProps = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
-function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }: RegistrationFormProps) {
+function RegistrationForm({
+  locale,
+  values,
+  errors,
+  submitState,
+  updateValue,
+  onSubmit,
+}: RegistrationFormProps) {
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4" aria-describedby="pricing-status">
       <div className="grid gap-3 grid-cols-2">
         <ModalField
-          label="Full name"
+          label={getUiString(locale, 'pricingModal.labels.fullName')}
           fieldId="pr-fullName"
           required
           error={errors.fullName}
@@ -261,7 +268,7 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
           }
         />
         <ModalField
-          label="Work email"
+          label={getUiString(locale, 'pricingModal.labels.workEmail')}
           fieldId="pr-workEmail"
           required
           error={errors.workEmail}
@@ -279,7 +286,7 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
           }
         />
         <ModalField
-          label="Role / title"
+          label={getUiString(locale, 'pricingModal.labels.roleTitle')}
           fieldId="pr-roleTitle"
           required
           error={errors.roleTitle}
@@ -295,7 +302,7 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
           }
         />
         <ModalField
-          label="Organisation / school / company"
+          label={getUiString(locale, 'pricingModal.labels.organizationName')}
           fieldId="pr-organizationName"
           required
           error={errors.organizationName}
@@ -312,7 +319,7 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
           }
         />
         <ModalField
-          label="Country / region"
+          label={getUiString(locale, 'pricingModal.labels.countryRegion')}
           fieldId="pr-countryRegion"
           required
           error={errors.countryRegion}
@@ -328,7 +335,7 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
           }
         />
         <ModalField
-          label="Organisation size / learner range"
+          label={getUiString(locale, 'pricingModal.labels.organizationSize')}
           fieldId="pr-organizationSize"
           input={
             <input
@@ -336,12 +343,12 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
               className={fieldClass}
               value={values.organizationSize}
               onChange={(e) => updateValue('organizationSize', e.target.value)}
-              placeholder="e.g. 300 learners"
+              placeholder={getUiString(locale, 'pricingModal.placeholders.organizationSize')}
             />
           }
         />
         <ModalField
-          label="Phone / WhatsApp"
+          label={getUiString(locale, 'pricingModal.labels.phoneWhatsapp')}
           fieldId="pr-phoneWhatsapp"
           input={
             <input
@@ -350,14 +357,14 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
               value={values.phoneWhatsapp}
               onChange={(e) => updateValue('phoneWhatsapp', e.target.value)}
               autoComplete="tel"
-              placeholder="Optional"
+              placeholder={getUiString(locale, 'pricingModal.placeholders.phoneWhatsapp')}
             />
           }
         />
       </div>
 
       <ModalField
-        label="Buyer type"
+        label={getUiString(locale, 'pricingModal.labels.buyerType')}
         fieldId="pr-buyerType"
         required
         error={errors.buyerType}
@@ -372,10 +379,10 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
             aria-invalid={errors.buyerType ? 'true' : 'false'}
             aria-describedby={errors.buyerType ? 'pr-buyerType-error' : undefined}
           >
-            <option value="">Select buyer type</option>
+            <option value="">{getUiString(locale, 'pricingModal.placeholders.selectBuyerType')}</option>
             {buyerTypeOptions.map((opt) => (
               <option key={opt} value={opt}>
-                {pricingLabel(opt)}
+                {pricingLabel(opt, locale)}
               </option>
             ))}
           </select>
@@ -383,7 +390,7 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
       />
 
       <ModalField
-        label="Main area of interest"
+        label={getUiString(locale, 'pricingModal.labels.interestArea')}
         fieldId="pr-interestArea"
         required
         error={errors.interestArea}
@@ -398,10 +405,10 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
             aria-invalid={errors.interestArea ? 'true' : 'false'}
             aria-describedby={errors.interestArea ? 'pr-interestArea-error' : undefined}
           >
-            <option value="">Select area of interest</option>
+            <option value="">{getUiString(locale, 'pricingModal.placeholders.selectInterestArea')}</option>
             {interestAreaOptions.map((opt) => (
               <option key={opt} value={opt}>
-                {pricingLabel(opt)}
+                {pricingLabel(opt, locale)}
               </option>
             ))}
           </select>
@@ -410,7 +417,7 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
 
       <div className="grid gap-3 grid-cols-2">
         <ModalField
-          label="Preferred contact method"
+          label={getUiString(locale, 'pricingModal.labels.preferredContactMethod')}
           fieldId="pr-preferredContactMethod"
           input={
             <select
@@ -424,17 +431,17 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
                 )
               }
             >
-              <option value="">Select contact method</option>
+              <option value="">{getUiString(locale, 'pricingModal.placeholders.selectContactMethod')}</option>
               {preferredContactMethodOptions.map((opt) => (
                 <option key={opt} value={opt}>
-                  {pricingLabel(opt)}
+                  {pricingLabel(opt, locale)}
                 </option>
               ))}
             </select>
           }
         />
         <ModalField
-          label="Timeline / implementation horizon"
+          label={getUiString(locale, 'pricingModal.labels.timeline')}
           fieldId="pr-timeline"
           input={
             <input
@@ -442,14 +449,14 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
               className={fieldClass}
               value={values.timeline}
               onChange={(e) => updateValue('timeline', e.target.value)}
-              placeholder="e.g. Next term"
+              placeholder={getUiString(locale, 'pricingModal.placeholders.timeline')}
             />
           }
         />
       </div>
 
       <ModalField
-        label="Message / notes"
+        label={getUiString(locale, 'pricingModal.labels.message')}
         fieldId="pr-message"
         input={
           <textarea
@@ -457,12 +464,11 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
             className={`${fieldClass} min-h-[72px] resize-none`}
             value={values.message}
             onChange={(e) => updateValue('message', e.target.value)}
-            placeholder="Optional context about your implementation needs"
+            placeholder={getUiString(locale, 'pricingModal.placeholders.message')}
           />
         }
       />
 
-      {/* Honeypot */}
       <div className="hidden" aria-hidden="true">
         <label htmlFor="pr-website">Website</label>
         <input
@@ -474,7 +480,6 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
         />
       </div>
 
-      {/* Consent */}
       <label className="flex items-start gap-2.5 text-xs text-white/45 leading-relaxed cursor-pointer" htmlFor="pr-contactConsent">
         <input
           id="pr-contactConsent"
@@ -486,7 +491,7 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
           aria-describedby={errors.contactConsent ? 'pr-contactConsent-error' : undefined}
         />
         <span>
-          I agree to be contacted regarding plans and pricing.
+          {getUiString(locale, 'pricingModal.labels.contactConsent')}
           {errors.contactConsent ? (
             <span id="pr-contactConsent-error" className="block text-red-400 mt-1">
               {errors.contactConsent}
@@ -495,12 +500,11 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
         </span>
       </label>
 
-      {/* Status */}
       <div id="pricing-status" className="sr-only" role="status" aria-live="polite">
         {submitState.status === 'submitting'
-          ? 'Submitting your registration.'
+          ? getUiString(locale, 'pricingModal.status.submitting')
           : submitState.status === 'error'
-            ? 'There is a submission issue. Review the message shown in the form.'
+            ? getUiString(locale, 'pricingModal.status.submissionIssue')
             : ''}
       </div>
 
@@ -518,15 +522,15 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
         {submitState.status === 'submitting' ? (
           <>
             <Loader2 className="w-4 h-4 animate-spin" />
-            Submitting
+            {getUiString(locale, 'common.submitting')}
           </>
         ) : (
-          'Request Access'
+          getUiString(locale, 'common.requestAccess')
         )}
       </button>
 
       <p className="text-center text-[11px] text-white/30">
-        Or email{' '}
+        {getUiString(locale, 'common.orEmail')}{' '}
         <a
           href="mailto:info@jurassicenglish.com"
           className="text-jurassic-accent/70 hover:text-jurassic-accent transition"
@@ -538,21 +542,21 @@ function RegistrationForm({ values, errors, submitState, updateValue, onSubmit }
   );
 }
 
-function SuccessState({ onClose }: { onClose: () => void }) {
+function SuccessState({ onClose, locale }: { onClose: () => void; locale: Locale }) {
   return (
     <div className="flex flex-col items-center text-center py-6" role="status" aria-live="polite">
       <CheckCircle2 className="w-12 h-12 text-jurassic-accent mb-5" />
-      <h2 className="text-xl font-bold text-white mb-3">Registration received</h2>
+      <h2 className="text-xl font-bold text-white mb-3">
+        {getUiString(locale, 'pricingModal.successTitle')}
+      </h2>
       <p className="text-sm text-white/55 leading-relaxed max-w-sm">
-        Thank you. Your registration has been received. A member of the
-        Jurassic English / World Wise Learning team will review your details
-        and follow up with the appropriate next step.
+        {getUiString(locale, 'pricingModal.successBody')}
       </p>
       <button
         onClick={onClose}
         className="mt-8 rounded-2xl border border-white/10 bg-white/5 px-6 py-2.5 text-sm font-medium text-white/70 transition hover:bg-white/10 hover:text-white"
       >
-        Close
+        {getUiString(locale, 'common.close')}
       </button>
     </div>
   );

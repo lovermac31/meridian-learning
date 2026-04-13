@@ -1,5 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
-import { legalDocuments, isLegalPath, type ContentBlock } from '../lib/legalContent';
+import { isLegalPath, type ContentBlock } from '../lib/legalContent';
+import { resolveLocalizedRoute, getCurrentLocale } from '../i18n/routing';
+import { getLegalPageChrome, getLocalizedLegalDocument } from '../i18n/content/legal';
 
 export { isLegalPath };
 
@@ -89,8 +91,11 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
 };
 
 export const LegalPage = ({ onBack }: LegalPageProps) => {
-  const pathname = window.location.pathname;
-  const doc = legalDocuments[pathname];
+  const locale = getCurrentLocale();
+  const localizedRoute = resolveLocalizedRoute(window.location.pathname);
+  const pathname = localizedRoute.isLocalizable ? localizedRoute.pathname : window.location.pathname;
+  const doc = getLocalizedLegalDocument(pathname, locale);
+  const chrome = getLegalPageChrome(locale);
 
   if (!doc) return null;
 
@@ -103,18 +108,16 @@ export const LegalPage = ({ onBack }: LegalPageProps) => {
           className="flex items-center gap-2 text-sm text-gray-400 hover:text-jurassic-dark transition-colors mb-10"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Jurassic English
+          {chrome.backCta}
         </button>
 
         {/* Header */}
-        <span className="text-jurassic-accent font-bold uppercase tracking-[0.22em] text-xs mb-4 block">
-          Legal
-        </span>
+        <span className="text-jurassic-accent font-bold uppercase tracking-[0.22em] text-xs mb-4 block">{chrome.eyebrow}</span>
         <h1 className="text-3xl md:text-4xl font-bold text-jurassic-dark tracking-tight mb-3">
           {doc.title}
         </h1>
         <p className="text-sm text-gray-500 mb-8">
-          Effective Date: {doc.effectiveDate} · Last Updated: {doc.lastUpdated}
+          {chrome.effectiveDate}: {doc.effectiveDate} · {chrome.lastUpdated}: {doc.lastUpdated}
         </p>
 
         {/* Callout */}
@@ -172,7 +175,7 @@ export const LegalPage = ({ onBack }: LegalPageProps) => {
 
         {/* Footer copyright */}
         <p className="mt-8 text-sm text-gray-500">
-          © 2026 World Wise Learning. All rights reserved.
+          {chrome.copyright}
         </p>
       </main>
     </div>

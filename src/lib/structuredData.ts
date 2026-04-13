@@ -1,3 +1,5 @@
+import type { Locale } from '../i18n/locales';
+
 const SITE_URL = 'https://jurassicenglish.com';
 
 export type JsonLd = Record<string, unknown>;
@@ -13,12 +15,13 @@ export type CourseParams = {
   educationalLevel: string;
   typicalAgeRange: string;
   url: string;
+  locale?: Locale;
 };
 
 const organizationId = `${SITE_URL}#organization`;
 const websiteId = `${SITE_URL}#website`;
 
-export function createOrganizationJsonLd(): JsonLd {
+export function createOrganizationJsonLd(locale: Locale = 'en'): JsonLd {
   return {
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
@@ -27,6 +30,7 @@ export function createOrganizationJsonLd(): JsonLd {
     description:
       'Jurassic English™ is a literature-based critical thinking curriculum for schools, providing teacher training, school licensing, curriculum review, and academic consulting.',
     url: SITE_URL,
+    inLanguage: locale,
     brand: {
       '@type': 'Brand',
       name: 'Jurassic English™',
@@ -40,7 +44,7 @@ export function createOrganizationJsonLd(): JsonLd {
   };
 }
 
-export function createWebsiteJsonLd(): JsonLd {
+export function createWebsiteJsonLd(locale: Locale = 'en'): JsonLd {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -50,7 +54,7 @@ export function createWebsiteJsonLd(): JsonLd {
     publisher: {
       '@id': organizationId,
     },
-    inLanguage: 'en',
+    inLanguage: locale,
     potentialAction: {
       '@type': 'SearchAction',
       target: {
@@ -74,7 +78,7 @@ export function createCourseJsonLd(params: CourseParams): JsonLd {
     },
     educationalLevel: params.educationalLevel,
     typicalAgeRange: params.typicalAgeRange,
-    inLanguage: 'en',
+    inLanguage: params.locale ?? 'en',
     courseMode: 'onsite',
   };
 }

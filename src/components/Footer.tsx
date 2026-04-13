@@ -1,51 +1,53 @@
 import { ArrowRight, Mail } from 'lucide-react';
+import { getCurrentLocale } from '../i18n/routing';
+import { getUiString } from '../i18n/ui';
 
 type FooterProps = {
   onNavigate?: (path: string) => void;
 };
 
-const footerNav = {
-  explore: [
-    { label: 'About', href: '#about' },
-    { label: 'Framework', href: '/framework' },
-    { label: 'Series', href: '#series' },
-    { label: 'Thinking Cycle', href: '/thinking-cycle/compare' },
-    { label: 'Services', href: '#training' },
-    { label: 'Creative Studio', href: '#studio' },
-    { label: 'Get Started', href: '/get-started' },
-    { label: 'Contact', href: '#contact' },
-  ],
-  pathways: [
-    { label: 'Teacher Training', href: '/get-started?interest=teacher_training' },
-    { label: 'School Licensing', href: '/get-started?interest=school_licensing' },
-    { label: 'Curriculum Review', href: '/get-started?interest=curriculum_review' },
-    { label: 'Academic Consulting', href: '/get-started?interest=consulting' },
-    { label: 'Institutional Partnerships', href: '/get-started?interest=partnership' },
-  ],
-  resources: [
-    { label: 'Level Details', href: '#series' },
-    { label: 'Compare All Levels', href: '/series/compare' },
-    { label: 'Syllabi & Downloads', href: '/series/compare' },
-    { label: 'Compare All Stages', href: '/thinking-cycle/compare' },
-    { label: 'Student Manual Access', href: '/thinking-cycle/compare' },
-    { label: 'Teacher Manual Access', href: '/thinking-cycle/compare' },
-  ],
-  legal: [
-    { label: 'Terms & Conditions', href: '/legal/terms' },
-    { label: 'Privacy Policy', href: '/legal/privacy' },
-    { label: 'Cookie Policy', href: '/legal/cookies' },
-    { label: 'Accessibility Statement', href: '/legal/accessibility' },
-    { label: 'Disclaimer', href: '/legal/disclaimer' },
-  ],
-};
-
-const bottomLegalLinks = [
-  { label: 'Terms', href: '/legal/terms' },
-  { label: 'Privacy', href: '/legal/privacy' },
-  { label: 'Cookies', href: '/legal/cookies' },
-];
-
 export const Footer = ({ onNavigate }: FooterProps) => {
+  const locale = getCurrentLocale();
+  const footerNav = {
+    explore: [
+      { label: getUiString(locale, 'footer.links.about'), href: '#about' },
+      { label: getUiString(locale, 'footer.links.framework'), href: '/framework' },
+      { label: getUiString(locale, 'footer.links.series'), href: '#series' },
+      { label: getUiString(locale, 'footer.links.thinkingCycle'), href: '/thinking-cycle/compare' },
+      { label: getUiString(locale, 'footer.links.services'), href: '#training' },
+      { label: getUiString(locale, 'footer.links.creativeStudio'), href: '#studio' },
+      { label: getUiString(locale, 'footer.getStarted'), href: '/get-started' },
+      { label: getUiString(locale, 'footer.links.contact'), href: '#contact' },
+    ],
+    pathways: [
+      { label: getUiString(locale, 'footer.links.teacherTraining'), href: '/get-started?interest=teacher_training' },
+      { label: getUiString(locale, 'footer.links.schoolLicensing'), href: '/get-started?interest=school_licensing' },
+      { label: getUiString(locale, 'footer.links.curriculumReview'), href: '/get-started?interest=curriculum_review' },
+      { label: getUiString(locale, 'footer.links.academicConsulting'), href: '/get-started?interest=consulting' },
+      { label: getUiString(locale, 'footer.links.institutionalPartnerships'), href: '/get-started?interest=partnership' },
+    ],
+    resources: [
+      { label: getUiString(locale, 'footer.links.levelDetails'), href: '#series' },
+      { label: getUiString(locale, 'footer.links.compareAllLevels'), href: '/series/compare' },
+      { label: getUiString(locale, 'footer.links.syllabiDownloads'), href: '/series/compare' },
+      { label: getUiString(locale, 'footer.links.compareAllStages'), href: '/thinking-cycle/compare' },
+      { label: getUiString(locale, 'footer.links.studentManualAccess'), href: '/thinking-cycle/compare' },
+      { label: getUiString(locale, 'footer.links.teacherManualAccess'), href: '/thinking-cycle/compare' },
+    ],
+    legal: [
+      { label: getUiString(locale, 'footer.links.termsConditions'), href: '/legal/terms' },
+      { label: getUiString(locale, 'footer.links.privacyPolicy'), href: '/legal/privacy' },
+      { label: getUiString(locale, 'footer.links.cookiePolicy'), href: '/legal/cookies' },
+      { label: getUiString(locale, 'footer.links.accessibilityStatement'), href: '/legal/accessibility' },
+      { label: getUiString(locale, 'footer.links.disclaimer'), href: '/legal/disclaimer' },
+    ],
+  };
+  const bottomLegalLinks = [
+    { label: getUiString(locale, 'footer.links.terms'), href: '/legal/terms' },
+    { label: getUiString(locale, 'footer.links.privacy'), href: '/legal/privacy' },
+    { label: getUiString(locale, 'footer.links.cookies'), href: '/legal/cookies' },
+  ];
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('mailto:')) return;
 
@@ -104,17 +106,17 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 Jurassic English<span className="text-xs align-top text-jurassic-accent">™</span>
               </span>
               <p className="mt-2 text-sm leading-relaxed font-light text-white/55">
-                Literature-centered English education for critical thinking, moral reasoning, and institutional scale.
+                {getUiString(locale, 'footer.brandBlurb')}
               </p>
             </div>
             <a
               href="/get-started"
               onClick={(e) => handleLinkClick(e, '/get-started')}
-              className="bg-jurassic-accent text-white px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group shadow-premium hover:brightness-110 transition-all w-fit shrink-0"
-            >
-              Get Started
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
+            className="bg-jurassic-accent text-white px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group shadow-premium hover:brightness-110 transition-all w-fit shrink-0"
+          >
+            {getUiString(locale, 'footer.getStarted')}
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
           </div>
         </div>
       </div>
@@ -124,7 +126,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 lg:gap-10">
           {/* Column 1 — Explore */}
           <div>
-            <ColumnHeading>Explore</ColumnHeading>
+            <ColumnHeading>{getUiString(locale, 'footer.columns.explore')}</ColumnHeading>
             <nav className="space-y-0.5">
               {footerNav.explore.map((link) => (
                 <FooterLink key={link.label} {...link} />
@@ -134,7 +136,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
 
           {/* Column 2 — Institutional Pathways */}
           <div>
-            <ColumnHeading>Institutional Pathways</ColumnHeading>
+            <ColumnHeading>{getUiString(locale, 'footer.columns.pathways')}</ColumnHeading>
             <nav className="space-y-0.5">
               {footerNav.pathways.map((link) => (
                 <FooterLink key={link.label} {...link} />
@@ -144,7 +146,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
 
           {/* Column 3 — Resources */}
           <div>
-            <ColumnHeading>Resources</ColumnHeading>
+            <ColumnHeading>{getUiString(locale, 'footer.columns.resources')}</ColumnHeading>
             <nav className="space-y-0.5">
               {footerNav.resources.map((link) => (
                 <FooterLink key={link.label} {...link} />
@@ -154,7 +156,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
 
           {/* Column 4 — Legal & Contact */}
           <div>
-            <ColumnHeading>Legal &amp; Contact</ColumnHeading>
+            <ColumnHeading>{getUiString(locale, 'footer.columns.legalContact')}</ColumnHeading>
             <nav className="space-y-0.5">
               {footerNav.legal.map((link) => (
                 <FooterLink key={link.label} {...link} />
@@ -162,7 +164,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </nav>
             <div className="mt-5 pt-4 border-t border-white/5 space-y-3">
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-1">General Enquiries</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-1">{getUiString(locale, 'footer.generalEnquiries')}</p>
                 <a
                   href="mailto:info@jurassicenglish.com"
                   className="flex items-center gap-2 text-sm text-jurassic-accent transition-colors duration-200 hover:text-jurassic-gold break-all"
@@ -172,7 +174,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 </a>
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-1">Legal &amp; Privacy</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-1">{getUiString(locale, 'footer.legalPrivacy')}</p>
                 <a
                   href="mailto:legal@worldwiselearning.com"
                   className="flex items-center gap-2 text-sm text-jurassic-accent transition-colors duration-200 hover:text-jurassic-gold break-all"
@@ -182,7 +184,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 </a>
               </div>
               <p className="text-xs leading-relaxed text-white/55">
-                We typically respond within 2 business days.
+                {getUiString(locale, 'footer.responseTime')}
               </p>
             </div>
           </div>
@@ -195,10 +197,10 @@ export const Footer = ({ onNavigate }: FooterProps) => {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="space-y-1">
               <p className="text-xs text-white/55">
-                © 2026 World Wise Learning. All rights reserved.
+                {getUiString(locale, 'footer.copyright')}
               </p>
               <p className="text-xs text-white/50">
-                Jurassic English™ is a trademark of World Wise Learning.
+                {getUiString(locale, 'footer.trademark')}
               </p>
             </div>
             <div className="flex gap-4">

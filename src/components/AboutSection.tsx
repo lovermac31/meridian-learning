@@ -1,13 +1,22 @@
 import { motion } from 'motion/react';
 import { BookOpen, RefreshCw, Users, Globe } from 'lucide-react';
 import { EcologyIcon } from './Icons';
+import { getHomeContent } from '../i18n/content/home';
+import { getCurrentLocale } from '../i18n/routing';
 
 export const AboutSection = () => {
+  const locale = getCurrentLocale();
+  const homeContent = getHomeContent(locale) ?? getHomeContent('en');
+
+  if (!homeContent) {
+    return null;
+  }
+
   const proofSignals = [
-    { icon: <BookOpen className="text-jurassic-accent w-5 h-5" />, text: 'Literature-centered reasoning framework' },
-    { icon: <RefreshCw className="text-jurassic-accent w-5 h-5" />, text: 'Four-stage instructional architecture' },
-    { icon: <Users className="text-jurassic-accent w-5 h-5" />, text: 'Governed for fidelity, review, and scale' },
-    { icon: <Globe className="text-jurassic-accent w-5 h-5" />, text: 'CEFR / IB / Cambridge / UNESCO ESD aware' },
+    { icon: <BookOpen className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[0] },
+    { icon: <RefreshCw className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[1] },
+    { icon: <Users className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[2] },
+    { icon: <Globe className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[3] },
   ];
 
   return (
@@ -28,38 +37,56 @@ export const AboutSection = () => {
           >
             <div className="aspect-[1.35] sm:aspect-[1.2] md:aspect-[1.1] lg:aspect-[0.88] rounded-2xl lg:rounded-[2rem] overflow-hidden shadow-premium group border border-jurassic-soft/40 bg-jurassic-soft/20">
               <picture>
-                <source srcSet="/images/about-institutional.webp" type="image/webp" />
+                <source
+                  srcSet="
+                    /images/about-institutional-400.webp   400w,
+                    /images/about-institutional-800.webp   800w,
+                    /images/about-institutional-1400.webp 1400w,
+                    /images/about-institutional.webp      2528w
+                  "
+                  sizes="(min-width: 1280px) 665px, (min-width: 640px) 50vw, 100vw"
+                  type="image/webp"
+                />
+                {/* JPEG fallback with responsive srcset */}
                 <img
                   src="/images/about-institutional.jpg"
+                  srcSet="
+                    /images/about-institutional-400.jpg   400w,
+                    /images/about-institutional-800.jpg   800w,
+                    /images/about-institutional-1400.jpg 1400w,
+                    /images/about-institutional.jpg      2528w
+                  "
+                  sizes="(min-width: 1280px) 665px, (min-width: 640px) 50vw, 100vw"
                   alt="Jurassic English — curated book collection with paleontology field notes and amber fossil"
+                  width={2528}
+                  height={1684}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
               </picture>
             </div>
             <div className="absolute -bottom-4 right-4 lg:-bottom-5 lg:right-5 xl:-bottom-6 xl:right-6 bg-jurassic-dark/95 p-5 rounded-[1.2rem] shadow-premium max-w-[16rem] hidden lg:block border border-[#8e7448]/40">
               <p className="text-white font-serif italic text-base xl:text-lg leading-relaxed">
-                "Language is the fossil record of thought."
+                {homeContent.about.quote}
               </p>
-              <div className="mt-3 text-jurassic-accent text-[11px] font-semibold tracking-[0.18em] uppercase">World Wise Learning</div>
+              <div className="mt-3 text-jurassic-accent text-[11px] font-semibold tracking-[0.18em] uppercase">{homeContent.about.quoteAttribution}</div>
             </div>
           </motion.div>
 
           <div className="xl:pl-2 order-1 xl:order-2">
             <div className="max-w-4xl">
               <span className="text-jurassic-accent font-bold uppercase tracking-[0.22em] text-xs mb-3 md:mb-4 block">
-                Institutional Positioning
+                {homeContent.about.eyebrow}
               </span>
               <h2 className="text-[1.85rem] sm:text-4xl md:text-5xl xl:text-[3.6rem] font-bold mb-4 md:mb-5 tracking-tight text-jurassic-dark leading-[1.05]">
-                What is Jurassic English<span className="text-xl align-top text-jurassic-accent">™</span>?
+                {homeContent.about.title}
               </h2>
 
               <div className="space-y-3 md:space-y-4 text-base md:text-lg text-gray-700 leading-relaxed font-light max-w-3xl">
-                <p>
-                  Jurassic English™ is a literature-centered framework for English, reasoning, and structured intellectual development. It is designed for implementation in real school contexts, and for review, alignment, and scale across programmes, teams, and institutional settings.
-                </p>
-                <p>
-                  Like the fossil record, language preserves layers of human thought, values, and imagination. Jurassic English™ uses literary study to help students examine evidence, develop reasoned judgment, and express their thinking with disciplined clarity and confidence.
-                </p>
+                {homeContent.about.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
 
               <div className="mt-5 md:mt-6 xl:mt-8 relative">
@@ -94,16 +121,16 @@ export const AboutSection = () => {
               <div className="mt-3 md:mt-4 grid lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] gap-3 md:gap-4 items-stretch">
                 <div className="rounded-xl md:rounded-[1.4rem] bg-jurassic-dark text-white p-3.5 md:p-4 border border-jurassic-dark/80 shadow-premium">
                   <p className="text-[11px] uppercase tracking-[0.22em] text-white/55 font-bold mb-2">
-                    Buyer Fit
+                    {homeContent.about.buyerFitTitle}
                   </p>
                   <p className="text-sm md:text-[15px] font-medium leading-7 text-white/85">
-                    Built for schools, curriculum leaders, academic reviewers, and institutional partners.
+                    {homeContent.about.buyerFitBody}
                   </p>
                 </div>
 
                 <div className="rounded-xl md:rounded-[1.45rem] bg-[#f7f0e3] border border-[#d8c3a3] p-3.5 md:p-5 shadow-premium">
                   <p className="text-jurassic-dark text-base md:text-lg lg:text-xl font-medium italic leading-relaxed">
-                    "This is not traditional English instruction. This is English as an intellectual discipline."
+                    {homeContent.about.positioningQuote}
                   </p>
                 </div>
               </div>

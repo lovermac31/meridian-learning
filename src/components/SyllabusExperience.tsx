@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import { type SeriesLevelDetail } from '../lib/seriesContent';
 import { type SyllabusData } from '../lib/syllabusContent';
+import { getCurrentLocale } from '../i18n/routing';
+import { getSyllabusPageContent } from '../i18n/content/syllabus';
 
 type SyllabusExperienceProps = {
   level: SeriesLevelDetail;
@@ -26,15 +28,17 @@ export const SyllabusExperience = ({
   onBack,
   onViewLevel,
 }: SyllabusExperienceProps) => {
+  const locale = getCurrentLocale();
+  const pageContent = getSyllabusPageContent(locale);
   const glanceItems = [
-    { label: 'Age Range', value: syllabus.levelAtAGlance.ageRange },
-    { label: 'CEFR Range', value: syllabus.levelAtAGlance.cefrRange },
-    { label: 'Total Lessons', value: syllabus.levelAtAGlance.totalLessons },
-    { label: 'Lesson Duration', value: syllabus.levelAtAGlance.lessonDuration },
-    { label: 'CEFR Progression', value: syllabus.levelAtAGlance.cefrProgression },
-    { label: 'Cognitive Focus', value: syllabus.levelAtAGlance.cognitiveFocus },
-    { label: 'Text Complexity', value: syllabus.levelAtAGlance.textComplexity },
-    { label: 'Eco-Reasoning Strand', value: syllabus.levelAtAGlance.ecoStrand },
+    { label: pageContent.glance.labels.ageRange, value: syllabus.levelAtAGlance.ageRange },
+    { label: pageContent.glance.labels.cefrRange, value: syllabus.levelAtAGlance.cefrRange },
+    { label: pageContent.glance.labels.totalLessons, value: syllabus.levelAtAGlance.totalLessons },
+    { label: pageContent.glance.labels.lessonDuration, value: syllabus.levelAtAGlance.lessonDuration },
+    { label: pageContent.glance.labels.cefrProgression, value: syllabus.levelAtAGlance.cefrProgression },
+    { label: pageContent.glance.labels.cognitiveFocus, value: syllabus.levelAtAGlance.cognitiveFocus },
+    { label: pageContent.glance.labels.textComplexity, value: syllabus.levelAtAGlance.textComplexity },
+    { label: pageContent.glance.labels.ecoStrand, value: syllabus.levelAtAGlance.ecoStrand },
   ];
 
   return (
@@ -42,7 +46,7 @@ export const SyllabusExperience = ({
       {/* ── Hero ── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-jurassic-dark via-jurassic-dark to-[#1c2c18]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(242,100,25,0.18),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent_30%)]" />
+        <div className="absolute inset-0 bg-overlay-accent-dark" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 py-20">
           <button
@@ -50,7 +54,7 @@ export const SyllabusExperience = ({
             className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition hover:text-white"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back
+            {pageContent.hero.backCta}
           </button>
 
           <motion.div
@@ -58,9 +62,7 @@ export const SyllabusExperience = ({
             animate={{ opacity: 1, y: 0 }}
             className="mt-10 max-w-4xl"
           >
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
-              Curriculum Syllabus · Academic Year 2025–26
-            </span>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">{pageContent.hero.eyebrow}</span>
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
               {level.title}
             </h1>
@@ -77,7 +79,7 @@ export const SyllabusExperience = ({
               onClick={onViewLevel}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
             >
-              View Level Details
+              {pageContent.hero.viewLevelDetails}
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -88,12 +90,8 @@ export const SyllabusExperience = ({
       <section className="py-24 bg-jurassic-soft/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Level at a Glance
-            </span>
-            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Everything you need to know at a glance
-            </h2>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.glance.eyebrow}</span>
+            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.glance.title}</h2>
           </div>
 
           <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -118,16 +116,9 @@ export const SyllabusExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Core Texts
-            </span>
-            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Literature selected to develop real thinking
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed font-light">
-              Every text is chosen because it raises questions that do not have easy answers.
-              10 core texts per year; 4 structured lessons per text.
-            </p>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.coreTexts.eyebrow}</span>
+            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.coreTexts.title}</h2>
+            <p className="text-lg text-gray-600 leading-relaxed font-light">{pageContent.coreTexts.body}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-5 mb-8">
@@ -145,7 +136,7 @@ export const SyllabusExperience = ({
                     {text.isEco && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
                         <Leaf className="w-3 h-3" />
-                        Eco
+                        {pageContent.coreTexts.ecoBadge}
                       </span>
                     )}
                   </div>
@@ -161,7 +152,7 @@ export const SyllabusExperience = ({
           {syllabus.coreTextNote && (
             <div className="rounded-2xl border border-jurassic-soft/60 bg-jurassic-soft/15 px-6 py-4">
               <p className="text-sm text-gray-600 leading-relaxed">
-                <span className="font-semibold text-jurassic-dark">Additional texts: </span>
+                <span className="font-semibold text-jurassic-dark">{pageContent.coreTexts.additionalTextsLabel} </span>
                 {syllabus.coreTextNote}
               </p>
             </div>
@@ -173,12 +164,8 @@ export const SyllabusExperience = ({
       <section className="py-24 bg-jurassic-soft/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Academic Year
-            </span>
-            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Term-by-term curriculum map
-            </h2>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.academicYear.eyebrow}</span>
+            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.academicYear.title}</h2>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-6">
@@ -216,15 +203,9 @@ export const SyllabusExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Assessment
-            </span>
-            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Assessment tracks the quality of reasoning.
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed font-light">
-              All written justification tasks are assessed using the WWL Four-Level Reasoning Rubric.
-            </p>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.assessment.eyebrow}</span>
+            <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.assessment.title}</h2>
+            <p className="text-lg text-gray-600 leading-relaxed font-light">{pageContent.assessment.body}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-5 mb-12">
@@ -254,10 +235,8 @@ export const SyllabusExperience = ({
           {/* Reasoning Rubric */}
           <div className="rounded-3xl bg-jurassic-dark text-white p-8 shadow-premium">
             <div className="mb-6">
-              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
-                WWL Four-Level Reasoning Rubric
-              </span>
-              <h3 className="text-2xl font-bold">The standard applied to all written work</h3>
+              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">{pageContent.assessment.rubricEyebrow}</span>
+              <h3 className="text-2xl font-bold">{pageContent.assessment.rubricTitle}</h3>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {syllabus.reasoningRubric.map((row) => (
@@ -287,9 +266,7 @@ export const SyllabusExperience = ({
               <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-6">
                 <Leaf className="w-6 h-6" />
               </div>
-              <span className="text-emerald-400 font-bold uppercase tracking-widest text-xs mb-4 block">
-                Eco-Learning Thread
-              </span>
+              <span className="text-emerald-400 font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.eco.eyebrow}</span>
               <h2 className="text-3xl font-bold leading-tight mb-4">
                 {syllabus.ecoStrandLabel}
               </h2>
@@ -302,7 +279,7 @@ export const SyllabusExperience = ({
                   <div className="w-10 h-10 rounded-xl bg-jurassic-accent/10 text-jurassic-accent flex items-center justify-center shrink-0">
                     <Star className="w-5 h-5" />
                   </div>
-                  <p className="font-bold text-jurassic-dark text-lg">Supporting Learning at Home</p>
+                  <p className="font-bold text-jurassic-dark text-lg">{pageContent.support.title}</p>
                 </div>
                 <ul className="space-y-3">
                   {syllabus.homeSupportTips.map((tip, i) => (
@@ -322,10 +299,8 @@ export const SyllabusExperience = ({
       <section className="py-24 bg-jurassic-dark text-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-              Programme Progression
-            </span>
-            <h2 className="text-4xl font-bold tracking-tight mb-4">Where this level fits</h2>
+            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.progression.eyebrow}</span>
+            <h2 className="text-4xl font-bold tracking-tight mb-4">{pageContent.progression.title}</h2>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-6 mb-12">
@@ -334,7 +309,7 @@ export const SyllabusExperience = ({
                 <Milestone className="w-5 h-5" />
               </div>
               <p className="text-xs uppercase tracking-widest text-white/55 font-bold mb-3">
-                Coming from
+                {pageContent.progression.comingFrom}
               </p>
               <p className="text-lg font-semibold text-white/90">{syllabus.progressionFrom}</p>
             </div>
@@ -344,7 +319,7 @@ export const SyllabusExperience = ({
                 <ChevronRight className="w-5 h-5" />
               </div>
               <p className="text-xs uppercase tracking-widest text-white/55 font-bold mb-3">
-                Leading to
+                {pageContent.progression.leadingTo}
               </p>
               <p className="text-lg font-semibold text-white/90">{syllabus.progressionTo}</p>
             </div>
@@ -352,7 +327,7 @@ export const SyllabusExperience = ({
 
           <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-premium max-w-3xl">
             <p className="text-xs uppercase tracking-widest text-white/55 font-bold mb-4">
-              Readiness for the next stage
+              {pageContent.progression.readiness}
             </p>
             <p className="text-white/80 leading-relaxed">{syllabus.readinessStatement}</p>
           </div>
@@ -367,11 +342,10 @@ export const SyllabusExperience = ({
               <Mail className="w-6 h-6" />
             </div>
             <h2 className="text-3xl font-bold tracking-tight text-jurassic-dark mb-4">
-              Enquire about this level
+              {pageContent.cta.title}
             </h2>
             <p className="text-gray-600 leading-relaxed mb-8 max-w-xl mx-auto">
-              Interested in introducing {level.title} at your school? Contact us to discuss
-              teacher training, school licensing, and curriculum review.
+              {pageContent.cta.body.replace('{{levelTitle}}', level.title)}
             </p>
             <a
               href="mailto:info@jurassicenglish.com"
@@ -381,7 +355,7 @@ export const SyllabusExperience = ({
               info@jurassicenglish.com
             </a>
             <p className="mt-6 text-sm text-gray-400">
-              Published by World Wise Learning · Jurassic English™ Version 3.0 · Academic Year 2025–2026
+              {pageContent.cta.published}
             </p>
           </div>
 
@@ -391,7 +365,7 @@ export const SyllabusExperience = ({
               className="inline-flex items-center gap-2 text-sm font-semibold text-jurassic-accent transition hover:text-jurassic-accent/80"
             >
               <ExternalLink className="w-4 h-4" />
-              View full Level {level.order} detail page
+              {pageContent.cta.viewFullLevel.replace('{{order}}', String(level.order))}
             </button>
           </div>
         </div>

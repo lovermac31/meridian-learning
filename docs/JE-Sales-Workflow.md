@@ -464,12 +464,15 @@ Per SOP §6:
 
 ```bash
 curl -X POST https://jurassicenglish.com/api/generate-pricing-access-link \
-  -H "Authorization: Bearer $PRICING_ACCESS_SECRET" \
+  -H "Authorization: Bearer $PRICING_ACCESS_LINK_OPERATOR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"email": "lead@school.edu", "ref": "JE-SCH-SLI-XXXXXXXX"}'
 ```
 
 The API returns a signed URL valid for 7 days. Use the template in `docs/Plans-Pricing-Access-Email-Template.md`. Replace `{{ACCESS_URL}}` before sending.
+
+Use the endpoint-scoped operator secret for this workflow:
+- `PRICING_ACCESS_LINK_OPERATOR_KEY`
 
 ### What to Track
 

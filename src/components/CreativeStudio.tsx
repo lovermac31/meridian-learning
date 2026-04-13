@@ -2,26 +2,34 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Image as ImageIcon, Loader2, AlertCircle } from 'lucide-react';
 import { KeyIcon } from './Icons';
+import { getCurrentLocale } from '../i18n/routing';
+import { getHomeContent } from '../i18n/content/home';
 
 const PROMPT_MAX_LENGTH = 500;
 const isCreativeStudioLive = false;
 
 export const CreativeStudio = () => {
+  const locale = getCurrentLocale();
+  const homeContent = getHomeContent(locale) ?? getHomeContent('en');
   const [prompt, setPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  if (!homeContent) {
+    return null;
+  }
+
   const generateImage = async () => {
     if (!isCreativeStudioLive) {
-      setError('Creative Studio is not available on the public site yet.');
+      setError(homeContent.creativeStudio.unavailableOnPublicSite);
       return;
     }
 
     const trimmed = prompt.trim();
     if (!trimmed) return;
     if (trimmed.length > PROMPT_MAX_LENGTH) {
-      setError(`Prompt must be ${PROMPT_MAX_LENGTH} characters or fewer.`);
+      setError(homeContent.creativeStudio.promptTooLong.replace('{{limit}}', String(PROMPT_MAX_LENGTH)));
       return;
     }
 
@@ -42,13 +50,13 @@ export const CreativeStudio = () => {
       }
 
       if (!data.image) {
-        throw new Error('No image was returned. Please try a different prompt.');
+        throw new Error(homeContent.creativeStudio.noImageReturned);
       }
 
       setGeneratedImage(data.image);
     } catch (err: any) {
       console.error('Image generation error:', err);
-      setError(err.message || 'Failed to generate image. Please try again.');
+      setError(err.message || homeContent.creativeStudio.generateError);
     } finally {
       setIsGenerating(false);
     }
@@ -66,25 +74,25 @@ export const CreativeStudio = () => {
           <div className="lg:w-2/5 p-12 text-white flex flex-col justify-center bg-gradient-to-b from-jurassic-dark to-black/30">
             <div className="flex items-center gap-2 text-jurassic-accent mb-4">
               <Sparkles className="w-5 h-5 animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-widest">Creative Studio</span>
+              <span className="text-xs font-bold uppercase tracking-widest">{homeContent.creativeStudio.eyebrow}</span>
             </div>
-            <h2 className="text-4xl font-bold mb-6 tracking-tight">Excavate Your Imagination</h2>
+            <h2 className="text-4xl font-bold mb-6 tracking-tight">{homeContent.creativeStudio.title}</h2>
             <p className="text-white/60 mb-8 font-light leading-relaxed">
-              Visualize literary themes and moral dilemmas using our AI-powered Creative Studio. Generate evocative illustrations to anchor your reasoning.
+              {homeContent.creativeStudio.body}
             </p>
 
             <div className="space-y-4">
               {!isCreativeStudioLive ? (
                 <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm leading-relaxed text-white/70">
-                  Creative Studio is being prepared for a later public release. Image generation is not available on the live site yet.
+                  {homeContent.creativeStudio.unreleasedNotice}
                 </div>
               ) : null}
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 maxLength={PROMPT_MAX_LENGTH}
-                aria-label="Creative Studio prompt"
-                placeholder="Describe a literary scene... (e.g., 'A child standing at a crossroads of ancient stone paths')"
+                aria-label={homeContent.creativeStudio.promptAriaLabel}
+                placeholder={homeContent.creativeStudio.promptPlaceholder}
                 disabled={!isCreativeStudioLive}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white placeholder:text-white/20 focus:outline-none focus:border-jurassic-accent min-h-[120px] transition-all font-light text-sm disabled:cursor-not-allowed disabled:opacity-50"
               />
@@ -99,17 +107,17 @@ export const CreativeStudio = () => {
                 {isGenerating ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    Excavating...
+                    {homeContent.creativeStudio.generatingLabel}
                   </>
                 ) : !isCreativeStudioLive ? (
                   <>
                     <AlertCircle className="w-5 h-5" />
-                    Studio Coming Soon
+                    {homeContent.creativeStudio.comingSoonLabel}
                   </>
                 ) : (
                   <>
                     <ImageIcon className="w-5 h-5" />
-                    Generate Illustration
+                    {homeContent.creativeStudio.generateLabel}
                   </>
                 )}
               </button>
@@ -133,7 +141,7 @@ export const CreativeStudio = () => {
                 >
                   <img
                     src={generatedImage}
-                    alt="Generated Illustration"
+                    alt={homeContent.creativeStudio.generatedImageAlt}
                     className="w-full h-full object-contain"
                   />
                 </motion.div>
@@ -149,8 +157,8 @@ export const CreativeStudio = () => {
                   </div>
                   <p className="text-sm font-serif italic max-w-xs mx-auto">
                     {isCreativeStudioLive
-                      ? 'Your excavated imagination will appear here.'
-                      : 'Creative Studio visuals will appear here when the feature is released.'}
+                      ? homeContent.creativeStudio.placeholderReady
+                      : homeContent.creativeStudio.placeholderUnreleased}
                   </p>
                 </motion.div>
               )}
@@ -160,7 +168,7 @@ export const CreativeStudio = () => {
               <div className="absolute inset-0 bg-transparent backdrop-blur-md flex items-center justify-center z-20">
                 <div className="text-center">
                   <Loader2 className="w-12 h-12 text-jurassic-accent animate-spin mx-auto mb-4 filter drop-shadow-[0_0_10px_rgba(242,100,25,0.4)]" />
-                  <p className="text-white font-medium text-sm tracking-wide">Processing Neural Strata...</p>
+                  <p className="text-white font-medium text-sm tracking-wide">{homeContent.creativeStudio.processingLabel}</p>
                 </div>
               </div>
             )}

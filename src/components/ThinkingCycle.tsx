@@ -1,6 +1,9 @@
 import { motion } from 'motion/react';
 import { Search, Scale, ShieldCheck, RefreshCw } from 'lucide-react';
 import { TriceratopsIcon } from './Icons';
+import { getCurrentLocale } from '../i18n/routing';
+import { getHomeContent } from '../i18n/content/home';
+import { getLocalizedThinkingCycleStages } from '../i18n/content/thinkingCycle';
 
 type ThinkingCycleProps = {
   onSelectStage: (path: string) => void;
@@ -8,52 +11,38 @@ type ThinkingCycleProps = {
 };
 
 export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleProps) => {
-  const stages = [
-    { 
-      title: "ANALYZE", 
-      path: "/thinking-cycle/analyze",
-      icon: <Search className="w-10 h-10" />, 
-      line: "Break the text apart. Find the evidence. Establish what is really there.",
-      operation: "Deconstruction of textual elements to establish objective understanding.",
-      bloom: "3 (Analysis)",
-      target: "Deconstruct",
-      slot: "5–15 min",
-      glow: "group-hover:text-jurassic-accent"
-    },
-    { 
-      title: "EVALUATE", 
-      path: "/thinking-cycle/evaluate",
-      icon: <Scale className="w-10 h-10" />, 
-      line: "Make a judgment. Apply a standard. Defend it with reason.",
-      operation: "Assessment of quality, effectiveness, or morality based on established criteria.",
-      bloom: "4 (Evaluation)",
-      target: "Judge",
-      slot: "15–25 min",
-      glow: "group-hover:text-amber-500"
-    },
-    { 
-      title: "JUSTIFY", 
-      path: "/thinking-cycle/justify",
-      icon: <ShieldCheck className="w-10 h-10" />, 
-      line: "Make your claim. Cite your evidence. Explain the connection. Show the impact.",
-      operation: "Support claims using textual evidence and rigorous logical reasoning.",
-      bloom: "5 (Synthesis / Justification)",
-      target: "Construct",
-      slot: "25–35 min",
-      glow: "group-hover:text-jurassic-gold"
-    },
-    { 
-      title: "REFLECT", 
-      path: "/thinking-cycle/reflect",
-      icon: <RefreshCw className="w-10 h-10" />, 
-      line: "Connect. Transform. Take your thinking beyond the text.",
-      operation: "Connection of textual themes to personal experience, broader contexts, ethical principles, and the living world.",
-      bloom: "6 (Creation / Metacognition)",
-      target: "Transfer",
-      slot: "35–40 min",
-      glow: "group-hover:text-emerald-500"
-    },
-  ];
+  const locale = getCurrentLocale();
+  const homeContent = getHomeContent(locale) ?? getHomeContent('en');
+
+  if (!homeContent) {
+    return null;
+  }
+
+  const iconMap = {
+    analyze: <Search className="w-10 h-10" />,
+    evaluate: <Scale className="w-10 h-10" />,
+    justify: <ShieldCheck className="w-10 h-10" />,
+    reflect: <RefreshCw className="w-10 h-10" />,
+  } as const;
+
+  const glowMap = {
+    analyze: 'group-hover:text-jurassic-accent',
+    evaluate: 'group-hover:text-amber-500',
+    justify: 'group-hover:text-jurassic-gold',
+    reflect: 'group-hover:text-emerald-500',
+  } as const;
+
+  const stages = getLocalizedThinkingCycleStages(locale).map((stage) => ({
+    title: stage.title,
+    path: stage.path,
+    icon: iconMap[stage.slug],
+    line: stage.line,
+    operation: stage.cognitiveOperation,
+    bloom: stage.bloomLevel,
+    target: stage.primaryTarget,
+    slot: stage.lessonSlot,
+    glow: glowMap[stage.slug],
+  }));
 
   return (
     <section id="framework" className="py-28 bg-jurassic-dark relative overflow-hidden">
@@ -64,15 +53,13 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
 
       <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
         <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
-          Operational Framework
+          {homeContent.thinkingCycle.eyebrow}
         </span>
         <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white tracking-tight">
-          The Jurassic Thinking Cycle<span className="text-xl align-top text-jurassic-accent">™</span>
+          {homeContent.thinkingCycle.title}
         </h2>
         <p className="text-white/60 max-w-2xl mx-auto mb-20 font-light leading-relaxed">
-          The Jurassic Thinking Cycle™ is the operational engine of every lesson. It is a recursive
-          cognitive architecture, not a linear checklist. No stage may be skipped, and no lesson is
-          complete without all four.
+          {homeContent.thinkingCycle.body}
         </p>
 
         <motion.div 
@@ -109,16 +96,16 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
                   {stage.line}
                 </p>
                 <div className="mt-5 space-y-2 text-xs leading-relaxed text-white/50 font-light">
-                  <p><span className="text-white/70 font-semibold">Cognitive Operation:</span> {stage.operation}</p>
-                  <p><span className="text-white/70 font-semibold">Bloom Level:</span> {stage.bloom}</p>
-                  <p><span className="text-white/70 font-semibold">Primary Target:</span> {stage.target}</p>
-                  <p><span className="text-white/70 font-semibold">Lesson Slot:</span> {stage.slot}</p>
+                  <p><span className="text-white/70 font-semibold">{homeContent.thinkingCycle.labels.cognitiveOperation}:</span> {stage.operation}</p>
+                  <p><span className="text-white/70 font-semibold">{homeContent.thinkingCycle.labels.bloomLevel}:</span> {stage.bloom}</p>
+                  <p><span className="text-white/70 font-semibold">{homeContent.thinkingCycle.labels.primaryTarget}:</span> {stage.target}</p>
+                  <p><span className="text-white/70 font-semibold">{homeContent.thinkingCycle.labels.lessonSlot}:</span> {stage.slot}</p>
                 </div>
                 <p className="mt-5 text-white/55 text-xs leading-relaxed font-light">
-                  Four stages. Every lesson. No stage may be skipped.
+                  {homeContent.thinkingCycle.stageNote}
                 </p>
                 <div className="mt-auto pt-6 flex items-center gap-2 text-xs font-bold text-jurassic-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span>Explore Stage</span>
+                  <span>{homeContent.thinkingCycle.exploreStageCta}</span>
                   <Search className="w-3 h-3" />
                 </div>
               </div>
@@ -134,14 +121,14 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
         >
           <div className="inline-block glass-dark px-8 py-4 rounded-full border border-white/10">
             <p className="text-sm font-medium text-white/70">
-              <span className="text-jurassic-accent mr-2">●</span> Analyze. Evaluate. Justify. Reflect. Every lesson. No stage may be skipped.
+              <span className="text-jurassic-accent mr-2">●</span> {homeContent.thinkingCycle.footerLine}
             </p>
           </div>
           <button
             onClick={onCompareStages}
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
           >
-            Compare All Stages
+            {homeContent.thinkingCycle.compareAllCta}
             <Search className="w-4 h-4" />
           </button>
         </motion.div>

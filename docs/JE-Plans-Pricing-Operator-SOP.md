@@ -90,10 +90,15 @@ Decision:
 
 ```bash
 curl -X POST https://jurassicenglish.com/api/generate-pricing-access-link \
-  -H "Authorization: Bearer $PRICING_ACCESS_SECRET" \
+  -H "Authorization: Bearer $PRICING_ACCESS_LINK_OPERATOR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"email": "lead@school.edu", "ref": "JE-SCH-SLI-XXXXXXXX"}'
 ```
+
+Use the endpoint-scoped operator secret for this workflow:
+- `PRICING_ACCESS_LINK_OPERATOR_KEY`
+
+Do not use the legacy shared operator key for new client setup.
 
 2. The API returns a signed URL, valid for **7 days**:
 ```json
