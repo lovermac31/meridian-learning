@@ -24,19 +24,16 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
 
   return (
     <section className="relative min-h-screen flex items-end sm:items-center overflow-hidden bg-jurassic-dark pt-28 pb-10 sm:pt-24 sm:pb-0">
-      {/* Hero Background — Compass Image */}
+      {/* Hero Background */}
       <div className="absolute inset-0 z-0">
         {heroImageAvailable ? (
-          <picture>
-            <source srcSet="/images/hero-compass.webp" type="image/webp" />
-            <img
-              src="/images/hero-compass.jpg"
-              alt={getUiString(locale, 'hero.imageAlt')}
-              className="w-full h-full object-cover object-[65%_center] md:object-[60%_center] lg:object-[55%_center]"
-              fetchPriority="high"
-              onError={() => setHeroImageAvailable(false)}
-            />
-          </picture>
+          <img
+            src="/images/hero-bg.jpg"
+            alt={getUiString(locale, 'hero.imageAlt')}
+            className="w-full h-full object-cover object-[65%_center] md:object-[60%_center] lg:object-[55%_center]"
+            fetchPriority="high"
+            onError={() => setHeroImageAvailable(false)}
+          />
         ) : null}
 
         {/* Left-to-right gradient overlay for text contrast */}
