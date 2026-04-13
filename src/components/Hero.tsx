@@ -24,11 +24,11 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
 
   return (
     <section className="relative min-h-screen flex items-end sm:items-center overflow-hidden bg-jurassic-dark pt-28 pb-10 sm:pt-24 sm:pb-0">
-      {/* Hero Background */}
+      {/* Hero Background — Compass Image */}
       <div className="absolute inset-0 z-0">
         {heroImageAvailable ? (
           <img
-            src="/images/hero-bg.jpg"
+            src="/images/hero-compass.jpg"
             alt={getUiString(locale, 'hero.imageAlt')}
             className="w-full h-full object-cover object-[65%_center] md:object-[60%_center] lg:object-[55%_center]"
             fetchPriority="high"

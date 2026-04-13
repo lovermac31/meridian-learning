@@ -21,7 +21,7 @@ import {
 } from './structuredData';
 
 const SITE_URL = 'https://jurassicenglish.com';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/images/hero-bg.jpg`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/images/hero-compass.jpg`;
 const SITE_NAME = 'Jurassic English™';
 
 type BaseMetadata = {
