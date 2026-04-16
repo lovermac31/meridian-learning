@@ -24,15 +24,28 @@
     <meta name="twitter:image" content="https://jurassicenglish.com/images/hero-compass.jpg" />
     <meta name="twitter:image:alt" content="Jurassic English™ — Critical Thinking Through Literature for Schools" />
 
-    <!-- LCP hero image — preload -->
-    <link rel="preload" as="image" href="/images/hero-compass.jpg" type="image/jpeg" />
+    <!-- LCP hero image — preload the same responsive WebP candidates used by the hero. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero-compass-1024.webp"
+      type="image/webp"
+      imagesrcset="/images/hero-compass-640.webp 640w, /images/hero-compass-960.webp 960w, /images/hero-compass-1024.webp 1024w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
 
-    <!-- Fonts — loaded here to avoid render-blocking CSS @import -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Decorative display font loads asynchronously; core text uses local system stacks for first paint. -->
     <link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline" />
+    </noscript>
 
     <!-- Favicon & touch icons -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -43,12 +56,17 @@
 
     <!-- Theme color for mobile browsers -->
     <meta name="theme-color" content="#101820" />
+
+    <!-- P1-A critical inline CSS: dark background prevents white flash while the
+         async Tailwind stylesheet loads. The loading spinner uses only inline
+         styles so no other declarations are needed for the pre-React paint. -->
+    <style>html,body{background:#101820;margin:0}#root{min-height:100vh}</style>
   </head>
   <body>
     <div id="root">
       <!-- Minimal loading indicator replaced by React on mount -->
       <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#101820;">
-        <div style="text-align:center;color:#F26419;font-family:Inter, sans-serif;">
+        <div style="text-align:center;color:#F26419;font-family:Aptos, Segoe UI, Helvetica Neue, Arial, sans-serif;">
           <div style="font-size:2rem;font-weight:bold;letter-spacing:-0.02em;">Jurassic English™</div>
           <div style="margin-top:0.5rem;font-size:0.75rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.2em;">Loading</div>
         </div>

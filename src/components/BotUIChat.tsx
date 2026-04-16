@@ -1,3 +1,4 @@
+import '@botui/react/default-theme';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { track } from '@vercel/analytics';
 import { createBot, type BotuiInterface } from 'botui';
