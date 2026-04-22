@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jurassic English™ — Pilot Executive Summary (Sample)</title>
+<style>
+  /* ── Brand Tokens ─────────────────────────────────────────────── */
+  :root {
+    --dark:   #101820;
+    --blue:   #1C3F60;
+    --gold:   #D4AF37;
+    --teal:   #6db3c8;
+    --orange: #F26419;
+    --ivory:  #F4F1EA;
+    --soft:   #f8f7f4;
+    --white:  #ffffff;
+    --muted:  #4a5568;
+    --border: #e2d9cc;
+    --green:  #7ecb8e;
+    --red:    #e07070;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.6;
+    color: var(--dark);
+    background: var(--white);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page { size: A4; margin: 0; }
+  @media print {
+    .page-break { page-break-before: always; }
+    .no-break   { page-break-inside: avoid; }
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Sample Watermark ─────────────────────────────────────────── */
+  .sample-banner {
+    background: var(--orange);
+    padding: 5px 16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sample-banner-text {
+    font-size: 7.5pt;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .sample-banner-note {
+    font-size: 7pt;
+    color: rgba(255,255,255,0.75);
+    font-style: italic;
+  }
+
+  /* ── Cover Header ─────────────────────────────────────────────── */
+  .cover-header {
+    background: var(--dark);
+    padding: 12mm 16mm 10mm;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-header::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+  }
+
+  .cover-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--teal), transparent);
+  }
+
+  .cover-eyebrow {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .cover-logo {
+    font-size: 11pt;
+    font-weight: 800;
+    color: var(--white);
+  }
+  .cover-logo span { color: var(--gold); }
+
+  .cover-title {
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--white);
+    margin-top: 10px;
+    line-height: 1.2;
+  }
+
+  .cover-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .cover-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .meta-label {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .meta-value {
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .meta-value.gold { color: var(--gold); }
+  .meta-value.teal { color: var(--teal); }
+
+  /* ── Running Header ───────────────────────────────────────────── */
+  .running-header {
+    background: var(--blue);
+    padding: 5px 16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .rh-logo { font-size: 8.5pt; font-weight: 800; color: var(--white); }
+  .rh-logo span { color: var(--gold); }
+  .rh-label { font-size: 7pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
+  /* ── Main Content ─────────────────────────────────────────────── */
+  .content {
+    padding: 8mm 16mm;
+    flex: 1;
+  }
+
+  /* ── Section Heading ──────────────────────────────────────────── */
+  .sec-heading {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sec-heading:first-child { margin-top: 0; }
+
+  .sec-note {
+    font-size: 7pt;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── Executive Summary Block ──────────────────────────────────── */
+  .exec-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .exec-field {
+    background: var(--soft);
+    border-radius: 4px;
+    padding: 8px 10px;
+  }
+
+  .exec-field-label {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+
+  .exec-field-value {
+    font-size: 9pt;
+    color: var(--dark);
+    line-height: 1.4;
+  }
+
+  .exec-field.full { grid-column: 1 / -1; }
+
+  /* ── KPI Dashboard ────────────────────────────────────────────── */
+  .kpi-dashboard {
+    background: var(--dark);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .kpi-dashboard-header {
+    padding: 8px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .kpi-dashboard-title {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .kpi-dashboard-legend {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 7pt;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-strong   { background: var(--green); }
+  .dot-adequate { background: var(--gold); }
+  .dot-risk     { background: var(--orange); }
+  .dot-flag     { background: var(--red); }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .kpi-cell {
+    background: var(--dark);
+    padding: 12px 14px;
+  }
+
+  .kpi-cell-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .kpi-cell-title {
+    font-size: 8pt;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.3;
+    max-width: 75%;
+  }
+
+  .kpi-rating {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10pt;
+    font-weight: 800;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .rating-strong   { background: rgba(126,203,142,0.2); color: var(--green); border: 1.5px solid rgba(126,203,142,0.4); }
+  .rating-adequate { background: rgba(212,175,55,0.15); color: var(--gold); border: 1.5px solid rgba(212,175,55,0.35); }
+  .rating-risk     { background: rgba(242,100,25,0.15); color: var(--orange); border: 1.5px solid rgba(242,100,25,0.35); }
+
+  /* Bar track */
+  .kpi-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .kpi-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+  }
+
+  .fill-strong   { background: var(--green); }
+  .fill-adequate { background: var(--gold); }
+  .fill-risk     { background: var(--orange); }
+
+  .kpi-summary {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.4;
+  }
+
+  /* ── Observations Block ───────────────────────────────────────── */
+  .observations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .obs-section {
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .obs-header {
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .obs-header.positive { background: rgba(126,203,142,0.12); border-bottom: 1px solid rgba(126,203,142,0.2); }
+  .obs-header.friction { background: rgba(242,100,25,0.08); border-bottom: 1px solid rgba(242,100,25,0.15); }
+
+  .obs-header-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-positive { background: var(--green); }
+  .dot-friction { background: var(--orange); }
+
+  .obs-header-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .label-positive { color: #5aaa6a; }
+  .label-friction { color: var(--orange); }
+
+  .obs-items {
+    list-style: none;
+    padding: 8px 10px;
+    background: var(--soft);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .obs-items li {
+    font-size: 8.5pt;
+    color: var(--dark);
+    line-height: 1.4;
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .obs-items li::before {
+    content: '·';
+    position: absolute;
+    left: 3px;
+    font-size: 10pt;
+    color: var(--muted);
+    line-height: 1.2;
+  }
+
+  /* ── Recommendation Block ─────────────────────────────────────── */
+  .recommendation-block {
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .rec-header {
+    background: var(--dark);
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .rec-header-title {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .rec-outcome-tag {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tag-proceed      { background: rgba(126,203,142,0.2); color: var(--green); border: 1px solid rgba(126,203,142,0.35); }
+  .tag-extend       { background: rgba(212,175,55,0.15); color: var(--gold); border: 1px solid rgba(212,175,55,0.3); }
+  .tag-prepare      { background: rgba(109,179,200,0.15); color: var(--teal); border: 1px solid rgba(109,179,200,0.3); }
+  .tag-revise       { background: rgba(242,100,25,0.12); color: var(--orange); border: 1px solid rgba(242,100,25,0.25); }
+  .tag-no-rollout   { background: rgba(224,112,112,0.12); color: var(--red); border: 1px solid rgba(224,112,112,0.25); }
+
+  .rec-body {
+    background: var(--soft);
+    padding: 12px 14px;
+  }
+
+  .rec-pathway-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .rec-option {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 8px;
+    text-align: center;
+    background: var(--white);
+  }
+
+  .rec-option.selected {
+    border-color: var(--green);
+    background: rgba(126,203,142,0.1);
+  }
+
+  .rec-option-icon {
+    font-size: 14pt;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .rec-option-label {
+    font-size: 7pt;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--muted);
+  }
+
+  .rec-option.selected .rec-option-label {
+    color: #5aaa6a;
+  }
+
+  .rec-rationale {
+    font-size: 8.5pt;
+    color: var(--dark);
+    line-height: 1.6;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+  }
+
+  /* ── Annotation callout ───────────────────────────────────────── */
+  .annotation {
+    background: rgba(242,100,25,0.06);
+    border: 1px dashed rgba(242,100,25,0.25);
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-top: 8px;
+    font-size: 7.5pt;
+    color: var(--orange);
+    line-height: 1.5;
+  }
+
+  .annotation strong {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Footer ───────────────────────────────────────────────────── */
+  .page-footer {
+    border-top: 1px solid var(--border);
+    padding: 6px 16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+
+  .footer-text  { font-size: 7pt; color: var(--muted); }
+  .footer-brand { font-size: 7pt; font-weight: 700; color: var(--dark); opacity: 0.4; }
+
+  /* ── Confidential strip ───────────────────────────────────────── */
+  .confidential-bar {
+    background: rgba(28,63,96,0.07);
+    border-top: 1px solid rgba(28,63,96,0.12);
+    padding: 4px 16mm;
+    text-align: center;
+    font-size: 6.5pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 1 — COVER + EXECUTIVE SUMMARY + KPI DASHBOARD
+═══════════════════════════════════════════════════════════ -->
+<div class="page">
+
+  <!-- Sample Watermark -->
+  <div class="sample-banner">
+    <span class="sample-banner-text">Sample · Anonymised Illustration</span>
+    <span class="sample-banner-note">All institution data, learner details, and outcome scores in this document are illustrative only</span>
+  </div>
+
+  <!-- Cover Header -->
+  <div class="cover-header">
+    <div class="cover-eyebrow">World Wise Learning · Jurassic English™ · Pilot Report</div>
+    <div class="cover-logo">Jurassic English<span>™</span></div>
+    <div class="cover-title">Pilot Programme<br>Executive Summary</div>
+
+    <div class="cover-meta-grid">
+      <div class="cover-meta-item">
+        <span class="meta-label">Institution</span>
+        <span class="meta-value">[Anonymised School]</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="meta-label">Pilot Duration</span>
+        <span class="meta-value teal">7 Weeks</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="meta-label">Learner Group</span>
+        <span class="meta-value">Grade 5 · 24 Students</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="meta-label">Recommendation</span>
+        <span class="meta-value gold">Proceed to Rollout</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- Executive Summary -->
+    <div class="sec-heading">
+      Executive Summary
+      <span class="sec-note">Institution context and headline finding</span>
+    </div>
+
+    <div class="exec-summary-grid">
+      <div class="exec-field">
+        <div class="exec-field-label">Programme Level</div>
+        <div class="exec-field-value">Level 3 — A2 (Upper Primary)</div>
+      </div>
+      <div class="exec-field">
+        <div class="exec-field-label">Pilot Pathway</div>
+        <div class="exec-field-value">Institutional MVP Pilot</div>
+      </div>
+      <div class="exec-field">
+        <div class="exec-field-label">Standards Context</div>
+        <div class="exec-field-value">Vietnam MOET Grade 5 English Curriculum</div>
+      </div>
+      <div class="exec-field">
+        <div class="exec-field-label">Teacher Team</div>
+        <div class="exec-field-value">2 teachers · 1 Teacher Champion designated</div>
+      </div>
+      <div class="exec-field full">
+        <div class="exec-field-label">Context Summary</div>
+        <div class="exec-field-value">The institution identified a gap between the volume of English instruction and the quality of student reasoning and written expression. The pilot was activated to evaluate whether Jurassic English could address this gap within existing timetable constraints, without replacing the core phonics programme.</div>
+      </div>
+      <div class="exec-field full">
+        <div class="exec-field-label">Headline Finding</div>
+        <div class="exec-field-value">The pilot produced strong reasoning evidence and adequate teacher fidelity across the 7-week window. Operational load was within expected bounds. The institution is recommended to proceed to a full Year Group rollout in the next academic term, contingent on expanded teacher orientation for the additional 3 teachers not included in this pilot.</div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <strong>Sample Note:</strong> In a real report, this section reflects the specific institution context, learner profile, and academic environment agreed at the scoping stage. It is written for a senior leadership audience and does not repeat operational detail found in later sections.
+    </div>
+
+    <!-- KPI Dashboard -->
+    <div class="sec-heading" style="margin-top: 12px;">
+      KPI Block
+      <span class="sec-note">Six evidence dimensions · scored against pilot benchmark</span>
+    </div>
+
+    <div class="kpi-dashboard no-break">
+      <div class="kpi-dashboard-header">
+        <span class="kpi-dashboard-title">Pilot Evidence Dashboard</span>
+        <div class="kpi-dashboard-legend">
+          <div class="legend-item"><div class="legend-dot dot-strong"></div>Strong</div>
+          <div class="legend-item"><div class="legend-dot dot-adequate"></div>Adequate</div>
+          <div class="legend-item"><div class="legend-dot dot-risk"></div>Needs attention</div>
+        </div>
+      </div>
+      <div class="kpi-grid">
+
+        <div class="kpi-cell">
+          <div class="kpi-cell-header">
+            <div class="kpi-cell-title">Student Reasoning Evidence</div>
+            <div class="kpi-rating rating-strong">S</div>
+          </div>
+          <div class="kpi-bar-track"><div class="kpi-bar-fill fill-strong" style="width: 84%"></div></div>
+          <div class="kpi-summary">Comprehension, evidence use, and justification quality above benchmark by Week 4. Written response length and specificity increased across both classes.</div>
+        </div>
+
+        <div class="kpi-cell">
+          <div class="kpi-cell-header">
+            <div class="kpi-cell-title">Teacher Fidelity</div>
+            <div class="kpi-rating rating-adequate">A</div>
+          </div>
+          <div class="kpi-bar-track"><div class="kpi-bar-fill fill-adequate" style="width: 62%"></div></div>
+          <div class="kpi-summary">Teacher Champion demonstrated consistent Thinking Cycle delivery. Second teacher showed improvement through Weeks 4–6 but required additional coaching on discussion protocols.</div>
+        </div>
+
+        <div class="kpi-cell">
+          <div class="kpi-cell-header">
+            <div class="kpi-cell-title">Progression Fit</div>
+            <div class="kpi-rating rating-strong">S</div>
+          </div>
+          <div class="kpi-bar-track"><div class="kpi-bar-fill fill-strong" style="width: 78%"></div></div>
+          <div class="kpi-summary">Level 3 language demand and text complexity matched the cohort effectively. No learners required level adjustment. Assessment expectations aligned with MOET Grade 5 outcomes.</div>
+        </div>
+
+        <div class="kpi-cell">
+          <div class="kpi-cell-header">
+            <div class="kpi-cell-title">Operational Load</div>
+            <div class="kpi-rating rating-adequate">A</div>
+          </div>
+          <div class="kpi-bar-track"><div class="kpi-bar-fill fill-adequate" style="width: 58%"></div></div>
+          <div class="kpi-summary">Weekly review meetings held on schedule. Materials print load within budget. Two scheduling disruptions in Week 3 (school assembly) managed without evidence impact.</div>
+        </div>
+
+        <div class="kpi-cell">
+          <div class="kpi-cell-header">
+            <div class="kpi-cell-title">Stakeholder Confidence</div>
+            <div class="kpi-rating rating-strong">S</div>
+          </div>
+          <div class="kpi-bar-track"><div class="kpi-bar-fill fill-strong" style="width: 80%"></div></div>
+          <div class="kpi-summary">Principal engaged throughout. Academic Lead attended 3 of 4 review touchpoints. Parent feedback informal but positive; one parent inquiry about continuing the programme.</div>
+        </div>
+
+        <div class="kpi-cell">
+          <div class="kpi-cell-header">
+            <div class="kpi-cell-title">Commercial Readiness</div>
+            <div class="kpi-rating rating-adequate">A</div>
+          </div>
+          <div class="kpi-bar-track"><div class="kpi-bar-fill fill-adequate" style="width: 65%"></div></div>
+          <div class="kpi-summary">Evidence supports a Year Group rollout pathway. Full-school adoption would require a second teacher orientation cohort and expanded materials budget. Budget discussion initiated.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="annotation">
+      <strong>Sample Note:</strong> In a real report, each KPI cell reflects structured evidence collected across the pilot window — not impression or subjective rating. Scores are calibrated against the agreed success measures from the scoping stage. The dashboard format is designed for board and leadership review without requiring deep reading of implementation detail.
+    </div>
+
+  </div>
+
+  <div class="confidential-bar">Confidential · Anonymised Sample Illustration · Jurassic English / World Wise Learning · Not for public distribution</div>
+  <div class="page-footer">
+    <span class="footer-text">Pilot Executive Summary · Sample · Jurassic English™</span>
+    <span class="footer-brand">jurassicenglish.com</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 2 — OBSERVATIONS + RECOMMENDATION
+═══════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+
+  <div class="sample-banner">
+    <span class="sample-banner-text">Sample · Anonymised Illustration</span>
+    <span class="sample-banner-note">Continued — Implementation Observations and Rollout Recommendation</span>
+  </div>
+
+  <div class="running-header">
+    <span class="rh-logo">Jurassic English<span>™</span></span>
+    <span class="rh-label">Pilot Executive Summary · Sample</span>
+  </div>
+
+  <div class="content">
+
+    <!-- Implementation Observations -->
+    <div class="sec-heading">
+      Implementation Observations
+      <span class="sec-note">What helped delivery · what created friction</span>
+    </div>
+
+    <div class="observations-grid no-break">
+      <div class="obs-section">
+        <div class="obs-header positive">
+          <div class="obs-header-dot dot-positive"></div>
+          <span class="obs-header-label label-positive">What Supported Delivery</span>
+        </div>
+        <ul class="obs-items">
+          <li>Teacher Champion's pre-existing familiarity with literature-based discussion reduced orientation time by approximately 30 minutes.</li>
+          <li>Class size (12 per group) was well-suited to the discussion protocols — larger groups may require adapted seating logistics.</li>
+          <li>Weekly review meetings maintained momentum and gave teachers a structured feedback loop throughout implementation.</li>
+          <li>School leadership visible buy-in reduced teacher hesitation during early weeks when methodology was unfamiliar.</li>
+        </ul>
+      </div>
+      <div class="obs-section">
+        <div class="obs-header friction">
+          <div class="obs-header-dot dot-friction"></div>
+          <span class="obs-header-label label-friction">What Created Friction</span>
+        </div>
+        <ul class="obs-items">
+          <li>Second teacher required additional support with questioning routines in Weeks 2–3; addressed via brief coaching note before Week 4 session.</li>
+          <li>Print materials required advance preparation — last-minute printing in Week 1 caused a minor lesson delay.</li>
+          <li>One scheduling disruption (school assembly) displaced a pilot session; rescheduled successfully but created timetable pressure.</li>
+          <li>Parent communication about the programme was informal only; a brief written note earlier would have pre-empted the parent enquiry received in Week 5.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <strong>Sample Note:</strong> Real implementation observations are drawn from structured teacher fidelity notes, operational log entries, and weekly review meeting summaries. They are specific to the institution and classified by impact level. This section is the most operationally useful section of the report for planning a rollout.
+    </div>
+
+    <!-- Rollout Recommendation -->
+    <div class="sec-heading" style="margin-top: 12px;">
+      Rollout Recommendation
+      <span class="sec-note">One of five pathways · with rationale</span>
+    </div>
+
+    <div class="recommendation-block no-break">
+      <div class="rec-header">
+        <span class="rec-header-title">Recommended Pathway</span>
+        <span class="rec-outcome-tag tag-proceed">Proceed to Rollout</span>
+      </div>
+      <div class="rec-body">
+        <div class="rec-pathway-options">
+          <div class="rec-option selected">
+            <span class="rec-option-icon">✓</span>
+            <span class="rec-option-label">Proceed to Rollout</span>
+          </div>
+          <div class="rec-option">
+            <span class="rec-option-icon">↺</span>
+            <span class="rec-option-label">Extend Pilot</span>
+          </div>
+          <div class="rec-option">
+            <span class="rec-option-icon">⬆</span>
+            <span class="rec-option-label">Prepare Teachers First</span>
+          </div>
+          <div class="rec-option">
+            <span class="rec-option-icon">⇄</span>
+            <span class="rec-option-label">Adjust Level Placement</span>
+          </div>
+          <div class="rec-option">
+            <span class="rec-option-icon">✗</span>
+            <span class="rec-option-label">No Rollout</span>
+          </div>
+        </div>
+        <div class="rec-rationale">
+          <strong>Rationale:</strong> The pilot produced sufficient evidence across all six KPI dimensions to support a Year Group rollout recommendation. Student reasoning evidence was strong; progression fit was confirmed; operational load was within bounds. Teacher fidelity was adequate and improving. The one identified gap — teacher preparation for the expanded cohort — is manageable through a standard orientation session before the next term begins and does not require a pilot extension.
+          <br><br>
+          <strong>Conditions for Rollout:</strong> (1) Expanded teacher orientation for 3 additional teachers before term start. (2) Advance materials preparation of at least 5 business days before first lesson. (3) Parent communication note distributed in the first week of the new term. (4) Pilot Sponsor to confirm commercial pathway and licensing scope within 30 days.
+        </div>
+      </div>
+    </div>
+
+    <div class="annotation">
+      <strong>Sample Note:</strong> In a real report, the recommendation is written after a final debrief meeting with the Pilot Sponsor, Academic Lead, and Implementation Lead. It is one unambiguous pathway — not a range of options. The conditions attached to the recommendation are specific and time-bound. This section is the primary decision asset for board or ownership review.
+    </div>
+
+    <!-- Next Step Block -->
+    <div class="sec-heading" style="margin-top: 12px;">
+      Suggested Next Step
+    </div>
+
+    <table style="font-size: 8.5pt; margin-bottom: 10px;">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Owner</th>
+          <th>Target Date</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Confirm rollout commercial pathway</td>
+          <td>Pilot Sponsor + JE Team</td>
+          <td>Within 30 days</td>
+          <td>Licensing scope and pricing to be reviewed via private briefing</td>
+        </tr>
+        <tr>
+          <td>Schedule expanded teacher orientation</td>
+          <td>Implementation Lead</td>
+          <td>Before next term</td>
+          <td>3 additional teachers; 90-minute session</td>
+        </tr>
+        <tr>
+          <td>Advance materials preparation</td>
+          <td>Implementation Lead</td>
+          <td>5 days before first lesson</td>
+          <td>Print run and distribution logistics to be confirmed</td>
+        </tr>
+        <tr>
+          <td>Parent communication note</td>
+          <td>Academic Lead</td>
+          <td>Week 1 of new term</td>
+          <td>Brief written note; JE team can provide suggested language</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="confidential-bar">Confidential · Anonymised Sample Illustration · Jurassic English / World Wise Learning · Not for public distribution</div>
+  <div class="page-footer">
+    <span class="footer-text">Pilot Executive Summary · Sample · Page 2 of 2</span>
+    <span class="footer-brand">jurassicenglish.com</span>
+  </div>
+</div>
+
+</body>
+</html>

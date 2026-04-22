@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jurassic English™ — Pilot Readiness Checklist</title>
+<style>
+  /* ── Brand Tokens ─────────────────────────────────────────────── */
+  :root {
+    --dark:   #101820;
+    --blue:   #1C3F60;
+    --gold:   #D4AF37;
+    --teal:   #6db3c8;
+    --orange: #F26419;
+    --ivory:  #F4F1EA;
+    --soft:   #f8f7f4;
+    --white:  #ffffff;
+    --muted:  #4a5568;
+    --border: #e2d9cc;
+    --green:  #7ecb8e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.6;
+    color: var(--dark);
+    background: var(--white);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page { size: A4; margin: 0; }
+  @media print {
+    .page-break { page-break-before: always; }
+    .no-break   { page-break-inside: avoid; }
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Cover Header ─────────────────────────────────────────────── */
+  .cover-header {
+    background: var(--dark);
+    padding: 14mm 16mm 12mm;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+  }
+
+  .cover-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--teal), transparent);
+  }
+
+  .cover-eyebrow {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .cover-logo {
+    font-size: 11pt;
+    font-weight: 800;
+    color: var(--white);
+  }
+  .cover-logo span { color: var(--gold); }
+
+  .cover-title {
+    font-size: 20pt;
+    font-weight: 700;
+    color: var(--white);
+    margin-top: 10px;
+    line-height: 1.15;
+  }
+
+  .cover-subtitle {
+    font-size: 9.5pt;
+    color: rgba(255,255,255,0.55);
+    margin-top: 6px;
+    line-height: 1.5;
+    max-width: 130mm;
+  }
+
+  .cover-badges {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .cover-badge {
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .badge-gold   { background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3); color: var(--gold); }
+  .badge-teal   { background: rgba(109,179,200,0.12); border: 1px solid rgba(109,179,200,0.25); color: var(--teal); }
+  .badge-ivory  { background: rgba(244,241,234,0.1); border: 1px solid rgba(244,241,234,0.15); color: rgba(255,255,255,0.5); }
+
+  /* ── Institution Details Block ────────────────────────────────── */
+  .institution-block {
+    background: var(--ivory);
+    border-bottom: 2px solid var(--border);
+    padding: 8mm 16mm;
+  }
+
+  .institution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .institution-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .field-label {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .field-line {
+    border-bottom: 1px solid #b0a898;
+    min-height: 16px;
+    width: 100%;
+  }
+
+  /* ── Instructions Block ───────────────────────────────────────── */
+  .instructions-block {
+    background: var(--blue);
+    padding: 8px 16mm;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .instructions-text {
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.5;
+  }
+
+  .instructions-text strong { color: var(--white); }
+
+  /* ── Main Content ─────────────────────────────────────────────── */
+  .content {
+    padding: 6mm 16mm 8mm;
+    flex: 1;
+  }
+
+  /* ── Section Block ────────────────────────────────────────────── */
+  .checklist-section {
+    margin-bottom: 12px;
+  }
+
+  .section-header-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .section-letter {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9pt;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .letter-a { background: var(--gold); color: var(--dark); }
+  .letter-b { background: var(--teal); color: var(--dark); }
+  .letter-c { background: var(--orange); color: var(--white); }
+  .letter-d { background: var(--blue); color: var(--white); }
+
+  .section-heading {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: 0.02em;
+  }
+
+  .section-count {
+    margin-left: auto;
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Checklist Items ──────────────────────────────────────────── */
+  .checklist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .checklist-item {
+    display: grid;
+    grid-template-columns: 28px 1fr 60px;
+    align-items: center;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    min-height: 28px;
+  }
+
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-item:nth-child(odd)  { background: var(--soft); }
+  .checklist-item:nth-child(even) { background: var(--white); }
+
+  .item-checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-right: 1px solid var(--border);
+  }
+
+  .checkbox-box {
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid #b0a898;
+    border-radius: 2px;
+    background: var(--white);
+  }
+
+  .item-text {
+    padding: 6px 10px;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    color: var(--dark);
+  }
+
+  .item-notes {
+    padding: 4px 8px;
+    border-left: 1px solid var(--border);
+    height: 100%;
+    font-size: 7pt;
+    color: var(--muted);
+    font-style: italic;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── Scoring Block ────────────────────────────────────────────── */
+  .scoring-block {
+    background: var(--dark);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .scoring-header {
+    padding: 8px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .scoring-header-title {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .scoring-header-note {
+    font-size: 7pt;
+    color: rgba(255,255,255,0.3);
+    font-style: italic;
+  }
+
+  .scoring-rows {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+
+  .scoring-row {
+    padding: 10px 14px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .scoring-row:last-child { border-right: none; }
+
+  .score-range {
+    font-size: 14pt;
+    font-weight: 800;
+    margin-bottom: 3px;
+    line-height: 1;
+  }
+
+  .score-range.high   { color: var(--green); }
+  .score-range.mid    { color: var(--gold); }
+  .score-range.low    { color: var(--orange); }
+
+  .score-label {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+
+  .score-action {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+  }
+
+  /* ── Operator Notes ───────────────────────────────────────────── */
+  .operator-notes {
+    background: rgba(28,63,96,0.06);
+    border: 1px solid rgba(28,63,96,0.15);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 4px 4px 0;
+    padding: 8px 12px;
+    margin-top: 10px;
+  }
+
+  .operator-notes-label {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+
+  .operator-notes-text {
+    font-size: 8pt;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── Return Block ─────────────────────────────────────────────── */
+  .return-block {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    align-items: start;
+  }
+
+  .return-block-left h4 {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .return-block-left p {
+    font-size: 8pt;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .return-block-right {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .return-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .return-field-label {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .return-field-line {
+    border-bottom: 1px solid #b0a898;
+    min-height: 14px;
+  }
+
+  /* ── Footer ───────────────────────────────────────────────────── */
+  .page-footer {
+    border-top: 1px solid var(--border);
+    padding: 6px 16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text  { font-size: 7pt; color: var(--muted); }
+  .footer-brand { font-size: 7pt; font-weight: 700; color: var(--dark); opacity: 0.4; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Cover Header -->
+  <div class="cover-header">
+    <div class="cover-eyebrow">World Wise Learning · Jurassic English™</div>
+    <div class="cover-logo">Jurassic English<span>™</span></div>
+    <div class="cover-title">Pilot Readiness<br>Checklist</div>
+    <div class="cover-subtitle">A self-assessment tool for institutions considering the Jurassic English Pilot Programme. Complete all four sections before your scoping conversation.</div>
+    <div class="cover-badges">
+      <span class="cover-badge badge-gold">20 Items · 4 Sections</span>
+      <span class="cover-badge badge-teal">Institution Self-Assessment</span>
+      <span class="cover-badge badge-ivory">Confidential</span>
+    </div>
+  </div>
+
+  <!-- Institution Details -->
+  <div class="institution-block">
+    <div class="institution-grid">
+      <div class="institution-field">
+        <span class="field-label">Institution Name</span>
+        <div class="field-line"></div>
+      </div>
+      <div class="institution-field">
+        <span class="field-label">Contact Name &amp; Role</span>
+        <div class="field-line"></div>
+      </div>
+      <div class="institution-field">
+        <span class="field-label">Date Completed</span>
+        <div class="field-line"></div>
+      </div>
+      <div class="institution-field">
+        <span class="field-label">Organisation Type</span>
+        <div class="field-line"></div>
+      </div>
+      <div class="institution-field">
+        <span class="field-label">Approximate Learner Count</span>
+        <div class="field-line"></div>
+      </div>
+      <div class="institution-field">
+        <span class="field-label">Country / Region</span>
+        <div class="field-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions-block">
+    <div class="instructions-text">
+      <strong>Instructions:</strong> Check each item that your institution can currently confirm. Be honest — this checklist is a planning tool, not a test. Items you cannot check today indicate where preparation is needed before a pilot can begin.
+      Return the completed checklist to <strong>info@jurassicenglish.com</strong> or bring it to your scoping conversation.
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+
+    <!-- SECTION A -->
+    <div class="checklist-section no-break">
+      <div class="section-header-bar">
+        <div class="section-letter letter-a">A</div>
+        <div class="section-heading">Institutional Alignment</div>
+        <div class="section-count">6 items</div>
+      </div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">A named senior sponsor (Principal, Director, or Owner) can protect the pilot mandate for the full 6–8 week window.</div>
+          <div class="item-notes">Required</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">There is a defined curriculum problem or adoption decision being evaluated — not general curiosity about new materials.</div>
+          <div class="item-notes">Required</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">A specific learner group (class, year group, or programme segment) can be dedicated to the pilot without disrupting other classes.</div>
+          <div class="item-notes">Required</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">The pilot timeline does not conflict with major exam periods, public holidays, or institutional events.</div>
+          <div class="item-notes">Planning</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">Leadership has formally approved investigation of a new curriculum pathway — this is not a single teacher's initiative.</div>
+          <div class="item-notes">Required</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">Parent or stakeholder communication about a curriculum trial can be managed within the pilot window if required.</div>
+          <div class="item-notes">Planning</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION B -->
+    <div class="checklist-section no-break">
+      <div class="section-header-bar">
+        <div class="section-letter letter-b">B</div>
+        <div class="section-heading">Academic Readiness</div>
+        <div class="section-count">5 items</div>
+      </div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">An academic lead (Curriculum Coordinator, Academic Director, or equivalent) is named and has authority to make curriculum decisions.</div>
+          <div class="item-notes">Required</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">The target CEFR level (Pre-A1 through C1) for the pilot group is understood or can be identified before scoping begins.</div>
+          <div class="item-notes">Planning</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">Teachers involved can be protected from competing CPD commitments or curriculum changes during the pilot window.</div>
+          <div class="item-notes">Planning</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">Baseline student data (recent level placement, assessment results) is available or can be gathered before pilot launch.</div>
+          <div class="item-notes">Preferred</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">The institution has reviewed or is open to reviewing the Jurassic Thinking Cycle methodology before teacher orientation.</div>
+          <div class="item-notes">Preferred</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION C -->
+    <div class="checklist-section no-break">
+      <div class="section-header-bar">
+        <div class="section-letter letter-c">C</div>
+        <div class="section-heading">Teacher Readiness</div>
+        <div class="section-count">4 items</div>
+      </div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">At least one Teacher Champion is identified by name and has indicated willingness to lead classroom implementation.</div>
+          <div class="item-notes">Required</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">The teacher team can commit to a 90-minute orientation session before pilot launch and weekly review touchpoints during implementation.</div>
+          <div class="item-notes">Required</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">Teachers are comfortable submitting structured lesson observations and short fidelity notes during the pilot (approx. 15 min/week).</div>
+          <div class="item-notes">Planning</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">There is no contractual, union, or policy constraint on adopting new curriculum materials within the pilot timeframe.</div>
+          <div class="item-notes">Planning</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION D -->
+    <div class="checklist-section no-break">
+      <div class="section-header-bar">
+        <div class="section-letter letter-d">D</div>
+        <div class="section-heading">Operational Capacity</div>
+        <div class="section-count">5 items</div>
+      </div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">An Implementation Lead is named with authority over timetabling, materials procurement, and internal communications.</div>
+          <div class="item-notes">Required</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">Materials can be sourced or printed within the pilot's operational budget without requiring special procurement approval.</div>
+          <div class="item-notes">Planning</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">Weekly review meetings (30–45 minutes) can be protected across the full 6–8 week window for the implementation team.</div>
+          <div class="item-notes">Planning</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">Student work samples can be collected, stored securely, and made available for review during and after the pilot.</div>
+          <div class="item-notes">Required</div>
+        </div>
+        <div class="checklist-item">
+          <div class="item-checkbox"><div class="checkbox-box"></div></div>
+          <div class="item-text">The institution can commit to a final debrief meeting (60 minutes) with a Jurassic English representative at the end of the pilot.</div>
+          <div class="item-notes">Required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scoring Block -->
+    <div class="scoring-block no-break">
+      <div class="scoring-header">
+        <span class="scoring-header-title">Scoring Guide</span>
+        <span class="scoring-header-note">For institutional and operator use · not a pass/fail test</span>
+      </div>
+      <div class="scoring-rows">
+        <div class="scoring-row">
+          <div class="score-range high">18–20</div>
+          <div class="score-label">High Readiness</div>
+          <div class="score-action">Proceed to pilot scope conversation. All required items should be checked before launch.</div>
+        </div>
+        <div class="scoring-row">
+          <div class="score-range mid">13–17</div>
+          <div class="score-label">Moderate Readiness</div>
+          <div class="score-action">Identify unchecked items. Address Required gaps before committing. Preferred gaps can follow.</div>
+        </div>
+        <div class="scoring-row">
+          <div class="score-range low">Below 13</div>
+          <div class="score-label">Pre-Pilot Advisory</div>
+          <div class="score-action">An Audit Sprint or advisory session is recommended before a full pilot is activated.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Operator Notes -->
+    <div class="operator-notes no-break">
+      <div class="operator-notes-label">Operator Note — Internal Use Only</div>
+      <div class="operator-notes-text">
+        Items marked <strong>Required</strong> are non-negotiable — a pilot cannot produce reliable evidence without them. Items marked <strong>Planning</strong> indicate preparation work that should be done before launch but can be addressed during the setup phase. Items marked <strong>Preferred</strong> improve evidence quality but are not blockers. If all Required items are checked and score is ≥ 13, proceed to scoping. If any Required item is unchecked, address it before advancing.
+      </div>
+    </div>
+
+    <!-- Return Block -->
+    <div class="return-block no-break">
+      <div class="return-block-left">
+        <h4>Return this checklist to</h4>
+        <p>info@jurassicenglish.com<br>
+        Or bring it to your scoping conversation.<br><br>
+        Your responses help us recommend the right pilot pathway and identify preparation steps before your institution commits.</p>
+      </div>
+      <div class="return-block-right">
+        <div class="return-field">
+          <span class="return-field-label">Total items checked (out of 20)</span>
+          <div class="return-field-line"></div>
+        </div>
+        <div class="return-field">
+          <span class="return-field-label">Unchecked Required items (list)</span>
+          <div class="return-field-line"></div>
+          <div class="return-field-line"></div>
+        </div>
+        <div class="return-field">
+          <span class="return-field-label">Preferred pilot start date</span>
+          <div class="return-field-line"></div>
+        </div>
+        <div class="return-field">
+          <span class="return-field-label">Preferred contact for scoping call</span>
+          <div class="return-field-line"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <span class="footer-text">Pilot Readiness Checklist · Jurassic English / World Wise Learning · Confidential · Not for public distribution</span>
+    <span class="footer-brand">jurassicenglish.com</span>
+  </div>
+</div>
+
+</body>
+</html>

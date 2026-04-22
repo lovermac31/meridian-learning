@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jurassic English™ — Pilot Programme Overview Pack</title>
+<style>
+  /* ── Brand Tokens ─────────────────────────────────────────────── */
+  :root {
+    --dark:   #101820;
+    --blue:   #1C3F60;
+    --gold:   #D4AF37;
+    --teal:   #6db3c8;
+    --orange: #F26419;
+    --ivory:  #F4F1EA;
+    --soft:   #f8f7f4;
+    --white:  #ffffff;
+    --muted:  #4a5568;
+    --border: #e2d9cc;
+  }
+
+  /* ── Reset & Base ─────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.6;
+    color: var(--dark);
+    background: var(--white);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Print Setup ──────────────────────────────────────────────── */
+  @page { size: A4; margin: 0; }
+  @media print {
+    .page-break { page-break-before: always; }
+    .no-break   { page-break-inside: avoid; }
+  }
+
+  /* ── Layout ───────────────────────────────────────────────────── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .content {
+    padding: 14mm 16mm 16mm;
+  }
+
+  /* ── Cover Page ───────────────────────────────────────────────── */
+  .cover {
+    background: var(--dark);
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18mm 18mm 14mm;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: 40px; left: -40px;
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(109,179,200,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cover-eyebrow {
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .cover-logo {
+    font-size: 28pt;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-top: 6px;
+    line-height: 1.1;
+  }
+
+  .cover-logo span { color: var(--gold); }
+
+  .cover-divider {
+    width: 56px;
+    height: 2px;
+    background: var(--gold);
+    margin: 28px 0 20px;
+  }
+
+  .cover-title {
+    font-size: 22pt;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.25;
+    max-width: 140mm;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-size: 11pt;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    max-width: 120mm;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 5px 14px;
+    background: rgba(212,175,55,0.15);
+    border: 1px solid rgba(212,175,55,0.35);
+    border-radius: 3px;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .cover-footer {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cover-footer-left {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+  }
+
+  .cover-footer-right {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.3);
+    text-align: right;
+  }
+
+  .cover-pathway {
+    display: flex;
+    gap: 0;
+    margin-top: 36px;
+    align-items: center;
+  }
+
+  .cover-pathway-step {
+    font-size: 7.5pt;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 3px;
+  }
+
+  .cover-pathway-step.active {
+    color: var(--teal);
+    border-color: rgba(109,179,200,0.35);
+    background: rgba(109,179,200,0.08);
+  }
+
+  .cover-pathway-arrow {
+    color: rgba(255,255,255,0.2);
+    font-size: 9pt;
+    padding: 0 6px;
+  }
+
+  /* ── Section Headers ──────────────────────────────────────────── */
+  .section-header {
+    background: var(--dark);
+    padding: 10mm 16mm 8mm;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 16mm;
+    right: 16mm;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .section-eyebrow {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-size: 16pt;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .section-number {
+    position: absolute;
+    right: 16mm;
+    top: 10mm;
+    font-size: 36pt;
+    font-weight: 800;
+    color: rgba(212,175,55,0.12);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  /* ── Running Header (interior pages) ─────────────────────────── */
+  .running-header {
+    background: var(--dark);
+    padding: 7px 16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .running-header-logo {
+    font-size: 9pt;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .running-header-logo span { color: var(--gold); }
+
+  .running-header-label {
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── Running Footer ───────────────────────────────────────────── */
+  .running-footer {
+    border-top: 1px solid var(--border);
+    padding: 6px 16mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+
+  .running-footer-text {
+    font-size: 7pt;
+    color: var(--muted);
+  }
+
+  .running-footer-brand {
+    font-size: 7pt;
+    font-weight: 700;
+    color: var(--dark);
+    opacity: 0.4;
+  }
+
+  /* ── Body Typography ──────────────────────────────────────────── */
+  .body-text {
+    font-size: 10pt;
+    line-height: 1.7;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .body-text.lead {
+    font-size: 11pt;
+    color: var(--blue);
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 18px 0 8px;
+  }
+
+  h4 {
+    font-size: 9.5pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin: 14px 0 6px;
+  }
+
+  /* ── Phase Cards ──────────────────────────────────────────────── */
+  .phases-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .phase-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .phase-card-header {
+    background: var(--blue);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .phase-number {
+    font-size: 18pt;
+    font-weight: 800;
+    color: rgba(212,175,55,0.5);
+    line-height: 1;
+    min-width: 30px;
+  }
+
+  .phase-meta {
+    flex: 1;
+  }
+
+  .phase-duration {
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 2px;
+  }
+
+  .phase-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .phase-card-body {
+    padding: 12px 14px;
+    background: var(--soft);
+  }
+
+  .phase-purpose {
+    font-size: 9pt;
+    color: var(--muted);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .phase-outputs {
+    list-style: none;
+    margin-bottom: 8px;
+  }
+
+  .phase-outputs li {
+    font-size: 8.5pt;
+    color: var(--dark);
+    padding: 2px 0 2px 12px;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .phase-outputs li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .phase-gate {
+    font-size: 7.5pt;
+    font-style: italic;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* ── Measures Grid ────────────────────────────────────────────── */
+  .measures-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin: 14px 0;
+  }
+
+  .measure-tile {
+    background: var(--dark);
+    border-radius: 6px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .measure-icon {
+    font-size: 18pt;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .measure-label {
+    font-size: 8pt;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 5px;
+  }
+
+  .measure-detail {
+    font-size: 7pt;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.4;
+  }
+
+  /* ── Governance Table ─────────────────────────────────────────── */
+  .roles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .role-card {
+    border-left: 3px solid var(--gold);
+    padding: 10px 12px;
+    background: var(--soft);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .role-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .role-body {
+    font-size: 8.5pt;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── Commercial Pathways ──────────────────────────────────────── */
+  .pathways-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .pathway-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .pathway-card.recommended {
+    border-color: var(--gold);
+  }
+
+  .pathway-header {
+    padding: 10px 12px;
+    background: var(--blue);
+    position: relative;
+  }
+
+  .pathway-card.recommended .pathway-header {
+    background: var(--dark);
+  }
+
+  .pathway-rec-tag {
+    position: absolute;
+    top: 6px; right: 8px;
+    font-size: 6.5pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .pathway-name {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+
+  .pathway-fit-label {
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+
+  .pathway-body {
+    padding: 10px 12px;
+    background: var(--soft);
+  }
+
+  .pathway-fit {
+    font-size: 8.5pt;
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .pathway-model {
+    font-size: 8pt;
+    color: var(--muted);
+    line-height: 1.5;
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    margin-top: 4px;
+  }
+
+  /* ── Deliverables List ────────────────────────────────────────── */
+  .deliverables-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin: 12px 0;
+    list-style: none;
+  }
+
+  .deliverables-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--soft);
+    border-radius: 4px;
+    font-size: 8.5pt;
+    color: var(--dark);
+    line-height: 1.4;
+  }
+
+  .deliverables-list li::before {
+    content: '✓';
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 9pt;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Audience Cards ───────────────────────────────────────────── */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .audience-card {
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .audience-header {
+    background: var(--dark);
+    padding: 10px 12px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+
+  .audience-body {
+    padding: 10px 12px;
+    background: var(--soft);
+  }
+
+  .audience-headline {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+
+  .audience-detail {
+    font-size: 8.5pt;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── Pathway Visual (page pathway) ───────────────────────────── */
+  .pathway-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 16px 0;
+    padding: 14px 16px;
+    background: var(--dark);
+    border-radius: 8px;
+  }
+
+  .pv-step {
+    text-align: center;
+    padding: 8px 14px;
+  }
+
+  .pv-step.active {
+    background: rgba(212,175,55,0.12);
+    border-radius: 4px;
+    border: 1px solid rgba(212,175,55,0.25);
+  }
+
+  .pv-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .pv-step.active .pv-label {
+    color: var(--gold);
+  }
+
+  .pv-arrow {
+    color: rgba(255,255,255,0.2);
+    font-size: 12pt;
+    padding: 0 4px;
+  }
+
+  /* ── CTA Block ────────────────────────────────────────────────── */
+  .cta-block {
+    background: var(--dark);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cta-text h3 {
+    color: var(--white);
+    font-size: 12pt;
+    margin-bottom: 4px;
+  }
+
+  .cta-text p {
+    font-size: 9pt;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+    max-width: 110mm;
+  }
+
+  .cta-action {
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .cta-primary {
+    display: block;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 8.5pt;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-bottom: 6px;
+  }
+
+  .cta-secondary {
+    font-size: 7.5pt;
+    color: var(--teal);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .cta-note {
+    font-size: 7.5pt;
+    color: rgba(255,255,255,0.35);
+    margin-top: 10px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ── Confidentiality Banner ───────────────────────────────────── */
+  .confidential-banner {
+    background: rgba(28,63,96,0.1);
+    border: 1px solid rgba(28,63,96,0.2);
+    border-radius: 4px;
+    padding: 8px 14px;
+    font-size: 7.5pt;
+    color: var(--blue);
+    text-align: center;
+    margin: 14px 0;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── Table ────────────────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 8.5pt;
+  }
+
+  thead th {
+    background: var(--dark);
+    color: var(--gold);
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 10px;
+    text-align: left;
+    border: none;
+  }
+
+  tbody tr:nth-child(odd)  { background: var(--soft); }
+  tbody tr:nth-child(even) { background: var(--white); }
+
+  tbody td {
+    padding: 7px 10px;
+    color: var(--dark);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+
+  tbody td strong { color: var(--blue); }
+
+  /* ── Inline Utilities ─────────────────────────────────────────── */
+  .gold   { color: var(--gold); }
+  .teal   { color: var(--teal); }
+  .muted  { color: var(--muted); }
+  .spacer { margin: 14px 0; }
+  .spacer-sm { margin: 8px 0; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     COVER PAGE
+═══════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="cover">
+    <div>
+      <div class="cover-eyebrow">World Wise Learning · Jurassic English™</div>
+      <div class="cover-logo">Jurassic English<span>™</span></div>
+      <div class="cover-divider"></div>
+      <div class="cover-title">Pilot Programme<br>Overview Pack</div>
+      <div class="cover-subtitle">A governed 6–8 week institutional evaluation framework for schools, academies, and training centres. Structured for academic leadership, board-level review, and commercial adoption decisions.</div>
+      <div class="cover-badge">6–8 Week Evaluation Pathway</div>
+
+      <div class="cover-pathway">
+        <div class="cover-pathway-step">Audit Sprint</div>
+        <div class="cover-pathway-arrow">›</div>
+        <div class="cover-pathway-step active">Pilot Programme</div>
+        <div class="cover-pathway-arrow">›</div>
+        <div class="cover-pathway-step">Executive Review</div>
+        <div class="cover-pathway-arrow">›</div>
+        <div class="cover-pathway-step">Licensing / Scale</div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div class="cover-footer-left">
+        Prepared for institutional review<br>
+        jurassicenglish.com · info@jurassicenglish.com
+      </div>
+      <div class="cover-footer-right">
+        Confidential<br>
+        Not for public distribution<br>
+        Version April 2026
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 1 — WHAT THE PILOT IS
+═══════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="running-header">
+    <span class="running-header-logo">Jurassic English<span>™</span></span>
+    <span class="running-header-label">Pilot Programme Overview Pack</span>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">Section 01</div>
+    <div class="section-title">What the Pilot Is</div>
+    <div class="section-number">01</div>
+  </div>
+
+  <div class="content">
+    <p class="body-text lead">The Jurassic English Pilot Programme is a structured institutional evaluation framework — not a sample lesson, not a free trial, and not an open-ended classroom experiment.</p>
+
+    <p class="body-text">The pilot creates a controlled evidence base around a defined learner group, named implementation roles, agreed decision gates, and a final rollout recommendation. It is built for procurement, academic leadership, and investor-grade proof of adoption readiness.</p>
+
+    <h3>Four Elements Every Pilot Contains</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>What it means</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Scoped Cohort</strong></td>
+          <td>A specific learner group, class level, or programme segment agreed before launch. Not the whole school. Not a general impression.</td>
+        </tr>
+        <tr>
+          <td><strong>Implementation Plan</strong></td>
+          <td>A practical delivery plan aligned to the institution's timetable, teacher capacity, and standards context.</td>
+        </tr>
+        <tr>
+          <td><strong>Teacher Preparation</strong></td>
+          <td>Orientation and delivery guidance before classroom use begins, so the evidence produced is meaningful and replicable.</td>
+        </tr>
+        <tr>
+          <td><strong>Evidence Collection</strong></td>
+          <td>Structured capture across student work, teacher fidelity, progression fit, and operational load throughout the pilot window.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="confidential-banner">Confidential · Prepared for institutional review · Jurassic English / World Wise Learning</div>
+
+    <h3>What the Pilot Is Not</h3>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-title">Not a free trial</div>
+        <div class="role-body">The pilot is a commercial engagement with defined scope, named roles, and a final recommendation. It requires a real institutional commitment and produces a real deliverable.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-title">Not an open-ended impression</div>
+        <div class="role-body">Pilot outcomes are measured against agreed criteria, not general enthusiasm. The final report reflects structured evidence, not subjective teacher feedback alone.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-title">Not a replacement for scoping</div>
+        <div class="role-body">The pilot begins after institutional readiness is confirmed. If an institution is not yet ready, we recommend a smaller entry point — an Audit Sprint or advisory session — first.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-title">Not a one-size decision</div>
+        <div class="role-body">Three commercial pathways (Advisory-First, Institutional MVP, Scale Readiness) mean the pilot is scoped to fit the institution's actual readiness, not a fixed template.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="running-footer">
+    <span class="running-footer-text">Section 01 — What the Pilot Is</span>
+    <span class="running-footer-brand">Jurassic English™</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 2 — WHO IT IS FOR
+═══════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="running-header">
+    <span class="running-header-logo">Jurassic English<span>™</span></span>
+    <span class="running-header-label">Pilot Programme Overview Pack</span>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">Section 02</div>
+    <div class="section-title">Who the Pilot Is For</div>
+    <div class="section-number">02</div>
+  </div>
+
+  <div class="content">
+    <p class="body-text lead">The pilot is most useful when a buyer has moved beyond general interest and needs a structured way to test fit, feasibility, and implementation risk before committing to full licensing or multi-class deployment.</p>
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-header">School Leaders</div>
+        <div class="audience-body">
+          <div class="audience-headline">You need board-ready evidence before approving a new curriculum pathway.</div>
+          <div class="audience-detail">Use the pilot to evaluate whether Jurassic English supports your standards, academic positioning, teacher capacity, and parent-facing curriculum story.</div>
+        </div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-header">Academic Directors</div>
+        <div class="audience-body">
+          <div class="audience-headline">You need to know whether the methodology holds up in live classrooms.</div>
+          <div class="audience-detail">Use the pilot to assess teacher readiness, lesson fidelity, progression logic, and the quality of student reasoning evidence your classes can produce.</div>
+        </div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-header">Centre Owners</div>
+        <div class="audience-body">
+          <div class="audience-headline">You need a low-risk way to differentiate before investing in full rollout.</div>
+          <div class="audience-detail">Use the pilot to test commercial fit, operational load, teacher adoption, and whether the programme creates a defensible market position.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Qualifying Criteria</h3>
+    <p class="body-text">An institution is ready for a pilot when they can confirm all of the following:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          <th>Why it matters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Named Pilot Sponsor</strong></td>
+          <td>A senior decision-maker who can protect the pilot mandate and receive the final recommendation.</td>
+        </tr>
+        <tr>
+          <td><strong>Defined Learner Group</strong></td>
+          <td>A specific cohort that can be dedicated to the pilot. Without this, evidence cannot be attributed reliably.</td>
+        </tr>
+        <tr>
+          <td><strong>Protected Timeline</strong></td>
+          <td>A 6–8 week window that does not conflict with exams, major events, or teacher absences.</td>
+        </tr>
+        <tr>
+          <td><strong>Teacher Champion</strong></td>
+          <td>At least one teacher who is willing and available for the orientation and implementation phases.</td>
+        </tr>
+        <tr>
+          <td><strong>Commercial Intent</strong></td>
+          <td>A genuine adoption decision — not research, not general curiosity. The pilot is a procurement tool, not a demonstration.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="body-text muted" style="font-style: italic; font-size: 8.5pt;">If your institution does not yet meet all qualifying criteria, we will recommend a more appropriate entry point — such as an Audit Sprint or advisory session — before moving to a pilot.</p>
+  </div>
+
+  <div class="running-footer">
+    <span class="running-footer-text">Section 02 — Who the Pilot Is For</span>
+    <span class="running-footer-brand">Jurassic English™</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 3 — THE 4-PHASE STRUCTURE
+═══════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="running-header">
+    <span class="running-header-logo">Jurassic English<span>™</span></span>
+    <span class="running-header-label">Pilot Programme Overview Pack</span>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">Section 03</div>
+    <div class="section-title">The 4-Phase Structure</div>
+    <div class="section-number">03</div>
+  </div>
+
+  <div class="content">
+    <p class="body-text lead">Four phases. Four decision gates. One adoption recommendation.</p>
+    <p class="body-text">Every pilot follows the same operating logic: prepare the institution, activate classroom delivery, measure implementation evidence, then decide the correct commercial pathway. Exact scope depends on institution size and readiness.</p>
+
+    <div class="phases-grid">
+      <div class="phase-card no-break">
+        <div class="phase-card-header">
+          <div class="phase-number">01</div>
+          <div class="phase-meta">
+            <div class="phase-duration">Setup</div>
+            <div class="phase-title">Scope and Readiness Review</div>
+          </div>
+        </div>
+        <div class="phase-card-body">
+          <div class="phase-purpose">Define the institutional problem, pilot boundary, and success criteria before any classroom activity begins.</div>
+          <ul class="phase-outputs">
+            <li>Pilot scope note</li>
+            <li>Readiness checklist</li>
+            <li>Success measures agreed</li>
+          </ul>
+          <div class="phase-gate">Gate: Proceed only if the institution can name accountable roles, protect the pilot window, and supply baseline context.</div>
+        </div>
+      </div>
+
+      <div class="phase-card no-break">
+        <div class="phase-card-header">
+          <div class="phase-number">02</div>
+          <div class="phase-meta">
+            <div class="phase-duration">Week 1</div>
+            <div class="phase-title">Teacher and Admin Orientation</div>
+          </div>
+        </div>
+        <div class="phase-card-body">
+          <div class="phase-purpose">Prepare the delivery team to implement the methodology consistently enough for evidence to be meaningful.</div>
+          <ul class="phase-outputs">
+            <li>Orientation record</li>
+            <li>Delivery protocol</li>
+            <li>Evidence capture plan</li>
+          </ul>
+          <div class="phase-gate">Gate: Proceed only if the teacher team can demonstrate delivery readiness and the sponsor accepts the evidence protocol.</div>
+        </div>
+      </div>
+
+      <div class="phase-card no-break">
+        <div class="phase-card-header">
+          <div class="phase-number">03</div>
+          <div class="phase-meta">
+            <div class="phase-duration">Weeks 2–7</div>
+            <div class="phase-title">Guided Classroom Implementation</div>
+          </div>
+        </div>
+        <div class="phase-card-body">
+          <div class="phase-purpose">Run the pilot in live classrooms while measuring academic value, teacher fidelity, and operational feasibility.</div>
+          <ul class="phase-outputs">
+            <li>Evidence log</li>
+            <li>Teacher fidelity notes</li>
+            <li>Operational risk register</li>
+          </ul>
+          <div class="phase-gate">Gate: Continue, narrow, or pause if evidence quality, teacher capacity, or operational load falls outside agreed threshold.</div>
+        </div>
+      </div>
+
+      <div class="phase-card no-break">
+        <div class="phase-card-header">
+          <div class="phase-number">04</div>
+          <div class="phase-meta">
+            <div class="phase-duration">Week 8</div>
+            <div class="phase-title">Pilot Review and Rollout Recommendation</div>
+          </div>
+        </div>
+        <div class="phase-card-body">
+          <div class="phase-purpose">Convert pilot evidence into a clear institutional decision and commercially realistic next step.</div>
+          <ul class="phase-outputs">
+            <li>Pilot summary</li>
+            <li>KPI block</li>
+            <li>Rollout recommendation</li>
+          </ul>
+          <div class="phase-gate">Gate: Select next pathway: advisory continuation, institutional MVP, scale readiness, revised pilot, or no rollout.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="running-footer">
+    <span class="running-footer-text">Section 03 — The 4-Phase Structure</span>
+    <span class="running-footer-brand">Jurassic English™</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 4 — MEASURES + DELIVERABLES + GOVERNANCE
+═══════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="running-header">
+    <span class="running-header-logo">Jurassic English<span>™</span></span>
+    <span class="running-header-label">Pilot Programme Overview Pack</span>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">Section 04</div>
+    <div class="section-title">What Gets Measured · Deliverables · Governance</div>
+    <div class="section-number">04</div>
+  </div>
+
+  <div class="content">
+    <h4>What Gets Measured</h4>
+    <p class="body-text">The pilot is judged by evidence, not enthusiasm. Each pilot produces a practical evidence base that helps institutional buyers decide whether Jurassic English should move into a larger implementation pathway.</p>
+
+    <div class="measures-grid">
+      <div class="measure-tile">
+        <span class="measure-icon">🧠</span>
+        <div class="measure-label">Student Reasoning Evidence</div>
+        <div class="measure-detail">Comprehension, evidence use, justification, discussion, and written response quality</div>
+      </div>
+      <div class="measure-tile">
+        <span class="measure-icon">📋</span>
+        <div class="measure-label">Teacher Fidelity</div>
+        <div class="measure-detail">Consistency of Thinking Cycle delivery, questioning routines, and feedback expectations</div>
+      </div>
+      <div class="measure-tile">
+        <span class="measure-icon">📈</span>
+        <div class="measure-label">Progression Fit</div>
+        <div class="measure-detail">Level match, language demand, text complexity, and assessment alignment</div>
+      </div>
+      <div class="measure-tile">
+        <span class="measure-icon">⚙️</span>
+        <div class="measure-label">Operational Load</div>
+        <div class="measure-detail">Scheduling, preparation time, administrator oversight, and parent communication</div>
+      </div>
+      <div class="measure-tile">
+        <span class="measure-icon">🏛️</span>
+        <div class="measure-label">Commercial Readiness</div>
+        <div class="measure-detail">Whether the programme supports a credible full rollout or licensing pathway</div>
+      </div>
+    </div>
+
+    <div class="spacer-sm"></div>
+    <h4>What Institutions Receive</h4>
+
+    <ul class="deliverables-list">
+      <li>Pilot scope and readiness note</li>
+      <li>Teacher orientation and delivery protocol</li>
+      <li>Evidence capture framework</li>
+      <li>Weekly review notes and risk register</li>
+      <li>Student reasoning evidence sample review</li>
+      <li>Teacher fidelity and implementation observations</li>
+      <li>Operational load assessment</li>
+      <li>Final pilot report with rollout recommendation</li>
+    </ul>
+
+    <div class="spacer-sm"></div>
+    <h4>Governance Roles</h4>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-title">Pilot Sponsor</div>
+        <div class="role-body">Senior institutional owner who protects the pilot mandate, confirms commercial intent, and receives the final recommendation.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-title">Academic Lead</div>
+        <div class="role-body">Curriculum or academic decision-maker responsible for standards fit, learner placement, and interpretation of evidence.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-title">Implementation Lead</div>
+        <div class="role-body">Operational owner who coordinates timetable, materials access, communications, and pilot administration.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-title">Teacher Champion</div>
+        <div class="role-body">Classroom practitioner who models adoption, surfaces delivery friction, and supports teacher feedback quality.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="running-footer">
+    <span class="running-footer-text">Section 04 — Measures · Deliverables · Governance</span>
+    <span class="running-footer-brand">Jurassic English™</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 5 — COMMERCIAL PATHWAYS + NEXT STEP
+═══════════════════════════════════════════════════════════ -->
+<div class="page page-break">
+  <div class="running-header">
+    <span class="running-header-logo">Jurassic English<span>™</span></span>
+    <span class="running-header-label">Pilot Programme Overview Pack</span>
+  </div>
+
+  <div class="section-header">
+    <div class="section-eyebrow">Section 05</div>
+    <div class="section-title">Commercial Pathways and Next Step</div>
+    <div class="section-number">05</div>
+  </div>
+
+  <div class="content">
+    <p class="body-text lead">Three pilot pathways for different levels of readiness. The commercial model keeps adoption low-risk while preserving seriousness.</p>
+    <p class="body-text">Each pathway is scoped before launch and designed to produce an evidence-backed decision, not an open-ended trial.</p>
+
+    <div class="pathways-grid">
+      <div class="pathway-card">
+        <div class="pathway-header">
+          <div class="pathway-fit-label">Entry Level</div>
+          <div class="pathway-name">Advisory-First Pilot</div>
+        </div>
+        <div class="pathway-body">
+          <div class="pathway-fit">Best for institutions still clarifying curriculum problem, standards pressure, or internal readiness.</div>
+          <div class="pathway-model">Consultative pilot design, materials review, leadership advisory, and limited implementation planning before classroom activation.</div>
+        </div>
+      </div>
+
+      <div class="pathway-card recommended">
+        <div class="pathway-header">
+          <div class="pathway-rec-tag">Most Common</div>
+          <div class="pathway-fit-label">Core Pathway</div>
+          <div class="pathway-name">Institutional MVP Pilot</div>
+        </div>
+        <div class="pathway-body">
+          <div class="pathway-fit">Best for schools or centres ready to test one learner group, one level, or one defined programme segment.</div>
+          <div class="pathway-model">A contained classroom pilot with teacher orientation, evidence capture, review cadence, and final rollout recommendation.</div>
+        </div>
+      </div>
+
+      <div class="pathway-card">
+        <div class="pathway-header">
+          <div class="pathway-fit-label">Scale Track</div>
+          <div class="pathway-name">Scale Readiness Pilot</div>
+        </div>
+        <div class="pathway-body">
+          <div class="pathway-fit">Best for multi-class, multi-campus, or school-group buyers evaluating a wider adoption pathway.</div>
+          <div class="pathway-model">Pilot architecture focused on governance, teacher consistency, operational load, and hub-and-spoke expansion planning.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="pathway-visual">
+      <div class="pv-step"><div class="pv-label">Audit Sprint</div></div>
+      <div class="pv-arrow">›</div>
+      <div class="pv-step active"><div class="pv-label">Pilot Programme</div></div>
+      <div class="pv-arrow">›</div>
+      <div class="pv-step"><div class="pv-label">Executive Review</div></div>
+      <div class="pv-arrow">›</div>
+      <div class="pv-step"><div class="pv-label">Licensing / Scale</div></div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="cta-block">
+      <div class="cta-text">
+        <h3>Request a Pilot Consultation</h3>
+        <p>Use this pathway if your institution is ready to evaluate Jurassic English in a defined, evidence-producing pilot. If you are still exploring fit, we recommend beginning with a Discovery Call instead.</p>
+        <p class="cta-note">Pilot scope is confirmed before any implementation begins. We will recommend a smaller entry point if your institution is not yet ready for a full pilot.</p>
+      </div>
+      <div class="cta-action">
+        <a class="cta-primary" href="https://jurassicenglish.com/get-started?interest=curriculum_review&source=pilot-programme&access=consultation">Request Consultation</a>
+        <a class="cta-secondary" href="https://jurassicenglish.com/get-started?interest=curriculum_review&source=pilot-programme&access=pilot_pack">↗ Request Full Pack</a>
+      </div>
+    </div>
+
+    <div class="confidential-banner">Confidential · For institutional review only · Not for public distribution · jurassicenglish.com</div>
+  </div>
+
+  <div class="running-footer">
+    <span class="running-footer-text">Section 05 — Commercial Pathways and Next Step</span>
+    <span class="running-footer-brand">Jurassic English™</span>
+  </div>
+</div>
+
+</body>
+</html>
