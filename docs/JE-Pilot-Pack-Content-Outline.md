@@ -120,7 +120,7 @@ Helps institutions self-assess before committing to a pilot conversation. Also u
 **Section D — Operational Capacity (5 items)**
 - [ ] An Implementation Lead is named with authority over timetabling and materials
 - [ ] Materials can be sourced or printed within the pilot budget
-- [ ] Weekly review meetings (30–45 minutes) can be protected across the 6-8 week window
+- [ ] Weekly review meetings (30–45 minutes) can be protected across the 6–8 week window
 - [ ] Student work can be collected and held securely for review
 - [ ] The institution can commit to a final debrief meeting with a Jurassic English representative
 

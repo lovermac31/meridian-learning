@@ -33,9 +33,67 @@
   }
 
   @page { size: A4; margin: 0; }
+
+  /* ── Print compression — fits all 20 items on one A4 page ─────── */
   @media print {
-    .page-break { page-break-before: always; }
-    .no-break   { page-break-inside: avoid; }
+    .page-break   { page-break-before: always; }
+    .no-break     { page-break-inside: avoid; }
+
+    body          { font-size: 9pt; }
+
+    /* Tighter cover header */
+    .cover-header          { padding: 7mm 16mm 6mm; }
+    .cover-title           { font-size: 16pt; margin-top: 7px; }
+    .cover-subtitle        { font-size: 8.5pt; margin-top: 4px; }
+    .cover-badges          { margin-top: 6px; gap: 6px; }
+    .cover-badge           { padding: 3px 8px; font-size: 6.5pt; }
+
+    /* Tighter institution block */
+    .institution-block     { padding: 4mm 16mm; }
+    .field-label           { font-size: 6.5pt; }
+
+    /* Instructions strip */
+    .instructions-block    { padding: 5px 16mm; }
+    .instructions-text     { font-size: 8pt; }
+
+    /* Main content area */
+    .content               { padding: 3mm 16mm 4mm; }
+
+    /* Section headers */
+    .checklist-section     { margin-bottom: 7px; }
+    .section-header-bar    { margin-bottom: 5px; }
+    .section-letter        { width: 18px; height: 18px; font-size: 8pt; }
+    .section-heading       { font-size: 8.5pt; }
+    .section-count         { font-size: 7pt; }
+
+    /* Checklist rows */
+    .checklist-item        { min-height: 20px; }
+    .item-checkbox         { width: 26px; }
+    .checkbox-box          { width: 11px; height: 11px; }
+    .item-text             { padding: 3px 8px; font-size: 8pt; line-height: 1.35; }
+    .item-notes            { padding: 3px 6px; font-size: 6.5pt; }
+
+    /* Scoring block */
+    .scoring-block         { margin-top: 7px; }
+    .scoring-header        { padding: 5px 12px; }
+    .scoring-header-title  { font-size: 7.5pt; }
+    .scoring-row           { padding: 7px 12px; }
+    .score-range           { font-size: 11pt; }
+    .score-label           { font-size: 8pt; }
+    .score-action          { font-size: 7pt; }
+
+    /* Operator notes + return */
+    .operator-notes        { margin-top: 6px; padding: 5px 10px; }
+    .operator-notes-label  { font-size: 6.5pt; }
+    .operator-notes-text   { font-size: 7.5pt; }
+    .return-block          { margin-top: 6px; padding: 7px 12px; }
+    .return-block-left h4  { font-size: 8pt; }
+    .return-block-left p   { font-size: 7.5pt; }
+    .return-field-label    { font-size: 6.5pt; }
+
+    /* Footer */
+    .page-footer           { padding: 4px 16mm; }
+    .footer-text           { font-size: 6.5pt; }
   }
 
   .page {

@@ -2,7 +2,7 @@ export const pilotProgrammePageContent = {
   hero: {
     backCta: 'Back to main site',
     eyebrow: 'Institutional Pilot Programme',
-    badge: '6-8 Week Evaluation Pathway',
+    badge: '6–8 Week Evaluation Pathway',
     title: 'A governed pilot framework for institutional adoption decisions.',
     body: 'The Jurassic English Pilot Programme gives schools, academies, and training centres a structured way to evaluate academic fit, teacher readiness, operational load, and commercial rollout logic before committing to full licensing or multi-class deployment.',
     primaryCta: 'Request Full Pilot Pack',
