@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { writeSupabaseGetStarted } from './_lib/supabaseWriter.js';
 import {
   checkRateLimit,
   createThrottleLogContext,
@@ -39,10 +40,20 @@ const decisionStageOptions = [
   'ready_to_pilot',
 ] as const;
 
+const pilotAccessRequestOptions = [
+  'pilot_overview_pack',
+  'implementation_scope_overview',
+  'reporting_sample',
+  'readiness_checklist',
+  'institutional_programme_pack',
+  'pilot_consultation',
+] as const;
+
 type OrganizationType = (typeof organizationTypeOptions)[number];
 type PrimaryInterest = (typeof primaryInterestOptions)[number];
 type Timeline = (typeof timelineOptions)[number];
 type DecisionStage = (typeof decisionStageOptions)[number];
+type PilotAccessRequest = (typeof pilotAccessRequestOptions)[number];
 
 type GetStartedFormValues = {
   fullName: string;
@@ -64,6 +75,8 @@ type GetStartedFormValues = {
   newsletterOptIn: boolean;
   website: string;
   startedAt: string;
+  source: string;
+  accessRequest: PilotAccessRequest | '';
 };
 
 type NormalizedGetStartedSubmission = {
@@ -86,6 +99,8 @@ type NormalizedGetStartedSubmission = {
   successDefinition?: string;
   notes?: string;
   newsletterOptIn: boolean;
+  source?: string;
+  accessRequest?: PilotAccessRequest;
 };
 
 type ValidationErrorMap = Partial<Record<keyof GetStartedFormValues, string>>;
@@ -252,6 +267,10 @@ function validateGetStartedPayload(values: GetStartedFormValues): ValidationErro
     errors.decisionStage = 'Select a valid decision stage.';
   }
 
+  if (values.accessRequest && !isOption(values.accessRequest, pilotAccessRequestOptions)) {
+    errors.accessRequest = 'Select a valid pilot access request.';
+  }
+
   if (values.website.trim()) {
     errors.website = 'Spam detected.';
   }
@@ -285,6 +304,9 @@ function coerceGetStartedFormValues(input: unknown): GetStartedFormValues {
     newsletterOptIn: Boolean(record.newsletterOptIn),
     website: typeof record.website === 'string' ? record.website : '',
     startedAt: typeof record.startedAt === 'string' ? record.startedAt : '',
+    source: typeof record.source === 'string' ? record.source : '',
+    accessRequest:
+      typeof record.accessRequest === 'string' ? (record.accessRequest as PilotAccessRequest | '') : '',
   };
 }
 
@@ -314,6 +336,8 @@ function normalizeGetStartedPayload(
     successDefinition: cleanOptional(values.successDefinition),
     notes: cleanOptional(values.notes),
     newsletterOptIn: Boolean(values.newsletterOptIn),
+    source: cleanOptional(values.source),
+    accessRequest: values.accessRequest || undefined,
   };
 }
 
@@ -321,6 +345,8 @@ function formatSubmissionBody(submission: NormalizedGetStartedSubmission) {
   const lines = [
     `Submission ID: ${submission.submissionId}`,
     `Submitted At: ${submission.submittedAt}`,
+    `Source: ${submission.source || 'Not provided'}`,
+    `Pilot Access Request: ${submission.accessRequest || 'Not provided'}`,
     `Primary Interest: ${submission.primaryInterest}`,
     `Organization Name: ${submission.organizationName}`,
     `Organization Type: ${submission.organizationType}`,
@@ -466,6 +492,8 @@ function createSubmissionLogContext(submission: NormalizedGetStartedSubmission) 
     hasDecisionStage: Boolean(submission.decisionStage),
     hasSuccessDefinition: Boolean(submission.successDefinition),
     hasNotes: Boolean(submission.notes),
+    source: submission.source,
+    accessRequest: submission.accessRequest,
     newsletterOptIn: submission.newsletterOptIn,
     emailDomain: getEmailDomain(submission.workEmail),
   };
@@ -511,7 +539,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const submission = normalizeGetStartedPayload(values);
-  const notification = await sendGetStartedNotification(submission);
+
+  const [notification, supabaseResult] = await Promise.all([
+    sendGetStartedNotification(submission),
+    Promise.race([
+      writeSupabaseGetStarted(submission),
+      new Promise<{ ok: false; reason: string }>((resolve) =>
+        setTimeout(() => resolve({ ok: false, reason: 'supabase_timeout' }), 4000),
+      ),
+    ]),
+  ]);
+
+  console.info('[get-started] supabase write', {
+    submissionId:   submission.submissionId,
+    supabaseOk:     supabaseResult.ok,
+    supabaseReason: (supabaseResult as any).reason,
+  });
 
   console.info('[get-started] submission received', {
     ...createSubmissionLogContext(submission),

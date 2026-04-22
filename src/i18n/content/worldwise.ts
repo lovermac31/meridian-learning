@@ -101,6 +101,7 @@ export const worldwisePageContent = {
     body: 'We do not begin with pricing. We begin with understanding your programme. The Curriculum Coherence Audit is the fastest way to establish where you are and what the right next step looks like.',
     primaryCta: 'Request an Audit Sprint',
     secondaryCta: 'Book a Discovery Call',
+    pilotCta: 'View the Pilot Programme',
     overviewCta: 'Request a Curriculum Overview',
     note: 'All enquiries are reviewed by the WorldWise Learning team. We typically respond within two business days.',
   },

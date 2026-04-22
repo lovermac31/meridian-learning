@@ -7,6 +7,7 @@ import {
   type TermBlock,
 } from '../../lib/syllabusContent';
 import type { Locale } from '../locales';
+import type { DeepWiden } from './types';
 
 export { syllabusData, getSyllabusByRoutePath };
 
@@ -149,7 +150,9 @@ const viSyllabusPageContent = {
   },
 } as const;
 
-const syllabusPageContentByLocale: Record<Locale, typeof enSyllabusPageContent> = {
+type SyllabusPageContent = DeepWiden<typeof enSyllabusPageContent>;
+
+const syllabusPageContentByLocale: Record<Locale, SyllabusPageContent> = {
   en: enSyllabusPageContent,
   vi: viSyllabusPageContent,
 };

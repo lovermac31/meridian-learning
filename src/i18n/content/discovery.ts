@@ -93,6 +93,7 @@ export const discoveryPageContent = {
     body: 'Submit your enquiry and a member of the WorldWise Learning academic team will respond within two business days to confirm a session time. Please include your role and institutional context in the message field.',
     primaryCta: 'Request a Discovery Call',
     auditCta: 'Request an Audit Sprint instead',
+    pilotCta: 'View the Pilot Programme',
     worldwiseCta: 'View the WorldWise Framework',
     note: 'Discovery Calls are held via video conference. Sessions are typically 45 minutes. All enquiries are reviewed and responded to by the WorldWise Learning academic team — not an automated system.',
   },

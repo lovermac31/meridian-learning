@@ -1,4 +1,5 @@
 import type { Locale } from '../locales';
+import type { DeepWiden } from './types';
 
 const enGetStartedContent = {
   badge: 'Get Started',
@@ -22,6 +23,27 @@ const enGetStartedContent = {
   formTitle: 'Institutional intake form',
   formIntro:
     'Select the offer path that best fits your current goal, then add the context we need to respond accurately.',
+  pilotAccess: {
+    title: 'Pilot access request',
+    intro:
+      'Use this version of Get Started to request the full pilot pack, a reporting sample, a readiness checklist, or a pilot consultation. The public pilot page remains open; this step helps us route sensitive implementation materials to the right institutional contact.',
+    panelTitle: 'What can be sent after review',
+    panelItems: [
+      'Full pilot overview pack',
+      'Implementation scope overview',
+      'Reporting sample / executive summary sample',
+      'Pilot readiness checklist',
+      'Detailed institutional programme pack',
+    ],
+    accessTypeLabel: 'Desired access type',
+    accessTypePlaceholder: 'Select the materials or next step you want',
+    challengeLabel: 'Current curriculum challenge',
+    successLabel: 'Primary pilot goal / KPI priority',
+    notesLabel: 'Additional access context',
+    submitLabel: 'Request Pilot Access',
+    successBody:
+      'Thank you. We’ve received your pilot access request and will review the institutional context before sending the appropriate next-step materials or consultation details.',
+  },
 } as const;
 
 const viGetStartedContent = {
@@ -46,9 +68,32 @@ const viGetStartedContent = {
   formTitle: 'Biểu mẫu tiếp nhận cho tổ chức',
   formIntro:
     'Hãy chọn lộ trình phù hợp nhất với mục tiêu hiện tại của bạn, sau đó bổ sung bối cảnh cần thiết để chúng tôi phản hồi chính xác.',
+  pilotAccess: {
+    title: 'Yêu cầu truy cập thí điểm',
+    intro:
+      'Dùng phiên bản này của Get Started để yêu cầu bộ tài liệu thí điểm đầy đủ, mẫu báo cáo, danh sách kiểm tra sẵn sàng hoặc tư vấn thí điểm.',
+    panelTitle: 'Tài liệu có thể được gửi sau khi xem xét',
+    panelItems: [
+      'Bộ tài liệu tổng quan thí điểm đầy đủ',
+      'Tổng quan phạm vi triển khai',
+      'Mẫu báo cáo / mẫu tóm tắt điều hành',
+      'Danh sách kiểm tra sẵn sàng thí điểm',
+      'Bộ tài liệu chương trình dành cho tổ chức',
+    ],
+    accessTypeLabel: 'Loại truy cập mong muốn',
+    accessTypePlaceholder: 'Chọn tài liệu hoặc bước tiếp theo bạn muốn',
+    challengeLabel: 'Thách thức chương trình hiện tại',
+    successLabel: 'Mục tiêu thí điểm / ưu tiên KPI chính',
+    notesLabel: 'Bối cảnh truy cập bổ sung',
+    submitLabel: 'Yêu cầu truy cập thí điểm',
+    successBody:
+      'Cảm ơn bạn. Chúng tôi đã nhận yêu cầu truy cập thí điểm và sẽ xem xét bối cảnh tổ chức trước khi gửi tài liệu hoặc thông tin tư vấn phù hợp.',
+  },
 } as const;
 
-const getStartedContentByLocale: Record<Locale, typeof enGetStartedContent> = {
+type GetStartedContent = DeepWiden<typeof enGetStartedContent>;
+
+const getStartedContentByLocale: Record<Locale, GetStartedContent> = {
   en: enGetStartedContent,
   vi: viGetStartedContent,
 };

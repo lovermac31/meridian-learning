@@ -11,6 +11,7 @@ import {
   initialGetStartedValues,
   normalizeGetStartedPayload,
   organizationTypeOptions,
+  pilotAccessRequestOptions,
   primaryInterestOptions,
   timelineOptions,
   type GetStartedFormValues,
@@ -40,6 +41,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitState, setSubmitState] = useState<SubmitState>({ status: 'idle' });
   const hasTrackedFormStart = useRef(false);
+  const isPilotAccessFlow = values.source === 'pilot-programme';
 
   const interestLabel = useMemo(
     () =>
@@ -54,6 +56,8 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const raw = params.get('interest');
+    const source = params.get('source');
+    const access = params.get('access');
 
     // Alias map: URL params that don't map 1:1 to a primaryInterestOption.
     // audit_sprint and discovery_call both resolve to curriculum_review as the
@@ -64,25 +68,45 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
       curriculum_overview: 'curriculum_review',
     };
 
-    const interest = raw ? (INTEREST_ALIASES[raw] ?? raw) : null;
+    const ACCESS_ALIASES: Record<string, GetStartedFormValues['accessRequest']> = {
+      pilot_pack: 'pilot_overview_pack',
+      full_pilot_pack: 'pilot_overview_pack',
+      consultation: 'pilot_consultation',
+      discovery: 'pilot_consultation',
+      reporting_sample: 'reporting_sample',
+      readiness_checklist: 'readiness_checklist',
+      implementation_scope: 'implementation_scope_overview',
+      institutional_pack: 'institutional_programme_pack',
+    };
 
-    if (
-      !interest ||
-      !primaryInterestOptions.includes(
-        interest as (typeof primaryInterestOptions)[number]
-      )
-    ) {
-      return;
-    }
+    const interest = raw ? (INTEREST_ALIASES[raw] ?? raw) : null;
+    const accessRequest = access ? (ACCESS_ALIASES[access] ?? access) : '';
+    const safeAccessRequest = pilotAccessRequestOptions.includes(
+      accessRequest as (typeof pilotAccessRequestOptions)[number]
+    )
+      ? accessRequest as GetStartedFormValues['accessRequest']
+      : '';
 
     setValues((current) => {
-      if (current.primaryInterest === interest) {
+      const nextInterest =
+        interest && primaryInterestOptions.includes(interest as (typeof primaryInterestOptions)[number])
+          ? interest as GetStartedFormValues['primaryInterest']
+          : current.primaryInterest;
+      const nextSource = source === 'pilot-programme' ? source : current.source;
+
+      if (
+        current.primaryInterest === nextInterest &&
+        current.source === nextSource &&
+        current.accessRequest === (safeAccessRequest || current.accessRequest)
+      ) {
         return current;
       }
 
       return {
         ...current,
-        primaryInterest: interest as GetStartedFormValues['primaryInterest'],
+        primaryInterest: nextInterest,
+        source: nextSource,
+        accessRequest: safeAccessRequest || current.accessRequest,
       };
     });
   }, []);
@@ -182,11 +206,29 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
           </div>
         )}
 
+        {isPilotAccessFlow && (
+          <div className="mb-8 rounded-2xl border border-jurassic-gold/25 bg-jurassic-dark px-6 py-5 text-white shadow-premium">
+            <p className="text-xs font-bold uppercase tracking-widest text-jurassic-gold">
+              {pageContent.pilotAccess.title}
+            </p>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-white/70">
+              {pageContent.pilotAccess.intro}
+            </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {pageContent.pilotAccess.panelItems.map((item) => (
+                <div key={item} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-xs font-semibold text-white/75">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-3xl bg-jurassic-dark p-10 text-white shadow-premium"
+            className="min-w-0 rounded-3xl bg-jurassic-dark p-6 text-white shadow-premium sm:p-10"
           >
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
               {pageContent.badge}
@@ -229,14 +271,15 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="rounded-3xl border border-gray-200 bg-white p-8 shadow-premium"
+            className="min-w-0 rounded-3xl border border-gray-200 bg-white p-6 shadow-premium sm:p-8"
           >
             {submitState.status === 'success' ? (
               <div className="flex min-h-[640px] flex-col justify-center text-center" role="status" aria-live="polite">
                 <CheckCircle2 className="w-16 h-16 text-jurassic-accent mx-auto mb-6" />
                 <h2 className="text-4xl font-bold text-jurassic-dark mb-4">{pageContent.successTitle}</h2>
                 <p className="text-gray-600 leading-relaxed max-w-xl mx-auto">
-                  {pageContent.successBody.replace('{{interest}}', interestLabel.toLowerCase())}
+                  {(isPilotAccessFlow ? pageContent.pilotAccess.successBody : pageContent.successBody)
+                    .replace('{{interest}}', interestLabel.toLowerCase())}
                 </p>
                 <div className="mt-8 rounded-2xl bg-jurassic-soft/40 px-6 py-5 text-left max-w-xl mx-auto">
                   <p className="text-xs font-bold uppercase tracking-widest text-gray-400">
@@ -260,9 +303,11 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-8" aria-describedby="get-started-status">
                 <div>
-                  <h2 className="text-3xl font-bold text-jurassic-dark">{pageContent.formTitle}</h2>
+                  <h2 className="text-3xl font-bold text-jurassic-dark">
+                    {isPilotAccessFlow ? pageContent.pilotAccess.title : pageContent.formTitle}
+                  </h2>
                   <p className="text-gray-500 text-sm mt-2">
-                    {pageContent.formIntro}
+                    {isPilotAccessFlow ? pageContent.pilotAccess.intro : pageContent.formIntro}
                   </p>
                 </div>
 
@@ -415,6 +460,30 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                       </select>
                     }
                   />
+                  {isPilotAccessFlow ? (
+                    <Field
+                      label={pageContent.pilotAccess.accessTypeLabel}
+                      fieldId="accessRequest"
+                      error={errors.accessRequest}
+                      input={
+                        <select
+                          id="accessRequest"
+                          className={requiredFieldClass}
+                          value={values.accessRequest}
+                          onChange={(e) => updateValue('accessRequest', e.target.value as GetStartedFormValues['accessRequest'])}
+                          aria-invalid={errors.accessRequest ? 'true' : 'false'}
+                          aria-describedby={errors.accessRequest ? 'accessRequest-error' : undefined}
+                        >
+                          <option value="">{pageContent.pilotAccess.accessTypePlaceholder}</option>
+                          {pilotAccessRequestOptions.map((option) => (
+                            <option key={option} value={option}>
+                              {getStartedLabel(option, locale)}
+                            </option>
+                          ))}
+                        </select>
+                      }
+                    />
+                  ) : null}
                   <Field
                     label={getUiString(locale, 'getStarted.labels.timeline')}
                     fieldId="timeline"
@@ -468,7 +537,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label={getUiString(locale, 'getStarted.labels.challenge')}
+                    label={isPilotAccessFlow ? pageContent.pilotAccess.challengeLabel : getUiString(locale, 'getStarted.labels.challenge')}
                     fieldId="challenge"
                     required
                     error={errors.challenge}
@@ -485,7 +554,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label={getUiString(locale, 'getStarted.labels.successDefinition')}
+                    label={isPilotAccessFlow ? pageContent.pilotAccess.successLabel : getUiString(locale, 'getStarted.labels.successDefinition')}
                     fieldId="successDefinition"
                     className="md:col-span-2"
                     input={
@@ -498,7 +567,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                     }
                   />
                   <Field
-                    label={getUiString(locale, 'getStarted.labels.notes')}
+                    label={isPilotAccessFlow ? pageContent.pilotAccess.notesLabel : getUiString(locale, 'getStarted.labels.notes')}
                     fieldId="notes"
                     className="md:col-span-2"
                     input={
@@ -556,12 +625,10 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   </label>
                 </div>
 
-                <div id="get-started-status" className="sr-only" role="status" aria-live="polite">
-                  {submitState.status === 'submitting' && getUiString(locale, 'getStarted.status.submitting')}
-                  {submitState.status === 'success' &&
-                    getUiString(locale, 'getStarted.status.success').replace('{{id}}', submitState.submissionId)}
-                  {submitState.status === 'error' && submitState.message}
-                </div>
+	                <div id="get-started-status" className="sr-only" role="status" aria-live="polite">
+	                  {submitState.status === 'submitting' && getUiString(locale, 'getStarted.status.submitting')}
+	                  {submitState.status === 'error' && submitState.message}
+	                </div>
 
                 {submitState.status === 'error' ? (
                   <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
@@ -581,7 +648,9 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                         {getUiString(locale, 'common.submitting')}
                       </>
                     ) : (
-                      getUiString(locale, 'common.submitEnquiry')
+                      isPilotAccessFlow
+                        ? pageContent.pilotAccess.submitLabel
+                        : getUiString(locale, 'common.submitEnquiry')
                     )}
                   </button>
                   <p className="text-sm text-gray-500">

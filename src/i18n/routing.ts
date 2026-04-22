@@ -16,6 +16,7 @@ const STATIC_PUBLIC_PATHS = [
   '/available-soon',
   '/worldwise',
   '/audit-sprint',
+  '/pilot-programme',
   '/discovery',
   '/methodology',
   '/cefr-alignment',

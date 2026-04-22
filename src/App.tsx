@@ -1,14 +1,9 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { AboutSection } from './components/AboutSection';
-import { FrameworkFoundations } from './components/FrameworkFoundations';
-import { ThinkingCycle } from './components/ThinkingCycle';
-import { SeriesSection } from './components/SeriesSection';
-import { CreativeStudio } from './components/CreativeStudio';
-import { NeuroinclusiveLayer } from './components/NeuroinclusiveLayer';
+import { InstitutionalDecisionSnapshot } from './components/InstitutionalDecisionSnapshot';
 import { Services } from './components/Services';
-import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
@@ -18,6 +13,7 @@ import { getThinkingCycleStageByPath } from './lib/thinkingCycleContent';
 import { applyHeadMetadata } from './lib/headManager';
 import { resolveRouteMetadata } from './lib/routeMetadata';
 import { isBotUIRouteAllowed } from './lib/botUiRoutes';
+import { normalizeSpeedInsightsRoute } from './lib/speedInsightsRoute';
 import { localizeRouteTarget, resolveLocalizedRoute, switchLocaleRoute } from './i18n/routing';
 import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
@@ -31,6 +27,9 @@ const WorldWisePage = lazy(() =>
 );
 const AuditSprintPage = lazy(() =>
   import('./components/AuditSprintPage').then(m => ({ default: m.AuditSprintPage }))
+);
+const PilotProgrammePage = lazy(() =>
+  import('./components/PilotProgrammePage').then(m => ({ default: m.PilotProgrammePage }))
 );
 const DiscoveryPage = lazy(() =>
   import('./components/DiscoveryPage').then(m => ({ default: m.DiscoveryPage }))
@@ -71,11 +70,37 @@ const SyllabusExperience = lazy(() =>
 const AvailableSoonPage = lazy(() =>
   import('./components/AvailableSoonPage').then(m => ({ default: m.AvailableSoonPage }))
 );
+const NotFoundPage = lazy(() =>
+  import('./components/NotFoundPage').then(m => ({ default: m.NotFoundPage }))
+);
 const BotUIChat = lazy(() =>
   import('./components/BotUIChat').then(m => ({ default: m.BotUIChat }))
 );
 const PricingModal = lazy(() =>
   import('./components/PricingModal').then(m => ({ default: m.PricingModal }))
+);
+
+/* ── Lazy-loaded homepage sections (staged after initial render) ───────── */
+const SeriesSection = lazy(() =>
+  import('./components/SeriesSection').then(m => ({ default: m.SeriesSection }))
+);
+const Contact = lazy(() =>
+  import('./components/Contact').then(m => ({ default: m.Contact }))
+);
+const AboutSection = lazy(() =>
+  import('./components/AboutSection').then(m => ({ default: m.AboutSection }))
+);
+const FrameworkFoundations = lazy(() =>
+  import('./components/FrameworkFoundations').then(m => ({ default: m.FrameworkFoundations }))
+);
+const ThinkingCycle = lazy(() =>
+  import('./components/ThinkingCycle').then(m => ({ default: m.ThinkingCycle }))
+);
+const CreativeStudio = lazy(() =>
+  import('./components/CreativeStudio').then(m => ({ default: m.CreativeStudio }))
+);
+const NeuroinclusiveLayer = lazy(() =>
+  import('./components/NeuroinclusiveLayer').then(m => ({ default: m.NeuroinclusiveLayer }))
 );
 
 /** Lightweight legal-path check — avoids importing legalContent.ts into the main bundle */
@@ -84,11 +109,20 @@ const isLegalPath = (pathname: string): boolean =>
 
 const getCurrentRoute = () => `${window.location.pathname}${window.location.search}${window.location.hash}`;
 const normalizeNavigationTarget = (target: string) => (target.startsWith('#') ? `/${target}` : target);
+const DEFERRED_HOME_STAGE_DELAY_MS = 180;
+
+type HomeSectionStage = 0 | 1 | 2 | 3;
+
+const DeferredHomeSectionPlaceholder = ({ className = 'min-h-40' }: { className?: string }) => (
+  <div className={className} aria-hidden="true" />
+);
 
 function App() {
   const [route, setRoute] = useState(getCurrentRoute());
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+  const [homeSectionStage, setHomeSectionStage] = useState<HomeSectionStage>(0);
   const pathname = window.location.pathname;
+  const speedInsightsRoute = normalizeSpeedInsightsRoute(route);
   const localizedRoute = resolveLocalizedRoute(pathname);
   const locale = localizedRoute.locale;
   const routePathname = localizedRoute.isLocalizable ? localizedRoute.pathname : pathname;
@@ -96,6 +130,7 @@ function App() {
   const isAvailableSoonView = routePathname === '/available-soon';
   const isWorldWiseView = routePathname === '/worldwise';
   const isAuditSprintView = routePathname === '/audit-sprint';
+  const isPilotProgrammeView = routePathname === '/pilot-programme';
   const isDiscoveryView = routePathname === '/discovery';
   const isMethodologyView = routePathname === '/methodology';
   const isCefrAlignmentView = routePathname === '/cefr-alignment';
@@ -129,6 +164,7 @@ function App() {
     isAvailableSoonView ||
     isWorldWiseView ||
     isAuditSprintView ||
+    isPilotProgrammeView ||
     isDiscoveryView ||
     isMethodologyView ||
     isCefrAlignmentView ||
@@ -141,6 +177,8 @@ function App() {
     isThinkingCycleView ||
     isThinkingCycleComparisonView ||
     isLegalView;
+  const isUnknownRouteView = !isSubpageView && routePathname !== '/';
+  const isHomeView = !isSubpageView && !isUnknownRouteView;
 
   // Phase 0 — Redirect malformed paths containing the Unicode replacement character (U+FFFD)
   // These appear in server logs from mangled links (e.g. /%EF%BF%BDContact) and should
@@ -186,6 +224,30 @@ function App() {
   ]);
 
   useEffect(() => {
+    if (!isHomeView) {
+      setHomeSectionStage(0);
+      return;
+    }
+
+    if (routePathname === '/' && window.location.hash) {
+      setHomeSectionStage(3);
+      return;
+    }
+
+    setHomeSectionStage(0);
+
+    const stageTimers = [
+      window.setTimeout(() => setHomeSectionStage(1), 0),
+      window.setTimeout(() => setHomeSectionStage(2), DEFERRED_HOME_STAGE_DELAY_MS),
+      window.setTimeout(() => setHomeSectionStage(3), DEFERRED_HOME_STAGE_DELAY_MS * 2),
+    ];
+
+    return () => {
+      stageTimers.forEach((timerId) => window.clearTimeout(timerId));
+    };
+  }, [isHomeView, route, routePathname]);
+
+  useEffect(() => {
     if (routePathname !== '/' || !window.location.hash) {
       return;
     }
@@ -201,7 +263,7 @@ function App() {
         return;
       }
 
-      if (attempt < 10) {
+      if (attempt < 120) {
         attempt += 1;
         frameId = window.requestAnimationFrame(scrollToTarget);
       }
@@ -264,7 +326,12 @@ function App() {
         languageSwitcher={<LanguageSwitcher currentRoute={route} onNavigate={pushRoute} />}
       />
       <Suspense fallback={<div className="min-h-screen bg-jurassic-dark" />}>
-      {isAvailableSoonView ? (
+      {isUnknownRouteView ? (
+        <NotFoundPage
+          onBack={() => navigateTo('/')}
+          onGetStarted={() => navigateTo('/get-started')}
+        />
+      ) : isAvailableSoonView ? (
         <AvailableSoonPage
           onBack={navigateBackOrHome}
           onGetStarted={() => navigateTo('/get-started')}
@@ -290,6 +357,13 @@ function App() {
           locale={locale}
           onBack={() => navigateTo('/')}
           onGetStarted={() => navigateTo('/get-started?interest=audit_sprint')}
+          onNavigate={navigateTo}
+        />
+      ) : isPilotProgrammeView ? (
+        <PilotProgrammePage
+          locale={locale}
+          onBack={() => navigateTo('/')}
+          onGetStarted={() => navigateTo('/get-started?interest=curriculum_review&source=pilot-programme&access=consultation')}
           onNavigate={navigateTo}
         />
       ) : isDiscoveryView ? (
@@ -367,22 +441,49 @@ function App() {
             onOverviewRequest={() => navigateTo('/get-started?interest=curriculum_overview&source=hero')}
             onNavigate={navigateTo}
           />
-          <AboutSection />
-          <FrameworkFoundations onExploreFramework={() => navigateTo('/framework')} />
-          <ThinkingCycle
-            onSelectStage={(path) => navigateTo(path)}
-            onCompareStages={() => navigateTo('/thinking-cycle/compare')}
+          <InstitutionalDecisionSnapshot
+            onAuditSprint={() => navigateTo('/get-started?interest=audit_sprint')}
+            onDiscoveryCall={() => navigateTo('/discovery')}
+            onCurriculumOverview={() => navigateTo('/get-started?interest=curriculum_overview&source=hero')}
           />
-          <SeriesSection
-            onSelectLevel={(path) => navigateTo(path)}
-            onCompareLevels={() => navigateTo('/series/compare')}
-          />
-          <ErrorBoundary sectionName="Creative Studio">
-            <CreativeStudio />
-          </ErrorBoundary>
-          <NeuroinclusiveLayer />
           <Services />
-          <Contact />
+          {homeSectionStage >= 1 ? (
+            <Suspense fallback={<DeferredHomeSectionPlaceholder className="min-h-[48rem] bg-white" />}>
+              <SeriesSection
+                onSelectLevel={(path) => navigateTo(path)}
+                onCompareLevels={() => navigateTo('/series/compare')}
+              />
+              <Contact />
+            </Suspense>
+          ) : (
+            <DeferredHomeSectionPlaceholder className="min-h-[48rem] bg-white" />
+          )}
+          {homeSectionStage >= 2 ? (
+            <Suspense fallback={<DeferredHomeSectionPlaceholder className="min-h-[64rem] bg-white" />}>
+              <AboutSection />
+              <FrameworkFoundations
+                onExploreFramework={() => navigateTo('/framework')}
+                onExploreMethodology={() => navigateTo('/methodology')}
+                onExploreWorldWise={() => navigateTo('/worldwise')}
+              />
+              <ThinkingCycle
+                onSelectStage={(path) => navigateTo(path)}
+                onCompareStages={() => navigateTo('/thinking-cycle/compare')}
+              />
+            </Suspense>
+          ) : (
+            <DeferredHomeSectionPlaceholder className="min-h-[64rem] bg-white" />
+          )}
+          {homeSectionStage >= 3 ? (
+            <Suspense fallback={<DeferredHomeSectionPlaceholder className="min-h-[40rem] bg-jurassic-dark" />}>
+              <ErrorBoundary sectionName="Creative Studio">
+                <CreativeStudio />
+              </ErrorBoundary>
+              <NeuroinclusiveLayer />
+            </Suspense>
+          ) : (
+            <DeferredHomeSectionPlaceholder className="min-h-[40rem] bg-jurassic-dark" />
+          )}
         </main>
       )}
       </Suspense>
@@ -398,6 +499,7 @@ function App() {
           onClose={() => setIsPricingModalOpen(false)}
         />
       </Suspense>
+      <SpeedInsights route={speedInsightsRoute} />
     </div>
   );
 }

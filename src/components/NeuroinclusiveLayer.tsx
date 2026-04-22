@@ -20,9 +20,9 @@ export const NeuroinclusiveLayer = () => {
         <div className="absolute inset-0 pointer-events-none hidden lg:block">
           <div className="absolute top-0 right-0 w-[55%] h-full">
             <picture>
-              <source srcSet="/images/neuroinclusive-binoculars.webp" type="image/webp" />
+              <source srcSet="/images/about-institutional-1400.webp" type="image/webp" />
               <img
-                src="/images/neuroinclusive-binoculars.jpg"
+                src="/images/about-institutional-800.jpg"
                 alt=""
                 aria-hidden="true"
                 className="w-full h-full object-cover object-center opacity-30"
@@ -42,7 +42,7 @@ export const NeuroinclusiveLayer = () => {
         <div className="absolute inset-0 pointer-events-none hidden md:block lg:hidden">
           <div className="absolute top-0 right-0 w-[45%] h-full">
             <img
-              src="/images/neuroinclusive-binoculars.png"
+              src="/images/about-institutional-800.jpg"
               alt=""
               aria-hidden="true"
               className="w-full h-full object-cover object-center opacity-15"

@@ -4,6 +4,7 @@ import {
   type ThinkingCycleStageDetail,
 } from '../../lib/thinkingCycleContent';
 import type { Locale } from '../locales';
+import type { DeepWiden } from './types';
 
 export { thinkingCycleStages, getThinkingCycleStageByPath };
 
@@ -81,7 +82,9 @@ const viThinkingCycleComparisonContent = {
   },
 } as const;
 
-const comparisonContentByLocale: Record<Locale, typeof enThinkingCycleComparisonContent> = {
+type ThinkingCycleComparisonContent = DeepWiden<typeof enThinkingCycleComparisonContent>;
+
+const comparisonContentByLocale: Record<Locale, ThinkingCycleComparisonContent> = {
   en: enThinkingCycleComparisonContent,
   vi: viThinkingCycleComparisonContent,
 };
@@ -184,7 +187,9 @@ const viThinkingCycleDetailPageContent = {
   },
 } as const;
 
-const detailPageContentByLocale: Record<Locale, typeof enThinkingCycleDetailPageContent> = {
+type ThinkingCycleDetailPageContent = DeepWiden<typeof enThinkingCycleDetailPageContent>;
+
+const detailPageContentByLocale: Record<Locale, ThinkingCycleDetailPageContent> = {
   en: enThinkingCycleDetailPageContent,
   vi: viThinkingCycleDetailPageContent,
 };

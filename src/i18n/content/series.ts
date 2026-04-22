@@ -4,6 +4,7 @@ import {
   type SeriesLevelDetail,
 } from '../../lib/seriesContent';
 import type { Locale } from '../locales';
+import type { DeepWiden } from './types';
 
 export { seriesLevels, getSeriesLevelByPath };
 
@@ -77,7 +78,9 @@ const viSeriesComparisonContent = {
   },
 } as const;
 
-const seriesComparisonContentByLocale: Record<Locale, typeof enSeriesComparisonContent> = {
+type SeriesComparisonContent = DeepWiden<typeof enSeriesComparisonContent>;
+
+const seriesComparisonContentByLocale: Record<Locale, SeriesComparisonContent> = {
   en: enSeriesComparisonContent,
   vi: viSeriesComparisonContent,
 };
@@ -176,7 +179,9 @@ const viSeriesDetailPageContent = {
   },
 } as const;
 
-const seriesDetailPageContentByLocale: Record<Locale, typeof enSeriesDetailPageContent> = {
+type SeriesDetailPageContent = DeepWiden<typeof enSeriesDetailPageContent>;
+
+const seriesDetailPageContentByLocale: Record<Locale, SeriesDetailPageContent> = {
   en: enSeriesDetailPageContent,
   vi: viSeriesDetailPageContent,
 };

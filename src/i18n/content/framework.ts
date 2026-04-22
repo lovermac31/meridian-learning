@@ -1,7 +1,8 @@
 import * as enFrameworkContent from '../../lib/frameworkContent';
 import type { Locale } from '../locales';
+import type { DeepWiden } from './types';
 
-export type FrameworkContentModule = typeof enFrameworkContent;
+export type FrameworkContentModule = DeepWiden<typeof enFrameworkContent>;
 
 const viFrameworkContent: FrameworkContentModule = {
   frameworkResearchDomains: [
@@ -308,7 +309,9 @@ const frameworkContentByLocale: Partial<Record<Locale, FrameworkContentModule>> 
   vi: viFrameworkContent,
 };
 
-const frameworkPageContentByLocale: Record<Locale, typeof enFrameworkPageContent> = {
+type FrameworkPageContent = DeepWiden<typeof enFrameworkPageContent>;
+
+const frameworkPageContentByLocale: Record<Locale, FrameworkPageContent> = {
   en: enFrameworkPageContent,
   vi: viFrameworkPageContent,
 };

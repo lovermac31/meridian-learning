@@ -11,6 +11,7 @@ export type PublicContentGroup =
   | 'availableSoon'
   | 'worldwise'
   | 'auditSprint'
+  | 'pilotProgramme'
   | 'discovery'
   | 'methodology'
   | 'cefrAlignment'
@@ -29,6 +30,7 @@ const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean
   availableSoon: { en: true, vi: true },
   worldwise: { en: true, vi: false },
   auditSprint: { en: true, vi: false },
+  pilotProgramme: { en: true, vi: false },
   discovery: { en: true, vi: false },
   methodology: { en: true, vi: false },
   cefrAlignment: { en: true, vi: false },
@@ -48,6 +50,7 @@ export function getPublicContentGroup(pathname: string): PublicContentGroup | nu
   if (pathname === '/available-soon') return 'availableSoon';
   if (pathname === '/worldwise') return 'worldwise';
   if (pathname === '/audit-sprint') return 'auditSprint';
+  if (pathname === '/pilot-programme') return 'pilotProgramme';
   if (pathname === '/discovery') return 'discovery';
   if (pathname === '/methodology') return 'methodology';
   if (pathname === '/cefr-alignment') return 'cefrAlignment';

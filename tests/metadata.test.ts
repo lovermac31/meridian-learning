@@ -116,13 +116,14 @@ function matchesSelector(element: FakeElement, selector: string) {
 
 function installFakeDocument() {
   const document = new FakeDocument();
-  (globalThis as { document?: FakeDocument }).document = document;
+  (globalThis as unknown as { document?: FakeDocument }).document = document;
   return document;
 }
 
 test('resolver returns route-specific public metadata', () => {
   const home = resolveRouteMetadata('/');
   const framework = resolveRouteMetadata('/framework');
+  const pilot = resolveRouteMetadata('/pilot-programme');
   const series = resolveRouteMetadata('/series/level-3-expansion');
   const stage = resolveRouteMetadata('/thinking-cycle/justify');
   const legal = resolveRouteMetadata('/legal/privacy');
@@ -136,6 +137,11 @@ test('resolver returns route-specific public metadata', () => {
   assert.match(framework.description, /jurassic english™ framework integrates/i);
   assert.equal(framework.twitter.title, framework.title);
   assert.equal(framework.alternates?.[0]?.href, 'https://jurassicenglish.com/framework');
+
+  assert.equal(pilot.canonical, 'https://jurassicenglish.com/pilot-programme');
+  assert.equal(pilot.robots, 'index, follow');
+  assert.match(pilot.description, /6-8 week/i);
+  assert.equal(pilot.og.url, pilot.canonical);
 
   assert.equal(series.canonical, 'https://jurassicenglish.com/series/level-3-expansion');
   assert.match(series.description, /ages 10–12/i);
@@ -223,11 +229,17 @@ test('resolver keeps the available-soon route non-indexable in both locales', ()
 
 test('resolver returns available-soon metadata for unreleased Vietnamese institutional routes', () => {
   const worldwiseVi = resolveRouteMetadata('/vi/worldwise');
+  const pilotVi = resolveRouteMetadata('/vi/pilot-programme');
 
   assert.equal(worldwiseVi.title, 'Available soon | Jurassic English™');
   assert.equal(worldwiseVi.description, 'This section is being prepared and will be available shortly.');
   assert.equal(worldwiseVi.robots, 'noindex, nofollow');
   assert.equal(worldwiseVi.canonical, undefined);
+
+  assert.equal(pilotVi.title, 'Available soon | Jurassic English™');
+  assert.equal(pilotVi.description, 'This section is being prepared and will be available shortly.');
+  assert.equal(pilotVi.robots, 'noindex, nofollow');
+  assert.equal(pilotVi.canonical, undefined);
 });
 
 test('resolver keeps the private route non-indexable and non-canonical', () => {
@@ -245,6 +257,21 @@ test('resolver keeps the private route non-indexable and non-canonical', () => {
   assert.equal(localizedPrivateRoute.canonical, undefined);
   assert.equal(localizedPrivateRoute.jsonLd?.length ?? 0, 0);
   assert.equal(localizedPrivateRoute.og.url, 'https://jurassicenglish.com/plans-pricing-access');
+});
+
+test('resolver keeps unknown routes non-indexable and non-canonical', () => {
+  const unknown = resolveRouteMetadata('/definitely-not-a-route');
+  const unknownVi = resolveRouteMetadata('/vi/definitely-not-a-route');
+
+  assert.equal(unknown.title, 'Page not found | Jurassic English™');
+  assert.equal(unknown.robots, 'noindex, nofollow');
+  assert.equal(unknown.canonical, undefined);
+  assert.equal(unknown.jsonLd?.length ?? 0, 0);
+
+  assert.equal(unknownVi.title, 'Page not found | Jurassic English™');
+  assert.equal(unknownVi.robots, 'noindex, nofollow');
+  assert.equal(unknownVi.canonical, undefined);
+  assert.equal(unknownVi.jsonLd?.length ?? 0, 0);
 });
 
 test('head manager replaces stale public metadata when navigating to a private route', () => {

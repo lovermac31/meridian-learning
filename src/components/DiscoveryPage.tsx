@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, type Variants } from 'motion/react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -18,12 +18,12 @@ type DiscoveryPageProps = {
   onNavigate: (path: string) => void;
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1 } },
 };
@@ -361,6 +361,14 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
                 className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.auditCta}
+              </button>
+              <span className="text-jurassic-dark/20 select-none">·</span>
+              <button
+                type="button"
+                onClick={() => onNavigate('/pilot-programme')}
+                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+              >
+                {content.cta.pilotCta}
               </button>
               <span className="text-jurassic-dark/20 select-none">·</span>
               <button

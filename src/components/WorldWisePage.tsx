@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion, type Variants } from 'motion/react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -20,12 +20,12 @@ type WorldWisePageProps = {
   onNavigate: (path: string) => void;
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1 } },
 };
@@ -332,6 +332,13 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
                 className="border border-jurassic-dark/15 text-jurassic-dark px-8 py-4 rounded-full font-bold hover:border-jurassic-dark/30 hover:bg-jurassic-dark/4 transition-all"
               >
                 {content.cta.secondaryCta}
+              </button>
+              <button
+                type="button"
+                onClick={() => onNavigate('/pilot-programme')}
+                className="border border-jurassic-accent/30 text-jurassic-accent px-8 py-4 rounded-full font-bold hover:border-jurassic-accent/50 hover:bg-jurassic-accent/5 transition-all"
+              >
+                {content.cta.pilotCta}
               </button>
             </motion.div>
             {content.cta.overviewCta && (

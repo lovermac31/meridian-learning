@@ -8,7 +8,7 @@
 import { track } from '@vercel/analytics';
 
 export type CtaType       = 'primary' | 'secondary' | 'low_friction';
-export type AudienceSegment = 'institutional' | 'parent_student' | 'unknown';
+export type AudienceSegment = 'institutional' | 'institutional_snapshot' | 'parent_student' | 'unknown';
 
 /** Fired on every CTA click across all pages. */
 export function trackCtaClick(params: {

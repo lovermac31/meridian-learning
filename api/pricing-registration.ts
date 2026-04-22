@@ -7,6 +7,7 @@ import {
 } from './_lib/je-crm-mapper.js';
 import { buildCrmIntakeEmail } from './_lib/pricingRegistrationNotification.js';
 import { writeNotionLead } from './_lib/notionCrmWriter.js';
+import { writeSupabaseLead } from './_lib/supabaseWriter.js';
 import {
   checkRateLimit,
   createThrottleLogContext,
@@ -568,6 +569,27 @@ async function safeNotionWrite(
   }
 }
 
+/**
+ * Attempt a Supabase je_leads write with a 4-second hard cap.
+ * Never throws and never affects the user-facing HTTP response.
+ */
+async function safeSupabaseLeadWrite(
+  registration: NormalizedPricingRegistration,
+): Promise<{ ok: boolean; reason?: string }> {
+  try {
+    return await Promise.race([
+      writeSupabaseLead(registration),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('supabase_timeout')), 4000),
+      ),
+    ]);
+  } catch (err) {
+    const reason = err instanceof Error ? err.message : 'unknown';
+    console.warn('[pricing-registration] supabase write did not complete in time', { reason });
+    return { ok: false, reason };
+  }
+}
+
 function createRegistrationLogContext(registration: NormalizedPricingRegistration) {
   return {
     submissionId: registration.submissionId,
@@ -626,11 +648,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const registration = normalizePricingRegistration(values);
     const mailConfig   = resolveMailConfig();
 
-    // Run Notion write and email notification in parallel.
-    // The Notion write is capped at 4 s and never influences the HTTP response —
+    // Run Notion write, Supabase write, and email notification in parallel.
+    // Both DB writes are capped at 4 s and never influence the HTTP response —
     // email outcome alone determines 200 / 502 / 503.
-    const [notionResult, notification] = await Promise.all([
+    const [notionResult, supabaseResult, notification] = await Promise.all([
       safeNotionWrite(registration),
+      safeSupabaseLeadWrite(registration),
       sendPricingRegistrationNotification(registration, mailConfig),
     ]);
 
@@ -639,6 +662,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       notionOk:     notionResult.ok,
       notionReason: notionResult.reason,
       notionPageId: (notionResult as any).pageId ?? null,
+    });
+
+    console.info('[pricing-registration] supabase write', {
+      submissionId:   registration.submissionId,
+      supabaseOk:     supabaseResult.ok,
+      supabaseReason: supabaseResult.reason,
     });
 
     console.info('[pricing-registration] submission received', {

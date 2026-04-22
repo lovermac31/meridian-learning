@@ -28,10 +28,20 @@ export const decisionStageOptions = [
   'ready_to_pilot',
 ] as const;
 
+export const pilotAccessRequestOptions = [
+  'pilot_overview_pack',
+  'implementation_scope_overview',
+  'reporting_sample',
+  'readiness_checklist',
+  'institutional_programme_pack',
+  'pilot_consultation',
+] as const;
+
 export type OrganizationType = (typeof organizationTypeOptions)[number];
 export type PrimaryInterest = (typeof primaryInterestOptions)[number];
 export type Timeline = (typeof timelineOptions)[number];
 export type DecisionStage = (typeof decisionStageOptions)[number];
+export type PilotAccessRequest = (typeof pilotAccessRequestOptions)[number];
 
 export type GetStartedFormValues = {
   fullName: string;
@@ -53,6 +63,8 @@ export type GetStartedFormValues = {
   newsletterOptIn: boolean;
   website: string;
   startedAt: string;
+  source: string;
+  accessRequest: PilotAccessRequest | '';
 };
 
 export type NormalizedGetStartedSubmission = {
@@ -75,6 +87,8 @@ export type NormalizedGetStartedSubmission = {
   successDefinition?: string;
   notes?: string;
   newsletterOptIn: boolean;
+  source?: string;
+  accessRequest?: PilotAccessRequest;
 };
 
 export type ValidationErrorMap = Partial<Record<keyof GetStartedFormValues, string>>;
@@ -99,6 +113,12 @@ const getStartedLabels: Record<Locale, Record<string, string>> = {
     comparing: 'Comparing',
     ready_for_consultation: 'Ready for Consultation',
     ready_to_pilot: 'Ready to Pilot',
+    pilot_overview_pack: 'Full Pilot Overview Pack',
+    implementation_scope_overview: 'Implementation Scope Overview',
+    reporting_sample: 'Reporting Sample / Executive Summary Sample',
+    readiness_checklist: 'Pilot Readiness Checklist',
+    institutional_programme_pack: 'Detailed Institutional Programme Pack',
+    pilot_consultation: 'Pilot Consultation',
   },
   vi: {
     school: 'Trường học',
@@ -119,6 +139,12 @@ const getStartedLabels: Record<Locale, Record<string, string>> = {
     comparing: 'Đang so sánh',
     ready_for_consultation: 'Sẵn sàng tư vấn',
     ready_to_pilot: 'Sẵn sàng thí điểm',
+    pilot_overview_pack: 'Bộ tài liệu tổng quan thí điểm đầy đủ',
+    implementation_scope_overview: 'Tổng quan phạm vi triển khai',
+    reporting_sample: 'Mẫu báo cáo / mẫu tóm tắt điều hành',
+    readiness_checklist: 'Danh sách kiểm tra sẵn sàng thí điểm',
+    institutional_programme_pack: 'Bộ tài liệu chương trình dành cho tổ chức',
+    pilot_consultation: 'Tư vấn thí điểm',
   },
 };
 
@@ -135,6 +161,7 @@ const getStartedErrorMessages: Record<Locale, Record<string, string>> = {
     contactConsentRequired: 'You must agree to be contacted to submit this form.',
     timelineInvalid: 'Select a valid timeline.',
     decisionStageInvalid: 'Select a valid decision stage.',
+    accessRequestInvalid: 'Select a valid pilot access request.',
     spamDetected: 'Spam detected.',
   },
   vi: {
@@ -149,6 +176,7 @@ const getStartedErrorMessages: Record<Locale, Record<string, string>> = {
     contactConsentRequired: 'Bạn phải đồng ý để được liên hệ mới có thể gửi biểu mẫu này.',
     timelineInvalid: 'Vui lòng chọn mốc thời gian hợp lệ.',
     decisionStageInvalid: 'Vui lòng chọn giai đoạn quyết định hợp lệ.',
+    accessRequestInvalid: 'Vui lòng chọn yêu cầu truy cập thí điểm hợp lệ.',
     spamDetected: 'Đã phát hiện spam.',
   },
 };
@@ -173,6 +201,8 @@ export const initialGetStartedValues: GetStartedFormValues = {
   newsletterOptIn: false,
   website: '',
   startedAt: '',
+  source: '',
+  accessRequest: '',
 };
 
 function isEmail(value: string) {
@@ -226,6 +256,10 @@ export function validateGetStartedPayload(
     errors.decisionStage = messages.decisionStageInvalid;
   }
 
+  if (values.accessRequest && !isOption(values.accessRequest, pilotAccessRequestOptions)) {
+    errors.accessRequest = messages.accessRequestInvalid;
+  }
+
   if (values.website.trim()) {
     errors.website = messages.spamDetected;
   }
@@ -259,6 +293,9 @@ export function coerceGetStartedFormValues(input: unknown): GetStartedFormValues
     newsletterOptIn: Boolean(record.newsletterOptIn),
     website: typeof record.website === 'string' ? record.website : '',
     startedAt: typeof record.startedAt === 'string' ? record.startedAt : '',
+    source: typeof record.source === 'string' ? record.source : '',
+    accessRequest:
+      typeof record.accessRequest === 'string' ? (record.accessRequest as PilotAccessRequest | '') : '',
   };
 }
 
@@ -288,6 +325,8 @@ export function normalizeGetStartedPayload(
     successDefinition: cleanOptional(values.successDefinition),
     notes: cleanOptional(values.notes),
     newsletterOptIn: Boolean(values.newsletterOptIn),
+    source: cleanOptional(values.source),
+    accessRequest: values.accessRequest || undefined,
   };
 }
 

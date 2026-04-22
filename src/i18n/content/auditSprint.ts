@@ -141,6 +141,7 @@ export const auditSprintPageContent = {
     body: 'Submit your enquiry and a member of the WorldWise Learning team will respond within two business days. We will confirm scope, timeline, and any pre-submission materials before work begins.',
     primaryCta: 'Request Your Audit Sprint',
     secondaryCta: 'Book a Discovery Call',
+    pilotCta: 'View the Pilot Programme',
     note: 'The Audit Sprint is a fixed-scope professional service. Pricing is provided on enquiry based on institution size and programme complexity. All responses are handled directly by the WorldWise Learning academic team.',
   },
 } as const;

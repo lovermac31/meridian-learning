@@ -21,7 +21,7 @@ import {
 } from './structuredData';
 
 const SITE_URL = 'https://jurassicenglish.com';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/images/hero-compass.jpg`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/images/hero-compass-960.webp`;
 const SITE_NAME = 'Jurassic English™';
 
 type BaseMetadata = {
@@ -223,6 +223,17 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       { name: 'Home', path: '/' },
       { name: 'WorldWise Learning', path: '/worldwise' },
       { name: 'Audit Sprint', path: '/audit-sprint' },
+    ],
+  },
+  '/pilot-programme': {
+    title: 'Jurassic English™ Pilot Programme — 6-8 Week Institutional Evaluation',
+    description:
+      'A structured 6-8 week Jurassic English™ pilot pathway for schools, academies, and training centres. Measure student reasoning evidence, teacher fidelity, progression fit, and implementation readiness before wider rollout.',
+    canonicalPath: '/pilot-programme',
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'WorldWise Learning', path: '/worldwise' },
+      { name: 'Pilot Programme', path: '/pilot-programme' },
     ],
   },
   '/worldwise': {
@@ -579,12 +590,12 @@ function resolveLegalRoute(pathname: string, locale: Locale): RouteMetadata | nu
 
 function resolveFallbackRoute(locale: Locale): RouteMetadata {
   return createMetadata({
-    title: homeTitle,
-    description: homeDescription,
-    canonical: locale === 'en' ? SITE_URL : undefined,
-    robots: locale === 'en' ? 'index, follow' : 'noindex, nofollow',
-    alternates: locale === 'en' ? createAlternates('/', locale) : undefined,
-    jsonLd: locale === 'en' ? [createOrganizationJsonLd(), createWebsiteJsonLd()] : undefined,
+    title: 'Page not found | Jurassic English™',
+    description: 'This Jurassic English™ page could not be found.',
+    canonical: undefined,
+    robots: 'noindex, nofollow',
+    alternates: undefined,
+    jsonLd: undefined,
     ogUrl: locale === 'en' ? SITE_URL : toAbsoluteUrl('/vi'),
     locale,
   });
@@ -642,6 +653,7 @@ export function getExpectedPublicIndexableRoutes(): string[] {
         '/get-started',
         '/worldwise',
         '/audit-sprint',
+        '/pilot-programme',
         '/discovery',
         '/methodology',
         '/cefr-alignment',

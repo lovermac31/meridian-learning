@@ -1,15 +1,15 @@
 import type { Locale } from '../locales';
+import type { DeepWiden } from './types';
 
 const enHomeContent = {
   hero: {
-    eyebrow: 'World-Class Literature-Based Education',
-    titleLineOne: 'Critical Thinking',
-    titleHighlight: 'Moral Reasoning',
-    titleLineThree: 'Through Literature',
-    institutionalTagline:
-      'Jurassic English™ and WorldWise Learning support schools, training centres, and institutions with a curriculum framework that develops genuine intellectual capability — beyond exam scores.',
+    eyebrow: 'For schools, academies, and curriculum leaders',
+    titleLineOne: 'A literature-based',
+    titleHighlight: 'English curriculum',
+    titleLineThree: 'for critical thinking.',
+    institutionalTagline: '',
     body:
-      'Excavate. Analyze. Justify. Reflect. Literature-centered English education with pathways for teacher training, school licensing, curriculum review, consulting, and institutional partnerships.',
+      'Jurassic English helps institutions build structured reasoning, moral judgment, and academic expression through complete literature, CEFR-aware progression, and teacher-ready implementation support.',
     primaryCta: 'Request an Audit Sprint',
     secondaryCta: 'Book a Discovery Call',
     overviewCta: 'Request a Curriculum Overview',
@@ -18,6 +18,33 @@ const enHomeContent = {
     audienceRowLabel: 'For parents & students:',
     audienceCurriculumCta: 'Explore the Curriculum',
     audienceCompareCta: 'Compare Levels',
+  },
+  decisionSnapshot: {
+    eyebrow: 'Institutional Decision Snapshot',
+    headline: 'Know in 60 seconds whether Jurassic English fits your institution.',
+    subheadline:
+      'A structured literature-based English framework for schools that need clearer reasoning outcomes, CEFR-aware progression, and implementation support.',
+    cards: [
+      {
+        title: 'What it is',
+        body: 'Literature-based English curriculum for critical thinking and moral reasoning.',
+      },
+      {
+        title: 'Who it fits',
+        body: 'Schools, academies, centres, and programme leaders reviewing English provision.',
+      },
+      {
+        title: 'What you receive',
+        body: 'Level structure, lesson architecture, syllabus maps, training, licensing, and review support.',
+      },
+      {
+        title: 'How to start',
+        body: 'Audit Sprint, Discovery Call, or Curriculum Overview.',
+      },
+    ],
+    primaryCta: 'Request an Audit Sprint',
+    secondaryCta: 'Book a Discovery Call',
+    overviewCta: 'Request a Curriculum Overview',
   },
   about: {
     eyebrow: 'Institutional Positioning',
@@ -70,6 +97,8 @@ const enHomeContent = {
     avoidLabel: 'Avoid',
     replaceLabel: 'Replace with',
     exploreCta: 'Explore the full framework',
+    methodologyCta: 'See methodology',
+    worldwiseCta: 'View publisher context',
     pillars: [
       {
         title: 'Literature as the Intellectual Anchor',
@@ -324,6 +353,33 @@ const viHomeContent = {
     audienceCurriculumCta: 'Khám phá chương trình học',
     audienceCompareCta: 'So sánh cấp độ',
   },
+  decisionSnapshot: {
+    eyebrow: 'Tóm tắt quyết định cho tổ chức',
+    headline: 'Biết trong 60 giây liệu Jurassic English có phù hợp với tổ chức của bạn hay không.',
+    subheadline:
+      'Một khung tiếng Anh dựa trên văn học có cấu trúc dành cho nhà trường cần kết quả lập luận rõ hơn, tiến trình có đối sánh CEFR và hỗ trợ triển khai.',
+    cards: [
+      {
+        title: 'Đây là gì',
+        body: 'Chương trình tiếng Anh dựa trên văn học để phát triển tư duy phản biện và lập luận đạo đức.',
+      },
+      {
+        title: 'Phù hợp với ai',
+        body: 'Nhà trường, học viện, trung tâm và lãnh đạo chương trình đang rà soát việc dạy tiếng Anh.',
+      },
+      {
+        title: 'Bạn nhận được gì',
+        body: 'Cấu trúc cấp độ, kiến trúc bài học, bản đồ giáo trình, đào tạo, cấp phép và hỗ trợ rà soát.',
+      },
+      {
+        title: 'Bắt đầu thế nào',
+        body: 'Kiểm toán Chương trình, cuộc gọi tư vấn hoặc tổng quan chương trình.',
+      },
+    ],
+    primaryCta: 'Yêu cầu Kiểm toán Chương trình',
+    secondaryCta: 'Đặt lịch Tư vấn',
+    overviewCta: 'Yêu cầu tổng quan chương trình',
+  },
   about: {
     eyebrow: 'Định vị tổ chức',
     title: 'Jurassic English™ là gì?',
@@ -375,6 +431,8 @@ const viHomeContent = {
     avoidLabel: 'Tránh',
     replaceLabel: 'Thay bằng',
     exploreCta: 'Khám phá toàn bộ khung học thuật',
+    methodologyCta: 'Xem phương pháp luận',
+    worldwiseCta: 'Xem bối cảnh nhà phát hành',
     pillars: [
       {
         title: 'Văn học là trục neo trí tuệ',
@@ -610,7 +668,9 @@ const viHomeContent = {
   },
 } as const;
 
-const homeContentByLocale: Partial<Record<Locale, typeof enHomeContent>> = {
+type HomeContent = DeepWiden<typeof enHomeContent>;
+
+const homeContentByLocale: Partial<Record<Locale, HomeContent>> = {
   en: enHomeContent,
   vi: viHomeContent,
 };

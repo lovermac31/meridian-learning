@@ -27,13 +27,24 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
       {/* Hero Background — Compass Image */}
       <div className="absolute inset-0 z-0">
         {heroImageAvailable ? (
-          <img
-            src="/images/hero-compass.jpg"
-            alt={getUiString(locale, 'hero.imageAlt')}
-            className="w-full h-full object-cover object-[65%_center] md:object-[60%_center] lg:object-[55%_center]"
-            fetchPriority="high"
-            onError={() => setHeroImageAvailable(false)}
-          />
+          <picture className="block w-full h-full">
+            <source
+              type="image/webp"
+              srcSet="/images/hero-compass-640.webp 640w, /images/hero-compass-960.webp 960w"
+              sizes="100vw"
+            />
+            <img
+              src="/images/hero-compass-960.webp"
+              alt={getUiString(locale, 'hero.imageAlt')}
+              width="960"
+              height="640"
+              className="w-full h-full object-cover object-[65%_center] md:object-[60%_center] lg:object-[55%_center]"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              onError={() => setHeroImageAvailable(false)}
+            />
+          </picture>
         ) : null}
 
         {/* Left-to-right gradient overlay for text contrast */}
@@ -74,21 +85,25 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
           
           <motion.h1 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="font-display text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.0] mb-6 tracking-tight"
+            className="font-display max-w-full break-words text-[1.6rem] min-[420px]:text-[1.85rem] sm:text-[2.85rem] md:text-[3.25rem] lg:text-[3.6rem] text-white leading-[1.08] sm:leading-[1.0] mb-6 tracking-tight"
           >
-            {homeContent.hero.titleLineOne} <br />
+            {homeContent.hero.titleLineOne}{' '}
+            <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-jurassic-accent to-jurassic-gold">
               {homeContent.hero.titleHighlight}
-            </span> <br />
+            </span>{' '}
+            <br />
             {homeContent.hero.titleLineThree}
           </motion.h1>
 
-          <motion.p
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="text-sm sm:text-base text-jurassic-gold/80 mb-3 max-w-lg leading-relaxed font-medium"
-          >
-            {homeContent.hero.institutionalTagline}
-          </motion.p>
+          {homeContent.hero.institutionalTagline ? (
+            <motion.p
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="text-sm sm:text-base text-jurassic-gold/80 mb-3 max-w-lg leading-relaxed font-medium"
+            >
+              {homeContent.hero.institutionalTagline}
+            </motion.p>
+          ) : null}
 
           <motion.p
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
@@ -141,24 +156,24 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
 
             {/* Parent / student pathway — secondary audience */}
             {onNavigate && homeContent.hero.audienceRowLabel && (
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-1">
-                <span className="text-white/40 text-xs uppercase tracking-widest font-semibold">{homeContent.hero.audienceRowLabel}</span>
+              <div className="mt-1 flex w-fit max-w-full flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full border border-white/5 bg-white/[0.025] px-3 py-2 opacity-75">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/32">{homeContent.hero.audienceRowLabel}</span>
                 <button
                   onClick={() => {
                     trackCtaClick({ label: homeContent.hero.audienceCurriculumCta ?? '', type: 'secondary', segment: 'parent_student' });
                     onNavigate('/framework');
                   }}
-                  className="text-white/60 text-sm hover:text-white/85 underline underline-offset-2 transition-colors"
+                  className="text-xs font-medium text-white/45 underline underline-offset-2 transition-colors hover:text-white/70"
                 >
                   {homeContent.hero.audienceCurriculumCta}
                 </button>
-                <span className="text-white/25 text-xs">·</span>
+                <span className="text-xs text-white/18">·</span>
                 <button
                   onClick={() => {
                     trackCtaClick({ label: homeContent.hero.audienceCompareCta ?? '', type: 'secondary', segment: 'parent_student' });
                     onNavigate('/series/compare');
                   }}
-                  className="text-white/60 text-sm hover:text-white/85 underline underline-offset-2 transition-colors"
+                  className="text-xs font-medium text-white/45 underline underline-offset-2 transition-colors hover:text-white/70"
                 >
                   {homeContent.hero.audienceCompareCta}
                 </button>
