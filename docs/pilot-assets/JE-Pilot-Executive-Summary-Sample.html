@@ -37,6 +37,88 @@
   @media print {
     .page-break { page-break-before: always; }
     .no-break   { page-break-inside: avoid; }
+
+    /* ── Base compression ──────────────────────────────────────── */
+    body { font-size: 8.5pt; line-height: 1.35; }
+
+    /* ── Sample banner ─────────────────────────────────────────── */
+    .sample-banner       { padding: 3px 16mm; }
+    .sample-banner-text  { font-size: 7pt; }
+    .sample-banner-note  { font-size: 6.5pt; }
+
+    /* ── Cover header ──────────────────────────────────────────── */
+    .cover-header  { padding: 7mm 16mm 5mm; }
+    .cover-eyebrow { font-size: 6.5pt; margin-bottom: 2px; }
+    .cover-logo    { font-size: 9pt; }
+    .cover-title   { font-size: 12pt; margin-top: 5px; }
+    .cover-meta-grid { margin-top: 7px; padding-top: 7px; gap: 6px; }
+    .meta-label    { font-size: 6pt; }
+    .meta-value    { font-size: 8pt; }
+
+    /* ── Running header (page 2) ───────────────────────────────── */
+    .running-header { padding: 3px 16mm; }
+    .rh-logo        { font-size: 7.5pt; }
+    .rh-label       { font-size: 6pt; }
+
+    /* ── Main content area ─────────────────────────────────────── */
+    .content { padding: 4mm 16mm 5mm; }
+
+    /* ── Section headings ──────────────────────────────────────── */
+    .sec-heading { font-size: 7pt; margin-top: 7px; margin-bottom: 5px; padding-bottom: 3px; }
+
+    /* ── Executive summary grid ────────────────────────────────── */
+    .exec-summary-grid { gap: 5px; margin-bottom: 5px; }
+    .exec-field        { padding: 4px 7px; }
+    .exec-field-label  { font-size: 6.5pt; margin-bottom: 2px; }
+    .exec-field-value  { font-size: 8pt; line-height: 1.3; }
+
+    /* ── Annotation callouts ───────────────────────────────────── */
+    .annotation { padding: 4px 8px; margin-top: 4px; font-size: 6.5pt; line-height: 1.35; }
+
+    /* ── KPI Dashboard ─────────────────────────────────────────── */
+    .kpi-dashboard        { border-radius: 5px; margin-bottom: 5px; }
+    .kpi-dashboard-header { padding: 4px 10px; }
+    .kpi-dashboard-title  { font-size: 7pt; }
+    .legend-item          { font-size: 6pt; gap: 3px; }
+    .legend-dot           { width: 6px; height: 6px; }
+    .kpi-cell             { padding: 6px 9px; }
+    .kpi-cell-header      { margin-bottom: 4px; }
+    .kpi-cell-title       { font-size: 7pt; }
+    .kpi-rating           { width: 18px; height: 18px; font-size: 7.5pt; }
+    .kpi-bar-track        { height: 3px; margin-bottom: 4px; }
+    .kpi-summary          { font-size: 6.5pt; line-height: 1.3; }
+
+    /* ── Observations ──────────────────────────────────────────── */
+    .observations-grid { gap: 7px; margin-bottom: 5px; }
+    .obs-header        { padding: 4px 8px; gap: 5px; }
+    .obs-header-label  { font-size: 7pt; }
+    .obs-items         { padding: 5px 8px; gap: 3px; }
+    .obs-items li      { font-size: 7.5pt; line-height: 1.3; padding-left: 10px; }
+
+    /* ── Recommendation block ──────────────────────────────────── */
+    .recommendation-block  { border-radius: 4px; margin-bottom: 5px; }
+    .rec-header            { padding: 5px 10px; }
+    .rec-header-title      { font-size: 7pt; }
+    .rec-outcome-tag       { font-size: 6.5pt; padding: 2px 7px; }
+    .rec-body              { padding: 7px 10px; }
+    .rec-pathway-options   { gap: 4px; margin-bottom: 6px; }
+    .rec-option            { padding: 4px 5px; border-radius: 3px; }
+    .rec-option-icon       { font-size: 10pt; margin-bottom: 2px; }
+    .rec-option-label      { font-size: 6.5pt; }
+    .rec-rationale         { font-size: 7.5pt; line-height: 1.4; padding-top: 5px; }
+
+    /* ── Table ─────────────────────────────────────────────────── */
+    table     { font-size: 7.5pt; margin-bottom: 5px; }
+    th, td    { padding: 4px 6px; line-height: 1.3; }
+
+    /* ── Footer and confidential strip ────────────────────────── */
+    .confidential-bar { padding: 3px 16mm; font-size: 6pt; }
+    .page-footer      { padding: 4px 16mm; }
+    .footer-text      { font-size: 6.5pt; }
+    .footer-brand     { font-size: 6.5pt; }
+
+    /* ── Page height lock — prevents fractional bleed ──────────── */
+    .page { min-height: 0; height: 297mm; max-height: 297mm; overflow: hidden; }
   }
 
   .page {

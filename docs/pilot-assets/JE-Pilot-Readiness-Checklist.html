@@ -94,6 +94,9 @@
     /* Footer */
     .page-footer           { padding: 4px 16mm; }
     .footer-text           { font-size: 6.5pt; }
+
+    /* Lock page to exact A4 — prevents fractional bleed creating a blank second page */
+    .page { min-height: 0; height: 297mm; max-height: 297mm; overflow: hidden; }
   }
 
   .page {
