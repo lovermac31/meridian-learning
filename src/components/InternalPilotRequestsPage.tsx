@@ -408,23 +408,23 @@ export function InternalPilotRequestsPage() {
                     key={request.submissionId}
                     type="button"
                     onClick={() => setSelectedSubmissionId(request.submissionId)}
-                    className={`min-h-[8rem] rounded-md border p-4 text-left transition ${
+                    className={`min-h-[8rem] min-w-0 rounded-md border p-4 text-left transition ${
                       selectedSubmissionId === request.submissionId
                         ? 'border-jurassic-accent bg-jurassic-accent/5'
                         : 'border-jurassic-dark/10 bg-white hover:border-jurassic-dark/25'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
+                      <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-bold">{request.organisationName}</p>
                         <p className="mt-1 truncate text-xs text-jurassic-dark/55">{request.workEmail}</p>
                       </div>
-                      <span className="rounded-full bg-jurassic-dark/5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-jurassic-dark/65">
+                      <span className="shrink-0 rounded-full bg-jurassic-dark/5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-jurassic-dark/65">
                         {pilotStatusLabels[request.operatorStatus]}
                       </span>
                     </div>
-                    <p className="mt-3 text-xs text-jurassic-dark/55">{request.submissionId}</p>
-                    <p className="mt-2 text-xs text-jurassic-dark/55">{formatDate(request.submittedAt)}</p>
+                    <p className="mt-3 truncate text-xs text-jurassic-dark/55">{request.submissionId}</p>
+                    <p className="mt-2 truncate text-xs text-jurassic-dark/55">{formatDate(request.submittedAt)}</p>
                   </button>
                 ))}
               </div>
