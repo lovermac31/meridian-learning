@@ -9,3 +9,6 @@ coverage/
 .vercel
 .claude/
 .env*.local
+
+# Supabase CLI local cache
+supabase/.temp/

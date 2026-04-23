@@ -10,6 +10,8 @@ const STATIC_ROUTE_PATTERNS = new Set([
   '/teacher-standards',
   '/framework',
   '/get-started',
+  '/external/pilot',
+  '/internal/pilot-requests',
   '/series/compare',
   '/thinking-cycle/compare',
 ]);
@@ -44,13 +46,21 @@ function splitLocalePrefix(pathname: string) {
     : normalizedPathname;
 
   return {
-    localePrefix: hasVietnamesePrefix && basePathname !== '/plans-pricing-access' ? '/vi' : '',
+    localePrefix: hasVietnamesePrefix &&
+      basePathname !== '/plans-pricing-access' &&
+      basePathname !== '/external/pilot' &&
+      basePathname !== '/internal/pilot-requests' ? '/vi' : '',
     basePathname,
   };
 }
 
 function withLocalePrefix(localePrefix: string, pattern: string) {
-  if (!localePrefix || pattern === '/plans-pricing-access') return pattern;
+  if (
+    !localePrefix ||
+    pattern === '/plans-pricing-access' ||
+    pattern === '/external/pilot' ||
+    pattern === '/internal/pilot-requests'
+  ) return pattern;
   return pattern === '/' ? localePrefix : `${localePrefix}${pattern}`;
 }
 
@@ -67,8 +77,12 @@ export function normalizeSpeedInsightsRoute(route: string) {
     return withLocalePrefix(localePrefix, basePathname);
   }
 
-  if (basePathname === '/plans-pricing-access') {
-    return '/plans-pricing-access';
+  if (
+    basePathname === '/plans-pricing-access' ||
+    basePathname === '/external/pilot' ||
+    basePathname === '/internal/pilot-requests'
+  ) {
+    return basePathname;
   }
 
   if (/^\/series\/[^/]+\/syllabus$/.test(basePathname)) {

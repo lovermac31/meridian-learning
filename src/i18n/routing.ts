@@ -25,7 +25,11 @@ const STATIC_PUBLIC_PATHS = [
   '/thinking-cycle/compare',
 ] as const;
 
-const NON_LOCALIZED_PATHS = new Set(['/plans-pricing-access']);
+const NON_LOCALIZED_PATHS = new Set([
+  '/plans-pricing-access',
+  '/external/pilot',
+  '/internal/pilot-requests',
+]);
 
 const LOCALIZABLE_PUBLIC_PATHS = new Set([
   ...STATIC_PUBLIC_PATHS,

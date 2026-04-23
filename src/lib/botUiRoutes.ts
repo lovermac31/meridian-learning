@@ -16,6 +16,7 @@ export const BOTUI_DENIED_EXACT_PATHS = new Set([
 export const BOTUI_DENIED_PATH_PREFIXES = [
   '/vi',
   '/api',
+  '/internal',
   '/demo',
   '/thinking-cycle/JE-',
 ] as const;

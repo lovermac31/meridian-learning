@@ -253,6 +253,20 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     canonicalPath: '/plans-pricing-access',
     shouldIndex: false,
   },
+  '/external/pilot': {
+    title: 'External Pilot Resource Portal | Jurassic English™',
+    description:
+      'Token-protected external pilot resource portal for approved institutional review. This page is not intended for search indexing.',
+    canonicalPath: '/external/pilot',
+    shouldIndex: false,
+  },
+  '/internal/pilot-requests': {
+    title: 'Internal Pilot Requests | Jurassic English™',
+    description:
+      'Internal operator portal for reviewing pilot access requests. This page is not intended for search indexing.',
+    canonicalPath: '/internal/pilot-requests',
+    shouldIndex: false,
+  },
 };
 
 function toAbsoluteUrl(pathname: string) {

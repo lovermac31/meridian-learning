@@ -39,6 +39,22 @@ test('collapses private pricing variants and unknown routes safely', () => {
     normalizeSpeedInsightsRoute('/vi/plans-pricing-access?token=secret-token'),
     '/plans-pricing-access',
   );
+  assert.equal(
+    normalizeSpeedInsightsRoute('/external/pilot?token=secret-token'),
+    '/external/pilot',
+  );
+  assert.equal(
+    normalizeSpeedInsightsRoute('/vi/external/pilot?token=secret-token'),
+    '/external/pilot',
+  );
+  assert.equal(
+    normalizeSpeedInsightsRoute('/internal/pilot-requests?operatorKey=secret-token'),
+    '/internal/pilot-requests',
+  );
+  assert.equal(
+    normalizeSpeedInsightsRoute('/vi/internal/pilot-requests?operatorKey=secret-token'),
+    '/internal/pilot-requests',
+  );
   assert.equal(normalizeSpeedInsightsRoute('/unexpected/path?token=secret-token'), '/unknown');
   assert.equal(normalizeSpeedInsightsRoute('/vi/unreleased/path'), '/vi/unknown');
 });

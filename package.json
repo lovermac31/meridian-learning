@@ -12,6 +12,7 @@
     "test:metadata": "node --import tsx --test tests/metadata.test.ts",
     "validate:prerender": "node --import tsx scripts/validate-prerender-routes.mjs",
     "pricing:access-link": "node scripts/generate-pricing-access-link.mjs",
+    "external-portal:access-link": "node --import tsx scripts/generate-external-portal-access-link.mjs",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
   },

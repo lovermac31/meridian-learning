@@ -208,11 +208,12 @@ export async function writeSupabaseGetStarted(
   const config = resolveConfig();
   if (!config) return { ok: false, reason: 'not_configured' };
 
-  const contextNotes = [
-    submission.source ? `Source: ${submission.source}` : null,
-    submission.accessRequest ? `Pilot access request: ${submission.accessRequest}` : null,
-    submission.notes ? `Notes: ${submission.notes}` : null,
-  ].filter(Boolean).join('\n\n') || null;
+  const contextNotes = JSON.stringify({
+    schema: 'get_started_intake_context_v1',
+    source: submission.source ?? null,
+    accessRequest: submission.accessRequest ?? null,
+    userNotes: submission.notes ?? null,
+  });
 
   const row = {
     submission_id:     submission.submissionId,

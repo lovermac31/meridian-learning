@@ -22,7 +22,11 @@
   "functions": {
     "api/health.ts":                        { "maxDuration": 5  },
     "api/verify-pricing-access.ts":         { "maxDuration": 5  },
+    "api/verify-external-portal-access.ts": { "maxDuration": 5  },
     "api/generate-pricing-access-link.ts":  { "maxDuration": 5  },
+    "api/internal/pilot-requests.ts":       { "maxDuration": 10 },
+    "api/internal/pilot-requests/[submissionId].ts": { "maxDuration": 10 },
+    "api/internal/pilot-requests/[submissionId]/[action].ts": { "maxDuration": 10 },
     "api/get-started.ts":                   { "maxDuration": 10 },
     "api/pricing-registration.ts":          { "maxDuration": 15 },
     "api/inspect-notion-lead.ts":           { "maxDuration": 10 },
@@ -32,6 +36,18 @@
   "headers": [
     {
       "source": "/plans-pricing-access(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/external/pilot(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/internal/pilot-requests(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]

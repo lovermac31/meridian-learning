@@ -52,6 +52,12 @@ const LegalPage = lazy(() =>
 const PlansPricingAccessPage = lazy(() =>
   import('./components/PlansPricingAccessPage').then(m => ({ default: m.PlansPricingAccessPage }))
 );
+const ExternalPilotPortalPage = lazy(() =>
+  import('./components/ExternalPilotPortalPage').then(m => ({ default: m.ExternalPilotPortalPage }))
+);
+const InternalPilotRequestsPage = lazy(() =>
+  import('./components/InternalPilotRequestsPage').then(m => ({ default: m.InternalPilotRequestsPage }))
+);
 const ThinkingCycleExperience = lazy(() =>
   import('./components/ThinkingCycleExperience').then(m => ({ default: m.ThinkingCycleExperience }))
 );
@@ -137,6 +143,8 @@ function App() {
   const isTeacherStandardsView = routePathname === '/teacher-standards';
   const isFrameworkView = routePathname === '/framework';
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
+  const isExternalPilotPortalView = routePathname === '/external/pilot';
+  const isInternalPilotRequestsView = routePathname === '/internal/pilot-requests';
   const isSeriesComparisonView = routePathname === '/series/compare';
   const isThinkingCycleComparisonView = routePathname === '/thinking-cycle/compare';
   const isLegalView = isLegalPath(routePathname);
@@ -170,6 +178,8 @@ function App() {
     isCefrAlignmentView ||
     isTeacherStandardsView ||
     isPlansPricingAccessView ||
+    isExternalPilotPortalView ||
+    isInternalPilotRequestsView ||
     isFrameworkView ||
     isSeriesView ||
     isSyllabusView ||
@@ -316,15 +326,17 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar
-        onGetStarted={() => navigateTo('/get-started')}
-        onNavigateHome={() => navigateTo('/')}
-        onNavigate={navigateTo}
-        onPricingClick={() => setIsPricingModalOpen(true)}
-        isPortalView={isSubpageView}
-        forceSolidBackground={shouldForceSolidNavbar}
-        languageSwitcher={<LanguageSwitcher currentRoute={route} onNavigate={pushRoute} />}
-      />
+      {!isInternalPilotRequestsView ? (
+        <Navbar
+          onGetStarted={() => navigateTo('/get-started')}
+          onNavigateHome={() => navigateTo('/')}
+          onNavigate={navigateTo}
+          onPricingClick={() => setIsPricingModalOpen(true)}
+          isPortalView={isSubpageView}
+          forceSolidBackground={shouldForceSolidNavbar}
+          languageSwitcher={<LanguageSwitcher currentRoute={route} onNavigate={pushRoute} />}
+        />
+      ) : null}
       <Suspense fallback={<div className="min-h-screen bg-jurassic-dark" />}>
       {isUnknownRouteView ? (
         <NotFoundPage
@@ -393,6 +405,13 @@ function App() {
         />
       ) : isPlansPricingAccessView ? (
         <PlansPricingAccessPage onBack={() => navigateTo('/')} />
+      ) : isExternalPilotPortalView ? (
+        <ExternalPilotPortalPage
+          onBack={() => navigateTo('/')}
+          onRequestAccess={() => navigateTo('/get-started?interest=curriculum_review&source=pilot-programme&access=pilot_pack')}
+        />
+      ) : isInternalPilotRequestsView ? (
+        <InternalPilotRequestsPage />
       ) : isFrameworkView ? (
         <FrameworkExperience
           onBack={() => navigateTo('/')}
@@ -487,7 +506,7 @@ function App() {
         </main>
       )}
       </Suspense>
-      <Footer onNavigate={navigateTo} />
+      {!isInternalPilotRequestsView ? <Footer onNavigate={navigateTo} /> : null}
       {isBotUIPilotVisible ? (
         <Suspense fallback={null}>
           <BotUIChat currentPathname={pathname} onNavigate={navigateTo} />

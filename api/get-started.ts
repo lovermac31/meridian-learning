@@ -49,6 +49,8 @@ const pilotAccessRequestOptions = [
   'pilot_consultation',
 ] as const;
 
+const pilotAccessSource = 'pilot-programme';
+
 type OrganizationType = (typeof organizationTypeOptions)[number];
 type PrimaryInterest = (typeof primaryInterestOptions)[number];
 type Timeline = (typeof timelineOptions)[number];
@@ -271,6 +273,10 @@ function validateGetStartedPayload(values: GetStartedFormValues): ValidationErro
     errors.accessRequest = 'Select a valid pilot access request.';
   }
 
+  if (values.accessRequest && values.source !== pilotAccessSource) {
+    errors.accessRequest = 'Pilot access requests must come through the pilot programme flow.';
+  }
+
   if (values.website.trim()) {
     errors.website = 'Spam detected.';
   }
@@ -336,8 +342,8 @@ function normalizeGetStartedPayload(
     successDefinition: cleanOptional(values.successDefinition),
     notes: cleanOptional(values.notes),
     newsletterOptIn: Boolean(values.newsletterOptIn),
-    source: cleanOptional(values.source),
-    accessRequest: values.accessRequest || undefined,
+    source: values.source === pilotAccessSource ? pilotAccessSource : undefined,
+    accessRequest: values.source === pilotAccessSource ? values.accessRequest || undefined : undefined,
   };
 }
 

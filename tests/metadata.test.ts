@@ -245,6 +245,10 @@ test('resolver returns available-soon metadata for unreleased Vietnamese institu
 test('resolver keeps the private route non-indexable and non-canonical', () => {
   const privateRoute = resolveRouteMetadata('/plans-pricing-access');
   const localizedPrivateRoute = resolveRouteMetadata('/vi/plans-pricing-access');
+  const externalPortalRoute = resolveRouteMetadata('/external/pilot');
+  const localizedExternalPortalRoute = resolveRouteMetadata('/vi/external/pilot');
+  const internalPortalRoute = resolveRouteMetadata('/internal/pilot-requests');
+  const localizedInternalPortalRoute = resolveRouteMetadata('/vi/internal/pilot-requests');
 
   assert.equal(privateRoute.robots, 'noindex, nofollow');
   assert.equal(privateRoute.canonical, undefined);
@@ -257,6 +261,30 @@ test('resolver keeps the private route non-indexable and non-canonical', () => {
   assert.equal(localizedPrivateRoute.canonical, undefined);
   assert.equal(localizedPrivateRoute.jsonLd?.length ?? 0, 0);
   assert.equal(localizedPrivateRoute.og.url, 'https://jurassicenglish.com/plans-pricing-access');
+
+  assert.equal(externalPortalRoute.robots, 'noindex, nofollow');
+  assert.equal(externalPortalRoute.canonical, undefined);
+  assert.equal(externalPortalRoute.jsonLd?.length ?? 0, 0);
+  assert.equal(externalPortalRoute.og.url, 'https://jurassicenglish.com/external/pilot');
+
+  assert.equal(localizedExternalPortalRoute.htmlLang, 'en');
+  assert.equal(localizedExternalPortalRoute.title, externalPortalRoute.title);
+  assert.equal(localizedExternalPortalRoute.robots, 'noindex, nofollow');
+  assert.equal(localizedExternalPortalRoute.canonical, undefined);
+  assert.equal(localizedExternalPortalRoute.jsonLd?.length ?? 0, 0);
+  assert.equal(localizedExternalPortalRoute.og.url, 'https://jurassicenglish.com/external/pilot');
+
+  assert.equal(internalPortalRoute.robots, 'noindex, nofollow');
+  assert.equal(internalPortalRoute.canonical, undefined);
+  assert.equal(internalPortalRoute.jsonLd?.length ?? 0, 0);
+  assert.equal(internalPortalRoute.og.url, 'https://jurassicenglish.com/internal/pilot-requests');
+
+  assert.equal(localizedInternalPortalRoute.htmlLang, 'en');
+  assert.equal(localizedInternalPortalRoute.title, internalPortalRoute.title);
+  assert.equal(localizedInternalPortalRoute.robots, 'noindex, nofollow');
+  assert.equal(localizedInternalPortalRoute.canonical, undefined);
+  assert.equal(localizedInternalPortalRoute.jsonLd?.length ?? 0, 0);
+  assert.equal(localizedInternalPortalRoute.og.url, 'https://jurassicenglish.com/internal/pilot-requests');
 });
 
 test('resolver keeps unknown routes non-indexable and non-canonical', () => {

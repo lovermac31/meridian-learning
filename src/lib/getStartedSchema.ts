@@ -37,6 +37,8 @@ export const pilotAccessRequestOptions = [
   'pilot_consultation',
 ] as const;
 
+const pilotAccessSource = 'pilot-programme';
+
 export type OrganizationType = (typeof organizationTypeOptions)[number];
 export type PrimaryInterest = (typeof primaryInterestOptions)[number];
 export type Timeline = (typeof timelineOptions)[number];
@@ -162,6 +164,7 @@ const getStartedErrorMessages: Record<Locale, Record<string, string>> = {
     timelineInvalid: 'Select a valid timeline.',
     decisionStageInvalid: 'Select a valid decision stage.',
     accessRequestInvalid: 'Select a valid pilot access request.',
+    accessRequestRequiresPilotSource: 'Pilot access requests must come through the pilot programme flow.',
     spamDetected: 'Spam detected.',
   },
   vi: {
@@ -177,6 +180,7 @@ const getStartedErrorMessages: Record<Locale, Record<string, string>> = {
     timelineInvalid: 'Vui lòng chọn mốc thời gian hợp lệ.',
     decisionStageInvalid: 'Vui lòng chọn giai đoạn quyết định hợp lệ.',
     accessRequestInvalid: 'Vui lòng chọn yêu cầu truy cập thí điểm hợp lệ.',
+    accessRequestRequiresPilotSource: 'Yêu cầu truy cập thí điểm phải đi qua luồng chương trình thí điểm.',
     spamDetected: 'Đã phát hiện spam.',
   },
 };
@@ -260,6 +264,10 @@ export function validateGetStartedPayload(
     errors.accessRequest = messages.accessRequestInvalid;
   }
 
+  if (values.accessRequest && values.source !== pilotAccessSource) {
+    errors.accessRequest = messages.accessRequestRequiresPilotSource;
+  }
+
   if (values.website.trim()) {
     errors.website = messages.spamDetected;
   }
@@ -325,8 +333,8 @@ export function normalizeGetStartedPayload(
     successDefinition: cleanOptional(values.successDefinition),
     notes: cleanOptional(values.notes),
     newsletterOptIn: Boolean(values.newsletterOptIn),
-    source: cleanOptional(values.source),
-    accessRequest: values.accessRequest || undefined,
+    source: values.source === pilotAccessSource ? pilotAccessSource : undefined,
+    accessRequest: values.source === pilotAccessSource ? values.accessRequest || undefined : undefined,
   };
 }
 
