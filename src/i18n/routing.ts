@@ -29,6 +29,7 @@ const NON_LOCALIZED_PATHS = new Set([
   '/plans-pricing-access',
   '/external/pilot',
   '/internal/pilot-requests',
+  '/internal/approval-action',
 ]);
 
 const LOCALIZABLE_PUBLIC_PATHS = new Set([

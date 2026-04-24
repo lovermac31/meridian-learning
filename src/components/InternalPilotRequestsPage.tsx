@@ -75,7 +75,7 @@ export function InternalPilotRequestsPage() {
   const [requests, setRequests] = useState<PilotAccessRequest[]>([]);
   const [detail, setDetail] = useState<DetailState | null>(null);
   const [selectedSubmissionId, setSelectedSubmissionId] = useState('');
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => new URLSearchParams(window.location.search).get('search') || '');
   const [operatorStatusFilter, setOperatorStatusFilter] = useState('');
   const [consultationFilter, setConsultationFilter] = useState('');
   const [fulfillmentFilter, setFulfillmentFilter] = useState('');

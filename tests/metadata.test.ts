@@ -249,6 +249,8 @@ test('resolver keeps the private route non-indexable and non-canonical', () => {
   const localizedExternalPortalRoute = resolveRouteMetadata('/vi/external/pilot');
   const internalPortalRoute = resolveRouteMetadata('/internal/pilot-requests');
   const localizedInternalPortalRoute = resolveRouteMetadata('/vi/internal/pilot-requests');
+  const approvalActionRoute = resolveRouteMetadata('/internal/approval-action');
+  const localizedApprovalActionRoute = resolveRouteMetadata('/vi/internal/approval-action');
 
   assert.equal(privateRoute.robots, 'noindex, nofollow');
   assert.equal(privateRoute.canonical, undefined);
@@ -285,6 +287,18 @@ test('resolver keeps the private route non-indexable and non-canonical', () => {
   assert.equal(localizedInternalPortalRoute.canonical, undefined);
   assert.equal(localizedInternalPortalRoute.jsonLd?.length ?? 0, 0);
   assert.equal(localizedInternalPortalRoute.og.url, 'https://jurassicenglish.com/internal/pilot-requests');
+
+  assert.equal(approvalActionRoute.robots, 'noindex, nofollow');
+  assert.equal(approvalActionRoute.canonical, undefined);
+  assert.equal(approvalActionRoute.jsonLd?.length ?? 0, 0);
+  assert.equal(approvalActionRoute.og.url, 'https://jurassicenglish.com/internal/approval-action');
+
+  assert.equal(localizedApprovalActionRoute.htmlLang, 'en');
+  assert.equal(localizedApprovalActionRoute.title, approvalActionRoute.title);
+  assert.equal(localizedApprovalActionRoute.robots, 'noindex, nofollow');
+  assert.equal(localizedApprovalActionRoute.canonical, undefined);
+  assert.equal(localizedApprovalActionRoute.jsonLd?.length ?? 0, 0);
+  assert.equal(localizedApprovalActionRoute.og.url, 'https://jurassicenglish.com/internal/approval-action');
 });
 
 test('resolver keeps unknown routes non-indexable and non-canonical', () => {

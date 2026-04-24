@@ -12,6 +12,7 @@ const STATIC_ROUTE_PATTERNS = new Set([
   '/get-started',
   '/external/pilot',
   '/internal/pilot-requests',
+  '/internal/approval-action',
   '/series/compare',
   '/thinking-cycle/compare',
 ]);
@@ -49,7 +50,8 @@ function splitLocalePrefix(pathname: string) {
     localePrefix: hasVietnamesePrefix &&
       basePathname !== '/plans-pricing-access' &&
       basePathname !== '/external/pilot' &&
-      basePathname !== '/internal/pilot-requests' ? '/vi' : '',
+      basePathname !== '/internal/pilot-requests' &&
+      basePathname !== '/internal/approval-action' ? '/vi' : '',
     basePathname,
   };
 }
@@ -59,7 +61,8 @@ function withLocalePrefix(localePrefix: string, pattern: string) {
     !localePrefix ||
     pattern === '/plans-pricing-access' ||
     pattern === '/external/pilot' ||
-    pattern === '/internal/pilot-requests'
+    pattern === '/internal/pilot-requests' ||
+    pattern === '/internal/approval-action'
   ) return pattern;
   return pattern === '/' ? localePrefix : `${localePrefix}${pattern}`;
 }
@@ -80,7 +83,8 @@ export function normalizeSpeedInsightsRoute(route: string) {
   if (
     basePathname === '/plans-pricing-access' ||
     basePathname === '/external/pilot' ||
-    basePathname === '/internal/pilot-requests'
+    basePathname === '/internal/pilot-requests' ||
+    basePathname === '/internal/approval-action'
   ) {
     return basePathname;
   }

@@ -55,6 +55,14 @@ test('collapses private pricing variants and unknown routes safely', () => {
     normalizeSpeedInsightsRoute('/vi/internal/pilot-requests?operatorKey=secret-token'),
     '/internal/pilot-requests',
   );
+  assert.equal(
+    normalizeSpeedInsightsRoute('/internal/approval-action?token=secret-token'),
+    '/internal/approval-action',
+  );
+  assert.equal(
+    normalizeSpeedInsightsRoute('/vi/internal/approval-action?token=secret-token'),
+    '/internal/approval-action',
+  );
   assert.equal(normalizeSpeedInsightsRoute('/unexpected/path?token=secret-token'), '/unknown');
   assert.equal(normalizeSpeedInsightsRoute('/vi/unreleased/path'), '/vi/unknown');
 });

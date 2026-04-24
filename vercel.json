@@ -27,6 +27,7 @@
     "api/internal/pilot-requests.ts":       { "maxDuration": 10 },
     "api/internal/pilot-requests/[submissionId].ts": { "maxDuration": 10 },
     "api/internal/pilot-requests/[submissionId]/[action].ts": { "maxDuration": 10 },
+    "api/internal/approval-action.ts":      { "maxDuration": 10 },
     "api/get-started.ts":                   { "maxDuration": 10 },
     "api/pricing-registration.ts":          { "maxDuration": 15 },
     "api/inspect-notion-lead.ts":           { "maxDuration": 10 },
@@ -48,6 +49,12 @@
     },
     {
       "source": "/internal/pilot-requests(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    },
+    {
+      "source": "/internal/approval-action(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
       ]

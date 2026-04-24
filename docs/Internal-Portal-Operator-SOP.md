@@ -34,6 +34,21 @@ The Get Started API sends the operator alert to `GET_STARTED_NOTIFY_EMAIL`. Prod
 
 Inbox receipt must be confirmed manually unless the operator has direct inbox access.
 
+The operator alert includes a review summary, a direct internal portal search link, a recommendation, and signed confirmation links for common first decisions. These links do not contain the operator key and do not issue external portal tokens.
+
+Supported signed email actions:
+
+- `mark_under_review`
+- `approve_basic_pack`
+- `consultation_required`
+- `denied`
+
+Each signed link opens:
+
+`/internal/approval-action?token=<signed-action-token>`
+
+The confirmation page must be reviewed before confirming. Do not forward operator action emails outside the review team.
+
 ## 4. Internal Portal Access
 
 Open:
@@ -84,7 +99,7 @@ Clarification required is represented as `operator_status=under_review` plus an 
 
 ## 8. Approved Access Workflow
 
-1. Set `operator_status=approved`.
+1. Set `operator_status=approved` manually in the portal or confirm the signed `approve_basic_pack` action from the operator email.
 2. Select approved scopes.
 3. Issue the token.
 4. Copy the returned URL once.
@@ -94,7 +109,7 @@ Clarification required is represented as `operator_status=under_review` plus an 
 
 ## 9. Consultation-Required Workflow
 
-1. Set `operator_status=consultation_required`.
+1. Set `operator_status=consultation_required` manually in the portal or confirm the signed `consultation_required` action from the operator email.
 2. Set `consultation_status=required` or `proposed`.
 3. Send Template B.
 4. Log a manual event noting the email was sent.
@@ -112,10 +127,22 @@ There is no `consultation_sent` fulfillment status in the current production enu
 
 ## 11. Denied Workflow
 
-1. Set `operator_status=denied`.
+1. Set `operator_status=denied` manually in the portal or confirm the signed `denied` action from the operator email.
 2. Add an internal note with the reason.
 3. Optionally send Template D.
 4. Do not issue a token.
+
+## 11A. Signed Email Action Rules
+
+Signed operator action links are convenience shortcuts into the manual review workflow. They are not a replacement for operator judgement.
+
+- Tokens are HMAC-signed, scoped to one submission ID and one action, and expire automatically.
+- Tokens never include `INTERNAL_PORTAL_OPERATOR_KEY`.
+- The confirmation page is noindex, non-canonical, and hidden from navigation.
+- Confirming `approve_basic_pack` sets `operator_status=approved` and approves the default mapped scopes only. It does not issue an external portal token.
+- Confirming `consultation_required` sets `operator_status=consultation_required` and `consultation_status=required`.
+- Confirming `denied` sets `operator_status=denied` and `fulfillment_status=blocked`.
+- Each confirmed action writes an event row to `je_pilot_access_events` with an action token ID so repeated confirmation attempts are rejected.
 
 ## 12. Token Issuance Rules
 
