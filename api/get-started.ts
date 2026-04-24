@@ -1,5 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { writeSupabaseGetStarted } from './_lib/supabaseWriter.js';
+import {
+  writeSupabaseGetStarted,
+  writeSupabasePilotAccessRequest,
+} from './_lib/supabaseWriter.js';
 import {
   checkRateLimit,
   createThrottleLogContext,
@@ -546,7 +549,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const submission = normalizeGetStartedPayload(values);
 
-  const [notification, supabaseResult] = await Promise.all([
+  const [notification, supabaseResult, pilotAccessResult] = await Promise.all([
     sendGetStartedNotification(submission),
     Promise.race([
       writeSupabaseGetStarted(submission),
@@ -554,6 +557,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         setTimeout(() => resolve({ ok: false, reason: 'supabase_timeout' }), 4000),
       ),
     ]),
+    submission.source === pilotAccessSource && submission.accessRequest
+      ? Promise.race([
+          writeSupabasePilotAccessRequest(submission),
+          new Promise<{ ok: false; reason: string }>((resolve) =>
+            setTimeout(() => resolve({ ok: false, reason: 'pilot_access_timeout' }), 4000),
+          ),
+        ])
+      : Promise.resolve({ ok: false, reason: 'not_pilot_access_request' }),
   ]);
 
   console.info('[get-started] supabase write', {
@@ -565,6 +576,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   console.info('[get-started] submission received', {
     ...createSubmissionLogContext(submission),
     notificationStatus: notification.status,
+    pilotAccessQueueOk: pilotAccessResult.ok,
+    pilotAccessQueueReason: (pilotAccessResult as any).reason,
     notificationDiagnostics: notification.diagnostics,
   });
 

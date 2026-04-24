@@ -467,7 +467,10 @@ export function InternalPilotRequestsPage() {
 
                         <div className="mt-5 grid gap-4 sm:grid-cols-2">
                           <Field label="Submitted" value={formatDate(selectedRequest.submittedAt)} />
+                          <Field label="Source" value={selectedRequest.source || 'Not provided'} />
                           <Field label="Access request" value={selectedRequest.accessRequest || 'Not provided'} />
+                          <Field label="Primary interest" value={selectedRequest.primaryInterest || 'Not provided'} />
+                          <Field label="Organisation type" value={selectedRequest.organisationType || 'Not provided'} />
                           <Field label="Decision stage" value={selectedRequest.decisionStage || 'Not provided'} />
                           <Field label="Timeline" value={selectedRequest.timeline || 'Not provided'} />
                         </div>

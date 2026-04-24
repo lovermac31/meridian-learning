@@ -277,3 +277,87 @@ export async function writeSupabaseGetStarted(
   });
   return { ok: true, id, reason: 'created' };
 }
+
+// ─── je_pilot_access_requests (internal operator queue) ──────────────────────
+
+export async function writeSupabasePilotAccessRequest(
+  submission: NormalizedGetStartedSubmission,
+): Promise<SupabaseWriteResult> {
+  if (submission.source !== 'pilot-programme' || !submission.accessRequest) {
+    return { ok: false, reason: 'not_pilot_access_request' };
+  }
+
+  const config = resolveConfig();
+  if (!config) return { ok: false, reason: 'not_configured' };
+
+  const operatorNotes = [
+    'Intake context',
+    `Role/title: ${submission.roleTitle ?? 'Not provided'}`,
+    `Country/region: ${submission.countryRegion ?? 'Not provided'}`,
+    `Age range: ${submission.ageRange ?? 'Not provided'}`,
+    `Learner count: ${submission.learnerCount ?? 'Not provided'}`,
+    `Standards context: ${submission.standardsContext ?? 'Not provided'}`,
+    `Success definition: ${submission.successDefinition ?? 'Not provided'}`,
+    `User notes: ${submission.notes ?? 'Not provided'}`,
+  ].join('\n');
+
+  const row = {
+    submission_id:       submission.submissionId,
+    submitted_at:        submission.submittedAt,
+    full_name:           submission.fullName,
+    work_email:          submission.workEmail,
+    organisation_name:   submission.organizationName,
+    organisation_type:   submission.organizationType,
+    primary_interest:    submission.primaryInterest,
+    source:              submission.source,
+    access_request:      submission.accessRequest,
+    challenge:           submission.challenge,
+    decision_stage:      submission.decisionStage ?? null,
+    timeline:            submission.timeline ?? null,
+    operator_status:     'submitted',
+    consultation_status: submission.accessRequest === 'pilot_consultation' ? 'required' : 'not_required',
+    approved_scopes:     [],
+    fulfillment_status:  'not_started',
+    operator_notes:      operatorNotes,
+  };
+
+  let res: Response;
+  try {
+    res = await fetch(`${config.url}/rest/v1/je_pilot_access_requests`, {
+      method:  'POST',
+      headers: supabaseHeaders(config.writeKey),
+      body:    JSON.stringify(row),
+    });
+  } catch (err) {
+    console.error('[supabase] je_pilot_access_requests insert threw (network error)', {
+      submissionId: submission.submissionId,
+      error: String(err),
+    });
+    return { ok: false, reason: 'network_error' };
+  }
+
+  if (res.status === 409) {
+    console.info('[supabase] je_pilot_access_requests duplicate — skipping', {
+      submissionId: submission.submissionId,
+    });
+    return { ok: true, id: '', reason: 'duplicate_skipped' };
+  }
+
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '(unreadable)');
+    console.error('[supabase] je_pilot_access_requests insert failed', {
+      status:       res.status,
+      submissionId: submission.submissionId,
+      response:     errText.slice(0, 500),
+    });
+    return { ok: false, reason: `api_${res.status}` };
+  }
+
+  const rows = await res.json() as Array<{ id: string }>;
+  const id = rows[0]?.id ?? '';
+  console.info('[supabase] je_pilot_access_requests record created', {
+    submissionId: submission.submissionId,
+    rowId: id,
+  });
+  return { ok: true, id, reason: 'created' };
+}

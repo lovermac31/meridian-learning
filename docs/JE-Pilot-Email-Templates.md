@@ -5,13 +5,13 @@ These templates are for manual operator use. Each template includes a subject li
 
 ---
 
-## Template A — Pilot Pack Delivery
-**Use when:** Submitter requested `pilot_overview_pack`, `implementation_scope_overview`, `reporting_sample`, or `institutional_programme_pack` and submission passes review criteria.
+## Template A — Approved Access
+**Use when:** `operator_status=approved`, approved scopes are selected, and an external portal token has been issued.
 
 ---
 
 **Subject:**
-`Jurassic English — Pilot Programme Materials for [Organisation Name]`
+`Jurassic English — Approved Pilot Access for [Organisation Name]`
 
 **Body:**
 
@@ -19,17 +19,13 @@ Hello [First Name],
 
 Thank you for your enquiry about the Jurassic English Pilot Programme.
 
-I have attached the [Pilot Overview Pack / Implementation Scope Overview / materials you requested] for your review. [Optional one sentence referencing their specific challenge or context from the submission — e.g. "Given your focus on developing reasoning skills across your upper-primary cohort, the Institutional MVP Pilot pathway is likely the most relevant starting point."]
+Your request has been approved for scoped review access. You can use the secure link below to access the materials selected for your institution:
 
-The pack covers:
-- What the pilot involves and how it is structured
-- What your institution will need to commit and what we provide
-- What gets measured and what you receive at the end
-- The three commercial pathways and how we select the right one
+[PASTE EXTERNAL PORTAL LINK]
 
-If you would like to talk through whether the pilot is the right fit for your institution at this stage, I am happy to arrange a short scoping conversation. There is no obligation, and if your institution is not yet ready for a full pilot, I will tell you that directly and suggest a more appropriate starting point.
+This link expires on [expiry date]. It includes: [list approved materials, for example Pilot Overview Pack and Readiness Checklist].
 
-Please let me know if you have any questions about the materials.
+Please reply to this email if you have questions about the materials or would like to arrange a pilot consultation.
 
 Kind regards,
 
@@ -40,15 +36,15 @@ info@jurassicenglish.com
 ---
 
 **Operator Notes:**
-- Attach the relevant PDF(s) — see `JE-Pilot-Pack-Content-Outline.md` for asset descriptions
-- Adjust the "pack covers" bullet list if sending a specific asset rather than the full pack
-- If `decisionStage` is `ready_to_pilot`, add a direct invitation to book a scope call with proposed times
-- Reference `submissionId` internally in the email client for CRM tracking — no need to include in the outbound email body
+- Use this template only after the internal portal returns a generated external portal URL
+- Include only materials represented by the approved scopes
+- Do not paste the raw token into shared notes or Notion
+- After sending, update `fulfillment_status` from `token_issued` to `materials_sent`
 
 ---
 
-## Template B — Consultation Request
-**Use when:** Submitter requested `pilot_consultation` directly, or requested any pack and `decisionStage` is `ready_for_consultation` or `ready_to_pilot`.
+## Template B — Consultation Required
+**Use when:** Request is credible but context, readiness, implementation scope, or decision authority needs a call before broad access.
 
 ---
 
@@ -59,9 +55,9 @@ info@jurassicenglish.com
 
 Hello [First Name],
 
-Thank you for your interest in the Jurassic English Pilot Programme and for requesting a consultation.
+Thank you for your interest in the Jurassic English Pilot Programme.
 
-I would be glad to arrange a scoping conversation to discuss your institution's context and whether a pilot is the right next step.
+Before we send wider pilot materials, the best next step is a short scoping conversation. This helps us understand your institution's context and avoid sending materials that are too broad or not relevant to your current stage.
 
 The call is typically 30–45 minutes and covers:
 - Your institutional context, learner group, and implementation window
@@ -71,7 +67,7 @@ The call is typically 30–45 minutes and covers:
 
 I can offer the following times: [insert 2–3 options with timezone]. If none of these work, please reply with your preferred window and I will find a slot.
 
-[Optional: if you have not already seen the Pilot Overview Pack, I can send it ahead of the call so we can use the time more effectively.]
+We will hold broader access until after that conversation, then send the most relevant materials if the fit is clear.
 
 Kind regards,
 
@@ -84,8 +80,10 @@ info@jurassicenglish.com
 **Operator Notes:**
 - Propose 2–3 real calendar slots — do not leave this open-ended
 - Include timezone — Vietnam (ICT, UTC+7) is the primary market; adjust accordingly
-- If the submitter's challenge field indicates they are not yet ready for a pilot (e.g. still at curriculum exploration stage), use Template C instead of booking a full consultation; suggest a shorter Discovery Call first
-- Send the Pilot Overview Pack alongside or ahead of the call unless they have already confirmed they have reviewed equivalent materials
+- Do not include an external portal link in this template
+- Set `operator_status=consultation_required`
+- Set `consultation_status=required` or `proposed`
+- Use a manual event note after sending the email
 
 ---
 
@@ -134,27 +132,23 @@ info@jurassicenglish.com
 
 ---
 
-## Template D — Follow-Up / Next Step
-**Use when:** Pack has been sent (Template A) and no reply received after 5 business days. Or: consultation was agreed but no time has been confirmed.
+## Template D — Denied / Not Qualified
+**Use when:** Request is not credible, not institutionally aligned, or outside the current pilot access criteria.
 
 ---
 
 **Subject:**
-`Jurassic English — Following Up on [Pilot Overview Pack / Consultation Request]`
+`Jurassic English — Pilot Access Request`
 
 **Body:**
 
 Hello [First Name],
 
-I wanted to follow up briefly in case the [Pilot Overview Pack / consultation invitation] I sent on [date] did not reach you, or in case it landed at a busy time.
+Thank you for your interest in the Jurassic English Pilot Programme.
 
-[Situation A — pack was sent, no reply:]
-If you have had a chance to review the materials and have questions, I am happy to answer them directly or arrange a short call. If the timing is not right just now, that is also completely fine — please do keep the materials for when it makes sense to revisit.
+At this stage, we are not able to provide gated pilot access for this request. The current pilot materials are intended for qualified institutional review by schools, academies, school groups, and aligned programme partners.
 
-[Situation B — consultation was requested, times not confirmed:]
-If the times I suggested do not work, please reply with a window that suits you and I will arrange something. Alternatively, if you would prefer to start with the Pilot Overview Pack before a call, I can send that through now.
-
-No pressure either way — I just wanted to make sure the message reached you.
+You are welcome to review the public information on jurassicenglish.com, and you may submit a new enquiry in future if your institutional context changes.
 
 Kind regards,
 
@@ -165,10 +159,10 @@ info@jurassicenglish.com
 ---
 
 **Operator Notes:**
-- Send this once only — do not send a third chaser
-- If no reply to this follow-up within 5 further business days, update CRM status to `stalled` and add a note with the follow-up date
-- Stalled records can be reviewed quarterly — do not re-engage unless there is a new signal (e.g. inbound email, repeat visit to pilot page, new form submission)
-- Do not offer a discount or incentive in follow-up — the pilot is a commercial engagement, not a free trial, and urgency tactics are inconsistent with the institutional positioning
+- Do not expose internal qualification criteria
+- Do not include an external portal link
+- Set `operator_status=denied`
+- Add an internal note explaining the reason
 
 ---
 

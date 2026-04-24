@@ -216,6 +216,13 @@ export async function handlePilotRequestAction(req: VercelRequest, res: VercelRe
       return res.status(404).json({ ok: false, error: 'Pilot request not found.' });
     }
 
+    if (request.operatorStatus !== 'approved') {
+      return res.status(400).json({
+        ok: false,
+        error: 'Pilot request must be approved before issuing an external portal token.',
+      });
+    }
+
     if (action === 'issue-token') {
       const body = (req.body && typeof req.body === 'object' ? req.body : {}) as Record<string, unknown>;
       const requestedScopes = parseScopes(body.scopes);
