@@ -58,6 +58,9 @@ const ExternalPilotPortalPage = lazy(() =>
 const InternalPilotRequestsPage = lazy(() =>
   import('./components/InternalPilotRequestsPage').then(m => ({ default: m.InternalPilotRequestsPage }))
 );
+const InternalApprovalActionPage = lazy(() =>
+  import('./components/InternalApprovalActionPage').then(m => ({ default: m.InternalApprovalActionPage }))
+);
 const ThinkingCycleExperience = lazy(() =>
   import('./components/ThinkingCycleExperience').then(m => ({ default: m.ThinkingCycleExperience }))
 );
@@ -145,6 +148,8 @@ function App() {
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
   const isInternalPilotRequestsView = routePathname === '/internal/pilot-requests';
+  const isInternalApprovalActionView = routePathname === '/internal/approval-action';
+  const isInternalView = isInternalPilotRequestsView || isInternalApprovalActionView;
   const isSeriesComparisonView = routePathname === '/series/compare';
   const isThinkingCycleComparisonView = routePathname === '/thinking-cycle/compare';
   const isLegalView = isLegalPath(routePathname);
@@ -180,6 +185,7 @@ function App() {
     isPlansPricingAccessView ||
     isExternalPilotPortalView ||
     isInternalPilotRequestsView ||
+    isInternalApprovalActionView ||
     isFrameworkView ||
     isSeriesView ||
     isSyllabusView ||
@@ -326,7 +332,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      {!isInternalPilotRequestsView ? (
+      {!isInternalView ? (
         <Navbar
           onGetStarted={() => navigateTo('/get-started')}
           onNavigateHome={() => navigateTo('/')}
@@ -412,6 +418,8 @@ function App() {
         />
       ) : isInternalPilotRequestsView ? (
         <InternalPilotRequestsPage />
+      ) : isInternalApprovalActionView ? (
+        <InternalApprovalActionPage onBack={() => navigateTo('/')} />
       ) : isFrameworkView ? (
         <FrameworkExperience
           onBack={() => navigateTo('/')}
@@ -506,7 +514,7 @@ function App() {
         </main>
       )}
       </Suspense>
-      {!isInternalPilotRequestsView ? <Footer onNavigate={navigateTo} /> : null}
+      {!isInternalView ? <Footer onNavigate={navigateTo} /> : null}
       {isBotUIPilotVisible ? (
         <Suspense fallback={null}>
           <BotUIChat currentPathname={pathname} onNavigate={navigateTo} />

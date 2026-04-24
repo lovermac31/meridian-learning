@@ -5,6 +5,35 @@ These templates are for manual operator use. Each template includes a subject li
 
 ---
 
+## Operator Alert — Internal Review Notification
+**Use when:** `/get-started` receives a pilot access request and sends the internal notification to `info@jurassicenglish.com`.
+
+The production notification email should include:
+
+- submission ID and submitted timestamp
+- source and pilot access request
+- primary interest, organisation, organisation type, full name, work email
+- role/title, country/region, age range, learner count, standards context
+- timeline and decision stage
+- challenge/context, success definition, and notes
+- direct internal review link: `/internal/pilot-requests?search=<submissionId>`
+- review recommendation based on the intake-to-scope mapping
+- signed confirmation links for:
+  - `mark_under_review`
+  - `approve_basic_pack`
+  - `consultation_required`
+  - `denied`
+
+Security requirements:
+
+- Action links must open `/internal/approval-action?token=...`.
+- The confirmation page must show the request summary and intended action before changing status.
+- The email must not contain `INTERNAL_PORTAL_OPERATOR_KEY`.
+- The email must not contain raw external portal tokens.
+- The approved external user email is the only email type that may include an external portal link.
+
+---
+
 ## Template A — Approved Access
 **Use when:** `operator_status=approved`, approved scopes are selected, and an external portal token has been issued.
 

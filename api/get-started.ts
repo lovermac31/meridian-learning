@@ -8,6 +8,14 @@ import {
   createThrottleLogContext,
   getEmailDomain,
 } from './_lib/requestSecurity.js';
+import {
+  createOperatorApprovalActionToken,
+  type OperatorApprovalAction,
+} from './_lib/operatorApprovalActionToken.js';
+import {
+  getReviewRecommendation,
+  operatorApprovalActionLabels,
+} from './_lib/operatorApprovalActions.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
@@ -53,6 +61,7 @@ const pilotAccessRequestOptions = [
 ] as const;
 
 const pilotAccessSource = 'pilot-programme';
+const defaultSiteUrl = 'https://jurassicenglish.com';
 
 type OrganizationType = (typeof organizationTypeOptions)[number];
 type PrimaryInterest = (typeof primaryInterestOptions)[number];
@@ -351,7 +360,12 @@ function normalizeGetStartedPayload(
 }
 
 function formatSubmissionBody(submission: NormalizedGetStartedSubmission) {
+  const actionSection = formatOperatorReviewSection(submission);
   const lines = [
+    'Jurassic English — Pilot Access Review',
+    '',
+    'A new external pilot access request is ready for operator review.',
+    '',
     `Submission ID: ${submission.submissionId}`,
     `Submitted At: ${submission.submittedAt}`,
     `Source: ${submission.source || 'Not provided'}`,
@@ -379,9 +393,67 @@ function formatSubmissionBody(submission: NormalizedGetStartedSubmission) {
     '',
     'Additional Notes:',
     submission.notes || 'Not provided',
+    '',
+    'Operator Review',
+    actionSection,
+    '',
+    'Security Reminder:',
+    '- Action links open a confirmation page before any status changes.',
+    '- Do not forward this operator email outside the review team.',
+    '- External portal tokens are not issued automatically from these links.',
   ];
 
   return lines.join('\n');
+}
+
+function getSiteUrl() {
+  return (
+    process.env.PUBLIC_SITE_URL?.trim() ||
+    process.env.SITE_URL?.trim() ||
+    defaultSiteUrl
+  ).replace(/\/+$/g, '');
+}
+
+function formatActionLink(
+  submission: NormalizedGetStartedSubmission,
+  action: OperatorApprovalAction,
+) {
+  const token = createOperatorApprovalActionToken({
+    submissionId: submission.submissionId,
+    action,
+    baseUrl: getSiteUrl(),
+  });
+
+  return [
+    `${operatorApprovalActionLabels[action]}:`,
+    token.url,
+    `Expires: ${token.expiresAt}`,
+  ].join('\n');
+}
+
+function formatOperatorReviewSection(submission: NormalizedGetStartedSubmission) {
+  const reviewUrl = `${getSiteUrl()}/internal/pilot-requests?search=${encodeURIComponent(submission.submissionId)}`;
+
+  if (submission.source !== pilotAccessSource || !submission.accessRequest) {
+    return [
+      `Internal Review Link: ${reviewUrl}`,
+      'Recommendation: General Get Started submission. Review manually.',
+    ].join('\n');
+  }
+
+  return [
+    `Internal Review Link: ${reviewUrl}`,
+    `Recommendation: ${getReviewRecommendation({ accessRequest: submission.accessRequest })}`,
+    '',
+    'Confirmation Links:',
+    formatActionLink(submission, 'mark_under_review'),
+    '',
+    formatActionLink(submission, 'approve_basic_pack'),
+    '',
+    formatActionLink(submission, 'consultation_required'),
+    '',
+    formatActionLink(submission, 'denied'),
+  ].join('\n');
 }
 
 async function sendGetStartedNotification(

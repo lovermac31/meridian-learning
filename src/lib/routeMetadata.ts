@@ -267,6 +267,13 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     canonicalPath: '/internal/pilot-requests',
     shouldIndex: false,
   },
+  '/internal/approval-action': {
+    title: 'Internal Approval Action | Jurassic English™',
+    description:
+      'Internal confirmation page for signed operator approval actions. This page is not intended for search indexing.',
+    canonicalPath: '/internal/approval-action',
+    shouldIndex: false,
+  },
 };
 
 function toAbsoluteUrl(pathname: string) {
