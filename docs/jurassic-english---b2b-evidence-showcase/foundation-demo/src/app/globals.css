@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+
+  /* Custom Theme Colors */
+  --color-deep-green: #0B3B24;
+  --color-deep-green-dark: #072517;
+  --color-parchment: #F4F1EA;
+  --color-parchment-dark: #E6E0D3;
+  --color-navy: #112A46;
+  --color-navy-light: #1A3E66;
+  --color-muted-gold: #C5A059;
+  --color-muted-gold-dark: #A98745;
+  --color-muted-gold-light: #D4B679;
+
+  /* Shadcn variables mapped */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Parchment Base */
+  --background: #F4F1EA;
+  --foreground: #112A46;
+  --card: #ffffff;
+  --card-foreground: #112A46;
+  --popover: #ffffff;
+  --popover-foreground: #112A46;
+  
+  /* Deep Green for Primary Actions */
+  --primary: #0B3B24;
+  --primary-foreground: #F4F1EA;
+  
+  /* Navy for Secondary Actions */
+  --secondary: #112A46;
+  --secondary-foreground: #F4F1EA;
+  
+  /* Muted Gold for Accents */
+  --accent: #C5A059;
+  --accent-foreground: #ffffff;
+  
+  --muted: #E6E0D3;
+  --muted-foreground: #6b7280;
+  
+  --destructive: #ef4444;
+  
+  --border: #E6E0D3;
+  --input: #E6E0D3;
+  --ring: #C5A059;
+  --radius: 0.75rem;
+}
+
+.dark {
+  /* Navy Dark Mode */
+  --background: #0D1F34;
+  --foreground: #F4F1EA;
+  --card: #112A46;
+  --card-foreground: #F4F1EA;
+  --popover: #112A46;
+  --popover-foreground: #F4F1EA;
+  
+  --primary: #C5A059;
+  --primary-foreground: #0B3B24;
+  
+  --secondary: #1A3E66;
+  --secondary-foreground: #F4F1EA;
+  
+  --accent: #0B3B24;
+  --accent-foreground: #F4F1EA;
+  
+  --muted: #1A3E66;
+  --muted-foreground: #9ca3af;
+  
+  --destructive: #7f1d1d;
+  
+  --border: #1A3E66;
+  --input: #1A3E66;
+  --ring: #C5A059;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
