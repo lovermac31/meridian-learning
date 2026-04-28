@@ -1,0 +1,248 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /*
+   * Production www.jurassicenglish.com uses this exact system font stack
+   * for body and nav text. Matching it here keeps the Student Academy
+   * page typographically inside the same Jurassic English™ brand family
+   * when the page is mounted at jurassicenglish.com/student-academy via
+   * Vercel rewrites. Previously this was `var(--font-sans)` which was
+   * self-referential and resolved to nothing — causing nav links, the
+   * mobile drawer, and the footer to fall back to the browser default
+   * (Times serif) outside the `.sa-theme` scope. The .sa-theme block
+   * already specifies the same stack inside the Student Academy
+   * sections, so this aligns the chrome with the page content.
+   */
+  --font-sans: Aptos, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  /* Sprint 3C — Geist Mono dropped (unused on ecosystem pages). Falls
+     back to the system monospace stack so any code component that uses
+     --font-mono still renders. */
+  --font-mono: ui-monospace, "SF Mono", "Menlo", "Cascadia Mono", monospace;
+  --font-heading: Aptos, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Neuland-Inline", "Copperplate", "Copperplate Gothic Light", "Palatino Linotype", Georgia, serif;
+
+  /* Custom Theme Colors */
+  --color-deep-green: #0B3B24;
+  --color-parchment: #F4F1EA;
+  --color-navy: #112A46;
+  --color-muted-gold: #C5A059;
+  --color-jurassic-accent: #F26419;
+  /* Production-aligned palette (matches root Vite app's tailwind theme) */
+  --color-jurassic-dark: #101820;
+  --color-jurassic-gold: #C5A059;
+
+  /* Shadcn variables mapped */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Parchment Base */
+  --background: #F4F1EA;
+  --foreground: #112A46;
+  --card: #ffffff;
+  --card-foreground: #112A46;
+  --popover: #ffffff;
+  --popover-foreground: #112A46;
+  
+  /* Deep Green for Primary Actions */
+  --primary: #0B3B24;
+  --primary-foreground: #F4F1EA;
+  
+  /* Navy for Secondary Actions */
+  --secondary: #112A46;
+  --secondary-foreground: #F4F1EA;
+  
+  /* Muted Gold for Accents */
+  --accent: #C5A059;
+  --accent-foreground: #ffffff;
+  
+  --muted: #E6E0D3;
+  --muted-foreground: #6b7280;
+  
+  --destructive: #ef4444;
+  
+  --border: #E6E0D3;
+  --input: #E6E0D3;
+  --ring: #C5A059;
+  --radius: 0.75rem;
+}
+
+.dark {
+  /* Navy Dark Mode */
+  --background: #0D1F34;
+  --foreground: #F4F1EA;
+  --card: #112A46;
+  --card-foreground: #F4F1EA;
+  --popover: #112A46;
+  --popover-foreground: #F4F1EA;
+  
+  --primary: #C5A059;
+  --primary-foreground: #0B3B24;
+  
+  --secondary: #1A3E66;
+  --secondary-foreground: #F4F1EA;
+  
+  --accent: #0B3B24;
+  --accent-foreground: #F4F1EA;
+  
+  --muted: #1A3E66;
+  --muted-foreground: #9ca3af;
+  
+  --destructive: #7f1d1d;
+  
+  --border: #1A3E66;
+  --input: #1A3E66;
+  --ring: #C5A059;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* Vietnamese fallback for the Jurassic English™ display font.
+   Neuland-Inline lacks Vietnamese glyph coverage, so VI pages fall back to a serif. */
+html[lang='vi'] {
+  --font-display: Georgia, "Times New Roman", serif;
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+
+/* Student Academy BotUI shell.
+   Ported from the production Jurassic English site so the in-app
+   conversation surface matches the brand palette (parchment / deep-green /
+   jurassic-accent orange) and respects accessible focus rings. Scoped to
+   the .je-botui-shell wrapper so it cannot leak into other UI. */
+.je-botui-shell .botui_app_container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.je-botui-shell .botui_container {
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 0.5rem;
+  background:
+    radial-gradient(circle at top, rgba(242, 100, 25, 0.08), transparent 38%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+}
+
+.je-botui-shell .botui_message_list {
+  padding: 1rem 1rem 0.25rem;
+}
+
+.je-botui-shell .botui_action_container {
+  padding: 0.9rem 1rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.je-botui-shell .botui_message_content {
+  max-width: 88%;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  line-height: 1.5;
+  color: #f7f4ef;
+  background:
+    linear-gradient(135deg, rgba(242, 100, 25, 0.94), rgba(212, 175, 55, 0.75));
+  box-shadow: 0 18px 35px rgba(242, 100, 25, 0.14);
+}
+
+.je-botui-shell .botui_message_content.human {
+  color: rgba(244, 241, 234, 0.96);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.je-botui-shell .botui_button {
+  margin: 0 0.4rem 0.4rem 0;
+  border-radius: 999px;
+  padding: 0.85rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  color: #f7f4ef;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    color 180ms ease;
+}
+
+.je-botui-shell .botui_button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+.je-botui-shell .botui_button:focus-visible,
+.je-botui-shell .botui_action select:focus-visible,
+.je-botui-shell .botui_action input:focus-visible,
+.je-botui-shell .botui_action textarea:focus-visible {
+  outline: 2px solid #f26419;
+  outline-offset: 2px;
+}
+
+.je-botui-shell .botui_action select,
+.je-botui-shell .botui_action input:not([type='file']),
+.je-botui-shell .botui_action textarea {
+  margin: 0;
+  border-radius: 0.95rem;
+  color: #101820;
+  background: #f4f1ea;
+}
+
+.je-botui-shell .loading_dot {
+  background-color: #f26419;
+}
+
+@media (max-width: 640px) {
+  .je-botui-shell .botui_message_content {
+    max-width: 92%;
+  }
+
+  .je-botui-shell .botui_button {
+    width: 100%;
+    margin-right: 0;
+  }
+}
