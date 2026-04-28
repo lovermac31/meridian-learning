@@ -641,9 +641,49 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
   );
 }
 
+/**
+ * Routes that are public, indexable on the production domain, but are
+ * served by external Vercel rewrites — not by the local Vite SPA.
+ *
+ * These routes:
+ *   • appear in dist/sitemap.xml (so search engines see them on the apex
+ *     production domain), and
+ *   • are excluded from getPrerenderRoutes() (so the prerender pipeline
+ *     does not try to generate dist/<route>/index.html for routes the
+ *     SPA has no view for), and
+ *   • are exempted from validate-prerender-routes.mjs's coverage check.
+ *
+ * English-only at present. If a localized variant is later added, route
+ * its locale fanout through the standard release-gate path the same way
+ * native routes are handled.
+ *
+ * The corresponding rewrite rules in `vercel.json` (production root)
+ * point each path at the ecosystem-landing stable alias
+ * `je-ecosystem-landing-preview.vercel.app`. Both lists must stay in
+ * sync — adding a route here without adding the rewrite (or vice versa)
+ * will produce a 404 on production.
+ */
+const REWRITE_SERVED_ROUTES = [
+  '/student-academy',
+  '/school-framework',
+  '/digital-reasoning-engine',
+  '/interactive-demo',
+  '/evidence',
+  '/book-diagnostic',
+] as const;
+
+export function getRewriteServedRoutes(): string[] {
+  return [...REWRITE_SERVED_ROUTES];
+}
+
+export function isRewriteServedRoute(pathname: string): boolean {
+  return (REWRITE_SERVED_ROUTES as readonly string[]).includes(pathname);
+}
+
 export function getPrerenderRoutes(): string[] {
+  const rewriteServed = new Set(getRewriteServedRoutes());
   return [
-    ...getExpectedPublicIndexableRoutes(),
+    ...getExpectedPublicIndexableRoutes().filter((route) => !rewriteServed.has(route)),
     ...getScaffoldedLocalizedRoutes(),
     ...getPrivateOrNonIndexableRoutes(),
   ];
@@ -684,6 +724,10 @@ export function getExpectedPublicIndexableRoutes(): string[] {
           .map((locale) => getLocalizedPathname(pathname, locale)),
       )),
     ),
+    // Rewrite-served routes are listed AFTER the locale fanout because
+    // they are not part of the standard EN/VI mirror system. They are
+    // public + indexable on the production domain via Vercel rewrites.
+    ...getRewriteServedRoutes(),
   ];
 }
 

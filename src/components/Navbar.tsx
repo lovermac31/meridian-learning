@@ -9,6 +9,7 @@ type NavbarProps = {
   onNavigateHome: () => void;
   onNavigate: (path: string) => void;
   onPricingClick: () => void;
+  onEducationAffiliateClick: () => void;
   isPortalView?: boolean;
   forceSolidBackground?: boolean;
   languageSwitcher?: ReactNode;
@@ -19,6 +20,7 @@ export const Navbar = ({
   onNavigateHome,
   onNavigate,
   onPricingClick,
+  onEducationAffiliateClick,
   isPortalView = false,
   forceSolidBackground = false,
   languageSwitcher,
@@ -37,7 +39,7 @@ export const Navbar = ({
     { name: getUiString(locale, 'navbar.links.about'), href: isPortalView ? '/#about' : '#about' },
     { name: getUiString(locale, 'navbar.links.framework'), href: isPortalView ? '/#framework' : '#framework' },
     { name: getUiString(locale, 'navbar.links.series'), href: isPortalView ? '/#series' : '#series' },
-    { name: getUiString(locale, 'navbar.links.studio'), href: isPortalView ? '/#studio' : '#studio' },
+    { name: getUiString(locale, 'navbar.links.studio'), href: isPortalView ? '/#student-academy' : '#student-academy' },
     { name: getUiString(locale, 'navbar.links.services'), href: isPortalView ? '/#training' : '#training' },
     { name: getUiString(locale, 'navbar.links.contact'), href: isPortalView ? '/#contact' : '#contact' },
   ];
@@ -56,11 +58,16 @@ export const Navbar = ({
     onPricingClick();
   };
 
+  const handleEducationAffiliateClick = () => {
+    setIsMobileMenuOpen(false);
+    onEducationAffiliateClick();
+  };
+
   const isSolidNav = forceSolidBackground || isScrolled;
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isSolidNav ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-premium py-4 border-b border-white/5' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <div className="max-w-[1480px] mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -75,8 +82,13 @@ export const Navbar = ({
           </button>
         </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* Desktop Nav — show at >=xl (1280) with tight gap, restore gap-6 at >=2xl (1536).
+            Below xl, the hamburger drawer takes over because the 11-item right cluster
+            (~917px of items + 10 gaps) overflows when combined with the wordmark
+            and container padding. Same breakpoint strategy is mirrored in
+            ecosystem-landing/src/components/ProductionStyleHeader.tsx so the homepage
+            and the rewritten ecosystem pages always behave identically. */}
+        <div className="hidden xl:flex items-center xl:gap-2 2xl:gap-6">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -87,13 +99,13 @@ export const Navbar = ({
               {link.name}
             </a>
           ))}
-          <a
-            href="/worldwise"
-            onClick={(event) => handleNavLinkClick(event, '/worldwise')}
+          <button
+            type="button"
+            onClick={handleEducationAffiliateClick}
             className="text-sm font-semibold text-jurassic-gold/80 hover:text-jurassic-gold hover:underline underline-offset-4 decoration-jurassic-gold transition-all duration-300"
           >
             {getUiString(locale, 'navbar.links.worldwise')}
-          </a>
+          </button>
           <button
             type="button"
             onClick={handlePricingClick}
@@ -111,9 +123,10 @@ export const Navbar = ({
           {languageSwitcher}
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle — visible <xl (<1280px) where the desktop nav cluster
+            would otherwise overflow with 11 items + wordmark + container padding. */}
         <button
-          className="md:hidden text-white"
+          className="xl:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label={
             isMobileMenuOpen
@@ -133,7 +146,7 @@ export const Navbar = ({
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain bg-jurassic-dark/95 backdrop-blur-lg border-b border-white/5 py-6 px-6 flex flex-col gap-4 md:hidden shadow-xl"
+            className="absolute top-full left-0 w-full max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain bg-jurassic-dark/95 backdrop-blur-lg border-b border-white/5 py-6 px-6 flex flex-col gap-4 xl:hidden shadow-xl"
           >
             {languageSwitcher ? (
               <div className="border-b border-white/10 pb-4">
@@ -150,13 +163,13 @@ export const Navbar = ({
                 {link.name}
               </a>
             ))}
-            <a
-              href="/worldwise"
-              className="text-lg font-semibold text-jurassic-gold/90 hover:text-jurassic-gold"
-              onClick={(event) => handleNavLinkClick(event, '/worldwise')}
+            <button
+              type="button"
+              onClick={handleEducationAffiliateClick}
+              className="text-left text-lg font-semibold text-jurassic-gold/90 hover:text-jurassic-gold"
             >
               {getUiString(locale, 'navbar.links.worldwise')}
-            </a>
+            </button>
             <button
               type="button"
               onClick={handlePricingClick}

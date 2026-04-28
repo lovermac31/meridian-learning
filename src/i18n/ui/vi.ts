@@ -5,10 +5,10 @@ export const viUi = {
       about: 'Giới thiệu',
       framework: 'Khung chương trình',
       series: 'Chuỗi cấp độ',
-      studio: 'Creative Studio',
+      studio: 'Student Academy',
       services: 'Dịch vụ',
       contact: 'Liên hệ',
-      worldwise: 'WorldWise Learning',
+      worldwise: 'Education Affiliate Program',
     },
     pricing: 'Gói & Báo giá',
     getStarted: 'Bắt đầu',
@@ -154,6 +154,17 @@ export const viUi = {
       submitFailed: 'Chúng tôi chưa thể gửi yêu cầu của bạn. Vui lòng thử lại.',
       submitFailedShortly: 'Chúng tôi chưa thể gửi yêu cầu của bạn. Vui lòng thử lại sau ít phút.',
     },
+  },
+  comingSoonModal: {
+    dialogLabel: 'Education Affiliate Program — Coming Soon',
+    title: 'Education Affiliate Program',
+    body:
+      'This pathway is coming soon. Jurassic English™ is preparing a structured partner pathway for educators, centers, and aligned education organizations.',
+    support:
+      'For early partnership inquiries, contact us and we will follow up directly.',
+    close: 'Close',
+    contactUs: 'Contact Us',
+    closeModal: 'Close modal',
   },
   pricingModal: {
     dialogLabel: 'Đăng ký tiền mở bán cho Gói & Báo giá',

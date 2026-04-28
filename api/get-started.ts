@@ -8,6 +8,12 @@ import {
   createThrottleLogContext,
   getEmailDomain,
 } from './_lib/requestSecurity.js';
+// Consolidation Option 3: B2C Student Academy registration is processed
+// by the same serverless function (Vercel Hobby caps at 12 functions).
+// When the inbound payload sets `source: "student-academy"`, the request
+// is delegated to a helper under api/_lib/ — that file is intentionally
+// NOT a serverless function (it lives under _lib/ which Vercel skips).
+import { handleStudentAcademyRegistration } from './_lib/studentAcademyRegistration.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
@@ -511,6 +517,33 @@ function createSubmissionLogContext(submission: NormalizedGetStartedSubmission) 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
+  }
+
+  // ── Source-based fork ──────────────────────────────────────────────────
+  // Inspect the body BEFORE any institutional get-started logic runs.
+  // If the payload declares `source: "student-academy"`, hand off to the
+  // dedicated helper. Otherwise fall through to the existing institutional
+  // flow exactly as before.
+  //
+  // Body parsing here is non-destructive: Vercel's `@vercel/node` runtime
+  // already parses JSON into req.body when the Content-Type is JSON, so we
+  // read it once and pass the parsed object down. The institutional flow
+  // below uses `coerceGetStartedFormValues(req.body)` which tolerates the
+  // same body object.
+  {
+    const rawBody: unknown =
+      typeof req.body === 'string'
+        ? (() => {
+            try { return JSON.parse(req.body as string); } catch { return null; }
+          })()
+        : req.body;
+    if (
+      rawBody &&
+      typeof rawBody === 'object' &&
+      (rawBody as { source?: unknown }).source === 'student-academy'
+    ) {
+      return handleStudentAcademyRegistration(req, res, rawBody as Record<string, unknown>);
+    }
   }
 
   const rateLimit = checkRateLimit(req, {
