@@ -32,8 +32,8 @@
     { "source": "/_next/:path*",                                     "destination": "https://je-ecosystem-landing-preview.vercel.app/_next/:path*" },
     { "source": "/images/student-academy-page/:path*",               "destination": "https://je-ecosystem-landing-preview.vercel.app/images/student-academy-page/:path*" },
 
-    { "source": "/c856412889f27af2/script.js",                        "destination": "https://je-ecosystem-landing-preview.vercel.app/c856412889f27af2/script.js" },
-    { "source": "/425f0745123b9f56/script.js",                        "destination": "https://je-ecosystem-landing-preview.vercel.app/425f0745123b9f56/script.js" },
+    { "source": "/c856412889f27af2/:path*",                          "destination": "https://je-ecosystem-landing-preview.vercel.app/c856412889f27af2/:path*" },
+    { "source": "/425f0745123b9f56/:path*",                          "destination": "https://je-ecosystem-landing-preview.vercel.app/425f0745123b9f56/:path*" },
     { "source": "/_vercel/insights/:path*",                           "destination": "https://je-ecosystem-landing-preview.vercel.app/_vercel/insights/:path*" },
     { "source": "/_vercel/speed-insights/:path*",                     "destination": "https://je-ecosystem-landing-preview.vercel.app/_vercel/speed-insights/:path*" },
 
