@@ -22,6 +22,7 @@
 
 import type { NormalizedPricingRegistration } from '../../src/lib/pricingRegistrationSchema.js';
 import type { NormalizedGetStartedSubmission } from '../../src/lib/getStartedSchema.js';
+import type { NormalizedStudentAcademyRegistration } from '../../src/lib/studentAcademyRegistrationSchema.js';
 import {
   normaliseBuyerType,
   normaliseMAOI,
@@ -360,4 +361,123 @@ export async function writeSupabasePilotAccessRequest(
     rowId: id,
   });
   return { ok: true, id, reason: 'created' };
+}
+
+// ─── student_academy_registrations (B2C parent/student intake) ───────────────
+//
+// Writes a registration captured by /book-diagnostic on jurassicenglish.com to
+// the `student_academy_registrations` table in Supabase. Schema is documented
+// in `docs/database/student_academy_registrations.sql`.
+//
+// Failure modes follow the same conventions as other writers in this file:
+//   • Returns { ok: false, reason: 'not_configured' } if env is missing
+//   • Returns { ok: false, reason: 'api_<status>' } on PostgREST error
+//   • Never throws; never logs PII (parent_email is omitted from logs)
+
+export async function writeSupabaseStudentAcademyRegistration(
+  registration: NormalizedStudentAcademyRegistration,
+): Promise<SupabaseWriteResult> {
+  const config = resolveConfig();
+  if (!config) return { ok: false, reason: 'not_configured' };
+
+  const row = {
+    // The Postgres `id` column has a `gen_random_uuid()` default; we still
+    // pass our own submissionId to keep an idempotency key in audit logs if
+    // the client retries. We DO NOT use it as the primary key — the
+    // schema's `id` is generated server-side.
+    //
+    // `registration_source` is now threaded from the payload (validator
+    // defaults to 'student-academy' when omitted). See F-1 finding from the
+    // 2026-04-27 QA pass: the form at /book-diagnostic sends
+    // 'student-academy-book-diagnostic' so operators can distinguish
+    // intake channels in Supabase.
+    registration_source:        registration.registrationSource,
+    auth_provider:              registration.authProvider,
+    parent_full_name:           registration.parentFullName,
+    parent_email:               registration.parentEmail,
+    phone_contact:              registration.phoneContact,
+    preferred_contact_method:   registration.preferredContactMethod,
+    country_city:               registration.countryCity,
+    student_first_name:         registration.studentFirstName,
+    student_age_or_grade:       registration.studentAgeOrGrade,
+    current_english_level:      registration.currentEnglishLevel,
+    main_goal:                  registration.mainGoal,
+    learning_notes:             registration.learningNotes,
+    preferred_diagnostic_time:  registration.preferredDiagnosticTime,
+    consent_contact:            registration.consentContact,
+    canonical_access_url:       'https://jurassicenglish.com/student-academy',
+    status:                     'new',
+    email_sent:                 false,
+    internal_notes:             `submission_id=${registration.submissionId}; submitted_at=${registration.submittedAt}`,
+  };
+
+  let res: Response;
+  try {
+    res = await fetch(`${config.url}/rest/v1/student_academy_registrations`, {
+      method:  'POST',
+      headers: supabaseHeaders(config.writeKey),
+      body:    JSON.stringify(row),
+    });
+  } catch (err) {
+    console.error('[supabase] student_academy_registrations insert threw (network error)', {
+      submissionId: registration.submissionId,
+      error: String(err),
+    });
+    return { ok: false, reason: 'network_error' };
+  }
+
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '(unreadable)');
+    console.error('[supabase] student_academy_registrations insert failed', {
+      status:       res.status,
+      submissionId: registration.submissionId,
+      response:     errText.slice(0, 500),
+    });
+    return { ok: false, reason: `api_${res.status}` };
+  }
+
+  const rows = await res.json() as Array<{ id: string }>;
+  const id = rows[0]?.id ?? '';
+  console.info('[supabase] student_academy_registrations record created', {
+    submissionId: registration.submissionId,
+    rowId: id,
+  });
+  return { ok: true, id, reason: 'created' };
+}
+
+/**
+ * Mark a registration as having had its parent confirmation email sent.
+ * Best-effort — failure to update this flag is logged but does not block
+ * the success path of the API endpoint.
+ */
+export async function markStudentAcademyRegistrationEmailSent(
+  registrationId: string,
+): Promise<void> {
+  if (!registrationId) return;
+  const config = resolveConfig();
+  if (!config) return;
+
+  try {
+    const res = await fetch(
+      `${config.url}/rest/v1/student_academy_registrations?id=eq.${encodeURIComponent(registrationId)}`,
+      {
+        method: 'PATCH',
+        headers: supabaseHeaders(config.writeKey),
+        body: JSON.stringify({ email_sent: true, email_sent_at: new Date().toISOString() }),
+      },
+    );
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '(unreadable)');
+      console.error('[supabase] student_academy_registrations email_sent flag update failed', {
+        status:   res.status,
+        rowId:    registrationId,
+        response: errText.slice(0, 300),
+      });
+    }
+  } catch (err) {
+    console.error('[supabase] student_academy_registrations email_sent flag update threw', {
+      rowId: registrationId,
+      error: String(err),
+    });
+  }
 }
