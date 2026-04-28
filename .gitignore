@@ -12,3 +12,23 @@ coverage/
 
 # Supabase CLI local cache
 supabase/.temp/
+
+# Tooling caches and unrelated agent workspaces
+.superpowers/
+Llama\ Agent/
+
+# Local research artefacts (move to a separate repo if you want to keep them)
+alignment-research/
+requirements-alignment.txt
+scripts/alignment_scraper.py
+scripts/build_alignment_report.py
+scripts/summarize_alignment_report.py
+
+# Generic build/cache extras (defense in depth — subdir .gitignore files
+# already cover these for the apps that use them)
+**/.next/
+**/.turbo/
+**/dist/
+**/build/
+**/.vercel/
+*.tsbuildinfo
