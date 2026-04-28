@@ -12,6 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import { PathwayExplorer } from "@/components/interactive-demo/PathwayExplorer";
+import { TryOneThinkingMove } from "@/components/interactive-demo/TryOneThinkingMove";
 import { DiagnosticBridge } from "@/components/interactive-demo/DiagnosticBridge";
 import { MobileStickyConvBar } from "@/components/interactive-demo/MobileStickyConvBar";
 import { JsonLd } from "@/components/JsonLd";
@@ -282,6 +283,7 @@ export default function InteractiveDemoPage() {
       <div className="id-theme bg-background pb-20 lg:pb-0">
         <InteractiveDemoHero />
         <PathwayExplorer />
+        <TryOneThinkingMove />
         <DiagnosticBridge />
         <ParentEvidencePanel />
         <FinalConversionSection />
