@@ -5,10 +5,10 @@ export const enUi = {
       about: 'About',
       framework: 'Framework',
       series: 'Series',
-      studio: 'Creative Studio',
+      studio: 'Student Academy',
       services: 'Services',
       contact: 'Contact',
-      worldwise: 'WorldWise Learning',
+      worldwise: 'Education Affiliate Program',
     },
     pricing: 'Plans & Pricing',
     getStarted: 'Get Started',
@@ -154,6 +154,17 @@ export const enUi = {
       submitFailed: 'We could not submit your enquiry. Please try again.',
       submitFailedShortly: 'We could not submit your enquiry. Please try again shortly.',
     },
+  },
+  comingSoonModal: {
+    dialogLabel: 'Education Affiliate Program — Coming Soon',
+    title: 'Education Affiliate Program',
+    body:
+      'This pathway is coming soon. Jurassic English™ is preparing a structured partner pathway for educators, centers, and aligned education organizations.',
+    support:
+      'For early partnership inquiries, contact us and we will follow up directly.',
+    close: 'Close',
+    contactUs: 'Contact Us',
+    closeModal: 'Close modal',
   },
   pricingModal: {
     dialogLabel: 'Plans & Pricing pre-launch registration',

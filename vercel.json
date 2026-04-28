@@ -17,6 +17,22 @@
     }
   ],
   "rewrites": [
+    { "source": "/student-academy",                                  "destination": "https://je-ecosystem-landing-preview.vercel.app/student-academy" },
+    { "source": "/student-academy/:path*",                           "destination": "https://je-ecosystem-landing-preview.vercel.app/student-academy/:path*" },
+    { "source": "/school-framework",                                 "destination": "https://je-ecosystem-landing-preview.vercel.app/school-framework" },
+    { "source": "/school-framework/:path*",                          "destination": "https://je-ecosystem-landing-preview.vercel.app/school-framework/:path*" },
+    { "source": "/digital-reasoning-engine",                         "destination": "https://je-ecosystem-landing-preview.vercel.app/digital-reasoning-engine" },
+    { "source": "/digital-reasoning-engine/:path*",                  "destination": "https://je-ecosystem-landing-preview.vercel.app/digital-reasoning-engine/:path*" },
+    { "source": "/interactive-demo",                                 "destination": "https://je-ecosystem-landing-preview.vercel.app/interactive-demo" },
+    { "source": "/interactive-demo/:path*",                          "destination": "https://je-ecosystem-landing-preview.vercel.app/interactive-demo/:path*" },
+    { "source": "/evidence",                                         "destination": "https://je-ecosystem-landing-preview.vercel.app/evidence" },
+    { "source": "/evidence/:path*",                                  "destination": "https://je-ecosystem-landing-preview.vercel.app/evidence/:path*" },
+    { "source": "/book-diagnostic",                                  "destination": "https://je-ecosystem-landing-preview.vercel.app/book-diagnostic" },
+    { "source": "/book-diagnostic/:path*",                           "destination": "https://je-ecosystem-landing-preview.vercel.app/book-diagnostic/:path*" },
+    { "source": "/_next/:path*",                                     "destination": "https://je-ecosystem-landing-preview.vercel.app/_next/:path*" },
+    { "source": "/images/student-academy-page/:path*",               "destination": "https://je-ecosystem-landing-preview.vercel.app/images/student-academy-page/:path*" },
+
+    { "source": "/api/internal/approval-action", "destination": "/api/internal/pilot-requests/approval-action/confirm" },
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "functions": {

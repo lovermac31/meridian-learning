@@ -88,6 +88,9 @@ const BotUIChat = lazy(() =>
 const PricingModal = lazy(() =>
   import('./components/PricingModal').then(m => ({ default: m.PricingModal }))
 );
+const ComingSoonModal = lazy(() =>
+  import('./components/ComingSoonModal').then(m => ({ default: m.ComingSoonModal }))
+);
 
 /* ── Lazy-loaded homepage sections (staged after initial render) ───────── */
 const SeriesSection = lazy(() =>
@@ -105,8 +108,8 @@ const FrameworkFoundations = lazy(() =>
 const ThinkingCycle = lazy(() =>
   import('./components/ThinkingCycle').then(m => ({ default: m.ThinkingCycle }))
 );
-const CreativeStudio = lazy(() =>
-  import('./components/CreativeStudio').then(m => ({ default: m.CreativeStudio }))
+const StudentAcademyMural = lazy(() =>
+  import('./components/StudentAcademyMural').then(m => ({ default: m.StudentAcademyMural }))
 );
 const NeuroinclusiveLayer = lazy(() =>
   import('./components/NeuroinclusiveLayer').then(m => ({ default: m.NeuroinclusiveLayer }))
@@ -129,6 +132,7 @@ const DeferredHomeSectionPlaceholder = ({ className = 'min-h-40' }: { className?
 function App() {
   const [route, setRoute] = useState(getCurrentRoute());
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+  const [isComingSoonOpen, setIsComingSoonOpen] = useState(false);
   const [homeSectionStage, setHomeSectionStage] = useState<HomeSectionStage>(0);
   const pathname = window.location.pathname;
   const speedInsightsRoute = normalizeSpeedInsightsRoute(route);
@@ -171,7 +175,7 @@ function App() {
     isAvailableSoonView ||
     isUnreleasedLocalizedPublicView ||
     isGetStartedView;
-  const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen;
+  const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
   const isSubpageView =
     isGetStartedView ||
     isAvailableSoonView ||
@@ -338,6 +342,7 @@ function App() {
           onNavigateHome={() => navigateTo('/')}
           onNavigate={navigateTo}
           onPricingClick={() => setIsPricingModalOpen(true)}
+          onEducationAffiliateClick={() => setIsComingSoonOpen(true)}
           isPortalView={isSubpageView}
           forceSolidBackground={shouldForceSolidNavbar}
           languageSwitcher={<LanguageSwitcher currentRoute={route} onNavigate={pushRoute} />}
@@ -502,14 +507,14 @@ function App() {
             <DeferredHomeSectionPlaceholder className="min-h-[64rem] bg-white" />
           )}
           {homeSectionStage >= 3 ? (
-            <Suspense fallback={<DeferredHomeSectionPlaceholder className="min-h-[40rem] bg-jurassic-dark" />}>
-              <ErrorBoundary sectionName="Creative Studio">
-                <CreativeStudio />
+            <Suspense fallback={<DeferredHomeSectionPlaceholder className="min-h-[40rem] bg-white" />}>
+              <ErrorBoundary sectionName="Student Academy Mural">
+                <StudentAcademyMural onNavigate={navigateTo} />
               </ErrorBoundary>
               <NeuroinclusiveLayer />
             </Suspense>
           ) : (
-            <DeferredHomeSectionPlaceholder className="min-h-[40rem] bg-jurassic-dark" />
+            <DeferredHomeSectionPlaceholder className="min-h-[40rem] bg-white" />
           )}
         </main>
       )}
@@ -524,6 +529,13 @@ function App() {
         <PricingModal
           isOpen={isPricingModalOpen}
           onClose={() => setIsPricingModalOpen(false)}
+        />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ComingSoonModal
+          isOpen={isComingSoonOpen}
+          onClose={() => setIsComingSoonOpen(false)}
+          onNavigate={navigateTo}
         />
       </Suspense>
       <SpeedInsights route={speedInsightsRoute} />
