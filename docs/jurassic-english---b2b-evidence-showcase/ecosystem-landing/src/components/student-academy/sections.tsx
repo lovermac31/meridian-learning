@@ -411,13 +411,13 @@ export function ThinkingCycleSection() {
             id="thinking-cycle-heading"
             className="text-3xl md:text-[2.25rem] font-bold text-foreground mb-4 leading-[1.2]"
           >
-            The Jurassic Thinking Cycle
-            <span className="align-super text-base text-accent">™</span>
+            How we help students think before they write
           </h2>
           <p className="text-lg font-light text-muted-foreground leading-relaxed">
-            A seven-stage routine that turns reading, speaking, and writing into
-            a visible reasoning process — regulation first, then reasoning made
-            visible.
+            A seven-stage routine &mdash; the Jurassic Thinking Cycle
+            <span className="align-super text-xs text-accent">™</span>{" "}
+            &mdash; that turns reading, speaking, and writing into a visible
+            thinking process. Regulation first, then reasoning made visible.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -647,12 +647,14 @@ export function CEIWSection() {
             id="ceiw-heading"
             className="text-3xl md:text-[2.25rem] font-bold text-foreground mb-4 leading-[1.2]"
           >
-            What Is CEIW?
+            What your child will be doing
           </h2>
           <p className="text-lg font-light text-muted-foreground leading-relaxed">
-            CEIW is the visible architecture your child learns to use. We teach
-            it from Level 1 in age-appropriate forms. The architecture stays the
-            same. The depth grows.
+            Every response leaves evidence of thinking. CEIW &mdash; Claim,
+            Evidence, Interpretation, Warrant &mdash; is the visible
+            architecture your child learns to use. We teach it from Level 1 in
+            age-appropriate forms. The architecture stays the same; the depth
+            grows.
           </p>
         </div>
 
@@ -800,9 +802,10 @@ export function StudentOutcomesGrid() {
             Visible Growth Parents Can Understand
           </h2>
           <p className="text-lg font-light text-muted-foreground leading-relaxed">
-            Student growth is tracked through diagnostic tasks, speaking
-            samples, CEIW writing, reflection records, and Growth Portfolio
-            artifacts.
+            Students learn to explain their ideas, not just answer quickly.
+            Growth shows up in real student work &mdash; speaking samples,
+            CEIW writing, reflections, and Growth Portfolio artifacts parents
+            can review.
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">

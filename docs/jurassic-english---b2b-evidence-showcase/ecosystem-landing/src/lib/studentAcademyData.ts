@@ -147,7 +147,17 @@ export const studentLevels: StudentLevel[] = [
   },
 ];
 
+// Phase 5 Sprint E — order leads with the highest emotional resonance for
+// parents (confidence) before the more diagnostic-leaning observations.
+// Card titles stay descriptive (no guarantees, no score promises); the
+// confidence card's title was de-academicised so it reads like something
+// a parent would say rather than a clinical observation.
 export const studentProblems: ProblemCard[] = [
+  {
+    title: "When English gets harder, confidence can drop",
+    description:
+      "Students lose confidence when literature, essay tasks, or seminar-style discussion become demanding.",
+  },
   {
     title: "Fluent speech, weak explanation",
     description:
@@ -167,11 +177,6 @@ export const studentProblems: ProblemCard[] = [
     title: "Memorized templates",
     description:
       "Students prepare for exams using repetition and templates, leaving them stuck when prompts shift.",
-  },
-  {
-    title: "Confidence drops with complexity",
-    description:
-      "Students lose confidence when literature, essay tasks, or seminar-style discussion become demanding.",
   },
 ];
 
