@@ -313,7 +313,7 @@ export function TryOneThinkingMove() {
             {/* Step 1 — passage */}
             <article className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-6">
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65">
-                <BookOpen className="w-3.5 h-3.5" />
+                <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
                 Step 1 — Read the passage
               </div>
               <Quote
@@ -328,7 +328,7 @@ export function TryOneThinkingMove() {
             {/* Step 2 — claim choice */}
             <fieldset className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-7">
               <legend className="px-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2">
-                <Compass className="w-3.5 h-3.5" />
+                <Compass className="w-3.5 h-3.5" aria-hidden="true" />
                 Step 2 — Choose a claim
               </legend>
               <p className="mt-3 mb-5 text-[13px] text-foreground/65 leading-relaxed">
@@ -371,7 +371,7 @@ export function TryOneThinkingMove() {
                 className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-7"
               >
                 <legend className="px-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2">
-                  <Eye className="w-3.5 h-3.5" />
+                  <Eye className="w-3.5 h-3.5" aria-hidden="true" />
                   Step 3 — Choose evidence
                 </legend>
                 <p className="mt-3 mb-5 text-[13px] text-foreground/65 leading-relaxed">
