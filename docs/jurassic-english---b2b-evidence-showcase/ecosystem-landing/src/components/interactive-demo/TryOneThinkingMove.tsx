@@ -56,12 +56,12 @@ const CLAIM_CHOICES: ClaimChoice[] = [
   {
     id: "claim-a",
     label: "The librarian is careful with her work.",
-    hint: "A description of behaviour you can observe directly.",
+    hint: "This describes what we can see directly.",
   },
   {
     id: "claim-b",
     label: "The librarian is protecting the books from a quiet danger.",
-    hint: "An interpretation of why she might be doing it.",
+    hint: "This explains why she may be acting this way.",
   },
 ];
 
@@ -165,7 +165,7 @@ function ChoiceCard({
   return (
     <label
       htmlFor={inputId}
-      className={`group relative block cursor-pointer rounded-xl border p-4 transition-colors duration-200 ${
+      className={`group relative block cursor-pointer rounded-xl border p-5 sm:p-6 transition-colors duration-200 ${
         checked
           ? "border-accent/60 bg-accent/[0.04]"
           : "border-foreground/10 bg-white hover:border-foreground/25 hover:bg-foreground/[0.02]"
@@ -182,10 +182,10 @@ function ChoiceCard({
         // flow. We keep the label fully clickable.
         className="sr-only"
       />
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3.5">
         <span
           aria-hidden="true"
-          className={`mt-0.5 inline-flex w-4 h-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+          className={`mt-1 inline-flex w-4 h-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
             checked
               ? "border-accent bg-accent"
               : "border-foreground/30 bg-white group-hover:border-foreground/60"
@@ -196,11 +196,11 @@ function ChoiceCard({
           ) : null}
         </span>
         <span className="flex-1">
-          <span className="block text-[14px] sm:text-[15px] text-foreground leading-snug">
+          <span className="block text-[14.5px] sm:text-[15.5px] text-foreground leading-snug">
             {primaryText}
           </span>
           {secondaryText ? (
-            <span className="mt-1 block text-[12px] text-muted-foreground italic leading-snug">
+            <span className="mt-1.5 block text-[12.5px] text-muted-foreground leading-relaxed">
               {secondaryText}
             </span>
           ) : null}
@@ -305,145 +305,166 @@ export function TryOneThinkingMove() {
         <div className="rounded-2xl bg-[#F4F1EA] text-foreground p-5 sm:p-7 md:p-8 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.45)]">
           <StepMarkers active={active} />
 
-          {/* Step 1 — passage */}
-          <article className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-6 mb-6">
-            <div className="flex items-center gap-2 mb-3 text-[11px] uppercase tracking-[0.12em] font-semibold text-foreground/55">
-              <BookOpen className="w-3.5 h-3.5" />
-              Step 1 — Read the passage
-            </div>
-            <Quote
-              aria-hidden="true"
-              className="w-5 h-5 text-accent/70 mb-2"
-            />
-            <p className="text-[15px] sm:text-[16px] text-foreground leading-relaxed font-serif italic">
-              {PASSAGE_TEXT}
-            </p>
-          </article>
-
-          {/* Step 2 — claim choice */}
-          <fieldset className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-6 mb-6">
-            <legend className="px-2 text-[11px] uppercase tracking-[0.12em] font-semibold text-foreground/55 inline-flex items-center gap-2">
-              <Compass className="w-3.5 h-3.5" />
-              Step 2 — Which claim feels stronger to you?
-            </legend>
-            <p className="text-[12px] text-muted-foreground italic mb-3 mt-1">
-              Both claims are valid. Choose the one you find more interesting
-              to think about.
-            </p>
-            <div className="grid gap-3">
-              {CLAIM_CHOICES.map((c) => (
-                <ChoiceCard
-                  key={c.id}
-                  name="micro-demo-claim"
-                  value={c.id}
-                  checked={claim === c.id}
-                  onChange={handleClaim}
-                  primaryText={c.label}
-                  secondaryText={c.hint}
-                />
-              ))}
-            </div>
-          </fieldset>
-
-          {/* Step 3 — evidence choice — only visible after claim is set */}
-          <fieldset
-            className={`rounded-xl bg-white border border-foreground/10 p-5 sm:p-6 mb-6 transition-opacity duration-300 ${
-              claim ? "opacity-100" : "opacity-50"
-            }`}
-            disabled={!claim}
-            aria-disabled={!claim}
-          >
-            <legend className="px-2 text-[11px] uppercase tracking-[0.12em] font-semibold text-foreground/55 inline-flex items-center gap-2">
-              <Eye className="w-3.5 h-3.5" />
-              Step 3 — Which line best supports your claim?
-            </legend>
-            <p className="text-[12px] text-muted-foreground italic mb-3 mt-1">
-              Any of these can support a thoughtful claim. Pick the one you
-              would point to.
-            </p>
-            <div className="grid gap-3">
-              {EVIDENCE_CHOICES.map((e) => (
-                <ChoiceCard
-                  key={e.id}
-                  name="micro-demo-evidence"
-                  value={e.id}
-                  checked={evidence === e.id}
-                  onChange={handleEvidence}
-                  primaryText={e.label}
-                />
-              ))}
-            </div>
-          </fieldset>
-
-          {/* Step 4 — reveal */}
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={handleReveal}
-              disabled={!canReveal}
-              aria-controls="micro-demo-reveal-panel"
-              aria-expanded={revealed}
-              className={`inline-flex items-center justify-center px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
-                canReveal
-                  ? "bg-foreground text-background hover:bg-foreground/90 shadow-[0_15px_30px_-12px_rgba(0,0,0,0.35)]"
-                  : "bg-foreground/10 text-foreground/40 cursor-not-allowed"
-              }`}
-            >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Reveal one possible response
-            </button>
-            {!canReveal ? (
-              <p className="mt-3 text-[12px] text-muted-foreground italic">
-                Choose a claim and a line above to reveal a model response.
+          {/* Step blocks — consistent vertical rhythm via space-y-7 so each
+              step has a clean separation from the next. Step 3 only mounts
+              after a claim is set; Step 4 + reveal panel are siblings of
+              Steps 1–3 so the same gap applies. */}
+          <div className="space-y-7">
+            {/* Step 1 — passage */}
+            <article className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-6">
+              <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65">
+                <BookOpen className="w-3.5 h-3.5" />
+                Step 1 — Read the passage
+              </div>
+              <Quote
+                aria-hidden="true"
+                className="w-5 h-5 text-accent/70 mt-3 mb-2"
+              />
+              <p className="text-[15px] sm:text-[16px] text-foreground leading-relaxed font-serif italic">
+                {PASSAGE_TEXT}
               </p>
+            </article>
+
+            {/* Step 2 — claim choice */}
+            <fieldset className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-7">
+              <legend className="px-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2">
+                <Compass className="w-3.5 h-3.5" />
+                Step 2 — Choose a claim
+              </legend>
+              <p className="mt-3 mb-5 text-[13px] text-foreground/65 leading-relaxed">
+                Both claims are valid. Choose the one that gives you more to
+                think about.
+              </p>
+              <div className="grid gap-3">
+                {CLAIM_CHOICES.map((c) => (
+                  <ChoiceCard
+                    key={c.id}
+                    name="micro-demo-claim"
+                    value={c.id}
+                    checked={claim === c.id}
+                    onChange={handleClaim}
+                    primaryText={c.label}
+                    secondaryText={c.hint}
+                  />
+                ))}
+              </div>
+            </fieldset>
+
+            {/* Step 3 — evidence choice. Mounted only after claim is set so
+                Step 2 and Step 3 cannot visually overlap or look ghosted.
+                Smooth, minimal entrance via framer-motion; respects
+                prefers-reduced-motion. */}
+            {claim ? (
+              <motion.fieldset
+                key="micro-demo-step-3"
+                initial={
+                  reduceMotion
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 12 }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                transition={
+                  reduceMotion
+                    ? { duration: 0 }
+                    : { duration: 0.4, ease: "easeOut" }
+                }
+                className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-7"
+              >
+                <legend className="px-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2">
+                  <Eye className="w-3.5 h-3.5" />
+                  Step 3 — Choose evidence
+                </legend>
+                <p className="mt-3 mb-5 text-[13px] text-foreground/65 leading-relaxed">
+                  Pick the line that best supports the claim you selected.
+                </p>
+                <div className="grid gap-3">
+                  {EVIDENCE_CHOICES.map((e) => (
+                    <ChoiceCard
+                      key={e.id}
+                      name="micro-demo-evidence"
+                      value={e.id}
+                      checked={evidence === e.id}
+                      onChange={handleEvidence}
+                      primaryText={e.label}
+                    />
+                  ))}
+                </div>
+              </motion.fieldset>
+            ) : null}
+
+            {/* Step 4 — reveal */}
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={handleReveal}
+                disabled={!canReveal}
+                aria-controls="micro-demo-reveal-panel"
+                aria-expanded={revealed}
+                className={`inline-flex items-center justify-center px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
+                  canReveal
+                    ? "bg-foreground text-background hover:bg-foreground/90 shadow-[0_15px_30px_-12px_rgba(0,0,0,0.35)]"
+                    : "bg-foreground/10 text-foreground/40 cursor-not-allowed"
+                }`}
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Reveal one possible response
+              </button>
+              {!canReveal ? (
+                <p className="mt-3 text-[12.5px] text-foreground/55 leading-relaxed">
+                  Choose a claim and a line above to reveal a model response.
+                </p>
+              ) : null}
+            </div>
+
+            {/* Reveal panel — animated entrance, aria-live polite */}
+            {revealed ? (
+              <motion.div
+                id="micro-demo-reveal-panel"
+                ref={revealRef}
+                tabIndex={-1}
+                role="region"
+                aria-live="polite"
+                aria-atomic="true"
+                initial={
+                  reduceMotion
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 8 }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                transition={
+                  reduceMotion
+                    ? { duration: 0 }
+                    : { duration: 0.35, ease: "easeOut" }
+                }
+                className="rounded-xl bg-foreground text-background p-5 sm:p-7 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+              >
+                <div className="flex items-center gap-2 mb-3 text-[11px] uppercase tracking-[0.14em] font-semibold text-background/70">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
+                  One possible Jurassic English
+                  <span className="align-super text-[9px] text-accent">™</span>{" "}
+                  response
+                </div>
+                <p className="text-[14.5px] sm:text-[15.5px] leading-relaxed">
+                  <strong className="text-accent">Claim.</strong> The
+                  librarian is protecting the books from a quiet danger.{" "}
+                  <strong className="text-accent">Evidence.</strong> Every
+                  book is back by lunchtime, dry, intact, and arranged
+                  exactly as before.{" "}
+                  <strong className="text-accent">Interpretation.</strong>{" "}
+                  This suggests her nightly rounds were not routine but
+                  deliberate care during a season she could not name.{" "}
+                  <strong className="text-accent">Warrant.</strong> The story
+                  shows that protection sometimes looks like ordinary work
+                  done in silence.
+                </p>
+                <p className="mt-4 text-[12.5px] italic text-background/65 leading-relaxed">
+                  There is no single correct answer here. This is a thinking
+                  move, not a grade. This is the kind of thinking the
+                  diagnostic helps place.
+                </p>
+              </motion.div>
             ) : null}
           </div>
-
-          {/* Reveal panel — animated entrance, aria-live polite */}
-          {revealed ? (
-            <motion.div
-              id="micro-demo-reveal-panel"
-              ref={revealRef}
-              tabIndex={-1}
-              role="region"
-              aria-live="polite"
-              aria-atomic="true"
-              initial={
-                reduceMotion
-                  ? { opacity: 1, y: 0 }
-                  : { opacity: 0, y: 8 }
-              }
-              animate={{ opacity: 1, y: 0 }}
-              transition={
-                reduceMotion ? { duration: 0 } : { duration: 0.35, ease: "easeOut" }
-              }
-              className="mt-6 rounded-xl bg-foreground text-background p-5 sm:p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            >
-              <div className="flex items-center gap-2 mb-3 text-[11px] uppercase tracking-[0.12em] font-semibold text-background/70">
-                <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
-                One possible Jurassic English
-                <span className="align-super text-[9px] text-accent">™</span>{" "}
-                response
-              </div>
-              <p className="text-[14.5px] sm:text-[15.5px] leading-relaxed">
-                <strong className="text-accent">Claim.</strong> The librarian
-                is protecting the books from a quiet danger.{" "}
-                <strong className="text-accent">Evidence.</strong> Every book
-                is back by lunchtime, dry, intact, and arranged exactly as
-                before. <strong className="text-accent">Interpretation.</strong>{" "}
-                This suggests her nightly rounds were not routine but
-                deliberate care during a season she could not name.{" "}
-                <strong className="text-accent">Warrant.</strong> The story
-                shows that protection sometimes looks like ordinary work done
-                in silence.
-              </p>
-              <p className="mt-4 text-[12px] italic text-background/65">
-                There is no single correct answer here. This is a thinking
-                move, not a grade. This is the kind of thinking the diagnostic
-                helps place.
-              </p>
-            </motion.div>
-          ) : null}
         </div>
 
         {/* Final CTA bar */}
