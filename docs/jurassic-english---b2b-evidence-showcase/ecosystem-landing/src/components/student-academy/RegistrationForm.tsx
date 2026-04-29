@@ -224,6 +224,19 @@ export function RegistrationForm() {
             {CANONICAL_URL.replace(/^https?:\/\//, "")}
           </a>
         </p>
+        {/* Phase 6 — secondary low-pressure next step. No score, no sign-up.
+            Re-uses the existing /interactive-demo#try-one-thinking-move
+            anchor so the success state stays connected to the funnel
+            without adding a new route or an upsell. */}
+        <p className="mt-2 text-sm text-foreground/70">
+          Or try one thinking move while you wait:{" "}
+          <a
+            href="/interactive-demo#try-one-thinking-move"
+            className="text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary"
+          >
+            interactive-demo
+          </a>
+        </p>
       </div>
     );
   }
@@ -307,6 +320,7 @@ export function RegistrationForm() {
               name="phoneContact"
               type="tel"
               autoComplete="tel"
+              inputMode="tel"
               maxLength={500}
               className={baseInput}
               placeholder="WhatsApp / Zalo / mobile"
@@ -519,7 +533,7 @@ export function RegistrationForm() {
               Sending…
             </>
           ) : (
-            "Submit Diagnostic Request"
+            "Send my request"
           )}
         </button>
         <p className="text-xs text-foreground/55">
