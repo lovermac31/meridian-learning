@@ -439,6 +439,24 @@ export const portfolioEvidenceTypes: PortfolioEvidenceType[] = [
   },
 ];
 
+// Phase 5 Sprint C — CTA rebalance.
+//
+// Before this sprint, three of four pathway cards repeated the same
+// "Book Student Thinking Diagnostic" CTA, which made the section read
+// as "we want your money" rather than as a discovery hierarchy.
+//
+// Each card now leads with the action that matches the parent's most
+// likely intent at that level:
+//   - Levels 1–3:  Try the demo first (no commitment yet).
+//   - Level 4:     See the pathway table (understand what's at stake).
+//   - Level 5:     Book diagnostic (placement-ready families).
+//   - IELTS:       Explore the IELTS Lab; soft "Ask about fit" fallback
+//                  routes to the diagnostic.
+//
+// Necessary diagnostic CTAs in Hero, Quick Start, the dedicated
+// Diagnostic CTA section, the Final Reminder, the Final CTA, the
+// Mobile Sticky Bar, and the LevelPathway "Find My Student's Level"
+// link are all preserved.
 export const academyPathways: AcademyPathway[] = [
   {
     id: "levels-1-3",
@@ -446,8 +464,8 @@ export const academyPathways: AcademyPathway[] = [
     audience: "Foundation through Developing Analyst",
     description:
       "Story-based reasoning, claim + evidence, and early interpretation.",
-    ctaText: "Book Student Thinking Diagnostic",
-    ctaHref: "/book-diagnostic",
+    ctaText: "Try the demo",
+    ctaHref: "/interactive-demo#try-one-thinking-move",
   },
   {
     id: "level-4",
@@ -455,8 +473,8 @@ export const academyPathways: AcademyPathway[] = [
     audience: "Academic Builder",
     description:
       "Full CEIW writing with named warrants. Optional early Academic Thinker exposure.",
-    ctaText: "Book Student Thinking Diagnostic",
-    ctaHref: "/book-diagnostic",
+    ctaText: "See the pathway",
+    ctaHref: "#pathway",
   },
   {
     id: "level-5",
@@ -464,7 +482,7 @@ export const academyPathways: AcademyPathway[] = [
     audience: "Advanced Thinker",
     description:
       "Counter-warrants, Impact, and exam transfer. May route to the Academic Thinker Program.",
-    ctaText: "Book Student Thinking Diagnostic",
+    ctaText: "Book diagnostic",
     ctaHref: "/book-diagnostic",
     secondaryCtaText: "Explore Academic Thinker",
     secondaryCtaHref: "/academic-thinker",
@@ -477,6 +495,8 @@ export const academyPathways: AcademyPathway[] = [
       "Routes to the IELTS Reasoning Lab, a sibling brand layer for dedicated exam preparation.",
     ctaText: "Explore IELTS Reasoning Lab",
     ctaHref: "/ielts-reasoning-lab",
+    secondaryCtaText: "Ask about fit",
+    secondaryCtaHref: "/book-diagnostic",
   },
 ];
 
