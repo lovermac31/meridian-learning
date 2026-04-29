@@ -64,7 +64,7 @@ const trustPoints = [
   "No pressure to enroll immediately",
   "Parent-friendly follow-up",
   "Clear starting-level recommendation",
-  "Reading, reasoning, speaking, and writing pathway",
+  "Aligned with the Student Academy pathway",
 ] as const;
 
 const whatHappensNextSteps = [
@@ -78,7 +78,7 @@ const whatHappensNextSteps = [
   },
   {
     n: 3,
-    label: "We contact you with the next step.",
+    label: "We contact you with the next step — usually within 2 working days.",
   },
 ] as const;
 
@@ -153,6 +153,19 @@ export default function BookDiagnosticPage() {
             up with the next step.
           </p>
 
+          {/* Phase 6 — above-the-fold completion-confidence cue. No promise of
+              outcome; only sets a realistic expectation about form length. */}
+          <p
+            className="mt-4 text-sm font-medium tracking-wide text-primary-foreground/70"
+            aria-label="Time to complete: about two minutes. One simple form."
+          >
+            Takes about 2 minutes
+            <span aria-hidden="true" className="mx-2 text-primary-foreground/30">
+              •
+            </span>
+            One simple form
+          </p>
+
           {/* Trust points — quick parent-facing reassurance */}
           <ul className="mt-7 grid sm:grid-cols-2 gap-x-6 gap-y-2 max-w-2xl">
             {trustPoints.map((point) => (
@@ -173,6 +186,39 @@ export default function BookDiagnosticPage() {
             We do not promise scores. The teacher always has the final word on
             placement and progress.
           </p>
+        </div>
+      </section>
+
+      {/* Phase 6 — low-pressure deflection band. Parents who land on the
+          form cold can warm up by trying the playable Phase 4 micro-demo
+          first. Same low-pressure tone as the rest of the page; no copy
+          that could read as a hard upsell. Plain anchor (not next/link)
+          keeps this band a pure server component, no client JS added. */}
+      <section
+        aria-labelledby="warm-up-link-heading"
+        className="px-4 -mt-px bg-background"
+      >
+        <div className="container mx-auto max-w-3xl pt-8">
+          <div className="rounded-xl border border-primary/10 bg-card px-5 py-4 sm:flex sm:items-center sm:justify-between sm:gap-6">
+            <div>
+              <h2
+                id="warm-up-link-heading"
+                className="text-sm font-semibold text-primary"
+              >
+                Want to see what the diagnostic is like first?
+              </h2>
+              <p className="mt-1 text-[13px] text-foreground/65 leading-snug">
+                Try one thinking move. About 2 minutes. No score, no sign-up.
+              </p>
+            </div>
+            <a
+              href="/interactive-demo#try-one-thinking-move"
+              className="mt-3 sm:mt-0 inline-flex items-center justify-center gap-1.5 rounded-full border border-primary/20 bg-white px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/40"
+            >
+              Try the demo
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </section>
 
