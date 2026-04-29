@@ -269,7 +269,7 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
   }, [isOpen, currentPathname]);
 
   return (
-    <div className="je-botui-shell pointer-events-none fixed inset-x-4 bottom-4 z-[70] sm:inset-x-auto sm:right-6 sm:bottom-6">
+    <div className="je-botui-shell pointer-events-none fixed inset-x-4 bottom-28 z-[70] sm:inset-x-auto sm:right-6 lg:bottom-6">
       {isOpen ? (
         <section
           id={CHAT_PANEL_ID}
