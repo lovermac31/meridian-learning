@@ -70,17 +70,57 @@ export default function RootLayout({
             Loaded from the same public CDN used by the production site.
             Sprint 3C adds dns-prefetch alongside the existing preconnect
             so older browsers without preconnect support also benefit
-            from the resolved-DNS cache before the stylesheet request. */}
+            from the resolved-DNS cache before the stylesheet request.
+
+            Phase 7 — load this third-party stylesheet non-blocking.
+            It only declares the Neuland-Inline display font used in the
+            top-of-page wordmark (ProductionStyleHeader / LayoutChrome /
+            StudentAcademyFooter), never on body text or H1 LCP targets,
+            so it should not be on the critical render path. We use the
+            print-media swap pattern: render the stylesheet with
+            `media="print"` so the browser still fetches it, but at low
+            priority and without blocking first paint; a tiny inline
+            script then promotes the link to `media="all"` after the
+            window load event so the font applies to screen. The
+            <noscript> fallback preserves the original blocking
+            behaviour for users with JS disabled. The fallback stack in
+            globals.css (--font-display: Copperplate, Copperplate
+            Gothic Light, Palatino Linotype, Georgia, serif) renders
+            the wordmark cleanly until the swap fires. */}
         <link rel="dns-prefetch" href="https://db.onlinewebfonts.com" />
         <link
           rel="preconnect"
           href="https://db.onlinewebfonts.com"
           crossOrigin="anonymous"
         />
+        {/* Print-media trick: the browser still downloads the stylesheet
+            but at *low* priority and without blocking first paint, since
+            it's marked as only applying to print. The tiny inline script
+            below promotes it to `media="all"` after the document load
+            event, which makes it apply to screen and triggers the same
+            FOUT-→-Neuland-Inline swap that a normal stylesheet would.
+            Single link tag → no duplicate-preload warning. */}
         <link
           rel="stylesheet"
           href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline"
+          media="print"
         />
+        <script
+          // Target the stylesheet link specifically (rel="stylesheet"),
+          // not the Float-injected preload that may share media="print".
+          // querySelector returns the first match in document order; the
+          // stylesheet appears later in <head>, so we anchor on rel.
+          dangerouslySetInnerHTML={{
+            __html:
+              "addEventListener('load',function(){var l=document.querySelector('link[rel=\"stylesheet\"][href*=\"Neuland-Inline\"][media=\"print\"]');if(l)l.media='all';});",
+          }}
+        />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline"
+          />
+        </noscript>
       </head>
       <body
         className={`${geistSans.variable} antialiased min-h-screen flex flex-col bg-background text-foreground`}
