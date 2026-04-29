@@ -343,7 +343,7 @@ export function StudentProblemSection() {
 export function ThreeBeatSolution() {
   return (
     <section
-      className="py-20 px-6 bg-[#F8F7F4]"
+      className="py-14 md:py-16 px-6 bg-[#F8F7F4]"
       aria-labelledby="three-beats-heading"
     >
       <div className="container mx-auto max-w-7xl">
@@ -399,7 +399,7 @@ export function ThreeBeatSolution() {
 export function ThinkingCycleSection() {
   return (
     <section
-      className="py-20 px-6 bg-background"
+      className="py-14 md:py-16 px-6 bg-background"
       aria-labelledby="thinking-cycle-heading"
     >
       <div className="container mx-auto max-w-7xl">
@@ -787,7 +787,7 @@ export function DRESection() {
 export function StudentOutcomesGrid() {
   return (
     <section
-      className="py-20 px-6 bg-background"
+      className="py-14 md:py-16 px-6 bg-background"
       aria-labelledby="student-outcomes-heading"
     >
       <div className="container mx-auto max-w-7xl">
