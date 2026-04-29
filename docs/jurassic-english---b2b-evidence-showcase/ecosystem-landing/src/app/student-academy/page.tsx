@@ -21,6 +21,7 @@ import {
   StudentFinalCTA,
 } from "@/components/student-academy/sections";
 import { StudentAcademyMobileStickyCTA } from "@/components/student-academy/StudentAcademyMobileStickyCTA";
+import { studentAcademyFAQs } from "@/lib/studentAcademyData";
 
 // Sprint 3A — page-level structured data.
 //
@@ -53,6 +54,57 @@ const STUDENT_ACADEMY_WEBPAGE_LD = {
   isPartOf: { "@id": "https://jurassicenglish.com/#website" },
   about: { "@id": "https://jurassicenglish.com/#student-academy-course" },
   inLanguage: "en",
+};
+
+// Phase 5 Sprint F — FAQPage JSON-LD generated from the same FAQ items
+// rendered visibly in <StudentAcademyFAQ />. Source of truth is
+// studentAcademyFAQs in src/lib/studentAcademyData.ts; we map directly
+// from that array so the structured-data Q/A pairs always match the
+// on-page FAQ accordion.
+//
+// Claims-safety: every question and answer was authored under the
+// Sprint 3A claims-safety policy. The "Is there a guaranteed score?"
+// item answers in the negating form (rejects guarantees), which is the
+// correct AEO signal — search engines that index the FAQPage will see
+// the no-guarantee disclosure verbatim. No offers, prices, ratings,
+// reviews, score promises, admission promises, or AI-tutor framing.
+const STUDENT_ACADEMY_FAQ_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://jurassicenglish.com/student-academy#faqpage",
+  isPartOf: { "@id": "https://jurassicenglish.com/student-academy#webpage" },
+  inLanguage: "en",
+  mainEntity: studentAcademyFAQs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+
+// Phase 5 Sprint F — BreadcrumbList JSON-LD: Home → Student Academy.
+// Two-level breadcrumb. /student-academy is the program landing page
+// itself, so there is no deeper hierarchy to encode here.
+const STUDENT_ACADEMY_BREADCRUMB_LD = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://jurassicenglish.com/student-academy#breadcrumb",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://jurassicenglish.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Student Academy",
+      item: "https://jurassicenglish.com/student-academy",
+    },
+  ],
 };
 
 export const metadata: Metadata = {
@@ -126,6 +178,8 @@ export default function StudentAcademyPage() {
       <style dangerouslySetInnerHTML={{ __html: studentAcademyThemeCss }} />
       <JsonLd data={STUDENT_ACADEMY_COURSE_LD} id="ld-sa-course" />
       <JsonLd data={STUDENT_ACADEMY_WEBPAGE_LD} id="ld-sa-webpage" />
+      <JsonLd data={STUDENT_ACADEMY_FAQ_LD} id="ld-sa-faq" />
+      <JsonLd data={STUDENT_ACADEMY_BREADCRUMB_LD} id="ld-sa-breadcrumb" />
       {/* Bottom padding (`pb-24`) on mobile keeps page content from being
           hidden behind the StudentAcademyMobileStickyCTA (≈88px tall +
           safe-area inset). At lg+ the sticky bar disappears (`lg:hidden`)
