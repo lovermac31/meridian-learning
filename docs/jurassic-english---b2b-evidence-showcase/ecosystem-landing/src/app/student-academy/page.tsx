@@ -20,6 +20,7 @@ import {
   StudentAcademyFAQ,
   StudentFinalCTA,
 } from "@/components/student-academy/sections";
+import { StudentAcademyMobileStickyCTA } from "@/components/student-academy/StudentAcademyMobileStickyCTA";
 
 // Sprint 3A — page-level structured data.
 //
@@ -125,7 +126,11 @@ export default function StudentAcademyPage() {
       <style dangerouslySetInnerHTML={{ __html: studentAcademyThemeCss }} />
       <JsonLd data={STUDENT_ACADEMY_COURSE_LD} id="ld-sa-course" />
       <JsonLd data={STUDENT_ACADEMY_WEBPAGE_LD} id="ld-sa-webpage" />
-      <div className="sa-theme bg-background">
+      {/* Bottom padding (`pb-24`) on mobile keeps page content from being
+          hidden behind the StudentAcademyMobileStickyCTA (≈88px tall +
+          safe-area inset). At lg+ the sticky bar disappears (`lg:hidden`)
+          so the page wrapper releases its bottom padding. */}
+      <div className="sa-theme bg-background pb-24 lg:pb-0">
         <StudentAcademyHero />
         <QuickStartStripSection />
         <StudentProblemSection />
@@ -145,6 +150,7 @@ export default function StudentAcademyPage() {
         <StudentAcademyFAQ />
         <StudentFinalCTA />
       </div>
+      <StudentAcademyMobileStickyCTA />
     </>
   );
 }
