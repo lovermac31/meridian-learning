@@ -179,8 +179,11 @@ export function StudentAcademyHero() {
               <Link href="/book-diagnostic" className={JE_CTA_PRIMARY_DARK}>
                 Book a Student Thinking Diagnostic
               </Link>
-              <Link href="#pathway" className={JE_CTA_GLASS_DARK}>
-                View the Level 1–5 Pathway
+              <Link
+                href="/interactive-demo#try-one-thinking-move"
+                className={JE_CTA_GLASS_DARK}
+              >
+                Try one thinking move
               </Link>
             </div>
             <p className="mt-3 text-sm italic text-primary-foreground/55">
@@ -226,7 +229,7 @@ export function StudentAcademyHero() {
  */
 export function QuickStartStripSection() {
   const steps = [
-    { n: 1, label: "Preview the learning experience" },
+    { n: 1, label: "Try one thinking move (2 minutes)" },
     { n: 2, label: "Understand the five-level pathway" },
     { n: 3, label: "Book a Student Thinking Diagnostic" },
   ] as const;
@@ -275,7 +278,7 @@ export function QuickStartStripSection() {
             Book a Student Thinking Diagnostic
           </Link>
           <Link
-            href="/interactive-demo"
+            href="/interactive-demo#try-one-thinking-move"
             className="inline-flex items-center justify-center bg-white border border-primary/15 text-primary px-6 py-3 rounded-full text-sm font-bold hover:bg-primary/5 transition-colors"
           >
             Open the Interactive Demo
@@ -596,22 +599,24 @@ export function InteractiveDemoCTASection() {
                 id="interactive-demo-cta-heading"
                 className="text-2xl md:text-3xl font-bold text-primary leading-[1.2] mb-3"
               >
-                See how the Student Academy works before you book.
+                Try one thinking move. See how your child would reason.
               </h2>
               <p className="text-base md:text-lg text-foreground/75 leading-relaxed max-w-xl">
-                Preview the learning flow, then book a Student Thinking
-                Diagnostic to understand the right starting point for your
-                child.
+                On the Interactive Demo, you can read a short passage, choose a
+                stronger claim, pick supporting evidence, and reveal one
+                possible Jurassic English<span className="align-super text-xs text-accent">™</span>{" "}
+                response &mdash; in about two minutes. Then book a diagnostic
+                if you&rsquo;re ready.
               </p>
             </div>
 
             {/* Right: primary + secondary CTA pair (conversion bridge) */}
             <div className="flex flex-col items-start lg:items-end gap-3">
               <Link
-                href="/interactive-demo"
+                href="/interactive-demo#try-one-thinking-move"
                 className={JE_CTA_PRIMARY_LIGHT}
               >
-                Open the Interactive Demo
+                Try one thinking move (2 minutes)
               </Link>
               <Link
                 href="/book-diagnostic"

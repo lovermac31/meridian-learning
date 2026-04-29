@@ -58,17 +58,18 @@ export function getSaBotIntentResponse(intent: SaBotIntent): {
   subMenu: SaBotSubMenu;
 } {
   if (intent === "fastestPath") {
-    // Per-submenu label overrides — the canonical paths are preserved (so
-    // the destination allow-list still validates), but the visible text
-    // matches the conversion-spec wording exactly: "Open the Interactive
-    // Demo", "View the Five-Level Pathway", "Book the Diagnostic".
+    // Per-submenu label overrides — canonical paths are preserved (so the
+    // destination allow-list still validates), and the visible text
+    // matches the Phase 5 Sprint A conversion spec: lead with the
+    // Phase 4 "Try one thinking move" micro-demo, then pathway, then
+    // diagnostic.
     return {
       message:
-        "The fastest path is simple: preview the Interactive Demo, review the five-level pathway, then book a Student Thinking Diagnostic.",
+        "The fastest path is simple: try one thinking move on the Interactive Demo, review the five-level pathway, then book a Student Thinking Diagnostic.",
       subMenu: {
         prompt: "Pick the next step.",
         destinations: [
-          { ...dest("interactiveDemo"), label: "Open the Interactive Demo" },
+          { ...dest("microDemo"), label: "Try one thinking move (2 min)" },
           { ...dest("pathway"), label: "View the Five-Level Pathway" },
           { ...dest("bookDiagnostic"), label: "Book the Diagnostic" },
         ],

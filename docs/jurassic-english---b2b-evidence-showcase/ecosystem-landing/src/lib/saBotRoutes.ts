@@ -28,6 +28,7 @@ export type SaBotDestinationKey =
   | "dre"
   | "dreOverview"
   | "interactiveDemo"
+  | "microDemo"
   | "everyLearner"
   | "diagnosticDetail"
   | "faq"
@@ -77,6 +78,15 @@ const SA_BOT_DESTINATIONS: Record<SaBotDestinationKey, SaBotDestination> = {
     key: "interactiveDemo",
     label: "Open the Interactive Demo",
     path: "/interactive-demo",
+  },
+  microDemo: {
+    // Phase 5 Sprint A — narrowly scoped destination that points the parent
+    // directly at the Phase 4 "Try one thinking move" component. The
+    // anchored fragment matches the section id rendered by
+    // src/components/interactive-demo/TryOneThinkingMove.tsx.
+    key: "microDemo",
+    label: "Try one thinking move (2 min)",
+    path: "/interactive-demo#try-one-thinking-move",
   },
   everyLearner: {
     key: "everyLearner",
