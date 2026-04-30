@@ -48,6 +48,7 @@ export const metadata: Metadata = {
     description:
       "Explore how students move from first story claims to evidence-based interpretation, academic writing, and advanced argument across five levels.",
     type: "website",
+    siteName: "Jurassic English™",
     url: "/interactive-demo",
     images: [
       {

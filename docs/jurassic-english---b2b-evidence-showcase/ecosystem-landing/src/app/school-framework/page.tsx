@@ -10,9 +10,15 @@ import { Badge } from "@/components/ui/badge";
 import {
   AlertTriangle,
   ArrowRight,
+  BookOpen,
   Building2,
   CheckCircle2,
+  ClipboardCheck,
+  Compass,
+  FileSignature,
   GraduationCap,
+  Layers,
+  PhoneCall,
 } from "lucide-react";
 import {
   jeThemeCss,
@@ -54,6 +60,7 @@ export const metadata: Metadata = {
     description:
       "Curriculum coherence, teacher consistency, visible portfolio evidence, and a premium academic English pathway for schools and centers.",
     type: "website",
+    siteName: "Jurassic English™",
     url: "/school-framework",
     images: [
       {
@@ -317,6 +324,105 @@ export default function SchoolFramework() {
               linkText="Explore Jurassic English™ Student Academy"
               href="/student-academy"
             />
+          </div>
+        </section>
+
+        {/*
+          Phase 14 — Institutional service ladder. /school-framework was
+          the sole entry point for school-side visitors but only linked
+          deeper into the parent funnel (/student-academy, /evidence).
+          This block surfaces the existing institutional routes
+          (/audit-sprint, /discovery, /methodology, /framework, /get-started)
+          so school leaders can see and reach the full service ladder
+          from this page. All targets are real public routes — no new
+          rewrites or routes were added. Cards are real <Link> anchors
+          with focus-visible rings; icons are decorative (aria-hidden).
+        */}
+        <section
+          aria-labelledby="sf-institutional-pathway-heading"
+          className="py-16 md:py-20 px-6 bg-background"
+        >
+          <div className="container mx-auto max-w-5xl">
+            <div className="text-center mb-10">
+              <Badge variant="outline" className={JE_EYEBROW_LIGHT}>
+                Institutional pathway
+              </Badge>
+              <h2
+                id="sf-institutional-pathway-heading"
+                className="text-3xl md:text-[2.25rem] font-bold text-primary leading-[1.2]"
+              >
+                Where to go next.
+              </h2>
+              <p className="mt-3 text-base text-foreground/70 max-w-2xl mx-auto leading-relaxed">
+                Routes for school leaders, academic directors, and centre
+                owners exploring curriculum alignment, methodology, and
+                licensing.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {[
+                {
+                  href: "/audit-sprint",
+                  icon: ClipboardCheck,
+                  title: "Curriculum Coherence Audit Sprint",
+                  desc: "A focused review of curriculum, materials, and teacher practice with an implementation roadmap.",
+                },
+                {
+                  href: "/discovery",
+                  icon: PhoneCall,
+                  title: "Discovery Call",
+                  desc: "A structured consultation for curriculum alignment, teacher training, or licensing.",
+                },
+                {
+                  href: "/methodology",
+                  icon: Layers,
+                  title: "Methodology",
+                  desc: "The Jurassic Thinking Cycle™ — the four-stage reasoning architecture behind every lesson.",
+                },
+                {
+                  href: "/framework",
+                  icon: BookOpen,
+                  title: "Framework",
+                  desc: "How the curriculum integrates the Thinking Cycle, CEFR progression, and ecocentric pedagogy.",
+                },
+                {
+                  href: "/get-started?interest=school_licensing",
+                  icon: FileSignature,
+                  title: "School Licensing",
+                  desc: "Licensing pathways for schools, academies, and institutional programmes.",
+                },
+                {
+                  href: "/get-started?interest=curriculum_review",
+                  icon: Compass,
+                  title: "Curriculum Review",
+                  desc: "Review of progression, standards fit, text selection, and assessment architecture.",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="group flex flex-col rounded-xl border border-primary/10 bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_14px_28px_-14px_rgba(16,24,32,0.25)] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  >
+                    <span className="inline-flex w-9 h-9 items-center justify-center rounded-lg bg-accent/10 text-accent mb-4">
+                      <Icon aria-hidden="true" className="w-4 h-4" />
+                    </span>
+                    <span className="text-[15px] font-semibold text-primary leading-snug mb-2">
+                      {item.title}
+                    </span>
+                    <span className="text-[13px] text-foreground/70 leading-snug">
+                      {item.desc}
+                    </span>
+                    <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-accent">
+                      Open
+                      <ArrowRight aria-hidden="true" className="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </section>
 

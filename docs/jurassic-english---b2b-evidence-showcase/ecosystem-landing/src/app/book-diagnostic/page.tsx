@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     description:
       "Find the right starting point for your child. A clear, parent-friendly next step after the Interactive Demo.",
     type: "website",
+    siteName: "Jurassic English™",
     url: "/book-diagnostic",
     images: [
       {

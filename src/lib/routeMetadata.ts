@@ -16,6 +16,7 @@ import {
   createBreadcrumbJsonLd,
   createCourseJsonLd,
   createOrganizationJsonLd,
+  createServiceJsonLd,
   createWebsiteJsonLd,
   type JsonLd,
 } from './structuredData';
@@ -193,9 +194,9 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
   },
   '/methodology': {
-    title: 'The Jurassic Thinking Cycle™ — Methodology Architecture | Jurassic English™',
+    title: 'Jurassic Thinking Cycle™ Methodology | Jurassic English™',
     description:
-      'The Jurassic Thinking Cycle™ is the instructional architecture behind every Jurassic English™ lesson — four structured stages moving students from text comprehension to moral evaluation to evidence-based argument. A deep-dive for institutional leaders and academic directors.',
+      'Explore the four-stage reasoning architecture behind Jurassic English™ lessons: analyze, evaluate, justify, and reflect.',
     canonicalPath: '/methodology',
     breadcrumbs: [
       { name: 'Home', path: '/' },
@@ -204,10 +205,21 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
   },
   '/discovery': {
-    title: 'Book a Discovery Call — WorldWise Learning Institutional Consultation | Jurassic English™',
+    title: 'Discovery Call for Schools | Jurassic English™',
     description:
-      'A structured 45-minute Discovery Call with the WorldWise Learning team. Designed for SME centre owners, school leaders, and academic directors ready to understand how curriculum alignment and methodology governance can transform their English programme.',
+      'Book a structured consultation for curriculum alignment, teacher training, school licensing, or academic English implementation.',
     canonicalPath: '/discovery',
+    jsonLd: [
+      createServiceJsonLd({
+        name: 'Discovery Call for Schools',
+        description:
+          'A structured consultation for curriculum alignment, teacher training, school licensing, or academic English implementation, scoped to your school or learning centre.',
+        url: `${SITE_URL}/discovery`,
+        serviceType: 'Educational consulting',
+        areaServed: 'International schools and English learning centers',
+        audienceRole: 'school',
+      }),
+    ],
     breadcrumbs: [
       { name: 'Home', path: '/' },
       { name: 'WorldWise Learning', path: '/worldwise' },
@@ -215,10 +227,21 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
   },
   '/audit-sprint': {
-    title: 'Curriculum Coherence Audit Sprint — 10-Day Institutional Programme Review | Jurassic English™',
+    title: 'Curriculum Coherence Audit Sprint | Jurassic English™',
     description:
-      'A structured 10-business-day diagnostic of your English programme — curriculum alignment, teacher practice, materials review, and progression logic — delivered as a formal gap analysis with implementation roadmap.',
+      'A focused curriculum review for schools and centers: alignment, materials, teacher practice, progression logic, and an implementation roadmap.',
     canonicalPath: '/audit-sprint',
+    jsonLd: [
+      createServiceJsonLd({
+        name: 'Curriculum Coherence Audit Sprint',
+        description:
+          'A focused curriculum review for schools and centers covering alignment, materials, teacher practice, and progression logic, delivered as a formal gap analysis with an implementation roadmap.',
+        url: `${SITE_URL}/audit-sprint`,
+        serviceType: 'Curriculum audit',
+        areaServed: 'International schools and English learning centers',
+        audienceRole: 'school',
+      }),
+    ],
     breadcrumbs: [
       { name: 'Home', path: '/' },
       { name: 'WorldWise Learning', path: '/worldwise' },
@@ -401,8 +424,16 @@ function resolveStaticRoute(pathname: string, locale: Locale): RouteMetadata | n
     ? toAbsoluteUrl(getCanonicalPath(route.canonicalPath, locale))
     : undefined;
   const robots = shouldIndex ? 'index, follow' : 'noindex, nofollow';
+  // Phase 14 — when a route declares its own `jsonLd` (e.g. Service
+  // schema for /audit-sprint, /discovery), merge with the auto-generated
+  // BreadcrumbList rather than replacing it. The home route ('/') passes
+  // an explicit Org+WebSite jsonLd and has no breadcrumbs, so this merge
+  // is a no-op for it.
+  const breadcrumbsLd = createBreadcrumbs(localizedRoute?.breadcrumbs ?? route.breadcrumbs, locale);
   const jsonLd = shouldIndex
-    ? route.jsonLd ?? createBreadcrumbs(localizedRoute?.breadcrumbs ?? route.breadcrumbs, locale)
+    ? route.jsonLd
+      ? [...route.jsonLd, ...(breadcrumbsLd ?? [])]
+      : breadcrumbsLd
     : undefined;
 
   return createMetadata({

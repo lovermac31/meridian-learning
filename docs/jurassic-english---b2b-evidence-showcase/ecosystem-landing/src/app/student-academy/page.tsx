@@ -121,6 +121,7 @@ export const metadata: Metadata = {
     description:
       "A literature-based English thinking pathway for students who need more than tutoring: fluency, academic reasoning, structured writing, speaking confidence, and visible progress.",
     type: "website",
+    siteName: "Jurassic English™",
     url: "/student-academy",
     images: [
       {
