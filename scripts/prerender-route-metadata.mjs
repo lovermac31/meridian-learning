@@ -134,6 +134,23 @@ function injectMetadata(html, pathname) {
     output = output.replace(/\s*<link rel="canonical" href="[^"]*"\s*\/>/g, '');
   }
 
+  // Phase 14 — render <link rel="alternate" hreflang="..."> tags from
+  // the metadata's `alternates` array. routeMetadata.ts populates this
+  // for every released en/vi route pair (and `x-default` pointing to
+  // the canonical English route); routes without a released VI variant
+  // get only `en` + `x-default`. We strip any pre-existing alternate
+  // tags first so re-runs of the prerender stay idempotent.
+  output = output.replace(/\s*<link rel="alternate" hreflang="[^"]*" href="[^"]*"\s*\/>/g, '');
+  if (metadata.alternates?.length) {
+    const alternateTags = metadata.alternates
+      .map(
+        (alt) =>
+          `    <link rel="alternate" hreflang="${escapeHtml(alt.hrefLang)}" href="${escapeHtml(alt.href)}" />`,
+      )
+      .join('\n');
+    output = output.replace('</head>', `${alternateTags}\n  </head>`);
+  }
+
   output = output.replace(/\s*<script type="application\/ld\+json" data-prerendered-route="true">[\s\S]*?<\/script>/g, '');
   const jsonLd = metadata.jsonLd?.length
     ? metadata.jsonLd

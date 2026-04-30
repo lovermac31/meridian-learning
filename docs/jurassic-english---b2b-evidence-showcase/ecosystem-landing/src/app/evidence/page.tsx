@@ -50,6 +50,7 @@ export const metadata: Metadata = {
     description:
       "Visible student work, diagnostic evidence, portfolio artifacts, and teacher-reviewed progress — the Jurassic English™ Claims and Evidence Policy.",
     type: "website",
+    siteName: "Jurassic English™",
     url: "/evidence",
     images: [
       {

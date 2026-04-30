@@ -51,6 +51,7 @@ export const metadata: Metadata = {
     description:
       "A digital reasoning scaffold that supports claim-making, evidence organization, CEIW arguments, and portfolio evidence — reviewed by teachers.",
     type: "website",
+    siteName: "Jurassic English™",
     url: "/digital-reasoning-engine",
     images: [
       {

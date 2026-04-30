@@ -86,3 +86,44 @@ export function createBreadcrumbJsonLd(items: BreadcrumbItem[]): JsonLd {
     })),
   };
 }
+
+export type ServiceParams = {
+  name: string;
+  description: string;
+  url: string;
+  serviceType: string;
+  areaServed?: string;
+  audienceRole?: string;
+};
+
+// Phase 14 — Service schema for institutional consultation/audit routes.
+// Deliberately conservative: no Offer/price/availability, no
+// AggregateRating/Review, no guarantee fields — those would imply
+// commercial promises we don't make. Provider points to the canonical
+// EducationalOrganization @id so it inherits the brand identity.
+export function createServiceJsonLd(params: ServiceParams): JsonLd {
+  const block: JsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: params.name,
+    description: params.description,
+    url: params.url,
+    serviceType: params.serviceType,
+    provider: {
+      '@id': organizationId,
+    },
+  };
+
+  if (params.areaServed) {
+    block.areaServed = params.areaServed;
+  }
+
+  if (params.audienceRole) {
+    block.audience = {
+      '@type': 'EducationalAudience',
+      educationalRole: params.audienceRole,
+    };
+  }
+
+  return block;
+}
