@@ -51,11 +51,12 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
               {homeContent.series.body}
             </p>
             <button
+              type="button"
               onClick={onCompareLevels}
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-jurassic-soft bg-white px-5 py-3 text-sm font-semibold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-jurassic-soft bg-white px-5 py-3 text-sm font-semibold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
             >
               {homeContent.series.compareAllCta}
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight aria-hidden="true" className="w-4 h-4" />
             </button>
           </div>
           <div className="flex gap-4">
@@ -83,7 +84,7 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
               <button
                 type="button"
                 onClick={() => onSelectLevel(level.path)}
-                className="flex items-center gap-6 text-left flex-1 min-w-0"
+                className="flex items-center gap-6 text-left flex-1 min-w-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
               >
                 <div className="text-2xl font-black text-gray-100 font-sans group-hover:text-jurassic-soft transition-colors text-right w-12 shrink-0">
                   {i + 1}
@@ -107,10 +108,10 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
                 <button
                   type="button"
                   onClick={() => onSelectLevel(level.path)}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-jurassic-soft bg-white px-4 py-2 text-xs font-bold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-jurassic-soft bg-white px-4 py-2 text-xs font-bold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
                 >
                   {homeContent.series.labels.viewLevelDetails}
-                  <ChevronRight className="w-3.5 h-3.5" />
+                  <ChevronRight aria-hidden="true" className="w-3.5 h-3.5" />
                 </button>
                 <a
                   href={resolveDemoHref(level.demoMaterialPath)}
@@ -119,10 +120,10 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
                       ? undefined
                       : level.demoMaterialFileName
                   }
-                  className="inline-flex items-center gap-1.5 rounded-full border border-jurassic-accent/30 bg-jurassic-accent/8 px-4 py-2 text-xs font-bold text-jurassic-accent transition hover:bg-jurassic-accent/15"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-jurassic-accent/30 bg-jurassic-accent/8 px-4 py-2 text-xs font-bold text-jurassic-accent transition hover:bg-jurassic-accent/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <FileText className="w-3.5 h-3.5" />
+                  <FileText aria-hidden="true" className="w-3.5 h-3.5" />
                   {homeContent.series.labels.demoMaterial}
                 </a>
               </div>

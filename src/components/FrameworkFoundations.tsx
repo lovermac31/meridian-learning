@@ -27,10 +27,11 @@ export const FrameworkFoundations = ({
     return null;
   }
 
+  // Phase 10 — pillar icons sit inside title-and-body cards, decorative.
   const pillars = [
-    { ...homeContent.frameworkFoundations.pillars[0], icon: <BookText className="w-5 h-5" /> },
-    { ...homeContent.frameworkFoundations.pillars[1], icon: <ClipboardCheck className="w-5 h-5" /> },
-    { ...homeContent.frameworkFoundations.pillars[2], icon: <Construction className="w-5 h-5" /> },
+    { ...homeContent.frameworkFoundations.pillars[0], icon: <BookText aria-hidden="true" className="w-5 h-5" /> },
+    { ...homeContent.frameworkFoundations.pillars[1], icon: <ClipboardCheck aria-hidden="true" className="w-5 h-5" /> },
+    { ...homeContent.frameworkFoundations.pillars[2], icon: <Construction aria-hidden="true" className="w-5 h-5" /> },
   ] as const;
   const coreCompetencies = homeContent.frameworkFoundations.coreCompetencies;
 
@@ -122,17 +123,19 @@ export const FrameworkFoundations = ({
           <div className="flex flex-wrap gap-3">
             {onExploreFramework ? (
               <button
+                type="button"
                 onClick={onExploreFramework}
-                className="inline-flex items-center gap-2 rounded-full bg-jurassic-accent px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-full bg-jurassic-accent px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
               >
                 {homeContent.frameworkFoundations.exploreCta}
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight aria-hidden="true" className="w-4 h-4" />
               </button>
             ) : null}
             {onExploreMethodology ? (
               <button
+                type="button"
                 onClick={onExploreMethodology}
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
               >
                 {homeContent.frameworkFoundations.methodologyCta}
               </button>
@@ -140,11 +143,12 @@ export const FrameworkFoundations = ({
           </div>
           {onExploreWorldWise ? (
             <button
+              type="button"
               onClick={onExploreWorldWise}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-white/65 underline underline-offset-4 transition-colors hover:text-white"
+              className="inline-flex items-center gap-2 rounded-md text-sm font-semibold text-white/65 underline underline-offset-4 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {homeContent.frameworkFoundations.worldwiseCta}
-              <Scale className="w-4 h-4" />
+              <Scale aria-hidden="true" className="w-4 h-4" />
             </button>
           ) : null}
         </motion.div>

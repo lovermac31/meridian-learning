@@ -32,20 +32,20 @@ export const Contact = () => {
             <div className="space-y-6">
               <div className="flex items-center gap-4 bg-jurassic-soft/20 p-4 rounded-xl border border-transparent hover:border-jurassic-soft transition-all">
                 <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-jurassic-accent shadow-sm">
-                  <Mail className="w-5 h-5" />
+                  <Mail aria-hidden="true" className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">{homeContent.contact.emailLabel}</div>
-                  <a href="mailto:info@jurassicenglish.com" className="text-base font-semibold text-jurassic-dark hover:text-jurassic-accent transition-colors">info@jurassicenglish.com</a>
+                  <a href="mailto:info@jurassicenglish.com" className="rounded-md text-base font-semibold text-jurassic-dark hover:text-jurassic-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2">info@jurassicenglish.com</a>
                 </div>
               </div>
               <div className="flex items-center gap-4 bg-jurassic-soft/20 p-4 rounded-xl border border-transparent hover:border-jurassic-soft transition-all">
                 <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-jurassic-accent shadow-sm">
-                  <Globe className="w-5 h-5" />
+                  <Globe aria-hidden="true" className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">{homeContent.contact.websiteLabel}</div>
-                  <a href="https://jurassicenglish.com" className="text-base font-semibold text-jurassic-dark hover:text-jurassic-accent transition-colors">jurassicenglish.com</a>
+                  <a href="https://jurassicenglish.com" className="rounded-md text-base font-semibold text-jurassic-dark hover:text-jurassic-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2">jurassicenglish.com</a>
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@ export const Contact = () => {
               {homeContent.contact.pathways.map((item, i) => (
                 <div key={i} className="group cursor-pointer border-b border-white/5 pb-4 last:border-b-0 last:pb-0 hover:bg-white/5 p-3 rounded-xl transition-all duration-300">
                   <h4 className="font-bold text-jurassic-accent mb-1 flex items-center gap-1 group-hover:text-jurassic-gold transition-colors text-sm">
-                    {item.title} <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                    {item.title} <ChevronRight aria-hidden="true" className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                   </h4>
                   <p className="text-white/55 text-xs font-light">{item.desc}</p>
                 </div>

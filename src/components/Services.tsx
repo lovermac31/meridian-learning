@@ -11,12 +11,15 @@ export const Services = () => {
     return null;
   }
 
+  // Phase 10 — decorative-only icons in card chrome. The card title +
+  // body text already convey the meaning; the icon is purely visual, so
+  // it should be hidden from assistive technology to avoid graphic noise.
   const icons = [
-    <Users className="w-6 h-6" />,
-    <ShieldCheck className="w-6 h-6" />,
-    <BookOpenCheck className="w-6 h-6" />,
-    <Compass className="w-6 h-6" />,
-    <Handshake className="w-6 h-6" />,
+    <Users aria-hidden="true" className="w-6 h-6" />,
+    <ShieldCheck aria-hidden="true" className="w-6 h-6" />,
+    <BookOpenCheck aria-hidden="true" className="w-6 h-6" />,
+    <Compass aria-hidden="true" className="w-6 h-6" />,
+    <Handshake aria-hidden="true" className="w-6 h-6" />,
   ];
 
   const services = homeContent.services.cards.map((service, index) => ({
