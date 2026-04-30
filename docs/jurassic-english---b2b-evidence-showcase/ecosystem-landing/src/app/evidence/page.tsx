@@ -260,7 +260,7 @@ export default function EvidencePolicy() {
                     cognitive mapping.
                   </p>
                   <Link
-                    href="/book-consultation"
+                    href="/book-diagnostic"
                     className={JE_CTA_PRIMARY_LIGHT}
                   >
                     Request Sample Portfolio Evidence

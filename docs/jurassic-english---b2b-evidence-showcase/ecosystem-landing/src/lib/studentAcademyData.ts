@@ -490,7 +490,7 @@ export const academyPathways: AcademyPathway[] = [
     ctaText: "Book diagnostic",
     ctaHref: "/book-diagnostic",
     secondaryCtaText: "Explore Academic Thinker",
-    secondaryCtaHref: "/academic-thinker",
+    secondaryCtaHref: "/student-academy#pathway",
   },
   {
     id: "ielts-bridge",
@@ -499,7 +499,7 @@ export const academyPathways: AcademyPathway[] = [
     description:
       "Routes to the IELTS Reasoning Lab, a sibling brand layer for dedicated exam preparation.",
     ctaText: "Explore IELTS Reasoning Lab",
-    ctaHref: "/ielts-reasoning-lab",
+    ctaHref: "/student-academy#pathway",
     secondaryCtaText: "Ask about fit",
     secondaryCtaHref: "/book-diagnostic",
   },
