@@ -18,8 +18,8 @@ export type CourseParams = {
   locale?: Locale;
 };
 
-const organizationId = `${SITE_URL}#organization`;
-const websiteId = `${SITE_URL}#website`;
+const organizationId = `${SITE_URL}/#organization`;
+const websiteId = `${SITE_URL}/#website`;
 
 export function createOrganizationJsonLd(locale: Locale = 'en'): JsonLd {
   return {
@@ -40,7 +40,6 @@ export function createOrganizationJsonLd(locale: Locale = 'en'): JsonLd {
       name: 'World Wise Learning',
     },
     logo: `${SITE_URL}/icon-512.png`,
-    sameAs: [SITE_URL],
   };
 }
 
@@ -55,14 +54,6 @@ export function createWebsiteJsonLd(locale: Locale = 'en'): JsonLd {
       '@id': organizationId,
     },
     inLanguage: locale,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
   };
 }
 
