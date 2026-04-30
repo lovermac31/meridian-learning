@@ -604,6 +604,38 @@ function resolveSyllabusRoute(pathname: string, locale: Locale): RouteMetadata |
   });
 }
 
+// Phase 16 — explicit per-document legal descriptions. The previous
+// formula "for Jurassic English™, including ${callout.label.toLowerCase()} and
+// current policy details…" produced awkward strings such as "including
+// please read carefully and current policy details" because callout.label
+// is short copy-deck UI text, not a meta description fragment. Hand-tuned
+// descriptions read cleanly in SERPs and stay under 160 chars.
+const legalDescriptionsEn: Record<string, string> = {
+  '/legal/terms':
+    'Terms and conditions for using Jurassic English™ website content, resources, enquiries, and educational service information.',
+  '/legal/privacy':
+    'Privacy information for Jurassic English™ website visitors, enquiries, forms, communications, and educational service interactions.',
+  '/legal/cookies':
+    'Cookie policy for the Jurassic English™ website, including the categories of cookies we use and how to manage your preferences.',
+  '/legal/accessibility':
+    'Accessibility statement for the Jurassic English™ website, outlining standards we follow and how to request accessibility support.',
+  '/legal/disclaimer':
+    'Disclaimer for Jurassic English™ website content and educational service information, including limits on warranty and liability.',
+};
+
+const legalDescriptionsVi: Record<string, string> = {
+  '/legal/terms':
+    'Điều khoản và điều kiện sử dụng nội dung, tài nguyên, yêu cầu liên hệ và thông tin dịch vụ giáo dục của Jurassic English™.',
+  '/legal/privacy':
+    'Thông tin về quyền riêng tư cho người truy cập website, yêu cầu liên hệ, biểu mẫu, trao đổi và tương tác dịch vụ giáo dục Jurassic English™.',
+  '/legal/cookies':
+    'Chính sách cookie của website Jurassic English™, các loại cookie được sử dụng và cách bạn có thể quản lý tùy chọn.',
+  '/legal/accessibility':
+    'Tuyên bố về khả năng tiếp cận của website Jurassic English™, các tiêu chuẩn được áp dụng và cách yêu cầu hỗ trợ tiếp cận.',
+  '/legal/disclaimer':
+    'Tuyên bố miễn trừ trách nhiệm liên quan đến nội dung website và thông tin dịch vụ giáo dục Jurassic English™, gồm giới hạn về bảo đảm và trách nhiệm.',
+};
+
 function resolveLegalRoute(pathname: string, locale: Locale): RouteMetadata | null {
   const document = getLocalizedLegalDocument(pathname, locale);
 
@@ -611,10 +643,14 @@ function resolveLegalRoute(pathname: string, locale: Locale): RouteMetadata | nu
     return null;
   }
 
+  const enDescription = legalDescriptionsEn[pathname];
+  const viDescription = legalDescriptionsVi[pathname];
   const description =
     locale === 'vi'
-      ? `${document.title} của Jurassic English™, bao gồm thông báo trọng tâm và các nội dung chính sách hiện hành dành cho người truy cập website, trường học và đối tác.`
-      : `${document.title} for Jurassic English™, including ${document.callout.label.toLowerCase()} and current policy details for site visitors, schools, and partners.`;
+      ? viDescription ??
+        `${document.title} của Jurassic English™, bao gồm thông báo trọng tâm và các nội dung chính sách hiện hành dành cho người truy cập website, trường học và đối tác.`
+      : enDescription ??
+        `${document.title} for Jurassic English™, including ${document.callout.label.toLowerCase()} and current policy details for site visitors, schools, and partners.`;
 
   const isReleasedLocale = isPublicContentReleased(pathname, locale);
 
