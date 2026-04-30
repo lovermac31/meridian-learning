@@ -64,11 +64,36 @@
   </head>
   <body>
     <div id="root">
-      <!-- Minimal loading indicator replaced by React on mount -->
-      <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#101820;">
-        <div style="text-align:center;color:#F26419;font-family:Aptos, Segoe UI, Helvetica Neue, Arial, sans-serif;">
-          <div style="font-size:2rem;font-weight:bold;letter-spacing:-0.02em;">Jurassic English™</div>
-          <div style="margin-top:0.5rem;font-size:0.75rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.2em;">Loading</div>
+      <!--
+        Phase 15 — non-JS / SSR-friendly fallback content.
+        src/main.tsx uses `createRoot(...).render(...)` (NOT `hydrateRoot`),
+        so React cleanly REPLACES this entire subtree on mount — no
+        hydration mismatch by React's contract. Crawlers without JS
+        execution and JS-disabled clients see meaningful semantic content
+        with internal links to all primary public routes; JS users see
+        this briefly during initial JS load before the full app paints,
+        then React removes it. Brand background (#101820) is preserved
+        to avoid a white flash, matching the previous loading indicator.
+      -->
+      <div style="min-height:100vh;background:#101820;color:rgba(255,255,255,0.85);font-family:Aptos,'Segoe UI','Helvetica Neue',Arial,sans-serif;padding:3rem 1.5rem;box-sizing:border-box;">
+        <div style="max-width:42rem;margin:0 auto;">
+          <p style="margin:0 0 0.75rem;font-size:0.7rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.2em;">Loading</p>
+          <h1 style="margin:0 0 1.25rem;font-size:1.875rem;font-weight:700;letter-spacing:-0.02em;color:#F26419;line-height:1.15;">Jurassic English™ — Critical Thinking Through Literature</h1>
+          <p style="margin:0 0 0.875rem;line-height:1.6;">Jurassic English™ is a literature-based academic English and reasoning framework for students, parents, schools, and learning centers.</p>
+          <p style="margin:0 0 0.875rem;line-height:1.6;">Students build reading depth, spoken explanation, evidence-based writing, and visible portfolio work through structured literature study.</p>
+          <p style="margin:0 0 1.5rem;line-height:1.6;">Schools and centers can explore curriculum coherence, methodology, teacher implementation, and institutional review pathways.</p>
+          <ul style="list-style:none;padding:0;margin:0;line-height:1.9;">
+            <li><a href="/student-academy" style="color:#F26419;">Student Academy</a></li>
+            <li><a href="/interactive-demo" style="color:#F26419;">Try the Interactive Demo</a></li>
+            <li><a href="/book-diagnostic" style="color:#F26419;">Book a Student Thinking Diagnostic</a></li>
+            <li><a href="/school-framework" style="color:#F26419;">School Framework</a></li>
+            <li><a href="/audit-sprint" style="color:#F26419;">Curriculum Coherence Audit Sprint</a></li>
+            <li><a href="/discovery" style="color:#F26419;">Discovery Call</a></li>
+            <li><a href="/evidence" style="color:#F26419;">Evidence and Responsible Claims</a></li>
+            <li><a href="/framework" style="color:#F26419;">Framework</a></li>
+            <li><a href="/methodology" style="color:#F26419;">Methodology</a></li>
+            <li><a href="/series/compare" style="color:#F26419;">Compare Curriculum Levels</a></li>
+          </ul>
         </div>
       </div>
     </div>
