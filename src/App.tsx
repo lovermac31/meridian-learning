@@ -330,6 +330,21 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/*
+        Phase 9 — Skip-to-main-content link (WCAG 2.4.1 Bypass Blocks).
+        Must be the first focusable element in the page so a keyboard user
+        pressing Tab once can jump straight to <main id="main-content">,
+        bypassing the 11-item header. Visually hidden via `sr-only` until
+        focused; on focus it lifts to a fixed-position high-contrast pill
+        in the top-left corner. Mirrors the same pattern shipped in
+        ecosystem-landing/src/app/layout.tsx in Phase 8.
+      */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-jurassic-accent focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
+      >
+        Skip to main content
+      </a>
       {!isInternalPilotRequestsView ? (
         <Navbar
           onGetStarted={() => navigateTo('/get-started')}
@@ -458,7 +473,11 @@ function App() {
           onViewSyllabus={() => navigateTo(currentSeriesLevel.syllabusRoutePath)}
         />
       ) : (
-        <main id="main-content">
+        // Phase 9 — `tabIndex={-1}` lets the skip link above move focus
+        // into <main> on activation. Without it the URL hash changes but
+        // focus stays on <body>, leaving keyboard users with the scroll
+        // jump only. -1 keeps <main> out of the natural Tab sequence.
+        <main id="main-content" tabIndex={-1} className="focus:outline-none">
           <Hero
             onGetStarted={() => navigateTo('/get-started?interest=audit_sprint')}
             onExploreFramework={() => navigateTo('/discovery')}

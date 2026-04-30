@@ -7,20 +7,24 @@ type StudentAcademyMuralProps = {
 /**
  * Homepage mural / teaser section for the Student Academy.
  *
- * Replaces the mounted <CreativeStudio /> section. Uses the canonical B4
- * Student Academy hero copy. Routes the primary CTA into the existing
- * `/get-started` diagnostic-booking funnel; the standalone /student-academy
- * route is deferred to a separate scope (Option 1 handling).
+ * Phase 9 — re-routed the primary diagnostic CTA from `/get-started`
+ * (the institutional B2B portal) to `/book-diagnostic` — the
+ * production-live Phase 6 conversion page. Added secondary links to
+ * `/student-academy` (the production-live Phase 5 program page) and to
+ * `/interactive-demo#try-one-thinking-move` (the Phase 4 playable
+ * micro-demo). Removed the stale "Full Student Academy page coming
+ * soon" copy.
  *
- * Includes a hidden `id="studio"` compatibility anchor so the still-unchanged
- * footer link to `#studio` continues to scroll to this section during the
- * transition window.
+ * Includes a hidden `id="studio"` compatibility anchor so the
+ * still-unchanged footer link to `#studio` continues to scroll to this
+ * section during the transition window.
  */
 export function StudentAcademyMural({ onNavigate }: StudentAcademyMuralProps) {
-  const handleCtaClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    onNavigate('/get-started');
-  };
+  const handleNavClick =
+    (path: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
+      onNavigate(path);
+    };
 
   return (
     <section
@@ -40,7 +44,7 @@ export function StudentAcademyMural({ onNavigate }: StudentAcademyMuralProps) {
           {/* Copy column */}
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-jurassic-soft border border-jurassic-dark/10 text-jurassic-dark/70 text-[11px] font-semibold uppercase tracking-[0.12em] mb-5">
-              <Sparkles className="w-3.5 h-3.5 text-jurassic-accent" />
+              <Sparkles aria-hidden="true" className="w-3.5 h-3.5 text-jurassic-accent" />
               Student Academy
             </div>
             <h2
@@ -59,17 +63,39 @@ export function StudentAcademyMural({ onNavigate }: StudentAcademyMuralProps) {
               reasoning. Your child reads real stories, thinks aloud, writes
               with evidence, and grows through portfolio work that you can see.
             </p>
+            {/* Phase 9 — primary CTA routes to /book-diagnostic
+                (Phase 6 conversion page) instead of /get-started. */}
             <a
-              href="/get-started"
-              onClick={handleCtaClick}
-              className="inline-flex items-center justify-center bg-jurassic-accent text-white px-8 py-4 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)] hover:brightness-110"
+              href="/book-diagnostic"
+              onClick={handleNavClick('/book-diagnostic')}
+              className="inline-flex items-center justify-center bg-jurassic-accent text-white px-8 py-4 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               Book a Student Thinking Diagnostic
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight aria-hidden="true" className="w-4 h-4 ml-2" />
             </a>
-            <p className="mt-3 text-sm italic text-jurassic-dark/55">
-              Full Student Academy page coming soon — early access through the
-              diagnostic.
+
+            {/* Phase 9 — secondary links to the production-live Student
+                Academy and the playable Phase 4 micro-demo. Replaces the
+                stale "Full Student Academy page coming soon" copy. */}
+            <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-jurassic-dark/65">
+              <a
+                href="/student-academy"
+                onClick={handleNavClick('/student-academy')}
+                className="rounded-md font-medium text-jurassic-dark/85 underline underline-offset-2 decoration-jurassic-accent/60 hover:text-jurassic-dark hover:decoration-jurassic-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              >
+                Explore the Student Academy
+              </a>
+              <span className="text-jurassic-dark/30" aria-hidden="true">·</span>
+              <a
+                href="/interactive-demo#try-one-thinking-move"
+                onClick={handleNavClick('/interactive-demo#try-one-thinking-move')}
+                className="rounded-md font-medium text-jurassic-dark/85 underline underline-offset-2 decoration-jurassic-accent/60 hover:text-jurassic-dark hover:decoration-jurassic-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              >
+                Try one thinking move
+              </a>
+            </p>
+            <p className="mt-2 text-sm italic text-jurassic-dark/55">
+              No score guarantees — just a clear, evidence-led plan.
             </p>
           </div>
 

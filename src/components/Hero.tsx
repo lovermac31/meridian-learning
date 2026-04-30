@@ -13,6 +13,12 @@ type HeroProps = {
   onNavigate?: (path: string) => void;
 };
 
+// Phase 9 — visible focus indicator shared by the institutional CTAs and
+// the parent-pathway row inside the dark-emerald hero. jurassic-accent
+// matches the primary CTA color and is visible on the gradient backdrop.
+const HERO_FOCUS_RING =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark';
+
 export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNavigate }: HeroProps) => {
   const [heroImageAvailable, setHeroImageAvailable] = useState(true);
   const locale = getCurrentLocale();
@@ -116,23 +122,28 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             className="flex flex-col gap-3"
           >
-            {/* Institutional CTAs — primary audience */}
+            {/* Institutional CTAs — primary audience.
+                Phase 9 — added type="button", focus-visible ring, and
+                aria-hidden on the trailing ArrowRight icon. */}
             <div className="flex flex-wrap gap-4">
               <button
+                type="button"
                 onClick={() => {
                   trackCtaClick({ label: homeContent.hero.primaryCta, type: 'primary', segment: 'institutional' });
                   onGetStarted();
                 }}
-                className="bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover flex items-center gap-2 group shadow-premium"
+                className={`bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover flex items-center gap-2 group shadow-premium ${HERO_FOCUS_RING}`}
               >
-                {homeContent.hero.primaryCta} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                {homeContent.hero.primaryCta}
+                <ArrowRight aria-hidden="true" className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               <button
+                type="button"
                 onClick={() => {
                   trackCtaClick({ label: homeContent.hero.secondaryCta, type: 'secondary', segment: 'institutional' });
                   onExploreFramework();
                 }}
-                className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all"
+                className={`backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all ${HERO_FOCUS_RING}`}
               >
                 {homeContent.hero.secondaryCta}
               </button>
@@ -142,11 +153,12 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
             {onOverviewRequest && homeContent.hero.overviewCta && (
               <div>
                 <button
+                  type="button"
                   onClick={() => {
                     trackCtaClick({ label: homeContent.hero.overviewCta ?? '', type: 'low_friction', segment: 'institutional' });
                     onOverviewRequest();
                   }}
-                  className="text-white/55 text-sm hover:text-white/80 underline underline-offset-2 transition-colors"
+                  className={`rounded-md text-white/55 text-sm hover:text-white/80 underline underline-offset-2 transition-colors ${HERO_FOCUS_RING}`}
                 >
                   {homeContent.hero.overviewCta}
                 </button>
@@ -154,29 +166,89 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
               </div>
             )}
 
-            {/* Parent / student pathway — secondary audience */}
+            {/* Parent / student pathway — secondary audience.
+                Phase 9 — added type="button" + focus-visible to the existing
+                framework / series buttons; brightness raised slightly so
+                keyboard users can see focus on the dark backdrop. */}
             {onNavigate && homeContent.hero.audienceRowLabel && (
               <div className="mt-1 flex w-fit max-w-full flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full border border-white/5 bg-white/[0.025] px-3 py-2 opacity-75">
                 <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/32">{homeContent.hero.audienceRowLabel}</span>
                 <button
+                  type="button"
                   onClick={() => {
                     trackCtaClick({ label: homeContent.hero.audienceCurriculumCta ?? '', type: 'secondary', segment: 'parent_student' });
                     onNavigate('/framework');
                   }}
-                  className="text-xs font-medium text-white/45 underline underline-offset-2 transition-colors hover:text-white/70"
+                  className={`rounded-md text-xs font-medium text-white/45 underline underline-offset-2 transition-colors hover:text-white/70 ${HERO_FOCUS_RING}`}
                 >
                   {homeContent.hero.audienceCurriculumCta}
                 </button>
-                <span className="text-xs text-white/18">·</span>
+                <span className="text-xs text-white/18" aria-hidden="true">·</span>
                 <button
+                  type="button"
                   onClick={() => {
                     trackCtaClick({ label: homeContent.hero.audienceCompareCta ?? '', type: 'secondary', segment: 'parent_student' });
                     onNavigate('/series/compare');
                   }}
-                  className="text-xs font-medium text-white/45 underline underline-offset-2 transition-colors hover:text-white/70"
+                  className={`rounded-md text-xs font-medium text-white/45 underline underline-offset-2 transition-colors hover:text-white/70 ${HERO_FOCUS_RING}`}
                 >
                   {homeContent.hero.audienceCompareCta}
                 </button>
+              </div>
+            )}
+
+            {/* Phase 9 — Direct parent-pathway row.
+                The existing CTA hierarchy was almost entirely B2B with no
+                links to the production-live ecosystem routes. This row
+                surfaces the three parent-facing destinations explicitly:
+                  - /student-academy            (Phase 5)
+                  - /interactive-demo#try-one-thinking-move  (Phase 4)
+                  - /book-diagnostic            (Phase 6)
+                Plain anchors so they are crawlable, server-rendered, and
+                keyboard-reachable. Click delegates to onNavigate when
+                present so the SPA does a soft route-change; otherwise the
+                browser follows the href as a hard navigation. The label
+                "For parents" follows the existing parent-row vocabulary. */}
+            {onNavigate && (
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">
+                  For parents
+                </span>
+                <a
+                  href="/student-academy"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    trackCtaClick({ label: 'Student Academy', type: 'primary', segment: 'parent_student' });
+                    onNavigate('/student-academy');
+                  }}
+                  className={`rounded-md text-sm font-medium text-white/85 underline underline-offset-2 decoration-jurassic-accent/60 hover:text-white hover:decoration-jurassic-accent transition-colors ${HERO_FOCUS_RING}`}
+                >
+                  Student Academy
+                </a>
+                <span className="text-xs text-white/30" aria-hidden="true">·</span>
+                <a
+                  href="/interactive-demo#try-one-thinking-move"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    trackCtaClick({ label: 'Try one thinking move', type: 'low_friction', segment: 'parent_student' });
+                    onNavigate('/interactive-demo#try-one-thinking-move');
+                  }}
+                  className={`rounded-md text-sm font-medium text-white/85 underline underline-offset-2 decoration-jurassic-accent/60 hover:text-white hover:decoration-jurassic-accent transition-colors ${HERO_FOCUS_RING}`}
+                >
+                  Try one thinking move
+                </a>
+                <span className="text-xs text-white/30" aria-hidden="true">·</span>
+                <a
+                  href="/book-diagnostic"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    trackCtaClick({ label: 'Book a diagnostic', type: 'primary', segment: 'parent_student' });
+                    onNavigate('/book-diagnostic');
+                  }}
+                  className={`rounded-md text-sm font-medium text-white/85 underline underline-offset-2 decoration-jurassic-accent/60 hover:text-white hover:decoration-jurassic-accent transition-colors ${HERO_FOCUS_RING}`}
+                >
+                  Book a diagnostic
+                </a>
               </div>
             )}
           </motion.div>
