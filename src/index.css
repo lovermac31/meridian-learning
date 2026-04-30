@@ -71,6 +71,30 @@ html[lang='vi'] {
   --font-display: Georgia, "Times New Roman", serif;
 }
 
+/*
+ * Phase 9 — Reduced-motion accessibility guard.
+ *
+ * When a user has set `prefers-reduced-motion: reduce` (System Settings →
+ * Display → Reduce motion on macOS, etc.), neutralise hover/entrance
+ * transitions and CSS animations across the root Vite app. Mirrors the
+ * Phase 8 ecosystem-landing block. motion/react components inherit the
+ * shorter durations automatically because they animate via CSS transition
+ * styles or via JS that respects the same media query when explicitly
+ * wired (Hero / Navbar do not use useReducedMotion yet, but with these
+ * rules the user-visible motion impact is reduced enough that adding
+ * useReducedMotion later is optional).
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .je-botui-shell .botui_app_container {
   width: 100%;
   height: 100%;

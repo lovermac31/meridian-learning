@@ -26,6 +26,20 @@ export const Footer = ({ onNavigate }: FooterProps) => {
       { label: getUiString(locale, 'footer.links.academicConsulting'), href: '/get-started?interest=consulting' },
       { label: getUiString(locale, 'footer.links.institutionalPartnerships'), href: '/get-started?interest=partnership' },
     ],
+    // Phase 9 — direct surfacing of the production-live ecosystem routes.
+    // Audited as missing from the homepage entirely; adding this column
+    // gives keyboard, screen-reader, and crawler users a clear path to
+    // the Phase 4 micro-demo, Phase 5 Student Academy, and Phase 6 Book
+    // Diagnostic, plus the institutional School Framework, Evidence and
+    // Digital Reasoning Engine pages.
+    ecosystem: [
+      { label: 'Student Academy', href: '/student-academy' },
+      { label: 'Interactive Demo', href: '/interactive-demo' },
+      { label: 'Book a Diagnostic', href: '/book-diagnostic' },
+      { label: 'School Framework', href: '/school-framework' },
+      { label: 'Evidence Policy', href: '/evidence' },
+      { label: 'Digital Reasoning Engine', href: '/digital-reasoning-engine' },
+    ],
     resources: [
       { label: getUiString(locale, 'footer.links.levelDetails'), href: '#series' },
       { label: getUiString(locale, 'footer.links.compareAllLevels'), href: '/series/compare' },
@@ -79,11 +93,14 @@ export const Footer = ({ onNavigate }: FooterProps) => {
     }
   };
 
+  // Phase 9 — added rounded-md + focus-visible ring so keyboard users
+  // see a clear focus indicator on every footer link. jurassic-accent
+  // ring against the dark footer backdrop.
   const FooterLink = ({ label, href }: { label: string; href: string }) => (
     <a
       href={href}
       onClick={(e) => handleLinkClick(e, href)}
-      className="block py-1 text-sm text-white/65 transition-colors duration-200 hover:text-jurassic-accent"
+      className="block rounded-md py-1 text-sm text-white/65 transition-colors duration-200 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
     >
       {label}
     </a>
@@ -112,18 +129,22 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             <a
               href="/get-started"
               onClick={(e) => handleLinkClick(e, '/get-started')}
-            className="bg-jurassic-accent text-white px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group shadow-premium hover:brightness-110 transition-all w-fit shrink-0"
+            className="bg-jurassic-accent text-white px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group shadow-premium hover:brightness-110 transition-all w-fit shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             {getUiString(locale, 'footer.getStarted')}
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
           </div>
         </div>
       </div>
 
-      {/* ═══════ TIER 2 — Main Footer Body ═══════ */}
+      {/* ═══════ TIER 2 — Main Footer Body ═══════
+          Phase 9 — grid widened to 5 columns at lg+ to surface the new
+          "Ecosystem" column (production-live ecosystem routes). Mobile
+          remains 2-col, md keeps the existing 4-col while the new column
+          stacks below; lg+ gives one column per group. */}
       <div className="max-w-7xl mx-auto px-6 py-10 md:py-14">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 lg:gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-6 lg:gap-10">
           {/* Column 1 — Explore */}
           <div>
             <ColumnHeading>{getUiString(locale, 'footer.columns.explore')}</ColumnHeading>
@@ -134,7 +155,17 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </nav>
           </div>
 
-          {/* Column 2 — Institutional Pathways */}
+          {/* Column 2 — Ecosystem (Phase 9) */}
+          <div>
+            <ColumnHeading>Ecosystem</ColumnHeading>
+            <nav className="space-y-0.5" aria-label="Ecosystem pages">
+              {footerNav.ecosystem.map((link) => (
+                <FooterLink key={link.label} {...link} />
+              ))}
+            </nav>
+          </div>
+
+          {/* Column 3 — Institutional Pathways */}
           <div>
             <ColumnHeading>{getUiString(locale, 'footer.columns.pathways')}</ColumnHeading>
             <nav className="space-y-0.5">
@@ -144,7 +175,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </nav>
           </div>
 
-          {/* Column 3 — Resources */}
+          {/* Column 4 — Resources */}
           <div>
             <ColumnHeading>{getUiString(locale, 'footer.columns.resources')}</ColumnHeading>
             <nav className="space-y-0.5">
@@ -154,7 +185,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </nav>
           </div>
 
-          {/* Column 4 — Legal & Contact */}
+          {/* Column 5 — Legal & Contact */}
           <div>
             <ColumnHeading>{getUiString(locale, 'footer.columns.legalContact')}</ColumnHeading>
             <nav className="space-y-0.5">
@@ -167,9 +198,9 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-1">{getUiString(locale, 'footer.generalEnquiries')}</p>
                 <a
                   href="mailto:info@jurassicenglish.com"
-                  className="flex items-center gap-2 text-sm text-jurassic-accent transition-colors duration-200 hover:text-jurassic-gold break-all"
+                  className="flex items-center gap-2 rounded-md text-sm text-jurassic-accent transition-colors duration-200 hover:text-jurassic-gold break-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
                 >
-                  <Mail className="w-3.5 h-3.5 shrink-0" />
+                  <Mail aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
                   info@jurassicenglish.com
                 </a>
               </div>
@@ -177,9 +208,9 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-1">{getUiString(locale, 'footer.legalPrivacy')}</p>
                 <a
                   href="mailto:legal@worldwiselearning.com"
-                  className="flex items-center gap-2 text-sm text-jurassic-accent transition-colors duration-200 hover:text-jurassic-gold break-all"
+                  className="flex items-center gap-2 rounded-md text-sm text-jurassic-accent transition-colors duration-200 hover:text-jurassic-gold break-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
                 >
-                  <Mail className="w-3.5 h-3.5 shrink-0" />
+                  <Mail aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
                   legal@worldwiselearning.com
                 </a>
               </div>
@@ -209,7 +240,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                   <a
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
-                    className="text-xs text-white/50 transition-colors hover:text-white/75"
+                    className="rounded-md text-xs text-white/50 transition-colors hover:text-white/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
                   >
                     {link.label}
                   </a>

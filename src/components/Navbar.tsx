@@ -1,8 +1,10 @@
-import { useState, useEffect, type ReactNode } from 'react';
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
+
+const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
 
 type NavbarProps = {
   onGetStarted: () => void;
@@ -27,6 +29,8 @@ export const Navbar = ({
 }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
   const locale = getCurrentLocale();
 
   useEffect(() => {
@@ -34,6 +38,79 @@ export const Navbar = ({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Phase 9 — drawer body-scroll lock + Escape close + click-outside +
+  // initial focus into drawer + Tab focus-trap + restore focus on close.
+  // Mirrors the working pattern in ecosystem-landing/src/components/MobileNav.tsx
+  // shipped in Phase 8.
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const triggerAtOpen = triggerRef.current;
+
+    const getFocusables = () =>
+      Array.from(
+        drawerRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled])',
+        ) || [],
+      );
+
+    // Move focus into the drawer on next frame so the rendered DOM is
+    // ready and the focus ring becomes visible to the user.
+    const rafId = window.requestAnimationFrame(() => {
+      getFocusables()[0]?.focus();
+    });
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setIsMobileMenuOpen(false);
+        return;
+      }
+      if (e.key === 'Tab') {
+        const focusables = getFocusables();
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    const onClickOutside = (e: MouseEvent) => {
+      const t = e.target as Node | null;
+      if (!t) return;
+      if (drawerRef.current?.contains(t)) return;
+      if (triggerRef.current?.contains(t)) return;
+      setIsMobileMenuOpen(false);
+    };
+
+    // Defer the mousedown listener to the next macrotask so the same
+    // click that opened the drawer is not interpreted as a click outside.
+    const mousedownTimerId = window.setTimeout(
+      () => document.addEventListener('mousedown', onClickOutside),
+      0,
+    );
+    document.addEventListener('keydown', onKey);
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.clearTimeout(mousedownTimerId);
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('mousedown', onClickOutside);
+      document.body.style.overflow = previousOverflow;
+      // Restore focus to the hamburger trigger after drawer close.
+      triggerAtOpen?.focus();
+    };
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     { name: getUiString(locale, 'navbar.links.about'), href: isPortalView ? '/#about' : '#about' },
@@ -89,12 +166,15 @@ export const Navbar = ({
             ecosystem-landing/src/components/ProductionStyleHeader.tsx so the homepage
             and the rewritten ecosystem pages always behave identically. */}
         <div className="hidden xl:flex items-center xl:gap-2 2xl:gap-6">
+          {/* Phase 9 — focus-visible rings added to every desktop nav link
+              and CTA. jurassic-accent / jurassic-gold rings against the
+              dark header backdrop. rounded-md for ring corner shape. */}
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={(event) => handleNavLinkClick(event, link.href)}
-              className="text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300"
+              className="rounded-md text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {link.name}
             </a>
@@ -102,21 +182,21 @@ export const Navbar = ({
           <button
             type="button"
             onClick={handleEducationAffiliateClick}
-            className="text-sm font-semibold text-jurassic-gold/80 hover:text-jurassic-gold hover:underline underline-offset-4 decoration-jurassic-gold transition-all duration-300"
+            className="rounded-md text-sm font-semibold text-jurassic-gold/80 hover:text-jurassic-gold hover:underline underline-offset-4 decoration-jurassic-gold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             {getUiString(locale, 'navbar.links.worldwise')}
           </button>
           <button
             type="button"
             onClick={handlePricingClick}
-            className="text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300"
+            className="rounded-md text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             {getUiString(locale, 'navbar.pricing')}
           </button>
           <button
             type="button"
             onClick={onGetStarted}
-            className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-bold glow-hover shadow-premium"
+            className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-bold glow-hover shadow-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             {getUiString(locale, 'navbar.getStarted')}
           </button>
@@ -124,9 +204,13 @@ export const Navbar = ({
         </div>
 
         {/* Mobile Toggle — visible <xl (<1280px) where the desktop nav cluster
-            would otherwise overflow with 11 items + wordmark + container padding. */}
+            would otherwise overflow with 11 items + wordmark + container padding.
+            Phase 9 — added explicit type="button", aria-controls, focus-visible
+            ring, and aria-hidden on the Menu/X icons. */}
         <button
-          className="xl:hidden text-white"
+          ref={triggerRef}
+          type="button"
+          className="xl:hidden text-white inline-flex h-10 w-10 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label={
             isMobileMenuOpen
@@ -134,15 +218,25 @@ export const Navbar = ({
               : getUiString(locale, 'navbar.openMenu')
           }
           aria-expanded={isMobileMenuOpen}
+          aria-controls={ROOT_MOBILE_NAV_ID}
         >
-          {isMobileMenuOpen ? <X /> : <Menu />}
+          {isMobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — Phase 9: id, role="dialog", aria-modal, aria-label
+          added so screen readers announce it as a modal dialog. The
+          useEffect above wires Escape close, click-outside, body scroll
+          lock, initial focus into drawer, Tab focus-trap, and focus
+          restoration to the trigger on close. */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
+          <motion.div
+            ref={drawerRef}
+            id={ROOT_MOBILE_NAV_ID}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -157,7 +251,7 @@ export const Navbar = ({
               <a
                 key={link.name}
                 href={link.href}
-                className="text-lg font-medium text-white/90 hover:text-jurassic-accent"
+                className="rounded-md text-lg font-medium text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
                 onClick={(event) => handleNavLinkClick(event, link.href)}
               >
                 {link.name}
@@ -166,14 +260,14 @@ export const Navbar = ({
             <button
               type="button"
               onClick={handleEducationAffiliateClick}
-              className="text-left text-lg font-semibold text-jurassic-gold/90 hover:text-jurassic-gold"
+              className="rounded-md text-left text-lg font-semibold text-jurassic-gold/90 hover:text-jurassic-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {getUiString(locale, 'navbar.links.worldwise')}
             </button>
             <button
               type="button"
               onClick={handlePricingClick}
-              className="text-left text-lg font-medium text-white/90 hover:text-jurassic-accent"
+              className="rounded-md text-left text-lg font-medium text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {getUiString(locale, 'navbar.pricing')}
             </button>
@@ -183,7 +277,7 @@ export const Navbar = ({
                 setIsMobileMenuOpen(false);
                 onGetStarted();
               }}
-              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-bold"
+              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {getUiString(locale, 'navbar.getStarted')}
             </button>
