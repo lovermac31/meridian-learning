@@ -97,32 +97,35 @@ export const InstitutionalDecisionSnapshot = ({
         >
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <button
+              type="button"
               onClick={() => {
                 trackCtaClick({ label: decisionSnapshot.primaryCta, type: 'primary', segment: 'institutional_snapshot' });
                 onAuditSprint();
               }}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-6 py-3 text-sm font-bold text-white shadow-premium transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-6 py-3 text-sm font-bold text-white shadow-premium transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {decisionSnapshot.primaryCta}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>
             <button
+              type="button"
               onClick={() => {
                 trackCtaClick({ label: decisionSnapshot.secondaryCta, type: 'secondary', segment: 'institutional_snapshot' });
                 onDiscoveryCall();
               }}
-              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10"
+              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {decisionSnapshot.secondaryCta}
             </button>
           </div>
 
           <button
+            type="button"
             onClick={() => {
               trackCtaClick({ label: decisionSnapshot.overviewCta, type: 'low_friction', segment: 'institutional_snapshot' });
               onCurriculumOverview();
             }}
-            className="text-left text-sm font-semibold text-white/65 underline underline-offset-4 transition-colors hover:text-white sm:text-right"
+            className="rounded-md text-left text-sm font-semibold text-white/65 underline underline-offset-4 transition-colors hover:text-white sm:text-right focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             {decisionSnapshot.overviewCta}
           </button>

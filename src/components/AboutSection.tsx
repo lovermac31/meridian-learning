@@ -12,11 +12,13 @@ export const AboutSection = () => {
     return null;
   }
 
+  // Phase 10 — proof-signal icons sit alongside the proof text label.
+  // The text already conveys the signal; the icon is decorative.
   const proofSignals = [
-    { icon: <BookOpen className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[0] },
-    { icon: <RefreshCw className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[1] },
-    { icon: <Users className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[2] },
-    { icon: <Globe className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[3] },
+    { icon: <BookOpen aria-hidden="true" className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[0] },
+    { icon: <RefreshCw aria-hidden="true" className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[1] },
+    { icon: <Users aria-hidden="true" className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[2] },
+    { icon: <Globe aria-hidden="true" className="text-jurassic-accent w-5 h-5" />, text: homeContent.about.proofSignals[3] },
   ];
 
   return (

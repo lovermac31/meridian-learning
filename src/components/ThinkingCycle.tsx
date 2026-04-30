@@ -18,11 +18,13 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
     return null;
   }
 
+  // Phase 10 — stage icons sit inside cards with explicit visible
+  // titles ("Analyze" / "Evaluate" / etc.), so the icons are decorative.
   const iconMap = {
-    analyze: <Search className="w-10 h-10" />,
-    evaluate: <Scale className="w-10 h-10" />,
-    justify: <ShieldCheck className="w-10 h-10" />,
-    reflect: <RefreshCw className="w-10 h-10" />,
+    analyze: <Search aria-hidden="true" className="w-10 h-10" />,
+    evaluate: <Scale aria-hidden="true" className="w-10 h-10" />,
+    justify: <ShieldCheck aria-hidden="true" className="w-10 h-10" />,
+    reflect: <RefreshCw aria-hidden="true" className="w-10 h-10" />,
   } as const;
 
   const glowMap = {
@@ -81,7 +83,7 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
               }}
               onClick={() => onSelectStage(stage.path)}
-              className="group relative flex h-full w-full appearance-none bg-transparent p-0 text-left"
+              className="group relative flex h-full w-full appearance-none bg-transparent p-0 text-left rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl border border-white/5 group-hover:border-white/10 transition-all duration-500 glass-dark" />
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-jurassic-accent/5 to-transparent rounded-2xl transition-opacity duration-500" />
@@ -106,7 +108,7 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
                 </p>
                 <div className="mt-auto pt-6 flex items-center gap-2 text-xs font-bold text-jurassic-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span>{homeContent.thinkingCycle.exploreStageCta}</span>
-                  <Search className="w-3 h-3" />
+                  <Search aria-hidden="true" className="w-3 h-3" />
                 </div>
               </div>
             </motion.button>
@@ -125,11 +127,12 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
             </p>
           </div>
           <button
+            type="button"
             onClick={onCompareStages}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             {homeContent.thinkingCycle.compareAllCta}
-            <Search className="w-4 h-4" />
+            <Search aria-hidden="true" className="w-4 h-4" />
           </button>
         </motion.div>
       </div>
