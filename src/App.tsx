@@ -11,7 +11,7 @@ import { getSeriesLevelByPath } from './lib/seriesContent';
 import { getSyllabusByRoutePath } from './lib/syllabusContent';
 import { getThinkingCycleStageByPath } from './lib/thinkingCycleContent';
 import { applyHeadMetadata } from './lib/headManager';
-import { resolveRouteMetadata } from './lib/routeMetadata';
+import { isRewriteServedRoute, resolveRouteMetadata } from './lib/routeMetadata';
 import { isBotUIRouteAllowed } from './lib/botUiRoutes';
 import { normalizeSpeedInsightsRoute } from './lib/speedInsightsRoute';
 import { localizeRouteTarget, resolveLocalizedRoute, switchLocaleRoute } from './i18n/routing';
@@ -316,6 +316,20 @@ function App() {
 
   const navigateTo = (nextPath: string) => {
     const normalizedTarget = localizeRouteTarget(normalizeNavigationTarget(nextPath), locale);
+    // Phase 20 — ecosystem routes (/student-academy, /interactive-demo,
+    // /book-diagnostic, /digital-reasoning-engine, /evidence,
+    // /school-framework) are served by Vercel rewrites to a separate
+    // Next.js app, not by this Vite SPA. Use a full document navigation
+    // so the rewrite fires; pushState would only update the URL and leave
+    // React Router rendering the NotFoundPage fallback for the unknown
+    // route. Strip query/hash before the membership check so paths like
+    // `/interactive-demo#try-one-thinking-move` and
+    // `/student-academy?utm=foo` still match.
+    const targetPathname = normalizedTarget.split('?')[0].split('#')[0];
+    if (isRewriteServedRoute(targetPathname)) {
+      window.location.assign(normalizedTarget);
+      return;
+    }
     pushRoute(normalizedTarget);
   };
 
