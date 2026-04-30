@@ -16,17 +16,21 @@ import { JsonLd } from "@/components/JsonLd";
 // site are included.
 const ORGANIZATION_LD = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "EducationalOrganization",
   "@id": "https://jurassicenglish.com/#organization",
-  name: "Jurassic English",
-  alternateName: "Jurassic English™",
+  name: "Jurassic English™",
   url: "https://jurassicenglish.com",
   description:
-    "A literature-based critical thinking curriculum for students, schools, and centers.",
+    "Jurassic English™ is a literature-based critical thinking curriculum for schools, providing teacher training, school licensing, curriculum review, and academic consulting.",
   parentOrganization: {
     "@type": "Organization",
     name: "World Wise Learning",
   },
+  brand: {
+    "@type": "Brand",
+    name: "Jurassic English™",
+  },
+  logo: "https://jurassicenglish.com/icon-512.png",
 };
 
 const WEBSITE_LD = {
@@ -34,7 +38,7 @@ const WEBSITE_LD = {
   "@type": "WebSite",
   "@id": "https://jurassicenglish.com/#website",
   url: "https://jurassicenglish.com",
-  name: "Jurassic English",
+  name: "Jurassic English™",
   publisher: { "@id": "https://jurassicenglish.com/#organization" },
 };
 
@@ -55,7 +59,28 @@ export const metadata: Metadata = {
   // resolve against this base.
   metadataBase: new URL("https://jurassicenglish.com"),
   title: "Jurassic English™ Ecosystem",
-  description: "From English Fluency to Academic Thought.",
+  description: "From English fluency to academic thought.",
+  openGraph: {
+    title: "Jurassic English™ Ecosystem",
+    description: "From English fluency to academic thought.",
+    type: "website",
+    url: "/",
+    siteName: "Jurassic English™",
+    images: [
+      {
+        url: "/images/student-academy-page/student-academy-hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Jurassic English™",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Jurassic English™ Ecosystem",
+    description: "From English fluency to academic thought.",
+    images: ["/images/student-academy-page/student-academy-hero.webp"],
+  },
 };
 
 export default function RootLayout({
