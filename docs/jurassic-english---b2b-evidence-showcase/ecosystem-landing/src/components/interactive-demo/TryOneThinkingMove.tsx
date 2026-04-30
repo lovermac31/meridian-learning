@@ -215,6 +215,17 @@ function ChoiceCard({
 // ---------------------------------------------------------------------------
 export function TryOneThinkingMove() {
   const headingId = useId();
+  // Step-2 / step-3 heading ids let us mark the radiogroup containers with
+  // `aria-labelledby` while keeping the headings as ordinary block elements
+  // inside the white card. The previous markup used <fieldset>+<legend>,
+  // but browsers render <legend> floating ON the fieldset's top border —
+  // outside the padding box — which made the Step 2 heading appear to sit
+  // ABOVE the white card instead of inside it. Switching to a labelled
+  // <div role="group"> preserves SR semantics (radios already share a
+  // `name`, and aria-labelledby points to the heading) while putting the
+  // heading in normal block flow with the rest of the card content.
+  const claimGroupHeadingId = `${headingId}-step-2-heading`;
+  const evidenceGroupHeadingId = `${headingId}-step-3-heading`;
   const reduceMotion = useReducedMotion();
 
   const [claim, setClaim] = useState<ClaimChoice["id"] | null>(null);
@@ -326,11 +337,18 @@ export function TryOneThinkingMove() {
             </article>
 
             {/* Step 2 — claim choice */}
-            <fieldset className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-7">
-              <legend className="px-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2">
+            <div
+              role="group"
+              aria-labelledby={claimGroupHeadingId}
+              className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-7"
+            >
+              <div
+                id={claimGroupHeadingId}
+                className="text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2"
+              >
                 <Compass className="w-3.5 h-3.5" aria-hidden="true" />
                 Step 2 — Choose a claim
-              </legend>
+              </div>
               <p className="mt-3 mb-5 text-[13px] text-foreground/65 leading-relaxed">
                 Both claims are valid. Choose the one that gives you more to
                 think about.
@@ -348,15 +366,17 @@ export function TryOneThinkingMove() {
                   />
                 ))}
               </div>
-            </fieldset>
+            </div>
 
             {/* Step 3 — evidence choice. Mounted only after claim is set so
                 Step 2 and Step 3 cannot visually overlap or look ghosted.
                 Smooth, minimal entrance via framer-motion; respects
                 prefers-reduced-motion. */}
             {claim ? (
-              <motion.fieldset
+              <motion.div
                 key="micro-demo-step-3"
+                role="group"
+                aria-labelledby={evidenceGroupHeadingId}
                 initial={
                   reduceMotion
                     ? { opacity: 1, y: 0 }
@@ -370,10 +390,13 @@ export function TryOneThinkingMove() {
                 }
                 className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-7"
               >
-                <legend className="px-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2">
+                <div
+                  id={evidenceGroupHeadingId}
+                  className="text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2"
+                >
                   <Eye className="w-3.5 h-3.5" aria-hidden="true" />
                   Step 3 — Choose evidence
-                </legend>
+                </div>
                 <p className="mt-3 mb-5 text-[13px] text-foreground/65 leading-relaxed">
                   Pick the line that best supports the claim you selected.
                 </p>
@@ -389,7 +412,7 @@ export function TryOneThinkingMove() {
                     />
                   ))}
                 </div>
-              </motion.fieldset>
+              </motion.div>
             ) : null}
 
             {/* Step 4 — reveal */}
