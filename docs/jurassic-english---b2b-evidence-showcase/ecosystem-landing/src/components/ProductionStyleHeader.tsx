@@ -101,7 +101,11 @@ export function ProductionStyleHeader() {
     lastPathnameRef.current = pathname;
   }, [pathname, isMobileOpen]);
 
-  // Drawer body-scroll lock + Escape + click-outside
+  // Drawer body-scroll lock + Escape + click-outside + focus management.
+  // Phase 8 — added initial-focus into drawer on open and Tab focus-trap.
+  // The drawer carries `aria-modal="true"`, so per WAI-ARIA Authoring
+  // Practices keyboard focus must be confined inside it. Mirrors the
+  // working pattern in `MobileNav.tsx`.
   useEffect(() => {
     if (!isMobileOpen) return;
 
@@ -109,10 +113,38 @@ export function ProductionStyleHeader() {
     document.body.style.overflow = "hidden";
     const triggerAtOpen = triggerRef.current;
 
+    const getFocusables = () =>
+      Array.from(
+        drawerRef.current?.querySelectorAll<HTMLElement>(
+          "a[href], button:not([disabled])",
+        ) || [],
+      );
+
+    // Move focus into the drawer on next frame so the rendered DOM is
+    // ready and the focus ring becomes visible to the user.
+    const rafId = window.requestAnimationFrame(() => {
+      getFocusables()[0]?.focus();
+    });
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
         setIsMobileOpen(false);
+        return;
+      }
+      if (e.key === "Tab") {
+        const focusables = getFocusables();
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
     const onClick = (e: MouseEvent) => {
@@ -129,6 +161,7 @@ export function ProductionStyleHeader() {
     document.addEventListener("keydown", onKey);
 
     return () => {
+      window.cancelAnimationFrame(rafId);
       window.clearTimeout(t);
       document.removeEventListener("keydown", onKey);
       document.removeEventListener("mousedown", onClick);
@@ -154,7 +187,12 @@ export function ProductionStyleHeader() {
     extraClassName = "",
   ) => {
     const className = [
-      "text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300",
+      "rounded-md text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300",
+      // Phase 8 — keyboard focus indicator was missing on every desktop
+      // nav link, leaving keyboard users without a visible focus state.
+      // jurassic-accent ring matches the wordmark hover-accent and is
+      // visible against the dark header backdrop.
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]",
       extraClassName,
     ]
       .filter(Boolean)
@@ -241,21 +279,21 @@ export function ProductionStyleHeader() {
             <button
               type="button"
               onClick={() => setIsComingSoonOpen(true)}
-              className="text-sm font-semibold text-jurassic-gold/80 hover:text-jurassic-gold hover:underline underline-offset-4 decoration-jurassic-gold transition-all duration-300"
+              className="rounded-md text-sm font-semibold text-jurassic-gold/80 hover:text-jurassic-gold hover:underline underline-offset-4 decoration-jurassic-gold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               {EDU_AFFILIATE_LABEL}
             </button>
 
             <a
               href={PRICING_HREF}
-              className="text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300"
+              className="rounded-md text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               {PRICING_LABEL}
             </a>
 
             <a
               href={GET_STARTED_HREF}
-              className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-bold hover:opacity-95 transition-opacity"
+              className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-bold hover:opacity-95 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               {GET_STARTED_LABEL}
             </a>
@@ -270,13 +308,13 @@ export function ProductionStyleHeader() {
             <a
               href={EN_HREF}
               aria-current="page"
-              className="bg-jurassic-accent text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:opacity-95 transition-opacity"
+              className="bg-jurassic-accent text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:opacity-95 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               English
             </a>
             <a
               href={VI_HREF}
-              className="text-white/70 hover:text-white px-3 py-1.5 rounded-full text-xs font-semibold transition-colors"
+              className="text-white/70 hover:text-white px-3 py-1.5 rounded-full text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               Tiếng Việt
             </a>
@@ -312,13 +350,16 @@ export function ProductionStyleHeader() {
               Site navigation
             </h2>
 
+            {/* Phase 8 — focus-visible rings added to every drawer item so
+                keyboard users see where focus is while the drawer is open
+                (focus-trap effect above keeps Tab inside the drawer). */}
             {NAV_ANCHORS.map((item) =>
               isInternal(item.href) ? (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsMobileOpen(false)}
-                  className="text-lg font-medium text-white/90 hover:text-jurassic-accent"
+                  className="rounded-md text-lg font-medium text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
                 >
                   {item.name}
                 </Link>
@@ -327,7 +368,7 @@ export function ProductionStyleHeader() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsMobileOpen(false)}
-                  className="text-lg font-medium text-white/90 hover:text-jurassic-accent"
+                  className="rounded-md text-lg font-medium text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
                 >
                   {item.name}
                 </a>
@@ -340,7 +381,7 @@ export function ProductionStyleHeader() {
                 setIsMobileOpen(false);
                 setIsComingSoonOpen(true);
               }}
-              className="text-left text-lg font-semibold text-jurassic-gold/90 hover:text-jurassic-gold"
+              className="rounded-md text-left text-lg font-semibold text-jurassic-gold/90 hover:text-jurassic-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               {EDU_AFFILIATE_LABEL}
             </button>
@@ -348,7 +389,7 @@ export function ProductionStyleHeader() {
             <a
               href={PRICING_HREF}
               onClick={() => setIsMobileOpen(false)}
-              className="text-lg font-medium text-white/90 hover:text-jurassic-accent"
+              className="rounded-md text-lg font-medium text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               {PRICING_LABEL}
             </a>
@@ -356,7 +397,7 @@ export function ProductionStyleHeader() {
             <a
               href={GET_STARTED_HREF}
               onClick={() => setIsMobileOpen(false)}
-              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-bold"
+              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               {GET_STARTED_LABEL}
             </a>
@@ -365,14 +406,14 @@ export function ProductionStyleHeader() {
               <a
                 href={EN_HREF}
                 onClick={() => setIsMobileOpen(false)}
-                className="text-sm font-semibold text-white"
+                className="rounded-md text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
               >
                 English
               </a>
               <a
                 href={VI_HREF}
                 onClick={() => setIsMobileOpen(false)}
-                className="text-sm font-semibold text-white/70 hover:text-white"
+                className="rounded-md text-sm font-semibold text-white/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
               >
                 Tiếng Việt
               </a>

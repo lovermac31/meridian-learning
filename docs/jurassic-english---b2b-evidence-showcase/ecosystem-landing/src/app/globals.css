@@ -147,6 +147,33 @@ html[lang='vi'] {
   }
 }
 
+/*
+ * Phase 8 — Reduced-motion accessibility guard.
+ *
+ * When a user has set `prefers-reduced-motion: reduce` (System Settings →
+ * Display → Reduce motion on macOS, etc.), neutralise hover/entrance
+ * transitions and CSS animations across the ecosystem-landing app. This
+ * does NOT touch framer-motion components — those already respect
+ * useReducedMotion (see TryOneThinkingMove.tsx). It also leaves
+ * scroll-margin/anchor jumps alone so skip-link navigation still works.
+ *
+ * Pattern is the WCAG 2.3.3-aligned recipe recommended by W3C: zero out
+ * transition / animation duration with !important so it overrides
+ * tailwind's `transition-*` utilities. `scroll-behavior: auto` cancels
+ * smooth-scroll for hash navigation, which the same media-query users
+ * generally want disabled.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Student Academy BotUI shell.
    Ported from the production Jurassic English site so the in-app
    conversation surface matches the brand palette (parchment / deep-green /

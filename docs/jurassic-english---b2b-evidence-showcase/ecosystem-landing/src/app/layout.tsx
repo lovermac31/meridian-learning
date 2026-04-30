@@ -155,7 +155,18 @@ export default function RootLayout({
           See: src/components/ProductionStyleHeader.tsx
         */}
         <ProductionStyleHeader />
-        <main id="main-content" className="flex-1">
+        {/*
+          Phase 8 — `tabIndex={-1}` allows the skip-link
+          (`<a href="#main-content">`) to programmatically move keyboard focus
+          into <main> when activated. Without it, the URL hash changes but
+          focus stays on <body>, so screen-reader / keyboard users get the
+          scroll jump only — not the focus jump that WCAG 2.4.1 requires.
+          `-1` keeps <main> out of the natural Tab sequence so it isn't
+          focusable on its own — it only becomes focusable via the
+          programmatic .focus() that the browser performs on hash-change for
+          a tabindex'd target.
+        */}
+        <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
           {children}
         </main>
         <LayoutChrome />

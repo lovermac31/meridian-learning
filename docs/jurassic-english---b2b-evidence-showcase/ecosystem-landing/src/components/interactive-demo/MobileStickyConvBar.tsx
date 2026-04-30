@@ -39,10 +39,14 @@ export function MobileStickyConvBar() {
             // implicit — this bar only mounts on /interactive-demo).
             track("interactive_demo_mobile_sticky_clicked");
           }}
-          className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-[13px] font-bold text-white shadow-[0_8px_20px_-8px_rgba(242,100,25,0.6)] hover:bg-accent/90 transition-colors"
+          // Phase 8 — added focus-visible ring (was missing, so keyboard
+          // users had no visible focus state on the only CTA in this bar).
+          // Ring color matches the bar's bg-primary backdrop the same way
+          // the StudentAcademyMobileStickyCTA pattern does.
+          className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-[13px] font-bold text-white shadow-[0_8px_20px_-8px_rgba(242,100,25,0.6)] hover:bg-accent/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
         >
           Book Diagnostic
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
         </Link>
       </div>
     </div>

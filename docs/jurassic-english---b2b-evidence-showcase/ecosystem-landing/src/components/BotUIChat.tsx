@@ -234,10 +234,39 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
       return;
     }
 
+    // Phase 8 — focus-trap helper. The panel has aria-modal="true", so
+    // keyboard focus must stay inside it while open. Mirrors the working
+    // pattern in MobileNav.tsx. We re-query each Tab press because BotUI
+    // adds and removes action buttons as the conversation progresses, so
+    // the focusable set is dynamic.
+    const getFocusables = () =>
+      Array.from(
+        panelRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) || [],
+      ).filter((el) => !el.hasAttribute("aria-hidden"));
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
         closePanel();
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const focusables = getFocusables();
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+
+        if (event.shiftKey && active === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && active === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
 
