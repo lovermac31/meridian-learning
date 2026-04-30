@@ -35,7 +35,6 @@ const EVIDENCE_WEBPAGE_LD = {
   inLanguage: "en",
 };
 
-// Page-specific metadata (Sprint 1 — preserved unchanged in Sprint 2).
 export const metadata: Metadata = {
   title:
     "Evidence, Student Progress, and Responsible Claims | Jurassic English™",
@@ -78,7 +77,6 @@ export default function EvidencePolicy() {
       <style dangerouslySetInnerHTML={{ __html: evidenceThemeCss }} />
       <JsonLd data={EVIDENCE_WEBPAGE_LD} id="ld-evidence" />
       <div className="evi-theme bg-background">
-        {/* Hero — premium dark pattern matching SA + ID + DRE */}
         <section
           aria-labelledby="evi-hero-heading"
           className="relative overflow-hidden bg-primary text-primary-foreground"
@@ -113,7 +111,6 @@ export default function EvidencePolicy() {
           </div>
         </section>
 
-        {/* Body */}
         <section
           aria-labelledby="evi-body-heading"
           className="py-16 md:py-20 px-6 bg-background"
@@ -122,7 +119,6 @@ export default function EvidencePolicy() {
             Evidence policy detail
           </h2>
           <div className="container mx-auto max-w-5xl space-y-20 md:space-y-24">
-            {/* What We Track */}
             <section aria-labelledby="evi-track-heading">
               <div className="text-center mb-10">
                 <Badge variant="outline" className={JE_EYEBROW_LIGHT}>
@@ -163,7 +159,6 @@ export default function EvidencePolicy() {
               </div>
             </section>
 
-            {/* What We Do Not Claim Yet */}
             <section aria-labelledby="evi-not-claim-heading">
               <Card className="border border-destructive/15 bg-destructive/5">
                 <CardContent className="p-7 md:p-9">
@@ -194,7 +189,6 @@ export default function EvidencePolicy() {
               </Card>
             </section>
 
-            {/* What We Can Responsibly Say */}
             <section aria-labelledby="evi-responsibly-heading">
               <Card className="border border-primary/15 bg-primary/5">
                 <CardContent className="p-7 md:p-9">
@@ -225,7 +219,6 @@ export default function EvidencePolicy() {
               </Card>
             </section>
 
-            {/* Future Evidence Roadmap */}
             <section aria-labelledby="evi-roadmap-heading">
               <div className="text-center mb-10">
                 <Badge variant="outline" className={JE_EYEBROW_LIGHT}>
@@ -241,7 +234,6 @@ export default function EvidencePolicy() {
               <ProofRoadmap />
             </section>
 
-            {/* CTA — sample portfolio request */}
             <section aria-labelledby="evi-cta-heading">
               <Card className="border border-primary/10 bg-card">
                 <CardContent className="p-8 md:p-12 text-center">
@@ -260,7 +252,7 @@ export default function EvidencePolicy() {
                     cognitive mapping.
                   </p>
                   <Link
-                    href="/book-consultation"
+                    href="/book-diagnostic"
                     className={JE_CTA_PRIMARY_LIGHT}
                   >
                     Request Sample Portfolio Evidence
