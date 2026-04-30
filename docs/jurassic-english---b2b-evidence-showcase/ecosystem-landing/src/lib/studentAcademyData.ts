@@ -247,11 +247,32 @@ export const thinkingCycleStages: ThinkingCycleStage[] = [
 ];
 
 export const ceiwMoves: CEIWMove[] = [
-  { letter: "C", name: "Claim", plain: "The point your child is making." },
-  { letter: "E", name: "Evidence", plain: "The proof from the text." },
-  { letter: "I", name: "Interpretation", plain: "What the evidence means." },
-  { letter: "W", name: "Warrant", plain: "The underlying principle." },
-  { letter: "+", name: "Impact", plain: "The consequence of accepting the argument.", isSenior: true },
+  {
+    letter: "C",
+    name: "Claim",
+    plain: "The point your child is making.",
+  },
+  {
+    letter: "E",
+    name: "Evidence",
+    plain: "The proof from the text.",
+  },
+  {
+    letter: "I",
+    name: "Interpretation",
+    plain: "What the evidence means.",
+  },
+  {
+    letter: "W",
+    name: "Warrant",
+    plain: "The underlying principle.",
+  },
+  {
+    letter: "+",
+    name: "Impact",
+    plain: "The consequence of accepting the argument.",
+    isSenior: true,
+  },
 ];
 
 export const dreDoes: string[] = [
@@ -269,50 +290,185 @@ export const dreDoesNot: string[] = [
 ];
 
 export const studentOutcomes: StudentOutcome[] = [
-  { iconKey: "speaking", label: "Speaking confidence", description: "Structured speaking practice with accountable talk and oral defense of ideas." },
-  { iconKey: "reading", label: "Reading comprehension", description: "Literature-based reading that builds inference, interpretation, and depth." },
-  { iconKey: "vocabulary", label: "Academic vocabulary", description: "Word Fossil records and contextual vocabulary built through reading and writing." },
-  { iconKey: "writing", label: "Evidence-based writing", description: "CEIW writing — claim, evidence, interpretation, warrant — across paragraph and essay tasks." },
-  { iconKey: "literature", label: "Literature interpretation", description: "Analytical reading of stories, characters, and themes with structured response tasks." },
-  { iconKey: "reflection", label: "Structured reflection", description: "Reflection records that make student thinking visible after each cycle." },
-  { iconKey: "portfolio", label: "Portfolio evidence", description: "A Growth Portfolio of writing, speaking, and reflection samples parents can review." },
-  { iconKey: "exam", label: "Exam-transfer readiness", description: "Reasoning structures that transfer to IELTS, IB, Cambridge, and academic English tasks." },
+  {
+    iconKey: "speaking",
+    label: "Speaking confidence",
+    description:
+      "Structured speaking practice with accountable talk and oral defense of ideas.",
+  },
+  {
+    iconKey: "reading",
+    label: "Reading comprehension",
+    description:
+      "Literature-based reading that builds inference, interpretation, and depth.",
+  },
+  {
+    iconKey: "vocabulary",
+    label: "Academic vocabulary",
+    description:
+      "Word Fossil records and contextual vocabulary built through reading and writing.",
+  },
+  {
+    iconKey: "writing",
+    label: "Evidence-based writing",
+    description:
+      "CEIW writing — claim, evidence, interpretation, warrant — across paragraph and essay tasks.",
+  },
+  {
+    iconKey: "literature",
+    label: "Literature interpretation",
+    description:
+      "Analytical reading of stories, characters, and themes with structured response tasks.",
+  },
+  {
+    iconKey: "reflection",
+    label: "Structured reflection",
+    description:
+      "Reflection records that make student thinking visible after each cycle.",
+  },
+  {
+    iconKey: "portfolio",
+    label: "Portfolio evidence",
+    description:
+      "A Growth Portfolio of writing, speaking, and reflection samples parents can review.",
+  },
+  {
+    iconKey: "exam",
+    label: "Exam-transfer readiness",
+    description:
+      "Reasoning structures that transfer to IELTS, IB, Cambridge, and academic English tasks.",
+  },
 ];
 
 export const learnerSupports: LearnerSupport[] = [
-  { title: "Multiple ways to read", description: "Text, audio-paired reading, and pre-taught vocabulary support every reader." },
-  { title: "Multiple ways to listen and respond", description: "Scaffolded oral retell and structured speaking time make participation predictable." },
-  { title: "Multiple ways to write", description: "Typed, handwritten, drawn, or dictated — the destination is the same." },
-  { title: "Predictable lesson rhythms", description: "Regulation first, then reasoning. Lesson order stays the same so attention can deepen." },
-  { title: "Embedded access plans", description: "Documented access notes are read carefully and supported inside the lesson, not as an exception." },
-  { title: "No single learner singled out", description: "Access is part of the room. Every learner is invited to contribute, never forced." },
+  {
+    title: "Multiple ways to read",
+    description:
+      "Text, audio-paired reading, and pre-taught vocabulary support every reader.",
+  },
+  {
+    title: "Multiple ways to listen and respond",
+    description:
+      "Scaffolded oral retell and structured speaking time make participation predictable.",
+  },
+  {
+    title: "Multiple ways to write",
+    description:
+      "Typed, handwritten, drawn, or dictated — the destination is the same.",
+  },
+  {
+    title: "Predictable lesson rhythms",
+    description:
+      "Regulation first, then reasoning. Lesson order stays the same so attention can deepen.",
+  },
+  {
+    title: "Embedded access plans",
+    description:
+      "Documented access notes are read carefully and supported inside the lesson, not as an exception.",
+  },
+  {
+    title: "No single learner singled out",
+    description:
+      "Access is part of the room. Every learner is invited to contribute, never forced.",
+  },
 ];
 
 export const diagnosticMeasures: DiagnosticMeasure[] = [
-  { title: "Short reading or story response", description: "How the student engages with a story or short text — what they notice and how they respond." },
-  { title: "Oral explanation", description: "How clearly the student speaks, organizes ideas, and explains a position out loud." },
-  { title: "Written response", description: "How the student structures a written answer at sentence and paragraph level." },
-  { title: "Evidence-use check", description: "How the student uses examples, quotations, or details to support an idea." },
-  { title: "Reasoning profile", description: "Where the student sits across analyze, evaluate, justify, and reflect." },
-  { title: "Recommended level placement", description: "A specific Level 1–5 recommendation with notes for parents and teachers." },
+  {
+    title: "Short reading or story response",
+    description:
+      "How the student engages with a story or short text — what they notice and how they respond.",
+  },
+  {
+    title: "Oral explanation",
+    description:
+      "How clearly the student speaks, organizes ideas, and explains a position out loud.",
+  },
+  {
+    title: "Written response",
+    description:
+      "How the student structures a written answer at sentence and paragraph level.",
+  },
+  {
+    title: "Evidence-use check",
+    description:
+      "How the student uses examples, quotations, or details to support an idea.",
+  },
+  {
+    title: "Reasoning profile",
+    description:
+      "Where the student sits across analyze, evaluate, justify, and reflect.",
+  },
+  {
+    title: "Recommended level placement",
+    description:
+      "A specific Level 1–5 recommendation with notes for parents and teachers.",
+  },
 ];
 
 export const portfolioEvidenceTypes: PortfolioEvidenceType[] = [
-  { title: "Word Fossil vocabulary records", description: "Student-built vocabulary entries with context, meaning, and example use." },
-  { title: "Because Bridge responses", description: "Short reasoning artifacts linking claim to evidence using a structured frame." },
-  { title: "Claim + evidence paragraphs", description: "Paragraph-level work showing the move from opinion to interpretation." },
-  { title: "CEIW writing samples", description: "Full claim-evidence-interpretation-warrant pieces collected over time." },
-  { title: "Seminar reflections", description: "Written reflections after accountable-talk discussions and seminar tasks." },
-  { title: "Before / after writing revisions", description: "Revision pairs that show how a draft has been strengthened with feedback." },
-  { title: "Parent progress summaries", description: "Periodic summaries that translate evidence into parent-readable progress notes." },
+  {
+    title: "Word Fossil vocabulary records",
+    description:
+      "Student-built vocabulary entries with context, meaning, and example use.",
+  },
+  {
+    title: "Because Bridge responses",
+    description:
+      "Short reasoning artifacts linking claim to evidence using a structured frame.",
+  },
+  {
+    title: "Claim + evidence paragraphs",
+    description:
+      "Paragraph-level work showing the move from opinion to interpretation.",
+  },
+  {
+    title: "CEIW writing samples",
+    description:
+      "Full claim-evidence-interpretation-warrant pieces collected over time.",
+  },
+  {
+    title: "Seminar reflections",
+    description:
+      "Written reflections after accountable-talk discussions and seminar tasks.",
+  },
+  {
+    title: "Before / after writing revisions",
+    description:
+      "Revision pairs that show how a draft has been strengthened with feedback.",
+  },
+  {
+    title: "Parent progress summaries",
+    description:
+      "Periodic summaries that translate evidence into parent-readable progress notes.",
+  },
 ];
 
+// Phase 5 Sprint C — CTA rebalance.
+//
+// Before this sprint, three of four pathway cards repeated the same
+// "Book Student Thinking Diagnostic" CTA, which made the section read
+// as "we want your money" rather than as a discovery hierarchy.
+//
+// Each card now leads with the action that matches the parent's most
+// likely intent at that level:
+//   - Levels 1–3:  Try the demo first (no commitment yet).
+//   - Level 4:     See the pathway table (understand what's at stake).
+//   - Level 5:     Book diagnostic (placement-ready families).
+//   - IELTS:       Explore the IELTS Lab; soft "Ask about fit" fallback
+//                  routes to the diagnostic.
+//
+// Necessary diagnostic CTAs in Hero, Quick Start, the dedicated
+// Diagnostic CTA section, the Final Reminder, the Final CTA, the
+// Mobile Sticky Bar, and the LevelPathway "Find My Student's Level"
+// link are all preserved.
 export const academyPathways: AcademyPathway[] = [
   {
     id: "levels-1-3",
     name: "Levels 1–3 Placement",
     audience: "Foundation through Developing Analyst",
-    description: "Story-based reasoning, claim + evidence, and early interpretation.",
+    description:
+      "Story-based reasoning, claim + evidence, and early interpretation.",
     ctaText: "Try the demo",
     ctaHref: "/interactive-demo#try-one-thinking-move",
   },
@@ -320,7 +476,8 @@ export const academyPathways: AcademyPathway[] = [
     id: "level-4",
     name: "Level 4 Placement",
     audience: "Academic Builder",
-    description: "Full CEIW writing with named warrants. Optional early Academic Thinker exposure.",
+    description:
+      "Full CEIW writing with named warrants. Optional early Academic Thinker exposure.",
     ctaText: "See the pathway",
     ctaHref: "#pathway",
   },
@@ -328,7 +485,8 @@ export const academyPathways: AcademyPathway[] = [
     id: "level-5",
     name: "Level 5 Placement",
     audience: "Advanced Thinker",
-    description: "Counter-warrants, Impact, and exam transfer. May route to the Academic Thinker Program.",
+    description:
+      "Counter-warrants, Impact, and exam transfer. May route to the Academic Thinker Program.",
     ctaText: "Book diagnostic",
     ctaHref: "/book-diagnostic",
     secondaryCtaText: "Explore Academic Thinker",
@@ -338,7 +496,8 @@ export const academyPathways: AcademyPathway[] = [
     id: "ielts-bridge",
     name: "IELTS Bridge",
     audience: "For older students whose goal is IELTS",
-    description: "Routes to the IELTS Reasoning Lab, a sibling brand layer for dedicated exam preparation.",
+    description:
+      "Routes to the IELTS Reasoning Lab, a sibling brand layer for dedicated exam preparation.",
     ctaText: "Explore IELTS Reasoning Lab",
     ctaHref: "/student-academy#pathway",
     secondaryCtaText: "Ask about fit",
@@ -347,16 +506,56 @@ export const academyPathways: AcademyPathway[] = [
 ];
 
 export const studentAcademyFAQs: FAQItem[] = [
-  { question: "Is this English tutoring?", answer: "No. Tutoring patches gaps. The Student Academy builds a foundation. Children leave able to read, reason, and write at academic standard, not only able to pass tests." },
-  { question: "What makes it different?", answer: "Three things: authentic literature first (real books, not worksheet content), the visible reasoning architecture of CEIW, and portfolio evidence you can see — not just a grade." },
-  { question: "What is CEIW?", answer: "CEIW stands for Claim, Evidence, Interpretation, Warrant — extended at senior levels with Impact. It is the visible architecture your child learns to use, taught from Level 1 in age-appropriate forms." },
-  { question: "What is the Digital Reasoning Engine?", answer: "A quiet tool that makes your child's thinking visible. It captures their work, organizes their portfolio, and helps us send you clear updates. The teacher always has the final word." },
-  { question: "Will it help with IELTS?", answer: "At Levels 4 and 5, yes — the same reasoning that produces strong academic writing produces strong IELTS Writing Task 2 and Speaking Part 3 performance. We do not promise scores. We build the reasoning the bands reward." },
-  { question: "Is there a guaranteed score?", answer: "No. Any program that promises a specific score is over-promising. We share rubric-anchored, evidence-based progress; we do not guarantee outcomes." },
-  { question: "How is my child placed?", answer: "Through the Student Thinking Diagnostic — a 45-minute placement conversation, not a test. Your child reads, speaks, and writes about a short story. After the diagnostic, you receive a Parent Diagnostic Report with a recommended starting level. There is no fail." },
-  { question: "What will I see each month?", answer: "Real samples of your child's work in the portfolio, a brief monthly note from the teacher, and a termly Learner Growth Report with a 20-minute parent meeting." },
-  { question: "What if my child is shy?", answer: "Quiet learners thrive. Regulation-Before-Reasoning is the program's first principle. Lessons begin with calm; participation is structured; thinking time is protected. Your child is invited to contribute, never forced." },
-  { question: "What if my child has learning differences?", answer: "The Neuroinclusive Access Layer is built into every level. Your child can read, listen, draw, speak, or type — multiple paths to the same destination. We diversify the route, not the academic demand." },
+  {
+    question: "Is this English tutoring?",
+    answer:
+      "No. Tutoring patches gaps. The Student Academy builds a foundation. Children leave able to read, reason, and write at academic standard, not only able to pass tests.",
+  },
+  {
+    question: "What makes it different?",
+    answer:
+      "Three things: authentic literature first (real books, not worksheet content), the visible reasoning architecture of CEIW, and portfolio evidence you can see — not just a grade.",
+  },
+  {
+    question: "What is CEIW?",
+    answer:
+      "CEIW stands for Claim, Evidence, Interpretation, Warrant — extended at senior levels with Impact. It is the visible architecture your child learns to use, taught from Level 1 in age-appropriate forms.",
+  },
+  {
+    question: "What is the Digital Reasoning Engine?",
+    answer:
+      "A quiet tool that makes your child's thinking visible. It captures their work, organizes their portfolio, and helps us send you clear updates. The teacher always has the final word.",
+  },
+  {
+    question: "Will it help with IELTS?",
+    answer:
+      "At Levels 4 and 5, yes — the same reasoning that produces strong academic writing produces strong IELTS Writing Task 2 and Speaking Part 3 performance. We do not promise scores. We build the reasoning the bands reward.",
+  },
+  {
+    question: "Is there a guaranteed score?",
+    answer:
+      "No. Any program that promises a specific score is over-promising. We share rubric-anchored, evidence-based progress; we do not guarantee outcomes.",
+  },
+  {
+    question: "How is my child placed?",
+    answer:
+      "Through the Student Thinking Diagnostic — a 45-minute placement conversation, not a test. Your child reads, speaks, and writes about a short story. After the diagnostic, you receive a Parent Diagnostic Report with a recommended starting level. There is no fail.",
+  },
+  {
+    question: "What will I see each month?",
+    answer:
+      "Real samples of your child's work in the portfolio, a brief monthly note from the teacher, and a termly Learner Growth Report with a 20-minute parent meeting.",
+  },
+  {
+    question: "What if my child is shy?",
+    answer:
+      "Quiet learners thrive. Regulation-Before-Reasoning is the program's first principle. Lessons begin with calm; participation is structured; thinking time is protected. Your child is invited to contribute, never forced.",
+  },
+  {
+    question: "What if my child has learning differences?",
+    answer:
+      "The Neuroinclusive Access Layer is built into every level. Your child can read, listen, draw, speak, or type — multiple paths to the same destination. We diversify the route, not the academic demand.",
+  },
 ];
 
 export const claimsSafeCopy = {
