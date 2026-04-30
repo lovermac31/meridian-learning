@@ -14,12 +14,35 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir   = path.resolve(__dirname, '..', 'dist');
 const SITE_URL  = 'https://jurassicenglish.com';
-const lastmod   = new Date().toISOString().split('T')[0];
+
+// Phase 16 — derive lastmod from the most recent git commit date instead
+// of `new Date()`. The previous build-date approach updated lastmod on
+// every rebuild even when no source changed, producing noisy daily churn
+// in the sitemap. The committer date moves only when actual code lands
+// on the branch being built. Falls back to today's date if git history
+// is unavailable (e.g. shallow clone in a CI environment without commit
+// metadata).
+function resolveLastmod() {
+  try {
+    const out = execSync('git log -1 --format=%cs', { stdio: ['ignore', 'pipe', 'ignore'] })
+      .toString()
+      .trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(out)) {
+      return out;
+    }
+  } catch {
+    // fall through
+  }
+  return new Date().toISOString().split('T')[0];
+}
+
+const lastmod = resolveLastmod();
 
 /** Remove the /vi prefix to get the canonical en path for priority/changefreq lookups. */
 function canonicalPath(pathname) {
