@@ -14,7 +14,13 @@
       "has": [{ "type": "host", "value": "www.jurassicenglish.com" }],
       "destination": "https://jurassicenglish.com/:path",
       "permanent": true
-    }
+    },
+    { "source": "/student-academy/",          "destination": "/student-academy",          "permanent": true },
+    { "source": "/interactive-demo/",         "destination": "/interactive-demo",         "permanent": true },
+    { "source": "/book-diagnostic/",          "destination": "/book-diagnostic",          "permanent": true },
+    { "source": "/digital-reasoning-engine/", "destination": "/digital-reasoning-engine", "permanent": true },
+    { "source": "/evidence/",                 "destination": "/evidence",                 "permanent": true },
+    { "source": "/school-framework/",         "destination": "/school-framework",         "permanent": true }
   ],
   "rewrites": [
     { "source": "/student-academy",                                  "destination": "https://je-ecosystem-landing-preview.vercel.app/student-academy" },
@@ -92,7 +98,19 @@
       ]
     },
     {
-      "source": "/((?!assets|api|images).*)",
+      "source": "/(student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=60, stale-while-revalidate=60" }
+      ]
+    },
+    {
+      "source": "/(student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework)/:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=60, stale-while-revalidate=60" }
+      ]
+    },
+    {
+      "source": "/((?!assets|api|images|student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework).*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" }
       ]
