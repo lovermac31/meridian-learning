@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getClientIp, getUserAgent } from './requestSecurity.js';
+import { getClientIp, getClientHash, getUserAgent } from './requestSecurity.js';
+import { logEvent } from './observability.js';
 
 type OperatorAuthConfig = {
   endpoint: string;
@@ -128,6 +129,14 @@ export function requireOperatorAccess(
       userAgent,
       authMode: configuredSecret.authMode,
     });
+    logEvent({
+      event: 'operator_ip_denied',
+      route: config.endpoint,
+      action: config.action,
+      status: 403,
+      clientHash: getClientHash(req),
+      authMode: configuredSecret.authMode,
+    });
     res.status(403).json({ ok: false, error: 'Forbidden.' });
     return { ok: false };
   }
@@ -138,6 +147,15 @@ export function requireOperatorAccess(
       action: config.action,
       clientIp,
       userAgent,
+      authMode: configuredSecret.authMode,
+      tokenPresent: Boolean(presentedKey),
+    });
+    logEvent({
+      event: 'operator_unauthorized',
+      route: config.endpoint,
+      action: config.action,
+      status: 401,
+      clientHash: getClientHash(req),
       authMode: configuredSecret.authMode,
       tokenPresent: Boolean(presentedKey),
     });

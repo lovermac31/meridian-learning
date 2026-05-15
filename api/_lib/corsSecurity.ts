@@ -22,6 +22,8 @@
 // unchanged — existing form submissions from jurassicenglish.com itself
 // continue to work byte-identically.
 
+import { logEvent } from './observability.js';
+
 export type CorsRequestLike = {
   headers?: Record<string, string | string[] | undefined>;
   method?: string;
@@ -135,9 +137,9 @@ export function applyCors(req: CorsRequestLike, res: CorsResponseLike): CorsResu
     res.setHeader('Access-Control-Allow-Origin', result.origin);
     res.setHeader('Vary', 'Origin');
   } else if (result.origin && !result.allowed) {
-    // Structured event for the Phase 4 observability taxonomy. Logged once
+    // Canonical event for the Phase 4A observability taxonomy. Logged once
     // per request, never echoes back to the client.
-    console.warn('[cors] origin_denied', {
+    logEvent({
       event: 'cors_origin_denied',
       origin: result.origin,
       method: req.method ?? 'unknown',

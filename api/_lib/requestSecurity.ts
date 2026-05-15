@@ -1,4 +1,5 @@
 import { getRateLimitStore, type RateLimitConsumeResult, type RateLimitConsumeError } from './rateLimitStore.js';
+import { logEvent } from './observability.js';
 import { createHash } from 'node:crypto';
 
 function isConsumeError(c: RateLimitConsumeResult): c is RateLimitConsumeError {
@@ -92,9 +93,9 @@ export async function checkRateLimit(
   const consume = await store.consume(scopedKey, options.windowMs, options.max);
 
   if (isConsumeError(consume)) {
-    // Store error path. Emit a structured event so observability can pick it
+    // Store error path. Emit a canonical event so observability can pick it
     // up regardless of which side of the failMode coin we land on.
-    console.warn('[rate-limit] store_error', {
+    logEvent({
       event: 'rate_limit_store_error',
       route: options.key,
       clientHash: getClientHash(req),
@@ -159,7 +160,7 @@ export function createThrottleLogContext(req: RequestLike, route: string, retryA
   };
 }
 
-// Emit a structured "rate_limited" event for the observability taxonomy.
+// Emit a canonical "rate_limited" event for the observability taxonomy.
 // Call this immediately before returning a 429. Kept separate so call sites
 // don't have to change shape — they can keep their existing console.warn.
 export function logRateLimited(
@@ -167,7 +168,7 @@ export function logRateLimited(
   route: string,
   result: RateLimitResult,
 ) {
-  console.warn('[rate-limit] rate_limited', {
+  logEvent({
     event: 'rate_limited',
     route,
     clientHash: getClientHash(req),
