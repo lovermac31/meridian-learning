@@ -546,10 +546,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
   }
 
-  const rateLimit = checkRateLimit(req, {
+  const rateLimit = await checkRateLimit(req, {
     key: 'get-started',
     windowMs: 10 * 60 * 1000,
     max: 5,
+    failMode: 'closed',
   });
 
   if (!rateLimit.allowed) {

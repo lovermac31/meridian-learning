@@ -610,10 +610,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
   }
 
-  const rateLimit = checkRateLimit(req, {
+  const rateLimit = await checkRateLimit(req, {
     key: 'pricing-registration',
     windowMs: 10 * 60 * 1000,
     max: 5,
+    failMode: 'closed',
   });
 
   if (!rateLimit.allowed) {

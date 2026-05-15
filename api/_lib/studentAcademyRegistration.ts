@@ -107,10 +107,11 @@ export async function handleStudentAcademyRegistration(
   }
 
   // Rate-limit per IP
-  const rate = checkRateLimit(req, {
+  const rate = await checkRateLimit(req, {
     key: `${ROUTE_LABEL}:${getClientIp(req)}`,
     windowMs: RATE_LIMIT_WINDOW_MS,
     max: RATE_LIMIT_MAX,
+    failMode: 'closed',
   });
   if (!rate.allowed) {
     console.warn(

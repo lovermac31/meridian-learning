@@ -91,10 +91,11 @@ function createPricingLogContext(registration: ReturnType<typeof normalizePricin
  * It is NEVER sent to or accessible from the client.
  */
 app.post('/api/generate-image', async (req, res) => {
-  const rateLimit = checkRateLimit(req, {
+  const rateLimit = await checkRateLimit(req, {
     key: 'generate-image',
     windowMs: 60 * 1000,
     max: 5,
+    failMode: 'closed',
   });
 
   if (!rateLimit.allowed) {
@@ -172,10 +173,11 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.post('/api/get-started', async (req, res) => {
-  const rateLimit = checkRateLimit(req, {
+  const rateLimit = await checkRateLimit(req, {
     key: 'get-started',
     windowMs: 10 * 60 * 1000,
     max: 5,
+    failMode: 'closed',
   });
 
   if (!rateLimit.allowed) {
@@ -228,10 +230,11 @@ app.post('/api/get-started', async (req, res) => {
 });
 
 app.post('/api/pricing-registration', async (req, res) => {
-  const rateLimit = checkRateLimit(req, {
+  const rateLimit = await checkRateLimit(req, {
     key: 'pricing-registration',
     windowMs: 10 * 60 * 1000,
     max: 5,
+    failMode: 'closed',
   });
 
   if (!rateLimit.allowed) {
