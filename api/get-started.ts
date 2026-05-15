@@ -14,6 +14,7 @@ import {
 // is delegated to a helper under api/_lib/ — that file is intentionally
 // NOT a serverless function (it lives under _lib/ which Vercel skips).
 import { handleStudentAcademyRegistration } from './_lib/studentAcademyRegistration.js';
+import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
@@ -515,9 +516,13 @@ function createSubmissionLogContext(submission: NormalizedGetStartedSubmission) 
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (handlePreflight(req, res)) return;
+
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
   }
+
+  applyCors(req, res);
 
   // ── Source-based fork ──────────────────────────────────────────────────
   // Inspect the body BEFORE any institutional get-started logic runs.

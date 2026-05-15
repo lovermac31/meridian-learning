@@ -12,6 +12,7 @@ import {
   checkRateLimit,
   createThrottleLogContext,
 } from './_lib/requestSecurity.js';
+import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
@@ -606,9 +607,13 @@ function createRegistrationLogContext(registration: NormalizedPricingRegistratio
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (handlePreflight(req, res)) return;
+
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
   }
+
+  applyCors(req, res);
 
   const rateLimit = await checkRateLimit(req, {
     key: 'pricing-registration',

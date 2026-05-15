@@ -8,6 +8,7 @@ import {
   createThrottleLogContext,
   getEmailDomain,
 } from './api/_lib/requestSecurity.js';
+import { applyCors, handlePreflight } from './api/_lib/corsSecurity.js';
 import { sendGetStartedNotification } from './lib/getStartedNotification';
 import { sendPricingRegistrationNotification } from './api/_lib/pricingRegistrationNotification';
 import {
@@ -90,7 +91,9 @@ function createPricingLogContext(registration: ReturnType<typeof normalizePricin
  * The Gemini API key is read from process.env on the server.
  * It is NEVER sent to or accessible from the client.
  */
+app.options('/api/generate-image', (req, res) => { handlePreflight(req, res); });
 app.post('/api/generate-image', async (req, res) => {
+  applyCors(req, res);
   const rateLimit = await checkRateLimit(req, {
     key: 'generate-image',
     windowMs: 60 * 1000,
@@ -172,7 +175,9 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+app.options('/api/get-started', (req, res) => { handlePreflight(req, res); });
 app.post('/api/get-started', async (req, res) => {
+  applyCors(req, res);
   const rateLimit = await checkRateLimit(req, {
     key: 'get-started',
     windowMs: 10 * 60 * 1000,
@@ -229,7 +234,9 @@ app.post('/api/get-started', async (req, res) => {
   });
 });
 
+app.options('/api/pricing-registration', (req, res) => { handlePreflight(req, res); });
 app.post('/api/pricing-registration', async (req, res) => {
+  applyCors(req, res);
   const rateLimit = await checkRateLimit(req, {
     key: 'pricing-registration',
     windowMs: 10 * 60 * 1000,
