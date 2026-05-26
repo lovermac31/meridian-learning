@@ -5,6 +5,41 @@ Workflow: [`.github/workflows/wwl-site-health.yml`](../.github/workflows/wwl-sit
 Script: [`scripts/audit-site-health.mjs`](../scripts/audit-site-health.mjs)
 Plan source: WWL Website Health Recovery Plan (2026-05-26)
 
+## ⚠️ Required setup before the cron is reliable
+
+The workflow **refuses to run** until you set a `SITE_URL` repository
+variable. There is no hardcoded brand fallback — that's deliberate, so the
+routine cannot silently monitor the wrong site if domains change.
+
+**One-time setup (after merge):**
+
+1. Open the repo on GitHub
+2. **Settings → Secrets and variables → Actions**
+3. Switch to the **Variables** tab (not Secrets — this is a variable, not a secret)
+4. Click **New repository variable**
+5. Name: `SITE_URL`
+6. Value: the canonical production URL — today that's `https://jurassicenglish.com` (the live WWL web property; `worldwiselearning.com` does not currently resolve)
+7. **Save**
+
+Verify by triggering the workflow manually:
+
+```bash
+gh workflow run wwl-site-health.yml
+```
+
+The first step is a preflight that prints `Auditing: <SITE_URL>`. If
+`SITE_URL` is empty, the job aborts with a labelled error before any
+network probes happen.
+
+**Per-run override** (e.g., to audit a Vercel preview URL) is available
+via the `site_url` input of `workflow_dispatch`:
+
+```bash
+gh workflow run wwl-site-health.yml -f site_url=https://my-preview.vercel.app
+```
+
+The input takes precedence over `vars.SITE_URL` for that single run.
+
 ## What this is
 
 A GitHub Actions-hosted routine that runs every day at **09:00 UTC** (and on

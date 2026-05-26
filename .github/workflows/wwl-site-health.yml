@@ -11,10 +11,9 @@ on:
   workflow_dispatch:
     inputs:
       site_url:
-        description: 'Override SITE_URL (e.g., https://jurassicenglish.com or a Vercel preview URL)'
+        description: 'Override SITE_URL for this run (e.g., a Vercel preview URL). Leave blank to use the SITE_URL repository variable.'
         required: false
         type: string
-        default: 'https://jurassicenglish.com'
       strict:
         description: 'Treat P2 warnings as failures'
         required: false
@@ -37,7 +36,13 @@ concurrency:
 
 env:
   NODE_VERSION: '20'
-  SITE_URL: ${{ inputs.site_url || 'https://jurassicenglish.com' }}
+  # SITE_URL resolution (Phase 4B.1):
+  #   1. workflow_dispatch input  (per-run override)
+  #   2. repository variable vars.SITE_URL  (canonical default)
+  #   3. preflight step below fails the job if both are empty —
+  #      we DO NOT hardcode a brand-specific domain here, so the
+  #      routine cannot silently monitor the wrong site.
+  SITE_URL: ${{ inputs.site_url || vars.SITE_URL }}
 
 jobs:
   audit:
@@ -45,6 +50,26 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Preflight — require SITE_URL
+        run: |
+          if [ -z "${SITE_URL}" ]; then
+            cat <<'EOF' >&2
+          ::error::SITE_URL is empty. The WWL Site Health routine refuses to
+          fall back to a brand-specific default — this prevents accidentally
+          monitoring the wrong site. To fix:
+            1. Open the repo Settings → Secrets and variables → Actions
+            2. Switch to the "Variables" tab
+            3. Click "New repository variable"
+            4. Name: SITE_URL
+            5. Value: the canonical production URL (e.g.,
+                     https://jurassicenglish.com — the live WWL property)
+            6. Re-run this workflow.
+          Per-run overrides via workflow_dispatch.site_url also work.
+          EOF
+            exit 1
+          fi
+          echo "Auditing: ${SITE_URL}"
+
       - name: Checkout
         uses: actions/checkout@v4
 

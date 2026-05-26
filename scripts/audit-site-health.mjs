@@ -51,7 +51,22 @@ function parseArgs(args) {
 
 const argsParsed = parseArgs(argv.slice(2));
 
-const SITE = (argsParsed.site || env.SITE_URL || 'https://jurassicenglish.com').replace(/\/$/, '');
+// SITE resolution (Phase 4B.1):
+//   1. --site CLI flag
+//   2. $SITE_URL env var
+//   3. error — we intentionally do NOT hardcode a brand-specific fallback,
+//      so the routine cannot silently monitor the wrong site.
+const SITE_RAW = argsParsed.site || env.SITE_URL;
+if (!SITE_RAW) {
+  console.error(
+    'error: SITE_URL is unset.\n' +
+    '       Pass --site=<url> or set the SITE_URL environment variable.\n' +
+    '       In GitHub Actions, set the SITE_URL repository variable\n' +
+    '       (Settings → Secrets and variables → Actions → Variables).',
+  );
+  exit(2);
+}
+const SITE = SITE_RAW.replace(/\/$/, '');
 const OUTPUT_BASE = argsParsed.output || 'site-health-report';
 const STRICT = argsParsed.flags.has('strict');
 const QUIET = argsParsed.flags.has('quiet');
