@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenAI } from '@google/genai';
 import { checkRateLimit, createThrottleLogContext } from './_lib/requestSecurity.js';
+import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 
 const GEMINI_TIMEOUT_MS = 20_000;
 
@@ -10,14 +11,19 @@ const GEMINI_TIMEOUT_MS = 20_000;
  * The GEMINI_API_KEY is read from Vercel environment variables (server-side only).
  */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (handlePreflight(req, res)) return;
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed. Use POST.' });
   }
 
-  const rateLimit = checkRateLimit(req, {
+  applyCors(req, res);
+
+  const rateLimit = await checkRateLimit(req, {
     key: 'generate-image',
     windowMs: 60 * 1000,
     max: 5,
+    failMode: 'closed',
   });
 
   if (!rateLimit.allowed) {

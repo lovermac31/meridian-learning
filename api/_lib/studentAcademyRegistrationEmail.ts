@@ -19,6 +19,7 @@
  */
 
 import type { NormalizedStudentAcademyRegistration } from '../../src/lib/studentAcademyRegistrationSchema.js';
+import { logEvent } from './observability.js';
 
 const RESEND_TIMEOUT_MS = 7_000;
 const CANONICAL_URL = 'https://jurassicenglish.com/student-academy';
@@ -178,9 +179,27 @@ export async function sendStudentAcademyRegistrationEmail(
   const fromEmail = process.env.GET_STARTED_FROM_EMAIL?.trim();
 
   if (!apiKey) {
+    logEvent({
+      event: 'email_failed',
+      route: '/api/get-started#student-academy',
+      transport: 'resend',
+      kind: 'student_academy_confirmation',
+      submissionId: registration.submissionId,
+      failureMode: 'skipped',
+      reason: 'missing_api_key',
+    });
     return { ok: false, reason: 'missing_api_key' };
   }
   if (!fromEmail) {
+    logEvent({
+      event: 'email_failed',
+      route: '/api/get-started#student-academy',
+      transport: 'resend',
+      kind: 'student_academy_confirmation',
+      submissionId: registration.submissionId,
+      failureMode: 'skipped',
+      reason: 'missing_from_email',
+    });
     return { ok: false, reason: 'missing_from_email' };
   }
 
@@ -214,9 +233,26 @@ export async function sendStudentAcademyRegistrationEmail(
         status: response.status,
         body:   body.slice(0, 300),
       });
+      logEvent({
+        event: 'email_failed',
+        route: '/api/get-started#student-academy',
+        transport: 'resend',
+        kind: 'student_academy_confirmation',
+        status: response.status,
+        submissionId: registration.submissionId,
+        failureMode: 'failed',
+        reason: `resend_${response.status}`,
+      });
       return { ok: false, reason: `resend_${response.status}` };
     }
 
+    logEvent({
+      event: 'email_sent',
+      route: '/api/get-started#student-academy',
+      transport: 'resend',
+      kind: 'student_academy_confirmation',
+      submissionId: registration.submissionId,
+    });
     return { ok: true, reason: 'sent' };
   } catch (error: unknown) {
     const isTimeout = (error as { name?: string })?.name === 'AbortError';
@@ -224,6 +260,17 @@ export async function sendStudentAcademyRegistrationEmail(
     console.error('[student-academy-email] transport error', {
       timeout: isTimeout,
       message: message.slice(0, 200),
+    });
+    // `transport_error: <message>` returned to caller for parity; canonical
+    // event records only the stable category code so dashboards don't churn.
+    logEvent({
+      event: 'email_failed',
+      route: '/api/get-started#student-academy',
+      transport: 'resend',
+      kind: 'student_academy_confirmation',
+      submissionId: registration.submissionId,
+      failureMode: 'failed',
+      reason: isTimeout ? 'resend_timeout' : 'transport_error',
     });
     return {
       ok: false,

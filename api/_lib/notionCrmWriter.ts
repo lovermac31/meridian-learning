@@ -25,6 +25,7 @@ import {
   type AlignmentStatus,
 } from './je-crm-mapper.js';
 import type { NormalizedPricingRegistration } from '../../src/lib/pricingRegistrationSchema';
+import { logEvent } from './observability.js';
 
 // ─── Notion select label maps ─────────────────────────────────────────────────
 
@@ -262,6 +263,7 @@ export async function writeNotionLead(
     console.info('[notion] duplicate — record already exists, skipping', {
       submissionId: registration.submissionId,
     });
+    logEvent({ event: 'notion_write_succeeded', reason: 'duplicate_skipped', submissionId: registration.submissionId });
     return { ok: true, pageId: '', reason: 'duplicate_skipped' };
   }
 
@@ -281,6 +283,7 @@ export async function writeNotionLead(
       submissionId: registration.submissionId,
       error: String(err),
     });
+    logEvent({ event: 'notion_write_failed', reason: 'network_error', submissionId: registration.submissionId });
     return { ok: false, reason: 'network_error' };
   }
 
@@ -291,6 +294,7 @@ export async function writeNotionLead(
       submissionId: registration.submissionId,
       response:     errText.slice(0, 500),
     });
+    logEvent({ event: 'notion_write_failed', status: createRes.status, reason: `api_${createRes.status}`, submissionId: registration.submissionId });
     return { ok: false, reason: `api_${createRes.status}` };
   }
 
@@ -299,5 +303,6 @@ export async function writeNotionLead(
     submissionId: registration.submissionId,
     pageId:       page.id,
   });
+  logEvent({ event: 'notion_write_succeeded', reason: 'created', submissionId: registration.submissionId });
   return { ok: true, pageId: page.id, reason: 'created' };
 }

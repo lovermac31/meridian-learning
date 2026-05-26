@@ -28,6 +28,7 @@ import {
   normaliseMAOI,
   map as crmMap,
 } from './je-crm-mapper.js';
+import { logEvent } from './observability.js';
 
 // ─── Result type ──────────────────────────────────────────────────────────────
 
@@ -171,6 +172,7 @@ export async function writeSupabaseLead(
       registrationId: registration.submissionId,
       error: String(err),
     });
+    logEvent({ event: 'supabase_write_failed', table: 'je_leads', reason: 'network_error', submissionId: registration.submissionId });
     return { ok: false, reason: 'network_error' };
   }
 
@@ -179,6 +181,7 @@ export async function writeSupabaseLead(
     console.info('[supabase] je_leads duplicate — record already exists, skipping', {
       registrationId: registration.submissionId,
     });
+    logEvent({ event: 'supabase_write_succeeded', table: 'je_leads', reason: 'duplicate_skipped', submissionId: registration.submissionId });
     return { ok: true, id: '', reason: 'duplicate_skipped' };
   }
 
@@ -189,6 +192,7 @@ export async function writeSupabaseLead(
       registrationId: registration.submissionId,
       response:       errText.slice(0, 500),
     });
+    logEvent({ event: 'supabase_write_failed', table: 'je_leads', status: res.status, reason: `api_${res.status}`, submissionId: registration.submissionId });
     return { ok: false, reason: `api_${res.status}` };
   }
 
@@ -198,6 +202,7 @@ export async function writeSupabaseLead(
     registrationId: registration.submissionId,
     rowId: id,
   });
+  logEvent({ event: 'supabase_write_succeeded', table: 'je_leads', reason: 'created', submissionId: registration.submissionId });
   return { ok: true, id, reason: 'created' };
 }
 
@@ -250,6 +255,7 @@ export async function writeSupabaseGetStarted(
       submissionId: submission.submissionId,
       error: String(err),
     });
+    logEvent({ event: 'supabase_write_failed', table: 'je_get_started_submissions', reason: 'network_error', submissionId: submission.submissionId });
     return { ok: false, reason: 'network_error' };
   }
 
@@ -257,6 +263,7 @@ export async function writeSupabaseGetStarted(
     console.info('[supabase] je_get_started_submissions duplicate — skipping', {
       submissionId: submission.submissionId,
     });
+    logEvent({ event: 'supabase_write_succeeded', table: 'je_get_started_submissions', reason: 'duplicate_skipped', submissionId: submission.submissionId });
     return { ok: true, id: '', reason: 'duplicate_skipped' };
   }
 
@@ -267,6 +274,7 @@ export async function writeSupabaseGetStarted(
       submissionId: submission.submissionId,
       response:     errText.slice(0, 500),
     });
+    logEvent({ event: 'supabase_write_failed', table: 'je_get_started_submissions', status: res.status, reason: `api_${res.status}`, submissionId: submission.submissionId });
     return { ok: false, reason: `api_${res.status}` };
   }
 
@@ -276,6 +284,7 @@ export async function writeSupabaseGetStarted(
     submissionId: submission.submissionId,
     rowId: id,
   });
+  logEvent({ event: 'supabase_write_succeeded', table: 'je_get_started_submissions', reason: 'created', submissionId: submission.submissionId });
   return { ok: true, id, reason: 'created' };
 }
 
@@ -334,6 +343,7 @@ export async function writeSupabasePilotAccessRequest(
       submissionId: submission.submissionId,
       error: String(err),
     });
+    logEvent({ event: 'supabase_write_failed', table: 'je_pilot_access_requests', reason: 'network_error', submissionId: submission.submissionId });
     return { ok: false, reason: 'network_error' };
   }
 
@@ -341,6 +351,7 @@ export async function writeSupabasePilotAccessRequest(
     console.info('[supabase] je_pilot_access_requests duplicate — skipping', {
       submissionId: submission.submissionId,
     });
+    logEvent({ event: 'supabase_write_succeeded', table: 'je_pilot_access_requests', reason: 'duplicate_skipped', submissionId: submission.submissionId });
     return { ok: true, id: '', reason: 'duplicate_skipped' };
   }
 
@@ -351,6 +362,7 @@ export async function writeSupabasePilotAccessRequest(
       submissionId: submission.submissionId,
       response:     errText.slice(0, 500),
     });
+    logEvent({ event: 'supabase_write_failed', table: 'je_pilot_access_requests', status: res.status, reason: `api_${res.status}`, submissionId: submission.submissionId });
     return { ok: false, reason: `api_${res.status}` };
   }
 
@@ -360,6 +372,7 @@ export async function writeSupabasePilotAccessRequest(
     submissionId: submission.submissionId,
     rowId: id,
   });
+  logEvent({ event: 'supabase_write_succeeded', table: 'je_pilot_access_requests', reason: 'created', submissionId: submission.submissionId });
   return { ok: true, id, reason: 'created' };
 }
 
@@ -423,6 +436,7 @@ export async function writeSupabaseStudentAcademyRegistration(
       submissionId: registration.submissionId,
       error: String(err),
     });
+    logEvent({ event: 'supabase_write_failed', table: 'student_academy_registrations', reason: 'network_error', submissionId: registration.submissionId });
     return { ok: false, reason: 'network_error' };
   }
 
@@ -433,6 +447,7 @@ export async function writeSupabaseStudentAcademyRegistration(
       submissionId: registration.submissionId,
       response:     errText.slice(0, 500),
     });
+    logEvent({ event: 'supabase_write_failed', table: 'student_academy_registrations', status: res.status, reason: `api_${res.status}`, submissionId: registration.submissionId });
     return { ok: false, reason: `api_${res.status}` };
   }
 
@@ -442,6 +457,7 @@ export async function writeSupabaseStudentAcademyRegistration(
     submissionId: registration.submissionId,
     rowId: id,
   });
+  logEvent({ event: 'supabase_write_succeeded', table: 'student_academy_registrations', reason: 'created', submissionId: registration.submissionId });
   return { ok: true, id, reason: 'created' };
 }
 

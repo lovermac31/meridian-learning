@@ -35,9 +35,12 @@ import { sendStudentAcademyRegistrationEmail } from './studentAcademyRegistratio
 import {
   checkRateLimit,
   createThrottleLogContext,
+  getClientHash,
   getClientIp,
   getEmailDomain,
+  logRateLimited,
 } from './requestSecurity.js';
+import { logEvent } from './observability.js';
 
 const ROUTE_LABEL = 'student-academy-register';
 const MAX_BODY_BYTES = 16 * 1024;
@@ -107,23 +110,33 @@ export async function handleStudentAcademyRegistration(
   }
 
   // Rate-limit per IP
-  const rate = checkRateLimit(req, {
+  const rate = await checkRateLimit(req, {
     key: `${ROUTE_LABEL}:${getClientIp(req)}`,
     windowMs: RATE_LIMIT_WINDOW_MS,
     max: RATE_LIMIT_MAX,
+    failMode: 'closed',
   });
   if (!rate.allowed) {
     console.warn(
       '[student-academy-register] rate limit hit',
       createThrottleLogContext(req, ROUTE_LABEL, rate.retryAfterSeconds),
     );
+    logRateLimited(req, '/api/get-started#student-academy', rate);
     res.setHeader('Retry-After', String(rate.retryAfterSeconds));
     return json(res, 429, { ok: false, error: 'rate_limited' });
   }
 
   // Anti-spam (honeypot + minimum delay)
   if (isSpam(payload.startedAt, payload.website)) {
+    const websiteRaw = typeof payload.website === 'string' ? payload.website.trim() : '';
     console.warn('[student-academy-register] spam blocked', { route: ROUTE_LABEL });
+    logEvent({
+      event: 'spam_rejected',
+      route: '/api/get-started#student-academy',
+      status: 200, // intentional cloak: client sees 200 success
+      clientHash: getClientHash(req),
+      reason: websiteRaw.length > 0 ? 'honeypot_filled' : 'submission_timing',
+    });
     return json(res, 200, {
       ok: true,
       submissionId: 'spam-rejected',
@@ -139,6 +152,17 @@ export async function handleStudentAcademyRegistration(
   const validation = validateStudentAcademyRegistration(payload, { submissionId, submittedAt });
   if (validation.ok !== true) {
     const failure = validation;
+    logEvent({
+      event: 'validation_failed',
+      route: '/api/get-started#student-academy',
+      status: 400,
+      clientHash: getClientHash(req),
+      // `reason` is a stable validator category code; `field` is a known field
+      // name (e.g. parentEmail). The field NAME is safe to log — the field
+      // VALUE is not, and the validator never returns the value.
+      reason: failure.reason,
+      field: failure.field ?? null,
+    });
     return json(res, 400, {
       ok: false,
       error: failure.reason,
@@ -157,7 +181,9 @@ export async function handleStudentAcademyRegistration(
     return json(res, 502, { ok: false, error: 'storage_unavailable' });
   }
 
-  // Send confirmation email (best-effort)
+  // Send confirmation email (best-effort).
+  // sendStudentAcademyRegistrationEmail emits its own canonical
+  // email_sent / email_failed event — do not double-emit here.
   const emailResult = await sendStudentAcademyRegistrationEmail(submission);
   if (emailResult.ok) {
     await markStudentAcademyRegistrationEmailSent(writeResult.id);
@@ -171,6 +197,19 @@ export async function handleStudentAcademyRegistration(
   console.info('[student-academy-register] registration accepted', {
     ...safeLogContext(submission),
     rowId: writeResult.id,
+    emailQueued: emailResult.ok,
+  });
+
+  logEvent({
+    event: 'submission_accepted',
+    route: '/api/get-started#student-academy',
+    status: 200,
+    submissionId,
+    authProvider: submission.authProvider,
+    emailDomain: getEmailDomain(submission.parentEmail),
+    mainGoal: submission.mainGoal ?? null,
+    preferredContactMethod: submission.preferredContactMethod ?? null,
+    supabaseOk: writeResult.ok,
     emailQueued: emailResult.ok,
   });
 

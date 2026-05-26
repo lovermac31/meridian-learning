@@ -6,14 +6,18 @@ import {
 import {
   checkRateLimit,
   createThrottleLogContext,
+  getClientHash,
   getEmailDomain,
+  logRateLimited,
 } from './_lib/requestSecurity.js';
+import { logEvent } from './_lib/observability.js';
 // Consolidation Option 3: B2C Student Academy registration is processed
 // by the same serverless function (Vercel Hobby caps at 12 functions).
 // When the inbound payload sets `source: "student-academy"`, the request
 // is delegated to a helper under api/_lib/ — that file is intentionally
 // NOT a serverless function (it lives under _lib/ which Vercel skips).
 import { handleStudentAcademyRegistration } from './_lib/studentAcademyRegistration.js';
+import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
@@ -515,9 +519,13 @@ function createSubmissionLogContext(submission: NormalizedGetStartedSubmission) 
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (handlePreflight(req, res)) return;
+
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
   }
+
+  applyCors(req, res);
 
   // ── Source-based fork ──────────────────────────────────────────────────
   // Inspect the body BEFORE any institutional get-started logic runs.
@@ -546,10 +554,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
   }
 
-  const rateLimit = checkRateLimit(req, {
+  const rateLimit = await checkRateLimit(req, {
     key: 'get-started',
     windowMs: 10 * 60 * 1000,
     max: 5,
+    failMode: 'closed',
   });
 
   if (!rateLimit.allowed) {
@@ -558,6 +567,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       '/api/get-started',
       rateLimit.retryAfterSeconds,
     ));
+    logRateLimited(req, '/api/get-started', rateLimit);
     res.setHeader('Retry-After', String(rateLimit.retryAfterSeconds));
     return res.status(429).json({
       ok: false,
@@ -568,11 +578,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const values = coerceGetStartedFormValues(req.body);
 
   if (isSpam(values.startedAt, values.website)) {
+    logEvent({
+      event: 'spam_rejected',
+      route: '/api/get-started',
+      status: 400,
+      clientHash: getClientHash(req),
+      reason: values.website.trim().length > 0 ? 'honeypot_filled' : 'submission_timing',
+    });
     return res.status(400).json({ ok: false, error: 'Submission could not be accepted.' });
   }
 
   const errors = validateGetStartedPayload(values);
   if (Object.keys(errors).length > 0) {
+    logEvent({
+      event: 'validation_failed',
+      route: '/api/get-started',
+      status: 400,
+      clientHash: getClientHash(req),
+      errorFields: Object.keys(errors),
+      errorFieldCount: Object.keys(errors).length,
+    });
     return res.status(400).json({
       ok: false,
       error: 'Please review the required fields and try again.',
@@ -614,6 +639,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     notificationDiagnostics: notification.diagnostics,
   });
 
+  // ── Canonical email outcome (Phase 4A) ────────────────────────────────────
+  // Emit one canonical event per transport invocation. 'skipped' is a config
+  // outage and is reported as email_failed so the alerting layer can pivot on
+  // a single name for "operator did not receive notification".
+  if (notification.status === 'sent') {
+    logEvent({
+      event: 'email_sent',
+      route: '/api/get-started',
+      transport: 'resend',
+      kind: 'get_started_notification',
+      submissionId: submission.submissionId,
+    });
+  } else {
+    logEvent({
+      event: 'email_failed',
+      route: '/api/get-started',
+      transport: 'resend',
+      kind: 'get_started_notification',
+      submissionId: submission.submissionId,
+      failureMode: notification.status, // 'skipped' | 'failed'
+      reason: notification.reason,
+    });
+  }
+
   if (notification.status === 'skipped') {
     console.warn('[get-started] notification skipped', {
       submissionId: submission.submissionId,
@@ -639,6 +688,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         'We could not deliver your Get Started submission just now. Please try again shortly or email info@jurassicenglish.com directly.',
     });
   }
+
+  logEvent({
+    event: 'submission_accepted',
+    route: '/api/get-started',
+    status: 200,
+    submissionId: submission.submissionId,
+    organizationType: submission.organizationType,
+    primaryInterest: submission.primaryInterest,
+    emailDomain: getEmailDomain(submission.workEmail),
+    source: submission.source ?? null,
+    accessRequest: submission.accessRequest ?? null,
+    newsletterOptIn: submission.newsletterOptIn,
+    supabaseOk: supabaseResult.ok,
+    pilotAccessQueueOk: pilotAccessResult.ok,
+  });
 
   return res.status(200).json({
     ok: true,

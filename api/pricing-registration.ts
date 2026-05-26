@@ -11,7 +11,11 @@ import { writeSupabaseLead } from './_lib/supabaseWriter.js';
 import {
   checkRateLimit,
   createThrottleLogContext,
+  getClientHash,
+  logRateLimited,
 } from './_lib/requestSecurity.js';
+import { logEvent } from './_lib/observability.js';
+import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 
 const MIN_SUBMISSION_DELAY_MS = 1500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
@@ -606,14 +610,19 @@ function createRegistrationLogContext(registration: NormalizedPricingRegistratio
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (handlePreflight(req, res)) return;
+
   if (req.method !== 'POST') {
     return res.status(405).json({ ok: false, error: 'Method not allowed.' });
   }
 
-  const rateLimit = checkRateLimit(req, {
+  applyCors(req, res);
+
+  const rateLimit = await checkRateLimit(req, {
     key: 'pricing-registration',
     windowMs: 10 * 60 * 1000,
     max: 5,
+    failMode: 'closed',
   });
 
   if (!rateLimit.allowed) {
@@ -622,6 +631,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       '/api/pricing-registration',
       rateLimit.retryAfterSeconds,
     ));
+    logRateLimited(req, '/api/pricing-registration', rateLimit);
     res.setHeader('Retry-After', String(rateLimit.retryAfterSeconds));
     return res.status(429).json({
       ok: false,
@@ -633,11 +643,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const values = coercePricingRegistrationValues(req.body);
 
     if (isSpam(values.startedAt, values.website)) {
+      logEvent({
+        event: 'spam_rejected',
+        route: '/api/pricing-registration',
+        status: 400,
+        clientHash: getClientHash(req),
+        reason: values.website.trim().length > 0 ? 'honeypot_filled' : 'submission_timing',
+      });
       return res.status(400).json({ ok: false, error: 'Submission could not be accepted.' });
     }
 
     const errors = validatePricingRegistration(values);
     if (Object.keys(errors).length > 0) {
+      logEvent({
+        event: 'validation_failed',
+        route: '/api/pricing-registration',
+        status: 400,
+        clientHash: getClientHash(req),
+        errorFields: Object.keys(errors),
+        errorFieldCount: Object.keys(errors).length,
+      });
       return res.status(400).json({
         ok: false,
         error: 'Please review the required fields and try again.',
@@ -676,6 +701,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       notificationReason: notification.status === 'sent' ? undefined : notification.reason,
     });
 
+    // ── Canonical email outcome (Phase 4A) ──────────────────────────────────
+    if (notification.status === 'sent') {
+      logEvent({
+        event: 'email_sent',
+        route: '/api/pricing-registration',
+        transport: 'resend',
+        kind: 'pricing_registration_notification',
+        submissionId: registration.submissionId,
+      });
+    } else {
+      logEvent({
+        event: 'email_failed',
+        route: '/api/pricing-registration',
+        transport: 'resend',
+        kind: 'pricing_registration_notification',
+        submissionId: registration.submissionId,
+        failureMode: notification.status, // 'skipped' | 'failed'
+        reason: notification.reason,
+      });
+    }
+
     if (notification.status === 'skipped') {
       console.warn('[pricing-registration] notification skipped', {
         submissionId: registration.submissionId,
@@ -701,6 +747,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           'We could not deliver your registration just now. Please try again shortly or email info@jurassicenglish.com directly.',
       });
     }
+
+    logEvent({
+      event: 'submission_accepted',
+      route: '/api/pricing-registration',
+      status: 200,
+      submissionId: registration.submissionId,
+      buyerType: registration.buyerType,
+      interestArea: registration.interestArea,
+      emailDomain: getEmailDomain(registration.workEmail),
+      notionOk: notionResult.ok,
+      supabaseOk: supabaseResult.ok,
+    });
 
     return res.status(200).json({
       ok: true,
