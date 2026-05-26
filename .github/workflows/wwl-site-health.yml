@@ -1,0 +1,260 @@
+name: WWL Site Health
+
+# Scheduled site-health audit per the WWL Website Health Recovery Plan.
+# Reports + (rarely) PRs. NEVER deploys, NEVER rotates secrets, NEVER
+# touches Vercel env vars. See docs/wwl-site-health.md for the full plan.
+
+on:
+  schedule:
+    # Daily at 09:00 UTC. Adjust here if the operating window changes.
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: 'Override SITE_URL (e.g., https://jurassicenglish.com or a Vercel preview URL)'
+        required: false
+        type: string
+        default: 'https://jurassicenglish.com'
+      strict:
+        description: 'Treat P2 warnings as failures'
+        required: false
+        type: boolean
+        default: false
+      run_lighthouse:
+        description: 'Run Lighthouse CI against homepage + key routes'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: wwl-site-health-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '20'
+  SITE_URL: ${{ inputs.site_url || 'https://jurassicenglish.com' }}
+
+jobs:
+  audit:
+    name: Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      # ── Local audit
+      # Serve the dist/ output via `vite preview` on port 4173. The local
+      # audit checks build-output health (sitemap, robots, route HTML
+      # files). It does NOT exercise serverless API routes — those only
+      # exist on Vercel — so the API checks against the local preview
+      # will fail-as-expected; we route them only to the prod URL.
+      - name: Start local preview server
+        run: |
+          npm run preview -- --port 4173 --host 0.0.0.0 &
+          echo $! > preview.pid
+        env:
+          NODE_ENV: production
+
+      - name: Wait for local preview
+        run: |
+          for i in {1..30}; do
+            if curl -sf http://localhost:4173/ -o /dev/null; then
+              echo "preview up after ${i}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "preview did not start"
+          exit 1
+
+      - name: Local audit (dist + static routes, no API)
+        run: |
+          node scripts/audit-site-health.mjs \
+            --site http://localhost:4173 \
+            --output local-report \
+            --api-routes "" \
+            ${{ inputs.strict && '--strict' || '' }} \
+            || echo "::warning::Local audit had failures — see local-report.md"
+
+      - name: Stop local preview
+        if: always()
+        run: |
+          if [ -f preview.pid ]; then
+            kill "$(cat preview.pid)" 2>/dev/null || true
+            rm -f preview.pid
+          fi
+
+      # ── Production audit
+      # Includes API routes. This is the primary signal for the routine.
+      - name: Production audit
+        id: prod_audit
+        run: |
+          node scripts/audit-site-health.mjs \
+            --site "$SITE_URL" \
+            --output prod-report \
+            ${{ inputs.strict && '--strict' || '' }}
+        continue-on-error: true
+
+      # ── Lighthouse CI (optional)
+      - name: Run Lighthouse
+        if: inputs.run_lighthouse == true
+        continue-on-error: true
+        run: |
+          mkdir -p lighthouse
+          for path in / /framework /get-started /methodology; do
+            slug=$(echo "$path" | tr / _)
+            npx -y lighthouse "$SITE_URL$path" \
+              --output=json --output-path="lighthouse/lh${slug:-_}.json" \
+              --chrome-flags="--headless --no-sandbox --disable-gpu" \
+              --quiet \
+              || echo "::warning::Lighthouse failed for $path"
+          done
+
+      # ── Combine reports into a single canonical artifact name
+      - name: Combine reports
+        if: always()
+        run: |
+          {
+            echo "# WWL Site Health Report"
+            echo ""
+            echo "Run: ${{ github.run_id }}  •  Site: ${SITE_URL}  •  $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo ""
+            echo "## Local build audit"
+            echo ""
+            if [ -f local-report.md ]; then cat local-report.md; else echo "_(no local report)_"; fi
+            echo ""
+            echo "---"
+            echo ""
+            echo "## Production audit"
+            echo ""
+            if [ -f prod-report.md ]; then cat prod-report.md; else echo "_(no prod report)_"; fi
+          } > wwl-site-health-report.md
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wwl-site-health-report-${{ github.run_id }}
+          retention-days: 30
+          path: |
+            wwl-site-health-report.md
+            local-report.md
+            local-report.json
+            prod-report.md
+            prod-report.json
+            lighthouse/
+
+      # ── Issue management
+      # On failure: ensure a single open issue exists with the latest body.
+      # On success: close that issue if it exists, so the dashboard stays clean.
+      - name: Create or update health issue
+        if: steps.prod_audit.outcome == 'failure'
+        uses: actions/github-script@v7
+        env:
+          REPORT_PATH: wwl-site-health-report.md
+        with:
+          script: |
+            const fs = require('fs');
+            const issueTitle = 'WWL Site Health Regression';
+            const reportBody = fs.existsSync(process.env.REPORT_PATH)
+              ? fs.readFileSync(process.env.REPORT_PATH, 'utf8')
+              : '_(report file missing — see workflow artifacts)_';
+
+            const header =
+              `**Run:** ${context.runId} • **Site:** ${process.env.SITE_URL || 'unknown'} • ` +
+              `**Triggered:** ${context.eventName}\n\n` +
+              `_Artifacts: actions run #${context.runId}_\n\n`;
+
+            // GitHub issue body max 65536 chars
+            const body = (header + reportBody).slice(0, 65000);
+
+            const search = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open in:title "${issueTitle}"`,
+            });
+
+            const existing = (search.data.items || []).find(
+              (i) => i.title === issueTitle && !i.pull_request,
+            );
+
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body,
+              });
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body: `Health regression still failing on run #${context.runId}. See updated body above.`,
+              });
+              core.notice(`Updated existing issue #${existing.number}`);
+            } else {
+              const created = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issueTitle,
+                body,
+                labels: ['site-health', 'P1'],
+              });
+              core.notice(`Opened issue #${created.data.number}`);
+            }
+
+      - name: Close health issue on green
+        if: steps.prod_audit.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueTitle = 'WWL Site Health Regression';
+            const search = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open in:title "${issueTitle}"`,
+            });
+            const existing = (search.data.items || []).find(
+              (i) => i.title === issueTitle && !i.pull_request,
+            );
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body: `Site health back to green on run #${context.runId}. Closing.`,
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                state: 'closed',
+              });
+              core.notice(`Closed issue #${existing.number}`);
+            }
+
+      # ── Final exit
+      # We deliberately fail the job AFTER artifact upload + issue management,
+      # so the artifact is always preserved.
+      - name: Reflect audit verdict in job status
+        if: steps.prod_audit.outcome == 'failure'
+        run: |
+          echo "::error::Production audit failed. See artifacts and the 'WWL Site Health Regression' issue."
+          exit 1
