@@ -50,6 +50,7 @@
     { "source": "/_vercel/speed-insights/:path*",                     "destination": "https://je-ecosystem-landing-preview.vercel.app/_vercel/speed-insights/:path*" },
 
     { "source": "/api/internal/approval-action", "destination": "/api/internal/pilot-requests/approval-action/confirm" },
+    { "source": "/pilot/:path*", "destination": "/index.html" },
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "functions": {
