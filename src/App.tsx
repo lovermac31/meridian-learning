@@ -58,6 +58,11 @@ const ExternalPilotPortalPage = lazy(() =>
 const InternalPilotRequestsPage = lazy(() =>
   import('./components/InternalPilotRequestsPage').then(m => ({ default: m.InternalPilotRequestsPage }))
 );
+// `/pilot/:id` — public-safe pending-approval holding page (NOT the
+// token-authenticated portal at /external/pilot). Renders no record data.
+const PilotHoldingPage = lazy(() =>
+  import('./components/PilotHoldingPage').then(m => ({ default: m.PilotHoldingPage }))
+);
 const ThinkingCycleExperience = lazy(() =>
   import('./components/ThinkingCycleExperience').then(m => ({ default: m.ThinkingCycleExperience }))
 );
@@ -149,6 +154,11 @@ function App() {
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
   const isInternalPilotRequestsView = routePathname === '/internal/pilot-requests';
+  // `/pilot/<id>` — a single non-empty segment after /pilot/. Matches the
+  // automation-email holding URLs (e.g. /pilot/pilot-2026-05-30-b9b4492c)
+  // and renders a public-safe pending-approval page. Excludes bare /pilot
+  // and any deeper nesting (/pilot/a/b).
+  const isPilotHoldingView = /^\/pilot\/[^/]+$/.test(routePathname);
   const isSeriesComparisonView = routePathname === '/series/compare';
   const isThinkingCycleComparisonView = routePathname === '/thinking-cycle/compare';
   const isLegalView = isLegalPath(routePathname);
@@ -184,6 +194,7 @@ function App() {
     isPlansPricingAccessView ||
     isExternalPilotPortalView ||
     isInternalPilotRequestsView ||
+    isPilotHoldingView ||
     isFrameworkView ||
     isSeriesView ||
     isSyllabusView ||
@@ -446,6 +457,8 @@ function App() {
         />
       ) : isInternalPilotRequestsView ? (
         <InternalPilotRequestsPage />
+      ) : isPilotHoldingView ? (
+        <PilotHoldingPage onBack={() => navigateTo('/')} />
       ) : isFrameworkView ? (
         <FrameworkExperience
           onBack={() => navigateTo('/')}

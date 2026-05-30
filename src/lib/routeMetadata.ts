@@ -669,6 +669,33 @@ function resolveLegalRoute(pathname: string, locale: Locale): RouteMetadata | nu
   });
 }
 
+/**
+ * `/pilot/:id` — public-safe pending-approval holding route (served by the
+ * SPA via PilotHoldingPage). The id segment is dynamic and unbounded, so it
+ * cannot live in `staticRoutes` (that map is also the prerender source list,
+ * and we must never prerender a literal `/pilot/:id`). We resolve metadata
+ * here instead and force noindex so the <head> agrees with the matching
+ * `X-Robots-Tag: noindex, nofollow` header in vercel.json. No record data is
+ * referenced — the id is intentionally not read into title/description.
+ */
+function resolvePilotHoldingRoute(pathname: string, locale: Locale): RouteMetadata | null {
+  if (!/^\/pilot\/[^/]+$/.test(pathname)) {
+    return null;
+  }
+
+  return createMetadata({
+    title: 'Pilot Portal | Jurassic English™',
+    description:
+      'This Jurassic English™ pilot portal link is awaiting internal review and is not intended for search indexing.',
+    canonical: undefined,
+    robots: 'noindex, nofollow',
+    alternates: undefined,
+    jsonLd: undefined,
+    ogUrl: SITE_URL,
+    locale,
+  });
+}
+
 function resolveFallbackRoute(locale: Locale): RouteMetadata {
   return createMetadata({
     title: 'Page not found | Jurassic English™',
@@ -704,6 +731,7 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
     resolveSyllabusRoute(resolvedPathname, resolvedLocale) ??
     resolveThinkingCycleRoute(resolvedPathname, resolvedLocale) ??
     resolveLegalRoute(resolvedPathname, resolvedLocale) ??
+    resolvePilotHoldingRoute(resolvedPathname, resolvedLocale) ??
     resolveFallbackRoute(resolvedLocale)
   );
 }
