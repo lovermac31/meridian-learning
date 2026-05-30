@@ -151,7 +151,7 @@ test('resolver returns route-specific public metadata', () => {
   assert.match(stage.description, /structured reasoning framework/i);
 
   assert.equal(legal.canonical, 'https://jurassicenglish.com/legal/privacy');
-  assert.match(legal.description, /policy details/i);
+  assert.match(legal.description, /privacy information/i);
 });
 
 test('resolver returns localized metadata for released Vietnamese home and framework routes', () => {
@@ -285,6 +285,30 @@ test('resolver keeps the private route non-indexable and non-canonical', () => {
   assert.equal(localizedInternalPortalRoute.canonical, undefined);
   assert.equal(localizedInternalPortalRoute.jsonLd?.length ?? 0, 0);
   assert.equal(localizedInternalPortalRoute.og.url, 'https://jurassicenglish.com/internal/pilot-requests');
+});
+
+test('resolver returns a noindex holding page for /pilot/:id and never the not-found title', () => {
+  const holding = resolveRouteMetadata('/pilot/pilot-2026-05-30-b9b4492c');
+  const anotherHolding = resolveRouteMetadata('/pilot/anything-else');
+
+  // Dynamic id segment resolves to the dedicated holding metadata...
+  assert.equal(holding.title, 'Pilot Portal | Jurassic English™');
+  assert.equal(holding.robots, 'noindex, nofollow');
+  assert.equal(holding.canonical, undefined);
+  assert.equal(holding.jsonLd?.length ?? 0, 0);
+  assert.equal(holding.og.url, 'https://jurassicenglish.com');
+  // ...and crucially NOT the generic not-found state.
+  assert.notEqual(holding.title, 'Page not found | Jurassic English™');
+
+  // Any id resolves the same way (the id is never read into metadata).
+  assert.equal(anotherHolding.title, holding.title);
+  assert.equal(anotherHolding.robots, 'noindex, nofollow');
+
+  // Boundary: bare /pilot and deeper nesting do NOT match the holding
+  // resolver — they fall through to the not-found fallback (still noindex).
+  assert.equal(resolveRouteMetadata('/pilot').title, 'Page not found | Jurassic English™');
+  assert.equal(resolveRouteMetadata('/pilot/').title, 'Page not found | Jurassic English™');
+  assert.equal(resolveRouteMetadata('/pilot/a/b').title, 'Page not found | Jurassic English™');
 });
 
 test('resolver keeps unknown routes non-indexable and non-canonical', () => {
