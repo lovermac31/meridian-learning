@@ -112,13 +112,16 @@ export const Navbar = ({
     };
   }, [isMobileMenuOpen]);
 
+  // P0 — reduced two-audience nav. Route links (not homepage anchors):
+  // For Schools → /school-framework, For Parents → /student-academy,
+  // The Curriculum → /series/compare, Ask/Knowledge Hub → /knowledge.
+  // /school-framework and /student-academy are rewrite-served; onNavigate
+  // (App.navigateTo) does a full-document navigation for those.
   const navLinks = [
-    { name: getUiString(locale, 'navbar.links.about'), href: isPortalView ? '/#about' : '#about' },
-    { name: getUiString(locale, 'navbar.links.framework'), href: isPortalView ? '/#framework' : '#framework' },
-    { name: getUiString(locale, 'navbar.links.series'), href: isPortalView ? '/#series' : '#series' },
-    { name: getUiString(locale, 'navbar.links.studio'), href: isPortalView ? '/#student-academy' : '#student-academy' },
-    { name: getUiString(locale, 'navbar.links.services'), href: isPortalView ? '/#training' : '#training' },
-    { name: getUiString(locale, 'navbar.links.contact'), href: isPortalView ? '/#contact' : '#contact' },
+    { name: getUiString(locale, 'navbar.links.forSchools'), href: '/school-framework' },
+    { name: getUiString(locale, 'navbar.links.forParents'), href: '/student-academy' },
+    { name: getUiString(locale, 'navbar.links.curriculum'), href: '/series/compare' },
+    { name: getUiString(locale, 'navbar.links.knowledge'), href: '/knowledge' },
   ];
 
   const handleNavLinkClick = (
@@ -179,20 +182,8 @@ export const Navbar = ({
               {link.name}
             </a>
           ))}
-          <button
-            type="button"
-            onClick={handleEducationAffiliateClick}
-            className="rounded-md text-sm font-semibold text-jurassic-gold/80 hover:text-jurassic-gold hover:underline underline-offset-4 decoration-jurassic-gold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-          >
-            {getUiString(locale, 'navbar.links.worldwise')}
-          </button>
-          <button
-            type="button"
-            onClick={handlePricingClick}
-            className="rounded-md text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-          >
-            {getUiString(locale, 'navbar.pricing')}
-          </button>
+          {/* P0 — Education Affiliate Program + Plans & Pricing moved out of
+              primary nav (now surfaced in the Footer). */}
           <button
             type="button"
             onClick={onGetStarted}
@@ -257,20 +248,7 @@ export const Navbar = ({
                 {link.name}
               </a>
             ))}
-            <button
-              type="button"
-              onClick={handleEducationAffiliateClick}
-              className="rounded-md text-left text-lg font-semibold text-jurassic-gold/90 hover:text-jurassic-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-            >
-              {getUiString(locale, 'navbar.links.worldwise')}
-            </button>
-            <button
-              type="button"
-              onClick={handlePricingClick}
-              className="rounded-md text-left text-lg font-medium text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-            >
-              {getUiString(locale, 'navbar.pricing')}
-            </button>
+            {/* P0 — Affiliate + Pricing removed from primary nav (now in Footer). */}
             <button
               type="button"
               onClick={() => {

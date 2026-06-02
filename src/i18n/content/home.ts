@@ -3,13 +3,13 @@ import type { DeepWiden } from './types';
 
 const enHomeContent = {
   hero: {
-    eyebrow: 'For schools, academies, and curriculum leaders',
-    titleLineOne: 'A literature-based',
-    titleHighlight: 'English curriculum',
-    titleLineThree: 'for critical thinking.',
+    eyebrow: 'Literature-based English curriculum',
+    titleLineOne: 'Critical thinking',
+    titleHighlight: 'through literature.',
+    titleLineThree: '',
     institutionalTagline: '',
     body:
-      'Jurassic English helps institutions build structured reasoning, moral judgment, and academic expression through complete literature, CEFR-aware progression, and teacher-ready implementation support.',
+      'A complete, literature-based English curriculum that builds how students read, reason, and write with evidence.',
     primaryCta: 'Request an Audit Sprint',
     secondaryCta: 'Book a Discovery Call',
     overviewCta: 'Request a Curriculum Overview',
@@ -18,6 +18,17 @@ const enHomeContent = {
     audienceRowLabel: 'For parents & students:',
     audienceCurriculumCta: 'Explore the Curriculum',
     audienceCompareCta: 'Compare Levels',
+    // P0 — two-door audience fork (Schools primary, Parents secondary).
+    fork: {
+      label: 'Choose your path',
+      schoolsTitle: 'For Schools',
+      schoolsBody: 'Curriculum coherence, teacher consistency, and visible evidence of student reasoning.',
+      schoolsCta: 'Explore the School Framework',
+      parentsTitle: 'For Parents',
+      parentsBody: 'See how your child reads, reasons, and writes — and book a Student Thinking Diagnostic.',
+      parentsCta: 'Visit the Student Academy',
+      reconsiderLabel: 'Still deciding?',
+    },
   },
   decisionSnapshot: {
     eyebrow: 'Institutional Decision Snapshot',
@@ -352,6 +363,17 @@ const viHomeContent = {
     audienceRowLabel: 'Dành cho phụ huynh & học sinh:',
     audienceCurriculumCta: 'Khám phá chương trình học',
     audienceCompareCta: 'So sánh cấp độ',
+    // P0 — cổng phân luồng hai hướng (Nhà trường ưu tiên, Phụ huynh thứ cấp).
+    fork: {
+      label: 'Chọn hướng của bạn',
+      schoolsTitle: 'Cho Nhà trường',
+      schoolsBody: 'Tính mạch lạc của chương trình, sự nhất quán của giáo viên và bằng chứng hiển thị về lập luận của học sinh.',
+      schoolsCta: 'Khám phá Khung Nhà trường',
+      parentsTitle: 'Cho Phụ huynh',
+      parentsBody: 'Xem cách con đọc, lập luận và viết — và đặt lịch buổi Đánh giá Tư duy Học sinh.',
+      parentsCta: 'Vào Student Academy',
+      reconsiderLabel: 'Vẫn đang cân nhắc?',
+    },
   },
   decisionSnapshot: {
     eyebrow: 'Tóm tắt quyết định cho tổ chức',

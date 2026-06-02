@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { ProofStrip } from './components/ProofStrip';
 import { InstitutionalDecisionSnapshot } from './components/InstitutionalDecisionSnapshot';
 import { Services } from './components/Services';
 import { Footer } from './components/Footer';
@@ -62,6 +63,11 @@ const InternalPilotRequestsPage = lazy(() =>
 // token-authenticated portal at /external/pilot). Renders no record data.
 const PilotHoldingPage = lazy(() =>
   import('./components/PilotHoldingPage').then(m => ({ default: m.PilotHoldingPage }))
+);
+// `/knowledge` — "Ask / Knowledge Hub". Audience-grouped accordions that
+// hold depth on demand (P0 shell; legacy dense pages stay live for now).
+const KnowledgeHubPage = lazy(() =>
+  import('./components/KnowledgeHubPage').then(m => ({ default: m.KnowledgeHubPage }))
 );
 const ThinkingCycleExperience = lazy(() =>
   import('./components/ThinkingCycleExperience').then(m => ({ default: m.ThinkingCycleExperience }))
@@ -151,6 +157,7 @@ function App() {
   const isCefrAlignmentView = routePathname === '/cefr-alignment';
   const isTeacherStandardsView = routePathname === '/teacher-standards';
   const isFrameworkView = routePathname === '/framework';
+  const isKnowledgeView = routePathname === '/knowledge';
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
   const isInternalPilotRequestsView = routePathname === '/internal/pilot-requests';
@@ -196,6 +203,7 @@ function App() {
     isInternalPilotRequestsView ||
     isPilotHoldingView ||
     isFrameworkView ||
+    isKnowledgeView ||
     isSeriesView ||
     isSyllabusView ||
     isSeriesComparisonView ||
@@ -464,6 +472,11 @@ function App() {
           onBack={() => navigateTo('/')}
           onGetStarted={() => navigateTo('/get-started')}
         />
+      ) : isKnowledgeView ? (
+        <KnowledgeHubPage
+          onBack={() => navigateTo('/')}
+          onNavigate={navigateTo}
+        />
       ) : isThinkingCycleView && currentThinkingCycleStage ? (
         <ThinkingCycleExperience
           stage={currentThinkingCycleStage}
@@ -504,60 +517,25 @@ function App() {
         // into <main> on activation. Without it the URL hash changes but
         // focus stays on <body>, leaving keyboard users with the scroll
         // jump only. -1 keeps <main> out of the natural Tab sequence.
+        // P0 — condensed two-door homepage. The old ten-section staged
+        // homepage (InstitutionalDecisionSnapshot, Services, SeriesSection,
+        // Contact, AboutSection, FrameworkFoundations, ThinkingCycle,
+        // StudentAcademyMural, NeuroinclusiveLayer) was replaced by the
+        // Hero fork + ProofStrip. Those components remain in the repo,
+        // unreferenced, for trivial rollback (see docs/p0-*build-plan).
         <main id="main-content" tabIndex={-1} className="focus:outline-none">
-          <Hero
-            onGetStarted={() => navigateTo('/get-started?interest=audit_sprint')}
-            onExploreFramework={() => navigateTo('/discovery')}
-            onOverviewRequest={() => navigateTo('/get-started?interest=curriculum_overview&source=hero')}
-            onNavigate={navigateTo}
-          />
-          <InstitutionalDecisionSnapshot
-            onAuditSprint={() => navigateTo('/get-started?interest=audit_sprint')}
-            onDiscoveryCall={() => navigateTo('/discovery')}
-            onCurriculumOverview={() => navigateTo('/get-started?interest=curriculum_overview&source=hero')}
-          />
-          <Services />
-          {homeSectionStage >= 1 ? (
-            <Suspense fallback={<DeferredHomeSectionPlaceholder className="min-h-[48rem] bg-white" />}>
-              <SeriesSection
-                onSelectLevel={(path) => navigateTo(path)}
-                onCompareLevels={() => navigateTo('/series/compare')}
-              />
-              <Contact />
-            </Suspense>
-          ) : (
-            <DeferredHomeSectionPlaceholder className="min-h-[48rem] bg-white" />
-          )}
-          {homeSectionStage >= 2 ? (
-            <Suspense fallback={<DeferredHomeSectionPlaceholder className="min-h-[64rem] bg-white" />}>
-              <AboutSection />
-              <FrameworkFoundations
-                onExploreFramework={() => navigateTo('/framework')}
-                onExploreMethodology={() => navigateTo('/methodology')}
-                onExploreWorldWise={() => navigateTo('/worldwise')}
-              />
-              <ThinkingCycle
-                onSelectStage={(path) => navigateTo(path)}
-                onCompareStages={() => navigateTo('/thinking-cycle/compare')}
-              />
-            </Suspense>
-          ) : (
-            <DeferredHomeSectionPlaceholder className="min-h-[64rem] bg-white" />
-          )}
-          {homeSectionStage >= 3 ? (
-            <Suspense fallback={<DeferredHomeSectionPlaceholder className="min-h-[40rem] bg-white" />}>
-              <ErrorBoundary sectionName="Student Academy Mural">
-                <StudentAcademyMural onNavigate={navigateTo} />
-              </ErrorBoundary>
-              <NeuroinclusiveLayer />
-            </Suspense>
-          ) : (
-            <DeferredHomeSectionPlaceholder className="min-h-[40rem] bg-white" />
-          )}
+          <Hero onNavigate={navigateTo} />
+          <ProofStrip onNavigate={navigateTo} />
         </main>
       )}
       </Suspense>
-      {!isInternalPilotRequestsView ? <Footer onNavigate={navigateTo} /> : null}
+      {!isInternalPilotRequestsView ? (
+        <Footer
+          onNavigate={navigateTo}
+          onPricingClick={() => setIsPricingModalOpen(true)}
+          onEducationAffiliateClick={() => setIsComingSoonOpen(true)}
+        />
+      ) : null}
       {isBotUIPilotVisible ? (
         <Suspense fallback={null}>
           <BotUIChat currentPathname={pathname} onNavigate={navigateTo} />

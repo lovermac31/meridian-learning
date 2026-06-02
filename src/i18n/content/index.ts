@@ -7,6 +7,7 @@ import { thinkingCycleStages } from './thinkingCycle';
 export type PublicContentGroup =
   | 'home'
   | 'framework'
+  | 'knowledge'
   | 'getStarted'
   | 'availableSoon'
   | 'worldwise'
@@ -26,6 +27,10 @@ export type PublicContentGroup =
 const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean>> = {
   home: { en: true, vi: true },
   framework: { en: true, vi: true },
+  // P0 — EN-only for now (mirrors the en-only institutional routes it holds,
+  // e.g. methodology/cefrAlignment/teacherStandards). VI mirror is a P1
+  // follow-up once /knowledge is registered in the localizable-routing layer.
+  knowledge: { en: true, vi: false },
   getStarted: { en: true, vi: true },
   availableSoon: { en: true, vi: true },
   worldwise: { en: true, vi: false },
@@ -46,6 +51,7 @@ const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean
 export function getPublicContentGroup(pathname: string): PublicContentGroup | null {
   if (pathname === '/') return 'home';
   if (pathname === '/framework') return 'framework';
+  if (pathname === '/knowledge') return 'knowledge';
   if (pathname === '/get-started') return 'getStarted';
   if (pathname === '/available-soon') return 'availableSoon';
   if (pathname === '/worldwise') return 'worldwise';

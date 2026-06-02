@@ -2,6 +2,12 @@ export const enUi = {
   navbar: {
     brandAriaLabel: 'Jurassic English home',
     links: {
+      // P0 — reduced two-audience nav (route links, not homepage anchors).
+      forSchools: 'For Schools',
+      forParents: 'For Parents',
+      curriculum: 'The Curriculum',
+      knowledge: 'Ask / Knowledge Hub',
+      // Legacy keys retained for backward compatibility (footer/other refs).
       about: 'About',
       framework: 'Framework',
       series: 'Series',

@@ -2,6 +2,12 @@ export const viUi = {
   navbar: {
     brandAriaLabel: 'Trang chủ Jurassic English',
     links: {
+      // P0 — reduced two-audience nav (route links, not homepage anchors).
+      forSchools: 'Cho Nhà trường',
+      forParents: 'Cho Phụ huynh',
+      curriculum: 'Chương trình',
+      knowledge: 'Hỏi / Trung tâm Kiến thức',
+      // Legacy keys retained for backward compatibility (footer/other refs).
       about: 'Giới thiệu',
       framework: 'Khung chương trình',
       series: 'Chuỗi cấp độ',
