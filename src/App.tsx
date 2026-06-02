@@ -185,7 +185,11 @@ function App() {
   const shouldForceSolidNavbar =
     isAvailableSoonView ||
     isUnreleasedLocalizedPublicView ||
-    isGetStartedView;
+    isGetStartedView ||
+    // /knowledge has a light (ivory) background from the top, so the
+    // transparent navbar's white wordmark + links would be invisible.
+    // Force the solid dark navbar like the other light-background pages.
+    isKnowledgeView;
   const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
   const isSubpageView =
     isGetStartedView ||
