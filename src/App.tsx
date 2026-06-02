@@ -3,6 +3,10 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProofStrip } from './components/ProofStrip';
+// `/knowledge` is eager (not lazy): the hash deep-link scroll needs the
+// accordion DOM present on mount with a stable full-height layout. Lazy-
+// loading introduced a Suspense-swap race that reset the deep-anchor scroll.
+import { KnowledgeHubPage } from './components/KnowledgeHubPage';
 import { InstitutionalDecisionSnapshot } from './components/InstitutionalDecisionSnapshot';
 import { Services } from './components/Services';
 import { Footer } from './components/Footer';
@@ -63,11 +67,6 @@ const InternalPilotRequestsPage = lazy(() =>
 // token-authenticated portal at /external/pilot). Renders no record data.
 const PilotHoldingPage = lazy(() =>
   import('./components/PilotHoldingPage').then(m => ({ default: m.PilotHoldingPage }))
-);
-// `/knowledge` — "Ask / Knowledge Hub". Audience-grouped accordions that
-// hold depth on demand (P0 shell; legacy dense pages stay live for now).
-const KnowledgeHubPage = lazy(() =>
-  import('./components/KnowledgeHubPage').then(m => ({ default: m.KnowledgeHubPage }))
 );
 const ThinkingCycleExperience = lazy(() =>
   import('./components/ThinkingCycleExperience').then(m => ({ default: m.ThinkingCycleExperience }))

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { ArrowLeft, ChevronDown, MessageCircle } from 'lucide-react';
 import { getKnowledgeContent, type KnowledgeEntry, type KnowledgeGroup } from '../i18n/content/knowledge';
 import { getCurrentLocale } from '../i18n/routing';
@@ -27,28 +27,63 @@ export function KnowledgeHubPage({ onBack, onNavigate }: KnowledgeHubPageProps) 
   const locale = getCurrentLocale();
   const content = getKnowledgeContent(locale);
   const [openIds, setOpenIds] = useState<Set<string>>(() => new Set());
+  const [pendingScroll, setPendingScroll] = useState<string | null>(null);
 
   // Deep-link support: /knowledge#<id> opens + scrolls to that accordion.
+  // Two-phase, intentionally NOT requestAnimationFrame-based: rAF is paused in
+  // background tabs, so an rAF scroll loop silently never runs when the page is
+  // opened in a background tab (e.g. middle-click) — and never runs under
+  // headless/automation either. React commit effects fire regardless of tab
+  // focus, so we drive the scroll off them instead.
+  //
+  // Phase 1 (effect): read the hash, EXPAND the target, and mark it pending.
+  // Runs on mount (direct load / 301 target / shared link), 'hashchange'
+  // (anchor links, manual hash edits), and 'popstate' (back/forward).
+  // We also scope history.scrollRestoration to 'manual' so the browser's
+  // auto scroll-restoration can't clobber our positioning on load.
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (!hash) return;
-    setOpenIds((prev) => new Set(prev).add(hash));
-    let raf = 0;
-    let attempts = 0;
-    const scrollToTarget = () => {
-      const el = document.getElementById(`kh-${hash}`);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-      if (attempts < 60) {
-        attempts += 1;
-        raf = window.requestAnimationFrame(scrollToTarget);
+    const prevRestoration =
+      'scrollRestoration' in window.history ? window.history.scrollRestoration : undefined;
+    if (prevRestoration !== undefined) {
+      window.history.scrollRestoration = 'manual';
+    }
+    const apply = () => {
+      const id = window.location.hash.slice(1);
+      if (!id) return;
+      setOpenIds((prev) => {
+        if (prev.has(id)) return prev;
+        const next = new Set(prev);
+        next.add(id);
+        return next;
+      });
+      setPendingScroll(id);
+    };
+    apply();
+    window.addEventListener('hashchange', apply);
+    window.addEventListener('popstate', apply);
+    return () => {
+      window.removeEventListener('hashchange', apply);
+      window.removeEventListener('popstate', apply);
+      if (prevRestoration !== undefined) {
+        window.history.scrollRestoration = prevRestoration;
       }
     };
-    raf = window.requestAnimationFrame(scrollToTarget);
-    return () => window.cancelAnimationFrame(raf);
   }, []);
+
+  // Phase 2 (layout effect): once the pending target's panel has actually
+  // expanded in the committed DOM, scroll to it. useLayoutEffect runs
+  // synchronously after the DOM mutation (so getBoundingClientRect is exact)
+  // and fires in background tabs. `behavior:'auto'` = instant + deterministic.
+  useLayoutEffect(() => {
+    if (!pendingScroll) return;
+    const el = document.getElementById(`kh-${pendingScroll}`);
+    const panel = document.getElementById(`kh-panel-${pendingScroll}`);
+    if (!el || panel?.hidden) return; // wait until the expand has committed
+    const NAV_OFFSET = 100;
+    const top = Math.max(0, Math.round(window.scrollY + el.getBoundingClientRect().top - NAV_OFFSET));
+    window.scrollTo({ top, behavior: 'auto' });
+    setPendingScroll(null);
+  }, [pendingScroll, openIds]);
 
   const toggle = (id: string) =>
     setOpenIds((prev) => {
