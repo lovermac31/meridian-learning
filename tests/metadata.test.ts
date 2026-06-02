@@ -154,6 +154,16 @@ test('resolver returns route-specific public metadata', () => {
   assert.match(legal.description, /privacy information/i);
 });
 
+test('resolver makes /knowledge a public, indexable hub route (EN, P0)', () => {
+  const knowledge = resolveRouteMetadata('/knowledge');
+
+  assert.equal(knowledge.canonical, 'https://jurassicenglish.com/knowledge');
+  assert.equal(knowledge.robots, 'index, follow');
+  assert.match(knowledge.title, /Knowledge Hub/i);
+  assert.equal(knowledge.og.url, knowledge.canonical);
+  // P0 ships EN-only; VI mirror is a P1 follow-up (route not yet localizable).
+});
+
 test('resolver returns localized metadata for released Vietnamese home and framework routes', () => {
   const frameworkVi = resolveRouteMetadata('/vi/framework');
   const homeVi = resolveRouteMetadata('/vi');

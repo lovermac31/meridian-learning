@@ -4,9 +4,14 @@ import { getUiString } from '../i18n/ui';
 
 type FooterProps = {
   onNavigate?: (path: string) => void;
+  // P0 — Education Affiliate Program + Plans & Pricing moved here from the
+  // primary nav. These open app-level modals, so they are handler props
+  // rather than route hrefs.
+  onPricingClick?: () => void;
+  onEducationAffiliateClick?: () => void;
 };
 
-export const Footer = ({ onNavigate }: FooterProps) => {
+export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }: FooterProps) => {
   const locale = getCurrentLocale();
   const footerNav = {
     explore: [
@@ -234,7 +239,27 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 {getUiString(locale, 'footer.trademark')}
               </p>
             </div>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap items-center gap-4">
+              {/* P0 — Education Affiliate Program + Plans & Pricing, relocated
+                  from the primary nav. Modal triggers, so rendered as buttons. */}
+              {onEducationAffiliateClick && (
+                <button
+                  type="button"
+                  onClick={onEducationAffiliateClick}
+                  className="rounded-md text-xs font-semibold text-jurassic-gold/70 transition-colors hover:text-jurassic-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+                >
+                  {getUiString(locale, 'navbar.links.worldwise')}
+                </button>
+              )}
+              {onPricingClick && (
+                <button
+                  type="button"
+                  onClick={onPricingClick}
+                  className="rounded-md text-xs text-white/50 transition-colors hover:text-white/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+                >
+                  {getUiString(locale, 'navbar.pricing')}
+                </button>
+              )}
               {bottomLegalLinks.map((link, i) => (
                 <span key={link.label} className="flex items-center gap-4">
                   <a

@@ -1,25 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
-import { trackCtaClick } from '../lib/analytics';
+import { AudienceFork } from './AudienceFork';
 
 type HeroProps = {
-  onGetStarted: () => void;
-  onExploreFramework: () => void;
-  onOverviewRequest?: () => void;
-  onNavigate?: (path: string) => void;
+  onNavigate: (path: string) => void;
 };
 
-// Phase 9 — visible focus indicator shared by the institutional CTAs and
-// the parent-pathway row inside the dark-emerald hero. jurassic-accent
-// matches the primary CTA color and is visible on the gradient backdrop.
-const HERO_FOCUS_RING =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark';
-
-export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNavigate }: HeroProps) => {
+/**
+ * Hero — P0 condensed front door (screen 1).
+ *
+ * Concrete headline + one audience-neutral line + the two-door AudienceFork.
+ * The old dense institutional CTA cluster + parent link rows were removed:
+ * audience routing is now the AudienceFork's job (Schools → /school-framework,
+ * Parents → /student-academy). Clarity-to-action is intended to be <2s, so the
+ * heavy staggered fade was dropped in favour of a single short entrance.
+ */
+export const Hero = ({ onNavigate }: HeroProps) => {
   const [heroImageAvailable, setHeroImageAvailable] = useState(true);
   const locale = getCurrentLocale();
   const homeContent = getHomeContent(locale) ?? getHomeContent('en');
@@ -28,8 +27,10 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
     return null;
   }
 
+  const { hero } = homeContent;
+
   return (
-    <section className="relative min-h-screen flex items-end sm:items-center overflow-hidden bg-jurassic-dark pt-28 pb-10 sm:pt-24 sm:pb-0">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-jurassic-dark pt-28 pb-12 sm:pt-24">
       {/* Hero Background — Compass Image */}
       <div className="absolute inset-0 z-0">
         {heroImageAvailable ? (
@@ -55,211 +56,43 @@ export const Hero = ({ onGetStarted, onExploreFramework, onOverviewRequest, onNa
 
         {/* Left-to-right gradient overlay for text contrast */}
         <div className="absolute inset-0 bg-gradient-to-r from-jurassic-dark via-jurassic-dark/95 via-[55%] to-jurassic-dark/40 sm:via-jurassic-dark/90 sm:via-[45%] sm:to-jurassic-dark/20 lg:to-transparent" />
-
         {/* Top/bottom vignette for nav and footer bleed */}
         <div className="absolute inset-0 bg-gradient-to-b from-jurassic-dark/60 via-transparent to-jurassic-dark/80" />
-
         {/* Subtle warm accent glow top-left */}
         <div className="absolute inset-0 bg-overlay-accent-hero" />
-
-        {/* Fallback dark fill when image fails */}
-        {!heroImageAvailable && (
-          <div className="absolute inset-0 bg-jurassic-dark" />
-        )}
+        {!heroImageAvailable && <div className="absolute inset-0 bg-jurassic-dark" />}
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0, x: -50 },
-            visible: { 
-              opacity: 1, 
-              x: 0,
-              transition: { staggerChildren: 0.15, duration: 0.8, ease: "easeOut" }
-            }
-          }}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="max-w-3xl"
         >
-          <motion.span 
-            variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
-            className="text-jurassic-accent font-semibold tracking-widest uppercase text-xs mb-4 block"
-          >
-            {homeContent.hero.eyebrow}
-          </motion.span>
-          
-          <motion.h1 
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="font-display max-w-full break-words text-[1.6rem] min-[420px]:text-[1.85rem] sm:text-[2.85rem] md:text-[3.25rem] lg:text-[3.6rem] text-white leading-[1.08] sm:leading-[1.0] mb-6 tracking-tight"
-          >
-            {homeContent.hero.titleLineOne}{' '}
-            <br />
+          <span className="text-jurassic-accent font-semibold tracking-widest uppercase text-xs mb-4 block">
+            {hero.eyebrow}
+          </span>
+
+          <h1 className="font-display max-w-full break-words text-[2rem] min-[420px]:text-[2.4rem] sm:text-[3rem] md:text-[3.4rem] lg:text-[3.8rem] text-white leading-[1.05] mb-5 tracking-tight">
+            {hero.titleLineOne}{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-jurassic-accent to-jurassic-gold">
-              {homeContent.hero.titleHighlight}
-            </span>{' '}
-            <br />
-            {homeContent.hero.titleLineThree}
-          </motion.h1>
+              {hero.titleHighlight}
+            </span>
+            {hero.titleLineThree ? <> {hero.titleLineThree}</> : null}
+          </h1>
 
-          {homeContent.hero.institutionalTagline ? (
-            <motion.p
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="text-sm sm:text-base text-jurassic-gold/80 mb-3 max-w-lg leading-relaxed font-medium"
-            >
-              {homeContent.hero.institutionalTagline}
-            </motion.p>
-          ) : null}
+          <p className="text-base sm:text-xl text-white/70 max-w-xl leading-relaxed font-light">
+            {hero.body}
+          </p>
 
-          <motion.p
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="text-base sm:text-xl text-white/70 mb-6 sm:mb-10 max-w-lg leading-relaxed font-light"
-          >
-            {homeContent.hero.body}
-          </motion.p>
+          {/* Two-door audience fork — the front door. */}
+          <AudienceFork onNavigate={onNavigate} />
 
-          <motion.div
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="flex flex-col gap-3"
-          >
-            {/* Institutional CTAs — primary audience.
-                Phase 9 — added type="button", focus-visible ring, and
-                aria-hidden on the trailing ArrowRight icon. */}
-            <div className="flex flex-wrap gap-4">
-              <button
-                type="button"
-                onClick={() => {
-                  trackCtaClick({ label: homeContent.hero.primaryCta, type: 'primary', segment: 'institutional' });
-                  onGetStarted();
-                }}
-                className={`bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover flex items-center gap-2 group shadow-premium ${HERO_FOCUS_RING}`}
-              >
-                {homeContent.hero.primaryCta}
-                <ArrowRight aria-hidden="true" className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  trackCtaClick({ label: homeContent.hero.secondaryCta, type: 'secondary', segment: 'institutional' });
-                  onExploreFramework();
-                }}
-                className={`backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all ${HERO_FOCUS_RING}`}
-              >
-                {homeContent.hero.secondaryCta}
-              </button>
-            </div>
-
-            {/* Low-friction institutional offer */}
-            {onOverviewRequest && homeContent.hero.overviewCta && (
-              <div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    trackCtaClick({ label: homeContent.hero.overviewCta ?? '', type: 'low_friction', segment: 'institutional' });
-                    onOverviewRequest();
-                  }}
-                  className={`rounded-md text-white/55 text-sm hover:text-white/80 underline underline-offset-2 transition-colors ${HERO_FOCUS_RING}`}
-                >
-                  {homeContent.hero.overviewCta}
-                </button>
-                <span className="text-white/25 text-xs ml-2">— no call required</span>
-              </div>
-            )}
-
-            {/* Parent / student pathway — secondary audience.
-                Phase 9 — added type="button" + focus-visible to the existing
-                framework / series buttons; brightness raised slightly so
-                keyboard users can see focus on the dark backdrop. */}
-            {onNavigate && homeContent.hero.audienceRowLabel && (
-              <div className="mt-1 flex w-fit max-w-full flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full border border-white/5 bg-white/[0.025] px-3 py-2 opacity-75">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/32">{homeContent.hero.audienceRowLabel}</span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    trackCtaClick({ label: homeContent.hero.audienceCurriculumCta ?? '', type: 'secondary', segment: 'parent_student' });
-                    onNavigate('/framework');
-                  }}
-                  className={`rounded-md text-xs font-medium text-white/45 underline underline-offset-2 transition-colors hover:text-white/70 ${HERO_FOCUS_RING}`}
-                >
-                  {homeContent.hero.audienceCurriculumCta}
-                </button>
-                <span className="text-xs text-white/18" aria-hidden="true">·</span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    trackCtaClick({ label: homeContent.hero.audienceCompareCta ?? '', type: 'secondary', segment: 'parent_student' });
-                    onNavigate('/series/compare');
-                  }}
-                  className={`rounded-md text-xs font-medium text-white/45 underline underline-offset-2 transition-colors hover:text-white/70 ${HERO_FOCUS_RING}`}
-                >
-                  {homeContent.hero.audienceCompareCta}
-                </button>
-              </div>
-            )}
-
-            {/* Phase 9 — Direct parent-pathway row.
-                The existing CTA hierarchy was almost entirely B2B with no
-                links to the production-live ecosystem routes. This row
-                surfaces the three parent-facing destinations explicitly:
-                  - /student-academy            (Phase 5)
-                  - /interactive-demo#try-one-thinking-move  (Phase 4)
-                  - /book-diagnostic            (Phase 6)
-                Plain anchors so they are crawlable, server-rendered, and
-                keyboard-reachable. Click delegates to onNavigate when
-                present so the SPA does a soft route-change; otherwise the
-                browser follows the href as a hard navigation. The label
-                "For parents" follows the existing parent-row vocabulary. */}
-            {onNavigate && (
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">
-                  For parents
-                </span>
-                <a
-                  href="/student-academy"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    trackCtaClick({ label: 'Student Academy', type: 'primary', segment: 'parent_student' });
-                    onNavigate('/student-academy');
-                  }}
-                  className={`rounded-md text-sm font-medium text-white/85 underline underline-offset-2 decoration-jurassic-accent/60 hover:text-white hover:decoration-jurassic-accent transition-colors ${HERO_FOCUS_RING}`}
-                >
-                  Student Academy
-                </a>
-                <span className="text-xs text-white/30" aria-hidden="true">·</span>
-                <a
-                  href="/interactive-demo#try-one-thinking-move"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    trackCtaClick({ label: 'Try one thinking move', type: 'low_friction', segment: 'parent_student' });
-                    onNavigate('/interactive-demo#try-one-thinking-move');
-                  }}
-                  className={`rounded-md text-sm font-medium text-white/85 underline underline-offset-2 decoration-jurassic-accent/60 hover:text-white hover:decoration-jurassic-accent transition-colors ${HERO_FOCUS_RING}`}
-                >
-                  Try one thinking move
-                </a>
-                <span className="text-xs text-white/30" aria-hidden="true">·</span>
-                <a
-                  href="/book-diagnostic"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    trackCtaClick({ label: 'Book a diagnostic', type: 'primary', segment: 'parent_student' });
-                    onNavigate('/book-diagnostic');
-                  }}
-                  className={`rounded-md text-sm font-medium text-white/85 underline underline-offset-2 decoration-jurassic-accent/60 hover:text-white hover:decoration-jurassic-accent transition-colors ${HERO_FOCUS_RING}`}
-                >
-                  Book a diagnostic
-                </a>
-              </div>
-            )}
-          </motion.div>
-          
-          <motion.div 
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="mt-8 sm:mt-16 pt-6 sm:pt-8 border-t border-white/5 flex gap-8 items-center"
-          >
-            <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">{homeContent.hero.publishedBy}</div>
-            <div className="text-white/80 font-serif text-lg italic tracking-wide">{homeContent.hero.publisher}</div>
-          </motion.div>
+          <div className="mt-10 pt-6 border-t border-white/5 flex gap-6 items-center">
+            <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">{hero.publishedBy}</div>
+            <div className="text-white/80 font-serif text-lg italic tracking-wide">{hero.publisher}</div>
+          </div>
         </motion.div>
       </div>
     </section>

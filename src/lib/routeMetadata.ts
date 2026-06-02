@@ -123,6 +123,27 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       },
     },
   },
+  '/knowledge': {
+    title: 'Ask / Knowledge Hub — Framework, Methodology, CEFR & More | Jurassic English™',
+    description:
+      'One place for the depth on demand: the Jurassic English™ framework, methodology, CEFR alignment, teacher standards, and the Jurassic Thinking Cycle™ — plus parent answers on reading, diagnostics, and progress.',
+    canonicalPath: '/knowledge',
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'Knowledge Hub', path: '/knowledge' },
+    ],
+    localized: {
+      vi: {
+        title: 'Hỏi / Trung tâm Kiến thức — Khung, Phương pháp, CEFR & hơn thế | Jurassic English™',
+        description:
+          'Một nơi cho chiều sâu khi cần: khung Jurassic English™, phương pháp, căn chỉnh CEFR, chuẩn giáo viên và Jurassic Thinking Cycle™ — cùng giải đáp cho phụ huynh về đọc, đánh giá và tiến bộ.',
+        breadcrumbs: [
+          { name: 'Trang chủ', path: '/' },
+          { name: 'Trung tâm Kiến thức', path: '/knowledge' },
+        ],
+      },
+    },
+  },
   '/available-soon': {
     title: 'Available soon | Jurassic English™',
     description: 'This section is being prepared and will be available shortly.',
@@ -799,6 +820,7 @@ export function getExpectedPublicIndexableRoutes(): string[] {
       new Set([
         '/',
         '/framework',
+        '/knowledge',
         '/get-started',
         '/worldwise',
         '/audit-sprint',
