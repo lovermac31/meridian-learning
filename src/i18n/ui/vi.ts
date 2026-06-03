@@ -16,6 +16,17 @@ export const viUi = {
       contact: 'Liên hệ',
       worldwise: 'Education Affiliate Program',
     },
+    // B2C launch promotion — mirrors the EN nav pill, links to the same
+    // /young-learners-speaking/ landing page.
+    youngLearnersPromo: {
+      badge: 'Mới',
+      desktopEyebrow: 'Cho Phụ huynh',
+      desktopTitle: 'Luyện nói IELTS',
+      mobileTitle: 'Luyện nói IELTS cho 9-18 tuổi',
+      mobileSubtitle: 'Đánh giá miễn phí 30 phút',
+      ariaLabel:
+        'Mới — Khóa luyện nói IELTS cho phụ huynh, độ tuổi 9-18. Đặt lịch đánh giá miễn phí 30 phút.',
+    },
     pricing: 'Gói & Báo giá',
     getStarted: 'Bắt đầu',
     openMenu: 'Mở menu điều hướng',

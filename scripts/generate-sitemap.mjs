@@ -82,14 +82,41 @@ function buildUrl(pathname) {
   ].join('\n');
 }
 
+/**
+ * Static landing pages that live in public/ and are served as standalone
+ * HTML — not part of the Vite SPA route system. These are appended to the
+ * sitemap with their own changefreq and priority values so they are
+ * discovered by search engines without touching routeMetadata.ts.
+ */
+const STATIC_EXTRA_URLS = [
+  {
+    loc: `${SITE_URL}/young-learners-speaking/`,
+    changefreq: 'weekly',
+    priority: '0.8',
+  },
+];
+
+function buildStaticUrl({ loc, changefreq, priority }) {
+  return [
+    '  <url>',
+    `    <loc>${loc}</loc>`,
+    `    <lastmod>${lastmod}</lastmod>`,
+    `    <changefreq>${changefreq}</changefreq>`,
+    `    <priority>${priority}</priority>`,
+    '  </url>',
+  ].join('\n');
+}
+
 async function main() {
   const routes  = getExpectedPublicIndexableRoutes();
   const urlTags = routes.map(buildUrl).join('\n');
+  const extraTags = STATIC_EXTRA_URLS.map(buildStaticUrl).join('\n');
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     urlTags,
+    extraTags,
     '</urlset>',
     '', // trailing newline
   ].join('\n');
@@ -97,7 +124,7 @@ async function main() {
   await fs.mkdir(distDir, { recursive: true });
   await fs.writeFile(path.join(distDir, 'sitemap.xml'), xml, 'utf8');
 
-  console.log(`[generate-sitemap] wrote ${routes.length} URLs to dist/sitemap.xml`);
+  console.log(`[generate-sitemap] wrote ${routes.length} URLs (+${STATIC_EXTRA_URLS.length} static) to dist/sitemap.xml`);
 }
 
 await main();

@@ -6,6 +6,13 @@ import { getUiString } from '../i18n/ui';
 
 const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
 
+// B2C launch promotion target. /young-learners-speaking/ is a STATIC page in
+// public/ — it is NOT an SPA route and NOT rewrite-served, so the promo uses a
+// plain native <a href> (a real document navigation). Routing it through
+// onNavigate/pushState would only update the URL and render the SPA NotFound
+// fallback, because the Vite router has no client route for this path.
+const YOUNG_LEARNERS_HREF = '/young-learners-speaking/';
+
 type NavbarProps = {
   onGetStarted: () => void;
   onNavigateHome: () => void;
@@ -124,6 +131,15 @@ export const Navbar = ({
     { name: getUiString(locale, 'navbar.links.knowledge'), href: '/knowledge' },
   ];
 
+  const youngLearnersPromo = {
+    badge: getUiString(locale, 'navbar.youngLearnersPromo.badge'),
+    desktopEyebrow: getUiString(locale, 'navbar.youngLearnersPromo.desktopEyebrow'),
+    desktopTitle: getUiString(locale, 'navbar.youngLearnersPromo.desktopTitle'),
+    mobileTitle: getUiString(locale, 'navbar.youngLearnersPromo.mobileTitle'),
+    mobileSubtitle: getUiString(locale, 'navbar.youngLearnersPromo.mobileSubtitle'),
+    ariaLabel: getUiString(locale, 'navbar.youngLearnersPromo.ariaLabel'),
+  };
+
   const handleNavLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -169,6 +185,27 @@ export const Navbar = ({
             ecosystem-landing/src/components/ProductionStyleHeader.tsx so the homepage
             and the rewritten ecosystem pages always behave identically. */}
         <div className="hidden xl:flex items-center xl:gap-2 2xl:gap-6">
+          {/* B2C launch promotion — leads the nav cluster (before the
+              institutional "For Schools" link). Native anchor → static page.
+              Distinct orange promoted pill so it reads as a parent-facing
+              advertisement, not a peer of the school-curriculum nav links. */}
+          <a
+            href={YOUNG_LEARNERS_HREF}
+            aria-label={youngLearnersPromo.ariaLabel}
+            className="group inline-flex items-center gap-2 rounded-full border border-jurassic-accent/45 bg-jurassic-accent/10 py-1.5 pl-2 pr-3.5 transition-all duration-300 hover:border-jurassic-accent/70 hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+          >
+            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white">
+              {youngLearnersPromo.badge}
+            </span>
+            <span className="flex flex-col text-left leading-none">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-jurassic-accent">
+                {youngLearnersPromo.desktopEyebrow}
+              </span>
+              <span className="mt-0.5 text-sm font-bold text-white">
+                {youngLearnersPromo.desktopTitle}
+              </span>
+            </span>
+          </a>
           {/* Phase 9 — focus-visible rings added to every desktop nav link
               and CTA. jurassic-accent / jurassic-gold rings against the
               dark header backdrop. rounded-md for ring corner shape. */}
@@ -233,6 +270,26 @@ export const Navbar = ({
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full left-0 w-full max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain bg-jurassic-dark/95 backdrop-blur-lg border-b border-white/5 py-6 px-6 flex flex-col gap-4 xl:hidden shadow-xl"
           >
+            {/* B2C launch promotion — first item in the drawer (before the
+                institutional nav links). Native anchor → static page. */}
+            <a
+              href={YOUNG_LEARNERS_HREF}
+              aria-label={youngLearnersPromo.ariaLabel}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="rounded-xl border border-jurassic-accent/45 bg-jurassic-accent/10 px-4 py-3 transition hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            >
+              <span className="flex items-center gap-2">
+                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white">
+                  {youngLearnersPromo.badge}
+                </span>
+                <span className="text-base font-bold text-white">
+                  {youngLearnersPromo.mobileTitle}
+                </span>
+              </span>
+              <span className="mt-1.5 block text-sm text-white/70">
+                {youngLearnersPromo.mobileSubtitle}
+              </span>
+            </a>
             {languageSwitcher ? (
               <div className="border-b border-white/10 pb-4">
                 {languageSwitcher}
