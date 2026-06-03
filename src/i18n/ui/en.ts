@@ -16,6 +16,18 @@ export const enUi = {
       contact: 'Contact',
       worldwise: 'Education Affiliate Program',
     },
+    // B2C launch promotion — leads the nav cluster, links to the static
+    // /young-learners-speaking/ landing page (a parent-facing IELTS Speaking
+    // offer, distinct from the institutional school-curriculum product).
+    youngLearnersPromo: {
+      badge: 'New',
+      desktopEyebrow: 'For Parents',
+      desktopTitle: 'IELTS Speaking',
+      mobileTitle: 'IELTS Speaking for Ages 9-18',
+      mobileSubtitle: 'Free 30-minute evaluation',
+      ariaLabel:
+        'New — IELTS Speaking coaching for parents, ages 9 to 18. Book a free 30-minute evaluation.',
+    },
     pricing: 'Plans & Pricing',
     getStarted: 'Get Started',
     openMenu: 'Open navigation menu',
