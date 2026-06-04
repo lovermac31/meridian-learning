@@ -15,6 +15,7 @@ import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import {
   createBreadcrumbJsonLd,
   createCourseJsonLd,
+  createFaqJsonLd,
   createOrganizationJsonLd,
   createServiceJsonLd,
   createWebsiteJsonLd,
@@ -23,6 +24,8 @@ import {
 
 const SITE_URL = 'https://jurassicenglish.com';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/hero-compass-960.webp`;
+const DEFAULT_OG_IMAGE_WIDTH = 960;
+const DEFAULT_OG_IMAGE_HEIGHT = 640;
 const SITE_NAME = 'Jurassic English™';
 
 type BaseMetadata = {
@@ -41,6 +44,8 @@ export type RouteMetadata = BaseMetadata & {
     description: string;
     url: string;
     image: string;
+    imageWidth: number;
+    imageHeight: number;
     type: string;
     siteName: string;
     locale: string;
@@ -63,21 +68,76 @@ type StaticRouteDefinition = {
   localized?: Partial<Record<Locale, Pick<StaticRouteDefinition, 'title' | 'description' | 'breadcrumbs'>>>;
 };
 
-const homeTitle = 'Critical Thinking Through Literature for Schools | Jurassic English™';
+// P1 — widened homepage positioning. The previous title scoped the brand
+// to "Schools" only, but the live site already serves three audiences
+// (parents arriving from social, schools, and IELTS-Speaking families).
+// The widened title + description and the FAQ/Service JSON-LD below give
+// search engines and the FB crawler clearer audience signals.
+const homeTitle = 'Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking';
 const homeDescription =
-  'Jurassic English™ is a literature-based critical thinking curriculum for schools. Five structured levels from Pre-A1 to C1, covering ages 4–14+. Teacher training, school licensing, and curriculum review.';
+  'Jurassic English™ helps students, parents, schools, and learning centers build academic English, critical thinking, literature-based reasoning, and IELTS-aligned speaking confidence.';
+
+// FAQ entries are deliberately factual: IELTS-aligned only, no
+// guaranteed-score language, no implied endorsement by IELTS, Cambridge,
+// British Council, or IDP. Mirrors the "evidence-note" line on
+// /young-learners-speaking/.
+const homeFaqEntries = [
+  {
+    question: 'Who is Jurassic English™ for?',
+    answer:
+      'Jurassic English™ serves four audiences: students building academic English and reasoning, parents looking for structured English speaking coaching for their child, schools and learning centers reviewing their English curriculum, and institutional partners exploring teacher training and licensing.',
+  },
+  {
+    question: 'What is the IELTS Speaking Ages 9-18 programme?',
+    answer:
+      'A structured speaking programme for ages 9-18 organized around the public IELTS Speaking criteria — fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation. Coaching is delivered 1-to-1 or in small groups, online or in person. Families can book a free 30-minute evaluation to see where their child stands.',
+  },
+  {
+    question: 'Is Jurassic English™ officially endorsed by IELTS, Cambridge, or the British Council?',
+    answer:
+      'No. Jurassic English™ is IELTS-aligned in its training pathway — lesson targets, speaking tasks, feedback, and parent reports are organized around the same public criteria used to describe IELTS Speaking performance — but it is not officially endorsed by IELTS, Cambridge, British Council, or IDP. Band goals are training targets, not score guarantees.',
+  },
+  {
+    question: 'How is the school curriculum structured?',
+    answer:
+      'Five vertically aligned levels from Pre-A1 to C1, spanning ages 4–14+, with 40 structured lessons per year and 10 core literary texts per level. Each lesson runs the four-stage Jurassic Thinking Cycle™ (Analyze, Evaluate, Justify, Reflect) so reasoning is visible in every lesson, not just at unit endpoints.',
+  },
+  {
+    question: 'How do schools and learning centers get started?',
+    answer:
+      'Most institutions begin with one of three pathways: a Curriculum Coherence Audit Sprint, a Discovery Call, or a 6-8 week Pilot Programme. The Get Started intake form routes enquiries to the right pathway for teacher training, school licensing, curriculum review, or institutional partnership discussions.',
+  },
+];
 
 const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/': {
     title: homeTitle,
     description: homeDescription,
     canonicalPath: '/',
-    jsonLd: [createOrganizationJsonLd(), createWebsiteJsonLd()],
+    jsonLd: [
+      createOrganizationJsonLd(),
+      createWebsiteJsonLd(),
+      // Surface the B2C IELTS Speaking service from the homepage as well,
+      // not only from the static /young-learners-speaking/ landing page.
+      // This gives the entity-graph a Service block linked to the
+      // EducationalOrganization @id when the home URL is crawled.
+      createServiceJsonLd({
+        name: 'IELTS Speaking Coaching for Ages 9-18',
+        description:
+          'IELTS-aligned 1-to-1 and small-group speaking coaching for young learners ages 9-18, built around the public IELTS Speaking criteria, with a free 30-minute evaluation for new families.',
+        url: `${SITE_URL}/young-learners-speaking/`,
+        serviceType: 'IELTS Speaking coaching, English speaking evaluation, young-learner speaking coaching',
+        areaServed: 'Vietnam, Asia, Online',
+        audienceRole: 'student',
+      }),
+      createFaqJsonLd(homeFaqEntries),
+    ],
     localized: {
       vi: {
-        title: 'Tư duy phản biện qua văn học cho nhà trường | Jurassic English™',
+        title:
+          'Jurassic English™ | Tư duy phản biện, tiếng Anh học thuật & luyện nói IELTS',
         description:
-          'Jurassic English™ là chương trình tiếng Anh học thuật dựa trên văn học dành cho nhà trường. Năm cấp độ có cấu trúc từ Pre-A1 đến C1, phục vụ độ tuổi 4–14+, cùng đào tạo giáo viên, cấp phép cho trường và rà soát chương trình.',
+          'Jurassic English™ giúp học sinh, phụ huynh, nhà trường và trung tâm đào tạo phát triển tiếng Anh học thuật, tư duy phản biện, lập luận dựa trên văn học và sự tự tin khi nói theo chuẩn IELTS.',
       },
     },
   },
@@ -103,9 +163,9 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     },
   },
   '/get-started': {
-    title: 'Enquire About Teacher Training and School Licensing | Jurassic English™',
+    title: 'Get Started — Teacher Training, School Licensing & Family Enquiries | Jurassic English™',
     description:
-      'Contact Jurassic English™ to enquire about teacher training, school licensing, curriculum review, or academic consulting. Tailored to your school setting.',
+      'Get started with Jurassic English™: teacher training, school licensing, curriculum review, academic consulting, and family enquiries about academic English and IELTS-aligned speaking coaching for ages 9-18.',
     canonicalPath: '/get-started',
     breadcrumbs: [
       { name: 'Home', path: '/' },
@@ -124,9 +184,9 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     },
   },
   '/knowledge': {
-    title: 'Ask / Knowledge Hub — Framework, Methodology, CEFR & More | Jurassic English™',
+    title: 'Ask / Knowledge Hub — Framework, Methodology, CEFR & IELTS Speaking | Jurassic English™',
     description:
-      'One place for the depth on demand: the Jurassic English™ framework, methodology, CEFR alignment, teacher standards, and the Jurassic Thinking Cycle™ — plus parent answers on reading, diagnostics, and progress.',
+      'One place for the depth on demand: the Jurassic English™ framework, methodology, CEFR alignment, teacher standards, the Jurassic Thinking Cycle™, and parent answers on reading, diagnostics, progress, and IELTS-aligned speaking for ages 9-18.',
     canonicalPath: '/knowledge',
     breadcrumbs: [
       { name: 'Home', path: '/' },
@@ -404,6 +464,8 @@ function createMetadata({
       description: socialDescription,
       url: socialUrl,
       image: DEFAULT_OG_IMAGE,
+      imageWidth: DEFAULT_OG_IMAGE_WIDTH,
+      imageHeight: DEFAULT_OG_IMAGE_HEIGHT,
       type: 'website',
       siteName: SITE_NAME,
       locale: getLocaleDefinition(locale).ogLocale,

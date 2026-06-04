@@ -18,7 +18,14 @@ const enHomeContent = {
     audienceRowLabel: 'For parents & students:',
     audienceCurriculumCta: 'Explore the Curriculum',
     audienceCompareCta: 'Compare Levels',
-    // P0 — two-door audience fork (Schools primary, Parents secondary).
+    // P1 — three-door audience fork. Schools remains the primary B2B door
+    // (orange, dominant). Parents routes to the general /student-academy
+    // ecosystem page. IELTS Speaking is the new B2C door for ages 9–18 and
+    // routes to the static /young-learners-speaking/ landing page, where the
+    // free 30-minute evaluation form lives. Adding the third door is the
+    // explicit response to the FB-referrer + 75% bounce signal: parents
+    // arriving from social need a "speaking / free evaluation" hook
+    // above-the-fold, not just "literature curriculum".
     fork: {
       label: 'Choose your path',
       schoolsTitle: 'For Schools',
@@ -27,7 +34,16 @@ const enHomeContent = {
       parentsTitle: 'For Parents',
       parentsBody: 'See how your child reads, reasons, and writes — and book a Student Thinking Diagnostic.',
       parentsCta: 'Visit the Student Academy',
+      ieltsBadge: 'New',
+      ieltsTitle: 'IELTS Speaking Ages 9-18',
+      ieltsBody: 'Book a free 30-minute evaluation for your child. IELTS-aligned 1-to-1 and small-group coaching.',
+      ieltsCta: 'Book Free Evaluation',
       reconsiderLabel: 'Still deciding?',
+      socialEyebrow: 'For families finding us on social',
+      socialHeadline: 'Looking for English speaking coaching for your child?',
+      socialBody:
+        'IELTS-aligned speaking practice for ages 9–18 with a free 30-minute evaluation — online, house-call, or facility location TBA.',
+      socialCta: 'Book Free Evaluation',
     },
   },
   decisionSnapshot: {
@@ -363,7 +379,8 @@ const viHomeContent = {
     audienceRowLabel: 'Dành cho phụ huynh & học sinh:',
     audienceCurriculumCta: 'Khám phá chương trình học',
     audienceCompareCta: 'So sánh cấp độ',
-    // P0 — cổng phân luồng hai hướng (Nhà trường ưu tiên, Phụ huynh thứ cấp).
+    // P1 — cổng phân luồng ba hướng (Nhà trường ưu tiên, Phụ huynh thứ cấp,
+    // IELTS Speaking là cổng B2C mới cho độ tuổi 9–18).
     fork: {
       label: 'Chọn hướng của bạn',
       schoolsTitle: 'Cho Nhà trường',
@@ -372,7 +389,16 @@ const viHomeContent = {
       parentsTitle: 'Cho Phụ huynh',
       parentsBody: 'Xem cách con đọc, lập luận và viết — và đặt lịch buổi Đánh giá Tư duy Học sinh.',
       parentsCta: 'Vào Student Academy',
+      ieltsBadge: 'Mới',
+      ieltsTitle: 'IELTS Speaking 9-18 tuổi',
+      ieltsBody: 'Đặt buổi đánh giá nói miễn phí 30 phút cho con. Coaching IELTS Speaking 1-kèm-1 và nhóm nhỏ.',
+      ieltsCta: 'Đặt đánh giá miễn phí',
       reconsiderLabel: 'Vẫn đang cân nhắc?',
+      socialEyebrow: 'Cho phụ huynh tìm hiểu qua mạng xã hội',
+      socialHeadline: 'Đang tìm coaching tiếng Anh nói cho con?',
+      socialBody:
+        'Luyện nói theo chuẩn IELTS cho độ tuổi 9–18 với buổi đánh giá miễn phí 30 phút — online, tại nhà hoặc tại cơ sở (sẽ thông báo).',
+      socialCta: 'Đặt đánh giá miễn phí',
     },
   },
   decisionSnapshot: {
