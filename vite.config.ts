@@ -41,6 +41,23 @@ export default defineConfig(() => {
     },
     build: {
       rollupOptions: {
+        /**
+         * Multi-page input. The main entry is the SPA; the second entry is the
+         * static /young-learners-speaking/ page, which embeds a small React
+         * island (YL BotUI) via `<script type="module" src="/src/yl/main.tsx">`.
+         *
+         * Vite emits dist/index.html + dist/young-learners-speaking/index.html,
+         * each with their hashed JS/CSS asset references rewritten in-place.
+         * Static assets under public/young-learners-speaking/assets/* continue
+         * to be copied verbatim to dist/young-learners-speaking/assets/*.
+         */
+        input: {
+          main: path.resolve(__dirname, 'index.html'),
+          'young-learners-speaking': path.resolve(
+            __dirname,
+            'young-learners-speaking/index.html',
+          ),
+        },
         output: {
           /**
            * P1-B: Split long-lived vendor libraries into separate hashed chunks.
@@ -52,6 +69,8 @@ export default defineConfig(() => {
            * InstitutionalDecisionSnapshot, and Services (all synchronous).
            * Splitting it means the browser can start parsing react first and
            * then motion, rather than one monolithic 702KB parse task.
+           *
+           * vendor-react is now shared between the SPA and the YL island.
            */
           manualChunks: {
             'vendor-react':  ['react', 'react-dom', 'react-dom/client'],
