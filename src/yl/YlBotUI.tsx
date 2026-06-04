@@ -13,68 +13,49 @@
  *  - Emits Vercel Analytics custom events for opens, closes, and chip clicks.
  *    No PII in event payloads.
  *
+ * Trilingual (P1): all copy comes from src/yl/i18n.ts and follows the same
+ * resolved language as the page (URL ?lang= → localStorage → en). Switching
+ * language re-renders the bot and resets the short conversation to a localized
+ * greeting. Analytics event payloads stay in English keys (chip.key etc.).
+ *
  * Styling: all inline styles + a single scoped <style> tag for keyframes.
  * No Tailwind, no CSS modules. Keeps the YL bundle's CSS surface zero so it
  * cannot interfere with the page's hand-written dark theme.
  */
 import { useEffect, useId, useRef, useState } from 'react';
+import { getLang, subscribeLang, t, type Lang } from './i18n';
 
 type ChipKey = 'programme' | 'journey' | 'pricing' | 'book' | 'email';
+type Anchor = 'method' | 'journey' | 'pricing' | 'book';
 
 interface ChipDef {
   key: ChipKey;
-  label: string;
-  reply: string;
-  /**
-   * Optional on-page anchor to scroll to. Mutually exclusive with `mailto`.
-   * Must be an id present in the static HTML.
-   */
-  anchor?: 'method' | 'journey' | 'pricing' | 'book';
-  /** Optional mailto: URL. Opens in a new tab via window.location for mailto. */
+  /** Optional on-page anchor to scroll to. */
+  anchor?: Anchor;
+  /** Optional mailto: URL. */
   mailto?: string;
   /** Optional second-CTA chip rendered alongside the primary CTA. */
-  secondaryCta?: { label: string; mailto?: string; anchor?: 'book' };
+  secondaryCta?: { mailto?: string; anchor?: 'book' };
 }
 
-const CHIPS: ChipDef[] = [
-  {
-    key: 'programme',
-    label: 'What is the programme?',
-    reply:
-      "We run IELTS-aligned 1-to-1 and small-group speaking coaching for ages 9-18. Sessions use the public IELTS Speaking criteria, CEFR-aligned progression, recorded practice, and corrective feedback. Parents receive progress reports.",
-    anchor: 'method',
-  },
-  {
-    key: 'journey',
-    label: "What does my child's journey look like?",
-    reply:
-      "A typical journey starts with a free 30-minute speaking evaluation. From there, we recommend a session format (1-to-1 or small-group) and build a structured path through fluency, vocabulary, grammar, pronunciation, and academic response shape.",
-    anchor: 'journey',
-  },
-  {
-    key: 'pricing',
-    label: 'How much does it cost?',
-    reply:
-      "Pricing varies by session format and frequency. The pricing section on this page shows current rates for 1-to-1 and small-group coaching.",
-    anchor: 'pricing',
-  },
+/**
+ * Structural chip definitions only — display labels and replies are resolved
+ * from the i18n dictionary at render time so they follow the active language.
+ */
+const CHIP_DEFS: ChipDef[] = [
+  { key: 'programme', anchor: 'method' },
+  { key: 'journey', anchor: 'journey' },
+  { key: 'pricing', anchor: 'pricing' },
   {
     key: 'book',
-    label: 'How do I book a free evaluation?',
-    reply:
-      "You can book a free 30-minute speaking evaluation three ways: open the parent inquiry form, scan the Zalo QR to chat, or email us. All three are in the booking section below — no info required to start.",
     anchor: 'book',
     secondaryCta: {
-      label: 'Email to book ↗',
       mailto:
         'mailto:info@jurassicenglish.com?subject=Free%20Young%20Learner%20Speaking%20Evaluation',
     },
   },
   {
     key: 'email',
-    label: 'Email a question ↗',
-    reply:
-      "Sure — happy to answer by email. I'll open a draft to info@jurassicenglish.com so you can write whatever you'd like to know.",
     mailto:
       'mailto:info@jurassicenglish.com?subject=Question%20about%20IELTS%20Speaking%20for%20my%20child',
   },
@@ -103,6 +84,13 @@ interface BotEvent {
   }>;
 }
 
+/** Subscribe a component to the shared YL language state. */
+function useLang(): Lang {
+  const [lang, setLangState] = useState<Lang>(() => getLang());
+  useEffect(() => subscribeLang(setLangState), []);
+  return lang;
+}
+
 /** Fire-and-forget Vercel Analytics custom event. Never throws if `va` is absent. */
 function track(name: string, data?: Record<string, string>) {
   try {
@@ -119,23 +107,20 @@ function scrollToAnchor(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  // Update the URL hash without re-scrolling.
   if (history.replaceState) {
     history.replaceState(null, '', `#${id}`);
   }
 }
 
 export function YlBotUI() {
+  const lang = useLang();
   const [open, setOpen] = useState(false);
-  const [events, setEvents] = useState<BotEvent[]>([
-    {
-      who: 'bot',
-      text:
-        "Hi! I'm here to help parents explore IELTS Speaking coaching for ages 9-18. What would you like to know? Tap a question below.",
-    },
+  const [events, setEvents] = useState<BotEvent[]>(() => [
+    { who: 'bot', text: t('botui.greeting', getLang()) },
   ]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const panelTitleId = useId();
+  const didInit = useRef(false);
 
   // Auto-scroll the conversation to the latest message.
   useEffect(() => {
@@ -156,11 +141,21 @@ export function YlBotUI() {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
+  // When the language changes, reset the short conversation to a localized greeting.
+  useEffect(() => {
+    if (!didInit.current) {
+      didInit.current = true;
+      return;
+    }
+    setEvents([{ who: 'bot', text: t('botui.greeting', lang) }]);
+  }, [lang]);
+
   function appendBotReply(chip: ChipDef) {
     const ctas: NonNullable<BotEvent['ctas']> = [];
     if (chip.anchor) {
+      const anchorName = t(`botui.anchor.${chip.anchor}`, lang);
       ctas.push({
-        label: `Jump to ${chip.anchor} →`,
+        label: t('botui.cta.jumpTo', lang).replace('{x}', anchorName),
         kind: 'primary',
         onClick: () => {
           track('yl_botui_anchor_jump', { anchor: chip.anchor! });
@@ -171,7 +166,7 @@ export function YlBotUI() {
     }
     if (chip.mailto) {
       ctas.push({
-        label: chip.key === 'email' ? 'Open email ↗' : 'Email to book ↗',
+        label: chip.key === 'email' ? t('botui.cta.openEmail', lang) : t('botui.cta.emailToBook', lang),
         kind: chip.anchor ? 'secondary' : 'primary',
         onClick: () => {
           track('yl_botui_mailto', { from: chip.key });
@@ -181,7 +176,7 @@ export function YlBotUI() {
     }
     if (chip.secondaryCta) {
       ctas.push({
-        label: chip.secondaryCta.label,
+        label: t('botui.cta.emailToBook', lang),
         kind: 'secondary',
         onClick: () => {
           if (chip.secondaryCta!.mailto) {
@@ -195,10 +190,10 @@ export function YlBotUI() {
         },
       });
     }
-    setEvents(prev => [
+    setEvents((prev) => [
       ...prev,
-      { who: 'user', text: chip.label },
-      { who: 'bot', text: chip.reply, ctas },
+      { who: 'user', text: t(`botui.chip.${chip.key}.label`, lang) },
+      { who: 'bot', text: t(`botui.chip.${chip.key}.reply`, lang), ctas },
     ]);
   }
 
@@ -209,13 +204,7 @@ export function YlBotUI() {
 
   function handleReset() {
     track('yl_botui_reset');
-    setEvents([
-      {
-        who: 'bot',
-        text:
-          "Back to the start. What else would you like to know? Tap a question below.",
-      },
-    ]);
+    setEvents([{ who: 'bot', text: t('botui.resetMsg', lang) }]);
   }
 
   return (
@@ -242,7 +231,7 @@ export function YlBotUI() {
       {!open && (
         <button
           type="button"
-          aria-label="Open parent guide chat"
+          aria-label={t('botui.bubbleAria', lang)}
           className="yl-bot-bubble"
           onClick={() => {
             setOpen(true);
@@ -286,7 +275,7 @@ export function YlBotUI() {
               fontWeight: 500,
             }}
           >
-            Parent guide
+            {t('botui.bubbleTooltip', lang)}
           </span>
         </button>
       )}
@@ -297,6 +286,7 @@ export function YlBotUI() {
           role="dialog"
           aria-modal="false"
           aria-labelledby={panelTitleId}
+          lang={lang === 'zh-CN' ? 'zh-Hans' : lang}
           style={{
             position: 'fixed',
             right: 'max(16px, env(safe-area-inset-right))',
@@ -341,6 +331,7 @@ export function YlBotUI() {
                 justifyContent: 'center',
                 fontWeight: 700,
                 fontSize: 14,
+                flexShrink: 0,
               }}
             >
               JE
@@ -350,15 +341,15 @@ export function YlBotUI() {
                 id={panelTitleId}
                 style={{ fontWeight: 600, fontSize: 14, color: PALETTE.parentTextOnDark }}
               >
-                Parent guide
+                {t('botui.headerTitle', lang)}
               </div>
               <div style={{ fontSize: 11, color: PALETTE.muted, marginTop: 2 }}>
-                IELTS Speaking, ages 9-18 · no personal info collected
+                {t('botui.headerSubtitle', lang)}
               </div>
             </div>
             <button
               type="button"
-              aria-label="Close parent guide chat"
+              aria-label={t('botui.closeAria', lang)}
               onClick={() => {
                 setOpen(false);
                 track('yl_botui_close', { via: 'button' });
@@ -371,6 +362,7 @@ export function YlBotUI() {
                 padding: 4,
                 fontSize: 20,
                 lineHeight: 1,
+                flexShrink: 0,
               }}
             >
               ×
@@ -432,14 +424,10 @@ export function YlBotUI() {
                         className="yl-bot-cta"
                         onClick={cta.onClick}
                         style={{
-                          background:
-                            cta.kind === 'primary' ? PALETTE.accent : 'transparent',
-                          color:
-                            cta.kind === 'primary' ? PALETTE.accentText : PALETTE.link,
+                          background: cta.kind === 'primary' ? PALETTE.accent : 'transparent',
+                          color: cta.kind === 'primary' ? PALETTE.accentText : PALETTE.link,
                           border:
-                            cta.kind === 'primary'
-                              ? 'none'
-                              : `1px solid ${PALETTE.panelBorder}`,
+                            cta.kind === 'primary' ? 'none' : `1px solid ${PALETTE.panelBorder}`,
                           padding: '7px 11px',
                           borderRadius: 999,
                           fontSize: 12.5,
@@ -472,7 +460,7 @@ export function YlBotUI() {
                 marginBottom: 8,
               }}
             >
-              {CHIPS.map(chip => (
+              {CHIP_DEFS.map((chip) => (
                 <button
                   key={chip.key}
                   type="button"
@@ -490,7 +478,7 @@ export function YlBotUI() {
                     lineHeight: 1.3,
                   }}
                 >
-                  {chip.label}
+                  {t(`botui.chip.${chip.key}.label`, lang)}
                 </button>
               ))}
               {events.length > 1 && (
@@ -508,7 +496,7 @@ export function YlBotUI() {
                     cursor: 'pointer',
                   }}
                 >
-                  Start over
+                  {t('botui.startOver', lang)}
                 </button>
               )}
             </div>
@@ -519,8 +507,7 @@ export function YlBotUI() {
                 lineHeight: 1.4,
               }}
             >
-              This guide doesn't collect personal info. Your child's details
-              stay with the booking form.
+              {t('botui.privacyNote', lang)}
             </div>
           </div>
         </div>

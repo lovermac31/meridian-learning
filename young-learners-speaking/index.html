@@ -25,6 +25,8 @@
 <meta name="twitter:image" content="https://jurassicenglish.com/young-learners-speaking/assets/images/page-main-1.png">
 <meta name="twitter:image:alt" content="Jurassic English young learner speaking mastery landing page">
 <link rel="alternate" hreflang="en" href="https://jurassicenglish.com/young-learners-speaking/">
+<link rel="alternate" hreflang="vi" href="https://jurassicenglish.com/young-learners-speaking/?lang=vi">
+<link rel="alternate" hreflang="zh-CN" href="https://jurassicenglish.com/young-learners-speaking/?lang=zh-CN">
 <link rel="alternate" hreflang="x-default" href="https://jurassicenglish.com/young-learners-speaking/">
 <link rel="icon" href="assets/images/je-emblem.png">
 <link rel="apple-touch-icon" href="assets/images/je-emblem.png">
@@ -180,6 +182,11 @@ nav{position:sticky;top:0;z-index:30;background:rgba(21,24,29,.94);backdrop-filt
 .navlinks{display:flex;align-items:center;gap:22px;color:#dde3eb;font-weight:800;font-size:.92rem}
 .navlinks a:hover{color:#fff}
 .navlinks .navcta{background:var(--orange);padding:9px 14px;border-radius:7px;color:#fff}
+.lang-select{display:inline-flex;align-items:center;gap:3px;border:1px solid var(--line-dark);border-radius:999px;padding:3px;background:rgba(255,255,255,.05)}
+.lang-select button{appearance:none;-webkit-appearance:none;border:0;background:transparent;color:#cdd4dd;font-family:inherit;font-size:.78rem;font-weight:800;letter-spacing:.01em;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;white-space:nowrap;min-height:30px}
+.lang-select button:hover{color:#fff}
+.lang-select button.is-active{background:var(--orange);color:#fff}
+.lang-select button:focus-visible{outline:2px solid var(--orange2);outline-offset:2px}
 
 .cover{position:relative;min-height:calc(100svh - 72px);background:var(--ink);color:#fff;overflow:hidden}
 .cover:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,16,.62),rgba(11,13,16,.84) 58%,rgba(11,13,16,.94)),url("assets/images/page-main-1.png") center/cover no-repeat}
@@ -324,9 +331,10 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
   .photo-panel{left:14px;right:14px;padding:20px}
 }
 @media(max-width:620px){
-  .navin{height:auto;padding:12px 0}
+  .navin{height:auto;padding:12px 0;flex-direction:column;align-items:center;gap:12px}
   .brand strong{font-size:1.02rem}
-  .navlinks{gap:10px}
+  .navlinks{gap:8px;flex-wrap:wrap;justify-content:center}
+  .lang-select button{padding:5px 9px}
   .age-rail{grid-template-columns:1fr 1fr}
   .cover-foot{position:relative;left:auto;right:auto;bottom:auto;margin-top:30px;display:block;text-align:center}
   .cover-inner{padding-bottom:54px}
@@ -350,12 +358,17 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div><strong>Jurassic English<sup>TM</sup></strong><span>Young Learners</span></div>
     </a>
     <div class="navlinks">
-      <a href="#parents">Parents</a>
-      <a href="#journey">Journey</a>
-      <a href="#method">Method</a>
-      <a href="#pricing">Pricing</a>
-      <a href="https://jurassicenglish.com/">Main site</a>
-      <a class="navcta" href="#book">Free evaluation</a>
+      <a href="#parents" data-i18n="nav.parents">Parents</a>
+      <a href="#journey" data-i18n="nav.journey">Journey</a>
+      <a href="#method" data-i18n="nav.method">Method</a>
+      <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="https://jurassicenglish.com/" data-i18n="nav.mainSite">Main site</a>
+      <a class="navcta" href="#book" data-i18n="nav.freeEval">Free evaluation</a>
+      <div class="lang-select" data-lang-selector role="group" aria-label="Language">
+        <button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">English</button>
+        <button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button>
+        <button type="button" data-lang-btn="zh-CN" aria-pressed="false">中文</button>
+      </div>
     </div>
   </div>
 </nav>
@@ -363,22 +376,22 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
 <header class="cover" id="top">
   <div class="cover-inner">
     <div class="emblem-wrap"><img class="cover-logo" src="assets/images/je-emblem.png" alt="Jurassic English emblem"></div>
-    <div class="kicker">Jurassic English · Young Learners · Speaking Mastery</div>
-    <h1>The head start that reaches <span class="orange">Band 8.5.</span></h1>
-    <p class="subtitle">A structured English-speaking journey for ages 9-18, building the fluency and confidence that open universities and the world.</p>
-    <div class="motto">Excavate <span>·</span> Analyze <span>·</span> Justify <span>·</span> Reflect</div>
+    <div class="kicker" data-i18n="hero.kicker">Jurassic English · Young Learners · Speaking Mastery</div>
+    <h1 data-i18n-html="hero.h1">The head start that reaches <span class="orange">Band 8.5.</span></h1>
+    <p class="subtitle" data-i18n="hero.subtitle">A structured English-speaking journey for ages 9-18, building the fluency and confidence that open universities and the world.</p>
+    <div class="motto" data-i18n-html="hero.motto">Excavate <span>·</span> Analyze <span>·</span> Justify <span>·</span> Reflect</div>
     <div class="cover-actions">
-      <a class="btn" href="#book">Book a free evaluation</a>
-      <a class="btn ghost" href="#journey">See the journey</a>
+      <a class="btn" href="#book" data-i18n="hero.ctaBook">Book a free evaluation</a>
+      <a class="btn ghost" href="#journey" data-i18n="hero.ctaJourney">See the journey</a>
     </div>
     <div class="age-rail" aria-label="Age pathway">
-      <div class="r1">Later Primary<small>Ages 9-11</small></div>
-      <div class="r2">Middle School<small>Ages 11-14</small></div>
-      <div class="r3">High School<small>Ages 15-18</small></div>
-      <div class="r4">University-Ready<small>Band 7-8.5</small></div>
+      <div class="r1"><span data-i18n="hero.age1">Later Primary</span><small data-i18n="hero.age1sub">Ages 9-11</small></div>
+      <div class="r2"><span data-i18n="hero.age2">Middle School</span><small data-i18n="hero.age2sub">Ages 11-14</small></div>
+      <div class="r3"><span data-i18n="hero.age3">High School</span><small data-i18n="hero.age3sub">Ages 15-18</small></div>
+      <div class="r4"><span data-i18n="hero.age4">University-Ready</span><small data-i18n="hero.age4sub">Band 7-8.5</small></div>
     </div>
     <div class="cover-foot">
-      <span>English-speaking coaching for young learners · Hanoi &amp; online</span>
+      <span data-i18n="hero.foot1">English-speaking coaching for young learners · Hanoi &amp; online</span>
       <span><a href="https://www.jurassicenglish.com">jurassicenglish.com</a></span>
     </div>
   </div>
@@ -390,32 +403,32 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div class="photo-banner">
         <img src="assets/images/page-main-2.png" alt="Teen student speaking in a warm study room">
         <div class="photo-panel">
-          <div class="kicker">For parents who think ahead</div>
-          <h2>Reading and writing aren't the problem. Speaking is.</h2>
-          <p>It is the skill that opens universities and careers, and the one that takes longest to build. So we start early.</p>
+          <div class="kicker" data-i18n="parents.kicker">For parents who think ahead</div>
+          <h2 data-i18n="parents.h2">Reading and writing aren't the problem. Speaking is.</h2>
+          <p data-i18n="parents.p">It is the skill that opens universities and careers, and the one that takes longest to build. So we start early.</p>
         </div>
       </div>
       <div class="metrics">
-        <div class="metric"><strong>~73%</strong><span>of candidates never reach Band 7.0. Speaking is almost always the wall.</span></div>
-        <div class="metric"><strong>16+</strong><span>the age IELTS is designed for, so the years before it are where fluency is built.</span></div>
-        <div class="metric"><strong>9-18</strong><span>the window we coach: later primary, middle school, and high school on one path.</span></div>
+        <div class="metric"><strong data-i18n="parents.metric1num">~73%</strong><span data-i18n="parents.metric1">of candidates never reach Band 7.0. Speaking is almost always the wall.</span></div>
+        <div class="metric"><strong data-i18n="parents.metric2num">16+</strong><span data-i18n="parents.metric2">the age IELTS is designed for, so the years before it are where fluency is built.</span></div>
+        <div class="metric"><strong data-i18n="parents.metric3num">9-18</strong><span data-i18n="parents.metric3">the window we coach: later primary, middle school, and high school on one path.</span></div>
       </div>
       <div class="callout">
-        <h3>Why starting early is the real advantage</h3>
-        <p>IELTS is not recommended before age 16, and scores last only two years. The smart move is the opposite: use the primary and middle-school years to build confident fluency, so a high band in high school is the natural result.</p>
+        <h3 data-i18n="parents.calloutH3">Why starting early is the real advantage</h3>
+        <p data-i18n="parents.calloutP">IELTS is not recommended before age 16, and scores last only two years. The smart move is the opposite: use the primary and middle-school years to build confident fluency, so a high band in high school is the natural result.</p>
       </div>
       <div class="quote-box">
-        <h3>Sound familiar?</h3>
-        <p class="quote">She gets top marks in written English, but goes quiet the moment she has to speak.</p>
-        <p class="quote">He's taken years of classes, yet freezes in an interview or in front of the class.</p>
-        <p class="quote">We can't tell if she's really improving, or just getting older.</p>
-        <p><strong>If any of these ring true, your child does not need more grammar.</strong> They need structured speaking practice with real feedback, which is exactly what we do.</p>
+        <h3 data-i18n="parents.quoteH3">Sound familiar?</h3>
+        <p class="quote" data-i18n="parents.quote1">She gets top marks in written English, but goes quiet the moment she has to speak.</p>
+        <p class="quote" data-i18n="parents.quote2">He's taken years of classes, yet freezes in an interview or in front of the class.</p>
+        <p class="quote" data-i18n="parents.quote3">We can't tell if she's really improving, or just getting older.</p>
+        <p data-i18n-html="parents.quoteP"><strong>If any of these ring true, your child does not need more grammar.</strong> They need structured speaking practice with real feedback, which is exactly what we do.</p>
       </div>
       <div class="mini-cards">
-        <div class="mini-card"><h3>University</h3><p>Admissions and interviews in English</p></div>
-        <div class="mini-card"><h3>Scholarships</h3><p>Where speaking sets applicants apart</p></div>
-        <div class="mini-card"><h3>Study Abroad</h3><p>The band that unlocks the visa</p></div>
-        <div class="mini-card"><h3>Confidence</h3><p>For class, clubs, and life</p></div>
+        <div class="mini-card"><h3 data-i18n="parents.mini1H">University</h3><p data-i18n="parents.mini1P">Admissions and interviews in English</p></div>
+        <div class="mini-card"><h3 data-i18n="parents.mini2H">Scholarships</h3><p data-i18n="parents.mini2P">Where speaking sets applicants apart</p></div>
+        <div class="mini-card"><h3 data-i18n="parents.mini3H">Study Abroad</h3><p data-i18n="parents.mini3P">The band that unlocks the visa</p></div>
+        <div class="mini-card"><h3 data-i18n="parents.mini4H">Confidence</h3><p data-i18n="parents.mini4P">For class, clubs, and life</p></div>
       </div>
     </div>
   </section>
@@ -425,44 +438,44 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div class="photo-banner">
         <img src="assets/images/page-main-3.png" alt="Young learner speaking with a coach">
         <div class="photo-panel">
-          <div class="kicker">The journey · the heart of the programme</div>
-          <h2>Three stages, one path: 9 to 18</h2>
-          <p>Each stage meets your child where they are and builds the skills that matter next.</p>
+          <div class="kicker" data-i18n="journey.kicker">The journey · the heart of the programme</div>
+          <h2 data-i18n="journey.h2">Three stages, one path: 9 to 18</h2>
+          <p data-i18n="journey.p">Each stage meets your child where they are and builds the skills that matter next.</p>
         </div>
       </div>
 
       <article class="stage-card">
         <div class="stage-head">
-          <div class="age">9-11<small>Later Primary</small></div>
-          <div><h3>Confidence &amp; Foundations</h3><p>Learn to enjoy speaking, and never fear it.</p></div>
-          <div class="cefr">CEFR<br>A2 to B1</div>
+          <div class="age">9-11<small data-i18n="stage1.ageSub">Later Primary</small></div>
+          <div><h3 data-i18n="stage1.h3">Confidence &amp; Foundations</h3><p data-i18n="stage1.sub">Learn to enjoy speaking, and never fear it.</p></div>
+          <div class="cefr" data-i18n-html="stage1.cefr">CEFR<br>A2 to B1</div>
         </div>
         <div class="stage-grid">
-          <div><h4>Where they are now</h4><p>Often shy to speak, even when they know the words. They translate in their head and stop when it gets hard.</p></div>
-          <div><h4>What we build</h4><p>Confidence to speak without fear, clear pronunciation habits, core fluency, everyday vocabulary, and a love of ideas and stories.</p></div>
-          <div><h4>How we measure it</h4><p>Playful speaking tasks and short recordings, with a simple progress note parents can follow.</p></div>
-          <div><h4>What they'll be able to do</h4><p>Speak up happily, describe and explain in connected sentences, and arrive at middle school years ahead.</p></div>
+          <div><h4 data-i18n="grid.now">Where they are now</h4><p data-i18n="stage1.now">Often shy to speak, even when they know the words. They translate in their head and stop when it gets hard.</p></div>
+          <div><h4 data-i18n="grid.build">What we build</h4><p data-i18n="stage1.build">Confidence to speak without fear, clear pronunciation habits, core fluency, everyday vocabulary, and a love of ideas and stories.</p></div>
+          <div><h4 data-i18n="grid.measure">How we measure it</h4><p data-i18n="stage1.measure">Playful speaking tasks and short recordings, with a simple progress note parents can follow.</p></div>
+          <div><h4 data-i18n="grid.able">What they'll be able to do</h4><p data-i18n="stage1.able">Speak up happily, describe and explain in connected sentences, and arrive at middle school years ahead.</p></div>
         </div>
       </article>
 
       <article class="stage-card bronze">
         <div class="stage-head">
-          <div class="age">11-14<small>Middle School</small></div>
-          <div><h3>Structure &amp; Range</h3><p>From simple answers to real ideas.</p></div>
-          <div class="cefr">CEFR B1-B2<br>Band 5.5-6.5</div>
+          <div class="age">11-14<small data-i18n="stage2.ageSub">Middle School</small></div>
+          <div><h3 data-i18n="stage2.h3">Structure &amp; Range</h3><p data-i18n="stage2.sub">From simple answers to real ideas.</p></div>
+          <div class="cefr" data-i18n-html="stage2.cefr">CEFR B1-B2<br>Band 5.5-6.5</div>
         </div>
         <div class="stage-grid">
-          <div><h4>Where they are now</h4><p>Can chat, but answers are short and repetitive. They avoid harder structures and repeat safe words.</p></div>
-          <div><h4>What we build</h4><p>Organised ideas, precise vocabulary, opinions with reasons, and the first real exam-style awareness.</p></div>
-          <div><h4>How we measure it</h4><p>The Four-Pillar method begins: fluency, vocabulary, grammar, and pronunciation tracked each lesson.</p></div>
-          <div><h4>What they'll be able to do</h4><p>Develop an idea across several sentences, give opinions confidently, and sit on a Band 6 trajectory.</p></div>
+          <div><h4 data-i18n="grid.now">Where they are now</h4><p data-i18n="stage2.now">Can chat, but answers are short and repetitive. They avoid harder structures and repeat safe words.</p></div>
+          <div><h4 data-i18n="grid.build">What we build</h4><p data-i18n="stage2.build">Organised ideas, precise vocabulary, opinions with reasons, and the first real exam-style awareness.</p></div>
+          <div><h4 data-i18n="grid.measure">How we measure it</h4><p data-i18n="stage2.measure">The Four-Pillar method begins: fluency, vocabulary, grammar, and pronunciation tracked each lesson.</p></div>
+          <div><h4 data-i18n="grid.able">What they'll be able to do</h4><p data-i18n="stage2.able">Develop an idea across several sentences, give opinions confidently, and sit on a Band 6 trajectory.</p></div>
         </div>
       </article>
 
       <div class="reason-grid">
-        <div class="benefit"><h3>Start early, finish ahead</h3><p>Years of confident speaking compound, so the exam becomes the easy part, not a teenage cram.</p></div>
-        <div class="benefit"><h3>Confidence before pressure</h3><p>We build the voice first, long before stakes and deadlines get high.</p></div>
-        <div class="benefit"><h3>One teacher, one path</h3><p>No starting over each year. Your child grows along a single deliberate journey.</p></div>
+        <div class="benefit"><h3 data-i18n="journey.benefit1H">Start early, finish ahead</h3><p data-i18n="journey.benefit1P">Years of confident speaking compound, so the exam becomes the easy part, not a teenage cram.</p></div>
+        <div class="benefit"><h3 data-i18n="journey.benefit2H">Confidence before pressure</h3><p data-i18n="journey.benefit2P">We build the voice first, long before stakes and deadlines get high.</p></div>
+        <div class="benefit"><h3 data-i18n="journey.benefit3H">One teacher, one path</h3><p data-i18n="journey.benefit3P">No starting over each year. Your child grows along a single deliberate journey.</p></div>
       </div>
     </div>
   </section>
@@ -472,35 +485,35 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div class="photo-banner">
         <img src="assets/images/page-main-4.png" alt="High school learner practicing IELTS Speaking online">
         <div class="photo-panel">
-          <div class="kicker">High school · ages 15-18</div>
-          <h2>Where it all comes together</h2>
-          <p>The full IELTS Speaking method: calm, confident, exam-ready, Band 6.5 to 8.5.</p>
+          <div class="kicker" data-i18n="hs.kicker">High school · ages 15-18</div>
+          <h2 data-i18n="hs.h2">Where it all comes together</h2>
+          <p data-i18n="hs.p">The full IELTS Speaking method: calm, confident, exam-ready, Band 6.5 to 8.5.</p>
         </div>
       </div>
 
       <article class="stage-card orange">
         <div class="stage-head">
-          <div class="age">15-18<small>High School</small></div>
-          <div><h3>Mastery &amp; the Exam</h3><p>The full IELTS Speaking method: Band 6.5 to 8.5.</p></div>
-          <div class="cefr">CEFR B2-C2<br>Band 6.5-8.5</div>
+          <div class="age">15-18<small data-i18n="stage3.ageSub">High School</small></div>
+          <div><h3 data-i18n="stage3.h3">Mastery &amp; the Exam</h3><p data-i18n="stage3.sub">The full IELTS Speaking method: Band 6.5 to 8.5.</p></div>
+          <div class="cefr" data-i18n-html="stage3.cefr">CEFR B2-C2<br>Band 6.5-8.5</div>
         </div>
         <div class="stage-grid">
-          <div><h4>Where they are now</h4><p>Capable speakers who need to convert ability into a real high IELTS band for university and study-abroad applications.</p></div>
-          <div><h4>What we build</h4><p>Abstract Part 3 argument, precision and idiom, advanced grammar under pressure, prosody, and full mock readiness.</p></div>
-          <div><h4>How we measure it</h4><p>Formal half-band ratings, a full recorded mock, and a portfolio your child keeps as evidence of progress.</p></div>
-          <div><h4>What they'll be able to do</h4><p>Walk into the test calm and ready, targeting Band 7 to 8.5, and speak fluently in interviews and seminars for years after.</p></div>
+          <div><h4 data-i18n="grid.now">Where they are now</h4><p data-i18n="stage3.now">Capable speakers who need to convert ability into a real high IELTS band for university and study-abroad applications.</p></div>
+          <div><h4 data-i18n="grid.build">What we build</h4><p data-i18n="stage3.build">Abstract Part 3 argument, precision and idiom, advanced grammar under pressure, prosody, and full mock readiness.</p></div>
+          <div><h4 data-i18n="grid.measure">How we measure it</h4><p data-i18n="stage3.measure">Formal half-band ratings, a full recorded mock, and a portfolio your child keeps as evidence of progress.</p></div>
+          <div><h4 data-i18n="grid.able">What they'll be able to do</h4><p data-i18n="stage3.able">Walk into the test calm and ready, targeting Band 7 to 8.5, and speak fluently in interviews and seminars for years after.</p></div>
         </div>
       </article>
 
       <div class="callout">
-        <h3>The full band ladder, inside high school</h3>
-        <p>The high-school stage runs the complete six-step ladder: 5.0 to 6.0, 6.0 to 6.5, 6.5 to 7.0, 7.0 to 7.5, 7.5 to 8.0, and 8.0 to 8.5. Each step is grounded in the official IELTS descriptors.</p>
+        <h3 data-i18n="hs.calloutH3">The full band ladder, inside high school</h3>
+        <p data-i18n="hs.calloutP">The high-school stage runs the complete six-step ladder: 5.0 to 6.0, 6.0 to 6.5, 6.5 to 7.0, 7.0 to 7.5, 7.5 to 8.0, and 8.0 to 8.5. Each step is grounded in the official IELTS descriptors.</p>
       </div>
-      <h3 style="text-transform:uppercase;letter-spacing:.04em">What a high band actually unlocks</h3>
+      <h3 style="text-transform:uppercase;letter-spacing:.04em" data-i18n="hs.unlockH3">What a high band actually unlocks</h3>
       <table class="unlock" aria-label="Band unlocks">
-        <tr><td>Band 6.5-7.0</td><td>Most undergraduate programmes worldwide, and many university scholarships.</td></tr>
-        <tr><td>Band 7.0-7.5</td><td>Top-ranked universities, competitive courses, and skilled-migration visas.</td></tr>
-        <tr><td>Band 8.0-8.5</td><td>Elite admissions and applications that genuinely stand out from the crowd.</td></tr>
+        <tr><td data-i18n="hs.unlock1band">Band 6.5-7.0</td><td data-i18n="hs.unlock1">Most undergraduate programmes worldwide, and many university scholarships.</td></tr>
+        <tr><td data-i18n="hs.unlock2band">Band 7.0-7.5</td><td data-i18n="hs.unlock2">Top-ranked universities, competitive courses, and skilled-migration visas.</td></tr>
+        <tr><td data-i18n="hs.unlock3band">Band 8.0-8.5</td><td data-i18n="hs.unlock3">Elite admissions and applications that genuinely stand out from the crowd.</td></tr>
       </table>
     </div>
   </section>
@@ -510,57 +523,57 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div class="photo-banner">
         <img src="assets/images/page-main-5.png" alt="Coach reviewing speaking progress with a student">
         <div class="photo-panel">
-          <div class="kicker">A real method, not chat in English</div>
-          <h2>How we actually teach speaking</h2>
-          <p>Diagnosed and trained, then measured on the same four pillars examiners use.</p>
+          <div class="kicker" data-i18n="method.kicker">A real method, not chat in English</div>
+          <h2 data-i18n="method.h2">How we actually teach speaking</h2>
+          <p data-i18n="method.p">Diagnosed and trained, then measured on the same four pillars examiners use.</p>
         </div>
       </div>
       <div class="method-grid">
-        <div class="method-card"><span class="tag">Fluency</span><h3>Speaking smoothly</h3><p>Connected, confident speech without long pauses, restarts, or freezing.</p></div>
-        <div class="method-card"><span class="tag">Vocabulary</span><h3>The right words</h3><p>Precise, varied vocabulary that grows with age, beyond "good" and "things."</p></div>
-        <div class="method-card"><span class="tag">Grammar</span><h3>Accurate sentences</h3><p>Complex structures kept correct, even when the topic gets harder.</p></div>
-        <div class="method-card"><span class="tag">Pronunciation</span><h3>Easy to understand</h3><p>Clear rhythm, stress, and sounds, so listeners never have to strain.</p></div>
+        <div class="method-card"><span class="tag" data-i18n="method.card1tag">Fluency</span><h3 data-i18n="method.card1h">Speaking smoothly</h3><p data-i18n="method.card1p">Connected, confident speech without long pauses, restarts, or freezing.</p></div>
+        <div class="method-card"><span class="tag" data-i18n="method.card2tag">Vocabulary</span><h3 data-i18n="method.card2h">The right words</h3><p data-i18n="method.card2p">Precise, varied vocabulary that grows with age, beyond "good" and "things."</p></div>
+        <div class="method-card"><span class="tag" data-i18n="method.card3tag">Grammar</span><h3 data-i18n="method.card3h">Accurate sentences</h3><p data-i18n="method.card3p">Complex structures kept correct, even when the topic gets harder.</p></div>
+        <div class="method-card"><span class="tag" data-i18n="method.card4tag">Pronunciation</span><h3 data-i18n="method.card4h">Easy to understand</h3><p data-i18n="method.card4p">Clear rhythm, stress, and sounds, so listeners never have to strain.</p></div>
       </div>
       <div class="moves">
-        <div class="move"><h3>Excavate</h3><p>Find what is holding your child back.</p></div>
-        <div class="move"><h3>Analyze</h3><p>Target the one or two things that help most.</p></div>
-        <div class="move"><h3>Justify</h3><p>Practice real ideas under rising challenge.</p></div>
-        <div class="move"><h3>Reflect</h3><p>Listen back to lock in every gain.</p></div>
+        <div class="move"><h3 data-i18n="method.move1h">Excavate</h3><p data-i18n="method.move1p">Find what is holding your child back.</p></div>
+        <div class="move"><h3 data-i18n="method.move2h">Analyze</h3><p data-i18n="method.move2p">Target the one or two things that help most.</p></div>
+        <div class="move"><h3 data-i18n="method.move3h">Justify</h3><p data-i18n="method.move3p">Practice real ideas under rising challenge.</p></div>
+        <div class="move"><h3 data-i18n="method.move4h">Reflect</h3><p data-i18n="method.move4p">Listen back to lock in every gain.</p></div>
       </div>
-      <h3 style="text-transform:uppercase;letter-spacing:.04em">A typical 60-minute session</h3>
+      <h3 style="text-transform:uppercase;letter-spacing:.04em" data-i18n="method.sessionH3">A typical 60-minute session</h3>
       <div class="session-grid">
-        <div class="session"><b>Opening focus</b><h3>Warm-up &amp; focus</h3><p>Settle in and set today's clear target.</p></div>
-        <div class="session"><b>Main practice</b><h3>Guided practice</h3><p>The real speaking work, recorded for review.</p></div>
-        <div class="session"><b>Correction loop</b><h3>Feedback &amp; re-try</h3><p>Hear it, fix it, say it again, better.</p></div>
-        <div class="session"><b>Take-home plan</b><h3>Reflect &amp; plan</h3><p>One small thing to practice before next time.</p></div>
+        <div class="session"><b data-i18n="method.session1b">Opening focus</b><h3 data-i18n="method.session1h">Warm-up &amp; focus</h3><p data-i18n="method.session1p">Settle in and set today's clear target.</p></div>
+        <div class="session"><b data-i18n="method.session2b">Main practice</b><h3 data-i18n="method.session2h">Guided practice</h3><p data-i18n="method.session2p">The real speaking work, recorded for review.</p></div>
+        <div class="session"><b data-i18n="method.session3b">Correction loop</b><h3 data-i18n="method.session3h">Feedback &amp; re-try</h3><p data-i18n="method.session3p">Hear it, fix it, say it again, better.</p></div>
+        <div class="session"><b data-i18n="method.session4b">Take-home plan</b><h3 data-i18n="method.session4h">Reflect &amp; plan</h3><p data-i18n="method.session4p">One small thing to practice before next time.</p></div>
       </div>
       <div class="takehome" style="margin-top:40px">
-        <h3>What your child takes home</h3>
-        <p>A recorded portfolio: their voice now vs. months later.</p>
-        <p>A Four-Pillar progress tracker you can follow.</p>
-        <p>A plain-language progress report for the family.</p>
-        <p>A personal handbook and practice they enjoy.</p>
-        <p>The habit of reflecting and improving alone.</p>
-        <p>Confidence that shows up beyond English class.</p>
+        <h3 data-i18n="method.takehomeH3">What your child takes home</h3>
+        <p data-i18n="method.takehome1">A recorded portfolio: their voice now vs. months later.</p>
+        <p data-i18n="method.takehome2">A Four-Pillar progress tracker you can follow.</p>
+        <p data-i18n="method.takehome3">A plain-language progress report for the family.</p>
+        <p data-i18n="method.takehome4">A personal handbook and practice they enjoy.</p>
+        <p data-i18n="method.takehome5">The habit of reflecting and improving alone.</p>
+        <p data-i18n="method.takehome6">Confidence that shows up beyond English class.</p>
       </div>
       <div class="evidence-box">
-        <div class="kicker">IELTS-aligned academic speaking</div>
-        <h3>Built from public IELTS criteria, Cambridge English principles, and proven speaking research</h3>
-        <p class="lead">Our method is designed to make students sound academically acceptable, organized, and proficient: not memorized, not over-rehearsed, and not casual conversation dressed up as IELTS preparation.</p>
+        <div class="kicker" data-i18n="evidence.kicker">IELTS-aligned academic speaking</div>
+        <h3 data-i18n="evidence.h3">Built from public IELTS criteria, Cambridge English principles, and proven speaking research</h3>
+        <p class="lead" data-i18n="evidence.lead">Our method is designed to make students sound academically acceptable, organized, and proficient: not memorized, not over-rehearsed, and not casual conversation dressed up as IELTS preparation.</p>
         <div class="evidence-grid">
-          <div class="evidence-item"><b>IELTS Speaking Criteria</b><p>Every evaluation and progress note maps to the public IELTS Speaking pillars: fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation.</p></div>
-          <div class="evidence-item"><b>Cambridge / CEFR Pathway</b><p>Tasks move from supported personal answers to academic explanation, comparison, justification, and reflection, matching the communicative progression described in CEFR-based Cambridge English teaching.</p></div>
-          <div class="evidence-item"><b>Academic Output Practice</b><p>Students learn to extend answers, organize ideas, explain reasons, qualify opinions, and repair weak language: the behaviors that make spoken English sound academically mature.</p></div>
-          <div class="evidence-item"><b>Feedback + Re-try Loop</b><p>Short recorded tasks, targeted corrective feedback, and immediate re-speaking turn mistakes into usable skill rather than passive grammar knowledge.</p></div>
+          <div class="evidence-item"><b data-i18n="evidence.item1b">IELTS Speaking Criteria</b><p data-i18n="evidence.item1p">Every evaluation and progress note maps to the public IELTS Speaking pillars: fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation.</p></div>
+          <div class="evidence-item"><b data-i18n="evidence.item2b">Cambridge / CEFR Pathway</b><p data-i18n="evidence.item2p">Tasks move from supported personal answers to academic explanation, comparison, justification, and reflection, matching the communicative progression described in CEFR-based Cambridge English teaching.</p></div>
+          <div class="evidence-item"><b data-i18n="evidence.item3b">Academic Output Practice</b><p data-i18n="evidence.item3p">Students learn to extend answers, organize ideas, explain reasons, qualify opinions, and repair weak language: the behaviors that make spoken English sound academically mature.</p></div>
+          <div class="evidence-item"><b data-i18n="evidence.item4b">Feedback + Re-try Loop</b><p data-i18n="evidence.item4p">Short recorded tasks, targeted corrective feedback, and immediate re-speaking turn mistakes into usable skill rather than passive grammar knowledge.</p></div>
         </div>
-        <p>The result is a 100% IELTS-aligned training pathway in the practical sense: lesson targets, speaking tasks, feedback, and parent reports are all organized around the same public criteria used to describe IELTS Speaking performance.</p>
+        <p data-i18n="evidence.p">The result is a 100% IELTS-aligned training pathway in the practical sense: lesson targets, speaking tasks, feedback, and parent reports are all organized around the same public criteria used to describe IELTS Speaking performance.</p>
         <ul class="reference-list">
-          <li>IELTS public Speaking band descriptors: fluency and coherence, lexical resource, grammatical range and accuracy, pronunciation.</li>
-          <li>Cambridge English / CEFR-aligned progression: communicative competence, spoken production, spoken interaction, and increasing control across levels.</li>
-          <li>Assessment-for-learning: clear goals, evidence of performance, feedback, and next-step action.</li>
-          <li>Second-language speaking research: output practice, interaction, corrective feedback, retrieval, and reflection improve spoken fluency and accuracy over time.</li>
+          <li data-i18n="evidence.ref1">IELTS public Speaking band descriptors: fluency and coherence, lexical resource, grammatical range and accuracy, pronunciation.</li>
+          <li data-i18n="evidence.ref2">Cambridge English / CEFR-aligned progression: communicative competence, spoken production, spoken interaction, and increasing control across levels.</li>
+          <li data-i18n="evidence.ref3">Assessment-for-learning: clear goals, evidence of performance, feedback, and next-step action.</li>
+          <li data-i18n="evidence.ref4">Second-language speaking research: output practice, interaction, corrective feedback, retrieval, and reflection improve spoken fluency and accuracy over time.</li>
         </ul>
-        <p class="evidence-note">Jurassic English is IELTS-aligned; it is not officially endorsed by IELTS, Cambridge, British Council, or IDP. Band goals are training targets, not score guarantees.</p>
+        <p class="evidence-note" data-i18n="evidence.disclaimer">Jurassic English is IELTS-aligned; it is not officially endorsed by IELTS, Cambridge, British Council, or IDP. Band goals are training targets, not score guarantees.</p>
       </div>
     </div>
   </section>
@@ -570,22 +583,22 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div class="photo-banner">
         <img src="assets/images/page-main-6.png" alt="Family reviewing a student progress report">
         <div class="photo-panel">
-          <div class="kicker">Why families choose Jurassic English</div>
-          <h2>More than a tutor</h2>
-          <p>A specialist method, measured progress, and a caring structured place your child looks forward to.</p>
+          <div class="kicker" data-i18n="why.kicker">Why families choose Jurassic English</div>
+          <h2 data-i18n="why.h2">More than a tutor</h2>
+          <p data-i18n="why.p">A specialist method, measured progress, and a caring structured place your child looks forward to.</p>
         </div>
       </div>
       <div class="reason-grid">
-        <div class="benefit"><h3>Progress you can see</h3><p>Every lesson is scored and tracked. You get clear reports, not vague reassurance.</p></div>
-        <div class="benefit"><h3>Age-appropriate, always</h3><p>Tasks, topics, and pace match your child's stage, from playful primary to exam-focused high school.</p></div>
-        <div class="benefit"><h3>More than an exam</h3><p>We build critical thinking, confidence, and global-mindedness: skills that last after the test.</p></div>
-        <div class="benefit"><h3>One connected path</h3><p>No starting over each year. Your child grows along a single deliberate journey to Band 7-8.5.</p></div>
-        <div class="benefit"><h3>Evidence, not promises</h3><p>A recorded portfolio lets you hear how far your child has come.</p></div>
-        <div class="benefit"><h3>In person or online</h3><p>Coaching in Hanoi or live online worldwide, the same method wherever you are.</p></div>
+        <div class="benefit"><h3 data-i18n="why.benefit1H">Progress you can see</h3><p data-i18n="why.benefit1P">Every lesson is scored and tracked. You get clear reports, not vague reassurance.</p></div>
+        <div class="benefit"><h3 data-i18n="why.benefit2H">Age-appropriate, always</h3><p data-i18n="why.benefit2P">Tasks, topics, and pace match your child's stage, from playful primary to exam-focused high school.</p></div>
+        <div class="benefit"><h3 data-i18n="why.benefit3H">More than an exam</h3><p data-i18n="why.benefit3P">We build critical thinking, confidence, and global-mindedness: skills that last after the test.</p></div>
+        <div class="benefit"><h3 data-i18n="why.benefit4H">One connected path</h3><p data-i18n="why.benefit4P">No starting over each year. Your child grows along a single deliberate journey to Band 7-8.5.</p></div>
+        <div class="benefit"><h3 data-i18n="why.benefit5H">Evidence, not promises</h3><p data-i18n="why.benefit5P">A recorded portfolio lets you hear how far your child has come.</p></div>
+        <div class="benefit"><h3 data-i18n="why.benefit6H">In person or online</h3><p data-i18n="why.benefit6P">Coaching in Hanoi or live online worldwide, the same method wherever you are.</p></div>
       </div>
       <div class="callout" style="margin-top:42px">
-        <h3>Your child's privacy comes first</h3>
-        <p>Recordings are made only with parent consent, stored securely, used solely to help your child improve, and deleted at the end of the programme unless you ask to keep the portfolio.</p>
+        <h3 data-i18n="why.calloutH3">Your child's privacy comes first</h3>
+        <p data-i18n="why.calloutP">Recordings are made only with parent consent, stored securely, used solely to help your child improve, and deleted at the end of the programme unless you ask to keep the portfolio.</p>
       </div>
     </div>
   </section>
@@ -595,74 +608,74 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div class="photo-banner">
         <img src="assets/images/page-main-7.png" alt="Family speaking with a coach about programmes and pricing">
         <div class="photo-panel">
-          <div class="kicker">Getting started</div>
-          <h2>Programmes &amp; family pricing</h2>
-          <p>Begin with a free diagnostic to find your child's level and the right starting point.</p>
+          <div class="kicker" data-i18n="pricing.kicker">Getting started</div>
+          <h2 data-i18n="pricing.h2">Programmes &amp; family pricing</h2>
+          <p data-i18n="pricing.p">Begin with a free diagnostic to find your child's level and the right starting point.</p>
         </div>
       </div>
-      <h3 style="text-transform:uppercase;letter-spacing:.04em">Start here</h3>
+      <h3 style="text-transform:uppercase;letter-spacing:.04em" data-i18n="pricing.startHere">Start here</h3>
       <div class="program-cards" style="margin:24px 0 42px">
-        <div class="program-card"><h3>Free Evaluation</h3><p><strong style="color:var(--orange);font-size:1.7rem">Free</strong><br>30 minutes. Online with good internet and microphone, house-call, or facility location TBA.</p></div>
-        <div class="program-card"><h3>Self-Study Toolkit</h3><p><strong style="color:var(--orange);font-size:1.7rem">990,000d / $39</strong><br>Handbook, activities, and video guides for habits at home.</p></div>
-        <div class="program-card"><h3>Group Cohort</h3><p><strong style="color:var(--orange);font-size:1.7rem">2,900,000d / $114</strong><br>Max 6, six weeks. Peers motivate, live coaching corrects.</p></div>
+        <div class="program-card"><h3 data-i18n="pricing.card1h">Free Evaluation</h3><p><strong style="color:var(--orange);font-size:1.7rem" data-i18n="pricing.card1price">Free</strong><br><span data-i18n="pricing.card1p">30 minutes. Online with good internet and microphone, house-call, or facility location TBA.</span></p></div>
+        <div class="program-card"><h3 data-i18n="pricing.card2h">Self-Study Toolkit</h3><p><strong style="color:var(--orange);font-size:1.7rem">990,000d / $39</strong><br><span data-i18n="pricing.card2p">Handbook, activities, and video guides for habits at home.</span></p></div>
+        <div class="program-card"><h3 data-i18n="pricing.card3h">Group Cohort</h3><p><strong style="color:var(--orange);font-size:1.7rem">2,900,000d / $114</strong><br><span data-i18n="pricing.card3p">Max 6, six weeks. Peers motivate, live coaching corrects.</span></p></div>
       </div>
-      <h3 style="text-transform:uppercase;letter-spacing:.04em">Private 1-on-1 coaching: choose your commitment</h3>
+      <h3 style="text-transform:uppercase;letter-spacing:.04em" data-i18n="pricing.privateH3">Private 1-on-1 coaching: choose your commitment</h3>
       <table class="pricing-table" aria-label="Private coaching prices">
-        <thead><tr><th>Commitment</th><th>Price</th><th>Per lesson</th><th>Save</th><th>Best for</th></tr></thead>
+        <thead><tr><th data-i18n="pricing.th1">Commitment</th><th data-i18n="pricing.th2">Price</th><th data-i18n="pricing.th3">Per lesson</th><th data-i18n="pricing.th4">Save</th><th data-i18n="pricing.th5">Best for</th></tr></thead>
         <tbody>
-          <tr><td>Pay-as-you-go</td><td>800,000d / $31</td><td>800,000d</td><td>-</td><td>Trying the method</td></tr>
-          <tr><td>Monthly</td><td>5,600,000d/mo / $220</td><td>700,000d</td><td class="save">12%</td><td>Steady term-time progress</td></tr>
-          <tr><td>6-Month Journey · Best Value</td><td>5,000,000d/mo / $196 · 30,000,000d total</td><td>625,000d</td><td class="save">22%</td><td>A multi-band climb plus Band 7 Guarantee</td></tr>
-          <tr><td>Annual Mastery</td><td>4,600,000d/mo / $180 · 55,200,000d total</td><td>575,000d</td><td class="save">28%</td><td>Long-runway journeys to Band 8+</td></tr>
+          <tr><td data-i18n="pricing.row1name">Pay-as-you-go</td><td>800,000d / $31</td><td>800,000d</td><td>-</td><td data-i18n="pricing.row1best">Trying the method</td></tr>
+          <tr><td data-i18n="pricing.row2name">Monthly</td><td>5,600,000d/mo / $220</td><td>700,000d</td><td class="save">12%</td><td data-i18n="pricing.row2best">Steady term-time progress</td></tr>
+          <tr><td data-i18n="pricing.row3name">6-Month Journey · Best Value</td><td>5,000,000d/mo / $196 · 30,000,000d total</td><td>625,000d</td><td class="save">22%</td><td data-i18n="pricing.row3best">A multi-band climb plus Band 7 Guarantee</td></tr>
+          <tr><td data-i18n="pricing.row4name">Annual Mastery</td><td>4,600,000d/mo / $180 · 55,200,000d total</td><td>575,000d</td><td class="save">28%</td><td data-i18n="pricing.row4best">Long-runway journeys to Band 8+</td></tr>
         </tbody>
       </table>
-      <h3 style="text-transform:uppercase;letter-spacing:.04em">Which is right for my child?</h3>
+      <h3 style="text-transform:uppercase;letter-spacing:.04em" data-i18n="pricing.whichH3">Which is right for my child?</h3>
       <div class="program-cards" style="margin-top:24px">
-        <div class="program-card"><h3>Younger / just starting (9-13)</h3><p>Build confidence in a <strong>Group Cohort</strong> or with the <strong>Self-Study Toolkit</strong>.</p></div>
-        <div class="program-card"><h3>Building toward the exam (14-16)</h3><p>Steady 1-on-1 progress on the <strong>Monthly</strong> or <strong>6-Month</strong> plan.</p></div>
-        <div class="program-card"><h3>Exam within 3 months (16-18)</h3><p>Go intensive with the <strong>Exam Sprint</strong> or <strong>1-on-1</strong>.</p></div>
+        <div class="program-card"><h3 data-i18n="pricing.which1h">Younger / just starting (9-13)</h3><p data-i18n-html="pricing.which1p">Build confidence in a <strong>Group Cohort</strong> or with the <strong>Self-Study Toolkit</strong>.</p></div>
+        <div class="program-card"><h3 data-i18n="pricing.which2h">Building toward the exam (14-16)</h3><p data-i18n-html="pricing.which2p">Steady 1-on-1 progress on the <strong>Monthly</strong> or <strong>6-Month</strong> plan.</p></div>
+        <div class="program-card"><h3 data-i18n="pricing.which3h">Exam within 3 months (16-18)</h3><p data-i18n-html="pricing.which3p">Go intensive with the <strong>Exam Sprint</strong> or <strong>1-on-1</strong>.</p></div>
       </div>
     </div>
   </section>
 
   <section class="dark-final" id="book">
     <div class="wrap">
-      <div class="kicker">Who will teach your child</div>
-      <h2>Coaching built on a real method</h2>
+      <div class="kicker" data-i18n="book.kicker">Who will teach your child</div>
+      <h2 data-i18n="book.h2">Coaching built on a real method</h2>
       <div class="teacher-card">
         <img src="assets/images/je-emblem.png" alt="Jurassic English emblem">
         <div>
-          <h3>Mr. Jay Adams</h3>
-          <p><strong style="color:var(--orange)">Founder &amp; Lead Coach · WorldWise Learning · Jurassic English</strong></p>
-          <p>An international educator who designs standards-aligned English programmes mapped to CEFR and built on assessment-for-learning principles. Mr. Adams specialises in IELTS Speaking and confident, durable spoken fluency for young learners.</p>
+          <h3 data-i18n="book.teacherName">Mr. Jay Adams</h3>
+          <p><strong style="color:var(--orange)" data-i18n="book.teacherRole">Founder &amp; Lead Coach · WorldWise Learning · Jurassic English</strong></p>
+          <p data-i18n="book.teacherBio">An international educator who designs standards-aligned English programmes mapped to CEFR and built on assessment-for-learning principles. Mr. Adams specialises in IELTS Speaking and confident, durable spoken fluency for young learners.</p>
         </div>
       </div>
-      <p style="font-size:1.28rem;max-width:980px"><strong>The gift that lasts.</strong> The confidence to speak English well does not just pass an exam. It changes which universities, scholarships, and careers are open to your child.</p>
+      <p style="font-size:1.28rem;max-width:980px" data-i18n-html="book.giftP"><strong>The gift that lasts.</strong> The confidence to speak English well does not just pass an exam. It changes which universities, scholarships, and careers are open to your child.</p>
       <div class="steps">
-        <div class="step"><b>1</b><h3>Get in touch</h3><p>Message us on Zalo or email info@jurassicenglish.com.</p></div>
-        <div class="step"><b>2</b><h3>Get your child's plan</h3><p>We arrange the 30-minute free evaluation and share their level and next step.</p></div>
-        <div class="step"><b>3</b><h3>Start the journey</h3><p>In Hanoi or live online, at exactly the right level.</p></div>
+        <div class="step"><b>1</b><h3 data-i18n="book.step1h">Get in touch</h3><p data-i18n="book.step1p">Message us on Zalo or email info@jurassicenglish.com.</p></div>
+        <div class="step"><b>2</b><h3 data-i18n="book.step2h">Get your child's plan</h3><p data-i18n="book.step2p">We arrange the 30-minute free evaluation and share their level and next step.</p></div>
+        <div class="step"><b>3</b><h3 data-i18n="book.step3h">Start the journey</h3><p data-i18n="book.step3p">In Hanoi or live online, at exactly the right level.</p></div>
       </div>
       <div class="booking">
-        <h2>Book a free evaluation session</h2>
-        <p>To arrange your child's 30-minute free speaking evaluation, complete the parent inquiry form, scan to chat on Zalo, or use the contact details below.</p>
+        <h2 data-i18n="book.bookingH2">Book a free evaluation session</h2>
+        <p data-i18n="book.bookingP">To arrange your child's 30-minute free speaking evaluation, complete the parent inquiry form, scan to chat on Zalo, or use the contact details below.</p>
         <div class="form-booking">
           <div>
-            <div class="kicker" style="color:#fff">Parent inquiry form</div>
-            <h3>Tell us your child's age, speaking goal, and best evaluation time.</h3>
-            <p>Choose online evaluation, house-call, or facility location TBA. Online evaluations require a good internet connection and microphone.</p>
-            <a class="btn light" data-form-href="https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec" href="https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec" target="_blank" rel="noopener">Open evaluation form</a>
+            <div class="kicker" style="color:#fff" data-i18n="book.formKicker">Parent inquiry form</div>
+            <h3 data-i18n="book.formH3">Tell us your child's age, speaking goal, and best evaluation time.</h3>
+            <p data-i18n="book.formP">Choose online evaluation, house-call, or facility location TBA. Online evaluations require a good internet connection and microphone.</p>
+            <a class="btn light" data-form-href="https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec" href="https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec" target="_blank" rel="noopener" data-i18n="book.openForm">Open evaluation form</a>
           </div>
           <a class="qr form-qr" data-form-href="https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec" href="https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec" target="_blank" rel="noopener">
             <img src="assets/qr/free-speaking-evaluation-qr.png" alt="Free speaking evaluation form QR code" data-form-qr="ready">
-            Online form · Free evaluation request
+            <span data-i18n="book.formQrLabel">Online form · Free evaluation request</span>
           </a>
         </div>
         <div class="qr-row">
-          <div class="qr"><img src="assets/qr/zalo-qr.png" alt="Zalo booking QR code">Zalo · Chat to book</div>
-          <div class="qr"><img src="assets/qr/website-qr.png" alt="Jurassic English website QR code">Our website</div>
+          <div class="qr"><img src="assets/qr/zalo-qr.png" alt="Zalo booking QR code"><span data-i18n="book.zaloLabel">Zalo · Chat to book</span></div>
+          <div class="qr"><img src="assets/qr/website-qr.png" alt="Jurassic English website QR code"><span data-i18n="book.websiteLabel">Our website</span></div>
         </div>
-        <a class="btn light" href="mailto:info@jurassicenglish.com?subject=Free%20Young%20Learner%20Speaking%20Evaluation">Email to book</a>
+        <a class="btn light" href="mailto:info@jurassicenglish.com?subject=Free%20Young%20Learner%20Speaking%20Evaluation" data-i18n="book.emailBtn">Email to book</a>
       </div>
       <div class="contact-line">Jurassic English · WorldWise Learning · info@jurassicenglish.com · <a href="https://www.jurassicenglish.com">www.jurassicenglish.com</a> · Zalo +84 396 085 076</div>
     </div>
