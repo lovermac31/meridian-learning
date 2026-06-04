@@ -83,7 +83,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">{homeContent.contact.websiteLabel}</div>
-                  <a href="https://jurassicenglish.com" className="rounded-md text-base font-semibold text-jurassic-dark hover:text-jurassic-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2">jurassicenglish.com</a>
+                  <a href="https://www.jurassicenglish.com" className="rounded-md text-base font-semibold text-jurassic-dark hover:text-jurassic-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2">www.jurassicenglish.com</a>
                 </div>
               </div>
             </div>
