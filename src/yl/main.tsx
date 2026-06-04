@@ -14,6 +14,17 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { YlBotUI } from './YlBotUI';
+import { initPageI18n } from './pageI18n';
+
+// Localize the static page (content + metadata + selector) for the resolved
+// language BEFORE mounting the island, so the page and the BotUI share one
+// language from first paint. Guarded so a DOM/i18n error can never block the
+// island mount.
+try {
+  initPageI18n();
+} catch {
+  /* page i18n is progressive enhancement — never block the island */
+}
 
 const mount = document.getElementById('yl-botui-root');
 if (mount) {
