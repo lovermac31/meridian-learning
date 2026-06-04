@@ -127,3 +127,26 @@ export function createServiceJsonLd(params: ServiceParams): JsonLd {
 
   return block;
 }
+
+export type FaqEntry = {
+  question: string;
+  answer: string;
+};
+
+// FAQPage block for high-intent parent questions. Answers are factual and
+// IELTS-aligned only — no guaranteed-score language, no endorsement
+// claims (no "official partner of Cambridge / IDP / British Council").
+export function createFaqJsonLd(entries: FaqEntry[]): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: entries.map((entry) => ({
+      '@type': 'Question',
+      name: entry.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: entry.answer,
+      },
+    })),
+  };
+}

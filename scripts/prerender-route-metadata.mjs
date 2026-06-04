@@ -71,6 +71,20 @@ function injectMetadata(html, pathname) {
     /<meta property="og:image" content="[^"]*"\s*\/>/,
     `<meta property="og:image" content="${escapeHtml(metadata.og.image)}" />`,
   );
+  if (metadata.og.imageWidth) {
+    output = replaceMetaTag(
+      output,
+      /<meta property="og:image:width" content="[^"]*"\s*\/>/,
+      `<meta property="og:image:width" content="${escapeHtml(String(metadata.og.imageWidth))}" />`,
+    );
+  }
+  if (metadata.og.imageHeight) {
+    output = replaceMetaTag(
+      output,
+      /<meta property="og:image:height" content="[^"]*"\s*\/>/,
+      `<meta property="og:image:height" content="${escapeHtml(String(metadata.og.imageHeight))}" />`,
+    );
+  }
   output = replaceMetaTag(
     output,
     /<meta property="og:type" content="[^"]*"\s*\/>/,
