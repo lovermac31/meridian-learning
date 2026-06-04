@@ -23,6 +23,8 @@
 <link rel="icon" href="assets/images/je-emblem.png">
 <link rel="apple-touch-icon" href="assets/images/je-emblem.png">
 <link rel="preload" as="image" href="assets/images/page-main-1.png" fetchpriority="high">
+<link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin>
+<link rel="stylesheet" href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
@@ -107,7 +109,8 @@ nav{position:sticky;top:0;z-index:30;background:rgba(21,24,29,.94);backdrop-filt
 .navin{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:12px;color:#fff}
 .brand img{width:44px;height:44px;object-fit:contain;border-radius:6px}
-.brand strong{font-family:"Lilita One",Inter,sans-serif;text-transform:uppercase;font-size:1.15rem;letter-spacing:.02em}
+.brand strong{font-family:"Neuland-Inline","Copperplate","Copperplate Gothic Light",Georgia,serif;text-transform:uppercase;font-size:1.28rem;font-weight:400;letter-spacing:.01em;line-height:1;color:#fff;text-shadow:0 1px 0 rgba(255,255,255,.18)}
+.brand sup{color:var(--orange);font-family:"Avenir Next","Trebuchet MS",system-ui,sans-serif;font-size:.42em;font-weight:900;line-height:0;margin-left:2px;position:relative;top:-.32em}
 .brand span{display:block;color:var(--orange2);font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-top:2px}
 .navlinks{display:flex;align-items:center;gap:22px;color:#dde3eb;font-weight:800;font-size:.92rem}
 .navlinks a:hover{color:#fff}
@@ -255,7 +258,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
 }
 @media(max-width:620px){
   .navin{height:auto;padding:12px 0}
-  .brand strong{font-size:.95rem}
+  .brand strong{font-size:1.02rem}
   .navlinks{gap:10px}
   .age-rail{grid-template-columns:1fr 1fr}
   .cover-foot{position:relative;left:auto;right:auto;bottom:auto;margin-top:30px;display:block;text-align:center}
@@ -277,7 +280,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
   <div class="wrap navin">
     <a class="brand" href="#top">
       <img src="assets/images/je-emblem.png" alt="Jurassic English">
-      <div><strong>Jurassic English</strong><span>Young Learners</span></div>
+      <div><strong>Jurassic English<sup>TM</sup></strong><span>Young Learners</span></div>
     </a>
     <div class="navlinks">
       <a href="#parents">Parents</a>
