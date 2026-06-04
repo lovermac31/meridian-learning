@@ -16,7 +16,7 @@
  * EN values below are the source of truth and mirror the static HTML exactly,
  * so switching en→vi→en produces no text drift. VI and zh-CN are professional,
  * meaning-first localizations (not word-for-word). IELTS terminology is kept
- * accurate; no guaranteed-score claims are introduced.
+ * accurate; no score-promise claims are introduced.
  */
 
 import viStrings from './i18n.vi.json';
@@ -359,7 +359,7 @@ const en: Dict = {
   'pricing.row2name': 'Monthly',
   'pricing.row2best': 'Steady term-time progress',
   'pricing.row3name': '6-Month Journey · Best Value',
-  'pricing.row3best': 'A multi-band climb plus Band 7 Guarantee',
+  'pricing.row3best': 'A multi-band climb plus Band 7 Target Pathway',
   'pricing.row4name': 'Annual Mastery',
   'pricing.row4best': 'Long-runway journeys to Band 8+',
   'pricing.whichH3': 'Which is right for my child?',
