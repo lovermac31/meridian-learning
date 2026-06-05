@@ -394,6 +394,10 @@ const en: Dict = {
   'book.websiteLabel': 'Our website',
   'book.emailBtn': 'Email to book',
 
+  // ---- Certifications strip (quiet YL logo marquee) ----
+  'certstrip.label': 'Aligned with international English standards',
+  'certstrip.note': 'Teaching credentials, assessment frameworks, and academic English references.',
+
   // ---- BotUI (React island) ----
   'botui.bubbleAria': 'Open parent guide chat',
   'botui.bubbleTooltip': 'Parent guide',

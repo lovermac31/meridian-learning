@@ -96,7 +96,7 @@ export function CredibilityLogoMarquee() {
                     src={mark.src}
                     alt={`${mark.name} logo`}
                     loading="eager"
-                    decoding="async"
+                    decoding="sync"
                     className={`block h-auto w-auto object-contain opacity-90 grayscale transition duration-200 group-hover:opacity-100 group-hover:grayscale-0 ${mark.imgClass}`}
                   />
                 </span>
