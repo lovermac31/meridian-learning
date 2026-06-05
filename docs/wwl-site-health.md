@@ -42,7 +42,7 @@ The input takes precedence over `vars.SITE_URL` for that single run.
 
 ## What this is
 
-A GitHub Actions-hosted routine that runs every day at **09:00 UTC** (and on
+A GitHub Actions-hosted routine that runs **every 6 hours** (and on
 manual dispatch) to audit production health of the marketing site. The
 routine **reports** and, when warranted, **opens or updates a single GitHub
 issue**. It never auto-deploys, never rotates secrets, and never touches
@@ -218,7 +218,7 @@ as deterministic checks so the routine runs without LLM cost in CI.
 
 | Aspect | Decision |
 |---|---|
-| Cadence | Daily, 09:00 UTC. Aligned with Vietnam morning standup. |
+| Cadence | Every 6 hours. |
 | Failure escalation | Single GitHub issue, label `site-health` + `P1`. No paging. |
 | Recovery | Issue auto-closes when the next run is green. |
 | Permissions needed | `contents: read`, `issues: write`, `pull-requests: write`. |
