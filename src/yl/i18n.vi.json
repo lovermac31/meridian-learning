@@ -241,6 +241,9 @@
   "book.websiteLabel": "Trang web của chúng tôi",
   "book.emailBtn": "Email để đặt lịch",
 
+  "certstrip.label": "Định hướng theo các chuẩn tiếng Anh quốc tế",
+  "certstrip.note": "Chứng chỉ giảng dạy, khung đánh giá và tài liệu tham chiếu tiếng Anh học thuật.",
+
   "botui.bubbleAria": "Mở trò chuyện hướng dẫn phụ huynh",
   "botui.bubbleTooltip": "Hướng dẫn phụ huynh",
   "botui.headerTitle": "Hướng dẫn phụ huynh",

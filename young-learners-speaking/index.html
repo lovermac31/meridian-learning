@@ -344,8 +344,30 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
   .qr-row{grid-template-columns:1fr;max-width:260px;margin-left:auto;margin-right:auto}
   .pricing-table{display:block;overflow-x:auto;white-space:nowrap}
 }
+/* Quiet certifications marquee (YL) — smaller, lower-opacity, softer than the
+   homepage version. CSS-only, seamless (duplicated row + translateX(-50%)),
+   pause on hover, reduced-motion safe. Intentionally NO will-change: a static
+   GPU layer can keep a stale blank paint for logos that decode after it. */
+.yl-cert{background:var(--cream2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0}
+.yl-cert-head{margin-bottom:12px}
+.yl-cert-label{font-size:.64rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px}
+.yl-cert-note{font-size:.8rem;line-height:1.4;color:var(--warm);margin:0;max-width:640px}
+.yl-cert-viewport{position:relative;overflow:hidden}
+.yl-cert-viewport::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,var(--cream2) 0%,rgba(251,247,239,0) 6%,rgba(251,247,239,0) 94%,var(--cream2) 100%)}
+.yl-cert-track{display:flex;width:max-content;align-items:center;animation:yl-cert-marquee 54s linear infinite}
+.yl-cert-viewport:hover .yl-cert-track{animation-play-state:paused}
+.yl-cert-card{flex:none;display:flex;align-items:center;justify-content:center;height:46px;min-width:120px;margin-right:14px;padding:0 14px;background:#fff;border:1px solid var(--line);border-radius:9px}
+.yl-cert-card img{display:block;max-height:24px;max-width:96px;width:auto;height:auto;object-fit:contain;opacity:.6;filter:grayscale(1);transition:opacity .2s var(--ease),filter .2s var(--ease)}
+.yl-cert-card:hover img{opacity:1;filter:grayscale(0)}
+@keyframes yl-cert-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:620px){
+  .yl-cert{padding:14px 0}
+  .yl-cert-card{height:42px;min-width:104px;margin-right:11px;padding:0 12px}
+  .yl-cert-card img{max-height:21px;max-width:84px}
+}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .yl-cert-track{animation:none!important;transform:none!important}
 }
 </style>
 </head>
@@ -398,6 +420,37 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
 </header>
 
 <main id="main">
+  <section class="yl-cert" aria-labelledby="yl-cert-label">
+    <div class="wrap">
+      <div class="yl-cert-head">
+        <div class="yl-cert-label" id="yl-cert-label" data-i18n="certstrip.label">Aligned with international English standards</div>
+        <p class="yl-cert-note" data-i18n="certstrip.note">Teaching credentials, assessment frameworks, and academic English references.</p>
+      </div>
+      <div class="yl-cert-viewport">
+        <div class="yl-cert-track">
+          <div class="yl-cert-card"><img src="/cert-logos/ielts-logo.png" alt="IELTS logo" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card"><img src="/cert-logos/toefl-ibt-logo.webp" alt="TOEFL iBT logo" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card"><img src="/cert-logos/toeic-logo.png" alt="TOEIC logo" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card"><img src="/cert-logos/celta-cambridge-logo.png" alt="Cambridge CELTA logo" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card"><img src="/cert-logos/cefr-logo.webp" alt="CEFR framework logo" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card"><img src="/cert-logos/oxford-test-of-english.png" alt="Oxford Test of English logo" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card"><img src="/cert-logos/pearson-logo.png" alt="Pearson logo" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card"><img src="/cert-logos/partner-schools.avif" alt="Partner schools logo" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card"><img src="/cert-logos/top-sea-partner.avif" alt="Top SEA partner logo" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/ielts-logo.png" alt="" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/toefl-ibt-logo.webp" alt="" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/toeic-logo.png" alt="" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/celta-cambridge-logo.png" alt="" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/cefr-logo.webp" alt="" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/oxford-test-of-english.png" alt="" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/pearson-logo.png" alt="" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/partner-schools.avif" alt="" loading="eager" decoding="sync"></div>
+          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/top-sea-partner.avif" alt="" loading="eager" decoding="sync"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="page" id="parents">
     <div class="wrap">
       <div class="photo-banner">
