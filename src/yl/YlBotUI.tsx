@@ -225,6 +225,9 @@ export function YlBotUI() {
           outline: 2px solid ${PALETTE.gold};
           outline-offset: 2px;
         }
+        @media (max-width: 640px) {
+          .yl-bot-tooltip { display: none; }
+        }
       `}</style>
 
       {/* Floating bubble (always rendered; panel toggles open) */}
@@ -260,6 +263,7 @@ export function YlBotUI() {
         >
           <span aria-hidden="true">💬</span>
           <span
+            className="yl-bot-tooltip"
             style={{
               position: 'absolute',
               bottom: 64,
