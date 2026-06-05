@@ -6,8 +6,8 @@ name: WWL Site Health
 
 on:
   schedule:
-    # Daily at 09:00 UTC. Adjust here if the operating window changes.
-    - cron: '0 9 * * *'
+    # Every 6 hours. GitHub cron times are UTC.
+    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       site_url:
