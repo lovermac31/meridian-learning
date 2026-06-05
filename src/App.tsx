@@ -3,6 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProofStrip } from './components/ProofStrip';
+import { CredibilityLogoMarquee } from './components/CredibilityLogoMarquee';
 // `/knowledge` is eager (not lazy): the hash deep-link scroll needs the
 // accordion DOM present on mount with a stable full-height layout. Lazy-
 // loading introduced a Suspense-swap race that reset the deep-anchor scroll.
@@ -528,6 +529,7 @@ function App() {
         // unreferenced, for trivial rollback (see docs/p0-*build-plan).
         <main id="main-content" tabIndex={-1} className="focus:outline-none">
           <Hero onNavigate={navigateTo} />
+          <CredibilityLogoMarquee />
           <ProofStrip onNavigate={navigateTo} />
         </main>
       )}

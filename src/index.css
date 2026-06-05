@@ -43,6 +43,19 @@
     font-style: normal;
   }
 
+  /* No `will-change: transform` here on purpose: it promotes the track to a
+     persistent GPU layer that, when the animation is NOT running (reduced
+     motion, or paused), can keep a stale blank paint for logos that finish
+     decoding after the layer composited. The translate3d keyframes already
+     GPU-accelerate the running animation, so will-change is redundant. */
+  .je-logo-marquee-track {
+    animation: je-logo-marquee 46s linear infinite;
+  }
+
+  .je-logo-marquee-track:hover {
+    animation-play-state: paused;
+  }
+
   /* Decorative section background overlays.
      Named utilities avoid long escaped arbitrary-value selectors in the CSS output. */
   .bg-overlay-accent-hero    { background: radial-gradient(circle at 15% 30%, rgba(242, 100, 25, 0.08), transparent 50%); }
@@ -56,6 +69,16 @@
   .bg-overlay-green-gold     { background: radial-gradient(circle at top right, rgba(126, 203, 142, 0.10), transparent 40%), radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.07), transparent 35%); }
   .bg-overlay-green-gold-sm  { background: radial-gradient(circle at top right, rgba(126, 203, 142, 0.06), transparent 50%), radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.05), transparent 40%); }
   .bg-overlay-gold-accent-tl { background: radial-gradient(circle at top left, rgba(212, 175, 55, 0.10), transparent 40%), radial-gradient(circle at bottom right, rgba(242, 100, 25, 0.07), transparent 35%); }
+}
+
+@keyframes je-logo-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 @layer base {
@@ -92,6 +115,13 @@ html[lang='vi'] {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .je-logo-marquee-track {
+    animation: none !important;
+    /* `transform: none` (not translate3d) so the static track is NOT a GPU
+       layer — this guarantees every logo paints for reduced-motion users. */
+    transform: none !important;
   }
 }
 
