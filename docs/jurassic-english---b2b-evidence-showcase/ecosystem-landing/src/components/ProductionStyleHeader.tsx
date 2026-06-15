@@ -187,7 +187,7 @@ export function ProductionStyleHeader() {
     extraClassName = "",
   ) => {
     const className = [
-      "rounded-md text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300",
+      "rounded-md text-sm font-medium tracking-[0.01em] text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300",
       // Phase 8 — keyboard focus indicator was missing on every desktop
       // nav link, leaving keyboard users without a visible focus state.
       // jurassic-accent ring matches the wordmark hover-accent and is
@@ -256,7 +256,7 @@ export function ProductionStyleHeader() {
           <div className="flex items-center gap-2">
             <a
               href={PROD_HOST}
-              className="rounded-md px-1 py-0.5 text-2xl font-display tracking-tight text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
+              className="rounded-md px-1 py-0.5 text-2xl font-sans font-semibold tracking-tight text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
               aria-label="Jurassic English home"
             >
               Jurassic English<span className="text-xs align-top text-jurassic-accent">™</span>
@@ -286,14 +286,14 @@ export function ProductionStyleHeader() {
 
             <a
               href={PRICING_HREF}
-              className="rounded-md text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
+              className="rounded-md text-sm font-medium tracking-[0.01em] text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               {PRICING_LABEL}
             </a>
 
             <a
               href={GET_STARTED_HREF}
-              className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-bold hover:opacity-95 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
+              className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-semibold hover:opacity-95 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               {GET_STARTED_LABEL}
             </a>
@@ -397,7 +397,7 @@ export function ProductionStyleHeader() {
             <a
               href={GET_STARTED_HREF}
               onClick={() => setIsMobileOpen(false)}
-              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
+              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
               {GET_STARTED_LABEL}
             </a>

@@ -124,7 +124,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
         <div className="max-w-7xl mx-auto px-6 py-10 md:py-12">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div className="max-w-xl">
-              <span className="text-2xl font-display text-white tracking-wide">
+              <span className="text-2xl font-sans font-semibold text-white tracking-tight">
                 Jurassic English<span className="text-xs align-top text-jurassic-accent">™</span>
               </span>
               <p className="mt-2 text-sm leading-relaxed font-light text-white/55">
@@ -134,7 +134,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
             <a
               href="/get-started"
               onClick={(e) => handleLinkClick(e, '/get-started')}
-            className="bg-jurassic-accent text-white px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 group shadow-premium hover:brightness-110 transition-all w-fit shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            className="bg-jurassic-accent text-white px-6 py-3 rounded-full font-semibold text-sm flex items-center gap-2 group shadow-premium hover:brightness-110 transition-all w-fit shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             {getUiString(locale, 'footer.getStarted')}
             <ArrowRight aria-hidden="true" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
