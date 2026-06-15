@@ -1,0 +1,44 @@
+{
+  "_doc": "STRUCTURE EXAMPLES ONLY. Every entry here is status:'draft' with consent.granted:false and therefore is NEVER published, never rendered, and never schema-marked. These exist solely to document the shape and to exercise the guardrail tests. Do NOT flip any of these to 'published' — real testimonials enter via the consent/moderation pipeline (Phase 4) with a stored consent.record.",
+  "testimonials": [
+    {
+      "id": "example-sf-en-0001",
+      "status": "draft",
+      "consent": { "granted": false, "date": "", "scope": "text", "record": "" },
+      "program": "speaking-foundations",
+      "authorDisplay": "Parent of a 9-year-old (example)",
+      "locale": "en",
+      "quote": "She used to translate every sentence in her head before speaking. After a term she answers in connected sentences and actually enjoys it.",
+      "rating": 5,
+      "mediaType": "text",
+      "verifiedBadge": false,
+      "dateGiven": "2026-01-01"
+    },
+    {
+      "id": "example-irl-vi-0002",
+      "status": "draft",
+      "consent": { "granted": false, "date": "", "scope": "text+firstname", "record": "" },
+      "program": "ielts-reasoning-lab",
+      "authorDisplay": "Phụ huynh của học sinh 14 tuổi (ví dụ)",
+      "locale": "vi",
+      "quote": "Con tôi nói có cấu trúc hơn và tự tin đưa ra lý do, thay vì chỉ trả lời một câu ngắn.",
+      "rating": 5,
+      "mediaType": "text",
+      "verifiedBadge": false,
+      "dateGiven": "2026-02-01"
+    },
+    {
+      "id": "example-sf-zh-0003",
+      "status": "draft",
+      "consent": { "granted": false, "date": "", "scope": "text", "record": "" },
+      "program": "speaking-foundations",
+      "authorDisplay": "一位 11 岁学生的家长（示例）",
+      "locale": "zh-CN",
+      "quote": "孩子现在敢开口表达，能把想法连成几句话说清楚，课后也愿意继续练习。",
+      "rating": 4,
+      "mediaType": "text",
+      "verifiedBadge": false,
+      "dateGiven": "2026-03-01"
+    }
+  ]
+}
