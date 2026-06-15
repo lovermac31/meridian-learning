@@ -10,7 +10,7 @@
     "start": "NODE_ENV=production tsx server.ts",
     "preview": "vite preview",
     "test:metadata": "node --import tsx --test tests/metadata.test.ts",
-    "test:testimonials": "node --import tsx --test tests/testimonials.test.ts",
+    "test:testimonials": "node --import tsx --test tests/testimonials.test.ts tests/testimonials-mount.test.ts",
     "validate:prerender": "node --import tsx scripts/validate-prerender-routes.mjs",
     "pricing:access-link": "node scripts/generate-pricing-access-link.mjs",
     "external-portal:access-link": "node --import tsx scripts/generate-external-portal-access-link.mjs",
