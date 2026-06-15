@@ -39,9 +39,21 @@ acceptance tests.
 4. Flip to `published` with the stored `consent.record` id. Build re-runs guards.
 5. Revoke by setting `status:"archived"` (removed from output + schema within 72h).
 
+## Mount (Phase 2)
+- **Where:** the main SPA homepage, in `src/App.tsx`, immediately after `<ProofStrip>` (a natural social-proof slot). Component: `src/components/TestimonialsSection.tsx`. Locale comes from the SPA's `locale` (`en`/`vi`).
+- **Why the homepage and not the YL page (yet):** the YL static page + its island are being actively edited on the in-flight `perf/initial-payload` / header branch. Mounting there now would collide. The homepage is the lowest-conflict surface and the component is reusable; the YL-page slot is a fast-follow once that branch lands.
+- **Feature flag:** `VITE_TESTIMONIALS_ENABLED` (default **off**).
+  - **off** → `TestimonialsSection` returns `null`; **no testimonial surface renders.**
+  - **on** + 0 published → renders `TestimonialsEmptyState` (honest, localized).
+  - **on** + ≥1 published → renders a minimal accessible list of *only* `published`+`consented` entries (richer featured/wall/carousel reserved for Phase 3).
+  - Enable for a build with `VITE_TESTIMONIALS_ENABLED=true npm run build`, or add it to the deploy env. Vite inlines it at build time.
+- **Schema honesty (unchanged):** the mounted section emits **no** `Review`/`AggregateRating` JSON-LD. Conditional schema injection lands in Phase 3 via `buildReviewSchema()`, which stays `null` below 3 verified ratings.
+- **Styling:** `src/styles/testimonials.css` is imported once at the SPA entry (`src/main.tsx`); every selector is scoped under `.je-testimonials` so nothing leaks into the rest of the app.
+- **Verified (Phase 2):** lint · `test:testimonials` 12/12 (7 guardrail + 5 mount) · `test:metadata` 14/14 · `validate:prerender` 56 · build. Browser-verified both flag states (off → no section; on → empty state, no fabricated content, no schema).
+
 ## Roadmap
-- **Phase 1 (this PR):** foundation — types, data layer, guardrails, empty state, tokens, tests. *Nothing mounted, nothing published.*
-- **Phase 2:** `featured` + `wall` + accessible carousel components; mount on the YL page slots (coordinate with the in-flight YL header/perf branch).
-- **Phase 3:** conditional Review/AggregateRating injection + claim-discipline CI assertion + analytics events.
+- **Phase 1 (merged):** foundation — types, data layer, guardrails, empty state, tokens, tests. *Nothing mounted, nothing published.*
+- **Phase 2 (this PR):** flag-gated mount on the homepage + honest empty state + mount/behavior tests + a11y + scoped styling. *Off by default; nothing published.*
+- **Phase 3:** richer `featured` + `wall` + accessible carousel; conditional Review/AggregateRating injection + claim-discipline CI assertion + analytics events; YL-page slot (after the perf/header branch lands).
 - **Phase 4:** consent/moderation pipeline (Notion DB or admin flow) + revocation + full i18n.
 - **Phase 5:** a11y audit, Lighthouse, CI assertions, runbook + editorial guide.

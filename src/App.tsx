@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProofStrip } from './components/ProofStrip';
 import { CredibilityLogoMarquee } from './components/CredibilityLogoMarquee';
+import { TestimonialsSection } from './components/TestimonialsSection';
 // `/knowledge` is eager (not lazy): the hash deep-link scroll needs the
 // accordion DOM present on mount with a stable full-height layout. Lazy-
 // loading introduced a Suspense-swap race that reset the deep-anchor scroll.
@@ -531,6 +532,10 @@ function App() {
           <Hero onNavigate={navigateTo} />
           <CredibilityLogoMarquee />
           <ProofStrip onNavigate={navigateTo} />
+          {/* Social proof — dark by default behind VITE_TESTIMONIALS_ENABLED;
+              renders nothing when off, the honest empty state when on with no
+              published+consented testimonials. Never fabricates content. */}
+          <TestimonialsSection locale={locale} />
         </main>
       )}
       </Suspense>
