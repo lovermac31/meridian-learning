@@ -162,7 +162,7 @@ export const Navbar = ({
   const isSolidNav = forceSolidBackground || isScrolled;
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isSolidNav ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-premium py-4 border-b border-white/5' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isSolidNav ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : 'bg-transparent py-5'}`}>
       <div className="max-w-[1480px] mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <button
@@ -171,7 +171,7 @@ export const Navbar = ({
               setIsMobileMenuOpen(false);
               onNavigateHome();
             }}
-            className="rounded-md px-1 py-0.5 text-2xl font-display tracking-tight text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            className="rounded-md px-1 py-0.5 text-2xl font-sans font-semibold tracking-tight text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             aria-label={getUiString(locale, 'navbar.brandAriaLabel')}
           >
             Jurassic English<span className="text-xs align-top text-jurassic-accent">™</span>
@@ -194,14 +194,14 @@ export const Navbar = ({
             aria-label={youngLearnersPromo.ariaLabel}
             className="group inline-flex items-center gap-2 rounded-full border border-jurassic-accent/45 bg-jurassic-accent/10 py-1.5 pl-2 pr-3.5 transition-all duration-300 hover:border-jurassic-accent/70 hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
-            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white">
+            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
               {youngLearnersPromo.badge}
             </span>
             <span className="flex flex-col text-left leading-none">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-jurassic-accent">
                 {youngLearnersPromo.desktopEyebrow}
               </span>
-              <span className="mt-0.5 text-sm font-bold text-white">
+              <span className="mt-0.5 text-sm font-semibold text-white">
                 {youngLearnersPromo.desktopTitle}
               </span>
             </span>
@@ -214,7 +214,7 @@ export const Navbar = ({
               key={link.name}
               href={link.href}
               onClick={(event) => handleNavLinkClick(event, link.href)}
-              className="rounded-md text-sm font-medium text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+              className="rounded-md text-sm font-medium tracking-[0.01em] text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {link.name}
             </a>
@@ -224,7 +224,7 @@ export const Navbar = ({
           <button
             type="button"
             onClick={onGetStarted}
-            className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-bold glow-hover shadow-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-semibold glow-hover shadow-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             {getUiString(locale, 'navbar.getStarted')}
           </button>
@@ -279,10 +279,10 @@ export const Navbar = ({
               className="rounded-xl border border-jurassic-accent/45 bg-jurassic-accent/10 px-4 py-3 transition hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               <span className="flex items-center gap-2">
-                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white">
+                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
                   {youngLearnersPromo.badge}
                 </span>
-                <span className="text-base font-bold text-white">
+                <span className="text-base font-semibold text-white">
                   {youngLearnersPromo.mobileTitle}
                 </span>
               </span>
@@ -299,7 +299,7 @@ export const Navbar = ({
               <a
                 key={link.name}
                 href={link.href}
-                className="rounded-md text-lg font-medium text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+                className="rounded-md text-lg font-medium tracking-[0.01em] text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
                 onClick={(event) => handleNavLinkClick(event, link.href)}
               >
                 {link.name}
@@ -312,7 +312,7 @@ export const Navbar = ({
                 setIsMobileMenuOpen(false);
                 onGetStarted();
               }}
-              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {getUiString(locale, 'navbar.getStarted')}
             </button>
