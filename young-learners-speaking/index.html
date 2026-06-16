@@ -32,8 +32,6 @@
 <link rel="apple-touch-icon" href="assets/images/je-emblem.png">
 <link rel="preload" as="image" href="assets/images/page-main-1.png" fetchpriority="high">
 <script defer src="/_vercel/insights/script.js"></script>
-<link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin>
-<link rel="stylesheet" href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
@@ -172,18 +170,18 @@ p{margin-bottom:1rem}
 .btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
 .btn.light{background:#fff;border-color:#fff;color:var(--ink)}
 
-nav{position:sticky;top:0;z-index:30;background:rgba(21,24,29,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-dark)}
+nav{position:sticky;top:0;z-index:30;background:rgba(21,24,29,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-dark);font-family:"Aptos","Segoe UI","Helvetica Neue",Arial,sans-serif}
 .navin{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:12px;color:#fff}
 .brand img{width:44px;height:44px;object-fit:contain;border-radius:6px}
-.brand strong{font-family:"Neuland-Inline","Copperplate","Copperplate Gothic Light",Georgia,serif;text-transform:uppercase;font-size:1.28rem;font-weight:400;letter-spacing:.01em;line-height:1;color:#fff;text-shadow:0 1px 0 rgba(255,255,255,.18)}
-.brand sup{color:var(--orange);font-family:"Avenir Next","Trebuchet MS",system-ui,sans-serif;font-size:.42em;font-weight:900;line-height:0;margin-left:2px;position:relative;top:-.32em}
-.brand span{display:block;color:var(--orange2);font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-top:2px}
-.navlinks{display:flex;align-items:center;gap:22px;color:#dde3eb;font-weight:800;font-size:.92rem}
+.brand strong{font-family:"Aptos","Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:1.5rem;font-weight:600;letter-spacing:-.025em;line-height:1.1;color:#fff}
+.brand sup{color:var(--orange);font-family:inherit;font-size:.5em;font-weight:600;line-height:0;margin-left:1px;position:relative;top:-.55em}
+.brand span{display:block;color:var(--orange2);font-size:.58rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-top:3px}
+.navlinks{display:flex;align-items:center;gap:22px;color:#dde3eb;font-weight:500;font-size:.875rem;letter-spacing:.01em}
 .navlinks a:hover{color:#fff}
-.navlinks .navcta{background:var(--orange);padding:9px 14px;border-radius:7px;color:#fff}
+.navlinks .navcta{background:var(--orange);padding:9px 14px;border-radius:7px;color:#fff;font-weight:600}
 .lang-select{display:inline-flex;align-items:center;gap:3px;border:1px solid var(--line-dark);border-radius:999px;padding:3px;background:rgba(255,255,255,.05)}
-.lang-select button{appearance:none;-webkit-appearance:none;border:0;background:transparent;color:#cdd4dd;font-family:inherit;font-size:.78rem;font-weight:800;letter-spacing:.01em;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;white-space:nowrap;min-height:30px}
+.lang-select button{appearance:none;-webkit-appearance:none;border:0;background:transparent;color:#cdd4dd;font-family:inherit;font-size:.78rem;font-weight:600;letter-spacing:.01em;padding:5px 10px;border-radius:999px;cursor:pointer;line-height:1;white-space:nowrap;min-height:30px}
 .lang-select button:hover{color:#fff}
 .lang-select button.is-active{background:var(--orange);color:#fff}
 .lang-select button:focus-visible{outline:2px solid var(--orange2);outline-offset:2px}
@@ -349,7 +347,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
 }
 @media(max-width:620px){
   .navin{height:auto;padding:12px 0;flex-direction:column;align-items:center;gap:12px}
-  .brand strong{font-size:1.02rem}
+  .brand strong{font-size:1.25rem}
   .navlinks{gap:8px;flex-wrap:wrap;justify-content:center}
   .lang-select button{padding:5px 9px}
   .age-rail{grid-template-columns:1fr 1fr}

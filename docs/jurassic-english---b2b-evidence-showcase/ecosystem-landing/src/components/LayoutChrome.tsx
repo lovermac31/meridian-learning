@@ -19,7 +19,7 @@ function MinimalEcosystemFooter() {
     <footer className="py-12 border-t border-primary/10 bg-primary text-primary-foreground mt-20">
       <div className="container mx-auto px-4 text-center">
         <div className="flex items-center justify-center mb-6 opacity-90">
-          <span className="font-display text-2xl tracking-tight text-primary-foreground">
+          <span className="font-sans font-semibold text-2xl tracking-tight text-primary-foreground">
             Jurassic English
             <span className="text-xs align-top text-jurassic-accent">™</span>
           </span>

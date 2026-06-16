@@ -191,7 +191,7 @@ export function StudentAcademyFooter() {
     <footer className="mt-20 border-t border-primary-foreground/10 bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12">
         <div className="mb-10 flex flex-col items-start gap-4">
-          <span className="font-display text-2xl tracking-tight text-primary-foreground">
+          <span className="font-sans font-semibold text-2xl tracking-tight text-primary-foreground">
             Jurassic English
             <span className="text-xs align-top text-jurassic-accent">™</span>{" "}
             Student Academy
