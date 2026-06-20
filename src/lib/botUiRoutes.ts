@@ -71,7 +71,7 @@ export type BotUIPublicDestination = {
 };
 
 const BOTUI_PUBLIC_DESTINATIONS: Record<BotUIPublicDestinationKey, BotUIPublicDestination> = {
-  homeAbout: { key: 'homeAbout', label: 'About Jurassic English™', path: '/#about' },
+  homeAbout: { key: 'homeAbout', label: 'About Jurassic English™', path: '/framework' },
   framework: { key: 'framework', label: 'View the full framework', path: '/framework' },
   worldwise: { key: 'worldwise', label: 'WorldWise Learning — institutional curriculum', path: '/worldwise' },
   auditSprint: { key: 'auditSprint', label: 'Curriculum Coherence Audit Sprint (10-day review)', path: '/audit-sprint' },
@@ -83,7 +83,7 @@ const BOTUI_PUBLIC_DESTINATIONS: Record<BotUIPublicDestinationKey, BotUIPublicDe
   seriesLevel3: { key: 'seriesLevel3', label: 'Level 3: Expansion (representative level)', path: '/series/level-3-expansion' },
   thinkingCycleCompare: { key: 'thinkingCycleCompare', label: 'View the Thinking Cycle stages', path: '/thinking-cycle/compare' },
   thinkingCycleAnalyze: { key: 'thinkingCycleAnalyze', label: 'See a lesson in action (Analyze stage)', path: '/thinking-cycle/analyze' },
-  trainingOverview: { key: 'trainingOverview', label: 'Training and services overview', path: '/#training' },
+  trainingOverview: { key: 'trainingOverview', label: 'Training and services overview', path: '/methodology' },
   trainingGetStarted: {
     key: 'trainingGetStarted',
     label: 'Start a teacher training enquiry',
@@ -95,7 +95,7 @@ const BOTUI_PUBLIC_DESTINATIONS: Record<BotUIPublicDestinationKey, BotUIPublicDe
     path: '/get-started?interest=partnership',
   },
   getStarted: { key: 'getStarted', label: 'Get Started portal', path: '/get-started' },
-  contact: { key: 'contact', label: 'Contact section', path: '/#contact' },
+  contact: { key: 'contact', label: 'Contact section', path: '/get-started' },
   contactGetStarted: {
     key: 'contactGetStarted',
     label: 'Send a general enquiry',

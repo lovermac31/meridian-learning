@@ -405,13 +405,13 @@ function App() {
         <AvailableSoonPage
           onBack={navigateBackOrHome}
           onGetStarted={() => navigateTo('/get-started')}
-          onContactUs={() => navigateTo('/#contact')}
+          onContactUs={() => navigateTo('/get-started')}
         />
       ) : isUnreleasedLocalizedPublicView ? (
         <AvailableSoonPage
           onBack={navigateBackOrHome}
           onGetStarted={() => navigateTo('/get-started')}
-          onContactUs={() => navigateTo('/#contact')}
+          onContactUs={() => navigateTo('/get-started')}
         />
       ) : isGetStartedView ? (
         <GetStartedPortal onBack={() => navigateTo('/')} />
