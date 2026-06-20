@@ -79,7 +79,7 @@ export function ComingSoonModal({
 
   const handleContactUs = () => {
     onClose();
-    onNavigate('/#contact');
+    onNavigate('/get-started');
   };
 
   return (
