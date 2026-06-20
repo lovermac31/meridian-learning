@@ -1,0 +1,5 @@
+Contact: mailto:legal@worldwiselearning.com
+Contact: mailto:info@jurassicenglish.com
+Expires: 2027-06-20T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://jurassicenglish.com/.well-known/security.txt
