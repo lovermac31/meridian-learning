@@ -15,12 +15,9 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
   const locale = getCurrentLocale();
   const footerNav = {
     explore: [
-      { label: getUiString(locale, 'footer.links.about'), href: '/framework' },
       { label: getUiString(locale, 'footer.links.framework'), href: '/framework' },
       { label: getUiString(locale, 'footer.links.series'), href: '/series/compare' },
       { label: getUiString(locale, 'footer.links.thinkingCycle'), href: '/thinking-cycle/compare' },
-      { label: getUiString(locale, 'footer.links.services'), href: '/methodology' },
-      { label: getUiString(locale, 'footer.links.creativeStudio'), href: '/student-academy' },
       { label: getUiString(locale, 'footer.getStarted'), href: '/get-started' },
       { label: getUiString(locale, 'footer.links.contact'), href: '/get-started' },
     ],
