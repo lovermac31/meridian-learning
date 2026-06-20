@@ -15,14 +15,14 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
   const locale = getCurrentLocale();
   const footerNav = {
     explore: [
-      { label: getUiString(locale, 'footer.links.about'), href: '#about' },
+      { label: getUiString(locale, 'footer.links.about'), href: '/framework' },
       { label: getUiString(locale, 'footer.links.framework'), href: '/framework' },
-      { label: getUiString(locale, 'footer.links.series'), href: '#series' },
+      { label: getUiString(locale, 'footer.links.series'), href: '/series/compare' },
       { label: getUiString(locale, 'footer.links.thinkingCycle'), href: '/thinking-cycle/compare' },
-      { label: getUiString(locale, 'footer.links.services'), href: '#training' },
-      { label: getUiString(locale, 'footer.links.creativeStudio'), href: '#studio' },
+      { label: getUiString(locale, 'footer.links.services'), href: '/methodology' },
+      { label: getUiString(locale, 'footer.links.creativeStudio'), href: '/student-academy' },
       { label: getUiString(locale, 'footer.getStarted'), href: '/get-started' },
-      { label: getUiString(locale, 'footer.links.contact'), href: '#contact' },
+      { label: getUiString(locale, 'footer.links.contact'), href: '/get-started' },
     ],
     pathways: [
       { label: getUiString(locale, 'footer.links.teacherTraining'), href: '/get-started?interest=teacher_training' },
@@ -46,7 +46,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
       { label: 'Digital Reasoning Engine', href: '/digital-reasoning-engine' },
     ],
     resources: [
-      { label: getUiString(locale, 'footer.links.levelDetails'), href: '#series' },
+      { label: getUiString(locale, 'footer.links.levelDetails'), href: '/series/compare' },
       { label: getUiString(locale, 'footer.links.compareAllLevels'), href: '/series/compare' },
       { label: getUiString(locale, 'footer.links.syllabiDownloads'), href: '/series/compare' },
       { label: getUiString(locale, 'footer.links.compareAllStages'), href: '/thinking-cycle/compare' },
