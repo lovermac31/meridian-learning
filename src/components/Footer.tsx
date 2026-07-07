@@ -39,6 +39,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
       { label: 'Interactive Demo', href: '/interactive-demo' },
       { label: 'Book a Diagnostic', href: '/book-diagnostic' },
       { label: 'School Framework', href: '/school-framework' },
+      { label: 'Pilot Programme', href: '/pilot-programme' },
       { label: 'Evidence Policy', href: '/evidence' },
       { label: 'Digital Reasoning Engine', href: '/digital-reasoning-engine' },
     ],
