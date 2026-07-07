@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
+import { ArrowRight } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
@@ -88,6 +89,26 @@ export const Hero = ({ onNavigate }: HeroProps) => {
 
           {/* Two-door audience fork — the front door. */}
           <AudienceFork onNavigate={onNavigate} />
+
+          {/* Compact B2B discovery strip — secondary to the fork, links to /companies.
+              Deliberately NOT a fourth fork door and NOT in the top nav. */}
+          <button
+            type="button"
+            onClick={() => onNavigate('/companies')}
+            className="group mt-4 flex w-full max-w-3xl flex-col items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-4 text-left transition hover:border-jurassic-accent/40 hover:bg-white/[0.06] sm:flex-row sm:items-center sm:justify-between sm:gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+          >
+            <span className="min-w-0">
+              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-jurassic-accent">
+                {hero.companiesStrip.eyebrow}
+              </span>
+              <span className="mt-1 block text-base font-bold text-white">{hero.companiesStrip.title}</span>
+              <span className="mt-1 block text-sm leading-relaxed text-white/60">{hero.companiesStrip.body}</span>
+            </span>
+            <span className="inline-flex flex-none items-center gap-1.5 text-sm font-bold text-jurassic-accent">
+              {hero.companiesStrip.cta}
+              <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </button>
 
           <div className="mt-10 pt-6 border-t border-white/5 flex gap-6 items-center">
             <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">{hero.publishedBy}</div>
