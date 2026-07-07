@@ -45,6 +45,14 @@ const enHomeContent = {
         'IELTS-aligned speaking practice for ages 9–18 with a free 30-minute evaluation — online, house-call, or facility location TBA.',
       socialCta: 'Book Free Evaluation',
     },
+    // Compact B2B discovery strip below the fork (links to /companies). Kept
+    // secondary to the Schools/Parents/IELTS fork — no top-nav change.
+    companiesStrip: {
+      eyebrow: 'For companies · Tech & export teams',
+      title: 'Business English readiness for technical teams',
+      body: 'Turn engineers into confident, client-ready communicators — measured in CEFR/IELTS gains. HCMC · Hanoi · Online.',
+      cta: 'Explore for companies',
+    },
   },
   decisionSnapshot: {
     eyebrow: 'Institutional Decision Snapshot',
@@ -399,6 +407,12 @@ const viHomeContent = {
       socialBody:
         'Luyện nói theo chuẩn IELTS cho độ tuổi 9–18 với buổi đánh giá miễn phí 30 phút — online, tại nhà hoặc tại cơ sở (sẽ thông báo).',
       socialCta: 'Đặt đánh giá miễn phí',
+    },
+    companiesStrip: {
+      eyebrow: 'Cho doanh nghiệp · Đội ngũ công nghệ & xuất khẩu',
+      title: 'Sẵn sàng tiếng Anh doanh nghiệp cho đội ngũ kỹ thuật',
+      body: 'Giúp kỹ sư giao tiếp tự tin với khách hàng — đo bằng mức tăng CEFR/IELTS. HCMC · Hà Nội · Trực tuyến.',
+      cta: 'Tìm hiểu cho doanh nghiệp',
     },
   },
   decisionSnapshot: {
