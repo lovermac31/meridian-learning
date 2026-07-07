@@ -35,6 +35,9 @@ const WorldWisePage = lazy(() =>
 const AuditSprintPage = lazy(() =>
   import('./components/AuditSprintPage').then(m => ({ default: m.AuditSprintPage }))
 );
+const CompaniesPage = lazy(() =>
+  import('./components/CompaniesPage').then(m => ({ default: m.CompaniesPage }))
+);
 const PilotProgrammePage = lazy(() =>
   import('./components/PilotProgrammePage').then(m => ({ default: m.PilotProgrammePage }))
 );
@@ -157,6 +160,7 @@ function App() {
   const isMethodologyView = routePathname === '/methodology';
   const isCefrAlignmentView = routePathname === '/cefr-alignment';
   const isTeacherStandardsView = routePathname === '/teacher-standards';
+  const isCompaniesView = routePathname === '/companies';
   const isFrameworkView = routePathname === '/framework';
   const isKnowledgeView = routePathname === '/knowledge';
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
@@ -203,6 +207,7 @@ function App() {
     isMethodologyView ||
     isCefrAlignmentView ||
     isTeacherStandardsView ||
+    isCompaniesView ||
     isPlansPricingAccessView ||
     isExternalPilotPortalView ||
     isInternalPilotRequestsView ||
@@ -459,6 +464,13 @@ function App() {
         <TeacherStandardsPage
           onBack={() => navigateTo('/')}
           onGetStarted={() => navigateTo('/get-started?interest=discovery_call')}
+          onNavigate={navigateTo}
+        />
+      ) : isCompaniesView ? (
+        <CompaniesPage
+          locale={locale}
+          onBack={() => navigateTo('/')}
+          onGetStarted={() => navigateTo('/get-started?interest=discovery_call&source=companies')}
           onNavigate={navigateTo}
         />
       ) : isPlansPricingAccessView ? (

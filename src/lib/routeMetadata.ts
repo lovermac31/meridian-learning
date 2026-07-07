@@ -329,6 +329,27 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       { name: 'Audit Sprint', path: '/audit-sprint' },
     ],
   },
+  '/companies': {
+    title: 'Business & Technical English for Tech Teams | Jurassic English™',
+    description:
+      "AI-assisted business and technical English for Vietnam's tech and export teams (Ho Chi Minh City & Hanoi). Client-ready communication for engineers, measured in CEFR/IELTS gains and built by IELTS professionals. Book a scoping call.",
+    canonicalPath: '/companies',
+    jsonLd: [
+      createServiceJsonLd({
+        name: 'Business & Technical English for Tech Teams',
+        description:
+          'AI-assisted business and technical English training for tech and export employers in Vietnam, delivered as coached cohorts with CEFR/IELTS-aligned placement and measured readiness outcomes.',
+        url: `${SITE_URL}/companies`,
+        serviceType: 'Corporate English training',
+        areaServed: 'Ho Chi Minh City, Hanoi, and online',
+        audienceRole: 'business',
+      }),
+    ],
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'For Companies', path: '/companies' },
+    ],
+  },
   '/pilot-programme': {
     title: 'Jurassic English™ Pilot Programme — 6-8 Week Institutional Evaluation',
     description:
@@ -886,6 +907,7 @@ export function getExpectedPublicIndexableRoutes(): string[] {
         '/get-started',
         '/worldwise',
         '/audit-sprint',
+        '/companies',
         '/pilot-programme',
         '/discovery',
         '/methodology',
