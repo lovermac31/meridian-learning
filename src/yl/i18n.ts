@@ -384,7 +384,7 @@ const en: Dict = {
   'pricing.flexCta': 'Ask about a flexible payment plan',
   'pricing.whichH3': 'Which is right for my child?',
   'pricing.which1h': 'Younger / just starting (9-13)',
-  'pricing.which1p': 'Build confidence in a <strong>Group Cohort</strong> or with the <strong>Self-Study Toolkit</strong>.',
+  'pricing.which1p': 'Build confidence in <strong>small-group speaking practice</strong> or with the <strong>Self-Study Toolkit</strong>.',
   'pricing.which2h': 'Building toward the exam (14-16)',
   'pricing.which2p': 'Steady 1-on-1 progress on the <strong>Monthly</strong> or <strong>6-Month</strong> plan.',
   'pricing.which3h': 'Exam within 3 months (16-18)',
