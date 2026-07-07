@@ -17,6 +17,7 @@ export type PublicContentGroup =
   | 'methodology'
   | 'cefrAlignment'
   | 'teacherStandards'
+  | 'companies'
   | 'seriesCompare'
   | 'thinkingCycleCompare'
   | 'series'
@@ -40,6 +41,8 @@ const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean
   methodology: { en: true, vi: false },
   cefrAlignment: { en: true, vi: false },
   teacherStandards: { en: true, vi: false },
+  // B2B tech-workforce hub — EN-only for now; VI mirror is a follow-up.
+  companies: { en: true, vi: false },
   seriesCompare: { en: true, vi: true },
   thinkingCycleCompare: { en: true, vi: true },
   series: { en: true, vi: true },
@@ -61,6 +64,7 @@ export function getPublicContentGroup(pathname: string): PublicContentGroup | nu
   if (pathname === '/methodology') return 'methodology';
   if (pathname === '/cefr-alignment') return 'cefrAlignment';
   if (pathname === '/teacher-standards') return 'teacherStandards';
+  if (pathname === '/companies') return 'companies';
   if (pathname === '/series/compare') return 'seriesCompare';
   if (pathname === '/thinking-cycle/compare') return 'thinkingCycleCompare';
   if (seriesLevels.some((level) => level.path === pathname)) return 'series';
