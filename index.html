@@ -37,17 +37,22 @@
       fetchpriority="high"
     />
 
-    <!-- Decorative display font loads asynchronously; core text uses local system stacks for first paint. -->
+    <!-- Display font (Neuland-Inline) for the hero h1 — the page's LCP element.
+         The previous async-CSS pattern cost two SEQUENTIAL third-party round trips
+         (stylesheet, then font file) before the h1 could take its final paint; a
+         late font swap re-stamps text LCP, which is what Speed Insights measured
+         (Desktop LCP 5.24s P75). The @font-face now lives inline (CC BY 4.0 —
+         font served by and credited to www.OnlineWebFonts.Com) and the woff2 is
+         preloaded, so the fetch starts at HTML parse and normally lands before
+         React's first render — the h1 first-paints in its final font. -->
     <link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin />
     <link
       rel="preload"
-      as="style"
-      href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline"
-      onload="this.onload=null;this.rel='stylesheet'"
+      as="font"
+      type="font/woff2"
+      href="https://db.onlinewebfonts.com/t/3000a0539c78d3cf6ab2d94db856f5ef.woff2"
+      crossorigin
     />
-    <noscript>
-      <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/3000a0539c78d3cf6ab2d94db856f5ef?family=Neuland-Inline" />
-    </noscript>
 
     <!-- Favicon & touch icons -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -60,9 +65,22 @@
     <meta name="theme-color" content="#101820" />
 
     <!-- P1-A critical inline CSS: dark background prevents white flash while the
-         async Tailwind stylesheet loads. The loading spinner uses only inline
-         styles so no other declarations are needed for the pre-React paint. -->
-    <style>html,body{background:#101820;margin:0}#root{min-height:100vh}</style>
+         async Tailwind stylesheet loads. Also declares the Neuland-Inline
+         @font-face inline (woff2/woff only; the preload above starts the fetch
+         at parse time) so no third-party stylesheet round trip gates the hero
+         h1's final paint. font-display:swap keeps text visible in the fallback
+         display stack (Copperplate/Georgia) if the font is slow. -->
+    <style>
+      html,body{background:#101820;margin:0}#root{min-height:100vh}
+      @font-face{
+        font-family:"Neuland-Inline";
+        src:url("https://db.onlinewebfonts.com/t/3000a0539c78d3cf6ab2d94db856f5ef.woff2")format("woff2"),
+            url("https://db.onlinewebfonts.com/t/3000a0539c78d3cf6ab2d94db856f5ef.woff")format("woff");
+        font-weight:normal;
+        font-style:normal;
+        font-display:swap;
+      }
+    </style>
   </head>
   <body>
     <div id="root">
@@ -76,11 +94,18 @@
         this briefly during initial JS load before the full app paints,
         then React removes it. Brand background (#101820) is preserved
         to avoid a white flash, matching the previous loading indicator.
+
+        LCP: the h1 below mirrors the live hero headline — same copy, same
+        display font stack, clamp()ed to the hero's responsive sizes — so the
+        page's largest text paint happens HERE, at HTML parse time, instead of
+        waiting for React. When React renders the real hero h1 (same copy/size),
+        it is not a larger paint, so the early LCP timestamp stands.
       -->
       <div style="min-height:100vh;background:#101820;color:rgba(255,255,255,0.85);font-family:Aptos,'Segoe UI','Helvetica Neue',Arial,sans-serif;padding:3rem 1.5rem;box-sizing:border-box;">
-        <div style="max-width:42rem;margin:0 auto;">
-          <p style="margin:0 0 0.75rem;font-size:0.7rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.2em;">Loading</p>
-          <h1 style="margin:0 0 1.25rem;font-size:1.875rem;font-weight:700;letter-spacing:-0.02em;color:#F26419;line-height:1.15;">Jurassic English™ — Critical Thinking Through Literature</h1>
+        <div style="max-width:48rem;margin:0 auto;">
+          <p style="margin:0 0 1rem;font-size:0.75rem;font-weight:600;color:#F26419;text-transform:uppercase;letter-spacing:0.2em;">Literature-based English curriculum</p>
+          <h1 style="margin:0 0 1.25rem;font-family:'Neuland-Inline',Copperplate,'Copperplate Gothic Light','Palatino Linotype',Georgia,serif;font-weight:400;font-size:clamp(2rem,5vw,3.8rem);letter-spacing:-0.025em;color:#ffffff;line-height:1.05;">Critical thinking <span style="color:#F26419;">through literature.</span></h1>
+          <p style="margin:0 0 0.875rem;max-width:36rem;font-weight:300;line-height:1.6;color:rgba(255,255,255,0.7);">A complete, literature-based English curriculum that builds how students read, reason, and write with evidence.</p>
           <p style="margin:0 0 0.875rem;line-height:1.6;">Jurassic English™ is a literature-based academic English and reasoning framework for students, parents, schools, and learning centers.</p>
           <p style="margin:0 0 0.875rem;line-height:1.6;">Students build reading depth, spoken explanation, evidence-based writing, and visible portfolio work through structured literature study.</p>
           <p style="margin:0 0 1.5rem;line-height:1.6;">Schools and centers can explore curriculum coherence, methodology, teacher implementation, and institutional review pathways.</p>
