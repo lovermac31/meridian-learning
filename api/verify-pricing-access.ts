@@ -105,7 +105,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const token = typeof req.query.token === 'string' ? req.query.token : null;
+    // WHATWG URL instead of req.query: @vercel/node parses req.query with the
+    // deprecated legacy url.parse() (DEP0169), which logs a runtime deprecation
+    // warning on every invocation. Exactly one token param is accepted, matching
+    // the old `typeof === 'string'` guard (repeated params used to yield an
+    // array and be rejected).
+    const tokenValues = new URL(req.url ?? '/', 'http://localhost').searchParams.getAll('token');
+    const token = tokenValues.length === 1 && tokenValues[0] ? tokenValues[0] : null;
     const result = verifyPricingAccessToken(token);
 
     if (!result.ok) {
