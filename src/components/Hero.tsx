@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
@@ -16,8 +15,13 @@ type HeroProps = {
  * Concrete headline + one audience-neutral line + the two-door AudienceFork.
  * The old dense institutional CTA cluster + parent link rows were removed:
  * audience routing is now the AudienceFork's job (Schools → /school-framework,
- * Parents → /student-academy). Clarity-to-action is intended to be <2s, so the
- * heavy staggered fade was dropped in favour of a single short entrance.
+ * Parents → /student-academy). Clarity-to-action is intended to be <2s.
+ *
+ * No entrance animation on this container: the h1 inside is the page's LCP
+ * element (per Speed Insights selector data), and an opacity-0 mount state
+ * blocks LCP until React boots + the fade completes — it was worth ~0.5s of
+ * field LCP on top of JS boot. The static index.html fallback paints the same
+ * headline pre-React, so animating it in afterwards would also double-reveal.
  */
 export const Hero = ({ onNavigate }: HeroProps) => {
   const [heroImageAvailable, setHeroImageAvailable] = useState(true);
@@ -65,12 +69,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="max-w-3xl"
-        >
+        <div className="max-w-3xl">
           <span className="text-jurassic-accent font-semibold tracking-widest uppercase text-xs mb-4 block">
             {hero.eyebrow}
           </span>
@@ -114,7 +113,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
             <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">{hero.publishedBy}</div>
             <div className="text-white/80 font-serif text-lg italic tracking-wide">{hero.publisher}</div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
