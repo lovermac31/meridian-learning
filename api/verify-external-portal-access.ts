@@ -127,7 +127,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
 
   try {
-    const token = typeof req.query.token === 'string' ? req.query.token : null;
+    // WHATWG URL instead of req.query — same DEP0169 rationale and single-token
+    // semantics as api/verify-pricing-access.ts.
+    const tokenValues = new URL(req.url ?? '/', 'http://localhost').searchParams.getAll('token');
+    const token = tokenValues.length === 1 && tokenValues[0] ? tokenValues[0] : null;
     const result = verifyExternalPortalToken(token);
 
     if (!result.ok) {
