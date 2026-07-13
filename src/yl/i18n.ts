@@ -170,7 +170,7 @@ const en: Dict = {
   'hero.age3': 'High School',
   'hero.age3sub': 'Ages 15-18',
   'hero.age4': 'University-Ready',
-  'hero.age4sub': 'Band 7-8.5',
+  'hero.age4sub': 'Band 7+ targets',
   'hero.foot1': 'Available as 1-to-1 coaching or small-group speaking practice · Hanoi & online',
 
   // ---- Parents section ----
@@ -181,7 +181,7 @@ const en: Dict = {
   'parents.whoFor':
     'For ages 9-18 who are strong on paper but quiet out loud, freeze when asked to speak, or are heading toward exams.',
   'parents.metric1num': '4',
-  'parents.metric1': 'pillars every lesson is scored on: fluency, vocabulary, grammar, and pronunciation.',
+  'parents.metric1': 'pillars tracked in every lesson: fluency, vocabulary, grammar, and pronunciation.',
   'parents.metric2num': '16+',
   'parents.metric2': 'the age IELTS is designed for, so the years before it are where fluency is built.',
   'parents.metric3num': '9-18',
@@ -200,7 +200,7 @@ const en: Dict = {
   'parents.mini2H': 'Scholarships',
   'parents.mini2P': 'Where speaking sets applicants apart',
   'parents.mini3H': 'Study Abroad',
-  'parents.mini3P': 'The band that unlocks the visa',
+  'parents.mini3P': 'Support for study-abroad English requirements',
   'parents.mini4H': 'Confidence',
   'parents.mini4P': 'For class, clubs, and life',
 
@@ -238,10 +238,10 @@ const en: Dict = {
   // ---- High-school section ----
   'hs.kicker': 'High school · ages 15-18',
   'hs.h2': 'Where it all comes together',
-  'hs.p': 'The full IELTS Speaking method: calm, confident, exam-ready, Band 6.5 to 8.5.',
+  'hs.p': 'The full IELTS Speaking method: calm, confident, exam-ready, with Band 6.5-8.5 targets.',
   'stage3.ageSub': 'High School',
   'stage3.h3': 'Mastery & the Exam',
-  'stage3.sub': 'The full IELTS Speaking method: Band 6.5 to 8.5.',
+  'stage3.sub': 'The full IELTS Speaking method: Band 6.5-8.5 targets.',
   'stage3.cefr': 'CEFR B2-C2<br>Band 6.5-8.5',
   'stage3.now': 'Capable speakers who need to convert ability into a real high IELTS band for university and study-abroad applications.',
   'stage3.build': 'Abstract Part 3 argument, precision and idiom, advanced grammar under pressure, prosody, and full mock readiness.',
@@ -249,18 +249,18 @@ const en: Dict = {
   'stage3.able': 'Walk into the test calm and ready, targeting Band 7 to 8.5, and speak fluently in interviews and seminars for years after.',
   'hs.calloutH3': 'The full band ladder, inside high school',
   'hs.calloutP': 'The high-school stage runs the complete six-step ladder: 5.0 to 6.0, 6.0 to 6.5, 6.5 to 7.0, 7.0 to 7.5, 7.5 to 8.0, and 8.0 to 8.5. Each step is grounded in the official IELTS descriptors.',
-  'hs.unlockH3': 'What a high band actually unlocks',
+  'hs.unlockH3': 'What these bands are typically used for',
   'hs.unlock1band': 'Band 6.5-7.0',
-  'hs.unlock1': 'Most undergraduate programmes worldwide, and many university scholarships.',
+  'hs.unlock1': 'Many universities publish IELTS requirements in this range; exact requirements vary by programme and component.',
   'hs.unlock2band': 'Band 7.0-7.5',
-  'hs.unlock2': 'Top-ranked universities, competitive courses, and skilled-migration visas.',
+  'hs.unlock2': 'Programmes and pathways with higher English-language requirements.',
   'hs.unlock3band': 'Band 8.0-8.5',
-  'hs.unlock3': 'Elite admissions and applications that genuinely stand out from the crowd.',
+  'hs.unlock3': 'Advanced English proficiency for demanding academic environments.',
 
   // ---- Method section ----
   'method.kicker': 'A real method, not chat in English',
   'method.h2': 'How we actually teach speaking',
-  'method.p': 'Diagnosed and trained, then measured on the same four pillars examiners use.',
+  'method.p': 'Diagnosed and trained, then measured on the same four pillars described in the public IELTS Speaking criteria.',
   'method.card1tag': 'Fluency',
   'method.card1h': 'Speaking smoothly',
   'method.card1p': 'Connected, confident speech without long pauses, restarts, or freezing.',
@@ -312,25 +312,25 @@ const en: Dict = {
   'evidence.item3p': 'Students learn to extend answers, organize ideas, explain reasons, qualify opinions, and repair weak language: the behaviors that make spoken English sound academically mature.',
   'evidence.item4b': 'Feedback + Re-try Loop',
   'evidence.item4p': 'Short recorded tasks, targeted corrective feedback, and immediate re-speaking turn mistakes into usable skill rather than passive grammar knowledge.',
-  'evidence.p': 'The result is a 100% IELTS-aligned training pathway in the practical sense: lesson targets, speaking tasks, feedback, and parent reports are all organized around the same public criteria used to describe IELTS Speaking performance.',
+  'evidence.p': 'The pathway is systematically aligned with the public IELTS Speaking assessment criteria: lesson targets, speaking tasks, feedback, and parent reports are all organized around the same public criteria used to describe IELTS Speaking performance.',
   'evidence.ref1': 'IELTS public Speaking band descriptors: fluency and coherence, lexical resource, grammatical range and accuracy, pronunciation.',
   'evidence.ref2': 'Cambridge English / CEFR-aligned progression: communicative competence, spoken production, spoken interaction, and increasing control across levels.',
   'evidence.ref3': 'Assessment-for-learning: clear goals, evidence of performance, feedback, and next-step action.',
   'evidence.ref4': 'Second-language speaking research: output practice, interaction, corrective feedback, retrieval, and reflection improve spoken fluency and accuracy over time.',
-  'evidence.disclaimer': 'Jurassic English is IELTS-aligned; it is not officially endorsed by IELTS, Cambridge, British Council, or IDP. Band goals are training targets, not score guarantees.',
+  'evidence.disclaimer': 'Jurassic English is an independent education provider. It is not endorsed by or affiliated with IELTS, Cambridge University Press & Assessment, the British Council or IDP. IELTS is a registered trademark of its respective owners. Band references are coaching targets and internal estimates; only an authorised IELTS test produces an official IELTS score, and results are not guaranteed.',
 
   // ---- Why-families section ----
   'why.kicker': 'Why families choose Jurassic English',
   'why.h2': 'More than a tutor',
   'why.p': 'A specialist method, measured progress, and a caring structured place your child looks forward to.',
   'why.benefit1H': 'Progress you can see',
-  'why.benefit1P': 'Every lesson is scored and tracked. You get clear reports, not vague reassurance.',
+  'why.benefit1P': 'Progress is reviewed every lesson against clear speaking objectives. You get clear reports, not vague reassurance.',
   'why.benefit2H': 'Age-appropriate, always',
   'why.benefit2P': "Tasks, topics, and pace match your child's stage, from playful primary to exam-focused high school.",
   'why.benefit3H': 'More than an exam',
   'why.benefit3P': 'We build critical thinking, confidence, and global-mindedness: skills that last after the test.',
   'why.benefit4H': 'One connected path',
-  'why.benefit4P': 'No starting over each year. Your child grows along a single deliberate journey to Band 7-8.5.',
+  'why.benefit4P': 'No starting over each year. Your child grows along a single deliberate journey toward Band 7-8.5 targets.',
   'why.benefit5H': 'Evidence, not promises',
   'why.benefit5P': 'A recorded portfolio lets you hear how far your child has come.',
   'why.benefit6H': 'In person or online',
@@ -415,8 +415,19 @@ const en: Dict = {
   'book.emailBtn': 'Email to book',
 
   // ---- Certifications strip (quiet YL logo marquee) ----
-  'certstrip.label': 'Aligned with international English standards',
-  'certstrip.note': 'Teaching credentials, assessment frameworks, and academic English references.',
+  'certstrip.label': 'Framework-informed teaching',
+  'certstrip.note': 'Our programme draws on the public IELTS Speaking criteria, CEFR-referenced progression, and assessment-for-learning principles. Jurassic English is independent and is not endorsed by IELTS, Cambridge, British Council, IDP, TOEFL, or TOEIC.',
+
+  // ---- Legal & claims disclaimers (footer) ----
+  'legal.h3': 'Important information for families',
+  'legal.scores':
+    'Band references describe coaching targets and internal performance estimates. Only an authorised IELTS test produces an official IELTS score. Results are not guaranteed.',
+  'legal.admissions':
+    'University, scholarship and visa requirements vary by institution, programme, country and application type. Families should confirm current requirements with the relevant authority.',
+  'legal.cefr':
+    'CEFR and IELTS references are approximate comparisons for educational planning and are not direct equivalents.',
+  'legal.recording':
+    "Speaking recordings are created only with parent or guardian consent, used for teaching and progress review, and retained according to the programme's privacy policy.",
 
   // ---- BotUI (React island) ----
   'botui.bubbleAria': 'Open parent guide chat',
