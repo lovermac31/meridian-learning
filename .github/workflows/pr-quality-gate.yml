@@ -1,0 +1,44 @@
+# PR Quality Gate — runs the repo's own verification suite on every PR.
+#
+# Added 2026-07-13 after the header brand-font regression (ea61a05 → PR #60):
+# the repo had 60+ tests but NOTHING ran them on pull requests, so a change
+# that broke a guarded invariant could merge silently. Vercel preview builds
+# only prove the build compiles — they run no tests.
+name: PR Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Type-check (lint)
+        run: npm run lint
+
+      - name: Test suite (incl. brand-typography guard)
+        run: npm test
+
+      - name: Build (68 prerendered routes)
+        run: npm run build
+
+      - name: Validate prerender routes
+        run: npm run validate:prerender
