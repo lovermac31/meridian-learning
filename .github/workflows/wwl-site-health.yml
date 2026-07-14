@@ -139,6 +139,10 @@ jobs:
             --site "$SITE_URL" \
             --output prod-report \
             ${{ inputs.strict && '--strict' || '' }}
+        env:
+          # Enables the deep Supabase health probe (protected /api/health).
+          # Must match the CRON_SECRET set on Vercel. If unset, the check WARNs.
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
         continue-on-error: true
 
       # ── Lighthouse CI (optional)
