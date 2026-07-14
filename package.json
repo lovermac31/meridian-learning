@@ -16,7 +16,8 @@
     "external-portal:access-link": "node --import tsx scripts/generate-external-portal-access-link.mjs",
     "supabase:keepalive": "node --env-file=.env.local scripts/supabase-keepalive.mjs",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",
