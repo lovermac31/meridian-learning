@@ -14,6 +14,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { YlBotUI } from './YlBotUI';
+import { PromoVideoModal } from './PromoVideoModal';
 import { initPageI18n } from './pageI18n';
 
 // Localize the static page (content + metadata + selector) for the resolved
@@ -31,6 +32,7 @@ if (mount) {
   createRoot(mount).render(
     <StrictMode>
       <YlBotUI />
+      <PromoVideoModal />
     </StrictMode>,
   );
 }
