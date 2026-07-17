@@ -119,7 +119,7 @@
       "name": "How is progress measured and shared with parents?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Every lesson is scored against the four IELTS Speaking pillars. Parents receive a Four-Pillar progress tracker, a plain-language progress report, and access to a recorded portfolio that lets you hear your child's voice now compared to months later."
+        "text": "Progress is reviewed every lesson against the four public IELTS Speaking criteria. Parents receive a Four-Pillar progress tracker, a plain-language progress report, and access to a recorded portfolio that lets you hear your child's voice now compared to months later."
       }
     },
     {
@@ -382,22 +382,11 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
 .yl-cert-head{margin-bottom:12px}
 .yl-cert-label{font-size:.64rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px}
 .yl-cert-note{font-size:.8rem;line-height:1.4;color:var(--warm);margin:0;max-width:640px}
-.yl-cert-viewport{position:relative;overflow:hidden}
-.yl-cert-viewport::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,var(--cream2) 0%,rgba(251,247,239,0) 6%,rgba(251,247,239,0) 94%,var(--cream2) 100%)}
-.yl-cert-track{display:flex;width:max-content;align-items:center;animation:yl-cert-marquee 54s linear infinite}
-.yl-cert-viewport:hover .yl-cert-track{animation-play-state:paused}
-.yl-cert-card{flex:none;display:flex;align-items:center;justify-content:center;height:46px;min-width:120px;margin-right:14px;padding:0 14px;background:#fff;border:1px solid var(--line);border-radius:9px}
-.yl-cert-card img{display:block;max-height:24px;max-width:96px;width:auto;height:auto;object-fit:contain;opacity:.6;filter:grayscale(1);transition:opacity .2s var(--ease),filter .2s var(--ease)}
-.yl-cert-card:hover img{opacity:1;filter:grayscale(0)}
-@keyframes yl-cert-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:620px){
   .yl-cert{padding:14px 0}
-  .yl-cert-card{height:42px;min-width:104px;margin-right:11px;padding:0 12px}
-  .yl-cert-card img{max-height:21px;max-width:84px}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
-  .yl-cert-track{animation:none!important;transform:none!important}
 }
 </style>
 </head>
@@ -440,7 +429,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div class="r1"><span data-i18n="hero.age1">Later Primary</span><small data-i18n="hero.age1sub">Ages 9-11</small></div>
       <div class="r2"><span data-i18n="hero.age2">Middle School</span><small data-i18n="hero.age2sub">Ages 11-14</small></div>
       <div class="r3"><span data-i18n="hero.age3">High School</span><small data-i18n="hero.age3sub">Ages 15-18</small></div>
-      <div class="r4"><span data-i18n="hero.age4">University-Ready</span><small data-i18n="hero.age4sub">Band 7-8.5</small></div>
+      <div class="r4"><span data-i18n="hero.age4">University-Ready</span><small data-i18n="hero.age4sub">Band 7+ targets</small></div>
     </div>
     <div class="cover-foot">
       <span data-i18n="hero.foot1">Available as 1-to-1 coaching or small-group speaking practice · Hanoi &amp; online</span>
@@ -453,30 +442,8 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
   <section class="yl-cert" aria-labelledby="yl-cert-label">
     <div class="wrap">
       <div class="yl-cert-head">
-        <div class="yl-cert-label" id="yl-cert-label" data-i18n="certstrip.label">Aligned with international English standards</div>
-        <p class="yl-cert-note" data-i18n="certstrip.note">Teaching credentials, assessment frameworks, and academic English references.</p>
-      </div>
-      <div class="yl-cert-viewport">
-        <div class="yl-cert-track">
-          <div class="yl-cert-card"><img src="/cert-logos/ielts-logo.png" alt="IELTS logo" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card"><img src="/cert-logos/toefl-ibt-logo.webp" alt="TOEFL iBT logo" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card"><img src="/cert-logos/toeic-logo.png" alt="TOEIC logo" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card"><img src="/cert-logos/celta-cambridge-logo.png" alt="Cambridge CELTA logo" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card"><img src="/cert-logos/cefr-logo.webp" alt="CEFR framework logo" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card"><img src="/cert-logos/oxford-test-of-english.png" alt="Oxford Test of English logo" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card"><img src="/cert-logos/pearson-logo.png" alt="Pearson logo" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card"><img src="/cert-logos/partner-schools.avif" alt="Partner schools logo" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card"><img src="/cert-logos/top-sea-partner.avif" alt="Top SEA partner logo" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/ielts-logo.png" alt="" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/toefl-ibt-logo.webp" alt="" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/toeic-logo.png" alt="" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/celta-cambridge-logo.png" alt="" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/cefr-logo.webp" alt="" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/oxford-test-of-english.png" alt="" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/pearson-logo.png" alt="" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/partner-schools.avif" alt="" loading="eager" decoding="sync"></div>
-          <div class="yl-cert-card" aria-hidden="true"><img src="/cert-logos/top-sea-partner.avif" alt="" loading="eager" decoding="sync"></div>
-        </div>
+        <div class="yl-cert-label" id="yl-cert-label" data-i18n="certstrip.label">Framework-informed teaching</div>
+        <p class="yl-cert-note" data-i18n="certstrip.note">Our programme draws on the public IELTS Speaking criteria, CEFR-referenced progression, and assessment-for-learning principles. Jurassic English is independent and is not endorsed by IELTS, Cambridge, British Council, IDP, TOEFL, or TOEIC.</p>
       </div>
     </div>
   </section>
@@ -493,7 +460,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
         </div>
       </div>
       <div class="metrics">
-        <div class="metric"><strong data-i18n="parents.metric1num">4</strong><span data-i18n="parents.metric1">pillars every lesson is scored on: fluency, vocabulary, grammar, and pronunciation.</span></div>
+        <div class="metric"><strong data-i18n="parents.metric1num">4</strong><span data-i18n="parents.metric1">pillars tracked in every lesson: fluency, vocabulary, grammar, and pronunciation.</span></div>
         <div class="metric"><strong data-i18n="parents.metric2num">16+</strong><span data-i18n="parents.metric2">the age IELTS is designed for, so the years before it are where fluency is built.</span></div>
         <div class="metric"><strong data-i18n="parents.metric3num">9-18</strong><span data-i18n="parents.metric3">the window we coach: later primary, middle school, and high school on one path.</span></div>
       </div>
@@ -511,7 +478,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div class="mini-cards">
         <div class="mini-card"><h3 data-i18n="parents.mini1H">University</h3><p data-i18n="parents.mini1P">Admissions and interviews in English</p></div>
         <div class="mini-card"><h3 data-i18n="parents.mini2H">Scholarships</h3><p data-i18n="parents.mini2P">Where speaking sets applicants apart</p></div>
-        <div class="mini-card"><h3 data-i18n="parents.mini3H">Study Abroad</h3><p data-i18n="parents.mini3P">The band that unlocks the visa</p></div>
+        <div class="mini-card"><h3 data-i18n="parents.mini3H">Study Abroad</h3><p data-i18n="parents.mini3P">Support for study-abroad English requirements</p></div>
         <div class="mini-card"><h3 data-i18n="parents.mini4H">Confidence</h3><p data-i18n="parents.mini4P">For class, clubs, and life</p></div>
       </div>
     </div>
@@ -571,14 +538,14 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
         <div class="photo-panel">
           <div class="kicker" data-i18n="hs.kicker">High school · ages 15-18</div>
           <h2 data-i18n="hs.h2">Where it all comes together</h2>
-          <p data-i18n="hs.p">The full IELTS Speaking method: calm, confident, exam-ready, Band 6.5 to 8.5.</p>
+          <p data-i18n="hs.p">The full IELTS Speaking method: calm, confident, exam-ready, with Band 6.5-8.5 targets.</p>
         </div>
       </div>
 
       <article class="stage-card orange">
         <div class="stage-head">
           <div class="age">15-18<small data-i18n="stage3.ageSub">High School</small></div>
-          <div><h3 data-i18n="stage3.h3">Mastery &amp; the Exam</h3><p data-i18n="stage3.sub">The full IELTS Speaking method: Band 6.5 to 8.5.</p></div>
+          <div><h3 data-i18n="stage3.h3">Mastery &amp; the Exam</h3><p data-i18n="stage3.sub">The full IELTS Speaking method: Band 6.5-8.5 targets.</p></div>
           <div class="cefr" data-i18n-html="stage3.cefr">CEFR B2-C2<br>Band 6.5-8.5</div>
         </div>
         <div class="stage-grid">
@@ -593,11 +560,11 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
         <h3 data-i18n="hs.calloutH3">The full band ladder, inside high school</h3>
         <p data-i18n="hs.calloutP">The high-school stage runs the complete six-step ladder: 5.0 to 6.0, 6.0 to 6.5, 6.5 to 7.0, 7.0 to 7.5, 7.5 to 8.0, and 8.0 to 8.5. Each step is grounded in the official IELTS descriptors.</p>
       </div>
-      <h3 style="text-transform:uppercase;letter-spacing:.04em" data-i18n="hs.unlockH3">What a high band actually unlocks</h3>
+      <h3 style="text-transform:uppercase;letter-spacing:.04em" data-i18n="hs.unlockH3">What these bands are typically used for</h3>
       <table class="unlock" aria-label="Band unlocks">
-        <tr><td data-i18n="hs.unlock1band">Band 6.5-7.0</td><td data-i18n="hs.unlock1">Most undergraduate programmes worldwide, and many university scholarships.</td></tr>
-        <tr><td data-i18n="hs.unlock2band">Band 7.0-7.5</td><td data-i18n="hs.unlock2">Top-ranked universities, competitive courses, and skilled-migration visas.</td></tr>
-        <tr><td data-i18n="hs.unlock3band">Band 8.0-8.5</td><td data-i18n="hs.unlock3">Elite admissions and applications that genuinely stand out from the crowd.</td></tr>
+        <tr><td data-i18n="hs.unlock1band">Band 6.5-7.0</td><td data-i18n="hs.unlock1">Many universities publish IELTS requirements in this range; exact requirements vary by programme and component.</td></tr>
+        <tr><td data-i18n="hs.unlock2band">Band 7.0-7.5</td><td data-i18n="hs.unlock2">Programmes and pathways with higher English-language requirements.</td></tr>
+        <tr><td data-i18n="hs.unlock3band">Band 8.0-8.5</td><td data-i18n="hs.unlock3">Advanced English proficiency for demanding academic environments.</td></tr>
       </table>
     </div>
   </section>
@@ -609,7 +576,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
         <div class="photo-panel">
           <div class="kicker" data-i18n="method.kicker">A real method, not chat in English</div>
           <h2 data-i18n="method.h2">How we actually teach speaking</h2>
-          <p data-i18n="method.p">Diagnosed and trained, then measured on the same four pillars examiners use.</p>
+          <p data-i18n="method.p">Diagnosed and trained, then measured on the same four pillars described in the public IELTS Speaking criteria.</p>
         </div>
       </div>
       <div class="method-grid">
@@ -650,14 +617,14 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
           <div class="evidence-item"><b data-i18n="evidence.item3b">Academic Output Practice</b><p data-i18n="evidence.item3p">Students learn to extend answers, organize ideas, explain reasons, qualify opinions, and repair weak language: the behaviors that make spoken English sound academically mature.</p></div>
           <div class="evidence-item"><b data-i18n="evidence.item4b">Feedback + Re-try Loop</b><p data-i18n="evidence.item4p">Short recorded tasks, targeted corrective feedback, and immediate re-speaking turn mistakes into usable skill rather than passive grammar knowledge.</p></div>
         </div>
-        <p data-i18n="evidence.p">The result is a 100% IELTS-aligned training pathway in the practical sense: lesson targets, speaking tasks, feedback, and parent reports are all organized around the same public criteria used to describe IELTS Speaking performance.</p>
+        <p data-i18n="evidence.p">The pathway is systematically aligned with the public IELTS Speaking assessment criteria: lesson targets, speaking tasks, feedback, and parent reports are all organized around the same public criteria used to describe IELTS Speaking performance.</p>
         <ul class="reference-list">
           <li data-i18n="evidence.ref1">IELTS public Speaking band descriptors: fluency and coherence, lexical resource, grammatical range and accuracy, pronunciation.</li>
           <li data-i18n="evidence.ref2">Cambridge English / CEFR-aligned progression: communicative competence, spoken production, spoken interaction, and increasing control across levels.</li>
           <li data-i18n="evidence.ref3">Assessment-for-learning: clear goals, evidence of performance, feedback, and next-step action.</li>
           <li data-i18n="evidence.ref4">Second-language speaking research: output practice, interaction, corrective feedback, retrieval, and reflection improve spoken fluency and accuracy over time.</li>
         </ul>
-        <p class="evidence-note" data-i18n="evidence.disclaimer">Jurassic English is IELTS-aligned; it is not officially endorsed by IELTS, Cambridge, British Council, or IDP. Band goals are training targets, not score guarantees.</p>
+        <p class="evidence-note" data-i18n="evidence.disclaimer">Jurassic English is an independent education provider. It is not endorsed by or affiliated with IELTS, Cambridge University Press &amp; Assessment, the British Council or IDP. IELTS is a registered trademark of its respective owners. Band references are coaching targets and internal estimates; only an authorised IELTS test produces an official IELTS score, and results are not guaranteed.</p>
       </div>
     </div>
   </section>
@@ -673,10 +640,10 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
         </div>
       </div>
       <div class="reason-grid">
-        <div class="benefit"><h3 data-i18n="why.benefit1H">Progress you can see</h3><p data-i18n="why.benefit1P">Every lesson is scored and tracked. You get clear reports, not vague reassurance.</p></div>
+        <div class="benefit"><h3 data-i18n="why.benefit1H">Progress you can see</h3><p data-i18n="why.benefit1P">Progress is reviewed every lesson against clear speaking objectives. You get clear reports, not vague reassurance.</p></div>
         <div class="benefit"><h3 data-i18n="why.benefit2H">Age-appropriate, always</h3><p data-i18n="why.benefit2P">Tasks, topics, and pace match your child's stage, from playful primary to exam-focused high school.</p></div>
         <div class="benefit"><h3 data-i18n="why.benefit3H">More than an exam</h3><p data-i18n="why.benefit3P">We build critical thinking, confidence, and global-mindedness: skills that last after the test.</p></div>
-        <div class="benefit"><h3 data-i18n="why.benefit4H">One connected path</h3><p data-i18n="why.benefit4P">No starting over each year. Your child grows along a single deliberate journey to Band 7-8.5.</p></div>
+        <div class="benefit"><h3 data-i18n="why.benefit4H">One connected path</h3><p data-i18n="why.benefit4P">No starting over each year. Your child grows along a single deliberate journey toward Band 7-8.5 targets.</p></div>
         <div class="benefit"><h3 data-i18n="why.benefit5H">Evidence, not promises</h3><p data-i18n="why.benefit5P">A recorded portfolio lets you hear how far your child has come.</p></div>
         <div class="benefit"><h3 data-i18n="why.benefit6H">In person or online</h3><p data-i18n="why.benefit6P">Coaching in Hanoi or live online worldwide, the same method wherever you are.</p></div>
       </div>
@@ -798,6 +765,15 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
         <a class="btn light" href="mailto:info@jurassicenglish.com?subject=Free%20Young%20Learner%20Speaking%20Evaluation" data-i18n="book.emailBtn">Email to book</a>
       </div>
       <div class="contact-line">Jurassic English · WorldWise Learning · info@jurassicenglish.com · <a href="https://www.jurassicenglish.com">www.jurassicenglish.com</a> · Zalo +84 396 085 076</div>
+    </div>
+  </section>
+  <section class="page" id="legal" aria-labelledby="legal-h3">
+    <div class="wrap" style="max-width:980px">
+      <h3 id="legal-h3" data-i18n="legal.h3" style="font-size:.95rem;letter-spacing:.05em;text-transform:uppercase">Important information for families</h3>
+      <p style="font-size:.85rem;opacity:.85" data-i18n="legal.scores">Band references describe coaching targets and internal performance estimates. Only an authorised IELTS test produces an official IELTS score. Results are not guaranteed.</p>
+      <p style="font-size:.85rem;opacity:.85" data-i18n="legal.admissions">University, scholarship and visa requirements vary by institution, programme, country and application type. Families should confirm current requirements with the relevant authority.</p>
+      <p style="font-size:.85rem;opacity:.85" data-i18n="legal.cefr">CEFR and IELTS references are approximate comparisons for educational planning and are not direct equivalents.</p>
+      <p style="font-size:.85rem;opacity:.85" data-i18n="legal.recording">Speaking recordings are created only with parent or guardian consent, used for teaching and progress review, and retained according to the programme's privacy policy.</p>
     </div>
   </section>
 </main>
