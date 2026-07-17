@@ -70,6 +70,36 @@ jobs:
           fi
           echo "Auditing: ${SITE_URL}"
 
+      # Supabase keepalive — runs FIRST (before build/lint) so a later audit
+      # failure can never stop it. Hits the production /api/health endpoint WITH
+      # the cron bearer, which is the only way it runs the je_leads query that
+      # keeps the free-tier Supabase project active. This 6-hourly GitHub run is
+      # the reliable backstop for the twice-that Vercel cron, which silently
+      # failed and let the project auto-pause after 7 days of no DB activity.
+      # Fail-soft: never fails the audit. REQUIRES the CRON_SECRET repo secret to
+      # equal the Vercel CRON_SECRET env var — otherwise the endpoint returns
+      # keepalive:"skipped" and the project can pause again.
+      - name: Supabase keepalive (authorized /api/health ping)
+        continue-on-error: true
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "${CRON_SECRET}" ]; then
+            echo "::warning::CRON_SECRET repo secret is not set — the endpoint will SKIP the keepalive and Supabase can auto-pause. Set it to the same value as the Vercel CRON_SECRET env var."
+          fi
+          resp="$(curl -sS --max-time 25 -H "Authorization: Bearer ${CRON_SECRET}" "${SITE_URL%/}/api/health" || echo '{"status":"curl_failed"}')"
+          echo "keepalive response: ${resp}"
+          case "${resp}" in
+            *'"keepalive":"skipped"'*)
+              echo "::warning::Keepalive SKIPPED — bearer not accepted (CRON_SECRET missing or mismatched vs Vercel). Supabase was NOT pinged." ;;
+            *'"ok":true'*)
+              echo "Keepalive ran — Supabase pinged successfully." ;;
+            *'curl_failed'*)
+              echo "::warning::Keepalive request failed to reach ${SITE_URL}/api/health." ;;
+            *)
+              echo "::warning::Keepalive reached the endpoint but did not confirm a healthy DB ping — review the response above." ;;
+          esac
+
       - name: Checkout
         uses: actions/checkout@v4
 

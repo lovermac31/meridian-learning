@@ -6,7 +6,7 @@
   "crons": [
     {
       "path": "/api/health",
-      "schedule": "0 12 * * 1,4"
+      "schedule": "0 12 * * *"
     }
   ],
   "redirects": [
