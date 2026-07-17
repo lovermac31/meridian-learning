@@ -143,16 +143,13 @@ export function PromoVideoModal() {
     else window.setTimeout(finish, 180);
   }, []);
 
-  // On open: lock scroll, move focus, attempt autoplay, wire Esc + focus trap.
+  // On open: attempt autoplay and wire Esc-to-close.
+  // This overlay scrolls WITH the page (position:absolute, no scroll lock), so it
+  // is intentionally NON-modal: no body-scroll lock, no focus steal, no focus
+  // trap — the user can freely scroll/tab the page past it, or dismiss it.
   useEffect(() => {
     if (!open) return;
     track('yl_promo_open');
-
-    const { body } = document;
-    const prevOverflow = body.style.overflow;
-    body.style.overflow = 'hidden';
-
-    closeBtnRef.current?.focus();
 
     const v = videoRef.current;
     if (v) {
@@ -172,30 +169,12 @@ export function PromoVideoModal() {
       if (e.key === 'Escape') {
         e.stopPropagation();
         close('escape');
-        return;
-      }
-      if (e.key === 'Tab') {
-        // Simple focus trap across the focusable controls in the dialog.
-        const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
-          'button, video, [href], [tabindex]:not([tabindex="-1"])',
-        );
-        if (!focusables || focusables.length === 0) return;
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
       }
     };
     window.addEventListener('keydown', onKeyDown, true);
 
     return () => {
       window.removeEventListener('keydown', onKeyDown, true);
-      body.style.overflow = prevOverflow;
     };
   }, [open, close]);
 
@@ -239,15 +218,21 @@ export function PromoVideoModal() {
 
       <div
         role="dialog"
-        aria-modal="true"
+        aria-modal="false"
         aria-labelledby={titleId}
         onMouseDown={(e) => {
           // Backdrop click (only when the mousedown starts on the backdrop itself).
           if (e.target === e.currentTarget) close('backdrop');
         }}
         style={{
-          position: 'fixed',
-          inset: 0,
+          // position:absolute (not fixed) + anchored to the top of the document,
+          // one viewport tall → it scrolls WITH the page instead of staying
+          // pinned to the viewport. On load (scroll top) it is centered in view.
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '100vh',
           zIndex: 2147483000,
           display: 'flex',
           alignItems: 'center',
@@ -269,8 +254,9 @@ export function PromoVideoModal() {
           ref={dialogRef}
           style={{
             position: 'relative',
-            width: 'min(92vw, calc((85vh) * 16 / 9))',
-            maxWidth: 1200,
+            // 10% smaller than the prior 92vw / 85vh / 1200px caps.
+            width: 'min(82.8vw, calc((76.5vh) * 16 / 9))',
+            maxWidth: 1080,
             aspectRatio: '16 / 9',
             background: '#000',
             borderRadius: 14,
