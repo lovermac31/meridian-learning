@@ -32,7 +32,7 @@ const POSTER_SRC = '/young-learners-speaking/assets/video/promo-poster.jpg';
 const SESSION_KEY = 'yl_promo_dismissed_v1';
 
 const C = {
-  backdrop: 'rgba(10, 12, 15, 0.82)',
+  backdrop: 'rgba(10, 12, 15, 0.5)',
   chrome: '#15181d',
   border: 'rgba(255,255,255,0.14)',
   accent: '#ff8a3c',
@@ -212,7 +212,7 @@ export function PromoVideoModal() {
     <>
       <style>{`
         @keyframes yl-promo-in { from { opacity: 0 } to { opacity: 1 } }
-        @keyframes yl-promo-pop { from { opacity: 0; transform: scale(.96) } to { opacity: 1; transform: scale(1) } }
+        @keyframes yl-promo-grow { from { opacity: 0; transform: scale(.35) } to { opacity: 1; transform: scale(1) } }
         .yl-promo-btn:focus-visible { outline: 3px solid ${C.accent}; outline-offset: 2px; }
       `}</style>
 
@@ -258,12 +258,16 @@ export function PromoVideoModal() {
             width: 'min(82.8vw, calc((76.5vh) * 16 / 9))',
             maxWidth: 1080,
             aspectRatio: '16 / 9',
-            background: '#000',
+            // Transparent so the ~10% see-through video reveals the (now
+            // lighter) dimmed page behind it, not a black panel.
+            background: 'transparent',
             borderRadius: 14,
             overflow: 'hidden',
             border: `1px solid ${C.border}`,
             boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
-            animation: reducedMotion.current || closing ? undefined : 'yl-promo-pop 220ms cubic-bezier(.16,1,.3,1)',
+            // Presentation-style grow-in: scales up from a small panel to full
+            // size on appear. reduced-motion → no animation (appears at size).
+            animation: reducedMotion.current || closing ? undefined : 'yl-promo-grow 520ms cubic-bezier(.16,1,.3,1)',
           }}
         >
           <video
@@ -280,7 +284,9 @@ export function PromoVideoModal() {
                for the fallback, and sidesteps React's unreliable `muted`
                prop reflection (we set v.muted=true imperatively first). */
             onEnded={() => track('yl_promo_ended')}
-            style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', background: '#000' }}
+            // opacity 0.9 → the video image is ~10% transparent so a little of
+            // the background page shows through it.
+            style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', background: 'transparent', opacity: 0.9 }}
           >
             {/* Non-JS / unsupported fallback */}
             <track kind="captions" />
