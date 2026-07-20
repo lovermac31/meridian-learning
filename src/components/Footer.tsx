@@ -39,6 +39,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
       { label: 'Interactive Demo', href: '/interactive-demo' },
       { label: 'Book a Diagnostic', href: '/book-diagnostic' },
       { label: 'School Framework', href: '/school-framework' },
+      { label: 'Pilot Programme', href: '/pilot-programme' },
       { label: 'Evidence Policy', href: '/evidence' },
       { label: 'Digital Reasoning Engine', href: '/digital-reasoning-engine' },
     ],
@@ -205,6 +206,22 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
                   <Mail aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
                   info@jurassicenglish.com
                 </a>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-2">Zalo</p>
+                <div className="flex items-center gap-3">
+                  <img
+                    src="/images/zalo-qr.png"
+                    alt="Mã QR Zalo của Jurassic English — quét để kết bạn"
+                    width={64}
+                    height={64}
+                    loading="lazy"
+                    className="h-16 w-16 rounded-md bg-white p-1 shrink-0"
+                  />
+                  <span className="text-sm font-light leading-snug text-white/65">
+                    Kết bạn qua Zalo<br />quét mã QR để nhắn tin
+                  </span>
+                </div>
               </div>
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-1">{getUiString(locale, 'footer.legalPrivacy')}</p>
