@@ -214,7 +214,12 @@ nav{position:sticky;top:0;z-index:30;background:rgba(21,24,29,.94);backdrop-filt
 .subtitle{max-width:900px;margin:0 auto 28px;color:#eef2f7;font-size:clamp(1.15rem,2.4vw,1.55rem);font-weight:800}
 .motto{font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin:28px 0 38px;color:#fff}
 .motto span{color:var(--orange)}
-.cover-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:36px}
+.cover-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.cover-actions #yl-promo-root{display:contents}
+.yl-promo-trigger{font:inherit}
+.alternate-path{max-width:700px;margin:0 auto 36px;color:#d8dee6;font-size:.94rem}
+.alternate-path a{color:#ffd089;font-weight:800;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.alternate-path a:hover{color:#fff}
 .age-rail{width:min(100%,1040px);display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #55606c;border-radius:8px;overflow:hidden;box-shadow:0 22px 54px rgba(0,0,0,.44)}
 .age-rail div{padding:16px 10px;font-weight:900;text-transform:uppercase;color:#fff;border-right:1px solid rgba(255,255,255,.16)}
 .age-rail div:last-child{border-right:0}
@@ -342,6 +347,9 @@ section.page{padding:clamp(64px,8vw,88px) 0}
 .qr{background:#fff;color:var(--ink);border-radius:10px;padding:16px 14px 14px;font-weight:900;text-transform:uppercase;font-size:.86rem;line-height:1.15}
 .qr img{display:block;width:124px;height:124px;object-fit:contain;margin:0 auto 12px}
 .form-qr img{width:168px;height:168px;margin:0 auto}
+.booking-next{margin:26px auto 0!important;color:#fff!important;font-weight:700}
+.booking-next a{color:#fff;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.booking-next a:hover{color:var(--ink)}
 .contact-line{text-align:center;color:#d7c8b1;margin-top:22px;font-weight:800}
 footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-top:1px solid var(--line-dark)}
 
@@ -365,9 +373,17 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
   .brand strong{font-size:1.02rem}
   .navlinks{gap:8px;flex-wrap:wrap;justify-content:center}
   .lang-select button{padding:5px 9px}
+  .cover-inner{padding-top:28px;padding-bottom:54px}
+  .emblem-wrap{margin-bottom:20px}
+  .emblem-wrap:before{inset:-18px}
+  .emblem-wrap:after{width:210px;height:210px}
+  .cover-logo{width:155px}
+  .cover .kicker{margin-bottom:14px;font-size:.7rem;letter-spacing:.2em}
+  .cover h1{font-size:2.55rem;margin-bottom:16px}
+  .subtitle{margin-bottom:16px;font-size:1.05rem;line-height:1.42}
+  .motto{margin:16px 0 20px;font-size:.72rem;letter-spacing:.08em}
   .age-rail{grid-template-columns:1fr 1fr}
   .cover-foot{position:relative;left:auto;right:auto;bottom:auto;margin-top:30px;display:block;text-align:center}
-  .cover-inner{padding-bottom:54px}
   .photo-banner,.photo-banner img{min-height:320px}
   .booking{padding:24px 14px}
   .form-booking{padding:18px;gap:18px}
@@ -405,7 +421,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
 <a class="skip-link" href="#main">Skip to main content</a>
 <nav aria-label="Primary">
   <div class="wrap navin">
-    <a class="brand" href="#top">
+    <a class="brand" href="/" aria-label="Jurassic English home">
       <img src="assets/images/je-emblem-192.webp" alt="Jurassic English">
       <div><strong>Jurassic English<sup>TM</sup></strong><span>Young Learners</span></div>
     </a>
@@ -435,7 +451,9 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
     <div class="cover-actions">
       <a class="btn" href="#book" data-i18n="hero.ctaBook">Book a free 30-minute evaluation</a>
       <a class="btn ghost" href="#journey" data-i18n="hero.ctaJourney">See the journey</a>
+      <div id="yl-promo-root"></div>
     </div>
+    <p class="alternate-path"><span data-i18n="hero.academyPrompt">Looking for a broader reading, reasoning, and writing pathway?</span> <a href="/student-academy" data-route-progression="student-academy" data-i18n="hero.ctaAcademy">Explore Student Academy</a></p>
     <div class="age-rail" aria-label="Age pathway">
       <div class="r1"><span data-i18n="hero.age1">Later Primary</span><small data-i18n="hero.age1sub">Ages 9-11</small></div>
       <div class="r2"><span data-i18n="hero.age2">Middle School</span><small data-i18n="hero.age2sub">Ages 11-14</small></div>
@@ -796,6 +814,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
           <div class="qr"><img src="assets/qr/website-qr.png" alt="Jurassic English website QR code"><span data-i18n="book.websiteLabel">Our website</span></div>
         </div>
         <a class="btn light" href="mailto:info@jurassicenglish.com?subject=Free%20Young%20Learner%20Speaking%20Evaluation" data-i18n="book.emailBtn">Email to book</a>
+        <p class="booking-next"><span data-i18n="book.diagnosticPrompt">Need a broader reading, reasoning, and writing assessment?</span> <a href="/book-diagnostic" data-route-progression="book-diagnostic" data-i18n="book.diagnosticCta">Book a Student Thinking Diagnostic</a></p>
       </div>
       <div class="contact-line">Jurassic English · WorldWise Learning · info@jurassicenglish.com · <a href="https://www.jurassicenglish.com">www.jurassicenglish.com</a> · Zalo +84 396 085 076</div>
     </div>

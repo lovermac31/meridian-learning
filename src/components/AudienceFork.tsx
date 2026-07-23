@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
+import { detectSocialTrafficIntent } from '../lib/trafficIntent';
 
 type AudienceForkProps = {
   onNavigate: (path: string) => void;
@@ -33,6 +34,7 @@ export function AudienceFork({ onNavigate }: AudienceForkProps) {
   const locale = getCurrentLocale();
   const home = getHomeContent(locale) ?? getHomeContent('en');
   const fork = home?.hero?.fork;
+  const socialTrafficIntent = detectSocialTrafficIntent();
   if (!fork) return null;
 
   const go = (path: string, label: string, segment: 'institutional' | 'parent_student') => {
@@ -50,7 +52,7 @@ export function AudienceFork({ onNavigate }: AudienceForkProps) {
         <button
           type="button"
           onClick={() => go('/school-framework', 'For Schools (fork)', 'institutional')}
-          className={`group flex flex-col items-start rounded-2xl border border-jurassic-accent/40 bg-jurassic-accent/15 p-6 text-left transition hover:bg-jurassic-accent/25 ${FOCUS_RING}`}
+          className={`group flex flex-col items-start rounded-2xl border border-jurassic-accent/40 bg-jurassic-accent/15 p-6 text-left transition hover:bg-jurassic-accent/25 ${socialTrafficIntent ? 'order-2' : ''} ${FOCUS_RING}`}
         >
           <span className="text-xl font-bold text-white">{fork.schoolsTitle}</span>
           <span className="mt-2 text-sm leading-relaxed text-white/70">{fork.schoolsBody}</span>
@@ -64,7 +66,7 @@ export function AudienceFork({ onNavigate }: AudienceForkProps) {
         <button
           type="button"
           onClick={() => go('/student-academy', 'For Parents (fork)', 'parent_student')}
-          className={`group flex flex-col items-start rounded-2xl border border-white/12 bg-white/[0.04] p-6 text-left transition hover:bg-white/[0.08] ${FOCUS_RING}`}
+          className={`group flex flex-col items-start rounded-2xl border border-white/12 bg-white/[0.04] p-6 text-left transition hover:bg-white/[0.08] ${socialTrafficIntent ? 'order-3' : ''} ${FOCUS_RING}`}
         >
           <span className="text-xl font-bold text-white">{fork.parentsTitle}</span>
           <span className="mt-2 text-sm leading-relaxed text-white/65">{fork.parentsBody}</span>
@@ -88,7 +90,7 @@ export function AudienceFork({ onNavigate }: AudienceForkProps) {
             })
           }
           aria-label={`${fork.ieltsTitle ?? 'IELTS Speaking Ages 9-18'} — ${fork.ieltsCta ?? 'Book Free Evaluation'}`}
-          className={`group flex flex-col items-start rounded-2xl border border-jurassic-gold/45 bg-gradient-to-br from-jurassic-gold/15 to-jurassic-accent/10 p-6 text-left transition hover:from-jurassic-gold/25 hover:to-jurassic-accent/20 sm:col-span-2 lg:col-span-1 ${FOCUS_RING}`}
+          className={`group flex flex-col items-start rounded-2xl border border-jurassic-gold/45 bg-gradient-to-br from-jurassic-gold/15 to-jurassic-accent/10 p-6 text-left transition hover:from-jurassic-gold/25 hover:to-jurassic-accent/20 sm:col-span-2 lg:col-span-1 ${socialTrafficIntent ? 'order-1' : ''} ${FOCUS_RING}`}
         >
           <span className="mb-2 inline-flex items-center gap-2">
             <span className="rounded-full bg-jurassic-gold px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-jurassic-dark">
