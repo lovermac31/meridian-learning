@@ -413,6 +413,17 @@ const en: Dict = {
   'book.zaloLabel': 'Zalo · Chat to book',
   'book.websiteLabel': 'Our website',
   'book.emailBtn': 'Email to book',
+  'book.diagnosticPrompt': 'Need a broader reading, reasoning, and writing assessment?',
+  'book.diagnosticCta': 'Book a Student Thinking Diagnostic',
+
+  // ---- Optional continuation paths ----
+  'hero.academyPrompt': 'Looking for a broader reading, reasoning, and writing pathway?',
+  'hero.ctaAcademy': 'Explore Student Academy',
+  'promo.watch': 'Watch the 60-second overview',
+  'promo.title': 'Young Learners Speaking programme overview',
+  'promo.play': 'Play the programme overview video',
+  'promo.sound': 'Turn on sound',
+  'promo.close': 'Close video',
 
   // ---- Certifications strip (quiet YL logo marquee) ----
   'certstrip.label': 'Aligned with international English standards',
