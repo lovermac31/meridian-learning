@@ -36,6 +36,7 @@ concurrency:
 
 env:
   NODE_VERSION: '20'
+  SUPABASE_PROJECT_REF: 'hvuohtenmsqlsqrbgveg'
   # SITE_URL resolution (Phase 4B.1):
   #   1. workflow_dispatch input  (per-run override)
   #   2. repository variable vars.SITE_URL  (canonical default)
@@ -70,35 +71,57 @@ jobs:
           fi
           echo "Auditing: ${SITE_URL}"
 
-      # Supabase keepalive — runs FIRST (before build/lint) so a later audit
-      # failure can never stop it. Hits the production /api/health endpoint WITH
-      # the cron bearer, which is the only way it runs the je_leads query that
-      # keeps the free-tier Supabase project active. This 6-hourly GitHub run is
-      # the reliable backstop for the twice-that Vercel cron, which silently
-      # failed and let the project auto-pause after 7 days of no DB activity.
-      # Fail-soft: never fails the audit. REQUIRES the CRON_SECRET repo secret to
-      # equal the Vercel CRON_SECRET env var — otherwise the endpoint returns
-      # keepalive:"skipped" and the project can pause again.
+      # Supabase keepalive runs before build/lint so a later audit failure cannot
+      # stop it. The endpoint only queries je_leads when the cron bearer matches.
+      # This step is allowed to continue so reports are still generated, but its
+      # outcome is enforced after artifact upload and issue management below.
       - name: Supabase keepalive (authorized /api/health ping)
+        id: supabase_keepalive
         continue-on-error: true
         env:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
+          set -euo pipefail
+
           if [ -z "${CRON_SECRET}" ]; then
-            echo "::warning::CRON_SECRET repo secret is not set — the endpoint will SKIP the keepalive and Supabase can auto-pause. Set it to the same value as the Vercel CRON_SECRET env var."
+            echo "::error::CRON_SECRET is missing. Supabase keepalive was not attempted."
+            exit 1
           fi
-          resp="$(curl -sS --max-time 25 -H "Authorization: Bearer ${CRON_SECRET}" "${SITE_URL%/}/api/health" || echo '{"status":"curl_failed"}')"
-          echo "keepalive response: ${resp}"
-          case "${resp}" in
-            *'"keepalive":"skipped"'*)
-              echo "::warning::Keepalive SKIPPED — bearer not accepted (CRON_SECRET missing or mismatched vs Vercel). Supabase was NOT pinged." ;;
-            *'"ok":true'*)
-              echo "Keepalive ran — Supabase pinged successfully." ;;
-            *'curl_failed'*)
-              echo "::warning::Keepalive request failed to reach ${SITE_URL}/api/health." ;;
-            *)
-              echo "::warning::Keepalive reached the endpoint but did not confirm a healthy DB ping — review the response above." ;;
-          esac
+
+          response_file="$(mktemp)"
+          trap 'rm -f "${response_file}"' EXIT
+
+          http_status="$(
+            curl --silent --show-error --max-time 25 \
+              --output "${response_file}" \
+              --write-out '%{http_code}' \
+              --header "Authorization: Bearer ${CRON_SECRET}" \
+              "${SITE_URL%/}/api/health"
+          )"
+
+          if [ "${http_status}" != "200" ]; then
+            echo "::error::Keepalive endpoint returned HTTP ${http_status}."
+            exit 1
+          fi
+
+          status="$(jq -r '.status // "missing"' "${response_file}")"
+          keepalive_ok="$(jq -r '.keepalive.ok // false' "${response_file}")"
+          project_ref="$(jq -r '.keepalive.projectRef // "missing"' "${response_file}")"
+
+          if [ "${status}" != "ok" ] || [ "${keepalive_ok}" != "true" ]; then
+            key_status="$(jq -r '.keepalive.supabaseKeyStatus // "unknown"' "${response_file}")"
+            error_code="$(jq -r '.keepalive.error // "unconfirmed"' "${response_file}")"
+            echo "::error::Supabase keepalive failed. error=${error_code} keyStatus=${key_status}"
+            exit 1
+          fi
+
+          if [ "${project_ref}" != "${SUPABASE_PROJECT_REF}" ]; then
+            echo "::error::Keepalive reached unexpected Supabase project ref ${project_ref}."
+            exit 1
+          fi
+
+          elapsed_ms="$(jq -r '.keepalive.elapsedMs // "unknown"' "${response_file}")"
+          echo "Supabase keepalive confirmed. projectRef=${project_ref} elapsedMs=${elapsed_ms}"
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -195,6 +218,8 @@ jobs:
             echo ""
             echo "Run: ${{ github.run_id }}  •  Site: ${SITE_URL}  •  $(date -u +%Y-%m-%dT%H:%M:%SZ)"
             echo ""
+            echo "Supabase keepalive: **${{ steps.supabase_keepalive.outcome }}**"
+            echo ""
             echo "## Local build audit"
             echo ""
             if [ -f local-report.md ]; then cat local-report.md; else echo "_(no local report)_"; fi
@@ -224,7 +249,7 @@ jobs:
       # On failure: ensure a single open issue exists with the latest body.
       # On success: close that issue if it exists, so the dashboard stays clean.
       - name: Create or update health issue
-        if: steps.prod_audit.outcome == 'failure'
+        if: steps.prod_audit.outcome == 'failure' || steps.supabase_keepalive.outcome == 'failure'
         uses: actions/github-script@v7
         env:
           REPORT_PATH: wwl-site-health-report.md
@@ -238,7 +263,8 @@ jobs:
 
             const header =
               `**Run:** ${context.runId} • **Site:** ${process.env.SITE_URL || 'unknown'} • ` +
-              `**Triggered:** ${context.eventName}\n\n` +
+              `**Triggered:** ${context.eventName} • ` +
+              `**Supabase keepalive:** ${{ steps.supabase_keepalive.outcome }}\n\n` +
               `_Artifacts: actions run #${context.runId}_\n\n`;
 
             // GitHub issue body max 65536 chars
@@ -278,7 +304,7 @@ jobs:
             }
 
       - name: Close health issue on green
-        if: steps.prod_audit.outcome == 'success'
+        if: steps.prod_audit.outcome == 'success' && steps.supabase_keepalive.outcome == 'success'
         uses: actions/github-script@v7
         with:
           script: |
@@ -308,8 +334,8 @@ jobs:
       # ── Final exit
       # We deliberately fail the job AFTER artifact upload + issue management,
       # so the artifact is always preserved.
-      - name: Reflect audit verdict in job status
-        if: steps.prod_audit.outcome == 'failure'
+      - name: Reflect health verdict in job status
+        if: steps.prod_audit.outcome == 'failure' || steps.supabase_keepalive.outcome == 'failure'
         run: |
-          echo "::error::Production audit failed. See artifacts and the 'WWL Site Health Regression' issue."
+          echo "::error::Production audit or Supabase keepalive failed. See artifacts and the 'WWL Site Health Regression' issue."
           exit 1
