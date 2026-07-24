@@ -4,7 +4,13 @@ type SupabaseKey =
   | { value: string; kind: 'opaque_secret' }
   | { value: string; kind: 'legacy_service_role_jwt' };
 
-function decodeJwtPayload(key: string): Record<string, unknown> | null {
+type SupabaseKeyStatus =
+  | 'missing'
+  | 'publishable_not_allowed'
+  | 'backend_key'
+  | 'unsupported';
+
+export function decodeJwtPayload(key: string): Record<string, unknown> | null {
   const [, payload] = key.split('.');
   if (!payload) return null;
 
@@ -17,7 +23,7 @@ function decodeJwtPayload(key: string): Record<string, unknown> | null {
   }
 }
 
-function classifyKey(key: string): SupabaseKey | null {
+export function classifyKey(key: string): SupabaseKey | null {
   if (key.startsWith('sb_publishable_')) return null;
   if (key.startsWith('sb_secret_')) return { value: key, kind: 'opaque_secret' };
 
@@ -29,12 +35,23 @@ function classifyKey(key: string): SupabaseKey | null {
   return null;
 }
 
-function resolveSupabaseConfig() {
-  const url = process.env.SUPABASE_URL?.trim();
-  const rawKey =
+export function supabaseKeyStatus(rawKey: string | undefined): SupabaseKeyStatus {
+  if (!rawKey) return 'missing';
+  if (rawKey.startsWith('sb_publishable_')) return 'publishable_not_allowed';
+  return classifyKey(rawKey) ? 'backend_key' : 'unsupported';
+}
+
+function configuredSupabaseKey() {
+  return (
     process.env.SUPABASE_WRITE_KEY?.trim()
     ?? process.env.SUPABASE_SECRET_KEY?.trim()
-    ?? process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+    ?? process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()
+  );
+}
+
+function resolveSupabaseConfig() {
+  const url = process.env.SUPABASE_URL?.trim();
+  const rawKey = configuredSupabaseKey();
 
   if (!url || !rawKey) return null;
 
@@ -71,11 +88,7 @@ async function runSupabaseKeepalive() {
       ok: false,
       error: 'supabase_not_configured',
       hasSupabaseUrl: Boolean(process.env.SUPABASE_URL?.trim()),
-      hasSupabaseWriteKey: Boolean(
-        process.env.SUPABASE_WRITE_KEY?.trim()
-          ?? process.env.SUPABASE_SECRET_KEY?.trim()
-          ?? process.env.SUPABASE_SERVICE_ROLE_KEY?.trim(),
-      ),
+      supabaseKeyStatus: supabaseKeyStatus(configuredSupabaseKey()),
     };
   }
 
