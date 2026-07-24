@@ -74,7 +74,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
             {hero.eyebrow}
           </span>
 
-          <h1 className="font-display max-w-full break-words text-[2rem] min-[420px]:text-[2.4rem] sm:text-[3rem] md:text-[3.4rem] lg:text-[3.8rem] text-white leading-[1.05] mb-5 tracking-tight">
+          <h1 className="font-hero-serif max-w-full break-words text-[2rem] min-[420px]:text-[2.4rem] sm:text-[3rem] md:text-[3.4rem] lg:text-[3.8rem] text-white leading-[1.05] mb-5 tracking-tight">
             {hero.titleLineOne}{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-jurassic-accent to-jurassic-gold">
               {hero.titleHighlight}
