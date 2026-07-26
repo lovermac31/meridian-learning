@@ -19,10 +19,15 @@ import { YlBotUI } from './YlBotUI';
 import { PromoVideoModal } from './PromoVideoModal';
 import { initPageI18n } from './pageI18n';
 
+const YL_SPEED_INSIGHTS_ROUTE = '/young-learners-speaking';
+
 // Keep telemetry on the static YL page without asking Vite to resolve
 // Vercel's runtime-only /_vercel/* URLs during a multi-page build.
 try {
-  injectSpeedInsights();
+  injectSpeedInsights({
+    framework: 'react',
+    route: YL_SPEED_INSIGHTS_ROUTE,
+  });
   injectAnalytics();
 } catch {
   // Telemetry is progressive enhancement and must never block the page.
