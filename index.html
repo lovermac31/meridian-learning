@@ -101,7 +101,8 @@
         waiting for React. When React renders the real hero h1 (same copy/size),
         it is not a larger paint, so the early LCP timestamp stands.
       -->
-      <div style="min-height:100vh;background:#101820;color:rgba(255,255,255,0.85);font-family:Aptos,'Segoe UI','Helvetica Neue',Arial,sans-serif;padding:3rem 1.5rem;box-sizing:border-box;">
+      <!-- prerender-route-content:start -->
+      <div data-prerendered-route-path="/" style="min-height:100vh;background:#101820;color:rgba(255,255,255,0.85);font-family:Aptos,'Segoe UI','Helvetica Neue',Arial,sans-serif;padding:3rem 1.5rem;box-sizing:border-box;">
         <div style="max-width:48rem;margin:0 auto;">
           <p style="margin:0 0 1rem;font-size:0.75rem;font-weight:600;color:#F26419;text-transform:uppercase;letter-spacing:0.2em;">Literature-based English curriculum</p>
           <h1 style="margin:0 0 1.25rem;font-family:'Neuland-Inline',Copperplate,'Copperplate Gothic Light','Palatino Linotype',Georgia,serif;font-weight:400;font-size:clamp(2rem,5vw,3.8rem);letter-spacing:-0.025em;color:#ffffff;line-height:1.05;">Critical thinking <span style="color:#F26419;">through literature.</span></h1>
@@ -123,6 +124,7 @@
           </ul>
         </div>
       </div>
+      <!-- prerender-route-content:end -->
     </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
