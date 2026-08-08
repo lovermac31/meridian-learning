@@ -11,6 +11,11 @@
   ],
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/vi/plans-pricing-access",
       "destination": "/plans-pricing-access",
       "permanent": false
@@ -48,7 +53,7 @@
     { "source": "/425f0745123b9f56/:path*",                          "destination": "https://je-ecosystem-landing-preview.vercel.app/425f0745123b9f56/:path*" },
 
     { "source": "/api/internal/approval-action", "destination": "/api/internal/pilot-requests/approval-action/confirm" },
-    { "source": "/pilot/:path*", "destination": "/index.html" },
+    { "source": "/pilot/:path*", "destination": "/" },
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "functions": {

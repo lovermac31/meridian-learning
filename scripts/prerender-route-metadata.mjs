@@ -17,6 +17,51 @@ function escapeHtml(value) {
     .replaceAll('>', '&gt;');
 }
 
+function escapeAttribute(value) {
+  return escapeHtml(value).replaceAll("'", '&#39;');
+}
+
+function buildRouteFallback(pathname, metadata, locale) {
+  if (pathname === '/') return null;
+
+  const homePath = locale === 'vi' ? '/vi' : '/';
+  const frameworkPath = locale === 'vi' ? '/vi/framework' : '/framework';
+  const getStartedPath = locale === 'vi' ? '/vi/get-started' : '/get-started';
+  const navLabel = locale === 'vi' ? 'Điều hướng chính' : 'Primary navigation';
+  const brandLabel = locale === 'vi' ? 'Tiếng Anh học thuật dựa trên văn học' : 'Literature-based academic English';
+  const homeLabel = locale === 'vi' ? 'Trang chủ' : 'Home';
+  const frameworkLabel = locale === 'vi' ? 'Khung chương trình' : 'Framework';
+  const getStartedLabel = locale === 'vi' ? 'Bắt đầu' : 'Get Started';
+
+  return `      <main data-prerendered-route-path="${escapeAttribute(pathname)}" style="min-height:100vh;background:#101820;color:rgba(255,255,255,0.85);font-family:Aptos,'Segoe UI','Helvetica Neue',Arial,sans-serif;padding:3rem 1.5rem;box-sizing:border-box;">
+        <div style="max-width:48rem;margin:0 auto;">
+          <p style="margin:0 0 1rem;font-size:0.75rem;font-weight:600;color:#F26419;text-transform:uppercase;letter-spacing:0.2em;">${escapeHtml(brandLabel)}</p>
+          <h1 style="margin:0 0 1.25rem;font-family:'Neuland-Inline',Copperplate,'Copperplate Gothic Light','Palatino Linotype',Georgia,serif;font-weight:400;font-size:clamp(2rem,5vw,3.8rem);color:#ffffff;line-height:1.05;">${escapeHtml(metadata.title)}</h1>
+          <p style="margin:0 0 1.75rem;max-width:42rem;font-weight:300;line-height:1.7;color:rgba(255,255,255,0.74);">${escapeHtml(metadata.description)}</p>
+          <nav aria-label="${escapeAttribute(navLabel)}" style="display:flex;flex-wrap:wrap;gap:1rem;line-height:1.6;">
+            <a href="${escapeAttribute(homePath)}" style="color:#F26419;">${escapeHtml(homeLabel)}</a>
+            <a href="${escapeAttribute(frameworkPath)}" style="color:#F26419;">${escapeHtml(frameworkLabel)}</a>
+            <a href="${escapeAttribute(getStartedPath)}" style="color:#F26419;">${escapeHtml(getStartedLabel)}</a>
+          </nav>
+        </div>
+      </main>`;
+}
+
+function injectRouteFallback(html, pathname, metadata, locale) {
+  const fallback = buildRouteFallback(pathname, metadata, locale);
+  if (!fallback) return html;
+
+  const pattern = /<!-- prerender-route-content:start -->[\s\S]*?<!-- prerender-route-content:end -->/;
+  if (!pattern.test(html)) {
+    throw new Error('Missing prerender route content markers in base index.html');
+  }
+
+  return html.replace(
+    pattern,
+    `<!-- prerender-route-content:start -->\n${fallback}\n      <!-- prerender-route-content:end -->`,
+  );
+}
+
 function upsertTag(html, { marker, replacement, insertAfterPattern }) {
   if (html.includes(marker)) {
     const pattern = new RegExp(`${marker}[\\s\\S]*?-->`, 'g');
@@ -175,6 +220,8 @@ function injectMetadata(html, pathname) {
   if (jsonLd) {
     output = output.replace('</head>', `${jsonLd}\n  </head>`);
   }
+
+  output = injectRouteFallback(output, pathname, metadata, locale);
 
   return output;
 }
