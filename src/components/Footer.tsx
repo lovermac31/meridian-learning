@@ -1,6 +1,7 @@
 import { ArrowRight, Mail } from 'lucide-react';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
+import { PreferredSourceButton } from './PreferredSourceButton';
 
 type FooterProps = {
   onNavigate?: (path: string) => void;
@@ -127,6 +128,11 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
               <p className="mt-2 text-sm leading-relaxed font-light text-white/55">
                 {getUiString(locale, 'footer.brandBlurb')}
               </p>
+              {/* Preferred Sources — small, persistent, brand-area placement.
+                  Does not compete with the primary "Get Started" CTA opposite. */}
+              <div className="mt-4">
+          <PreferredSourceButton placement="footer" variant="compact" />
+              </div>
             </div>
             <a
               href="/get-started"
