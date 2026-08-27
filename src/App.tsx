@@ -552,7 +552,7 @@ function App() {
           {/* Preferred Sources — restrained, self-contained band at the foot of
               the homepage. Secondary to enrollment CTAs; does not restructure
               the P0 two-door hero above. */}
-          <PreferredSourceButton placement="homepage" variant="full" theme="dark" />
+          <PreferredSourceButton placement="homepage" variant="full" />
         </main>
       )}
       </Suspense>

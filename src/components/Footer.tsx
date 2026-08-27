@@ -131,7 +131,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
               {/* Preferred Sources — small, persistent, brand-area placement.
                   Does not compete with the primary "Get Started" CTA opposite. */}
               <div className="mt-4">
-                <PreferredSourceButton placement="footer" variant="compact" theme="dark" />
+          <PreferredSourceButton placement="footer" variant="compact" />
               </div>
             </div>
             <a

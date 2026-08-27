@@ -5,27 +5,18 @@
  * Accessibility & graceful failure:
  *  - Always a real <a> to the documented deeplink, so it works with JS disabled
  *    and with no third-party script / CSP change.
- *  - When the optional publisher.js enhancement is enabled AND loads, the click
- *    upgrades to Google's in-page opt-in flow; otherwise the deeplink opens.
  *  - Honest, non-ranking copy (Google's framing): it personalises Top Stories /
  *    AI surfaces for users who opt in — never claims a ranking boost.
  */
-import { useEffect, useRef } from 'react';
 import { Star, ArrowUpRight } from 'lucide-react';
-import {
-  ensurePreferredSource,
-  PREFERRED_SOURCE_DEEPLINK,
-  type PreferredSourceApi,
-} from '../lib/preferredSource';
+import { PREFERRED_SOURCE_DEEPLINK } from '../lib/preferredSource';
 import { trackPreferredSourceClick, type PreferredSourcePlacement } from '../lib/analytics';
 
 type Props = {
-  /** Where this instance renders — used for analytics + the Google popup theme. */
+  /** Where this instance renders — used for analytics. */
   placement: PreferredSourcePlacement;
   /** `compact` = single pill (footer); `full` = self-contained dark band (page). */
   variant?: 'compact' | 'full';
-  /** Theme passed to the Google in-page flow when enhanced. */
-  theme?: 'light' | 'dark';
   /** Overrides the default heading (full variant only). */
   heading?: string;
   /** Overrides the default supporting copy (full variant only). */
@@ -43,38 +34,13 @@ const DEFAULT_LABEL = 'Add as a preferred source';
 export const PreferredSourceButton = ({
   placement,
   variant = 'compact',
-  theme = 'dark',
   heading = DEFAULT_HEADING,
   description = DEFAULT_DESCRIPTION,
   label = DEFAULT_LABEL,
   className = '',
 }: Props) => {
-  // Lazily prepares the optional in-page flow; resolves null (deeplink mode)
-  // when the enhancement is disabled or the script is unavailable.
-  const apiRef = useRef<PreferredSourceApi | null>(null);
-  useEffect(() => {
-    let alive = true;
-    ensurePreferredSource({ theme }).then((api) => {
-      if (alive) apiRef.current = api;
-    });
-    return () => {
-      alive = false;
-    };
-  }, [theme]);
-
-  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = () => {
     trackPreferredSourceClick({ placement, variant });
-    if (apiRef.current) {
-      // Enhanced: Google's in-page opt-in flow. If it throws, fall through to
-      // the deeplink by not preventing default.
-      try {
-        event.preventDefault();
-        apiRef.current.addPreferredSource();
-      } catch {
-        window.open(PREFERRED_SOURCE_DEEPLINK, '_blank', 'noopener,noreferrer');
-      }
-    }
-    // Default (deeplink mode): let the <a> open the deeplink in a new tab.
   };
 
   const anchor = (extraClass: string) => (
