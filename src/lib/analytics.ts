@@ -47,3 +47,27 @@ export function trackLowFrictionClick(label: string) {
     page: window.location.pathname,
   });
 }
+
+/** Where a "Preferred Sources" CTA is rendered. */
+export type PreferredSourcePlacement =
+  | 'homepage'
+  | 'footer'
+  | 'article_end'
+  | 'student_academy'
+  | 'resources';
+
+/**
+ * Fired when the Google "Preferred Sources" CTA is clicked. Tracks the JE CTA
+ * interaction only — never Google's own opt-in behaviour or any account data.
+ */
+export function trackPreferredSourceClick(params: {
+  placement: PreferredSourcePlacement;
+  variant?: string;
+}) {
+  track('preferred_source_click', {
+    placement:   params.placement,
+    cta_variant: params.variant ?? 'default',
+    page_path:   window.location.pathname,
+    language:    (typeof document !== 'undefined' && document.documentElement.lang) || 'en',
+  });
+}

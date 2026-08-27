@@ -5,6 +5,7 @@ import { Hero } from './components/Hero';
 import { ProofStrip } from './components/ProofStrip';
 import { CredibilityLogoMarquee } from './components/CredibilityLogoMarquee';
 import { TestimonialsSection } from './components/TestimonialsSection';
+import { PreferredSourceButton } from './components/PreferredSourceButton';
 // `/knowledge` is eager (not lazy): the hash deep-link scroll needs the
 // accordion DOM present on mount with a stable full-height layout. Lazy-
 // loading introduced a Suspense-swap race that reset the deep-anchor scroll.
@@ -548,6 +549,10 @@ function App() {
               renders nothing when off, the honest empty state when on with no
               published+consented testimonials. Never fabricates content. */}
           <TestimonialsSection locale={locale} />
+          {/* Preferred Sources — restrained, self-contained band at the foot of
+              the homepage. Secondary to enrollment CTAs; does not restructure
+              the P0 two-door hero above. */}
+          <PreferredSourceButton placement="homepage" variant="full" theme="dark" />
         </main>
       )}
       </Suspense>
