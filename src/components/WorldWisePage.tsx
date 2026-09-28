@@ -11,6 +11,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { getWorldWisePageContent } from '../i18n/content/worldwise';
+import { LinkifyWorldWise, WorldWiseLink } from './WorldWiseLink';
 import type { Locale } from '../i18n/locales';
 
 type WorldWisePageProps = {
@@ -352,8 +353,13 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
                 </button>
               </motion.div>
             )}
+            <motion.div variants={fadeUp} className="mb-4">
+              <WorldWiseLink className="text-sm font-semibold text-jurassic-dark/70">
+                {content.cta.siteCta}
+              </WorldWiseLink>
+            </motion.div>
             <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">
-              {content.cta.note}
+              <LinkifyWorldWise text={content.cta.note} />
             </motion.p>
           </motion.div>
         </div>

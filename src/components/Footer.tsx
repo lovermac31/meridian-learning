@@ -1,6 +1,7 @@
 import { ArrowRight, Mail } from 'lucide-react';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
+import { LinkifyWorldWise } from './WorldWiseLink';
 import { PreferredSourceButton } from './PreferredSourceButton';
 
 type FooterProps = {
@@ -239,10 +240,10 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="space-y-1">
               <p className="text-xs text-white/55">
-                {getUiString(locale, 'footer.copyright')}
+                <LinkifyWorldWise text={getUiString(locale, 'footer.copyright')} />
               </p>
               <p className="text-xs text-white/50">
-                {getUiString(locale, 'footer.trademark')}
+                <LinkifyWorldWise text={getUiString(locale, 'footer.trademark')} />
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-4">

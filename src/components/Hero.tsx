@@ -4,6 +4,7 @@ import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
 import { AudienceFork } from './AudienceFork';
+import { LinkifyWorldWise } from './WorldWiseLink';
 
 type HeroProps = {
   onNavigate: (path: string) => void;
@@ -130,7 +131,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
 
           <div className="mt-10 pt-6 border-t border-white/5 flex gap-6 items-center">
             <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">{hero.publishedBy}</div>
-            <div className="text-white/80 font-serif text-lg italic tracking-wide">{hero.publisher}</div>
+            <div className="text-white/80 font-serif text-lg italic tracking-wide"><LinkifyWorldWise text={hero.publisher} /></div>
           </div>
         </div>
       </div>

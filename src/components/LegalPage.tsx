@@ -2,6 +2,7 @@ import { ArrowLeft } from 'lucide-react';
 import { isLegalPath, type ContentBlock } from '../lib/legalContent';
 import { resolveLocalizedRoute, getCurrentLocale } from '../i18n/routing';
 import { getLegalPageChrome, getLocalizedLegalDocument } from '../i18n/content/legal';
+import { LinkifyWorldWise } from './WorldWiseLink';
 
 export { isLegalPath };
 
@@ -164,7 +165,7 @@ export const LegalPage = ({ onBack }: LegalPageProps) => {
                         {item.value}
                       </a>
                     ) : (
-                      item.value
+                      <LinkifyWorldWise text={item.value} />
                     )}
                   </span>
                 </div>
@@ -175,7 +176,7 @@ export const LegalPage = ({ onBack }: LegalPageProps) => {
 
         {/* Footer copyright */}
         <p className="mt-8 text-sm text-gray-500">
-          {chrome.copyright}
+          <LinkifyWorldWise text={chrome.copyright} />
         </p>
       </main>
     </div>
