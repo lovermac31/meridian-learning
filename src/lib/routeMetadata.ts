@@ -332,7 +332,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/companies': {
     title: 'Business & Technical English for Tech Teams | Jurassic English™',
     description:
-      "AI-assisted business and technical English for Vietnam's tech and export teams (Ho Chi Minh City & Hanoi). Client-ready communication for engineers, measured in CEFR/IELTS gains and built by IELTS professionals. Book a scoping call.",
+      "AI-assisted business and technical English for Vietnam's tech and export teams (Ho Chi Minh City & Hanoi). Client-ready communication for engineers, measured in CEFR/IELTS gains and built on the public assessment criteria. Book a scoping call.",
     canonicalPath: '/companies',
     jsonLd: [
       createServiceJsonLd({
