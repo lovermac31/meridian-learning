@@ -109,6 +109,25 @@ export const Hero = ({ onNavigate }: HeroProps) => {
             </span>
           </button>
 
+          {/* Jurassic AI Speaking (adults, paid practice) — separate app at /ai-speaking (vercel.json rewrite),
+              so a native anchor (full page load), not onNavigate. */}
+          <a
+            href="/ai-speaking"
+            className="group mt-3 flex w-full max-w-3xl flex-col items-start gap-3 rounded-2xl border border-jurassic-accent/35 bg-jurassic-accent/[0.06] px-6 py-4 text-left transition hover:border-jurassic-accent/60 hover:bg-jurassic-accent/[0.12] sm:flex-row sm:items-center sm:justify-between sm:gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+          >
+            <span className="min-w-0">
+              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-jurassic-accent">
+                {hero.aiSpeakingStrip.eyebrow}
+              </span>
+              <span className="mt-1 block text-base font-bold text-white">{hero.aiSpeakingStrip.title}</span>
+              <span className="mt-1 block text-sm leading-relaxed text-white/60">{hero.aiSpeakingStrip.body}</span>
+            </span>
+            <span className="inline-flex flex-none items-center gap-1.5 text-sm font-bold text-jurassic-accent">
+              {hero.aiSpeakingStrip.cta}
+              <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </a>
+
           <div className="mt-10 pt-6 border-t border-white/5 flex gap-6 items-center">
             <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">{hero.publishedBy}</div>
             <div className="text-white/80 font-serif text-lg italic tracking-wide">{hero.publisher}</div>
