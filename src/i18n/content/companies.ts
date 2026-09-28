@@ -8,7 +8,7 @@ export const companiesPageContent = {
     backCta: 'Back to main site',
     eyebrow: 'For Companies · Tech & Export Teams',
     title: 'English readiness for your technical teams.',
-    body: 'Your engineers are technically excellent — but on US, Japanese, and European client work, communication becomes the bottleneck, not code. Jurassic English turns technical talent into confident, client-ready communicators, and measures the gain in CEFR/IELTS terms — built and graded by IELTS professionals, not an app alone.',
+    body: 'Your engineers are technically excellent — but on US, Japanese, and European client work, communication becomes the bottleneck, not code. Jurassic English turns technical talent into confident, client-ready communicators, and measures the gain in CEFR/IELTS terms — human coaching built on the public assessment criteria, not an app alone.',
     primaryCta: 'Book a scoping call',
     secondaryCta: 'See the 6-week pilot',
     badge: 'Ho Chi Minh City · Hanoi · Online',
@@ -64,10 +64,10 @@ export const companiesPageContent = {
       {
         role: 'Universities & vocational colleges',
         headline: 'Graduate employability, aligned to the national English mandate.',
-        body: 'For deans and programme directors improving graduate readiness, we license a CEFR-aligned business-English pathway with examiner-built assessment.',
+        body: 'For deans and programme directors improving graduate readiness, we license a CEFR-aligned business-English pathway with criteria-based assessment.',
         signals: [
           'Employability-focused speaking & writing',
-          'Examiner-built assessment and progression',
+          'Criteria-based assessment and progression',
           'Curriculum or white-label licensing',
           'Aligned to the MOET ESL-2035 direction',
         ],
@@ -79,7 +79,7 @@ export const companiesPageContent = {
         signals: [
           'Ready business & technical English content',
           'AI speaking practice layer',
-          'Examiner-grade assessment framework',
+          'Evidence-first assessment framework',
           'Partner enablement, not competition',
         ],
       },
@@ -111,10 +111,10 @@ export const companiesPageContent = {
 
   proof: {
     eyebrow: 'Why Jurassic English',
-    title: 'Examiner-built method. Accredited, not a generic app.',
-    body: 'Our credibility is the moat: a program built and graded by IELTS professionals, aligned to CEFR, and focused on your actual work — not textbook English. We report what changed and price on results.',
+    title: 'A structured, criteria-based method. Not a generic app.',
+    body: 'Our credibility is the moat: a program built on the public CEFR and IELTS assessment criteria and focused on your actual work — not textbook English. We report what changed and price on results. Jurassic English is independent and not endorsed by IELTS, IDP, British Council or Cambridge.',
     items: [
-      { label: 'IELTS-examiner-built', detail: 'Curriculum and grading by IELTS professionals' },
+      { label: 'Criteria-based', detail: 'Curriculum and assessment built on the public IELTS Speaking and CEFR descriptors' },
       { label: 'CEFR-aligned', detail: 'Placement and progress on the public CEFR/IELTS criteria' },
       { label: 'Business & technical', detail: 'Client calls, standups, code review, docs, presentations' },
       { label: 'Outcome-first', detail: 'Measured CEFR gain per cohort; manager dashboard' },
