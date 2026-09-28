@@ -296,7 +296,7 @@ export const Navbar = ({
               className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               <span className="text-base font-semibold text-white">AI Speaking Practice</span>
-              <span className="mt-1.5 block text-sm text-white/70">IELTS-style mocks for adults 18+ · from 79,000₫</span>
+              <span className="mt-1.5 block text-sm text-white/70">IELTS-style mocks for students & professionals · from 79,000₫</span>
             </a>
             {languageSwitcher ? (
               <div className="border-b border-white/10 pb-4">
