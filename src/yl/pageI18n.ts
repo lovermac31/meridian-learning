@@ -18,15 +18,30 @@ import {
   type Lang,
   HTML_LANG,
   OG_LOCALE,
+  pageDeclaredLang,
   resolveInitialLang,
   setLang,
   subscribeLang,
   STRINGS,
 } from './i18n';
 
-const SITE = 'https://jurassicenglish.com/young-learners-speaking/';
+const ORIGIN = 'https://jurassicenglish.com';
+const EN_PATH = '/young-learners-speaking/';
+const SITE = `${ORIGIN}${EN_PATH}`;
+
+/**
+ * Vietnamese has a real prerendered URL (scripts/prerender-yl-vi.mjs); other
+ * non-English languages are still served in place via ?lang=.
+ */
+const LANG_PATH: Partial<Record<Lang, string>> = { vi: '/vi/luyen-noi-ielts/' };
+
+function pathFor(lang: Lang): string {
+  if (lang === 'en') return EN_PATH;
+  return LANG_PATH[lang] ?? `${EN_PATH}?lang=${lang}`;
+}
+
 function canonicalFor(lang: Lang): string {
-  return lang === 'en' ? SITE : `${SITE}?lang=${lang}`;
+  return `${ORIGIN}${pathFor(lang)}`;
 }
 
 const capturedText = new Map<string, string>();
@@ -124,7 +139,28 @@ function applyAll(lang: Lang): void {
  */
 export function initPageI18n(): void {
   captureOnce();
+  const declared = pageDeclaredLang();
   const lang = resolveInitialLang();
+
+  // A page that declares its language is already fully localised in its HTML.
+  // Swapping text in place there would treat the prerendered copy as the
+  // "English" source, so language changes navigate to the matching URL instead.
+  if (declared) {
+    highlightSelector(lang);
+    const go = (next: Lang) => {
+      if (next !== declared) window.location.assign(pathFor(next));
+    };
+    document.querySelectorAll<HTMLElement>('[data-lang-btn]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const v = btn.getAttribute('data-lang-btn');
+        if (v && (LANGS as readonly string[]).includes(v)) go(v as Lang);
+      });
+    });
+    // Covers any other surface (e.g. the BotUI) that changes language.
+    subscribeLang(go);
+    return;
+  }
+
   applyAll(lang);
 
   document.querySelectorAll<HTMLElement>('[data-lang-btn]').forEach((btn) => {

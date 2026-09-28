@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host=0.0.0.0",
     "dev:server": "tsx server.ts",
-    "build": "vite build && node --import tsx scripts/prerender-route-metadata.mjs && node --import tsx scripts/generate-sitemap.mjs",
+    "build": "vite build && node scripts/prerender-yl-vi.mjs && node --import tsx scripts/prerender-route-metadata.mjs && node --import tsx scripts/generate-sitemap.mjs",
     "start": "NODE_ENV=production tsx server.ts",
     "preview": "vite preview",
     "test:metadata": "node --import tsx --test tests/metadata.test.ts",
