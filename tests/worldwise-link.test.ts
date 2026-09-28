@@ -5,6 +5,10 @@ import { join } from 'node:path';
 import { WORLDWISE_SITE_URL } from '../src/lib/contactConfig';
 import { splitOnWorldWise } from '../src/lib/worldwiseLink';
 import { createOrganizationJsonLd } from '../src/lib/structuredData';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { Footer } from '../src/components/Footer';
+import { LinkifyWorldWise } from '../src/components/WorldWiseLink';
 
 test('the WorldWise Learning site URL is the canonical www host over https', () => {
   assert.equal(WORLDWISE_SITE_URL, 'https://www.worldwiselearning.app');
@@ -61,4 +65,30 @@ test('no shipped source links to a retired or non-canonical WorldWise host', () 
   };
   roots.forEach(walk);
   assert.deepEqual(offenders, []);
+});
+
+const ANCHOR_OPEN = `<a href="${WORLDWISE_SITE_URL}" target="_blank" rel="noopener noreferrer"`;
+
+test('LinkifyWorldWise renders the mention as a safe, announced external link', () => {
+  const html = renderToStaticMarkup(
+    createElement(LinkifyWorldWise, { text: 'Published by World Wise Learning · Version 3.0' }),
+  );
+  assert.ok(html.startsWith(`Published by ${ANCHOR_OPEN}`), html);
+  assert.ok(html.includes('>World Wise Learning<span class="sr-only"> (opens in a new tab)</span></a>'), html);
+  assert.ok(html.endsWith(' · Version 3.0'), html);
+  assert.ok(!html.includes('nofollow'), 'the parent organisation link must be followed');
+});
+
+test('LinkifyWorldWise leaves strings without the organisation name untouched', () => {
+  for (const text of ['Jurassic English™', 'www.jurassicenglish.com', 'March 2026']) {
+    assert.equal(renderToStaticMarkup(createElement(LinkifyWorldWise, { text })), text);
+  }
+});
+
+test('the site footer links both organisation mentions', () => {
+  const html = renderToStaticMarkup(createElement(Footer, {}));
+  const links = html.split(ANCHOR_OPEN).length - 1;
+  assert.equal(links, 2, 'copyright line + trademark line');
+  // The legal mailbox stays a mailto on its own domain — it is not a website link.
+  assert.ok(html.includes('href="mailto:legal@worldwiselearning.com"'));
 });
