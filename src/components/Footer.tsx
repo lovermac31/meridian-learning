@@ -36,6 +36,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
     // Diagnostic, plus the institutional School Framework, Evidence and
     // Digital Reasoning Engine pages.
     ecosystem: [
+      { label: 'AI Speaking Practice', href: '/ai-speaking' },
       { label: 'Student Academy', href: '/student-academy' },
       { label: 'Interactive Demo', href: '/interactive-demo' },
       { label: 'Book a Diagnostic', href: '/book-diagnostic' },
@@ -67,6 +68,8 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('mailto:')) return;
+    // Separate app served by a vercel.json rewrite: let the browser do a full page load.
+    if (href === '/ai-speaking' || href.startsWith('/ai-speaking/')) return;
 
     e.preventDefault();
 

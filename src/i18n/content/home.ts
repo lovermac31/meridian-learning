@@ -53,6 +53,12 @@ const enHomeContent = {
       body: 'Turn engineers into confident, client-ready communicators — measured in CEFR/IELTS gains. HCMC · Hanoi · Online.',
       cta: 'Explore for companies',
     },
+    aiSpeakingStrip: {
+      eyebrow: 'New · Adults 18+ · AI practice',
+      title: 'Jurassic AI Speaking: IELTS-style Speaking mocks',
+      body: 'A full Parts 1–3 mock scored against the public IELTS Speaking criteria, with your own words as evidence and the one thing to fix next. From 79,000₫.',
+      cta: 'Try AI Speaking',
+    },
   },
   decisionSnapshot: {
     eyebrow: 'Institutional Decision Snapshot',
@@ -413,6 +419,12 @@ const viHomeContent = {
       title: 'Sẵn sàng tiếng Anh doanh nghiệp cho đội ngũ kỹ thuật',
       body: 'Giúp kỹ sư giao tiếp tự tin với khách hàng — đo bằng mức tăng CEFR/IELTS. HCMC · Hà Nội · Trực tuyến.',
       cta: 'Tìm hiểu cho doanh nghiệp',
+    },
+    aiSpeakingStrip: {
+      eyebrow: 'Mới · Người lớn 18+ · Luyện tập với AI',
+      title: 'Jurassic AI Speaking: thi thử Nói theo định dạng IELTS',
+      body: 'Bài thi thử đầy đủ Phần 1–3, chấm theo tiêu chí IELTS Speaking công khai, kèm câu nói của chính bạn làm bằng chứng và một điều cần cải thiện tiếp theo. Từ 79.000₫.',
+      cta: 'Thử AI Speaking',
     },
   },
   decisionSnapshot: {
