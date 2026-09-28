@@ -122,8 +122,8 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
         <div className="max-w-7xl mx-auto px-6 py-10 md:py-12">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div className="max-w-xl">
-              <span className="text-2xl font-sans font-semibold text-white tracking-tight">
-                Jurassic English<span className="text-xs align-top text-jurassic-accent">™</span>
+              <span className="font-wordmark text-[1.28rem] text-white">
+                Jurassic English<sup className="text-jurassic-accent">™</sup>
               </span>
               <p className="mt-2 text-sm leading-relaxed font-light text-white/55">
                 {getUiString(locale, 'footer.brandBlurb')}
