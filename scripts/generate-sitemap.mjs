@@ -94,6 +94,12 @@ const STATIC_EXTRA_URLS = [
     changefreq: 'weekly',
     priority: '0.8',
   },
+  {
+    // Prerendered Vietnamese edition — scripts/prerender-yl-vi.mjs
+    loc: `${SITE_URL}/vi/luyen-noi-ielts/`,
+    changefreq: 'weekly',
+    priority: '0.8',
+  },
 ];
 
 function buildStaticUrl({ loc, changefreq, priority }) {

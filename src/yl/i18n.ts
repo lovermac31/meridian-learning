@@ -45,8 +45,29 @@ export function normalizeLang(value: string | null | undefined): Lang | null {
 
 let current: Lang = 'en';
 
-/** Resolve and set the active language from URL param → localStorage → 'en'. Idempotent. */
+/**
+ * Language a page declares for itself via <html data-yl-page-lang>. Set only on
+ * prerendered language URLs (e.g. /vi/luyen-noi-ielts/), where the URL — not a
+ * query param or a stored preference — decides the language.
+ */
+export function pageDeclaredLang(): Lang | null {
+  try {
+    return normalizeLang(document.documentElement.getAttribute('data-yl-page-lang'));
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Resolve and set the active language: page-declared → URL param → localStorage → 'en'.
+ * Idempotent.
+ */
 export function resolveInitialLang(): Lang {
+  const declared = pageDeclaredLang();
+  if (declared) {
+    current = declared;
+    return current;
+  }
   try {
     const url = new URL(window.location.href);
     const fromParam = normalizeLang(url.searchParams.get(PARAM));
