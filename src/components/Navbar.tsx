@@ -171,10 +171,10 @@ export const Navbar = ({
               setIsMobileMenuOpen(false);
               onNavigateHome();
             }}
-            className="rounded-md px-1 py-0.5 text-2xl font-sans font-semibold tracking-tight text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            className="rounded-md px-1 py-0.5 font-wordmark text-[1.15rem] sm:text-[1.28rem] text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             aria-label={getUiString(locale, 'navbar.brandAriaLabel')}
           >
-            Jurassic English<span className="text-xs align-top text-jurassic-accent">™</span>
+            Jurassic English<sup className="text-jurassic-accent">™</sup>
           </button>
         </div>
 

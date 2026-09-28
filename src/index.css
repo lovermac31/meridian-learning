@@ -43,6 +43,29 @@
     font-style: normal;
   }
 
+  /* Brand wordmark "JURASSIC ENGLISH™" — one treatment site-wide, matching the young-learners page (.brand strong).
+     Explicit stack (not var(--font-display)) so the wordmark stays in the brand font on html[lang='vi'],
+     where --font-display falls back to Georgia for diacritics; the wordmark itself has none. */
+  .font-wordmark {
+    font-family: "Neuland-Inline", "Copperplate", "Copperplate Gothic Light", Georgia, serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+  .font-wordmark sup {
+    font-family: inherit;
+    font-size: 0.5em;
+    font-weight: 600;
+    line-height: 0;
+    margin-left: 1px;
+    position: relative;
+    top: -0.55em;
+    vertical-align: baseline;
+  }
+
   /* No `will-change: transform` here on purpose: it promotes the track to a
      persistent GPU layer that, when the animation is NOT running (reduced
      motion, or paused), can keep a stale blank paint for logos that finish
