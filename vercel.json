@@ -26,6 +26,7 @@
       "destination": "https://jurassicenglish.com/:path",
       "permanent": true
     },
+    { "source": "/book-evaluation", "destination": "https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec", "permanent": false },
     { "source": "/student-academy/",          "destination": "/student-academy",          "permanent": true },
     { "source": "/interactive-demo/",         "destination": "/interactive-demo",         "permanent": true },
     { "source": "/book-diagnostic/",          "destination": "/book-diagnostic",          "permanent": true },
