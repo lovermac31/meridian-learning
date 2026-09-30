@@ -10,6 +10,13 @@ export const WORLDWISE_ZALO_NUMBER = '0000000000'; // PLACEHOLDER — confirm be
 export const WORLDWISE_ZALO_HREF = `https://zalo.me/${WORLDWISE_ZALO_NUMBER}`;
 
 /**
+ * Canonical WorldWise Learning website. `www` is the canonical host (the apex
+ * redirects to it). Every outbound link to the parent organisation uses this
+ * constant — never hard-code the URL at a call site.
+ */
+export const WORLDWISE_SITE_URL = 'https://www.worldwiselearning.app';
+
+/**
  * Vietnamese institutional CTA copy.
  * Authored for institutional decision-makers and procurement leads.
  */

@@ -103,6 +103,7 @@ export const worldwisePageContent = {
     secondaryCta: 'Book a Discovery Call',
     pilotCta: 'View the Pilot Programme',
     overviewCta: 'Request a Curriculum Overview',
+    siteCta: 'Visit the WorldWise Learning website',
     note: 'All enquiries are reviewed by the WorldWise Learning team. We typically respond within two business days.',
   },
 } as const;
