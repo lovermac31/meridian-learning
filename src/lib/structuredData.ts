@@ -1,4 +1,5 @@
 import type { Locale } from '../i18n/locales';
+import { WORLDWISE_SITE_URL } from './contactConfig';
 
 const SITE_URL = 'https://jurassicenglish.com';
 
@@ -38,6 +39,7 @@ export function createOrganizationJsonLd(locale: Locale = 'en'): JsonLd {
     parentOrganization: {
       '@type': 'Organization',
       name: 'World Wise Learning',
+      url: WORLDWISE_SITE_URL,
     },
     logo: `${SITE_URL}/icon-512.png`,
   };

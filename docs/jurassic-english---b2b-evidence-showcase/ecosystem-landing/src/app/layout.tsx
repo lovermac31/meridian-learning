@@ -25,6 +25,7 @@ const ORGANIZATION_LD = {
   parentOrganization: {
     "@type": "Organization",
     name: "World Wise Learning",
+    url: "https://www.worldwiselearning.app",
   },
   brand: {
     "@type": "Brand",

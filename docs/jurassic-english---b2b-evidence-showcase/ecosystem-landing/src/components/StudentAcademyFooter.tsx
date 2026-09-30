@@ -242,7 +242,17 @@ export function StudentAcademyFooter() {
           </div>
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <p>
-              © {year} World Wise Learning. All rights reserved. Jurassic
+              © {year}{" "}
+              <a
+                href="https://www.worldwiselearning.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-1 underline-offset-2 transition-colors hover:text-white"
+              >
+                World Wise Learning
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              . All rights reserved. Jurassic
               English
               <span className="align-top">™</span> is a trademark of World
               Wise Learning.

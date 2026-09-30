@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { type SeriesLevelDetail } from '../lib/seriesContent';
 import { type SyllabusData } from '../lib/syllabusContent';
+import { LinkifyWorldWise } from './WorldWiseLink';
 import { getCurrentLocale } from '../i18n/routing';
 import { getSyllabusPageContent } from '../i18n/content/syllabus';
 
@@ -355,7 +356,7 @@ export const SyllabusExperience = ({
               info@jurassicenglish.com
             </a>
             <p className="mt-6 text-sm text-gray-400">
-              {pageContent.cta.published}
+              <LinkifyWorldWise text={pageContent.cta.published} />
             </p>
           </div>
 
