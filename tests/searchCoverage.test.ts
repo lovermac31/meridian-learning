@@ -22,6 +22,22 @@ test('/index.html permanently redirects to the canonical homepage', () => {
   });
 });
 
+test('AI Speaking addresses with a trailing slash redirect to the slash-less page instead of 404', () => {
+  const config = JSON.parse(fs.readFileSync('vercel.json', 'utf8')) as VercelConfig;
+  const redirects = config.redirects ?? [];
+
+  assert.deepEqual(redirects.find((entry) => entry.source === '/ai-speaking/'), {
+    source: '/ai-speaking/',
+    destination: '/ai-speaking',
+    permanent: true,
+  });
+  assert.deepEqual(redirects.find((entry) => entry.source === '/ai-speaking/:path(.+)/'), {
+    source: '/ai-speaking/:path(.+)/',
+    destination: '/ai-speaking/:path',
+    permanent: true,
+  });
+});
+
 test('pilot holding routes keep an internal app-shell rewrite after the index redirect', () => {
   const config = JSON.parse(fs.readFileSync('vercel.json', 'utf8')) as VercelConfig & {
     rewrites?: Array<{ source?: string; destination?: string }>;
