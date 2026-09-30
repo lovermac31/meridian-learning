@@ -92,3 +92,16 @@ test('the site footer links both organisation mentions', () => {
   // The legal mailbox stays a mailto on its own domain — it is not a website link.
   assert.ok(html.includes('href="mailto:legal@worldwiselearning.com"'));
 });
+
+test('the homepage hero publisher lockup links the WorldWise mark and name as one target', async () => {
+  const { Hero } = await import('../src/components/Hero');
+  const html = renderToStaticMarkup(createElement(Hero, { onNavigate: () => {} }));
+  const anchor = html.match(new RegExp(`<a href="${WORLDWISE_SITE_URL}"[^>]*>(.*?)</a>`, 's'));
+  assert.ok(anchor, 'hero renders a WorldWise Learning link');
+  assert.match(anchor[0], /target="_blank"/);
+  assert.match(anchor[0], /rel="noopener noreferrer"/);
+  // The mark is decorative inside the link, so the accessible name is the publisher text.
+  assert.match(anchor[1], /<img src="\/images\/worldwise-learning-mark\.webp" alt=""/);
+  assert.match(anchor[1], /World Wise Learning/);
+  assert.ok(statSync(join('public', 'images', 'worldwise-learning-mark.webp')).size > 0, 'mark asset ships');
+});

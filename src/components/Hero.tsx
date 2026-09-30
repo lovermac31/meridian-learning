@@ -4,7 +4,7 @@ import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
 import { AudienceFork } from './AudienceFork';
-import { LinkifyWorldWise } from './WorldWiseLink';
+import { WorldWiseLink } from './WorldWiseLink';
 
 type HeroProps = {
   onNavigate: (path: string) => void;
@@ -129,9 +129,21 @@ export const Hero = ({ onNavigate }: HeroProps) => {
             </span>
           </a>
 
-          <div className="mt-10 pt-6 border-t border-white/5 flex gap-6 items-center">
+          <div className="mt-10 pt-6 border-t border-white/5 flex flex-wrap gap-x-6 gap-y-3 items-center">
             <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">{hero.publishedBy}</div>
-            <div className="text-white/80 font-serif text-lg italic tracking-wide"><LinkifyWorldWise text={hero.publisher} /></div>
+            {/* Publisher lockup: mark + name form one link target. The mark is decorative
+                (alt=""), so the link's accessible name is the publisher name alone. */}
+            <WorldWiseLink className="inline-flex items-center gap-3 text-white/85 font-serif text-lg italic tracking-wide">
+              <img
+                src="/images/worldwise-learning-mark.webp"
+                alt=""
+                width={46}
+                height={36}
+                decoding="async"
+                className="h-9 w-auto flex-none"
+              />
+              <span>{hero.publisher}</span>
+            </WorldWiseLink>
           </div>
         </div>
       </div>
