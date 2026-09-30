@@ -70,6 +70,8 @@ export const viUi = {
       privacy: 'Bảo mật',
       cookies: 'Cookie',
     },
+    websiteFeedback: 'Góp ý về website',
+    shareFeedback: 'Gửi góp ý của bạn',
     generalEnquiries: 'Liên hệ chung',
     legalPrivacy: 'Pháp lý & Quyền riêng tư',
     responseTime: 'Chúng tôi thường phản hồi trong vòng 2 ngày làm việc.',

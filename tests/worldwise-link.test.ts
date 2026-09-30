@@ -105,3 +105,15 @@ test('the homepage hero publisher lockup links the WorldWise mark and name as on
   assert.match(anchor[1], /World Wise Learning/);
   assert.ok(statSync(join('public', 'images', 'worldwise-learning-mark.webp')).size > 0, 'mark asset ships');
 });
+
+test('the footer links the website feedback form as an external, announced link', async () => {
+  const { WEBSITE_FEEDBACK_FORM_URL } = await import('../src/lib/contactConfig');
+  assert.match(WEBSITE_FEEDBACK_FORM_URL, /^https:\/\/docs\.google\.com\/forms\/d\/e\/[\w-]+\/viewform$/);
+  const html = renderToStaticMarkup(createElement(Footer, {}));
+  const anchor = html.match(new RegExp(`<a href="${WEBSITE_FEEDBACK_FORM_URL}"[^>]*>(.*?)</a>`, 's'));
+  assert.ok(anchor, 'footer renders the feedback link');
+  assert.match(anchor[0], /target="_blank"/);
+  assert.match(anchor[0], /rel="noopener noreferrer"/);
+  assert.match(anchor[1], /Tell us how to improve/);
+  assert.match(anchor[1], /opens in a new tab/);
+});

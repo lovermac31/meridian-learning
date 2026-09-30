@@ -17,6 +17,13 @@ export const WORLDWISE_ZALO_HREF = `https://zalo.me/${WORLDWISE_ZALO_NUMBER}`;
 export const WORLDWISE_SITE_URL = 'https://www.worldwiselearning.app';
 
 /**
+ * Public website-feedback form (Google Forms, EN + VI, no sign-in). This is the
+ * responder URL only — never put the form's edit link or the response Sheet here.
+ */
+export const WEBSITE_FEEDBACK_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLScuegS45WpBqWABRUpDTFQ1CgMpVulr0f0vNnRgbBOBnHAFUw/viewform';
+
+/**
  * Vietnamese institutional CTA copy.
  * Authored for institutional decision-makers and procurement leads.
  */
