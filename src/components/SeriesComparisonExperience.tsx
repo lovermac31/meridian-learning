@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, BookOpen, ChevronRight, FileText, GitCompareArrows, GraduationCap, LibraryBig } from 'lucide-react';
 import { getLocalizedSeriesLevels, getSeriesComparisonContent } from '../i18n/content/series';
 import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
+import { showComingSoon } from '../lib/comingSoon';
 
 type SeriesComparisonExperienceProps = {
   onBack: () => void;
@@ -148,6 +149,9 @@ export const SeriesComparisonExperience = ({
                           ? undefined
                           : level.demoMaterialFileName
                       }
+                      onClick={(e) => {
+                        if (level.demoMaterialPath.startsWith('/available-soon')) { e.preventDefault(); showComingSoon(content.actions.demoMaterial); }
+                      }}
                       className="inline-flex items-center gap-2 rounded-full bg-jurassic-accent/10 border border-jurassic-accent/30 px-5 py-3 text-sm font-semibold text-jurassic-accent transition hover:bg-jurassic-accent/20"
                     >
                       <FileText className="w-4 h-4" />

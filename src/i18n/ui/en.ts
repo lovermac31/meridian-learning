@@ -179,6 +179,11 @@ export const enUi = {
       submitFailedShortly: 'We could not submit your enquiry. Please try again shortly.',
     },
   },
+  comingSoonToast: {
+    badge: 'Coming soon',
+    message: 'Coming very soon. For more information, email',
+    close: 'Dismiss',
+  },
   comingSoonModal: {
     badge: 'Coming very soon',
     dialogLabel: 'Education Affiliate Program — Coming very soon',

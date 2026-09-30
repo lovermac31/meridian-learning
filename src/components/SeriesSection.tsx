@@ -4,6 +4,7 @@ import { ChevronRight, FileText } from 'lucide-react';
 import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
 import { getHomeContent } from '../i18n/content/home';
 import { getLocalizedSeriesLevels } from '../i18n/content/series';
+import { showComingSoon } from '../lib/comingSoon';
 
 type SeriesSectionProps = {
   onSelectLevel: (path: string) => void;
@@ -121,7 +122,10 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
                       : level.demoMaterialFileName
                   }
                   className="inline-flex items-center gap-1.5 rounded-full border border-jurassic-accent/30 bg-jurassic-accent/8 px-4 py-2 text-xs font-bold text-jurassic-accent transition hover:bg-jurassic-accent/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (level.demoMaterialPath.startsWith('/available-soon')) { e.preventDefault(); showComingSoon(homeContent.series.labels.demoMaterial); }
+                  }}
                 >
                   <FileText aria-hidden="true" className="w-3.5 h-3.5" />
                   {homeContent.series.labels.demoMaterial}

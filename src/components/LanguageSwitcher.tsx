@@ -2,6 +2,7 @@ import { type Locale } from '../i18n/locales';
 import { isPublicContentReleased } from '../i18n/content';
 import { resolveLocalizedRoute, switchLocaleRoute } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
+import { showComingSoon } from '../lib/comingSoon';
 
 type LanguageSwitcherProps = {
   currentRoute: string;
@@ -33,7 +34,15 @@ export function LanguageSwitcher({ currentRoute, onNavigate }: LanguageSwitcherP
             <button
               key={locale}
               type="button"
-              onClick={() => onNavigate(nextRoute)}
+              onClick={() => {
+                // Announced translation not published yet: small toast, not a placeholder page.
+                // English is the source language and always exists, so only a missing translation toasts.
+                if (locale !== 'en' && !isPublicContentReleased(route.pathname, locale)) {
+                  showComingSoon(getUiString(locale, `languageSwitcher.options.${locale}`));
+                  return;
+                }
+                onNavigate(nextRoute);
+              }}
               disabled={isActive}
               aria-pressed={isActive}
               className={`min-h-10 flex-1 rounded-full px-4 py-2 text-sm font-semibold transition md:min-h-0 md:flex-none md:px-3 md:py-1.5 md:text-xs ${

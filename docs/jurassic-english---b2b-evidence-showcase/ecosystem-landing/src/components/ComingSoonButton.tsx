@@ -1,47 +1,53 @@
 "use client";
 
 /**
- * "Coming very soon" trigger + dialog for announced-but-not-ready items (site-wide rule: nothing that is not ready
- * may look like a working link). Native <dialog> gives focus trap + Escape; focus returns to the trigger on close.
+ * Trigger for announced-but-not-ready items. Shows the site-wide small, temporary "Coming soon" toast (same look
+ * as the main site's ComingSoonToast): non-blocking, role=status, auto-dismiss 6 s, paused on hover/focus,
+ * closes on × or Escape.
  */
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const CONTACT_EMAIL = "info@jurassicenglish.com";
+const DISMISS_MS = 6000;
 
 export function ComingSoonButton({ label, className, children }: { label: string; className?: string; children?: React.ReactNode }) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const close = () => { dialogRef.current?.close(); triggerRef.current?.focus(); };
+  const [open, setOpen] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+  const paused = useRef(false);
+  const close = useCallback(() => { window.clearTimeout(timer.current); setOpen(false); }, []);
+  const arm = useCallback(() => {
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => { if (!paused.current) setOpen(false); }, DISMISS_MS);
+  }, []);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, close]);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   return (
     <>
-      <button ref={triggerRef} type="button" className={className} onClick={() => dialogRef.current?.showModal()}>
+      <button type="button" className={className} onClick={() => { paused.current = false; setOpen(true); arm(); }}>
         {children ?? label}
       </button>
-      <dialog
-        ref={dialogRef}
-        aria-label={`${label} — coming very soon`}
-        onClick={(e) => { if (e.target === dialogRef.current) close(); }}
-        className="m-auto w-[calc(100%-2rem)] max-w-md rounded-2xl border border-white/10 bg-[#101820] p-0 text-white shadow-[0_30px_70px_rgba(0,0,0,0.45)] backdrop:bg-[#101820]/80 backdrop:backdrop-blur-sm"
-      >
-        <div className="p-7 text-left">
-          <div className="mb-2 inline-flex rounded-full bg-[#F26419] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-white">
-            Coming very soon
+      <div role="status" aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-5 z-[70] flex justify-center px-4">
+        {open ? (
+          <div
+            onMouseEnter={() => { paused.current = true; window.clearTimeout(timer.current); }}
+            onMouseLeave={() => { paused.current = false; arm(); }}
+            className="pointer-events-auto flex w-full max-w-md items-start gap-3 rounded-2xl border border-white/10 bg-[#101820]/95 px-4 py-3.5 text-left text-white shadow-[0_18px_50px_rgba(0,0,0,0.4)] backdrop-blur-md"
+          >
+            <span className="mt-0.5 shrink-0 rounded-full bg-[#F26419] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Coming soon</span>
+            <p className="flex-1 text-sm leading-snug text-white/85">
+              <strong className="font-semibold text-white">{label} · </strong>Coming very soon. For more information, email{" "}
+              <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(label)}`} className="font-semibold text-[#F26419] underline-offset-4 hover:underline">{CONTACT_EMAIL}</a>
+            </p>
+            <button type="button" onClick={close} aria-label="Dismiss" className="-mr-1 shrink-0 rounded-md px-1 text-white/60 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F26419]">×</button>
           </div>
-          <h2 className="text-xl font-semibold tracking-tight">{label}</h2>
-          <p className="mt-3 text-sm leading-relaxed text-white/75">
-            This is coming very soon. For more information, email{" "}
-            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(label)}`} className="font-semibold text-[#F26419] underline-offset-4 hover:underline">
-              {CONTACT_EMAIL}
-            </a>.
-          </p>
-          <div className="mt-6 flex justify-end">
-            <button type="button" autoFocus onClick={close}
-              className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F26419]">
-              Close
-            </button>
-          </div>
-        </div>
-      </dialog>
+        ) : null}
+      </div>
     </>
   );
 }

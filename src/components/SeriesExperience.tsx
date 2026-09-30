@@ -7,6 +7,7 @@ import {
   getSeriesDetailPageContent,
 } from '../i18n/content/series';
 import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
+import { showComingSoon } from '../lib/comingSoon';
 
 type SeriesExperienceProps = {
   level: SeriesLevelDetail;
@@ -80,6 +81,9 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
                   ? undefined
                   : level.demoMaterialFileName
               }
+              onClick={(e) => {
+                if (level.demoMaterialPath.startsWith('/available-soon')) { e.preventDefault(); showComingSoon(pageContent.hero.demoMaterial); }
+              }}
               className="inline-flex items-center gap-2 rounded-full border border-jurassic-accent/40 bg-jurassic-accent/15 px-4 py-2 text-sm font-semibold text-white transition hover:bg-jurassic-accent/25"
             >
               <FileText className="w-4 h-4" />

@@ -178,6 +178,11 @@ export const viUi = {
       submitFailedShortly: 'Chúng tôi chưa thể gửi yêu cầu của bạn. Vui lòng thử lại sau ít phút.',
     },
   },
+  comingSoonToast: {
+    badge: 'Sắp ra mắt',
+    message: 'Sắp ra mắt. Để biết thêm thông tin, vui lòng gửi email tới',
+    close: 'Đóng',
+  },
   comingSoonModal: {
     badge: 'Sắp ra mắt',
     dialogLabel: 'Chương trình Đối tác Giáo dục — Sắp ra mắt',
