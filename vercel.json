@@ -75,6 +75,46 @@
       "source": "/ai-speaking/:path(.+)/",
       "destination": "/ai-speaking/:path",
       "permanent": true
+    },
+    {
+      "source": "/student-academy/:path(.+)/",
+      "destination": "/student-academy/:path",
+      "permanent": true
+    },
+    {
+      "source": "/school-framework/:path(.+)/",
+      "destination": "/school-framework/:path",
+      "permanent": true
+    },
+    {
+      "source": "/digital-reasoning-engine/:path(.+)/",
+      "destination": "/digital-reasoning-engine/:path",
+      "permanent": true
+    },
+    {
+      "source": "/interactive-demo/:path(.+)/",
+      "destination": "/interactive-demo/:path",
+      "permanent": true
+    },
+    {
+      "source": "/evidence/:path(.+)/",
+      "destination": "/evidence/:path",
+      "permanent": true
+    },
+    {
+      "source": "/book-diagnostic/:path(.+)/",
+      "destination": "/book-diagnostic/:path",
+      "permanent": true
+    },
+    {
+      "source": "/pilot/",
+      "destination": "/pilot",
+      "permanent": true
+    },
+    {
+      "source": "/pilot/:path(.+)/",
+      "destination": "/pilot/:path",
+      "permanent": true
     }
   ],
   "rewrites": [

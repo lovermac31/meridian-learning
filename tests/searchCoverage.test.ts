@@ -38,6 +38,35 @@ test('AI Speaking addresses with a trailing slash redirect to the slash-less pag
   });
 });
 
+test('every forwarded section redirects its trailing-slash addresses to the slash-less page', () => {
+  const config = JSON.parse(fs.readFileSync('vercel.json', 'utf8')) as VercelConfig & {
+    rewrites?: Array<{ source?: string; destination?: string }>;
+  };
+  const redirects = config.redirects ?? [];
+  // Page sections are the single-segment prefixes with a "/<section>/:path*" rewrite. Asset prefixes
+  // (/_next, /images/..., the hashed build folders) and /api are file or endpoint paths, not pages.
+  const sections = (config.rewrites ?? [])
+    .map((entry) => /^\/([a-z][a-z-]*)\/:path\*$/.exec(entry.source ?? '')?.[1])
+    .filter((name): name is string => Boolean(name));
+
+  assert.deepEqual([...sections].sort(), [
+    'ai-speaking', 'book-diagnostic', 'digital-reasoning-engine', 'evidence',
+    'interactive-demo', 'pilot', 'school-framework', 'student-academy',
+  ]);
+  for (const section of sections) {
+    assert.deepEqual(
+      redirects.find((entry) => entry.source === `/${section}/`),
+      { source: `/${section}/`, destination: `/${section}`, permanent: true },
+      `/${section}/`,
+    );
+    assert.deepEqual(
+      redirects.find((entry) => entry.source === `/${section}/:path(.+)/`),
+      { source: `/${section}/:path(.+)/`, destination: `/${section}/:path`, permanent: true },
+      `/${section}/<page>/`,
+    );
+  }
+});
+
 test('pilot holding routes keep an internal app-shell rewrite after the index redirect', () => {
   const config = JSON.parse(fs.readFileSync('vercel.json', 'utf8')) as VercelConfig & {
     rewrites?: Array<{ source?: string; destination?: string }>;
