@@ -273,3 +273,17 @@ html[lang='vi'] {
     margin-right: 0;
   }
 }
+/* Brand wordmark — same font, source and treatment as the production site (src/index.css .font-wordmark,
+   index.html @font-face). The CSP font-src already allows db.onlinewebfonts.com on these rewritten routes. */
+@font-face {
+  font-family: "Neuland-Inline";
+  src: url("https://db.onlinewebfonts.com/t/3000a0539c78d3cf6ab2d94db856f5ef.woff2") format("woff2"),
+       url("https://db.onlinewebfonts.com/t/3000a0539c78d3cf6ab2d94db856f5ef.woff") format("woff");
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+.font-wordmark {
+  font-family: "Neuland-Inline", "Copperplate", "Copperplate Gothic Light", Georgia, serif;
+  font-weight: 400; font-style: normal; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+.font-wordmark sup { font-family: inherit; font-size: 0.5em; font-weight: 600; line-height: 0; margin-left: 1px; position: relative; top: -0.55em; vertical-align: baseline; }

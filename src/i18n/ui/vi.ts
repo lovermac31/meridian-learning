@@ -75,6 +75,12 @@ export const viUi = {
     responseTime: 'Chúng tôi thường phản hồi trong vòng 2 ngày làm việc.',
     copyright: '© 2026 World Wise Learning. Bảo lưu mọi quyền.',
     trademark: 'Jurassic English™ là nhãn hiệu của World Wise Learning.',
+    disclaimerIelts:
+      'IELTS là nhãn hiệu đã đăng ký của University of Cambridge ESOL, British Council và IDP Education Australia. Jurassic English™ là đơn vị độc lập, không liên kết, không được họ phê duyệt hay bảo trợ.',
+    disclaimerOutcomes:
+      'Các band điểm trên trang này là mục tiêu, không phải lời hứa. Kết quả phụ thuộc vào trình độ ban đầu, sự chuyên cần và luyện tập của từng học viên.',
+    disclaimerAi:
+      'Jurassic AI Speaking cung cấp phản hồi luyện tập do AI tạo. Đây không phải điểm IELTS chính thức và không phải căn cứ chính thức cho việc chấm điểm, xếp lớp, tuyển sinh hay tuyển dụng.',
   },
   hero: {
     imageAlt: 'La bàn Jurassic English và bộ sưu tập sách được tuyển chọn',
@@ -173,15 +179,16 @@ export const viUi = {
     },
   },
   comingSoonModal: {
-    dialogLabel: 'Education Affiliate Program — Coming Soon',
-    title: 'Education Affiliate Program',
+    badge: 'Sắp ra mắt',
+    dialogLabel: 'Chương trình Đối tác Giáo dục — Sắp ra mắt',
+    title: 'Chương trình Đối tác Giáo dục',
     body:
-      'This pathway is coming soon. Jurassic English™ is preparing a structured partner pathway for educators, centers, and aligned education organizations.',
+      'Chương trình này sắp ra mắt. Jurassic English™ đang chuẩn bị lộ trình hợp tác có cấu trúc dành cho giáo viên, trung tâm và các tổ chức giáo dục phù hợp.',
     support:
-      'For early partnership inquiries, contact us and we will follow up directly.',
-    close: 'Close',
-    contactUs: 'Contact Us',
-    closeModal: 'Close modal',
+      'Để biết thêm thông tin, vui lòng gửi email tới info@jurassicenglish.com và chúng tôi sẽ liên hệ lại trực tiếp.',
+    close: 'Đóng',
+    contactUs: 'Liên hệ',
+    closeModal: 'Đóng hộp thoại',
   },
   pricingModal: {
     dialogLabel: 'Đăng ký tiền mở bán cho Gói & Báo giá',

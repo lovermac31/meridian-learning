@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { ComingSoonButton } from "./ComingSoonButton";
+import { FooterDisclaimers } from "./FooterDisclaimers";
 
 // Student Academy footer.
 // Anchor IDs and routes were verified against the rendered /student-academy
@@ -87,17 +89,17 @@ const accessColumn: FooterColumn = {
 const legalColumn: FooterColumn = {
   heading: "Legal & Privacy",
   links: [
-    { label: "Terms of Service", href: "https://www.jurassicenglish.com/legal/terms" },
-    { label: "Privacy Policy", href: "https://www.jurassicenglish.com/legal/privacy" },
-    { label: "Cookie Policy", href: "https://www.jurassicenglish.com/legal/cookies" },
+    { label: "Terms of Service", href: "https://jurassicenglish.com/legal/terms" },
+    { label: "Privacy Policy", href: "https://jurassicenglish.com/legal/privacy" },
+    { label: "Cookie Policy", href: "https://jurassicenglish.com/legal/cookies" },
     {
       label: "Accessibility Statement",
-      href: "https://www.jurassicenglish.com/legal/accessibility",
+      href: "https://jurassicenglish.com/legal/accessibility",
     },
-    { label: "Disclaimer", href: "https://www.jurassicenglish.com/legal/disclaimer" },
+    { label: "Disclaimer", href: "https://jurassicenglish.com/legal/disclaimer" },
     {
-      label: "legal@worldwiselearning.com",
-      href: "mailto:legal@worldwiselearning.com",
+      label: "info@jurassicenglish.com",
+      href: "mailto:info@jurassicenglish.com",
     },
   ],
 };
@@ -122,14 +124,16 @@ function renderColumnLinks(column: FooterColumn) {
     return (
       <ul className="space-y-2 text-sm">
         {column.comingSoon.map((item) => (
-          <li
-            key={item.label}
-            className="flex items-center gap-2 text-primary-foreground/45"
-          >
-            <span>{item.label}</span>
-            <span className="rounded-full border border-primary-foreground/20 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-primary-foreground/55">
-              Coming soon
-            </span>
+          <li key={item.label}>
+            <ComingSoonButton
+              label={item.label}
+              className="flex items-center gap-2 text-left text-primary-foreground/65 transition-colors hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent rounded-md"
+            >
+              <span>{item.label}</span>
+              <span className="rounded-full border border-primary-foreground/20 px-2 py-0.5 text-[10px] uppercase tracking-[0.18em] text-primary-foreground/55">
+                Coming soon
+              </span>
+            </ComingSoonButton>
           </li>
         ))}
       </ul>
@@ -223,7 +227,8 @@ export function StudentAcademyFooter() {
           ))}
         </div>
 
-        <div className="mt-12 border-t border-primary-foreground/10 pt-6 text-xs text-primary-foreground/55">
+        <FooterDisclaimers className="mt-12 border-t border-primary-foreground/10 pt-6" />
+        <div className="mt-6 border-t border-primary-foreground/10 pt-6 text-xs text-primary-foreground/55">
           <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
             <span className="font-semibold uppercase tracking-[0.18em] text-primary-foreground/70">
               Contact

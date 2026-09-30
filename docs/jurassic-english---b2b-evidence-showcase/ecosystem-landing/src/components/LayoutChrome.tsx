@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { BotUIChat } from "./BotUIChat";
 import { StudentAcademyFooter } from "./StudentAcademyFooter";
+import { FooterDisclaimers } from "./FooterDisclaimers";
 import { isSaBotRouteAllowed } from "@/lib/saBotRoutes";
 
 // Client-side chrome wrapper. Decides which footer to render and whether
@@ -38,6 +39,7 @@ function MinimalEcosystemFooter() {
           </Link>
           <span>© {year} Jurassic English™</span>
         </div>
+        <FooterDisclaimers className="mx-auto mt-8 max-w-3xl border-t border-primary-foreground/10 pt-6" />
       </div>
     </footer>
   );

@@ -196,7 +196,9 @@ function App() {
     // /knowledge has a light (ivory) background from the top, so the
     // transparent navbar's white wordmark + links would be invisible.
     // Force the solid dark navbar like the other light-background pages.
-    isKnowledgeView;
+    isKnowledgeView ||
+    // /legal/* and /vi/legal/* render on white (LegalPage bg-white): same rule.
+    isLegalView;
   const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
   const isSubpageView =
     isGetStartedView ||
