@@ -42,6 +42,14 @@
     font-weight: 400;
     font-style: normal;
   }
+  /* Homepage hero headline — refined editorial serif (Fraunces, self-hosted).
+     Scoped to the hero only; the rest of the display type (var(--font-display))
+     is unchanged. Fraunces @font-face is inlined in index.html for LCP. */
+  .font-hero-serif {
+    font-family: "Fraunces", Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    font-style: normal;
+  }
 
   /* Brand wordmark "JURASSIC ENGLISH™" — one treatment site-wide, matching the young-learners page (.brand strong).
      Explicit stack (not var(--font-display)) so the wordmark stays in the brand font on html[lang='vi'],
