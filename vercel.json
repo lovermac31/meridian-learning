@@ -65,6 +65,16 @@
       "source": "/school-framework/",
       "destination": "/school-framework",
       "permanent": true
+    },
+    {
+      "source": "/ai-speaking/",
+      "destination": "/ai-speaking",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking/:path(.+)/",
+      "destination": "/ai-speaking/:path",
+      "permanent": true
     }
   ],
   "rewrites": [
