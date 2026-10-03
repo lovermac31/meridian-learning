@@ -38,6 +38,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
     // Digital Reasoning Engine pages.
     ecosystem: [
       { label: 'AI Speaking Practice', href: '/ai-speaking' },
+      { label: 'Live Speaking Baseline', href: '/ai-speaking/baseline' },
       { label: 'Student Academy', href: '/student-academy' },
       { label: 'Interactive Demo', href: '/interactive-demo' },
       { label: 'Book a Diagnostic', href: '/book-diagnostic' },

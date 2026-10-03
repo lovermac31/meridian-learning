@@ -106,6 +106,11 @@ const STATIC_EXTRA_URLS = [
     priority: '0.6',
   },
   {
+    loc: `${SITE_URL}/ai-speaking/baseline`,
+    changefreq: 'weekly',
+    priority: '0.7',
+  },
+  {
     // Prerendered Vietnamese edition — scripts/prerender-yl-vi.mjs
     loc: `${SITE_URL}/vi/luyen-noi-ielts/`,
     changefreq: 'weekly',
