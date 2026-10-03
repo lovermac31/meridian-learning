@@ -117,7 +117,7 @@ export function ComingSoonModal({
             <div className="p-7 pb-8">
               <div className="mb-5">
                 <span className="block text-jurassic-accent font-bold uppercase tracking-[0.2em] text-[10px] mb-2">
-                  Coming Soon
+                  {getUiString(locale, 'comingSoonModal.badge')}
                 </span>
                 <h2 className="text-2xl font-bold text-white tracking-tight">
                   {getUiString(locale, 'comingSoonModal.title')}

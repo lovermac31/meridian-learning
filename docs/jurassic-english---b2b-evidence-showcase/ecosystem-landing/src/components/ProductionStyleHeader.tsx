@@ -33,7 +33,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 
-const PROD_HOST = "https://www.jurassicenglish.com";
+const PROD_HOST = "https://jurassicenglish.com";
 
 // Internal ecosystem routes (kept as relative paths so they stay clean
 // under jurassicenglish.com/<route> via Vercel rewrites).
@@ -42,18 +42,21 @@ const STUDENT_ACADEMY_PATH = "/student-academy";
 // Production homepage anchors for the shared marketing sections. Absolute so
 // they always resolve to the homepage regardless of which rewritten ecosystem
 // page the user is on.
+// Mirrors the production Navbar's reduced two-audience nav (src/components/Navbar.tsx navLinks).
 const NAV_ANCHORS = [
-  { name: "About",            href: `${PROD_HOST}/#about` },
-  { name: "Framework",        href: `${PROD_HOST}/#framework` },
-  { name: "Series",           href: `${PROD_HOST}/#series` },
-  { name: "Student Academy",  href: STUDENT_ACADEMY_PATH },
-  { name: "Services",         href: `${PROD_HOST}/#training` },
-  { name: "Contact",          href: `${PROD_HOST}/#contact` },
+  { name: "For Schools",         href: "/school-framework" },
+  { name: "For Parents",         href: STUDENT_ACADEMY_PATH },
+  { name: "The Curriculum",      href: `${PROD_HOST}/series/compare` },
+  { name: "Ask / Knowledge Hub", href: `${PROD_HOST}/knowledge` },
 ] as const;
 
-const EDU_AFFILIATE_LABEL = "Education Affiliate Program";
-const PRICING_HREF = `${PROD_HOST}/#plans-pricing`;
-const PRICING_LABEL = "Plans & Pricing";
+// Parent-facing IELTS Speaking promo pill — same copy and target as the production Navbar.
+const YL_PROMO = {
+  href: `${PROD_HOST}/young-learners-speaking/`,
+  badge: "New", eyebrow: "For Parents", title: "IELTS Speaking", mobileTitle: "IELTS Speaking for Ages 9-18",
+  ariaLabel: "New — IELTS Speaking coaching for parents, ages 9 to 18. Book a free 30-minute evaluation.",
+} as const;
+
 const GET_STARTED_HREF = `${PROD_HOST}/get-started`;
 const GET_STARTED_LABEL = "Get Started";
 
@@ -256,10 +259,10 @@ export function ProductionStyleHeader() {
           <div className="flex items-center gap-2">
             <a
               href={PROD_HOST}
-              className="rounded-md px-1 py-0.5 text-2xl font-sans font-semibold tracking-tight text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
+              className="rounded-md px-1 py-0.5 font-wordmark text-[1.15rem] sm:text-[1.28rem] text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
               aria-label="Jurassic English home"
             >
-              Jurassic English<span className="text-xs align-top text-jurassic-accent">™</span>
+              Jurassic English<sup className="text-jurassic-accent">™</sup>
             </a>
           </div>
 
@@ -274,22 +277,18 @@ export function ProductionStyleHeader() {
             ecosystem pages always behave identically across viewports.
           */}
           <div className="hidden xl:flex items-center xl:gap-2 2xl:gap-6">
-            {NAV_ANCHORS.map((item) => renderNavLink(item))}
-
-            <button
-              type="button"
-              onClick={() => setIsComingSoonOpen(true)}
-              className="rounded-md text-sm font-semibold text-jurassic-gold/80 hover:text-jurassic-gold hover:underline underline-offset-4 decoration-jurassic-gold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
-            >
-              {EDU_AFFILIATE_LABEL}
-            </button>
-
             <a
-              href={PRICING_HREF}
-              className="rounded-md text-sm font-medium tracking-[0.01em] text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
+              href={YL_PROMO.href}
+              aria-label={YL_PROMO.ariaLabel}
+              className="group inline-flex items-center gap-2 rounded-full border border-jurassic-accent/45 bg-jurassic-accent/10 py-1.5 pl-2 pr-3.5 transition-all duration-300 hover:border-jurassic-accent/70 hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
             >
-              {PRICING_LABEL}
+              <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">{YL_PROMO.badge}</span>
+              <span className="flex flex-col text-left leading-none">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-jurassic-accent">{YL_PROMO.eyebrow}</span>
+                <span className="mt-0.5 text-sm font-semibold text-white">{YL_PROMO.title}</span>
+              </span>
             </a>
+            {NAV_ANCHORS.map((item) => renderNavLink(item))}
 
             <a
               href={GET_STARTED_HREF}
@@ -353,6 +352,14 @@ export function ProductionStyleHeader() {
             {/* Phase 8 — focus-visible rings added to every drawer item so
                 keyboard users see where focus is while the drawer is open
                 (focus-trap effect above keeps Tab inside the drawer). */}
+            <a
+              href={YL_PROMO.href}
+              onClick={() => setIsMobileOpen(false)}
+              className="rounded-xl border border-jurassic-accent/45 bg-jurassic-accent/10 px-4 py-3 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent"
+            >
+              <span className="mr-2 rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">{YL_PROMO.badge}</span>
+              <span className="font-semibold">{YL_PROMO.mobileTitle}</span>
+            </a>
             {NAV_ANCHORS.map((item) =>
               isInternal(item.href) ? (
                 <Link
@@ -375,24 +382,6 @@ export function ProductionStyleHeader() {
               ),
             )}
 
-            <button
-              type="button"
-              onClick={() => {
-                setIsMobileOpen(false);
-                setIsComingSoonOpen(true);
-              }}
-              className="rounded-md text-left text-lg font-semibold text-jurassic-gold/90 hover:text-jurassic-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
-            >
-              {EDU_AFFILIATE_LABEL}
-            </button>
-
-            <a
-              href={PRICING_HREF}
-              onClick={() => setIsMobileOpen(false)}
-              className="rounded-md text-lg font-medium text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#101820]"
-            >
-              {PRICING_LABEL}
-            </a>
 
             <a
               href={GET_STARTED_HREF}

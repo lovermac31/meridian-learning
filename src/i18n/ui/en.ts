@@ -76,6 +76,12 @@ export const enUi = {
     responseTime: 'We typically respond within 2 business days.',
     copyright: '© 2026 World Wise Learning. All rights reserved.',
     trademark: 'Jurassic English™ is a trademark of World Wise Learning.',
+    disclaimerIelts:
+      'IELTS is a registered trademark of University of Cambridge ESOL, the British Council and IDP Education Australia. Jurassic English™ is independent and is not affiliated with, approved or endorsed by them.',
+    disclaimerOutcomes:
+      'Band scores on this site are targets, not promises. Results depend on each learner\'s starting point, attendance and practice.',
+    disclaimerAi:
+      'Jurassic AI Speaking gives AI-generated practice feedback. It is not an official IELTS score and is not an official basis for grading, placement, admission or employment.',
   },
   hero: {
     imageAlt: 'Jurassic English compass and curated book collection',
@@ -173,13 +179,19 @@ export const enUi = {
       submitFailedShortly: 'We could not submit your enquiry. Please try again shortly.',
     },
   },
+  comingSoonToast: {
+    badge: 'Coming soon',
+    message: 'Coming very soon. For more information, email',
+    close: 'Dismiss',
+  },
   comingSoonModal: {
-    dialogLabel: 'Education Affiliate Program — Coming Soon',
+    badge: 'Coming very soon',
+    dialogLabel: 'Education Affiliate Program — Coming very soon',
     title: 'Education Affiliate Program',
     body:
-      'This pathway is coming soon. Jurassic English™ is preparing a structured partner pathway for educators, centers, and aligned education organizations.',
+      'This pathway is coming very soon. Jurassic English™ is preparing a structured partner pathway for educators, centers, and aligned education organizations.',
     support:
-      'For early partnership inquiries, contact us and we will follow up directly.',
+      'For more information, email info@jurassicenglish.com and we will follow up directly.',
     close: 'Close',
     contactUs: 'Contact Us',
     closeModal: 'Close modal',

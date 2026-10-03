@@ -82,7 +82,7 @@ const termsAndConditions: LegalDocument = {
         ]),
         sub('3.2 Account Registration', [
           p('Certain Services may require account registration. You agree to provide accurate, current, and complete information during registration and to keep that information up to date. You are responsible for maintaining the confidentiality of your account credentials and for all activity conducted under your account.'),
-          p('You must notify Us immediately at legal@worldwiselearning.com if you suspect any unauthorised use of your account. We reserve the right to suspend or terminate accounts that contain false information or that violate these Terms.'),
+          p('You must notify Us immediately at info@jurassicenglish.com if you suspect any unauthorised use of your account. We reserve the right to suspend or terminate accounts that contain false information or that violate these Terms.'),
         ]),
         sub('3.3 Institutional Account Administration', [
           p('Institutional Clients may designate one or more administrators responsible for managing user access within their organisation. Institutional Clients are fully responsible for all activity conducted under their institutional account, including the conduct of individual users to whom they grant access.'),
@@ -127,7 +127,7 @@ const termsAndConditions: LegalDocument = {
       blocks: [
         p('All Content, frameworks, trade marks, logos, and methodologies—including the Jurassic Thinking Cycle™, CEIW Structure, Four-Level Reasoning Rubric, and all associated pedagogical tools—are the exclusive intellectual property of World Wise Learning and are protected by applicable copyright, trade mark, and other intellectual property laws.'),
         p('Nothing in these Terms transfers any intellectual property rights to you. Your licence to use Our Services does not constitute assignment or waiver of any intellectual property right. All goodwill generated through use of Our trade marks accrues solely to World Wise Learning.'),
-        p('If you believe any Content on Our platform infringes your intellectual property rights, please contact Us at legal@worldwiselearning.com with full particulars of the alleged infringement.'),
+        p('If you believe any Content on Our platform infringes your intellectual property rights, please contact Us at info@jurassicenglish.com with full particulars of the alleged infringement.'),
       ],
     },
     {
@@ -234,7 +234,7 @@ const termsAndConditions: LegalDocument = {
     { label: 'Organisation', value: 'World Wise Learning' },
     { label: 'Brand', value: 'Jurassic English™' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
-    { label: 'Legal Enquiries', value: 'legal@worldwiselearning.com' },
+    { label: 'Legal Enquiries', value: 'info@jurassicenglish.com' },
     { label: 'Effective Date', value: 'March 2026' },
     { label: 'Last Updated', value: 'March 21, 2026' },
   ],
@@ -264,7 +264,7 @@ const privacyPolicy: LegalDocument = {
             ['Data Controller', 'World Wise Learning'],
             ['Brand', 'Jurassic English™'],
             ['Website', 'www.jurassicenglish.com'],
-            ['Contact', 'legal@worldwiselearning.com'],
+            ['Contact', 'info@jurassicenglish.com'],
           ],
         ),
       ],
@@ -389,7 +389,7 @@ const privacyPolicy: LegalDocument = {
           'Right to object: To object to processing based on legitimate interests or for direct marketing;',
           'Right to withdraw consent: Where processing is based on consent, to withdraw that consent at any time.',
         ]),
-        p('To exercise any of these rights, contact Us at legal@worldwiselearning.com. We will respond within the timeframe required by applicable law (typically 30 days). We may request proof of identity before processing your request.'),
+        p('To exercise any of these rights, contact Us at info@jurassicenglish.com. We will respond within the timeframe required by applicable law (typically 30 days). We may request proof of identity before processing your request.'),
       ],
     },
     {
@@ -397,7 +397,7 @@ const privacyPolicy: LegalDocument = {
       heading: 'Children\'s Privacy',
       blocks: [
         p('Our Services are directed at educational institutions and professional educators. Where Our curriculum is delivered to students under 18, this occurs through the institutional relationship, and the Institutional Client is responsible for obtaining all necessary consents from parents or guardians.'),
-        p('We do not knowingly collect personal data directly from children under 13 without verifiable parental consent. If you believe We have inadvertently collected such data, contact Us immediately at legal@worldwiselearning.com.'),
+        p('We do not knowingly collect personal data directly from children under 13 without verifiable parental consent. If you believe We have inadvertently collected such data, contact Us immediately at info@jurassicenglish.com.'),
       ],
     },
     {
@@ -433,7 +433,7 @@ const privacyPolicy: LegalDocument = {
       number: '14',
       heading: 'Complaints',
       blocks: [
-        p('If you have concerns about how We handle your personal data, please contact Us at legal@worldwiselearning.com. You also have the right to lodge a complaint with your relevant supervisory authority (e.g., the UK Information Commissioner\'s Office, or the applicable national data protection authority in your jurisdiction).'),
+        p('If you have concerns about how We handle your personal data, please contact Us at info@jurassicenglish.com. You also have the right to lodge a complaint with your relevant supervisory authority (e.g., the UK Information Commissioner\'s Office, or the applicable national data protection authority in your jurisdiction).'),
       ],
     },
     {
@@ -446,7 +446,7 @@ const privacyPolicy: LegalDocument = {
     { label: 'Data Controller', value: 'World Wise Learning' },
     { label: 'Brand', value: 'Jurassic English™' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
-    { label: 'Privacy Enquiries', value: 'legal@worldwiselearning.com' },
+    { label: 'Privacy Enquiries', value: 'info@jurassicenglish.com' },
     { label: 'Effective Date', value: 'March 2026' },
     { label: 'Last Updated', value: 'March 21, 2026' },
   ],
@@ -571,7 +571,7 @@ const cookiePolicy: LegalDocument = {
     { label: 'Organisation', value: 'World Wise Learning' },
     { label: 'Brand', value: 'Jurassic English™' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
-    { label: 'Cookie Enquiries', value: 'legal@worldwiselearning.com' },
+    { label: 'Cookie Enquiries', value: 'info@jurassicenglish.com' },
     { label: 'Last Updated', value: 'March 21, 2026' },
   ],
 };
@@ -674,7 +674,7 @@ const accessibilityStatement: LegalDocument = {
             'High-contrast printing formats;',
             'Digital editable versions compatible with assistive technology.',
           ]),
-          p('To request materials in an accessible format, contact Us at legal@worldwiselearning.com.'),
+          p('To request materials in an accessible format, contact Us at info@jurassicenglish.com.'),
         ]),
       ],
     },
@@ -704,7 +704,7 @@ const accessibilityStatement: LegalDocument = {
         table(
           ['Contact Detail', 'Information'],
           [
-            ['Accessibility Enquiries', 'legal@worldwiselearning.com'],
+            ['Accessibility Enquiries', 'info@jurassicenglish.com'],
             ['Organisation', 'World Wise Learning'],
             ['Website', 'www.jurassicenglish.com'],
             ['Response Time', 'We aim to respond within 5 business days of receipt.'],
@@ -739,7 +739,7 @@ const accessibilityStatement: LegalDocument = {
     },
   ],
   contact: [
-    { label: 'Accessibility Enquiries', value: 'legal@worldwiselearning.com' },
+    { label: 'Accessibility Enquiries', value: 'info@jurassicenglish.com' },
     { label: 'Organisation', value: 'World Wise Learning' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
   ],
@@ -826,7 +826,7 @@ const disclaimer: LegalDocument = {
       heading: 'Errors and Omissions',
       blocks: [
         p('While We exercise diligence in producing and reviewing Our Content, curriculum materials may occasionally contain typographical errors, inaccuracies, or omissions. World Wise Learning reserves the right to correct any errors at any time without prior notice.'),
-        p('We do not accept liability for any errors or omissions in Our Content. If you identify an error in any of Our materials, please contact Us at legal@worldwiselearning.com so that We may address it promptly.'),
+        p('We do not accept liability for any errors or omissions in Our Content. If you identify an error in any of Our materials, please contact Us at info@jurassicenglish.com so that We may address it promptly.'),
       ],
     },
     {
@@ -864,7 +864,7 @@ const disclaimer: LegalDocument = {
     { label: 'Organisation', value: 'World Wise Learning' },
     { label: 'Brand', value: 'Jurassic English™' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
-    { label: 'Legal Enquiries', value: 'legal@worldwiselearning.com' },
+    { label: 'Legal Enquiries', value: 'info@jurassicenglish.com' },
     { label: 'Effective Date', value: 'March 2026' },
     { label: 'Last Updated', value: 'March 21, 2026' },
   ],

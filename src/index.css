@@ -242,3 +242,6 @@ html[lang='vi'] {
     margin-right: 0;
   }
 }
+
+/* Coming-soon toast entrance (motion-safe only) */
+@keyframes jeToastIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }

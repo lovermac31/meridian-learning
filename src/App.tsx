@@ -101,9 +101,9 @@ const BotUIChat = lazy(() =>
 const PricingModal = lazy(() =>
   import('./components/PricingModal').then(m => ({ default: m.PricingModal }))
 );
-const ComingSoonModal = lazy(() =>
-  import('./components/ComingSoonModal').then(m => ({ default: m.ComingSoonModal }))
-);
+import { ComingSoonToast } from './components/ComingSoonToast';
+import { getUiString } from './i18n/ui';
+import { showComingSoon } from './lib/comingSoon';
 
 /* ── Lazy-loaded homepage sections (staged after initial render) ───────── */
 const SeriesSection = lazy(() =>
@@ -145,7 +145,6 @@ const DeferredHomeSectionPlaceholder = ({ className = 'min-h-40' }: { className?
 function App() {
   const [route, setRoute] = useState(getCurrentRoute());
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-  const [isComingSoonOpen, setIsComingSoonOpen] = useState(false);
   const [homeSectionStage, setHomeSectionStage] = useState<HomeSectionStage>(0);
   const pathname = window.location.pathname;
   const speedInsightsRoute = normalizeSpeedInsightsRoute(route);
@@ -196,8 +195,10 @@ function App() {
     // /knowledge has a light (ivory) background from the top, so the
     // transparent navbar's white wordmark + links would be invisible.
     // Force the solid dark navbar like the other light-background pages.
-    isKnowledgeView;
-  const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
+    isKnowledgeView ||
+    // /legal/* and /vi/legal/* render on white (LegalPage bg-white): same rule.
+    isLegalView;
+  const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen;
   const isSubpageView =
     isGetStartedView ||
     isAvailableSoonView ||
@@ -395,7 +396,7 @@ function App() {
           onNavigateHome={() => navigateTo('/')}
           onNavigate={navigateTo}
           onPricingClick={() => setIsPricingModalOpen(true)}
-          onEducationAffiliateClick={() => setIsComingSoonOpen(true)}
+          onEducationAffiliateClick={() => showComingSoon(getUiString(locale, 'comingSoonModal.title'))}
           isPortalView={isSubpageView}
           forceSolidBackground={shouldForceSolidNavbar}
           languageSwitcher={<LanguageSwitcher currentRoute={route} onNavigate={pushRoute} />}
@@ -560,7 +561,7 @@ function App() {
         <Footer
           onNavigate={navigateTo}
           onPricingClick={() => setIsPricingModalOpen(true)}
-          onEducationAffiliateClick={() => setIsComingSoonOpen(true)}
+          onEducationAffiliateClick={() => showComingSoon(getUiString(locale, 'comingSoonModal.title'))}
         />
       ) : null}
       {isBotUIPilotVisible ? (
@@ -574,13 +575,7 @@ function App() {
           onClose={() => setIsPricingModalOpen(false)}
         />
       </Suspense>
-      <Suspense fallback={null}>
-        <ComingSoonModal
-          isOpen={isComingSoonOpen}
-          onClose={() => setIsComingSoonOpen(false)}
-          onNavigate={navigateTo}
-        />
-      </Suspense>
+      <ComingSoonToast />
       <SpeedInsights route={speedInsightsRoute} />
     </div>
   );
