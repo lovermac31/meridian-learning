@@ -1,6 +1,7 @@
-import { ArrowRight, Mail } from 'lucide-react';
+import { ArrowRight, Mail, MessageSquareText } from 'lucide-react';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
+import { WEBSITE_FEEDBACK_FORM_URL } from '../lib/contactConfig';
 import { LinkifyWorldWise } from './WorldWiseLink';
 import { PreferredSourceButton } from './PreferredSourceButton';
 
@@ -215,6 +216,19 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
                 >
                   <Mail aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
                   info@jurassicenglish.com
+                </a>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-1">{getUiString(locale, 'footer.websiteFeedback')}</p>
+                <a
+                  href={WEBSITE_FEEDBACK_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-md text-sm text-jurassic-accent transition-colors duration-200 hover:text-jurassic-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+                >
+                  <MessageSquareText aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
+                  {getUiString(locale, 'footer.shareFeedback')}
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </div>
               <div>
