@@ -56,7 +56,7 @@ const enHomeContent = {
     aiSpeakingStrip: {
       eyebrow: 'New · For university applicants & professionals',
       title: 'Jurassic AI Speaking: IELTS-style Speaking mocks',
-      body: 'A full Parts 1–3 mock scored against the public IELTS Speaking criteria, with your own words as evidence and the one thing to fix next. From 79,000₫.',
+      body: 'A full Parts 1–3 mock scored against the public IELTS Speaking criteria, with your own words as evidence and the one thing to fix next. From 79.000₫.',
       cta: 'Try AI Speaking',
     },
   },

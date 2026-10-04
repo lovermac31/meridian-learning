@@ -126,9 +126,24 @@ function highlightSelector(lang: Lang): void {
   if (group) group.setAttribute('aria-label', SELECTOR_ARIA[lang]);
 }
 
+/**
+ * 1-to-1 lesson checkout links (AI Speaking app). The checkout speaks EN and VI;
+ * other languages fall back to English there.
+ */
+export function lessonsHref(pack: string, lang: Lang): string {
+  return `/ai-speaking/lessons?${lang === 'vi' ? 'lang=vi&' : ''}pack=${encodeURIComponent(pack)}`;
+}
+
+function applyLessonLinks(lang: Lang): void {
+  document.querySelectorAll<HTMLAnchorElement>('a[data-lessons-pack]').forEach((a) => {
+    a.setAttribute('href', lessonsHref(a.getAttribute('data-lessons-pack') || '', lang));
+  });
+}
+
 function applyAll(lang: Lang): void {
   applyMeta(lang);
   applyText(lang);
+  applyLessonLinks(lang);
   highlightSelector(lang);
 }
 

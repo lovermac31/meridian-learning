@@ -95,9 +95,15 @@ function absolutiseAssets(html) {
              .replace(/(,\s*)assets\//g, `$1${EN_PATH}assets/`);
 }
 
+/** 1-to-1 lesson checkout links open the Vietnamese checkout (mirrors lessonsHref in pageI18n.ts). */
+function localiseLessonLinks(html) {
+  return html.replace(/(<a\b[^>]*\sdata-lessons-pack="([^"]+)"[^>]*\shref=")[^"]*"/g,
+    (_m, head, pack) => `${head}/ai-speaking/lessons?lang=vi&amp;pack=${encodeURIComponent(pack)}"`);
+}
+
 export function buildViPage(enHtml) {
   const body = localiseBody(enHtml);
-  const html = absolutiseAssets(localiseHead(body.html));
+  const html = absolutiseAssets(localiseLessonLinks(localiseHead(body.html)));
   return { html, replaced: body.replaced };
 }
 
