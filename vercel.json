@@ -347,15 +347,6 @@
       ]
     },
     {
-      "source": "/api/health",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, s-maxage=30, stale-while-revalidate=60"
-        }
-      ]
-    },
-    {
       "source": "/(student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework)",
       "headers": [
         {
@@ -374,7 +365,7 @@
       ]
     },
     {
-      "source": "/((?!assets|api|images|student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework).*)",
+      "source": "/((?!assets|api|images|ai-speaking|student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework).*)",
       "headers": [
         {
           "key": "Cache-Control",
