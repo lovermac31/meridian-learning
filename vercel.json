@@ -33,7 +33,7 @@
     },
     {
       "source": "/book-evaluation",
-      "destination": "https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec",
+      "destination": "/ai-speaking/baseline",
       "permanent": false
     },
     {

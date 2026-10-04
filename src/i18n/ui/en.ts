@@ -24,9 +24,9 @@ export const enUi = {
       desktopEyebrow: 'For Parents',
       desktopTitle: 'IELTS Speaking',
       mobileTitle: 'IELTS Speaking for Ages 9-18',
-      mobileSubtitle: 'Free 30-minute evaluation',
+      mobileSubtitle: 'Live Speaking Baseline · 690.000₫',
       ariaLabel:
-        'New — IELTS Speaking coaching for parents, ages 9 to 18. Book a free 30-minute evaluation.',
+        'New — IELTS Speaking coaching for parents, ages 9 to 18. Start with a Live Speaking Baseline (690.000₫).',
     },
     pricing: 'Plans & Pricing',
     getStarted: 'Get Started',

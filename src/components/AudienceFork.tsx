@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
+import { baselineHref } from '../lib/baselineLink';
 import { detectSocialTrafficIntent } from '../lib/trafficIntent';
 
 type AudienceForkProps = {
@@ -11,24 +12,24 @@ type AudienceForkProps = {
 const FOCUS_RING =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark';
 
-// /young-learners-speaking/ is a STATIC page in public/ — it is NOT an SPA
-// route and NOT rewrite-served. The IELTS door must use a native <a href>
-// (real document navigation). Routing it through onNavigate/pushState would
-// land on the SPA NotFound fallback because the Vite router has no client
-// route for this path. Mirrors the Navbar promo-pill pattern.
-const YOUNG_LEARNERS_HREF = '/young-learners-speaking/';
+// The IELTS door books the Live Speaking Baseline in the AI Speaking app
+// (rewrite-served at /ai-speaking, not an SPA route). It must use a native
+// <a href> (real document navigation). Routing it through onNavigate/pushState
+// would land on the SPA NotFound fallback because the Vite router has no
+// client route for this path. Mirrors the Navbar promo-pill pattern.
 
 /**
  * AudienceFork — the P1 three-door front door.
  *
  * Schools remains the primary (dominant, orange) door per the locked
  * institutional positioning. Parents is the secondary general door.
- * IELTS Speaking is the new B2C door for ages 9–18 — added in response
+ * IELTS Speaking is the B2C door for ages 9–18 — added in response
  * to the FB-referrer + 75% bounce signal: Facebook parents arriving on
- * `/` need a "speaking / free evaluation" hook above-the-fold, not just
- * "literature curriculum". /school-framework and /student-academy are
- * rewrite-served by the ecosystem app (App.navigateTo does a full-document
- * nav for those). /young-learners-speaking/ is a static page (native <a>).
+ * `/` need a speaking hook above-the-fold, not just "literature
+ * curriculum". It books the paid Live Speaking Baseline (690.000₫).
+ * /school-framework and /student-academy are rewrite-served by the
+ * ecosystem app (App.navigateTo does a full-document nav for those).
+ * /ai-speaking/baseline is rewrite-served by the AI Speaking app (native <a>).
  */
 export function AudienceFork({ onNavigate }: AudienceForkProps) {
   const locale = getCurrentLocale();
@@ -76,12 +77,12 @@ export function AudienceFork({ onNavigate }: AudienceForkProps) {
           </span>
         </button>
 
-        {/* NEW B2C door — IELTS Speaking. Native <a>: static page in public/.
+        {/* NEW B2C door — IELTS Speaking. Native <a>: AI Speaking app page.
             The "New" badge + accent-tinted border draws the FB-parent eye
             without overpowering the institutional Schools door. Spans both
             mobile columns at <sm so it stays clickable above-the-fold. */}
         <a
-          href={YOUNG_LEARNERS_HREF}
+          href={baselineHref(locale)}
           onClick={() =>
             trackCtaClick({
               label: 'IELTS Speaking (fork)',
@@ -89,7 +90,7 @@ export function AudienceFork({ onNavigate }: AudienceForkProps) {
               segment: 'parent_student',
             })
           }
-          aria-label={`${fork.ieltsTitle ?? 'IELTS Speaking Ages 9-18'} — ${fork.ieltsCta ?? 'Book Free Evaluation'}`}
+          aria-label={`${fork.ieltsTitle ?? 'IELTS Speaking Ages 9-18'} — ${fork.ieltsCta ?? 'Book a Speaking Baseline'}`}
           className={`group flex flex-col items-start rounded-2xl border border-jurassic-gold/45 bg-gradient-to-br from-jurassic-gold/15 to-jurassic-accent/10 p-6 text-left transition hover:from-jurassic-gold/25 hover:to-jurassic-accent/20 sm:col-span-2 lg:col-span-1 ${socialTrafficIntent ? 'order-1' : ''} ${FOCUS_RING}`}
         >
           <span className="mb-2 inline-flex items-center gap-2">
@@ -99,10 +100,10 @@ export function AudienceFork({ onNavigate }: AudienceForkProps) {
           </span>
           <span className="text-xl font-bold text-white">{fork.ieltsTitle ?? 'IELTS Speaking Ages 9-18'}</span>
           <span className="mt-2 text-sm leading-relaxed text-white/70">
-            {fork.ieltsBody ?? 'Book a free 30-minute evaluation for your child.'}
+            {fork.ieltsBody ?? 'Start with a Live Speaking Baseline: 15–20 minutes on Google Meet with an assessor, 690.000₫.'}
           </span>
           <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-jurassic-gold">
-            {fork.ieltsCta ?? 'Book Free Evaluation'}
+            {fork.ieltsCta ?? 'Book a Speaking Baseline'}
             <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </span>
         </a>

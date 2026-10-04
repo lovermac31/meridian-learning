@@ -23,9 +23,9 @@ export const viUi = {
       desktopEyebrow: 'Cho Phụ huynh',
       desktopTitle: 'Luyện nói IELTS',
       mobileTitle: 'Luyện nói IELTS cho 9-18 tuổi',
-      mobileSubtitle: 'Đánh giá miễn phí 30 phút',
+      mobileSubtitle: 'Đánh giá Nói trực tiếp · 690.000₫',
       ariaLabel:
-        'Mới — Khóa luyện nói IELTS cho phụ huynh, độ tuổi 9-18. Đặt lịch đánh giá miễn phí 30 phút.',
+        'Mới — Khóa luyện nói IELTS cho phụ huynh, độ tuổi 9-18. Bắt đầu với buổi Đánh giá Nói trực tiếp (690.000₫).',
     },
     pricing: 'Gói & Báo giá',
     getStarted: 'Bắt đầu',

@@ -101,9 +101,20 @@ function localiseLessonLinks(html) {
     (_m, head, pack) => `${head}/ai-speaking/lessons?lang=vi&amp;pack=${encodeURIComponent(pack)}"`);
 }
 
+/**
+ * Live Speaking Baseline CTAs open the Vietnamese booking page (mirrors
+ * baselineHref in src/lib/baselineLink.ts). Rewrites href inside each
+ * <a ... data-baseline-link ...> tag, whatever the attribute order.
+ */
+export const VI_BASELINE_HREF = '/ai-speaking/baseline?lang=vi';
+function localiseBaselineLinks(html) {
+  return html.replace(/<a\b[^>]*\sdata-baseline-link\b[^>]*>/g,
+    (tag) => tag.replace(/\shref="[^"]*"/, ` href="${VI_BASELINE_HREF}"`));
+}
+
 export function buildViPage(enHtml) {
   const body = localiseBody(enHtml);
-  const html = absolutiseAssets(localiseLessonLinks(localiseHead(body.html)));
+  const html = absolutiseAssets(localiseBaselineLinks(localiseLessonLinks(localiseHead(body.html))));
   return { html, replaced: body.replaced };
 }
 

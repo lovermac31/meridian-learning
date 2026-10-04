@@ -20,12 +20,11 @@ const enHomeContent = {
     audienceCompareCta: 'Compare Levels',
     // P1 — three-door audience fork. Schools remains the primary B2B door
     // (orange, dominant). Parents routes to the general /student-academy
-    // ecosystem page. IELTS Speaking is the new B2C door for ages 9–18 and
-    // routes to the static /young-learners-speaking/ landing page, where the
-    // free 30-minute evaluation form lives. Adding the third door is the
-    // explicit response to the FB-referrer + 75% bounce signal: parents
-    // arriving from social need a "speaking / free evaluation" hook
-    // above-the-fold, not just "literature curriculum".
+    // ecosystem page. IELTS Speaking is the B2C door for ages 9–18 and books
+    // the paid entry offer, the Live Speaking Baseline (690.000₫), in the AI
+    // Speaking app. Adding the third door is the explicit response to the
+    // FB-referrer + 75% bounce signal: parents arriving from social need a
+    // speaking hook above-the-fold, not just "literature curriculum".
     fork: {
       label: 'Choose your path',
       schoolsTitle: 'For Schools',
@@ -36,14 +35,14 @@ const enHomeContent = {
       parentsCta: 'Visit the Student Academy',
       ieltsBadge: 'New',
       ieltsTitle: 'IELTS Speaking Ages 9-18',
-      ieltsBody: 'Book a free 30-minute evaluation for your child. IELTS-aligned 1-to-1 and small-group coaching.',
-      ieltsCta: 'Book Free Evaluation',
+      ieltsBody: 'Start with a Live Speaking Baseline: 15–20 minutes on Google Meet with an assessor, 690.000₫. Then 1-to-1 or small-group coaching.',
+      ieltsCta: 'Book a Speaking Baseline',
       reconsiderLabel: 'Still deciding?',
       socialEyebrow: 'For families finding us on social',
       socialHeadline: 'Looking for English speaking coaching for your child?',
       socialBody:
-        'IELTS-aligned speaking practice for ages 9–18 with a free 30-minute evaluation — online, house-call, or facility location TBA.',
-      socialCta: 'Book Free Evaluation',
+        'IELTS-aligned speaking practice for ages 9–18. Start with a Live Speaking Baseline: 15–20 minutes live on Google Meet with an assessor, 690.000₫.',
+      socialCta: 'Book a Speaking Baseline',
     },
     // Compact B2B discovery strip below the fork (links to /companies). Kept
     // secondary to the Schools/Parents/IELTS fork — no top-nav change.
@@ -405,14 +404,14 @@ const viHomeContent = {
       parentsCta: 'Vào Student Academy',
       ieltsBadge: 'Mới',
       ieltsTitle: 'IELTS Speaking 9-18 tuổi',
-      ieltsBody: 'Đặt buổi đánh giá nói miễn phí 30 phút cho con. Coaching IELTS Speaking 1-kèm-1 và nhóm nhỏ.',
-      ieltsCta: 'Đặt đánh giá miễn phí',
+      ieltsBody: 'Bắt đầu với buổi Đánh giá Nói trực tiếp: 15–20 phút qua Google Meet với người chấm, 690.000₫. Sau đó là coaching IELTS Speaking 1-kèm-1 hoặc nhóm nhỏ.',
+      ieltsCta: 'Đặt lịch đánh giá Nói trực tiếp',
       reconsiderLabel: 'Vẫn đang cân nhắc?',
       socialEyebrow: 'Cho phụ huynh tìm hiểu qua mạng xã hội',
       socialHeadline: 'Đang tìm coaching tiếng Anh nói cho con?',
       socialBody:
-        'Luyện nói theo chuẩn IELTS cho độ tuổi 9–18 với buổi đánh giá miễn phí 30 phút — online, tại nhà hoặc tại cơ sở (sẽ thông báo).',
-      socialCta: 'Đặt đánh giá miễn phí',
+        'Luyện nói theo chuẩn IELTS cho độ tuổi 9–18. Bắt đầu với buổi Đánh giá Nói trực tiếp: 15–20 phút qua Google Meet với người chấm, 690.000₫.',
+      socialCta: 'Đặt lịch đánh giá Nói trực tiếp',
     },
     companiesStrip: {
       eyebrow: 'Cho doanh nghiệp · Đội ngũ công nghệ & xuất khẩu',

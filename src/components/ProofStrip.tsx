@@ -1,6 +1,7 @@
 import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
+import { baselineHref } from '../lib/baselineLink';
 
 type ProofStripProps = {
   onNavigate: (path: string) => void;
@@ -12,11 +13,6 @@ const FOCUS_RING =
 // /young-learners-speaking/ is a STATIC page in public/. Native <a href> only.
 const YOUNG_LEARNERS_HREF = '/young-learners-speaking/';
 
-// UTM-tagged variant used by the dedicated FB-intent card so Vercel Analytics
-// can distinguish social-card clicks from the AudienceFork IELTS door without
-// adding a new event property. Campaign value matches the planned FB ad set.
-const YOUNG_LEARNERS_FB_HREF =
-  '/young-learners-speaking/?utm_source=facebook&utm_medium=social&utm_campaign=free_evaluation';
 
 const STATS: Array<{ value: string; label: string }> = [
   { value: '5', label: 'structured levels' },
@@ -29,8 +25,9 @@ const STATS: Array<{ value: string; label: string }> = [
  * ProofStrip — P1 screen 2.
  *
  * Layout:
- *  1. Social-intent card (FB-tagged CTA → /young-learners-speaking/) — the
- *     scroll-past parent who skipped the hero IELTS fork lands here first.
+ *  1. Social-intent card (CTA → Live Speaking Baseline booking in the AI
+ *     Speaking app) — the scroll-past parent who skipped the hero IELTS fork
+ *     lands here first.
  *  2. Credibility stats strip (unchanged).
  *  3. Three-button re-fork (Schools / Parents / IELTS Speaking) +
  *     Knowledge Hub and Get Started underline links — catches every
@@ -49,7 +46,7 @@ export function ProofStrip({ onNavigate }: ProofStripProps) {
   return (
     <section className="bg-jurassic-ivory py-20">
       <div className="mx-auto max-w-5xl px-6">
-        {/* Social-intent card — explicit FB-parent hook with UTM. Sits at
+        {/* Social-intent card — explicit FB-parent hook. Sits at
             the very top of ProofStrip so it is the first thing a visitor
             who scrolled past the hero sees on screen 2. */}
         <div className="mb-14 overflow-hidden rounded-2xl border border-jurassic-accent/25 bg-white shadow-sm">
@@ -63,11 +60,11 @@ export function ProofStrip({ onNavigate }: ProofStripProps) {
               </h2>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-jurassic-dark/70 sm:text-base">
                 {fork?.socialBody ??
-                  'IELTS-aligned speaking practice for ages 9–18 with a free 30-minute evaluation — online, house-call, or facility location TBA.'}
+                  'IELTS-aligned speaking practice for ages 9–18. Start with a Live Speaking Baseline: 15–20 minutes live on Google Meet with an assessor, 690.000₫.'}
               </p>
             </div>
             <a
-              href={YOUNG_LEARNERS_FB_HREF}
+              href={baselineHref(locale)}
               onClick={() =>
                 trackCtaClick({
                   label: 'IELTS Speaking (social card)',
@@ -77,7 +74,7 @@ export function ProofStrip({ onNavigate }: ProofStripProps) {
               }
               className={`inline-flex w-full items-center justify-center rounded-full bg-jurassic-accent px-7 py-3.5 text-sm font-bold text-white shadow-sm transition hover:opacity-95 sm:w-auto ${FOCUS_RING}`}
             >
-              {fork?.socialCta ?? 'Book Free Evaluation'}
+              {fork?.socialCta ?? 'Book a Speaking Baseline'}
             </a>
           </div>
         </div>

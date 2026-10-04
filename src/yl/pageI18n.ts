@@ -24,6 +24,9 @@ import {
   subscribeLang,
   STRINGS,
 } from './i18n';
+import { baselineHref } from '../lib/baselineLink';
+
+export { baselineHref };
 
 const ORIGIN = 'https://jurassicenglish.com';
 const EN_PATH = '/young-learners-speaking/';
@@ -140,10 +143,21 @@ function applyLessonLinks(lang: Lang): void {
   });
 }
 
+/**
+ * Live Speaking Baseline CTAs (a[data-baseline-link]) open the AI Speaking
+ * booking page: Vietnamese for vi, English for every other language.
+ */
+function applyBaselineLinks(lang: Lang): void {
+  document.querySelectorAll<HTMLAnchorElement>('a[data-baseline-link]').forEach((a) => {
+    a.setAttribute('href', baselineHref(lang));
+  });
+}
+
 function applyAll(lang: Lang): void {
   applyMeta(lang);
   applyText(lang);
   applyLessonLinks(lang);
+  applyBaselineLinks(lang);
   highlightSelector(lang);
 }
 

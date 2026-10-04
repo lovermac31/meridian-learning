@@ -8,8 +8,8 @@
  *    name, age, school, phone, or email.
  *  - Each chip routes to a real on-page anchor (#method, #journey,
  *    #pricing, #book) via smooth scroll, OR opens a mailto: link.
- *  - The free-evaluation form is reached via #book (which contains the
- *    Google Apps Script form CTA, Zalo QR, and email CTA already on the page).
+ *  - Live Speaking Baseline booking is reached via #book (which contains the
+ *    Baseline booking CTA, Zalo QR, and email CTA already on the page).
  *  - Emits Vercel Analytics custom events for opens, closes, and chip clicks.
  *    No PII in event payloads.
  *
@@ -51,7 +51,7 @@ const CHIP_DEFS: ChipDef[] = [
     anchor: 'book',
     secondaryCta: {
       mailto:
-        'mailto:info@jurassicenglish.com?subject=Free%20Young%20Learner%20Speaking%20Evaluation',
+        'mailto:info@jurassicenglish.com?subject=Live%20Speaking%20Baseline%20for%20my%20child',
     },
   },
   {

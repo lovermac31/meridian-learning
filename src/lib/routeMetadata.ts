@@ -90,7 +90,7 @@ const homeFaqEntries = [
   {
     question: 'What is the IELTS Speaking Ages 9-18 programme?',
     answer:
-      'A structured speaking programme for ages 9-18 organized around the public IELTS Speaking criteria — fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation. Coaching is delivered 1-to-1 or in small groups, online or in person. Families can book a free 30-minute evaluation to see where their child stands.',
+      'A structured speaking programme for ages 9-18 organized around the public IELTS Speaking criteria — fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation. Coaching is delivered 1-to-1 or in small groups, online or in person. Families start with a Live Speaking Baseline (690.000₫): 15–20 minutes live on Google Meet with an assessor, giving four criterion bands, an overall band and a written plan.',
   },
   {
     question: 'Is Jurassic English™ officially endorsed by IELTS, Cambridge, or the British Council?',
@@ -124,7 +124,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       createServiceJsonLd({
         name: 'IELTS Speaking Coaching for Ages 9-18',
         description:
-          'IELTS-aligned 1-to-1 and small-group speaking coaching for young learners ages 9-18, built around the public IELTS Speaking criteria, with a free 30-minute evaluation for new families.',
+          'IELTS-aligned 1-to-1 and small-group speaking coaching for young learners ages 9-18, built around the public IELTS Speaking criteria, starting with a Live Speaking Baseline (690.000₫) for new families.',
         url: `${SITE_URL}/young-learners-speaking/`,
         serviceType: 'IELTS Speaking coaching, English speaking evaluation, young-learner speaking coaching',
         areaServed: 'Vietnam, Asia, Online',
