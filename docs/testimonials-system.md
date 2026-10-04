@@ -28,7 +28,7 @@ acceptance tests.
 - `src/types/testimonial.ts` — typed contract (status, consent, scope, program, locale, media).
 - `src/content/testimonials.json` — source of truth. **Seeded with draft/no-consent STRUCTURE EXAMPLES only** — they never publish.
 - `src/lib/testimonials.ts` — pure data layer + all guardrail logic + conditional schema builder + feature flag.
-- `src/components/TestimonialsEmptyState.tsx` — honest empty state (en/vi/zh), CTA to the free-evaluation form. We never fabricate content to fill space.
+- `src/components/TestimonialsEmptyState.tsx` — honest empty state (en/vi/zh), CTA to the Live Speaking Baseline booking page (`/ai-speaking/baseline`, VI adds `?lang=vi`). We never fabricate content to fill space.
 - `src/styles/testimonials.css` — design tokens (scoped under `.je-testimonials`; safe in the SPA and the YL island).
 - `tests/testimonials.test.ts` — acceptance tests (`npm run test:testimonials`).
 

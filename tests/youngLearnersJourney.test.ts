@@ -7,7 +7,7 @@ const promoPath = new URL('../src/yl/PromoVideoModal.tsx', import.meta.url);
 const viPath = new URL('../src/yl/i18n.vi.json', import.meta.url);
 const zhPath = new URL('../src/yl/i18n.zh-CN.json', import.meta.url);
 
-test('Young Learners keeps the public evaluation flow and adds relevant internal paths', async () => {
+test('Young Learners books the Live Speaking Baseline and keeps relevant internal paths', async () => {
   const html = await readFile(htmlPath, 'utf8');
 
   assert.match(html, /class="brand" href="\/" aria-label="Jurassic English home"/);
@@ -19,10 +19,8 @@ test('Young Learners keeps the public evaluation flow and adds relevant internal
     html,
     /href="\/book-diagnostic" data-route-progression="book-diagnostic"/,
   );
-  assert.match(
-    html,
-    /data-form-href="https:\/\/script\.google\.com\/macros\/s\/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e\/exec"/,
-  );
+  assert.match(html, /data-baseline-link href="\/ai-speaking\/baseline"/);
+  assert.doesNotMatch(html, /script\.google\.com/);
   assert.match(html, /<div id="yl-promo-root"><\/div>/);
 });
 

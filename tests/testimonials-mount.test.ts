@@ -31,7 +31,8 @@ test('§2.2/2.3 — flag ON with no publishable → honest empty state, no fabri
   const html = render(true, 'en');
   assert.match(html, /je-testimonials-empty/);
   assert.match(html, /Real results, shared with consent/); // empty-state title
-  assert.match(html, /Book a free evaluation/); // CTA
+  assert.match(html, /Book a Speaking Baseline/); // CTA
+  assert.match(html, /href="\/ai-speaking\/baseline"/);
   // No seeded draft quotes/markers leak into the DOM.
   assert.doesNotMatch(html, /translate every sentence/);
   assert.doesNotMatch(html, /example/i);
@@ -53,7 +54,7 @@ test('§2.6 — empty state is accessible (heading, aria-label, labelled externa
   assert.match(html, /<h2/);
   assert.match(html, /aria-label="Parent testimonials"/);
   assert.match(html, /class="t-cta"/);
-  assert.match(html, />Book a free evaluation</);
+  assert.match(html, />Book a Speaking Baseline</);
   assert.match(html, /target="_blank"/);
   assert.match(html, /rel="noopener"/);
 });
@@ -61,5 +62,6 @@ test('§2.6 — empty state is accessible (heading, aria-label, labelled externa
 test('§2 — empty-state copy is localized en/vi/zh-CN', () => {
   assert.match(render(true, 'en'), /Real results, shared with consent/);
   assert.match(render(true, 'vi'), /Kết quả thật/);
+  assert.match(render(true, 'vi'), /href="\/ai-speaking\/baseline\?lang=vi"/);
   assert.match(render(true, 'zh-CN'), /真实结果/);
 });

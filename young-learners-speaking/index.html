@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>IELTS Speaking Coaching for Ages 9-18 | Jurassic English</title>
-<meta name="description" content="Jurassic English provides IELTS-aligned 1-to-1 and small-group speaking coaching for ages 9-18. Book a free 30-minute evaluation online, by house-call, or at a facility location TBA.">
+<meta name="description" content="Jurassic English provides IELTS-aligned 1-to-1 and small-group speaking coaching for ages 9-18. Start with a Live Speaking Baseline: 15–20 minutes live on Google Meet with an assessor, 690.000₫.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://jurassicenglish.com/young-learners-speaking/">
 <meta name="theme-color" content="#15181d">
@@ -21,7 +21,7 @@
 <meta property="og:image:alt" content="Jurassic English young learner speaking mastery landing page">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="IELTS Speaking Coaching for Ages 9-18 | Jurassic English">
-<meta name="twitter:description" content="Book a free 30-minute IELTS-aligned speaking evaluation for your child.">
+<meta name="twitter:description" content="Book a Live Speaking Baseline for your child: four criterion bands, an overall band and a written plan.">
 <meta name="twitter:image" content="https://jurassicenglish.com/young-learners-speaking/assets/images/page-main-1-og.jpg">
 <meta name="twitter:image:alt" content="Jurassic English young learner speaking mastery landing page">
 <link rel="alternate" hreflang="en" href="https://jurassicenglish.com/young-learners-speaking/">
@@ -63,10 +63,10 @@
   "description": "A structured speaking programme for ages 9-18 using public IELTS Speaking criteria, CEFR-aligned progression, recorded practice, corrective feedback, and parent-facing progress reports.",
   "offers": {
     "@type": "Offer",
-    "name": "Free 30-minute speaking evaluation",
-    "price": "0",
+    "name": "Live Speaking Baseline",
+    "price": "690000",
     "priceCurrency": "VND",
-    "url": "https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec",
+    "url": "https://jurassicenglish.com/ai-speaking/baseline",
     "availability": "https://schema.org/InStock"
   }
 }
@@ -96,10 +96,10 @@
     },
     {
       "@type": "Question",
-      "name": "What does the free 30-minute evaluation include?",
+      "name": "What does the Live Speaking Baseline include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A structured speaking evaluation across the four IELTS Speaking pillars — fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation — followed by a plain-language summary for parents and a recommended next step. Delivered online, by house-call, or at a facility location (TBA)."
+        "text": "15–20 minutes live on Google Meet with an assessor, across the four IELTS Speaking criteria — fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation. You receive four criterion bands, an overall band and a written plan. It costs 690.000₫ and is held online; for learners under 18, a parent books it."
       }
     },
     {
@@ -343,6 +343,8 @@ section.page{padding:clamp(64px,8vw,88px) 0}
 .qr{background:#fff;color:var(--ink);border-radius:10px;padding:16px 14px 14px;font-weight:900;text-transform:uppercase;font-size:.86rem;line-height:1.15}
 .qr img{display:block;width:124px;height:124px;object-fit:contain;margin:0 auto 12px}
 .form-qr img{width:168px;height:168px;margin:0 auto}
+.form-qr.form-price-tile{min-height:0;padding:22px 14px}
+.form-price{font-size:2.1rem;line-height:1;color:var(--orange);text-transform:none;letter-spacing:.01em}
 .booking-next{margin:26px auto 0!important;color:#fff!important;font-weight:700}
 .booking-next a{color:#fff;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
 .booking-next a:hover{color:var(--ink)}
@@ -416,7 +418,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <a href="#method" data-i18n="nav.method">Method</a>
       <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
       <a href="https://jurassicenglish.com/" data-i18n="nav.mainSite">Main site</a>
-      <a class="navcta" href="#book" data-i18n="nav.freeEval">Free evaluation</a>
+      <a class="navcta" href="#book" data-i18n="nav.baseline">Book a Baseline</a>
       <div class="lang-select" data-lang-selector role="group" aria-label="Language">
         <button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">English</button>
         <button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button>
@@ -434,7 +436,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
     <p class="subtitle" data-i18n="hero.subtitle">IELTS-aligned coaching that helps young learners speak more clearly, think more confidently, and communicate with purpose.</p>
     <div class="motto" data-i18n-html="hero.motto">Excavate <span>·</span> Analyze <span>·</span> Justify <span>·</span> Reflect</div>
     <div class="cover-actions">
-      <a class="btn" href="#book" data-i18n="hero.ctaBook">Book a free 30-minute evaluation</a>
+      <a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="hero.ctaBook">Book a Speaking Baseline</a>
       <a class="btn ghost" href="#journey" data-i18n="hero.ctaJourney">See the journey</a>
       <div id="yl-promo-root"></div>
     </div>
@@ -675,12 +677,12 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
         <div class="photo-panel">
           <div class="kicker" data-i18n="pricing.kicker">Getting started</div>
           <h2 data-i18n="pricing.h2">Programmes &amp; family pricing</h2>
-          <p data-i18n="pricing.p">Begin with a free diagnostic to find your child's level and the right starting point.</p>
+          <p data-i18n="pricing.p">Begin with a Live Speaking Baseline to find your child's level and the right starting point.</p>
         </div>
       </div>
       <h3 style="text-transform:uppercase;letter-spacing:.04em" data-i18n="pricing.startHere">Start here</h3>
       <div class="program-cards" style="margin:24px 0 42px">
-        <div class="program-card"><h3 data-i18n="pricing.card1h">Free Evaluation</h3><p><strong style="color:var(--orange);font-size:1.7rem" data-i18n="pricing.card1price">Free</strong><br><span data-i18n="pricing.card1p">30 minutes. Online with good internet and microphone, house-call, or facility location TBA.</span></p></div>
+        <div class="program-card"><h3 data-i18n="pricing.card1h">Live Speaking Baseline</h3><p><strong style="color:var(--orange);font-size:1.7rem">690.000₫</strong><br><span data-i18n="pricing.card1p">15–20 minutes live on Google Meet with an assessor: four criterion bands, an overall band and a written plan. Under 18: booked by a parent.</span></p><a class="btn" style="margin-top:16px" data-baseline-link href="/ai-speaking/baseline" data-i18n="pricing.card1cta">Book a Speaking Baseline</a></div>
         <div class="program-card"><h3 data-i18n="pricing.card2h">Self-Study Toolkit</h3><p><strong style="color:var(--orange);font-size:1.7rem">990.000₫ / $39</strong><br><span data-i18n="pricing.card2p">Handbook, activities, and video guides for habits at home.</span></p></div>
         <div class="program-card"><h3 data-i18n="pricing.card3h">Small-group speaking practice</h3><p><strong style="color:var(--orange);font-size:1.7rem">2.900.000₫ / $114</strong><br><span data-i18n="pricing.card3p">Peers, motivation, and a lower cost. Max 6, six weeks.</span></p></div>
       </div>
@@ -703,7 +705,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
             <a class="btn" data-lessons-pack="lesson_single" href="/ai-speaking/lessons?pack=lesson_single" data-i18n="pricing.buySingle">Buy 1 lesson · 800.000₫</a>
             <a class="btn dark" data-lessons-pack="lesson_month" href="/ai-speaking/lessons?pack=lesson_month" data-i18n="pricing.buyMonth">Buy a month · 8 lessons · 5.600.000₫</a>
           </div>
-          <span style="display:block;font-size:.92rem" data-i18n="pricing.buyNote">The 6-Month Journey and Annual Mastery plans are arranged with us after the free evaluation.</span>
+          <span style="display:block;font-size:.92rem" data-i18n="pricing.buyNote">The 6-Month Journey and Annual Mastery plans are arranged with us after the Speaking Baseline.</span>
         </div>
       </div>
       <div class="payment-note">
@@ -716,7 +718,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
         <div class="payment-option">
           <span class="badge" data-i18n="pricing.flex1Badge">Monthly Flex</span>
           <h4 data-i18n="pricing.flex1H">Smaller monthly entry</h4>
-          <p data-i18n="pricing.flex1P">Pay monthly, split into two smaller payments, or arrange a weekly rhythm after the free evaluation.</p>
+          <p data-i18n="pricing.flex1P">Pay monthly, split into two smaller payments, or arrange a weekly rhythm after the Speaking Baseline.</p>
         </div>
         <div class="payment-option is-featured">
           <span class="badge" data-i18n="pricing.flex2Badge">Recommended</span>
@@ -765,30 +767,30 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       </div>
       <p style="font-size:1.28rem;max-width:980px" data-i18n-html="book.giftP"><strong>The gift that lasts.</strong> The confidence to speak English well does not just pass an exam. It changes which universities, scholarships, and careers are open to your child.</p>
       <div class="steps">
-        <div class="step"><b>1</b><h3 data-i18n="book.step1h">Get in touch</h3><p data-i18n="book.step1p">Message us on Zalo or email info@jurassicenglish.com.</p></div>
-        <div class="step"><b>2</b><h3 data-i18n="book.step2h">Get your child's plan</h3><p data-i18n="book.step2p">We arrange the 30-minute free evaluation and share their level and next step.</p></div>
+        <div class="step"><b>1</b><h3 data-i18n="book.step1h">Book a Speaking Baseline</h3><p data-i18n="book.step1p">Choose a time online and pay 690.000₫ by bank transfer. Questions first? Message us on Zalo or email info@jurassicenglish.com.</p></div>
+        <div class="step"><b>2</b><h3 data-i18n="book.step2h">Get your child's plan</h3><p data-i18n="book.step2p">After 15–20 minutes live on Google Meet, you receive four criterion bands, an overall band and a written plan.</p></div>
         <div class="step"><b>3</b><h3 data-i18n="book.step3h">Start the journey</h3><p data-i18n="book.step3p">In Hanoi or live online, at exactly the right level.</p></div>
       </div>
       <div class="booking">
-        <h2 data-i18n="book.bookingH2">Book a free 30-minute evaluation</h2>
-        <p data-i18n="book.bookingP">Book your child's free 30-minute speaking evaluation. You'll get their current level and one clear next step — no obligation, no pressure.</p>
+        <h2 data-i18n="book.bookingH2">Book a Live Speaking Baseline</h2>
+        <p data-i18n="book.bookingP">Find out where your child stands on the four public IELTS Speaking criteria, with a written plan for what to work on next.</p>
         <div class="form-booking">
           <div>
-            <div class="kicker" style="color:#fff" data-i18n="book.formKicker">Parent inquiry form</div>
-            <h3 data-i18n="book.formH3">Tell us your child's age, speaking goal, and best evaluation time.</h3>
-            <p data-i18n="book.formP">Choose online evaluation, house-call, or facility location TBA. Online evaluations require a good internet connection and microphone.</p>
-            <a class="btn light" data-form-href="https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec" href="/book-evaluation" target="_blank" rel="noopener" data-i18n="book.openForm">Open evaluation form</a>
+            <div class="kicker" style="color:#fff" data-i18n="book.formKicker">Book online</div>
+            <h3 data-i18n="book.formH3">Choose a time, pay by bank transfer, then meet the assessor on Google Meet.</h3>
+            <p data-i18n="book.formP">Online only: a good internet connection and a microphone are needed. Under 18: booked by a parent.</p>
+            <a class="btn light" data-baseline-link href="/ai-speaking/baseline" data-i18n="book.baselineCta">Book a Speaking Baseline</a>
           </div>
-          <a class="qr form-qr" data-form-href="https://script.google.com/macros/s/AKfycbwwjjbCeArSzRvGfvu9dKlFdmtEDeiTD7jTvJgurUycpEAZpvNxeSizY4xhTL_KsR2e/exec" href="/book-evaluation" target="_blank" rel="noopener">
-            <img src="assets/qr/free-speaking-evaluation-qr.png" alt="Free speaking evaluation form QR code" data-form-qr="ready">
-            <span data-i18n="book.formQrLabel">Online form · Free evaluation request</span>
-          </a>
+          <div class="qr form-qr form-price-tile">
+            <strong class="form-price">690.000₫</strong>
+            <span data-i18n="book.priceLabel">Live Speaking Baseline · 15–20 minutes</span>
+          </div>
         </div>
         <div class="qr-row">
           <div class="qr"><img src="assets/qr/zalo-qr.png" alt="Zalo booking QR code"><span data-i18n="book.zaloLabel">Zalo · Chat to book</span></div>
           <div class="qr"><img src="assets/qr/website-qr.png" alt="Jurassic English website QR code"><span data-i18n="book.websiteLabel">Our website</span></div>
         </div>
-        <a class="btn light" href="mailto:info@jurassicenglish.com?subject=Free%20Young%20Learner%20Speaking%20Evaluation" data-i18n="book.emailBtn">Email to book</a>
+        <a class="btn light" href="mailto:info@jurassicenglish.com?subject=Live%20Speaking%20Baseline%20for%20my%20child" data-i18n="book.emailBtn">Email to book</a>
         <p class="booking-next"><span data-i18n="book.diagnosticPrompt">Need a broader reading, reasoning, and writing assessment?</span> <a href="/book-diagnostic" data-route-progression="book-diagnostic" data-i18n="book.diagnosticCta">Book a Student Thinking Diagnostic</a></p>
       </div>
       <div class="contact-line">Jurassic English · <a href="https://www.worldwiselearning.app" target="_blank" rel="noopener noreferrer">WorldWise Learning</a> · info@jurassicenglish.com · <a href="https://www.jurassicenglish.com">www.jurassicenglish.com</a> · Zalo +84 396 085 076</div>
