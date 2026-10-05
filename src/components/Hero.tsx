@@ -4,6 +4,7 @@ import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
 import { AudienceFork } from './AudienceFork';
+import { AiSpeakingHeroSpotlight } from './AiSpeakingHeroSpotlight';
 import { WorldWiseLink } from './WorldWiseLink';
 
 type HeroProps = {
@@ -36,7 +37,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
   const { hero } = homeContent;
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-jurassic-dark pt-28 pb-12 sm:pt-24">
+    <section className="relative min-h-screen overflow-hidden bg-jurassic-dark pt-24 pb-12 sm:pt-32">
       {/* Hero Background — Compass Image */}
       <div className="absolute inset-0 z-0">
         {heroImageAvailable ? (
@@ -70,29 +71,29 @@ export const Hero = ({ onNavigate }: HeroProps) => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div className="max-w-3xl">
-          <span className="text-jurassic-accent font-semibold tracking-widest uppercase text-xs mb-4 block">
-            {hero.eyebrow}
-          </span>
-          <a href="#ai-speaking-launch" className="mb-5 inline-flex items-center gap-2 rounded-full border border-jurassic-accent/45 bg-jurassic-accent/15 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-jurassic-accent/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent">
-            <span className="h-1.5 w-1.5 rounded-full bg-jurassic-accent" aria-hidden="true" />
-            {hero.aiSpeakingLaunch.announcement}
-            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-          </a>
-
-          <h1 className="font-display max-w-full break-words text-[2rem] min-[420px]:text-[2.4rem] sm:text-[3rem] md:text-[3.4rem] lg:text-[3.8rem] text-white leading-[1.05] mb-5 tracking-tight">
-            {hero.titleLineOne}{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-jurassic-accent to-jurassic-gold">
-              {hero.titleHighlight}
+        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] lg:gap-14">
+          <div className="max-w-2xl">
+            <span className="text-jurassic-accent font-semibold tracking-widest uppercase text-xs mb-4 block">
+              {hero.eyebrow}
             </span>
-            {hero.titleLineThree ? <> {hero.titleLineThree}</> : null}
-          </h1>
 
-          <p className="text-base sm:text-xl text-white/70 max-w-xl leading-relaxed font-light">
-            {hero.body}
-          </p>
+            <h1 className="font-display max-w-full break-words text-[2rem] min-[420px]:text-[2.4rem] sm:text-[3rem] md:text-[3.4rem] lg:text-[3.8rem] text-white leading-[1.05] mb-5 tracking-tight">
+              {hero.titleLineOne}{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-jurassic-accent to-jurassic-gold">
+                {hero.titleHighlight}
+              </span>
+              {hero.titleLineThree ? <> {hero.titleLineThree}</> : null}
+            </h1>
 
-          {/* Two-door audience fork — the front door. */}
+            <p className="text-base sm:text-xl text-white/70 max-w-xl leading-relaxed font-light">
+              {hero.body}
+            </p>
+          </div>
+          <AiSpeakingHeroSpotlight />
+        </div>
+
+        <div className="mt-10 border-t border-white/10 pt-6">
+          {/* Audience paths remain immediately available beneath the launch panel. */}
           <AudienceFork onNavigate={onNavigate} />
 
           {/* Compact B2B discovery strip — secondary to the fork, links to /companies.
