@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { AiSpeakingLaunch } from './components/AiSpeakingLaunch';
 import { ProofStrip } from './components/ProofStrip';
 import { CredibilityLogoMarquee } from './components/CredibilityLogoMarquee';
 import { TestimonialsSection } from './components/TestimonialsSection';
@@ -543,6 +544,7 @@ function App() {
         // unreferenced, for trivial rollback (see docs/p0-*build-plan).
         <main id="main-content" tabIndex={-1} className="focus:outline-none">
           <Hero onNavigate={navigateTo} />
+          <AiSpeakingLaunch />
           <CredibilityLogoMarquee />
           <ProofStrip onNavigate={navigateTo} />
           {/* Social proof — dark by default behind VITE_TESTIMONIALS_ENABLED;

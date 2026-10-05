@@ -74,6 +74,11 @@ export const Hero = ({ onNavigate }: HeroProps) => {
           <span className="text-jurassic-accent font-semibold tracking-widest uppercase text-xs mb-4 block">
             {hero.eyebrow}
           </span>
+          <a href="#ai-speaking-launch" className="mb-5 inline-flex items-center gap-2 rounded-full border border-jurassic-accent/45 bg-jurassic-accent/15 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-jurassic-accent/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent">
+            <span className="h-1.5 w-1.5 rounded-full bg-jurassic-accent" aria-hidden="true" />
+            {hero.aiSpeakingLaunch.announcement}
+            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+          </a>
 
           <h1 className="font-display max-w-full break-words text-[2rem] min-[420px]:text-[2.4rem] sm:text-[3rem] md:text-[3.4rem] lg:text-[3.8rem] text-white leading-[1.05] mb-5 tracking-tight">
             {hero.titleLineOne}{' '}
@@ -109,25 +114,6 @@ export const Hero = ({ onNavigate }: HeroProps) => {
               <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </span>
           </button>
-
-          {/* Jurassic AI Speaking (adults, paid practice) — separate app at /ai-speaking (vercel.json rewrite),
-              so a native anchor (full page load), not onNavigate. */}
-          <a
-            href="/ai-speaking"
-            className="group mt-3 flex w-full max-w-3xl flex-col items-start gap-3 rounded-2xl border border-jurassic-accent/35 bg-jurassic-accent/[0.06] px-6 py-4 text-left transition hover:border-jurassic-accent/60 hover:bg-jurassic-accent/[0.12] sm:flex-row sm:items-center sm:justify-between sm:gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-          >
-            <span className="min-w-0">
-              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-jurassic-accent">
-                {hero.aiSpeakingStrip.eyebrow}
-              </span>
-              <span className="mt-1 block text-base font-bold text-white">{hero.aiSpeakingStrip.title}</span>
-              <span className="mt-1 block text-sm leading-relaxed text-white/60">{hero.aiSpeakingStrip.body}</span>
-            </span>
-            <span className="inline-flex flex-none items-center gap-1.5 text-sm font-bold text-jurassic-accent">
-              {hero.aiSpeakingStrip.cta}
-              <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </span>
-          </a>
 
           <div className="mt-10 pt-6 border-t border-white/5 flex flex-wrap gap-x-6 gap-y-3 items-center">
             <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">{hero.publishedBy}</div>
