@@ -1,0 +1,81 @@
+name: AI Speaking Health
+
+# Zero-cost external smoke for Jurassic AI Speaking (owner ruling 5 Oct 2026: no new paid service).
+# - Lives in this PUBLIC repo on purpose: GitHub-hosted runner minutes are free for public repos, so this check never
+#   uses the account's included private-repo minutes and can never cause a paid Actions overage.
+# - Independent of Vercel's own monitoring and of Resend: a failure fails this run, and GitHub's normal
+#   "Run failed" notification goes to the account that owns the schedule.
+# - Four public GETs, short timeouts, NO credentials, NO customer data. The log prints the endpoint name, the HTTP
+#   status, a reason code and a UTC timestamp only (never a response body).
+# - workflow_dispatch with simulate_failure=true adds one endpoint that must not exist, to prove the failure path.
+# The AI Speaking app lives in lovermac31/jurassic-ai-speaking; the voice worker in lovermac31/je-voice-worker.
+
+on:
+  schedule:
+    - cron: '17 * * * *'   # hourly at :17 UTC (off the hour, when GitHub's scheduler is least busy)
+  workflow_dispatch:
+    inputs:
+      simulate_failure:
+        description: 'Prove the failure path: also require an endpoint that does not exist (the run must fail)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ai-speaking-health
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: AI Speaking endpoints
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check public page, app health, worker healthz and readyz
+        env:
+          SIMULATE_FAILURE: ${{ inputs.simulate_failure && '1' || '0' }}
+        run: |
+          set -uo pipefail
+          fail=0
+          body="$(mktemp)"
+          # check NAME URL KIND : one GET (one retry after 10 s for a transient network blip), then a shape check.
+          check() {
+            local name="$1" url="$2" kind="$3" code reason="ok" ts
+            code="$(curl --silent --output "$body" --write-out '%{http_code}' --max-time 15 --retry 1 --retry-delay 10 \
+              --header 'User-Agent: ai-speaking-health (github-actions)' "$url")"
+            [ -n "$code" ] || code="000"   # curl prints 000 itself on a network failure or timeout
+            ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            if [ "$code" != "200" ]; then
+              reason="http_${code}"
+            else
+              case "$kind" in
+                page)    grep -q 'Jurassic AI Speaking' "$body" || reason="page_marker_missing" ;;
+                app)     jq -e '.ok == true and (.release | test("^([0-9a-f]{40}|unknown)$"))' "$body" >/dev/null 2>&1 || reason="malformed" ;;
+                healthz) jq -e '.ok == true and (.version | type == "string")' "$body" >/dev/null 2>&1 || reason="malformed" ;;
+                readyz)  jq -e '.ok == true and .checks.config == "ok" and .checks.ffmpeg == "ok"' "$body" >/dev/null 2>&1 || reason="malformed" ;;
+                *)       reason="unknown_check" ;;
+              esac
+            fi
+            if [ "$reason" = "ok" ]; then
+              echo "OK   ${name} ${code} ${ts}"
+            else
+              echo "::error title=${name}::${name} ${reason} ${ts}"
+              fail=1
+            fi
+          }
+          check "public-page"    "https://jurassicenglish.com/ai-speaking"            page
+          check "app-health"     "https://jurassicenglish.com/ai-speaking/api/health" app
+          check "worker-healthz" "https://je-voice-worker.vercel.app/healthz"         healthz
+          check "worker-readyz"  "https://je-voice-worker.vercel.app/readyz"          readyz
+          if [ "$SIMULATE_FAILURE" = "1" ]; then
+            check "simulated-failure" "https://jurassicenglish.com/ai-speaking/api/health-simulated-failure" app
+          fi
+          rm -f "$body"
+          if [ "$fail" != "0" ]; then
+            echo "::error::AI Speaking health check failed (see the lines above)."
+            exit 1
+          fi
+          echo "All AI Speaking endpoints healthy."
