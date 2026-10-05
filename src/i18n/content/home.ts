@@ -55,7 +55,7 @@ const enHomeContent = {
     aiSpeakingStrip: {
       eyebrow: 'New · For university applicants & professionals',
       title: 'Jurassic AI Speaking: IELTS-style Speaking mocks',
-      body: 'A full Parts 1–3 mock scored against the public IELTS Speaking criteria, with your own words as evidence and the one thing to fix next. From 79.000₫.',
+      body: 'A typed IELTS-style Speaking practice mock (Parts 1–3), assessed by AI against the text-supported public Speaking criteria, with your own words as evidence and the one thing to fix next. Pronunciation is not assessed from typing. From 79.000₫.',
       cta: 'Try AI Speaking',
     },
   },
@@ -422,7 +422,7 @@ const viHomeContent = {
     aiSpeakingStrip: {
       eyebrow: 'Mới · Cho người chuẩn bị du học & người đi làm',
       title: 'Jurassic AI Speaking: thi thử Nói theo định dạng IELTS',
-      body: 'Bài thi thử đầy đủ Phần 1–3, chấm theo tiêu chí IELTS Speaking công khai, kèm câu nói của chính bạn làm bằng chứng và một điều cần cải thiện tiếp theo. Từ 79.000₫.',
+      body: 'Bài luyện Nói theo định dạng IELTS với câu trả lời đánh máy (Phần 1–3). AI phân tích những tiêu chí có thể đánh giá từ văn bản, kèm bằng chứng từ chính câu trả lời của bạn và một điều cần luyện tiếp. Bài đánh máy không đánh giá phát âm. Từ 79.000₫.',
       cta: 'Thử AI Speaking',
     },
   },
