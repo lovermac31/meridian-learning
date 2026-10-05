@@ -466,6 +466,10 @@ const en: Dict = {
     'CEFR and IELTS references are approximate comparisons for educational planning and are not direct equivalents.',
   'legal.recording':
     "Speaking recordings are created only with parent or guardian consent, used for teaching and progress review, and retained according to the programme's privacy policy.",
+  'footer.links':
+    '<a href="https://jurassicenglish.com/legal/terms">Terms</a> · <a href="https://jurassicenglish.com/legal/privacy">Privacy</a> · <a href="https://jurassicenglish.com/legal/cookies">Cookies</a> · <a href="https://jurassicenglish.com/legal/accessibility">Accessibility</a> · <a href="https://jurassicenglish.com/legal/disclaimer">Disclaimer</a> · <a href="mailto:info@jurassicenglish.com">info@jurassicenglish.com</a>',
+  'footer.trademark':
+    'IELTS is a registered trademark of University of Cambridge ESOL, the British Council and IDP Education Australia. Jurassic English™ is independent and is not affiliated with, approved or endorsed by them.',
 
   // ---- BotUI (React island) ----
   'botui.bubbleAria': 'Open parent guide chat',

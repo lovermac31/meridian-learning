@@ -220,11 +220,11 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 mb-1">{getUiString(locale, 'footer.legalPrivacy')}</p>
                 <a
-                  href="mailto:legal@worldwiselearning.com"
+                  href="mailto:info@jurassicenglish.com"
                   className="flex items-center gap-2 rounded-md text-sm text-jurassic-accent transition-colors duration-200 hover:text-jurassic-gold break-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
                 >
                   <Mail aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
-                  legal@worldwiselearning.com
+                  info@jurassicenglish.com
                 </a>
               </div>
               <p className="text-xs leading-relaxed text-white/55">
@@ -233,6 +233,15 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
             </div>
           </div>
         </div>
+      </div>
+
+      {/* ═══════ Standing disclaimers — every page's footer (site-wide rule) ═══════ */}
+      <div className="border-t border-white/5">
+        <ul className="max-w-7xl mx-auto px-6 py-5 space-y-1.5 text-[11.5px] leading-relaxed text-white/55">
+          <li>{getUiString(locale, 'footer.disclaimerIelts')}</li>
+          <li>{getUiString(locale, 'footer.disclaimerOutcomes')}</li>
+          <li>{getUiString(locale, 'footer.disclaimerAi')}</li>
+        </ul>
       </div>
 
       {/* ═══════ TIER 3 — Bottom Legal Strip ═══════ */}

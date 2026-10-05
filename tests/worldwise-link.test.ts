@@ -89,8 +89,10 @@ test('the site footer links both organisation mentions', () => {
   const html = renderToStaticMarkup(createElement(Footer, {}));
   const links = html.split(ANCHOR_OPEN).length - 1;
   assert.equal(links, 2, 'copyright line + trademark line');
-  // The legal mailbox stays a mailto on its own domain — it is not a website link.
-  assert.ok(html.includes('href="mailto:legal@worldwiselearning.com"'));
+  // The legal contact stays a mailto, not a website link. It is info@jurassicenglish.com because
+  // worldwiselearning.com has no MX and its host accepts no SMTP (25/587/465), so legal@ mail could not be delivered.
+  assert.ok(html.includes('href="mailto:info@jurassicenglish.com"'));
+  assert.ok(!html.includes('legal@worldwiselearning.com'), 'undeliverable legal mailbox must not reappear');
 });
 
 test('the homepage hero publisher lockup links the WorldWise mark and name as one target', async () => {

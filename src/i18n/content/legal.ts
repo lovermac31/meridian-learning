@@ -81,7 +81,7 @@ const termsVi: LegalDocument = {
       ]),
       sub('3.2 Đăng ký tài khoản', [
         p('Một số Dịch vụ có thể yêu cầu đăng ký tài khoản. Bạn đồng ý cung cấp thông tin chính xác, hiện hành và đầy đủ khi đăng ký, đồng thời duy trì cập nhật thông tin đó. Bạn chịu trách nhiệm bảo mật thông tin đăng nhập tài khoản của mình và đối với toàn bộ hoạt động diễn ra dưới tài khoản đó.'),
-        p('Bạn phải thông báo ngay cho Chúng tôi qua legal@worldwiselearning.com nếu nghi ngờ có bất kỳ việc sử dụng trái phép nào đối với tài khoản của mình. Chúng tôi có quyền đình chỉ hoặc chấm dứt các tài khoản chứa thông tin sai lệch hoặc vi phạm các Điều khoản này.'),
+        p('Bạn phải thông báo ngay cho Chúng tôi qua info@jurassicenglish.com nếu nghi ngờ có bất kỳ việc sử dụng trái phép nào đối với tài khoản của mình. Chúng tôi có quyền đình chỉ hoặc chấm dứt các tài khoản chứa thông tin sai lệch hoặc vi phạm các Điều khoản này.'),
       ]),
       sub('3.3 Quản trị tài khoản tổ chức', [
         p('Khách hàng tổ chức có thể chỉ định một hoặc nhiều quản trị viên chịu trách nhiệm quản lý quyền truy cập của người dùng trong tổ chức. Khách hàng tổ chức hoàn toàn chịu trách nhiệm đối với mọi hoạt động được thực hiện dưới tài khoản tổ chức của mình, bao gồm hành vi của từng người dùng mà họ cấp quyền truy cập.'),
@@ -118,7 +118,7 @@ const termsVi: LegalDocument = {
     section('5', 'Quyền sở hữu trí tuệ', [
       p('Toàn bộ Nội dung, khung phương pháp, nhãn hiệu, logo và phương pháp luận — bao gồm Jurassic Thinking Cycle™, CEIW Structure, Four-Level Reasoning Rubric và mọi công cụ sư phạm liên quan — là tài sản sở hữu trí tuệ độc quyền của World Wise Learning và được bảo hộ theo pháp luật hiện hành về bản quyền, nhãn hiệu và các quyền sở hữu trí tuệ khác.'),
       p('Không có nội dung nào trong các Điều khoản này chuyển giao bất kỳ quyền sở hữu trí tuệ nào cho bạn. Giấy phép sử dụng Dịch vụ của Chúng tôi không cấu thành việc chuyển nhượng hay từ bỏ bất kỳ quyền sở hữu trí tuệ nào. Mọi thiện chí phát sinh từ việc sử dụng nhãn hiệu của Chúng tôi chỉ thuộc về World Wise Learning.'),
-      p('Nếu bạn cho rằng bất kỳ Nội dung nào trên nền tảng của Chúng tôi xâm phạm quyền sở hữu trí tuệ của bạn, vui lòng liên hệ legal@worldwiselearning.com với đầy đủ thông tin chi tiết về hành vi bị cho là xâm phạm.'),
+      p('Nếu bạn cho rằng bất kỳ Nội dung nào trên nền tảng của Chúng tôi xâm phạm quyền sở hữu trí tuệ của bạn, vui lòng liên hệ info@jurassicenglish.com với đầy đủ thông tin chi tiết về hành vi bị cho là xâm phạm.'),
     ]),
     section('6', 'Phí và thanh toán', [
       sub('6.1 Giá', [
@@ -176,7 +176,7 @@ const termsVi: LegalDocument = {
     { label: 'Tổ chức', value: 'World Wise Learning' },
     { label: 'Thương hiệu', value: 'Jurassic English™' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
-    { label: 'Liên hệ pháp lý', value: 'legal@worldwiselearning.com' },
+    { label: 'Liên hệ pháp lý', value: 'info@jurassicenglish.com' },
     { label: 'Ngày hiệu lực', value: 'Tháng 3 năm 2026' },
     { label: 'Cập nhật lần cuối', value: '21 tháng 3 năm 2026' },
   ],
@@ -199,7 +199,7 @@ const privacyVi: LegalDocument = {
           ['Bên kiểm soát dữ liệu', 'World Wise Learning'],
           ['Thương hiệu', 'Jurassic English™'],
           ['Website', 'www.jurassicenglish.com'],
-          ['Liên hệ', 'legal@worldwiselearning.com'],
+          ['Liên hệ', 'info@jurassicenglish.com'],
         ],
       ),
     ]),
@@ -296,11 +296,11 @@ const privacyVi: LegalDocument = {
         'Quyền phản đối: phản đối việc xử lý dựa trên lợi ích hợp pháp hoặc cho mục đích tiếp thị trực tiếp;',
         'Quyền rút lại sự đồng ý: khi việc xử lý dựa trên sự đồng ý, rút lại sự đồng ý đó vào bất kỳ thời điểm nào.',
       ]),
-      p('Để thực hiện bất kỳ quyền nào trong số này, vui lòng liên hệ legal@worldwiselearning.com. Chúng tôi sẽ phản hồi trong thời hạn pháp luật hiện hành yêu cầu (thông thường là 30 ngày). Chúng tôi có thể yêu cầu bằng chứng xác minh danh tính trước khi xử lý yêu cầu của bạn.'),
+      p('Để thực hiện bất kỳ quyền nào trong số này, vui lòng liên hệ info@jurassicenglish.com. Chúng tôi sẽ phản hồi trong thời hạn pháp luật hiện hành yêu cầu (thông thường là 30 ngày). Chúng tôi có thể yêu cầu bằng chứng xác minh danh tính trước khi xử lý yêu cầu của bạn.'),
     ]),
     section('9', 'Quyền riêng tư của trẻ em', [
       p('Dịch vụ của Chúng tôi hướng tới các tổ chức giáo dục và nhà giáo dục chuyên môn. Khi chương trình của Chúng tôi được cung cấp cho học sinh dưới 18 tuổi, điều này diễn ra thông qua mối quan hệ với tổ chức, và Khách hàng tổ chức chịu trách nhiệm thu thập mọi sự đồng ý cần thiết từ phụ huynh hoặc người giám hộ.'),
-      p('Chúng tôi không cố ý thu thập dữ liệu cá nhân trực tiếp từ trẻ em dưới 13 tuổi nếu không có sự đồng ý có thể xác minh được của phụ huynh. Nếu bạn cho rằng Chúng tôi đã vô tình thu thập dữ liệu như vậy, hãy liên hệ ngay với Chúng tôi qua legal@worldwiselearning.com.'),
+      p('Chúng tôi không cố ý thu thập dữ liệu cá nhân trực tiếp từ trẻ em dưới 13 tuổi nếu không có sự đồng ý có thể xác minh được của phụ huynh. Nếu bạn cho rằng Chúng tôi đã vô tình thu thập dữ liệu như vậy, hãy liên hệ ngay với Chúng tôi qua info@jurassicenglish.com.'),
     ]),
     section('10', 'Bảo mật', [
       p('Chúng tôi triển khai các biện pháp kỹ thuật và tổ chức phù hợp để bảo vệ dữ liệu cá nhân của bạn trước việc truy cập trái phép, mất mát ngẫu nhiên, phá hủy hoặc hư hỏng. Các biện pháp bao gồm: mã hóa dữ liệu trong quá trình truyền (TLS/SSL), kiểm soát truy cập, đánh giá an ninh định kỳ, và đào tạo nhân sự về nghĩa vụ bảo vệ dữ liệu.'),
@@ -316,7 +316,7 @@ const privacyVi: LegalDocument = {
       p('Chúng tôi có thể cập nhật Chính sách quyền riêng tư này theo định kỳ. Chúng tôi sẽ thông báo về những thay đổi trọng yếu qua email hoặc bằng thông báo nổi bật trên nền tảng của Chúng tôi. Ngày "Cập nhật lần cuối" ở đầu chính sách phản ánh lần sửa đổi gần nhất.'),
     ]),
     section('14', 'Khiếu nại', [
-      p('Nếu bạn có lo ngại về cách Chúng tôi xử lý dữ liệu cá nhân của bạn, vui lòng liên hệ legal@worldwiselearning.com. Bạn cũng có quyền gửi khiếu nại tới cơ quan giám sát liên quan tại khu vực tài phán của mình (ví dụ: UK Information Commissioner’s Office hoặc cơ quan bảo vệ dữ liệu quốc gia tương ứng).'),
+      p('Nếu bạn có lo ngại về cách Chúng tôi xử lý dữ liệu cá nhân của bạn, vui lòng liên hệ info@jurassicenglish.com. Bạn cũng có quyền gửi khiếu nại tới cơ quan giám sát liên quan tại khu vực tài phán của mình (ví dụ: UK Information Commissioner’s Office hoặc cơ quan bảo vệ dữ liệu quốc gia tương ứng).'),
     ]),
     section('15', 'Liên hệ với chúng tôi', []),
   ],
@@ -324,7 +324,7 @@ const privacyVi: LegalDocument = {
     { label: 'Bên kiểm soát dữ liệu', value: 'World Wise Learning' },
     { label: 'Thương hiệu', value: 'Jurassic English™' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
-    { label: 'Liên hệ về quyền riêng tư', value: 'legal@worldwiselearning.com' },
+    { label: 'Liên hệ về quyền riêng tư', value: 'info@jurassicenglish.com' },
     { label: 'Ngày hiệu lực', value: 'Tháng 3 năm 2026' },
     { label: 'Cập nhật lần cuối', value: '21 tháng 3 năm 2026' },
   ],
@@ -409,7 +409,7 @@ const cookiesVi: LegalDocument = {
     { label: 'Tổ chức', value: 'World Wise Learning' },
     { label: 'Thương hiệu', value: 'Jurassic English™' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
-    { label: 'Liên hệ về cookie', value: 'legal@worldwiselearning.com' },
+    { label: 'Liên hệ về cookie', value: 'info@jurassicenglish.com' },
     { label: 'Cập nhật lần cuối', value: '21 tháng 3 năm 2026' },
   ],
 };
@@ -489,7 +489,7 @@ const accessibilityVi: LegalDocument = {
           'Bản in độ tương phản cao;',
           'Phiên bản số có thể chỉnh sửa, tương thích với công nghệ hỗ trợ.',
         ]),
-        p('Để yêu cầu tài liệu ở định dạng dễ tiếp cận, vui lòng liên hệ legal@worldwiselearning.com.'),
+        p('Để yêu cầu tài liệu ở định dạng dễ tiếp cận, vui lòng liên hệ info@jurassicenglish.com.'),
       ]),
     ]),
     section('6', 'Thông số kỹ thuật', [
@@ -511,7 +511,7 @@ const accessibilityVi: LegalDocument = {
       table(
         ['Thông tin liên hệ', 'Chi tiết'],
         [
-          ['Liên hệ về trợ năng', 'legal@worldwiselearning.com'],
+          ['Liên hệ về trợ năng', 'info@jurassicenglish.com'],
           ['Tổ chức', 'World Wise Learning'],
           ['Website', 'www.jurassicenglish.com'],
           ['Thời gian phản hồi', 'Chúng tôi đặt mục tiêu phản hồi trong vòng 5 ngày làm việc kể từ khi tiếp nhận.'],
@@ -537,7 +537,7 @@ const accessibilityVi: LegalDocument = {
     ]),
   ],
   contact: [
-    { label: 'Liên hệ về trợ năng', value: 'legal@worldwiselearning.com' },
+    { label: 'Liên hệ về trợ năng', value: 'info@jurassicenglish.com' },
     { label: 'Tổ chức', value: 'World Wise Learning' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
   ],
@@ -593,7 +593,7 @@ const disclaimerVi: LegalDocument = {
     ]),
     section('7', 'Sai sót và thiếu sót', [
       p('Dù Chúng tôi cẩn trọng trong việc xây dựng và rà soát Nội dung, tài liệu chương trình đôi khi vẫn có thể chứa lỗi đánh máy, thiếu chính xác hoặc thiếu sót. World Wise Learning có quyền sửa mọi lỗi vào bất kỳ thời điểm nào mà không cần thông báo trước.'),
-      p('Chúng tôi không chấp nhận trách nhiệm đối với bất kỳ sai sót hoặc thiếu sót nào trong Nội dung của mình. Nếu bạn phát hiện lỗi trong bất kỳ tài liệu nào của Chúng tôi, vui lòng liên hệ legal@worldwiselearning.com để Chúng tôi có thể xử lý kịp thời.'),
+      p('Chúng tôi không chấp nhận trách nhiệm đối với bất kỳ sai sót hoặc thiếu sót nào trong Nội dung của mình. Nếu bạn phát hiện lỗi trong bất kỳ tài liệu nào của Chúng tôi, vui lòng liên hệ info@jurassicenglish.com để Chúng tôi có thể xử lý kịp thời.'),
     ]),
     section('8', 'Miễn trừ về quy định và khu vực tài phán', [
       p('Các khung chương trình Jurassic English™ được phát triển có tham chiếu đến các chuẩn giáo dục quốc tế bao gồm CEFR, CCSS và iPGCE/PGCE. Tuy nhiên, việc tuân thủ các yêu cầu chương trình quốc gia cụ thể, chuẩn quy định hoặc chính sách tổ chức trong khu vực tài phán của bạn là trách nhiệm của Khách hàng tổ chức và các nhà giáo dục đủ năng lực trực tiếp triển khai chương trình.'),
@@ -614,7 +614,7 @@ const disclaimerVi: LegalDocument = {
     { label: 'Tổ chức', value: 'World Wise Learning' },
     { label: 'Thương hiệu', value: 'Jurassic English™' },
     { label: 'Website', value: 'www.jurassicenglish.com' },
-    { label: 'Liên hệ pháp lý', value: 'legal@worldwiselearning.com' },
+    { label: 'Liên hệ pháp lý', value: 'info@jurassicenglish.com' },
     { label: 'Ngày hiệu lực', value: 'Tháng 3 năm 2026' },
     { label: 'Cập nhật lần cuối', value: '21 tháng 3 năm 2026' },
   ],

@@ -297,5 +297,7 @@
   "legal.scores": "Các mốc band là mục tiêu huấn luyện và ước tính nội bộ. Chỉ kỳ thi IELTS được ủy quyền mới cho điểm IELTS chính thức. Kết quả không được bảo đảm.",
   "legal.admissions": "Yêu cầu của trường đại học, học bổng và thị thực khác nhau theo cơ sở đào tạo, chương trình, quốc gia và loại hồ sơ. Gia đình nên xác nhận yêu cầu hiện hành với cơ quan liên quan.",
   "legal.cefr": "Các đối chiếu CEFR và IELTS chỉ mang tính so sánh gần đúng phục vụ định hướng học tập, không phải quy đổi trực tiếp.",
-  "legal.recording": "Bản ghi âm bài nói chỉ được thực hiện khi có sự đồng ý của phụ huynh/người giám hộ, chỉ dùng cho giảng dạy và theo dõi tiến bộ, và được lưu trữ theo chính sách quyền riêng tư của chương trình."
+  "legal.recording": "Bản ghi âm bài nói chỉ được thực hiện khi có sự đồng ý của phụ huynh/người giám hộ, chỉ dùng cho giảng dạy và theo dõi tiến bộ, và được lưu trữ theo chính sách quyền riêng tư của chương trình.",
+  "footer.links": "<a href=\"https://jurassicenglish.com/vi/legal/terms\">Điều khoản</a> · <a href=\"https://jurassicenglish.com/vi/legal/privacy\">Quyền riêng tư</a> · <a href=\"https://jurassicenglish.com/vi/legal/cookies\">Cookie</a> · <a href=\"https://jurassicenglish.com/vi/legal/accessibility\">Khả năng tiếp cận</a> · <a href=\"https://jurassicenglish.com/vi/legal/disclaimer\">Tuyên bố miễn trừ</a> · <a href=\"mailto:info@jurassicenglish.com\">info@jurassicenglish.com</a>",
+  "footer.trademark": "IELTS là nhãn hiệu đã đăng ký của University of Cambridge ESOL, British Council và IDP Education Australia. Jurassic English™ là đơn vị độc lập, không liên kết, không được họ phê duyệt hay bảo trợ."
 }
