@@ -106,6 +106,21 @@ const STATIC_EXTRA_URLS = [
     priority: '0.6',
   },
   {
+    loc: `${SITE_URL}/ai-speaking/vi`,
+    changefreq: 'weekly',
+    priority: '0.7',
+  },
+  {
+    loc: `${SITE_URL}/ai-speaking/samples`,
+    changefreq: 'monthly',
+    priority: '0.6',
+  },
+  ...['basic', 'intermediate', 'advanced'].map((tier) => ({
+    loc: `${SITE_URL}/ai-speaking/samples/${tier}`,
+    changefreq: 'monthly',
+    priority: '0.5',
+  })),
+  {
     loc: `${SITE_URL}/ai-speaking/baseline`,
     changefreq: 'weekly',
     priority: '0.7',
