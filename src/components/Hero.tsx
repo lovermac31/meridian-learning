@@ -37,7 +37,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
   const { hero } = homeContent;
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-jurassic-dark pt-24 pb-12 sm:pt-32">
+    <section className="relative min-h-screen overflow-hidden bg-jurassic-dark pt-[5.5rem] pb-12 sm:pt-32">
       {/* Hero Background — Compass Image */}
       <div className="absolute inset-0 z-0">
         {heroImageAvailable ? (
@@ -71,13 +71,13 @@ export const Hero = ({ onNavigate }: HeroProps) => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] lg:gap-14">
+        <div className="grid items-center gap-3 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] lg:gap-14">
           <div className="max-w-2xl">
             <span className="text-jurassic-accent font-semibold tracking-widest uppercase text-xs mb-4 block">
               {hero.eyebrow}
             </span>
 
-            <h1 className="font-display max-w-full break-words text-[2rem] min-[420px]:text-[2.4rem] sm:text-[3rem] md:text-[3.4rem] lg:text-[3.8rem] text-white leading-[1.05] mb-5 tracking-tight">
+            <h1 className="font-display max-w-full break-words text-[2rem] min-[420px]:text-[2.4rem] sm:text-[3rem] md:text-[3.4rem] lg:text-[3.8rem] text-white leading-[1.05] mb-3 tracking-tight sm:mb-5">
               {hero.titleLineOne}{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-jurassic-accent to-jurassic-gold">
                 {hero.titleHighlight}

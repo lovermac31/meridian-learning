@@ -54,6 +54,8 @@ const enHomeContent = {
     },
     aiSpeakingLaunch: {
       heroBadge: 'NEW · NOW LIVE',
+      heroMinimize: 'Minimize',
+      heroRestore: 'Show AI Speaking details',
       heroBody: 'IELTS-style Speaking practice, Parts 1–3. Type your answers; see the evidence in your words and what to work on next.',
       heroPreviewLabel: 'FROM PRACTICE TO NEXT STEP',
       heroStepOne: 'Your answer',
@@ -439,6 +441,8 @@ const viHomeContent = {
     },
     aiSpeakingLaunch: {
       heroBadge: 'MỚI · ĐÃ RA MẮT',
+      heroMinimize: 'Thu nhỏ',
+      heroRestore: 'Xem chi tiết AI Speaking',
       heroBody: 'Luyện Nói theo định dạng IELTS, Phần 1–3. Đánh máy câu trả lời; xem bằng chứng từ chính lời bạn viết và điều cần luyện tiếp.',
       heroPreviewLabel: 'TỪ LUYỆN TẬP ĐẾN BƯỚC TIẾP THEO',
       heroStepOne: 'Câu trả lời',
