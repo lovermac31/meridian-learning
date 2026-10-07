@@ -1,4 +1,5 @@
 import { ArrowRight, Mail } from 'lucide-react';
+import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
 import { LinkifyWorldWise } from './WorldWiseLink';
@@ -104,9 +105,11 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
   // Phase 9 — added rounded-md + focus-visible ring so keyboard users
   // see a clear focus indicator on every footer link. jurassic-accent
   // ring against the dark footer backdrop.
+  // The href attribute is the locale's indexable URL (what crawlers read);
+  // the click handler still receives the original target.
   const FooterLink = ({ label, href }: { label: string; href: string }) => (
     <a
-      href={href}
+      href={getLocalizedHref(href, locale)}
       onClick={(e) => handleLinkClick(e, href)}
       className="block rounded-md py-1 text-sm text-white/65 transition-colors duration-200 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
     >
@@ -140,7 +143,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
               </div>
             </div>
             <a
-              href="/get-started"
+              href={getLocalizedHref('/get-started', locale)}
               onClick={(e) => handleLinkClick(e, '/get-started')}
             className="bg-jurassic-accent text-white px-6 py-3 rounded-full font-semibold text-sm flex items-center gap-2 group shadow-premium hover:brightness-110 transition-all w-fit shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
@@ -271,7 +274,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
               {bottomLegalLinks.map((link, i) => (
                 <span key={link.label} className="flex items-center gap-4">
                   <a
-                    href={link.href}
+                    href={getLocalizedHref(link.href, locale)}
                     onClick={(e) => handleLinkClick(e, link.href)}
                     className="rounded-md text-xs text-white/50 transition-colors hover:text-white/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
                   >
