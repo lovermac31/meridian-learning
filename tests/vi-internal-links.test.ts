@@ -113,7 +113,7 @@ test('(a) query strings and hashes survive localization', async () => {
 // Listed exactly so any other placeholder link still fails.
 const KNOWN_CONTENT_PLACEHOLDER_LINK = /^\/vi\/available-soon\?resource=je-level[1-4]-demo$/;
 
-test('(b) no link on a Vietnamese page points to a noindex placeholder or a missing /vi URL', async () => {
+test('(b) no link on a Vietnamese page points to a noindex placeholder or a missing /vi URL (pre-existing series demo links excepted)', async () => {
   const bad: string[] = [];
 
   for (const route of VI_SSR_ROUTES) {
