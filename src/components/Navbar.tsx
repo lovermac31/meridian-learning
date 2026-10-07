@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
+import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
 
@@ -11,6 +12,7 @@ const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
 // plain native <a href> (a real document navigation). Routing it through
 // onNavigate/pushState would only update the URL and render the SPA NotFound
 // fallback, because the Vite router has no client route for this path.
+// Vietnamese pages link its VI page (/vi/luyen-noi-ielts/) via getLocalizedHref.
 const YOUNG_LEARNERS_HREF = '/young-learners-speaking/';
 
 type NavbarProps = {
@@ -190,7 +192,7 @@ export const Navbar = ({
               Distinct orange promoted pill so it reads as a parent-facing
               advertisement, not a peer of the school-curriculum nav links. */}
           <a
-            href={YOUNG_LEARNERS_HREF}
+            href={getLocalizedHref(YOUNG_LEARNERS_HREF, locale)}
             aria-label={youngLearnersPromo.ariaLabel}
             className="group inline-flex items-center gap-2 rounded-full border border-jurassic-accent/45 bg-jurassic-accent/10 py-1.5 pl-2 pr-3.5 transition-all duration-300 hover:border-jurassic-accent/70 hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
@@ -212,7 +214,7 @@ export const Navbar = ({
           {navLinks.map((link) => (
             <a
               key={link.name}
-              href={link.href}
+              href={getLocalizedHref(link.href, locale)}
               onClick={(event) => handleNavLinkClick(event, link.href)}
               className="rounded-md text-sm font-medium tracking-[0.01em] text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
@@ -273,7 +275,7 @@ export const Navbar = ({
             {/* B2C launch promotion — first item in the drawer (before the
                 institutional nav links). Native anchor → static page. */}
             <a
-              href={YOUNG_LEARNERS_HREF}
+              href={getLocalizedHref(YOUNG_LEARNERS_HREF, locale)}
               aria-label={youngLearnersPromo.ariaLabel}
               onClick={() => setIsMobileMenuOpen(false)}
               className="rounded-xl border border-jurassic-accent/45 bg-jurassic-accent/10 px-4 py-3 transition hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
@@ -291,7 +293,7 @@ export const Navbar = ({
               </span>
             </a>
             <a
-              href="/ai-speaking"
+              href={getLocalizedHref('/ai-speaking', locale)}
               onClick={() => setIsMobileMenuOpen(false)}
               className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
@@ -299,7 +301,7 @@ export const Navbar = ({
               <span className="mt-1.5 block text-sm text-white/70">IELTS-style mocks for students & professionals · from 79.000₫</span>
             </a>
             <a
-              href="/ai-speaking/baseline"
+              href={getLocalizedHref('/ai-speaking/baseline', locale)}
               onClick={() => setIsMobileMenuOpen(false)}
               className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
@@ -314,7 +316,7 @@ export const Navbar = ({
             {navLinks.map((link) => (
               <a
                 key={link.name}
-                href={link.href}
+                href={getLocalizedHref(link.href, locale)}
                 className="rounded-md text-lg font-medium tracking-[0.01em] text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
                 onClick={(event) => handleNavLinkClick(event, link.href)}
               >

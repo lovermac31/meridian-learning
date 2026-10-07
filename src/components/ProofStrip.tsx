@@ -1,4 +1,5 @@
 import { getHomeContent } from '../i18n/content/home';
+import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
 import { baselineHref } from '../lib/baselineLink';
@@ -10,7 +11,8 @@ type ProofStripProps = {
 const FOCUS_RING =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2';
 
-// /young-learners-speaking/ is a STATIC page in public/. Native <a href> only.
+// /young-learners-speaking/ is a STATIC page in public/. Native <a href> only;
+// Vietnamese pages link its VI page (/vi/luyen-noi-ielts/) via getLocalizedHref.
 const YOUNG_LEARNERS_HREF = '/young-learners-speaking/';
 
 
@@ -112,7 +114,7 @@ export function ProofStrip({ onNavigate }: ProofStripProps) {
               {fork?.parentsTitle ?? 'For Parents'}
             </button>
             <a
-              href={YOUNG_LEARNERS_HREF}
+              href={getLocalizedHref(YOUNG_LEARNERS_HREF, locale)}
               onClick={() =>
                 trackCtaClick({
                   label: 'IELTS Speaking (proof re-fork)',
