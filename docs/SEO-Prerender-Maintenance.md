@@ -105,3 +105,37 @@ client-rendered. The list must stay a subset of the private routes
   while the server (which only knows the pathname) rendered it. It now resolves
   from the pathname, so it also appears on campaign-tagged URLs. This is the one
   user-visible behaviour change, required for server/client parity.
+
+## Sitemap `<lastmod>` (honest, per page)
+
+`scripts/generate-sitemap.mjs` sets each URL's `<lastmod>` to the committer
+date of the most recent commit touching **that page's own** source and content
+files, mapped in `scripts/lib/sitemap-lastmod.mjs` (page component + its
+`src/i18n/content/*` module + any `src/lib/*Content.ts` it renders). Shared
+chrome — `App.tsx`, Navbar, Footer, `routeMetadata.ts`, UI strings,
+`index.html` — is not mapped, so a layout change does not re-date every URL.
+EN and VI variants share their content modules and therefore their date.
+Granularity is per file: `src/lib/seriesContent.ts` holds all five levels, so
+editing one level re-dates the others.
+
+`<lastmod>` is **omitted** (allowed by the sitemap protocol), never guessed:
+
+- **Shallow clone.** If `git rev-parse --is-shallow-repository` is `true`, all
+  lastmod values are omitted. Vercel clones with `--depth=10` by default; in a
+  shallow clone the oldest fetched commit appears to add every file, so
+  per-file dates are fabricated (verified locally: in a depth-10 clone
+  `MethodologyPage.tsx` reads 2026-10-03; its real last change is 2026-04-22).
+  **Production therefore emits no lastmod until the Vercel project has
+  `VERCEL_DEEP_CLONE=true`** (Project → Settings → Environment Variables; a
+  project setting change — owner decision). The build log line
+  `[generate-sitemap] lastmod …` states which case applied. GitHub Actions
+  (`actions/checkout`, depth 1) is also shallow, so CI omits lastmod too.
+- **No git** in the build environment.
+- **No honest mapping**: URLs served by other Vercel projects through
+  rewrites (`/student-academy`, `/school-framework`, `/digital-reasoning-engine`,
+  `/interactive-demo`, `/evidence`, `/book-diagnostic`, `/ai-speaking/*`).
+- **No commit found** for the mapped files.
+
+When you add a public route, add its source files to the map —
+`tests/sitemap-lastmod.test.ts` fails for an unmapped native route and for a
+mapped file that no longer exists.

@@ -14,35 +14,23 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { execSync } from 'node:child_process';
 import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.ts';
+import { createLastmodResolver } from './lib/sitemap-lastmod.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir   = path.resolve(__dirname, '..', 'dist');
 const SITE_URL  = 'https://jurassicenglish.com';
 
-// Phase 16 — derive lastmod from the most recent git commit date instead
-// of `new Date()`. The previous build-date approach updated lastmod on
-// every rebuild even when no source changed, producing noisy daily churn
-// in the sitemap. The committer date moves only when actual code lands
-// on the branch being built. Falls back to today's date if git history
-// is unavailable (e.g. shallow clone in a CI environment without commit
-// metadata).
-function resolveLastmod() {
-  try {
-    const out = execSync('git log -1 --format=%cs', { stdio: ['ignore', 'pipe', 'ignore'] })
-      .toString()
-      .trim();
-    if (/^\d{4}-\d{2}-\d{2}$/.test(out)) {
-      return out;
-    }
-  } catch {
-    // fall through
-  }
-  return new Date().toISOString().split('T')[0];
-}
+// Per-URL lastmod = most recent commit touching that page's own source files
+// (scripts/lib/sitemap-lastmod.mjs). Omitted — never guessed — when history is
+// shallow/unavailable or the URL has no honest source mapping. (Phase 16 used
+// one repo-wide commit date for every URL, which told crawlers nothing.)
+const lastmodResolver = createLastmodResolver({ cwd: path.resolve(__dirname, '..') });
 
-const lastmod = resolveLastmod();
+function lastmodLine(pathname) {
+  const lastmod = lastmodResolver.lastmodFor(pathname);
+  return lastmod ? [`    <lastmod>${lastmod}</lastmod>`] : [];
+}
 
 /** Remove the /vi prefix to get the canonical en path for priority/changefreq lookups. */
 function canonicalPath(pathname) {
@@ -75,7 +63,7 @@ function buildUrl(pathname) {
   return [
     '  <url>',
     `    <loc>${loc}</loc>`,
-    `    <lastmod>${lastmod}</lastmod>`,
+    ...lastmodLine(pathname),
     `    <changefreq>${getChangefreq(pathname)}</changefreq>`,
     `    <priority>${getPriority(pathname)}</priority>`,
     '  </url>',
@@ -137,7 +125,7 @@ function buildStaticUrl({ loc, changefreq, priority }) {
   return [
     '  <url>',
     `    <loc>${loc}</loc>`,
-    `    <lastmod>${lastmod}</lastmod>`,
+    ...lastmodLine(new URL(loc).pathname),
     `    <changefreq>${changefreq}</changefreq>`,
     `    <priority>${priority}</priority>`,
     '  </url>',
@@ -161,7 +149,14 @@ async function main() {
   await fs.mkdir(distDir, { recursive: true });
   await fs.writeFile(path.join(distDir, 'sitemap.xml'), xml, 'utf8');
 
+  const datedCount = (xml.match(/<lastmod>/g) ?? []).length;
+  const totalCount = routes.length + STATIC_EXTRA_URLS.length;
   console.log(`[generate-sitemap] wrote ${routes.length} URLs (+${STATIC_EXTRA_URLS.length} static) to dist/sitemap.xml`);
+  console.log(
+    lastmodResolver.status === 'ok'
+      ? `[generate-sitemap] lastmod from per-page git history on ${datedCount}/${totalCount} URLs (others omitted: no honest source mapping)`
+      : `[generate-sitemap] lastmod omitted on all URLs: ${lastmodResolver.reason}`,
+  );
 }
 
 await main();
