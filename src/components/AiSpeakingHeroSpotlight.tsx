@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Minus, Plus } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
@@ -10,14 +10,20 @@ export function AiSpeakingHeroSpotlight() {
   const content = (getHomeContent(locale) ?? getHomeContent('en'))?.hero.aiSpeakingLaunch;
   const restoreRef = useRef<HTMLButtonElement>(null);
   const minimizeRef = useRef<HTMLButtonElement>(null);
-  const [isMinimized, setIsMinimized] = useState(() => {
-    if (typeof window === 'undefined') return false;
+  // Hydration-safe: the prerendered HTML is always the expanded card, so the
+  // first client render must match it. The per-session minimized preference
+  // is applied in a layout effect, which runs before the browser paints the
+  // hydrated tree.
+  const [isMinimized, setIsMinimized] = useState(false);
+  useLayoutEffect(() => {
     try {
-      return window.sessionStorage.getItem('je-ai-speaking-hero-minimized-v1') === 'true';
+      if (window.sessionStorage.getItem('je-ai-speaking-hero-minimized-v1') === 'true') {
+        setIsMinimized(true);
+      }
     } catch {
-      return false;
+      // Session storage unavailable — keep the expanded default.
     }
-  });
+  }, []);
   if (!content) return null;
 
   const setMinimized = (value: boolean) => {

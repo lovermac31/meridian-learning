@@ -888,6 +888,26 @@ export function getPrerenderRoutes(): string[] {
   ];
 }
 
+/**
+ * Private, noindex routes whose first render reads request-time state (URL
+ * tokens, sessionStorage). The build cannot know that state, so these routes
+ * are NOT server-rendered: scripts/prerender-route-metadata.mjs ships them a
+ * small static fallback that src/main.tsx replaces client-side (createRoot).
+ * Every other prerendered route carries its full server-rendered body.
+ *
+ * Must stay a subset of getPrivateOrNonIndexableRoutes() — a public, indexable
+ * route must never be client-only (tests/prerender-ssr.test.ts enforces this).
+ */
+const CLIENT_ONLY_ROUTES = [
+  '/plans-pricing-access',
+  '/external/pilot',
+  '/internal/pilot-requests',
+] as const;
+
+export function getClientOnlyRoutes(): string[] {
+  return [...CLIENT_ONLY_ROUTES];
+}
+
 export function getScaffoldedLocalizedRoutes(): string[] {
   return getLocalizablePublicPaths()
     .flatMap((pathname) =>

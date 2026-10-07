@@ -83,25 +83,22 @@
     </style>
   </head>
   <body>
+    <!--
+      Route body. At build time scripts/prerender-route-metadata.mjs replaces
+      everything between the prerender-route-content markers (the whole #root
+      element) for each prerendered route:
+        - public routes: #root holds the server-rendered page body
+          (src/entry-server.tsx) and carries data-ssr-route; src/main.tsx
+          HYDRATES that markup, so crawlers that do not run JavaScript get the
+          full page text and browsers keep it without a re-paint;
+        - private, token-gated routes: #root holds a small static fallback that
+          src/main.tsx REPLACES via createRoot.
+      The fallback below is what `vite dev` serves (createRoot replaces it) and
+      is the template for routes that are not server-rendered. Brand background
+      (#101820) is preserved to avoid a white flash.
+    -->
+    <!-- prerender-route-content:start -->
     <div id="root">
-      <!--
-        Phase 15 — non-JS / SSR-friendly fallback content.
-        src/main.tsx uses `createRoot(...).render(...)` (NOT `hydrateRoot`),
-        so React cleanly REPLACES this entire subtree on mount — no
-        hydration mismatch by React's contract. Crawlers without JS
-        execution and JS-disabled clients see meaningful semantic content
-        with internal links to all primary public routes; JS users see
-        this briefly during initial JS load before the full app paints,
-        then React removes it. Brand background (#101820) is preserved
-        to avoid a white flash, matching the previous loading indicator.
-
-        LCP: the h1 below mirrors the live hero headline — same copy, same
-        display font stack, clamp()ed to the hero's responsive sizes — so the
-        page's largest text paint happens HERE, at HTML parse time, instead of
-        waiting for React. When React renders the real hero h1 (same copy/size),
-        it is not a larger paint, so the early LCP timestamp stands.
-      -->
-      <!-- prerender-route-content:start -->
       <div data-prerendered-route-path="/" style="min-height:100vh;background:#101820;color:rgba(255,255,255,0.85);font-family:Aptos,'Segoe UI','Helvetica Neue',Arial,sans-serif;padding:3rem 1.5rem;box-sizing:border-box;">
         <div style="max-width:48rem;margin:0 auto;">
           <p style="margin:0 0 1rem;font-size:0.75rem;font-weight:600;color:#F26419;text-transform:uppercase;letter-spacing:0.2em;">Literature-based English curriculum</p>
@@ -124,8 +121,8 @@
           </ul>
         </div>
       </div>
-      <!-- prerender-route-content:end -->
     </div>
+    <!-- prerender-route-content:end -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

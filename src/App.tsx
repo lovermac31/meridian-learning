@@ -26,6 +26,7 @@ import { normalizeSpeedInsightsRoute } from './lib/speedInsightsRoute';
 import { localizeRouteTarget, resolveLocalizedRoute, switchLocaleRoute } from './i18n/routing';
 import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
+import { getCurrentLocation } from './lib/ssrLocation';
 
 /* ── Lazy-loaded subpages (code-split) ──────────────────────────── */
 const GetStartedPortal = lazy(() =>
@@ -133,7 +134,12 @@ const NeuroinclusiveLayer = lazy(() =>
 const isLegalPath = (pathname: string): boolean =>
   pathname.startsWith('/legal/');
 
-const getCurrentRoute = () => `${window.location.pathname}${window.location.search}${window.location.hash}`;
+// SSR-safe: during the build-time prerender there is no `window`;
+// getCurrentLocation() returns the route being rendered instead.
+const getCurrentRoute = () => {
+  const { pathname, search, hash } = getCurrentLocation();
+  return `${pathname}${search}${hash}`;
+};
 const normalizeNavigationTarget = (target: string) => (target.startsWith('#') ? `/${target}` : target);
 const DEFERRED_HOME_STAGE_DELAY_MS = 180;
 
@@ -148,7 +154,7 @@ function App() {
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
   const [isComingSoonOpen, setIsComingSoonOpen] = useState(false);
   const [homeSectionStage, setHomeSectionStage] = useState<HomeSectionStage>(0);
-  const pathname = window.location.pathname;
+  const pathname = getCurrentLocation().pathname;
   const speedInsightsRoute = normalizeSpeedInsightsRoute(route);
   const localizedRoute = resolveLocalizedRoute(pathname);
   const locale = localizedRoute.locale;

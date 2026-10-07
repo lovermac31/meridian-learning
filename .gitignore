@@ -32,3 +32,4 @@ scripts/summarize_alignment_report.py
 **/build/
 **/.vercel/
 *.tsbuildinfo
+dist-ssr/
