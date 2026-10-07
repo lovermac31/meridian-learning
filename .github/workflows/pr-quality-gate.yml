@@ -37,7 +37,7 @@ jobs:
       - name: Test suite (incl. brand-typography guard)
         run: npm test
 
-      - name: Build (68 prerendered routes)
+      - name: Build (server-rendered prerender + sitemap)
         run: npm run build
 
       - name: Validate prerender routes

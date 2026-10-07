@@ -2,6 +2,7 @@ import { legalDocuments } from '../lib/legalContent';
 import { seriesLevels } from '../lib/seriesContent';
 import { syllabusData } from '../lib/syllabusContent';
 import { thinkingCycleStages } from '../lib/thinkingCycleContent';
+import { getCurrentPathname } from '../lib/ssrLocation';
 import {
   DEFAULT_LOCALE,
   SECONDARY_LOCALE,
@@ -177,9 +178,7 @@ export function getLocaleForPathname(pathname: string): Locale {
 }
 
 export function getCurrentLocale(): Locale {
-  if (typeof window === 'undefined') {
-    return DEFAULT_LOCALE;
-  }
-
-  return getLocaleForPathname(window.location.pathname);
+  // SSR-safe: resolves to the route being prerendered at build time, and to
+  // window.location in the browser.
+  return getLocaleForPathname(getCurrentPathname());
 }

@@ -13,6 +13,12 @@ import {defineConfig} from 'vite';
  * A tiny inline <style> covers the dark background so there is no FOUC:
  * the loading spinner already uses 100% inline styles, and the CSS file
  * finishes downloading well before React mounts on any real connection.
+ *
+ * Server-rendered routes: scripts/prerender-route-metadata.mjs turns this
+ * back into a plain render-blocking <link rel="stylesheet"> in every route
+ * whose #root carries the server-rendered (Tailwind-styled) page body —
+ * painting that markup before the stylesheet arrives would flash unstyled
+ * content. Only the client-only fallback routes keep the async preload.
  */
 function asyncCssPlugin(): Plugin {
   return {
@@ -29,7 +35,31 @@ function asyncCssPlugin(): Plugin {
   };
 }
 
-export default defineConfig(() => {
+export default defineConfig(({ isSsrBuild }) => {
+  /**
+   * SSR build (`vite build --ssr src/entry-server.tsx --outDir dist-ssr`) is
+   * build-time only and never deployed: it produces the render function that
+   * scripts/prerender-route-metadata.mjs uses to write each route's real page
+   * body into its prerendered HTML. The client multi-page input and the vendor
+   * manualChunks below apply to the browser build only.
+   */
+  if (isSsrBuild) {
+    return {
+      plugins: [react(), tailwindcss()],
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, '.'),
+        },
+      },
+      build: {
+        ssr: 'src/entry-server.tsx',
+        outDir: 'dist-ssr',
+        emptyOutDir: true,
+        copyPublicDir: false,
+      },
+    };
+  }
+
   return {
     plugins: [react(), tailwindcss(), asyncCssPlugin()],
     // SECURITY: No API keys are injected into the client bundle.

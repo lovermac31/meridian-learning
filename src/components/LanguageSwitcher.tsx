@@ -9,7 +9,13 @@ type LanguageSwitcherProps = {
 };
 
 export function LanguageSwitcher({ currentRoute, onNavigate }: LanguageSwitcherProps) {
-  const route = resolveLocalizedRoute(currentRoute);
+  // Resolve visibility/locale from the pathname only. `currentRoute` may carry
+  // a query string or hash (UTM links, deep links); the build-time prerender
+  // cannot know those, so including them here made the server and client
+  // render different markup (and hid the switcher on any ?query/#hash URL).
+  // switchLocaleRoute below still receives the full route so a language switch
+  // preserves the query and hash.
+  const route = resolveLocalizedRoute(new URL(currentRoute, 'https://jurassicenglish.com').pathname);
 
   if (!route.isLocalizable || route.isPrivateOrNonLocalized) {
     return null;

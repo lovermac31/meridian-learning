@@ -1,13 +1,42 @@
+/**
+ * prerender-route-metadata.mjs
+ *
+ * Writes dist/<route>/index.html for every route in getPrerenderRoutes():
+ *   1. per-route <head> tags (title, description, canonical, hreflang, OG,
+ *      Twitter, robots, JSON-LD) from routeMetadata.ts, and
+ *   2. the route's real page body: the React app server-rendered for that
+ *      route and locale by dist-ssr/entry-server.js (built from
+ *      src/entry-server.tsx), injected as the whole #root element and marked
+ *      with data-ssr-route so src/main.tsx hydrates it.
+ *
+ * Routes in getClientOnlyRoutes() are private, noindex and token/session-gated;
+ * their first render depends on request-time state the build cannot know, so
+ * they keep the small static fallback and are client-rendered (createRoot).
+ *
+ * Run after `vite build` and `vite build --ssr src/entry-server.tsx --outDir
+ * dist-ssr` (see the `build` script in package.json).
+ */
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { getPrerenderRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata.ts';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import {
+  getClientOnlyRoutes,
+  getPrerenderRoutes,
+  resolveRouteMetadata,
+} from '../src/lib/routeMetadata.ts';
 import { getLocaleDefinition } from '../src/i18n/locales.ts';
 import { resolveLocalizedRoute } from '../src/i18n/routing.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, '..', 'dist');
 const baseIndexPath = path.join(distDir, 'index.html');
+const ssrEntryPath = path.resolve(__dirname, '..', 'dist-ssr', 'entry-server.js');
+
+// See getClientOnlyRoutes() in src/lib/routeMetadata.ts.
+const CLIENT_ONLY_ROUTES = new Set(getClientOnlyRoutes());
+
+const ROUTE_CONTENT_PATTERN =
+  /<!-- prerender-route-content:start -->[\s\S]*?<!-- prerender-route-content:end -->/;
 
 function escapeHtml(value) {
   return value
@@ -47,20 +76,95 @@ function buildRouteFallback(pathname, metadata, locale) {
       </main>`;
 }
 
-function injectRouteFallback(html, pathname, metadata, locale) {
-  const fallback = buildRouteFallback(pathname, metadata, locale);
-  if (!fallback) return html;
-
-  const pattern = /<!-- prerender-route-content:start -->[\s\S]*?<!-- prerender-route-content:end -->/;
-  if (!pattern.test(html)) {
+function replaceRouteContent(html, rootElement) {
+  if (!ROUTE_CONTENT_PATTERN.test(html)) {
     throw new Error('Missing prerender route content markers in base index.html');
   }
 
   return html.replace(
-    pattern,
-    `<!-- prerender-route-content:start -->\n${fallback}\n      <!-- prerender-route-content:end -->`,
+    ROUTE_CONTENT_PATTERN,
+    () => `<!-- prerender-route-content:start -->\n    ${rootElement}\n    <!-- prerender-route-content:end -->`,
   );
 }
+
+/** Client-only routes: static fallback inside #root, replaced by createRoot. */
+function injectRouteFallback(html, pathname, metadata, locale) {
+  const fallback = buildRouteFallback(pathname, metadata, locale);
+  if (!fallback) return html;
+
+  return replaceRouteContent(
+    html,
+    `<div id="root" data-prerendered-route-path="${escapeAttribute(pathname)}">\n${fallback}\n    </div>`,
+  );
+}
+
+/**
+ * Server-rendered routes: React may emit hoistable resource hints (e.g. image
+ * preloads) ahead of the app markup when rendering a fragment. Those belong in
+ * <head>, never inside #root, where they would sit outside the hydrated tree.
+ */
+function splitLeadingHeadTags(ssrHtml) {
+  const headTags = [];
+  let rest = ssrHtml;
+  let match;
+  while ((match = /^\s*(<link\b[^>]*\/?>)/.exec(rest)) !== null) {
+    headTags.push(match[1]);
+    rest = rest.slice(match[0].length);
+  }
+  return { headTags, body: rest };
+}
+
+const OUTLINED_BOUNDARY_PATTERNS = [
+  ['pending Suspense boundary', /<!--\$\?-->/],
+  ['client-rendered Suspense boundary', /<!--\$!-->/],
+  ['outlined boundary template', /<template id="B:/],
+  ['streaming completion script', /\$RC\(/],
+];
+
+function assertStaticMarkup(pathname, ssrHtml) {
+  for (const [label, pattern] of OUTLINED_BOUNDARY_PATTERNS) {
+    if (pattern.test(ssrHtml)) {
+      throw new Error(`[prerender-route-metadata] ${pathname}: server render contains a ${label}; the page body would be hidden or client-rendered`);
+    }
+  }
+}
+
+/**
+ * The base build loads the main stylesheet asynchronously (asyncCssPlugin in
+ * vite.config.ts) because the old fallback was styled inline. A server-rendered
+ * body is styled by that stylesheet, so loading it async would paint unstyled
+ * content first (FOUC). Server-rendered routes therefore load it render-blocking.
+ */
+function makeStylesheetsRenderBlocking(html) {
+  return html.replace(
+    /<link rel="preload" as="style" crossorigin href="([^"]+\.css)" onload="this\.onload=null;this\.rel='stylesheet'"><noscript><link rel="stylesheet" href="\1"><\/noscript>/g,
+    (_, href) => `<link rel="stylesheet" crossorigin href="${href}">`,
+  );
+}
+
+function injectServerRenderedRoute(html, pathname, ssrHtml) {
+  assertStaticMarkup(pathname, ssrHtml);
+  const { headTags, body } = splitLeadingHeadTags(ssrHtml);
+  const attribute = escapeAttribute(pathname);
+
+  let output = replaceRouteContent(
+    html,
+    `<div id="root" data-prerendered-route-path="${attribute}" data-ssr-route="${attribute}">${body}</div>`,
+  );
+  output = makeStylesheetsRenderBlocking(output);
+
+  const newHeadTags = headTags.filter((tag) => {
+    const href = /href="([^"]*)"/.exec(tag)?.[1];
+    return !href || !output.includes(`href="${href}"`);
+  });
+  if (newHeadTags.length > 0) {
+    output = output.replace('</head>', `${newHeadTags.map((tag) => `    ${tag}`).join('\n')}\n  </head>`);
+  }
+
+  return output;
+}
+
+
 
 function upsertTag(html, { marker, replacement, insertAfterPattern }) {
   if (html.includes(marker)) {
@@ -221,9 +325,7 @@ function injectMetadata(html, pathname) {
     output = output.replace('</head>', `${jsonLd}\n  </head>`);
   }
 
-  output = injectRouteFallback(output, pathname, metadata, locale);
-
-  return output;
+  return { html: output, metadata, locale };
 }
 
 async function writeRouteHtml(route, html) {
@@ -236,16 +338,45 @@ async function writeRouteHtml(route, html) {
   await fs.writeFile(filePath, html, 'utf8');
 }
 
+async function loadServerRenderer() {
+  // Match production: Vercel builds with NODE_ENV=production, and React's
+  // development server build is slower and warns differently.
+  process.env.NODE_ENV ??= 'production';
+  try {
+    await fs.access(ssrEntryPath);
+  } catch {
+    throw new Error(
+      `[prerender-route-metadata] ${path.relative(process.cwd(), ssrEntryPath)} is missing — run \`vite build --ssr src/entry-server.tsx --outDir dist-ssr\` first (npm run build does this).`,
+    );
+  }
+  const { renderRoute } = await import(pathToFileURL(ssrEntryPath).href);
+  return renderRoute;
+}
+
 async function main() {
   const baseHtml = await fs.readFile(baseIndexPath, 'utf8');
   const routes = getPrerenderRoutes();
+  const renderRoute = await loadServerRenderer();
+  let serverRendered = 0;
 
+  // Sequential on purpose: the server entry keeps the route being rendered in
+  // module state (src/lib/ssrLocation.ts).
   for (const route of routes) {
-    const html = injectMetadata(baseHtml, route);
+    const { html: withMetadata, metadata, locale } = injectMetadata(baseHtml, route);
+    let html;
+    if (CLIENT_ONLY_ROUTES.has(route)) {
+      html = injectRouteFallback(withMetadata, route, metadata, locale);
+    } else {
+      html = injectServerRenderedRoute(withMetadata, route, await renderRoute(route));
+      serverRendered += 1;
+    }
     await writeRouteHtml(route, html);
   }
 
-  console.log(`[prerender-route-metadata] generated ${routes.length} route HTML files`);
+  console.log(
+    `[prerender-route-metadata] generated ${routes.length} route HTML files ` +
+      `(${serverRendered} server-rendered, ${routes.length - serverRendered} client-only)`,
+  );
 }
 
 await main();

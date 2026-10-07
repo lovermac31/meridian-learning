@@ -1,3 +1,4 @@
+import { useLayoutEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
@@ -35,7 +36,15 @@ export function AudienceFork({ onNavigate }: AudienceForkProps) {
   const locale = getCurrentLocale();
   const home = getHomeContent(locale) ?? getHomeContent('en');
   const fork = home?.hero?.fork;
-  const socialTrafficIntent = detectSocialTrafficIntent();
+  // Hydration-safe: the prerendered homepage is rendered at build time with
+  // no query string or referrer, i.e. the default door order. The first client
+  // render must match it, so the social-traffic reorder (utm_source/referrer)
+  // is applied in a layout effect — before the browser paints the hydrated
+  // tree, and before paint on client-side navigations too.
+  const [socialTrafficIntent, setSocialTrafficIntent] = useState(false);
+  useLayoutEffect(() => {
+    setSocialTrafficIntent(detectSocialTrafficIntent());
+  }, []);
   if (!fork) return null;
 
   const go = (path: string, label: string, segment: 'institutional' | 'parent_student') => {

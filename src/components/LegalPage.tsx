@@ -3,6 +3,7 @@ import { isLegalPath, type ContentBlock } from '../lib/legalContent';
 import { resolveLocalizedRoute, getCurrentLocale } from '../i18n/routing';
 import { getLegalPageChrome, getLocalizedLegalDocument } from '../i18n/content/legal';
 import { LinkifyWorldWise } from './WorldWiseLink';
+import { getCurrentPathname } from '../lib/ssrLocation';
 
 export { isLegalPath };
 
@@ -93,8 +94,9 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
 
 export const LegalPage = ({ onBack }: LegalPageProps) => {
   const locale = getCurrentLocale();
-  const localizedRoute = resolveLocalizedRoute(window.location.pathname);
-  const pathname = localizedRoute.isLocalizable ? localizedRoute.pathname : window.location.pathname;
+  const currentPathname = getCurrentPathname();
+  const localizedRoute = resolveLocalizedRoute(currentPathname);
+  const pathname = localizedRoute.isLocalizable ? localizedRoute.pathname : currentPathname;
   const doc = getLocalizedLegalDocument(pathname, locale);
   const chrome = getLegalPageChrome(locale);
 
