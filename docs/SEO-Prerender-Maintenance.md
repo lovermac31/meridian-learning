@@ -136,7 +136,9 @@ chrome — `App.tsx`, Navbar, Footer, `routeMetadata.ts`, UI strings,
 `index.html` — is not mapped, so a layout change does not re-date every URL.
 EN and VI variants share their content modules and therefore their date.
 Granularity is per file: `src/lib/seriesContent.ts` holds all five levels, so
-editing one level re-dates the others.
+editing one level re-dates the others; a code-only change to a mapped page
+component also re-dates its page. Both over-report freshness slightly; neither
+invents a date.
 
 `<lastmod>` is **omitted** (allowed by the sitemap protocol), never guessed:
 

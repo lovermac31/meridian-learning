@@ -8,8 +8,10 @@
  *
  * Granularity is per file: content modules hold both locales, and some hold
  * several pages (e.g. src/lib/seriesContent.ts has all five levels), so an
- * edit to one level re-dates its siblings. That over-reports freshness
- * slightly; it never invents a date.
+ * edit to one level re-dates its siblings. Page components are mapped too
+ * (they carry markup and some copy), so a code-only change to a page
+ * component also re-dates it. Both over-report freshness slightly; neither
+ * invents a date.
  *
  * When lastmod cannot be known honestly it is OMITTED (allowed by the sitemap
  * protocol), never guessed:
@@ -62,7 +64,7 @@ const STATIC_ROUTE_SOURCES = {
     component('PreferredSourceButton'),
     content('home'),
   ],
-  '/framework': [component('FrameworkExperience'), content('framework')],
+  '/framework': [component('FrameworkExperience'), content('framework'), 'src/lib/frameworkContent.ts'],
   '/knowledge': [component('KnowledgeHubPage'), content('knowledge')],
   '/get-started': [component('GetStartedPortal'), content('getStarted')],
   '/worldwise': [component('WorldWisePage'), content('worldwise')],
