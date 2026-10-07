@@ -139,3 +139,17 @@ editing one level re-dates the others.
 When you add a public route, add its source files to the map —
 `tests/sitemap-lastmod.test.ts` fails for an unmapped native route and for a
 mapped file that no longer exists.
+
+## `/llms.txt`
+
+`public/llms.txt` (served at https://jurassicenglish.com/llms.txt) is a short
+plain-text map of the site for LLM crawlers, in the llmstxt.org shape: what
+Jurassic English is, the main offers, curriculum/method pages, school pages,
+key Vietnamese URLs and the contact route. Rules:
+
+- Copy comes only from existing page copy and meta descriptions — no new
+  claims. Keep the independence disclaimer and "not an official IELTS score".
+- No prices (they change on the pages first).
+- Under 60 lines; every link must be a public page in the sitemap
+  (`tests/llms-txt.test.ts`). `tests/claims-safety.test.ts` scans it too.
+- Update it when a main offer, its URL or its positioning changes.

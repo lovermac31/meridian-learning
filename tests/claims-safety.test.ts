@@ -18,7 +18,7 @@ import { join } from 'node:path';
 
 // src/lib = route metadata (Google description, social cards) + structured data; api/_lib = emails.
 const ROOTS = ['src/i18n/content', 'src/yl', 'src/components', 'src/lib', 'api/_lib', 'young-learners-speaking', 'index.html', 'public'];
-const EXT = /\.(ts|tsx|json|html)$/;
+const EXT = /\.(ts|tsx|json|html|txt)$/; // .txt: public/llms.txt is customer-facing copy for AI crawlers
 
 function files(p: string): string[] {
   if (!existsSync(p)) return [];
