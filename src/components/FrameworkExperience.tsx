@@ -40,12 +40,12 @@ export const FrameworkExperience = ({
   } = frameworkContent;
 
   return (
-    <main className="bg-white pt-32 pb-24">
+    <main className="bg-white pb-24">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-jurassic-dark via-jurassic-dark to-[#1c2c18]" />
         <div className="absolute inset-0 bg-overlay-accent-dark" />
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 py-20">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 pt-32 pb-20">
           <button
             onClick={onBack}
             className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition hover:text-white"
