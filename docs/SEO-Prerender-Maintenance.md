@@ -45,10 +45,19 @@ client-only route) it falls back to `createRoot`, which replaces the markup.
 Both entries render the same tree, `src/AppRoot.tsx`.
 
 `scripts/validate-prerender-routes.mjs` (CI step "Validate prerender routes")
-fails the PR when a prerendered sitemap route has fewer than 150 visible words
-in its raw HTML body, lacks the server-rendered `#root`, or contains React
-streaming markers that hide or defer the body (`<!--$?-->`, `<!--$!-->`,
-`<template id="B:…">`, `$RC(`). It prints the per-route word counts.
+fails the PR when a prerendered sitemap route:
+
+- has fewer than 150 visible words in its raw HTML `<body>`;
+- does not have exactly one `<main>` landmark with at least 150 words inside
+  it (collapsed `hidden` accordion panels count; navbar/footer do not). The
+  body count alone is not proof — navbar + footer chrome is ~160 words in
+  English and ~250 in Vietnamese, so an empty page would pass it. A placeholder
+  ("Available soon", "Not found") scores ~20 inside `<main>`;
+- lacks the server-rendered `#root` (`data-ssr-route`);
+- contains React streaming markers that hide or defer the body (`<!--$?-->`,
+  `<!--$!-->`, `<template id="B:…">`, `$RC(`).
+
+It prints both counts (body / `<main>`) for every prerendered route.
 
 ### Keeping components SSR-safe
 
@@ -63,9 +72,16 @@ same markup, or React reports a hydration mismatch (minified error #418).
 - Render output must depend on the **pathname only**. Query strings and hashes
   belong in effects and event handlers (see `LanguageSwitcher`, which resolves
   visibility from the pathname and keeps the full route for the switch target).
-- Browser-only state (sessionStorage, localStorage, matchMedia, scroll) starts
-  from the server default and is applied in `useEffect`/`useLayoutEffect`
-  (see `AiSpeakingHeroSpotlight`'s minimized preference).
+- Browser-only state (sessionStorage, localStorage, matchMedia, scroll,
+  `document.referrer`, UTM parameters) starts from the server default and is
+  applied in `useEffect`/`useLayoutEffect` (see `AiSpeakingHeroSpotlight`'s
+  minimized preference and `AudienceFork`'s social-traffic door order).
+- **Production React does not report attribute mismatches.** A first render
+  that differs only in a `className`/attribute hydrates silently and keeps the
+  server's value. To check hydration, build with development React
+  (`NODE_ENV=development vite build --mode development`, then the SSR build
+  and prerender) and watch the console; `tests/prerender-ssr.test.ts` holds
+  render-parity tests for the known cases.
 - No `Date.now()`, random values or locale-dependent formatting in rendered
   markup.
 - Lazy route components are fine: the server render waits for every Suspense
@@ -100,6 +116,10 @@ client-rendered. The list must stay a subset of the private routes
   `motion` render their `initial` style (e.g. `opacity:0`) on the server, exactly
   as the first client render did before. The text is in the HTML for crawlers;
   visitors see it animate in after hydration, as before.
+- **`/knowledge` answers are collapsed.** Its accordion answers are in the
+  HTML inside `hidden` panels (324 words in `<main>`, 101 of them visible
+  without interaction). Indexable, but a crawler that discounts hidden text
+  sees less; rendering answers open by default would be a content/UX decision.
 - **Language switcher on URLs with a query string or hash.** It used to resolve
   its visibility from the full route, so it was hidden on `?utm_…`/`#…` URLs
   while the server (which only knows the pathname) rendered it. It now resolves

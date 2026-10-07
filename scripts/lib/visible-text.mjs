@@ -8,7 +8,13 @@
  * "Visible" here means: text nodes inside <body>, excluding the contents of
  * <script>, <style>, <template>, <noscript>, <svg>, HTML comments, and any
  * element carrying the boolean `hidden` attribute. sr-only text is counted
- * (it is real copy exposed to assistive tech and crawlers).
+ * (it is real copy exposed to assistive tech and crawlers). Text hidden only
+ * by CSS (e.g. a Tailwind `hidden xl:flex` nav) is counted too: it is in the
+ * HTML and shown at some breakpoint.
+ *
+ * countMainContentWords() measures the page's own content: words inside its
+ * single <main> landmark (navbar/footer chrome excluded), counting collapsed
+ * `hidden` panels (accordion answers are real copy in the HTML).
  *
  * The input is machine-generated, well-formed markup (React server output +
  * our own templates), so a small tokenizer is sufficient — no HTML parser
@@ -62,8 +68,18 @@ function extractBody(html) {
   return html.slice(openEnd + 1, bodyEnd === -1 ? undefined : bodyEnd);
 }
 
-/** Returns the visible text of the HTML <body> as one whitespace-normalised string. */
-export function extractVisibleText(html) {
+/** True when the tag's attribute list has a boolean/valued `hidden` attribute (not a class name). */
+function hasHiddenAttribute(attrs) {
+  const withoutValues = attrs.replace(/"[^"]*"|'[^']*'/g, '""');
+  return /(^|\s)hidden(\s|=|\/|$)/i.test(withoutValues);
+}
+
+/**
+ * Returns the visible text of the HTML <body> as one whitespace-normalised
+ * string. With { includeHiddenAttribute: true }, elements carrying the
+ * `hidden` attribute are read too.
+ */
+export function extractVisibleText(html, { includeHiddenAttribute = false } = {}) {
   const body = extractBody(html).replace(/<!--[\s\S]*?-->/g, ' ');
   const tokenPattern = /<\/?([a-zA-Z][a-zA-Z0-9-]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g;
 
@@ -99,7 +115,7 @@ export function extractVisibleText(html) {
       continue;
     }
 
-    const isHidden = /(^|\s)hidden(\s|=|$)/i.test(attrs);
+    const isHidden = !includeHiddenAttribute && hasHiddenAttribute(attrs);
     if (SKIP_TAGS.has(tag) || isHidden) {
       skipTag = tag;
       skipDepth = 1;
@@ -124,4 +140,22 @@ export function countWords(text) {
 
 export function countVisibleWords(html) {
   return countWords(extractVisibleText(html));
+}
+
+/**
+ * Words inside the page's <main> landmark(s). Returns { mainCount, words }.
+ * Navbar and footer live outside <main>, so a route whose body failed to
+ * render (empty <main>) or rendered a placeholder scores near zero here even
+ * though its chrome alone exceeds 150 words.
+ */
+export function countMainContentWords(html) {
+  const mains = [...html.matchAll(/<main\b[^>]*>/gi)];
+  if (mains.length === 0) return { mainCount: 0, words: 0 };
+  const start = mains[0].index;
+  const end = html.toLowerCase().lastIndexOf('</main>');
+  const inner = end > start ? html.slice(start, end + '</main>'.length) : html.slice(start);
+  return {
+    mainCount: mains.length,
+    words: countWords(extractVisibleText(`<body>${inner}</body>`, { includeHiddenAttribute: true })),
+  };
 }

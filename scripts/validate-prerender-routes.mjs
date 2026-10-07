@@ -7,7 +7,7 @@ import {
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { countVisibleWords } from './lib/visible-text.mjs';
+import { countMainContentWords, countVisibleWords } from './lib/visible-text.mjs';
 
 /**
  * Minimum visible words in the raw HTML <body> of every prerendered sitemap
@@ -16,6 +16,14 @@ import { countVisibleWords } from './lib/visible-text.mjs';
  * fallback stubs carried 25–97 words; real pages carry several hundred.
  */
 const MIN_VISIBLE_WORDS = 150;
+
+/**
+ * Minimum words inside the route's single <main> landmark. The body count
+ * above includes navbar + footer chrome (~160 words EN, ~250 VI), so it alone
+ * cannot prove the page body rendered; this one can. Placeholder pages
+ * (Available soon / Not found) score ~20 here.
+ */
+const MIN_MAIN_CONTENT_WORDS = 150;
 
 // Markers of React streaming output that hide or defer the page body.
 const OUTLINED_BOUNDARY_PATTERNS = [
@@ -95,18 +103,27 @@ for (const route of prerenderRoutes) {
   }
 
   const words = countVisibleWords(html);
+  const main = countMainContentWords(html);
   const inSitemap = sitemapRoutes.has(route);
-  wordCounts.push({ route, words, inSitemap });
+  wordCounts.push({ route, words, mainWords: main.words, inSitemap });
   if (inSitemap && words < MIN_VISIBLE_WORDS) {
     fallbackErrors.push(
       `${route}: only ${words} visible words in the raw HTML body (minimum ${MIN_VISIBLE_WORDS} for sitemap routes)`,
     );
   }
+  if (inSitemap && main.mainCount !== 1) {
+    fallbackErrors.push(`${route}: expected exactly one <main> landmark in the server-rendered body, found ${main.mainCount}`);
+  }
+  if (inSitemap && main.words < MIN_MAIN_CONTENT_WORDS) {
+    fallbackErrors.push(
+      `${route}: only ${main.words} words inside <main> (minimum ${MIN_MAIN_CONTENT_WORDS}) — the page body is missing or a placeholder rendered`,
+    );
+  }
 }
 
-console.log('[validate-prerender-routes] visible words in raw HTML body (sitemap routes marked *):');
-for (const { route, words, inSitemap } of wordCounts) {
-  console.log(`  ${inSitemap ? '*' : ' '} ${String(words).padStart(5)}  ${route}`);
+console.log('[validate-prerender-routes] words in raw HTML: body (visible) / inside <main>; sitemap routes marked *');
+for (const { route, words, mainWords, inSitemap } of wordCounts) {
+  console.log(`  ${inSitemap ? '*' : ' '} ${String(words).padStart(5)} / ${String(mainWords).padStart(5)}  ${route}`);
 }
 
 if (fallbackErrors.length > 0) {
@@ -124,7 +141,9 @@ console.log(
     expectedPublicRoutes.length - rewriteServedCount
   } public indexable routes with prerender coverage and server-rendered page bodies ` +
     `(min ${Math.min(...wordCounts.filter((entry) => entry.inSitemap).map((entry) => entry.words))} ` +
-    `visible words; floor ${MIN_VISIBLE_WORDS})` +
+    `body words, floor ${MIN_VISIBLE_WORDS}; min ` +
+    `${Math.min(...wordCounts.filter((entry) => entry.inSitemap).map((entry) => entry.mainWords))} ` +
+    `<main> words, floor ${MIN_MAIN_CONTENT_WORDS})` +
     (rewriteServedCount > 0
       ? ` (and ${rewriteServedCount} rewrite-served route${
           rewriteServedCount === 1 ? '' : 's'

@@ -10,6 +10,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { AudienceFork } from '../src/components/AudienceFork';
 import { LanguageSwitcher } from '../src/components/LanguageSwitcher';
 import { LegalPage } from '../src/components/LegalPage';
 import { FrameworkExperience } from '../src/components/FrameworkExperience';
@@ -23,6 +24,7 @@ import {
   getPrivateOrNonIndexableRoutes,
 } from '../src/lib/routeMetadata';
 import {
+  countMainContentWords,
   countVisibleWords,
   countWords,
   extractVisibleText,
@@ -63,6 +65,29 @@ test('LanguageSwitcher markup ignores query strings and hashes (server/client pa
   assert.equal(render('/framework#core-model'), clean);
   assert.equal(render('/vi/framework?ref=x'), render('/vi/framework'));
   assert.equal(render('/plans-pricing-access?token=abc'), '', 'still hidden on private routes');
+});
+
+test('AudienceFork first render ignores browser-only traffic signals (hydration parity)', () => {
+  // The build-time render has no query string or referrer. If the first
+  // render read them, a Facebook visitor's hydrated tree would differ from the
+  // server HTML and React would keep the server's attributes (door order lost).
+  const render = () =>
+    renderToStaticMarkup(createElement(AudienceFork, { onNavigate: noop }));
+  setServerLocation('/');
+  const serverMarkup = render();
+
+  const globals = globalThis as unknown as { window?: unknown; document?: unknown };
+  const saved = { window: globals.window, document: globals.document };
+  globals.window = { location: { pathname: '/', search: '?utm_source=facebook&utm_medium=social', hash: '' } };
+  globals.document = { referrer: 'https://www.facebook.com/' };
+  try {
+    const browserFirstRender = render();
+    assert.doesNotMatch(browserFirstRender, /\border-[123]\b/, 'reorder must be applied after hydration');
+    assert.equal(browserFirstRender, serverMarkup);
+  } finally {
+    globals.window = saved.window;
+    globals.document = saved.document;
+  }
 });
 
 test('page components render their full body on the server (no window at render time)', () => {
@@ -110,3 +135,23 @@ test('visible-text extraction counts body copy only', () => {
   // "—" carries no letter/digit and is not a word.
   assert.equal(countVisibleWords(html), 16);
 });
+
+test('a `hidden` class name is not the hidden attribute', () => {
+  const html = '<body><div class="hidden xl:flex">Desktop nav</div><div hidden="">Collapsed</div><p data-state="hidden">Shown</p></body>';
+  assert.equal(extractVisibleText(html), 'Desktop nav Shown');
+  assert.equal(extractVisibleText(html, { includeHiddenAttribute: true }), 'Desktop nav Collapsed Shown');
+});
+
+test('<main> word count excludes chrome and includes collapsed panels', () => {
+  const chrome = '<nav>' + 'Menu link '.repeat(100) + '</nav><footer>' + 'Footer link '.repeat(100) + '</footer>';
+  const page = (main: string) => `<body><div id="root">${chrome}${main}</div></body>`;
+
+  assert.deepEqual(countMainContentWords(page('')), { mainCount: 0, words: 0 });
+  assert.deepEqual(countMainContentWords(page('<main class="x"></main>')), { mainCount: 1, words: 0 });
+  assert.ok(countVisibleWords(page('<main></main>')) >= 150, 'chrome alone clears the body floor');
+  assert.deepEqual(
+    countMainContentWords(page('<main><h1>Answers</h1><div hidden="">Collapsed answer text</div></main>')),
+    { mainCount: 1, words: 4 },
+  );
+});
+
