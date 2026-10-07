@@ -71,6 +71,8 @@ export const enUi = {
       privacy: 'Privacy',
       cookies: 'Cookies',
     },
+    websiteFeedback: 'Website Feedback',
+    shareFeedback: 'Tell us how to improve',
     generalEnquiries: 'General Enquiries',
     legalPrivacy: 'Legal & Privacy',
     responseTime: 'We typically respond within 2 business days.',
