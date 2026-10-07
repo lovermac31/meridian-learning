@@ -153,3 +153,38 @@ key Vietnamese URLs and the contact route. Rules:
 - Under 60 lines; every link must be a public page in the sitemap
   (`tests/llms-txt.test.ts`). `tests/claims-safety.test.ts` scans it too.
 - Update it when a main offer, its URL or its positioning changes.
+
+## IndexNow (Bing, Yandex, Naver, Seznam.cz, Yep, Amazon)
+
+IndexNow lets the site tell participating search engines that URLs changed,
+instead of waiting for a recrawl. One POST to `https://api.indexnow.org/indexnow`
+is shared with every participant. **Google is not an IndexNow participant** —
+for Google use Search Console (sitemap + URL Inspection → Request indexing).
+
+- Key: `474778a35f518368eaaf77d2571e95b3`, served from
+  `public/474778a35f518368eaaf77d2571e95b3.txt` at
+  https://jurassicenglish.com/474778a35f518368eaaf77d2571e95b3.txt. The key is
+  public by design (engines fetch the file to verify ownership). Do not rename
+  or delete the file; to rotate, add a new key file, update `INDEXNOW_KEY` in
+  `scripts/lib/indexnow.mjs`, deploy, then remove the old file.
+- Script: `scripts/indexnow-submit.mjs`. **Dry run by default** — it prints the
+  payload and sends nothing. `--submit` sends, and first checks that the live
+  key file returns exactly the key (else engines answer 403).
+
+Run it **after** a production deploy is live, never before (engines fetch the
+URLs right away):
+
+```bash
+# Everything in the live sitemap (first submission after this lands)
+node scripts/indexnow-submit.mjs --source live            # review the dry run
+node scripts/indexnow-submit.mjs --source live --submit
+
+# Only pages a release changed
+node scripts/indexnow-submit.mjs --submit /methodology /vi/framework
+```
+
+Responses: `200` received · `202` received, key validation pending (normal on
+the first submission) · `400` bad format · `403` key file missing/mismatched ·
+`422` URL not on jurassicenglish.com · `429` rate limited (retry later).
+Submit only URLs that actually changed; repeated full-sitemap submissions can
+be treated as spam (429).
