@@ -14,6 +14,7 @@ import { KnowledgeHubPage } from './components/KnowledgeHubPage';
 import { InstitutionalDecisionSnapshot } from './components/InstitutionalDecisionSnapshot';
 import { Services } from './components/Services';
 import { Footer } from './components/Footer';
+import { GlobalContactPanel } from './components/GlobalContactPanel';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { getSeriesLevelByPath } from './lib/seriesContent';
@@ -571,6 +572,7 @@ function App() {
           onEducationAffiliateClick={() => setIsComingSoonOpen(true)}
         />
       ) : null}
+      {!isInternalPilotRequestsView ? <GlobalContactPanel /> : null}
       {isBotUIPilotVisible ? (
         <Suspense fallback={null}>
           <BotUIChat currentPathname={pathname} onNavigate={navigateTo} />
