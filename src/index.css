@@ -242,3 +242,14 @@ html[lang='vi'] {
     margin-right: 0;
   }
 }
+
+/* Contact launcher: on phones the assistant bar spans the bottom edge, so sit above it and step aside while the assistant is open. */
+@media (max-width: 639.98px) {
+  body:has(.je-botui-shell) [data-contact-panel] {
+    bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+
+  body:has(#je-botui-panel) [data-contact-panel] {
+    display: none;
+  }
+}
