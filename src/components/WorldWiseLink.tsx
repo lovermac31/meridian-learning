@@ -12,6 +12,8 @@
 import type { ReactNode } from 'react';
 import { WORLDWISE_SITE_URL } from '../lib/contactConfig';
 import { splitOnWorldWise } from '../lib/worldwiseLink';
+import { getCurrentLocale } from '../i18n/routing';
+import { getUiString } from '../i18n/ui';
 
 const LINK_CLASS =
   'rounded-sm underline decoration-1 underline-offset-2 transition-colors hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent';
@@ -29,7 +31,7 @@ export const WorldWiseLink = ({ children, className = '' }: WorldWiseLinkProps) 
     className={`${LINK_CLASS} ${className}`.trim()}
   >
     {children}
-    <span className="sr-only"> (opens in a new tab)</span>
+    <span className="sr-only"> {getUiString(getCurrentLocale(), 'common.opensInNewTab')}</span>
   </a>
 );
 

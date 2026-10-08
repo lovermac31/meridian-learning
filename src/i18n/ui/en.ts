@@ -76,6 +76,18 @@ export const enUi = {
     responseTime: 'We typically respond within 2 business days.',
     copyright: '© 2026 World Wise Learning. All rights reserved.',
     trademark: 'Jurassic English™ is a trademark of World Wise Learning.',
+    ecosystem: {
+      heading: 'Ecosystem',
+      navLabel: 'Ecosystem pages',
+      aiSpeaking: 'AI Speaking Practice',
+      baseline: 'Live Speaking Baseline',
+      studentAcademy: 'Student Academy',
+      interactiveDemo: 'Interactive Demo',
+      bookDiagnostic: 'Book a Diagnostic',
+      schoolFramework: 'School Framework',
+      evidencePolicy: 'Evidence Policy',
+      reasoningEngine: 'Digital Reasoning Engine',
+    },
   },
   hero: {
     imageAlt: 'Jurassic English compass and curated book collection',
@@ -113,6 +125,8 @@ export const enUi = {
     close: 'Close',
     emailDirect: 'Prefer direct contact? Email',
     orEmail: 'Or email',
+    skipToContent: 'Skip to main content',
+    opensInNewTab: '(opens in a new tab)',
   },
   getStarted: {
     badge: 'Get Started',

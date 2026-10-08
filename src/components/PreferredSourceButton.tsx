@@ -11,6 +11,7 @@
 import { Star, ArrowUpRight } from 'lucide-react';
 import { PREFERRED_SOURCE_DEEPLINK } from '../lib/preferredSource';
 import { trackPreferredSourceClick, type PreferredSourcePlacement } from '../lib/analytics';
+import { getCurrentLocale } from '../i18n/routing';
 
 type Props = {
   /** Where this instance renders — used for analytics. */
@@ -26,19 +27,37 @@ type Props = {
   className?: string;
 };
 
-const DEFAULT_HEADING = 'Prefer Jurassic English on Google';
-const DEFAULT_DESCRIPTION =
-  'Add Jurassic English as one of your preferred sources so our academic-English and reasoning insights surface more prominently in your Google experience.';
-const DEFAULT_LABEL = 'Add as a preferred source';
+const PREFERRED_SOURCE_COPY = {
+  en: {
+    heading: 'Prefer Jurassic English on Google',
+    description:
+      'Add Jurassic English as one of your preferred sources so our academic-English and reasoning insights surface more prominently in your Google experience.',
+    label: 'Add as a preferred source',
+    eyebrow: 'Follow our work',
+    ariaSuffix: 'on Google (opens Google in a new tab)',
+  },
+  vi: {
+    heading: 'Ưu tiên Jurassic English trên Google',
+    description:
+      'Thêm Jurassic English vào danh sách nguồn ưu tiên để các bài viết về tiếng Anh học thuật và lập luận của chúng tôi hiển thị nổi bật hơn trên Google.',
+    label: 'Thêm làm nguồn ưu tiên',
+    eyebrow: 'Theo dõi chúng tôi',
+    ariaSuffix: 'trên Google (mở Google trong thẻ mới)',
+  },
+} as const;
 
 export const PreferredSourceButton = ({
   placement,
   variant = 'compact',
-  heading = DEFAULT_HEADING,
-  description = DEFAULT_DESCRIPTION,
-  label = DEFAULT_LABEL,
+  heading: headingProp,
+  description: descriptionProp,
+  label: labelProp,
   className = '',
 }: Props) => {
+  const copy = PREFERRED_SOURCE_COPY[getCurrentLocale() === 'vi' ? 'vi' : 'en'];
+  const heading = headingProp ?? copy.heading;
+  const description = descriptionProp ?? copy.description;
+  const label = labelProp ?? copy.label;
   const handleClick = () => {
     trackPreferredSourceClick({ placement, variant });
   };
@@ -49,7 +68,7 @@ export const PreferredSourceButton = ({
       target="_blank"
       rel="noopener noreferrer nofollow"
       onClick={handleClick}
-      aria-label={`${label} on Google (opens Google in a new tab)`}
+      aria-label={`${label} ${copy.ariaSuffix}`}
       className={extraClass}
     >
       <Star aria-hidden="true" className="w-4 h-4 shrink-0" />
@@ -71,7 +90,7 @@ export const PreferredSourceButton = ({
     >
       <div className="max-w-3xl mx-auto px-6 py-12 md:py-14 text-center">
         <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-jurassic-gold/80">
-          Follow our work
+          {copy.eyebrow}
         </p>
         <h2
           id="preferred-source-heading"

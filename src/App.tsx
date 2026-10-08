@@ -25,6 +25,7 @@ import { isRewriteServedRoute, resolveRouteMetadata } from './lib/routeMetadata'
 import { isBotUIRouteAllowed } from './lib/botUiRoutes';
 import { normalizeSpeedInsightsRoute } from './lib/speedInsightsRoute';
 import { localizeRouteTarget, resolveLocalizedRoute, switchLocaleRoute } from './i18n/routing';
+import { getUiString } from './i18n/ui';
 import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { getCurrentLocation } from './lib/ssrLocation';
@@ -395,7 +396,7 @@ function App() {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-jurassic-accent focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
       >
-        Skip to main content
+        {getUiString(locale, 'common.skipToContent')}
       </a>
       {!isInternalPilotRequestsView ? (
         <Navbar

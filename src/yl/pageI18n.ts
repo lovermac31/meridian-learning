@@ -9,6 +9,7 @@
  * Translatable elements opt in via attributes:
  *   data-i18n="key"        → element.textContent is swapped
  *   data-i18n-html="key"   → element.innerHTML is swapped (inline <span>/<strong>/<br>)
+ *   data-i18n-attr="attr:key" → the named attribute (alt / aria-label) is swapped
  *
  * Metadata (title, description, og/twitter, canonical, <html lang>) and the
  * language-selector active state are updated on every language change.
@@ -70,6 +71,10 @@ function captureOnce(): void {
     const k = el.getAttribute('data-i18n-html');
     if (k && !capturedHtml.has(k)) capturedHtml.set(k, el.innerHTML);
   });
+  document.querySelectorAll<HTMLElement>('[data-i18n-attr]').forEach((el) => {
+    const [attr, k] = (el.getAttribute('data-i18n-attr') ?? '').split(':');
+    if (attr && k && !capturedText.has(k)) capturedText.set(k, el.getAttribute(attr) ?? '');
+  });
   capturedMeta.title = document.title;
   capturedMeta.description = getMeta('name', 'description');
   capturedMeta.ogTitle = getMeta('property', 'og:title');
@@ -95,6 +100,9 @@ function applyText(lang: Lang): void {
   document.querySelectorAll<HTMLElement>('[data-i18n-html]').forEach((el) => {
     const k = el.getAttribute('data-i18n-html');
     if (k) el.innerHTML = pageVal(lang, k, true);
+  });  document.querySelectorAll<HTMLElement>('[data-i18n-attr]').forEach((el) => {
+    const [attr, k] = (el.getAttribute('data-i18n-attr') ?? '').split(':');
+    if (attr && k) el.setAttribute(attr, pageVal(lang, k, false));
   });
 }
 

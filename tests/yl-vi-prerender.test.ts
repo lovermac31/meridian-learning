@@ -75,3 +75,12 @@ test('no relative asset paths survive the move to /vi/', () => {
 test('English page is not declared as a language page', () => {
   assert.doesNotMatch(EN_HTML, /data-yl-page-lang/);
 });
+
+test('alt / aria-label attributes are localised (no English residue in attributes)', () => {
+  const tags = [...html.matchAll(/<[a-zA-Z][^>]*\sdata-i18n-attr="([\w-]+):([^"]+)"[^>]*>/g)];
+  assert.ok(tags.length >= 15, `found ${tags.length} localisable attributes`);
+  for (const [tag, attr, key] of tags) {
+    const value = tag.match(new RegExp(`\\s${attr}="([^"]*)"`))?.[1];
+    assert.equal(unescape(value ?? ''), VI[key], `${attr} for ${key}`);
+  }
+});

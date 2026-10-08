@@ -494,6 +494,25 @@ const en: Dict = {
   'botui.anchor.journey': 'journey',
   'botui.anchor.pricing': 'pricing',
   'botui.anchor.book': 'booking',
+  'a11y.skipToContent': 'Skip to main content',
+  'brand.subLabel': 'Young Learners',
+  // Attribute strings (alt / aria-label) applied via data-i18n-attr="attr:key".
+  'attr.navPrimary': 'Primary',
+  'attr.brandHome': 'Jurassic English home',
+  'attr.emblemAlt': 'Jurassic English emblem',
+  'attr.agePathway': 'Age pathway',
+  'attr.imgTeen': 'Teen student speaking in a warm study room',
+  'attr.imgYoung': 'Young learner speaking with a coach',
+  'attr.imgHighSchool': 'High school learner practicing IELTS Speaking online',
+  'attr.bandUnlocks': 'Band unlocks',
+  'attr.imgReview': 'Coach reviewing speaking progress with a student',
+  'attr.imgReport': 'Family reviewing a student progress report',
+  'attr.imgFamily': 'Family speaking with a coach about programmes and pricing',
+  'attr.pricingTable': 'Private coaching prices',
+  'attr.paymentFlex': 'Flexible payment options',
+  'attr.paymentChecks': 'Payment safeguards',
+  'attr.qrZalo': 'Zalo booking QR code',
+  'attr.qrWebsite': 'Jurassic English website QR code',
 };
 
 const vi: Dict = viStrings as Dict;

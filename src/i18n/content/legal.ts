@@ -175,7 +175,7 @@ const termsVi: LegalDocument = {
   contact: [
     { label: 'Tổ chức', value: 'World Wise Learning' },
     { label: 'Thương hiệu', value: 'Jurassic English™' },
-    { label: 'Website', value: 'www.jurassicenglish.com' },
+    { label: 'Trang web', value: 'www.jurassicenglish.com' },
     { label: 'Liên hệ pháp lý', value: 'legal@worldwiselearning.com' },
     { label: 'Ngày hiệu lực', value: 'Tháng 3 năm 2026' },
     { label: 'Cập nhật lần cuối', value: '21 tháng 3 năm 2026' },
@@ -198,7 +198,7 @@ const privacyVi: LegalDocument = {
         [
           ['Bên kiểm soát dữ liệu', 'World Wise Learning'],
           ['Thương hiệu', 'Jurassic English™'],
-          ['Website', 'www.jurassicenglish.com'],
+          ['Trang web', 'www.jurassicenglish.com'],
           ['Liên hệ', 'legal@worldwiselearning.com'],
         ],
       ),
@@ -323,7 +323,7 @@ const privacyVi: LegalDocument = {
   contact: [
     { label: 'Bên kiểm soát dữ liệu', value: 'World Wise Learning' },
     { label: 'Thương hiệu', value: 'Jurassic English™' },
-    { label: 'Website', value: 'www.jurassicenglish.com' },
+    { label: 'Trang web', value: 'www.jurassicenglish.com' },
     { label: 'Liên hệ về quyền riêng tư', value: 'legal@worldwiselearning.com' },
     { label: 'Ngày hiệu lực', value: 'Tháng 3 năm 2026' },
     { label: 'Cập nhật lần cuối', value: '21 tháng 3 năm 2026' },
@@ -408,7 +408,7 @@ const cookiesVi: LegalDocument = {
   contact: [
     { label: 'Tổ chức', value: 'World Wise Learning' },
     { label: 'Thương hiệu', value: 'Jurassic English™' },
-    { label: 'Website', value: 'www.jurassicenglish.com' },
+    { label: 'Trang web', value: 'www.jurassicenglish.com' },
     { label: 'Liên hệ về cookie', value: 'legal@worldwiselearning.com' },
     { label: 'Cập nhật lần cuối', value: '21 tháng 3 năm 2026' },
   ],
@@ -513,7 +513,7 @@ const accessibilityVi: LegalDocument = {
         [
           ['Liên hệ về trợ năng', 'legal@worldwiselearning.com'],
           ['Tổ chức', 'World Wise Learning'],
-          ['Website', 'www.jurassicenglish.com'],
+          ['Trang web', 'www.jurassicenglish.com'],
           ['Thời gian phản hồi', 'Chúng tôi đặt mục tiêu phản hồi trong vòng 5 ngày làm việc kể từ khi tiếp nhận.'],
         ],
       ),
@@ -539,7 +539,7 @@ const accessibilityVi: LegalDocument = {
   contact: [
     { label: 'Liên hệ về trợ năng', value: 'legal@worldwiselearning.com' },
     { label: 'Tổ chức', value: 'World Wise Learning' },
-    { label: 'Website', value: 'www.jurassicenglish.com' },
+    { label: 'Trang web', value: 'www.jurassicenglish.com' },
   ],
 };
 
@@ -613,7 +613,7 @@ const disclaimerVi: LegalDocument = {
   contact: [
     { label: 'Tổ chức', value: 'World Wise Learning' },
     { label: 'Thương hiệu', value: 'Jurassic English™' },
-    { label: 'Website', value: 'www.jurassicenglish.com' },
+    { label: 'Trang web', value: 'www.jurassicenglish.com' },
     { label: 'Liên hệ pháp lý', value: 'legal@worldwiselearning.com' },
     { label: 'Ngày hiệu lực', value: 'Tháng 3 năm 2026' },
     { label: 'Cập nhật lần cuối', value: '21 tháng 3 năm 2026' },
