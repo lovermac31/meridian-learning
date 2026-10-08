@@ -24,7 +24,7 @@ export const GlobalContactPanel = () => {
     document.body.style.overflow = 'hidden';
     return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = previous; };
   }, [active]);
-  const launch = (channel: Channel) => { const item = details[channel]; if (item.qr) { setActive(channel); return; } window.open(item.href, '_blank', 'noopener,noreferrer'); };
+  const launch = (channel: Channel) => setActive(channel);
   return <>
     <nav className="fixed bottom-20 left-5 z-[80] flex flex-col items-center gap-2" aria-label="Contact channels">
       <button type="button" onClick={() => launch('zalo')} className="grid h-[42px] w-[42px] place-items-center rounded-full border border-white/25 bg-[#2f66e8] text-[20px] font-bold leading-none text-white shadow-2xl transition hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-4 focus-visible:ring-offset-jurassic-dark" aria-label="Contact us on Zalo" title="Zalo">Z</button>
