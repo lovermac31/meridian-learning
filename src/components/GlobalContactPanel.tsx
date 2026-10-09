@@ -77,6 +77,7 @@ export const GlobalContactPanel = () => {
   const t = contactCopy[getCurrentLocale() === 'vi' ? 'vi' : 'en'];
   const [active, setActive] = useState<Channel | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const [compactViewport, setCompactViewport] = useState(false);
   const [navTopPx, setNavTopPx] = useState<number | null>(null);
   const [navLeftPx, setNavLeftPx] = useState<number | null>(null);
   const [navObstructed, setNavObstructed] = useState(false);
@@ -106,6 +107,14 @@ export const GlobalContactPanel = () => {
   };
 
   useEffect(() => {
+    const query = window.matchMedia('(max-width: 1439.98px)');
+    const sync = () => setCompactViewport(query.matches);
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
+  }, []);
+
+  useEffect(() => {
     if (!active) return;
     const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') close(); };
     document.addEventListener('keydown', onKey);
@@ -115,33 +124,32 @@ export const GlobalContactPanel = () => {
     return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = previous; };
   }, [active]);
 
-  // The compact channel chooser is a modal sheet so its expanded controls never
-  // float over page copy or promotional UI. Return focus when it closes.
+  // The contact rail expands in place on the left; it does not take over the
+  // page or lock scrolling. Escape and outside click return to the launcher.
   useEffect(() => {
     if (!expanded || active) return;
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    menuDialogRef.current?.querySelector<HTMLElement>('[data-contact-first]')?.focus();
+    if (compactViewport) {
+      document.body.style.overflow = 'hidden';
+      menuDialogRef.current?.querySelector<HTMLElement>('[data-contact-first]')?.focus();
+    }
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setExpanded(false);
         requestAnimationFrame(() => toggleRef.current?.focus());
-        return;
+      } else if (compactViewport && event.key === 'Tab' && menuDialogRef.current) {
+        const stops = [...menuDialogRef.current.querySelectorAll<HTMLElement>('button:not([disabled])')];
+        if (event.shiftKey && document.activeElement === stops[0]) { event.preventDefault(); stops.at(-1)?.focus(); }
+        else if (!event.shiftKey && document.activeElement === stops.at(-1)) { event.preventDefault(); stops[0]?.focus(); }
       }
-      if (event.key !== 'Tab' || !menuDialogRef.current) return;
-      const focusable = [...menuDialogRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')];
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) setExpanded(false);
     };
     document.addEventListener('keydown', onKey);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [expanded, active]);
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => { document.body.style.overflow = previousOverflow; document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onPointerDown); };
+  }, [expanded, active, compactViewport]);
 
   // Keep the fixed contact control clear of page copy and actions as the visitor scrolls.
   // If no clear vertical slot exists (for example a short zoomed viewport), yield until one does.
@@ -238,7 +246,6 @@ export const GlobalContactPanel = () => {
   };
 
   const trapFocus = (event: ReactKeyboardEvent<HTMLElement>) => trapFocusWithin(event, dialogRef.current);
-  const trapMenuFocus = (event: ReactKeyboardEvent<HTMLElement>) => trapFocusWithin(event, menuDialogRef.current);
 
   const launch = (channel: Channel, trigger: HTMLElement) => {
     triggerRef.current = trigger;
@@ -250,31 +257,27 @@ export const GlobalContactPanel = () => {
   const qr = active ? qrFor[active] : undefined;
 
   return <>
-    {/* Full rail only where the page gutter clears it (content container is 1232px); a compact launcher elsewhere. */}
+    {/* The left-side launcher reveals the contact stack in place at every viewport size. */}
     <nav ref={navRef} hidden={navObstructed && !expanded && !active} style={navTopPx !== null || navLeftPx !== null ? { ...(navTopPx !== null ? { top: `${navTopPx}px`, bottom: 'auto' } : {}), ...(navLeftPx !== null ? { left: `${navLeftPx}px` } : {}) } : undefined} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
-      <ul id="contact-channel-list" className="hidden flex-col items-center gap-2 min-[1440px]:flex">
+      <ul id="contact-channel-list" hidden={!expanded || compactViewport} className="flex flex-col items-center gap-2 rounded-full border border-white/10 bg-jurassic-dark/90 p-1.5 shadow-xl backdrop-blur">
         {channelOrder.map((channel) => <li key={channel}>
-          <button type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white shadow-2xl transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>
+          <button data-contact-first={channel === channelOrder[0] ? '' : undefined} type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white shadow-lg transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>
         </li>)}
       </ul>
-      <button ref={toggleRef} type="button" onClick={() => setExpanded((value) => !value)} aria-expanded={expanded} aria-controls={expanded ? 'contact-menu-dialog' : undefined} aria-label={expanded ? t.closeList : t.openList} className={`inline-flex h-11 items-center gap-2 rounded-full border border-white/25 bg-jurassic-dark px-4 text-sm font-semibold text-white shadow-2xl transition hover:brightness-125 min-[1440px]:hidden max-[1100px]:w-11 max-[1100px]:justify-center max-[1100px]:gap-0 max-[1100px]:px-0 ${focusRing}`}>
+      <button ref={toggleRef} type="button" onClick={() => setExpanded((value) => !value)} aria-expanded={expanded} aria-controls={compactViewport ? 'contact-channel-dialog' : 'contact-channel-list'} aria-label={expanded ? t.closeList : t.openList} className={`inline-flex h-11 items-center gap-2 rounded-full border border-white/25 bg-jurassic-dark px-4 text-sm font-semibold text-white shadow-2xl transition hover:brightness-125 max-[1100px]:w-11 max-[1100px]:justify-center max-[1100px]:gap-0 max-[1100px]:px-0 ${focusRing}`}>
         {expanded ? <X aria-hidden="true" className="h-4 w-4" /> : <MessageCircle aria-hidden="true" className="h-4 w-4" />}
         <span className="max-[1100px]:sr-only">{t.launcher}</span>
       </button>
     </nav>
-    {expanded && <div className="fixed inset-0 z-[150] grid place-items-center bg-black/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) { setExpanded(false); toggleRef.current?.focus(); } }}>
-      <section id="contact-menu-dialog" ref={menuDialogRef} onKeyDown={trapMenuFocus} className="relative max-h-[calc(100dvh-2rem)] w-full max-w-sm overflow-auto overscroll-contain rounded-2xl border border-white/20 bg-jurassic-dark p-5 text-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="contact-menu-title" aria-describedby="contact-menu-description">
-        <button type="button" onClick={() => { setExpanded(false); toggleRef.current?.focus(); }} className="absolute right-3 top-3 grid min-h-11 min-w-11 place-items-center rounded-full text-white/70 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent" aria-label={t.close}><X aria-hidden="true" className="h-5 w-5" /></button>
-        <p className="pr-12 text-xs font-semibold uppercase tracking-[0.2em] text-jurassic-accent">{t.kicker}</p>
+    {expanded && compactViewport && <div className="fixed inset-0 z-[150] grid place-items-center bg-black/65 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) { setExpanded(false); toggleRef.current?.focus(); } }}>
+      <section id="contact-channel-dialog" ref={menuDialogRef} className="max-h-[calc(100dvh-2rem)] w-full max-w-sm overflow-auto overscroll-contain rounded-2xl border border-white/20 bg-jurassic-dark p-5 text-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="contact-menu-title" aria-describedby="contact-menu-description">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-jurassic-accent">{t.kicker}</p>
         <h2 id="contact-menu-title" className="mt-2 text-xl font-semibold">{t.nav}</h2>
         <p id="contact-menu-description" className="mt-1 text-sm leading-6 text-white/70">{t.menuDescription}</p>
         <ul className="mt-5 grid grid-cols-2 gap-3">
-          {channelOrder.map((channel, index) => <li key={channel}>
-            <button data-contact-first={index === 0 ? '' : undefined} type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`flex min-h-[76px] w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.06] px-2 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent ${focusRing}`}>
-              <span className={`grid h-9 w-9 place-items-center rounded-full text-white ${channelStyle[channel]}`}>{channelGlyph[channel]}</span>
-              <span>{t.channels[channel].label}</span>
-            </button>
-          </li>)}
+          {channelOrder.map((channel, index) => <li key={channel}><button data-contact-first={index === 0 ? '' : undefined} type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`flex min-h-[76px] w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.06] px-2 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.12] ${focusRing}`}>
+            <span className={`grid h-9 w-9 place-items-center rounded-full text-white ${channelStyle[channel]}`}>{channelGlyph[channel]}</span><span>{t.channels[channel].label}</span>
+          </button></li>)}
         </ul>
       </section>
     </div>}
