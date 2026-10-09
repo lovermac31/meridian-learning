@@ -29,8 +29,8 @@ export const contactCopy = {
     qrAlt: (label: string) => `${label} contact QR code`,
     channels: {
       zalo: { label: 'Zalo', button: 'Contact us on Zalo', description: 'Open Zalo in a new tab to start a conversation.', actions: [{ label: 'Continue to Zalo', href: ZALO_LINK, external: true }] },
-      whatsapp: { label: 'WhatsApp', button: 'Contact us on WhatsApp', description: 'Scan this QR code with WhatsApp on your phone, or open WhatsApp directly.', actions: [{ label: 'Open WhatsApp', href: WHATSAPP_LINK, external: true }, { label: 'Download QR', href: WHATSAPP_QR, download: true }] },
-      wechat: { label: 'WeChat', button: 'Contact us on WeChat', description: 'Scan this QR code with WeChat on your phone (WeChat → + → Scan).', actions: [{ label: 'Download QR', href: WECHAT_QR, download: true }, { label: 'View QR image', href: WECHAT_QR, external: true }] },
+      whatsapp: { label: 'WhatsApp', button: 'Contact us on WhatsApp', description: 'Scan this QR code with WhatsApp on another device, or use Open WhatsApp. If this page is on your phone, open the QR on a second screen to scan it.', actions: [{ label: 'Open WhatsApp', href: WHATSAPP_LINK, external: true }, { label: 'Download QR', href: WHATSAPP_QR, download: true }] },
+      wechat: { label: 'WeChat', button: 'Contact us on WeChat', description: 'Scan this QR code with WeChat (WeChat → + → Scan). If this page is on your phone, open the QR on a second screen to scan it.', actions: [{ label: 'Download QR', href: WECHAT_QR, download: true }, { label: 'View QR image', href: WECHAT_QR, external: true }] },
       facebook: { label: 'Facebook', button: 'Visit our Facebook page', description: 'Open our Facebook page in a new tab.', actions: [{ label: 'Continue to Facebook', href: FACEBOOK_LINK, external: true }] },
       email: { label: 'Email', button: 'Email Jurassic English', description: 'Open your email app with a new enquiry addressed to us.', actions: [{ label: 'Write an email', href: EMAIL_LINK }] },
     },
@@ -45,8 +45,8 @@ export const contactCopy = {
     qrAlt: (label: string) => `Mã QR liên hệ qua ${label}`,
     channels: {
       zalo: { label: 'Zalo', button: 'Liên hệ qua Zalo', description: 'Mở Zalo trong thẻ mới để bắt đầu trò chuyện với chúng tôi.', actions: [{ label: 'Tiếp tục đến Zalo', href: ZALO_LINK, external: true }] },
-      whatsapp: { label: 'WhatsApp', button: 'Liên hệ qua WhatsApp', description: 'Quét mã QR này bằng WhatsApp trên điện thoại, hoặc mở WhatsApp trực tiếp.', actions: [{ label: 'Mở WhatsApp', href: WHATSAPP_LINK, external: true }, { label: 'Tải mã QR', href: WHATSAPP_QR, download: true }] },
-      wechat: { label: 'WeChat', button: 'Liên hệ qua WeChat', description: 'Quét mã QR này bằng WeChat trên điện thoại (WeChat → + → Quét).', actions: [{ label: 'Tải mã QR', href: WECHAT_QR, download: true }, { label: 'Xem ảnh mã QR', href: WECHAT_QR, external: true }] },
+      whatsapp: { label: 'WhatsApp', button: 'Liên hệ qua WhatsApp', description: 'Quét mã QR này bằng WhatsApp trên thiết bị khác hoặc chọn Mở WhatsApp. Nếu đang xem trang trên điện thoại, hãy mở mã QR trên màn hình thứ hai để quét.', actions: [{ label: 'Mở WhatsApp', href: WHATSAPP_LINK, external: true }, { label: 'Tải mã QR', href: WHATSAPP_QR, download: true }] },
+      wechat: { label: 'WeChat', button: 'Liên hệ qua WeChat', description: 'Quét mã QR này bằng WeChat (WeChat → + → Quét). Nếu đang xem trang trên điện thoại, hãy mở mã QR trên màn hình thứ hai để quét.', actions: [{ label: 'Tải mã QR', href: WECHAT_QR, download: true }, { label: 'Xem ảnh mã QR', href: WECHAT_QR, external: true }] },
       facebook: { label: 'Facebook', button: 'Truy cập trang Facebook của chúng tôi', description: 'Mở trang Facebook của chúng tôi trong thẻ mới.', actions: [{ label: 'Tiếp tục đến Facebook', href: FACEBOOK_LINK, external: true }] },
       email: { label: 'Email', button: 'Gửi email cho Jurassic English', description: 'Mở ứng dụng email với một thư mới gửi đến chúng tôi.', actions: [{ label: 'Viết email', href: EMAIL_LINK }] },
     },
@@ -57,8 +57,8 @@ const qrFor: Partial<Record<Channel, string>> = { whatsapp: WHATSAPP_QR, wechat:
 const channelOrder: Channel[] = ['zalo', 'whatsapp', 'wechat', 'facebook', 'email'];
 const channelStyle: Record<Channel, string> = {
   zalo: 'bg-[#2f66e8] text-[20px] font-bold leading-none',
-  whatsapp: 'bg-[#55c96a]',
-  wechat: 'bg-[#07c160]',
+  whatsapp: 'bg-[#168a42]',
+  wechat: 'bg-[#008f4b]',
   facebook: 'bg-[#1877f2] text-[25px] font-bold leading-none',
   email: 'bg-jurassic-dark',
 };
@@ -75,6 +75,9 @@ export const GlobalContactPanel = () => {
   const t = contactCopy[getCurrentLocale() === 'vi' ? 'vi' : 'en'];
   const [active, setActive] = useState<Channel | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const [navTopPx, setNavTopPx] = useState<number | null>(null);
+  const [navObstructed, setNavObstructed] = useState(false);
+  const navTopRef = useRef<number | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
@@ -106,6 +109,71 @@ export const GlobalContactPanel = () => {
     return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onPointer); };
   }, [expanded, active]);
 
+  // Keep the fixed contact control clear of page copy and actions as the visitor scrolls.
+  // If no clear vertical slot exists (for example a short zoomed viewport), yield until one does.
+  useEffect(() => {
+    const wideRail = window.matchMedia('(min-width: 1440px)');
+    let bounds: { width: number; height: number; top: number } | null = null;
+    let frame = 0;
+    const sync = () => {
+      const nav = navRef.current;
+      if (!nav) return;
+      if (expanded || active || nav.contains(document.activeElement)) {
+        setNavObstructed(false);
+        return;
+      }
+      const measured = nav.getBoundingClientRect();
+      if (measured.width && measured.height) bounds = { width: measured.width, height: measured.height, top: measured.top };
+      const width = bounds?.width ?? 44;
+      const height = bounds?.height ?? 44;
+      const defaultBottom = wideRail.matches ? 80 : Math.max(16, window.visualViewport?.offsetTop ?? 0);
+      const defaultTop = bounds?.top ?? Math.max(0, window.innerHeight - defaultBottom - height);
+      const boxAt = (top: number) => ({ left: wideRail.matches ? 20 : 16, right: (wideRail.matches ? 20 : 16) + width, top, bottom: top + height });
+      const collisionCandidates = new Set(document.querySelectorAll<HTMLElement>(
+        'header a, header button, nav a, nav button, main a[href], main button, main [role="button"], main h1, main h2, main h3, main p, main li, main span, main strong, main small, main label, body [role="dialog"]'
+      ));
+      // Include short fixed promo copy and other leaf labels that are not semantic headings.
+      document.querySelectorAll<HTMLElement>('body *').forEach((element) => {
+        const position = getComputedStyle(element).position;
+        if (element.children.length === 0 && element.textContent?.trim() && (position === 'fixed' || position === 'sticky')) collisionCandidates.add(element);
+      });
+      const collides = (box: ReturnType<typeof boxAt>) => [...collisionCandidates].some((element) => {
+        if (nav.contains(element)) return false;
+        if (!element.getClientRects().length || element.closest('[hidden], [aria-hidden="true"]')) return false;
+        const target = element.getBoundingClientRect();
+        return box.left < target.right && box.right > target.left && box.top < target.bottom && box.bottom > target.top;
+      });
+      const currentTop = navTopRef.current ?? defaultTop;
+      if (!collides(boxAt(currentTop))) {
+        if (navTopRef.current === null) setNavTopPx(null);
+        setNavObstructed(false);
+        return;
+      }
+      const safe: number[] = [];
+      for (let top = 0; top + height <= window.innerHeight; top += 8) if (!collides(boxAt(top))) safe.push(top);
+      if (!safe.length) { setNavObstructed(true); return; }
+      const next = safe.reduce((best, top) => Math.abs(top - currentTop) < Math.abs(best - currentTop) ? top : best);
+      navTopRef.current = next;
+      setNavTopPx(next);
+      setNavObstructed(false);
+    };
+    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(sync); };
+    const observer = new MutationObserver(schedule);
+    const layoutObserver = new ResizeObserver(schedule);
+    const main = document.querySelector('main');
+    if (main) layoutObserver.observe(main);
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['aria-expanded', 'hidden', 'class'] });
+    window.addEventListener('scroll', schedule, true);
+    window.addEventListener('resize', schedule);
+    wideRail.addEventListener('change', schedule);
+    document.fonts?.ready.then(schedule);
+    sync();
+    return () => {
+      observer.disconnect(); layoutObserver.disconnect(); cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule, true); window.removeEventListener('resize', schedule); wideRail.removeEventListener('change', schedule);
+    };
+  }, [expanded, active]);
+
   const trapFocus = (event: ReactKeyboardEvent<HTMLElement>) => {
     if (event.key !== 'Tab' || !dialogRef.current) return;
     const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')];
@@ -126,10 +194,10 @@ export const GlobalContactPanel = () => {
 
   return <>
     {/* Full rail only where the page gutter clears it (content container is 1232px); a compact launcher elsewhere. */}
-    <nav ref={navRef} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
+    <nav ref={navRef} hidden={navObstructed && !expanded && !active} style={navTopPx !== null ? { top: `${navTopPx}px`, bottom: 'auto' } : undefined} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
       <ul id="contact-channel-list" className={`${expanded ? 'flex' : 'hidden'} flex-col items-center gap-2 min-[1440px]:flex`}>
         {channelOrder.map((channel) => <li key={channel}>
-          <button type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-[42px] w-[42px] place-items-center rounded-full border border-white/25 text-white shadow-2xl transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>
+          <button type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white shadow-2xl transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>
         </li>)}
       </ul>
       <button ref={toggleRef} type="button" onClick={() => setExpanded((value) => !value)} aria-expanded={expanded} aria-controls="contact-channel-list" aria-label={expanded ? t.closeList : t.openList} className={`inline-flex h-11 items-center gap-2 rounded-full border border-white/25 bg-jurassic-dark px-4 text-sm font-semibold text-white shadow-2xl transition hover:brightness-125 min-[1440px]:hidden ${focusRing}`}>
@@ -139,7 +207,7 @@ export const GlobalContactPanel = () => {
     </nav>
     {active && detail && <div className="fixed inset-0 z-[200] grid place-items-center bg-black/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
       <section ref={dialogRef} onKeyDown={trapFocus} className="relative max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-auto overscroll-contain rounded-2xl border border-white/20 bg-jurassic-dark p-6 text-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" aria-describedby="contact-modal-description">
-        <button type="button" data-autofocus="" onClick={close} className="absolute right-4 top-4 rounded-full p-2 text-white/70 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent" aria-label={t.close}><X aria-hidden="true" className="h-5 w-5" /></button>
+        <button type="button" data-autofocus="" onClick={close} className="absolute right-4 top-4 grid min-h-11 min-w-11 place-items-center rounded-full p-2 text-white/70 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent" aria-label={t.close}><X aria-hidden="true" className="h-5 w-5" /></button>
         <p className="pr-10 text-xs font-semibold uppercase tracking-[0.2em] text-jurassic-accent">{t.kicker}</p>
         <h2 id="contact-modal-title" className="mt-2 text-2xl font-semibold">{detail.label}</h2>
         <p id="contact-modal-description" className="mt-2 text-sm leading-6 text-white/70">{detail.description}</p>
