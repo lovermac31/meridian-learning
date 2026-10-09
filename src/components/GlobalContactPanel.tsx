@@ -124,25 +124,13 @@ export const GlobalContactPanel = () => {
         setNavObstructed(false);
         return;
       }
-      // At compact widths the header has a reserved gap between the brand and menu.
-      // Pin the 44px launcher there; scanning during nav transitions can otherwise
-      // mistake the changing mobile menu subtree for a collision and hide the control.
-      if (window.matchMedia('(max-width: 1100px)').matches) {
-        navTopRef.current = null;
-        navLeftRef.current = null;
-        setNavTopPx(null);
-        setNavLeftPx(null);
-        setNavObstructed(false);
-        return;
-      }
       const measured = nav.getBoundingClientRect();
       if (measured.width && measured.height) bounds = { width: measured.width, height: measured.height };
       const width = bounds?.width ?? 44;
       const height = bounds?.height ?? 44;
-      const compactHeader = window.matchMedia('(max-width: 1100px)').matches;
-      const defaultLeft = compactHeader ? window.innerWidth - width - 76 : wideRail.matches ? 20 : 16;
+      const defaultLeft = wideRail.matches ? 20 : 16;
       const defaultBottom = wideRail.matches ? 80 : Math.max(16, window.visualViewport?.offsetTop ?? 0);
-      const defaultTop = compactHeader ? 20 : Math.max(0, window.innerHeight - defaultBottom - height);
+      const defaultTop = Math.max(0, window.innerHeight - defaultBottom - height);
       const boxAt = (left: number, top: number) => ({ left, right: left + width, top, bottom: top + height });
       const collisionCandidates = new Set(document.querySelectorAll<HTMLElement>(
         'header a, header button, nav a, nav button, main a[href], main button, main [role="button"], main h1, main h2, main h3, main p, main li, main span, main strong, main small, main label, body [role="dialog"], body aside, body aside a, body aside button, body aside [role="button"], body aside h1, body aside h2, body aside h3, body aside p, body aside li, body aside span, body aside strong, body aside small, body aside label'
@@ -173,8 +161,8 @@ export const GlobalContactPanel = () => {
         setNavObstructed(false);
         return;
       }
-      const lefts = new Set<number>([defaultLeft, Math.round((window.innerWidth - width) / 2), Math.round(window.innerWidth * 0.55), window.innerWidth - width - 16]);
-      for (let left = defaultLeft + 32; left + width <= window.innerWidth - 8; left += 32) lefts.add(left);
+      // Keep the launcher on the requested left edge; collision recovery searches vertically only.
+      const lefts = new Set<number>([defaultLeft]);
       const safe: Array<{ left: number; top: number; score: number }> = [];
       for (const left of lefts) {
         if (left < 0 || left + width > window.innerWidth) continue;
@@ -227,7 +215,7 @@ export const GlobalContactPanel = () => {
 
   return <>
     {/* Full rail only where the page gutter clears it (content container is 1232px); a compact launcher elsewhere. */}
-    <nav ref={navRef} hidden={navObstructed && !expanded && !active} style={navTopPx !== null || navLeftPx !== null ? { ...(navTopPx !== null ? { top: `${navTopPx}px`, bottom: 'auto' } : {}), ...(navLeftPx !== null ? { left: `${navLeftPx}px` } : {}) } : undefined} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 max-[1100px]:top-5 max-[1100px]:right-[76px] max-[1100px]:bottom-auto max-[1100px]:left-auto min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
+    <nav ref={navRef} hidden={navObstructed && !expanded && !active} style={navTopPx !== null || navLeftPx !== null ? { ...(navTopPx !== null ? { top: `${navTopPx}px`, bottom: 'auto' } : {}), ...(navLeftPx !== null ? { left: `${navLeftPx}px` } : {}) } : undefined} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
       <ul id="contact-channel-list" className={`${expanded ? 'flex' : 'hidden'} flex-col items-center gap-2 min-[1440px]:flex`}>
         {channelOrder.map((channel) => <li key={channel}>
           <button type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white shadow-2xl transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>
