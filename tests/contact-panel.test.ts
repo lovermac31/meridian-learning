@@ -29,3 +29,9 @@ test('contact panel: Vietnamese and English expose the same channels and action 
     assert.equal(contactCopy.vi.channels[channel].actions.length, contactCopy.en.channels[channel].actions.length, channel);
   }
 });
+
+test('contact chooser has localized modal instructions for English and Vietnamese', () => {
+  assert.match(contactCopy.en.menuDescription, /QR code/);
+  assert.match(contactCopy.vi.menuDescription, /mã QR/);
+  assert.notEqual(contactCopy.vi.menuDescription, contactCopy.en.menuDescription);
+});

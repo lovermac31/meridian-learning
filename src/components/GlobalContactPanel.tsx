@@ -26,6 +26,7 @@ export const contactCopy = {
     nav: 'Contact channels',
     kicker: 'Contact Jurassic English',
     close: 'Close contact dialog',
+    menuDescription: 'Choose a channel to view its contact details or QR code.',
     qrAlt: (label: string) => `${label} contact QR code`,
     channels: {
       zalo: { label: 'Zalo', button: 'Contact us on Zalo', description: 'Open Zalo in a new tab to start a conversation.', actions: [{ label: 'Continue to Zalo', href: ZALO_LINK, external: true }] },
@@ -42,6 +43,7 @@ export const contactCopy = {
     nav: 'Kênh liên hệ',
     kicker: 'Liên hệ Jurassic English',
     close: 'Đóng hộp thoại liên hệ',
+    menuDescription: 'Chọn kênh để xem thông tin liên hệ hoặc mã QR.',
     qrAlt: (label: string) => `Mã QR liên hệ qua ${label}`,
     channels: {
       zalo: { label: 'Zalo', button: 'Liên hệ qua Zalo', description: 'Mở Zalo trong thẻ mới để bắt đầu trò chuyện với chúng tôi.', actions: [{ label: 'Tiếp tục đến Zalo', href: ZALO_LINK, external: true }] },
@@ -82,13 +84,17 @@ export const GlobalContactPanel = () => {
   const navLeftRef = useRef<number | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
+  const menuDialogRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
 
   const close = () => {
     setActive(null);
     // Return focus to the control that opened the dialog.
-    requestAnimationFrame(() => triggerRef.current?.focus());
+    requestAnimationFrame(() => {
+      const target = triggerRef.current?.isConnected ? triggerRef.current : toggleRef.current;
+      target?.focus();
+    });
   };
 
   useEffect(() => {
@@ -101,14 +107,32 @@ export const GlobalContactPanel = () => {
     return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = previous; };
   }, [active]);
 
-  // Collapse the compact launcher on Escape or an outside click.
+  // The compact channel chooser is a modal sheet so its expanded controls never
+  // float over page copy or promotional UI. Return focus when it closes.
   useEffect(() => {
     if (!expanded || active) return;
-    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') { setExpanded(false); toggleRef.current?.focus(); } };
-    const onPointer = (event: PointerEvent) => { if (navRef.current && !navRef.current.contains(event.target as Node)) setExpanded(false); };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    menuDialogRef.current?.querySelector<HTMLElement>('[data-contact-first]')?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setExpanded(false);
+        requestAnimationFrame(() => toggleRef.current?.focus());
+        return;
+      }
+      if (event.key !== 'Tab' || !menuDialogRef.current) return;
+      const focusable = [...menuDialogRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
     document.addEventListener('keydown', onKey);
-    document.addEventListener('pointerdown', onPointer);
-    return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onPointer); };
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKey);
+    };
   }, [expanded, active]);
 
   // Keep the fixed contact control clear of page copy and actions as the visitor scrolls.
@@ -195,9 +219,9 @@ export const GlobalContactPanel = () => {
     };
   }, [expanded, active]);
 
-  const trapFocus = (event: ReactKeyboardEvent<HTMLElement>) => {
-    if (event.key !== 'Tab' || !dialogRef.current) return;
-    const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')];
+  const trapFocusWithin = (event: ReactKeyboardEvent<HTMLElement>, container: HTMLElement | null) => {
+    if (event.key !== 'Tab' || !container) return;
+    const focusable = [...container.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')];
     if (!focusable.length) return;
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
@@ -205,9 +229,13 @@ export const GlobalContactPanel = () => {
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   };
 
+  const trapFocus = (event: ReactKeyboardEvent<HTMLElement>) => trapFocusWithin(event, dialogRef.current);
+  const trapMenuFocus = (event: ReactKeyboardEvent<HTMLElement>) => trapFocusWithin(event, menuDialogRef.current);
+
   const launch = (channel: Channel, trigger: HTMLElement) => {
     triggerRef.current = trigger;
     setActive(channel);
+    setExpanded(false);
   };
 
   const detail = active ? t.channels[active] : null;
@@ -216,16 +244,32 @@ export const GlobalContactPanel = () => {
   return <>
     {/* Full rail only where the page gutter clears it (content container is 1232px); a compact launcher elsewhere. */}
     <nav ref={navRef} hidden={navObstructed && !expanded && !active} style={navTopPx !== null || navLeftPx !== null ? { ...(navTopPx !== null ? { top: `${navTopPx}px`, bottom: 'auto' } : {}), ...(navLeftPx !== null ? { left: `${navLeftPx}px` } : {}) } : undefined} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
-      <ul id="contact-channel-list" className={`${expanded ? 'flex' : 'hidden'} flex-col items-center gap-2 min-[1440px]:flex`}>
+      <ul id="contact-channel-list" className="hidden flex-col items-center gap-2 min-[1440px]:flex">
         {channelOrder.map((channel) => <li key={channel}>
           <button type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white shadow-2xl transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>
         </li>)}
       </ul>
-      <button ref={toggleRef} type="button" onClick={() => setExpanded((value) => !value)} aria-expanded={expanded} aria-controls="contact-channel-list" aria-label={expanded ? t.closeList : t.openList} className={`inline-flex h-11 items-center gap-2 rounded-full border border-white/25 bg-jurassic-dark px-4 text-sm font-semibold text-white shadow-2xl transition hover:brightness-125 min-[1440px]:hidden max-[1100px]:w-11 max-[1100px]:justify-center max-[1100px]:gap-0 max-[1100px]:px-0 ${focusRing}`}>
+      <button ref={toggleRef} type="button" onClick={() => setExpanded((value) => !value)} aria-expanded={expanded} aria-controls={expanded ? 'contact-menu-dialog' : undefined} aria-label={expanded ? t.closeList : t.openList} className={`inline-flex h-11 items-center gap-2 rounded-full border border-white/25 bg-jurassic-dark px-4 text-sm font-semibold text-white shadow-2xl transition hover:brightness-125 min-[1440px]:hidden max-[1100px]:w-11 max-[1100px]:justify-center max-[1100px]:gap-0 max-[1100px]:px-0 ${focusRing}`}>
         {expanded ? <X aria-hidden="true" className="h-4 w-4" /> : <MessageCircle aria-hidden="true" className="h-4 w-4" />}
         <span className="max-[1100px]:sr-only">{t.launcher}</span>
       </button>
     </nav>
+    {expanded && <div className="fixed inset-0 z-[150] grid place-items-center bg-black/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) { setExpanded(false); toggleRef.current?.focus(); } }}>
+      <section id="contact-menu-dialog" ref={menuDialogRef} onKeyDown={trapMenuFocus} className="relative max-h-[calc(100dvh-2rem)] w-full max-w-sm overflow-auto overscroll-contain rounded-2xl border border-white/20 bg-jurassic-dark p-5 text-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="contact-menu-title" aria-describedby="contact-menu-description">
+        <button type="button" onClick={() => { setExpanded(false); toggleRef.current?.focus(); }} className="absolute right-3 top-3 grid min-h-11 min-w-11 place-items-center rounded-full text-white/70 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent" aria-label={t.close}><X aria-hidden="true" className="h-5 w-5" /></button>
+        <p className="pr-12 text-xs font-semibold uppercase tracking-[0.2em] text-jurassic-accent">{t.kicker}</p>
+        <h2 id="contact-menu-title" className="mt-2 text-xl font-semibold">{t.nav}</h2>
+        <p id="contact-menu-description" className="mt-1 text-sm leading-6 text-white/70">{t.menuDescription}</p>
+        <ul className="mt-5 grid grid-cols-2 gap-3">
+          {channelOrder.map((channel, index) => <li key={channel}>
+            <button data-contact-first={index === 0 ? '' : undefined} type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`flex min-h-[76px] w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.06] px-2 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent ${focusRing}`}>
+              <span className={`grid h-9 w-9 place-items-center rounded-full text-white ${channelStyle[channel]}`}>{channelGlyph[channel]}</span>
+              <span>{t.channels[channel].label}</span>
+            </button>
+          </li>)}
+        </ul>
+      </section>
+    </div>}
     {active && detail && <div className="fixed inset-0 z-[200] grid place-items-center bg-black/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
       <section ref={dialogRef} onKeyDown={trapFocus} className="relative max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-auto overscroll-contain rounded-2xl border border-white/20 bg-jurassic-dark p-6 text-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" aria-describedby="contact-modal-description">
         <button type="button" data-autofocus="" onClick={close} className="absolute right-4 top-4 grid min-h-11 min-w-11 place-items-center rounded-full p-2 text-white/70 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent" aria-label={t.close}><X aria-hidden="true" className="h-5 w-5" /></button>
