@@ -152,7 +152,8 @@ export const GlobalContactPanel = () => {
   }, [expanded, active, compactViewport]);
 
   // Keep the fixed contact control clear of page copy and actions as the visitor scrolls.
-  // If no clear vertical slot exists (for example a short zoomed viewport), yield until one does.
+  // Prefer a clear vertical slot; keep the compact launcher reachable if a dense
+  // or zoomed layout has no collision-free slot at all.
   useEffect(() => {
     const wideRail = window.matchMedia('(min-width: 1440px)');
     let bounds: { width: number; height: number } | null = null;
@@ -210,7 +211,14 @@ export const GlobalContactPanel = () => {
           if (!collides(boxAt(left, top))) safe.push({ left, top, score: Math.abs(top - currentTop) + Math.abs(left - currentLeft) * 1.25 });
         }
       }
-      if (!safe.length) { setNavObstructed(true); return; }
+      if (!safe.length) {
+        navTopRef.current = null;
+        navLeftRef.current = null;
+        setNavTopPx(null);
+        setNavLeftPx(null);
+        setNavObstructed(false);
+        return;
+      }
       const next = safe.reduce((best, candidate) => candidate.score < best.score ? candidate : best);
       navTopRef.current = next.top;
       navLeftRef.current = next.left;
