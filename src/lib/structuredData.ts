@@ -147,6 +147,8 @@ export type ArticleParams = {
   authorName: string;
   /** Optional author profile path/URL. */
   authorUrl?: string;
+  /** Use Organization for brand-authored material; Person remains the default for compatibility. */
+  authorType?: 'Person' | 'Organization';
   /** schema.org subtype; defaults to BlogPosting. */
   articleType?: 'Article' | 'BlogPosting' | 'NewsArticle';
   /** Topic cluster, e.g. "Academic English". */
@@ -165,7 +167,7 @@ const toAbsolute = (value: string): string =>
 // no fabricated credentials.
 export function createArticleJsonLd(params: ArticleParams): JsonLd {
   const url = `${SITE_URL}${INSIGHTS_BASE_PATH}/${params.slug}`;
-  const author: JsonLd = { '@type': 'Person', name: params.authorName };
+  const author: JsonLd = { '@type': params.authorType ?? 'Person', name: params.authorName };
   if (params.authorUrl) {
     author.url = toAbsolute(params.authorUrl);
   }

@@ -66,6 +66,8 @@ const STATIC_ROUTE_SOURCES = {
   ],
   '/framework': [component('FrameworkExperience'), content('framework'), 'src/lib/frameworkContent.ts'],
   '/knowledge': [component('KnowledgeHubPage'), content('knowledge')],
+  '/insights': ['src/components/SearchInsightsPage.tsx', 'src/lib/insightsContent.ts'],
+  '/about/nathaniel-jay-adams': ['src/components/SearchInsightsPage.tsx', 'src/lib/insightsContent.ts'],
   '/get-started': [component('GetStartedPortal'), content('getStarted')],
   '/worldwise': [component('WorldWisePage'), content('worldwise')],
   '/audit-sprint': [component('AuditSprintPage'), content('auditSprint')],
@@ -107,6 +109,7 @@ export function getRouteSourceFiles(pathname) {
   if (UNMAPPED_URL_PATTERNS.some((pattern) => pattern.test(pathname))) return null;
 
   const canonical = toCanonicalPath(pathname);
+  if (/^\/insights\/[^/]+$/.test(canonical)) return ['src/components/SearchInsightsPage.tsx', 'src/lib/insightsContent.ts'];
   if (STATIC_ROUTE_SOURCES[canonical]) return [...STATIC_ROUTE_SOURCES[canonical]];
   if (/^\/series\/level-[^/]+\/syllabus$/.test(canonical)) return [...SYLLABUS_SOURCES];
   if (/^\/series\/level-[^/]+$/.test(canonical)) return [...SERIES_SOURCES];
