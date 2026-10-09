@@ -92,7 +92,15 @@ export const GlobalContactPanel = () => {
     setActive(null);
     // Return focus to the control that opened the dialog.
     requestAnimationFrame(() => {
-      const target = triggerRef.current?.isConnected ? triggerRef.current : toggleRef.current;
+      const preferred = triggerRef.current?.isConnected && !triggerRef.current.closest('[hidden]') ? triggerRef.current : null;
+      const target = preferred ?? toggleRef.current;
+      // Collision recovery may have hidden the launcher while the modal had
+      // focus. Reveal it for the focus return; the observer will keep it visible
+      // while focused and re-evaluate after the visitor moves on.
+      if (target && navRef.current?.contains(target) && navRef.current.hidden) {
+        navRef.current.hidden = false;
+        setNavObstructed(false);
+      }
       target?.focus();
     });
   };
