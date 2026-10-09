@@ -53,6 +53,7 @@ const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean
 
 export function getPublicContentGroup(pathname: string): PublicContentGroup | null {
   if (pathname === '/') return 'home';
+  if (pathname === '/about/nathaniel-jay-adams' || pathname === '/insights' || pathname.startsWith('/insights/')) return 'knowledge';
   if (pathname === '/framework') return 'framework';
   if (pathname === '/knowledge') return 'knowledge';
   if (pathname === '/get-started') return 'getStarted';
