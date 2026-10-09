@@ -253,3 +253,9 @@ html[lang='vi'] {
     display: none;
   }
 }
+
+/* Keep Jurassic orange identity while meeting text contrast on solid interactive controls. */
+a.bg-jurassic-accent.text-white,
+button.bg-jurassic-accent.text-white {
+  background-color: #b94300;
+}
