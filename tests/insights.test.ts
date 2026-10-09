@@ -11,6 +11,7 @@ import {
   getInsightArticleBySlug,
   getInsightRoutePaths,
 } from '../src/lib/insightsContent';
+import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata';
 
 const ORG_ID = 'https://jurassicenglish.com/#organization';
 
@@ -72,10 +73,14 @@ test('createPersonJsonLd ties the author to the org and omits unset optionals', 
   assert.equal('jobTitle' in ld, false);
 });
 
-test('insights ships dark: no fabricated content, no indexable routes', () => {
+test('published discovery resources have stable routes and no placeholder articles', () => {
   assert.equal(INSIGHTS_BASE_PATH, '/insights');
-  assert.equal(insightArticles.length, 0);
-  assert.deepEqual(getPublishedInsightArticles(), []);
-  assert.deepEqual(getInsightRoutePaths(), []); // → nothing added to sitemap/prerender
+  assert.equal(insightArticles.length, 3);
+  assert.equal(getPublishedInsightArticles().length, 3);
+  assert.equal(getInsightRoutePaths().length, 4);
+  assert.equal(getInsightArticleBySlug('what-to-fix-first-in-ielts-speaking')?.status, 'published');
   assert.equal(getInsightArticleBySlug('anything'), undefined);
+  const routes = getExpectedPublicIndexableRoutes();
+  for (const route of getInsightRoutePaths()) assert.ok(routes.includes(route), `${route} is in sitemap routes`);
+  assert.ok(!routes.some((route) => route.startsWith('/vi/insights')), 'unreviewed locale is not listed');
 });

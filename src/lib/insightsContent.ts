@@ -4,13 +4,8 @@
  * This is the single source of truth for editorial articles, mirroring how the
  * rest of the site is data-driven (seriesContent.ts, syllabusContent.ts, …).
  *
- * SHIPS DARK: `insightArticles` is intentionally EMPTY. No fabricated content is
- * published. The /insights route family (see docs/insights-editorial-roadmap.md)
- * derives its indexable routes from `getPublishedInsightArticles()`, so with an
- * empty list NOTHING is added to the sitemap, the prerender set, or the router —
- * the section is inert until a real, authored article is added here with
- * `status: 'published'`. That keeps the build honest to the command's rule:
- * "Do not create empty taxonomy pages / Do not publish fabricated articles."
+ * Published answer-led resources. Examples are explicitly illustrative; sources
+ * are named in the article bodies and schema authorship is the publishing brand.
  */
 import type { Locale } from '../i18n/locales';
 
@@ -29,11 +24,11 @@ export type InsightArticle = {
   datePublished: string;
   /** ISO 8601 last-modified date; defaults to datePublished. */
   dateModified?: string;
-  /** Real author name — never fabricated. */
+  /** Publisher/author label shown to readers. */
   authorName: string;
   /** Optional author profile slug (→ /insights/author/<slug>). */
   authorSlug?: string;
-  /** Site-relative hero/social image path. */
+  /** Site-relative image path. */
   heroImage: string;
   /** Accessible alt text for the hero image. */
   heroAlt: string;
@@ -46,11 +41,11 @@ export type InsightArticle = {
   status: InsightArticleStatus;
 };
 
-/**
- * INTENTIONALLY EMPTY. Add real, authored articles here (status: 'published')
- * to activate the /insights section. See docs/insights-editorial-roadmap.md.
- */
-export const insightArticles: InsightArticle[] = [];
+export const insightArticles: InsightArticle[] = [
+  { slug: 'what-to-fix-first-in-ielts-speaking', title: 'What should I fix first in IELTS Speaking?', deck: 'A useful diagnostic starts with evidence from the answer, chooses one high-impact priority and gives the learner a practical next attempt.', description: 'Learn how to turn an IELTS Speaking practice answer into one evidence-based priority and a focused independent practice task.', datePublished: '2026-10-10', dateModified: '2026-10-10', authorName: 'Jurassic English™', heroImage: '/images/hero-compass-960.webp', heroAlt: 'Jurassic English compass artwork', section: 'IELTS Speaking', status: 'published' },
+  { slug: 'what-typed-speaking-practice-can-assess', title: 'What can typed IELTS-style speaking practice assess?', deck: 'Typed practice can reveal wording, grammar, vocabulary and visible organization. It cannot assess pronunciation or the full delivery of spoken answers.', description: 'Understand the evidence and limitations of typed IELTS-style speaking practice, including why pronunciation requires audio.', datePublished: '2026-10-10', dateModified: '2026-10-10', authorName: 'Jurassic English™', heroImage: '/images/hero-compass-960.webp', heroAlt: 'Jurassic English compass artwork', section: 'Practice and assessment', status: 'published' },
+  { slug: 'from-speaking-diagnostic-to-one-to-one-lesson', title: 'How does a speaking diagnostic lead to a one-to-one lesson?', deck: 'A diagnostic is most useful when a learner can inspect the evidence, practise a focused strategy, try again independently and use the follow-up to choose the next step.', description: 'See how Jurassic English connects a speaking diagnostic to guided one-to-one practice and a clear follow-up action.', datePublished: '2026-10-10', dateModified: '2026-10-10', authorName: 'Jurassic English™', heroImage: '/images/hero-compass-960.webp', heroAlt: 'Jurassic English compass artwork', section: 'One-to-one learning', status: 'published' },
+];
 
 /** Base path for the publication layer. */
 export const INSIGHTS_BASE_PATH = '/insights';

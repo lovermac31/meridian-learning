@@ -48,6 +48,8 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
       { label: getUiString(locale, 'footer.ecosystem.reasoningEngine'), href: '/digital-reasoning-engine' },
     ],
     resources: [
+      { label: 'About Nathaniel Jay Adams', href: '/about/nathaniel-jay-adams' },
+      { label: 'IELTS Speaking resources (English)', href: '/insights' },
       { label: getUiString(locale, 'footer.links.levelDetails'), href: '/series/compare' },
       { label: getUiString(locale, 'footer.links.compareAllLevels'), href: '/series/compare' },
       { label: getUiString(locale, 'footer.links.syllabiDownloads'), href: '/series/compare' },
@@ -109,7 +111,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
   // the click handler still receives the original target.
   const FooterLink = ({ label, href }: { label: string; href: string }) => (
     <a
-      href={getLocalizedHref(href, locale)}
+      href={href.startsWith('/insights') || href === '/about/nathaniel-jay-adams' ? href : getLocalizedHref(href, locale)}
       onClick={(e) => handleLinkClick(e, href)}
       className="block rounded-md py-1 text-sm text-white/65 transition-colors duration-200 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
     >

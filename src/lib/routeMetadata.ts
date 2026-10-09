@@ -12,6 +12,7 @@ import { getLocalizedSeriesLevelByPath } from '../i18n/content/series';
 import { getLocalizedSyllabusByRoutePath } from '../i18n/content/syllabus';
 import { getLocalizedThinkingCycleStageByPath } from '../i18n/content/thinkingCycle';
 import { getLocalizedLegalDocument } from '../i18n/content/legal';
+import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
 import {
   createBreadcrumbJsonLd,
   createCourseJsonLd,
@@ -19,6 +20,7 @@ import {
   createOrganizationJsonLd,
   createServiceJsonLd,
   createWebsiteJsonLd,
+  createArticleJsonLd,
   type JsonLd,
 } from './structuredData';
 
@@ -110,6 +112,35 @@ const homeFaqEntries = [
 ];
 
 const staticRoutes: Record<string, StaticRouteDefinition> = {
+  '/insights': {
+    title: 'IELTS Speaking and English Learning Resources | Jurassic English™',
+    description: 'Evidence-led guidance on IELTS Speaking practice, typed feedback and one-to-one learning from Jurassic English™.',
+    canonicalPath: '/insights',
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Learning resources', path: '/insights' }],
+  },
+  '/about/nathaniel-jay-adams': {
+    title: 'Nathaniel Jay Adams | Jurassic English & WorldWise Learning',
+    description: 'Meet Nathaniel Jay Adams, publicly known as Mr. Jay Adams, and understand the separate learner-facing and university-focused work of Jurassic English and WorldWise Learning.',
+    canonicalPath: '/about/nathaniel-jay-adams',
+    jsonLd: [{
+      '@context': 'https://schema.org', '@type': 'Person',
+      '@id': `${SITE_URL}/about/nathaniel-jay-adams#person`,
+      name: 'Nathaniel Jay Adams', alternateName: 'Mr. Jay Adams',
+      url: `${SITE_URL}/about/nathaniel-jay-adams`,
+      description: 'Nathaniel Jay Adams leads the education work presented by Jurassic English and WorldWise Learning.',
+      worksFor: [
+        { '@id': 'https://jurassicenglish.com/#organization' },
+        { '@type': 'Organization', name: 'WorldWise Learning', url: 'https://www.worldwiselearning.app/' },
+      ],
+    }],
+  },
+  ...Object.fromEntries(getPublishedInsightArticles().map((article) => [`${INSIGHTS_BASE_PATH}/${article.slug}`, {
+    title: `${article.title} | Jurassic English™`,
+    description: article.description ?? article.deck,
+    canonicalPath: `${INSIGHTS_BASE_PATH}/${article.slug}`,
+    jsonLd: [createArticleJsonLd({ headline: article.title, description: article.description ?? article.deck, slug: article.slug, datePublished: article.datePublished, dateModified: article.dateModified, image: article.heroImage, authorName: article.authorName, authorType: 'Organization', section: article.section })],
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Learning resources', path: '/insights' }, { name: article.section, path: `${INSIGHTS_BASE_PATH}/${article.slug}` }],
+  } as StaticRouteDefinition])),
   '/': {
     title: homeTitle,
     description: homeDescription,
@@ -945,6 +976,9 @@ export function getExpectedPublicIndexableRoutes(): string[] {
           .map((locale) => getLocalizedPathname(pathname, locale)),
       )),
     ),
+    // English-only resources until translated copy receives its own review.
+    ...[INSIGHTS_BASE_PATH, ...getPublishedInsightArticles().map((article) => `${INSIGHTS_BASE_PATH}/${article.slug}`)],
+    '/about/nathaniel-jay-adams',
     // Rewrite-served routes are listed AFTER the locale fanout because
     // they are not part of the standard EN/VI mirror system. They are
     // public + indexable on the production domain via Vercel rewrites.

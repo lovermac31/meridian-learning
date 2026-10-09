@@ -28,6 +28,7 @@ import { localizeRouteTarget, resolveLocalizedRoute, switchLocaleRoute } from '.
 import { getUiString } from './i18n/ui';
 import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
+import { SearchInsightsPage } from './components/SearchInsightsPage';
 import { getCurrentLocation } from './lib/ssrLocation';
 
 /* ── Lazy-loaded subpages (code-split) ──────────────────────────── */
@@ -173,6 +174,7 @@ function App() {
   const isCompaniesView = routePathname === '/companies';
   const isFrameworkView = routePathname === '/framework';
   const isKnowledgeView = routePathname === '/knowledge';
+  const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams';
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
   const isInternalPilotRequestsView = routePathname === '/internal/pilot-requests';
@@ -224,6 +226,7 @@ function App() {
     isPilotHoldingView ||
     isFrameworkView ||
     isKnowledgeView ||
+    isInsightsView ||
     isSeriesView ||
     isSyllabusView ||
     isSeriesComparisonView ||
@@ -411,7 +414,9 @@ function App() {
         />
       ) : null}
       <Suspense fallback={<div className="min-h-screen bg-jurassic-dark" />}>
-      {isUnknownRouteView ? (
+      {isInsightsView ? (
+        <SearchInsightsPage pathname={routePathname} onNavigate={navigateTo} />
+      ) : isUnknownRouteView ? (
         <NotFoundPage
           onBack={() => navigateTo('/')}
           onGetStarted={() => navigateTo('/get-started')}
