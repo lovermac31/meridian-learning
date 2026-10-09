@@ -76,8 +76,10 @@ export const GlobalContactPanel = () => {
   const [active, setActive] = useState<Channel | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [navTopPx, setNavTopPx] = useState<number | null>(null);
+  const [navLeftPx, setNavLeftPx] = useState<number | null>(null);
   const [navObstructed, setNavObstructed] = useState(false);
   const navTopRef = useRef<number | null>(null);
+  const navLeftRef = useRef<number | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
@@ -113,7 +115,7 @@ export const GlobalContactPanel = () => {
   // If no clear vertical slot exists (for example a short zoomed viewport), yield until one does.
   useEffect(() => {
     const wideRail = window.matchMedia('(min-width: 1440px)');
-    let bounds: { width: number; height: number; top: number } | null = null;
+    let bounds: { width: number; height: number } | null = null;
     let frame = 0;
     const sync = () => {
       const nav = navRef.current;
@@ -122,39 +124,70 @@ export const GlobalContactPanel = () => {
         setNavObstructed(false);
         return;
       }
-      const measured = nav.getBoundingClientRect();
-      if (measured.width && measured.height) bounds = { width: measured.width, height: measured.height, top: measured.top };
-      const width = bounds?.width ?? 44;
-      const height = bounds?.height ?? 44;
-      const defaultBottom = wideRail.matches ? 80 : Math.max(16, window.visualViewport?.offsetTop ?? 0);
-      const defaultTop = bounds?.top ?? Math.max(0, window.innerHeight - defaultBottom - height);
-      const boxAt = (top: number) => ({ left: wideRail.matches ? 20 : 16, right: (wideRail.matches ? 20 : 16) + width, top, bottom: top + height });
-      const collisionCandidates = new Set(document.querySelectorAll<HTMLElement>(
-        'header a, header button, nav a, nav button, main a[href], main button, main [role="button"], main h1, main h2, main h3, main p, main li, main span, main strong, main small, main label, body [role="dialog"]'
-      ));
-      // Include short fixed promo copy and other leaf labels that are not semantic headings.
-      document.querySelectorAll<HTMLElement>('body *').forEach((element) => {
-        const position = getComputedStyle(element).position;
-        if (element.children.length === 0 && element.textContent?.trim() && (position === 'fixed' || position === 'sticky')) collisionCandidates.add(element);
-      });
-      const collides = (box: ReturnType<typeof boxAt>) => [...collisionCandidates].some((element) => {
-        if (nav.contains(element)) return false;
-        if (!element.getClientRects().length || element.closest('[hidden], [aria-hidden="true"]')) return false;
-        const target = element.getBoundingClientRect();
-        return box.left < target.right && box.right > target.left && box.top < target.bottom && box.bottom > target.top;
-      });
-      const currentTop = navTopRef.current ?? defaultTop;
-      if (!collides(boxAt(currentTop))) {
-        if (navTopRef.current === null) setNavTopPx(null);
+      // At compact widths the header has a reserved gap between the brand and menu.
+      // Pin the 44px launcher there; scanning during nav transitions can otherwise
+      // mistake the changing mobile menu subtree for a collision and hide the control.
+      if (window.matchMedia('(max-width: 1100px)').matches) {
+        navTopRef.current = null;
+        navLeftRef.current = null;
+        setNavTopPx(null);
+        setNavLeftPx(null);
         setNavObstructed(false);
         return;
       }
-      const safe: number[] = [];
-      for (let top = 0; top + height <= window.innerHeight; top += 8) if (!collides(boxAt(top))) safe.push(top);
+      const measured = nav.getBoundingClientRect();
+      if (measured.width && measured.height) bounds = { width: measured.width, height: measured.height };
+      const width = bounds?.width ?? 44;
+      const height = bounds?.height ?? 44;
+      const compactHeader = window.matchMedia('(max-width: 1100px)').matches;
+      const defaultLeft = compactHeader ? window.innerWidth - width - 76 : wideRail.matches ? 20 : 16;
+      const defaultBottom = wideRail.matches ? 80 : Math.max(16, window.visualViewport?.offsetTop ?? 0);
+      const defaultTop = compactHeader ? 20 : Math.max(0, window.innerHeight - defaultBottom - height);
+      const boxAt = (left: number, top: number) => ({ left, right: left + width, top, bottom: top + height });
+      const collisionCandidates = new Set(document.querySelectorAll<HTMLElement>(
+        'header a, header button, nav a, nav button, main a[href], main button, main [role="button"], main h1, main h2, main h3, main p, main li, main span, main strong, main small, main label, body [role="dialog"], body aside, body aside a, body aside button, body aside [role="button"], body aside h1, body aside h2, body aside h3, body aside p, body aside li, body aside span, body aside strong, body aside small, body aside label'
+      ));
+      // Include fixed controls even when they are not semantic headings or contain nested icons.
+      document.querySelectorAll<HTMLElement>('body *').forEach((element) => {
+        const position = getComputedStyle(element).position;
+        const actionable = element.matches('a, button, [role="button"], [role="dialog"]');
+        if ((position === 'fixed' || position === 'sticky') && element.textContent?.trim() && (element.children.length === 0 || actionable)) collisionCandidates.add(element);
+      });
+      const collides = (box: ReturnType<typeof boxAt>) => [...collisionCandidates].some((element) => {
+        if (nav.contains(element)) return false;
+        if (!element.getClientRects().length || element.closest('[hidden]')) return false;
+        const target = element.getBoundingClientRect();
+        return box.left < target.right && box.right > target.left && box.top < target.bottom && box.bottom > target.top;
+      });
+      const currentLeft = navLeftRef.current ?? defaultLeft;
+      const currentTop = navTopRef.current ?? defaultTop;
+      if (!collides(boxAt(defaultLeft, defaultTop))) {
+        navTopRef.current = null;
+        navLeftRef.current = null;
+        setNavTopPx(null);
+        setNavLeftPx(null);
+        setNavObstructed(false);
+        return;
+      }
+      if (!collides(boxAt(currentLeft, currentTop))) {
+        setNavObstructed(false);
+        return;
+      }
+      const lefts = new Set<number>([defaultLeft, Math.round((window.innerWidth - width) / 2), Math.round(window.innerWidth * 0.55), window.innerWidth - width - 16]);
+      for (let left = defaultLeft + 32; left + width <= window.innerWidth - 8; left += 32) lefts.add(left);
+      const safe: Array<{ left: number; top: number; score: number }> = [];
+      for (const left of lefts) {
+        if (left < 0 || left + width > window.innerWidth) continue;
+        for (let top = 0; top + height <= window.innerHeight; top += 8) {
+          if (!collides(boxAt(left, top))) safe.push({ left, top, score: Math.abs(top - currentTop) + Math.abs(left - currentLeft) * 1.25 });
+        }
+      }
       if (!safe.length) { setNavObstructed(true); return; }
-      const next = safe.reduce((best, top) => Math.abs(top - currentTop) < Math.abs(best - currentTop) ? top : best);
-      navTopRef.current = next;
-      setNavTopPx(next);
+      const next = safe.reduce((best, candidate) => candidate.score < best.score ? candidate : best);
+      navTopRef.current = next.top;
+      navLeftRef.current = next.left;
+      setNavTopPx(next.top);
+      setNavLeftPx(next.left);
       setNavObstructed(false);
     };
     const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(sync); };
@@ -194,15 +227,15 @@ export const GlobalContactPanel = () => {
 
   return <>
     {/* Full rail only where the page gutter clears it (content container is 1232px); a compact launcher elsewhere. */}
-    <nav ref={navRef} hidden={navObstructed && !expanded && !active} style={navTopPx !== null ? { top: `${navTopPx}px`, bottom: 'auto' } : undefined} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
+    <nav ref={navRef} hidden={navObstructed && !expanded && !active} style={navTopPx !== null || navLeftPx !== null ? { ...(navTopPx !== null ? { top: `${navTopPx}px`, bottom: 'auto' } : {}), ...(navLeftPx !== null ? { left: `${navLeftPx}px` } : {}) } : undefined} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 max-[1100px]:top-5 max-[1100px]:right-[76px] max-[1100px]:bottom-auto max-[1100px]:left-auto min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
       <ul id="contact-channel-list" className={`${expanded ? 'flex' : 'hidden'} flex-col items-center gap-2 min-[1440px]:flex`}>
         {channelOrder.map((channel) => <li key={channel}>
           <button type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white shadow-2xl transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>
         </li>)}
       </ul>
-      <button ref={toggleRef} type="button" onClick={() => setExpanded((value) => !value)} aria-expanded={expanded} aria-controls="contact-channel-list" aria-label={expanded ? t.closeList : t.openList} className={`inline-flex h-11 items-center gap-2 rounded-full border border-white/25 bg-jurassic-dark px-4 text-sm font-semibold text-white shadow-2xl transition hover:brightness-125 min-[1440px]:hidden ${focusRing}`}>
+      <button ref={toggleRef} type="button" onClick={() => setExpanded((value) => !value)} aria-expanded={expanded} aria-controls="contact-channel-list" aria-label={expanded ? t.closeList : t.openList} className={`inline-flex h-11 items-center gap-2 rounded-full border border-white/25 bg-jurassic-dark px-4 text-sm font-semibold text-white shadow-2xl transition hover:brightness-125 min-[1440px]:hidden max-[1100px]:w-11 max-[1100px]:justify-center max-[1100px]:gap-0 max-[1100px]:px-0 ${focusRing}`}>
         {expanded ? <X aria-hidden="true" className="h-4 w-4" /> : <MessageCircle aria-hidden="true" className="h-4 w-4" />}
-        <span>{t.launcher}</span>
+        <span className="max-[1100px]:sr-only">{t.launcher}</span>
       </button>
     </nav>
     {active && detail && <div className="fixed inset-0 z-[200] grid place-items-center bg-black/70 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
