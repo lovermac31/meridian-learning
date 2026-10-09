@@ -75,6 +75,19 @@ export const viUi = {
     responseTime: 'Chúng tôi thường phản hồi trong vòng 2 ngày làm việc.',
     copyright: '© 2026 World Wise Learning. Bảo lưu mọi quyền.',
     trademark: 'Jurassic English™ là nhãn hiệu của World Wise Learning.',
+    // Student Academy and Digital Reasoning Engine are product names and stay in English, as elsewhere on /vi.
+    ecosystem: {
+      heading: 'Hệ sinh thái',
+      navLabel: 'Các trang trong hệ sinh thái',
+      aiSpeaking: 'Luyện nói AI Speaking',
+      baseline: 'Đánh giá Nói trực tiếp',
+      studentAcademy: 'Student Academy',
+      interactiveDemo: 'Bản demo tương tác',
+      bookDiagnostic: 'Đặt lịch Đánh giá Tư duy Học sinh',
+      schoolFramework: 'Khung Nhà trường',
+      evidencePolicy: 'Chính sách bằng chứng',
+      reasoningEngine: 'Digital Reasoning Engine',
+    },
   },
   hero: {
     imageAlt: 'La bàn Jurassic English và bộ sưu tập sách được tuyển chọn',
@@ -112,6 +125,8 @@ export const viUi = {
     close: 'Đóng',
     emailDirect: 'Muốn liên hệ trực tiếp? Email',
     orEmail: 'Hoặc email',
+    skipToContent: 'Chuyển đến nội dung chính',
+    opensInNewTab: '(mở trong thẻ mới)',
   },
   getStarted: {
     badge: 'Bắt đầu',
@@ -173,15 +188,15 @@ export const viUi = {
     },
   },
   comingSoonModal: {
-    dialogLabel: 'Education Affiliate Program — Coming Soon',
+    dialogLabel: 'Education Affiliate Program — Sắp ra mắt',
     title: 'Education Affiliate Program',
     body:
-      'This pathway is coming soon. Jurassic English™ is preparing a structured partner pathway for educators, centers, and aligned education organizations.',
+      'Lộ trình này sắp ra mắt. Jurassic English™ đang chuẩn bị một lộ trình đối tác có cấu trúc dành cho giáo viên, trung tâm và các tổ chức giáo dục cùng định hướng.',
     support:
-      'For early partnership inquiries, contact us and we will follow up directly.',
-    close: 'Close',
-    contactUs: 'Contact Us',
-    closeModal: 'Close modal',
+      'Nếu muốn hợp tác sớm, hãy liên hệ với chúng tôi và chúng tôi sẽ phản hồi trực tiếp.',
+    close: 'Đóng',
+    contactUs: 'Liên hệ với chúng tôi',
+    closeModal: 'Đóng hộp thoại',
   },
   pricingModal: {
     dialogLabel: 'Đăng ký tiền mở bán cho Gói & Báo giá',

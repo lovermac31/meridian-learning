@@ -1,4 +1,5 @@
 import { ShieldCheck } from 'lucide-react';
+import { getCurrentLocale } from '../i18n/routing';
 
 /**
  * Framework-informed teaching strip (homepage).
@@ -10,9 +11,24 @@ import { ShieldCheck } from 'lucide-react';
  * homepage now matches the young-learners page (#56): a text-only statement of the public frameworks
  * the method draws on, with an explicit independence line. No third-party logos are loaded.
  */
-const FRAMEWORKS = ['Public IELTS Speaking criteria', 'CEFR', 'Assessment for learning'];
+// VI wording matches the young-learners page strip (src/yl/i18n.vi.json certstrip.*).
+const STRIP_COPY = {
+  en: {
+    heading: 'Framework-informed teaching',
+    listLabel: 'Frameworks our programmes draw on',
+    frameworks: ['Public IELTS Speaking criteria', 'CEFR', 'Assessment for learning'],
+    note: 'Our programmes draw on these public frameworks. Jurassic English™ is independent and is not endorsed by IELTS, IDP, British Council, Cambridge, ETS, Pearson or Oxford.',
+  },
+  vi: {
+    heading: 'Giảng dạy dựa trên khung tham chiếu',
+    listLabel: 'Các khung tham chiếu chương trình sử dụng',
+    frameworks: ['Tiêu chí IELTS Speaking công khai', 'CEFR', 'Đánh giá vì việc học'],
+    note: 'Chương trình của chúng tôi tham chiếu các khung công khai này. Jurassic English™ hoạt động độc lập, không được IELTS, IDP, British Council, Cambridge, ETS, Pearson hay Oxford bảo trợ.',
+  },
+} as const;
 
 export function CredibilityLogoMarquee() {
+  const copy = STRIP_COPY[getCurrentLocale() === 'vi' ? 'vi' : 'en'];
   return (
     <section
       aria-labelledby="framework-strip-title"
@@ -27,12 +43,12 @@ export function CredibilityLogoMarquee() {
             id="framework-strip-title"
             className="text-xs font-semibold uppercase tracking-[0.22em] text-white/80"
           >
-            Framework-informed teaching
+            {copy.heading}
           </h2>
         </div>
         <div className="min-w-0 flex-1">
-          <ul className="flex flex-wrap gap-2" aria-label="Frameworks our programmes draw on">
-            {FRAMEWORKS.map((f) => (
+          <ul className="flex flex-wrap gap-2" aria-label={copy.listLabel}>
+            {copy.frameworks.map((f) => (
               <li
                 key={f}
                 className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/75"
@@ -42,8 +58,7 @@ export function CredibilityLogoMarquee() {
             ))}
           </ul>
           <p className="mt-2 text-xs leading-relaxed text-white/50">
-            Our programmes draw on these public frameworks. Jurassic English™ is independent and is
-            not endorsed by IELTS, IDP, British Council, Cambridge, ETS, Pearson or Oxford.
+            {copy.note}
           </p>
         </div>
       </div>

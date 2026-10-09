@@ -38,14 +38,14 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
     // Diagnostic, plus the institutional School Framework, Evidence and
     // Digital Reasoning Engine pages.
     ecosystem: [
-      { label: 'AI Speaking Practice', href: '/ai-speaking' },
-      { label: 'Live Speaking Baseline', href: '/ai-speaking/baseline' },
-      { label: 'Student Academy', href: '/student-academy' },
-      { label: 'Interactive Demo', href: '/interactive-demo' },
-      { label: 'Book a Diagnostic', href: '/book-diagnostic' },
-      { label: 'School Framework', href: '/school-framework' },
-      { label: 'Evidence Policy', href: '/evidence' },
-      { label: 'Digital Reasoning Engine', href: '/digital-reasoning-engine' },
+      { label: getUiString(locale, 'footer.ecosystem.aiSpeaking'), href: '/ai-speaking' },
+      { label: getUiString(locale, 'footer.ecosystem.baseline'), href: '/ai-speaking/baseline' },
+      { label: getUiString(locale, 'footer.ecosystem.studentAcademy'), href: '/student-academy' },
+      { label: getUiString(locale, 'footer.ecosystem.interactiveDemo'), href: '/interactive-demo' },
+      { label: getUiString(locale, 'footer.ecosystem.bookDiagnostic'), href: '/book-diagnostic' },
+      { label: getUiString(locale, 'footer.ecosystem.schoolFramework'), href: '/school-framework' },
+      { label: getUiString(locale, 'footer.ecosystem.evidencePolicy'), href: '/evidence' },
+      { label: getUiString(locale, 'footer.ecosystem.reasoningEngine'), href: '/digital-reasoning-engine' },
     ],
     resources: [
       { label: getUiString(locale, 'footer.links.levelDetails'), href: '/series/compare' },
@@ -124,7 +124,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
   );
 
   return (
-    <footer className="bg-jurassic-dark border-t border-white/5">
+    <footer className="bg-jurassic-dark border-t border-white/5 pb-24 min-[1440px]:pb-0">
       {/* ═══════ TIER 1 — Brand / Positioning Strip ═══════ */}
       <div className="border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 py-10 md:py-12">
@@ -173,8 +173,8 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
 
           {/* Column 2 — Ecosystem (Phase 9) */}
           <div>
-            <ColumnHeading>Ecosystem</ColumnHeading>
-            <nav className="space-y-0.5" aria-label="Ecosystem pages">
+            <ColumnHeading>{getUiString(locale, 'footer.ecosystem.heading')}</ColumnHeading>
+            <nav className="space-y-0.5" aria-label={getUiString(locale, 'footer.ecosystem.navLabel')}>
               {footerNav.ecosystem.map((link) => (
                 <FooterLink key={link.label} {...link} />
               ))}

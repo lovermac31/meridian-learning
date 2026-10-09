@@ -16,12 +16,25 @@ const FOCUS_RING =
 const YOUNG_LEARNERS_HREF = '/young-learners-speaking/';
 
 
-const STATS: Array<{ value: string; label: string }> = [
-  { value: '5', label: 'structured levels' },
-  { value: 'Pre-A1 – C1', label: 'CEFR-aligned' },
-  { value: '40', label: 'lessons / year' },
-  { value: '10', label: 'core texts / level' },
-];
+const STATS: Record<'en' | 'vi', Array<{ value: string; label: string }>> = {
+  en: [
+    { value: '5', label: 'structured levels' },
+    { value: 'Pre-A1 – C1', label: 'CEFR-aligned' },
+    { value: '40', label: 'lessons / year' },
+    { value: '10', label: 'core texts / level' },
+  ],
+  vi: [
+    { value: '5', label: 'cấp độ có cấu trúc' },
+    { value: 'Pre-A1 – C1', label: 'theo khung CEFR' },
+    { value: '40', label: 'bài học / năm' },
+    { value: '10', label: 'tác phẩm cốt lõi / cấp độ' },
+  ],
+};
+
+const PROOF_LINKS = {
+  en: { knowledgeHub: 'Browse the Knowledge Hub', getStarted: 'Contact / Get Started' },
+  vi: { knowledgeHub: 'Khám phá Trung tâm Kiến thức', getStarted: 'Liên hệ / Bắt đầu' },
+} as const;
 
 /**
  * ProofStrip — P1 screen 2.
@@ -37,6 +50,7 @@ const STATS: Array<{ value: string; label: string }> = [
  */
 export function ProofStrip({ onNavigate }: ProofStripProps) {
   const locale = getCurrentLocale();
+  const copyLocale = locale === 'vi' ? 'vi' : 'en';
   const home = getHomeContent(locale) ?? getHomeContent('en');
   const fork = home?.hero?.fork;
 
@@ -82,7 +96,7 @@ export function ProofStrip({ onNavigate }: ProofStripProps) {
         </div>
 
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-          {STATS.map((s) => (
+          {STATS[copyLocale].map((s) => (
             <div key={s.label} className="text-center">
               <div className="font-display text-3xl font-bold text-jurassic-dark sm:text-4xl">{s.value}</div>
               <div className="mt-1 text-xs font-medium uppercase tracking-widest text-jurassic-dark/55">{s.label}</div>
@@ -133,14 +147,14 @@ export function ProofStrip({ onNavigate }: ProofStripProps) {
               onClick={() => go('/knowledge', 'Knowledge Hub (proof)', 'institutional')}
               className={`font-medium underline underline-offset-2 transition hover:text-jurassic-dark ${FOCUS_RING} rounded-md`}
             >
-              Browse the Knowledge Hub
+              {PROOF_LINKS[copyLocale].knowledgeHub}
             </button>
             <button
               type="button"
               onClick={() => go('/get-started', 'Get Started (proof)', 'institutional')}
               className={`font-medium underline underline-offset-2 transition hover:text-jurassic-dark ${FOCUS_RING} rounded-md`}
             >
-              Contact / Get Started
+              {PROOF_LINKS[copyLocale].getStarted}
             </button>
           </div>
         </div>

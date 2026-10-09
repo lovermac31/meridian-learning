@@ -282,7 +282,7 @@ const viSyllabusOverlays: Record<string, SyllabusOverlay> = {
           'Một câu hỏi Reflect; trả lời bằng một câu. Giáo viên phân loại thành Sẵn sàng / Gần đạt / Chưa đạt để lên kế hoạch cho buổi học tiếp theo.',
       },
       {
-        method: 'Portfolio',
+        method: 'Hồ sơ học tập (portfolio)',
         frequency: 'Mỗi học phần × 10',
         detail:
           'Học sinh chọn câu lập luận tốt nhất của mình và chú thích: “Điều này cho thấy tư duy tốt nhất của em vì…”',
@@ -401,7 +401,7 @@ const viSyllabusOverlays: Record<string, SyllabusOverlay> = {
           'Một câu hỏi Reflect mang tính cá nhân hoặc sinh thái. Giáo viên phân loại thành Sẵn sàng / Gần đạt / Chưa đạt.',
       },
       {
-        method: 'Portfolio',
+        method: 'Hồ sơ học tập (portfolio)',
         frequency: 'Mỗi học phần × 10',
         detail:
           'Đoạn văn lập luận tốt nhất của mỗi học phần. Học sinh chú thích vì sao đoạn này thể hiện tư duy tốt nhất của mình.',
@@ -515,7 +515,7 @@ const viSyllabusOverlays: Record<string, SyllabusOverlay> = {
           'Bài viết: “Tư duy sinh thái của em phát triển khi em…” Giáo viên kiểm tra mức độ tham gia sinh thái thực chất chứ không chỉ nhắc tới bề mặt.',
       },
       {
-        method: 'Portfolio',
+        method: 'Hồ sơ học tập (portfolio)',
         frequency: 'Mỗi học phần × 10',
         detail:
           'Đoạn văn CEIW tốt nhất cộng với phản tư sinh thái ở mỗi học phần sinh thái được chỉ định. Học sinh chú thích bằng chứng tăng trưởng.',
@@ -628,7 +628,7 @@ const viSyllabusOverlays: Record<string, SyllabusOverlay> = {
           'Phản tư theo Temporal Extension hoặc Indigenous Perspective. Giáo viên đánh giá chiều sâu triết học và mức dấn thân sinh thái thực chất.',
       },
       {
-        method: 'Portfolio',
+        method: 'Hồ sơ học tập (portfolio)',
         frequency: 'Mỗi học phần × 10',
         detail:
           'Đoạn bài luận tốt nhất cộng với phản tư sinh thái trong mỗi học phần. Cuối năm: tường thuật tăng trưởng “Hành trình lập luận của em trong năm nay.”',
@@ -742,7 +742,7 @@ const viSyllabusOverlays: Record<string, SyllabusOverlay> = {
           'Tổng hợp chủ đề qua nhiều văn bản với trích dẫn chính thức. Chuẩn bị cho extended essay hoặc commentary trong các kỳ thi quốc tế.',
       },
       {
-        method: 'Portfolio',
+        method: 'Hồ sơ học tập (portfolio)',
         frequency: 'Mỗi học phần × 10',
         detail:
           'Đoạn bài luận tốt nhất cộng với phản tư sinh thái cho từng học phần. Cuối năm: growth narrative tổng hợp toàn bộ hành trình Jurassic English™.',

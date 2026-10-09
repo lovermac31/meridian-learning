@@ -67,6 +67,19 @@ function localiseBody(html) {
   return { html: out + html.slice(cursor), replaced };
 }
 
+/** Localise attributes declared as data-i18n-attr="attr:key" (alt / aria-label), mirroring pageI18n.ts. */
+function localiseAttrs(html) {
+  let replaced = 0;
+  const out = html.replace(/<[a-zA-Z][^>]*\sdata-i18n-attr="([\w-]+):([^"]+)"[^>]*>/g, (tag, attr, key) => {
+    if (!(key in VI)) throw new Error(`missing VI attribute string "${key}"`);
+    const re = new RegExp(`(\\s${attr}=")[^"]*(")`);
+    if (!re.test(tag)) throw new Error(`<… data-i18n-attr="${attr}:${key}"> has no ${attr}`);
+    replaced++;
+    return tag.replace(re, `$1${escapeAttr(VI[key])}$2`);
+  });
+  return { html: out, replaced };
+}
+
 function setMeta(html, attr, name, value) {
   const re = new RegExp(`(<meta\\s+${attr}="${name}"\\s+content=")[^"]*(")`);
   if (!re.test(html)) throw new Error(`meta ${attr}="${name}" not found`);
@@ -114,19 +127,21 @@ function localiseBaselineLinks(html) {
 
 export function buildViPage(enHtml) {
   const body = localiseBody(enHtml);
-  const html = absolutiseAssets(localiseBaselineLinks(localiseLessonLinks(localiseHead(body.html))));
-  return { html, replaced: body.replaced };
+  const attrs = localiseAttrs(body.html);
+  const html = absolutiseAssets(localiseBaselineLinks(localiseLessonLinks(localiseHead(attrs.html))));
+  return { html, replaced: body.replaced, attrsReplaced: attrs.replaced };
 }
 
 // Run only when executed directly (tests import buildViPage without writing).
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const en = readFileSync(SRC, 'utf8');
-  const { html, replaced } = buildViPage(en);
+  const { html, replaced, attrsReplaced } = buildViPage(en);
   const expected = (en.match(/\sdata-i18n(-html)?="/g) || []).length;
-  if (replaced !== expected) {
-    throw new Error(`[prerender-yl-vi] localised ${replaced}/${expected} elements — refusing to write a partial page`);
+  const expectedAttrs = (en.match(/\sdata-i18n-attr="/g) || []).length;
+  if (replaced !== expected || attrsReplaced !== expectedAttrs) {
+    throw new Error(`[prerender-yl-vi] localised ${replaced}/${expected} elements and ${attrsReplaced}/${expectedAttrs} attributes — refusing to write a partial page`);
   }
   mkdirSync(dirname(OUT), { recursive: true });
   writeFileSync(OUT, html);
-  console.log(`[prerender-yl-vi] wrote ${VI_PATH} (${replaced}/${expected} elements localised)`);
+  console.log(`[prerender-yl-vi] wrote ${VI_PATH} (${replaced}/${expected} elements, ${attrsReplaced}/${expectedAttrs} attributes localised)`);
 }
