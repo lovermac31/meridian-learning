@@ -3,6 +3,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AiSpeakingLaunch } from './components/AiSpeakingLaunch';
+import { OneChangeInvitation } from './components/OneChangeInvitation';
 import { ProofStrip } from './components/ProofStrip';
 import { CredibilityLogoMarquee } from './components/CredibilityLogoMarquee';
 import { TestimonialsSection } from './components/TestimonialsSection';
@@ -558,6 +559,7 @@ function App() {
         <main id="main-content" tabIndex={-1} className="focus:outline-none">
           <Hero onNavigate={navigateTo} />
           <AiSpeakingLaunch />
+          <OneChangeInvitation />
           <CredibilityLogoMarquee />
           <ProofStrip onNavigate={navigateTo} />
           {/* Social proof — dark by default behind VITE_TESTIMONIALS_ENABLED;

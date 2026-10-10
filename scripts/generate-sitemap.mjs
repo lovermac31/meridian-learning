@@ -78,6 +78,11 @@ function buildUrl(pathname) {
  */
 const STATIC_EXTRA_URLS = [
   {
+    loc: `${SITE_URL}/challenges/one-change`,
+    changefreq: 'monthly',
+    priority: '0.6',
+  },
+  {
     loc: `${SITE_URL}/young-learners-speaking/`,
     changefreq: 'weekly',
     priority: '0.8',

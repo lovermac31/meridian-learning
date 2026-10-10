@@ -13,6 +13,7 @@ const LLMS = readFileSync(new URL('../public/llms.txt', import.meta.url), 'utf8'
 
 // Public pages outside the SPA route inventory (see generate-sitemap.mjs STATIC_EXTRA_URLS).
 const STATIC_PUBLIC_PATHS = [
+  '/challenges/one-change',
   '/young-learners-speaking/',
   '/vi/luyen-noi-ielts/',
   '/ai-speaking',

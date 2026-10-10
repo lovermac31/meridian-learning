@@ -11,6 +11,11 @@
   ],
   "redirects": [
     {
+      "source": "/challenges/one-change/",
+      "destination": "/challenges/one-change",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
@@ -118,6 +123,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/challenges/one-change",
+      "destination": "/challenges/one-change/index.html"
+    },
     {
       "source": "/student-academy",
       "destination": "https://je-ecosystem-landing-preview.vercel.app/student-academy"

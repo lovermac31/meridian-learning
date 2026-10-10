@@ -53,6 +53,7 @@ const YOUNG_LEARNERS_SOURCES = [
 
 /** English (canonical) pathname → the files that make up that page's content. */
 const STATIC_ROUTE_SOURCES = {
+  '/challenges/one-change': ['public/challenges/one-change'],
   '/': [
     component('Hero'),
     component('AudienceFork'),
