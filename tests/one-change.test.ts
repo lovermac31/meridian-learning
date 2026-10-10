@@ -5,6 +5,13 @@ import vm from 'node:vm';
 
 const html = fs.readFileSync(new URL('../public/challenges/one-change/index.html', import.meta.url), 'utf8');
 const code = html.match(/<script>([\s\S]*?)<\/script>/)![1];
+test('brand is self-contained, transparent and never stretched or placed on a white panel', () => {
+  assert.match(html, /id="brand-logo" src="data:image\/webp;base64,/);
+  assert.match(html, /width="96" height="94"/);
+  assert.ok(!html.includes('object-fit:contain;background:#fff'));
+  assert.ok(!code.includes("ctx.fillRect(64,52,170,114)"));
+  assert.match(code, /ctx.drawImage\(logo,64,32,144,140\)/);
+});
 function element() {
   return { value: '', textContent: '', hidden: false, disabled: false, tabIndex: 0, href: '',
     options: [] as any[], children: [] as any[], handlers: {} as Record<string, (...args: any[]) => any>,
