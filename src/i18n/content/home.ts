@@ -10,6 +10,12 @@ const enHomeContent = {
     institutionalTagline: '',
     body:
       'A literature-based English programme that builds how your child reads, reasons, and writes with evidence.',
+    // Story Quest (WorldWise literature app for ages 6–12), linked from the hero.
+    storyQuest: {
+      cta: 'Explore Story Quest (Ages 6–12)',
+      note: 'Guided by Professor Rex • 4 Literary Worlds',
+      ariaLabel: 'Try WorldWise Story Quest for Young Scholars Ages 6–12 (opens in a new tab)',
+    },
     // Parent-facing teacher panel (hero right column). Facts only: every line
     // below is already published elsewhere (AI Speaking /solutions team block,
     // Live Speaking Baseline). `experienceLine` is owner-supplied verified
@@ -426,6 +432,11 @@ const viHomeContent = {
       'Jurassic English™ và WorldWise Learning hỗ trợ nhà trường, trung tâm đào tạo và các tổ chức giáo dục với khung chương trình phát triển năng lực tư duy thực chất — vượt xa thành tích thi cử.',
     body:
       'Chương trình tiếng Anh dựa trên văn học, giúp con đọc hiểu sâu, lập luận và viết có dẫn chứng.',
+    storyQuest: {
+      cta: 'Khám phá Story Quest (6–12 tuổi)',
+      note: 'Cùng Giáo sư Rex • 4 thế giới văn học',
+      ariaLabel: 'Trải nghiệm WorldWise Story Quest cho học sinh 6–12 tuổi (mở trong thẻ mới)',
+    },
     teacher: {
       kicker: 'Gặp giáo viên của con',
       name: 'Thầy Jay',

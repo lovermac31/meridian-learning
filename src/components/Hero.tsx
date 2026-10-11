@@ -88,6 +88,21 @@ export const Hero = ({ onNavigate }: HeroProps) => {
             <p className="text-base sm:text-xl text-white/70 max-w-xl leading-relaxed font-light">
               {hero.body}
             </p>
+
+            {/* Story Quest — WorldWise literature app for ages 6–12 (external, new tab). */}
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="https://worldwise-story-quest.vercel.app/#home"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-jurassic-accent hover:bg-[#f97b38] px-7 py-3.5 text-base font-extrabold text-jurassic-dark shadow-[0_12px_30px_-10px_rgba(249,87,12,0.6)] transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+                aria-label={hero.storyQuest.ariaLabel}
+              >
+                <span>{hero.storyQuest.cta}</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <span className="text-xs font-medium text-white/60">{hero.storyQuest.note}</span>
+            </div>
           </div>
           <HeroTeacherPanel />
         </div>
