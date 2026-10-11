@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { GlobalContactPanel } from './components/GlobalContactPanel';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AiSpeakingLaunch } from './components/AiSpeakingLaunch';
@@ -15,7 +16,6 @@ import { KnowledgeHubPage } from './components/KnowledgeHubPage';
 import { InstitutionalDecisionSnapshot } from './components/InstitutionalDecisionSnapshot';
 import { Services } from './components/Services';
 import { Footer } from './components/Footer';
-import { GlobalContactPanel } from './components/GlobalContactPanel';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { getSeriesLevelByPath } from './lib/seriesContent';
@@ -580,7 +580,9 @@ function App() {
           onEducationAffiliateClick={() => setIsComingSoonOpen(true)}
         />
       ) : null}
-      {!isInternalPilotRequestsView ? <GlobalContactPanel /> : null}
+      {/* One launcher per page (owner decision, 11 Oct 2026): the assistant, which carries the direct channels, wherever it
+          runs; the Contact button only where the assistant does not (Vietnamese pages and routes outside its allowlist). */}
+      {!isInternalPilotRequestsView && !isBotUIPilotVisible ? <GlobalContactPanel /> : null}
       {isBotUIPilotVisible ? (
         <Suspense fallback={null}>
           <BotUIChat currentPathname={pathname} onNavigate={navigateTo} />
