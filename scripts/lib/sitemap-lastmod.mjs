@@ -57,7 +57,7 @@ const STATIC_ROUTE_SOURCES = {
   '/': [
     component('Hero'),
     component('AudienceFork'),
-    component('AiSpeakingHeroSpotlight'),
+    component('HeroTeacherPanel'),
     component('AiSpeakingLaunch'),
     component('CredibilityLogoMarquee'),
     component('ProofStrip'),

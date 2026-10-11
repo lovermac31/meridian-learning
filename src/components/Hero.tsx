@@ -4,7 +4,7 @@ import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
 import { AudienceFork } from './AudienceFork';
-import { AiSpeakingHeroSpotlight } from './AiSpeakingHeroSpotlight';
+import { HeroTeacherPanel } from './HeroTeacherPanel';
 import { WorldWiseLink } from './WorldWiseLink';
 
 type HeroProps = {
@@ -89,7 +89,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
               {hero.body}
             </p>
           </div>
-          <AiSpeakingHeroSpotlight />
+          <HeroTeacherPanel />
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6">
