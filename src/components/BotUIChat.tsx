@@ -5,6 +5,8 @@ import { createBot, type BotuiInterface } from 'botui';
 import { BotUI, BotUIAction, BotUIMessageList } from '@botui/react';
 import { AnimatePresence, motion } from 'motion/react';
 import { MessageSquareMore, Sparkles, X } from 'lucide-react';
+import { contactCopy, channelOrder, channelStyle, channelGlyph, qrFor, type Channel } from './GlobalContactPanel';
+import { getCurrentLocale } from '../i18n/routing';
 import {
   getBotUIPublicDestination,
   type BotUIPublicDestinationKey,
@@ -341,12 +343,13 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
               </div>
             </div>
 
-            <div className="je-botui-frame h-[28rem] max-h-[70vh]">
+            <div className="je-botui-frame h-[24rem] max-h-[52vh]">
               <BotUI bot={bot}>
                 <BotUIMessageList />
                 <BotUIAction />
               </BotUI>
             </div>
+            <DirectChannels />
           </motion.section>
         ) : null}
       </AnimatePresence>
@@ -372,6 +375,47 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
           <span className="block text-xs leading-relaxed text-white/60">Curriculum, methodology, schools, or contact</span>
         </span>
       </button>
+    </div>
+  );
+}
+
+// The direct contact channels (Zalo, WhatsApp, WeChat, Facebook, email), shown under the conversation. This replaced the
+// separate floating "Contact" button (owner decision, 11 Oct 2026: one launcher, the assistant). Copy and destinations come
+// from GlobalContactPanel's contactCopy, so the links, QR codes and EN/VI wording stay in one place.
+function DirectChannels() {
+  const t = contactCopy[getCurrentLocale() === 'vi' ? 'vi' : 'en'];
+  const [qr, setQr] = useState<Channel | null>(null);
+  const heading = getCurrentLocale() === 'vi' ? 'Nhắn tin trực tiếp cho chúng tôi' : 'Message us directly';
+  return (
+    <div className="border-t border-white/8 px-5 py-3">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-jurassic-accent">{heading}</p>
+      <ul className="mt-2 flex flex-wrap gap-2" aria-label={t.nav}>
+        {channelOrder.map((channel) => {
+          const detail = t.channels[channel];
+          const first = detail.actions[0] as { label: string; href: string; external?: boolean };
+          const pill = 'inline-flex min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/5 py-1 pl-1 pr-3 text-xs font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent';
+          const glyph = <span aria-hidden="true" className={`grid h-8 w-8 place-items-center rounded-full text-white [&_svg]:h-4 [&_svg]:w-4 ${channelStyle[channel]}`}>{channelGlyph[channel]}</span>;
+          return (
+            <li key={channel}>
+              {qrFor[channel]
+                ? <button type="button" className={pill} aria-expanded={qr === channel} aria-controls="je-direct-qr" onClick={() => setQr((c) => (c === channel ? null : channel))}>{glyph}{detail.label}</button>
+                : <a className={pill} href={first.href} {...(first.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} aria-label={detail.button}>{glyph}{detail.label}</a>}
+            </li>
+          );
+        })}
+      </ul>
+      {qr && (
+        <div id="je-direct-qr" className="mt-3 rounded-2xl border border-white/10 bg-white/5 p-3">
+          <p className="text-xs leading-5 text-white/70">{t.channels[qr].description}</p>
+          <img className="mx-auto mt-2 max-h-48 w-auto rounded-xl bg-white object-contain p-2" src={qrFor[qr]} alt={t.qrAlt(t.channels[qr].label)} loading="lazy" />
+          <div className="mt-2 flex flex-wrap gap-2">
+            {(t.channels[qr].actions as Array<{ label: string; href: string; download?: boolean; external?: boolean }>).map((action) => (
+              <a key={action.href + action.label} className="inline-flex min-h-11 items-center rounded-full bg-jurassic-accent px-4 text-xs font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                href={action.href} {...(action.download ? { download: '' } : {})} {...(action.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{action.label}</a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
