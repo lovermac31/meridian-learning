@@ -3,13 +3,34 @@ import type { DeepWiden } from './types';
 
 const enHomeContent = {
   hero: {
-    eyebrow: 'Literature-based English curriculum',
+    eyebrow: 'For parents · Literature-based English',
     titleLineOne: 'Critical thinking',
     titleHighlight: 'through literature.',
     titleLineThree: '',
     institutionalTagline: '',
     body:
-      'A complete, literature-based English curriculum that builds how students read, reason, and write with evidence.',
+      'A literature-based English programme that builds how your child reads, reasons, and writes with evidence.',
+    // Parent-facing teacher panel (hero right column). Facts only: every line
+    // below is already published elsewhere (AI Speaking /solutions team block,
+    // Live Speaking Baseline). `experienceLine` is owner-supplied verified
+    // teaching experience — it renders nothing while empty; never fill it with
+    // an unverified claim.
+    teacher: {
+      kicker: "Meet your child's teacher",
+      name: 'Mr. Jay',
+      role: 'Jurassic English IELTS teacher',
+      experienceLine: '',
+      portraitAlt: 'Portrait of Mr. Jay, Jurassic English IELTS teacher',
+      commitmentsTitle: 'How we teach',
+      commitments: [
+        "We read your child's evidence before we teach.",
+        'One clear priority per session.',
+        'Honest feedback. No band promises.',
+      ],
+      primaryCta: 'Book a Speaking Baseline',
+      primaryNote: '15–20 minutes on Google Meet · 690.000₫',
+      secondaryCta: 'Visit the Student Academy',
+    },
     primaryCta: 'Request an Audit Sprint',
     secondaryCta: 'Book a Discovery Call',
     overviewCta: 'Request a Curriculum Overview',
@@ -62,7 +83,7 @@ const enHomeContent = {
       heroStepTwo: 'Evidence',
       heroStepThree: 'Next priority',
       heroLearnMore: 'Explore how it works',
-      eyebrow: 'NEW PRODUCT · JURASSIC AI SPEAKING',
+      eyebrow: 'FOR ADULT LEARNERS · JURASSIC AI SPEAKING',
       headline: 'See what your answer reveals.',
       body: 'Practise IELTS-style Speaking Parts 1–3 by typing your answers. Get a practice estimate, evidence from your own words, and one clear priority to work on next.',
       price: 'From 79,000₫',
@@ -396,14 +417,30 @@ const enHomeContent = {
 
 const viHomeContent = {
   hero: {
-    eyebrow: 'Giáo dục dựa trên văn học đẳng cấp quốc tế',
+    eyebrow: 'Dành cho phụ huynh · Tiếng Anh qua văn học',
     titleLineOne: 'TƯ DUY PHẢN BIỆN',
     titleHighlight: 'TƯ DUY LOGIC',
     titleLineThree: 'THÔNG QUA LÝ LUẬN HỌC THUẬT',
     institutionalTagline:
       'Jurassic English™ và WorldWise Learning hỗ trợ nhà trường, trung tâm đào tạo và các tổ chức giáo dục với khung chương trình phát triển năng lực tư duy thực chất — vượt xa thành tích thi cử.',
     body:
-      'Jurassic English™ đặt ngôn ngữ và tư duy ở vị trí trung tâm, với các lộ trình dành cho đào tạo giáo viên, cấp phép nhà trường, rà soát chương trình, tư vấn học thuật và hợp tác tổ chức.',
+      'Chương trình tiếng Anh dựa trên văn học, giúp con đọc hiểu sâu, lập luận và viết có dẫn chứng.',
+    teacher: {
+      kicker: 'Gặp giáo viên của con',
+      name: 'Thầy Jay',
+      role: 'Giáo viên IELTS Jurassic English',
+      experienceLine: '',
+      portraitAlt: 'Ảnh chân dung thầy Jay, giáo viên IELTS Jurassic English',
+      commitmentsTitle: 'Cách chúng tôi dạy',
+      commitments: [
+        'Đọc bằng chứng của con trước khi dạy.',
+        'Một ưu tiên rõ ràng mỗi buổi.',
+        'Nhận xét trung thực. Không hứa band.',
+      ],
+      primaryCta: 'Đặt lịch đánh giá Nói trực tiếp',
+      primaryNote: '15–20 phút qua Google Meet · 690.000₫',
+      secondaryCta: 'Vào Student Academy',
+    },
     primaryCta: 'Yêu cầu Kiểm toán Chương trình',
     secondaryCta: 'Đặt lịch Tư vấn',
     overviewCta: 'Yêu cầu tổng quan chương trình',
@@ -449,7 +486,7 @@ const viHomeContent = {
       heroStepTwo: 'Bằng chứng',
       heroStepThree: 'Ưu tiên tiếp',
       heroLearnMore: 'Xem cách hoạt động',
-      eyebrow: 'SẢN PHẨM MỚI · JURASSIC AI SPEAKING',
+      eyebrow: 'DÀNH CHO NGƯỜI LỚN · JURASSIC AI SPEAKING',
       headline: 'Thấy rõ điều câu trả lời của bạn thể hiện.',
       body: 'Luyện Nói theo định dạng IELTS Phần 1–3 bằng câu trả lời đánh máy. Nhận mức ước lượng để luyện tập, bằng chứng từ chính câu trả lời và một ưu tiên rõ ràng để cải thiện.',
       price: 'Từ 79.000₫',
