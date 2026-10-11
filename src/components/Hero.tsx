@@ -89,7 +89,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
               {hero.body}
             </p>
           </div>
-          <HeroTeacherPanel onNavigate={onNavigate} />
+          <HeroTeacherPanel />
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6">

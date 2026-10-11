@@ -1,24 +1,24 @@
 import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
+import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
 import { baselineHref } from '../lib/baselineLink';
 
-type HeroTeacherPanelProps = {
-  onNavigate: (path: string) => void;
-};
 
 /**
  * Hero right column — parent-facing teacher panel.
  *
  * Replaces the adult AI Speaking spotlight in the first screen: parents see
- * the real teacher (Mr. Jay's photo), how we teach, and one booking action.
+ * the real teacher (Mr. Jay's photo), how we teach, and the two parent offers,
+ * each labelled: the 690.000₫ Speaking Baseline (an assessment, the primary
+ * action) and 60-minute lessons at 800.000₫ (the Young Learners page).
  * AI Speaking keeps its own section further down for adult learners.
  *
  * Copy is facts-only (see `hero.teacher` in home.ts). `experienceLine` is
  * owner-supplied and renders nothing while empty.
  */
-export function HeroTeacherPanel({ onNavigate }: HeroTeacherPanelProps) {
+export function HeroTeacherPanel() {
   const locale = getCurrentLocale();
   const teacher = (getHomeContent(locale) ?? getHomeContent('en'))?.hero.teacher;
   if (!teacher) return null;
@@ -71,17 +71,15 @@ export function HeroTeacherPanel({ onNavigate }: HeroTeacherPanelProps) {
           <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
         </a>
         <p className="mt-2 text-center text-xs font-semibold text-jurassic-dark/70">{teacher.primaryNote}</p>
-        <button
-          type="button"
-          onClick={() => {
-            trackCtaClick({ label: 'homepage_teacher_academy_click', type: 'secondary', segment: 'parent_student' });
-            onNavigate('/student-academy');
-          }}
-          className="mt-2 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-full text-sm font-semibold text-jurassic-dark underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark"
+        {/* Native <a>: the Young Learners page is static (not an SPA route). */}
+        <a
+          href={`${getLocalizedHref('/young-learners-speaking/', locale)}#pricing`}
+          onClick={() => trackCtaClick({ label: 'homepage_teacher_lessons_click', type: 'secondary', segment: 'parent_student' })}
+          className="mt-3 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-full border border-jurassic-dark/15 px-4 text-sm font-semibold text-jurassic-dark transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark"
         >
-          {teacher.secondaryCta}
-          <ArrowRight aria-hidden="true" className="h-4 w-4" />
-        </button>
+          {teacher.lessonsCta}
+          <ArrowRight aria-hidden="true" className="h-4 w-4 flex-none" />
+        </a>
       </div>
     </aside>
   );
