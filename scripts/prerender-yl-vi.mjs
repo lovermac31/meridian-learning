@@ -109,6 +109,11 @@ function absolutiseAssets(html) {
 }
 
 /** 1-to-1 lesson checkout links open the Vietnamese checkout (mirrors lessonsHref in pageI18n.ts). */
+function localiseToolLinks(html) {
+  return html.replaceAll('href="/tools/ielts-band-score-calculator"', 'href="/vi/cong-cu/tinh-diem-ielts"')
+    .replaceAll('href="/tools/ielts-speaking-part-2-timer"', 'href="/vi/cong-cu/dong-ho-ielts-speaking-part-2"');
+}
+
 function localiseLessonLinks(html) {
   return html.replace(/(<a\b[^>]*\sdata-lessons-pack="([^"]+)"[^>]*\shref=")[^"]*"/g,
     (_m, head, pack) => `${head}/ai-speaking/lessons?lang=vi&amp;pack=${encodeURIComponent(pack)}"`);
@@ -128,7 +133,7 @@ function localiseBaselineLinks(html) {
 export function buildViPage(enHtml) {
   const body = localiseBody(enHtml);
   const attrs = localiseAttrs(body.html);
-  const html = absolutiseAssets(localiseBaselineLinks(localiseLessonLinks(localiseHead(attrs.html))));
+  const html = absolutiseAssets(localiseToolLinks(localiseBaselineLinks(localiseLessonLinks(localiseHead(attrs.html)))));
   return { html, replaced: body.replaced, attrsReplaced: attrs.replaced };
 }
 

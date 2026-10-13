@@ -17,7 +17,7 @@
     "supabase:keepalive": "node --env-file=.env.local scripts/supabase-keepalive.mjs",
     "clean": "rm -rf dist dist-ssr",
     "lint": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts"
+    "test": "node --import tsx --test tests/*.test.ts"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",

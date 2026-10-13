@@ -57,12 +57,28 @@ function getChangefreq(pathname) {
   return 'monthly';
 }
 
+const toolPairs = [
+  ['/tools/ielts-band-score-calculator', '/vi/cong-cu/tinh-diem-ielts'],
+  ['/tools/ielts-speaking-part-2-timer', '/vi/cong-cu/dong-ho-ielts-speaking-part-2'],
+];
+function toolAlternates(pathname) {
+  const pair = toolPairs.find(([en, vi]) => pathname === en || pathname === vi);
+  if (!pair) return [];
+  const [en, vi] = pair;
+  return [
+    `    <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}${en}" />`,
+    `    <xhtml:link rel="alternate" hreflang="vi" href="${SITE_URL}${vi}" />`,
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${en}" />`,
+  ];
+}
+
 function buildUrl(pathname) {
   // Root en path is served at / — every other path appends as-is.
   const loc = pathname === '/' ? `${SITE_URL}/` : `${SITE_URL}${pathname}`;
   return [
     '  <url>',
     `    <loc>${loc}</loc>`,
+    ...toolAlternates(pathname),
     ...lastmodLine(pathname),
     `    <changefreq>${getChangefreq(pathname)}</changefreq>`,
     `    <priority>${getPriority(pathname)}</priority>`,
@@ -144,7 +160,7 @@ async function main() {
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
     urlTags,
     extraTags,
     '</urlset>',

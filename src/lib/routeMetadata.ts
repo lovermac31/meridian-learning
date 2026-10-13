@@ -112,6 +112,18 @@ const homeFaqEntries = [
 ];
 
 const staticRoutes: Record<string, StaticRouteDefinition> = {
+  '/tools/ielts-band-score-calculator': {
+    title: 'IELTS Band Score Calculator (Overall Band)',
+    description: 'Calculate your IELTS overall band from Listening, Reading, Writing and Speaking using the official rounding rule.',
+    canonicalPath: '/tools/ielts-band-score-calculator',
+    localized: { vi: { title: 'Tính điểm IELTS overall: công cụ quy đổi band', description: 'Tính điểm IELTS overall từ bốn kỹ năng theo quy tắc làm tròn của IELTS.' } },
+  },
+  '/tools/ielts-speaking-part-2-timer': {
+    title: 'IELTS Speaking Part 2 Timer | Jurassic English™',
+    description: 'Practice with one minute to prepare, two minutes to speak, original cue cards and optional private, on-device recording.',
+    canonicalPath: '/tools/ielts-speaking-part-2-timer',
+    localized: { vi: { title: 'Đồng hồ IELTS Speaking Part 2 | Jurassic English™', description: 'Luyện nói với một phút chuẩn bị, hai phút trình bày và ghi âm tùy chọn chỉ trên thiết bị.' } },
+  },
   '/insights': {
     title: 'IELTS Speaking and English Learning Resources | Jurassic English™',
     description: 'Evidence-led guidance on IELTS Speaking practice, typed feedback and one-to-one learning from Jurassic English™.',
@@ -565,8 +577,28 @@ function resolveStaticRoute(pathname: string, locale: Locale): RouteMetadata | n
   // an explicit Org+WebSite jsonLd and has no breadcrumbs, so this merge
   // is a no-op for it.
   const breadcrumbsLd = createBreadcrumbs(localizedRoute?.breadcrumbs ?? route.breadcrumbs, locale);
+  const toolName = pathname.includes('band-score')
+    ? locale === 'vi' ? 'Tính điểm IELTS overall' : 'IELTS Band Score Calculator'
+    : locale === 'vi' ? 'Đồng hồ IELTS Speaking Part 2' : 'IELTS Speaking Part 2 Timer';
+  const toolFaqs = locale === 'vi' ? [
+    ['Điểm IELTS overall được tính thế nào?', 'Cộng điểm Listening, Reading, Writing và Speaking, chia cho bốn, rồi làm tròn theo quy tắc IELTS.'],
+    ['6,25 có được làm tròn thành 6,5 không?', 'Có. IELTS làm tròn trung bình kết thúc bằng ,25 lên nửa band tiếp theo; ,75 lên band nguyên tiếp theo.'],
+    ['Đây có phải điểm IELTS chính thức không?', 'Không. Chỉ kỳ thi IELTS được ủy quyền mới cấp điểm chính thức. Công cụ này ước tính từ điểm bạn nhập.'],
+  ] : [
+    ['How is my IELTS overall band calculated?', 'Add Listening, Reading, Writing and Speaking bands, divide by four, then round to the nearest half or whole band using IELTS rules.'],
+    ['Does 6.25 round to 6.5?', 'Yes. IELTS rounds an average ending in .25 to the next half band. An average ending in .75 rounds to the next whole band.'],
+    ['Is this an official IELTS result?', 'No. Only an authorised IELTS test can issue an official score. This tool calculates an estimate from the bands you enter.'],
+  ];
+  const toolJsonLd: JsonLd[] = pathname.startsWith('/tools/') ? [{
+    '@context': 'https://schema.org', '@type': 'WebApplication',
+    name: toolName, url: canonical, applicationCategory: 'EducationalApplication',
+    operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  }, ...(pathname.includes('band-score') ? [{
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: toolFaqs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
+  }] : [])] as JsonLd[] : [];
   const jsonLd = shouldIndex
-    ? route.jsonLd
+    ? toolJsonLd.length ? [...toolJsonLd, ...(breadcrumbsLd ?? [])] : route.jsonLd
       ? [...route.jsonLd, ...(breadcrumbsLd ?? [])]
       : breadcrumbsLd
     : undefined;
@@ -966,6 +998,8 @@ export function getExpectedPublicIndexableRoutes(): string[] {
         '/teacher-standards',
         '/series/compare',
         '/thinking-cycle/compare',
+        '/tools/ielts-band-score-calculator',
+        '/tools/ielts-speaking-part-2-timer',
         ...seriesLevels.map((level) => level.path),
         ...syllabusData.map((s) => s.syllabusRoutePath),
         ...thinkingCycleStages.map((stage) => stage.path),

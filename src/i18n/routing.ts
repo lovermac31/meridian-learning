@@ -24,7 +24,15 @@ const STATIC_PUBLIC_PATHS = [
   '/teacher-standards',
   '/series/compare',
   '/thinking-cycle/compare',
+  '/tools/ielts-band-score-calculator',
+  '/tools/ielts-speaking-part-2-timer',
 ] as const;
+
+const TOOL_VI_PATHS: Record<string, string> = {
+  '/tools/ielts-band-score-calculator': '/vi/cong-cu/tinh-diem-ielts',
+  '/tools/ielts-speaking-part-2-timer': '/vi/cong-cu/dong-ho-ielts-speaking-part-2',
+};
+const TOOL_EN_PATHS = Object.fromEntries(Object.entries(TOOL_VI_PATHS).map(([en, vi]) => [vi, en]));
 
 const NON_LOCALIZED_PATHS = new Set([
   '/plans-pricing-access',
@@ -97,6 +105,7 @@ export function getLocalizedPathname(pathname: string, locale: Locale) {
     return normalizedPathname;
   }
 
+  if (TOOL_VI_PATHS[normalizedPathname]) return TOOL_VI_PATHS[normalizedPathname];
   const { routePrefix } = getLocaleDefinition(locale);
   return normalizedPathname === '/' ? routePrefix : `${routePrefix}${normalizedPathname}`;
 }
@@ -114,14 +123,14 @@ export function resolveLocalizedRoute(pathname: string): LocalizedRoute {
   const isVietnameseRoute =
     normalizedPathname === `/${SECONDARY_LOCALE}` ||
     normalizedPathname.startsWith(`/${SECONDARY_LOCALE}/`);
-  const basePathname = isVietnameseRoute
+  const basePathname = TOOL_EN_PATHS[normalizedPathname] ?? (isVietnameseRoute
     ? normalizePathname(normalizedPathname.slice(SECONDARY_LOCALE.length + 1) || '/')
-    : normalizedPathname;
+    : normalizedPathname);
   const isPrivateOrNonLocalized = isPrivateOrNonLocalizedPath(basePathname);
   const isLocalizable = isLocalizablePublicPath(basePathname);
   const locale =
     isVietnameseRoute && !isPrivateOrNonLocalized ? SECONDARY_LOCALE : DEFAULT_LOCALE;
-  const localizedPathname =
+  const localizedPathname = TOOL_EN_PATHS[normalizedPathname] ? normalizedPathname :
     locale === DEFAULT_LOCALE
       ? basePathname
       : basePathname === '/'

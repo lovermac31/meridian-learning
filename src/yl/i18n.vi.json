@@ -315,5 +315,9 @@
   "attr.qrZalo": "Mã QR đặt lịch qua Zalo",
   "attr.qrWebsite": "Mã QR trang web Jurassic English",
   "a11y.skipToContent": "Chuyển đến nội dung chính",
-  "brand.subLabel": "Học sinh nhỏ tuổi"
+  "brand.subLabel": "Học sinh nhỏ tuổi",
+  "tools.heading": "Công cụ miễn phí",
+  "tools.description": "Luyện tập và lập kế hoạch với các công cụ IELTS miễn phí.",
+  "tools.calculator": "Tính điểm IELTS overall",
+  "tools.timer": "Đồng hồ IELTS Speaking Part 2"
 }
