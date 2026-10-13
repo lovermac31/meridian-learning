@@ -31,3 +31,13 @@ test('all four tool routes are indexable with reciprocal alternates', () => {
     }
   }
 });
+
+test('Part 2 timer pages state they are not an official IELTS score', async () => {
+  const { createElement } = await import('react');
+  const { renderToStaticMarkup } = await import('react-dom/server');
+  const { IeltsSpeakingTimerPage } = await import('../src/components/IeltsToolsPage');
+  const en = renderToStaticMarkup(createElement(IeltsSpeakingTimerPage, { locale: 'en' }));
+  const vi = renderToStaticMarkup(createElement(IeltsSpeakingTimerPage, { locale: 'vi' }));
+  assert.ok(en.includes('not an official IELTS score'), 'EN timer carries the official-score disclaimer');
+  assert.ok(vi.includes('không phải điểm IELTS chính thức'), 'VI timer carries the official-score disclaimer');
+});
