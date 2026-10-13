@@ -24,6 +24,8 @@ test('adult buyer guide has an explicit SSR body and an honest ordered acquisiti
     'not a free personalised speaking assessment or an IELTS band score',
     'not an official IELTS result', 'Any practice band estimate is provisional',
     'There are no score guarantees', 'does not imply IELTS endorsement',
+    'Practice estimates are not an official IELTS score',
+    'independent of British Council, IDP IELTS and Cambridge University Press &amp; Assessment',
     'Typed practice can show', 'cannot establish pronunciation',
     'One session cannot establish lasting improvement',
     'Current price, currency, accepted payment methods',
