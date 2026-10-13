@@ -2,6 +2,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
+import { getLocalizedHref } from '../i18n/localizedHref';
 
 /** Homepage merchandising only. Product flows live in the separate AI Speaking app. */
 export function AiSpeakingLaunch() {
@@ -29,6 +30,15 @@ export function AiSpeakingLaunch() {
               </a>
               <a href="/ai-speaking/samples" onClick={() => trackCtaClick({ label: 'homepage_ai_speaking_sample_click', type: 'secondary', segment: 'parent_student' })} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-jurassic-dark/25 bg-white px-6 py-3 font-semibold text-jurassic-dark transition hover:border-jurassic-dark/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
                 {content.sampleCta}<ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </a>
+            </div>
+            {/* Writing: public product introduction (coming soon), served by the AI Speaking app → native <a>. */}
+            <div className="mt-8 rounded-2xl border border-jurassic-dark/15 bg-white p-5 shadow-sm">
+              <p className="text-[11px] font-bold tracking-[0.14em] text-jurassic-dark/70">{content.writingEyebrow}</p>
+              <h3 className="mt-2 font-serif text-xl leading-snug text-jurassic-dark">{content.writingTitle}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-jurassic-dark/75">{content.writingBody}</p>
+              <a href={getLocalizedHref('/ai-speaking/writing', locale)} onClick={() => trackCtaClick({ label: 'homepage_writing_intro_click', type: 'secondary', segment: 'parent_student' })} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-jurassic-dark underline decoration-jurassic-accent decoration-2 underline-offset-4 hover:text-[#933402] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
+                {content.writingCta}<ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>
           </div>

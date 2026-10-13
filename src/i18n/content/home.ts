@@ -105,6 +105,10 @@ const enHomeContent = {
       visualEvidence: 'See the words behind your feedback',
       visualPriority: 'Focus on one action for the next attempt',
       visualNote: 'Illustrative report preview · typed practice does not assess pronunciation.',
+      writingEyebrow: 'COMING SOON · JURASSIC WRITING',
+      writingTitle: 'IELTS Writing Task 2, the same evidence-first way.',
+      writingBody: 'Independent practice: write an essay, see the sentences behind each point and one priority to fix. Not open yet. Want a teacher to read your essay now? Book a 1-to-1 session.',
+      writingCta: 'Learn about Writing Practice',
     },
   },
   decisionSnapshot: {
@@ -513,6 +517,10 @@ const viHomeContent = {
       visualEvidence: 'Xem căn cứ cho nhận xét từ chính lời bạn viết',
       visualPriority: 'Tập trung vào một hành động cho lần luyện tiếp theo',
       visualNote: 'Minh hoạ báo cáo · Bài đánh máy không đánh giá phát âm.',
+      writingEyebrow: 'SẮP RA MẮT · JURASSIC WRITING',
+      writingTitle: 'IELTS Writing Task 2, cùng cách làm dựa trên bằng chứng.',
+      writingBody: 'Tự luyện độc lập: viết một bài luận, xem các câu văn đứng sau mỗi nhận xét và một ưu tiên cần sửa. Chưa mở. Muốn giáo viên đọc bài của bạn ngay bây giờ? Đặt buổi học 1 kèm 1.',
+      writingCta: 'Tìm hiểu Luyện viết',
     },
   },
   decisionSnapshot: {

@@ -40,6 +40,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
     ecosystem: [
       { label: getUiString(locale, 'footer.ecosystem.aiSpeaking'), href: '/ai-speaking' },
       { label: getUiString(locale, 'footer.ecosystem.baseline'), href: '/ai-speaking/baseline' },
+      { label: getUiString(locale, 'footer.ecosystem.writing'), href: '/ai-speaking/writing' },
       { label: getUiString(locale, 'footer.ecosystem.studentAcademy'), href: '/student-academy' },
       { label: getUiString(locale, 'footer.ecosystem.interactiveDemo'), href: '/interactive-demo' },
       { label: getUiString(locale, 'footer.ecosystem.bookDiagnostic'), href: '/book-diagnostic' },

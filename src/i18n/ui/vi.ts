@@ -81,6 +81,7 @@ export const viUi = {
       navLabel: 'Các trang trong hệ sinh thái',
       aiSpeaking: 'Luyện nói AI Speaking',
       baseline: 'Đánh giá Nói trực tiếp',
+      writing: 'Luyện viết (sắp ra mắt)',
       studentAcademy: 'Student Academy',
       interactiveDemo: 'Bản demo tương tác',
       bookDiagnostic: 'Đặt lịch Đánh giá Tư duy Học sinh',

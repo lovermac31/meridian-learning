@@ -308,6 +308,14 @@ export const Navbar = ({
               <span className="text-base font-semibold text-white">Live Speaking Baseline</span>
               <span className="mt-1.5 block text-sm text-white/70">A live IELTS-style Speaking assessment with a person, on Google Meet</span>
             </a>
+            <a
+              href={getLocalizedHref('/ai-speaking/writing', locale)}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            >
+              <span className="text-base font-semibold text-white">{locale === 'vi' ? 'Luyện viết IELTS' : 'Writing Practice'}</span>
+              <span className="mt-1.5 block text-sm text-white/70">{locale === 'vi' ? 'Task 2, dựa trên bằng chứng · sắp ra mắt' : 'IELTS Task 2, evidence-first · coming soon'}</span>
+            </a>
             {languageSwitcher ? (
               <div className="border-b border-white/10 pb-4">
                 {languageSwitcher}

@@ -25,6 +25,8 @@ const LOCALIZED_STATIC_HREFS: Record<string, Partial<Record<Locale, string>>> = 
   '/young-learners-speaking/': { vi: '/vi/luyen-noi-ielts/' },
   // AI Speaking app: VI landing page and VI baseline booking page.
   '/ai-speaking': { vi: '/ai-speaking/vi' },
+  // Writing: public product introduction (EN + VI), served by the AI Speaking app.
+  '/ai-speaking/writing': { vi: '/ai-speaking/vi/writing' },
   [BASELINE_PATH]: { vi: baselineHref('vi') },
 };
 
