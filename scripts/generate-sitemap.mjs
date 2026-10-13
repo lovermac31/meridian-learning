@@ -16,6 +16,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.ts';
 import { createLastmodResolver } from './lib/sitemap-lastmod.mjs';
+import { getSeoPage } from '../src/lib/seoPages.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir   = path.resolve(__dirname, '..', 'dist');
@@ -62,6 +63,16 @@ const toolPairs = [
   ['/tools/ielts-speaking-part-2-timer', '/vi/cong-cu/dong-ho-ielts-speaking-part-2'],
 ];
 function toolAlternates(pathname) {
+  const seoPage = getSeoPage(pathname);
+  if (seoPage) {
+    const en = seoPage.locale === 'en' ? seoPage.path : seoPage.alternatePath;
+    const vi = seoPage.locale === 'vi' ? seoPage.path : seoPage.alternatePath;
+    return [
+      `    <xhtml:link rel="alternate" hreflang="vi" href="${SITE_URL}${vi}" />`,
+      `    <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}${en}" />`,
+      `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${en}" />`,
+    ];
+  }
   const pair = toolPairs.find(([en, vi]) => pathname === en || pathname === vi);
   if (!pair) return [];
   const [en, vi] = pair;

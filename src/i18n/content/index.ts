@@ -3,6 +3,7 @@ import { legalDocuments } from './legal';
 import { seriesLevels } from './series';
 import { syllabusData } from './syllabus';
 import { thinkingCycleStages } from './thinkingCycle';
+import { seoEnglishPaths } from '../../lib/seoPages';
 
 export type PublicContentGroup =
   | 'home'
@@ -24,7 +25,9 @@ export type PublicContentGroup =
   | 'syllabus'
   | 'thinkingCycle'
   | 'legal'
-  | 'tools';
+  | 'tools'
+  | 'seoPages'
+  | 'insightsHub';
 
 const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean>> = {
   home: { en: true, vi: true },
@@ -51,9 +54,13 @@ const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean
   thinkingCycle: { en: true, vi: true },
   legal: { en: true, vi: true },
   tools: { en: true, vi: true },
+  seoPages: { en: true, vi: true },
+  insightsHub: { en: true, vi: true },
 };
 
 export function getPublicContentGroup(pathname: string): PublicContentGroup | null {
+  if (seoEnglishPaths.includes(pathname)) return 'seoPages';
+  if (pathname === '/insights') return 'insightsHub';
   if (pathname === '/') return 'home';
   if (pathname === '/about/nathaniel-jay-adams' || pathname === '/insights' || pathname.startsWith('/insights/')) return 'knowledge';
   if (pathname.startsWith('/tools/')) return 'tools';

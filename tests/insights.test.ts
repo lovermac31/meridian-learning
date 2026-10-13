@@ -88,12 +88,12 @@ test('published discovery resources have stable routes and no placeholder articl
   assert.equal(getInsightArticleBySlug('anything'), undefined);
   const routes = getExpectedPublicIndexableRoutes();
   for (const route of getInsightRoutePaths()) assert.ok(routes.includes(route), `${route} is in sitemap routes`);
-  assert.ok(!routes.some((route) => route.startsWith('/vi/insights')), 'unreviewed locale is not listed');
+  assert.ok(routes.includes('/vi/insights'), 'Vietnamese insights hub is listed');
   for (const route of [...getInsightRoutePaths(), '/about/nathaniel-jay-adams']) {
     const metadata = resolveRouteMetadata(route);
     assert.equal(metadata.robots, 'index, follow', `${route} is released for English indexing`);
     assert.equal(metadata.canonical, `https://jurassicenglish.com${route}`);
   }
-  assert.equal(resolveRouteMetadata('/vi/insights').robots, 'noindex, nofollow');
+  assert.equal(resolveRouteMetadata('/vi/insights').robots, 'index, follow');
   assert.equal(resolveRouteMetadata('/vi/about/nathaniel-jay-adams').robots, 'noindex, nofollow');
 });

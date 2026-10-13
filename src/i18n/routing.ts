@@ -3,6 +3,7 @@ import { seriesLevels } from '../lib/seriesContent';
 import { syllabusData } from '../lib/syllabusContent';
 import { thinkingCycleStages } from '../lib/thinkingCycleContent';
 import { getCurrentPathname } from '../lib/ssrLocation';
+import { seoEnglishPaths, seoPathPairs } from '../lib/seoPages';
 import {
   DEFAULT_LOCALE,
   SECONDARY_LOCALE,
@@ -33,6 +34,8 @@ const TOOL_VI_PATHS: Record<string, string> = {
   '/tools/ielts-speaking-part-2-timer': '/vi/cong-cu/dong-ho-ielts-speaking-part-2',
 };
 const TOOL_EN_PATHS = Object.fromEntries(Object.entries(TOOL_VI_PATHS).map(([en, vi]) => [vi, en]));
+const SEO_VI_PATHS = Object.fromEntries(seoPathPairs);
+const SEO_EN_PATHS = Object.fromEntries(seoPathPairs.map(([en, vi]) => [vi, en]));
 
 const NON_LOCALIZED_PATHS = new Set([
   '/plans-pricing-access',
@@ -46,6 +49,8 @@ const LOCALIZABLE_PUBLIC_PATHS = new Set([
   ...syllabusData.map((syllabus) => syllabus.syllabusRoutePath),
   ...thinkingCycleStages.map((stage) => stage.path),
   ...Object.keys(legalDocuments),
+  '/insights',
+  ...seoEnglishPaths,
 ]);
 
 type ParsedRouteTarget = {
@@ -106,6 +111,7 @@ export function getLocalizedPathname(pathname: string, locale: Locale) {
   }
 
   if (TOOL_VI_PATHS[normalizedPathname]) return TOOL_VI_PATHS[normalizedPathname];
+  if (SEO_VI_PATHS[normalizedPathname]) return SEO_VI_PATHS[normalizedPathname];
   const { routePrefix } = getLocaleDefinition(locale);
   return normalizedPathname === '/' ? routePrefix : `${routePrefix}${normalizedPathname}`;
 }
@@ -123,14 +129,14 @@ export function resolveLocalizedRoute(pathname: string): LocalizedRoute {
   const isVietnameseRoute =
     normalizedPathname === `/${SECONDARY_LOCALE}` ||
     normalizedPathname.startsWith(`/${SECONDARY_LOCALE}/`);
-  const basePathname = TOOL_EN_PATHS[normalizedPathname] ?? (isVietnameseRoute
+  const basePathname = TOOL_EN_PATHS[normalizedPathname] ?? SEO_EN_PATHS[normalizedPathname] ?? (isVietnameseRoute
     ? normalizePathname(normalizedPathname.slice(SECONDARY_LOCALE.length + 1) || '/')
     : normalizedPathname);
   const isPrivateOrNonLocalized = isPrivateOrNonLocalizedPath(basePathname);
   const isLocalizable = isLocalizablePublicPath(basePathname);
   const locale =
     isVietnameseRoute && !isPrivateOrNonLocalized ? SECONDARY_LOCALE : DEFAULT_LOCALE;
-  const localizedPathname = TOOL_EN_PATHS[normalizedPathname] ? normalizedPathname :
+  const localizedPathname = TOOL_EN_PATHS[normalizedPathname] || SEO_EN_PATHS[normalizedPathname] ? normalizedPathname :
     locale === DEFAULT_LOCALE
       ? basePathname
       : basePathname === '/'
