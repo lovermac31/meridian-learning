@@ -73,6 +73,8 @@ const STATIC_ROUTE_SOURCES = {
   '/knowledge': [component('KnowledgeHubPage'), content('knowledge')],
   '/insights': ['src/components/SearchInsightsPage.tsx', 'src/lib/insightsContent.ts'],
   '/about/nathaniel-jay-adams': ['src/components/SearchInsightsPage.tsx', 'src/lib/insightsContent.ts'],
+  '/vi/ve-thay-jay-adams': ['src/components/SearchInsightsPage.tsx', 'src/content/seoPages.json'],
+  '/vi/insights': ['src/components/SearchInsightsPage.tsx', 'src/content/seoPages.json'],
   '/get-started': [component('GetStartedPortal'), content('getStarted')],
   '/worldwise': [component('WorldWisePage'), content('worldwise')],
   '/audit-sprint': [component('AuditSprintPage'), content('auditSprint')],
@@ -114,6 +116,7 @@ export function getRouteSourceFiles(pathname) {
   if (UNMAPPED_URL_PATTERNS.some((pattern) => pattern.test(pathname))) return null;
 
   const canonical = toCanonicalPath(pathname);
+  if (pathname === '/vi/ve-thay-jay-adams' || pathname.startsWith('/vi/insights/') || ['/about/nathaniel-jay-adams','/insights/ielts-speaking-6-to-7','/insights/ielts-speaking-forecast-september-december-2026','/insights/ielts-online-test','/insights/ai-ielts-speaking-scoring'].includes(pathname)) return ['src/components/SearchInsightsPage.tsx', 'src/content/seoPages.json'];
   if (/^\/insights\/[^/]+$/.test(canonical)) return ['src/components/SearchInsightsPage.tsx', 'src/lib/insightsContent.ts'];
   if (STATIC_ROUTE_SOURCES[canonical]) return [...STATIC_ROUTE_SOURCES[canonical]];
   if (/^\/series\/level-[^/]+\/syllabus$/.test(canonical)) return [...SYLLABUS_SOURCES];

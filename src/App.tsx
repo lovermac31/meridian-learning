@@ -425,7 +425,7 @@ function App() {
       ) : isTimerToolView ? (
         <IeltsSpeakingTimerPage locale={locale} />
       ) : isInsightsView ? (
-        <SearchInsightsPage pathname={routePathname} onNavigate={navigateTo} />
+        <SearchInsightsPage pathname={pathname} onNavigate={navigateTo} />
       ) : isUnknownRouteView ? (
         <NotFoundPage
           onBack={() => navigateTo('/')}

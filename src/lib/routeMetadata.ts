@@ -13,6 +13,7 @@ import { getLocalizedSyllabusByRoutePath } from '../i18n/content/syllabus';
 import { getLocalizedThinkingCycleStageByPath } from '../i18n/content/thinkingCycle';
 import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
+import { getSeoPage, seoPagePaths, seoEnglishPaths } from './seoPages';
 import {
   createBreadcrumbJsonLd,
   createCourseJsonLd,
@@ -129,6 +130,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     description: 'Evidence-led guidance on IELTS Speaking practice, typed feedback and one-to-one learning from Jurassic English™.',
     canonicalPath: '/insights',
     breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Learning resources', path: '/insights' }],
+    localized: { vi: { title: 'Tài liệu luyện IELTS Speaking | Jurassic English™', description: 'Hướng dẫn luyện IELTS Speaking, hiểu phản hồi và chọn bước tiếp theo từ Jurassic English™.', breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Tài liệu học tập', path: '/insights' }] } },
   },
   '/about/nathaniel-jay-adams': {
     title: 'Nathaniel Jay Adams | Jurassic English & WorldWise Learning',
@@ -877,6 +879,55 @@ function resolveFallbackRoute(locale: Locale): RouteMetadata {
 }
 
 export function resolveRouteMetadata(pathname: string): RouteMetadata {
+  if (pathname.startsWith('/vi/') && seoEnglishPaths.some(path => `/vi${path}` === pathname) && !getSeoPage(pathname)) {
+    return resolveFallbackRoute('vi');
+  }
+  const seoPage = getSeoPage(pathname);
+  if (seoPage) {
+    const canonical = toAbsoluteUrl(seoPage.path);
+    const enPath = seoPage.locale === 'en' ? seoPage.path : seoPage.alternatePath;
+    const viPath = seoPage.locale === 'vi' ? seoPage.path : seoPage.alternatePath;
+    const jsonLd: JsonLd[] = seoPage.path.includes('/insights/') ? [{
+      '@context': 'https://schema.org', '@type': 'Article', headline: seoPage.h1,
+      inLanguage: seoPage.locale, datePublished: seoPage.datePublished, dateModified: seoPage.dateModified,
+      mainEntityOfPage: canonical, author: { '@id': `${SITE_URL}/#jay-adams` },
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    }] : [{
+      '@context': 'https://schema.org', '@type': 'Person', '@id': `${SITE_URL}/#jay-adams`,
+      name: 'Nathaniel Jay Adams', alternateName: ['Mr. Jay Adams', 'Jay Adams', 'thầy Jay'],
+      nationality: { '@type': 'Country', name: 'United States' },
+      workLocation: { '@type': 'Place', name: 'Hanoi, Vietnam' },
+      homeLocation: { '@type': 'Place', name: 'Hanoi, Vietnam' },
+      jobTitle: ['Founder and Lead Coach', 'Founder and AI Systems Architect'],
+      worksFor: [{ '@id': `${SITE_URL}/#organization` }, { '@type': 'Organization', name: 'WorldWise Learning', url: 'https://www.worldwiselearning.app/' }],
+      hasCredential: [
+        { '@type': 'EducationalOccupationalCredential', name: 'CELTA', credentialCategory: 'certificate', recognizedBy: { '@type': 'Organization', name: 'Cambridge' } },
+        { '@type': 'EducationalOccupationalCredential', name: 'Advanced TEFL Certificate (120 hours)', credentialCategory: 'certificate', recognizedBy: { '@type': 'Organization', name: 'International TESOL TEFL Academy' } },
+      ],
+      knowsAbout: ['IELTS Speaking', 'English language teaching', 'AI in education'],
+    }, {
+      '@context': 'https://schema.org', '@type': 'ProfilePage', url: canonical,
+      inLanguage: seoPage.locale, mainEntity: { '@id': `${SITE_URL}/#jay-adams` },
+      dateModified: seoPage.dateModified, isPartOf: { '@id': `${SITE_URL}/#website` },
+    }];
+    jsonLd.push(createFaqJsonLd(seoPage.faq.map(item => ({ question: item.question, answer: item.answer }))));
+    jsonLd.push(createBreadcrumbJsonLd(seoPage.path.includes('/insights/') ? [
+      { name: seoPage.locale === 'vi' ? 'Trang chủ' : 'Home', path: seoPage.locale === 'vi' ? '/vi' : '/' },
+      { name: 'Insights', path: seoPage.locale === 'vi' ? '/vi/insights' : '/insights' },
+      { name: seoPage.h1, path: seoPage.path },
+    ] : [
+      { name: seoPage.locale === 'vi' ? 'Trang chủ' : 'Home', path: seoPage.locale === 'vi' ? '/vi' : '/' },
+      { name: seoPage.h1, path: seoPage.path },
+    ]));
+    return createMetadata({ title: seoPage.title, description: seoPage.description, canonical,
+      robots: 'index, follow', locale: seoPage.locale as Locale, jsonLd, ogUrl: canonical,
+      alternates: [
+        { hrefLang: 'vi', href: toAbsoluteUrl(viPath) },
+        { hrefLang: 'en', href: toAbsoluteUrl(enPath) },
+        { hrefLang: 'x-default', href: toAbsoluteUrl(enPath) },
+      ],
+    });
+  }
   const localizedRoute = resolveLocalizedRoute(pathname);
   const resolvedLocale = localizedRoute.locale;
   const resolvedPathname =
@@ -1011,8 +1062,8 @@ export function getExpectedPublicIndexableRoutes(): string[] {
       )),
     ),
     // English-only resources until translated copy receives its own review.
-    ...[INSIGHTS_BASE_PATH, ...getPublishedInsightArticles().map((article) => `${INSIGHTS_BASE_PATH}/${article.slug}`)],
-    '/about/nathaniel-jay-adams',
+    ...[INSIGHTS_BASE_PATH, '/vi/insights', ...getPublishedInsightArticles().map((article) => `${INSIGHTS_BASE_PATH}/${article.slug}`)],
+    ...seoPagePaths,
     // Rewrite-served routes are listed AFTER the locale fanout because
     // they are not part of the standard EN/VI mirror system. They are
     // public + indexable on the production domain via Vercel rewrites.
