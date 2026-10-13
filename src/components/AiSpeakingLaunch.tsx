@@ -34,7 +34,9 @@ export function AiSpeakingLaunch() {
             </div>
             {/* Writing: public product introduction (coming soon), served by the AI Speaking app → native <a>. */}
             <div className="mt-8 rounded-2xl border border-jurassic-dark/15 bg-white p-5 shadow-sm">
-              <p className="text-[11px] font-bold tracking-[0.14em] text-jurassic-dark/70">{content.writingEyebrow}</p>
+              <p className="flex flex-wrap items-center gap-2 text-[11px] font-bold tracking-[0.14em] text-jurassic-dark/70">
+                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] uppercase tracking-wider text-white">{content.writingBadge}</span>{content.writingEyebrow}
+              </p>
               <h3 className="mt-2 font-serif text-xl leading-snug text-jurassic-dark">{content.writingTitle}</h3>
               <p className="mt-2 text-sm leading-relaxed text-jurassic-dark/75">{content.writingBody}</p>
               <a href={getLocalizedHref('/ai-speaking/writing', locale)} onClick={() => trackCtaClick({ label: 'homepage_writing_intro_click', type: 'secondary', segment: 'parent_student' })} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-jurassic-dark underline decoration-jurassic-accent decoration-2 underline-offset-4 hover:text-[#933402] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
