@@ -42,6 +42,19 @@ export type InsightArticle = {
 };
 
 export const insightArticles: InsightArticle[] = [
+  {
+    slug: 'online-ielts-speaking-coaching',
+    title: 'Online IELTS Speaking Coaching for Adults: A Buyer Guide',
+    deck: 'For adult learners in Vietnam: start with free independent practice, consider a paid live baseline, then decide whether one-to-one coaching fits. Overseas learners should confirm payment and timezone compatibility before booking.',
+    description: 'An adult buyer guide to online IELTS Speaking coaching: free practice, paid live baseline, one-to-one lessons, assessment limits and booking checks.',
+    datePublished: '2026-10-14',
+    authorName: 'Jurassic English™',
+    heroImage: '/images/hero-compass-960.webp',
+    heroAlt: 'Jurassic English compass artwork',
+    section: 'Adult IELTS Speaking',
+    // Release-ready code candidate; public only after the parent deploys it.
+    status: 'published',
+  },
   { slug: 'what-to-fix-first-in-ielts-speaking', title: 'What should I fix first in IELTS Speaking?', deck: 'A useful diagnostic starts with evidence from the answer, chooses one high-impact priority and gives the learner a practical next attempt.', description: 'Learn how to turn an IELTS Speaking practice answer into one evidence-based priority and a focused independent practice task.', datePublished: '2026-10-10', dateModified: '2026-10-10', authorName: 'Jurassic English™', heroImage: '/images/hero-compass-960.webp', heroAlt: 'Jurassic English compass artwork', section: 'IELTS Speaking', status: 'published' },
   { slug: 'what-typed-speaking-practice-can-assess', title: 'What can typed IELTS-style speaking practice assess?', deck: 'Typed practice can reveal wording, grammar, vocabulary and visible organization. It cannot assess pronunciation or the full delivery of spoken answers.', description: 'Understand the evidence and limitations of typed IELTS-style speaking practice, including why pronunciation requires audio.', datePublished: '2026-10-10', dateModified: '2026-10-10', authorName: 'Jurassic English™', heroImage: '/images/hero-compass-960.webp', heroAlt: 'Jurassic English compass artwork', section: 'Practice and assessment', status: 'published' },
   { slug: 'from-speaking-diagnostic-to-one-to-one-lesson', title: 'How does a speaking diagnostic lead to a one-to-one lesson?', deck: 'A diagnostic is most useful when a learner can inspect the evidence, practise a focused strategy, try again independently and use the follow-up to choose the next step.', description: 'See how Jurassic English connects a speaking diagnostic to guided one-to-one practice and a clear follow-up action.', datePublished: '2026-10-10', dateModified: '2026-10-10', authorName: 'Jurassic English™', heroImage: '/images/hero-compass-960.webp', heroAlt: 'Jurassic English compass artwork', section: 'One-to-one learning', status: 'published' },
