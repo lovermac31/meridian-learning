@@ -45,6 +45,7 @@ const copy = {
     privacy: 'Recording is optional. Audio stays on this device, is held only in this browser tab, and is never uploaded or saved by Jurassic English. Reset or leave the page to discard it.',
     practice: 'Explore AI Speaking practice for adults', measured: 'Book a measured Speaking Baseline',
     sound: 'A gentle tone marks the change from planning to speaking and the end of speaking.',
+    timerNotOfficial: 'Practice only: this timer does not score your answer and is not an official IELTS score.',
   },
   vi: {
     calculator: 'Tính điểm IELTS overall', timer: 'Đồng hồ IELTS Speaking Part 2',
@@ -82,6 +83,7 @@ const copy = {
     privacy: 'Ghi âm là tùy chọn. Âm thanh chỉ ở trên thiết bị này, chỉ được giữ trong tab trình duyệt và không bao giờ được Jurassic English tải lên hoặc lưu trữ. Đặt lại hoặc rời trang để xóa bản ghi.',
     practice: 'Khám phá AI Speaking dành cho người lớn', measured: 'Đặt lịch Speaking Baseline để được đánh giá',
     sound: 'Âm báo nhẹ đánh dấu lúc chuyển sang phần nói và khi kết thúc.',
+    timerNotOfficial: 'Chỉ để luyện tập: đồng hồ không chấm câu trả lời của bạn và không phải điểm IELTS chính thức.',
   },
 } as const;
 
@@ -209,7 +211,7 @@ export function IeltsSpeakingTimerPage({ locale }: { locale: Locale }) {
     <section className={cardClass}><h2 className="text-2xl font-bold">{c.structure}</h2><p className="mt-3">{c.structureText}</p></section>
     <section className={cardClass}><h2 className="text-xl font-bold">{c.record}</h2><p className="my-3">{c.privacy}</p><button type="button" className={buttonClass} onClick={recording ? stopRecording : () => void startRecording()}>{recording ? c.stop : c.record}</button>{recording && <p role="status" className="mt-3">{c.recording}</p>}{micError && <p role="alert" className="mt-3 text-red-800">{c.micError}</p>}{playback && <div className="mt-4"><label className="block" htmlFor="timer-playback">{c.playback}</label><audio id="timer-playback" controls src={playback} /></div>}</section>
     <div className="flex flex-wrap gap-6"><a className="font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi' : '/ai-speaking'}>{c.practice}</a><a className="font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.measured}</a></div>
-    <p className="text-sm">{c.independent}</p>
+    <p className="text-sm">{c.timerNotOfficial} {c.independent}</p>
   </div></main>;
 }
 
