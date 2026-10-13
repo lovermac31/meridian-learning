@@ -75,9 +75,15 @@ test('createPersonJsonLd ties the author to the org and omits unset optionals', 
 
 test('published discovery resources have stable routes and no placeholder articles', () => {
   assert.equal(INSIGHTS_BASE_PATH, '/insights');
-  assert.equal(insightArticles.length, 3);
-  assert.equal(getPublishedInsightArticles().length, 3);
-  assert.equal(getInsightRoutePaths().length, 4);
+  const published = insightArticles.filter((article) => article.status === 'published');
+  assert.ok(published.length > 0);
+  assert.deepEqual(getPublishedInsightArticles(), published);
+  assert.deepEqual(getInsightRoutePaths(), [INSIGHTS_BASE_PATH, ...published.map((article) => `${INSIGHTS_BASE_PATH}/${article.slug}`)]);
+  assert.equal(new Set(insightArticles.map((article) => article.slug)).size, insightArticles.length, 'article slugs are unique');
+  for (const article of insightArticles.filter((article) => article.status === 'draft')) {
+    assert.equal(getInsightArticleBySlug(article.slug), undefined);
+    assert.ok(!getInsightRoutePaths().includes(`${INSIGHTS_BASE_PATH}/${article.slug}`));
+  }
   assert.equal(getInsightArticleBySlug('what-to-fix-first-in-ielts-speaking')?.status, 'published');
   assert.equal(getInsightArticleBySlug('anything'), undefined);
   const routes = getExpectedPublicIndexableRoutes();
