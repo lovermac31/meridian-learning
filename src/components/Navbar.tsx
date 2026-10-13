@@ -208,6 +208,14 @@ export const Navbar = ({
               </span>
             </span>
           </a>
+          <a
+            href={getLocalizedHref('/ai-speaking/writing', locale)}
+            aria-label={locale === 'vi' ? 'Mới: Luyện viết IELTS (sắp ra mắt)' : 'New: IELTS Writing Practice (coming soon)'}
+            className="group hidden 2xl:inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] py-1.5 pl-2 pr-3.5 transition-all duration-300 hover:border-jurassic-accent/70 hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+          >
+            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">{locale === 'vi' ? 'Mới' : 'New'}</span>
+            <span className="text-sm font-semibold text-white">{locale === 'vi' ? 'Luyện viết IELTS' : 'IELTS Writing'}</span>
+          </a>
           {/* Phase 9 — focus-visible rings added to every desktop nav link
               and CTA. jurassic-accent / jurassic-gold rings against the
               dark header backdrop. rounded-md for ring corner shape. */}
@@ -307,6 +315,17 @@ export const Navbar = ({
             >
               <span className="text-base font-semibold text-white">Live Speaking Baseline</span>
               <span className="mt-1.5 block text-sm text-white/70">A live IELTS-style Speaking assessment with a person, on Google Meet</span>
+            </a>
+            <a
+              href={getLocalizedHref('/ai-speaking/writing', locale)}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            >
+              <span className="flex items-center gap-2">
+                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">{locale === 'vi' ? 'Mới' : 'New'}</span>
+                <span className="text-base font-semibold text-white">{locale === 'vi' ? 'Luyện viết IELTS' : 'Writing Practice'}</span>
+              </span>
+              <span className="mt-1.5 block text-sm text-white/70">{locale === 'vi' ? 'Task 2, dựa trên bằng chứng · sắp ra mắt' : 'IELTS Task 2, evidence-first · coming soon'}</span>
             </a>
             {languageSwitcher ? (
               <div className="border-b border-white/10 pb-4">

@@ -81,6 +81,7 @@ export const enUi = {
       navLabel: 'Ecosystem pages',
       aiSpeaking: 'AI Speaking Practice',
       baseline: 'Live Speaking Baseline',
+      writing: 'New: Writing Practice (coming soon)',
       studentAcademy: 'Student Academy',
       interactiveDemo: 'Interactive Demo',
       bookDiagnostic: 'Book a Diagnostic',
