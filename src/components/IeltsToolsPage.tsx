@@ -122,7 +122,7 @@ export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
       </section>
       <article className="space-y-5 leading-7"><h2 className="text-2xl font-bold">{c.how}</h2>{c.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<a className="underline" href={source}>{c.source}</a></article>
       <section className={cardClass}><h2 className="mb-3 text-2xl font-bold">{c.speakingHeading}</h2>
-        {/* VERIFY on ielts.org before merge */}
+        {/* Verified 14 Oct 2026: ielts.org test-taker-performance-data-2024-2025.xlsx, Academic by nationality, Vietnam Speaking 5.61 vs Overall 6.20 (widest gap of 40). */}
         <p>{c.speakingData}</p><a className="mt-4 inline-block font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.baseline}</a>
       </section>
       <section className={cardClass}><h2 className="mb-4 text-2xl font-bold">{c.faqTitle}</h2>{c.faqs.map(([question, answer]) => <div key={question} className="mb-4"><h3 className="font-semibold">{question}</h3><p>{answer}</p></div>)}</section>
