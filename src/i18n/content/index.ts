@@ -23,7 +23,8 @@ export type PublicContentGroup =
   | 'series'
   | 'syllabus'
   | 'thinkingCycle'
-  | 'legal';
+  | 'legal'
+  | 'tools';
 
 const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean>> = {
   home: { en: true, vi: true },
@@ -49,11 +50,13 @@ const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean
   syllabus: { en: true, vi: true },
   thinkingCycle: { en: true, vi: true },
   legal: { en: true, vi: true },
+  tools: { en: true, vi: true },
 };
 
 export function getPublicContentGroup(pathname: string): PublicContentGroup | null {
   if (pathname === '/') return 'home';
   if (pathname === '/about/nathaniel-jay-adams' || pathname === '/insights' || pathname.startsWith('/insights/')) return 'knowledge';
+  if (pathname.startsWith('/tools/')) return 'tools';
   if (pathname === '/framework') return 'framework';
   if (pathname === '/knowledge') return 'knowledge';
   if (pathname === '/get-started') return 'getStarted';

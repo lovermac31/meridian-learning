@@ -29,6 +29,7 @@ import { localizeRouteTarget, resolveLocalizedRoute, switchLocaleRoute } from '.
 import { getUiString } from './i18n/ui';
 import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
+import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { SearchInsightsPage } from './components/SearchInsightsPage';
 import { getCurrentLocation } from './lib/ssrLocation';
 
@@ -175,6 +176,8 @@ function App() {
   const isCompaniesView = routePathname === '/companies';
   const isFrameworkView = routePathname === '/framework';
   const isKnowledgeView = routePathname === '/knowledge';
+  const isBandToolView = routePathname === '/tools/ielts-band-score-calculator';
+  const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
   const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams';
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
@@ -228,6 +231,8 @@ function App() {
     isFrameworkView ||
     isKnowledgeView ||
     isInsightsView ||
+    isBandToolView ||
+    isTimerToolView ||
     isSeriesView ||
     isSyllabusView ||
     isSeriesComparisonView ||
@@ -415,7 +420,11 @@ function App() {
         />
       ) : null}
       <Suspense fallback={<div className="min-h-screen bg-jurassic-dark" />}>
-      {isInsightsView ? (
+      {isBandToolView ? (
+        <IeltsBandCalculatorPage locale={locale} />
+      ) : isTimerToolView ? (
+        <IeltsSpeakingTimerPage locale={locale} />
+      ) : isInsightsView ? (
         <SearchInsightsPage pathname={routePathname} onNavigate={navigateTo} />
       ) : isUnknownRouteView ? (
         <NotFoundPage

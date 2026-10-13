@@ -92,6 +92,17 @@ function pageVal(lang: Lang, key: string, isHtml: boolean): string {
   return translated ?? captured ?? STRINGS.en[key] ?? '';
 }
 
+function applyToolLinks(lang: Lang): void {
+  const links: Record<string, string> = {
+    '/tools/ielts-band-score-calculator': '/vi/cong-cu/tinh-diem-ielts',
+    '/tools/ielts-speaking-part-2-timer': '/vi/cong-cu/dong-ho-ielts-speaking-part-2',
+  };
+  document.querySelectorAll<HTMLAnchorElement>('#free-tools a, footer a[data-i18n^="tools."]').forEach((link) => {
+    const en = Object.keys(links).find((key) => link.getAttribute('href') === key || link.getAttribute('href') === links[key]);
+    if (en) link.setAttribute('href', lang === 'vi' ? links[en] : en);
+  });
+}
+
 function applyText(lang: Lang): void {
   document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
     const k = el.getAttribute('data-i18n');
@@ -164,6 +175,7 @@ function applyBaselineLinks(lang: Lang): void {
 function applyAll(lang: Lang): void {
   applyMeta(lang);
   applyText(lang);
+  applyToolLinks(lang);
   applyLessonLinks(lang);
   applyBaselineLinks(lang);
   highlightSelector(lang);
