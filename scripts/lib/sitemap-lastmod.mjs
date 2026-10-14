@@ -116,7 +116,7 @@ export function getRouteSourceFiles(pathname) {
   if (UNMAPPED_URL_PATTERNS.some((pattern) => pattern.test(pathname))) return null;
 
   const canonical = toCanonicalPath(pathname);
-  if (canonical === '/ielts-speaking-online' || /^\/ielts-speaking-online\/[^/]+$/.test(canonical)) return ['src/content/seoPages.json'];
+  if (/^\/(?:es\/|pt\/|id\/|ms\/|th\/|ar\/|ur\/|bn\/)?ielts-speaking-online(?:\/[^/]+)?$/.test(pathname)) return ['src/content/seoPages.json'];
   if (pathname === '/vi/ve-thay-jay-adams' || pathname.startsWith('/vi/insights/') || ['/about/nathaniel-jay-adams','/insights/ielts-speaking-6-to-7','/insights/ielts-speaking-forecast-september-december-2026','/insights/ielts-online-test','/insights/ai-ielts-speaking-scoring'].includes(pathname)) return ['src/components/SearchInsightsPage.tsx', 'src/content/seoPages.json'];
   if (/^\/insights\/[^/]+$/.test(canonical)) return ['src/components/SearchInsightsPage.tsx', 'src/lib/insightsContent.ts'];
   if (STATIC_ROUTE_SOURCES[canonical]) return [...STATIC_ROUTE_SOURCES[canonical]];

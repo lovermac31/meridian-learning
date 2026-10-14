@@ -190,9 +190,9 @@ function replaceMetaTag(html, pattern, replacement) {
 function injectMetadata(html, pathname) {
   const metadata = resolveRouteMetadata(pathname);
   const locale = resolveLocalizedRoute(pathname).locale;
-  const htmlLang = getLocaleDefinition(locale).htmlLang;
+  const htmlLang = metadata.htmlLang;
 
-  let output = html.replace(/<html lang="[^"]*">/, `<html lang="${escapeHtml(htmlLang)}">`);
+  let output = html.replace(/<html lang="[^"]*"(?: dir="[^"]*")?>/, `<html lang="${escapeHtml(htmlLang)}"${htmlLang === 'ar' || htmlLang === 'ur' ? ' dir="rtl"' : ''}>`);
   output = output.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(metadata.title)}</title>`);
   output = replaceMetaTag(
     output,

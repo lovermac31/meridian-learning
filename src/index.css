@@ -1,5 +1,6 @@
 /* Phase 1B: core text uses local stacks; decorative display font loads asynchronously from index.html. */
 @import "tailwindcss";
+@import "./components/search-insights.css";
 
 @theme {
   --font-sans: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
