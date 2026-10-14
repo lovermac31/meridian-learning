@@ -2,7 +2,7 @@
  * PayPal — the second payment option for customers outside Vietnam.
  *
  * Owner decision (Jay Adams, 14 Oct 2026): payments go to the Jurassic English
- * PayPal account (info@jurassicenglish.com) through PayPal's standard _xclick
+ * PayPal business account (shown on PayPal as WorldWiseLearning) through PayPal's standard _xclick
  * checkout. Confirmation is manual: the customer puts their booking reference
  * or email in the PayPal note and Jay confirms by hand. VietQR stays the
  * primary option inside Vietnam.
@@ -16,7 +16,14 @@
  * usdFromVnd(): ceil(VND / 25,897), the FX recorded in that same file.
  */
 
-export const PAYPAL_ACCOUNT = 'info@jurassicenglish.com';
+/**
+ * The business account's PayPal merchant ID. _xclick `business` accepts "your PayPal ID or an email
+ * address associated with your PayPal account"; the ID is used because info@jurassicenglish.com turned
+ * out to be a separate PayPal account (14 Oct 2026), and an ID does not change if an email does.
+ */
+export const PAYPAL_BUSINESS_ID = '__PAYPAL_MERCHANT_ID__';
+/** The payee name PayPal shows at checkout. */
+export const PAYPAL_PAYEE_NAME = 'WorldWiseLearning';
 export const PAYPAL_LOGO = 'https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-color.svg';
 export const PAYPAL_CHECKOUT = 'https://www.paypal.com/cgi-bin/webscr';
 
@@ -37,7 +44,7 @@ export function paypalItemName(offer: string, where: string): string {
 export function paypalHref(itemName: string, amountUsd: number): string {
   const params = new URLSearchParams({
     cmd: '_xclick',
-    business: PAYPAL_ACCOUNT,
+    business: PAYPAL_BUSINESS_ID,
     item_name: itemName,
     amount: amountUsd.toFixed(2),
     currency_code: 'USD',

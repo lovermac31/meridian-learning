@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { renderRoute } from '../src/entry-server';
 import { seoPages, isInternationalMarketPath } from '../src/lib/seoPages';
 import pricing from '../src/content/marketPricing.json';
+import { PAYPAL_BUSINESS_ID } from '../src/lib/paypal';
 
 const representative = [...seoPages.map(page => page.path), '/vi/insights', '/insights', '/insights/online-ielts-speaking-coaching'];
 
@@ -115,7 +116,7 @@ test('PayPal panel pays the approved tier on every PayPal market, and stays off 
     assert.deepEqual(hrefs.map(url => url.searchParams.get('amount')), [prices.baseline_usd, prices.lesson_usd, prices.pack8_usd].map(value => value.toFixed(2)), page.path);
     for (const url of hrefs) {
       assert.equal(url.origin + url.pathname, 'https://www.paypal.com/cgi-bin/webscr', page.path);
-      assert.equal(url.searchParams.get('business'), 'info@jurassicenglish.com', page.path);
+      assert.equal(url.searchParams.get('business'), PAYPAL_BUSINESS_ID, page.path);
       assert.equal(url.searchParams.get('currency_code'), 'USD', page.path);
     }
     assert.match(panel, /<img src="https:\/\/www\.paypalobjects\.com\/[^"]+" width="101" height="32" alt="PayPal"/, page.path);

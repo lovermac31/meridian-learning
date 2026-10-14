@@ -4,6 +4,7 @@ import { OneChangeInvitation } from './OneChangeInvitation';
 import { getSeoPage, seoPages, isInternationalMarketPath } from '../lib/seoPages';
 import type { SeoPage } from '../lib/seoPages';
 import marketPricing from '../content/marketPricing.json';
+import { PAYPAL_BUSINESS_ID, PAYPAL_LOGO, PAYPAL_PAYEE_NAME } from '../lib/paypal';
 
 const sources = <ul className="list-disc pl-6"><li><a href="https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-speaking" rel="noopener noreferrer">IELTS Academic Speaking test format</a></li><li><a href="https://ielts.org/cdn/ielts-guides/ielts-speaking-key-assessment-criteria.pdf" rel="noopener noreferrer">IELTS Speaking key assessment criteria</a></li></ul>;
 
@@ -142,19 +143,18 @@ function CtaNote({ locale, paypal }: { locale: string; paypal?: boolean }) {
   return <p className="insights-cta-note">{locale === 'ar' || locale === 'ur' ? <span dangerouslySetInnerHTML={{ __html: rtlNote }} /> : note}</p>;
 }
 
-// PayPal (Vietnam account info@jurassicenglish.com) takes USD from the market countries. PayPal is
-// not available to residents of Pakistan or Bangladesh, so those pages keep the email request only.
-const PAYPAL_ACCOUNT = 'info@jurassicenglish.com';
-const PAYPAL_LOGO = 'https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-color.svg';
+// PayPal (the Jurassic English business account, shown on PayPal as WorldWiseLearning) takes USD from
+// the market countries. PayPal is not available to residents of Pakistan or Bangladesh, so those pages
+// keep the email request only.
 const noPaypalMarkets = new Set(['pakistan', 'bangladesh']);
 const payCopy: Record<string, { title: string; baseline: string; lesson: string; pack: string; note: string; hero: string; link: string }> = {
-  en: { title: 'Pay in US dollars with PayPal', baseline: 'Live Speaking Baseline', lesson: 'One-to-one lesson, 60 min', pack: 'Pack of 8 lessons', note: 'Payments go to Jurassic English (info@jurassicenglish.com) on PayPal. After you pay, we email you to agree a time.', hero: 'Requests go to info@jurassicenglish.com.', link: 'Or pay in USD with PayPal' },
-  es: { title: 'Paga en dólares estadounidenses con PayPal', baseline: 'Evaluación inicial de Speaking', lesson: 'Clase individual, 60 min', pack: 'Paquete de 8 clases', note: 'Los pagos llegan a Jurassic English (info@jurassicenglish.com) en PayPal. Después de pagar, te escribimos para acordar un horario.', hero: 'Las solicitudes llegan a info@jurassicenglish.com.', link: 'O paga en USD con PayPal' },
-  'pt-BR': { title: 'Pague em dólares americanos com PayPal', baseline: 'Avaliação inicial de Speaking', lesson: 'Aula individual, 60 min', pack: 'Pacote de 8 aulas', note: 'Os pagamentos vão para a Jurassic English (info@jurassicenglish.com) no PayPal. Depois do pagamento, enviamos um e-mail para combinar o horário.', hero: 'As solicitações vão para info@jurassicenglish.com.', link: 'Ou pague em USD com PayPal' },
-  id: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Asesmen awal Speaking', lesson: 'Les privat, 60 menit', pack: 'Paket 8 les', note: 'Pembayaran masuk ke Jurassic English (info@jurassicenglish.com) di PayPal. Setelah Anda membayar, kami mengirim email untuk menyepakati jadwal.', hero: 'Permintaan dikirim ke info@jurassicenglish.com.', link: 'Atau bayar dalam USD dengan PayPal' },
-  ms: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Penilaian awal Speaking', lesson: 'Kelas individu, 60 minit', pack: 'Pakej 8 kelas', note: 'Bayaran dihantar kepada Jurassic English (info@jurassicenglish.com) di PayPal. Selepas anda membayar, kami akan menghantar e-mel untuk menetapkan masa.', hero: 'Permohonan dihantar ke info@jurassicenglish.com.', link: 'Atau bayar dalam USD dengan PayPal' },
-  th: { title: 'ชำระเป็นดอลลาร์สหรัฐผ่าน PayPal', baseline: 'การประเมิน Speaking เบื้องต้น', lesson: 'เรียนตัวต่อตัว 60 นาที', pack: 'แพ็กเกจเรียน 8 ครั้ง', note: 'การชำระเงินจะส่งถึง Jurassic English (info@jurassicenglish.com) ทาง PayPal หลังชำระเงินแล้ว เราจะส่งอีเมลเพื่อนัดเวลาเรียน', hero: 'คำขอจะส่งไปที่ info@jurassicenglish.com', link: 'หรือชำระเป็น USD ผ่าน PayPal' },
-  ar: { title: 'ادفع بالدولار الأمريكي عبر PayPal', baseline: 'التقييم الأولي للمحادثة', lesson: 'درس فردي، 60 دقيقة', pack: 'باقة من 8 دروس', note: 'تصل المدفوعات إلى Jurassic English (info@jurassicenglish.com) على PayPal. بعد الدفع، نراسلك عبر البريد الإلكتروني لتحديد موعد.', hero: 'تصل الطلبات إلى info@jurassicenglish.com.', link: 'أو ادفع بالدولار الأمريكي عبر PayPal' },
+  en: { title: 'Pay in US dollars with PayPal', baseline: 'Live Speaking Baseline', lesson: 'One-to-one lesson, 60 min', pack: 'Pack of 8 lessons', note: 'Payments go to Jurassic English (WorldWiseLearning) on PayPal. After you pay, we email you to agree a time.', hero: 'Requests go to info@jurassicenglish.com.', link: 'Or pay in USD with PayPal' },
+  es: { title: 'Paga en dólares estadounidenses con PayPal', baseline: 'Evaluación inicial de Speaking', lesson: 'Clase individual, 60 min', pack: 'Paquete de 8 clases', note: 'Los pagos llegan a Jurassic English (WorldWiseLearning) en PayPal. Después de pagar, te escribimos para acordar un horario.', hero: 'Las solicitudes llegan a info@jurassicenglish.com.', link: 'O paga en USD con PayPal' },
+  'pt-BR': { title: 'Pague em dólares americanos com PayPal', baseline: 'Avaliação inicial de Speaking', lesson: 'Aula individual, 60 min', pack: 'Pacote de 8 aulas', note: 'Os pagamentos vão para a Jurassic English (WorldWiseLearning) no PayPal. Depois do pagamento, enviamos um e-mail para combinar o horário.', hero: 'As solicitações vão para info@jurassicenglish.com.', link: 'Ou pague em USD com PayPal' },
+  id: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Asesmen awal Speaking', lesson: 'Les privat, 60 menit', pack: 'Paket 8 les', note: 'Pembayaran masuk ke Jurassic English (WorldWiseLearning) di PayPal. Setelah Anda membayar, kami mengirim email untuk menyepakati jadwal.', hero: 'Permintaan dikirim ke info@jurassicenglish.com.', link: 'Atau bayar dalam USD dengan PayPal' },
+  ms: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Penilaian awal Speaking', lesson: 'Kelas individu, 60 minit', pack: 'Pakej 8 kelas', note: 'Bayaran dihantar kepada Jurassic English (WorldWiseLearning) di PayPal. Selepas anda membayar, kami akan menghantar e-mel untuk menetapkan masa.', hero: 'Permohonan dihantar ke info@jurassicenglish.com.', link: 'Atau bayar dalam USD dengan PayPal' },
+  th: { title: 'ชำระเป็นดอลลาร์สหรัฐผ่าน PayPal', baseline: 'การประเมิน Speaking เบื้องต้น', lesson: 'เรียนตัวต่อตัว 60 นาที', pack: 'แพ็กเกจเรียน 8 ครั้ง', note: 'การชำระเงินจะส่งถึง Jurassic English (WorldWiseLearning) ทาง PayPal หลังชำระเงินแล้ว เราจะส่งอีเมลเพื่อนัดเวลาเรียน', hero: 'คำขอจะส่งไปที่ info@jurassicenglish.com', link: 'หรือชำระเป็น USD ผ่าน PayPal' },
+  ar: { title: 'ادفع بالدولار الأمريكي عبر PayPal', baseline: 'التقييم الأولي للمحادثة', lesson: 'درس فردي، 60 دقيقة', pack: 'باقة من 8 دروس', note: 'تصل المدفوعات إلى Jurassic English (WorldWiseLearning) على PayPal. بعد الدفع، نراسلك عبر البريد الإلكتروني لتحديد موعد.', hero: 'تصل الطلبات إلى info@jurassicenglish.com.', link: 'أو ادفع بالدولار الأمريكي عبر PayPal' },
 };
 
 function paypalMarket(path: string, locale: string) {
@@ -163,13 +163,15 @@ function paypalMarket(path: string, locale: string) {
 }
 
 function paypalHref(item: string, market: string, amount: number) {
-  const params = new URLSearchParams({ cmd: '_xclick', business: PAYPAL_ACCOUNT, item_name: `${item} - ${countryNames.en[market] ?? market} (Jurassic English)`, amount: amount.toFixed(2), currency_code: 'USD', no_shipping: '1' });
+  const params = new URLSearchParams({ cmd: '_xclick', business: PAYPAL_BUSINESS_ID, item_name: `${item} - ${countryNames.en[market] ?? market} (Jurassic English)`, amount: amount.toFixed(2), currency_code: 'USD', no_shipping: '1' });
   return `https://www.paypal.com/cgi-bin/webscr?${params.toString()}`;
 }
 
-// Isolates Latin runs for RTL, keeping the email address whole (the Latin-run rule splits it at the @).
+// Isolates Latin runs for RTL, keeping the contact email (the Latin-run rule splits it at the @) and the
+// PayPal payee name whole.
 function rtlSafe(text: string) {
-  return text.split(PAYPAL_ACCOUNT).map(isolateRtlText).join(`<bdi dir="ltr">${PAYPAL_ACCOUNT}</bdi>`);
+  const keep = (part: string, token: string, next: (p: string) => string) => part.split(token).map(next).join(`<bdi dir="ltr">${token}</bdi>`);
+  return keep(text, 'info@jurassicenglish.com', part => keep(part, PAYPAL_PAYEE_NAME, isolateRtlText));
 }
 
 function PayPalPanel({ market, locale }: { market: string; locale: string }) {
