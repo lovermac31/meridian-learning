@@ -213,7 +213,9 @@ function App() {
     // transparent navbar's white wordmark + links would be invisible.
     // Force the solid dark navbar like the other light-background pages.
     isKnowledgeView ||
-    isInsightsView;
+    isInsightsView ||
+    isBandToolView ||
+    isTimerToolView;
   const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
   const isSubpageView =
     isGetStartedView ||

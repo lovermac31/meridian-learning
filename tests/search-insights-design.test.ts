@@ -10,7 +10,7 @@ test('market, editorial, and profile routes use a solid navbar and dark hero', a
   for (const path of representative) {
     const html = await renderRoute(path);
     assert.match(html, /insights-hero/, path);
-    assert.match(html, /<nav class="fixed top-0 w-full z-50[^\"]*bg-jurassic-dark\/85/, path);
+    assert.match(html, /<nav class="fixed top-0 w-full z-50[^\"]*bg-jurassic-dark(?:\s|")/, path);
   }
 });
 
@@ -71,4 +71,12 @@ test('market fact asides have no emerald source classes', async () => {
   assert.ok(aside);
   assert.doesNotMatch(aside, /emerald/);
   assert.match(aside, /Key facts/);
+});
+
+test('non-Latin market pages render without Google Fonts requests', async () => {
+  for (const page of seoPages.filter(item => ['ar', 'ur', 'th', 'bn'].includes(item.locale))) {
+    const html = await renderRoute(page.path);
+    assert.doesNotMatch(html, /fonts\.googleapis\.com/, page.path);
+    assert.match(html, new RegExp(`class="insights-page" lang="${page.locale}"`), page.path);
+  }
 });

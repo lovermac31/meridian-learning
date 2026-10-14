@@ -35,7 +35,7 @@ export function AiSpeakingLaunch() {
             {/* Writing: public product introduction (coming soon), served by the AI Speaking app → native <a>. */}
             <div className="mt-8 rounded-2xl border border-jurassic-dark/15 bg-white p-5 shadow-sm">
               <p className="flex flex-wrap items-center gap-2 text-[11px] font-bold tracking-[0.14em] text-jurassic-dark/70">
-                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] uppercase tracking-wider text-white">{content.writingBadge}</span>{content.writingEyebrow}
+                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] uppercase tracking-wider text-jurassic-dark">{content.writingBadge}</span>{content.writingEyebrow}
               </p>
               <h3 className="mt-2 font-serif text-xl leading-snug text-jurassic-dark">{content.writingTitle}</h3>
               <p className="mt-2 text-sm leading-relaxed text-jurassic-dark/75">{content.writingBody}</p>

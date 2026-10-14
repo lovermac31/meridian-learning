@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { getPublishedInsightArticles, getInsightArticleBySlug, INSIGHTS_BASE_PATH } from '../lib/insightsContent';
 import { OneChangeInvitation } from './OneChangeInvitation';
 import { getSeoPage, seoPages, isInternationalMarketPath } from '../lib/seoPages';
@@ -129,7 +130,7 @@ function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas }: {
     <div className="insights-hero-inner">
       <div className="min-w-0">
         <p className="insights-eyebrow">{eyebrow}</p>
-        <h1 className={`insights-title ${['ar', 'ur', 'bn', 'th'].includes(locale) ? 'insights-title-native' : 'font-display'}`}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(title) }} /> : title}</h1>
+        <h1 className={`insights-title ${['ar', 'ur', 'bn', 'th', 'vi'].includes(locale) ? 'insights-title-native' : 'font-display'}`}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(title) }} /> : title}</h1>
         {intro && <div className="insights-lead" dangerouslySetInnerHTML={{ __html: intro }} />}
         {alternate && <div className="insights-language" role="group" aria-label={(chrome[locale] ?? chrome.en).language}>
           {[{ path: '', locale }, alternate].map((option, index) => <a key={option.locale} href={index === 0 ? undefined : option.path} aria-current={index === 0 ? 'true' : undefined} lang={option.locale} className={index === 0 ? 'current' : ''}>{languageLabels[option.locale] ?? option.locale}</a>)}
@@ -145,6 +146,12 @@ function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas }: {
 
 export function SearchInsightsPage({ pathname, onNavigate }: { pathname: string; onNavigate: (path: string) => void }) {
   const seoPage = getSeoPage(pathname);
+  useEffect(() => {
+    if (seoPage?.locale === 'ar') void import('../fonts/ar');
+    if (seoPage?.locale === 'ur') void import('../fonts/ur');
+    if (seoPage?.locale === 'th') void import('../fonts/th');
+    if (seoPage?.locale === 'bn') void import('../fonts/bn');
+  }, [seoPage?.locale]);
   if (seoPage) {
     const { html, intro } = prepareSeoContent(seoPage);
     const market = isInternationalMarketPath(seoPage.path);
@@ -154,7 +161,6 @@ export function SearchInsightsPage({ pathname, onNavigate }: { pathname: string;
     const marketKey = marketFromPath(seoPage.path);
     const eyebrow = market ? (marketKey ? (countryNames[seoPage.locale] ?? countryNames.en)[marketKey] ?? countryNames.en[marketKey] : (chrome[seoPage.locale] ?? chrome.en).resources) : (seoPage.path.includes('/insights/') ? (chrome[seoPage.locale] ?? chrome.en).resources : 'Jurassic English · People');
     return <main id="main-content" className="insights-page" lang={seoPage.locale} dir={['ar', 'ur'].includes(seoPage.locale) ? 'rtl' : 'ltr'}>
-      {['ar', 'ur', 'bn', 'th'].includes(seoPage.locale) && <link rel="stylesheet" href={`https://fonts.googleapis.com/css2?${seoPage.locale === 'ar' ? 'family=Tajawal:wght@700;800&family=Noto+Kufi+Arabic:wght@400;600' : seoPage.locale === 'ur' ? 'family=Noto+Kufi+Arabic:wght@600;700&family=Noto+Nastaliq+Urdu:wght@400;600' : seoPage.locale === 'bn' ? 'family=Noto+Sans+Bengali:wght@400;600;700' : 'family=Noto+Sans+Thai:wght@400;600;700'}&display=swap`} />}
       <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} />
       <div className="insights-content"><nav aria-label="Breadcrumb"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{(chrome[seoPage.locale] ?? chrome.en).resources}</a></nav><article dangerouslySetInnerHTML={{ __html: html }} /></div>
       {market && <div className="insights-closing"><div><p>{(chrome[seoPage.locale] ?? chrome.en).closing}</p><div className="insights-closing-actions">{ctas.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{['ar', 'ur'].includes(seoPage.locale) ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}</div></div></div>}

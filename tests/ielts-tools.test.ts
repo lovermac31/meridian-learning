@@ -41,3 +41,20 @@ test('Part 2 timer pages state they are not an official IELTS score', async () =
   assert.ok(en.includes('not an official IELTS score'), 'EN timer carries the official-score disclaimer');
   assert.ok(vi.includes('không phải điểm IELTS chính thức'), 'VI timer carries the official-score disclaimer');
 });
+
+test('tool pages render the shared hero, language counterpart, and closing CTA', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  for (const [path, counterpart] of [
+    ['/tools/ielts-band-score-calculator', '/vi/cong-cu/tinh-diem-ielts'],
+    ['/vi/cong-cu/tinh-diem-ielts', '/tools/ielts-band-score-calculator'],
+    ['/tools/ielts-speaking-part-2-timer', '/vi/cong-cu/dong-ho-ielts-speaking-part-2'],
+    ['/vi/cong-cu/dong-ho-ielts-speaking-part-2', '/tools/ielts-speaking-part-2-timer'],
+  ]) {
+    const html = await renderRoute(path);
+    assert.match(html, /insights-hero/, path);
+    assert.match(html, /bg-jurassic-dark(?:\s|")/, path);
+    assert.match(html, /ielts-tool-card/, path);
+    assert.match(html, /insights-closing/, path);
+    assert.ok(html.includes(`href="${counterpart}"`), path);
+  }
+});
