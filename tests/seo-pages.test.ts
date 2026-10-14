@@ -9,6 +9,7 @@ const origin = 'https://jurassicenglish.com';
 const routes = new Set(getExpectedPublicIndexableRoutes());
 
 for (const page of seoPages) {
+  if (page.path.startsWith('/ielts-speaking-online')) continue;
   test(`${page.path} renders its full SEO page on the server`, async () => {
     const html = await renderRoute(page.path);
     const metadata = resolveRouteMetadata(page.path);

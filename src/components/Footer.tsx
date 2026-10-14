@@ -51,6 +51,7 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
     resources: [
       { label: 'About Nathaniel Jay Adams', href: '/about/nathaniel-jay-adams' },
       { label: 'IELTS Speaking resources (English)', href: '/insights' },
+      { label: 'IELTS Speaking online (outside Vietnam)', href: '/ielts-speaking-online' },
       { label: locale === 'vi' ? 'Tính điểm IELTS overall' : 'IELTS band score calculator', href: '/tools/ielts-band-score-calculator' },
       { label: locale === 'vi' ? 'Đồng hồ IELTS Speaking Part 2' : 'IELTS Speaking Part 2 timer', href: '/tools/ielts-speaking-part-2-timer' },
       { label: locale === 'vi' ? 'Bài luyện tập Speaking miễn phí' : 'Free Speaking challenge', href: '/challenges/one-change' },

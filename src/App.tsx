@@ -178,7 +178,7 @@ function App() {
   const isKnowledgeView = routePathname === '/knowledge';
   const isBandToolView = routePathname === '/tools/ielts-band-score-calculator';
   const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
-  const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams';
+  const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams' || routePathname === '/ielts-speaking-online' || routePathname.startsWith('/ielts-speaking-online/');
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
   const isInternalPilotRequestsView = routePathname === '/internal/pilot-requests';
