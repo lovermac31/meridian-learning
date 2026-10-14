@@ -100,9 +100,24 @@ const topics = [
   ['a goal you changed and why', 'một mục tiêu bạn đã thay đổi và lý do'],
 ] as const;
 
-const pageClass = 'min-h-screen bg-[#f8f6f1] px-5 pb-20 pt-32 text-[#182923]';
-const cardClass = 'rounded-2xl border border-[#d7ded4] bg-white p-6 shadow-sm';
-const buttonClass = 'rounded-lg bg-[#174739] px-5 py-3 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#174739] disabled:opacity-50';
+const pageClass = 'insights-page ielts-tools-page min-h-screen';
+const cardClass = 'ielts-tool-card rounded-2xl bg-white p-6 shadow-sm';
+const buttonClass = 'ielts-tool-button-primary inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 font-bold disabled:opacity-50';
+const secondaryButtonClass = 'ielts-tool-button-secondary inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 font-bold';
+const inputClass = 'ielts-tool-input mt-2 block min-h-12 w-full rounded-xl border p-3';
+
+function ToolHero({ locale, title, lead, eyebrow, counterpart }: { locale: Locale; title: string; lead: string; eyebrow: string; counterpart: string }) {
+  return <header className="insights-hero">
+    <picture className="insights-compass" aria-hidden="true"><source media="(max-width: 640px)" srcSet="/images/hero-compass-640.webp" /><img src="/images/hero-compass-960.webp" width="960" height="960" alt="" /></picture>
+    <div className="insights-hero-inner"><div>
+      <p className="insights-eyebrow">{eyebrow}</p><h1 className={`insights-title ${locale === 'vi' ? 'insights-title-native' : 'font-display'}`}>{title}</h1><p className="insights-lead">{lead}</p>
+      <div className="insights-language" role="group" aria-label={locale === 'vi' ? 'Ngôn ngữ' : 'Language'}>
+        <a className={locale === 'en' ? 'current' : ''} aria-current={locale === 'en' ? 'page' : undefined} href={locale === 'en' ? undefined : counterpart} lang="en">English</a>
+        <a className={locale === 'vi' ? 'current' : ''} aria-current={locale === 'vi' ? 'page' : undefined} href={locale === 'vi' ? undefined : counterpart} lang="vi">Tiếng Việt</a>
+      </div>
+    </div></div>
+  </header>;
+}
 
 export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
   const c = copy[locale];
@@ -111,12 +126,12 @@ export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
   const valid = bands.every((value) => isValidBand(Number(value)) && value.trim() !== '');
   const skills = ['Listening', 'Reading', 'Writing', 'Speaking'];
   return <main id="main-content" tabIndex={-1} className={pageClass}>
-    <div className="mx-auto max-w-3xl space-y-8">
-      <h1 className="text-4xl font-bold">{c.calculator}</h1>
-      <section className={cardClass} aria-label={c.keyFacts}><h2 className="mb-3 text-xl font-semibold">{c.keyFacts}</h2><p>{c.intro}</p><p className="mt-3 font-semibold">{c.notOfficial}</p></section>
+    <ToolHero locale={locale} title={c.calculator} lead={c.intro} eyebrow={locale === 'vi' ? 'Công cụ luyện IELTS' : 'IELTS practice tool'} counterpart={locale === 'vi' ? calculatorEn : calculatorVi} />
+    <div className="ielts-tool-content mx-auto max-w-3xl space-y-8 px-5 py-14">
+      <section className={cardClass} aria-label={c.keyFacts}><h2 className="mb-3 text-xl font-semibold">{c.keyFacts}</h2><p className="font-semibold">{c.notOfficial}</p></section>
       <section className={cardClass} aria-label={c.calculator}>
         <div className="grid gap-4 sm:grid-cols-2">{skills.map((skill, index) => <label key={skill} className="block font-semibold">{skill}
-          <input className="mt-2 block w-full rounded-lg border border-[#536a60] p-3" type="number" inputMode="decimal" min="0" max="9" step="0.5" value={bands[index]} onChange={(event) => { const next = [...bands]; next[index] = event.target.value; setBands(next); setResult(null); }} aria-invalid={bands[index] !== '' && !isValidBand(Number(bands[index]))} />
+          <input className={inputClass} type="number" inputMode="decimal" min="0" max="9" step="0.5" value={bands[index]} onChange={(event) => { const next = [...bands]; next[index] = event.target.value; setBands(next); setResult(null); }} aria-invalid={bands[index] !== '' && !isValidBand(Number(bands[index]))} />
         </label>)}</div>
         {!valid && <p role="alert" className="mt-3 text-red-800">{c.invalid}</p>}
         <button type="button" className={`${buttonClass} mt-5`} disabled={!valid} onClick={() => setResult(calculateOverallBand(bands.map(Number)))}>{c.calculate}</button>
@@ -130,6 +145,7 @@ export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
       <section className={cardClass}><h2 className="mb-4 text-2xl font-bold">{c.faqTitle}</h2>{c.faqs.map(([question, answer]) => <div key={question} className="mb-4"><h3 className="font-semibold">{question}</h3><p>{answer}</p></div>)}</section>
       <p className="text-sm">{c.independent}</p>
     </div>
+    <div className="insights-closing"><div><p>{c.baseline}</p><div className="insights-closing-actions"><a className="insights-button-primary" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.baseline}</a></div></div></div>
   </main>;
 }
 
@@ -201,18 +217,17 @@ export function IeltsSpeakingTimerPage({ locale }: { locale: Locale }) {
       discard(); active.start(); setRecording(true);
     } catch { stream.current?.getTracks().forEach((track) => track.stop()); stream.current = null; setMicError(true); }
   };
-  return <main id="main-content" tabIndex={-1} className={pageClass}><div className="mx-auto max-w-3xl space-y-7">
-    <h1 className="text-4xl font-bold">{c.timer}</h1><p>{c.timerIntro}</p>
-    <section className={cardClass}><label className="font-semibold" htmlFor="timer-topic">{c.chooseTopic}</label><select id="timer-topic" className="mt-2 block w-full rounded-lg border border-[#536a60] p-3" value={topic} onChange={(event) => { reset(); setTopic(Number(event.target.value)); }}>{topics.map((pair, index) => <option key={pair[0]} value={index}>{pair[locale === 'vi' ? 1 : 0]}</option>)}</select>
+  return <main id="main-content" tabIndex={-1} className={pageClass}><ToolHero locale={locale} title={c.timer} lead={c.timerIntro} eyebrow={locale === 'vi' ? 'Công cụ luyện IELTS' : 'IELTS practice tool'} counterpart={locale === 'vi' ? timerEn : timerVi} /><div className="ielts-tool-content mx-auto max-w-3xl space-y-7 px-5 py-14">
+    <section className={cardClass}><label className="font-semibold" htmlFor="timer-topic">{c.chooseTopic}</label><select id="timer-topic" className={inputClass} value={topic} onChange={(event) => { reset(); setTopic(Number(event.target.value)); }}>{topics.map((pair, index) => <option key={pair[0]} value={index}>{pair[locale === 'vi' ? 1 : 0]}</option>)}</select>
       <p className="mt-5 text-xl font-semibold">{locale === 'vi' ? `Hãy kể về ${topics[topic][1]}. Bạn nên nói đó là gì, vì sao bạn nhớ và điều bạn học được.` : `Describe ${topics[topic][0]}. Say what it is, why you remember it, and what you learned.`}</p>
       <p role="timer" aria-live="off" className="mt-6 text-center text-5xl font-bold tabular-nums">{Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, '0')}</p><p role="status" aria-live="polite" className="mt-2 text-center font-semibold">{c[phase]}</p>
-      <div className="mt-6 flex flex-wrap gap-3"><button type="button" className={buttonClass} disabled={phase === 'plan' || phase === 'speak'} onClick={() => { reset(); const Ctor = window.AudioContext; if (Ctor) { void audioContext.current?.close(); audioContext.current = new Ctor(); void audioContext.current.resume(); } setPhase('plan'); setSeconds(60); }}>{c.start}</button><button type="button" className={buttonClass} onClick={reset}>{c.reset}</button><button type="button" className={buttonClass} onClick={() => { reset(); setTopic((topic + 1) % topics.length); }}>{c.next}</button></div><p className="mt-4 text-sm">{c.sound}</p>
+      <div className="mt-6 flex flex-wrap gap-3"><button type="button" className={buttonClass} disabled={phase === 'plan' || phase === 'speak'} onClick={() => { reset(); const Ctor = window.AudioContext; if (Ctor) { void audioContext.current?.close(); audioContext.current = new Ctor(); void audioContext.current.resume(); } setPhase('plan'); setSeconds(60); }}>{c.start}</button><button type="button" className={secondaryButtonClass} onClick={reset}>{c.reset}</button><button type="button" className={secondaryButtonClass} onClick={() => { reset(); setTopic((topic + 1) % topics.length); }}>{c.next}</button></div><p className="mt-4 text-sm">{c.sound}</p>
     </section>
     <section className={cardClass}><h2 className="text-2xl font-bold">{c.structure}</h2><p className="mt-3">{c.structureText}</p></section>
     <section className={cardClass}><h2 className="text-xl font-bold">{c.record}</h2><p className="my-3">{c.privacy}</p><button type="button" className={buttonClass} onClick={recording ? stopRecording : () => void startRecording()}>{recording ? c.stop : c.record}</button>{recording && <p role="status" className="mt-3">{c.recording}</p>}{micError && <p role="alert" className="mt-3 text-red-800">{c.micError}</p>}{playback && <div className="mt-4"><label className="block" htmlFor="timer-playback">{c.playback}</label><audio id="timer-playback" controls src={playback} /></div>}</section>
     <div className="flex flex-wrap gap-6"><a className="font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi' : '/ai-speaking'}>{c.practice}</a><a className="font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.measured}</a></div>
     <p className="text-sm">{c.timerNotOfficial} {c.independent}</p>
-  </div></main>;
+  </div><div className="insights-closing"><div><p>{c.measured}</p><div className="insights-closing-actions"><a className="insights-button-primary" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.measured}</a></div></div></div></main>;
 }
 
 export { copy as ieltsToolsCopy, calculatorEn, calculatorVi, timerEn, timerVi };

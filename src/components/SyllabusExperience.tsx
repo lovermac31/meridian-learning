@@ -246,7 +246,7 @@ export const SyllabusExperience = ({
                   className="rounded-2xl border border-white/10 bg-white/5 p-5"
                 >
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="w-7 h-7 rounded-lg bg-jurassic-accent text-white flex items-center justify-center text-xs font-bold">
+                    <span className="w-7 h-7 rounded-lg bg-jurassic-accent text-jurassic-dark flex items-center justify-center text-xs font-bold">
                       {row.level}
                     </span>
                     <p className="font-bold text-white">{row.label}</p>

@@ -164,7 +164,7 @@ export const Navbar = ({
   const isSolidNav = forceSolidBackground || isScrolled;
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isSolidNav ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : 'bg-transparent py-5'}`}>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${forceSolidBackground ? 'bg-jurassic-dark shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : isSolidNav ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : 'bg-transparent py-5'}`}>
       <div className="max-w-[1480px] mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <button
@@ -197,7 +197,7 @@ export const Navbar = ({
             aria-label={youngLearnersPromo.ariaLabel}
             className="group inline-flex items-center gap-2 rounded-full border border-jurassic-accent/45 bg-jurassic-accent/10 py-1.5 pl-2 pr-3.5 transition-all duration-300 hover:border-jurassic-accent/70 hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
-            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jurassic-dark">
               {youngLearnersPromo.badge}
             </span>
             <span className="flex flex-col text-left leading-none">
@@ -214,7 +214,7 @@ export const Navbar = ({
             aria-label={locale === 'vi' ? 'Mới: Luyện viết IELTS (sắp ra mắt)' : 'New: IELTS Writing Practice (coming soon)'}
             className="group hidden 2xl:inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] py-1.5 pl-2 pr-3.5 transition-all duration-300 hover:border-jurassic-accent/70 hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
-            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">{locale === 'vi' ? 'Mới' : 'New'}</span>
+            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jurassic-dark">{locale === 'vi' ? 'Mới' : 'New'}</span>
             <span className="text-sm font-semibold text-white">{locale === 'vi' ? 'Luyện viết IELTS' : 'IELTS Writing'}</span>
           </a>
           {/* Phase 9 — focus-visible rings added to every desktop nav link
@@ -290,7 +290,7 @@ export const Navbar = ({
               className="rounded-xl border border-jurassic-accent/45 bg-jurassic-accent/10 px-4 py-3 transition hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               <span className="flex items-center gap-2">
-                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
+                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jurassic-dark">
                   {youngLearnersPromo.badge}
                 </span>
                 <span className="text-base font-semibold text-white">
@@ -323,7 +323,7 @@ export const Navbar = ({
               className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               <span className="flex items-center gap-2">
-                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">{locale === 'vi' ? 'Mới' : 'New'}</span>
+                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jurassic-dark">{locale === 'vi' ? 'Mới' : 'New'}</span>
                 <span className="text-base font-semibold text-white">{locale === 'vi' ? 'Luyện viết IELTS' : 'Writing Practice'}</span>
               </span>
               <span className="mt-1.5 block text-sm text-white/70">{locale === 'vi' ? 'Task 2, dựa trên bằng chứng · sắp ra mắt' : 'IELTS Task 2, evidence-first · coming soon'}</span>
