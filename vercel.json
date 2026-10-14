@@ -297,7 +297,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://db.onlinewebfonts.com https://fonts.googleapis.com; font-src 'self' https://db.onlinewebfonts.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://je-voice-worker.vercel.app https://*.supabase.co https://api.resend.com https://vitals.vercel-insights.com https://va.vercel-scripts.com; media-src 'self' blob:; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style https://db.onlinewebfonts.com https://fonts.googleapis.com; font-src 'self' https://db.onlinewebfonts.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://accounts.google.com/gsi/ https://je-voice-worker.vercel.app https://*.supabase.co https://api.resend.com https://vitals.vercel-insights.com https://va.vercel-scripts.com; media-src 'self' blob:; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'self' https://accounts.google.com/gsi/"
         }
       ]
     },
