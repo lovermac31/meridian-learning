@@ -100,8 +100,14 @@ function marketCtas(path: string, locale: string) {
 }
 
 const latinRun = /\(?[A-Za-z0-9$+](?:[A-Za-z0-9$+.,:/–-]|\s+(?=[A-Za-z0-9$+(])|\((?=[A-Za-z0-9])|\))*/g;
+// Sentence punctuation after a Latin run stays outside the LTR isolate so it lands at the RTL line end.
+function isolateRun(run: string) {
+  const trailing = run.match(/[.,:]+$/)?.[0] ?? '';
+  const core = run.slice(0, run.length - trailing.length);
+  return core ? `<bdi dir="ltr">${core}</bdi>${trailing}` : run;
+}
 function isolateRtlText(source: string) {
-  return source.split(/(<[^>]+>|&(?:#\d+|#x[\da-f]+|[A-Za-z]+);)/gi).map(part => part.startsWith('<') || part.startsWith('&') ? part : part.replace(latinRun, '<bdi dir="ltr">$&</bdi>')).join('');
+  return source.split(/(<[^>]+>|&(?:#\d+|#x[\da-f]+|[A-Za-z]+);)/gi).map(part => part.startsWith('<') || part.startsWith('&') ? part : part.replace(latinRun, isolateRun)).join('');
 }
 
 // The source HTML remains authoritative: move its existing heading and first
@@ -123,7 +129,12 @@ export function prepareSeoContent(page: SeoPage) {
   return { html, intro };
 }
 
-function CtaNote({ locale }: { locale: string }) {
+function CtaNote({ locale, paypal }: { locale: string; paypal?: boolean }) {
+  if (paypal) {
+    const copy = payCopy[locale];
+    const rtl = locale === 'ar' || locale === 'ur';
+    return <p className="insights-cta-note">{rtl ? <span dangerouslySetInnerHTML={{ __html: rtlSafe(copy.hero) }} /> : copy.hero} <a className="insights-paypal-link" href="#pay">{copy.link}</a></p>;
+  }
   const note = (chrome[locale] ?? chrome.en).note;
   // In RTL text the address is isolated whole; the Latin-run rule would split it at the @.
   const email = 'info@jurassicenglish.com';
@@ -131,9 +142,58 @@ function CtaNote({ locale }: { locale: string }) {
   return <p className="insights-cta-note">{locale === 'ar' || locale === 'ur' ? <span dangerouslySetInnerHTML={{ __html: rtlNote }} /> : note}</p>;
 }
 
+// PayPal (Vietnam account info@jurassicenglish.com) takes USD from the market countries. PayPal is
+// not available to residents of Pakistan or Bangladesh, so those pages keep the email request only.
+const PAYPAL_ACCOUNT = 'info@jurassicenglish.com';
+const PAYPAL_LOGO = 'https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-color.svg';
+const noPaypalMarkets = new Set(['pakistan', 'bangladesh']);
+const payCopy: Record<string, { title: string; baseline: string; lesson: string; pack: string; note: string; hero: string; link: string }> = {
+  en: { title: 'Pay in US dollars with PayPal', baseline: 'Live Speaking Baseline', lesson: 'One-to-one lesson, 60 min', pack: 'Pack of 8 lessons', note: 'Payments go to Jurassic English (info@jurassicenglish.com) on PayPal. After you pay, we email you to agree a time.', hero: 'Requests go to info@jurassicenglish.com.', link: 'Or pay in USD with PayPal' },
+  es: { title: 'Paga en dólares estadounidenses con PayPal', baseline: 'Evaluación inicial de Speaking', lesson: 'Clase individual, 60 min', pack: 'Paquete de 8 clases', note: 'Los pagos llegan a Jurassic English (info@jurassicenglish.com) en PayPal. Después de pagar, te escribimos para acordar un horario.', hero: 'Las solicitudes llegan a info@jurassicenglish.com.', link: 'O paga en USD con PayPal' },
+  'pt-BR': { title: 'Pague em dólares americanos com PayPal', baseline: 'Avaliação inicial de Speaking', lesson: 'Aula individual, 60 min', pack: 'Pacote de 8 aulas', note: 'Os pagamentos vão para a Jurassic English (info@jurassicenglish.com) no PayPal. Depois do pagamento, enviamos um e-mail para combinar o horário.', hero: 'As solicitações vão para info@jurassicenglish.com.', link: 'Ou pague em USD com PayPal' },
+  id: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Asesmen awal Speaking', lesson: 'Les privat, 60 menit', pack: 'Paket 8 les', note: 'Pembayaran masuk ke Jurassic English (info@jurassicenglish.com) di PayPal. Setelah Anda membayar, kami mengirim email untuk menyepakati jadwal.', hero: 'Permintaan dikirim ke info@jurassicenglish.com.', link: 'Atau bayar dalam USD dengan PayPal' },
+  ms: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Penilaian awal Speaking', lesson: 'Kelas individu, 60 minit', pack: 'Pakej 8 kelas', note: 'Bayaran dihantar kepada Jurassic English (info@jurassicenglish.com) di PayPal. Selepas anda membayar, kami akan menghantar e-mel untuk menetapkan masa.', hero: 'Permohonan dihantar ke info@jurassicenglish.com.', link: 'Atau bayar dalam USD dengan PayPal' },
+  th: { title: 'ชำระเป็นดอลลาร์สหรัฐผ่าน PayPal', baseline: 'การประเมิน Speaking เบื้องต้น', lesson: 'เรียนตัวต่อตัว 60 นาที', pack: 'แพ็กเกจเรียน 8 ครั้ง', note: 'การชำระเงินจะส่งถึง Jurassic English (info@jurassicenglish.com) ทาง PayPal หลังชำระเงินแล้ว เราจะส่งอีเมลเพื่อนัดเวลาเรียน', hero: 'คำขอจะส่งไปที่ info@jurassicenglish.com', link: 'หรือชำระเป็น USD ผ่าน PayPal' },
+  ar: { title: 'ادفع بالدولار الأمريكي عبر PayPal', baseline: 'التقييم الأولي للمحادثة', lesson: 'درس فردي، 60 دقيقة', pack: 'باقة من 8 دروس', note: 'تصل المدفوعات إلى Jurassic English (info@jurassicenglish.com) على PayPal. بعد الدفع، نراسلك عبر البريد الإلكتروني لتحديد موعد.', hero: 'تصل الطلبات إلى info@jurassicenglish.com.', link: 'أو ادفع بالدولار الأمريكي عبر PayPal' },
+};
+
+function paypalMarket(path: string, locale: string) {
+  const market = marketFromPath(path);
+  return market && !noPaypalMarkets.has(market) && payCopy[locale] ? market : undefined;
+}
+
+function paypalHref(item: string, market: string, amount: number) {
+  const params = new URLSearchParams({ cmd: '_xclick', business: PAYPAL_ACCOUNT, item_name: `${item} - ${countryNames.en[market] ?? market} (Jurassic English)`, amount: amount.toFixed(2), currency_code: 'USD', no_shipping: '1' });
+  return `https://www.paypal.com/cgi-bin/webscr?${params.toString()}`;
+}
+
+// Isolates Latin runs for RTL, keeping the email address whole (the Latin-run rule splits it at the @).
+function rtlSafe(text: string) {
+  return text.split(PAYPAL_ACCOUNT).map(isolateRtlText).join(`<bdi dir="ltr">${PAYPAL_ACCOUNT}</bdi>`);
+}
+
+function PayPalPanel({ market, locale }: { market: string; locale: string }) {
+  const copy = payCopy[locale];
+  const prices = marketPricing.tiers[String(marketPricing.markets[market as keyof typeof marketPricing.markets]) as keyof typeof marketPricing.tiers];
+  const rtl = locale === 'ar' || locale === 'ur';
+  const items = [
+    { label: copy.baseline, item: 'Live Speaking Baseline', amount: prices.baseline_usd },
+    { label: copy.lesson, item: 'One-to-one lesson 60 min', amount: prices.lesson_usd },
+    { label: copy.pack, item: 'Pack of 8 lessons', amount: prices.pack8_usd },
+  ];
+  const text = (value: string) => rtl ? <span dangerouslySetInnerHTML={{ __html: rtlSafe(value) }} /> : value;
+  return <section id="pay" className="insights-paypal" aria-labelledby="pay-title">
+    <div className="insights-paypal-head"><h2 id="pay-title">{text(copy.title)}</h2><img src={PAYPAL_LOGO} width="101" height="32" alt="PayPal" loading="lazy" /></div>
+    <div className="insights-paypal-options">{items.map(entry => <a key={entry.item} className="insights-paypal-option" href={paypalHref(entry.item, market, entry.amount)}>
+      <span>{text(entry.label)}</span><strong><bdi dir="ltr">US${entry.amount}</bdi></strong>
+    </a>)}</div>
+    <p className="insights-paypal-note">{text(copy.note)}</p>
+  </section>;
+}
+
 // Closing band: the booking request again for readers who reach the end, plus the two
 // routes that need no payment today (the AI Speaking explainer and a free tool).
-function ClosingBand({ locale, ctas }: { locale: string; ctas: Array<{ href: string; label: string }> }) {
+function ClosingBand({ locale, ctas, paypal }: { locale: string; ctas: Array<{ href: string; label: string }>; paypal?: boolean }) {
   const copy = chrome[locale] ?? chrome.en;
   const rtl = locale === 'ar' || locale === 'ur';
   const links = [
@@ -144,14 +204,14 @@ function ClosingBand({ locale, ctas }: { locale: string; ctas: Array<{ href: str
   return <div className="insights-closing" dir={rtl ? 'rtl' : 'ltr'}><div>
     <p>{copy.closing}</p>
     <div className="insights-closing-actions">{links.map(link => <a key={link.href} className={link.className} href={link.href}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(link.label) }} /> : link.label}</a>)}</div>
-    <CtaNote locale={locale} />
+    <CtaNote locale={locale} paypal={paypal} />
   </div></div>;
 }
 
-function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas }: {
+function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas, paypal }: {
   eyebrow: string; title: string; intro: string; locale: string;
   alternate?: { path: string; locale: string }; market?: boolean;
-  ctas?: Array<{ href: string; label: string }>;
+  ctas?: Array<{ href: string; label: string }>; paypal?: boolean;
 }) {
   const rtl = locale === 'ar' || locale === 'ur';
   return <header className="insights-hero" dir={rtl ? 'rtl' : 'ltr'}>
@@ -168,7 +228,7 @@ function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas }: {
       {market && <div className="insights-teacher">
         <div className="insights-teacher-row"><img src="/images/mr-jay-portrait.webp" width="76" height="76" alt="Mr. Jay Adams" /><div><span className="insights-badge">CELTA</span><strong>Mr. Jay Adams</strong></div></div>
         {ctas?.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}
-        {ctas?.length ? <CtaNote locale={locale} /> : null}
+        {ctas?.length ? <CtaNote locale={locale} paypal={paypal} /> : null}
       </div>}
     </div>
   </header>;
@@ -188,12 +248,15 @@ export function SearchInsightsPage({ pathname, onNavigate }: { pathname: string;
     const counterpart = seoPage.alternatePath !== seoPage.path && getSeoPage(seoPage.alternatePath);
     const alternate = counterpart ? { path: counterpart.path, locale: counterpart.locale } : undefined;
     const ctas = market ? marketCtas(seoPage.path, seoPage.locale) : [];
+    const payMarket = market ? paypalMarket(seoPage.path, seoPage.locale) : undefined;
+    // The PayPal panel sits right after the key-facts box, where the payment line is.
+    const factsEnd = payMarket ? html.indexOf('</aside>') + '</aside>'.length : -1;
     const marketKey = marketFromPath(seoPage.path);
     const eyebrow = market ? (marketKey ? (countryNames[seoPage.locale] ?? countryNames.en)[marketKey] ?? countryNames.en[marketKey] : (chrome[seoPage.locale] ?? chrome.en).resources) : (seoPage.path.includes('/insights/') ? (chrome[seoPage.locale] ?? chrome.en).resources : 'Jurassic English · People');
     return <main id="main-content" className="insights-page" lang={seoPage.locale} dir={['ar', 'ur'].includes(seoPage.locale) ? 'rtl' : 'ltr'}>
-      <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} />
-      <div className="insights-content"><nav aria-label="Breadcrumb"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{(chrome[seoPage.locale] ?? chrome.en).resources}</a></nav><article dangerouslySetInnerHTML={{ __html: html }} /></div>
-      {market && <ClosingBand locale={seoPage.locale} ctas={ctas} />}
+      <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} paypal={!!payMarket} />
+      <div className="insights-content"><nav aria-label="Breadcrumb"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{(chrome[seoPage.locale] ?? chrome.en).resources}</a></nav>{payMarket && factsEnd > 0 ? <article><div dangerouslySetInnerHTML={{ __html: html.slice(0, factsEnd) }} /><PayPalPanel market={payMarket} locale={seoPage.locale} /><div dangerouslySetInnerHTML={{ __html: html.slice(factsEnd) }} /></article> : <article dangerouslySetInnerHTML={{ __html: html }} />}</div>
+      {market && <ClosingBand locale={seoPage.locale} ctas={ctas} paypal={!!payMarket} />}
     </main>;
   }
   if (pathname === '/vi/insights') return <div className="insights-page"><HeroBand eyebrow="Tài liệu học tập" title="Tài liệu luyện IELTS Speaking" intro="Các bài hướng dẫn này giúp bạn xem lại câu trả lời Speaking của chính mình, hiểu một nhận xét dựa trên bằng chứng nào và chọn một việc để luyện tiếp. Bạn có thể đọc theo mục tiêu hiện tại: tìm điểm nghẽn giữa band 6 và band 7, luyện với các nhóm chủ đề forecast, tự kiểm tra tại nhà, hoặc hiểu giới hạn của phản hồi từ AI." locale="vi" /><main id="main-content" lang="vi" className="insights-content"><p className="mt-4">Mỗi bài phân biệt giữa việc luyện tập và kết quả thi IELTS. Các ví dụ dùng để minh họa cách suy nghĩ, không phải kết quả của học viên hay lời hứa tăng band. Nếu bạn muốn đánh giá cách mình thực sự nói, hãy ghi âm một câu trả lời, nghe lại theo bốn tiêu chí công khai và tìm phản hồi từ một người có thể nghe bạn trực tiếp.</p><div className="mt-8 space-y-6">{seoPages.filter(page => page.locale === 'vi' && page.path.startsWith('/vi/insights/')).map(page => <article key={page.path} className="rounded-lg border p-5"><h2 className="text-xl font-semibold"><a className="text-emerald-800 underline" href={page.path}>{page.h1}</a></h2><p className="mt-2">{page.description}</p></article>)}</div><p className="mt-8">Jurassic English™ là đơn vị độc lập, không liên kết với British Council, IDP hay Cambridge University Press &amp; Assessment. Điểm ước tính khi luyện tập không phải điểm IELTS chính thức. Hãy dùng những bài viết này để chọn câu hỏi mới, thử cách trả lời của riêng bạn và so sánh hai lần luyện trước khi quyết định bước tiếp theo.</p></main></div>;

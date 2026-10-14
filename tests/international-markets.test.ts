@@ -28,6 +28,15 @@ const payments: Record<string, string> = {
   ur: 'قیمتیں امریکی ڈالر میں ہیں۔ بین الاقوامی کارڈ ادائیگی جلد دستیاب ہوگی؛ تب تک بکنگ کے لیے ہم سے رابطہ کریں۔',
   bn: 'দাম মার্কিন ডলারে। আন্তর্জাতিক কার্ড পেমেন্ট শিগগিরই চালু হবে; ততদিন বুক করতে আমাদের সঙ্গে যোগাযোগ করুন।',
 };
+const paypalPayments: Record<string, string> = {
+  en: 'Prices are in US dollars. You can pay with PayPal on this page, or email us to book first.',
+  es: 'Los precios están en dólares estadounidenses. Puedes pagar con PayPal en esta página o escribirnos antes para reservar.',
+  'pt-BR': 'Os preços estão em dólares americanos. Você pode pagar com PayPal nesta página ou nos escrever antes para agendar.',
+  id: 'Harga dalam dolar AS. Anda bisa membayar dengan PayPal di halaman ini, atau email kami dulu untuk memesan.',
+  ms: 'Harga dalam dolar AS. Anda boleh membayar dengan PayPal di halaman ini, atau e-mel kami dahulu untuk menempah.',
+  th: 'ราคาเป็นดอลลาร์สหรัฐ ชำระผ่าน PayPal ได้ในหน้านี้ หรืออีเมลหาเราก่อนเพื่อจอง',
+  ar: 'الأسعار بالدولار الأمريكي. يمكنك الدفع عبر PayPal في هذه الصفحة، أو مراسلتنا أولًا للحجز.',
+};
 const labels: Record<string, string> = { en: 'English', es: 'Español', 'pt-BR': 'Português', id: 'Bahasa Indonesia', ms: 'Bahasa Melayu', th: 'ไทย', ar: 'العربية', ur: 'اردو', bn: 'বাংলা' };
 
 function phrases(text: string) {
@@ -53,7 +62,8 @@ for (const page of pages) {
     assert.equal(metadata.htmlLang, page.locale);
     assert.equal(metadata.canonical, `${origin}${page.path}`);
     assert.ok(visible.includes('British Council') && visible.includes('IDP IELTS'), page.path);
-    assert.ok(page.html.replace(/<\/?a\b[^>]*>/g, '').includes(payments[page.locale]), page.path);
+    const expected = !hubs.has(page.path) && !/pakistan|bangladesh/.test(page.path) ? paypalPayments[page.locale] : payments[page.locale];
+    assert.ok(page.html.replace(/<\/?a\b[^>]*>/g, '').includes(expected), page.path);
     assert.match(rendered, /href="\/get-started"/);
     assert.doesNotMatch(`${page.description} ${page.html} ${JSON.stringify(page.faq)}`, /VND|VietQR|đồng/i);
     const [lesson, pack, baseline] = hubs.has(page.path) ? [35, 245, 29] : tiers[page.path.endsWith('/brasil') ? 'brazil' : page.path.split('/').at(-1)!];

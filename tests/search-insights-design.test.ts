@@ -97,3 +97,30 @@ test('market closing band offers the booking request, AI Speaking and a free too
     if (page.locale !== 'en') assert.doesNotMatch(closing, /See how AI Speaking|Free IELTS band/, page.path);
   }
 });
+
+test('PayPal panel pays the approved tier on every PayPal market, and stays off Pakistan, Bangladesh and hubs', async () => {
+  for (const page of seoPages.filter(item => isInternationalMarketPath(item.path))) {
+    const slug = page.path.split('/').at(-1)!;
+    const market = slug === 'ielts-speaking-online' ? undefined : slug === 'brasil' ? 'brazil' : slug;
+    const html = await renderRoute(page.path);
+    const panel = html.match(/<section id="pay" class="insights-paypal"[\s\S]*?<\/section>/)?.[0];
+    if (!market || market === 'pakistan' || market === 'bangladesh') {
+      assert.equal(panel, undefined, page.path);
+      assert.doesNotMatch(html, /paypal\.com/, page.path);
+      continue;
+    }
+    assert.ok(panel, page.path);
+    const prices = pricing.tiers[String(pricing.markets[market as keyof typeof pricing.markets]) as keyof typeof pricing.tiers];
+    const hrefs = [...panel.matchAll(/class="insights-paypal-option" href="([^"]+)"/g)].map(match => new URL(match[1].replaceAll('&amp;', '&')));
+    assert.deepEqual(hrefs.map(url => url.searchParams.get('amount')), [prices.baseline_usd, prices.lesson_usd, prices.pack8_usd].map(value => value.toFixed(2)), page.path);
+    for (const url of hrefs) {
+      assert.equal(url.origin + url.pathname, 'https://www.paypal.com/cgi-bin/webscr', page.path);
+      assert.equal(url.searchParams.get('business'), 'info@jurassicenglish.com', page.path);
+      assert.equal(url.searchParams.get('currency_code'), 'USD', page.path);
+    }
+    assert.match(panel, /<img src="https:\/\/www\.paypalobjects\.com\/[^"]+" width="101" height="32" alt="PayPal"/, page.path);
+    assert.match(html, /<a class="insights-paypal-link" href="#pay">/, page.path);
+    // The panel follows the key-facts box.
+    assert.ok(html.indexOf('</aside>') < html.indexOf('id="pay"'), page.path);
+  }
+});
