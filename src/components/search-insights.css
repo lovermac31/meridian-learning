@@ -52,6 +52,8 @@
 .insights-cta-note { margin-top: .8rem; font-size: .875rem; line-height: 1.5; color: #3d4a52; }
 .insights-closing .insights-cta-note { color: #e4e8eb; margin-bottom: 0; font-size: .875rem; font-weight: 400; }
 .insights-closing a { margin: 0; flex: 1 1 220px; }
+/* The booking request leads on its own row; the two no-payment routes share the next. */
+.insights-closing-actions .insights-button-primary { flex-basis: 100%; }
 .insights-closing .insights-button-secondary { color: white; border-color: white; }
 .insights-page[lang="ar"] { font-family: 'Noto Kufi Arabic', sans-serif; }
 .insights-page[lang="ar"] h1, .insights-page[lang="ar"] h2, .insights-page[lang="ar"] h3 { font-family: Tajawal, sans-serif; }
