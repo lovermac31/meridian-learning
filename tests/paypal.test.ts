@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import pricing from '../src/content/marketPricing.json';
+import { buildViPage } from '../scripts/prerender-yl-vi.mjs';
 import { PAYPAL_ACCOUNT, PAYPAL_LOGO, VND_PER_USD, paypalHref, paypalItemName, usdFromVnd } from '../src/lib/paypal.ts';
 
 const ROOT = resolve(import.meta.dirname, '..');
@@ -39,4 +40,65 @@ test('account and logo match the market-page panel (PR #128)', () => {
   assert.ok(market.includes(`const PAYPAL_ACCOUNT = '${PAYPAL_ACCOUNT}'`));
   assert.ok(market.includes(`const PAYPAL_LOGO = '${PAYPAL_LOGO}'`));
   assert.ok(market.includes("cmd: '_xclick'") && market.includes('(Jurassic English)'));
+});
+
+// ---- Young Learners (/young-learners-speaking/ and /vi/luyen-noi-ielts/) ----
+
+const YL_EN = read('young-learners-speaking/index.html');
+const YL_VI = buildViPage(YL_EN).html;
+const YL_OFFERS = [
+  { item: 'baseline', offer: 'Live Speaking Baseline', vnd: 690_000 },
+  { item: 'lesson_single', offer: 'One-to-one lesson 60 min', vnd: 800_000 },
+  { item: 'lesson_month', offer: 'Month of 8 lessons', vnd: 5_600_000 },
+];
+const ylOptions = (html: string) =>
+  [...html.matchAll(/<a class="yl-paypal-option" data-paypal-item="([^"]+)" href="([^"]+)" target="_blank" rel="noopener noreferrer"><span[^>]*>[^<]+<\/span><strong>US\$(\d+)<\/strong><\/a>/g)]
+    .map((m) => ({ item: m[1], href: m[2].replaceAll('&amp;', '&'), shown: Number(m[3]) }));
+
+for (const [name, html] of Object.entries({ EN: YL_EN, VI: YL_VI })) {
+  test(`YL ${name}: PayPal panel pays ceil(VND / 25,897) for Baseline, 1 lesson and a month`, () => {
+    const options = ylOptions(html);
+    assert.deepEqual(options.map((o) => o.item), YL_OFFERS.map((o) => o.item));
+    for (const [i, o] of YL_OFFERS.entries()) {
+      const usd = usdFromVnd(o.vnd);
+      assert.equal(options[i].shown, usd, o.item);
+      assert.equal(options[i].href, paypalHref(paypalItemName(o.offer, 'Young Learners'), usd), o.item);
+    }
+    assert.deepEqual(options.map((o) => o.shown), [27, 31, 217]);
+    assert.match(html, new RegExp(`<img src="${PAYPAL_LOGO}" width="101" height="32" alt="PayPal"`));
+  });
+
+  test(`YL ${name}: PayPal sits under VietQR, with manual confirmation and a jump link from booking`, () => {
+    const vietqr = html.indexOf('data-lessons-pack="lesson_month"');
+    const panel = html.indexOf('id="paypal"');
+    assert.ok(vietqr > 0 && panel > vietqr);
+    assert.match(html, /class="yl-paypal-note" data-i18n="pricing.paypalConfirm"/);
+    assert.match(html, /<a href="#paypal" data-paypal-jump="booking"/);
+    assert.ok(html.indexOf('data-paypal-jump="booking"') > html.indexOf('class="form-booking"'));
+  });
+}
+
+test('YL copy: card line replaced in EN, VI and zh-CN; VietQR stays first; PayPal confirmation is manual', () => {
+  const dicts = {
+    en: read('src/yl/i18n.ts'),
+    vi: JSON.parse(read('src/yl/i18n.vi.json')),
+    zh: JSON.parse(read('src/yl/i18n.zh-CN.json')),
+  };
+  assert.doesNotMatch(dicts.en + YL_EN + YL_VI + JSON.stringify(dicts.vi) + JSON.stringify(dicts.zh), /Card payments are not available|chưa nhận thanh toán bằng thẻ|暂不支持银行卡/);
+  assert.match(YL_EN, /data-i18n="pricing.flexTrust2">Bank transfer with VietQR in Vietnam, confirmed automatically\. Outside Vietnam, pay with PayPal, confirmed by hand\./);
+  for (const d of [dicts.vi, dicts.zh]) {
+    for (const key of ['pricing.paypalH', 'pricing.paypalP', 'pricing.paypalBaseline', 'pricing.paypalSingle', 'pricing.paypalMonth', 'pricing.paypalConfirm', 'book.paypalLink', 'book.paypalConfirm']) {
+      assert.ok(d[key], key);
+    }
+    assert.ok(d['pricing.flexTrust2'].indexOf('VietQR') < d['pricing.flexTrust2'].indexOf('PayPal'));
+  }
+  assert.match(YL_EN, /We confirm PayPal payments by hand, usually within 1 business day\./);
+});
+
+test('YL: every PayPal link reports a unique click label', () => {
+  const main = read('src/yl/main.tsx');
+  assert.match(main, /trackCtaClick\(/);
+  assert.match(main, /yl_paypal_\$\{item\}/);
+  const items = [...YL_EN.matchAll(/data-paypal-item="([^"]+)"/g)].map((m) => m[1]);
+  assert.equal(new Set(items).size, items.length);
 });

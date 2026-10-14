@@ -18,6 +18,7 @@ import { inject as injectAnalytics } from '@vercel/analytics';
 import { YlBotUI } from './YlBotUI';
 import { PromoVideoModal } from './PromoVideoModal';
 import { initPageI18n } from './pageI18n';
+import { trackCtaClick } from '../lib/analytics';
 
 const YL_SPEED_INSIGHTS_ROUTE = '/young-learners-speaking';
 
@@ -42,6 +43,23 @@ try {
 } catch {
   /* page i18n is progressive enhancement — never block the island */
 }
+
+// PayPal (second payment option, outside Vietnam): one delegated listener so
+// every PayPal link and jump link on the static page reports a unique label.
+document.addEventListener('click', (event) => {
+  const link = (event.target as Element | null)?.closest?.('a[data-paypal-item], a[data-paypal-jump]');
+  if (!link) return;
+  const item = link.getAttribute('data-paypal-item');
+  try {
+    trackCtaClick({
+      label: item ? `yl_paypal_${item}` : `yl_paypal_jump_${link.getAttribute('data-paypal-jump')}`,
+      type: item ? 'secondary' : 'low_friction',
+      segment: 'parent_student',
+    });
+  } catch {
+    /* analytics must never block the payment link */
+  }
+});
 
 const mount = document.getElementById('yl-botui-root');
 if (mount) {
