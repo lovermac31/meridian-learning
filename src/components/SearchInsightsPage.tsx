@@ -56,17 +56,17 @@ const languageLabels: Record<string, string> = {
   ar: 'العربية', ur: 'اردو', bn: 'বাংলা',
 };
 
-const chrome: Record<string, { resources: string; language: string; scroll: string; closing: string; baseline: string; lesson: string; from: string; minutes: string }> = {
-  en: { resources: 'Learning resources', language: 'Language', scroll: 'Scroll to see more →', closing: 'Ready to practise with a teacher?', baseline: 'Book a Speaking Baseline', lesson: 'One-to-one lesson', from: 'from', minutes: 'min' },
-  vi: { resources: 'Tài liệu học tập', language: 'Ngôn ngữ', scroll: 'Vuốt để xem thêm →', closing: 'Sẵn sàng luyện tập cùng giáo viên?', baseline: 'Đặt buổi đánh giá Speaking', lesson: 'Buổi học một kèm một', from: 'từ', minutes: 'phút' },
-  es: { resources: 'Recursos de aprendizaje', language: 'Idioma', scroll: 'Desliza para ver más →', closing: '¿Listo para practicar con un profesor?', baseline: 'Reserva una evaluación inicial de Speaking', lesson: 'Clase individual', from: 'desde', minutes: 'min' },
-  'pt-BR': { resources: 'Recursos de aprendizagem', language: 'Idioma', scroll: 'Deslize para ver mais →', closing: 'Pronto para praticar com um professor?', baseline: 'Agende uma avaliação inicial de Speaking', lesson: 'Aula individual', from: 'a partir de', minutes: 'min' },
-  id: { resources: 'Sumber belajar', language: 'Bahasa', scroll: 'Geser untuk melihat selengkapnya →', closing: 'Siap berlatih bersama pengajar?', baseline: 'Pesan asesmen awal Speaking', lesson: 'Les privat', from: 'mulai', minutes: 'menit' },
-  ms: { resources: 'Sumber pembelajaran', language: 'Bahasa', scroll: 'Leret untuk lihat lagi →', closing: 'Sedia berlatih dengan guru?', baseline: 'Tempah penilaian awal Speaking', lesson: 'Kelas individu', from: 'bermula', minutes: 'minit' },
-  th: { resources: 'แหล่งเรียนรู้', language: 'ภาษา', scroll: 'เลื่อนเพื่อดูเพิ่มเติม →', closing: 'พร้อมฝึกกับครูแล้วหรือยัง?', baseline: 'จองการประเมิน Speaking เบื้องต้น', lesson: 'เรียนตัวต่อตัว', from: 'เริ่มต้นที่', minutes: 'นาที' },
-  ar: { resources: 'مصادر التعلّم', language: 'اللغة', scroll: 'مرّر لرؤية المزيد ←', closing: 'هل أنت مستعد للتدرّب مع معلّم؟', baseline: 'احجز التقييم الأولي للمحادثة', lesson: 'درس فردي', from: 'ابتداءً من', minutes: 'دقيقة' },
-  ur: { resources: 'تعلیمی وسائل', language: 'زبان', scroll: 'مزید دیکھنے کے لیے اسکرول کریں ←', closing: 'استاد کے ساتھ مشق کے لیے تیار ہیں؟', baseline: 'ابتدائی اسپیکنگ جائزہ بک کریں', lesson: 'انفرادی سبق', from: 'سے', minutes: 'منٹ' },
-  bn: { resources: 'শেখার উপকরণ', language: 'ভাষা', scroll: 'আরও দেখতে স্ক্রল করুন →', closing: 'শিক্ষকের সঙ্গে অনুশীলনে প্রস্তুত?', baseline: 'প্রাথমিক Speaking মূল্যায়ন বুক করুন', lesson: 'একান্ত পাঠ', from: 'শুরু', minutes: 'মিনিট' },
+const chrome: Record<string, { resources: string; language: string; scroll: string; closing: string; baseline: string; lesson: string; from: string; minutes: string; note: string }> = {
+  en: { resources: 'Learning resources', language: 'Language', scroll: 'Scroll to see more →', closing: 'Ready to practise with a teacher?', baseline: 'Request a Speaking Baseline', lesson: 'Request a one-to-one lesson', from: 'from', minutes: 'min', note: 'Requests go to info@jurassicenglish.com. USD card payment is not live yet.' },
+  vi: { resources: 'Tài liệu học tập', language: 'Ngôn ngữ', scroll: 'Vuốt để xem thêm →', closing: 'Sẵn sàng luyện tập cùng giáo viên?', baseline: 'Gửi yêu cầu đánh giá Speaking', lesson: 'Gửi yêu cầu học một kèm một', from: 'từ', minutes: 'phút', note: 'Yêu cầu được gửi tới info@jurassicenglish.com. Thanh toán thẻ bằng USD chưa được mở.' },
+  es: { resources: 'Recursos de aprendizaje', language: 'Idioma', scroll: 'Desliza para ver más →', closing: '¿Listo para practicar con un profesor?', baseline: 'Solicita una evaluación inicial de Speaking', lesson: 'Solicita una clase individual', from: 'desde', minutes: 'min', note: 'Las solicitudes llegan a info@jurassicenglish.com. El pago con tarjeta en USD aún no está activo.' },
+  'pt-BR': { resources: 'Recursos de aprendizagem', language: 'Idioma', scroll: 'Deslize para ver mais →', closing: 'Pronto para praticar com um professor?', baseline: 'Solicite uma avaliação inicial de Speaking', lesson: 'Solicite uma aula individual', from: 'a partir de', minutes: 'min', note: 'As solicitações vão para info@jurassicenglish.com. O pagamento com cartão em USD ainda não está ativo.' },
+  id: { resources: 'Sumber belajar', language: 'Bahasa', scroll: 'Geser untuk melihat selengkapnya →', closing: 'Siap berlatih bersama pengajar?', baseline: 'Ajukan asesmen awal Speaking', lesson: 'Ajukan les privat', from: 'mulai', minutes: 'menit', note: 'Permintaan dikirim ke info@jurassicenglish.com. Pembayaran kartu dalam USD belum aktif.' },
+  ms: { resources: 'Sumber pembelajaran', language: 'Bahasa', scroll: 'Leret untuk lihat lagi →', closing: 'Sedia berlatih dengan guru?', baseline: 'Mohon penilaian awal Speaking', lesson: 'Mohon kelas individu', from: 'bermula', minutes: 'minit', note: 'Permohonan dihantar ke info@jurassicenglish.com. Bayaran kad dalam USD belum aktif.' },
+  th: { resources: 'แหล่งเรียนรู้', language: 'ภาษา', scroll: 'เลื่อนเพื่อดูเพิ่มเติม →', closing: 'พร้อมฝึกกับครูแล้วหรือยัง?', baseline: 'ขอรับการประเมิน Speaking เบื้องต้น', lesson: 'ขอเรียนตัวต่อตัว', from: 'เริ่มต้นที่', minutes: 'นาที', note: 'คำขอจะส่งไปที่ info@jurassicenglish.com ระบบชำระเงินด้วยบัตรเป็น USD ยังไม่เปิดใช้งาน' },
+  ar: { resources: 'مصادر التعلّم', language: 'اللغة', scroll: 'مرّر لرؤية المزيد ←', closing: 'هل أنت مستعد للتدرّب مع معلّم؟', baseline: 'اطلب التقييم الأولي للمحادثة', lesson: 'اطلب درسًا فرديًا', from: 'ابتداءً من', minutes: 'دقيقة', note: 'تصل الطلبات إلى info@jurassicenglish.com. الدفع بالبطاقة بالدولار الأمريكي غير متاح بعد.' },
+  ur: { resources: 'تعلیمی وسائل', language: 'زبان', scroll: 'مزید دیکھنے کے لیے اسکرول کریں ←', closing: 'استاد کے ساتھ مشق کے لیے تیار ہیں؟', baseline: 'ابتدائی اسپیکنگ جائزے کی درخواست کریں', lesson: 'انفرادی سبق کی درخواست کریں', from: 'سے', minutes: 'منٹ', note: 'درخواستیں info@jurassicenglish.com پر جاتی ہیں۔ امریکی ڈالر میں کارڈ ادائیگی ابھی دستیاب نہیں۔' },
+  bn: { resources: 'শেখার উপকরণ', language: 'ভাষা', scroll: 'আরও দেখতে স্ক্রল করুন →', closing: 'শিক্ষকের সঙ্গে অনুশীলনে প্রস্তুত?', baseline: 'প্রাথমিক Speaking মূল্যায়নের অনুরোধ করুন', lesson: 'একান্ত পাঠের অনুরোধ করুন', from: 'শুরু', minutes: 'মিনিট', note: 'অনুরোধ যায় info@jurassicenglish.com-এ। USD-তে কার্ড পেমেন্ট এখনও চালু হয়নি।' },
 };
 
 const countryNames: Record<string, Record<string, string>> = {
@@ -81,6 +81,8 @@ const marketFromPath = (path: string) => {
   return slug === 'ielts-speaking-online' ? undefined : slug === 'brasil' ? 'brazil' : slug;
 };
 
+// International card checkout is not live yet, and the booking pages charge VND by VietQR.
+// Market CTAs therefore open an email booking request instead of a checkout that cannot take the USD price.
 function marketCtas(path: string, locale: string) {
   const market = marketFromPath(path);
   const tier = market ? marketPricing.markets[market as keyof typeof marketPricing.markets] : 1;
@@ -89,9 +91,11 @@ function marketCtas(path: string, locale: string) {
   const prefix = market ? '' : `${copy.from} `;
   const baselinePrice = `${prefix}US$${prices.baseline_usd}`;
   const lessonPrice = `${prefix}US$${prices.lesson_usd}`;
+  const where = market ? countryNames.en[market] ?? market : 'International';
+  const request = (offer: string, price: string) => `mailto:info@jurassicenglish.com?subject=${encodeURIComponent(`${offer} request - ${where} (${price})`)}`;
   return [
-    { href: '/ai-speaking/baseline', label: `${copy.baseline} · ${baselinePrice}` },
-    { href: '/ai-speaking/solutions', label: `${copy.lesson} · ${lessonPrice} / 60 ${copy.minutes}` },
+    { href: request('Speaking Baseline', baselinePrice), label: `${copy.baseline} · ${baselinePrice}` },
+    { href: request('One-to-one lesson', `${lessonPrice} / 60 min`), label: `${copy.lesson} · ${lessonPrice} / 60 ${copy.minutes}` },
   ];
 }
 
@@ -119,6 +123,14 @@ export function prepareSeoContent(page: SeoPage) {
   return { html, intro };
 }
 
+function CtaNote({ locale }: { locale: string }) {
+  const note = (chrome[locale] ?? chrome.en).note;
+  // In RTL text the address is isolated whole; the Latin-run rule would split it at the @.
+  const email = 'info@jurassicenglish.com';
+  const rtlNote = note.split(email).map(isolateRtlText).join(`<bdi dir="ltr">${email}</bdi>`);
+  return <p className="insights-cta-note">{locale === 'ar' || locale === 'ur' ? <span dangerouslySetInnerHTML={{ __html: rtlNote }} /> : note}</p>;
+}
+
 function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas }: {
   eyebrow: string; title: string; intro: string; locale: string;
   alternate?: { path: string; locale: string }; market?: boolean;
@@ -139,6 +151,7 @@ function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas }: {
       {market && <div className="insights-teacher">
         <div className="insights-teacher-row"><img src="/images/mr-jay-portrait.webp" width="76" height="76" alt="Mr. Jay Adams" /><div><span className="insights-badge">CELTA</span><strong>Mr. Jay Adams</strong></div></div>
         {ctas?.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}
+        {ctas?.length ? <CtaNote locale={locale} /> : null}
       </div>}
     </div>
   </header>;
@@ -163,7 +176,7 @@ export function SearchInsightsPage({ pathname, onNavigate }: { pathname: string;
     return <main id="main-content" className="insights-page" lang={seoPage.locale} dir={['ar', 'ur'].includes(seoPage.locale) ? 'rtl' : 'ltr'}>
       <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} />
       <div className="insights-content"><nav aria-label="Breadcrumb"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{(chrome[seoPage.locale] ?? chrome.en).resources}</a></nav><article dangerouslySetInnerHTML={{ __html: html }} /></div>
-      {market && <div className="insights-closing"><div><p>{(chrome[seoPage.locale] ?? chrome.en).closing}</p><div className="insights-closing-actions">{ctas.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{['ar', 'ur'].includes(seoPage.locale) ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}</div></div></div>}
+      {market && <div className="insights-closing"><div><p>{(chrome[seoPage.locale] ?? chrome.en).closing}</p><div className="insights-closing-actions">{ctas.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{['ar', 'ur'].includes(seoPage.locale) ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}</div><CtaNote locale={seoPage.locale} /></div></div>}
     </main>;
   }
   if (pathname === '/vi/insights') return <div className="insights-page"><HeroBand eyebrow="Tài liệu học tập" title="Tài liệu luyện IELTS Speaking" intro="Các bài hướng dẫn này giúp bạn xem lại câu trả lời Speaking của chính mình, hiểu một nhận xét dựa trên bằng chứng nào và chọn một việc để luyện tiếp. Bạn có thể đọc theo mục tiêu hiện tại: tìm điểm nghẽn giữa band 6 và band 7, luyện với các nhóm chủ đề forecast, tự kiểm tra tại nhà, hoặc hiểu giới hạn của phản hồi từ AI." locale="vi" /><main id="main-content" lang="vi" className="insights-content"><p className="mt-4">Mỗi bài phân biệt giữa việc luyện tập và kết quả thi IELTS. Các ví dụ dùng để minh họa cách suy nghĩ, không phải kết quả của học viên hay lời hứa tăng band. Nếu bạn muốn đánh giá cách mình thực sự nói, hãy ghi âm một câu trả lời, nghe lại theo bốn tiêu chí công khai và tìm phản hồi từ một người có thể nghe bạn trực tiếp.</p><div className="mt-8 space-y-6">{seoPages.filter(page => page.locale === 'vi' && page.path.startsWith('/vi/insights/')).map(page => <article key={page.path} className="rounded-lg border p-5"><h2 className="text-xl font-semibold"><a className="text-emerald-800 underline" href={page.path}>{page.h1}</a></h2><p className="mt-2">{page.description}</p></article>)}</div><p className="mt-8">Jurassic English™ là đơn vị độc lập, không liên kết với British Council, IDP hay Cambridge University Press &amp; Assessment. Điểm ước tính khi luyện tập không phải điểm IELTS chính thức. Hãy dùng những bài viết này để chọn câu hỏi mới, thử cách trả lời của riêng bạn và so sánh hai lần luyện trước khi quyết định bước tiếp theo.</p></main></div>;
