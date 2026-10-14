@@ -31,6 +31,7 @@ import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { SearchInsightsPage } from './components/SearchInsightsPage';
+import { isInternationalMarketPath } from './lib/seoPages';
 import { getCurrentLocation } from './lib/ssrLocation';
 
 /* ── Lazy-loaded subpages (code-split) ──────────────────────────── */
@@ -178,7 +179,7 @@ function App() {
   const isKnowledgeView = routePathname === '/knowledge';
   const isBandToolView = routePathname === '/tools/ielts-band-score-calculator';
   const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
-  const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams' || routePathname === '/ielts-speaking-online' || routePathname.startsWith('/ielts-speaking-online/');
+  const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams' || isInternationalMarketPath(routePathname);
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
   const isInternalPilotRequestsView = routePathname === '/internal/pilot-requests';

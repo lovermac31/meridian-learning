@@ -13,7 +13,7 @@ import { getLocalizedSyllabusByRoutePath } from '../i18n/content/syllabus';
 import { getLocalizedThinkingCycleStageByPath } from '../i18n/content/thinkingCycle';
 import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
-import { getSeoPage, seoPagePaths, seoEnglishPaths } from './seoPages';
+import { getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath } from './seoPages';
 import {
   createBreadcrumbJsonLd,
   createCourseJsonLd,
@@ -510,7 +510,7 @@ function createMetadata({
   ogTitle?: string;
   ogDescription?: string;
   ogUrl?: string;
-  locale?: Locale;
+  locale?: Locale | 'es' | 'pt-BR';
 }): RouteMetadata {
   const normalizedDescription = normalizeDescription(description);
   const socialTitle = ogTitle ?? title;
@@ -518,7 +518,7 @@ function createMetadata({
   const socialUrl = ogUrl ?? canonical ?? SITE_URL;
 
   return {
-    htmlLang: getLocaleDefinition(locale).htmlLang,
+    htmlLang: locale === 'es' || locale === 'pt-BR' ? locale : getLocaleDefinition(locale).htmlLang,
     title,
     description: normalizedDescription,
     canonical,
@@ -534,7 +534,7 @@ function createMetadata({
       imageHeight: DEFAULT_OG_IMAGE_HEIGHT,
       type: 'website',
       siteName: SITE_NAME,
-      locale: getLocaleDefinition(locale).ogLocale,
+      locale: locale === 'es' ? 'es_ES' : locale === 'pt-BR' ? 'pt_BR' : getLocaleDefinition(locale).ogLocale,
     },
     twitter: {
       card: 'summary_large_image',
@@ -885,14 +885,23 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
   const seoPage = getSeoPage(pathname);
   if (seoPage) {
     const canonical = toAbsoluteUrl(seoPage.path);
-    if (seoPage.path.startsWith('/ielts-speaking-online')) {
-      const isHub = seoPage.path === '/ielts-speaking-online';
+    if (isInternationalMarketPath(seoPage.path)) {
+      const isHub = ['/ielts-speaking-online', '/es/ielts-speaking-online', '/pt/ielts-speaking-online'].includes(seoPage.path);
+      const marketNames: Record<string, string> = { colombia: 'Colombia', peru: 'Peru', chile: 'Chile', argentina: 'Argentina', brasil: 'Brazil' };
+      const marketSlug = seoPage.path.split('/').at(-1) ?? '';
+      const areaServed = isHub ? 'Online, outside Vietnam' : marketNames[marketSlug] ?? seoPage.h1.replace('Online IELTS Speaking coaching for learners in ', '');
+      const hubPath = seoPage.locale === 'es' ? '/es/ielts-speaking-online' : seoPage.locale === 'pt-BR' ? '/pt/ielts-speaking-online' : '/ielts-speaking-online';
       const jsonLd: JsonLd[] = [
-        createServiceJsonLd({ name: seoPage.h1, description: seoPage.description, url: canonical, serviceType: 'Online IELTS Speaking coaching', areaServed: isHub ? 'Online, outside Vietnam' : seoPage.h1.replace('Online IELTS Speaking coaching for learners in ', '') }),
+        createServiceJsonLd({ name: seoPage.h1, description: seoPage.description, url: canonical, serviceType: 'Online IELTS Speaking coaching', areaServed }),
         createFaqJsonLd(seoPage.faq.map(item => ({ question: item.question, answer: item.answer }))),
-        createBreadcrumbJsonLd(isHub ? [{ name: 'Home', path: '/' }, { name: seoPage.h1, path: seoPage.path }] : [{ name: 'Home', path: '/' }, { name: 'IELTS Speaking online', path: '/ielts-speaking-online' }, { name: seoPage.h1, path: seoPage.path }]),
+        createBreadcrumbJsonLd(isHub ? [{ name: 'Home', path: '/' }, { name: seoPage.h1, path: seoPage.path }] : [{ name: 'Home', path: '/' }, { name: 'IELTS Speaking online', path: hubPath }, { name: seoPage.h1, path: seoPage.path }]),
       ];
-      return createMetadata({ title: seoPage.title, description: seoPage.description, canonical, robots: 'index, follow', locale: 'en', jsonLd, ogUrl: canonical });
+      const alternates = (seoPage.path === '/ielts-speaking-online' || seoPage.path === '/es/ielts-speaking-online') ? [
+        { hrefLang: 'en', href: `${SITE_URL}/ielts-speaking-online` },
+        { hrefLang: 'es', href: `${SITE_URL}/es/ielts-speaking-online` },
+        { hrefLang: 'x-default', href: `${SITE_URL}/ielts-speaking-online` },
+      ] : undefined;
+      return createMetadata({ title: seoPage.title, description: seoPage.description, canonical, robots: 'index, follow', locale: seoPage.locale as Locale | 'es' | 'pt-BR', alternates, jsonLd, ogUrl: canonical });
     }
     const enPath = seoPage.locale === 'en' ? seoPage.path : seoPage.alternatePath;
     const viPath = seoPage.locale === 'vi' ? seoPage.path : seoPage.alternatePath;

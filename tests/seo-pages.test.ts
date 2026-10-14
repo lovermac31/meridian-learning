@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { renderRoute } from '../src/entry-server';
-import { seoPages } from '../src/lib/seoPages';
+import { seoPages, isInternationalMarketPath } from '../src/lib/seoPages';
 import { getExpectedPublicIndexableRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata';
 import { extractVisibleText } from '../scripts/lib/visible-text.mjs';
 
@@ -9,7 +9,7 @@ const origin = 'https://jurassicenglish.com';
 const routes = new Set(getExpectedPublicIndexableRoutes());
 
 for (const page of seoPages) {
-  if (page.path.startsWith('/ielts-speaking-online')) continue;
+  if (isInternationalMarketPath(page.path)) continue;
   test(`${page.path} renders its full SEO page on the server`, async () => {
     const html = await renderRoute(page.path);
     const metadata = resolveRouteMetadata(page.path);

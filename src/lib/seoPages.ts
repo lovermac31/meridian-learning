@@ -7,3 +7,4 @@ export const seoPagePaths = seoPages.map(page => page.path);
 export const seoEnglishPaths = seoPages.filter(page => page.locale === 'en' && page.alternatePath !== page.path).map(page => page.path);
 export const seoVietnamesePaths = seoPages.filter(page => page.locale === 'vi').map(page => page.path);
 export const seoPathPairs = seoPages.filter(page => page.locale === 'en' && page.alternatePath !== page.path).map(page => [page.path, page.alternatePath] as const);
+export const isInternationalMarketPath = (path: string) => /^\/(?:es\/|pt\/)?ielts-speaking-online(?:\/|$)/.test(path);
