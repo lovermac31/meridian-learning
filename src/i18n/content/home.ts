@@ -101,10 +101,12 @@ const enHomeContent = {
       visualPriority: 'Focus on one action for the next attempt',
       visualNote: 'Illustrative report preview · typed practice does not assess pronunciation.',
       writingBadge: 'New',
-      writingEyebrow: 'JURASSIC WRITING · COMING SOON',
+      // Links the live demo (/ai-speaking/writing/demo): sample reports on
+      // invented essays. Stay honest: visitors cannot submit their own essay.
+      writingEyebrow: 'JURASSIC WRITING · SAMPLE REPORTS',
       writingTitle: 'IELTS Writing Task 2, the same evidence-first way.',
-      writingBody: 'Independent practice: write an essay, see the sentences behind each point and one priority to fix. Not open yet. Want a teacher to read your essay now? Book a 1-to-1 session.',
-      writingCta: 'Learn about Writing Practice',
+      writingBody: 'Three sample reports on invented essays: the sentences behind each point and one priority to fix. They show the method; you cannot submit your own essay here. Want a teacher to read yours? Book a 1-to-1 session.',
+      writingCta: 'See three sample reports',
     },
   },
   // Offers band (homepage layout B, 14 Oct 2026): every paid path under the
@@ -541,10 +543,10 @@ const viHomeContent = {
       visualPriority: 'Tập trung vào một hành động cho lần luyện tiếp theo',
       visualNote: 'Minh hoạ báo cáo · Bài đánh máy không đánh giá phát âm.',
       writingBadge: 'Mới',
-      writingEyebrow: 'JURASSIC WRITING · SẮP RA MẮT',
+      writingEyebrow: 'JURASSIC WRITING · BÁO CÁO MẪU',
       writingTitle: 'IELTS Writing Task 2, cùng cách làm dựa trên bằng chứng.',
-      writingBody: 'Tự luyện độc lập: viết một bài luận, xem các câu văn đứng sau mỗi nhận xét và một ưu tiên cần sửa. Chưa mở. Muốn giáo viên đọc bài của bạn ngay bây giờ? Đặt buổi học 1 kèm 1.',
-      writingCta: 'Tìm hiểu Luyện viết',
+      writingBody: 'Ba báo cáo mẫu trên các bài luận giả định: các câu văn đứng sau mỗi nhận xét và một ưu tiên cần sửa. Đây là minh họa phương pháp, không phải nơi gửi bài của bạn. Muốn giáo viên đọc bài của bạn? Đặt buổi học 1 kèm 1.',
+      writingCta: 'Xem ba báo cáo mẫu',
     },
   },
   offers: {
