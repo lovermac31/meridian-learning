@@ -2,7 +2,7 @@
  * Guards the 1-to-1 lesson checkout buttons on /young-learners-speaking/ and its
  * Vietnamese edition: both packs link to the AI Speaking checkout (VI page → VI
  * checkout), prices use one format (800.000₫), and no card-payment promise remains
- * (payments are VietQR bank transfer only until cards are offered).
+ * (VietQR bank transfer in Vietnam; PayPal from outside Vietnam, see tests/paypal.test.ts).
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';

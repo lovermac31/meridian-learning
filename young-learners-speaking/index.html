@@ -312,6 +312,17 @@ section.page{padding:clamp(64px,8vw,88px) 0}
 .payment-option .badge{display:inline-flex;align-items:center;border-radius:7px;background:#f1e4d0;color:var(--bronze);font-weight:900;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;margin-bottom:10px}
 .payment-option h4{font-family:"Avenir Next","Trebuchet MS",system-ui,sans-serif;font-size:1rem;letter-spacing:.02em;text-transform:uppercase;color:var(--ink);margin:0 0 8px}
 .payment-option p{color:var(--warm);font-size:.95rem;margin:0}
+.yl-paypal{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--orange2);border-radius:12px;padding:20px 22px;margin:0 0 20px;color:var(--warm);box-shadow:0 10px 30px -18px #10182059}
+.yl-paypal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.yl-paypal-head h3{margin:0;font-size:1.15rem;line-height:1.3;color:var(--ink)}
+.yl-paypal-head img{height:32px;width:auto;flex:none}
+.yl-paypal p{margin:10px 0 0}
+.yl-paypal-options{display:grid;gap:12px;margin-top:16px}
+@media(min-width:640px){.yl-paypal-options{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.yl-paypal-option{display:flex;flex-direction:column;justify-content:space-between;gap:6px;min-height:88px;padding:14px 16px;border:2px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink);text-decoration:none;line-height:1.35;font-weight:700;transition:background-color 150ms var(--ease),border-color 150ms var(--ease)}
+.yl-paypal-option:hover{background:#fdf2ea;border-color:var(--orange)}
+.yl-paypal-option strong{font-size:1.35rem;font-weight:900}
+.yl-paypal .yl-paypal-note{font-size:.92rem}
 .payment-checks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 36px}
 .payment-check{background:var(--cream2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;color:var(--text);font-weight:800}
 .payment-check:before{content:"✓";color:var(--green);font-weight:900;margin-right:8px}
@@ -684,16 +695,16 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       <div class="program-cards" style="margin:24px 0 42px">
         <div class="program-card"><h3 data-i18n="pricing.card1h">Live Speaking Baseline</h3><p><strong style="color:var(--orange);font-size:1.7rem">690.000₫</strong><br><span data-i18n="pricing.card1p">15–20 minutes live on Google Meet with an assessor: four criterion bands, an overall band and a written plan. Under 18: booked by a parent.</span></p><a class="btn" style="margin-top:16px" data-baseline-link href="/ai-speaking/baseline" data-i18n="pricing.card1cta">Book a Speaking Baseline</a></div>
         <div class="program-card"><h3 data-i18n="pricing.card2h">Self-Study Toolkit</h3><p><strong style="color:var(--orange);font-size:1.7rem">990.000₫ / $39</strong><br><span data-i18n="pricing.card2p">Handbook, activities, and video guides for habits at home.</span></p></div>
-        <div class="program-card"><h3 data-i18n="pricing.card3h">Small-group speaking practice</h3><p><strong style="color:var(--orange);font-size:1.7rem">2.900.000₫ / $114</strong><br><span data-i18n="pricing.card3p">Peers, motivation, and a lower cost. Max 6, six weeks.</span></p></div>
+        <div class="program-card"><h3 data-i18n="pricing.card3h">Small-group speaking practice</h3><p><strong style="color:var(--orange);font-size:1.7rem">2.900.000₫ / $112</strong><br><span data-i18n="pricing.card3p">Peers, motivation, and a lower cost. Max 6, six weeks.</span></p></div>
       </div>
       <h3 style="text-transform:uppercase;letter-spacing:.04em" data-i18n="pricing.privateH3">1-to-1 coaching: personal pace and targeted feedback</h3>
       <table class="pricing-table" aria-label="Private coaching prices" data-i18n-attr="aria-label:attr.pricingTable">
         <thead><tr><th data-i18n="pricing.th1">Commitment</th><th data-i18n="pricing.th2">Price</th><th data-i18n="pricing.th3">Per lesson</th><th data-i18n="pricing.th4">Save</th><th data-i18n="pricing.th5">Best for</th></tr></thead>
         <tbody>
           <tr><td data-i18n="pricing.row1name">Pay-as-you-go</td><td>800.000₫ / $31</td><td>800.000₫</td><td>-</td><td data-i18n="pricing.row1best">Trying the method</td></tr>
-          <tr><td data-i18n="pricing.row2name">Monthly</td><td>5.600.000₫/mo / $220</td><td>700.000₫</td><td class="save">12%</td><td data-i18n="pricing.row2best">Steady term-time progress</td></tr>
-          <tr><td data-i18n="pricing.row3name">6-Month Journey · Best Value</td><td>5.000.000₫/mo / $196 · 30.000.000₫ total</td><td>625.000₫</td><td class="save">22%</td><td data-i18n="pricing.row3best">A multi-band climb plus Band 7 Target Pathway</td></tr>
-          <tr><td data-i18n="pricing.row4name">Annual Mastery</td><td>4.600.000₫/mo / $180 · 55.200.000₫ total</td><td>575.000₫</td><td class="save">28%</td><td data-i18n="pricing.row4best">Long-runway journeys to Band 8+</td></tr>
+          <tr><td data-i18n="pricing.row2name">Monthly</td><td>5.600.000₫/mo / $217</td><td>700.000₫</td><td class="save">12%</td><td data-i18n="pricing.row2best">Steady term-time progress</td></tr>
+          <tr><td data-i18n="pricing.row3name">6-Month Journey · Best Value</td><td>5.000.000₫/mo / $194 · 30.000.000₫ total</td><td>625.000₫</td><td class="save">22%</td><td data-i18n="pricing.row3best">A multi-band climb plus Band 7 Target Pathway</td></tr>
+          <tr><td data-i18n="pricing.row4name">Annual Mastery</td><td>4.600.000₫/mo / $178 · 55.200.000₫ total</td><td>575.000₫</td><td class="save">28%</td><td data-i18n="pricing.row4best">Long-runway journeys to Band 8+</td></tr>
         </tbody>
       </table>
       <p class="pricing-terms" style="font-size:.92rem;opacity:.85;margin-top:.8rem" data-i18n="pricing.pathwayTerms">Band 7 Target Pathway (6-Month Journey and Annual Mastery): if your child completes full attendance and all practice and sits the test within 30 days without reaching Band 7, we add targeted coaching and re-sit preparation at no extra tuition. Band targets are training goals, not score guarantees.</p>
@@ -708,6 +719,16 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
           <span style="display:block;font-size:.92rem" data-i18n="pricing.buyNote">The 6-Month Journey and Annual Mastery plans are arranged with us after the Speaking Baseline.</span>
         </div>
       </div>
+      <section class="yl-paypal" id="paypal" aria-labelledby="paypal-title">
+        <div class="yl-paypal-head"><h3 id="paypal-title" data-i18n="pricing.paypalH">Paying from outside Vietnam? Pay with PayPal</h3><img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-color.svg" width="101" height="32" alt="PayPal" loading="lazy" decoding="async"></div>
+        <p data-i18n="pricing.paypalP">Prices in US dollars. In the PayPal note, add your booking reference if you have one, or your email address. After we confirm, we email you to book your child's times.</p>
+        <div class="yl-paypal-options">
+          <a class="yl-paypal-option" data-paypal-item="baseline" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=info%40jurassicenglish.com&amp;item_name=Live+Speaking+Baseline+-+Young+Learners+%28Jurassic+English%29&amp;amount=27.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener noreferrer"><span data-i18n="pricing.paypalBaseline">Live Speaking Baseline</span><strong>US$27</strong></a>
+          <a class="yl-paypal-option" data-paypal-item="lesson_single" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=info%40jurassicenglish.com&amp;item_name=One-to-one+lesson+60+min+-+Young+Learners+%28Jurassic+English%29&amp;amount=31.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener noreferrer"><span data-i18n="pricing.paypalSingle">1 lesson · 60 minutes</span><strong>US$31</strong></a>
+          <a class="yl-paypal-option" data-paypal-item="lesson_month" href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=info%40jurassicenglish.com&amp;item_name=Month+of+8+lessons+-+Young+Learners+%28Jurassic+English%29&amp;amount=217.00&amp;currency_code=USD&amp;no_shipping=1" target="_blank" rel="noopener noreferrer"><span data-i18n="pricing.paypalMonth">A month · 8 lessons</span><strong>US$217</strong></a>
+        </div>
+        <p class="yl-paypal-note" data-i18n="pricing.paypalConfirm">We confirm PayPal payments by hand, usually within 1 business day.</p>
+      </section>
       <div class="payment-note">
         <div>
           <b data-i18n="pricing.flexNoteH">Flexible family payment options</b>
@@ -738,7 +759,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
       </div>
       <div class="payment-checks" aria-label="Payment safeguards" data-i18n-attr="aria-label:attr.paymentChecks">
         <div class="payment-check" data-i18n="pricing.flexTrust1">First payment secures lesson slots.</div>
-        <div class="payment-check" data-i18n="pricing.flexTrust2">Bank transfer with VietQR, confirmed automatically. Card payments are not available yet.</div>
+        <div class="payment-check" data-i18n="pricing.flexTrust2">Bank transfer with VietQR in Vietnam, confirmed automatically. Outside Vietnam, pay with PayPal, confirmed by hand.</div>
         <div class="payment-check" data-i18n="pricing.flexTrust3">No hidden finance fee on standard monthly plans.</div>
       </div>
       <div class="payment-cta-row">
@@ -791,6 +812,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
           <div class="qr"><img src="assets/qr/website-qr.png" alt="Jurassic English website QR code" data-i18n-attr="alt:attr.qrWebsite"><span data-i18n="book.websiteLabel">Our website</span></div>
         </div>
         <a class="btn light" href="mailto:info@jurassicenglish.com?subject=Live%20Speaking%20Baseline%20for%20my%20child" data-i18n="book.emailBtn">Email to book</a>
+        <p class="booking-next"><a href="#paypal" data-paypal-jump="booking" data-i18n="book.paypalLink">Paying from outside Vietnam? Pay with PayPal</a> <span data-i18n="book.paypalConfirm">We confirm PayPal payments by hand, usually within 1 business day.</span></p>
         <p class="booking-next"><span data-i18n="book.diagnosticPrompt">Need a broader reading, reasoning, and writing assessment?</span> <a href="/book-diagnostic" data-route-progression="book-diagnostic" data-i18n="book.diagnosticCta">Book a Student Thinking Diagnostic</a></p>
       </div>
       <div class="contact-line">Jurassic English · <a href="https://www.worldwiselearning.app" target="_blank" rel="noopener noreferrer">WorldWise Learning</a> · info@jurassicenglish.com · <a href="https://www.jurassicenglish.com">www.jurassicenglish.com</a> · Zalo +84 396 085 076</div>
