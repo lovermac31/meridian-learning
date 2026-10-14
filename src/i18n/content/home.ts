@@ -120,7 +120,7 @@ const enHomeContent = {
   offers: {
     eyebrow: 'Book & pricing',
     title: 'Every way to start, with prices',
-    paymentNote: 'Pay by bank transfer (VietQR) at checkout. Prices in Vietnamese đồng.',
+    paymentNote: 'Pay by bank transfer (VietQR) or PayPal at checkout',
     kids: {
       eyebrow: 'For parents',
       title: 'For your child, ages 9–18',
@@ -552,7 +552,7 @@ const viHomeContent = {
   offers: {
     eyebrow: 'Đặt lịch & học phí',
     title: 'Mọi cách bắt đầu, kèm học phí',
-    paymentNote: 'Thanh toán bằng chuyển khoản ngân hàng (VietQR) khi đặt. Học phí tính bằng đồng Việt Nam.',
+    paymentNote: 'Thanh toán bằng chuyển khoản (VietQR) hoặc PayPal khi đặt',
     kids: {
       eyebrow: 'Cho phụ huynh',
       title: 'Cho con 9–18 tuổi',

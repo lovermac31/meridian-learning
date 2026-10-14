@@ -123,3 +123,8 @@ test('AiSpeakingLaunch Writing card links the live demo and promises no launch d
     assert.match(copy, locale === 'en' ? /invented essays/ : /bài luận giả định/, locale);
   }
 });
+
+test('offers band payment note names VietQR and PayPal (owner, 14 Oct 2026)', () => {
+  assert.equal(getHomeContent('en')?.offers?.paymentNote, 'Pay by bank transfer (VietQR) or PayPal at checkout');
+  assert.equal(getHomeContent('vi')?.offers?.paymentNote, 'Thanh toán bằng chuyển khoản (VietQR) hoặc PayPal khi đặt');
+});
