@@ -598,7 +598,8 @@ function App() {
       ) : null}
       {/* One launcher per page (owner decision, 11 Oct 2026): the assistant, which carries the direct channels, wherever it
           runs; the Contact button only where the assistant does not (Vietnamese pages and routes outside its allowlist). */}
-      {!isInternalPilotRequestsView && !isBotUIPilotVisible ? <GlobalContactPanel /> : null}
+      {/* Contact button on every page (owner, 14 Oct 2026); the assistant keeps its own direct-channels row too. */}
+      {!isInternalPilotRequestsView ? <GlobalContactPanel /> : null}
       {isBotUIPilotVisible ? (
         <Suspense fallback={null}>
           <BotUIChat currentPathname={pathname} onNavigate={navigateTo} />
