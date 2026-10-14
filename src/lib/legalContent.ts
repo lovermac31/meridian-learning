@@ -247,7 +247,7 @@ const termsAndConditions: LegalDocument = {
 const privacyPolicy: LegalDocument = {
   title: 'Privacy Policy',
   effectiveDate: 'March 2026',
-  lastUpdated: 'March 21, 2026',
+  lastUpdated: 'October 14, 2026',
   callout: {
     label: 'YOUR PRIVACY MATTERS',
     body: 'World Wise Learning is committed to protecting your personal data. This Privacy Policy explains what data we collect, how we use it, and your rights under applicable data protection law including the UK GDPR, EU GDPR, and equivalent international legislation.',
@@ -280,7 +280,7 @@ const privacyPolicy: LegalDocument = {
             'Institutional email address and contact details;',
             'School or organisation name and address;',
             'Role and level of seniority (for teacher training and licensing purposes);',
-            'Payment and billing information (processed securely via third-party payment processors);',
+            'Payment and billing information (processed securely via third-party payment processors, including PayPal for payments from outside Vietnam);',
             'Communication records, including emails, enquiry forms, and support correspondence;',
             'Account credentials (username and encrypted password) for platform users.',
           ]),
@@ -344,6 +344,7 @@ const privacyPolicy: LegalDocument = {
         p('We do not sell your personal data. We may share your data with:'),
         list([
           'Service providers: Third-party platforms (e.g., cloud hosting, payment processors, email delivery services) engaged to operate Our Services under data processing agreements;',
+          'Payment processors: if you pay from outside Vietnam, PayPal processes your payment under its own privacy statement. PayPal shares with Us your name, email address, the amount, the item paid for and any note you add, which We use only to confirm and record your booking;',
           'Institutional Clients: Where you are a student or user registered under an institutional account, relevant data may be shared with your institution\'s designated administrator;',
           'Professional advisors: Legal, accounting, and compliance professionals bound by professional confidentiality;',
           'Regulatory authorities: Where required by law, court order, or government directive.',

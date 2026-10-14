@@ -102,3 +102,15 @@ test('YL: every PayPal link reports a unique click label', () => {
   const items = [...YL_EN.matchAll(/data-paypal-item="([^"]+)"/g)].map((m) => m[1]);
   assert.equal(new Set(items).size, items.length);
 });
+
+test('privacy policy names PayPal as a payment processor in EN and VI', async () => {
+  const { legalDocuments } = await import('../src/lib/legalContent.ts');
+  const { getLocalizedLegalDocument } = await import('../src/i18n/content/legal.ts');
+  for (const doc of [legalDocuments['/legal/privacy'], getLocalizedLegalDocument('/legal/privacy', 'vi')]) {
+    assert.ok(doc);
+    const text = JSON.stringify(doc.sections);
+    assert.match(text, /PayPal/);
+    assert.ok((text.match(/PayPal/g) ?? []).length >= 3, doc.title);
+  }
+  assert.equal(legalDocuments['/legal/privacy'].lastUpdated, 'October 14, 2026');
+});
