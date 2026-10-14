@@ -21,7 +21,7 @@
  * address associated with your PayPal account"; the ID is used because info@jurassicenglish.com turned
  * out to be a separate PayPal account (14 Oct 2026), and an ID does not change if an email does.
  */
-export const PAYPAL_BUSINESS_ID = '__PAYPAL_MERCHANT_ID__';
+export const PAYPAL_BUSINESS_ID = 'XW7RP68VVPZP2';
 /** The payee name PayPal shows at checkout. */
 export const PAYPAL_PAYEE_NAME = 'WorldWiseLearning';
 export const PAYPAL_LOGO = 'https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-color.svg';
