@@ -185,7 +185,7 @@ const termsVi: LegalDocument = {
 const privacyVi: LegalDocument = {
   title: 'Chính sách quyền riêng tư',
   effectiveDate: 'Tháng 3 năm 2026',
-  lastUpdated: '21 tháng 3 năm 2026',
+  lastUpdated: '14 tháng 10 năm 2026',
   callout: {
     label: 'QUYỀN RIÊNG TƯ CỦA BẠN RẤT QUAN TRỌNG',
     body: 'World Wise Learning cam kết bảo vệ dữ liệu cá nhân của bạn. Chính sách quyền riêng tư này giải thích chúng tôi thu thập những dữ liệu nào, sử dụng chúng ra sao, và các quyền của bạn theo pháp luật bảo vệ dữ liệu hiện hành, bao gồm UK GDPR, EU GDPR và các quy định quốc tế tương đương.',
@@ -211,7 +211,7 @@ const privacyVi: LegalDocument = {
           'Địa chỉ email cơ quan và thông tin liên hệ;',
           'Tên và địa chỉ trường học hoặc tổ chức;',
           'Vai trò và mức độ seniority (cho mục đích đào tạo giáo viên và cấp phép);',
-          'Thông tin thanh toán và lập hóa đơn (được xử lý an toàn thông qua các đơn vị xử lý thanh toán bên thứ ba);',
+          'Thông tin thanh toán và lập hóa đơn (được xử lý an toàn thông qua các đơn vị xử lý thanh toán bên thứ ba, bao gồm PayPal cho các khoản thanh toán từ ngoài Việt Nam);',
           'Hồ sơ liên lạc, bao gồm email, biểu mẫu liên hệ và thư từ hỗ trợ;',
           'Thông tin đăng nhập tài khoản (tên người dùng và mật khẩu được mã hóa) dành cho người dùng nền tảng.',
         ]),
@@ -263,6 +263,7 @@ const privacyVi: LegalDocument = {
       p('Chúng tôi không bán dữ liệu cá nhân của bạn. Chúng tôi có thể chia sẻ dữ liệu của bạn với:'),
       list([
         'Nhà cung cấp dịch vụ: các nền tảng bên thứ ba (ví dụ: lưu trữ đám mây, bộ xử lý thanh toán, dịch vụ gửi email) được thuê để vận hành Dịch vụ của Chúng tôi theo các thỏa thuận xử lý dữ liệu;',
+        'Đơn vị xử lý thanh toán: nếu bạn thanh toán từ ngoài Việt Nam, PayPal xử lý khoản thanh toán của bạn theo tuyên bố quyền riêng tư của PayPal. PayPal chia sẻ với Chúng tôi tên, địa chỉ email, số tiền, nội dung thanh toán và mọi ghi chú bạn thêm vào; Chúng tôi chỉ dùng các thông tin này để xác nhận và ghi nhận việc đặt lịch của bạn;',
         'Khách hàng tổ chức: khi bạn là học sinh hoặc người dùng được đăng ký dưới một tài khoản tổ chức, dữ liệu liên quan có thể được chia sẻ với quản trị viên được chỉ định của tổ chức đó;',
         'Cố vấn chuyên môn: luật sư, kế toán và chuyên gia tuân thủ chịu ràng buộc bởi nghĩa vụ bảo mật nghề nghiệp;',
         'Cơ quan quản lý: khi được yêu cầu theo pháp luật, lệnh tòa hoặc chỉ thị của chính phủ.',
