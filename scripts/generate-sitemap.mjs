@@ -65,6 +65,7 @@ const toolPairs = [
 function toolAlternates(pathname) {
   const seoPage = getSeoPage(pathname);
   if (seoPage) {
+    if (seoPage.path.startsWith('/ielts-speaking-online')) return [];
     const en = seoPage.locale === 'en' ? seoPage.path : seoPage.alternatePath;
     const vi = seoPage.locale === 'vi' ? seoPage.path : seoPage.alternatePath;
     return [

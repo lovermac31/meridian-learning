@@ -885,6 +885,15 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
   const seoPage = getSeoPage(pathname);
   if (seoPage) {
     const canonical = toAbsoluteUrl(seoPage.path);
+    if (seoPage.path.startsWith('/ielts-speaking-online')) {
+      const isHub = seoPage.path === '/ielts-speaking-online';
+      const jsonLd: JsonLd[] = [
+        createServiceJsonLd({ name: seoPage.h1, description: seoPage.description, url: canonical, serviceType: 'Online IELTS Speaking coaching', areaServed: isHub ? 'Online, outside Vietnam' : seoPage.h1.replace('Online IELTS Speaking coaching for learners in ', '') }),
+        createFaqJsonLd(seoPage.faq.map(item => ({ question: item.question, answer: item.answer }))),
+        createBreadcrumbJsonLd(isHub ? [{ name: 'Home', path: '/' }, { name: seoPage.h1, path: seoPage.path }] : [{ name: 'Home', path: '/' }, { name: 'IELTS Speaking online', path: '/ielts-speaking-online' }, { name: seoPage.h1, path: seoPage.path }]),
+      ];
+      return createMetadata({ title: seoPage.title, description: seoPage.description, canonical, robots: 'index, follow', locale: 'en', jsonLd, ogUrl: canonical });
+    }
     const enPath = seoPage.locale === 'en' ? seoPage.path : seoPage.alternatePath;
     const viPath = seoPage.locale === 'vi' ? seoPage.path : seoPage.alternatePath;
     const jsonLd: JsonLd[] = seoPage.path.includes('/insights/') ? [{
