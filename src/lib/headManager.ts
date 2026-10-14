@@ -114,6 +114,7 @@ function replaceJsonLd(blocks: JsonLd[] = []) {
 
 export function applyHeadMetadata(metadata: HeadMetadata) {
   document.documentElement.lang = metadata.htmlLang;
+  document.documentElement.dir = metadata.htmlLang === 'ar' || metadata.htmlLang === 'ur' ? 'rtl' : '';
   document.title = metadata.title;
 
   upsertMetaByName('description', metadata.description);

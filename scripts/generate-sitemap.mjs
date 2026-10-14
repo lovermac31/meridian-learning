@@ -16,7 +16,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.ts';
 import { createLastmodResolver } from './lib/sitemap-lastmod.mjs';
-import { getSeoPage } from '../src/lib/seoPages.ts';
+import { getSeoPage, isInternationalMarketPath, getInternationalAlternates } from '../src/lib/seoPages.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir   = path.resolve(__dirname, '..', 'dist');
@@ -65,12 +65,9 @@ const toolPairs = [
 function toolAlternates(pathname) {
   const seoPage = getSeoPage(pathname);
   if (seoPage) {
-    if (seoPage.path === '/ielts-speaking-online' || seoPage.path === '/es/ielts-speaking-online') return [
-      `    <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}/ielts-speaking-online" />`,
-      `    <xhtml:link rel="alternate" hreflang="es" href="${SITE_URL}/es/ielts-speaking-online" />`,
-      `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}/ielts-speaking-online" />`,
-    ];
-    if (seoPage.path.startsWith('/ielts-speaking-online') || seoPage.path.startsWith('/es/ielts-speaking-online') || seoPage.path.startsWith('/pt/ielts-speaking-online')) return [];
+    if (isInternationalMarketPath(seoPage.path)) return (getInternationalAlternates(pathname) ?? []).map(
+      ({ hrefLang, href }) => `    <xhtml:link rel="alternate" hreflang="${hrefLang}" href="${href}" />`,
+    );
     const en = seoPage.locale === 'en' ? seoPage.path : seoPage.alternatePath;
     const vi = seoPage.locale === 'vi' ? seoPage.path : seoPage.alternatePath;
     return [

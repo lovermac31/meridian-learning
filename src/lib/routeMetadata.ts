@@ -13,7 +13,7 @@ import { getLocalizedSyllabusByRoutePath } from '../i18n/content/syllabus';
 import { getLocalizedThinkingCycleStageByPath } from '../i18n/content/thinkingCycle';
 import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
-import { getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath } from './seoPages';
+import { getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath, getInternationalAlternates } from './seoPages';
 import {
   createBreadcrumbJsonLd,
   createCourseJsonLd,
@@ -510,7 +510,7 @@ function createMetadata({
   ogTitle?: string;
   ogDescription?: string;
   ogUrl?: string;
-  locale?: Locale | 'es' | 'pt-BR';
+  locale?: Locale | 'es' | 'pt-BR' | 'id' | 'ms' | 'th' | 'ar' | 'ur' | 'bn';
 }): RouteMetadata {
   const normalizedDescription = normalizeDescription(description);
   const socialTitle = ogTitle ?? title;
@@ -518,7 +518,7 @@ function createMetadata({
   const socialUrl = ogUrl ?? canonical ?? SITE_URL;
 
   return {
-    htmlLang: locale === 'es' || locale === 'pt-BR' ? locale : getLocaleDefinition(locale).htmlLang,
+    htmlLang: locale in { en: 1, vi: 1 } ? getLocaleDefinition(locale as Locale).htmlLang : locale,
     title,
     description: normalizedDescription,
     canonical,
@@ -534,7 +534,7 @@ function createMetadata({
       imageHeight: DEFAULT_OG_IMAGE_HEIGHT,
       type: 'website',
       siteName: SITE_NAME,
-      locale: locale === 'es' ? 'es_ES' : locale === 'pt-BR' ? 'pt_BR' : getLocaleDefinition(locale).ogLocale,
+      locale: ({ es: 'es_ES', 'pt-BR': 'pt_BR', id: 'id_ID', ms: 'ms_MY', th: 'th_TH', ar: 'ar_AR', ur: 'ur_PK', bn: 'bn_BD' } as Record<string, string>)[locale] ?? getLocaleDefinition(locale as Locale).ogLocale,
     },
     twitter: {
       card: 'summary_large_image',
@@ -896,12 +896,8 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
         createFaqJsonLd(seoPage.faq.map(item => ({ question: item.question, answer: item.answer }))),
         createBreadcrumbJsonLd(isHub ? [{ name: 'Home', path: '/' }, { name: seoPage.h1, path: seoPage.path }] : [{ name: 'Home', path: '/' }, { name: 'IELTS Speaking online', path: hubPath }, { name: seoPage.h1, path: seoPage.path }]),
       ];
-      const alternates = (seoPage.path === '/ielts-speaking-online' || seoPage.path === '/es/ielts-speaking-online') ? [
-        { hrefLang: 'en', href: `${SITE_URL}/ielts-speaking-online` },
-        { hrefLang: 'es', href: `${SITE_URL}/es/ielts-speaking-online` },
-        { hrefLang: 'x-default', href: `${SITE_URL}/ielts-speaking-online` },
-      ] : undefined;
-      return createMetadata({ title: seoPage.title, description: seoPage.description, canonical, robots: 'index, follow', locale: seoPage.locale as Locale | 'es' | 'pt-BR', alternates, jsonLd, ogUrl: canonical });
+      const alternates = getInternationalAlternates(seoPage.path);
+      return createMetadata({ title: seoPage.title, description: seoPage.description, canonical, robots: 'index, follow', locale: seoPage.locale as Locale | 'es' | 'pt-BR' | 'id' | 'ms' | 'th' | 'ar' | 'ur' | 'bn', alternates, jsonLd, ogUrl: canonical });
     }
     const enPath = seoPage.locale === 'en' ? seoPage.path : seoPage.alternatePath;
     const viPath = seoPage.locale === 'vi' ? seoPage.path : seoPage.alternatePath;
