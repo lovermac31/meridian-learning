@@ -61,7 +61,7 @@ export function ProofStrip({ onNavigate }: ProofStripProps) {
 
   return (
     <section className="bg-jurassic-ivory py-20">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-7xl px-6">
         {/* Social-intent card — explicit FB-parent hook. Sits at
             the very top of ProofStrip so it is the first thing a visitor
             who scrolled past the hero sees on screen 2. */}

@@ -13,7 +13,7 @@ export function AiSpeakingLaunch() {
   return (
     <section id="ai-speaking-launch" aria-labelledby="ai-speaking-launch-title" className="relative overflow-hidden bg-jurassic-soft py-16 sm:py-24 scroll-mt-20">
       <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" style={{ backgroundImage: 'radial-gradient(#a59a87 0.65px, transparent 0.65px)', backgroundSize: '22px 22px' }} />
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-16">
           <div className="max-w-xl">
             <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-jurassic-accent/30 bg-white px-3 py-1.5 text-[11px] font-bold tracking-[0.14em] text-jurassic-dark shadow-sm">

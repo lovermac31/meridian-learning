@@ -165,7 +165,7 @@ export const Navbar = ({
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${forceSolidBackground ? 'bg-jurassic-dark shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : isSolidNav ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : 'bg-transparent py-5'}`}>
-      <div className="max-w-[1480px] mx-auto px-6 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <button
             type="button"

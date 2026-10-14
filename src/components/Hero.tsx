@@ -116,7 +116,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
           <button
             type="button"
             onClick={() => onNavigate('/companies')}
-            className="group mt-4 flex w-full max-w-3xl flex-col items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-4 text-left transition hover:border-jurassic-accent/40 hover:bg-white/[0.06] sm:flex-row sm:items-center sm:justify-between sm:gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            className="group mt-4 flex w-full flex-col items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-4 text-left transition hover:border-jurassic-accent/40 hover:bg-white/[0.06] sm:flex-row sm:items-center sm:justify-between sm:gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             <span className="min-w-0">
               <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-jurassic-accent">
