@@ -105,5 +105,5 @@ test('insights index discovers adult guide with bounded repeated-card styling', 
   assert.match(html, /href="\/insights\/online-ielts-speaking-coaching"/);
   assert.match(html, /rounded-lg/);
   assert.doesNotMatch(html, /rounded-2xl/);
-  assert.match(render(), /text-3xl[^\"]*sm:text-4xl/);
+  assert.match(render(), /class="insights-title font-display"/);
 });

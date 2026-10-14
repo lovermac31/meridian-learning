@@ -1,6 +1,8 @@
 import { getPublishedInsightArticles, getInsightArticleBySlug, INSIGHTS_BASE_PATH } from '../lib/insightsContent';
 import { OneChangeInvitation } from './OneChangeInvitation';
 import { getSeoPage, seoPages, isInternationalMarketPath } from '../lib/seoPages';
+import type { SeoPage } from '../lib/seoPages';
+import marketPricing from '../content/marketPricing.json';
 
 const sources = <ul className="list-disc pl-6"><li><a href="https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-speaking" rel="noopener noreferrer">IELTS Academic Speaking test format</a></li><li><a href="https://ielts.org/cdn/ielts-guides/ielts-speaking-key-assessment-criteria.pdf" rel="noopener noreferrer">IELTS Speaking key assessment criteria</a></li></ul>;
 
@@ -47,26 +49,130 @@ const articleBodies: Record<string, React.ReactNode> = {
   'from-speaking-diagnostic-to-one-to-one-lesson': <><h2>1. Review the evidence</h2><p>Begin with one answer and identify a concrete strength and a priority for improvement. Keep observations tied to what the learner actually said.</p><h2>2. Practise with guidance</h2><p>A one-to-one lesson can model a strategy, practise it with a related prompt and give the learner a chance to explain their choices. The session should build understanding rather than simply supply a memorized response.</p><h2>3. Try again independently</h2><p>The learner attempts a fresh or repeated task without copying a model. Compare the attempt with the original and note what changed.</p><h2>4. Agree a follow-up</h2><p>Choose one manageable practice action. Current session availability and payable options are shown only in the booking flow; this article does not promise a slot or a score outcome.</p><p><a href="/ai-speaking/solutions">See current one-to-one session options</a>.</p></>,
 };
 
+const languageLabels: Record<string, string> = {
+  en: 'English', vi: 'Tiếng Việt', es: 'Español', 'pt-BR': 'Português',
+  id: 'Bahasa Indonesia', ms: 'Bahasa Melayu', th: 'ไทย',
+  ar: 'العربية', ur: 'اردو', bn: 'বাংলা',
+};
+
+const chrome: Record<string, { resources: string; language: string; scroll: string; closing: string; baseline: string; lesson: string; from: string; minutes: string }> = {
+  en: { resources: 'Learning resources', language: 'Language', scroll: 'Scroll to see more →', closing: 'Ready to practise with a teacher?', baseline: 'Book a Speaking Baseline', lesson: 'One-to-one lesson', from: 'from', minutes: 'min' },
+  vi: { resources: 'Tài liệu học tập', language: 'Ngôn ngữ', scroll: 'Vuốt để xem thêm →', closing: 'Sẵn sàng luyện tập cùng giáo viên?', baseline: 'Đặt buổi đánh giá Speaking', lesson: 'Buổi học một kèm một', from: 'từ', minutes: 'phút' },
+  es: { resources: 'Recursos de aprendizaje', language: 'Idioma', scroll: 'Desliza para ver más →', closing: '¿Listo para practicar con un profesor?', baseline: 'Reserva una evaluación inicial de Speaking', lesson: 'Clase individual', from: 'desde', minutes: 'min' },
+  'pt-BR': { resources: 'Recursos de aprendizagem', language: 'Idioma', scroll: 'Deslize para ver mais →', closing: 'Pronto para praticar com um professor?', baseline: 'Agende uma avaliação inicial de Speaking', lesson: 'Aula individual', from: 'a partir de', minutes: 'min' },
+  id: { resources: 'Sumber belajar', language: 'Bahasa', scroll: 'Geser untuk melihat selengkapnya →', closing: 'Siap berlatih bersama pengajar?', baseline: 'Pesan asesmen awal Speaking', lesson: 'Les privat', from: 'mulai', minutes: 'menit' },
+  ms: { resources: 'Sumber pembelajaran', language: 'Bahasa', scroll: 'Leret untuk lihat lagi →', closing: 'Sedia berlatih dengan guru?', baseline: 'Tempah penilaian awal Speaking', lesson: 'Kelas individu', from: 'bermula', minutes: 'minit' },
+  th: { resources: 'แหล่งเรียนรู้', language: 'ภาษา', scroll: 'เลื่อนเพื่อดูเพิ่มเติม →', closing: 'พร้อมฝึกกับครูแล้วหรือยัง?', baseline: 'จองการประเมิน Speaking เบื้องต้น', lesson: 'เรียนตัวต่อตัว', from: 'เริ่มต้นที่', minutes: 'นาที' },
+  ar: { resources: 'مصادر التعلّم', language: 'اللغة', scroll: 'مرّر لرؤية المزيد ←', closing: 'هل أنت مستعد للتدرّب مع معلّم؟', baseline: 'احجز التقييم الأولي للمحادثة', lesson: 'درس فردي', from: 'ابتداءً من', minutes: 'دقيقة' },
+  ur: { resources: 'تعلیمی وسائل', language: 'زبان', scroll: 'مزید دیکھنے کے لیے اسکرول کریں ←', closing: 'استاد کے ساتھ مشق کے لیے تیار ہیں؟', baseline: 'ابتدائی اسپیکنگ جائزہ بک کریں', lesson: 'انفرادی سبق', from: 'سے', minutes: 'منٹ' },
+  bn: { resources: 'শেখার উপকরণ', language: 'ভাষা', scroll: 'আরও দেখতে স্ক্রল করুন →', closing: 'শিক্ষকের সঙ্গে অনুশীলনে প্রস্তুত?', baseline: 'প্রাথমিক Speaking মূল্যায়ন বুক করুন', lesson: 'একান্ত পাঠ', from: 'শুরু', minutes: 'মিনিট' },
+};
+
+const countryNames: Record<string, Record<string, string>> = {
+  en: { india: 'India', philippines: 'Philippines', indonesia: 'Indonesia', malaysia: 'Malaysia', singapore: 'Singapore', thailand: 'Thailand', uae: 'UAE', 'saudi-arabia': 'Saudi Arabia', pakistan: 'Pakistan', bangladesh: 'Bangladesh', nigeria: 'Nigeria', egypt: 'Egypt', colombia: 'Colombia', peru: 'Peru', chile: 'Chile', argentina: 'Argentina', brazil: 'Brazil' },
+  es: { colombia: 'Colombia', peru: 'Perú', chile: 'Chile', argentina: 'Argentina' },
+  'pt-BR': { brazil: 'Brasil' }, id: { indonesia: 'Indonesia' }, ms: { malaysia: 'Malaysia' }, th: { thailand: 'ประเทศไทย' },
+  ar: { uae: 'الإمارات', 'saudi-arabia': 'السعودية', egypt: 'مصر' }, ur: { pakistan: 'پاکستان' }, bn: { bangladesh: 'বাংলাদেশ' },
+};
+
+const marketFromPath = (path: string) => {
+  const slug = path.split('/').filter(Boolean).at(-1);
+  return slug === 'ielts-speaking-online' ? undefined : slug === 'brasil' ? 'brazil' : slug;
+};
+
+function marketCtas(path: string, locale: string) {
+  const market = marketFromPath(path);
+  const tier = market ? marketPricing.markets[market as keyof typeof marketPricing.markets] : 1;
+  const prices = marketPricing.tiers[String(tier) as keyof typeof marketPricing.tiers];
+  const copy = chrome[locale] ?? chrome.en;
+  const prefix = market ? '' : `${copy.from} `;
+  const baselinePrice = `${prefix}US$${prices.baseline_usd}`;
+  const lessonPrice = `${prefix}US$${prices.lesson_usd}`;
+  return [
+    { href: '/ai-speaking/baseline', label: `${copy.baseline} · ${baselinePrice}` },
+    { href: '/ai-speaking/solutions', label: `${copy.lesson} · ${lessonPrice} / 60 ${copy.minutes}` },
+  ];
+}
+
+const latinRun = /\(?[A-Za-z0-9$+](?:[A-Za-z0-9$+.,:/–-]|\s+(?=[A-Za-z0-9$+(])|\((?=[A-Za-z0-9])|\))*/g;
+function isolateRtlText(source: string) {
+  return source.split(/(<[^>]+>|&(?:#\d+|#x[\da-f]+|[A-Za-z]+);)/gi).map(part => part.startsWith('<') || part.startsWith('&') ? part : part.replace(latinRun, '<bdi dir="ltr">$&</bdi>')).join('');
+}
+
+// The source HTML remains authoritative: move its existing heading and first
+// paragraph into the hero, and preserve all following copy in the article.
+export function prepareSeoContent(page: SeoPage) {
+  let html = page.html.replace(/<h1\b[^>]*>[\s\S]*?<\/h1>\s*/i, '');
+  let intro = '';
+  html = html.replace(/^<p>([\s\S]*?)<\/p>\s*/i, (_match, body: string) => {
+    intro = body;
+    return '';
+  });
+  html = html.replace(/(<aside\b[^>]*?) class="[^"]*"/g, '$1');
+  const hint = (chrome[page.locale] ?? chrome.en).scroll;
+  html = html.replace(/(<table\b[\s\S]*?<\/table>)/g, `<div class="insights-table-wrap"><p class="insights-table-hint">${hint}</p><div class="insights-table-scroll" tabindex="0" role="region" aria-label="${hint}">$1</div></div>`);
+  if (page.locale === 'ar' || page.locale === 'ur') {
+    html = isolateRtlText(html);
+    intro = isolateRtlText(intro);
+  }
+  return { html, intro };
+}
+
+function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas }: {
+  eyebrow: string; title: string; intro: string; locale: string;
+  alternate?: { path: string; locale: string }; market?: boolean;
+  ctas?: Array<{ href: string; label: string }>;
+}) {
+  const rtl = locale === 'ar' || locale === 'ur';
+  return <header className="insights-hero" dir={rtl ? 'rtl' : 'ltr'}>
+    <picture className="insights-compass" aria-hidden="true"><source media="(max-width: 640px)" srcSet="/images/hero-compass-640.webp" /><img src="/images/hero-compass-960.webp" width="960" height="960" alt="" /></picture>
+    <div className="insights-hero-inner">
+      <div className="min-w-0">
+        <p className="insights-eyebrow">{eyebrow}</p>
+        <h1 className={`insights-title ${['ar', 'ur', 'bn', 'th'].includes(locale) ? 'insights-title-native' : 'font-display'}`}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(title) }} /> : title}</h1>
+        {intro && <div className="insights-lead" dangerouslySetInnerHTML={{ __html: intro }} />}
+        {alternate && <div className="insights-language" role="group" aria-label={(chrome[locale] ?? chrome.en).language}>
+          {[{ path: '', locale }, alternate].map((option, index) => <a key={option.locale} href={index === 0 ? undefined : option.path} aria-current={index === 0 ? 'true' : undefined} lang={option.locale} className={index === 0 ? 'current' : ''}>{languageLabels[option.locale] ?? option.locale}</a>)}
+        </div>}
+      </div>
+      {market && <div className="insights-teacher">
+        <div className="insights-teacher-row"><img src="/images/mr-jay-portrait.webp" width="76" height="76" alt="Mr. Jay Adams" /><div><span className="insights-badge">CELTA</span><strong>Mr. Jay Adams</strong></div></div>
+        {ctas?.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}
+      </div>}
+    </div>
+  </header>;
+}
+
 export function SearchInsightsPage({ pathname, onNavigate }: { pathname: string; onNavigate: (path: string) => void }) {
   const seoPage = getSeoPage(pathname);
-  if (seoPage) return <main id="main-content" className="mx-auto max-w-3xl px-5 py-10 leading-relaxed sm:px-6 sm:py-14">
-    <nav aria-label="Breadcrumb" className="mb-8 text-sm"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{seoPage.locale === 'vi' ? 'Tài liệu học tập' : 'Learning resources'}</a></nav>
-    <article lang={seoPage.locale} className="max-w-none [&_h1]:mb-6 [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:leading-tight sm:[&_h1]:text-4xl [&_h2]:mb-3 [&_h2]:mt-9 [&_h2]:text-2xl [&_h2]:font-semibold [&_h3]:mt-6 [&_h3]:text-xl [&_h3]:font-semibold [&_p]:my-4 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-2 [&_a]:break-words [&_a]:text-emerald-800 [&_a]:underline [&_blockquote]:my-6 [&_blockquote]:rounded-lg [&_blockquote]:border [&_blockquote]:border-emerald-200 [&_blockquote]:bg-emerald-50 [&_blockquote]:p-5" dangerouslySetInnerHTML={{ __html: seoPage.html }} />
-    {seoPage.alternatePath !== seoPage.path && !isInternationalMarketPath(seoPage.path) && <p className="mt-10 border-t pt-6 text-sm"><a href={seoPage.alternatePath} hrefLang={seoPage.locale === 'vi' ? 'en' : 'vi'} lang={seoPage.locale === 'vi' ? 'en' : 'vi'}>{seoPage.locale === 'vi' ? 'English version' : 'Phiên bản tiếng Việt'}</a></p>}
-  </main>;
-  if (pathname === '/vi/insights') return <main id="main-content" className="mx-auto max-w-4xl px-5 py-12 leading-relaxed sm:px-6 sm:py-16"><h1 className="text-3xl font-bold">Tài liệu luyện IELTS Speaking</h1><p className="mt-5">Các bài hướng dẫn này giúp bạn xem lại câu trả lời Speaking của chính mình, hiểu một nhận xét dựa trên bằng chứng nào và chọn một việc để luyện tiếp. Bạn có thể đọc theo mục tiêu hiện tại: tìm điểm nghẽn giữa band 6 và band 7, luyện với các nhóm chủ đề forecast, tự kiểm tra tại nhà, hoặc hiểu giới hạn của phản hồi từ AI.</p><p className="mt-4">Mỗi bài phân biệt giữa việc luyện tập và kết quả thi IELTS. Các ví dụ dùng để minh họa cách suy nghĩ, không phải kết quả của học viên hay lời hứa tăng band. Nếu bạn muốn đánh giá cách mình thực sự nói, hãy ghi âm một câu trả lời, nghe lại theo bốn tiêu chí công khai và tìm phản hồi từ một người có thể nghe bạn trực tiếp.</p><div className="mt-8 space-y-6">{seoPages.filter(page => page.locale === 'vi' && page.path.startsWith('/vi/insights/')).map(page => <article key={page.path} className="rounded-lg border p-5"><h2 className="text-xl font-semibold"><a className="text-emerald-800 underline" href={page.path}>{page.h1}</a></h2><p className="mt-2">{page.description}</p></article>)}</div><p className="mt-8">Jurassic English™ là đơn vị độc lập, không liên kết với British Council, IDP hay Cambridge University Press &amp; Assessment. Điểm ước tính khi luyện tập không phải điểm IELTS chính thức. Hãy dùng những bài viết này để chọn câu hỏi mới, thử cách trả lời của riêng bạn và so sánh hai lần luyện trước khi quyết định bước tiếp theo.</p></main>;
+  if (seoPage) {
+    const { html, intro } = prepareSeoContent(seoPage);
+    const market = isInternationalMarketPath(seoPage.path);
+    const counterpart = seoPage.alternatePath !== seoPage.path && getSeoPage(seoPage.alternatePath);
+    const alternate = counterpart ? { path: counterpart.path, locale: counterpart.locale } : undefined;
+    const ctas = market ? marketCtas(seoPage.path, seoPage.locale) : [];
+    const marketKey = marketFromPath(seoPage.path);
+    const eyebrow = market ? (marketKey ? (countryNames[seoPage.locale] ?? countryNames.en)[marketKey] ?? countryNames.en[marketKey] : (chrome[seoPage.locale] ?? chrome.en).resources) : (seoPage.path.includes('/insights/') ? (chrome[seoPage.locale] ?? chrome.en).resources : 'Jurassic English · People');
+    return <main id="main-content" className="insights-page" lang={seoPage.locale} dir={['ar', 'ur'].includes(seoPage.locale) ? 'rtl' : 'ltr'}>
+      {['ar', 'ur', 'bn', 'th'].includes(seoPage.locale) && <link rel="stylesheet" href={`https://fonts.googleapis.com/css2?${seoPage.locale === 'ar' ? 'family=Tajawal:wght@700;800&family=Noto+Kufi+Arabic:wght@400;600' : seoPage.locale === 'ur' ? 'family=Noto+Kufi+Arabic:wght@600;700&family=Noto+Nastaliq+Urdu:wght@400;600' : seoPage.locale === 'bn' ? 'family=Noto+Sans+Bengali:wght@400;600;700' : 'family=Noto+Sans+Thai:wght@400;600;700'}&display=swap`} />}
+      <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} />
+      <div className="insights-content"><nav aria-label="Breadcrumb"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{(chrome[seoPage.locale] ?? chrome.en).resources}</a></nav><article dangerouslySetInnerHTML={{ __html: html }} /></div>
+      {market && <div className="insights-closing"><div><p>{(chrome[seoPage.locale] ?? chrome.en).closing}</p><div className="insights-closing-actions">{ctas.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{['ar', 'ur'].includes(seoPage.locale) ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}</div></div></div>}
+    </main>;
+  }
+  if (pathname === '/vi/insights') return <div className="insights-page"><HeroBand eyebrow="Tài liệu học tập" title="Tài liệu luyện IELTS Speaking" intro="Các bài hướng dẫn này giúp bạn xem lại câu trả lời Speaking của chính mình, hiểu một nhận xét dựa trên bằng chứng nào và chọn một việc để luyện tiếp. Bạn có thể đọc theo mục tiêu hiện tại: tìm điểm nghẽn giữa band 6 và band 7, luyện với các nhóm chủ đề forecast, tự kiểm tra tại nhà, hoặc hiểu giới hạn của phản hồi từ AI." locale="vi" /><main id="main-content" lang="vi" className="insights-content"><p className="mt-4">Mỗi bài phân biệt giữa việc luyện tập và kết quả thi IELTS. Các ví dụ dùng để minh họa cách suy nghĩ, không phải kết quả của học viên hay lời hứa tăng band. Nếu bạn muốn đánh giá cách mình thực sự nói, hãy ghi âm một câu trả lời, nghe lại theo bốn tiêu chí công khai và tìm phản hồi từ một người có thể nghe bạn trực tiếp.</p><div className="mt-8 space-y-6">{seoPages.filter(page => page.locale === 'vi' && page.path.startsWith('/vi/insights/')).map(page => <article key={page.path} className="rounded-lg border p-5"><h2 className="text-xl font-semibold"><a className="text-emerald-800 underline" href={page.path}>{page.h1}</a></h2><p className="mt-2">{page.description}</p></article>)}</div><p className="mt-8">Jurassic English™ là đơn vị độc lập, không liên kết với British Council, IDP hay Cambridge University Press &amp; Assessment. Điểm ước tính khi luyện tập không phải điểm IELTS chính thức. Hãy dùng những bài viết này để chọn câu hỏi mới, thử cách trả lời của riêng bạn và so sánh hai lần luyện trước khi quyết định bước tiếp theo.</p></main></div>;
   if (pathname === '/about/nathaniel-jay-adams') return <main id="main-content" className="mx-auto max-w-3xl px-6 py-16"><p className="text-sm font-bold uppercase tracking-widest text-orange-700">Jurassic English · People</p><h1 className="mt-3 text-4xl font-bold">Nathaniel Jay Adams</h1><p className="mt-2 text-xl text-slate-700">Publicly known to learners as Mr. Jay Adams.</p><p className="mt-8">The public pages of Jurassic English and WorldWise Learning describe two distinct areas of work. Jurassic English identifies Nathaniel Jay Adams as its Founder and Lead Coach. WorldWise Learning identifies him as Founder and AI Systems Architect. These descriptions are attributed to each organization’s own public site.</p><h2 className="mt-8 text-2xl font-semibold">Jurassic English</h2><p>Jurassic English supports learners with academic English, critical thinking and IELTS-style Speaking practice. Its practice guidance connects evidence from a learner’s response with one focused next step. Typed feedback does not assess pronunciation, and practice estimates are not official IELTS scores.</p><p><a href="/ai-speaking">Explore Jurassic AI Speaking</a> · <a href="/insights">Read IELTS Speaking learning resources</a> · <a href="https://jurassicenglish.com/">Visit Jurassic English</a></p><h2 className="mt-8 text-2xl font-semibold">WorldWise Learning</h2><p>WorldWise Learning is the institutional practice. It describes consulting, faculty development and education technology work, including bounded AI learning pilots that are scoped with each institution. Its public site describes proposed work and a demonstration; it does not claim a deployment at a named university.</p><p><a href="https://www.worldwiselearning.app/">Visit WorldWise Learning</a></p><h2 className="mt-8 text-2xl font-semibold">Working approach and availability</h2><p>The learner-facing work emphasizes response evidence, guided practice, an independent attempt and a practical follow-up. University projects begin with requirements, governance and security review; scope and deliverables are agreed individually. Current online lesson options and availability appear in the booking flow.</p><p className="mt-8"><a href="/get-started">Contact Jurassic English</a> · <a href="https://www.worldwiselearning.app/#contact">Contact WorldWise Learning</a></p></main>;
   const slug = pathname.replace(/^\/insights\/?/, '');
   const article = slug ? getInsightArticleBySlug(slug) : undefined;
   const articles = getPublishedInsightArticles();
   const link = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => { e.preventDefault(); onNavigate(path); };
-  if (!article) return <main id="main-content" className="mx-auto max-w-4xl px-5 py-12 leading-relaxed sm:px-6 sm:py-16"><p className="text-sm font-semibold uppercase tracking-widest">Jurassic English · Learning resources</p><h1 className="mt-3 text-3xl font-bold leading-tight sm:text-4xl">Practical answers for better English learning</h1><p className="mt-5 max-w-2xl text-lg">Evidence-led guidance on IELTS Speaking practice, useful feedback and one-to-one learning. Examples are illustrative and are not learner results.</p><p className="mt-4 max-w-3xl">Use these short guides to distinguish what a practice response actually shows from what still needs spoken or teacher review. Each article links observations to a clear next step and identifies the limits of the evidence.</p><p className="mt-4"><a className="text-emerald-800 underline" href="/ielts-speaking-online">IELTS Speaking online (outside Vietnam)</a></p><div className="mt-10 grid gap-5 md:grid-cols-2">{articles.map((item) => <article key={item.slug} className="min-w-0 rounded-lg border p-5 sm:p-6"><p className="text-sm font-semibold text-orange-700">{item.section}</p><h2 className="mt-2 text-xl font-semibold leading-snug"><a className="break-words text-emerald-800 underline underline-offset-4 hover:text-emerald-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4" href={`${INSIGHTS_BASE_PATH}/${item.slug}`} onClick={(e) => link(e, `${INSIGHTS_BASE_PATH}/${item.slug}`)}>{item.title}</a></h2><p className="mt-3">{item.deck}</p></article>)}</div><p className="mt-8 text-sm">The guidance refers to the public IELTS Speaking format and assessment criteria. It is independent preparation material and does not represent IELTS endorsement.</p></main>;
+  if (!article) return <div className="insights-page"><HeroBand eyebrow="Jurassic English · Learning resources" title="Practical answers for better English learning" intro="Evidence-led guidance on IELTS Speaking practice, useful feedback and one-to-one learning. Examples are illustrative and are not learner results." locale="en" /><main id="main-content" className="insights-content"><p className="mt-4 max-w-3xl">Use these short guides to distinguish what a practice response actually shows from what still needs spoken or teacher review. Each article links observations to a clear next step and identifies the limits of the evidence.</p><p className="mt-4"><a className="text-emerald-800 underline" href="/ielts-speaking-online">IELTS Speaking online (outside Vietnam)</a></p><div className="mt-10 grid gap-5 md:grid-cols-2">{articles.map((item) => <article key={item.slug} className="min-w-0 rounded-lg border p-5 sm:p-6"><p className="text-sm font-semibold text-orange-700">{item.section}</p><h2 className="mt-2 text-xl font-semibold leading-snug"><a className="break-words text-emerald-800 underline underline-offset-4 hover:text-emerald-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4" href={`${INSIGHTS_BASE_PATH}/${item.slug}`} onClick={(e) => link(e, `${INSIGHTS_BASE_PATH}/${item.slug}`)}>{item.title}</a></h2><p className="mt-3">{item.deck}</p></article>)}</div><p className="mt-8 text-sm">The guidance refers to the public IELTS Speaking format and assessment criteria. It is independent preparation material and does not represent IELTS endorsement.</p></main></div>;
   const related = articles.filter((item) => item.slug !== article.slug);
-  return <main id="main-content" className="mx-auto max-w-3xl px-5 py-10 leading-relaxed sm:px-6 sm:py-14 [&_a]:underline [&_a]:underline-offset-4"><nav aria-label="Breadcrumb" className="text-sm"><a href="/insights" onClick={(e) => link(e, '/insights')}>Learning resources</a> / {article.section}</nav><article className="mt-8"><p className="text-sm font-bold uppercase tracking-widest text-orange-700">{article.section}</p><h1 className="mt-3 break-words text-3xl font-bold leading-tight sm:text-4xl">{article.title}</h1><p className="mt-4 text-lg text-slate-700 sm:text-xl">{article.deck}</p><p className="mt-4 text-sm text-slate-600">Published {article.datePublished} · Jurassic English™ editorial team</p>
+  return <div className="insights-page"><HeroBand eyebrow={article.section} title={article.title} intro={article.deck} locale="en" /><main id="main-content" className="insights-content"><nav aria-label="Breadcrumb" className="text-sm"><a href="/insights" onClick={(e) => link(e, '/insights')}>Learning resources</a> / {article.section}</nav><article className="mt-8"><p className="mt-4 text-sm text-slate-600">Published {article.datePublished} · Jurassic English™ editorial team</p>
     <div className="mt-8 max-w-none text-base leading-7 sm:mt-10 [&_h2]:mb-3 [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:leading-snug sm:[&_h2]:text-2xl [&_p]:my-4 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:my-2 [&_a]:text-emerald-800 [&_a]:underline [&_a]:underline-offset-4 [&_a]:break-words [&_a:hover]:text-emerald-950 [&_a:focus-visible]:outline [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-offset-4">
       {Object.hasOwn(articleBodies, article.slug) ? articleBodies[article.slug] : <p>This article body is not available.</p>}
     </div>
     {article.slug !== 'online-ielts-speaking-coaching' && <OneChangeInvitation placement="insights" />}
     <aside className="mt-10 border-t pt-6"><h2 className="text-xl font-semibold">Related guidance</h2><ul className="mt-3 list-disc space-y-3 pl-6">{related.map((item) => <li key={item.slug}><a className="break-words text-emerald-800 hover:text-emerald-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4" href={`/insights/${item.slug}`} onClick={(e) => link(e, `/insights/${item.slug}`)}>{item.title}</a></li>)}</ul></aside>
-  </article></main>;
+  </article></main></div>;
 }

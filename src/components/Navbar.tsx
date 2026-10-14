@@ -174,6 +174,7 @@ export const Navbar = ({
               onNavigateHome();
             }}
             className="rounded-md px-1 py-0.5 font-wordmark text-[1.15rem] sm:text-[1.28rem] text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            dir="ltr"
             aria-label={getUiString(locale, 'navbar.brandAriaLabel')}
           >
             Jurassic English<sup className="text-jurassic-accent">™</sup>
