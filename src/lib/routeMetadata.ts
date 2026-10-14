@@ -13,6 +13,7 @@ import { getLocalizedSyllabusByRoutePath } from '../i18n/content/syllabus';
 import { getLocalizedThinkingCycleStageByPath } from '../i18n/content/thinkingCycle';
 import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
+import marketPricing from '../content/marketPricing.json';
 import { getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath, getInternationalAlternates } from './seoPages';
 import {
   createBreadcrumbJsonLd,
@@ -887,12 +888,26 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
     const canonical = toAbsoluteUrl(seoPage.path);
     if (isInternationalMarketPath(seoPage.path)) {
       const isHub = ['/ielts-speaking-online', '/es/ielts-speaking-online', '/pt/ielts-speaking-online'].includes(seoPage.path);
-      const marketNames: Record<string, string> = { colombia: 'Colombia', peru: 'Peru', chile: 'Chile', argentina: 'Argentina', brasil: 'Brazil' };
+      // Country named the same way on every language version (the h1 is translated, so it cannot be used here).
+      const marketNames: Record<string, string> = {
+        india: 'India', philippines: 'Philippines', indonesia: 'Indonesia', malaysia: 'Malaysia', singapore: 'Singapore', thailand: 'Thailand',
+        uae: 'United Arab Emirates', 'saudi-arabia': 'Saudi Arabia', pakistan: 'Pakistan', bangladesh: 'Bangladesh', nigeria: 'Nigeria', egypt: 'Egypt',
+        colombia: 'Colombia', peru: 'Peru', chile: 'Chile', argentina: 'Argentina', brazil: 'Brazil', brasil: 'Brazil',
+      };
       const marketSlug = seoPage.path.split('/').at(-1) ?? '';
-      const areaServed = isHub ? 'Online, outside Vietnam' : marketNames[marketSlug] ?? seoPage.h1.replace('Online IELTS Speaking coaching for learners in ', '');
+      const marketKey = marketSlug === 'brasil' ? 'brazil' : marketSlug;
+      const areaServed = isHub ? 'Online, outside Vietnam' : { '@type': 'Country', name: marketNames[marketSlug] ?? marketSlug };
+      // The approved USD tier for this country (src/content/marketPricing.json): the same prices the page shows and PayPal charges.
+      const tier = isHub ? undefined : marketPricing.markets[marketKey as keyof typeof marketPricing.markets];
+      const prices = tier ? marketPricing.tiers[String(tier) as keyof typeof marketPricing.tiers] : undefined;
+      const offers = prices ? [
+        { '@type': 'Offer', name: 'One-to-one IELTS Speaking lesson (60 minutes, online)', price: prices.lesson_usd.toFixed(2), priceCurrency: 'USD', url: canonical },
+        { '@type': 'Offer', name: 'Pack of 8 one-to-one lessons (60 minutes each)', price: prices.pack8_usd.toFixed(2), priceCurrency: 'USD', url: canonical },
+        { '@type': 'Offer', name: 'Live Speaking Baseline (15-20 minutes, online)', price: prices.baseline_usd.toFixed(2), priceCurrency: 'USD', url: canonical },
+      ] : undefined;
       const hubPath = seoPage.locale === 'es' ? '/es/ielts-speaking-online' : seoPage.locale === 'pt-BR' ? '/pt/ielts-speaking-online' : '/ielts-speaking-online';
       const jsonLd: JsonLd[] = [
-        createServiceJsonLd({ name: seoPage.h1, description: seoPage.description, url: canonical, serviceType: 'Online IELTS Speaking coaching', areaServed }),
+        createServiceJsonLd({ name: seoPage.h1, description: seoPage.description, url: canonical, serviceType: 'Online IELTS Speaking coaching', areaServed, offers }),
         createFaqJsonLd(seoPage.faq.map(item => ({ question: item.question, answer: item.answer }))),
         createBreadcrumbJsonLd(isHub ? [{ name: 'Home', path: '/' }, { name: seoPage.h1, path: seoPage.path }] : [{ name: 'Home', path: '/' }, { name: 'IELTS Speaking online', path: hubPath }, { name: seoPage.h1, path: seoPage.path }]),
       ];

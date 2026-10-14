@@ -94,8 +94,9 @@ export type ServiceParams = {
   description: string;
   url: string;
   serviceType: string;
-  areaServed?: string;
+  areaServed?: string | JsonLd;
   audienceRole?: string;
+  offers?: JsonLd[];
 };
 
 // Phase 14 — Service schema for institutional consultation/audit routes.
@@ -118,6 +119,10 @@ export function createServiceJsonLd(params: ServiceParams): JsonLd {
 
   if (params.areaServed) {
     block.areaServed = params.areaServed;
+  }
+
+  if (params.offers?.length) {
+    block.offers = params.offers;
   }
 
   if (params.audienceRole) {
