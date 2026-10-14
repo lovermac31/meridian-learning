@@ -558,7 +558,7 @@ const viHomeContent = {
       title: 'Cho con 9–18 tuổi',
       baseline: { title: 'Đánh giá Nói trực tiếp', meta: '15–20 phút trực tiếp với người chấm', price: '690.000₫' },
       lessons: { title: 'Buổi học 60 phút với thầy Jay', meta: '1 kèm 1 qua Google Meet, theo buổi', price: '800.000₫' },
-      diagnostic: { title: 'Đặt lịch Đánh giá Tư duy Học sinh', meta: 'Mẫu 2 phút (trang tiếng Anh)', action: 'Gửi yêu cầu' },
+      diagnostic: { title: 'Đặt lịch Đánh giá Tư duy Học sinh', meta: 'Biểu mẫu 2 phút (trang tiếng Anh)', action: 'Gửi yêu cầu' },
     },
     adults: {
       eyebrow: 'Cho người lớn',
