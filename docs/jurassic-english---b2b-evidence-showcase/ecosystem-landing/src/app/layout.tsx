@@ -6,6 +6,7 @@ import "./globals.css";
 import { LayoutChrome } from "@/components/LayoutChrome";
 import { ProductionStyleHeader } from "@/components/ProductionStyleHeader";
 import { JsonLd } from "@/components/JsonLd";
+import { GlobalContactPanel } from "@/components/GlobalContactPanel";
 
 // Sprint 3A — site-wide structured data.
 //
@@ -205,6 +206,8 @@ export default function RootLayout({
           captures real-user Core Web Vitals (LCP, CLS, INP, FCP, TTFB).
           Cookieless. No PII. No third-party script.
         */}
+        {/* Contact button (Zalo, WhatsApp, WeChat, Facebook, Email), same as jurassicenglish.com. */}
+        <GlobalContactPanel />
         <Analytics />
         <SpeedInsights />
       </body>

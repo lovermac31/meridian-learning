@@ -1,0 +1,14 @@
+/*
+ * Utilities for the Contact button on the static Young Learners page only.
+ * No Tailwind preflight (it would restyle the static page); utilities are
+ * generated only from GlobalContactPanel.tsx.
+ */
+@import "tailwindcss/theme.css" layer(theme);
+/* Unlayered on purpose: the static page's own (unlayered) rules would otherwise win. */
+@import "tailwindcss/utilities.css" source(none);
+@source "../components/GlobalContactPanel.tsx";
+
+@theme {
+  --color-jurassic-dark: #101820;
+  --color-jurassic-accent: #F26419;
+}

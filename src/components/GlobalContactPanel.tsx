@@ -174,8 +174,9 @@ export const GlobalContactPanel = () => {
       const defaultTop = Math.max(0, window.innerHeight - defaultBottom - height);
       const boxAt = (left: number, top: number) => ({ left, right: left + width, top, bottom: top + height });
       const collisionCandidates = new Set(document.querySelectorAll<HTMLElement>(
-        'header a, header button, nav a, nav button, main a[href], main button, main [role="button"], main h1, main h2, main h3, main p, main li, main span, main strong, main small, main label, body [role="dialog"], body aside, body aside a, body aside button, body aside [role="button"], body aside h1, body aside h2, body aside h3, body aside p, body aside li, body aside span, body aside strong, body aside small, body aside label'
+        'header a, header button, nav a, nav button, main a[href], main button, main [role="button"], main h1, main h2, main h3, main p, main li, main span, main strong, main small, main label, body [role="dialog"], body aside, body aside a, body aside button, body aside [role="button"], body aside h1, body aside h2, body aside h3, body aside p, body aside li, body aside span, body aside strong, body aside small, body aside label, [data-contact-avoid], [aria-label="Open the Jurassic English assistant"], .yl-bot-bubble'
       ));
+      // The assistant launchers (site + Young Learners) sit beside this button; never overlap them.
       // Include fixed controls even when they are not semantic headings or contain nested icons.
       document.querySelectorAll<HTMLElement>('body *').forEach((element) => {
         const position = getComputedStyle(element).position;
@@ -267,7 +268,7 @@ export const GlobalContactPanel = () => {
   return <>
     {/* The left-side launcher reveals the contact stack in place at every viewport size. */}
     <nav ref={navRef} hidden={navObstructed && !expanded && !active} style={navTopPx !== null || navLeftPx !== null ? { ...(navTopPx !== null ? { top: `${navTopPx}px`, bottom: 'auto' } : {}), ...(navLeftPx !== null ? { left: `${navLeftPx}px` } : {}) } : undefined} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
-      <ul id="contact-channel-list" hidden={!expanded || compactViewport} className="flex flex-col items-center gap-2 rounded-full border border-white/10 bg-jurassic-dark/90 p-1.5 shadow-xl backdrop-blur">
+      <ul id="contact-channel-list" hidden={!expanded || compactViewport} className="m-0 list-none flex flex-col items-center gap-2 rounded-full border border-white/10 bg-jurassic-dark/90 p-1.5 shadow-xl backdrop-blur">
         {channelOrder.map((channel) => <li key={channel}>
           <button data-contact-first={channel === channelOrder[0] ? '' : undefined} type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white shadow-lg transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>
         </li>)}
@@ -280,9 +281,9 @@ export const GlobalContactPanel = () => {
     {expanded && compactViewport && <div className="fixed inset-0 z-[150] grid place-items-center bg-black/65 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) { setExpanded(false); toggleRef.current?.focus(); } }}>
       <section id="contact-channel-dialog" ref={menuDialogRef} className="max-h-[calc(100dvh-2rem)] w-full max-w-sm overflow-auto overscroll-contain rounded-2xl border border-white/20 bg-jurassic-dark p-5 text-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="contact-menu-title" aria-describedby="contact-menu-description">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-jurassic-accent">{t.kicker}</p>
-        <h2 id="contact-menu-title" className="mt-2 text-xl font-semibold">{t.nav}</h2>
+        <h2 id="contact-menu-title" className="mt-2 text-xl font-semibold normal-case tracking-normal">{t.nav}</h2>
         <p id="contact-menu-description" className="mt-1 text-sm leading-6 text-white/70">{t.menuDescription}</p>
-        <ul className="mt-5 grid grid-cols-2 gap-3">
+        <ul className="mt-5 grid list-none grid-cols-2 gap-3 p-0">
           {channelOrder.map((channel, index) => <li key={channel}><button data-contact-first={index === 0 ? '' : undefined} type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`flex min-h-[76px] w-full flex-col items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.06] px-2 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.12] ${focusRing}`}>
             <span className={`grid h-9 w-9 place-items-center rounded-full text-white ${channelStyle[channel]}`}>{channelGlyph[channel]}</span><span>{t.channels[channel].label}</span>
           </button></li>)}
@@ -293,7 +294,7 @@ export const GlobalContactPanel = () => {
       <section ref={dialogRef} onKeyDown={trapFocus} className="relative max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-auto overscroll-contain rounded-2xl border border-white/20 bg-jurassic-dark p-6 text-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" aria-describedby="contact-modal-description">
         <button type="button" data-autofocus="" onClick={close} className="absolute right-4 top-4 grid min-h-11 min-w-11 place-items-center rounded-full p-2 text-white/70 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent" aria-label={t.close}><X aria-hidden="true" className="h-5 w-5" /></button>
         <p className="pr-10 text-xs font-semibold uppercase tracking-[0.2em] text-jurassic-accent">{t.kicker}</p>
-        <h2 id="contact-modal-title" className="mt-2 text-2xl font-semibold">{detail.label}</h2>
+        <h2 id="contact-modal-title" className="mt-2 text-2xl font-semibold normal-case tracking-normal">{detail.label}</h2>
         <p id="contact-modal-description" className="mt-2 text-sm leading-6 text-white/70">{detail.description}</p>
         <div className="mt-5 flex flex-col gap-3">
           {(detail.actions as Action[]).map((action, index) => <a key={action.label} href={action.href} {...(action.download ? { download: '' } : {})} {...(action.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className={`inline-flex min-h-11 w-full items-center justify-center rounded-xl px-4 py-3 font-semibold transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${index === 0 ? 'bg-jurassic-accent text-jurassic-dark' : 'border border-white/30 text-white'}`}>

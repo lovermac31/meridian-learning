@@ -19,6 +19,8 @@ import { YlBotUI } from './YlBotUI';
 import { PromoVideoModal } from './PromoVideoModal';
 import { initPageI18n } from './pageI18n';
 import { trackCtaClick } from '../lib/analytics';
+import { GlobalContactPanel } from '../components/GlobalContactPanel';
+import './contact-panel.css';
 
 const YL_SPEED_INSIGHTS_ROUTE = '/young-learners-speaking';
 
@@ -69,4 +71,22 @@ if (mount) {
       <PromoVideoModal />
     </StrictMode>,
   );
+}
+
+// Contact button (Zalo, WhatsApp, WeChat, Facebook, Email): the same component as the main site,
+// in its own mount node so it is independent of the BotUI island above.
+try {
+  let contactMount = document.getElementById('yl-contact-root');
+  if (!contactMount) {
+    contactMount = document.createElement('div');
+    contactMount.id = 'yl-contact-root';
+    document.body.appendChild(contactMount);
+  }
+  createRoot(contactMount).render(
+    <StrictMode>
+      <GlobalContactPanel />
+    </StrictMode>,
+  );
+} catch {
+  /* contact button is progressive enhancement — never block the page */
 }
