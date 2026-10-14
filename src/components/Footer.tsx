@@ -19,6 +19,8 @@ export const Footer = ({ onNavigate, onPricingClick, onEducationAffiliateClick }
   const footerNav = {
     explore: [
       { label: getUiString(locale, 'footer.links.framework'), href: '/framework' },
+      // Moved from the header (homepage layout B).
+      { label: getUiString(locale, 'navbar.links.curriculum'), href: '/series/compare' },
       { label: getUiString(locale, 'footer.links.series'), href: '/series/compare' },
       { label: getUiString(locale, 'footer.links.thinkingCycle'), href: '/thinking-cycle/compare' },
       { label: getUiString(locale, 'footer.getStarted'), href: '/get-started' },

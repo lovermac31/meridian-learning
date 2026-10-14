@@ -7,6 +7,11 @@ export const enUi = {
       forParents: 'For Parents',
       curriculum: 'The Curriculum',
       knowledge: 'Ask / Knowledge Hub',
+      // Header IA (homepage layout B, 14 Oct 2026).
+      adults: 'Adults & IELTS',
+      writing: 'IELTS Writing',
+      writingBadge: 'New',
+      knowledgeHub: 'Knowledge Hub',
       // Legacy keys retained for backward compatibility (footer/other refs).
       about: 'About',
       framework: 'Framework',
@@ -30,6 +35,8 @@ export const enUi = {
     },
     pricing: 'Plans & Pricing',
     getStarted: 'Get Started',
+    // Primary header CTA: anchors to the homepage offers band (#book).
+    bookPricing: 'Book & pricing',
     openMenu: 'Open navigation menu',
     closeMenu: 'Close navigation menu',
   },

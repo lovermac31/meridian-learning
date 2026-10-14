@@ -7,6 +7,11 @@ export const viUi = {
       forParents: 'Cho Phụ huynh',
       curriculum: 'Chương trình',
       knowledge: 'Hỏi / Trung tâm Kiến thức',
+      // Header IA (homepage layout B, 14 Oct 2026).
+      adults: 'Người lớn & IELTS',
+      writing: 'Luyện viết IELTS',
+      writingBadge: 'Mới',
+      knowledgeHub: 'Trung tâm Kiến thức',
       // Legacy keys retained for backward compatibility (footer/other refs).
       about: 'Giới thiệu',
       framework: 'Khung chương trình',
@@ -29,6 +34,8 @@ export const viUi = {
     },
     pricing: 'Gói & Báo giá',
     getStarted: 'Bắt đầu',
+    // Primary header CTA: anchors to the homepage offers band (#book).
+    bookPricing: 'Đặt lịch & học phí',
     openMenu: 'Mở menu điều hướng',
     closeMenu: 'Đóng menu điều hướng',
   },
