@@ -170,3 +170,32 @@ test('Colombia test-format claim is attributed to the source it links to', () =>
     assert.match(page.html, /href="https:\/\/www\.britishcouncil\.co\/en\/english-exam\/ielts">(The|El) British Council (in|en) Colombia/, path);
   }
 });
+
+test('market search listings: titles fit, descriptions sell the real tier price, no card-checkout claim', () => {
+  const pricing = JSON.parse(fs.readFileSync(new URL('../src/content/marketPricing.json', import.meta.url), 'utf8'));
+  for (const page of pages) {
+    assert.ok(page.title.length <= 63 && page.title.endsWith('| Jurassic English™'), `${page.path} title ${page.title.length}`);
+    assert.ok(page.description.length >= 110 && page.description.length <= 160, `${page.path} description ${page.description.length}`);
+    assert.doesNotMatch(page.description, /card checkout|Hanoi-time|evidence-led/i, page.path);
+    assert.match(page.description, /CELTA/, page.path);
+    if (hubs.has(page.path)) continue;
+    const slug = page.path.split('/').at(-1)!;
+    const prices = pricing.tiers[String(pricing.markets[slug === 'brasil' ? 'brazil' : slug])];
+    assert.ok(page.description.includes(`US$${prices.lesson_usd}`) && page.description.includes(`US$${prices.baseline_usd}`), page.path);
+  }
+  assert.equal(new Set(pages.map(page => page.title)).size, pages.length);
+  assert.equal(new Set(pages.map(page => page.description)).size, pages.length);
+});
+
+test('market Service JSON-LD names the country and offers the approved USD prices', () => {
+  const pricing = JSON.parse(fs.readFileSync(new URL('../src/content/marketPricing.json', import.meta.url), 'utf8'));
+  for (const page of countries) {
+    const service = resolveRouteMetadata(page.path).jsonLd?.find((block: Record<string, unknown>) => block['@type'] === 'Service') as Record<string, any>;
+    const slug = page.path.split('/').at(-1)!;
+    const prices = pricing.tiers[String(pricing.markets[slug === 'brasil' ? 'brazil' : slug])];
+    assert.equal(service.areaServed['@type'], 'Country', page.path);
+    assert.doesNotMatch(service.areaServed.name, /[^\x00-\x7F]/, page.path);
+    assert.deepEqual(service.offers.map((offer: Record<string, string>) => offer.price), [prices.lesson_usd, prices.pack8_usd, prices.baseline_usd].map((n: number) => n.toFixed(2)), page.path);
+    assert.ok(service.offers.every((offer: Record<string, string>) => offer.priceCurrency === 'USD'), page.path);
+  }
+});
