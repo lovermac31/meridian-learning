@@ -41,7 +41,7 @@ export function AudienceFork({ onNavigate }: AudienceForkProps) {
   };
 
   return (
-    <div className="mt-8 w-full max-w-3xl">
+    <div className="mt-8 w-full">
       <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">
         {fork.label}
       </p>

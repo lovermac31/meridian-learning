@@ -4,16 +4,18 @@ import { Menu, X } from 'lucide-react';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
+import { trackCtaClick } from '../lib/analytics';
 
 const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
 
-// B2C launch promotion target. /young-learners-speaking/ is a STATIC page in
-// public/ — it is NOT an SPA route and NOT rewrite-served, so the promo uses a
-// plain native <a href> (a real document navigation). Routing it through
-// onNavigate/pushState would only update the URL and render the SPA NotFound
-// fallback, because the Vite router has no client route for this path.
-// Vietnamese pages link its VI page (/vi/luyen-noi-ielts/) via getLocalizedHref.
-const YOUNG_LEARNERS_HREF = '/young-learners-speaking/';
+// One pill style for every header link (layout B). Fixed padding and an even
+// gap keep the row symmetric; whitespace-nowrap keeps it to one row. 13px
+// type and px-2.5 so the longer VI labels fit the 1232px container.
+const NAV_PILL =
+  'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-white/[0.04] px-2.5 py-1.5 text-[13px] font-medium text-white/85 transition hover:border-jurassic-accent/60 hover:bg-white/[0.08] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark';
+const NAV_BADGE =
+  'rounded-full bg-jurassic-accent px-1.5 py-px text-[10px] font-bold uppercase tracking-wider text-jurassic-dark';
+
 
 type NavbarProps = {
   onGetStarted: () => void;
@@ -121,34 +123,52 @@ export const Navbar = ({
     };
   }, [isMobileMenuOpen]);
 
-  // P0 — reduced two-audience nav. Route links (not homepage anchors):
-  // For Schools → /school-framework, For Parents → /student-academy,
-  // The Curriculum → /series/compare, Ask/Knowledge Hub → /knowledge.
-  // /school-framework and /student-academy are rewrite-served; onNavigate
-  // (App.navigateTo) does a full-document navigation for those.
-  const navLinks = [
-    { name: getUiString(locale, 'navbar.links.forSchools'), href: '/school-framework' },
-    { name: getUiString(locale, 'navbar.links.forParents'), href: '/student-academy' },
-    { name: getUiString(locale, 'navbar.links.curriculum'), href: '/series/compare' },
-    { name: getUiString(locale, 'navbar.links.knowledge'), href: '/knowledge' },
+  // Header IA (homepage layout B, 14 Oct 2026): For Parents · Adults & IELTS ·
+  // IELTS Writing (NEW) · For Schools · Knowledge Hub, then one primary
+  // "Book & pricing" anchor to the homepage offers band (#book). "The
+  // Curriculum" lives in the footer. `route` items go through onNavigate
+  // (App.navigateTo); `native` items are pages served by the AI Speaking app
+  // (vercel.json rewrite), so they must be real document navigations.
+  const navItems: Array<{ key: string; name: string; href: string; kind: 'route' | 'native'; badge?: string }> = [
+    { key: 'parents', name: getUiString(locale, 'navbar.links.forParents'), href: '/student-academy', kind: 'route' },
+    { key: 'adults', name: getUiString(locale, 'navbar.links.adults'), href: '/ai-speaking', kind: 'native' },
+    {
+      key: 'writing',
+      name: getUiString(locale, 'navbar.links.writing'),
+      href: '/ai-speaking/writing',
+      kind: 'native',
+      badge: getUiString(locale, 'navbar.links.writingBadge'),
+    },
+    { key: 'schools', name: getUiString(locale, 'navbar.links.forSchools'), href: '/school-framework', kind: 'route' },
+    { key: 'knowledge', name: getUiString(locale, 'navbar.links.knowledgeHub'), href: '/knowledge', kind: 'route' },
   ];
+  // Same-document jump on the homepage (App scrolls to the hash target),
+  // a full load of the homepage elsewhere. Pathname-derived only, so the
+  // server render and the hydrating client agree.
+  const bookHref = getLocalizedHref('/#book', locale);
+  const bookLabel = getUiString(locale, 'navbar.bookPricing');
 
-  const youngLearnersPromo = {
-    badge: getUiString(locale, 'navbar.youngLearnersPromo.badge'),
-    desktopEyebrow: getUiString(locale, 'navbar.youngLearnersPromo.desktopEyebrow'),
-    desktopTitle: getUiString(locale, 'navbar.youngLearnersPromo.desktopTitle'),
-    mobileTitle: getUiString(locale, 'navbar.youngLearnersPromo.mobileTitle'),
-    mobileSubtitle: getUiString(locale, 'navbar.youngLearnersPromo.mobileSubtitle'),
-    ariaLabel: getUiString(locale, 'navbar.youngLearnersPromo.ariaLabel'),
+  const handleNavItemClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    item: (typeof navItems)[number],
+  ) => {
+    setIsMobileMenuOpen(false);
+    if (item.kind === 'native') return;
+    event.preventDefault();
+    onNavigate(item.href);
   };
 
-  const handleNavLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    event.preventDefault();
+  const handleBookClick = (placement: 'desktop' | 'mobile') => {
     setIsMobileMenuOpen(false);
-    onNavigate(href);
+    try {
+      trackCtaClick({
+        label: placement === 'desktop' ? 'header_book_pricing_click' : 'header_book_pricing_mobile_click',
+        type: 'primary',
+        segment: 'parent_student',
+      });
+    } catch {
+      /* Measurement must not block navigation. */
+    }
   };
 
   const handlePricingClick = () => {
@@ -165,7 +185,7 @@ export const Navbar = ({
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${forceSolidBackground ? 'bg-jurassic-dark shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : isSolidNav ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : 'bg-transparent py-5'}`}>
-      <div className="max-w-[1480px] mx-auto px-6 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -173,7 +193,7 @@ export const Navbar = ({
               setIsMobileMenuOpen(false);
               onNavigateHome();
             }}
-            className="rounded-md px-1 py-0.5 font-wordmark text-[1.15rem] sm:text-[1.28rem] text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 font-wordmark text-[1.15rem] sm:text-[1.28rem] text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             dir="ltr"
             aria-label={getUiString(locale, 'navbar.brandAriaLabel')}
           >
@@ -181,64 +201,32 @@ export const Navbar = ({
           </button>
         </div>
 
-        {/* Desktop Nav — show at >=xl (1280) with tight gap, restore gap-6 at >=2xl (1536).
-            Below xl, the hamburger drawer takes over because the 11-item right cluster
-            (~917px of items + 10 gaps) overflows when combined with the wordmark
-            and container padding. Same breakpoint strategy is mirrored in
-            ecosystem-landing/src/components/ProductionStyleHeader.tsx so the homepage
-            and the rewritten ecosystem pages always behave identically. */}
-        <div className="hidden xl:flex items-center xl:gap-2 2xl:gap-6">
-          {/* B2C launch promotion — leads the nav cluster (before the
-              institutional "For Schools" link). Native anchor → static page.
-              Distinct orange promoted pill so it reads as a parent-facing
-              advertisement, not a peer of the school-curriculum nav links. */}
-          <a
-            href={getLocalizedHref(YOUNG_LEARNERS_HREF, locale)}
-            aria-label={youngLearnersPromo.ariaLabel}
-            className="group inline-flex items-center gap-2 rounded-full border border-jurassic-accent/45 bg-jurassic-accent/10 py-1.5 pl-2 pr-3.5 transition-all duration-300 hover:border-jurassic-accent/70 hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-          >
-            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jurassic-dark">
-              {youngLearnersPromo.badge}
-            </span>
-            <span className="flex flex-col text-left leading-none">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-jurassic-accent">
-                {youngLearnersPromo.desktopEyebrow}
-              </span>
-              <span className="mt-0.5 text-sm font-semibold text-white">
-                {youngLearnersPromo.desktopTitle}
-              </span>
-            </span>
-          </a>
-          <a
-            href={getLocalizedHref('/ai-speaking/writing', locale)}
-            aria-label={locale === 'vi' ? 'Mới: Luyện viết IELTS (sắp ra mắt)' : 'New: IELTS Writing Practice (coming soon)'}
-            className="group hidden 2xl:inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] py-1.5 pl-2 pr-3.5 transition-all duration-300 hover:border-jurassic-accent/70 hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-          >
-            <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jurassic-dark">{locale === 'vi' ? 'Mới' : 'New'}</span>
-            <span className="text-sm font-semibold text-white">{locale === 'vi' ? 'Luyện viết IELTS' : 'IELTS Writing'}</span>
-          </a>
-          {/* Phase 9 — focus-visible rings added to every desktop nav link
-              and CTA. jurassic-accent / jurassic-gold rings against the
-              dark header backdrop. rounded-md for ring corner shape. */}
-          {navLinks.map((link) => (
+        {/* Desktop nav (>= xl, 1280): links | primary CTA | EN/VI, one row in
+            EN and VI. Every link uses the same pill (NAV_PILL) with an even
+            gap; the IELTS Writing pill carries the NEW badge and is visible
+            at every desktop width (owner requirement). Below xl the
+            hamburger drawer takes over. */}
+        <div className="hidden xl:flex items-center gap-2">
+          {navItems.map((item) => (
             <a
-              key={link.name}
-              href={getLocalizedHref(link.href, locale)}
-              onClick={(event) => handleNavLinkClick(event, link.href)}
-              className="rounded-md text-sm font-medium tracking-[0.01em] text-white/80 hover:text-white hover:underline underline-offset-4 decoration-jurassic-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+              key={item.key}
+              href={getLocalizedHref(item.href, locale)}
+              onClick={(event) => handleNavItemClick(event, item)}
+              className={NAV_PILL}
             >
-              {link.name}
+              {item.badge ? <span className={NAV_BADGE}>{item.badge}</span> : null}
+              {item.name}
             </a>
           ))}
-          {/* P0 — Education Affiliate Program + Plans & Pricing moved out of
-              primary nav (now surfaced in the Footer). */}
-          <button
-            type="button"
-            onClick={onGetStarted}
-            className="bg-jurassic-accent text-white px-5 py-2 rounded-full text-sm font-semibold glow-hover shadow-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+        </div>
+        <div className="hidden xl:flex items-center gap-3">
+          <a
+            href={bookHref}
+            onClick={() => handleBookClick('desktop')}
+            className="whitespace-nowrap rounded-full bg-jurassic-accent px-4 py-2 text-[13px] font-bold text-jurassic-dark shadow-premium transition hover:bg-[#f97b38] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
-            {getUiString(locale, 'navbar.getStarted')}
-          </button>
+            {bookLabel}
+          </a>
           {languageSwitcher}
         </div>
 
@@ -281,79 +269,30 @@ export const Navbar = ({
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full left-0 w-full max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain bg-jurassic-dark/95 backdrop-blur-lg border-b border-white/5 py-6 px-6 flex flex-col gap-4 xl:hidden shadow-xl"
           >
-            {/* B2C launch promotion — first item in the drawer (before the
-                institutional nav links). Native anchor → static page. */}
+            {/* Same items as the desktop header, primary CTA first. */}
             <a
-              href={getLocalizedHref(YOUNG_LEARNERS_HREF, locale)}
-              aria-label={youngLearnersPromo.ariaLabel}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="rounded-xl border border-jurassic-accent/45 bg-jurassic-accent/10 px-4 py-3 transition hover:bg-jurassic-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+              href={bookHref}
+              onClick={() => handleBookClick('mobile')}
+              className="rounded-xl bg-jurassic-accent px-5 py-3 text-center font-bold text-jurassic-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
-              <span className="flex items-center gap-2">
-                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jurassic-dark">
-                  {youngLearnersPromo.badge}
-                </span>
-                <span className="text-base font-semibold text-white">
-                  {youngLearnersPromo.mobileTitle}
-                </span>
-              </span>
-              <span className="mt-1.5 block text-sm text-white/70">
-                {youngLearnersPromo.mobileSubtitle}
-              </span>
+              {bookLabel}
             </a>
-            <a
-              href={getLocalizedHref('/ai-speaking', locale)}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-            >
-              <span className="text-base font-semibold text-white">AI Speaking Practice</span>
-              <span className="mt-1.5 block text-sm text-white/70">IELTS-style mocks for students & professionals · from 79.000₫</span>
-            </a>
-            <a
-              href={getLocalizedHref('/ai-speaking/baseline', locale)}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-            >
-              <span className="text-base font-semibold text-white">Live Speaking Baseline</span>
-              <span className="mt-1.5 block text-sm text-white/70">A live IELTS-style Speaking assessment with a person, on Google Meet</span>
-            </a>
-            <a
-              href={getLocalizedHref('/ai-speaking/writing', locale)}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-            >
-              <span className="flex items-center gap-2">
-                <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jurassic-dark">{locale === 'vi' ? 'Mới' : 'New'}</span>
-                <span className="text-base font-semibold text-white">{locale === 'vi' ? 'Luyện viết IELTS' : 'Writing Practice'}</span>
-              </span>
-              <span className="mt-1.5 block text-sm text-white/70">{locale === 'vi' ? 'Task 2, dựa trên bằng chứng · sắp ra mắt' : 'IELTS Task 2, evidence-first · coming soon'}</span>
-            </a>
+            {navItems.map((item) => (
+              <a
+                key={item.key}
+                href={getLocalizedHref(item.href, locale)}
+                onClick={(event) => handleNavItemClick(event, item)}
+                className="inline-flex items-center gap-2 rounded-md text-lg font-medium tracking-[0.01em] text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+              >
+                {item.badge ? <span className={NAV_BADGE}>{item.badge}</span> : null}
+                {item.name}
+              </a>
+            ))}
             {languageSwitcher ? (
-              <div className="border-b border-white/10 pb-4">
+              <div className="border-t border-white/10 pt-4">
                 {languageSwitcher}
               </div>
             ) : null}
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={getLocalizedHref(link.href, locale)}
-                className="rounded-md text-lg font-medium tracking-[0.01em] text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-                onClick={(event) => handleNavLinkClick(event, link.href)}
-              >
-                {link.name}
-              </a>
-            ))}
-            {/* P0 — Affiliate + Pricing removed from primary nav (now in Footer). */}
-            <button
-              type="button"
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onGetStarted();
-              }}
-              className="bg-jurassic-accent text-white px-5 py-3 rounded-xl text-center font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-            >
-              {getUiString(locale, 'navbar.getStarted')}
-            </button>
           </motion.div>
         )}
       </AnimatePresence>

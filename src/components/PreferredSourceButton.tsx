@@ -88,7 +88,7 @@ export const PreferredSourceButton = ({
       aria-labelledby="preferred-source-heading"
       className={`bg-jurassic-dark border-t border-white/5 ${className}`}
     >
-      <div className="max-w-3xl mx-auto px-6 py-12 md:py-14 text-center">
+      <div className="max-w-7xl mx-auto px-6 py-12 md:py-14 text-center"><div className="mx-auto max-w-3xl">
         <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-jurassic-gold/80">
           {copy.eyebrow}
         </p>
@@ -106,7 +106,7 @@ export const PreferredSourceButton = ({
             'inline-flex items-center gap-2 rounded-full border border-jurassic-gold/50 bg-jurassic-gold/10 px-6 py-3 text-sm font-semibold text-jurassic-gold transition-colors duration-200 hover:border-jurassic-gold hover:bg-jurassic-gold/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-gold focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark',
           )}
         </div>
-      </div>
+      </div></div>
     </section>
   );
 };

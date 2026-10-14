@@ -47,6 +47,9 @@ const VI_EQUIVALENTS: Record<string, string> = {
   '/young-learners-speaking/': '/vi/luyen-noi-ielts/',
   '/ai-speaking': '/ai-speaking/vi',
   '/ai-speaking/baseline': '/ai-speaking/baseline?lang=vi',
+  '/ai-speaking/writing': '/ai-speaking/vi/writing',
+  '/ai-speaking/solutions': '/ai-speaking/vi/solutions',
+  '/ai-speaking/writing/demo': '/ai-speaking/vi/writing/demo',
 };
 
 function hrefsIn(html: string) {

@@ -4,6 +4,7 @@ import { GlobalContactPanel } from './components/GlobalContactPanel';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AiSpeakingLaunch } from './components/AiSpeakingLaunch';
+import { OffersBand } from './components/OffersBand';
 import { OneChangeInvitation } from './components/OneChangeInvitation';
 import { ProofStrip } from './components/ProofStrip';
 import { CredibilityLogoMarquee } from './components/CredibilityLogoMarquee';
@@ -571,6 +572,8 @@ function App() {
         // unreferenced, for trivial rollback (see docs/p0-*build-plan).
         <main id="main-content" tabIndex={-1} className="focus:outline-none">
           <Hero onNavigate={navigateTo} />
+          {/* Offers band (layout B): every paid path, priced; header "Book & pricing" anchors here (#book). */}
+          <OffersBand />
           <AiSpeakingLaunch />
           <OneChangeInvitation />
           <CredibilityLogoMarquee />

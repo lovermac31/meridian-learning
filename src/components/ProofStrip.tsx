@@ -2,7 +2,6 @@ import { getHomeContent } from '../i18n/content/home';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
-import { baselineHref } from '../lib/baselineLink';
 
 type ProofStripProps = {
   onNavigate: (path: string) => void;
@@ -40,11 +39,9 @@ const PROOF_LINKS = {
  * ProofStrip — P1 screen 2.
  *
  * Layout:
- *  1. Social-intent card (CTA → Live Speaking Baseline booking in the AI
- *     Speaking app) — the scroll-past parent who skipped the hero IELTS fork
- *     lands here first.
- *  2. Credibility stats strip (unchanged).
- *  3. Three-button re-fork (Schools / Parents / IELTS Speaking) +
+ *  1. Credibility stats strip. (The social-intent "Looking for coaching"
+ *     card folded into the homepage OffersBand, 14 Oct 2026.)
+ *  2. Three-button re-fork (Schools / Parents / IELTS Speaking) +
  *     Knowledge Hub and Get Started underline links — catches every
  *     remaining audience without forcing another scroll.
  */
@@ -61,40 +58,7 @@ export function ProofStrip({ onNavigate }: ProofStripProps) {
 
   return (
     <section className="bg-jurassic-ivory py-20">
-      <div className="mx-auto max-w-5xl px-6">
-        {/* Social-intent card — explicit FB-parent hook. Sits at
-            the very top of ProofStrip so it is the first thing a visitor
-            who scrolled past the hero sees on screen 2. */}
-        <div className="mb-14 overflow-hidden rounded-2xl border border-jurassic-accent/25 bg-white shadow-sm">
-          <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-jurassic-accent">
-                {fork?.socialEyebrow ?? 'For families finding us on social'}
-              </p>
-              <h2 className="mt-2 font-display text-2xl leading-tight text-jurassic-dark sm:text-3xl">
-                {fork?.socialHeadline ?? 'Looking for English speaking coaching for your child?'}
-              </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-jurassic-dark/70 sm:text-base">
-                {fork?.socialBody ??
-                  'IELTS-aligned speaking practice for ages 9–18. Start with a Live Speaking Baseline: 15–20 minutes live on Google Meet with an assessor, 690.000₫.'}
-              </p>
-            </div>
-            <a
-              href={baselineHref(locale)}
-              onClick={() =>
-                trackCtaClick({
-                  label: 'IELTS Speaking (social card)',
-                  type: 'primary',
-                  segment: 'parent_student',
-                })
-              }
-              className={`inline-flex w-full items-center justify-center rounded-full bg-jurassic-accent px-7 py-3.5 text-sm font-bold text-white shadow-sm transition hover:opacity-95 sm:w-auto ${FOCUS_RING}`}
-            >
-              {fork?.socialCta ?? 'Book a Speaking Baseline'}
-            </a>
-          </div>
-        </div>
-
+      <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {STATS[copyLocale].map((s) => (
             <div key={s.label} className="text-center">

@@ -27,6 +27,9 @@ const LOCALIZED_STATIC_HREFS: Record<string, Partial<Record<Locale, string>>> = 
   '/ai-speaking': { vi: '/ai-speaking/vi' },
   // Writing: public product introduction (EN + VI), served by the AI Speaking app.
   '/ai-speaking/writing': { vi: '/ai-speaking/vi/writing' },
+  // Verified live and self-canonical on 14 Oct 2026 (homepage offers band).
+  '/ai-speaking/solutions': { vi: '/ai-speaking/vi/solutions' },
+  '/ai-speaking/writing/demo': { vi: '/ai-speaking/vi/writing/demo' },
   [BASELINE_PATH]: { vi: baselineHref('vi') },
 };
 

@@ -39,6 +39,7 @@ const SPA_SOURCES = [
   'src/i18n/ui/vi.ts',
   'src/components/AudienceFork.tsx',
   'src/components/ProofStrip.tsx',
+  'src/components/OffersBand.tsx',
   'src/components/TestimonialsEmptyState.tsx',
   'src/lib/routeMetadata.ts',
   'src/yl/YlBotUI.tsx',
@@ -117,9 +118,9 @@ test('runtime language switch: vi gets ?lang=vi, zh-CN falls back to the English
 });
 
 test('SPA Baseline CTAs link to the booking page in the visitor language', () => {
-  for (const f of ['src/components/AudienceFork.tsx', 'src/components/ProofStrip.tsx']) {
-    assert.match(read(f), /href=\{baselineHref\(locale\)\}/, f);
-  }
+  assert.match(read('src/components/AudienceFork.tsx'), /href=\{baselineHref\(locale\)\}/);
+  // The ProofStrip social card (and its Baseline CTA) folded into the homepage offers band.
+  assert.match(read('src/components/OffersBand.tsx'), /href: baselineHref\(locale\)/);
   assert.match(read('src/components/TestimonialsEmptyState.tsx'), /ctaHref = baselineHref\(locale\)/);
 });
 

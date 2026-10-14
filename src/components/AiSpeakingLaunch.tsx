@@ -13,7 +13,7 @@ export function AiSpeakingLaunch() {
   return (
     <section id="ai-speaking-launch" aria-labelledby="ai-speaking-launch-title" className="relative overflow-hidden bg-jurassic-soft py-16 sm:py-24 scroll-mt-20">
       <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" style={{ backgroundImage: 'radial-gradient(#a59a87 0.65px, transparent 0.65px)', backgroundSize: '22px 22px' }} />
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-6">
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-16">
           <div className="max-w-xl">
             <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-jurassic-accent/30 bg-white px-3 py-1.5 text-[11px] font-bold tracking-[0.14em] text-jurassic-dark shadow-sm">
@@ -32,14 +32,14 @@ export function AiSpeakingLaunch() {
                 {content.sampleCta}<ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>
-            {/* Writing: public product introduction (coming soon), served by the AI Speaking app → native <a>. */}
+            {/* Writing: the live sample-report demo, served by the AI Speaking app → native <a>. */}
             <div className="mt-8 rounded-2xl border border-jurassic-dark/15 bg-white p-5 shadow-sm">
               <p className="flex flex-wrap items-center gap-2 text-[11px] font-bold tracking-[0.14em] text-jurassic-dark/70">
                 <span className="rounded-full bg-jurassic-accent px-2 py-0.5 text-[10px] uppercase tracking-wider text-jurassic-dark">{content.writingBadge}</span>{content.writingEyebrow}
               </p>
               <h3 className="mt-2 font-serif text-xl leading-snug text-jurassic-dark">{content.writingTitle}</h3>
               <p className="mt-2 text-sm leading-relaxed text-jurassic-dark/75">{content.writingBody}</p>
-              <a href={getLocalizedHref('/ai-speaking/writing', locale)} onClick={() => trackCtaClick({ label: 'homepage_writing_intro_click', type: 'secondary', segment: 'parent_student' })} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-jurassic-dark underline decoration-jurassic-accent decoration-2 underline-offset-4 hover:text-[#933402] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
+              <a href={getLocalizedHref('/ai-speaking/writing/demo', locale)} onClick={() => trackCtaClick({ label: 'homepage_writing_intro_click', type: 'secondary', segment: 'parent_student' })} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-jurassic-dark underline decoration-jurassic-accent decoration-2 underline-offset-4 hover:text-[#933402] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
                 {content.writingCta}<ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>
