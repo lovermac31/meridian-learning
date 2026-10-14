@@ -49,6 +49,8 @@
 .insights-closing > div { max-width: 768px; margin-inline: auto; }
 .insights-closing p { color: white; font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
 .insights-closing-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.insights-cta-note { margin-top: .8rem; font-size: .875rem; line-height: 1.5; color: #3d4a52; }
+.insights-closing .insights-cta-note { color: #e4e8eb; margin-bottom: 0; font-size: .875rem; font-weight: 400; }
 .insights-closing a { margin: 0; flex: 1 1 220px; }
 .insights-closing .insights-button-secondary { color: white; border-color: white; }
 .insights-page[lang="ar"] { font-family: 'Noto Kufi Arabic', sans-serif; }

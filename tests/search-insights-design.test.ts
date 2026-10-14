@@ -44,8 +44,12 @@ test('every market CTA uses its approved tier and localized chrome', async () =>
     const tier = market ? pricing.markets[market as keyof typeof pricing.markets] : 1;
     const prices = pricing.tiers[String(tier) as keyof typeof pricing.tiers];
     const html = await renderRoute(page.path);
-    assert.ok(html.includes(`href="/ai-speaking/baseline"`), page.path);
-    assert.ok(html.includes(`href="/ai-speaking/solutions"`), page.path);
+    // The booking pages charge VND by VietQR, so a USD-priced CTA must open an email request, not a checkout.
+    const hero = html.match(/<div class="insights-teacher">[\s\S]*?<\/header>/)?.[0] ?? '';
+    const ctaHrefs = [...hero.matchAll(/class="insights-button-(?:primary|secondary)" href="([^"]+)"/g)].map(match => match[1]);
+    assert.equal(ctaHrefs.length, 2, page.path);
+    for (const href of ctaHrefs) assert.match(href, /^mailto:info@jurassicenglish\.com\?subject=/, page.path);
+    assert.match(hero, /class="insights-cta-note"[^>]*>[\s\S]*info@jurassicenglish\.com/, page.path);
     assert.ok(html.includes(`US$${prices.baseline_usd}`), page.path);
     assert.ok(html.includes(`US$${prices.lesson_usd}`), page.path);
     if (!market) assert.ok(html.includes(`from US$${prices.baseline_usd}`) || !['en'].includes(page.locale), page.path);

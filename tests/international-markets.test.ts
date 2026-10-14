@@ -152,3 +152,11 @@ test('Spanish and Portuguese country search intent retains source labels', () =>
   assert.match(brazil.html, /primeira língua/);
   assert.match(brazil.html, /6,89/);
 });
+
+test('Colombia test-format claim is attributed to the source it links to', () => {
+  for (const path of ['/ielts-speaking-online/colombia', '/es/ielts-speaking-online/colombia']) {
+    const page = seoPages.find(item => item.path === path)!;
+    assert.doesNotMatch(page.html, /\bIDP (says|indica)|IDP Bogotá/, path);
+    assert.match(page.html, /href="https:\/\/www\.britishcouncil\.co\/en\/english-exam\/ielts">(The|El) British Council (in|en) Colombia/, path);
+  }
+});
