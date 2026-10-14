@@ -9,7 +9,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import pricing from '../src/content/marketPricing.json';
 import { buildViPage } from '../scripts/prerender-yl-vi.mjs';
-import { PAYPAL_ACCOUNT, PAYPAL_LOGO, VND_PER_USD, paypalHref, paypalItemName, usdFromVnd } from '../src/lib/paypal.ts';
+import { PAYPAL_BUSINESS_ID, PAYPAL_LOGO, VND_PER_USD, paypalHref, paypalItemName, usdFromVnd } from '../src/lib/paypal.ts';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const read = (p: string) => readFileSync(resolve(ROOT, p), 'utf8');
@@ -29,16 +29,25 @@ test('VND prices convert to whole US dollars, rounded up', () => {
 
 test('checkout link is a fully encoded _xclick to the Jurassic English account', () => {
   const href = paypalHref(paypalItemName('Live Speaking Baseline', 'Young Learners'), 27);
-  assert.equal(href, 'https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=info%40jurassicenglish.com&item_name=Live+Speaking+Baseline+-+Young+Learners+%28Jurassic+English%29&amount=27.00&currency_code=USD&no_shipping=1');
+  assert.equal(href, `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${PAYPAL_BUSINESS_ID}&item_name=Live+Speaking+Baseline+-+Young+Learners+%28Jurassic+English%29&amount=27.00&currency_code=USD&no_shipping=1`);
   const url = new URL(href);
-  assert.equal(url.searchParams.get('business'), 'info@jurassicenglish.com');
+  assert.equal(url.searchParams.get('business'), PAYPAL_BUSINESS_ID);
   assert.equal(url.searchParams.get('item_name'), 'Live Speaking Baseline - Young Learners (Jurassic English)');
 });
 
-test('account and logo match the market-page panel (PR #128)', () => {
+test('payments go to the business account by merchant ID, never to an email', () => {
+  // info@jurassicenglish.com is a separate PayPal account (found 14 Oct 2026); the business account is
+  // WorldWiseLearning. A PayPal merchant ID is 13 upper-case letters and digits.
+  assert.match(PAYPAL_BUSINESS_ID, /^[A-Z0-9]{13}$/);
+  for (const file of ['src/lib/paypal.ts', 'src/components/SearchInsightsPage.tsx', 'young-learners-speaking/index.html']) {
+    assert.doesNotMatch(read(file), /business=info%40|business: *'info@|__PAYPAL_MERCHANT_ID__/, file);
+  }
+});
+
+test('the market-page panel uses the shared account and logo', () => {
   const market = read('src/components/SearchInsightsPage.tsx');
-  assert.ok(market.includes(`const PAYPAL_ACCOUNT = '${PAYPAL_ACCOUNT}'`));
-  assert.ok(market.includes(`const PAYPAL_LOGO = '${PAYPAL_LOGO}'`));
+  assert.ok(market.includes("import { PAYPAL_BUSINESS_ID, PAYPAL_LOGO, PAYPAL_PAYEE_NAME } from '../lib/paypal'"));
+  assert.ok(market.includes('business: PAYPAL_BUSINESS_ID') && PAYPAL_LOGO.startsWith('https://www.paypalobjects.com/'));
   assert.ok(market.includes("cmd: '_xclick'") && market.includes('(Jurassic English)'));
 });
 
