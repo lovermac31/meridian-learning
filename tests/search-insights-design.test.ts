@@ -84,3 +84,16 @@ test('non-Latin market pages render without Google Fonts requests', async () => 
     assert.match(html, new RegExp(`class="insights-page" lang="${page.locale}"`), page.path);
   }
 });
+
+test('market closing band offers the booking request, AI Speaking and a free tool', async () => {
+  for (const page of seoPages.filter(item => isInternationalMarketPath(item.path))) {
+    const html = await renderRoute(page.path);
+    const closing = html.match(/<div class="insights-closing"[\s\S]*?<\/main>/)?.[0] ?? '';
+    const hrefs = [...closing.matchAll(/class="insights-button-(?:primary|secondary)" href="([^"]+)"/g)].map(match => match[1]);
+    assert.equal(hrefs.length, 3, page.path);
+    assert.match(hrefs[0], /^mailto:info@jurassicenglish\.com\?subject=Speaking%20Baseline/, page.path);
+    assert.equal(hrefs[1], '/ai-speaking', page.path);
+    assert.equal(hrefs[2], '/tools/ielts-band-score-calculator', page.path);
+    if (page.locale !== 'en') assert.doesNotMatch(closing, /See how AI Speaking|Free IELTS band/, page.path);
+  }
+});
