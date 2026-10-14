@@ -66,11 +66,6 @@ const enHomeContent = {
       ieltsBody: 'Start with a Live Speaking Baseline: 15–20 minutes on Google Meet with an assessor, 690.000₫. Then 1-to-1 or small-group coaching.',
       ieltsCta: 'Book a Speaking Baseline',
       reconsiderLabel: 'Still deciding?',
-      socialEyebrow: 'For families finding us on social',
-      socialHeadline: 'Looking for English speaking coaching for your child?',
-      socialBody:
-        'IELTS-aligned speaking practice for ages 9–18. Start with a Live Speaking Baseline: 15–20 minutes live on Google Meet with an assessor, 690.000₫.',
-      socialCta: 'Book a Speaking Baseline',
     },
     // Compact B2B discovery strip below the fork (links to /companies). Kept
     // secondary to the Schools/Parents/IELTS fork — no top-nav change.
@@ -110,6 +105,38 @@ const enHomeContent = {
       writingTitle: 'IELTS Writing Task 2, the same evidence-first way.',
       writingBody: 'Independent practice: write an essay, see the sentences behind each point and one priority to fix. Not open yet. Want a teacher to read your essay now? Book a 1-to-1 session.',
       writingCta: 'Learn about Writing Practice',
+    },
+  },
+  // Offers band (homepage layout B, 14 Oct 2026): every paid path under the
+  // hero, anchored by the header "Book & pricing" CTA (#book). Prices checked
+  // against the destination pages on 14 Oct 2026: Baseline 690.000₫
+  // (/ai-speaking/baseline, young-learners-speaking/index.html), lessons
+  // 800.000₫ (/young-learners-speaking/#pricing), AI Speaking from 79.000₫
+  // (/ai-speaking), coaching from 400.000₫ for 30 minutes (/ai-speaking/solutions).
+  // The diagnostic is a request form (no price); the Writing demo is samples.
+  // tests/home-offers.test.ts guards the two prices that live in this repo.
+  offers: {
+    eyebrow: 'Book & pricing',
+    title: 'Every way to start, with prices',
+    paymentNote: 'Pay by bank transfer (VietQR) at checkout. Prices in Vietnamese đồng.',
+    kids: {
+      eyebrow: 'For parents',
+      title: 'For your child, ages 9–18',
+      baseline: { title: 'Live Speaking Baseline', meta: '15–20 minutes live with an assessor', price: '690.000₫' },
+      lessons: { title: '60-minute lessons with Mr. Jay', meta: '1-to-1 on Google Meet, per lesson', price: '800.000₫' },
+      diagnostic: { title: 'Book a Student Thinking Diagnostic', meta: 'A two-minute form, then our reply', action: 'Request' },
+    },
+    adults: {
+      eyebrow: 'For adults',
+      title: 'IELTS Speaking, alone or with Mr. Jay',
+      aiSpeaking: { title: 'AI Speaking practice', meta: 'Parts 1–3, typed, with a practice report', price: 'From 79.000₫' },
+      coaching: { title: '1-to-1 IELTS coaching with Mr. Jay', meta: '30, 60 or 90 minutes on Google Meet', price: 'From 400.000₫' },
+    },
+    writing: {
+      eyebrow: 'IELTS Writing · New',
+      title: 'How a Task 2 essay gets read',
+      body: 'We wrote three invented essays and every word of their feedback to show the method. These are samples: nothing you write is marked here.',
+      demo: { title: 'See three sample reports', meta: 'Three invented essays, three full reports', action: 'Read' },
     },
   },
   decisionSnapshot: {
@@ -481,11 +508,6 @@ const viHomeContent = {
       ieltsBody: 'Bắt đầu với buổi Đánh giá Nói trực tiếp: 15–20 phút qua Google Meet với người chấm, 690.000₫. Sau đó là coaching IELTS Speaking 1-kèm-1 hoặc nhóm nhỏ.',
       ieltsCta: 'Đặt lịch đánh giá Nói trực tiếp',
       reconsiderLabel: 'Vẫn đang cân nhắc?',
-      socialEyebrow: 'Cho phụ huynh tìm hiểu qua mạng xã hội',
-      socialHeadline: 'Đang tìm coaching tiếng Anh nói cho con?',
-      socialBody:
-        'Luyện nói theo chuẩn IELTS cho độ tuổi 9–18. Bắt đầu với buổi Đánh giá Nói trực tiếp: 15–20 phút qua Google Meet với người chấm, 690.000₫.',
-      socialCta: 'Đặt lịch đánh giá Nói trực tiếp',
     },
     companiesStrip: {
       eyebrow: 'Cho doanh nghiệp · Đội ngũ công nghệ & xuất khẩu',
@@ -523,6 +545,30 @@ const viHomeContent = {
       writingTitle: 'IELTS Writing Task 2, cùng cách làm dựa trên bằng chứng.',
       writingBody: 'Tự luyện độc lập: viết một bài luận, xem các câu văn đứng sau mỗi nhận xét và một ưu tiên cần sửa. Chưa mở. Muốn giáo viên đọc bài của bạn ngay bây giờ? Đặt buổi học 1 kèm 1.',
       writingCta: 'Tìm hiểu Luyện viết',
+    },
+  },
+  offers: {
+    eyebrow: 'Đặt lịch & học phí',
+    title: 'Mọi cách bắt đầu, kèm học phí',
+    paymentNote: 'Thanh toán bằng chuyển khoản ngân hàng (VietQR) khi đặt. Học phí tính bằng đồng Việt Nam.',
+    kids: {
+      eyebrow: 'Cho phụ huynh',
+      title: 'Cho con 9–18 tuổi',
+      baseline: { title: 'Đánh giá Nói trực tiếp', meta: '15–20 phút trực tiếp với người chấm', price: '690.000₫' },
+      lessons: { title: 'Buổi học 60 phút với thầy Jay', meta: '1 kèm 1 qua Google Meet, theo buổi', price: '800.000₫' },
+      diagnostic: { title: 'Đặt lịch Đánh giá Tư duy Học sinh', meta: 'Mẫu 2 phút (trang tiếng Anh)', action: 'Gửi yêu cầu' },
+    },
+    adults: {
+      eyebrow: 'Cho người lớn',
+      title: 'IELTS Speaking, tự luyện hoặc cùng thầy Jay',
+      aiSpeaking: { title: 'Luyện AI Speaking', meta: 'Phần 1–3, đánh máy, có báo cáo', price: 'Từ 79.000₫' },
+      coaching: { title: 'Coaching IELTS 1 kèm 1 với thầy Jay', meta: '30, 60 hoặc 90 phút qua Google Meet', price: 'Từ 400.000₫' },
+    },
+    writing: {
+      eyebrow: 'IELTS Writing · Mới',
+      title: 'Một bài Task 2 được đọc thế nào',
+      body: 'Chúng tôi viết ba bài luận giả định và toàn bộ nhận xét để minh họa phương pháp. Đây là bài mẫu: bài bạn viết không được chấm ở đây.',
+      demo: { title: 'Xem ba báo cáo mẫu', meta: 'Ba bài luận giả định, ba báo cáo đầy đủ', action: 'Đọc' },
     },
   },
   decisionSnapshot: {
