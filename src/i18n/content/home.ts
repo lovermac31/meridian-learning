@@ -88,7 +88,7 @@ const enHomeContent = {
       eyebrow: 'FOR ADULT LEARNERS · JURASSIC AI SPEAKING',
       headline: 'See what your answer reveals.',
       body: 'Practise IELTS-style Speaking Parts 1–3 by typing your answers. Get a practice estimate, evidence from your own words, and one clear priority to work on next.',
-      price: 'From 79,000₫',
+      price: 'From 79.000₫',
       primaryCta: 'Try AI Speaking',
       sampleCta: 'See a sample report',
       visualEyebrow: 'INSIDE YOUR PRACTICE REPORT',
