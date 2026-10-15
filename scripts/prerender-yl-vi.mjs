@@ -111,7 +111,9 @@ function absolutiseAssets(html) {
 /** 1-to-1 lesson checkout links open the Vietnamese checkout (mirrors lessonsHref in pageI18n.ts). */
 function localiseToolLinks(html) {
   return html.replaceAll('href="/tools/ielts-band-score-calculator"', 'href="/vi/cong-cu/tinh-diem-ielts"')
-    .replaceAll('href="/tools/ielts-speaking-part-2-timer"', 'href="/vi/cong-cu/dong-ho-ielts-speaking-part-2"');
+    .replaceAll('href="/tools/ielts-speaking-part-2-timer"', 'href="/vi/cong-cu/dong-ho-ielts-speaking-part-2"')
+    // IELTS Writing intro (header door + footer): the VI page is live and self-canonical (mirrors LOCALIZED_STATIC_HREFS).
+    .replaceAll('href="/ai-speaking/writing"', 'href="/ai-speaking/vi/writing"');
 }
 
 function localiseLessonLinks(html) {

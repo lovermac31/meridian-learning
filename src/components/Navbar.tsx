@@ -169,11 +169,12 @@ export const Navbar = ({
             setIsMobileMenuOpen(false);
             onNavigateHome();
           }}
-          className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 font-wordmark text-[0.875rem] min-[360px]:text-[1.05rem] sm:text-[1.2rem] text-sb-forest transition hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
+          className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 text-left leading-tight font-wordmark text-[0.875rem] min-[360px]:text-[1.05rem] sm:text-[1.2rem] text-sb-forest transition hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
           dir="ltr"
           aria-label={getUiString(locale, 'navbar.brandAriaLabel')}
         >
-          Jurassic English<sup className="text-sb-amber-deep">™</sup>
+          {/* Below 430px the wordmark stacks on two lines so the Baseline CTA never covers it (row stays one 72px line). */}
+          Jurassic <span className="max-[429px]:block">English<sup className="text-sb-amber-deep">™</sup></span>
         </button>
 
         {/* Desktop (>= xl): the four age doors sit beside the logo. */}

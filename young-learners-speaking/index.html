@@ -492,7 +492,8 @@ nav.yl2-hdr{position:relative;z-index:40}
 .yl2-hdr-panel .lang-select{display:inline-flex;align-self:flex-start}
 .yl2-hdr-menu:not([open]) .yl2-hdr-panel{display:none}
 @media(min-width:480px){.yl2-hdr-right>.yl2-hdr-cta{display:inline-flex}}
-@media(min-width:1100px){.yl2-hdr-links{display:flex}.yl2-hdr-right .lang-select{display:inline-flex}.yl2-hdr-menu{display:none}}
+/* Five links need the SPA header's width: inline from 1280px in a 1280px row (matches max-w-7xl + px-6), menu below. */
+@media(min-width:1280px){.yl2-hdr-in{max-width:1280px;padding:0 24px}.yl2-hdr-links{display:flex}.yl2-hdr-right .lang-select{display:inline-flex}.yl2-hdr-menu{display:none}}
 .yl2-foot-lang{margin-top:10px;border-color:#E6DEC8;background:#fff}
 .yl2-foot-lang button{color:#1C2526}
 .yl2-foot-lang button.is-active{background:#1E4D3B;color:#fff}
@@ -502,13 +503,13 @@ nav.yl2-hdr{position:relative;z-index:40}
 <a class="skip-link" href="#main" data-i18n="a11y.skipToContent">Skip to main content</a>
 <nav class="yl2-nav yl2-hdr" aria-label="Primary" data-i18n-attr="aria-label:attr.navPrimary">
   <!-- Header symmetry (Oct 2026): one 72px row, two balanced clusters, never wrapping:
-       [logo + four age doors] … [EN | Tiếng Việt + Book Baseline]. Below 1100px the doors move into a menu. -->
+       [logo + five links] … [EN | Tiếng Việt + Book Baseline]. Below 1280px the links move into a menu. -->
   <div class="wrap yl2-hdr-in">
     <div class="yl2-hdr-left">
       <a class="brand" href="/" aria-label="Jurassic English home" data-i18n-attr="aria-label:attr.brandHome">
         <div><strong>Jurassic English<sup>TM</sup></strong></div>
       </a>
-      <div class="yl2-hdr-links"><a href="/student-academy" data-i18n="yl2.nav.kids" aria-label="Ages 6–12 · Reading & Story Adventures" data-i18n-attr="aria-label:yl2.nav.kidsAria">Ages 6–12</a><a href="#top" aria-current="page" data-i18n="yl2.nav.teens" aria-label="Ages 9–18 · Speaking Confidence & Teen IELTS" data-i18n-attr="aria-label:yl2.nav.teensAria">Ages 9–18</a><a href="/ai-speaking" data-i18n="yl2.nav.adults" aria-label="Adults 18+ · Adult IELTS Practice" data-i18n-attr="aria-label:yl2.nav.adultsAria">Adults 18+</a><a href="/#pricing-options" data-i18n="yl2.nav.jay" aria-label="Mr. Jay &amp; Pricing · Meet Mr. Jay and see pricing" data-i18n-attr="aria-label:yl2.nav.jayAria">Mr. Jay &amp; Pricing</a></div>
+      <div class="yl2-hdr-links"><a href="/student-academy" data-i18n="yl2.nav.kids" aria-label="Ages 6–12 · Reading & Story Adventures" data-i18n-attr="aria-label:yl2.nav.kidsAria">Ages 6–12</a><a href="#top" aria-current="page" data-i18n="yl2.nav.teens" aria-label="Ages 9–18 · Speaking Confidence & Teen IELTS" data-i18n-attr="aria-label:yl2.nav.teensAria">Ages 9–18</a><a href="/ai-speaking/writing" data-i18n="yl2.nav.writing" aria-label="IELTS Writing · IELTS Writing Task 2: introduction &amp; demo" data-i18n-attr="aria-label:yl2.nav.writingAria">IELTS Writing</a><a href="/ai-speaking" data-i18n="yl2.nav.adults" aria-label="AI Speaking Mocks · Adult IELTS Speaking practice (18+)" data-i18n-attr="aria-label:yl2.nav.adultsAria">AI Speaking Mocks</a><a href="/#pricing-options" data-i18n="yl2.nav.jay" aria-label="Pricing · Mr. Jay, plans and pricing" data-i18n-attr="aria-label:yl2.nav.jayAria">Pricing</a></div>
     </div>
     <div class="yl2-hdr-right">
       <div class="lang-select" data-lang-selector role="group" aria-label="Language">
@@ -518,7 +519,7 @@ nav.yl2-hdr{position:relative;z-index:40}
       <a class="yl2-hdr-cta" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book Baseline · 690k₫ →</a>
       <details class="yl2-hdr-menu">
         <summary aria-label="Menu" data-i18n-attr="aria-label:yl2.nav.menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
-        <div class="yl2-hdr-panel"><a href="/student-academy"><strong data-i18n="yl2.nav.kids">Ages 6–12</strong><span data-i18n="yl2.nav.kidsDesc">Reading & Story Adventures</span></a><a href="#top" aria-current="page"><strong data-i18n="yl2.nav.teens">Ages 9–18</strong><span data-i18n="yl2.nav.teensDesc">Speaking Confidence & Teen IELTS</span></a><a href="/ai-speaking"><strong data-i18n="yl2.nav.adults">Adults 18+</strong><span data-i18n="yl2.nav.adultsDesc">Adult IELTS Practice</span></a><a href="/#pricing-options"><strong data-i18n="yl2.nav.jay">Mr. Jay &amp; Pricing</strong><span data-i18n="yl2.nav.jayDesc">Meet Mr. Jay and see pricing</span></a>
+        <div class="yl2-hdr-panel"><a href="/student-academy"><strong data-i18n="yl2.nav.kids">Ages 6–12</strong><span data-i18n="yl2.nav.kidsDesc">Reading & Story Adventures</span></a><a href="#top" aria-current="page"><strong data-i18n="yl2.nav.teens">Ages 9–18</strong><span data-i18n="yl2.nav.teensDesc">Speaking Confidence & Teen IELTS</span></a><a href="/ai-speaking/writing"><strong data-i18n="yl2.nav.writing">IELTS Writing</strong><span data-i18n="yl2.nav.writingDesc">IELTS Writing Task 2: introduction &amp; demo</span></a><a href="/ai-speaking"><strong data-i18n="yl2.nav.adults">AI Speaking Mocks</strong><span data-i18n="yl2.nav.adultsDesc">Adult IELTS Speaking practice (18+)</span></a><a href="/#pricing-options"><strong data-i18n="yl2.nav.jay">Pricing</strong><span data-i18n="yl2.nav.jayDesc">Mr. Jay, plans and pricing</span></a>
           <a class="yl2-hdr-cta yl2-hdr-cta-panel" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book Baseline · 690k₫ →</a>
           <div class="lang-select" role="group" aria-label="Language"><button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">EN</button><button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button></div>
         </div>
