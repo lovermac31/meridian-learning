@@ -15,6 +15,8 @@ import {
   Users,
 } from 'lucide-react';
 import { getMethodologyPageContent } from '../i18n/content/methodology';
+import { getCurrentLocale } from '../i18n/routing';
+import { WorldWiseLink } from './WorldWiseLink';
 
 type MethodologyPageProps = {
   onBack: () => void;
@@ -67,16 +69,36 @@ const FIDELITY_ICONS = [CheckCircle2, Users, Shield];
 
 export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: MethodologyPageProps) => {
   const content = getMethodologyPageContent();
+  const institutionalLabel = getCurrentLocale() === 'vi' ? 'Đối tác tổ chức cho trường học và đại học:' : 'Institutional partner for schools and universities:';
 
   return (
     <main className="bg-white">
+      {/* Top editorial banner (overhaul): illustration, not a photo; page text below is unchanged. */}
+      <section className="bg-sb-cream px-6 pb-8 pt-24">
+        <figure className="relative mx-auto max-w-6xl">
+          <img
+            src="/images/overhaul/thinking-cycle-storybook-map.webp"
+            alt="Illustrated explorer journal map of the 4-Step Thinking Cycle: Analyze, Evaluate, Justify, Reflect"
+            width={1400}
+            height={788}
+            loading="eager"
+            decoding="async"
+            className="aspect-[21/9] w-full rounded-[1.5rem] border border-sb-border object-cover"
+          />
+          <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-sb-forest">Illustration</figcaption>
+        </figure>
+        <p className="mx-auto mt-3 max-w-6xl text-sm text-sb-slate">
+          {institutionalLabel}{' '}
+          <WorldWiseLink className="font-bold text-sb-forest underline underline-offset-4 hover:text-sb-amber-deep">WorldWise Learning</WorldWiseLink>
+        </p>
+      </section>
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0c1220] via-jurassic-dark to-jurassic-dark" />
         <div className="absolute inset-0 bg-overlay-gold-accent" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-20">
           <button
             type="button"
             onClick={onBack}
@@ -137,21 +159,6 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
       </section>
 
       {/* ── Problem with Generic ELT ─────────────────────────────── */}
-      {/* Human-centered overhaul: illustrated 4-Step Thinking Cycle banner (illustration, not a photo). */}
-      <section className="bg-sb-cream px-6 py-10">
-        <figure className="relative mx-auto max-w-5xl">
-          <img
-            src="/images/overhaul/thinking-cycle-storybook-map.webp"
-            alt="Illustrated explorer journal map of the 4-Step Thinking Cycle: Analyze, Evaluate, Justify, Reflect"
-            width={1400}
-            height={788}
-            loading="lazy"
-            decoding="async"
-            className="aspect-[16/9] w-full rounded-[1.5rem] border border-sb-border object-cover"
-          />
-          <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-sb-forest">Illustration</figcaption>
-        </figure>
-      </section>
       <section className="bg-white py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
