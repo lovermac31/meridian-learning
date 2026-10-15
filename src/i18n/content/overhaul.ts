@@ -185,11 +185,11 @@ const en = {
           title: '3. Adult IELTS AI Practice',
           ages: 'Ages 18+',
           entry: [
-            { name: '1-credit Starter Practice Report', price: '79.000₫ (~$3)', note: '1 Basic Practice Report quoting your response and naming your #1 priority fix. Typed mode is live now (does not assess pronunciation); spoken audio mode is in limited beta.' },
+            { name: '1-credit Starter Practice Report', price: '79.000₫ · US$4 by PayPal', note: '1 Basic Practice Report quoting your response and naming your #1 priority fix. Typed mode is live now (does not assess pronunciation); spoken audio mode is in limited beta.' },
           ],
           ongoing: [
-            { name: '3-credit Diagnostic Pack', price: '199.000₫ total (~$8)', note: '~66.300₫/credit: 1 Advanced Report with a 4-week study plan, or 3 Basic reports.' },
-            { name: '10-credit Practice Pack', price: '549.000₫ total (~$22)', note: '~54.900₫/credit, valid 12 months across 5 practice sets.' },
+            { name: '3-credit Diagnostic Pack', price: '199.000₫ total · US$8 by PayPal', note: '~66.300₫/credit: 1 Advanced Report with a 4-week study plan, or 3 Basic reports.' },
+            { name: '10-credit Practice Pack', price: '549.000₫ total · US$22 by PayPal', note: '~54.900₫/credit, valid 12 months.' },
           ],
           cta: { label: 'Explore Adult AI Speaking & Limitations', href: '/ai-speaking' },
         },
@@ -370,11 +370,11 @@ const vi: OverhaulContent = {
           title: '3. Luyện IELTS với AI cho người lớn',
           ages: '18+ tuổi',
           entry: [
-            { name: 'Báo cáo luyện tập khởi đầu (1 lượt)', price: '79.000₫ (~$3)', note: '1 Báo cáo cơ bản trích nguyên văn câu trả lời của bạn và chỉ ra ưu tiên số 1 cần sửa. Chế độ đánh máy đã hoạt động (không đánh giá phát âm); chế độ nói bằng giọng đang ở giai đoạn beta giới hạn.' },
+            { name: 'Báo cáo luyện tập khởi đầu (1 lượt)', price: '79.000₫ · US$4 qua PayPal', note: '1 Báo cáo cơ bản trích nguyên văn câu trả lời của bạn và chỉ ra ưu tiên số 1 cần sửa. Chế độ đánh máy đã hoạt động (không đánh giá phát âm); chế độ nói bằng giọng đang ở giai đoạn beta giới hạn.' },
           ],
           ongoing: [
-            { name: 'Gói Chẩn đoán 3 lượt', price: 'Tổng 199.000₫ (~$8)', note: '~66.300₫/lượt: 1 Báo cáo nâng cao kèm kế hoạch học 4 tuần, hoặc 3 Báo cáo cơ bản.' },
-            { name: 'Gói Luyện tập 10 lượt', price: 'Tổng 549.000₫ (~$22)', note: '~54.900₫/lượt, dùng trong 12 tháng với 5 bộ đề luyện tập.' },
+            { name: 'Gói Chẩn đoán 3 lượt', price: 'Tổng 199.000₫ · US$8 qua PayPal', note: '~66.300₫/lượt: 1 Báo cáo nâng cao kèm kế hoạch học 4 tuần, hoặc 3 Báo cáo cơ bản.' },
+            { name: 'Gói Luyện tập 10 lượt', price: 'Tổng 549.000₫ · US$22 qua PayPal', note: '~54.900₫/lượt, dùng trong 12 tháng.' },
           ],
           cta: { label: 'Xem AI Speaking & giới hạn của sản phẩm', href: '/ai-speaking' },
         },
