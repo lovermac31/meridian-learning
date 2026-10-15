@@ -44,7 +44,8 @@ export function ProductionStyleHeader() {
         </nav>
         <div className="flex items-center gap-2 sm:gap-3">
           <a href={CTA_HREF} className={CTA}>
-            <span>Choose a Starting Step</span>
+            <span className="hidden sm:inline">Choose a Starting Step</span>
+            <span className="sm:hidden">Start here</span>
             <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </a>
           <div className="hidden rounded-full border border-[#E6DEC8] bg-white p-1 text-xs font-semibold xl:flex" role="group" aria-label="Language">
