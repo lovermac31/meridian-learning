@@ -72,7 +72,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
           <figure className="relative">
             <img
               src={`${IMG}/hero-story-expedition.webp`}
-              srcSet={`${IMG}/w/hero-story-expedition-480.webp 480w, ${IMG}/w/hero-story-expedition-800.webp 800w, ${IMG}/w/hero-story-expedition-1200.webp 1200w, ${IMG}/hero-story-expedition.webp 1400w`}
+              srcSet={`${IMG}/w/hero-story-expedition-480.webp 480w, ${IMG}/w/hero-story-expedition-672.webp 672w, ${IMG}/w/hero-story-expedition-800.webp 800w, ${IMG}/w/hero-story-expedition-1200.webp 1200w, ${IMG}/hero-story-expedition.webp 1400w`}
               sizes="(min-width: 1280px) 592px, (min-width: 1024px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
               alt={hero.imageAlt}
               width={1400}
