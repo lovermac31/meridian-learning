@@ -506,7 +506,7 @@ const en: Dict = {
   'brand.subLabel': 'Young Learners',
   // Attribute strings (alt / aria-label) applied via data-i18n-attr="attr:key".
   'attr.navPrimary': 'Primary',
-  'attr.brandHome': 'Jurassic English home',
+  'attr.brandHome': 'Jurassic English™ home',
   'attr.emblemAlt': 'Jurassic English emblem',
   'attr.agePathway': 'Age pathway',
   'attr.imgTeen': 'Teen student speaking in a warm study room',

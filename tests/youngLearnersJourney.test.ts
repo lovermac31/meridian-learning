@@ -10,7 +10,7 @@ const zhPath = new URL('../src/yl/i18n.zh-CN.json', import.meta.url);
 test('Young Learners books the Live Speaking Baseline and keeps relevant internal paths', async () => {
   const html = await readFile(htmlPath, 'utf8');
 
-  assert.match(html, /class="brand" href="\/" aria-label="Jurassic English home"/);
+  assert.match(html, /class="brand" href="\/" aria-label="Jurassic English™ home"/);
   assert.match(
     html,
     /href="\/student-academy" data-route-progression="student-academy"/,

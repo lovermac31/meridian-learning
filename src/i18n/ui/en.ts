@@ -1,6 +1,6 @@
 export const enUi = {
   navbar: {
-    brandAriaLabel: 'Jurassic English home',
+    brandAriaLabel: 'Jurassic English™ home',
     links: {
       // P0 — reduced two-audience nav (route links, not homepage anchors).
       forSchools: 'For Schools',
@@ -111,6 +111,12 @@ export const enUi = {
     ariaLabel: 'Language switcher',
     options: {
       en: 'English',
+      vi: 'Tiếng Việt',
+    },
+    // Accessible names start with / contain the visible text ("EN" on desktop,
+    // the full name in the drawer) to satisfy WCAG 2.5.3 Label in Name.
+    optionAriaLabels: {
+      en: 'EN – English',
       vi: 'Tiếng Việt',
     },
     scaffoldNotice:
