@@ -59,7 +59,7 @@ const RATES = ['700.000₫', '625.000₫', '575.000₫'];
 
 // route, site, ceiling (EN only; VI is reported, not gated — Vietnamese runs longer).
 const PAGES = [
-  { route: '/', site: 'main', local: 'dist/index.html', lang: 'en', spa: true, policy: true, example: true },
+  { route: '/', site: 'main', local: 'dist/index.html', ceiling: 1250, lang: 'en', spa: true, policy: true, example: true },
   { route: '/vi', site: 'main', local: 'dist/vi/index.html', lang: 'vi', spa: true, policy: true },
   { route: '/young-learners-speaking/', site: 'main', local: 'dist/young-learners-speaking/index.html', ceiling: 750, lang: 'en', policy: true },
   { route: '/vi/luyen-noi-ielts/', site: 'main', local: 'dist/vi/luyen-noi-ielts/index.html', lang: 'vi', policy: true },
