@@ -3,7 +3,7 @@ import { seriesLevels } from '../lib/seriesContent';
 import { syllabusData } from '../lib/syllabusContent';
 import { thinkingCycleStages } from '../lib/thinkingCycleContent';
 import { getCurrentPathname } from '../lib/ssrLocation';
-import { seoEnglishPaths, seoPathPairs } from '../lib/seoPages';
+import { seoEnglishPaths, seoPathPairs } from '../lib/seoPageMeta';
 import {
   DEFAULT_LOCALE,
   SECONDARY_LOCALE,

@@ -15,7 +15,7 @@ import { getLocalizedThinkingCycleStageByPath } from '../i18n/content/thinkingCy
 import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
 import marketPricing from '../content/marketPricing.json';
-import { getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath, getInternationalAlternates } from './seoPages';
+import { getSeoPageMeta as getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath, getInternationalAlternates } from './seoPageMeta';
 import {
   createBreadcrumbJsonLd,
   createCourseJsonLd,

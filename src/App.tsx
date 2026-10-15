@@ -29,8 +29,7 @@ import { getUiString } from './i18n/ui';
 import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
-import { SearchInsightsPage } from './components/SearchInsightsPage';
-import { isInternationalMarketPath } from './lib/seoPages';
+import { isInternationalMarketPath } from './lib/seoPageMeta';
 import { getCurrentLocation } from './lib/ssrLocation';
 
 /* ── Lazy-loaded subpages (code-split) ──────────────────────────── */
@@ -92,6 +91,10 @@ const SeriesExperience = lazy(() =>
 );
 const SeriesComparisonExperience = lazy(() =>
   import('./components/SeriesComparisonExperience').then(m => ({ default: m.SeriesComparisonExperience }))
+);
+// SEO article pages carry ~0.5 MB of HTML (src/content/seoPages.json): keep them out of the first load.
+const SearchInsightsPage = lazy(() =>
+  import('./components/SearchInsightsPage').then(m => ({ default: m.SearchInsightsPage }))
 );
 const SyllabusExperience = lazy(() =>
   import('./components/SyllabusExperience').then(m => ({ default: m.SyllabusExperience }))
