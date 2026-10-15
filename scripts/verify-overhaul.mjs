@@ -61,8 +61,8 @@ const RATES = ['700.000₫', '625.000₫', '575.000₫'];
 const PAGES = [
   { route: '/', site: 'main', local: 'dist/index.html', ceiling: 1250, lang: 'en', spa: true, policy: true, example: true },
   { route: '/vi', site: 'main', local: 'dist/vi/index.html', lang: 'vi', spa: true, policy: true },
-  { route: '/young-learners-speaking/', site: 'main', local: 'dist/young-learners-speaking/index.html', ceiling: 750, lang: 'en', policy: true },
-  { route: '/vi/luyen-noi-ielts/', site: 'main', local: 'dist/vi/luyen-noi-ielts/index.html', lang: 'vi', policy: true },
+  { route: '/young-learners-speaking/', site: 'main', local: 'dist/young-learners-speaking/index.html', ceiling: 750, lang: 'en', policy: true, bands: true },
+  { route: '/vi/luyen-noi-ielts/', site: 'main', local: 'dist/vi/luyen-noi-ielts/index.html', lang: 'vi', policy: true, bands: true },
   { route: '/framework', site: 'main', local: 'dist/framework/index.html', lang: 'en', spa: true, family: false },
   { route: '/vi/framework', site: 'main', local: 'dist/vi/framework/index.html', lang: 'vi', spa: true, family: false },
   { route: '/methodology', site: 'main', local: 'dist/methodology/index.html', lang: 'en', spa: true, family: false },
@@ -129,6 +129,14 @@ function analyse(page, html) {
   if (page.scope) {
     const missing = SCOPE.filter((re) => !re.test(text)).map((re) => re.source);
     record(missing.length === 0, `AI scope disclosure ${page.route}`, missing.length ? `missing ${missing.join(' | ')}` : 'typed/no-pronunciation, beta, synthetic audio');
+  }
+  if (page.bands) {
+    // Band 5.0–8.5 pathway + Cambridge Flyers foundation bridge (Oct 2026 YL update).
+    // Official qualification name only (Cambridge English A2 Flyers), marked coming soon, never "Cambridge Flyer 1/2".
+    const need = [/Band 5(\.0)?\b/, /Band 8\.5/, /Cambridge A2 Flyers/, /Coming soon|Sắp ra mắt/i, /Cambridge%20A2%20Flyers%20Priority%20Waitlist/];
+    const missing = need.filter((re) => !re.test(re.source.includes('%20') ? html : text)).map((re) => re.source);
+    if (/Cambridge Flyers? [12]\b/.test(text)) missing.push('unofficial "Cambridge Flyer 1/2" naming present');
+    record(missing.length === 0, `band pathway ${page.route}`, missing.length ? `missing ${missing.join(' | ')}` : 'Band 5.0, Band 8.5, Cambridge A2 Flyers (coming soon), waitlist link');
   }
   if (page.example) record(/Illustrative Teaching Example|Ví dụ giảng dạy minh hoạ/i.test(text), `illustrative badge ${page.route}`, 'lesson demo badged');
   const whiteOnAmber = [...html.matchAll(/class="([^"]*)"/g)].map((m) => m[1]).filter((c) => /(^|\s)bg-(sb-amber|\[#D97706\])(\s|$)/.test(c) && /(^|\s)text-white(\s|$)/.test(c));
