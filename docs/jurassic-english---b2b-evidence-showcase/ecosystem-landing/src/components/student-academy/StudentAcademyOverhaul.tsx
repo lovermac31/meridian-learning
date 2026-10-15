@@ -40,11 +40,19 @@ const LEVELS = [
   { level: "Level 5 · Advanced Thinker", world: "University & Exam Bridge", cefr: "B2 / C1", image: "", body: "Handling counter-arguments and carrying reasoning into IELTS, IB, IGCSE and Cambridge essays and interviews." },
 ];
 
-function Illustration({ src, alt, className, eager = false, width, height }: { src: string; alt: string; className: string; eager?: boolean; width: number; height: number }) {
+// Smaller width variants live in /images/overhaul/w/<name>-<width>.webp; the
+// original file stays the largest candidate (and the src fallback).
+function srcSetFor(name: string, widths: number[], originalWidth: number) {
+  return [...widths.map((w) => `${IMG}/w/${name}-${w}.webp ${w}w`), `${IMG}/${name}.webp ${originalWidth}w`].join(", ");
+}
+
+const WORLD_SIZES = "(min-width: 1280px) 230px, (min-width: 1024px) calc(20vw - 26px), (min-width: 640px) calc(50vw - 34px), calc(100vw - 32px)";
+
+function Illustration({ src, alt, className, eager = false, width, height, sizes }: { src: string; alt: string; className: string; eager?: boolean; width: number; height: number; sizes: string }) {
   return (
     <figure className="relative">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`${IMG}/${src}.webp`} alt={alt} width={width} height={height} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} decoding="async" className={className} />
+      <img src={`${IMG}/${src}.webp`} srcSet={srcSetFor(src, [480, 800, 1200], width)} sizes={sizes} alt={alt} width={width} height={height} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : undefined} decoding="async" className={className} />
       <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-[#1E4D3B]">Illustration</figcaption>
     </figure>
   );
@@ -84,6 +92,7 @@ export function StudentAcademyOverhaul() {
             alt="Storybook illustration: Professor Rex and young explorers gathered around an illustrated map of story worlds"
             width={1400}
             height={788}
+            sizes="(min-width: 1280px) 592px, (min-width: 1024px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
             eager
             className="aspect-[16/9] w-full rounded-[1.75rem] border border-[#E6DEC8] object-cover"
           />
@@ -111,6 +120,7 @@ export function StudentAcademyOverhaul() {
               alt="Illustrated explorer journal map of the 4-Step Thinking Cycle: Analyze, Evaluate, Justify, Reflect"
               width={1400}
               height={788}
+              sizes="(min-width: 1280px) 600px, (min-width: 1024px) calc(50vw - 40px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
               className="aspect-[16/9] w-full rounded-[1.25rem] border border-[#E6DEC8] object-cover"
             />
           </div>
@@ -151,7 +161,7 @@ export function StudentAcademyOverhaul() {
         <div className="mx-auto max-w-7xl">
           <div className="flex items-center gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}/professor-rex-mascot.webp`} alt="Professor Rex, the storybook dinosaur guide of Jurassic English Story Quest (illustration)" width={80} height={80} loading="lazy" decoding="async" className="h-16 w-16 flex-none rounded-2xl object-cover" />
+            <img src={`${IMG}/w/professor-rex-mascot-160.webp`} alt="Professor Rex, the storybook dinosaur guide of Jurassic English Story Quest (illustration)" width={80} height={80} loading="lazy" decoding="async" className="h-16 w-16 flex-none rounded-2xl object-cover" />
             <h2 id="levels-heading" className={H2}>The 5-level pathway, placed by readiness, not just age</h2>
           </div>
           <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
@@ -159,7 +169,7 @@ export function StudentAcademyOverhaul() {
               <li key={lv.level} className="overflow-hidden rounded-[1.25rem] border border-[#E6DEC8] bg-[#FAF7F2]">
                 {lv.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={`${IMG}/${lv.image}.webp`} alt={`Storybook illustration of ${lv.world}`} width={1200} height={675} loading="lazy" decoding="async" className="aspect-[16/9] w-full object-cover" />
+                  <img src={`${IMG}/${lv.image}.webp`} srcSet={srcSetFor(lv.image, [480, 800], 1200)} sizes={WORLD_SIZES} alt={`Storybook illustration of ${lv.world}`} width={1200} height={676} loading="lazy" decoding="async" className="aspect-[16/9] w-full object-cover" />
                 ) : (
                   <div className="flex aspect-[16/9] w-full items-center justify-center bg-[#1E4D3B] px-4 text-center text-sm font-extrabold text-white">{lv.world}</div>
                 )}

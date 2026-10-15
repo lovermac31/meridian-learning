@@ -142,6 +142,10 @@ function makeStylesheetsRenderBlocking(html) {
   );
 }
 
+const HERO_PRELOAD_ROUTES = new Set(['/', '/vi']);
+const LEGACY_HERO_PRELOAD_PATTERN =
+  /\s*<!-- LCP hero image[^>]*-->\s*<link\s+rel="preload"\s+as="image"\s+href="\/images\/hero-compass-960\.webp"[^>]*\/>/;
+
 function injectServerRenderedRoute(html, pathname, ssrHtml) {
   assertStaticMarkup(pathname, ssrHtml);
   const { headTags, body } = splitLeadingHeadTags(ssrHtml);
@@ -153,10 +157,29 @@ function injectServerRenderedRoute(html, pathname, ssrHtml) {
   );
   output = makeStylesheetsRenderBlocking(output);
 
-  const newHeadTags = headTags.filter((tag) => {
+  let newHeadTags = headTags.filter((tag) => {
     const href = /href="([^"]*)"/.exec(tag)?.[1];
     return !href || !output.includes(`href="${href}"`);
   });
+
+  // WP3 (A2 P5): on the homepage the LCP element is the overhaul hero image.
+  // React emits its responsive preload (imagesrcset/imagesizes from the img's
+  // srcSet/sizes), but appended at </head> it sits behind the scripts and
+  // JSON-LD, and the template's legacy hero-compass preload (fetchpriority
+  // high, an image the homepage no longer shows) competes with it. For / and
+  // /vi only: drop the legacy preload and put the hero preload first in <head>.
+  if (HERO_PRELOAD_ROUTES.has(pathname)) {
+    const heroPreloads = newHeadTags.filter((tag) => /rel="preload"/.test(tag) && /as="image"/.test(tag));
+    if (heroPreloads.length > 0) {
+      output = output.replace(LEGACY_HERO_PRELOAD_PATTERN, '');
+      output = output.replace(
+        /(<meta name="viewport"[^>]*\/>)/,
+        (match) => `${match}\n    ${heroPreloads.join('\n    ')}`,
+      );
+      newHeadTags = newHeadTags.filter((tag) => !heroPreloads.includes(tag));
+    }
+  }
+
   if (newHeadTags.length > 0) {
     output = output.replace('</head>', `${newHeadTags.map((tag) => `    ${tag}`).join('\n')}\n  </head>`);
   }
