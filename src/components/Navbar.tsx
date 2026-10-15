@@ -11,10 +11,10 @@ const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
 
 // Light storybook header (10/10 overhaul). Two-line door links: age + what it is.
 const NAV_LINK =
-  'max-w-[11rem] rounded-xl px-2.5 py-1.5 text-[13px] font-bold leading-tight text-sb-forest transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
+  'whitespace-nowrap rounded-xl px-1 py-1.5 text-sm font-bold text-sb-forest transition hover:text-sb-amber-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
 // White text only on #B45309 (5.0:1) or forest #1E4D3B (9.4:1), never on #D97706.
 const NAV_CTA =
-  'inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-sb-amber-deep px-4 py-2 text-[13px] font-extrabold text-white shadow-warm transition hover:bg-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-forest focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
+  'inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full bg-sb-amber-deep px-4 py-2 text-[13px] font-bold text-white shadow-warm transition hover:bg-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-forest focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
 
 type NavbarProps = {
   onGetStarted: () => void;
@@ -129,7 +129,7 @@ export const Navbar = ({
   // homepage anchors, so they must be real document navigations.
   const overhaul = getOverhaulContent(locale);
   const navItems = overhaul.nav.items;
-  // "Choose a Starting Step" → the pathway-matched starting options on /.
+  // "Book Baseline · 690k₫" → the Live Speaking Baseline booking page (AI Speaking app, native navigation).
   const bookHref = getLocalizedHref(overhaul.nav.ctaHref, locale);
   const bookLabel = overhaul.nav.cta;
 
@@ -147,7 +147,7 @@ export const Navbar = ({
     setIsMobileMenuOpen(false);
     try {
       trackCtaClick({
-        label: placement === 'desktop' ? 'header_starting_step_click' : 'header_starting_step_mobile_click',
+        label: placement === 'desktop' ? 'header_book_baseline_click' : 'header_book_baseline_mobile_click',
         type: 'primary',
         segment: 'parent_student',
       });
@@ -159,8 +159,10 @@ export const Navbar = ({
   const isSolidNav = forceSolidBackground || isScrolled;
 
   return (
-    <nav className={`fixed top-0 w-full z-50 border-b transition-shadow duration-300 bg-sb-cream/95 backdrop-blur-md ${isSolidNav ? 'border-sb-border shadow-warm' : 'border-transparent'} py-3`}>
-      <div className="max-w-7xl mx-auto px-3 min-[360px]:px-4 sm:px-6 flex justify-between items-center gap-1.5 min-[360px]:gap-3">
+    <nav className={`fixed top-0 w-full z-50 border-b transition-shadow duration-300 bg-sb-cream/95 backdrop-blur-md ${isSolidNav ? 'border-sb-border shadow-warm' : 'border-transparent'}`}>
+      {/* Two balanced clusters on one 72px row, never wrapping: [logo + doors] … [EN | Tiếng Việt + Baseline CTA]. */}
+      <div className="max-w-7xl mx-auto h-[72px] px-3 min-[360px]:px-4 sm:px-6 flex flex-nowrap justify-between items-center gap-1.5 min-[360px]:gap-3">
+        <div className="flex min-w-0 flex-nowrap items-center gap-6">
         <button
           type="button"
           onClick={() => {
@@ -174,30 +176,33 @@ export const Navbar = ({
           Jurassic English<sup className="text-sb-amber-deep">™</sup>
         </button>
 
-        {/* Desktop (>= xl): four age doors | sticky Baseline CTA | EN/VI. */}
-        <div className="hidden xl:flex items-center gap-1">
+        {/* Desktop (>= xl): the four age doors sit beside the logo. */}
+        <div className="hidden xl:flex flex-nowrap items-center gap-6">
           {navItems.map((item) => (
             <a
               key={item.key}
               href={getLocalizedHref(item.href, locale)}
               onClick={(event) => handleNavItemClick(event, item)}
               className={NAV_LINK}
+              aria-label={`${item.label} · ${item.desc}`}
+              title={item.desc}
             >
               {item.label}
             </a>
           ))}
         </div>
-        <div className="flex shrink-0 items-center gap-1.5 min-[360px]:gap-2 sm:gap-3">
+        </div>
+        <div className="flex shrink-0 flex-nowrap items-center gap-1.5 min-[360px]:gap-2 sm:gap-3">
+          <div className="hidden xl:block">{languageSwitcher}</div>
           <a
             href={bookHref}
             onClick={() => handleBookClick('desktop')}
-            className={`${NAV_CTA} px-2.5 min-[360px]:px-3 sm:px-4`}
+            className={`${NAV_CTA} px-2.5 min-[360px]:px-3 sm:px-5`}
           >
             <span className="hidden sm:inline">{bookLabel}</span>
             <span className="sm:hidden">{overhaul.nav.ctaMobile}</span>
             <ArrowRight aria-hidden="true" className="hidden h-4 w-4 min-[360px]:block" />
           </a>
-          <div className="hidden xl:block">{languageSwitcher}</div>
           <button
             ref={triggerRef}
             type="button"
@@ -247,6 +252,7 @@ export const Navbar = ({
                 className="rounded-xl border border-sb-border bg-white px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
               >
                 <span className="block text-base font-bold text-sb-forest">{item.label}</span>
+                <span className="block text-sm text-sb-ink">{item.desc}</span>
               </a>
             ))}
             {languageSwitcher ? (

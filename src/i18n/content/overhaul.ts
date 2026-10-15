@@ -26,14 +26,15 @@ export const UNDER_18_POLICY_EN = 'Sessions with learners under 18 are never rec
 const en = {
   nav: {
     items: [
-      { key: 'reading', label: 'Reading & Story Adventures', href: '/student-academy', kind: 'route' },
-      { key: 'speaking', label: 'Speaking Confidence & Teen IELTS', href: '/young-learners-speaking/', kind: 'native' },
-      { key: 'adults', label: 'Adult IELTS Practice', href: '/ai-speaking', kind: 'native' },
-      { key: 'jay', label: 'Meet Mr. Jay & Pricing', href: '/#pricing-options', kind: 'native' },
+      // Header symmetry (Oct 2026): short age labels on screen; `desc` names the door (accessible name + mobile drawer).
+      { key: 'reading', label: 'Ages 6–12', desc: 'Reading & Story Adventures', href: '/student-academy', kind: 'route' },
+      { key: 'speaking', label: 'Ages 9–18', desc: 'Speaking Confidence & Teen IELTS', href: '/young-learners-speaking/', kind: 'native' },
+      { key: 'adults', label: 'Adults 18+', desc: 'Adult IELTS Practice', href: '/ai-speaking', kind: 'native' },
+      { key: 'jay', label: 'Mr. Jay & Pricing', desc: 'Meet Mr. Jay and see pricing', href: '/#pricing-options', kind: 'native' },
     ],
-    cta: 'Choose a Starting Step',
-    ctaMobile: 'Start here',
-    ctaHref: '/#pricing-options',
+    cta: 'Book Baseline · 690k₫',
+    ctaMobile: 'Baseline · 690k₫',
+    ctaHref: '/ai-speaking/baseline',
   },
   footer: {
     navLabel: 'Footer',
@@ -41,6 +42,7 @@ const en = {
       { label: 'Reading & Story Adventures', href: '/student-academy' },
       { label: 'Speaking & Teen IELTS', href: '/young-learners-speaking/' },
       { label: 'Adult IELTS Practice', href: '/ai-speaking' },
+      { label: 'IELTS Writing Task 2 (Coming Soon)', href: '/ai-speaking/writing' },
       { label: 'Live Speaking Baseline', href: '/ai-speaking/baseline' },
       { label: 'Academic Framework', href: '/framework' },
       { label: 'Privacy', href: '/legal/privacy' },
@@ -211,14 +213,14 @@ type OverhaulContent = typeof en;
 const vi: OverhaulContent = {
   nav: {
     items: [
-      { key: 'reading', label: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy', kind: 'route' },
-      { key: 'speaking', label: 'Tự tin nói & IELTS cho teen', href: '/young-learners-speaking/', kind: 'native' },
-      { key: 'adults', label: 'Luyện IELTS cho người lớn', href: '/ai-speaking', kind: 'native' },
-      { key: 'jay', label: 'Gặp thầy Jay & Học phí', href: '/#pricing-options', kind: 'native' },
+      { key: 'reading', label: '6–12 tuổi', desc: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy', kind: 'route' },
+      { key: 'speaking', label: '9–18 tuổi', desc: 'Tự tin nói & IELTS cho teen', href: '/young-learners-speaking/', kind: 'native' },
+      { key: 'adults', label: 'Người lớn 18+', desc: 'Luyện IELTS cho người lớn', href: '/ai-speaking', kind: 'native' },
+      { key: 'jay', label: 'Thầy Jay & Học phí', desc: 'Gặp thầy Jay và xem học phí', href: '/#pricing-options', kind: 'native' },
     ],
-    cta: 'Chọn bước bắt đầu',
-    ctaMobile: 'Bắt đầu',
-    ctaHref: '/#pricing-options',
+    cta: 'Đặt Đánh giá · 690k₫',
+    ctaMobile: 'Đánh giá · 690k₫',
+    ctaHref: '/ai-speaking/baseline',
   },
   footer: {
     navLabel: 'Chân trang',
@@ -226,6 +228,7 @@ const vi: OverhaulContent = {
       { label: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy' },
       { label: 'Luyện nói & IELTS cho teen', href: '/young-learners-speaking/' },
       { label: 'Luyện IELTS cho người lớn', href: '/ai-speaking' },
+      { label: 'IELTS Writing Task 2 (Sắp ra mắt)', href: '/ai-speaking/writing' },
       { label: 'Đánh giá Nói trực tiếp', href: '/ai-speaking/baseline' },
       { label: 'Khung học thuật', href: '/framework' },
       { label: 'Quyền riêng tư', href: '/legal/privacy' },

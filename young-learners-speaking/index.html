@@ -446,6 +446,16 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 .card-balanced-cta-wrapper .yl2-link{margin-top:0;text-align:center}
 @media(min-width:620px){.yl2-stages-4{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1080px){.yl2-stages-4{grid-template-columns:repeat(4,1fr)}}
+/* Band grid + IELTS Writing Task 2 companion: 2 cols (Writing spans the last row), then 3 cols where Band 8.0–8.5
+   sits beside the Writing card spanning two columns, so its long waitlist CTA never wraps into a narrow column. */
+.yl2-stages-5{grid-template-columns:minmax(0,1fr)}
+.yl2-stage-soon .btn{overflow-wrap:anywhere;text-align:center}
+@media(min-width:620px){.yl2-stages-5{grid-template-columns:repeat(2,minmax(0,1fr))}.yl2-stages-5 .yl2-stage-soon{grid-column:span 2}}
+@media(min-width:900px){.yl2-stages-5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.yl2-stage-soon{border:2px dashed #B45309;background:#FFFBF2}
+.yl2-wt2-list{margin:.6rem 0 0;padding-left:1.1rem;color:#1C2526;font-size:.95rem}
+.yl2-wt2-list li{margin:.2rem 0}
+.card-balanced-cta-wrapper .btn{min-height:48px}
 /* Cambridge Flyers coming-soon banner (§3.1) */
 .yl2-flyers{background:#1E4D3B;color:#fff;padding:96px 0 18px}
 .yl2-flyers-in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
@@ -456,26 +466,63 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 .yl2 .yl2-flyers-cta:hover{background:#FAF7F2;color:#1E4D3B}
 .yl2-flyers + .yl2-hero{padding-top:40px}
 @media(max-width:880px){.yl2-flyers{padding-top:18px}}
+
+/* ===== Header symmetry (Oct 2026) ===== */
+nav.yl2-hdr{position:relative;z-index:40}
+.yl2-hdr-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;height:72px;gap:16px}
+.yl2-hdr-left,.yl2-hdr-right{display:flex;align-items:center;flex-wrap:nowrap;gap:1.5rem;min-width:0}
+.yl2-hdr-right{gap:12px;flex-shrink:0}
+.yl2-hdr .brand{flex-shrink:0;white-space:nowrap}
+.yl2-hdr-links{display:none;align-items:center;gap:1.5rem}
+.yl2-hdr-links a{white-space:nowrap;color:#1E4D3B;font-weight:700;font-size:.9rem;text-decoration:none;padding:6px 2px;border-radius:6px}
+.yl2-hdr-links a:hover{color:#B45309}
+.yl2-hdr-links a[aria-current="page"]{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.yl2-hdr-right .lang-select{display:none}
+.yl2-hdr-cta{display:none;align-items:center;white-space:nowrap;min-height:44px;padding:.5rem 1.25rem;font-weight:700;font-size:.9rem;background:#B45309;color:#fff;border-radius:999px;text-decoration:none}
+.yl2-hdr-cta:hover{background:#1E4D3B;color:#fff}
+.yl2-hdr-menu{position:relative}
+.yl2-hdr-menu>summary{list-style:none;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;border:1px solid #E6DEC8;background:#fff;color:#1E4D3B;cursor:pointer}
+.yl2-hdr-menu>summary::-webkit-details-marker{display:none}
+.yl2-hdr-menu>summary:focus-visible{outline:3px solid #1E4D3B;outline-offset:3px}
+.yl2-hdr-panel{position:absolute;right:0;top:52px;width:min(20rem,calc(100vw - 2rem));display:flex;flex-direction:column;gap:8px;padding:14px;background:#FAF7F2;border:1px solid #E6DEC8;border-radius:16px;box-shadow:0 18px 40px -18px rgba(28,37,38,.35)}
+.yl2-hdr-panel>a:not(.yl2-hdr-cta){display:block;padding:10px 12px;border:1px solid #E6DEC8;border-radius:12px;background:#fff;text-decoration:none}
+.yl2-hdr-panel>a strong{display:block;color:#1E4D3B}
+.yl2-hdr-panel>a span{display:block;color:#1C2526;font-size:.85rem}
+.yl2-hdr-panel .yl2-hdr-cta-panel{display:flex;justify-content:center}
+.yl2-hdr-panel .lang-select{display:inline-flex;align-self:flex-start}
+.yl2-hdr-menu:not([open]) .yl2-hdr-panel{display:none}
+@media(min-width:480px){.yl2-hdr-right>.yl2-hdr-cta{display:inline-flex}}
+@media(min-width:1100px){.yl2-hdr-links{display:flex}.yl2-hdr-right .lang-select{display:inline-flex}.yl2-hdr-menu{display:none}}
+.yl2-foot-lang{margin-top:10px;border-color:#E6DEC8;background:#fff}
+.yl2-foot-lang button{color:#1C2526}
+.yl2-foot-lang button.is-active{background:#1E4D3B;color:#fff}
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main" data-i18n="a11y.skipToContent">Skip to main content</a>
-<nav class="yl2-nav" aria-label="Primary" data-i18n-attr="aria-label:attr.navPrimary">
-  <div class="wrap navin">
-    <a class="brand" href="/" aria-label="Jurassic English home" data-i18n-attr="aria-label:attr.brandHome">
-      <div><strong>Jurassic English<sup>TM</sup></strong></div>
-    </a>
-    <div class="navlinks">
-      <a href="/student-academy" data-i18n="yl2.nav.kids">Reading & Story Adventures</a>
-      <a href="#top" aria-current="page" data-i18n="yl2.nav.teens">Speaking Confidence & Teen IELTS</a>
-      <a href="/ai-speaking" data-i18n="yl2.nav.adults">Adult IELTS Practice</a>
-      <a href="/#pricing-options" data-i18n="yl2.nav.jay">Meet Mr. Jay &amp; Pricing</a>
-      <a class="navcta" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book the Live Baseline · 690.000₫</a>
+<nav class="yl2-nav yl2-hdr" aria-label="Primary" data-i18n-attr="aria-label:attr.navPrimary">
+  <!-- Header symmetry (Oct 2026): one 72px row, two balanced clusters, never wrapping:
+       [logo + four age doors] … [EN | Tiếng Việt + Book Baseline]. Below 1100px the doors move into a menu. -->
+  <div class="wrap yl2-hdr-in">
+    <div class="yl2-hdr-left">
+      <a class="brand" href="/" aria-label="Jurassic English home" data-i18n-attr="aria-label:attr.brandHome">
+        <div><strong>Jurassic English<sup>TM</sup></strong></div>
+      </a>
+      <div class="yl2-hdr-links"><a href="/student-academy" data-i18n="yl2.nav.kids" aria-label="Ages 6–12 · Reading & Story Adventures" data-i18n-attr="aria-label:yl2.nav.kidsAria">Ages 6–12</a><a href="#top" aria-current="page" data-i18n="yl2.nav.teens" aria-label="Ages 9–18 · Speaking Confidence & Teen IELTS" data-i18n-attr="aria-label:yl2.nav.teensAria">Ages 9–18</a><a href="/ai-speaking" data-i18n="yl2.nav.adults" aria-label="Adults 18+ · Adult IELTS Practice" data-i18n-attr="aria-label:yl2.nav.adultsAria">Adults 18+</a><a href="/#pricing-options" data-i18n="yl2.nav.jay" aria-label="Mr. Jay &amp; Pricing · Meet Mr. Jay and see pricing" data-i18n-attr="aria-label:yl2.nav.jayAria">Mr. Jay &amp; Pricing</a></div>
+    </div>
+    <div class="yl2-hdr-right">
       <div class="lang-select" data-lang-selector role="group" aria-label="Language">
-        <button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">English</button>
+        <button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">EN</button>
         <button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button>
-        <button type="button" data-lang-btn="zh-CN" aria-pressed="false">中文</button>
       </div>
+      <a class="yl2-hdr-cta" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book Baseline · 690k₫ →</a>
+      <details class="yl2-hdr-menu">
+        <summary aria-label="Menu" data-i18n-attr="aria-label:yl2.nav.menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+        <div class="yl2-hdr-panel"><a href="/student-academy"><strong data-i18n="yl2.nav.kids">Ages 6–12</strong><span data-i18n="yl2.nav.kidsDesc">Reading & Story Adventures</span></a><a href="#top" aria-current="page"><strong data-i18n="yl2.nav.teens">Ages 9–18</strong><span data-i18n="yl2.nav.teensDesc">Speaking Confidence & Teen IELTS</span></a><a href="/ai-speaking"><strong data-i18n="yl2.nav.adults">Adults 18+</strong><span data-i18n="yl2.nav.adultsDesc">Adult IELTS Practice</span></a><a href="/#pricing-options"><strong data-i18n="yl2.nav.jay">Mr. Jay &amp; Pricing</strong><span data-i18n="yl2.nav.jayDesc">Meet Mr. Jay and see pricing</span></a>
+          <a class="yl2-hdr-cta yl2-hdr-cta-panel" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book Baseline · 690k₫ →</a>
+          <div class="lang-select" role="group" aria-label="Language"><button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">EN</button><button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button></div>
+        </div>
+      </details>
     </div>
   </div>
 </nav>
@@ -527,7 +574,7 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
     <div class="wrap">
       <p class="kicker" data-i18n="yl2.stages.kicker">One path from Band 5.0 Foundation to Band 8.5 Mastery</p>
       <h2 id="yl2-stages-h" data-i18n="yl2.stages.h2">Four Band stages, one 60-minute correction loop</h2>
-      <div class="yl2-stages yl2-stages-4"><article class="yl2-stage card-balanced-item"><div class="card-balanced-body"><p class="yl2-tag" data-i18n="yl2.band1.tag">Band 5.0–5.5</p><h3 data-i18n="yl2.band1.h">Foundation &amp; Fluency Bridge</h3><p data-i18n="yl2.band1.p">Full sentences without freezing, everyday vocabulary, clear sounds, and Part 1 answers with a reason.</p></div><div class="card-balanced-cta-wrapper"><a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.band1.cta">Find your stage</a></div></article><article class="yl2-stage card-balanced-item"><div class="card-balanced-body"><p class="yl2-tag" data-i18n="yl2.band2.tag">Band 6.0–6.5</p><h3 data-i18n="yl2.band2.h">Structured Explanation</h3><p data-i18n="yl2.band2.p">Point, reason and example; longer Part 2 answers; more precise words.</p></div><div class="card-balanced-cta-wrapper"><a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.band2.cta">Find your stage</a></div></article><article class="yl2-stage card-balanced-item"><div class="card-balanced-body"><p class="yl2-tag" data-i18n="yl2.band3.tag">Band 7.0–7.5</p><h3 data-i18n="yl2.band3.h">Socratic Reasoning</h3><p data-i18n="yl2.band3.p">Part 3 discussion: compare views, weigh causes and effects, defend an opinion.</p></div><div class="card-balanced-cta-wrapper"><a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.band3.cta">Find your stage</a></div></article><article class="yl2-stage card-balanced-item"><div class="card-balanced-body"><p class="yl2-tag" data-i18n="yl2.band4.tag">Band 8.0–8.5</p><h3 data-i18n="yl2.band4.h">Advanced Rhetorical Mastery</h3><p data-i18n="yl2.band4.p">Precise language under pressure, nuanced argument, and full timed mocks for interviews.</p></div><div class="card-balanced-cta-wrapper"><a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.band4.cta">Find your stage</a></div></article></div>
+      <div class="yl2-stages yl2-stages-4 yl2-stages-5"><article class="yl2-stage card-balanced-item"><div class="card-balanced-body"><p class="yl2-tag" data-i18n="yl2.band1.tag">Band 5.0–5.5</p><h3 data-i18n="yl2.band1.h">Foundation &amp; Fluency Bridge</h3><p data-i18n="yl2.band1.p">Full sentences without freezing, everyday vocabulary, clear sounds, and Part 1 answers with a reason.</p></div><div class="card-balanced-cta-wrapper"><a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.band1.cta">Find your stage</a></div></article><article class="yl2-stage card-balanced-item"><div class="card-balanced-body"><p class="yl2-tag" data-i18n="yl2.band2.tag">Band 6.0–6.5</p><h3 data-i18n="yl2.band2.h">Structured Explanation</h3><p data-i18n="yl2.band2.p">Point, reason and example; longer Part 2 answers; more precise words.</p></div><div class="card-balanced-cta-wrapper"><a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.band2.cta">Find your stage</a></div></article><article class="yl2-stage card-balanced-item"><div class="card-balanced-body"><p class="yl2-tag" data-i18n="yl2.band3.tag">Band 7.0–7.5</p><h3 data-i18n="yl2.band3.h">Socratic Reasoning</h3><p data-i18n="yl2.band3.p">Part 3 discussion: compare views, weigh causes and effects, defend an opinion.</p></div><div class="card-balanced-cta-wrapper"><a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.band3.cta">Find your stage</a></div></article><article class="yl2-stage card-balanced-item"><div class="card-balanced-body"><p class="yl2-tag" data-i18n="yl2.band4.tag">Band 8.0–8.5</p><h3 data-i18n="yl2.band4.h">Advanced Rhetorical Mastery</h3><p data-i18n="yl2.band4.p">Precise language under pressure, nuanced argument, and full timed mocks for interviews.</p></div><div class="card-balanced-cta-wrapper"><a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.band4.cta">Find your stage</a></div></article><article class="yl2-stage yl2-stage-soon card-balanced-item" aria-labelledby="yl2-wt2-h"><div class="card-balanced-body"><p class="yl2-tag" data-i18n="yl2.wt2.tag">COMING SOON · 1-TO-1 COACHING &amp; PRACTICE</p><h3 id="yl2-wt2-h" data-i18n="yl2.wt2.h">IELTS Writing Task 2 — Evidence-First Argumentation</h3><p data-i18n="yl2.wt2.p">Stop memorizing rigid essay templates that examiners penalize. Learn to structure original, high-scoring 250-word Task 2 essays using our signature Point + Proof + Explain habit.</p><ul class="yl2-wt2-list"><li data-i18n="yl2.wt2.f1">5-minute prompt breakdown</li><li data-i18n="yl2.wt2.f2">Band 7.0–8.5 Coherence &amp; Cohesion mastery</li><li data-i18n="yl2.wt2.f3">Real-world evidence expansion</li><li data-i18n="yl2.wt2.f4">Detailed criterion feedback</li></ul></div><div class="card-balanced-cta-wrapper"><a class="btn" href="mailto:info@jurassicenglish.com?subject=IELTS%20Writing%20Task%202%20Waitlist" data-i18n="yl2.wt2.cta">Join Writing Waitlist (info@jurassicenglish.com) →</a></div></article></div>
       <p class="yl2-small" data-i18n="yl2.bands.note">Placed by the Baseline, not by age. Band figures are coaching targets, not guarantees.</p>
       <div class="yl2-loop">
         <h3 data-i18n="yl2.loop.h3">Every 60-minute lesson</h3>
@@ -591,10 +638,12 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 
 <footer class="yl2-footer">
   <div class="wrap">
+    <div class="lang-select yl2-foot-lang" role="group" aria-label="Language"><button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">EN</button><button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button><button type="button" data-lang-btn="zh-CN" aria-pressed="false">中文</button></div>
     <p class="yl2-footlinks">
       <a href="/student-academy" data-i18n="yl2.foot.academy">Reading & Story Adventures</a> ·
       <a href="/young-learners-speaking/" data-i18n="yl2.foot.speaking">Speaking & Teen IELTS</a> ·
       <a href="/ai-speaking" data-i18n="yl2.foot.adult">Adult IELTS Practice</a> ·
+      <a href="/ai-speaking/writing" data-i18n="yl2.foot.writing">IELTS Writing Task 2 (Coming Soon)</a> ·
       <a href="/ai-speaking/baseline" data-i18n="yl2.foot.baseline">Live Speaking Baseline</a> ·
       <a href="/framework" data-i18n="yl2.foot.framework">Academic Framework</a> ·
       <a href="/legal/privacy" data-i18n="yl2.foot.privacy">Privacy</a> ·
