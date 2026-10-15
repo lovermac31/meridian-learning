@@ -106,7 +106,8 @@ test('(a) Vietnamese pages: navbar/footer links use the indexable Vietnamese URL
 
 test('(a) query strings and hashes survive localization', async () => {
   const footer = chromeOf(await render('/vi'), '/vi');
-  assert.ok(hrefsIn(footer).includes('/vi/get-started?interest=school_licensing'));
+  assert.ok(hrefsIn(footer).includes('/vi/get-started'), hrefsIn(footer).join(' '));
+  assert.equal(getLocalizedHref('/get-started?interest=school_licensing', 'vi'), '/vi/get-started?interest=school_licensing');
   assert.equal(getLocalizedHref('/series/compare#level-3', 'vi'), '/vi/series/compare#level-3');
 });
 
@@ -149,7 +150,7 @@ test('English pages keep their English hrefs', () => {
     ].join('');
     const hrefs = hrefsIn(markup).filter(isInternal);
     assert.deepEqual(hrefs.filter((href) => pathOf(href).startsWith('/vi')), [], route);
-    for (const href of ['/young-learners-speaking/', '/ai-speaking', '/ai-speaking/baseline', '/framework', '/get-started?interest=partnership']) {
+    for (const href of ['/young-learners-speaking/', '/ai-speaking', '/ai-speaking/baseline', '/framework', '/get-started']) {
       assert.ok(hrefs.includes(href), `${route}: ${href}`);
     }
   }

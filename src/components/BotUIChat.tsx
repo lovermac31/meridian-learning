@@ -301,7 +301,7 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
   }, [isOpen, currentPathname]);
 
   return (
-    <div className="je-botui-shell pointer-events-none fixed inset-x-4 bottom-4 z-[70] sm:inset-x-auto sm:right-6 sm:bottom-6">
+    <div className="je-botui-shell pointer-events-none fixed inset-x-4 bottom-4 z-[70] flex flex-col items-end sm:inset-x-auto sm:right-6 sm:bottom-6">
       <AnimatePresence>
         {isOpen ? (
           <motion.section
@@ -365,12 +365,13 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
         aria-controls={CHAT_PANEL_ID}
         aria-haspopup="dialog"
         aria-label="Open the Jurassic English assistant"
-        className="pointer-events-auto ml-auto inline-flex items-center gap-3 rounded-full border border-[#8e7448]/40 bg-jurassic-dark/95 px-4 py-3 text-left text-white shadow-[0_18px_45px_rgba(0,0,0,0.38)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-jurassic-accent/60 hover:bg-jurassic-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        className="pointer-events-auto ml-auto inline-flex items-center gap-3 rounded-full border border-[#8e7448]/40 bg-jurassic-dark/95 p-2 text-left sm:px-4 sm:py-3 text-white shadow-[0_18px_45px_rgba(0,0,0,0.38)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-jurassic-accent/60 hover:bg-jurassic-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-jurassic-accent text-white shadow-[0_12px_24px_rgba(242,100,25,0.25)]">
           <MessageSquareMore className="h-5 w-5" />
         </span>
-        <span className="min-w-0">
+        {/* Compact round launcher below sm so it never covers page CTAs or footer links (overhaul Gate 2). */}
+        <span className="hidden min-w-0 sm:block">
           <span className="block text-sm font-semibold tracking-tight">How can I help you today?</span>
           <span className="block text-xs leading-relaxed text-white/60">Curriculum, methodology, schools, or contact</span>
         </span>

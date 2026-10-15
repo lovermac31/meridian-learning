@@ -125,8 +125,10 @@ test('SPA Baseline CTAs link to the booking page in the visitor language', () =>
 });
 
 test('the Baseline is named, priced and described in all three languages', () => {
-  assert.match(EN_HTML, /<strong[^>]*>690\.000₫<\/strong><br><span data-i18n="pricing\.card1p">/);
-  assert.match(EN_HTML, /<strong class="form-price">690\.000₫<\/strong>/);
+  // Overhaul (Oct 2026): one Baseline card in the 3-card family chooser.
+  assert.match(EN_HTML, /data-i18n="yl2\.card1\.h">Live Speaking Baseline</);
+  assert.match(EN_HTML, /data-i18n="yl2\.card1\.price">690\.000₫/);
+  assert.match(EN_HTML, /data-i18n="yl2\.hero\.note">The Live Speaking Baseline is 15–20 minutes on Google Meet/);
   assert.equal(STRINGS.en['pricing.card1h'], 'Live Speaking Baseline');
   assert.equal(STRINGS.vi['pricing.card1h'], 'Đánh giá Nói trực tiếp'); // the AI Speaking app's VI name
   assert.ok(STRINGS['zh-CN']['pricing.card1h'].includes('口语基线测评'));

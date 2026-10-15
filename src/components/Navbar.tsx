@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
+import { getOverhaulContent } from '../i18n/content/overhaul';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
@@ -8,14 +9,12 @@ import { trackCtaClick } from '../lib/analytics';
 
 const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
 
-// One pill style for every header link (layout B). Fixed padding and an even
-// gap keep the row symmetric; whitespace-nowrap keeps it to one row. 13px
-// type and px-2.5 so the longer VI labels fit the 1232px container.
-const NAV_PILL =
-  'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-white/[0.04] px-2.5 py-1.5 text-[13px] font-medium text-white/85 transition hover:border-jurassic-accent/60 hover:bg-white/[0.08] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark';
-const NAV_BADGE =
-  'rounded-full bg-jurassic-accent px-1.5 py-px text-[10px] font-bold uppercase tracking-wider text-jurassic-dark';
-
+// Light storybook header (10/10 overhaul). Two-line door links: age + what it is.
+const NAV_LINK =
+  'max-w-[11rem] rounded-xl px-2.5 py-1.5 text-[13px] font-bold leading-tight text-sb-forest transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
+// White text only on #B45309 (5.0:1) or forest #1E4D3B (9.4:1), never on #D97706.
+const NAV_CTA =
+  'inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-sb-amber-deep px-4 py-2 text-[13px] font-extrabold text-white shadow-warm transition hover:bg-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-forest focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
 
 type NavbarProps = {
   onGetStarted: () => void;
@@ -123,30 +122,16 @@ export const Navbar = ({
     };
   }, [isMobileMenuOpen]);
 
-  // Header IA (homepage layout B, 14 Oct 2026): For Parents · Adults & IELTS ·
-  // IELTS Writing (NEW) · For Schools · Knowledge Hub, then one primary
-  // "Book & pricing" anchor to the homepage offers band (#book). "The
-  // Curriculum" lives in the footer. `route` items go through onNavigate
-  // (App.navigateTo); `native` items are pages served by the AI Speaking app
-  // (vercel.json rewrite), so they must be real document navigations.
-  const navItems: Array<{ key: string; name: string; href: string; kind: 'route' | 'native'; badge?: string }> = [
-    { key: 'parents', name: getUiString(locale, 'navbar.links.forParents'), href: '/student-academy', kind: 'route' },
-    { key: 'adults', name: getUiString(locale, 'navbar.links.adults'), href: '/ai-speaking', kind: 'native' },
-    {
-      key: 'writing',
-      name: getUiString(locale, 'navbar.links.writing'),
-      href: '/ai-speaking/writing',
-      kind: 'native',
-      badge: getUiString(locale, 'navbar.links.writingBadge'),
-    },
-    { key: 'schools', name: getUiString(locale, 'navbar.links.forSchools'), href: '/school-framework', kind: 'route' },
-    { key: 'knowledge', name: getUiString(locale, 'navbar.links.knowledgeHub'), href: '/knowledge', kind: 'route' },
-  ];
-  // Same-document jump on the homepage (App scrolls to the hash target),
-  // a full load of the homepage elsewhere. Pathname-derived only, so the
-  // server render and the hydrating client agree.
-  const bookHref = getLocalizedHref('/#book', locale);
-  const bookLabel = getUiString(locale, 'navbar.bookPricing');
+  // Header IA (10/10 overhaul, Oct 2026): four age-based doors, then one
+  // primary "Book a Speaking Baseline" CTA that stays visible (sticky header).
+  // `route` items go through onNavigate (App.navigateTo); `native` items are
+  // pages served outside the SPA (static YL page, AI Speaking app rewrite) or
+  // homepage anchors, so they must be real document navigations.
+  const overhaul = getOverhaulContent(locale);
+  const navItems = overhaul.nav.items;
+  // "Choose a Starting Step" → the pathway-matched starting options on /.
+  const bookHref = getLocalizedHref(overhaul.nav.ctaHref, locale);
+  const bookLabel = overhaul.nav.cta;
 
   const handleNavItemClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -162,7 +147,7 @@ export const Navbar = ({
     setIsMobileMenuOpen(false);
     try {
       trackCtaClick({
-        label: placement === 'desktop' ? 'header_book_pricing_click' : 'header_book_pricing_mobile_click',
+        label: placement === 'desktop' ? 'header_starting_step_click' : 'header_starting_step_mobile_click',
         type: 'primary',
         segment: 'parent_student',
       });
@@ -171,91 +156,68 @@ export const Navbar = ({
     }
   };
 
-  const handlePricingClick = () => {
-    setIsMobileMenuOpen(false);
-    onPricingClick();
-  };
-
-  const handleEducationAffiliateClick = () => {
-    setIsMobileMenuOpen(false);
-    onEducationAffiliateClick();
-  };
-
   const isSolidNav = forceSolidBackground || isScrolled;
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${forceSolidBackground ? 'bg-jurassic-dark shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : isSolidNav ? 'bg-jurassic-dark/85 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.18)] py-3.5 border-b border-white/5' : 'bg-transparent py-5'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              onNavigateHome();
-            }}
-            className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 font-wordmark text-[1.15rem] sm:text-[1.28rem] text-white transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/90 focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-            dir="ltr"
-            aria-label={getUiString(locale, 'navbar.brandAriaLabel')}
-          >
-            Jurassic English<sup className="text-jurassic-accent">™</sup>
-          </button>
-        </div>
+    <nav className={`fixed top-0 w-full z-50 border-b transition-shadow duration-300 bg-sb-cream/95 backdrop-blur-md ${isSolidNav ? 'border-sb-border shadow-warm' : 'border-transparent'} py-3`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center gap-3">
+        <button
+          type="button"
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+            onNavigateHome();
+          }}
+          className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 font-wordmark text-[1.05rem] sm:text-[1.2rem] text-sb-forest transition hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
+          dir="ltr"
+          aria-label={getUiString(locale, 'navbar.brandAriaLabel')}
+        >
+          Jurassic English<sup className="text-sb-amber-deep">™</sup>
+        </button>
 
-        {/* Desktop nav (>= xl, 1280): links | primary CTA | EN/VI, one row in
-            EN and VI. Every link uses the same pill (NAV_PILL) with an even
-            gap; the IELTS Writing pill carries the NEW badge and is visible
-            at every desktop width (owner requirement). Below xl the
-            hamburger drawer takes over. */}
-        <div className="hidden xl:flex items-center gap-2">
+        {/* Desktop (>= xl): four age doors | sticky Baseline CTA | EN/VI. */}
+        <div className="hidden xl:flex items-center gap-1">
           {navItems.map((item) => (
             <a
               key={item.key}
               href={getLocalizedHref(item.href, locale)}
               onClick={(event) => handleNavItemClick(event, item)}
-              className={NAV_PILL}
+              className={NAV_LINK}
             >
-              {item.badge ? <span className={NAV_BADGE}>{item.badge}</span> : null}
-              {item.name}
+              {item.label}
             </a>
           ))}
         </div>
-        <div className="hidden xl:flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <a
             href={bookHref}
             onClick={() => handleBookClick('desktop')}
-            className="whitespace-nowrap rounded-full bg-jurassic-accent px-4 py-2 text-[13px] font-bold text-jurassic-dark shadow-premium transition hover:bg-[#f97b38] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            className={`${NAV_CTA} px-3 sm:px-4`}
           >
-            {bookLabel}
+            <span className="hidden sm:inline">{bookLabel}</span>
+            <span className="sm:hidden">{overhaul.nav.ctaMobile}</span>
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </a>
-          {languageSwitcher}
+          <div className="hidden xl:block">{languageSwitcher}</div>
+          <button
+            ref={triggerRef}
+            type="button"
+            className="xl:hidden text-sb-forest inline-flex h-10 w-10 items-center justify-center rounded-full border border-sb-border bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={
+              isMobileMenuOpen
+                ? getUiString(locale, 'navbar.closeMenu')
+                : getUiString(locale, 'navbar.openMenu')
+            }
+            aria-expanded={isMobileMenuOpen}
+            aria-controls={ROOT_MOBILE_NAV_ID}
+          >
+            {isMobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </button>
         </div>
-
-        {/* Mobile Toggle — visible <xl (<1280px) where the desktop nav cluster
-            would otherwise overflow with 11 items + wordmark + container padding.
-            Phase 9 — added explicit type="button", aria-controls, focus-visible
-            ring, and aria-hidden on the Menu/X icons. */}
-        <button
-          ref={triggerRef}
-          type="button"
-          className="xl:hidden text-white inline-flex h-10 w-10 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label={
-            isMobileMenuOpen
-              ? getUiString(locale, 'navbar.closeMenu')
-              : getUiString(locale, 'navbar.openMenu')
-          }
-          aria-expanded={isMobileMenuOpen}
-          aria-controls={ROOT_MOBILE_NAV_ID}
-        >
-          {isMobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-        </button>
       </div>
 
-      {/* Mobile Menu — Phase 9: id, role="dialog", aria-modal, aria-label
-          added so screen readers announce it as a modal dialog. The
-          useEffect above wires Escape close, click-outside, body scroll
-          lock, initial focus into drawer, Tab focus-trap, and focus
-          restoration to the trigger on close. */}
+      {/* Mobile drawer: id, role="dialog", aria-modal; the effect above wires
+          Escape, click-outside, scroll lock, focus trap and focus restore. */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -264,32 +226,31 @@ export const Navbar = ({
             role="dialog"
             aria-modal="true"
             aria-label="Site navigation"
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain bg-jurassic-dark/95 backdrop-blur-lg border-b border-white/5 py-6 px-6 flex flex-col gap-4 xl:hidden shadow-xl"
+            exit={{ opacity: 0, y: -12 }}
+            className="absolute top-full left-0 w-full max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain bg-sb-cream border-b border-sb-border py-5 px-5 flex flex-col gap-3 xl:hidden shadow-warm"
           >
-            {/* Same items as the desktop header, primary CTA first. */}
             <a
               href={bookHref}
               onClick={() => handleBookClick('mobile')}
-              className="rounded-xl bg-jurassic-accent px-5 py-3 text-center font-bold text-jurassic-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+              className={`${NAV_CTA} w-full justify-center py-3 text-base`}
             >
               {bookLabel}
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </a>
             {navItems.map((item) => (
               <a
                 key={item.key}
                 href={getLocalizedHref(item.href, locale)}
                 onClick={(event) => handleNavItemClick(event, item)}
-                className="inline-flex items-center gap-2 rounded-md text-lg font-medium tracking-[0.01em] text-white/90 hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+                className="rounded-xl border border-sb-border bg-white px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
               >
-                {item.badge ? <span className={NAV_BADGE}>{item.badge}</span> : null}
-                {item.name}
+                <span className="block text-base font-bold text-sb-forest">{item.label}</span>
               </a>
             ))}
             {languageSwitcher ? (
-              <div className="border-t border-white/10 pt-4">
+              <div className="border-t border-sb-border pt-4">
                 {languageSwitcher}
               </div>
             ) : null}

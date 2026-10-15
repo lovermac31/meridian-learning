@@ -316,7 +316,7 @@ const en: Dict = {
   'method.session4h': 'Reflect & plan',
   'method.session4p': 'One small thing to practice before next time.',
   'method.takehomeH3': 'What your child takes home',
-  'method.takehome1': 'A recorded portfolio: their voice now vs. months later.',
+  'method.takehome1': 'Written teacher notes showing their progress over the months.',
   'method.takehome2': 'A Four-Pillar progress tracker you can follow.',
   'method.takehome3': 'A plain-language progress report for the family.',
   'method.takehome4': 'A personal handbook and practice they enjoy.',
@@ -353,7 +353,7 @@ const en: Dict = {
   'why.benefit4H': 'One connected path',
   'why.benefit4P': 'No starting over each year. Your child grows along a single deliberate journey toward Band 7-8.5 targets.',
   'why.benefit5H': 'Evidence, not promises',
-  'why.benefit5P': 'A recorded portfolio lets you hear how far your child has come.',
+  'why.benefit5P': 'Written teacher notes show how far your child has come. Sessions with learners under 18 are never recorded.',
   'why.benefit6H': 'In person or online',
   'why.benefit6P': 'Coaching in Hanoi or live online worldwide, the same method wherever you are.',
   'why.calloutH3': "Your child's privacy comes first",
@@ -473,7 +473,7 @@ const en: Dict = {
   'legal.cefr':
     'CEFR and IELTS references are approximate comparisons for educational planning and are not direct equivalents.',
   'legal.recording':
-    "Speaking recordings are created only with parent or guardian consent, used for teaching and progress review, and retained according to the programme's privacy policy.",
+    "Sessions with learners under 18 are never recorded. Parents receive written teacher observation notes instead.",
 
   // ---- BotUI (React island) ----
   'botui.bubbleAria': 'Open parent guide chat',

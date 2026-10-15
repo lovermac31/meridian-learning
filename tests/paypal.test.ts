@@ -83,7 +83,8 @@ for (const [name, html] of Object.entries({ EN: YL_EN, VI: YL_VI })) {
     assert.ok(vietqr > 0 && panel > vietqr);
     assert.match(html, /class="yl-paypal-note" data-i18n="pricing.paypalConfirm"/);
     assert.match(html, /<a href="#paypal" data-paypal-jump="booking"/);
-    assert.ok(html.indexOf('data-paypal-jump="booking"') > html.indexOf('class="form-booking"'));
+    // Overhaul: the jump link sits in the 1-to-1 booking block (#book-online).
+    assert.ok(html.indexOf('data-paypal-jump="booking"') > html.indexOf('id="book-online"'));
   });
 }
 

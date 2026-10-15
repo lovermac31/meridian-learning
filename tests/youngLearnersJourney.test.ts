@@ -17,7 +17,8 @@ test('Young Learners books the Live Speaking Baseline and keeps relevant interna
   );
   assert.match(
     html,
-    /href="\/book-diagnostic" data-route-progression="book-diagnostic"/,
+    // Overhaul: reading placement is a consultation request on the Student Academy page.
+    /href="\/student-academy#diagnostic" data-route-progression="book-diagnostic"/,
   );
   assert.match(html, /data-baseline-link href="\/ai-speaking\/baseline"/);
   assert.doesNotMatch(html, /script\.google\.com/);

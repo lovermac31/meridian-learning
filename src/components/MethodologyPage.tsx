@@ -137,6 +137,21 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
       </section>
 
       {/* ── Problem with Generic ELT ─────────────────────────────── */}
+      {/* Human-centered overhaul: illustrated 4-Step Thinking Cycle banner (illustration, not a photo). */}
+      <section className="bg-sb-cream px-6 py-10">
+        <figure className="relative mx-auto max-w-5xl">
+          <img
+            src="/images/overhaul/thinking-cycle-storybook-map.webp"
+            alt="Illustrated explorer journal map of the 4-Step Thinking Cycle: Analyze, Evaluate, Justify, Reflect"
+            width={1400}
+            height={788}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[16/9] w-full rounded-[1.5rem] border border-sb-border object-cover"
+          />
+          <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-sb-forest">Illustration</figcaption>
+        </figure>
+      </section>
       <section className="bg-white py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div

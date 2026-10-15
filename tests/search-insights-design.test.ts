@@ -11,7 +11,8 @@ test('market, editorial, and profile routes use a solid navbar and dark hero', a
   for (const path of representative) {
     const html = await renderRoute(path);
     assert.match(html, /insights-hero/, path);
-    assert.match(html, /<nav class="fixed top-0 w-full z-50[^\"]*bg-jurassic-dark(?:\s|")/, path);
+    // Human-centered overhaul: one solid light header on every route.
+    assert.match(html, /<nav class="fixed top-0 w-full z-50[^"]*bg-sb-cream/, path);
   }
 });
 
