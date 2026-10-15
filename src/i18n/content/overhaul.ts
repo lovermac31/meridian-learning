@@ -65,6 +65,7 @@ const en = {
       secondary: 'Try the Free 2-Min Story Quest Activity (Ages 6–12)',
       imageAlt: 'Storybook illustration: Professor Rex and young explorers gathered around an illustrated map of story worlds',
       artLabel: 'Illustration',
+      rexAlt: 'Illustration of Professor Rex, the Jurassic English storybook guide',
     },
     paths: {
       heading: "Choose the path that fits your learner's goal",
@@ -252,6 +253,7 @@ const vi: OverhaulContent = {
       secondary: 'Chơi thử Story Quest 2 phút miễn phí (6–12 tuổi)',
       imageAlt: 'Tranh minh hoạ truyện: Giáo sư Rex và các nhà thám hiểm nhỏ quây quanh tấm bản đồ các thế giới truyện',
       artLabel: 'Tranh minh hoạ',
+      rexAlt: 'Tranh minh hoạ Giáo sư Rex, người dẫn đường trong truyện của Jurassic English',
     },
     paths: {
       heading: 'Chọn lộ trình phù hợp với mục tiêu của người học',

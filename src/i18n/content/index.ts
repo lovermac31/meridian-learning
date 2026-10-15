@@ -3,7 +3,7 @@ import { legalDocuments } from './legal';
 import { seriesLevels } from './series';
 import { syllabusData } from './syllabus';
 import { thinkingCycleStages } from './thinkingCycle';
-import { seoEnglishPaths } from '../../lib/seoPages';
+import { seoEnglishPaths } from '../../lib/seoPageMeta';
 
 export type PublicContentGroup =
   | 'home'

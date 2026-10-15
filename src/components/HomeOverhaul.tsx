@@ -83,6 +83,18 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
               className="aspect-[16/9] w-full rounded-[1.75rem] border border-sb-border object-cover shadow-warm"
             />
             <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-sb-forest">{hero.artLabel}</figcaption>
+            {/* Professor Rex medallion (owner, Oct 2026): an illustration, low priority so the hero image stays the LCP. */}
+            <img
+              src={`${IMG}/w/professor-rex-mascot-160.webp`}
+              srcSet={`${IMG}/w/professor-rex-mascot-160.webp 160w, ${IMG}/w/professor-rex-mascot-320.webp 320w`}
+              sizes="(min-width: 640px) 96px, 72px"
+              alt={hero.rexAlt}
+              width={160}
+              height={160}
+              fetchPriority="low"
+              decoding="async"
+              className="absolute bottom-3 right-3 h-[72px] w-[72px] rounded-full border-4 border-white bg-sb-cream object-cover shadow-warm sm:h-24 sm:w-24"
+            />
           </figure>
         </div>
       </section>
