@@ -78,11 +78,7 @@ export const GlobalContactPanel = () => {
   const [active, setActive] = useState<Channel | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [compactViewport, setCompactViewport] = useState(false);
-  const [navTopPx, setNavTopPx] = useState<number | null>(null);
-  const [navLeftPx, setNavLeftPx] = useState<number | null>(null);
-  const [navObstructed, setNavObstructed] = useState(false);
-  const navTopRef = useRef<number | null>(null);
-  const navLeftRef = useRef<number | null>(null);
+  const [revealed, setRevealed] = useState(false);
   const triggerRef = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLElement | null>(null);
   const menuDialogRef = useRef<HTMLElement | null>(null);
@@ -95,12 +91,10 @@ export const GlobalContactPanel = () => {
     requestAnimationFrame(() => {
       const preferred = triggerRef.current?.isConnected && !triggerRef.current.closest('[hidden]') ? triggerRef.current : null;
       const target = preferred ?? toggleRef.current;
-      // Collision recovery may have hidden the launcher while the modal had
-      // focus. Reveal it for the focus return; the observer will keep it visible
-      // while focused and re-evaluate after the visitor moves on.
+      // The launcher may be hidden near the top of the page; reveal it for the focus return.
       if (target && navRef.current?.contains(target) && navRef.current.hidden) {
         navRef.current.hidden = false;
-        setNavObstructed(false);
+        setRevealed(true);
       }
       target?.focus();
     });
@@ -151,98 +145,17 @@ export const GlobalContactPanel = () => {
     return () => { document.body.style.overflow = previousOverflow; document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onPointerDown); };
   }, [expanded, active, compactViewport]);
 
-  // Keep the fixed contact control clear of page copy and actions as the visitor scrolls.
-  // Prefer a clear vertical slot; keep the compact launcher reachable if a dense
-  // or zoomed layout has no collision-free slot at all.
+  // Coordinated widget layout (EXEC-02 C2): the control stays at one fixed anchor (no
+  // collision search, so it never jumps while scrolling) and appears once the visitor
+  // scrolls past the first screenful, so it never covers the hero or header actions at
+  // first paint. The page reserves the band it sits in (scroll-padding-bottom and
+  // footer padding in index.css), so focused or final controls can scroll clear of it.
   useEffect(() => {
-    const wideRail = window.matchMedia('(min-width: 1440px)');
-    let bounds: { width: number; height: number } | null = null;
-    let frame = 0;
-    const sync = () => {
-      const nav = navRef.current;
-      if (!nav) return;
-      if (expanded || active || nav.contains(document.activeElement)) {
-        setNavObstructed(false);
-        return;
-      }
-      const measured = nav.getBoundingClientRect();
-      if (measured.width && measured.height) bounds = { width: measured.width, height: measured.height };
-      const width = bounds?.width ?? 44;
-      const height = bounds?.height ?? 44;
-      const defaultLeft = wideRail.matches ? 20 : 16;
-      const defaultBottom = wideRail.matches ? 80 : Math.max(16, window.visualViewport?.offsetTop ?? 0);
-      const defaultTop = Math.max(0, window.innerHeight - defaultBottom - height);
-      const boxAt = (left: number, top: number) => ({ left, right: left + width, top, bottom: top + height });
-      const collisionCandidates = new Set(document.querySelectorAll<HTMLElement>(
-        'header a, header button, nav a, nav button, main a[href], main button, main [role="button"], main h1, main h2, main h3, main p, main li, main span, main strong, main small, main label, body [role="dialog"], body aside, body aside a, body aside button, body aside [role="button"], body aside h1, body aside h2, body aside h3, body aside p, body aside li, body aside span, body aside strong, body aside small, body aside label, [data-contact-avoid], [aria-label="Open the Jurassic English assistant"], .yl-bot-bubble'
-      ));
-      // The assistant launchers (site + Young Learners) sit beside this button; never overlap them.
-      // Include fixed controls even when they are not semantic headings or contain nested icons.
-      document.querySelectorAll<HTMLElement>('body *').forEach((element) => {
-        const position = getComputedStyle(element).position;
-        const actionable = element.matches('a, button, [role="button"], [role="dialog"]');
-        if ((position === 'fixed' || position === 'sticky') && element.textContent?.trim() && (element.children.length === 0 || actionable)) collisionCandidates.add(element);
-      });
-      const collides = (box: ReturnType<typeof boxAt>) => [...collisionCandidates].some((element) => {
-        if (nav.contains(element)) return false;
-        if (!element.getClientRects().length || element.closest('[hidden]')) return false;
-        const target = element.getBoundingClientRect();
-        return box.left < target.right && box.right > target.left && box.top < target.bottom && box.bottom > target.top;
-      });
-      const currentLeft = navLeftRef.current ?? defaultLeft;
-      const currentTop = navTopRef.current ?? defaultTop;
-      if (!collides(boxAt(defaultLeft, defaultTop))) {
-        navTopRef.current = null;
-        navLeftRef.current = null;
-        setNavTopPx(null);
-        setNavLeftPx(null);
-        setNavObstructed(false);
-        return;
-      }
-      if (!collides(boxAt(currentLeft, currentTop))) {
-        setNavObstructed(false);
-        return;
-      }
-      // Keep the launcher on the requested left edge; collision recovery searches vertically only.
-      const lefts = new Set<number>([defaultLeft]);
-      const safe: Array<{ left: number; top: number; score: number }> = [];
-      for (const left of lefts) {
-        if (left < 0 || left + width > window.innerWidth) continue;
-        for (let top = 0; top + height <= window.innerHeight; top += 8) {
-          if (!collides(boxAt(left, top))) safe.push({ left, top, score: Math.abs(top - currentTop) + Math.abs(left - currentLeft) * 1.25 });
-        }
-      }
-      if (!safe.length) {
-        navTopRef.current = null;
-        navLeftRef.current = null;
-        setNavTopPx(null);
-        setNavLeftPx(null);
-        setNavObstructed(false);
-        return;
-      }
-      const next = safe.reduce((best, candidate) => candidate.score < best.score ? candidate : best);
-      navTopRef.current = next.top;
-      navLeftRef.current = next.left;
-      setNavTopPx(next.top);
-      setNavLeftPx(next.left);
-      setNavObstructed(false);
-    };
-    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(sync); };
-    const observer = new MutationObserver(schedule);
-    const layoutObserver = new ResizeObserver(schedule);
-    const main = document.querySelector('main');
-    if (main) layoutObserver.observe(main);
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['aria-expanded', 'hidden', 'class'] });
-    window.addEventListener('scroll', schedule, true);
-    window.addEventListener('resize', schedule);
-    wideRail.addEventListener('change', schedule);
-    document.fonts?.ready.then(schedule);
+    const sync = () => setRevealed(window.scrollY > 240);
     sync();
-    return () => {
-      observer.disconnect(); layoutObserver.disconnect(); cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', schedule, true); window.removeEventListener('resize', schedule); wideRail.removeEventListener('change', schedule);
-    };
-  }, [expanded, active]);
+    window.addEventListener('scroll', sync, { passive: true });
+    return () => window.removeEventListener('scroll', sync);
+  }, []);
 
   const trapFocusWithin = (event: ReactKeyboardEvent<HTMLElement>, container: HTMLElement | null) => {
     if (event.key !== 'Tab' || !container) return;
@@ -267,7 +180,7 @@ export const GlobalContactPanel = () => {
 
   return <>
     {/* The left-side launcher reveals the contact stack in place at every viewport size. */}
-    <nav ref={navRef} hidden={navObstructed && !expanded && !active} style={navTopPx !== null || navLeftPx !== null ? { ...(navTopPx !== null ? { top: `${navTopPx}px`, bottom: 'auto' } : {}), ...(navLeftPx !== null ? { left: `${navLeftPx}px` } : {}) } : undefined} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
+    <nav ref={navRef} hidden={!revealed && !expanded && !active} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
       <ul id="contact-channel-list" hidden={!expanded || compactViewport} className="m-0 list-none flex flex-col items-center gap-2 rounded-full border border-white/10 bg-jurassic-dark/90 p-1.5 shadow-xl backdrop-blur">
         {channelOrder.map((channel) => <li key={channel}>
           <button data-contact-first={channel === channelOrder[0] ? '' : undefined} type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white shadow-lg transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>

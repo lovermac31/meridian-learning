@@ -50,6 +50,15 @@ function sendTelemetry(
 export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
   const [bot, setBot] = useState<BotuiInterface>(() => createSaBot());
   const [isOpen, setIsOpen] = useState(false);
+  // Coordinated widget layout (EXEC-02 C2): the launcher appears, as the compact round icon, once the
+  // visitor scrolls past the first screenful, so it never covers hero or card CTAs at first paint (audit F02).
+  const [compactLauncher, setCompactLauncher] = useState(false);
+  useEffect(() => {
+    const sync = () => setCompactLauncher(window.scrollY > 240);
+    sync();
+    window.addEventListener("scroll", sync, { passive: true });
+    return () => window.removeEventListener("scroll", sync);
+  }, []);
   const introStartedRef = useRef(false);
   const hasMeaningfulActionRef = useRef(false);
   const firstIntentSelectedRef = useRef(false);
@@ -354,6 +363,7 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
       <button
         ref={launcherRef}
         type="button"
+        hidden={!compactLauncher && !isOpen}
         onClick={() => {
           // Sprint 3C — spec-named open event.
           sendTelemetry("botui_opened");
@@ -368,14 +378,14 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
         // label-content-name-mismatch). aria-haspopup="dialog" + the
         // visible "How can I help you today?" copy provide enough
         // semantics for screen-reader users.
-        className="pointer-events-auto ml-auto inline-flex items-center gap-3 rounded-full border border-jurassic-accent/40 bg-primary/95 p-2 text-left text-primary-foreground sm:px-4 sm:py-3 shadow-[0_18px_45px_rgba(0,0,0,0.38)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-jurassic-accent/60 hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className={`pointer-events-auto ml-auto inline-flex items-center gap-3 rounded-full border border-jurassic-accent/40 bg-primary/95 p-2 text-left text-primary-foreground ${compactLauncher ? "" : "sm:px-4 sm:py-3"} shadow-[0_18px_45px_rgba(0,0,0,0.38)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-jurassic-accent/60 hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background`}
       >
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-jurassic-accent text-white shadow-[0_12px_24px_rgba(242,100,25,0.25)]">
           <MessageSquareMore className="h-5 w-5" />
         </span>
         {/* Below sm the launcher is a compact round button (text kept as the
             accessible name via sr-only) so it never covers page CTAs. */}
-        <span className="sr-only min-w-0 sm:not-sr-only">
+        <span className={`sr-only min-w-0 ${compactLauncher ? "" : "sm:not-sr-only"}`}>
           <span className="block text-sm font-semibold tracking-tight">
             How can I help you today?
           </span>

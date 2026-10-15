@@ -398,14 +398,16 @@ function App() {
       {/*
         Phase 9 — Skip-to-main-content link (WCAG 2.4.1 Bypass Blocks).
         Must be the first focusable element in the page so a keyboard user
-        pressing Tab once can jump straight to <main id="main-content">,
+        pressing Tab once can jump straight to the page content. It targets
+        the route wrapper #page-content, which every route renders (not all
+        templates have <main id="main-content">; audit R14),
         bypassing the 11-item header. Visually hidden via `sr-only` until
         focused; on focus it lifts to a fixed-position high-contrast pill
         in the top-left corner. Mirrors the same pattern shipped in
         ecosystem-landing/src/app/layout.tsx in Phase 8.
       */}
       <a
-        href="#main-content"
+        href="#page-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-jurassic-accent focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
       >
         {getUiString(locale, 'common.skipToContent')}
@@ -422,6 +424,7 @@ function App() {
           languageSwitcher={<LanguageSwitcher currentRoute={route} onNavigate={pushRoute} />}
         />
       ) : null}
+      <div id="page-content" tabIndex={-1} className="focus:outline-none">
       <Suspense fallback={<div className="min-h-screen bg-sb-cream" />}>
       {isBandToolView ? (
         <IeltsBandCalculatorPage locale={locale} />
@@ -574,6 +577,7 @@ function App() {
         </main>
       )}
       </Suspense>
+      </div>
       {!isInternalPilotRequestsView ? (
         <Footer
           onNavigate={navigateTo}

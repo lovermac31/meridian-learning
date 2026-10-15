@@ -107,7 +107,7 @@ export const FrameworkExperience = ({
       <section className="py-24 bg-jurassic-soft/25">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-4 block">
               {frameworkPageContent.sections.coreModel.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
@@ -124,7 +124,7 @@ export const FrameworkExperience = ({
                 key={item.layer}
                 className="rounded-3xl bg-white border border-jurassic-soft/60 p-7 shadow-premium"
               >
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">
+                <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-3">
                   {item.layer}
                 </p>
                 <h3 className="text-2xl font-bold text-jurassic-dark mb-3">{item.question}</h3>
@@ -138,7 +138,7 @@ export const FrameworkExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-4 block">
               {frameworkPageContent.sections.researchBase.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
@@ -191,7 +191,7 @@ export const FrameworkExperience = ({
       <section className="py-24 bg-jurassic-soft/30">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-4 block">
               {frameworkPageContent.sections.instructionalStandards.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
@@ -223,7 +223,7 @@ export const FrameworkExperience = ({
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
             <div>
-              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+              <span className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-4 block">
                 {frameworkPageContent.sections.ecocentricExtension.eyebrow}
               </span>
               <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-5">
@@ -252,7 +252,7 @@ export const FrameworkExperience = ({
           </div>
 
           <div className="mt-10 rounded-3xl border border-jurassic-soft/60 bg-jurassic-soft/15 p-8 shadow-premium">
-            <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-4">
+            <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-4">
               {frameworkPageContent.sections.ecocentricExtension.criteriaLabel}
             </p>
             <div className="grid md:grid-cols-2 xl:grid-cols-5 gap-4">
@@ -269,7 +269,7 @@ export const FrameworkExperience = ({
       <section className="py-24 bg-jurassic-soft/25">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-4 block">
               {frameworkPageContent.sections.governance.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
@@ -289,7 +289,7 @@ export const FrameworkExperience = ({
                 <div className="w-11 h-11 rounded-2xl bg-jurassic-accent/10 text-jurassic-accent flex items-center justify-center mb-5">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">
+                <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-2">
                   {item.cadence}
                 </p>
                 <h3 className="text-lg font-bold text-jurassic-dark mb-3">{item.title}</h3>
@@ -303,7 +303,7 @@ export const FrameworkExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-4 block">
               {frameworkPageContent.sections.scalability.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">

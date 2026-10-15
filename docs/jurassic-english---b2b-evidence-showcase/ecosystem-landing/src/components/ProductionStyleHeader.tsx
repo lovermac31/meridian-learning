@@ -1,4 +1,5 @@
 import { ArrowRight, Menu } from "lucide-react";
+import { HeaderMenuDismiss } from "./HeaderMenuDismiss";
 
 // 10/10 overhaul header (Oct 2026), matching the main jurassicenglish.com
 // SPA: four age doors, the sticky Baseline CTA, EN | VI. Every link is a
@@ -15,18 +16,18 @@ const NAV = [
 // On the Student Academy the header CTA triggers this page's matched action.
 const CTA_HREF = "/student-academy#diagnostic";
 const CTA =
-  "inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#B45309] px-3 py-2 text-[13px] font-extrabold text-white transition hover:bg-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E4D3B] focus-visible:ring-offset-2 sm:px-4";
+  "inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#B45309] px-2.5 py-2 text-[13px] font-extrabold text-white transition hover:bg-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E4D3B] focus-visible:ring-offset-2 min-[360px]:px-3 sm:px-4";
 
 export function ProductionStyleHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#E6DEC8] bg-[#FAF7F2]/95 py-3 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-1.5 px-3 min-[360px]:gap-3 min-[360px]:px-4 sm:px-6">
         {/* "/" on jurassicenglish.com is the main SPA, not this app's own index, so a document navigation is intended. */}
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
           href="/"
           aria-label="Jurassic English home"
-          className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 text-[1.05rem] uppercase text-[#1E4D3B] sm:text-[1.2rem]"
+          className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 text-[0.875rem] uppercase min-[360px]:text-[1.05rem] text-[#1E4D3B] sm:text-[1.2rem]"
           style={{ fontFamily: '"Neuland-Inline", Copperplate, Georgia, serif' }}
         >
           Jurassic English<sup className="text-[0.5em] text-[#B45309]">™</sup>
@@ -42,24 +43,24 @@ export function ProductionStyleHeader() {
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-1.5 min-[360px]:gap-2 sm:gap-3">
           <a href={CTA_HREF} className={CTA}>
             <span className="hidden sm:inline">Choose a Starting Step</span>
             <span className="sm:hidden">Start here</span>
-            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            <ArrowRight aria-hidden="true" className="hidden h-4 w-4 min-[360px]:block" />
           </a>
           <div className="hidden rounded-full border border-[#E6DEC8] bg-white p-1 text-xs font-semibold xl:flex" role="group" aria-label="Language">
             <span className="rounded-full bg-[#1E4D3B] px-3 py-1.5 text-white" aria-current="true">EN</span>
             <a href="/vi" lang="vi" className="rounded-full px-3 py-1.5 text-[#4A5568] hover:text-[#1E4D3B]">VI</a>
           </div>
-          <details className="relative xl:hidden">
+          <details data-site-menu="" className="relative xl:hidden">
             <summary
               aria-label="Open menu"
-              className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-[#E6DEC8] bg-white text-[#1E4D3B] [&::-webkit-details-marker]:hidden"
+              className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-[#E6DEC8] bg-white text-[#1E4D3B] [&::-webkit-details-marker]:hidden"
             >
               <Menu aria-hidden="true" className="h-5 w-5" />
             </summary>
-            <div className="absolute right-0 top-12 flex w-72 flex-col gap-2 rounded-2xl border border-[#E6DEC8] bg-[#FAF7F2] p-4 shadow-lg">
+            <div className="absolute right-0 top-12 flex w-[min(18rem,calc(100vw-1.5rem))] flex-col gap-2 rounded-2xl border border-[#E6DEC8] bg-[#FAF7F2] p-4 shadow-lg">
               {NAV.map((item) => (
                 <a key={item.href} href={item.href} className="rounded-xl border border-[#E6DEC8] bg-white px-4 py-3">
                   <span className="block text-base font-bold text-[#1E4D3B]">{item.label}</span>
@@ -68,6 +69,7 @@ export function ProductionStyleHeader() {
               <a href="/vi" lang="vi" className="px-1 pt-2 text-sm font-semibold text-[#1E4D3B]">Tiếng Việt</a>
             </div>
           </details>
+          <HeaderMenuDismiss />
         </div>
       </div>
     </header>

@@ -286,3 +286,9 @@ a.bg-jurassic-accent.text-white,
 button.bg-jurassic-accent.text-white {
   background-color: #b94300;
 }
+
+/* EXEC-02 C2 (WCAG 2.4.11): focused or anchor-targeted controls scroll clear of the
+   fixed bottom widget band (contact pill, assistant launcher). */
+html {
+  scroll-padding-bottom: 96px;
+}
