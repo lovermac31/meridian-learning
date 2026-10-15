@@ -112,7 +112,7 @@
   --ease:cubic-bezier(.23,1,.32,1);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-bottom:96px} /* EXEC-02 C2: focus clears the floating-widget band */
 body{margin:0;background:var(--cream);color:var(--text);font-family:"Avenir Next","Trebuchet MS",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.56;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
@@ -359,7 +359,7 @@ footer{background:#0b0e11;color:#9e9482;padding:28px 0;text-align:center;border-
 .yl-cert{background:var(--cream2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0}
 .yl-cert-head{margin-bottom:12px}
 .yl-cert-label{font-size:.64rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze);margin-bottom:3px}
-.yl-cert-note{font-size:.8rem;line-height:1.4;color:var(--warm);margin:0;max-width:640px}
+.yl-cert-note{font-size:.9rem;line-height:1.4;color:var(--warm);margin:0;max-width:640px}
 @media(max-width:620px){
   .yl-cert{padding:14px 0}
 }
@@ -395,6 +395,9 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 .yl2 .btn:hover{background:#1E4D3B}
 .yl2 .btn.dark{background:#1E4D3B;border-color:#1E4D3B}
 .yl2 .yl2-ghost{background:#fff;color:#1E4D3B;border-color:#1E4D3B}
+/* Hero hierarchy (EXEC-02 C6): one filled primary (Book), one outline secondary (pricing), the overview video as a tertiary text button. */
+.yl2 .yl-promo-trigger{background:transparent;border-color:transparent;color:#1E4D3B;text-decoration:underline;text-underline-offset:4px;padding-left:8px;padding-right:8px;min-height:44px;font-weight:800}
+.yl2 .yl-promo-trigger:hover{color:#B45309}
 .yl2 a:focus-visible,.yl2 .btn:focus-visible,nav a:focus-visible,nav button:focus-visible,.yl2-footer a:focus-visible{outline:3px solid #1E4D3B;outline-offset:3px}
 .yl2-hero{padding:120px 0 56px}
 .yl2-hero-grid{display:grid;gap:32px;align-items:start}
@@ -404,12 +407,13 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 .yl2-lead{font-size:1.1rem;line-height:1.6;color:#4A5568}
 .yl2-actions{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 12px}
 .yl2-small{font-size:.92rem;color:#4A5568}
-.yl2-fine{font-size:.82rem;color:#4A5568;margin-top:.8rem}
+.yl2-fine{font-size:.9rem;color:#4A5568;margin-top:.8rem}
 .yl2-policy{margin-top:16px;padding:12px 14px;border-radius:12px;background:#E6F4EA;color:#1C2526;font-size:.95rem}
 .yl2-policy strong{color:#137333}
 .yl2-report{background:#fff;border:1px solid #E6DEC8;border-radius:20px;padding:20px;box-shadow:0 10px 30px -10px rgba(30,77,59,.08)}
 .yl2-badge{display:inline-block;border:1px solid #D97706;border-radius:999px;padding:3px 10px;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#B45309}
-.yl2-report h3{color:#1E4D3B;margin:.6rem 0}
+.yl2-report h3,.yl2-report .yl2-report-title{color:#1E4D3B;margin:.6rem 0}
+.yl2 .yl2-report-title{font-family:inherit;font-weight:700;text-transform:none;letter-spacing:0;font-size:1.22rem;line-height:1.22}
 .yl2-bands{display:grid;gap:6px;margin:0 0 12px}
 .yl2-bands div{display:flex;justify-content:space-between;border-bottom:1px solid #E6DEC8;padding:4px 0}
 .yl2-bands dt{color:#1C2526}.yl2-bands dd{margin:0;font-weight:800;color:#1E4D3B}
@@ -474,7 +478,7 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
       </div>
       <aside class="yl2-report" aria-labelledby="yl2-report-h">
         <p class="yl2-badge" data-i18n="yl2.report.badge">Sample Report Preview (Illustrative)</p>
-        <h3 id="yl2-report-h" data-i18n="yl2.report.h">What a Baseline report looks like</h3>
+        <h2 id="yl2-report-h" class="yl2-report-title" data-i18n="yl2.report.h">What a Baseline report looks like</h2>
         <dl class="yl2-bands">
           <div><dt data-i18n="yl2.report.fc">Fluency &amp; Coherence</dt><dd>5.5</dd></div>
           <div><dt data-i18n="yl2.report.lr">Lexical Resource</dt><dd>6.0</dd></div>

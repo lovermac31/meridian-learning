@@ -279,3 +279,8 @@ html[lang='vi'] {
     margin-right: 0;
   }
 }
+/* EXEC-02 C2 (WCAG 2.4.11): focused or anchor-targeted controls scroll clear of the
+   fixed bottom widget band (contact pill, assistant launcher). */
+html {
+  scroll-padding-bottom: 96px;
+}

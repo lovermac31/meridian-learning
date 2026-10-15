@@ -168,7 +168,7 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.problem.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -252,7 +252,7 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
                     ].join(' ')}>
                       <Icon className={['w-5 h-5', STAGE_ACCENT_COLOURS[i]].join(' ')} />
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-white/30">
+                    <span className="text-xs font-bold uppercase tracking-widest text-white/70">
                       {stage.label}
                     </span>
                   </div>
@@ -272,7 +272,7 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
                   <button
                     type="button"
                     onClick={() => onNavigate(stage.path)}
-                    className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-white/40 hover:text-white/80 transition-colors group"
+                    className="mt-6 inline-flex min-h-11 items-center gap-1.5 py-2 text-xs font-semibold text-white/75 hover:text-white transition-colors group"
                   >
                     See the {stage.title} stage in full
                     <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
@@ -294,7 +294,7 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.literature.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -337,7 +337,7 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.regulation.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -414,7 +414,7 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
                   className="rounded-2xl border border-white/10 bg-white/5 p-7 flex flex-col"
                 >
                   <div className="flex items-start justify-between mb-6">
-                    <span className="text-3xl font-bold text-jurassic-gold/20 leading-none">
+                    <span className="text-3xl font-bold text-jurassic-gold/70 leading-none">
                       {req.number}
                     </span>
                     <div className="h-9 w-9 rounded-xl bg-jurassic-gold/10 flex items-center justify-center">
@@ -440,7 +440,7 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
             variants={staggerContainer}
             className="max-w-2xl"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-sb-amber-deep font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.cta.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -465,7 +465,7 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
               <button
                 type="button"
                 onClick={() => onNavigate('/discovery')}
-                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                className="text-sm font-semibold text-jurassic-dark/80 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.discoveryCta}
               </button>
@@ -473,13 +473,13 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
               <button
                 type="button"
                 onClick={() => onNavigate('/series/compare')}
-                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                className="text-sm font-semibold text-jurassic-dark/80 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.seriesCta}
               </button>
             </motion.div>
 
-            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">
+            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/75 leading-relaxed">
               {content.cta.note}
             </motion.p>
           </motion.div>

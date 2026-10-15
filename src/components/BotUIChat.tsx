@@ -50,6 +50,15 @@ function sendTelemetry(eventName: string, properties?: Record<string, string | n
 export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
   const [bot, setBot] = useState<BotuiInterface>(() => createPilotBot());
   const [isOpen, setIsOpen] = useState(false);
+  // Coordinated widget layout (EXEC-02 C2): the launcher appears, as the compact round icon, once the
+  // visitor scrolls past the first screenful, so it never covers hero or card CTAs at first paint (audit F02).
+  const [compactLauncher, setCompactLauncher] = useState(false);
+  useEffect(() => {
+    const sync = () => setCompactLauncher(window.scrollY > 240);
+    sync();
+    window.addEventListener('scroll', sync, { passive: true });
+    return () => window.removeEventListener('scroll', sync);
+  }, []);
   const introStartedRef = useRef(false);
   const hasMeaningfulActionRef = useRef(false);
   const firstIntentSelectedRef = useRef(false);
@@ -357,6 +366,7 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
       <button
         ref={launcherRef}
         type="button"
+        hidden={!compactLauncher && !isOpen}
         onClick={() => {
           sendTelemetry('BotUI Launcher Open', { route: currentPathname });
           setIsOpen(true);
@@ -365,13 +375,13 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
         aria-controls={CHAT_PANEL_ID}
         aria-haspopup="dialog"
         aria-label="Open the Jurassic English assistant"
-        className="pointer-events-auto ml-auto inline-flex items-center gap-3 rounded-full border border-[#8e7448]/40 bg-jurassic-dark/95 p-2 text-left sm:px-4 sm:py-3 text-white shadow-[0_18px_45px_rgba(0,0,0,0.38)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-jurassic-accent/60 hover:bg-jurassic-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        className={`pointer-events-auto ml-auto inline-flex items-center gap-3 rounded-full border border-[#8e7448]/40 bg-jurassic-dark/95 p-2 text-left ${compactLauncher ? '' : 'sm:px-4 sm:py-3'} text-white shadow-[0_18px_45px_rgba(0,0,0,0.38)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-jurassic-accent/60 hover:bg-jurassic-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white`}
       >
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-jurassic-accent text-white shadow-[0_12px_24px_rgba(242,100,25,0.25)]">
           <MessageSquareMore className="h-5 w-5" />
         </span>
         {/* Compact round launcher below sm so it never covers page CTAs or footer links (overhaul Gate 2). */}
-        <span className="hidden min-w-0 sm:block">
+        <span className={`hidden min-w-0 ${compactLauncher ? '' : 'sm:block'}`}>
           <span className="block text-sm font-semibold tracking-tight">How can I help you today?</span>
           <span className="block text-xs leading-relaxed text-white/60">Curriculum, methodology, schools, or contact</span>
         </span>
