@@ -132,6 +132,9 @@ export const Navbar = ({
   // "Book Baseline · 690k₫" → the Live Speaking Baseline booking page (AI Speaking app, native navigation).
   const bookHref = getLocalizedHref(overhaul.nav.ctaHref, locale);
   const bookLabel = overhaul.nav.cta;
+  // "New" / "Mới" badge on the IELTS Writing link; the accessible name starts with the visible text (WCAG 2.5.3).
+  const badgeFor = (key: string) => (key === 'writing' ? overhaul.nav.newBadge : null);
+  const NEW_BADGE = 'ml-1.5 inline-block rounded-full bg-sb-amber-deep px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white';
 
   const handleNavItemClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -185,10 +188,11 @@ export const Navbar = ({
               href={getLocalizedHref(item.href, locale)}
               onClick={(event) => handleNavItemClick(event, item)}
               className={NAV_LINK}
-              aria-label={`${item.label} · ${item.desc}`}
+              aria-label={`${badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label} · ${item.desc}`}
               title={item.desc}
             >
               {item.label}
+              {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
             </a>
           ))}
         </div>
@@ -252,7 +256,10 @@ export const Navbar = ({
                 onClick={(event) => handleNavItemClick(event, item)}
                 className="rounded-xl border border-sb-border bg-white px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
               >
-                <span className="block text-base font-bold text-sb-forest">{item.label}</span>
+                <span className="block text-base font-bold text-sb-forest">
+                  {item.label}
+                  {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
+                </span>
                 <span className="block text-sm text-sb-ink">{item.desc}</span>
               </a>
             ))}
