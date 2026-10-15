@@ -446,9 +446,10 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 .card-balanced-cta-wrapper .yl2-link{margin-top:0;text-align:center}
 @media(min-width:620px){.yl2-stages-4{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1080px){.yl2-stages-4{grid-template-columns:repeat(4,1fr)}}
-/* Five-card Band grid with the IELTS Writing Task 2 companion card: 3 + 2 on tablets, one row of five on wide screens. */
+/* Band grid + IELTS Writing Task 2 companion: 2 cols (Writing spans the last row), then 3 cols where Band 8.0–8.5
+   sits beside the Writing card spanning two columns, so its long waitlist CTA never wraps into a narrow column. */
+@media(min-width:620px){.yl2-stages-5 .yl2-stage-soon{grid-column:span 2}}
 @media(min-width:900px){.yl2-stages-5{grid-template-columns:repeat(3,1fr)}}
-@media(min-width:1280px){.yl2-stages-5{grid-template-columns:repeat(5,1fr)}}
 .yl2-stage-soon{border:2px dashed #B45309;background:#FFFBF2}
 .yl2-wt2-list{margin:.6rem 0 0;padding-left:1.1rem;color:#1C2526;font-size:.95rem}
 .yl2-wt2-list li{margin:.2rem 0}
