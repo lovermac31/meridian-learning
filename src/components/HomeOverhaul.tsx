@@ -72,6 +72,8 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
           <figure className="relative">
             <img
               src={`${IMG}/hero-story-expedition.webp`}
+              srcSet={`${IMG}/w/hero-story-expedition-480.webp 480w, ${IMG}/w/hero-story-expedition-800.webp 800w, ${IMG}/w/hero-story-expedition-1200.webp 1200w, ${IMG}/hero-story-expedition.webp 1400w`}
+              sizes="(min-width: 1280px) 592px, (min-width: 1024px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
               alt={hero.imageAlt}
               width={1400}
               height={788}
@@ -108,7 +110,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
                 <div className="mt-4 flex-1 rounded-xl border border-sb-border bg-white p-3 text-sm">
                   <p className="flex items-center gap-2 font-bold text-sb-forest">
                     {card.key === 'reading' ? (
-                      <img src={`${IMG}/professor-rex-mascot.webp`} alt="" width={40} height={40} loading="lazy" decoding="async" className="h-10 w-10 rounded-lg object-cover" />
+                      <img src={`${IMG}/w/professor-rex-mascot-160.webp`} alt="" width={40} height={40} loading="lazy" decoding="async" className="h-10 w-10 rounded-lg object-cover" />
                     ) : (
                       <ShieldCheck aria-hidden="true" className="h-4 w-4 flex-none text-sb-sage-ink" />
                     )}
