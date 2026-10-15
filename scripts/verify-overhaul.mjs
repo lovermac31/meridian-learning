@@ -20,7 +20,9 @@
  * Live mode reads deployed pages:
  *   node scripts/verify-overhaul.mjs --live \
  *     --main https://<main-preview> --academy https://<ecosystem-preview> --speaking https://<ai-speaking-preview>
- * Optional: VERCEL_BYPASS=<token> adds the x-vercel-protection-bypass header.
+ * Protected previews: VERCEL_BYPASS=<token> adds the x-vercel-protection-bypass
+ * header, or pass a Vercel share link per site (--main-share <url> etc.); the
+ * script follows it once and reuses the cookie it sets.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -146,10 +148,26 @@ function analyse(page, html) {
   return [...html.matchAll(/\/images\/overhaul\/[a-z0-9-]+\.webp/g)].map((m) => m[0]);
 }
 
-async function fetchText(url) {
+const cookies = {};
+async function shareCookie(site) {
+  if (cookies[site] !== undefined) return cookies[site];
+  const share = flag(`${site}-share`);
+  cookies[site] = '';
+  if (share) {
+    const res = await fetch(share, { redirect: 'manual' });
+    cookies[site] = (res.headers.getSetCookie?.() ?? []).map((c) => c.split(';')[0]).join('; ');
+  }
+  return cookies[site];
+}
+async function authHeaders(site) {
   const headers = { 'user-agent': 'verify-overhaul/1.0' };
   if (process.env.VERCEL_BYPASS) headers['x-vercel-protection-bypass'] = process.env.VERCEL_BYPASS;
-  const res = await fetch(url, { headers, redirect: 'follow' });
+  const cookie = await shareCookie(site);
+  if (cookie) headers.cookie = cookie;
+  return headers;
+}
+async function fetchText(url, site) {
+  const res = await fetch(url, { headers: await authHeaders(site), redirect: 'follow' });
   return { status: res.status, type: res.headers.get('content-type') ?? '', text: res.status < 400 ? await res.text() : '' };
 }
 
@@ -172,7 +190,7 @@ async function main() {
         record(true, `skip ${page.route}`, `no --${page.site} base given`);
         continue;
       }
-      const res = await fetchText(new URL(page.route, base).toString());
+      const res = await fetchText(new URL(page.route, base).toString(), page.site);
       record(res.status === 200, `HTTP ${page.route}`, `${res.status} from ${base}`);
       html = res.text;
     } else if (page.local) {
@@ -192,7 +210,7 @@ async function main() {
   // 1b. every referenced overhaul image is a real file (local) or serves 200 (live)
   for (const [src, site] of referenced) {
     if (LIVE) {
-      const res = await fetch(new URL(src, bases[site]).toString(), { method: 'GET', headers: process.env.VERCEL_BYPASS ? { 'x-vercel-protection-bypass': process.env.VERCEL_BYPASS } : {} });
+      const res = await fetch(new URL(src, bases[site]).toString(), { method: 'GET', headers: await authHeaders(site) });
       record(res.status === 200 && /image\/webp/.test(res.headers.get('content-type') ?? ''), `image 200 ${src}`, `${res.status} ${res.headers.get('content-type')}`);
     } else {
       record(fs.existsSync(path.join(ROOT, 'public', src)), `image file ${src}`, 'referenced by built page');
