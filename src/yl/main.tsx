@@ -63,6 +63,18 @@ document.addEventListener('click', (event) => {
   }
 });
 
+// Header menu (<details>): Escape closes it and returns focus to the toggle; a click or tap outside closes it.
+document.addEventListener('keydown', (event) => {
+  const menu = document.querySelector<HTMLDetailsElement>('details.yl2-hdr-menu[open]');
+  if (event.key !== 'Escape' || !menu) return;
+  menu.open = false;
+  menu.querySelector('summary')?.focus();
+});
+document.addEventListener('pointerdown', (event) => {
+  const menu = document.querySelector<HTMLDetailsElement>('details.yl2-hdr-menu[open]');
+  if (menu && !menu.contains(event.target as Node)) menu.open = false;
+});
+
 const mount = document.getElementById('yl-botui-root');
 if (mount) {
   createRoot(mount).render(

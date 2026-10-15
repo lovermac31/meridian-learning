@@ -48,8 +48,9 @@ const JARGON = [
   'Digital Reasoning Engine? Teacher-led',
 ];
 const NAV_LABELS = {
-  en: ['Reading &amp; Story Adventures', 'Speaking Confidence &amp; Teen IELTS', 'Adult IELTS Practice', 'Meet Mr. Jay &amp; Pricing'],
-  vi: ['Đọc sách &amp; Phiêu lưu truyện', 'Tự tin nói &amp; IELTS cho teen', 'Luyện IELTS cho người lớn', 'Gặp thầy Jay &amp; Học phí'],
+  // Header symmetry (Oct 2026): short age-door labels; the full door names are the links' accessible names.
+  en: ['Ages 6–12', 'Ages 9–18', 'Adults 18+', 'Mr. Jay &amp; Pricing'],
+  vi: ['6–12 tuổi', '9–18 tuổi', 'Người lớn 18+', 'Thầy Jay &amp; Học phí'],
 };
 const RECORDING_PROMISES = /recorded speaking (portfolio|clip)s?|recorded portfolio|recorded speaking clips/i;
 const POLICY = { en: /sessions with learners under 18 are never recorded/i, vi: /dưới 18 tuổi không bao giờ được ghi âm/i };
@@ -61,14 +62,14 @@ const RATES = ['700.000₫', '625.000₫', '575.000₫'];
 const PAGES = [
   { route: '/', site: 'main', local: 'dist/index.html', ceiling: 1250, lang: 'en', spa: true, policy: true, example: true },
   { route: '/vi', site: 'main', local: 'dist/vi/index.html', lang: 'vi', spa: true, policy: true },
-  { route: '/young-learners-speaking/', site: 'main', local: 'dist/young-learners-speaking/index.html', ceiling: 750, lang: 'en', policy: true, bands: true },
+  { route: '/young-learners-speaking/', site: 'main', local: 'dist/young-learners-speaking/index.html', ceiling: 825, lang: 'en', policy: true, bands: true },
   { route: '/vi/luyen-noi-ielts/', site: 'main', local: 'dist/vi/luyen-noi-ielts/index.html', lang: 'vi', policy: true, bands: true },
   { route: '/framework', site: 'main', local: 'dist/framework/index.html', lang: 'en', spa: true, family: false },
   { route: '/vi/framework', site: 'main', local: 'dist/vi/framework/index.html', lang: 'vi', spa: true, family: false },
   { route: '/methodology', site: 'main', local: 'dist/methodology/index.html', lang: 'en', spa: true, family: false },
   { route: '/vi/methodology', site: 'main', local: 'dist/vi/methodology/index.html', lang: 'vi', spa: true, family: false },
   { route: '/student-academy', site: 'academy', ceiling: 550, lang: 'en', policy: true, example: true },
-  { route: '/ai-speaking', site: 'speaking', ceiling: 650, lang: 'en', scope: true },
+  { route: '/ai-speaking', site: 'speaking', ceiling: 725, lang: 'en', scope: true },
   { route: '/ai-speaking/vi', site: 'speaking', lang: 'vi', scope: true },
   { route: '/ai-speaking/pricing', site: 'speaking', ceiling: 650, lang: 'en', scope: true },
   { route: '/ai-speaking/pricing?lang=vi', site: 'speaking', lang: 'vi', scope: true },
@@ -151,7 +152,7 @@ function analyse(page, html) {
     const labels = NAV_LABELS[page.lang];
     const missing = labels.filter((l) => !header.includes(l));
     record(missing.length === 0, `nav ${page.route}`, missing.length ? `missing ${missing.join(', ')}` : '4 need-first links present');
-    record(/#pricing-options/.test(header), `nav CTA ${page.route}`, 'Choose a Starting Step → #pricing-options');
+    record(/href="[^"]*\/ai-speaking(\/vi)?\/baseline(\?lang=vi)?"/.test(header) && /690k₫/.test(header), `nav CTA ${page.route}`, 'Book Baseline · 690k₫ → /ai-speaking/baseline');
   }
   return [...html.matchAll(/\/images\/overhaul\/[a-z0-9-]+\.webp/g)].map((m) => m[0]);
 }

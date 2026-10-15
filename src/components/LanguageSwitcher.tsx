@@ -52,7 +52,8 @@ export function LanguageSwitcher({ currentRoute, onNavigate }: LanguageSwitcherP
               {/* The switcher sits in the drawer below xl (full names) and in the
                   one-row desktop header from xl (EN / VI codes). */}
               <span className="xl:hidden">{getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
-              <span className="hidden xl:inline">{locale.toUpperCase()}</span>
+              {/* Desktop header reads "EN | Tiếng Việt". */}
+              <span className="hidden xl:inline">{locale === 'en' ? 'EN' : getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
             </button>
           );
         })}
