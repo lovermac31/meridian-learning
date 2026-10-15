@@ -132,9 +132,11 @@ function analyse(page, html) {
   }
   if (page.bands) {
     // Band 5.0–8.5 pathway + Cambridge Flyers foundation bridge (Oct 2026 YL update).
-    const need = [/Band 5(\.0)?\b/, /Band 8\.5/, /Cambridge Flyer 1/, /Cambridge Flyer 2/, /Cambridge%20Flyers%20Priority%20Waitlist/];
+    // Official qualification name only (Cambridge English A2 Flyers), marked coming soon, never "Cambridge Flyer 1/2".
+    const need = [/Band 5(\.0)?\b/, /Band 8\.5/, /Cambridge A2 Flyers/, /Coming soon|Sắp ra mắt/i, /Cambridge%20A2%20Flyers%20Priority%20Waitlist/];
     const missing = need.filter((re) => !re.test(re.source.includes('%20') ? html : text)).map((re) => re.source);
-    record(missing.length === 0, `band pathway ${page.route}`, missing.length ? `missing ${missing.join(' | ')}` : 'Band 5.0, Band 8.5, Cambridge Flyer 1 & 2, waitlist link');
+    if (/Cambridge Flyers? [12]\b/.test(text)) missing.push('unofficial "Cambridge Flyer 1/2" naming present');
+    record(missing.length === 0, `band pathway ${page.route}`, missing.length ? `missing ${missing.join(' | ')}` : 'Band 5.0, Band 8.5, Cambridge A2 Flyers (coming soon), waitlist link');
   }
   if (page.example) record(/Illustrative Teaching Example|Ví dụ giảng dạy minh hoạ/i.test(text), `illustrative badge ${page.route}`, 'lesson demo badged');
   const whiteOnAmber = [...html.matchAll(/class="([^"]*)"/g)].map((m) => m[1]).filter((c) => /(^|\s)bg-(sb-amber|\[#D97706\])(\s|$)/.test(c) && /(^|\s)text-white(\s|$)/.test(c));
