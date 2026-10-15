@@ -37,6 +37,16 @@
       "permanent": true
     },
     {
+      "source": "/privacy",
+      "destination": "/legal/privacy",
+      "permanent": false
+    },
+    {
+      "source": "/terms",
+      "destination": "/legal/terms",
+      "permanent": false
+    },
+    {
       "source": "/book-evaluation",
       "destination": "/ai-speaking/baseline",
       "permanent": false

@@ -2,14 +2,12 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { GlobalContactPanel } from './components/GlobalContactPanel';
 import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
+import { HomeOverhaul } from './components/HomeOverhaul';
 import { AiSpeakingLaunch } from './components/AiSpeakingLaunch';
 import { OffersBand } from './components/OffersBand';
 import { OneChangeInvitation } from './components/OneChangeInvitation';
 import { ProofStrip } from './components/ProofStrip';
 import { CredibilityLogoMarquee } from './components/CredibilityLogoMarquee';
-import { TestimonialsSection } from './components/TestimonialsSection';
-import { PreferredSourceButton } from './components/PreferredSourceButton';
 // `/knowledge` is eager (not lazy): the hash deep-link scroll needs the
 // accordion DOM present on mount with a stable full-height layout. Lazy-
 // loading introduced a Suspense-swap race that reset the deep-anchor scroll.
@@ -424,7 +422,7 @@ function App() {
           languageSwitcher={<LanguageSwitcher currentRoute={route} onNavigate={pushRoute} />}
         />
       ) : null}
-      <Suspense fallback={<div className="min-h-screen bg-jurassic-dark" />}>
+      <Suspense fallback={<div className="min-h-screen bg-sb-cream" />}>
       {isBandToolView ? (
         <IeltsBandCalculatorPage locale={locale} />
       ) : isTimerToolView ? (
@@ -571,21 +569,8 @@ function App() {
         // Hero fork + ProofStrip. Those components remain in the repo,
         // unreferenced, for trivial rollback (see docs/p0-*build-plan).
         <main id="main-content" tabIndex={-1} className="focus:outline-none">
-          <Hero onNavigate={navigateTo} />
-          {/* Offers band (layout B): every paid path, priced; header "Book & pricing" anchors here (#book). */}
-          <OffersBand />
-          <AiSpeakingLaunch />
-          <OneChangeInvitation />
-          <CredibilityLogoMarquee />
-          <ProofStrip onNavigate={navigateTo} />
-          {/* Social proof — dark by default behind VITE_TESTIMONIALS_ENABLED;
-              renders nothing when off, the honest empty state when on with no
-              published+consented testimonials. Never fabricates content. */}
-          <TestimonialsSection locale={locale} />
-          {/* Preferred Sources — restrained, self-contained band at the foot of
-              the homepage. Secondary to enrollment CTAs; does not restructure
-              the P0 two-door hero above. */}
-          <PreferredSourceButton placement="homepage" variant="full" />
+          {/* 10/10 overhaul homepage: hero + 3 age doors, Before/After, Meet Mr. Jay. */}
+          <HomeOverhaul onNavigate={navigateTo} />
         </main>
       )}
       </Suspense>

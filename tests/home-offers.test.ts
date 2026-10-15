@@ -90,14 +90,15 @@ test('band prices that live in this repo match the Young Learners checkout page'
     assert.equal(kids.baseline.price, '690.000₫');
     assert.equal(kids.lessons.price, '800.000₫');
   }
-  assert.match(yl, /<strong class="form-price">690\.000₫<\/strong>/);
+  assert.match(yl, /data-i18n="yl2\.card1\.price">690\.000₫/);
   assert.match(yl, /Buy 1 lesson · 800\.000₫/);
 });
 
-test('header: Writing pill at every desktop width, Book & pricing anchors to the band', () => {
-  for (const [path, book, writing] of [
-    ['/', '/#book', '/ai-speaking/writing'],
-    ['/vi', '/vi#book', '/ai-speaking/vi/writing'],
+// Human-centered overhaul (Oct 2026): four need-first links + "Choose a Starting Step".
+test('header: four need-first links and the starting-step CTA, in the visitor language', () => {
+  for (const [path, start, speaking, adults] of [
+    ['/', '/#pricing-options', '/young-learners-speaking/', '/ai-speaking'],
+    ['/vi', '/vi#pricing-options', '/vi/luyen-noi-ielts/', '/ai-speaking/vi'],
   ] as const) {
     setServerLocation(path);
     const html = renderToStaticMarkup(createElement(Navbar, {
@@ -105,9 +106,8 @@ test('header: Writing pill at every desktop width, Book & pricing anchors to the
     }));
     setServerLocation('/');
     const hrefs = hrefsIn(html);
-    assert.ok(hrefs.includes(book), `${path}: ${book}`);
-    assert.ok(hrefs.includes(writing), `${path}: ${writing}`);
-    assert.doesNotMatch(html, /hidden 2xl:inline-flex/, `${path}: Writing pill is not 2xl-only`);
+    for (const href of [start, speaking, adults]) assert.ok(hrefs.includes(href), `${path}: ${href} in ${hrefs.join(' ')}`);
+    assert.ok(hrefs.some((href) => href.endsWith('/student-academy')), `${path}: /student-academy`);
     assert.doesNotMatch(html, /coming soon|sắp ra mắt/i, path);
   }
 });

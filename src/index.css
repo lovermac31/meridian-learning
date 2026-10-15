@@ -16,6 +16,21 @@
   --color-jurassic-green: #7ecb8e;  /* Teacher Standards — green accent */
   --color-jurassic-ivory: #f8f7f4;  /* Light section backgrounds */
 
+  /* Warm storybook tokens (10/10 overhaul, spec §3.1). Amber buttons carry ink
+     text, never white: white on #D97706 is 3.2:1, ink on #D97706 is 5.6:1. */
+  --color-sb-cream: #FAF7F2;        /* --bg-warm */
+  --color-sb-card: #FFFFFF;         /* --bg-card */
+  --color-sb-border: #E6DEC8;
+  --color-sb-forest: #1E4D3B;       /* --brand-forest */
+  --color-sb-amber: #D97706;        /* --accent-amber */
+  --color-sb-amber-deep: #B45309;
+  --color-sb-sage: #E6F4EA;         /* --badge-sage background */
+  --color-sb-sage-ink: #137333;     /* --badge-sage text */
+  --color-sb-ink: #1C2526;          /* --text-ink */
+  --color-sb-slate: #4A5568;        /* --text-slate */
+  --color-sb-teal: #0F766E;
+  --shadow-warm: 0 10px 30px -10px rgba(30, 77, 59, 0.08);
+
   --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 50px -10px rgba(242, 100, 25, 0.3);
 }
@@ -105,9 +120,20 @@
   }
 }
 
+/* Spec §3.1 names, for plain CSS and the static pages that share them. */
+:root {
+  --bg-warm: #FAF7F2;
+  --bg-card: #FFFFFF;
+  --brand-forest: #1E4D3B;
+  --accent-amber: #D97706;
+  --badge-sage: #E6F4EA;
+  --text-ink: #1C2526;
+  --text-slate: #4A5568;
+}
+
 @layer base {
   body {
-    @apply font-sans text-jurassic-dark bg-white;
+    @apply font-sans text-sb-ink bg-sb-cream;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-sans;

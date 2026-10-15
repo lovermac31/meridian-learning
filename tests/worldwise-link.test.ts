@@ -88,7 +88,7 @@ test('LinkifyWorldWise leaves strings without the organisation name untouched', 
 test('the site footer links both organisation mentions', () => {
   const html = renderToStaticMarkup(createElement(Footer, {}));
   const links = html.split(ANCHOR_OPEN).length - 1;
-  assert.equal(links, 2, 'copyright line + trademark line');
+  assert.equal(links, 3, 'institutional line + copyright line + trademark line');
   // The legal mailbox stays a mailto on its own domain — it is not a website link.
   assert.ok(html.includes('href="mailto:legal@worldwiselearning.com"'));
 });

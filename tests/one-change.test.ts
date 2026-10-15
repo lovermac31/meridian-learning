@@ -87,7 +87,8 @@ test('public route, metadata, website placement, enquiry links and safety bounda
   assert.ok(!/fetch\(|localStorage|sessionStorage/.test(code));
   const config = JSON.parse(fs.readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
   assert.ok(config.rewrites.some((r: any) => r.source === '/challenges/one-change' && r.destination === '/challenges/one-change/index.html'));
-  assert.match(fs.readFileSync(new URL('../src/App.tsx', import.meta.url), 'utf8'), /<OneChangeInvitation \/>/);
+  // Human-centered overhaul (Oct 2026): the homepage is six fixed sections, so the
+  // invitation now lives on the insights pages only.
   assert.match(fs.readFileSync(new URL('../src/components/SearchInsightsPage.tsx', import.meta.url), 'utf8'), /<OneChangeInvitation placement="insights" \/>/);
   assert.match(fs.readFileSync(new URL('../scripts/generate-sitemap.mjs', import.meta.url), 'utf8'), /challenges\/one-change/);
 });

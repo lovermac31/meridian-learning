@@ -1,27 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
-import {
-  StudentAcademyHero,
-  QuickStartStripSection,
-  StudentProblemSection,
-  ThreeBeatSolution,
-  ThinkingCycleSection,
-  LevelPathwaySection,
-  InteractiveDemoCTASection,
-  CEIWSection,
-  DRESection,
-  StudentOutcomesGrid,
-  BuiltForEveryLearnerSection,
-  DiagnosticCTASection,
-  PortfolioEvidenceSection,
-  StudentProgramPathways,
-  StudentFitBlock,
-  FinalConversionReminderSection,
-  StudentAcademyFAQ,
-  StudentFinalCTA,
-} from "@/components/student-academy/sections";
-import { StudentAcademyMobileStickyCTA } from "@/components/student-academy/StudentAcademyMobileStickyCTA";
-import { studentAcademyFAQs } from "@/lib/studentAcademyData";
+import { StudentAcademyOverhaul } from "@/components/student-academy/StudentAcademyOverhaul";
 
 // Sprint 3A — page-level structured data.
 //
@@ -35,7 +14,7 @@ const STUDENT_ACADEMY_COURSE_LD = {
   "@id": "https://jurassicenglish.com/#student-academy-course",
   name: "Jurassic English™ Student Academy",
   description:
-    "A five-level literature-based academic English program built around authentic literature, regulated thinking, and visible reasoning. Students read real stories, think aloud, write with evidence, and grow through portfolio work.",
+    "A five-level literature-based English program for ages 6–14. Students read real storybooks, explain their ideas with Point + Proof + Explain, and build a written Growth Portfolio of vocabulary logs and revised paragraphs.",
   url: "https://jurassicenglish.com/student-academy",
   provider: { "@id": "https://jurassicenglish.com/#organization" },
   educationalLevel:
@@ -50,38 +29,10 @@ const STUDENT_ACADEMY_WEBPAGE_LD = {
   url: "https://jurassicenglish.com/student-academy",
   name: "Jurassic English™ Student Academy | Literature-Based English Thinking for Students",
   description:
-    "Jurassic English™ Student Academy helps students read deeper, speak smarter, write stronger, and defend ideas in English through a five-level literature-based academic reasoning pathway.",
+    "Literature-based English for ages 6–14: real storybooks, confident speaking, evidence-backed writing and a written monthly Growth Portfolio. Start with a 45-minute Reading & Thinking Placement Consultation.",
   isPartOf: { "@id": "https://jurassicenglish.com/#website" },
   about: { "@id": "https://jurassicenglish.com/#student-academy-course" },
   inLanguage: "en",
-};
-
-// Phase 5 Sprint F — FAQPage JSON-LD generated from the same FAQ items
-// rendered visibly in <StudentAcademyFAQ />. Source of truth is
-// studentAcademyFAQs in src/lib/studentAcademyData.ts; we map directly
-// from that array so the structured-data Q/A pairs always match the
-// on-page FAQ accordion.
-//
-// Claims-safety: every question and answer was authored under the
-// Sprint 3A claims-safety policy. The "Is there a guaranteed score?"
-// item answers in the negating form (rejects guarantees), which is the
-// correct AEO signal — search engines that index the FAQPage will see
-// the no-guarantee disclosure verbatim. No offers, prices, ratings,
-// reviews, score promises, admission promises, or AI-tutor framing.
-const STUDENT_ACADEMY_FAQ_LD = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "@id": "https://jurassicenglish.com/student-academy#faqpage",
-  isPartOf: { "@id": "https://jurassicenglish.com/student-academy#webpage" },
-  inLanguage: "en",
-  mainEntity: studentAcademyFAQs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer,
-    },
-  })),
 };
 
 // Phase 5 Sprint F — BreadcrumbList JSON-LD: Home → Student Academy.
@@ -111,7 +62,7 @@ export const metadata: Metadata = {
   title:
     "Jurassic English™ Student Academy | Literature-Based English Thinking for Students",
   description:
-    "Jurassic English™ Student Academy helps students read deeper, speak smarter, write stronger, and defend ideas in English through a five-level literature-based academic reasoning pathway.",
+    "Literature-based English for ages 6–14: real storybooks, confident speaking, evidence-backed writing and a written monthly Growth Portfolio. Start with a 45-minute Reading & Thinking Placement Consultation.",
   alternates: {
     canonical: "/student-academy",
   },
@@ -125,7 +76,7 @@ export const metadata: Metadata = {
     url: "/student-academy",
     images: [
       {
-        url: "/images/student-academy-page/student-academy-hero.webp",
+        url: "/images/overhaul/hero-story-expedition.webp",
         width: 1200,
         height: 630,
         alt: "Jurassic English™ Student Academy",
@@ -138,7 +89,7 @@ export const metadata: Metadata = {
     description:
       "Read deeper, speak smarter, write stronger, and defend ideas in English. A five-level literature-based pathway.",
     images: [
-      "/images/student-academy-page/student-academy-hero.webp",
+      "/images/overhaul/hero-story-expedition.webp",
     ],
   },
 };
@@ -179,33 +130,10 @@ export default function StudentAcademyPage() {
       <style dangerouslySetInnerHTML={{ __html: studentAcademyThemeCss }} />
       <JsonLd data={STUDENT_ACADEMY_COURSE_LD} id="ld-sa-course" />
       <JsonLd data={STUDENT_ACADEMY_WEBPAGE_LD} id="ld-sa-webpage" />
-      <JsonLd data={STUDENT_ACADEMY_FAQ_LD} id="ld-sa-faq" />
       <JsonLd data={STUDENT_ACADEMY_BREADCRUMB_LD} id="ld-sa-breadcrumb" />
-      {/* Bottom padding (`pb-24`) on mobile keeps page content from being
-          hidden behind the StudentAcademyMobileStickyCTA (≈88px tall +
-          safe-area inset). At lg+ the sticky bar disappears (`lg:hidden`)
-          so the page wrapper releases its bottom padding. */}
-      <div className="sa-theme bg-background pb-24 lg:pb-0">
-        <StudentAcademyHero />
-        <QuickStartStripSection />
-        <StudentProblemSection />
-        <ThreeBeatSolution />
-        <ThinkingCycleSection />
-        <LevelPathwaySection />
-        <InteractiveDemoCTASection />
-        <CEIWSection />
-        <DRESection />
-        <StudentOutcomesGrid />
-        <BuiltForEveryLearnerSection />
-        <DiagnosticCTASection />
-        <PortfolioEvidenceSection />
-        <StudentProgramPathways />
-        <StudentFitBlock />
-        <FinalConversionReminderSection />
-        <StudentAcademyFAQ />
-        <StudentFinalCTA />
+      <div className="sa-theme">
+        <StudentAcademyOverhaul />
       </div>
-      <StudentAcademyMobileStickyCTA />
     </>
   );
 }

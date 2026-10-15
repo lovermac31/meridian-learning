@@ -25,7 +25,9 @@ const alternates = (page: string) =>
 
 test('every translatable element is localised — no partial page', () => {
   const expected = (EN_HTML.match(/\sdata-i18n(-html)?="/g) ?? []).length;
-  assert.ok(expected > 200, `source should carry the full i18n surface, found ${expected}`);
+  // Overhaul (Oct 2026) condensed the page to three sections (~100 strings); the
+  // equality below is the real no-partial-page check.
+  assert.ok(expected > 80, `source should carry the full i18n surface, found ${expected}`);
   assert.equal(replaced, expected);
 });
 
@@ -42,7 +44,7 @@ test('text elements carry exactly the dictionary value', () => {
     assert.equal(unescape(m[3]), VI[m[2]], `key ${m[2]}`);
     checked++;
   }
-  assert.ok(checked > 200, `checked ${checked}`);
+  assert.ok(checked > 80, `checked ${checked}`);
 });
 
 test('head is Vietnamese and self-canonical', () => {
@@ -78,7 +80,7 @@ test('English page is not declared as a language page', () => {
 
 test('alt / aria-label attributes are localised (no English residue in attributes)', () => {
   const tags = [...html.matchAll(/<[a-zA-Z][^>]*\sdata-i18n-attr="([\w-]+):([^"]+)"[^>]*>/g)];
-  assert.ok(tags.length >= 15, `found ${tags.length} localisable attributes`);
+  assert.ok(tags.length >= 2, `found ${tags.length} localisable attributes`);
   for (const [tag, attr, key] of tags) {
     const value = tag.match(new RegExp(`\\s${attr}="([^"]*)"`))?.[1];
     assert.equal(unescape(value ?? ''), VI[key], `${attr} for ${key}`);
