@@ -160,14 +160,14 @@ export const Navbar = ({
 
   return (
     <nav className={`fixed top-0 w-full z-50 border-b transition-shadow duration-300 bg-sb-cream/95 backdrop-blur-md ${isSolidNav ? 'border-sb-border shadow-warm' : 'border-transparent'} py-3`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center gap-3">
+      <div className="max-w-7xl mx-auto px-3 min-[360px]:px-4 sm:px-6 flex justify-between items-center gap-1.5 min-[360px]:gap-3">
         <button
           type="button"
           onClick={() => {
             setIsMobileMenuOpen(false);
             onNavigateHome();
           }}
-          className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 font-wordmark text-[1.05rem] sm:text-[1.2rem] text-sb-forest transition hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
+          className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 font-wordmark text-[0.875rem] min-[360px]:text-[1.05rem] sm:text-[1.2rem] text-sb-forest transition hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
           dir="ltr"
           aria-label={getUiString(locale, 'navbar.brandAriaLabel')}
         >
@@ -187,21 +187,21 @@ export const Navbar = ({
             </a>
           ))}
         </div>
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-1.5 min-[360px]:gap-2 sm:gap-3">
           <a
             href={bookHref}
             onClick={() => handleBookClick('desktop')}
-            className={`${NAV_CTA} px-3 sm:px-4`}
+            className={`${NAV_CTA} px-2.5 min-[360px]:px-3 sm:px-4`}
           >
             <span className="hidden sm:inline">{bookLabel}</span>
             <span className="sm:hidden">{overhaul.nav.ctaMobile}</span>
-            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            <ArrowRight aria-hidden="true" className="hidden h-4 w-4 min-[360px]:block" />
           </a>
           <div className="hidden xl:block">{languageSwitcher}</div>
           <button
             ref={triggerRef}
             type="button"
-            className="xl:hidden text-sb-forest inline-flex h-10 w-10 items-center justify-center rounded-full border border-sb-border bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
+            className="xl:hidden shrink-0 text-sb-forest inline-flex h-11 w-11 items-center justify-center rounded-full border border-sb-border bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={
               isMobileMenuOpen

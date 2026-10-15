@@ -115,6 +115,15 @@ function scrollToAnchor(id: string) {
 export function YlBotUI() {
   const lang = useLang();
   const [open, setOpen] = useState(false);
+  // Coordinated widget layout (EXEC-02 C2): the bubble appears once the visitor scrolls past the
+  // first screenful, so it never covers the hero Baseline CTA at first paint.
+  const [revealed, setRevealed] = useState(false);
+  useEffect(() => {
+    const sync = () => setRevealed(window.scrollY > 240);
+    sync();
+    window.addEventListener('scroll', sync, { passive: true });
+    return () => window.removeEventListener('scroll', sync);
+  }, []);
   const [events, setEvents] = useState<BotEvent[]>(() => [
     { who: 'bot', text: t('botui.greeting', getLang()) },
   ]);
@@ -230,8 +239,8 @@ export function YlBotUI() {
         }
       `}</style>
 
-      {/* Floating bubble (always rendered; panel toggles open) */}
-      {!open && (
+      {/* Floating bubble (shown after the first scroll; panel toggles open) */}
+      {!open && revealed && (
         <button
           type="button"
           aria-label={t('botui.bubbleAria', lang)}
