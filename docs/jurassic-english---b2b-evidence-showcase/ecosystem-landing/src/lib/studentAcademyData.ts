@@ -529,7 +529,7 @@ export const studentAcademyFAQs: FAQItem[] = [
   {
     question: "Will it help with IELTS?",
     answer:
-      "At Levels 4 and 5, yes — the same reasoning that produces strong academic writing produces strong IELTS Writing Task 2 and Speaking Part 3 performance. We do not promise scores. We build the reasoning the bands reward.",
+      "At Levels 4 and 5, yes — the same reasoning that produces strong academic writing produces strong IELTS Speaking Part 3 performance. We do not promise scores. We build the reasoning the bands reward.",
   },
   {
     question: "Is there a guaranteed score?",

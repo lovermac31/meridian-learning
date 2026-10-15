@@ -6,7 +6,6 @@ const LINKS = [
   { label: "Reading & Story Adventures", href: "/student-academy" },
   { label: "Speaking & Teen IELTS", href: "/young-learners-speaking/" },
   { label: "Adult IELTS Practice", href: "/ai-speaking" },
-  { label: "IELTS Writing Task 2 (Coming Soon)", href: "/ai-speaking/writing" },
   { label: "Live Speaking Baseline", href: "/ai-speaking/baseline" },
   { label: "Academic Framework", href: "/framework" },
   { label: "Privacy", href: "/legal/privacy" },
