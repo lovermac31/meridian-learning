@@ -70,6 +70,15 @@ export default defineConfig(({ isSsrBuild }) => {
       },
     },
     build: {
+      /**
+       * No <link rel="modulepreload"> in the HTML (LCP, Oct 2026). Every page is prerendered, so first
+       * paint needs only the CSS and the hero image; preloading ~250 KB of JS up front made it compete
+       * for bandwidth with both. The entry script still loads at once and imports its vendor chunks;
+       * lazy chunks keep their preloads (hostType 'js').
+       */
+      modulePreload: {
+        resolveDependencies: (_file, deps, { hostType }) => (hostType === 'html' ? [] : deps),
+      },
       rollupOptions: {
         /**
          * Multi-page input. The main entry is the SPA; the second entry is the
