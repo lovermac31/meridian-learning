@@ -7,6 +7,7 @@ import {
   getLocaleDefinition,
 } from '../i18n/locales';
 import { getPublicContentGroup, isPublicContentReleased } from '../i18n/content';
+import { getOverhaulContent } from '../i18n/content/overhaul';
 import { getLocalizedPathname, getLocalizablePublicPaths, resolveLocalizedRoute } from '../i18n/routing';
 import { getLocalizedSeriesLevelByPath } from '../i18n/content/series';
 import { getLocalizedSyllabusByRoutePath } from '../i18n/content/syllabus';
@@ -69,7 +70,7 @@ type StaticRouteDefinition = {
   shouldIndex?: boolean;
   breadcrumbs?: Array<{ name: string; path: string }>;
   jsonLd?: JsonLd[];
-  localized?: Partial<Record<Locale, Pick<StaticRouteDefinition, 'title' | 'description' | 'breadcrumbs'>>>;
+  localized?: Partial<Record<Locale, Pick<StaticRouteDefinition, 'title' | 'description' | 'breadcrumbs'> & { faqJsonLd?: JsonLd }>>;
 };
 
 // P1 — widened homepage positioning. The previous title scoped the brand
@@ -81,37 +82,11 @@ const homeTitle = 'Jurassic English™ | Critical Thinking, Academic English & I
 const homeDescription =
   'Jurassic English™ helps students, parents, schools, and learning centers build academic English, critical thinking, literature-based reasoning, and IELTS-aligned speaking confidence.';
 
-// FAQ entries are deliberately factual: IELTS-aligned only, no
-// guaranteed-score language, no implied endorsement by IELTS, Cambridge,
-// British Council, or IDP. Mirrors the "evidence-note" line on
-// /young-learners-speaking/.
-const homeFaqEntries = [
-  {
-    question: 'Who is Jurassic English™ for?',
-    answer:
-      'Jurassic English™ serves four audiences: students building academic English and reasoning, parents looking for structured English speaking coaching for their child, schools and learning centers reviewing their English curriculum, and institutional partners exploring teacher training and licensing.',
-  },
-  {
-    question: 'What is the IELTS Speaking Ages 9-18 programme?',
-    answer:
-      'A structured speaking programme for ages 9-18 organized around the public IELTS Speaking criteria — fluency and coherence, lexical resource, grammatical range and accuracy, and pronunciation. Coaching is delivered 1-to-1 or in small groups, online or in person. Families start with a Live Speaking Baseline (690.000₫): 15–20 minutes live on Google Meet with an assessor, giving four criterion bands, an overall band and a written plan.',
-  },
-  {
-    question: 'Is Jurassic English™ officially endorsed by IELTS, Cambridge, or the British Council?',
-    answer:
-      'No. Jurassic English™ is IELTS-aligned in its training pathway — lesson targets, speaking tasks, feedback, and parent reports are organized around the same public criteria used to describe IELTS Speaking performance — but it is not officially endorsed by IELTS, Cambridge, British Council, or IDP. Band goals are training targets, not score guarantees.',
-  },
-  {
-    question: 'How is the school curriculum structured?',
-    answer:
-      'Five vertically aligned levels from Pre-A1 to C1, spanning ages 4–14+, with 40 structured lessons per year and 10 core literary texts per level. Each lesson runs the four-stage Jurassic Thinking Cycle™ (Analyze, Evaluate, Justify, Reflect) so reasoning is visible in every lesson, not just at unit endpoints.',
-  },
-  {
-    question: 'How do schools and learning centers get started?',
-    answer:
-      'Most institutions begin with one of three pathways: a Curriculum Coherence Audit Sprint, a Discovery Call, or a 6-8 week Pilot Programme. The Get Started intake form routes enquiries to the right pathway for teacher training, school licensing, curriculum review, or institutional partnership discussions.',
-  },
-];
+// FAQPage must mirror the FAQ visible on the page (human-centered overhaul,
+// Oct 2026): the homepage's six-section layout ends with three questions in
+// src/i18n/content/overhaul.ts, published here per locale.
+const homeFaqEntries = (locale: Locale) =>
+  getOverhaulContent(locale).home.faq.items.map(({ q, a }) => ({ question: q, answer: a }));
 
 const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/tools/ielts-band-score-calculator': {
@@ -176,7 +151,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
         areaServed: 'Vietnam, Asia, Online',
         audienceRole: 'student',
       }),
-      createFaqJsonLd(homeFaqEntries),
+      createFaqJsonLd(homeFaqEntries('en')),
     ],
     localized: {
       vi: {
@@ -184,6 +159,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
           'Jurassic English™ | Tư duy phản biện, tiếng Anh học thuật & luyện nói IELTS',
         description:
           'Jurassic English™ giúp học sinh, phụ huynh, nhà trường và trung tâm đào tạo phát triển tiếng Anh học thuật, tư duy phản biện, lập luận dựa trên văn học và sự tự tin khi nói theo chuẩn IELTS.',
+        faqJsonLd: createFaqJsonLd(homeFaqEntries('vi')),
       },
     },
   },
@@ -568,6 +544,11 @@ function resolveStaticRoute(pathname: string, locale: Locale): RouteMetadata | n
   }
 
   const localizedRoute = route.localized?.[locale];
+  // A localized FAQPage replaces the default one so the markup matches the visible FAQ.
+  const localizedFaq = localizedRoute?.faqJsonLd;
+  const routeJsonLd = route.jsonLd && localizedFaq
+    ? route.jsonLd.map((block) => ((block as { '@type'?: string })['@type'] === 'FAQPage' ? localizedFaq : block))
+    : route.jsonLd;
   const isReleasedLocale = isPublicContentReleased(pathname, locale);
   const shouldIndex = (route.shouldIndex ?? true) && isReleasedLocale;
   const canonical = shouldIndex
@@ -601,8 +582,8 @@ function resolveStaticRoute(pathname: string, locale: Locale): RouteMetadata | n
     mainEntity: toolFaqs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
   }] : [])] as JsonLd[] : [];
   const jsonLd = shouldIndex
-    ? toolJsonLd.length ? [...toolJsonLd, ...(breadcrumbsLd ?? [])] : route.jsonLd
-      ? [...route.jsonLd, ...(breadcrumbsLd ?? [])]
+    ? toolJsonLd.length ? [...toolJsonLd, ...(breadcrumbsLd ?? [])] : routeJsonLd
+      ? [...routeJsonLd, ...(breadcrumbsLd ?? [])]
       : breadcrumbsLd
     : undefined;
 

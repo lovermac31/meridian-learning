@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { getFrameworkContent, getFrameworkPageContent } from '../i18n/content/framework';
 import { getCurrentLocale } from '../i18n/routing';
+import { WorldWiseLink } from './WorldWiseLink';
 
 type FrameworkExperienceProps = {
   onBack: () => void;
@@ -24,6 +25,7 @@ export const FrameworkExperience = ({
   const locale = getCurrentLocale();
   const frameworkContent = getFrameworkContent(locale) ?? getFrameworkContent('en');
   const frameworkPageContent = getFrameworkPageContent(locale) ?? getFrameworkPageContent('en');
+  const institutionalLabel = locale === 'vi' ? 'Đối tác tổ chức cho trường học và đại học:' : 'Institutional partner for schools and universities:';
 
   if (!frameworkPageContent || !frameworkContent) {
     return null;
@@ -41,11 +43,30 @@ export const FrameworkExperience = ({
 
   return (
     <main className="bg-white pb-24">
+      {/* Top editorial banner (overhaul): illustration, not a photo; page text below is unchanged. */}
+      <section className="bg-sb-cream px-6 pb-8 pt-24">
+        <figure className="relative mx-auto max-w-6xl">
+          <img
+            src="/images/overhaul/thinking-cycle-storybook-map.webp"
+            alt="Illustrated explorer journal map of the 4-Step Thinking Cycle: Analyze, Evaluate, Justify, Reflect"
+            width={1400}
+            height={788}
+            loading="eager"
+            decoding="async"
+            className="aspect-[21/9] w-full rounded-[1.5rem] border border-sb-border object-cover"
+          />
+          <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-sb-forest">Illustration</figcaption>
+        </figure>
+        <p className="mx-auto mt-3 max-w-6xl text-sm text-sb-slate">
+          {institutionalLabel}{' '}
+          <WorldWiseLink className="font-bold text-sb-forest underline underline-offset-4 hover:text-sb-amber-deep">WorldWise Learning</WorldWiseLink>
+        </p>
+      </section>
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-jurassic-dark via-jurassic-dark to-[#1c2c18]" />
         <div className="absolute inset-0 bg-overlay-accent-dark" />
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 pt-32 pb-20">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 pt-16 pb-20">
           <button
             onClick={onBack}
             className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition hover:text-white"
@@ -83,21 +104,6 @@ export const FrameworkExperience = ({
         </div>
       </section>
 
-      {/* Human-centered overhaul: illustrated 4-Step Thinking Cycle banner (illustration, not a photo). */}
-      <section className="bg-sb-cream px-6 py-10">
-        <figure className="relative mx-auto max-w-5xl">
-          <img
-            src="/images/overhaul/thinking-cycle-storybook-map.webp"
-            alt="Illustrated explorer journal map of the 4-Step Thinking Cycle: Analyze, Evaluate, Justify, Reflect"
-            width={1400}
-            height={788}
-            loading="lazy"
-            decoding="async"
-            className="aspect-[16/9] w-full rounded-[1.5rem] border border-sb-border object-cover"
-          />
-          <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-sb-forest">Illustration</figcaption>
-        </figure>
-      </section>
       <section className="py-24 bg-jurassic-soft/25">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
