@@ -163,13 +163,14 @@ export const Navbar = ({
       {/* Two balanced clusters on one 72px row, never wrapping: [logo + doors] … [EN | Tiếng Việt + Baseline CTA]. */}
       <div className="max-w-7xl mx-auto h-[72px] px-3 min-[360px]:px-4 sm:px-6 flex flex-nowrap justify-between items-center gap-1.5 min-[360px]:gap-3">
         <div className="flex min-w-0 flex-nowrap items-center gap-6">
+        {/* Below 430px the wordmark wraps to two lines (min-content width) so the Baseline CTA never covers it; the row stays one 72px line. */}
         <button
           type="button"
           onClick={() => {
             setIsMobileMenuOpen(false);
             onNavigateHome();
           }}
-          className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 font-wordmark text-[0.875rem] min-[360px]:text-[1.05rem] sm:text-[1.2rem] text-sb-forest transition hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
+          className="shrink-0 whitespace-nowrap max-[429px]:w-min max-[429px]:whitespace-normal rounded-md px-1 py-0.5 text-left leading-tight font-wordmark text-[0.875rem] min-[360px]:text-[1.05rem] sm:text-[1.2rem] text-sb-forest transition hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
           dir="ltr"
           aria-label={getUiString(locale, 'navbar.brandAriaLabel')}
         >

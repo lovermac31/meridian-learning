@@ -29,8 +29,9 @@ const en = {
       // Header symmetry (Oct 2026): short age labels on screen; `desc` names the door (accessible name + mobile drawer).
       { key: 'reading', label: 'Ages 6–12', desc: 'Reading & Story Adventures', href: '/student-academy', kind: 'route' },
       { key: 'speaking', label: 'Ages 9–18', desc: 'Speaking Confidence & Teen IELTS', href: '/young-learners-speaking/', kind: 'native' },
-      { key: 'adults', label: 'Adults 18+', desc: 'Adult IELTS Practice', href: '/ai-speaking', kind: 'native' },
-      { key: 'jay', label: 'Mr. Jay & Pricing', desc: 'Meet Mr. Jay and see pricing', href: '/#pricing-options', kind: 'native' },
+      { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: introduction & demo', href: '/ai-speaking/writing', kind: 'native' },
+      { key: 'adults', label: 'AI Speaking Mocks', desc: 'Adult IELTS Speaking practice (18+)', href: '/ai-speaking', kind: 'native' },
+      { key: 'jay', label: 'Pricing', desc: 'Mr. Jay, plans and pricing', href: '/#pricing-options', kind: 'native' },
     ],
     cta: 'Book Baseline · 690k₫',
     ctaMobile: 'Baseline · 690k₫',
@@ -215,8 +216,9 @@ const vi: OverhaulContent = {
     items: [
       { key: 'reading', label: '6–12 tuổi', desc: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy', kind: 'route' },
       { key: 'speaking', label: '9–18 tuổi', desc: 'Tự tin nói & IELTS cho teen', href: '/young-learners-speaking/', kind: 'native' },
-      { key: 'adults', label: 'Người lớn 18+', desc: 'Luyện IELTS cho người lớn', href: '/ai-speaking', kind: 'native' },
-      { key: 'jay', label: 'Thầy Jay & Học phí', desc: 'Gặp thầy Jay và xem học phí', href: '/#pricing-options', kind: 'native' },
+      { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: giới thiệu & bản demo', href: '/ai-speaking/writing', kind: 'native' },
+      { key: 'adults', label: 'Thi thử Nói AI', desc: 'Luyện Nói IELTS cho người lớn (18+)', href: '/ai-speaking', kind: 'native' },
+      { key: 'jay', label: 'Học phí', desc: 'Thầy Jay, gói học và học phí', href: '/#pricing-options', kind: 'native' },
     ],
     cta: 'Đặt Đánh giá · 690k₫',
     ctaMobile: 'Đánh giá · 690k₫',

@@ -49,8 +49,8 @@ const JARGON = [
 ];
 const NAV_LABELS = {
   // Header symmetry (Oct 2026): short age-door labels; the full door names are the links' accessible names.
-  en: ['Ages 6–12', 'Ages 9–18', 'Adults 18+', 'Mr. Jay &amp; Pricing'],
-  vi: ['6–12 tuổi', '9–18 tuổi', 'Người lớn 18+', 'Thầy Jay &amp; Học phí'],
+  en: ['Ages 6–12', 'Ages 9–18', 'IELTS Writing', 'AI Speaking Mocks', 'Pricing'],
+  vi: ['6–12 tuổi', '9–18 tuổi', 'IELTS Writing', 'Thi thử Nói AI', 'Học phí'],
 };
 const RECORDING_PROMISES = /recorded speaking (portfolio|clip)s?|recorded portfolio|recorded speaking clips/i;
 const POLICY = { en: /sessions with learners under 18 are never recorded/i, vi: /dưới 18 tuổi không bao giờ được ghi âm/i };
