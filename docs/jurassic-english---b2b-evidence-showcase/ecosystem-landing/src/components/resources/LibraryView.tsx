@@ -30,7 +30,7 @@ export function LibraryView({ lang, titles }: { lang: Lang; titles: Record<strin
   return (
     <div className="space-y-8">
       <section aria-labelledby="owned-heading">
-        <h2 id="owned-heading" className="text-xl font-extrabold">{s.libraryTitle}</h2>
+        <h2 id="owned-heading" className="text-xl font-extrabold">{s.ownedTitle}</h2>
         {lib.owned.length === 0 ? (
           <p className={`mt-2 ${MUTED}`}>{s.libraryEmpty}</p>
         ) : (
