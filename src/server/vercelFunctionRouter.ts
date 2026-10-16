@@ -1,4 +1,5 @@
-import type { Express, Request, Response, NextFunction } from 'express';
+import express from 'express';
+import type { IRouter, Request, Response, NextFunction } from 'express';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import generateImage from '../../api/generate-image.js';
 import generatePricingAccessLink from '../../api/generate-pricing-access-link.js';
@@ -40,9 +41,14 @@ function asVercelResponse(res: Response): VercelResponse {
   return res as unknown as VercelResponse;
 }
 
-export function mountVercelApiFunctions(app: Express) {
+// Bodies are parsed only for the function that receives them (as @vercel/node does), so a request that a rewrite
+// proxies to another app (e.g. a POST to /ai-speaking/api/...) keeps its raw body stream.
+const parseJson = express.json({ limit: '1mb' });
+const parseForm = express.urlencoded({ extended: false, limit: '1mb' });
+
+export function mountVercelApiFunctions(app: IRouter) {
   for (const route of vercelFunctionRoutes) {
-    app.all(route.path, (req: Request, res: Response, next: NextFunction) => {
+    app.all(route.path, parseJson, parseForm, (req: Request, res: Response, next: NextFunction) => {
       Promise.resolve(route.handler(asVercelRequest(req), asVercelResponse(res))).catch(next);
     });
   }

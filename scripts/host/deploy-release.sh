@@ -29,7 +29,10 @@ case "${1:-}" in
       sudo -n mkdir \"\$R\"; sudo -n chown je-admin:je-admin \"\$R\"; tar -x -C \"\$R\"; echo $SHA > \"\$R/RELEASE_SHA\"
       cd \"\$R\"; export PATH=$NODE_BIN:\$PATH
       npm ci --ignore-scripts --no-audit --no-fund --loglevel=error
-      npm run -s lint; npm test 2>&1 | grep -E '^# (pass|fail)'; npm run -s build >/dev/null 2>&1 || { echo 'build failed' >&2; exit 1; }
+      npm run -s lint
+      npm test > /tmp/je-release-test.log 2>&1 || { tail -40 /tmp/je-release-test.log >&2; echo 'tests failed' >&2; exit 1; }
+      grep -E '^(#|ℹ) (pass|fail) ' /tmp/je-release-test.log || true
+      npm run -s build > /tmp/je-release-build.log 2>&1 || { tail -40 /tmp/je-release-build.log >&2; echo 'build failed' >&2; exit 1; }
       sudo -n chown -R root:root \"\$R\"; echo \"built \$R (\$(cat RELEASE_SHA))\""
     ;;
   candidate)

@@ -1,5 +1,8 @@
+import express from 'express';
 import type { NextFunction, Request, Response } from 'express';
 import { Readable } from 'node:stream';
+import { statSync } from 'node:fs';
+import path from 'node:path';
 import type { IncomingHttpHeaders } from 'node:http';
 
 type HeaderRule = { source: string; headers: Array<{ key: string; value: string }> };
@@ -158,5 +161,82 @@ export function applyVercelRewrites(config: VercelEdgeConfig) {
       return next();
     }
     next();
+  };
+}
+
+// ---------------------------------------------------------------------------------------------
+// Vercel platform behavior the static output relies on (vercel.com/docs/project-configuration/vercel-json, read 16 Oct 2026):
+// - "precedence is given to the filesystem prior to rewrites being applied": static files and functions answer
+//   before any rewrite, so a rewrite only fires for a path with no file behind it;
+// - with trailingSlash unset, "visiting a path with or without a trailing slash will not redirect": a directory is
+//   served from its index.html either way, never redirected;
+// - a path with no file, function or rewrite is a 404 (text/plain "NOT_FOUND"), not the SPA shell;
+// - a response that sets no Cache-Control gets "public, max-age=0, must-revalidate".
+// Verified against production with scripts/host/parity-*.mjs.
+
+export const VERCEL_DEFAULT_CACHE_CONTROL = 'public, max-age=0, must-revalidate';
+
+/** Adds Vercel's default Cache-Control to any response that reaches writeHead without one. */
+export function applyVercelDefaults() {
+  return (_req: Request, res: Response, next: NextFunction) => {
+    const writeHead = res.writeHead;
+    res.writeHead = function patchedWriteHead(this: Response, ...args: Parameters<Response['writeHead']>) {
+      if (!this.hasHeader('cache-control')) this.setHeader('Cache-Control', VERCEL_DEFAULT_CACHE_CONTROL);
+      return writeHead.apply(this, args as never);
+    } as Response['writeHead'];
+    next();
+  };
+}
+
+const CONTENT_TYPE_OVERRIDES: Record<string, string> = { '.ico': 'image/vnd.microsoft.icon' };
+
+/** Content type as Vercel sends it: same media types, lower-case charset. */
+export function vercelContentType(filePath: string): string | null {
+  const ext = path.extname(filePath).toLowerCase();
+  if (CONTENT_TYPE_OVERRIDES[ext]) return CONTENT_TYPE_OVERRIDES[ext];
+  const type = express.static.mime.lookup(filePath);
+  if (!type) return null;
+  const charset = express.static.mime.charsets.lookup(type, '');
+  return charset ? `${type}; charset=${charset.toLowerCase()}` : type;
+}
+
+/** Resolves a request path to a file inside dist the way Vercel's filesystem check does, or null. */
+export function resolveDistFile(distPath: string, pathname: string): string | null {
+  let decoded: string;
+  try { decoded = decodeURIComponent(pathname); } catch { return null; }
+  if (decoded.includes('\0')) return null;
+  const candidate = path.resolve(distPath, '.' + path.posix.normalize('/' + decoded));
+  if (candidate !== distPath && !candidate.startsWith(distPath + path.sep)) return null;
+  try {
+    const stat = statSync(candidate);
+    if (stat.isFile()) return candidate;
+    if (stat.isDirectory()) {
+      const index = path.join(candidate, 'index.html');
+      return statSync(index).isFile() ? index : null;
+    }
+  } catch { /* not found */ }
+  return null;
+}
+
+/** Serves a static file (or a directory's index.html) for GET/HEAD; anything else falls through. */
+export function serveVercelFilesystem(distPath: string) {
+  const root = path.resolve(distPath);
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+    // req.url, not originalUrl: after an internal rewrite the filesystem is checked for the rewritten path.
+    const file = resolveDistFile(root, new URL(req.url, 'http://localhost').pathname);
+    if (!file) return next();
+    const type = vercelContentType(file);
+    if (type) res.setHeader('Content-Type', type);
+    res.sendFile(file, { dotfiles: 'deny', lastModified: true, etag: true, cacheControl: false }, (error) => {
+      if (error && !res.headersSent) next();
+    });
+  };
+}
+
+/** Vercel's 404 for a path nothing answers. */
+export function vercelNotFound() {
+  return (_req: Request, res: Response) => {
+    res.status(404).type('text/plain; charset=utf-8').send('The page could not be found\n\nNOT_FOUND\n');
   };
 }
