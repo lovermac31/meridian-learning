@@ -184,7 +184,51 @@ function injectServerRenderedRoute(html, pathname, ssrHtml) {
     output = output.replace('</head>', `${newHeadTags.map((tag) => `    ${tag}`).join('\n')}\n  </head>`);
   }
 
+  if (HERO_PRELOAD_ROUTES.has(pathname)) {
+    output = deferAppScriptUntilHeroPaint(output, pathname);
+  }
+
   return output;
+}
+
+/**
+ * LCP (16 Oct): on / and /vi the server-rendered body is complete and styled
+ * without JavaScript, but the module entry and its four modulepreloads used to
+ * download and evaluate (hydration) before the browser produced its first
+ * frame — so the hero image only painted after ~260 KB of JS, and Lighthouse's
+ * simulated mobile LCP charged all of it (3.64 s). Here the entry is started
+ * by a tiny inline bootstrap only after the hero <img> has painted: the
+ * page paints first, React hydrates the same markup after.
+ * The modulepreloads are dropped because main.js imports the same chunks.
+ * Trade-off: interactivity (menu, contact panel) starts after the hero image
+ * rather than in parallel with it; a 3 s cap bounds that on slow images.
+ */
+function deferAppScriptUntilHeroPaint(html, pathname) {
+  const entryPattern = /\s*<script type="module" crossorigin src="(\/assets\/main-[^"]+\.js)"><\/script>/;
+  const src = entryPattern.exec(html)?.[1];
+  if (!src) {
+    throw new Error(`[prerender-route-metadata] ${pathname}: main module script not found; cannot defer it`);
+  }
+  // Chrome: start on the hero's own largest-contentful-paint entry (reported
+  // after the frame is presented; frame callbacks alone can run while the
+  // first frame is still held). Elsewhere: hero decoded + two frames. Any
+  // tap/key, or 3 s, starts it immediately.
+  const bootstrap =
+    `<script>(function(){var d=false;function go(){if(d)return;d=true;var s=document.createElement('script');` +
+    `s.type='module';s.crossOrigin='anonymous';s.src=${JSON.stringify(src)};document.head.appendChild(s)}` +
+    `setTimeout(go,3000);addEventListener('pointerdown',go,{once:true,passive:true});addEventListener('keydown',go,{once:true});` +
+    `function hero(){return document.querySelector('#root img[fetchpriority="high"]')}` +
+    `var P=window.PerformanceObserver,t=P&&P.supportedEntryTypes;` +
+    `if(t&&t.indexOf('largest-contentful-paint')>-1){new P(function(l,o){var i=hero();` +
+    `if(!i||l.getEntries().some(function(e){return e.element===i})){o.disconnect();setTimeout(go,0)}})` +
+    `.observe({type:'largest-contentful-paint',buffered:true});return}` +
+    `function next(){requestAnimationFrame(function(){requestAnimationFrame(function(){setTimeout(go,0)})})}` +
+    `function start(){var i=hero();if(!i||!i.decode){next();return}i.decode().then(next,next)}` +
+    `if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start()})()</script>`;
+  return html
+    .replace(entryPattern, '')
+    .replace(/\s*<link rel="modulepreload" crossorigin href="\/assets\/[^"]+\.js">/g, '')
+    .replace('</body>', `  ${bootstrap}\n  </body>`);
 }
 
 

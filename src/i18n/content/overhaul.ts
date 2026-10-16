@@ -33,6 +33,8 @@ const en = {
       { key: 'adults', label: 'AI Speaking Mocks', desc: 'Adult IELTS Speaking practice (18+)', href: '/ai-speaking', kind: 'native' },
       { key: 'jay', label: 'Pricing', desc: 'Mr. Jay, plans and pricing', href: '/#pricing-options', kind: 'native' },
     ],
+    // Small badge after the IELTS Writing link (owner, Oct 2026).
+    newBadge: 'New',
     cta: 'Book Baseline · 690k₫',
     ctaMobile: 'Baseline · 690k₫',
     ctaHref: '/ai-speaking/baseline',
@@ -221,6 +223,7 @@ const vi: OverhaulContent = {
       { key: 'adults', label: 'Thi thử Nói AI', desc: 'Luyện Nói IELTS cho người lớn (18+)', href: '/ai-speaking', kind: 'native' },
       { key: 'jay', label: 'Học phí', desc: 'Thầy Jay, gói học và học phí', href: '/#pricing-options', kind: 'native' },
     ],
+    newBadge: 'Mới',
     cta: 'Đặt Đánh giá · 690k₫',
     ctaMobile: 'Đánh giá · 690k₫',
     ctaHref: '/ai-speaking/baseline',

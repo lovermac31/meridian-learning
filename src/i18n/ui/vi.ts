@@ -1,6 +1,6 @@
 export const viUi = {
   navbar: {
-    brandAriaLabel: 'Trang chủ Jurassic English',
+    brandAriaLabel: 'Jurassic English™ – Trang chủ',
     links: {
       // P0 — reduced two-audience nav (route links, not homepage anchors).
       forSchools: 'Cho Nhà trường',
@@ -111,6 +111,12 @@ export const viUi = {
     ariaLabel: 'Bộ chuyển ngôn ngữ',
     options: {
       en: 'English',
+      vi: 'Tiếng Việt',
+    },
+    // Accessible names start with / contain the visible text ("EN" on desktop,
+    // the full name in the drawer) to satisfy WCAG 2.5.3 Label in Name.
+    optionAriaLabels: {
+      en: 'EN – English',
       vi: 'Tiếng Việt',
     },
     scaffoldNotice:
