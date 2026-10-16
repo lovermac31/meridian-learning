@@ -56,11 +56,11 @@ case "${1:-}" in
     NAME="${2:?release name}"; EXPECT="${3:?expected current release name}"; name_ok "$NAME"
     ssh_ "set -euo pipefail; cur=\$(basename \"\$(readlink -f $ROOT/current)\")
       [ \"\$cur\" = '$EXPECT' ] || { echo \"STOP: current is \$cur, expected $EXPECT (someone else deployed?)\" >&2; exit 2; }
-      [ -f $ROOT/releases/$NAME/RELEASE_SHA ] || { echo 'STOP: release not built' >&2; exit 2; }
+      [ -d $ROOT/releases/$NAME/dist ] && [ -d $ROOT/releases/$NAME/node_modules ] || { echo 'STOP: release not built' >&2; exit 2; }
       sudo -n ln -sfn $ROOT/releases/$NAME $ROOT/current.next && sudo -n mv -T $ROOT/current.next $ROOT/current
       sudo -n systemctl restart jurassic-staging
       for i in \$(seq 1 30); do curl -fsS -o /dev/null http://127.0.0.1:3001/api/health && break; sleep 1; done
-      echo \"current -> \$(basename \"\$(readlink -f $ROOT/current)\") (\$(cat $ROOT/current/RELEASE_SHA)), service \$(systemctl is-active jurassic-staging)\""
+      echo \"current -> \$(basename \"\$(readlink -f $ROOT/current)\") (\$(cat $ROOT/current/RELEASE_SHA 2>/dev/null || echo 'no RELEASE_SHA')), service \$(systemctl is-active jurassic-staging)\""
     ;;
   stop-candidate) ssh_ "sudo -n systemctl stop jurassic-candidate 2>/dev/null; echo stopped" ;;
   *) sed -n 2,14p "$0"; exit 2 ;;

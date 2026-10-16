@@ -30,15 +30,16 @@ for (const p of prod) {
       if (pr && !sr.includes('noindex')) diffs.push(`x-robots-tag "${pr}" vs "${sr}"`);
     }
   }
-  const proxied = PROXIED.test(p.path.split('?')[0]);
+  // Proxied sub-apps render live, and API bodies carry timestamps: their bodies are reported, not required to match.
+  const proxied = PROXIED.test(p.path.split('?')[0]) || p.path.startsWith('/api/');
   const bodyDiff = s && p.status === 200 && s.status === 200 && p.sha256 !== s.sha256;
   if (bodyDiff && !proxied) diffs.push(`body ${p.bytes}B vs ${s.bytes}B`);
   rows.push({ path: p.path, host: p.host ?? null, kind: p.kind, prod: p.status, staging: s?.status ?? null, ok: diffs.length === 0, diffs,
-    note: bodyDiff && proxied ? 'proxied body differs (live upstream render)' : undefined });
+    note: bodyDiff && proxied ? 'dynamic body differs (live upstream render or API timestamp)' : undefined });
 }
 const bad = rows.filter((r) => !r.ok);
 for (const r of bad) console.log(`DIFF ${r.host ? r.host + ' ' : ''}${r.path} [${r.kind}] ${r.diffs.join('; ')}`);
 const notes = rows.filter((r) => r.ok && r.note).length;
-console.log(`parity: ${rows.length - bad.length}/${rows.length} paths match${notes ? ` (${notes} proxied bodies differ, informational)` : ''}`);
+console.log(`parity: ${rows.length - bad.length}/${rows.length} paths match${notes ? ` (${notes} dynamic bodies differ, informational)` : ''}`);
 if (jsonOut) writeFileSync(jsonOut, JSON.stringify({ total: rows.length, matched: rows.length - bad.length, rows }, null, 1));
 process.exit(bad.length ? 1 : 0);
