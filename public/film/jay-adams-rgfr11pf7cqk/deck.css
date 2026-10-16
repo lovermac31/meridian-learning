@@ -126,3 +126,6 @@ body.present:fullscreen .dtop { display: none; }
   .deck { padding: 0; gap: 0; max-width: none; }
   .slide { break-after: page; border-radius: 0; border: 0; width: 16in; height: 9in; padding: .7in .9in; }
 }
+.ainote { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+.ainote span { color: var(--gold); }
+body.present .ainote { font-size: 1.15cqw; margin-top: .6cqw; }

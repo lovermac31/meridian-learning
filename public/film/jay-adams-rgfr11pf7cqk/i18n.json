@@ -153,7 +153,8 @@
         "message": "Thông điệp riêng từ Nathaniel Jay Adams",
         "filmChip": "Phim 60 giây",
         "cineAudio": "Âm thanh điện ảnh",
-        "deckLink": "Xem bản trình bày"
+        "deckLink": "Xem bản trình bày",
+        "aiNote": "Sản xuất điện ảnh có hỗ trợ của AI. Các cảnh quay mang tính minh họa cho tầm nhìn giáo dục và dịch vụ của nhà sáng lập."
       },
       "cues": {
         "1": "Tôi là Nathaniel Jay Adams, một nhà giáo dục và nhà đổi mới người Mỹ.",
@@ -238,7 +239,8 @@
         "message": "A personal message from Nathaniel Jay Adams",
         "filmChip": "60s film",
         "cineAudio": "Cinematic audio",
-        "deckLink": "View the presentation deck"
+        "deckLink": "View the presentation deck",
+        "aiNote": "AI-assisted cinematic production. Scenes are illustrative representations of the founder's educational vision and services."
       },
       "cues": {
         "1": "I'm Nathaniel Jay Adams, an American educator and innovator.",
@@ -334,7 +336,8 @@
         "message": "Un mensaje personal de Nathaniel Jay Adams",
         "filmChip": "Película de 60 s",
         "cineAudio": "Audio cinematográfico",
-        "deckLink": "Ver la presentación"
+        "deckLink": "Ver la presentación",
+        "aiNote": "Producción cinematográfica asistida por IA. Las escenas son representaciones ilustrativas de la visión educativa y los servicios del fundador."
       },
       "cues": {
         "1": "Soy Nathaniel Jay Adams, educador e innovador estadounidense.",
@@ -427,7 +430,8 @@
         "message": "Uma mensagem pessoal de Nathaniel Jay Adams",
         "filmChip": "Filme de 60 s",
         "cineAudio": "Áudio cinematográfico",
-        "deckLink": "Ver a apresentação"
+        "deckLink": "Ver a apresentação",
+        "aiNote": "Produção cinematográfica assistida por IA. As cenas são representações ilustrativas da visão educacional e dos serviços do fundador."
       },
       "cues": {
         "1": "Sou Nathaniel Jay Adams, educador e inovador norte-americano.",
@@ -519,7 +523,8 @@
         "message": "Pesan pribadi dari Nathaniel Jay Adams",
         "filmChip": "Film 60 detik",
         "cineAudio": "Audio sinematik",
-        "deckLink": "Lihat presentasi"
+        "deckLink": "Lihat presentasi",
+        "aiNote": "Produksi sinematik berbantuan AI. Adegan-adegan merupakan ilustrasi visi pendidikan dan layanan sang pendiri."
       },
       "cues": {
         "1": "Saya Nathaniel Jay Adams, pendidik dan inovator asal Amerika.",
@@ -611,7 +616,8 @@
         "message": "Mesej peribadi daripada Nathaniel Jay Adams",
         "filmChip": "Filem 60 saat",
         "cineAudio": "Audio sinematik",
-        "deckLink": "Lihat pembentangan"
+        "deckLink": "Lihat pembentangan",
+        "aiNote": "Produksi sinematik berbantukan AI. Babak-babak ialah gambaran ilustratif visi pendidikan dan perkhidmatan pengasas."
       },
       "cues": {
         "1": "Saya Nathaniel Jay Adams, seorang pendidik dan inovator dari Amerika.",
@@ -703,7 +709,8 @@
         "message": "ข้อความส่วนตัวจาก Nathaniel Jay Adams",
         "filmChip": "ภาพยนตร์ 60 วินาที",
         "cineAudio": "เสียงแบบภาพยนตร์",
-        "deckLink": "ดูสไลด์นำเสนอ"
+        "deckLink": "ดูสไลด์นำเสนอ",
+        "aiNote": "งานสร้างภาพยนตร์ที่ใช้ AI ช่วย ฉากต่าง ๆ เป็นภาพประกอบเพื่อสื่อถึงวิสัยทัศน์ด้านการศึกษาและบริการของผู้ก่อตั้ง"
       },
       "cues": {
         "1": "ผม Nathaniel Jay Adams นักการศึกษาและนักนวัตกรรมชาวอเมริกัน",
@@ -797,7 +804,8 @@
         "message": "رسالة شخصية من ناثانيال جاي آدامز",
         "filmChip": "فيلم 60 ثانية",
         "cineAudio": "صوت سينمائي",
-        "deckLink": "عرض العرض التقديمي"
+        "deckLink": "عرض العرض التقديمي",
+        "aiNote": "إنتاج سينمائي بمساعدة الذكاء الاصطناعي. المشاهد تمثيلات توضيحية للرؤية التعليمية للمؤسس وخدماته."
       },
       "cues": {
         "1": "أنا ناثانيال جاي آدامز، مُعلّم ومُبتكر أمريكي.",
@@ -889,7 +897,8 @@
         "message": "نیتھینیئل جے ایڈمز کا ذاتی پیغام",
         "filmChip": "60 سیکنڈ کی فلم",
         "cineAudio": "سنیمائی آواز",
-        "deckLink": "پریزنٹیشن دیکھیں"
+        "deckLink": "پریزنٹیشن دیکھیں",
+        "aiNote": "اے آئی کی مدد سے تیار کردہ سنیمائی پروڈکشن۔ مناظر بانی کے تعلیمی وژن اور خدمات کی توضیحی عکاسی ہیں۔"
       },
       "cues": {
         "1": "میں نیتھینیئل جے ایڈمز ہوں، ایک امریکی ماہرِ تعلیم اور جدت پسند۔",
@@ -981,7 +990,8 @@
         "message": "ন্যাথানিয়েল জে অ্যাডামসের ব্যক্তিগত বার্তা",
         "filmChip": "৬০ সেকেন্ডের চলচ্চিত্র",
         "cineAudio": "সিনেমাটিক অডিও",
-        "deckLink": "প্রেজেন্টেশন দেখুন"
+        "deckLink": "প্রেজেন্টেশন দেখুন",
+        "aiNote": "এআই-সহায়িত সিনেমাটিক প্রযোজনা। দৃশ্যগুলো প্রতিষ্ঠাতার শিক্ষাগত ভাবনা ও সেবার দৃষ্টান্তমূলক উপস্থাপনা।"
       },
       "cues": {
         "1": "আমি ন্যাথানিয়েল জে অ্যাডামস, একজন আমেরিকান শিক্ষাবিদ ও উদ্ভাবক।",

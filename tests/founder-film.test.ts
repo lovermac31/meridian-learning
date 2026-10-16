@@ -71,3 +71,16 @@ test('the deck plays the film with subtitles in all 10 languages, and RTL decks 
     if (lang === 'ar' || lang === 'ur') assert.match(html, /<html lang="(ar|ur)" dir="rtl">/);
   }
 });
+
+test('every film and deck page carries the AI-production disclosure in its own language', () => {
+  const root = join(FILM, tokens[0]);
+  const data = JSON.parse(readFileSync(join(root, 'i18n.json'), 'utf8'));
+  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+  for (const [code, L] of Object.entries<any>(data.langs)) {
+    const note = esc(L.ui.aiNote);
+    assert.ok(note.length > 40, `${code} disclosure text`);
+    for (const page of [code === 'vi' ? 'index.html' : `${code}/index.html`, code === 'vi' ? 'deck/index.html' : `deck/${code}/index.html`]) {
+      assert.ok(readFileSync(join(root, page), 'utf8').includes(note), `${page} must show the ${code} AI disclosure`);
+    }
+  }
+});

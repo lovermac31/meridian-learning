@@ -89,7 +89,7 @@
     $("ccbtn").setAttribute("aria-pressed", String(captionsOn));
     document.querySelectorAll(".qs").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.sub === code)));
     if (code !== "off") store.set("film-sub-last", code);
-    if (user) { store.set("film-sub", code); emit("film_subtitles", { to: code }); }
+    if (user) emit("film_subtitles", { to: code });
     loadTrack();
   }
 
@@ -100,8 +100,7 @@
     const sel = $("sub");
     sel.append(new Option(t.off, "off"));
     for (const [code, x] of Object.entries(D.langs)) { const o = new Option(x.name, code); o.lang = x.htmlLang || code; sel.append(o); }
-    const saved = store.get("film-sub");
-    setSub(saved && (saved === "off" || D.langs[saved]) ? saved : lang, false);
+    setSub(lang, false);   // each language page starts with its own subtitles; the viewer can switch any time
     sel.addEventListener("change", () => setSub(sel.value, true));
 
     $("bigplay").addEventListener("click", () => video.play());
