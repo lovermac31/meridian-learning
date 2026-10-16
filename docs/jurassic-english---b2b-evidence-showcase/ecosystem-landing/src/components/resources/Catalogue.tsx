@@ -46,7 +46,7 @@ export function Catalogue({ lang, products }: { lang: Lang; products: Product[] 
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               aria-describedby={ids.count}
-              className="min-h-11 w-full rounded-xl border border-[#101820]/25 bg-white py-2 pl-9 pr-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F26419]"
+              className="min-h-11 w-full rounded-xl border border-[#101820]/25 bg-white py-2 pl-9 pr-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#101820]"
             />
           </div>
         </div>
@@ -58,7 +58,7 @@ export function Catalogue({ lang, products }: { lang: Lang; products: Product[] 
             id={ids.level}
             value={level}
             onChange={(e) => setLevel(e.target.value)}
-            className="mt-1 min-h-11 w-full rounded-xl border border-[#101820]/25 bg-white px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F26419] sm:w-44"
+            className="mt-1 min-h-11 w-full rounded-xl border border-[#101820]/25 bg-white px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#101820] sm:w-44"
           >
             <option value="all">{s.allLevels}</option>
             {levels.map((l) => (
@@ -76,7 +76,7 @@ export function Catalogue({ lang, products }: { lang: Lang; products: Product[] 
             id={ids.kind}
             value={kind}
             onChange={(e) => setKind(e.target.value)}
-            className="mt-1 min-h-11 w-full rounded-xl border border-[#101820]/25 bg-white px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F26419] sm:w-44"
+            className="mt-1 min-h-11 w-full rounded-xl border border-[#101820]/25 bg-white px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#101820] sm:w-44"
           >
             <option value="all">{s.allTypes}</option>
             {KINDS.map((k) => (

@@ -93,7 +93,7 @@ function FaqSection({ lang }: { lang: Lang }) {
       <div className="mt-5 divide-y divide-[#101820]/10 rounded-2xl bg-white">
         {FAQ.map((f) => (
           <details key={f.q.en} className="group p-5">
-            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F26419]">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#101820]">
               {f.q[lang]}
               <span aria-hidden="true" className="text-xl group-open:rotate-45 transition-transform">+</span>
             </summary>
