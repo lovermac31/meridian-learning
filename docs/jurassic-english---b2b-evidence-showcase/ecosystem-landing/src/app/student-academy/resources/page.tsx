@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 const FOUR_STEPS = [
   { n: "01", title: "Free interactive preview", description: "Play the existing two-minute Story Quest to experience a guided story decision. It is a separate activity from this resource deck.", icon: Sparkles },
   { n: "02", title: "Level sampler", description: "Browse the skills and formats represented across Levels 1–5. The sample below is an original illustrative activity, not a real learner submission or a placement result.", icon: BookOpen },
-  { n: "03", title: "Enrolled-family library", description: "See the kinds of learner materials used in class. Full family resources are provided to enrolled learners; this page does not expose private handbooks or teacher notes.", icon: UsersRound },
+  { n: "03", title: "Enrolled-family library", description: "Ask the Academy team which level materials are currently available. Learner-only materials are shared directly with enrolled families; this page does not expose private handbooks or teacher notes.", icon: UsersRound },
   { n: "04", title: "Educator collection", description: "A separate collection for authorised teachers and school partners. Teacher manuals, lesson plans, training and assessment materials are not public downloads.", icon: GraduationCap },
 ];
 
