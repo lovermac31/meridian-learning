@@ -130,6 +130,11 @@
       "source": "/pilot/:path(.+)/",
       "destination": "/pilot/:path",
       "permanent": true
+    },
+    {
+      "source": "/film/:token",
+      "destination": "/film/:token/",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -398,6 +403,24 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/film/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
+      "source": "/film/:token/media/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
         }
       ]
     }

@@ -1,0 +1,1003 @@
+{
+  "_note": "JE-WWL-CINEMATIC-COMMERCIAL-001 preview strings. Cue times come from the placeholder cut's spoken audio. All cues follow the APPROVED screenplay, which Jay records in his own voice. The draft placeholder audio differs at cues 3a and 11 (see captions/en-draft-spoken.vtt). All non-EN text is machine-drafted and UNREVIEWED by native speakers.",
+  "cueTimes": [
+    [
+      "1",
+      0.51,
+      4.49
+    ],
+    [
+      "2",
+      4.49,
+      10.4
+    ],
+    [
+      "3a",
+      11.37,
+      15.67
+    ],
+    [
+      "3b",
+      15.67,
+      20.42
+    ],
+    [
+      "4",
+      20.82,
+      25.3
+    ],
+    [
+      "5",
+      25.3,
+      30.75
+    ],
+    [
+      "6",
+      31.15,
+      37.81
+    ],
+    [
+      "7",
+      37.81,
+      41.14
+    ],
+    [
+      "8",
+      42.09,
+      46.75
+    ],
+    [
+      "9",
+      46.75,
+      52.25
+    ],
+    [
+      "10",
+      53.28,
+      59.49
+    ],
+    [
+      "11",
+      59.49,
+      62.6
+    ]
+  ],
+  "timeline": {
+    "je": [
+      30.95,
+      41.85
+    ],
+    "wwl": [
+      41.85,
+      52.2
+    ],
+    "paths": [
+      52.2,
+      62.2
+    ],
+    "end": 62.2
+  },
+  "links": {
+    "je": "https://jurassicenglish.com",
+    "wwl": "https://www.worldwiselearning.app",
+    "inquiry": "https://www.worldwiselearning.app/inquiry",
+    "inquiryVi": "https://www.worldwiselearning.app/vi/inquiry",
+    "youngLearners": "https://jurassicenglish.com/young-learners-speaking/"
+  },
+  "langs": {
+    "vi": {
+      "name": "Tiếng Việt",
+      "dir": "ltr",
+      "reviewed": false,
+      "learner": "https://jurassicenglish.com/ai-speaking/vi",
+      "jeHome": "https://jurassicenglish.com/vi",
+      "wwlHome": "https://www.worldwiselearning.app/vi",
+      "parent": "https://jurassicenglish.com/vi/luyen-noi-ielts/",
+      "englishPages": [],
+      "ui": {
+        "title": "Jay Adams: Phía con người của đổi mới",
+        "badge": "Bản nháp xem trước: chưa phát hành",
+        "draftNote": "Đây là bản dựng tạm từ bản nháp do AI tạo. Lời dẫn, hình ảnh và bản dịch cuối cùng vẫn cần chủ sở hữu phê duyệt.",
+        "translationNote": "Bản dịch chưa được người bản ngữ duyệt.",
+        "play": "Phát",
+        "pause": "Tạm dừng",
+        "mute": "Tắt tiếng",
+        "unmute": "Bật tiếng",
+        "captions": "Phụ đề",
+        "fullscreen": "Toàn màn hình",
+        "exitFullscreen": "Thoát toàn màn hình",
+        "replay": "Xem lại",
+        "language": "Ngôn ngữ",
+        "seek": "Tua",
+        "skip": "Chuyển đến các lựa chọn",
+        "ctaJE": "Khám phá Jurassic English",
+        "ctaWWL": "Khám phá WorldWise Learning",
+        "endLearners": "Dành cho người học và gia đình",
+        "endInstitutions": "Dành cho tổ chức và người đi làm",
+        "tagline": "Khơi dậy trí tuệ. Kết nối thế giới. Kiến tạo tương lai.",
+        "qrJE": "Quét để vào JurassicEnglish.com",
+        "qrWWL": "Quét để vào WorldWiseLearning.app",
+        "chooseHeading": "Chúng tôi có thể giúp gì cho bạn?",
+        "englishPage": "Trang tiếng Anh",
+        "learner": [
+          "Tôi là người học tiếng Anh",
+          "Tự tin hơn với tiếng Anh",
+          "Khám phá luyện nói, tư duy phản biện và lộ trình học tập trung vào IELTS.",
+          "Khám phá Jurassic English"
+        ],
+        "parent": [
+          "Tôi là phụ huynh",
+          "Giúp con tự tin giao tiếp",
+          "Các buổi luyện nói giúp con tự tin và tư duy rõ ràng hơn bằng tiếng Anh.",
+          "Xem chương trình cho con"
+        ],
+        "school": [
+          "Tôi đại diện cho trường học hoặc đại học",
+          "Đưa học tập thông minh vào nhà trường",
+          "Kết hợp giáo dục với công nghệ thông minh cho người học, nhà giáo và đội ngũ của bạn.",
+          "Liên hệ WorldWise Learning"
+        ],
+        "business": [
+          "Tôi là người đi làm trong doanh nghiệp",
+          "Xây dựng trải nghiệm học tập tốt hơn",
+          "Giải pháp học tập và công nghệ thông minh cho người đi làm và đội ngũ của họ.",
+          "Liên hệ WorldWise Learning"
+        ],
+        "volume": "Âm lượng",
+        "off": "Tắt",
+        "subtitles": "Phụ đề",
+        "transcriptHeading": "Lời thoại",
+        "aboutHeading": "Bộ phim này nói về điều gì?",
+        "about": "Trong bộ phim dài 60 giây này, Jay Adams, nhà giáo dục và nhà đổi mới người Mỹ, chia sẻ vì sao giáo dục thực chất phải đào tạo người biết tư duy, không chỉ người giỏi làm bài thi. Ông giới thiệu Jurassic English, nơi phát triển khả năng giao tiếp, tư duy phản biện và trình độ tiếng Anh qua những bài học cuốn hút, và WorldWise Learning, nơi kết hợp giáo dục với công nghệ thông minh cho các cơ sở giáo dục, nhà giáo và người đi làm.",
+        "spoken": "Lời nói bằng tiếng Anh. Phụ đề 10 ngôn ngữ, mặc định tiếng Việt.",
+        "message": "Thông điệp riêng từ Nathaniel Jay Adams",
+        "filmChip": "Phim 60 giây",
+        "cineAudio": "Âm thanh điện ảnh",
+        "deckLink": "Xem bản trình bày"
+      },
+      "cues": {
+        "1": "Tôi là Nathaniel Jay Adams, một nhà giáo dục và nhà đổi mới người Mỹ.",
+        "2": "Sau nhiều năm làm việc trong lớp học và lĩnh vực công nghệ, tôi nhận ra rằng giáo dục thực chất có thể thay đổi cuộc đời.",
+        "3a": "Tầm nhìn của tôi là một nền giáo dục đào tạo người biết tư duy, không chỉ người giỏi làm bài thi.",
+        "3b": "Nơi công nghệ trao quyền cho con người, và cơ hội vươn xa vượt mọi biên giới.",
+        "4": "Tôi đã thấy nhiều người học gặp khó khăn trong những hệ thống bỏ qua tiềm năng của họ.",
+        "5": "Tôi tin rằng họ xứng đáng với điều tốt đẹp hơn: sự thấu hiểu, sự tự tin và cơ hội.",
+        "6": "Tại Jurassic English, chúng tôi phát triển khả năng giao tiếp, tư duy phản biện và trình độ tiếng Anh",
+        "7": "thông qua những bài học cuốn hút và luyện tập có ý nghĩa.",
+        "8": "WorldWise Learning kết hợp giáo dục với công nghệ thông minh,",
+        "9": "giúp các cơ sở giáo dục, nhà giáo và người đi làm xây dựng trải nghiệm học tập tốt hơn.",
+        "10": "Từ từng người học đến các tổ chức trên toàn thế giới, sứ mệnh của chúng tôi là phát huy tiềm năng con người.",
+        "11": "Tôi là Jay Adams. Hãy cùng nhau kiến tạo tương lai."
+      }
+    },
+    "en": {
+      "name": "English",
+      "dir": "ltr",
+      "reviewed": true,
+      "learner": "https://jurassicenglish.com/ai-speaking",
+      "jeHome": "https://jurassicenglish.com/",
+      "wwlHome": "https://www.worldwiselearning.app/",
+      "parent": "https://jurassicenglish.com/young-learners-speaking/",
+      "englishPages": [],
+      "ui": {
+        "title": "Jay Adams: The Human Side of Innovation",
+        "badge": "Preview draft: not for release",
+        "draftNote": "This is a placeholder cut of an AI-generated draft. The final narration, visuals and translations still need the owner's approval.",
+        "translationNote": "",
+        "play": "Play",
+        "pause": "Pause",
+        "mute": "Mute",
+        "unmute": "Unmute",
+        "captions": "Captions",
+        "fullscreen": "Full screen",
+        "exitFullscreen": "Exit full screen",
+        "replay": "Watch again",
+        "language": "Language",
+        "seek": "Seek",
+        "skip": "Skip to choices",
+        "ctaJE": "Explore Jurassic English",
+        "ctaWWL": "Discover WorldWise Learning",
+        "endLearners": "For learners & families",
+        "endInstitutions": "For institutions & professionals",
+        "tagline": "Empowering Minds. Connecting Worlds. Transforming Futures.",
+        "qrJE": "Scan for JurassicEnglish.com",
+        "qrWWL": "Scan for WorldWiseLearning.app",
+        "chooseHeading": "Where can we help you?",
+        "englishPage": "Page in English",
+        "learner": [
+          "I'm an English learner",
+          "Build confidence in English",
+          "Explore speaking practice, critical thinking, and IELTS-focused learning.",
+          "Explore Jurassic English"
+        ],
+        "parent": [
+          "I'm a parent",
+          "Help your child speak with confidence",
+          "Speaking lessons for young learners that build confidence and clear thinking in English.",
+          "See young learner lessons"
+        ],
+        "school": [
+          "I represent a school or university",
+          "Bring intelligent learning to your institution",
+          "Education and intelligent technology together, for your learners, educators and staff.",
+          "Talk to WorldWise Learning"
+        ],
+        "business": [
+          "I'm a business professional",
+          "Build better learning experiences",
+          "Learning and intelligent technology for professionals and their teams.",
+          "Talk to WorldWise Learning"
+        ],
+        "volume": "Volume",
+        "off": "Off",
+        "subtitles": "Subtitles",
+        "transcriptHeading": "Transcript",
+        "aboutHeading": "What is this film about?",
+        "about": "In this 60-second film, Jay Adams, an American educator and innovator, explains why real education should build thinkers, not just test-takers. He introduces Jurassic English, which builds communication, critical thinking and English proficiency through engaging lessons, and WorldWise Learning, which brings education and intelligent technology together for institutions, educators and professionals.",
+        "spoken": "Spoken in English. Subtitles in 10 languages.",
+        "message": "A personal message from Nathaniel Jay Adams",
+        "filmChip": "60s film",
+        "cineAudio": "Cinematic audio",
+        "deckLink": "View the presentation deck"
+      },
+      "cues": {
+        "1": "I'm Nathaniel Jay Adams, an American educator and innovator.",
+        "2": "After years in classrooms and technology, I've learned that real education changes lives.",
+        "3a": "My vision is education that builds thinkers, not just test-takers.",
+        "3b": "Where technology empowers people, and opportunity reaches beyond borders.",
+        "4": "I've seen learners struggle in systems that overlook their potential.",
+        "5": "I believe they deserve something better: understanding, confidence, and opportunity.",
+        "6": "At Jurassic English, we develop stronger communication, critical thinking, and English proficiency",
+        "7": "through engaging lessons and meaningful practice.",
+        "8": "WorldWise Learning brings education and intelligent technology together,",
+        "9": "helping institutions, educators, and professionals build better learning experiences.",
+        "10": "From individual learners to institutions worldwide, our mission is to empower human potential.",
+        "11": "I'm Jay Adams. Let's build the future together."
+      },
+      "cuesSpoken": {
+        "3a": "Is education that builds thinkers, not just test-takers,",
+        "11": "I'm Mr. Jay Adams. Let's build the future together."
+      }
+    },
+    "es": {
+      "name": "Español",
+      "dir": "ltr",
+      "reviewed": false,
+      "learner": "https://jurassicenglish.com/es/ielts-speaking-online",
+      "jeHome": "https://jurassicenglish.com/",
+      "wwlHome": "https://www.worldwiselearning.app/",
+      "parent": "https://jurassicenglish.com/young-learners-speaking/",
+      "englishPages": [
+        "je",
+        "parent",
+        "school",
+        "business",
+        "wwl",
+        "institutions"
+      ],
+      "ui": {
+        "title": "Jay Adams: El lado humano de la innovación",
+        "badge": "Borrador de vista previa: no publicar",
+        "draftNote": "Este es un montaje provisional de un borrador generado con IA. La narración, las imágenes y las traducciones finales aún requieren la aprobación del propietario.",
+        "translationNote": "Traducción pendiente de revisión por un hablante nativo.",
+        "play": "Reproducir",
+        "pause": "Pausar",
+        "mute": "Silenciar",
+        "unmute": "Activar sonido",
+        "captions": "Subtítulos",
+        "fullscreen": "Pantalla completa",
+        "exitFullscreen": "Salir de pantalla completa",
+        "replay": "Volver a ver",
+        "language": "Idioma",
+        "seek": "Buscar",
+        "skip": "Ir a las opciones",
+        "ctaJE": "Conoce Jurassic English",
+        "ctaWWL": "Descubre WorldWise Learning",
+        "endLearners": "Para estudiantes y familias",
+        "endInstitutions": "Para instituciones y profesionales",
+        "tagline": "Mentes que crecen. Mundos que se conectan. Futuros que se transforman.",
+        "qrJE": "Escanea para ir a JurassicEnglish.com",
+        "qrWWL": "Escanea para ir a WorldWiseLearning.app",
+        "chooseHeading": "¿Cómo podemos ayudarte?",
+        "englishPage": "Página en inglés",
+        "learner": [
+          "Estoy aprendiendo inglés",
+          "Gana confianza en inglés",
+          "Descubre práctica oral, pensamiento crítico y aprendizaje enfocado en IELTS.",
+          "Conoce Jurassic English"
+        ],
+        "parent": [
+          "Soy madre o padre",
+          "Ayuda a tu hijo a hablar con confianza",
+          "Clases de conversación para niños que desarrollan confianza y pensamiento claro en inglés.",
+          "Ver clases para niños"
+        ],
+        "school": [
+          "Represento a un colegio o universidad",
+          "Lleva el aprendizaje inteligente a tu institución",
+          "Educación y tecnología inteligente unidas para tus estudiantes, docentes y equipo.",
+          "Hablar con WorldWise Learning"
+        ],
+        "business": [
+          "Soy profesional de empresa",
+          "Crea mejores experiencias de aprendizaje",
+          "Aprendizaje y tecnología inteligente para profesionales y sus equipos.",
+          "Hablar con WorldWise Learning"
+        ],
+        "volume": "Volumen",
+        "off": "Desactivados",
+        "subtitles": "Subtítulos",
+        "transcriptHeading": "Transcripción",
+        "aboutHeading": "¿De qué trata este video?",
+        "about": "En este video de 60 segundos, Jay Adams, educador e innovador estadounidense, explica por qué la verdadera educación debe formar pensadores y no solo personas que aprueban exámenes. Presenta Jurassic English, que desarrolla la comunicación, el pensamiento crítico y el dominio del inglés con clases dinámicas, y WorldWise Learning, que une la educación y la tecnología inteligente para instituciones, docentes y profesionales.",
+        "spoken": "Hablado en inglés. Subtítulos en 10 idiomas.",
+        "message": "Un mensaje personal de Nathaniel Jay Adams",
+        "filmChip": "Película de 60 s",
+        "cineAudio": "Audio cinematográfico",
+        "deckLink": "Ver la presentación"
+      },
+      "cues": {
+        "1": "Soy Nathaniel Jay Adams, educador e innovador estadounidense.",
+        "2": "Tras años en las aulas y en la tecnología, he aprendido que la verdadera educación cambia vidas.",
+        "3a": "Mi visión es una educación que forme pensadores, no solo personas que aprueban exámenes.",
+        "3b": "Donde la tecnología empodera a las personas y las oportunidades llegan más allá de las fronteras.",
+        "4": "He visto a estudiantes con dificultades en sistemas que pasan por alto su potencial.",
+        "5": "Creo que merecen algo mejor: comprensión, confianza y oportunidades.",
+        "6": "En Jurassic English desarrollamos una mejor comunicación, pensamiento crítico y dominio del inglés",
+        "7": "mediante clases dinámicas y una práctica con sentido.",
+        "8": "WorldWise Learning une la educación y la tecnología inteligente,",
+        "9": "ayudando a instituciones, docentes y profesionales a crear mejores experiencias de aprendizaje.",
+        "10": "Desde cada estudiante hasta instituciones de todo el mundo, nuestra misión es potenciar el talento humano.",
+        "11": "Soy Jay Adams. Construyamos juntos el futuro."
+      }
+    },
+    "pt": {
+      "name": "Português (Brasil)",
+      "dir": "ltr",
+      "reviewed": false,
+      "htmlLang": "pt-BR",
+      "learner": "https://jurassicenglish.com/pt/ielts-speaking-online",
+      "jeHome": "https://jurassicenglish.com/",
+      "wwlHome": "https://www.worldwiselearning.app/",
+      "parent": "https://jurassicenglish.com/young-learners-speaking/",
+      "englishPages": [
+        "je",
+        "parent",
+        "school",
+        "business",
+        "wwl",
+        "institutions"
+      ],
+      "ui": {
+        "title": "Jay Adams: O lado humano da inovação",
+        "badge": "Rascunho de pré-visualização: não publicar",
+        "draftNote": "Esta é uma montagem provisória de um rascunho gerado por IA. A narração, as imagens e as traduções finais ainda precisam da aprovação do proprietário.",
+        "translationNote": "Tradução ainda não revisada por um falante nativo.",
+        "play": "Reproduzir",
+        "pause": "Pausar",
+        "mute": "Silenciar",
+        "unmute": "Ativar som",
+        "captions": "Legendas",
+        "fullscreen": "Tela cheia",
+        "exitFullscreen": "Sair da tela cheia",
+        "replay": "Assistir de novo",
+        "language": "Idioma",
+        "seek": "Avançar ou voltar",
+        "skip": "Ir para as opções",
+        "ctaJE": "Conheça a Jurassic English",
+        "ctaWWL": "Descubra a WorldWise Learning",
+        "endLearners": "Para alunos e famílias",
+        "endInstitutions": "Para instituições e profissionais",
+        "tagline": "Mentes fortalecidas. Mundos conectados. Futuros transformados.",
+        "qrJE": "Escaneie para acessar JurassicEnglish.com",
+        "qrWWL": "Escaneie para acessar WorldWiseLearning.app",
+        "chooseHeading": "Como podemos ajudar você?",
+        "englishPage": "Página em inglês",
+        "learner": [
+          "Estou aprendendo inglês",
+          "Ganhe confiança no inglês",
+          "Conheça a prática de conversação, o pensamento crítico e o aprendizado focado no IELTS.",
+          "Conheça a Jurassic English"
+        ],
+        "parent": [
+          "Sou pai ou mãe",
+          "Ajude seu filho a falar com confiança",
+          "Aulas de conversação para crianças que desenvolvem confiança e pensamento claro em inglês.",
+          "Ver aulas para crianças"
+        ],
+        "school": [
+          "Represento uma escola ou universidade",
+          "Leve o aprendizado inteligente à sua instituição",
+          "Educação e tecnologia inteligente juntas para seus alunos, educadores e equipe.",
+          "Falar com a WorldWise Learning"
+        ],
+        "business": [
+          "Sou profissional de empresa",
+          "Crie experiências de aprendizagem melhores",
+          "Aprendizagem e tecnologia inteligente para profissionais e suas equipes.",
+          "Falar com a WorldWise Learning"
+        ],
+        "volume": "Volume",
+        "off": "Desativadas",
+        "subtitles": "Legendas",
+        "transcriptHeading": "Transcrição",
+        "aboutHeading": "Sobre o que é este vídeo?",
+        "about": "Neste vídeo de 60 segundos, Jay Adams, educador e inovador norte-americano, explica por que a educação de verdade deve formar pensadores, e não apenas pessoas que fazem provas. Ele apresenta a Jurassic English, que desenvolve comunicação, pensamento crítico e domínio do inglês com aulas envolventes, e a WorldWise Learning, que une educação e tecnologia inteligente para instituições, educadores e profissionais.",
+        "spoken": "Falado em inglês. Legendas em 10 idiomas.",
+        "message": "Uma mensagem pessoal de Nathaniel Jay Adams",
+        "filmChip": "Filme de 60 s",
+        "cineAudio": "Áudio cinematográfico",
+        "deckLink": "Ver a apresentação"
+      },
+      "cues": {
+        "1": "Sou Nathaniel Jay Adams, educador e inovador norte-americano.",
+        "2": "Depois de anos em salas de aula e na tecnologia, aprendi que a educação de verdade transforma vidas.",
+        "3a": "Minha visão é uma educação que forme pensadores, não apenas pessoas que fazem provas.",
+        "3b": "Em que a tecnologia fortalece as pessoas e as oportunidades vão além das fronteiras.",
+        "4": "Já vi alunos enfrentarem dificuldades em sistemas que ignoram o seu potencial.",
+        "5": "Acredito que eles merecem algo melhor: compreensão, confiança e oportunidade.",
+        "6": "Na Jurassic English, desenvolvemos comunicação, pensamento crítico e domínio do inglês",
+        "7": "por meio de aulas envolventes e prática significativa.",
+        "8": "A WorldWise Learning une educação e tecnologia inteligente,",
+        "9": "ajudando instituições, educadores e profissionais a criar experiências de aprendizagem melhores.",
+        "10": "De cada aluno a instituições do mundo inteiro, nossa missão é desenvolver o potencial humano.",
+        "11": "Sou Jay Adams. Vamos construir o futuro juntos."
+      }
+    },
+    "id": {
+      "name": "Bahasa Indonesia",
+      "dir": "ltr",
+      "reviewed": false,
+      "learner": "https://jurassicenglish.com/id/ielts-speaking-online/indonesia",
+      "jeHome": "https://jurassicenglish.com/",
+      "wwlHome": "https://www.worldwiselearning.app/",
+      "parent": "https://jurassicenglish.com/young-learners-speaking/",
+      "englishPages": [
+        "je",
+        "parent",
+        "school",
+        "business",
+        "wwl",
+        "institutions"
+      ],
+      "ui": {
+        "title": "Jay Adams: Sisi manusiawi dari inovasi",
+        "badge": "Draf pratinjau: belum untuk dirilis",
+        "draftNote": "Ini adalah potongan sementara dari draf buatan AI. Narasi, visual, dan terjemahan akhir masih memerlukan persetujuan pemilik.",
+        "translationNote": "Terjemahan belum ditinjau oleh penutur asli.",
+        "play": "Putar",
+        "pause": "Jeda",
+        "mute": "Bisukan",
+        "unmute": "Bunyikan",
+        "captions": "Teks",
+        "fullscreen": "Layar penuh",
+        "exitFullscreen": "Keluar dari layar penuh",
+        "replay": "Tonton lagi",
+        "language": "Bahasa",
+        "seek": "Geser",
+        "skip": "Langsung ke pilihan",
+        "ctaJE": "Jelajahi Jurassic English",
+        "ctaWWL": "Kenali WorldWise Learning",
+        "endLearners": "Untuk pelajar & keluarga",
+        "endInstitutions": "Untuk lembaga & profesional",
+        "tagline": "Memberdayakan pikiran. Menghubungkan dunia. Mengubah masa depan.",
+        "qrJE": "Pindai untuk JurassicEnglish.com",
+        "qrWWL": "Pindai untuk WorldWiseLearning.app",
+        "chooseHeading": "Apa yang bisa kami bantu?",
+        "englishPage": "Halaman dalam bahasa Inggris",
+        "learner": [
+          "Saya belajar bahasa Inggris",
+          "Bangun kepercayaan diri berbahasa Inggris",
+          "Jelajahi latihan berbicara, berpikir kritis, dan pembelajaran berfokus IELTS.",
+          "Jelajahi Jurassic English"
+        ],
+        "parent": [
+          "Saya orang tua",
+          "Bantu anak Anda berbicara dengan percaya diri",
+          "Kelas berbicara untuk anak yang membangun kepercayaan diri dan cara berpikir jernih dalam bahasa Inggris.",
+          "Lihat kelas untuk anak"
+        ],
+        "school": [
+          "Saya mewakili sekolah atau universitas",
+          "Hadirkan pembelajaran cerdas di lembaga Anda",
+          "Pendidikan dan teknologi cerdas bersatu untuk pelajar, pendidik, dan staf Anda.",
+          "Hubungi WorldWise Learning"
+        ],
+        "business": [
+          "Saya profesional bisnis",
+          "Bangun pengalaman belajar yang lebih baik",
+          "Pembelajaran dan teknologi cerdas untuk profesional dan tim mereka.",
+          "Hubungi WorldWise Learning"
+        ],
+        "volume": "Volume",
+        "off": "Mati",
+        "subtitles": "Subtitel",
+        "transcriptHeading": "Transkrip",
+        "aboutHeading": "Tentang apa film ini?",
+        "about": "Dalam film 60 detik ini, Jay Adams, pendidik dan inovator asal Amerika, menjelaskan mengapa pendidikan sejati harus membentuk pemikir, bukan sekadar peserta ujian. Ia memperkenalkan Jurassic English, yang mengembangkan komunikasi, berpikir kritis, dan kemahiran bahasa Inggris melalui pelajaran yang menarik, serta WorldWise Learning, yang memadukan pendidikan dan teknologi cerdas untuk lembaga, pendidik, dan profesional.",
+        "spoken": "Diucapkan dalam bahasa Inggris. Subtitel dalam 10 bahasa.",
+        "message": "Pesan pribadi dari Nathaniel Jay Adams",
+        "filmChip": "Film 60 detik",
+        "cineAudio": "Audio sinematik",
+        "deckLink": "Lihat presentasi"
+      },
+      "cues": {
+        "1": "Saya Nathaniel Jay Adams, pendidik dan inovator asal Amerika.",
+        "2": "Setelah bertahun-tahun di ruang kelas dan dunia teknologi, saya belajar bahwa pendidikan sejati mengubah hidup.",
+        "3a": "Visi saya adalah pendidikan yang membentuk pemikir, bukan sekadar peserta ujian.",
+        "3b": "Di mana teknologi memberdayakan manusia, dan peluang menjangkau melampaui batas negara.",
+        "4": "Saya telah melihat pelajar kesulitan dalam sistem yang mengabaikan potensi mereka.",
+        "5": "Saya percaya mereka layak mendapatkan yang lebih baik: pemahaman, kepercayaan diri, dan kesempatan.",
+        "6": "Di Jurassic English, kami mengembangkan komunikasi, berpikir kritis, dan kemahiran bahasa Inggris",
+        "7": "melalui pelajaran yang menarik dan latihan yang bermakna.",
+        "8": "WorldWise Learning memadukan pendidikan dan teknologi cerdas,",
+        "9": "membantu lembaga, pendidik, dan profesional membangun pengalaman belajar yang lebih baik.",
+        "10": "Dari setiap pelajar hingga lembaga di seluruh dunia, misi kami adalah memberdayakan potensi manusia.",
+        "11": "Saya Jay Adams. Mari bersama membangun masa depan."
+      }
+    },
+    "ms": {
+      "name": "Bahasa Melayu",
+      "dir": "ltr",
+      "reviewed": false,
+      "learner": "https://jurassicenglish.com/ms/ielts-speaking-online/malaysia",
+      "jeHome": "https://jurassicenglish.com/",
+      "wwlHome": "https://www.worldwiselearning.app/",
+      "parent": "https://jurassicenglish.com/young-learners-speaking/",
+      "englishPages": [
+        "je",
+        "parent",
+        "school",
+        "business",
+        "wwl",
+        "institutions"
+      ],
+      "ui": {
+        "title": "Jay Adams: Sisi kemanusiaan dalam inovasi",
+        "badge": "Draf pratonton: bukan untuk siaran",
+        "draftNote": "Ini ialah suntingan sementara bagi draf yang dijana AI. Naratif, visual dan terjemahan akhir masih memerlukan kelulusan pemilik.",
+        "translationNote": "Terjemahan belum disemak oleh penutur asli.",
+        "play": "Main",
+        "pause": "Jeda",
+        "mute": "Senyap",
+        "unmute": "Nyahsenyap",
+        "captions": "Sari kata",
+        "fullscreen": "Skrin penuh",
+        "exitFullscreen": "Keluar skrin penuh",
+        "replay": "Tonton semula",
+        "language": "Bahasa",
+        "seek": "Cari kedudukan",
+        "skip": "Terus ke pilihan",
+        "ctaJE": "Terokai Jurassic English",
+        "ctaWWL": "Kenali WorldWise Learning",
+        "endLearners": "Untuk pelajar & keluarga",
+        "endInstitutions": "Untuk institusi & profesional",
+        "tagline": "Memperkasa minda. Menghubungkan dunia. Mengubah masa depan.",
+        "qrJE": "Imbas untuk JurassicEnglish.com",
+        "qrWWL": "Imbas untuk WorldWiseLearning.app",
+        "chooseHeading": "Bagaimana kami boleh membantu anda?",
+        "englishPage": "Halaman dalam bahasa Inggeris",
+        "learner": [
+          "Saya pelajar bahasa Inggeris",
+          "Bina keyakinan dalam bahasa Inggeris",
+          "Terokai latihan bertutur, pemikiran kritis dan pembelajaran berfokuskan IELTS.",
+          "Terokai Jurassic English"
+        ],
+        "parent": [
+          "Saya ibu bapa",
+          "Bantu anak anda bertutur dengan yakin",
+          "Kelas bertutur untuk kanak-kanak yang membina keyakinan dan pemikiran jelas dalam bahasa Inggeris.",
+          "Lihat kelas kanak-kanak"
+        ],
+        "school": [
+          "Saya mewakili sekolah atau universiti",
+          "Bawa pembelajaran pintar ke institusi anda",
+          "Pendidikan dan teknologi pintar bersatu untuk pelajar, pendidik dan kakitangan anda.",
+          "Hubungi WorldWise Learning"
+        ],
+        "business": [
+          "Saya profesional perniagaan",
+          "Bina pengalaman pembelajaran yang lebih baik",
+          "Pembelajaran dan teknologi pintar untuk profesional dan pasukan mereka.",
+          "Hubungi WorldWise Learning"
+        ],
+        "volume": "Kelantangan",
+        "off": "Tutup",
+        "subtitles": "Sari kata",
+        "transcriptHeading": "Transkrip",
+        "aboutHeading": "Apakah kisah filem ini?",
+        "about": "Dalam filem 60 saat ini, Jay Adams, pendidik dan inovator dari Amerika, menerangkan mengapa pendidikan sebenar perlu melahirkan pemikir, bukan sekadar calon peperiksaan. Beliau memperkenalkan Jurassic English, yang membina komunikasi, pemikiran kritis dan penguasaan bahasa Inggeris melalui pelajaran yang menarik, serta WorldWise Learning, yang menyatukan pendidikan dan teknologi pintar untuk institusi, pendidik dan profesional.",
+        "spoken": "Dituturkan dalam bahasa Inggeris. Sari kata dalam 10 bahasa.",
+        "message": "Mesej peribadi daripada Nathaniel Jay Adams",
+        "filmChip": "Filem 60 saat",
+        "cineAudio": "Audio sinematik",
+        "deckLink": "Lihat pembentangan"
+      },
+      "cues": {
+        "1": "Saya Nathaniel Jay Adams, seorang pendidik dan inovator dari Amerika.",
+        "2": "Selepas bertahun-tahun di bilik darjah dan dalam bidang teknologi, saya belajar bahawa pendidikan sebenar mengubah kehidupan.",
+        "3a": "Visi saya ialah pendidikan yang melahirkan pemikir, bukan sekadar calon peperiksaan.",
+        "3b": "Di mana teknologi memperkasakan manusia, dan peluang menjangkau melangkaui sempadan.",
+        "4": "Saya pernah melihat pelajar bergelut dalam sistem yang mengabaikan potensi mereka.",
+        "5": "Saya percaya mereka layak mendapat sesuatu yang lebih baik: kefahaman, keyakinan dan peluang.",
+        "6": "Di Jurassic English, kami membina komunikasi, pemikiran kritis dan penguasaan bahasa Inggeris",
+        "7": "melalui pelajaran yang menarik dan latihan yang bermakna.",
+        "8": "WorldWise Learning menyatukan pendidikan dan teknologi pintar,",
+        "9": "membantu institusi, pendidik dan profesional membina pengalaman pembelajaran yang lebih baik.",
+        "10": "Daripada setiap pelajar hingga institusi di seluruh dunia, misi kami ialah memperkasakan potensi manusia.",
+        "11": "Saya Jay Adams. Mari kita bina masa depan bersama."
+      }
+    },
+    "th": {
+      "name": "ไทย",
+      "dir": "ltr",
+      "reviewed": false,
+      "learner": "https://jurassicenglish.com/th/ielts-speaking-online/thailand",
+      "jeHome": "https://jurassicenglish.com/",
+      "wwlHome": "https://www.worldwiselearning.app/",
+      "parent": "https://jurassicenglish.com/young-learners-speaking/",
+      "englishPages": [
+        "je",
+        "parent",
+        "school",
+        "business",
+        "wwl",
+        "institutions"
+      ],
+      "ui": {
+        "title": "Jay Adams: ด้านความเป็นมนุษย์ของนวัตกรรม",
+        "badge": "ฉบับร่างสำหรับดูตัวอย่าง: ยังไม่เผยแพร่",
+        "draftNote": "นี่คือฉบับตัดต่อชั่วคราวจากร่างที่สร้างด้วย AI เสียงบรรยาย ภาพ และคำแปลฉบับสุดท้ายยังต้องได้รับการอนุมัติจากเจ้าของ",
+        "translationNote": "คำแปลยังไม่ได้ตรวจทานโดยเจ้าของภาษา",
+        "play": "เล่น",
+        "pause": "หยุดชั่วคราว",
+        "mute": "ปิดเสียง",
+        "unmute": "เปิดเสียง",
+        "captions": "คำบรรยาย",
+        "fullscreen": "เต็มจอ",
+        "exitFullscreen": "ออกจากโหมดเต็มจอ",
+        "replay": "ดูอีกครั้ง",
+        "language": "ภาษา",
+        "seek": "เลื่อนตำแหน่ง",
+        "skip": "ข้ามไปยังตัวเลือก",
+        "ctaJE": "สำรวจ Jurassic English",
+        "ctaWWL": "ค้นพบ WorldWise Learning",
+        "endLearners": "สำหรับผู้เรียนและครอบครัว",
+        "endInstitutions": "สำหรับสถาบันและผู้ประกอบวิชาชีพ",
+        "tagline": "เสริมพลังความคิด เชื่อมโยงโลก เปลี่ยนแปลงอนาคต",
+        "qrJE": "สแกนเพื่อไปที่ JurassicEnglish.com",
+        "qrWWL": "สแกนเพื่อไปที่ WorldWiseLearning.app",
+        "chooseHeading": "เราช่วยคุณได้อย่างไร",
+        "englishPage": "หน้าภาษาอังกฤษ",
+        "learner": [
+          "ฉันเป็นผู้เรียนภาษาอังกฤษ",
+          "สร้างความมั่นใจในภาษาอังกฤษ",
+          "สำรวจการฝึกพูด การคิดเชิงวิพากษ์ และการเรียนที่เน้น IELTS",
+          "สำรวจ Jurassic English"
+        ],
+        "parent": [
+          "ฉันเป็นผู้ปกครอง",
+          "ช่วยให้ลูกพูดได้อย่างมั่นใจ",
+          "บทเรียนการพูดสำหรับเด็กที่สร้างความมั่นใจและการคิดอย่างชัดเจนในภาษาอังกฤษ",
+          "ดูบทเรียนสำหรับเด็ก"
+        ],
+        "school": [
+          "ฉันเป็นตัวแทนโรงเรียนหรือมหาวิทยาลัย",
+          "นำการเรียนรู้อัจฉริยะสู่สถาบันของคุณ",
+          "ผสานการศึกษาเข้ากับเทคโนโลยีอัจฉริยะสำหรับผู้เรียน ครูผู้สอน และบุคลากรของคุณ",
+          "ติดต่อ WorldWise Learning"
+        ],
+        "business": [
+          "ฉันเป็นผู้ประกอบวิชาชีพในธุรกิจ",
+          "สร้างประสบการณ์การเรียนรู้ที่ดีกว่า",
+          "การเรียนรู้และเทคโนโลยีอัจฉริยะสำหรับผู้ประกอบวิชาชีพและทีมของพวกเขา",
+          "ติดต่อ WorldWise Learning"
+        ],
+        "volume": "ระดับเสียง",
+        "off": "ปิด",
+        "subtitles": "คำบรรยาย",
+        "transcriptHeading": "บทพูด",
+        "aboutHeading": "ภาพยนตร์นี้เกี่ยวกับอะไร",
+        "about": "ในภาพยนตร์ความยาว 60 วินาทีนี้ Jay Adams นักการศึกษาและนักนวัตกรรมชาวอเมริกัน อธิบายว่าทำไมการศึกษาที่แท้จริงต้องสร้างนักคิด ไม่ใช่แค่คนที่ทำข้อสอบได้ เขาแนะนำ Jurassic English ที่พัฒนาการสื่อสาร การคิดเชิงวิพากษ์ และความสามารถทางภาษาอังกฤษผ่านบทเรียนที่น่าสนใจ และ WorldWise Learning ที่ผสานการศึกษาเข้ากับเทคโนโลยีอัจฉริยะสำหรับสถาบัน ครูผู้สอน และผู้ประกอบวิชาชีพ",
+        "spoken": "พูดเป็นภาษาอังกฤษ มีคำบรรยาย 10 ภาษา",
+        "message": "ข้อความส่วนตัวจาก Nathaniel Jay Adams",
+        "filmChip": "ภาพยนตร์ 60 วินาที",
+        "cineAudio": "เสียงแบบภาพยนตร์",
+        "deckLink": "ดูสไลด์นำเสนอ"
+      },
+      "cues": {
+        "1": "ผม Nathaniel Jay Adams นักการศึกษาและนักนวัตกรรมชาวอเมริกัน",
+        "2": "หลังจากหลายปีในห้องเรียนและในโลกเทคโนโลยี ผมได้เรียนรู้ว่าการศึกษาที่แท้จริงเปลี่ยนชีวิตคนได้",
+        "3a": "วิสัยทัศน์ของผมคือการศึกษาที่สร้างนักคิด ไม่ใช่แค่คนที่ทำข้อสอบได้",
+        "3b": "ที่ซึ่งเทคโนโลยีเสริมพลังให้ผู้คน และโอกาสไปไกลเกินพรมแดน",
+        "4": "ผมเคยเห็นผู้เรียนดิ้นรนอยู่ในระบบที่มองข้ามศักยภาพของพวกเขา",
+        "5": "ผมเชื่อว่าพวกเขาสมควรได้รับสิ่งที่ดีกว่า ทั้งความเข้าใจ ความมั่นใจ และโอกาส",
+        "6": "ที่ Jurassic English เราพัฒนาการสื่อสาร การคิดเชิงวิพากษ์ และความสามารถทางภาษาอังกฤษ",
+        "7": "ผ่านบทเรียนที่น่าสนใจและการฝึกฝนที่มีความหมาย",
+        "8": "WorldWise Learning ผสานการศึกษาเข้ากับเทคโนโลยีอัจฉริยะ",
+        "9": "ช่วยให้สถาบัน ครูผู้สอน และผู้ประกอบวิชาชีพสร้างประสบการณ์การเรียนรู้ที่ดีกว่า",
+        "10": "ตั้งแต่ผู้เรียนแต่ละคนไปจนถึงสถาบันทั่วโลก พันธกิจของเราคือการปลดปล่อยศักยภาพของมนุษย์",
+        "11": "ผม Jay Adams มาร่วมสร้างอนาคตไปด้วยกันครับ"
+      }
+    },
+    "ar": {
+      "name": "العربية",
+      "dir": "rtl",
+      "reviewed": false,
+      "learner": "https://jurassicenglish.com/ielts-speaking-online",
+      "jeHome": "https://jurassicenglish.com/",
+      "wwlHome": "https://www.worldwiselearning.app/",
+      "parent": "https://jurassicenglish.com/young-learners-speaking/",
+      "englishPages": [
+        "learner",
+        "je",
+        "parent",
+        "school",
+        "business",
+        "wwl",
+        "learners",
+        "institutions"
+      ],
+      "ui": {
+        "title": "جاي آدامز: الجانب الإنساني من الابتكار",
+        "badge": "نسخة معاينة: ليست للنشر",
+        "draftNote": "هذه نسخة مؤقتة من مسودة أُنشئت بالذكاء الاصطناعي. لا يزال السرد والمرئيات والترجمات النهائية بحاجة إلى موافقة المالك.",
+        "translationNote": "لم يراجع متحدث أصلي هذه الترجمة بعد.",
+        "play": "تشغيل",
+        "pause": "إيقاف مؤقت",
+        "mute": "كتم الصوت",
+        "unmute": "تشغيل الصوت",
+        "captions": "الترجمة",
+        "fullscreen": "ملء الشاشة",
+        "exitFullscreen": "الخروج من ملء الشاشة",
+        "replay": "إعادة المشاهدة",
+        "language": "اللغة",
+        "seek": "التقديم والترجيع",
+        "skip": "انتقل إلى الخيارات",
+        "ctaJE": "اكتشف Jurassic English",
+        "ctaWWL": "تعرّف على WorldWise Learning",
+        "endLearners": "للمتعلمين والعائلات",
+        "endInstitutions": "للمؤسسات والمهنيين",
+        "tagline": "تمكين العقول. ربط العوالم. تحويل المستقبل.",
+        "qrJE": "امسح للانتقال إلى JurassicEnglish.com",
+        "qrWWL": "امسح للانتقال إلى WorldWiseLearning.app",
+        "chooseHeading": "كيف يمكننا مساعدتك؟",
+        "englishPage": "صفحة باللغة الإنجليزية",
+        "learner": [
+          "أتعلّم اللغة الإنجليزية",
+          "اكتسب الثقة في الإنجليزية",
+          "اكتشف التدرّب على المحادثة والتفكير النقدي والتعلّم المركّز على IELTS.",
+          "اكتشف Jurassic English"
+        ],
+        "parent": [
+          "أنا وليّ أمر",
+          "ساعد طفلك على التحدّث بثقة",
+          "دروس محادثة للصغار تبني الثقة والتفكير الواضح باللغة الإنجليزية.",
+          "اطّلع على دروس الصغار"
+        ],
+        "school": [
+          "أمثّل مدرسة أو جامعة",
+          "اجلب التعلّم الذكي إلى مؤسستك",
+          "التعليم والتكنولوجيا الذكية معًا لطلابك ومعلميك وفريقك.",
+          "تواصل مع WorldWise Learning"
+        ],
+        "business": [
+          "أنا مهني في قطاع الأعمال",
+          "ابنِ تجارب تعلّم أفضل",
+          "تعلّم وتكنولوجيا ذكية للمهنيين وفرقهم.",
+          "تواصل مع WorldWise Learning"
+        ],
+        "volume": "مستوى الصوت",
+        "off": "إيقاف",
+        "subtitles": "الترجمة",
+        "transcriptHeading": "النص الكامل",
+        "aboutHeading": "عمّ يتحدث هذا الفيلم؟",
+        "about": "في هذا الفيلم الذي تبلغ مدته 60 ثانية، يشرح جاي آدامز، المعلّم والمبتكر الأمريكي، لماذا يجب أن يصنع التعليم الحقيقي مفكّرين لا مجرد خائضين للاختبارات. ويقدّم Jurassic English التي تطوّر مهارات التواصل والتفكير النقدي وإتقان الإنجليزية عبر دروس شيّقة، وWorldWise Learning التي تجمع بين التعليم والتكنولوجيا الذكية للمؤسسات والمعلمين والمهنيين.",
+        "spoken": "بالإنجليزية مع ترجمة بعشر لغات.",
+        "message": "رسالة شخصية من ناثانيال جاي آدامز",
+        "filmChip": "فيلم 60 ثانية",
+        "cineAudio": "صوت سينمائي",
+        "deckLink": "عرض العرض التقديمي"
+      },
+      "cues": {
+        "1": "أنا ناثانيال جاي آدامز، مُعلّم ومُبتكر أمريكي.",
+        "2": "بعد سنوات في الفصول الدراسية وعالم التكنولوجيا، تعلّمت أن التعليم الحقيقي يغيّر حياة الناس.",
+        "3a": "رؤيتي تعليمٌ يصنع مفكّرين، لا مجرد خائضين للاختبارات.",
+        "3b": "تعليمٌ تُمكّن فيه التكنولوجيا الناس، وتمتد فيه الفرص إلى ما وراء الحدود.",
+        "4": "رأيتُ متعلّمين يعانون في أنظمة تتجاهل إمكاناتهم.",
+        "5": "وأؤمن أنهم يستحقون ما هو أفضل: الفهم والثقة والفرصة.",
+        "6": "في Jurassic English نطوّر مهارات التواصل والتفكير النقدي وإتقان اللغة الإنجليزية",
+        "7": "من خلال دروس شيّقة وممارسة هادفة.",
+        "8": "تجمع WorldWise Learning بين التعليم والتكنولوجيا الذكية،",
+        "9": "لتساعد المؤسسات والمعلمين والمهنيين على بناء تجارب تعلّم أفضل.",
+        "10": "من كل متعلّم إلى المؤسسات حول العالم، رسالتنا تمكين الإمكانات البشرية.",
+        "11": "أنا جاي آدامز. لنصنع المستقبل معًا."
+      }
+    },
+    "ur": {
+      "name": "اردو",
+      "dir": "rtl",
+      "reviewed": false,
+      "learner": "https://jurassicenglish.com/ur/ielts-speaking-online/pakistan",
+      "jeHome": "https://jurassicenglish.com/",
+      "wwlHome": "https://www.worldwiselearning.app/",
+      "parent": "https://jurassicenglish.com/young-learners-speaking/",
+      "englishPages": [
+        "je",
+        "parent",
+        "school",
+        "business",
+        "wwl",
+        "institutions"
+      ],
+      "ui": {
+        "title": "جے ایڈمز: جدت کا انسانی پہلو",
+        "badge": "پیش نظارہ مسودہ: اشاعت کے لیے نہیں",
+        "draftNote": "یہ اے آئی سے تیار کردہ مسودے کا عارضی ورژن ہے۔ حتمی بیانیہ، مناظر اور تراجم کے لیے مالک کی منظوری ابھی باقی ہے۔",
+        "translationNote": "اس ترجمے کا ابھی کسی اہلِ زبان نے جائزہ نہیں لیا۔",
+        "play": "چلائیں",
+        "pause": "روکیں",
+        "mute": "آواز بند",
+        "unmute": "آواز کھولیں",
+        "captions": "سب ٹائٹلز",
+        "fullscreen": "پوری اسکرین",
+        "exitFullscreen": "پوری اسکرین سے باہر",
+        "replay": "دوبارہ دیکھیں",
+        "language": "زبان",
+        "seek": "آگے پیچھے کریں",
+        "skip": "انتخاب پر جائیں",
+        "ctaJE": "Jurassic English دیکھیں",
+        "ctaWWL": "WorldWise Learning کو جانیں",
+        "endLearners": "طلبہ اور خاندانوں کے لیے",
+        "endInstitutions": "اداروں اور پیشہ ور افراد کے لیے",
+        "tagline": "ذہنوں کو بااختیار بنانا۔ دنیاؤں کو جوڑنا۔ مستقبل بدلنا۔",
+        "qrJE": "JurassicEnglish.com کے لیے اسکین کریں",
+        "qrWWL": "WorldWiseLearning.app کے لیے اسکین کریں",
+        "chooseHeading": "ہم آپ کی کیسے مدد کر سکتے ہیں؟",
+        "englishPage": "انگریزی صفحہ",
+        "learner": [
+          "میں انگریزی سیکھ رہا ہوں",
+          "انگریزی میں اعتماد پیدا کریں",
+          "بول چال کی مشق، تنقیدی سوچ اور IELTS پر مرکوز تعلیم دیکھیں۔",
+          "Jurassic English دیکھیں"
+        ],
+        "parent": [
+          "میں والدین ہوں",
+          "اپنے بچے کو اعتماد سے بولنے میں مدد دیں",
+          "بچوں کے لیے بول چال کے اسباق جو انگریزی میں اعتماد اور واضح سوچ پیدا کرتے ہیں۔",
+          "بچوں کے اسباق دیکھیں"
+        ],
+        "school": [
+          "میں کسی اسکول یا یونیورسٹی کی نمائندگی کرتا ہوں",
+          "اپنے ادارے میں ذہین تعلیم لائیں",
+          "آپ کے طلبہ، اساتذہ اور عملے کے لیے تعلیم اور ذہین ٹیکنالوجی ایک ساتھ۔",
+          "WorldWise Learning سے رابطہ کریں"
+        ],
+        "business": [
+          "میں کاروباری پیشہ ور ہوں",
+          "سیکھنے کے بہتر تجربات بنائیں",
+          "پیشہ ور افراد اور ان کی ٹیموں کے لیے تعلیم اور ذہین ٹیکنالوجی۔",
+          "WorldWise Learning سے رابطہ کریں"
+        ],
+        "volume": "آواز کی سطح",
+        "off": "بند",
+        "subtitles": "سب ٹائٹلز",
+        "transcriptHeading": "مکمل متن",
+        "aboutHeading": "یہ فلم کس بارے میں ہے؟",
+        "about": "اس 60 سیکنڈ کی فلم میں امریکی ماہرِ تعلیم اور جدت پسند جے ایڈمز بتاتے ہیں کہ حقیقی تعلیم کو صرف امتحان دینے والے نہیں بلکہ سوچنے والے ذہن تیار کرنے چاہییں۔ وہ Jurassic English کا تعارف کراتے ہیں، جو دلچسپ اسباق کے ذریعے ابلاغ، تنقیدی سوچ اور انگریزی میں مہارت پیدا کرتا ہے، اور WorldWise Learning کا، جو اداروں، اساتذہ اور پیشہ ور افراد کے لیے تعلیم اور ذہین ٹیکنالوجی کو یکجا کرتا ہے۔",
+        "spoken": "انگریزی میں، 10 زبانوں میں سب ٹائٹلز کے ساتھ۔",
+        "message": "نیتھینیئل جے ایڈمز کا ذاتی پیغام",
+        "filmChip": "60 سیکنڈ کی فلم",
+        "cineAudio": "سنیمائی آواز",
+        "deckLink": "پریزنٹیشن دیکھیں"
+      },
+      "cues": {
+        "1": "میں نیتھینیئل جے ایڈمز ہوں، ایک امریکی ماہرِ تعلیم اور جدت پسند۔",
+        "2": "کلاس رومز اور ٹیکنالوجی میں برسوں گزارنے کے بعد میں نے سیکھا ہے کہ حقیقی تعلیم زندگیاں بدل دیتی ہے۔",
+        "3a": "میرا وژن ایسی تعلیم ہے جو صرف امتحان دینے والے نہیں بلکہ سوچنے والے ذہن تیار کرے۔",
+        "3b": "جہاں ٹیکنالوجی لوگوں کو بااختیار بنائے اور مواقع سرحدوں سے آگے تک پہنچیں۔",
+        "4": "میں نے سیکھنے والوں کو ایسے نظاموں میں مشکلات کا سامنا کرتے دیکھا ہے جو ان کی صلاحیتوں کو نظرانداز کرتے ہیں۔",
+        "5": "میرا یقین ہے کہ وہ اس سے بہتر کے حق دار ہیں: سمجھ بوجھ، اعتماد اور مواقع۔",
+        "6": "Jurassic English میں ہم بہتر ابلاغ، تنقیدی سوچ اور انگریزی میں مہارت پیدا کرتے ہیں",
+        "7": "دلچسپ اسباق اور بامعنی مشق کے ذریعے۔",
+        "8": "WorldWise Learning تعلیم اور ذہین ٹیکنالوجی کو یکجا کرتا ہے،",
+        "9": "تاکہ ادارے، اساتذہ اور پیشہ ور افراد سیکھنے کے بہتر تجربات بنا سکیں۔",
+        "10": "انفرادی طلبہ سے لے کر دنیا بھر کے اداروں تک، ہمارا مشن انسانی صلاحیتوں کو بااختیار بنانا ہے۔",
+        "11": "میں جے ایڈمز ہوں۔ آئیے مل کر مستقبل تعمیر کریں۔"
+      }
+    },
+    "bn": {
+      "name": "বাংলা",
+      "dir": "ltr",
+      "reviewed": false,
+      "learner": "https://jurassicenglish.com/bn/ielts-speaking-online/bangladesh",
+      "jeHome": "https://jurassicenglish.com/",
+      "wwlHome": "https://www.worldwiselearning.app/",
+      "parent": "https://jurassicenglish.com/young-learners-speaking/",
+      "englishPages": [
+        "je",
+        "parent",
+        "school",
+        "business",
+        "wwl",
+        "institutions"
+      ],
+      "ui": {
+        "title": "জে অ্যাডামস: উদ্ভাবনের মানবিক দিক",
+        "badge": "প্রিভিউ খসড়া: প্রকাশের জন্য নয়",
+        "draftNote": "এটি এআই-তৈরি একটি খসড়ার অস্থায়ী সংস্করণ। চূড়ান্ত বর্ণনা, দৃশ্য ও অনুবাদের জন্য এখনও মালিকের অনুমোদন প্রয়োজন।",
+        "translationNote": "এই অনুবাদ এখনও কোনো মাতৃভাষী পর্যালোচনা করেননি।",
+        "play": "চালান",
+        "pause": "বিরতি",
+        "mute": "শব্দ বন্ধ",
+        "unmute": "শব্দ চালু",
+        "captions": "সাবটাইটেল",
+        "fullscreen": "পূর্ণ পর্দা",
+        "exitFullscreen": "পূর্ণ পর্দা থেকে বের হন",
+        "replay": "আবার দেখুন",
+        "language": "ভাষা",
+        "seek": "এগিয়ে বা পিছিয়ে যান",
+        "skip": "বিকল্পগুলোতে যান",
+        "ctaJE": "Jurassic English দেখুন",
+        "ctaWWL": "WorldWise Learning সম্পর্কে জানুন",
+        "endLearners": "শিক্ষার্থী ও পরিবারের জন্য",
+        "endInstitutions": "প্রতিষ্ঠান ও পেশাজীবীদের জন্য",
+        "tagline": "মননের ক্ষমতায়ন। বিশ্বের সংযোগ। ভবিষ্যতের রূপান্তর।",
+        "qrJE": "JurassicEnglish.com-এর জন্য স্ক্যান করুন",
+        "qrWWL": "WorldWiseLearning.app-এর জন্য স্ক্যান করুন",
+        "chooseHeading": "আমরা আপনাকে কীভাবে সাহায্য করতে পারি?",
+        "englishPage": "ইংরেজি পৃষ্ঠা",
+        "learner": [
+          "আমি ইংরেজি শিখছি",
+          "ইংরেজিতে আত্মবিশ্বাস গড়ে তুলুন",
+          "কথা বলার অনুশীলন, সমালোচনামূলক চিন্তা ও IELTS-কেন্দ্রিক শেখা ঘুরে দেখুন।",
+          "Jurassic English দেখুন"
+        ],
+        "parent": [
+          "আমি অভিভাবক",
+          "আপনার সন্তানকে আত্মবিশ্বাসের সাথে কথা বলতে সাহায্য করুন",
+          "শিশুদের জন্য কথা বলার পাঠ, যা ইংরেজিতে আত্মবিশ্বাস ও স্পষ্ট চিন্তা গড়ে তোলে।",
+          "শিশুদের পাঠ দেখুন"
+        ],
+        "school": [
+          "আমি একটি স্কুল বা বিশ্ববিদ্যালয়ের প্রতিনিধি",
+          "আপনার প্রতিষ্ঠানে বুদ্ধিমান শিক্ষা আনুন",
+          "আপনার শিক্ষার্থী, শিক্ষক ও কর্মীদের জন্য শিক্ষা ও বুদ্ধিমান প্রযুক্তি একসঙ্গে।",
+          "WorldWise Learning-এর সাথে কথা বলুন"
+        ],
+        "business": [
+          "আমি একজন ব্যবসায়িক পেশাজীবী",
+          "আরও ভালো শেখার অভিজ্ঞতা তৈরি করুন",
+          "পেশাজীবী ও তাদের দলের জন্য শিক্ষা ও বুদ্ধিমান প্রযুক্তি।",
+          "WorldWise Learning-এর সাথে কথা বলুন"
+        ],
+        "volume": "ভলিউম",
+        "off": "বন্ধ",
+        "subtitles": "সাবটাইটেল",
+        "transcriptHeading": "প্রতিলিপি",
+        "aboutHeading": "এই চলচ্চিত্রটি কী নিয়ে?",
+        "about": "৬০ সেকেন্ডের এই চলচ্চিত্রে আমেরিকান শিক্ষাবিদ ও উদ্ভাবক জে অ্যাডামস ব্যাখ্যা করেন, কেন প্রকৃত শিক্ষার উচিত শুধু পরীক্ষার্থী নয়, চিন্তাশীল মানুষ গড়ে তোলা। তিনি পরিচয় করিয়ে দেন Jurassic English-এর, যা আকর্ষণীয় পাঠের মাধ্যমে যোগাযোগ, সমালোচনামূলক চিন্তা ও ইংরেজি দক্ষতা গড়ে তোলে, এবং WorldWise Learning-এর, যা প্রতিষ্ঠান, শিক্ষক ও পেশাজীবীদের জন্য শিক্ষা ও বুদ্ধিমান প্রযুক্তিকে একসঙ্গে নিয়ে আসে।",
+        "spoken": "ইংরেজিতে বলা, ১০টি ভাষায় সাবটাইটেল।",
+        "message": "ন্যাথানিয়েল জে অ্যাডামসের ব্যক্তিগত বার্তা",
+        "filmChip": "৬০ সেকেন্ডের চলচ্চিত্র",
+        "cineAudio": "সিনেমাটিক অডিও",
+        "deckLink": "প্রেজেন্টেশন দেখুন"
+      },
+      "cues": {
+        "1": "আমি ন্যাথানিয়েল জে অ্যাডামস, একজন আমেরিকান শিক্ষাবিদ ও উদ্ভাবক।",
+        "2": "শ্রেণিকক্ষ ও প্রযুক্তিতে বহু বছর কাটিয়ে আমি শিখেছি, প্রকৃত শিক্ষা জীবন বদলে দেয়।",
+        "3a": "আমার স্বপ্ন এমন শিক্ষা, যা শুধু পরীক্ষার্থী নয়, চিন্তাশীল মানুষ গড়ে তোলে।",
+        "3b": "যেখানে প্রযুক্তি মানুষকে ক্ষমতায়িত করে, আর সুযোগ পৌঁছে যায় সীমান্ত পেরিয়ে।",
+        "4": "আমি দেখেছি, শিক্ষার্থীরা এমন ব্যবস্থায় হিমশিম খায় যা তাদের সম্ভাবনাকে উপেক্ষা করে।",
+        "5": "আমি বিশ্বাস করি, তারা আরও ভালো কিছুর যোগ্য: বোঝাপড়া, আত্মবিশ্বাস এবং সুযোগ।",
+        "6": "Jurassic English-এ আমরা যোগাযোগ, সমালোচনামূলক চিন্তা ও ইংরেজি দক্ষতা গড়ে তুলি",
+        "7": "আকর্ষণীয় পাঠ ও অর্থবহ অনুশীলনের মাধ্যমে।",
+        "8": "WorldWise Learning শিক্ষা ও বুদ্ধিমান প্রযুক্তিকে একসঙ্গে নিয়ে আসে,",
+        "9": "যাতে প্রতিষ্ঠান, শিক্ষক ও পেশাজীবীরা আরও ভালো শেখার অভিজ্ঞতা তৈরি করতে পারেন।",
+        "10": "প্রতিটি শিক্ষার্থী থেকে বিশ্বজুড়ে প্রতিষ্ঠান পর্যন্ত, আমাদের লক্ষ্য মানুষের সম্ভাবনাকে বিকশিত করা।",
+        "11": "আমি জে অ্যাডামস। চলুন, একসঙ্গে ভবিষ্যৎ গড়ি।"
+      }
+    }
+  },
+  "primary": "vi"
+}
