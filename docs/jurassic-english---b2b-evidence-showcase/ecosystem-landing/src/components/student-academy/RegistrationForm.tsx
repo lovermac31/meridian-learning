@@ -55,6 +55,33 @@ const MAIN_GOAL_OPTIONS = [
   { value: "not_sure_yet", label: "Not sure yet" },
 ] as const;
 
+// Client-side validation mirrors the server rules in
+// the repo-root src/lib/studentAcademyRegistrationSchema.ts (name >= 2 chars, same email
+// regex, consent required) so an empty or invalid form is never POSTed.
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const FIELD_ERROR_MESSAGES = {
+  parentFullName: "Please enter a parent or guardian name.",
+  parentEmailRequired: "Please enter an email address.",
+  parentEmail: "That email address looks invalid. Please double-check it.",
+  consentContact: "Please tick the consent box so we know you'd like to be contacted.",
+} as const;
+const REVIEW_FIELDS_MESSAGE = "Please review the required fields and try again.";
+
+type FieldErrors = Partial<Record<"parentFullName" | "parentEmail" | "consentContact", string>>;
+
+function validateRegistration(data: FormData): FieldErrors {
+  const errors: FieldErrors = {};
+  const name = String(data.get("parentFullName") ?? "").trim();
+  const email = String(data.get("parentEmail") ?? "").trim();
+  if (name.length < 2) errors.parentFullName = FIELD_ERROR_MESSAGES.parentFullName;
+  if (!email) errors.parentEmail = FIELD_ERROR_MESSAGES.parentEmailRequired;
+  else if (!EMAIL_RE.test(email.toLowerCase())) errors.parentEmail = FIELD_ERROR_MESSAGES.parentEmail;
+  if (data.get("consentContact") !== "on") errors.consentContact = FIELD_ERROR_MESSAGES.consentContact;
+  return errors;
+}
+
+const fieldErrorClass = "mt-2 text-sm text-red-500";
+
 const baseInput =
   "w-full rounded-md border border-primary/15 bg-white px-3.5 py-2.5 text-base text-foreground/90 placeholder:text-foreground/40 transition focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-jurassic-accent/40";
 const baseLabel = "block text-sm font-semibold text-foreground/80 mb-1.5";
@@ -68,6 +95,18 @@ export function RegistrationForm() {
   // via ref so it persists across re-renders without re-firing.
   const trackedStartedRef = useRef<boolean>(false);
   const [state, setState] = useState<SubmissionState>({ kind: "idle" });
+  const [errors, setErrors] = useState<FieldErrors>({});
+
+  // Clear a field's error as soon as the user edits it (mirrors /get-started).
+  const clearFieldError = (event: React.ChangeEvent<HTMLFormElement>) => {
+    const name = (event.target as HTMLElement).getAttribute("name") as keyof FieldErrors | null;
+    if (!name || !(name in errors)) return;
+    setErrors((current) => {
+      const next = { ...current };
+      delete next[name];
+      return next;
+    });
+  };
 
   // Capture ISO start time on mount for anti-spam
   useEffect(() => {
@@ -100,6 +139,13 @@ export function RegistrationForm() {
 
     const form = event.currentTarget;
     const data = new FormData(form);
+
+    const nextErrors = validateRegistration(data);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) {
+      setState({ kind: "error", message: REVIEW_FIELDS_MESSAGE });
+      return;
+    }
 
     // Snake_case payload per Consolidation Option 3 spec. The form
     // submits to /api/get-started, which routes via `source` to the
@@ -187,6 +233,9 @@ export function RegistrationForm() {
         }
       })();
 
+      if (result.field && result.field in FIELD_ERROR_MESSAGES) {
+        setErrors({ [result.field]: reasonText });
+      }
       setState({ kind: "error", message: reasonText, field: result.field });
     } catch {
       setState({
@@ -249,7 +298,10 @@ export function RegistrationForm() {
       // first input change. Either path fires `book_diagnostic_started`
       // exactly once. Honeypot field is filtered inside handleFirstFocus.
       onFocusCapture={handleFirstFocus}
-      onChange={handleFirstFocus}
+      onChange={(event) => {
+        handleFirstFocus(event);
+        clearFieldError(event);
+      }}
       noValidate
       className="rounded-2xl border border-primary/10 bg-white/80 p-6 sm:p-8 shadow-sm backdrop-blur-sm"
     >
@@ -289,7 +341,14 @@ export function RegistrationForm() {
               maxLength={200}
               className={baseInput}
               placeholder="e.g. Anh Nguyen"
+              aria-invalid={errors.parentFullName ? "true" : "false"}
+              aria-describedby={errors.parentFullName ? `${formId}-parent-name-error` : undefined}
             />
+            {errors.parentFullName ? (
+              <p id={`${formId}-parent-name-error`} className={fieldErrorClass}>
+                {errors.parentFullName}
+              </p>
+            ) : null}
           </div>
           <div>
             <label htmlFor={`${formId}-parent-email`} className={baseLabel}>
@@ -306,7 +365,14 @@ export function RegistrationForm() {
               maxLength={254}
               className={baseInput}
               placeholder="parent@example.com"
+              aria-invalid={errors.parentEmail ? "true" : "false"}
+              aria-describedby={errors.parentEmail ? `${formId}-parent-email-error` : undefined}
             />
+            {errors.parentEmail ? (
+              <p id={`${formId}-parent-email-error`} className={fieldErrorClass}>
+                {errors.parentEmail}
+              </p>
+            ) : null}
           </div>
         </div>
 
@@ -499,12 +565,19 @@ export function RegistrationForm() {
             type="checkbox"
             required
             className="mt-1 h-4 w-4 rounded border-primary/30 text-primary focus:ring-jurassic-accent/40"
+            aria-invalid={errors.consentContact ? "true" : "false"}
+            aria-describedby={errors.consentContact ? `${formId}-consent-error` : undefined}
           />
           <span>
             I agree to be contacted about Jurassic English<span className="text-jurassic-accent text-xs align-top">™</span>{" "}
             Student Academy.
           </span>
         </label>
+        {errors.consentContact ? (
+          <p id={`${formId}-consent-error`} className={`${fieldErrorClass} pl-7`}>
+            {errors.consentContact}
+          </p>
+        ) : null}
         <p className={`${baseHelp} pl-7`}>
           We will only use this information to follow up about your registration
           and the Student Thinking Diagnostic. No marketing lists.
