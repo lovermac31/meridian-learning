@@ -24,12 +24,13 @@ export function ProductionStyleHeader() {
     <header className="sticky top-0 z-50 border-b border-[#E6DEC8] bg-[#FAF7F2]/95 py-3 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-1.5 px-3 min-[360px]:gap-3 min-[360px]:px-4 sm:px-6">
         <div className="flex min-w-0 items-center gap-6">
+          {/* Below 430px the wordmark wraps to two lines, as in the main Navbar, so the Baseline CTA never covers it. */}
           {/* "/" on jurassicenglish.com is the main SPA, not this app's own index, so a document navigation is intended. */}
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/"
             aria-label="Jurassic English™ home"
-            className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 text-[0.875rem] uppercase min-[360px]:text-[1.05rem] text-[#1E4D3B] sm:text-[1.2rem]"
+            className="shrink-0 whitespace-nowrap max-[429px]:w-min max-[429px]:whitespace-normal rounded-md px-1 py-0.5 text-left leading-tight text-[0.875rem] uppercase min-[360px]:text-[1.05rem] text-[#1E4D3B] sm:text-[1.2rem]"
             style={{ fontFamily: '"Neuland-Inline", Copperplate, Georgia, serif' }}
           >
             Jurassic English<sup className="text-[0.5em] text-[#B45309]">™</sup>
