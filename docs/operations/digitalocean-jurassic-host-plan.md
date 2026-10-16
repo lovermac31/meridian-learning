@@ -1,6 +1,6 @@
 # Jurassic English DigitalOcean host plan
 
-Status: Jurassic English staging release `20261016-r1` is active on the Droplet by IPv4/HTTP; production remains on Vercel; staging DNS/TLS and full release acceptance remain open.
+Status: staging release `20261016-r2` (commit `32d646b`, production commit `5a4595e` + host adapter) is live at https://staging.jurassicenglish.com and matches production on 207/207 checked paths; production remains on Vercel. Cutover is a separate owner decision (see "Before any production cutover").
 Date: 2026-10-16 (Asia/Ho_Chi_Minh)
 
 ## Decision
@@ -81,3 +81,65 @@ Live read-only checks returned 200 for `/`, `/api/health`, `/ai-speaking`, and `
 - Owner's trusted IPv4/IPv6 CIDR to narrow SSH access.
 - Dedicated Jurassic deployment key; do not reuse the WWL beta key for the finished production setup.
 - A separate explicit approval is required before production secrets or customer-data access are provisioned on the Droplet.
+
+## Route parity release r2 (2026-10-16)
+
+**What changed.** A parity probe of `r1` against production (207 paths) found 136 differences. In `r2`, `src/server/createApp.ts` routes requests the way Vercel documents for `vercel.json`:
+- headers and redirects;
+- then the filesystem (static files and functions);
+- then rewrites;
+- then the filesystem again for internal rewrites;
+- then 404.
+
+The fixes:
+- **Directories without a trailing slash:** served from `index.html` with 200, not 301-redirected. This affected every market page.
+- **Unknown paths:** return Vercel's `text/plain` 404, not the SPA shell with 200.
+- **Static files before rewrites.**
+- **Cache-Control:** Vercel's default `public, max-age=0, must-revalidate` when nothing else sets one.
+- **`.ico`:** served as `image/vnd.microsoft.icon`.
+- **Request bodies:** parsed only on function routes, so a POST proxied to AI Speaking keeps its body. The old global JSON parser would have emptied it.
+
+Vercel references (vercel.com/docs/project-configuration/vercel-json, read 16 Oct 2026):
+- "precedence is given to the filesystem prior to rewrites being applied";
+- with `trailingSlash` unset, "visiting a path with or without a trailing slash will not redirect".
+
+**Evidence.**
+- **Local checks:**
+  - `npm run lint` passes; `npm test` passes 280/280 (10 new integration tests in `tests/vercel-host-app.test.ts`);
+  - `npm run build`, `npm run test:metadata` (14/14) and `npm run validate:prerender` pass.
+- **On the host:** the same tests pass 280/280.
+- **Parity, recorded once from production** with `scripts/host/parity-*.mjs` (207 paths: 127 sitemap pages, every redirect, rewrite and header source, assets, images, root files, directories, unknown paths, all 12 API routes, and the `www` redirect):
+  - `r1`: 71/207;
+  - `r2` on loopback: 207/207;
+  - `r2` through nginx and TLS: 207/207.
+- **What matched:** status, Location, Content-Type, every header named in a `vercel.json` rule, and the body sha256 of every static page and asset.
+- **Expected differences:**
+  - API bodies with timestamps;
+  - `X-Robots-Tag: noindex, nofollow` on every staging response;
+  - HSTS matches production on every non-error response, via the nginx `map` in `/etc/nginx/conf.d/jurassic-hsts.conf`, which is added only when the upstream sends none.
+- **Staging-only values:** `/etc/jurassic-staging/app.env` (root, 0600) holds a cron secret and four operator keys, generated on the host and never copied off it. With them, protected routes answer 401 as in production instead of 503. No production secret is on the host. The file is loaded by the drop-in `/etc/systemd/system/jurassic-staging.service.d/10-staging-env.conf`.
+- **Health cron:** `jurassic-health.timer` runs at 12:00 UTC daily, the `vercel.json` schedule.
+  - `scripts/host/health-check.sh` makes one retry and logs structured JSON.
+  - A manual run returned the expected staging result: authorized, Supabase not configured.
+  - A forced failure fired `jurassic-health-alert.service`, which writes an error-level journal entry and `/var/lib/jurassic-health/LAST_FAILURE`. The test marker was then cleared.
+  - No external alert channel exists yet.
+- **Releases:** `scripts/host/deploy-release.sh` builds `releases/<name>` from `git archive <full sha>`.
+  - Each release has a `RELEASE_SHA` file and is owned by root after the build.
+  - A candidate runs on `127.0.0.1:3002` for the probe.
+  - Activation is an atomic symlink switch that checks the expected current release first.
+- **Rollback drill:** `r2` → `r1` (a market page returned the 301 that only `r1` produces) → `r2` (200), with health OK.
+- **Crash recovery:** after a SIGKILL, systemd restarted the service in about 7 seconds.
+
+**Note.** `r2` was built from `32d646b`. The branch head adds only operator tooling (comparer and activation guard), no app code.
+
+## Before any production cutover
+
+These still apply after a perfect parity run.
+- Remove both noindex layers: nginx `add_header X-Robots-Tag "noindex, nofollow" always` (with `proxy_hide_header X-Robots-Tag`) and `STAGING=true` in the unit. Otherwise production would be de-indexed.
+- `npm start` runs `tsx server.ts`, transpiling at runtime. Compile before production.
+- Production secrets need their own explicit transfer approval. Then rerun the probe with them in place: the 401 paths will behave differently.
+- Run in parallel for 14 days. The DNS change at Namecheap belongs to the owner. Vercel stays the failback.
+- Alerting: add a real channel. Today an alert is a journal entry plus a marker file.
+- The host is a single Droplet with no paid backups, so it is one failure domain.
+- Pending kernel updates need a planned reboot, followed by the probe again.
+- The SSH source CIDR is still open, waiting for the owner's trusted network.
