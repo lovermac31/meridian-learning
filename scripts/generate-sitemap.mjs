@@ -124,6 +124,12 @@ const STATIC_EXTRA_URLS = [
     priority: '0.8',
   },
   {
+    // Student Academy's customer-facing resource preview is served by the ecosystem landing rewrite.
+    loc: `${SITE_URL}/student-academy/resources`,
+    changefreq: 'monthly',
+    priority: '0.6',
+  },
+  {
     loc: `${SITE_URL}/ai-speaking/pricing`,
     changefreq: 'weekly',
     priority: '0.6',

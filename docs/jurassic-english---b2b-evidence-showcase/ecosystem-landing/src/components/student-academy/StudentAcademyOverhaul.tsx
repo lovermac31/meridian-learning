@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Mail, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Mail, MessageCircle, ShieldCheck, Layers3 } from "lucide-react";
 
 // Student Academy (human-centered overhaul, revised spec §3 Page B).
 // Plain-language copy for parents. Every image is a storybook illustration
@@ -80,6 +80,9 @@ export function StudentAcademyOverhaul() {
               </a>
               <a href={STORY_QUEST} target="_blank" rel="noopener noreferrer" className={SECONDARY}>
                 Play the Free 2-Min Story Quest (ages 6–12) <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </a>
+              <a href="/student-academy/resources" className={SECONDARY}>
+                Explore the Learning Deck <Layers3 aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>
             <p className="mt-5 flex items-start gap-2 text-sm font-semibold text-[#137333]">
@@ -182,6 +185,31 @@ export function StudentAcademyOverhaul() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* The customer-facing resource deck is separate from the existing Story Quest demo. */}
+      <section className="px-4 py-14 sm:px-6" aria-labelledby="resource-deck-heading">
+        <div className="mx-auto grid max-w-7xl gap-8 rounded-[1.75rem] border border-[#E6DEC8] bg-white p-6 shadow-sm sm:p-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+          <div>
+            <p className={EYEBROW}>Look inside the learning experience</p>
+            <h2 id="resource-deck-heading" className={`${H2} mt-2`}>A clear preview of what students use</h2>
+            <p className="mt-3 max-w-2xl leading-relaxed text-[#4A5568]">
+              Explore the free Story Quest, browse a level-by-level sampler, and see how enrolled-family and teacher resources are organised. The examples are clearly labelled; private teaching materials stay private.
+            </p>
+            <a href="/student-academy/resources" className={`${PRIMARY} mt-5`}>
+              Open the Student Learning Deck <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="rounded-2xl bg-[#FAF7F2] p-5">
+            <p className="font-extrabold text-[#1E4D3B]">Four ways to explore</p>
+            <ol className="mt-3 grid gap-2 text-sm text-[#4A5568] sm:grid-cols-2">
+              <li><span className="font-extrabold text-[#B45309]">01</span> Play a free preview</li>
+              <li><span className="font-extrabold text-[#B45309]">02</span> Sample a learning level</li>
+              <li><span className="font-extrabold text-[#B45309]">03</span> See family resources</li>
+              <li><span className="font-extrabold text-[#B45309]">04</span> Explore educator materials</li>
+            </ol>
+          </div>
         </div>
       </section>
 
