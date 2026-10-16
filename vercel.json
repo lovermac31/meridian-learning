@@ -215,6 +215,10 @@
       "destination": "https://je-ecosystem-landing-preview.vercel.app/425f0745123b9f56/:path*"
     },
     {
+      "source": "/76921473805ca108/:path*",
+      "destination": "https://jurassic-ai-speaking.vercel.app/76921473805ca108/:path*"
+    },
+    {
       "source": "/api/internal/approval-action",
       "destination": "/api/internal/pilot-requests/approval-action/confirm"
     },
