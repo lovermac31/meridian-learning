@@ -189,7 +189,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
               <p className="text-sm font-semibold text-jurassic-dark mb-0.5">
                 This form is for institutional enquiries — schools, training centres, and organisations.
               </p>
-              <p className="text-xs text-jurassic-dark/55">
+              <p className="text-xs text-jurassic-dark/70">
                 Not a decision-maker yet? Request a Curriculum Overview first — no call required.
               </p>
             </div>
@@ -199,7 +199,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                 trackLowFrictionClick('Request a Curriculum Overview');
                 window.location.href = '/get-started?interest=curriculum_overview&mode=overview';
               }}
-              className="shrink-0 rounded-full border border-jurassic-accent/40 px-5 py-2.5 text-sm font-semibold text-jurassic-accent hover:bg-jurassic-accent hover:text-white transition-all"
+              className="shrink-0 rounded-full border border-[#B45309]/40 px-5 py-2.5 text-sm font-semibold text-[#B45309] hover:bg-[#B45309] hover:text-white transition-all"
             >
               Request a Curriculum Overview
             </button>
@@ -233,7 +233,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
               {pageContent.badge}
             </span>
-            <h1 className="text-5xl font-bold tracking-tight mb-6">{pageContent.title}</h1>
+            <h1 className="text-4xl font-bold tracking-tight mb-6 break-words sm:text-5xl">{pageContent.title}</h1>
             <p className="text-white/70 leading-relaxed font-light text-lg mb-8">
               {pageContent.intro}
             </p>
@@ -293,7 +293,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   {pageContent.urgentContact}{' '}
                   <a
                     href="mailto:info@jurassicenglish.com"
-                    className="font-semibold text-jurassic-accent hover:underline"
+                    className="font-semibold text-[#B45309] hover:underline"
                   >
                     info@jurassicenglish.com
                   </a>
@@ -655,7 +655,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   </button>
                   <p className="text-sm text-gray-500">
                     {getUiString(locale, 'common.emailDirect')}{' '}
-                    <a href="mailto:info@jurassicenglish.com" className="font-semibold text-jurassic-accent hover:underline">
+                    <a href="mailto:info@jurassicenglish.com" className="font-semibold text-[#B45309] hover:underline">
                       info@jurassicenglish.com
                     </a>
                     .

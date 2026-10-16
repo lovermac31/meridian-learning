@@ -85,7 +85,7 @@ const fieldErrorClass = "mt-2 text-sm text-red-500";
 const baseInput =
   "w-full rounded-md border border-primary/15 bg-white px-3.5 py-2.5 text-base text-foreground/90 placeholder:text-foreground/40 transition focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-jurassic-accent/40";
 const baseLabel = "block text-sm font-semibold text-foreground/80 mb-1.5";
-const baseHelp = "mt-1 text-xs text-foreground/55";
+const baseHelp = "mt-1 text-xs text-foreground/70";
 
 export function RegistrationForm() {
   const formId = useId();
@@ -316,7 +316,7 @@ export function RegistrationForm() {
           >
             Continue with Google
           </button>
-          <p className="mt-2 text-xs text-foreground/55 text-center">
+          <p className="mt-2 text-xs text-foreground/70 text-center">
             We will use the email and name from your Google profile. You will
             still complete the student details below.
           </p>
@@ -598,7 +598,7 @@ export function RegistrationForm() {
         <button
           type="submit"
           disabled={state.kind === "submitting"}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-jurassic-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/60 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#B45309] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent/60 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {state.kind === "submitting" ? (
             <>
@@ -609,7 +609,7 @@ export function RegistrationForm() {
             "Send my request"
           )}
         </button>
-        <p className="text-xs text-foreground/55">
+        <p className="text-xs text-foreground/70">
           We will reply by email at{" "}
           <a
             href={`mailto:${SUPPORT_EMAIL}`}

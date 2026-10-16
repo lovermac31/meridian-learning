@@ -116,7 +116,7 @@ function WhatHappensNextSection() {
                 </li>
               ))}
             </ol>
-            <p className="mt-6 text-[13px] italic text-foreground/60 leading-relaxed">
+            <p className="mt-6 text-[13px] italic text-foreground/75 leading-relaxed">
               The diagnostic is a starting-point conversation, not a
               pressure-based enrollment form.
             </p>
@@ -183,7 +183,7 @@ export default function BookDiagnosticPage() {
             ))}
           </ul>
 
-          <p className="mt-6 text-sm italic text-primary-foreground/55 max-w-2xl">
+          <p className="mt-6 text-sm italic text-primary-foreground/70 max-w-2xl">
             We do not promise scores. The teacher always has the final word on
             placement and progress.
           </p>
@@ -234,7 +234,7 @@ export default function BookDiagnosticPage() {
           </h2>
           <RegistrationForm />
 
-          <p className="mt-8 text-center text-xs text-foreground/55">
+          <p className="mt-8 text-center text-xs text-foreground/70">
             By submitting you agree to receive a confirmation email with the
             next step. We do not share your information with third parties.
           </p>

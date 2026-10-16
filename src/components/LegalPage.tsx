@@ -11,7 +11,7 @@ type LegalPageProps = {
   onBack: () => void;
 };
 
-const BlockRenderer = ({ block }: { block: ContentBlock }) => {
+const BlockRenderer = ({ block, label }: { block: ContentBlock; label: string }) => {
   switch (block.type) {
     case 'paragraph':
       return (
@@ -36,7 +36,13 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
 
     case 'table':
       return (
-        <div className="mb-4 last:mb-0 -mx-1 rounded-lg overflow-x-auto [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-jurassic-soft/50">
+        // Focusable, labelled scroll region so keyboard users can scroll the
+        // wide table on narrow screens (axe scrollable-region-focusable).
+        <div
+          role="region"
+          aria-label={label}
+          tabIndex={0}
+          className="mb-4 last:mb-0 -mx-1 rounded-lg overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B45309] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-jurassic-soft/50">
           <table className="text-sm border-collapse min-w-[700px] w-full">
             <thead>
               <tr className="bg-jurassic-dark text-white">
@@ -82,7 +88,7 @@ const BlockRenderer = ({ block }: { block: ContentBlock }) => {
             {block.heading}
           </h4>
           {block.blocks.map((b, i) => (
-            <BlockRenderer key={i} block={b} />
+            <BlockRenderer key={i} block={b} label={block.heading} />
           ))}
         </div>
       );
@@ -108,14 +114,14 @@ export const LegalPage = ({ onBack }: LegalPageProps) => {
         {/* Back nav */}
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-sm text-gray-400 hover:text-jurassic-dark transition-colors mb-10"
+          className="flex items-center gap-2 text-sm text-gray-500 hover:text-jurassic-dark transition-colors mb-10"
         >
           <ArrowLeft className="w-4 h-4" />
           {chrome.backCta}
         </button>
 
         {/* Header */}
-        <span className="text-jurassic-accent font-bold uppercase tracking-[0.22em] text-xs mb-4 block">{chrome.eyebrow}</span>
+        <span className="text-[#B45309] font-bold uppercase tracking-[0.22em] text-xs mb-4 block">{chrome.eyebrow}</span>
         <h1 className="text-3xl md:text-4xl font-bold text-jurassic-dark tracking-tight mb-3">
           {doc.title}
         </h1>
@@ -125,7 +131,7 @@ export const LegalPage = ({ onBack }: LegalPageProps) => {
 
         {/* Callout */}
         <div className="rounded-2xl border border-jurassic-soft/60 bg-jurassic-soft/10 p-6 md:p-8 mb-10">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-jurassic-accent mb-3">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#B45309] mb-3">
             {doc.callout.label}
           </p>
           <p className="text-[15px] text-gray-700 leading-relaxed">
@@ -142,7 +148,7 @@ export const LegalPage = ({ onBack }: LegalPageProps) => {
               </h2>
               <div>
                 {section.blocks.map((block, i) => (
-                  <BlockRenderer key={i} block={block} />
+                  <BlockRenderer key={i} block={block} label={section.heading} />
                 ))}
               </div>
             </section>
