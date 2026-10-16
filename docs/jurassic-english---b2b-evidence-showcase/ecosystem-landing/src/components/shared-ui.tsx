@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -391,7 +392,7 @@ export function PathwayFooterWarning({
   return (
     <div className="mt-20 py-8 border-t border-primary/10 text-center">
       <p className="text-muted-foreground mb-4">{text}</p>
-      <Link href={href} className={buttonVariants({ variant: "link", className: "text-primary font-medium p-0 h-auto" })}>
+      <Link href={href} className={cn(buttonVariants({ variant: "link" }), "h-auto max-w-full whitespace-normal p-0 text-center font-medium text-primary")}>
           {linkText} <ArrowRight className="w-4 h-4 ml-1" />
       </Link>
     </div>

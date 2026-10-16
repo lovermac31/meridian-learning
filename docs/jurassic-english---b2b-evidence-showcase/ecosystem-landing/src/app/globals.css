@@ -4,6 +4,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Neuland-Inline brand wordmark font, self-hosted (Next emits it under
+   /_next/static/media). Font made from onlinewebfonts.com, licensed CC BY 4.0. */
+@font-face {
+  font-family: "Neuland-Inline";
+  src: url("../fonts/neuland-inline.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Used by GlobalContactPanel (shared with the main site). */
   --color-jurassic-dark: #101820;

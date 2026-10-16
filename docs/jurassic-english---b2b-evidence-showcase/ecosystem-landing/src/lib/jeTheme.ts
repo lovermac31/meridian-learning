@@ -54,13 +54,13 @@ export function jeThemeCss(scopeClass: string): string {
 // inside /student-academy and /interactive-demo so all pages share the
 // same conversion-button visual language.
 export const JE_CTA_PRIMARY_DARK =
-  "inline-flex items-center justify-center bg-accent text-white px-8 py-4 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.6)]";
+  "inline-flex items-center justify-center bg-[#B45309] text-white px-8 py-4 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.6)]";
 
 export const JE_CTA_GLASS_DARK =
   "inline-flex items-center justify-center bg-white/5 border border-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full text-sm font-bold hover:bg-white/10 transition";
 
 export const JE_CTA_PRIMARY_LIGHT =
-  "inline-flex items-center justify-center bg-accent text-white px-6 py-3 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)]";
+  "inline-flex items-center justify-center bg-[#B45309] text-white px-6 py-3 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)]";
 
 export const JE_CTA_OUTLINE_LIGHT =
   "inline-flex items-center justify-center bg-white border border-primary/15 text-primary px-6 py-3 rounded-full text-sm font-bold hover:bg-primary/5 transition-colors";

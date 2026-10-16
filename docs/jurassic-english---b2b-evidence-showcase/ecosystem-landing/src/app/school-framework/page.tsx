@@ -415,7 +415,7 @@ export default function SchoolFramework() {
                     <span className="text-[13px] text-foreground/70 leading-snug">
                       {item.desc}
                     </span>
-                    <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-accent">
+                    <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-[#B45309]">
                       Open
                       <ArrowRight aria-hidden="true" className="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform" />
                     </span>

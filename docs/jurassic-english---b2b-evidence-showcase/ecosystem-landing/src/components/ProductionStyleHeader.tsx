@@ -26,7 +26,7 @@ export function ProductionStyleHeader() {
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
           href="/"
-          aria-label="Jurassic English home"
+          aria-label="Jurassic English™ home"
           className="shrink-0 whitespace-nowrap rounded-md px-1 py-0.5 text-[0.875rem] uppercase min-[360px]:text-[1.05rem] text-[#1E4D3B] sm:text-[1.2rem]"
           style={{ fontFamily: '"Neuland-Inline", Copperplate, Georgia, serif' }}
         >
