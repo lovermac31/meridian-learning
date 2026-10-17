@@ -3,6 +3,7 @@ import { CONTACT_EMAIL, getOverhaulContent, IMG, STORY_QUEST_URL, ZALO_URL } fro
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
+import { FounderFilmLink } from './FounderFilmLink';
 
 /**
  * Homepage (human-centered overhaul, revised spec §3 Page A): six sections —
@@ -204,6 +205,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
             <h2 id="jay-heading" className="mt-2 text-3xl font-extrabold leading-tight text-sb-forest">{jay.title}</h2>
             <p className="mt-1 text-sm text-sb-slate">{jay.credentials}</p>
             <p className="mt-4 leading-relaxed">{jay.intro}</p>
+            <FounderFilmLink locale={locale} variant="inline" />
             <p className="mt-4 font-bold text-sb-forest">{jay.expectTitle}</p>
             <ul className="mt-2 space-y-2">
               {jay.expect.map((item) => (

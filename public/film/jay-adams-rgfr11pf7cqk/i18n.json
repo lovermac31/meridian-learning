@@ -154,7 +154,7 @@
         "filmChip": "Phim 60 giây",
         "cineAudio": "Âm thanh điện ảnh",
         "deckLink": "Xem bản trình bày",
-        "aiNote": "Sản xuất điện ảnh có hỗ trợ của AI. Các cảnh quay mang tính minh họa cho tầm nhìn giáo dục và dịch vụ của nhà sáng lập."
+        "aiNote": "Thực hiện bằng Google Vids: video và giọng nói do AI tạo. Các cảnh quay mang tính minh họa cho tầm nhìn giáo dục và dịch vụ của nhà sáng lập."
       },
       "cues": {
         "1": "Tôi là Nathaniel Jay Adams, một nhà giáo dục và nhà đổi mới người Mỹ.",
@@ -240,7 +240,7 @@
         "filmChip": "60s film",
         "cineAudio": "Cinematic audio",
         "deckLink": "View the presentation deck",
-        "aiNote": "AI-assisted cinematic production. Scenes are illustrative representations of the founder's educational vision and services."
+        "aiNote": "Made with Google Vids: AI-generated video and AI voice. Scenes are illustrative representations of the founder's educational vision and services."
       },
       "cues": {
         "1": "I'm Nathaniel Jay Adams, an American educator and innovator.",
@@ -337,7 +337,7 @@
         "filmChip": "Película de 60 s",
         "cineAudio": "Audio cinematográfico",
         "deckLink": "Ver la presentación",
-        "aiNote": "Producción cinematográfica asistida por IA. Las escenas son representaciones ilustrativas de la visión educativa y los servicios del fundador."
+        "aiNote": "Hecho con Google Vids: vídeo y voz generados por IA. Las escenas son representaciones ilustrativas de la visión educativa y los servicios del fundador."
       },
       "cues": {
         "1": "Soy Nathaniel Jay Adams, educador e innovador estadounidense.",
@@ -431,7 +431,7 @@
         "filmChip": "Filme de 60 s",
         "cineAudio": "Áudio cinematográfico",
         "deckLink": "Ver a apresentação",
-        "aiNote": "Produção cinematográfica assistida por IA. As cenas são representações ilustrativas da visão educacional e dos serviços do fundador."
+        "aiNote": "Feito com Google Vids: vídeo e voz gerados por IA. As cenas são representações ilustrativas da visão educacional e dos serviços do fundador."
       },
       "cues": {
         "1": "Sou Nathaniel Jay Adams, educador e inovador norte-americano.",
@@ -524,7 +524,7 @@
         "filmChip": "Film 60 detik",
         "cineAudio": "Audio sinematik",
         "deckLink": "Lihat presentasi",
-        "aiNote": "Produksi sinematik berbantuan AI. Adegan-adegan merupakan ilustrasi visi pendidikan dan layanan sang pendiri."
+        "aiNote": "Dibuat dengan Google Vids: video dan suara buatan AI. Adegan-adegan merupakan ilustrasi visi pendidikan dan layanan sang pendiri."
       },
       "cues": {
         "1": "Saya Nathaniel Jay Adams, pendidik dan inovator asal Amerika.",
@@ -617,7 +617,7 @@
         "filmChip": "Filem 60 saat",
         "cineAudio": "Audio sinematik",
         "deckLink": "Lihat pembentangan",
-        "aiNote": "Produksi sinematik berbantukan AI. Babak-babak ialah gambaran ilustratif visi pendidikan dan perkhidmatan pengasas."
+        "aiNote": "Dihasilkan dengan Google Vids: video dan suara janaan AI. Babak-babak ialah gambaran ilustratif visi pendidikan dan perkhidmatan pengasas."
       },
       "cues": {
         "1": "Saya Nathaniel Jay Adams, seorang pendidik dan inovator dari Amerika.",
@@ -710,7 +710,7 @@
         "filmChip": "ภาพยนตร์ 60 วินาที",
         "cineAudio": "เสียงแบบภาพยนตร์",
         "deckLink": "ดูสไลด์นำเสนอ",
-        "aiNote": "งานสร้างภาพยนตร์ที่ใช้ AI ช่วย ฉากต่าง ๆ เป็นภาพประกอบเพื่อสื่อถึงวิสัยทัศน์ด้านการศึกษาและบริการของผู้ก่อตั้ง"
+        "aiNote": "สร้างด้วย Google Vids: วิดีโอและเสียงพูดสร้างโดย AI ฉากต่าง ๆ เป็นภาพประกอบเพื่อสื่อถึงวิสัยทัศน์ด้านการศึกษาและบริการของผู้ก่อตั้ง"
       },
       "cues": {
         "1": "ผม Nathaniel Jay Adams นักการศึกษาและนักนวัตกรรมชาวอเมริกัน",
@@ -805,7 +805,7 @@
         "filmChip": "فيلم 60 ثانية",
         "cineAudio": "صوت سينمائي",
         "deckLink": "عرض العرض التقديمي",
-        "aiNote": "إنتاج سينمائي بمساعدة الذكاء الاصطناعي. المشاهد تمثيلات توضيحية للرؤية التعليمية للمؤسس وخدماته."
+        "aiNote": "صُنع باستخدام Google Vids: فيديو وصوت مولَّدان بالذكاء الاصطناعي. المشاهد تمثيلات توضيحية للرؤية التعليمية للمؤسس وخدماته."
       },
       "cues": {
         "1": "أنا ناثانيال جاي آدامز، مُعلّم ومُبتكر أمريكي.",
@@ -898,7 +898,7 @@
         "filmChip": "60 سیکنڈ کی فلم",
         "cineAudio": "سنیمائی آواز",
         "deckLink": "پریزنٹیشن دیکھیں",
-        "aiNote": "اے آئی کی مدد سے تیار کردہ سنیمائی پروڈکشن۔ مناظر بانی کے تعلیمی وژن اور خدمات کی توضیحی عکاسی ہیں۔"
+        "aiNote": "Google Vids سے تیار کردہ: ویڈیو اور آواز اے آئی سے بنائی گئی ہیں۔ مناظر بانی کے تعلیمی وژن اور خدمات کی توضیحی عکاسی ہیں۔"
       },
       "cues": {
         "1": "میں نیتھینیئل جے ایڈمز ہوں، ایک امریکی ماہرِ تعلیم اور جدت پسند۔",
@@ -991,7 +991,7 @@
         "filmChip": "৬০ সেকেন্ডের চলচ্চিত্র",
         "cineAudio": "সিনেমাটিক অডিও",
         "deckLink": "প্রেজেন্টেশন দেখুন",
-        "aiNote": "এআই-সহায়িত সিনেমাটিক প্রযোজনা। দৃশ্যগুলো প্রতিষ্ঠাতার শিক্ষাগত ভাবনা ও সেবার দৃষ্টান্তমূলক উপস্থাপনা।"
+        "aiNote": "Google Vids দিয়ে তৈরি: ভিডিও ও কণ্ঠস্বর এআই-নির্মিত। দৃশ্যগুলো প্রতিষ্ঠাতার শিক্ষাগত ভাবনা ও সেবার দৃষ্টান্তমূলক উপস্থাপনা।"
       },
       "cues": {
         "1": "আমি ন্যাথানিয়েল জে অ্যাডামস, একজন আমেরিকান শিক্ষাবিদ ও উদ্ভাবক।",

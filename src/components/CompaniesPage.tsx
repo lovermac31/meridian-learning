@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { getCompaniesPageContent } from '../i18n/content/companies';
 import type { Locale } from '../i18n/locales';
+import { FounderFilmLink } from './FounderFilmLink';
 import { RouteLink } from './RouteLink';
 
 type CompaniesPageProps = {
@@ -71,6 +72,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
                 {content.hero.badge}
               </span>
             </div>
+            <FounderFilmLink locale={locale} variant="dark" />
           </div>
         </div>
       </section>

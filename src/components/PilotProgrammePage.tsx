@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { getPilotProgrammePageContent } from '../i18n/content/pilotProgramme';
 import type { Locale } from '../i18n/locales';
+import { FounderFilmLink } from './FounderFilmLink';
 import { RouteLink } from './RouteLink';
 
 type PilotProgrammePageProps = {
@@ -164,6 +165,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                   {content.hero.secondaryCta}
                 </RouteLink>
               </motion.div>
+              <motion.div variants={fadeUp}><FounderFilmLink locale={locale} variant="dark" /></motion.div>
             </motion.div>
 
             <motion.div
