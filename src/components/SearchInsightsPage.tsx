@@ -3,6 +3,10 @@ import { getPublishedInsightArticles, getInsightArticleBySlug, INSIGHTS_BASE_PAT
 import { OneChangeInvitation } from './OneChangeInvitation';
 import { getSeoPage, seoPages, isInternationalMarketPath } from '../lib/seoPages';
 import type { SeoPage } from '../lib/seoPages';
+import { FounderFilmLink } from './FounderFilmLink';
+
+// The founder film card sits right after the key-facts box on Mr. Jay's own page (EN + VI).
+const FOUNDER_PAGES = new Set(['/about/nathaniel-jay-adams', '/vi/ve-thay-jay-adams']);
 import marketPricing from '../content/marketPricing.json';
 import { PAYPAL_BUSINESS_ID, PAYPAL_LOGO, PAYPAL_PAYEE_NAME } from '../lib/paypal';
 
@@ -253,11 +257,12 @@ export function SearchInsightsPage({ pathname, onNavigate }: { pathname: string;
     const payMarket = market ? paypalMarket(seoPage.path, seoPage.locale) : undefined;
     // The PayPal panel sits right after the key-facts box, where the payment line is.
     const factsEnd = payMarket ? html.indexOf('</aside>') + '</aside>'.length : -1;
+    const founderFactsEnd = FOUNDER_PAGES.has(seoPage.path) ? html.indexOf('</blockquote>') + '</blockquote>'.length : -1;
     const marketKey = marketFromPath(seoPage.path);
     const eyebrow = market ? (marketKey ? (countryNames[seoPage.locale] ?? countryNames.en)[marketKey] ?? countryNames.en[marketKey] : (chrome[seoPage.locale] ?? chrome.en).resources) : (seoPage.path.includes('/insights/') ? (chrome[seoPage.locale] ?? chrome.en).resources : 'Jurassic English · People');
     return <main id="main-content" className="insights-page" lang={seoPage.locale} dir={['ar', 'ur'].includes(seoPage.locale) ? 'rtl' : 'ltr'}>
       <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} paypal={!!payMarket} />
-      <div className="insights-content"><nav aria-label="Breadcrumb"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{(chrome[seoPage.locale] ?? chrome.en).resources}</a></nav>{payMarket && factsEnd > 0 ? <article><div dangerouslySetInnerHTML={{ __html: html.slice(0, factsEnd) }} /><PayPalPanel market={payMarket} locale={seoPage.locale} /><div dangerouslySetInnerHTML={{ __html: html.slice(factsEnd) }} /></article> : <article dangerouslySetInnerHTML={{ __html: html }} />}</div>
+      <div className="insights-content"><nav aria-label="Breadcrumb"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{(chrome[seoPage.locale] ?? chrome.en).resources}</a></nav>{founderFactsEnd > 0 ? <article><div dangerouslySetInnerHTML={{ __html: html.slice(0, founderFactsEnd) }} /><FounderFilmLink locale={seoPage.locale === 'vi' ? 'vi' : 'en'} variant="card" /><div dangerouslySetInnerHTML={{ __html: html.slice(founderFactsEnd) }} /></article> : payMarket && factsEnd > 0 ? <article><div dangerouslySetInnerHTML={{ __html: html.slice(0, factsEnd) }} /><PayPalPanel market={payMarket} locale={seoPage.locale} /><div dangerouslySetInnerHTML={{ __html: html.slice(factsEnd) }} /></article> : <article dangerouslySetInnerHTML={{ __html: html }} />}</div>
       {market && <ClosingBand locale={seoPage.locale} ctas={ctas} paypal={!!payMarket} />}
     </main>;
   }
