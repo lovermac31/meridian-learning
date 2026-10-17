@@ -28,7 +28,7 @@ import { demoLevels, type DemoLevel } from "@/lib/interactiveDemoLevels";
 // /interactive-demo. (Kept inline here so this file remains
 // self-contained as a client component.)
 const JE_CTA_PRIMARY_LIGHT =
-  "inline-flex items-center justify-center bg-accent text-white px-6 py-3 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)]";
+  "inline-flex items-center justify-center bg-[#B45309] text-white px-6 py-3 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)]";
 const JE_EYEBROW_LIGHT =
   "bg-[#F8F7F4] border border-foreground/10 text-foreground/70 mb-4 h-7 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]";
 
@@ -71,10 +71,10 @@ function ProgressStrip({ active }: { active: number }) {
               className={
                 "inline-flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border text-[11px] sm:text-xs font-bold transition-colors " +
                 (isCurrent
-                  ? "bg-accent text-white border-accent shadow-[0_6px_16px_-6px_rgba(242,100,25,0.6)]"
+                  ? "bg-[#B45309] text-white border-accent shadow-[0_6px_16px_-6px_rgba(242,100,25,0.6)]"
                   : isPast
                   ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-white text-foreground/65 border-primary/15")
+                  : "bg-white text-foreground/75 border-primary/15")
               }
             >
               {lvl.number}
@@ -83,7 +83,7 @@ function ProgressStrip({ active }: { active: number }) {
               <ChevronRight
                 className={
                   "w-3.5 h-3.5 transition-colors " +
-                  (isPast ? "text-primary/60" : "text-foreground/25")
+                  (isPast ? "text-primary/60" : "text-foreground/75")
                 }
               />
             ) : null}
@@ -206,7 +206,7 @@ function LevelCards({
               className={
                 "inline-flex h-10 w-10 items-center justify-center rounded-full text-base font-bold mb-3 transition-colors " +
                 (isActive
-                  ? "bg-accent text-white"
+                  ? "bg-[#B45309] text-white"
                   : "bg-[#C5A059]/15 text-[#8a6f33] group-hover:bg-accent/15 group-hover:text-accent")
               }
             >
@@ -216,7 +216,7 @@ function LevelCards({
             <p
               className={
                 "text-[10.5px] font-semibold uppercase tracking-[0.14em] mb-1 " +
-                (isActive ? "text-accent" : "text-foreground/55")
+                (isActive ? "text-[#F59E0B]" : "text-foreground/75")
               }
             >
               Level {lvl.number}
@@ -232,12 +232,12 @@ function LevelCards({
 
             {/* Click affordance / "now showing" marker */}
             {isActive ? (
-              <p className="mt-3 inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-accent">
+              <p className="mt-3 inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-[#F59E0B]">
                 <Sparkles className="w-3 h-3" />
                 Now showing
               </p>
             ) : (
-              <p className="mt-3 inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-foreground/45 group-hover:text-accent transition-colors">
+              <p className="mt-3 inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-foreground/75 group-hover:text-accent transition-colors">
                 <MousePointerClick className="w-3 h-3" />
                 Click to preview
               </p>
@@ -330,7 +330,7 @@ function LevelPanel({ level }: { level: DemoLevel }) {
       {/* Header strip — level number + title + CEFR band */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent mb-1">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#92400E] mb-1">
             Level {level.number}
           </p>
           <h3 className="text-2xl md:text-3xl font-bold text-primary leading-tight">
@@ -346,11 +346,11 @@ function LevelPanel({ level }: { level: DemoLevel }) {
       <Card className="bg-white border border-primary/10">
         <CardContent className="p-5 md:p-6">
           <div className="flex items-start gap-3">
-            <div className="mt-0.5 shrink-0 w-9 h-9 rounded-lg bg-accent/10 text-accent flex items-center justify-center">
+            <div className="mt-0.5 shrink-0 w-9 h-9 rounded-lg bg-accent/10 text-[#B45309] flex items-center justify-center">
               <Target className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/60 mb-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/75 mb-1">
                 Parent-friendly promise
               </p>
               <p className="text-base md:text-[17px] font-medium text-primary leading-snug">
@@ -376,7 +376,7 @@ function LevelPanel({ level }: { level: DemoLevel }) {
                     <Icon className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/60 mb-1">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/75 mb-1">
                       {row.label}
                     </p>
                     <p className="text-sm md:text-[15px] text-foreground/85 leading-relaxed whitespace-pre-line">
@@ -395,7 +395,7 @@ function LevelPanel({ level }: { level: DemoLevel }) {
         <CardContent className="p-5 md:p-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-start gap-3 max-w-2xl">
-              <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg bg-accent/20 text-accent flex items-center justify-center">
+              <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg bg-accent/20 text-[#B45309] flex items-center justify-center">
                 <ArrowRight className="w-4 h-4" />
               </div>
               <div>
@@ -501,10 +501,10 @@ function TryTheThinkingMove({
     <Card className="bg-card border border-primary/10">
       <CardContent className="p-6 md:p-8">
         <div className="flex items-center gap-2 mb-4">
-          <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-accent/10 text-accent">
+          <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-accent/10 text-[#B45309]">
             <Sparkles className="w-3.5 h-3.5" />
           </span>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/65">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/75">
             Try the thinking move
           </p>
         </div>
@@ -518,7 +518,7 @@ function TryTheThinkingMove({
           <div className="rounded-xl bg-white border border-primary/10 p-4">
             <div className="flex items-center gap-2 mb-2">
               <BookOpen className="w-3.5 h-3.5 text-primary/70" />
-              <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/60">
+              <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/75">
                 Demo prompt
               </p>
             </div>
@@ -531,7 +531,7 @@ function TryTheThinkingMove({
           <div className="rounded-xl bg-white border border-primary/10 p-4">
             <div className="flex items-center gap-2 mb-2">
               <Layers className="w-3.5 h-3.5 text-primary/70" />
-              <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/60">
+              <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/75">
                 Student scaffold
               </p>
             </div>
@@ -542,7 +542,7 @@ function TryTheThinkingMove({
           <div className="rounded-xl bg-white border border-primary/10 p-4 flex flex-col">
             <div className="flex items-center gap-2 mb-2">
               <Quote className="w-3.5 h-3.5 text-primary/70" />
-              <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/60">
+              <p className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/75">
                 Sample response
               </p>
             </div>
@@ -558,7 +558,7 @@ function TryTheThinkingMove({
                 <button
                   type="button"
                   onClick={onHide}
-                  className="mt-3 inline-flex items-center gap-1.5 self-start text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground/55 hover:text-primary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+                  className="mt-3 inline-flex items-center gap-1.5 self-start text-[11px] font-semibold uppercase tracking-[0.12em] text-foreground/75 hover:text-primary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
                 >
                   <EyeOff className="w-3 h-3" />
                   Hide sample
@@ -572,11 +572,11 @@ function TryTheThinkingMove({
                 aria-controls={`sample-response-${level.number}`}
                 className="flex-1 flex flex-col items-center justify-center rounded-lg border border-dashed border-primary/25 bg-[#FCFBF8] py-5 px-3 text-center cursor-pointer hover:bg-white hover:border-accent/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent group"
               >
-                <Eye className="w-5 h-5 text-accent mb-2" />
+                <Eye className="w-5 h-5 text-[#B45309] mb-2" />
                 <span className="text-[13px] font-bold text-primary group-hover:text-accent transition-colors">
                   Show sample response
                 </span>
-                <span className="text-[11px] text-foreground/55 mt-1">
+                <span className="text-[11px] text-foreground/75 mt-1">
                   Click to reveal
                 </span>
               </button>
@@ -584,7 +584,7 @@ function TryTheThinkingMove({
           </div>
         </div>
 
-        <p className="mt-5 text-[12.5px] text-foreground/55 leading-relaxed">
+        <p className="mt-5 text-[12.5px] text-foreground/75 leading-relaxed">
           This is a visual preview only. Nothing is collected, stored, or
           submitted. The teacher always has the final word on a student&rsquo;s
           actual placement and progress.

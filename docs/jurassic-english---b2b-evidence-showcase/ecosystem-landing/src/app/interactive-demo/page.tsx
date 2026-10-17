@@ -102,7 +102,7 @@ const interactiveDemoThemeCss = `
 `;
 
 const JE_CTA_PRIMARY_DARK =
-  "inline-flex items-center justify-center bg-accent text-white px-8 py-4 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.6)]";
+  "inline-flex items-center justify-center bg-[#B45309] text-white px-8 py-4 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.6)]";
 const JE_CTA_GLASS_DARK =
   "inline-flex items-center justify-center bg-white/5 border border-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full text-sm font-bold hover:bg-white/10 transition";
 const JE_EYEBROW_LIGHT =
@@ -136,9 +136,9 @@ function InteractiveDemoHero() {
             className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] mb-5 text-primary-foreground"
           >
             See how Jurassic English
-            <span className="align-super text-base text-accent">™</span>{" "}
+            <span className="align-super text-base text-[#B45309]">™</span>{" "}
             grows student thinking from
-            <span className="block text-accent font-serif font-light italic mt-2">
+            <span className="block text-[#B45309] font-serif font-light italic mt-2">
               Level 1 to Level 5.
             </span>
           </h1>
@@ -183,7 +183,7 @@ function ParentEvidencePanel() {
             Visible learning evidence at every level.
           </h2>
           <p className="text-[15px] md:text-base font-light text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Jurassic English<span className="align-super text-xs text-accent">™</span>{" "}
+            Jurassic English<span className="align-super text-xs text-[#B45309]">™</span>{" "}
             does not ask parents to trust vague progress. Each level produces
             visible learning evidence: claim cards, evidence notes,
             interpretation paragraphs, CEIW writing, reflections, and portfolio
@@ -200,7 +200,7 @@ function ParentEvidencePanel() {
                 className="bg-card border border-primary/10"
               >
                 <CardContent className="p-6">
-                  <div className="mb-4 inline-flex w-10 h-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                  <div className="mb-4 inline-flex w-10 h-10 items-center justify-center rounded-lg bg-accent/10 text-[#B45309]">
                     <Icon className="w-5 h-5" />
                   </div>
                   <h3 className="text-base font-semibold text-primary mb-2">
@@ -217,9 +217,9 @@ function ParentEvidencePanel() {
 
         <div className="mt-10 max-w-3xl mx-auto rounded-2xl bg-[#F4F1EA] border border-primary/5 p-5 text-center">
           <p className="text-sm md:text-[15px] text-foreground/75 leading-relaxed">
-            <ScrollText className="inline-block w-4 h-4 mr-1.5 align-text-bottom text-accent" />
+            <ScrollText className="inline-block w-4 h-4 mr-1.5 align-text-bottom text-[#B45309]" />
             Portfolio evidence is reviewed and described by your child&rsquo;s
-            teacher. Jurassic English<span className="align-super text-[10px] text-accent">™</span>{" "}
+            teacher. Jurassic English<span className="align-super text-[10px] text-[#B45309]">™</span>{" "}
             does not replace teacher judgement — it makes student thinking
             easier to see.
           </p>

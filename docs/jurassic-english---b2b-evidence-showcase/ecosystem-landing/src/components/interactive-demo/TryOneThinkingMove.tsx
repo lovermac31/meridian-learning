@@ -38,7 +38,7 @@ import {
 const JE_EYEBROW_LIGHT =
   "bg-[#F8F7F4] border border-foreground/10 text-foreground/70 mb-4 h-7 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]";
 const JE_CTA_PRIMARY_LIGHT =
-  "inline-flex items-center justify-center bg-accent text-white px-6 py-3 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2";
+  "inline-flex items-center justify-center bg-[#B45309] text-white px-6 py-3 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2";
 
 // ---------------------------------------------------------------------------
 // Content: the micro-demo passage and choices.
@@ -112,15 +112,15 @@ function StepMarkers({ active }: { active: 1 | 2 | 3 | 4 }) {
             <span
               className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-300 ${
                 reached
-                  ? "bg-[#C9A86A]/15 text-[#8C7339] border border-[#C9A86A]/30"
-                  : "bg-foreground/[0.04] text-foreground/40 border border-foreground/10"
+                  ? "bg-[#C9A86A]/15 text-[#6B5524] border border-[#C9A86A]/30"
+                  : "bg-foreground/[0.04] text-foreground/75 border border-foreground/10"
               }`}
             >
               <span
                 className={`inline-flex w-4 h-4 items-center justify-center rounded-full text-[10px] font-bold ${
                   reached
-                    ? "bg-[#C9A86A] text-white"
-                    : "bg-foreground/10 text-foreground/40"
+                    ? "bg-[#C9A86A] text-[#1C2526]"
+                    : "bg-foreground/10 text-foreground/75"
                 }`}
               >
                 {s.n}
@@ -187,7 +187,7 @@ function ChoiceCard({
           aria-hidden="true"
           className={`mt-1 inline-flex w-4 h-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
             checked
-              ? "border-accent bg-accent"
+              ? "border-accent bg-[#B45309]"
               : "border-foreground/30 bg-white group-hover:border-foreground/60"
           }`}
         >
@@ -306,7 +306,7 @@ export function TryOneThinkingMove() {
           <p className="text-base md:text-[17px] font-light text-primary-foreground/75 max-w-2xl mx-auto leading-relaxed">
             Read a short passage, choose a claim that feels stronger, pick the
             line that supports it, then reveal one way a Jurassic English
-            <span className="align-super text-xs text-accent">™</span> student
+            <span className="align-super text-xs text-[#B45309]">™</span> student
             might reason. There is no score and no grading.
           </p>
         </div>
@@ -323,7 +323,7 @@ export function TryOneThinkingMove() {
           <div className="space-y-7">
             {/* Step 1 — passage */}
             <article className="rounded-xl bg-white border border-foreground/10 p-5 sm:p-6">
-              <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65">
+              <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/75">
                 <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
                 Step 1 — Read the passage
               </div>
@@ -344,12 +344,12 @@ export function TryOneThinkingMove() {
             >
               <div
                 id={claimGroupHeadingId}
-                className="text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2"
+                className="text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/75 inline-flex items-center gap-2"
               >
                 <Compass className="w-3.5 h-3.5" aria-hidden="true" />
                 Step 2 — Choose a claim
               </div>
-              <p className="mt-3 mb-5 text-[13px] text-foreground/65 leading-relaxed">
+              <p className="mt-3 mb-5 text-[13px] text-foreground/75 leading-relaxed">
                 Both claims are valid. Choose the one that gives you more to
                 think about.
               </p>
@@ -392,12 +392,12 @@ export function TryOneThinkingMove() {
               >
                 <div
                   id={evidenceGroupHeadingId}
-                  className="text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/65 inline-flex items-center gap-2"
+                  className="text-[11px] uppercase tracking-[0.14em] font-semibold text-foreground/75 inline-flex items-center gap-2"
                 >
                   <Eye className="w-3.5 h-3.5" aria-hidden="true" />
                   Step 3 — Choose evidence
                 </div>
-                <p className="mt-3 mb-5 text-[13px] text-foreground/65 leading-relaxed">
+                <p className="mt-3 mb-5 text-[13px] text-foreground/75 leading-relaxed">
                   Pick the line that best supports the claim you selected.
                 </p>
                 <div className="grid gap-3">
@@ -426,14 +426,14 @@ export function TryOneThinkingMove() {
                 className={`inline-flex items-center justify-center px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
                   canReveal
                     ? "bg-foreground text-background hover:bg-foreground/90 shadow-[0_15px_30px_-12px_rgba(0,0,0,0.35)]"
-                    : "bg-foreground/10 text-foreground/40 cursor-not-allowed"
+                    : "bg-foreground/10 text-foreground/75 cursor-not-allowed"
                 }`}
               >
                 <Sparkles className="w-4 h-4 mr-2" />
                 Reveal one possible response
               </button>
               {!canReveal ? (
-                <p className="mt-3 text-[12.5px] text-foreground/55 leading-relaxed">
+                <p className="mt-3 text-[12.5px] text-foreground/75 leading-relaxed">
                   Choose a claim and a line above to reveal a model response.
                 </p>
               ) : null}
@@ -462,21 +462,21 @@ export function TryOneThinkingMove() {
                 className="rounded-xl bg-foreground text-background p-5 sm:p-7 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               >
                 <div className="flex items-center gap-2 mb-3 text-[11px] uppercase tracking-[0.14em] font-semibold text-background/70">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#B45309]" />
                   One possible Jurassic English
-                  <span className="align-super text-[9px] text-accent">™</span>{" "}
+                  <span className="align-super text-[9px] text-[#B45309]">™</span>{" "}
                   response
                 </div>
                 <p className="text-[14.5px] sm:text-[15.5px] leading-relaxed">
-                  <strong className="text-accent">Claim.</strong> The
+                  <strong className="text-[#B45309]">Claim.</strong> The
                   librarian is protecting the books from a quiet danger.{" "}
-                  <strong className="text-accent">Evidence.</strong> Every
+                  <strong className="text-[#B45309]">Evidence.</strong> Every
                   book is back by lunchtime, dry, intact, and arranged
                   exactly as before.{" "}
-                  <strong className="text-accent">Interpretation.</strong>{" "}
+                  <strong className="text-[#B45309]">Interpretation.</strong>{" "}
                   This suggests her nightly rounds were not routine but
                   deliberate care during a season she could not name.{" "}
-                  <strong className="text-accent">Warrant.</strong> The story
+                  <strong className="text-[#B45309]">Warrant.</strong> The story
                   shows that protection sometimes looks like ordinary work
                   done in silence.
                 </p>
