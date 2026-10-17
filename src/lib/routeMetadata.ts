@@ -1,3 +1,4 @@
+import { ieltsCalculatorFaqs } from './ieltsToolsFaq';
 import { legalDocuments } from './legalContent';
 import { getSeriesLevelByPath, seriesLevels } from './seriesContent';
 import { getSyllabusByRoutePath, syllabusData } from './syllabusContent';
@@ -90,10 +91,10 @@ const homeFaqEntries = (locale: Locale) =>
 
 const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/tools/ielts-band-score-calculator': {
-    title: 'IELTS Band Score Calculator (Overall Band)',
-    description: 'Calculate your IELTS overall band from Listening, Reading, Writing and Speaking using the official rounding rule.',
+    title: 'IELTS Band Score Calculator: Overall Band & Rounding Rules',
+    description: 'Calculate your IELTS overall band, see exactly how .25 and .75 averages round, and find the lowest band you need in one skill to reach your target.',
     canonicalPath: '/tools/ielts-band-score-calculator',
-    localized: { vi: { title: 'Tính điểm IELTS overall: công cụ quy đổi band', description: 'Tính điểm IELTS overall từ bốn kỹ năng theo quy tắc làm tròn của IELTS.' } },
+    localized: { vi: { title: 'Cách tính điểm IELTS Overall và làm tròn | Công cụ tính điểm', description: 'Tính điểm IELTS Overall từ 4 kỹ năng, xem bảng làm tròn ,25 và ,75, và tìm điểm tối thiểu cần ở một kỹ năng để đạt overall mục tiêu.' } },
   },
   '/tools/ielts-speaking-part-2-timer': {
     title: 'IELTS Speaking Part 2 Timer | Jurassic English™',
@@ -564,15 +565,7 @@ function resolveStaticRoute(pathname: string, locale: Locale): RouteMetadata | n
   const toolName = pathname.includes('band-score')
     ? locale === 'vi' ? 'Tính điểm IELTS overall' : 'IELTS Band Score Calculator'
     : locale === 'vi' ? 'Đồng hồ IELTS Speaking Part 2' : 'IELTS Speaking Part 2 Timer';
-  const toolFaqs = locale === 'vi' ? [
-    ['Điểm IELTS overall được tính thế nào?', 'Cộng điểm Listening, Reading, Writing và Speaking, chia cho bốn, rồi làm tròn theo quy tắc IELTS.'],
-    ['6,25 có được làm tròn thành 6,5 không?', 'Có. IELTS làm tròn trung bình kết thúc bằng ,25 lên nửa band tiếp theo; ,75 lên band nguyên tiếp theo.'],
-    ['Đây có phải điểm IELTS chính thức không?', 'Không. Chỉ kỳ thi IELTS được ủy quyền mới cấp điểm chính thức. Công cụ này ước tính từ điểm bạn nhập.'],
-  ] : [
-    ['How is my IELTS overall band calculated?', 'Add Listening, Reading, Writing and Speaking bands, divide by four, then round to the nearest half or whole band using IELTS rules.'],
-    ['Does 6.25 round to 6.5?', 'Yes. IELTS rounds an average ending in .25 to the next half band. An average ending in .75 rounds to the next whole band.'],
-    ['Is this an official IELTS result?', 'No. Only an authorised IELTS test can issue an official score. This tool calculates an estimate from the bands you enter.'],
-  ];
+  const toolFaqs = ieltsCalculatorFaqs[locale];
   const toolJsonLd: JsonLd[] = pathname.startsWith('/tools/') ? [{
     '@context': 'https://schema.org', '@type': 'WebApplication',
     name: toolName, url: canonical, applicationCategory: 'EducationalApplication',
