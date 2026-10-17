@@ -32,7 +32,7 @@ test('every variant carries the AI label and the illustrative-scenes note beside
       assert.doesNotMatch(html, /<video|autoplay|<iframe/i, 'no embedded or autoplaying video');
     }
   }
-  assert.match(render('en', 'card'), /alt="[^"]*AI-assisted[^"]*"/, 'thumbnail alt text names it as AI-assisted');
+  assert.match(render('en', 'card'), /alt="[^"]*AI-generated with Google Vids[^"]*"/, 'thumbnail alt text names it as AI-generated with Google Vids');
 });
 
 test('the film is linked from the founder page, homepage teacher section and the three institutional pages', () => {

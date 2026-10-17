@@ -3,7 +3,7 @@
  *
  * The film lives at an unlisted static section (public/film/<token>/, noindex,
  * out of the sitemap). It is AI-assisted, so every link to it carries the AI
- * label in the same visual unit: a viewer never reaches the film without being
+ * label (Google Vids, AI video, AI voice) in the same visual unit: a viewer never reaches the film without being
  * told first. It is a plain document link (not RouteLink): the film is a static
  * page outside the SPA. It never autoplays and never appears on children's pages.
  *
@@ -28,18 +28,18 @@ export const FOUNDER_FILM_COPY = {
     ctaB2b: 'Watch the 60-second founder vision film',
     title: 'A message from Mr. Jay',
     body: 'Why I built Jurassic English and WorldWise Learning, in one minute. Subtitles in 10 languages.',
-    label: 'AI-assisted film',
+    label: 'Made with Google Vids: AI video and AI voice',
     note: 'Scenes are illustrative, not real lessons or clients.',
-    thumbAlt: 'Still from the founder vision film (AI-assisted)',
+    thumbAlt: 'Still from the founder vision film (AI-generated with Google Vids)',
   },
   vi: {
     cta: 'Xem tầm nhìn của thầy Jay trong 60 giây',
     ctaB2b: 'Xem phim tầm nhìn 60 giây của nhà sáng lập',
     title: 'Lời nhắn từ thầy Jay',
     body: 'Vì sao thầy xây dựng Jurassic English và WorldWise Learning, trong một phút. Phụ đề 10 ngôn ngữ.',
-    label: 'Phim có hỗ trợ của AI',
+    label: 'Thực hiện bằng Google Vids: video và giọng nói do AI tạo',
     note: 'Các cảnh mang tính minh họa, không phải buổi học hay khách hàng thật.',
-    thumbAlt: 'Ảnh từ phim tầm nhìn của nhà sáng lập (có hỗ trợ của AI)',
+    thumbAlt: 'Ảnh từ phim tầm nhìn của nhà sáng lập (do AI tạo bằng Google Vids)',
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 
