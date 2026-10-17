@@ -12,6 +12,10 @@ test('brand is self-contained, transparent and never stretched or placed on a wh
   assert.ok(!code.includes("ctx.fillRect(64,52,170,114)"));
   assert.match(code, /ctx.drawImage\(logo,64,32,144,140\)/);
 });
+test('brand link name contains its visible text (WCAG 2.5.3 label in name)', () => {
+  assert.match(html, /<a class="brand" href="https:\/\/jurassicenglish\.com\/" aria-label="Jurassic English – Clarity\. Practice\. Independence\. – home">/);
+  assert.match(html, /<span class="brand-text">Jurassic English <small>Clarity\. Practice\. Independence\.<\/small><\/span>/);
+});
 function element() {
   return { value: '', textContent: '', hidden: false, disabled: false, tabIndex: 0, href: '',
     options: [] as any[], children: [] as any[], handlers: {} as Record<string, (...args: any[]) => any>,
