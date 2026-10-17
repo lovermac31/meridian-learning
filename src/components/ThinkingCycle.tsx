@@ -4,6 +4,7 @@ import { TriceratopsIcon } from './Icons';
 import { getCurrentLocale } from '../i18n/routing';
 import { getHomeContent } from '../i18n/content/home';
 import { getLocalizedThinkingCycleStages } from '../i18n/content/thinkingCycle';
+import { handleRouteClick, RouteLink, routeHref } from './RouteLink';
 
 type ThinkingCycleProps = {
   onSelectStage: (path: string) => void;
@@ -75,14 +76,14 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
           className="grid md:grid-cols-4 gap-6"
         >
           {stages.map((stage, i) => (
-            <motion.button 
+            <motion.a 
               key={stage.title}
-              type="button"
               variants={{
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
               }}
-              onClick={() => onSelectStage(stage.path)}
+              href={routeHref(stage.path)}
+              onClick={(event) => handleRouteClick(event, stage.path, onSelectStage)}
               className="group relative flex h-full w-full appearance-none bg-transparent p-0 text-left rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl border border-white/5 group-hover:border-white/10 transition-all duration-500 glass-dark" />
@@ -111,7 +112,7 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
                   <Search aria-hidden="true" className="w-3 h-3" />
                 </div>
               </div>
-            </motion.button>
+            </motion.a>
           ))}
         </motion.div>
 
@@ -126,14 +127,14 @@ export const ThinkingCycle = ({ onSelectStage, onCompareStages }: ThinkingCycleP
               <span className="text-jurassic-accent mr-2">●</span> {homeContent.thinkingCycle.footerLine}
             </p>
           </div>
-          <button
-            type="button"
-            onClick={onCompareStages}
+          <RouteLink
+            to="/thinking-cycle/compare"
+            onNavigate={() => onCompareStages()}
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             {homeContent.thinkingCycle.compareAllCta}
             <Search aria-hidden="true" className="w-4 h-4" />
-          </button>
+          </RouteLink>
         </motion.div>
       </div>
     </section>

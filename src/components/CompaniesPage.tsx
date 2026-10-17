@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { getCompaniesPageContent } from '../i18n/content/companies';
 import type { Locale } from '../i18n/locales';
+import { RouteLink } from './RouteLink';
 
 type CompaniesPageProps = {
   locale: Locale;
@@ -59,13 +60,13 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
                 {content.hero.primaryCta}
                 <ArrowRight className="h-4 w-4" />
               </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/pilot-programme')}
+              <RouteLink
+                to={'/pilot-programme'}
+                onNavigate={onNavigate}
                 className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
               >
                 {content.hero.secondaryCta}
-              </button>
+              </RouteLink>
               <span className="text-xs font-semibold uppercase tracking-wider text-white/45">
                 {content.hero.badge}
               </span>
@@ -180,13 +181,13 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
             {content.cta.primaryCta}
             <ArrowRight className="h-4 w-4" />
           </button>
-          <button
-            type="button"
-            onClick={() => onNavigate('/pilot-programme')}
+          <RouteLink
+            to={'/pilot-programme'}
+            onNavigate={onNavigate}
             className="inline-flex items-center gap-2 rounded-xl border border-jurassic-dark/20 px-6 py-3 text-sm font-bold text-jurassic-dark transition hover:bg-jurassic-dark/5"
           >
             {content.cta.secondaryCta}
-          </button>
+          </RouteLink>
         </div>
         <p className="mt-6 text-xs leading-relaxed text-jurassic-dark/50">{content.cta.note}</p>
       </section>

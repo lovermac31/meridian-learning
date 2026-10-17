@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { getAuditSprintPageContent } from '../i18n/content/auditSprint';
 import type { Locale } from '../i18n/locales';
+import { RouteLink } from './RouteLink';
 
 type AuditSprintPageProps = {
   locale: Locale;
@@ -93,13 +94,13 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/discovery')}
+              <RouteLink
+                to={'/discovery'}
+                onNavigate={onNavigate}
                 className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all"
               >
                 {content.hero.secondaryCta}
-              </button>
+              </RouteLink>
             </motion.div>
           </motion.div>
         </div>
@@ -380,20 +381,20 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/discovery')}
+              <RouteLink
+                to={'/discovery'}
+                onNavigate={onNavigate}
                 className="border border-jurassic-dark/15 text-jurassic-dark px-8 py-4 rounded-full font-bold hover:border-jurassic-dark/30 hover:bg-jurassic-dark/4 transition-all"
               >
                 {content.cta.secondaryCta}
-              </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/pilot-programme')}
+              </RouteLink>
+              <RouteLink
+                to={'/pilot-programme'}
+                onNavigate={onNavigate}
                 className="border border-jurassic-accent/30 text-jurassic-accent px-8 py-4 rounded-full font-bold hover:border-jurassic-accent/50 hover:bg-jurassic-accent/5 transition-all"
               >
                 {content.cta.pilotCta}
-              </button>
+              </RouteLink>
             </motion.div>
             <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">
               {content.cta.note}

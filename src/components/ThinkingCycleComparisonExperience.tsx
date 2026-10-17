@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, ChevronRight, GitCompareArrows, LibraryBig, Scale, ShieldCheck } from 'lucide-react';
 import { getCurrentLocale } from '../i18n/routing';
 import { getLocalizedThinkingCycleStages, getThinkingCycleComparisonContent } from '../i18n/content/thinkingCycle';
+import { RouteLink } from './RouteLink';
 
 type ThinkingCycleComparisonExperienceProps = {
   onBack: () => void;
@@ -127,13 +128,14 @@ export const ThinkingCycleComparisonExperience = ({
                   </div>
 
                   <div className="flex flex-wrap gap-3 pt-2">
-                    <button
-                      onClick={() => onSelectStage(stage.path)}
+                    <RouteLink
+                      to={stage.path}
+                      onNavigate={onSelectStage}
                       className="inline-flex items-center gap-2 rounded-full bg-jurassic-dark px-5 py-3 text-sm font-semibold text-white transition hover:bg-jurassic-blue"
                     >
                       {pageContent.actions.viewStageDetails}
                       <ChevronRight className="w-4 h-4" />
-                    </button>
+                    </RouteLink>
                     <a
                       href={stage.studentManualPath}
                       download={stage.studentManualFileName}

@@ -2,6 +2,7 @@ import { getOverhaulContent } from '../i18n/content/overhaul';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
+import { handleRouteClick, routeHref } from './RouteLink';
 import { LinkifyWorldWise, WorldWiseLink } from './WorldWiseLink';
 
 type FooterProps = {
@@ -54,6 +55,29 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </ul>
           </nav>
         </div>
+
+        {/* "For schools" — crawlable links into the school & curriculum pages.
+            SPA routes navigate in place; /school-framework and
+            /digital-reasoning-engine are rewrite-served, so handleRouteClick
+            leaves them as native document navigations. */}
+        <nav aria-label={footer.schools.label} className="mt-6 flex flex-wrap items-baseline gap-x-5 gap-y-2">
+          <span className="text-xs font-bold uppercase tracking-widest text-sb-slate">{footer.schools.label}</span>
+          <ul className="flex flex-wrap gap-x-5 gap-y-2">
+            {footer.schools.links.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={routeHref(link.href)}
+                  onClick={(event) => {
+                    if (onNavigate) handleRouteClick(event, link.href, onNavigate);
+                  }}
+                  className="rounded text-sm font-semibold text-sb-forest underline-offset-4 hover:text-sb-amber-deep hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         <p className="mt-8 max-w-3xl text-sm leading-relaxed text-sb-slate">
           {footer.institutionalLead}{' '}

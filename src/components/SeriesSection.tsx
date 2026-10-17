@@ -4,6 +4,7 @@ import { ChevronRight, FileText } from 'lucide-react';
 import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
 import { getHomeContent } from '../i18n/content/home';
 import { getLocalizedSeriesLevels } from '../i18n/content/series';
+import { RouteLink } from './RouteLink';
 
 type SeriesSectionProps = {
   onSelectLevel: (path: string) => void;
@@ -50,14 +51,14 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
             <p className="text-gray-600 font-light leading-relaxed">
               {homeContent.series.body}
             </p>
-            <button
-              type="button"
-              onClick={onCompareLevels}
+            <RouteLink
+              to="/series/compare"
+              onNavigate={() => onCompareLevels()}
               className="mt-6 inline-flex items-center gap-2 rounded-full border border-jurassic-soft bg-white px-5 py-3 text-sm font-semibold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
             >
               {homeContent.series.compareAllCta}
               <ChevronRight aria-hidden="true" className="w-4 h-4" />
-            </button>
+            </RouteLink>
           </div>
           <div className="flex gap-4">
             <div className="bg-jurassic-soft/30 backdrop-blur-sm border border-jurassic-soft px-5 py-3 rounded-2xl text-center">
@@ -81,9 +82,9 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className={`group rounded-2xl border border-gray-100 border-l-4 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-premium ${level.color} flex flex-col justify-between gap-4 md:flex-row md:items-center`}
             >
-              <button
-                type="button"
-                onClick={() => onSelectLevel(level.path)}
+              <RouteLink
+                to={level.path}
+                onNavigate={onSelectLevel}
                 className="flex items-center gap-6 text-left flex-1 min-w-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
               >
                 <div className="text-2xl font-black text-gray-100 font-sans group-hover:text-jurassic-soft transition-colors text-right w-12 shrink-0">
@@ -96,7 +97,7 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
                     {level.lessons} <span className="mx-1.5 text-jurassic-accent">•</span> {level.texts}
                   </p>
                 </div>
-              </button>
+              </RouteLink>
 
               <div className="md:w-1/3 shrink-0">
                 <p className="text-gray-700 text-sm font-medium leading-relaxed">
@@ -105,14 +106,14 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
               </div>
 
               <div className="flex items-center gap-3 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => onSelectLevel(level.path)}
+                <RouteLink
+                  to={level.path}
+                  onNavigate={onSelectLevel}
                   className="inline-flex items-center gap-1.5 rounded-full border border-jurassic-soft bg-white px-4 py-2 text-xs font-bold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2"
                 >
                   {homeContent.series.labels.viewLevelDetails}
                   <ChevronRight aria-hidden="true" className="w-3.5 h-3.5" />
-                </button>
+                </RouteLink>
                 <a
                   href={resolveDemoHref(level.demoMaterialPath)}
                   download={

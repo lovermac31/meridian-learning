@@ -7,6 +7,7 @@ import {
   getLocalizedThinkingCycleStages,
   getThinkingCycleDetailPageContent,
 } from '../i18n/content/thinkingCycle';
+import { RouteLink } from './RouteLink';
 
 type ThinkingCycleExperienceProps = {
   stage: ThinkingCycleStageDetail;
@@ -59,9 +60,10 @@ export const ThinkingCycleExperience = ({
 
           <div className="mt-12 flex flex-wrap gap-3">
             {localizedStages.map((item) => (
-              <button
+              <RouteLink
                 key={item.slug}
-                onClick={() => onSelectStage(item.path)}
+                to={item.path}
+                onNavigate={onSelectStage}
                 className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
                   item.slug === stage.slug
                     ? 'border-jurassic-accent bg-jurassic-accent text-white'
@@ -69,7 +71,7 @@ export const ThinkingCycleExperience = ({
                 }`}
               >
                 {item.title}
-              </button>
+              </RouteLink>
             ))}
             <a
               href={stage.studentManualPath}
@@ -87,13 +89,14 @@ export const ThinkingCycleExperience = ({
               <Download className="w-4 h-4" />
               {pageContent.hero.teacherManual}
             </a>
-            <button
-              onClick={onCompareStages}
+            <RouteLink
+              to="/thinking-cycle/compare"
+              onNavigate={() => onCompareStages()}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
             >
               {pageContent.hero.compareAllStages}
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </RouteLink>
           </div>
         </div>
       </section>

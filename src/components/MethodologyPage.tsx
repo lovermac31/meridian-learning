@@ -17,6 +17,7 @@ import {
 import { getMethodologyPageContent } from '../i18n/content/methodology';
 import { getCurrentLocale } from '../i18n/routing';
 import { WorldWiseLink } from './WorldWiseLink';
+import { RouteLink } from './RouteLink';
 
 type MethodologyPageProps = {
   onBack: () => void;
@@ -146,13 +147,13 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/discovery')}
+              <RouteLink
+                to={'/discovery'}
+                onNavigate={onNavigate}
                 className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all"
               >
                 {content.hero.secondaryCta}
-              </button>
+              </RouteLink>
             </motion.div>
           </motion.div>
         </div>
@@ -269,14 +270,14 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
                     {stage.body}
                   </p>
 
-                  <button
-                    type="button"
-                    onClick={() => onNavigate(stage.path)}
+                  <RouteLink
+                    to={stage.path}
+                    onNavigate={onNavigate}
                     className="mt-6 inline-flex min-h-11 items-center gap-1.5 py-2 text-xs font-semibold text-white/75 hover:text-white transition-colors group"
                   >
                     See the {stage.title} stage in full
                     <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                  </button>
+                  </RouteLink>
                 </motion.div>
               );
             })}
@@ -462,21 +463,21 @@ export const MethodologyPage = ({ onBack, onGetStarted, onNavigate }: Methodolog
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-6">
-              <button
-                type="button"
-                onClick={() => onNavigate('/discovery')}
+              <RouteLink
+                to={'/discovery'}
+                onNavigate={onNavigate}
                 className="text-sm font-semibold text-jurassic-dark/80 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.discoveryCta}
-              </button>
+              </RouteLink>
               <span className="text-jurassic-dark/20 select-none">·</span>
-              <button
-                type="button"
-                onClick={() => onNavigate('/series/compare')}
+              <RouteLink
+                to={'/series/compare'}
+                onNavigate={onNavigate}
                 className="text-sm font-semibold text-jurassic-dark/80 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.seriesCta}
-              </button>
+              </RouteLink>
             </motion.div>
 
             <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/75 leading-relaxed">

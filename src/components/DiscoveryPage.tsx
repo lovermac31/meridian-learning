@@ -11,6 +11,7 @@ import {
   Users,
 } from 'lucide-react';
 import { getDiscoveryPageContent } from '../i18n/content/discovery';
+import { RouteLink } from './RouteLink';
 
 type DiscoveryPageProps = {
   onBack: () => void;
@@ -95,13 +96,13 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/audit-sprint')}
+              <RouteLink
+                to={'/audit-sprint'}
+                onNavigate={onNavigate}
                 className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all"
               >
                 {content.hero.secondaryCta}
-              </button>
+              </RouteLink>
             </motion.div>
           </motion.div>
         </div>
@@ -355,29 +356,29 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-6">
-              <button
-                type="button"
-                onClick={() => onNavigate('/audit-sprint')}
+              <RouteLink
+                to={'/audit-sprint'}
+                onNavigate={onNavigate}
                 className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.auditCta}
-              </button>
+              </RouteLink>
               <span className="text-jurassic-dark/20 select-none">·</span>
-              <button
-                type="button"
-                onClick={() => onNavigate('/pilot-programme')}
+              <RouteLink
+                to={'/pilot-programme'}
+                onNavigate={onNavigate}
                 className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.pilotCta}
-              </button>
+              </RouteLink>
               <span className="text-jurassic-dark/20 select-none">·</span>
-              <button
-                type="button"
-                onClick={() => onNavigate('/worldwise')}
+              <RouteLink
+                to={'/worldwise'}
+                onNavigate={onNavigate}
                 className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.worldwiseCta}
-              </button>
+              </RouteLink>
             </motion.div>
 
             <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { getCefrAlignmentPageContent } from '../i18n/content/cefrAlignment';
 import type { Locale } from '../i18n/locales';
+import { RouteLink } from './RouteLink';
 
 type CefrAlignmentPageProps = {
   locale: Locale;
@@ -99,21 +100,21 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-              <button
-                type="button"
-                onClick={() => onNavigate('/get-started?interest=audit_sprint')}
+              <RouteLink
+                to={'/get-started?interest=audit_sprint'}
+                onNavigate={onNavigate}
                 className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/discovery')}
+              </RouteLink>
+              <RouteLink
+                to={'/discovery'}
+                onNavigate={onNavigate}
                 className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all"
               >
                 {content.hero.secondaryCta}
-              </button>
+              </RouteLink>
             </motion.div>
           </motion.div>
         </div>
@@ -388,9 +389,9 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
                   </ul>
 
                   {/* Link to series level */}
-                  <button
-                    type="button"
-                    onClick={() => onNavigate(level.path)}
+                  <RouteLink
+                    to={level.path}
+                    onNavigate={onNavigate}
                     className={[
                       'mt-5 pt-4 border-t flex items-center gap-1.5 text-xs font-semibold transition-opacity opacity-60 hover:opacity-100',
                       `border-current ${accent.text}`,
@@ -399,7 +400,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
                   >
                     View full level
                     <ExternalLink className="w-3 h-3" />
-                  </button>
+                  </RouteLink>
                 </motion.div>
               );
             })}
@@ -487,32 +488,32 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mb-4">
-              <button
-                type="button"
-                onClick={() => onNavigate('/get-started?interest=audit_sprint')}
+              <RouteLink
+                to={'/get-started?interest=audit_sprint'}
+                onNavigate={onNavigate}
                 className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </RouteLink>
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-6">
-              <button
-                type="button"
-                onClick={() => onNavigate('/discovery')}
+              <RouteLink
+                to={'/discovery'}
+                onNavigate={onNavigate}
                 className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.discoveryCta}
-              </button>
+              </RouteLink>
               <span className="text-jurassic-dark/20 select-none">·</span>
-              <button
-                type="button"
-                onClick={() => onNavigate('/get-started?interest=curriculum_overview')}
+              <RouteLink
+                to={'/get-started?interest=curriculum_overview'}
+                onNavigate={onNavigate}
                 className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.overviewCta}
-              </button>
+              </RouteLink>
             </motion.div>
 
             <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">

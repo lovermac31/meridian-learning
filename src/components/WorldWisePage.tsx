@@ -13,6 +13,7 @@ import {
 import { getWorldWisePageContent } from '../i18n/content/worldwise';
 import { LinkifyWorldWise, WorldWiseLink } from './WorldWiseLink';
 import type { Locale } from '../i18n/locales';
+import { RouteLink } from './RouteLink';
 
 type WorldWisePageProps = {
   locale: Locale;
@@ -91,13 +92,13 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/discovery')}
+              <RouteLink
+                to={'/discovery'}
+                onNavigate={onNavigate}
                 className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all"
               >
                 {content.hero.secondaryCta}
-              </button>
+              </RouteLink>
             </motion.div>
           </motion.div>
         </div>
@@ -278,22 +279,22 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
               {content.methodology.body}
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
-              <button
-                type="button"
-                onClick={() => onNavigate('/framework')}
+              <RouteLink
+                to={'/framework'}
+                onNavigate={onNavigate}
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
               >
                 <BookOpen className="w-4 h-4" />
                 {content.methodology.frameworkCta}
-              </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/thinking-cycle/compare')}
+              </RouteLink>
+              <RouteLink
+                to={'/thinking-cycle/compare'}
+                onNavigate={onNavigate}
                 className="inline-flex items-center gap-2 rounded-full border border-jurassic-gold/30 bg-jurassic-gold/8 px-6 py-3 text-sm font-semibold text-jurassic-gold transition hover:bg-jurassic-gold/15"
               >
                 {content.methodology.thinkingCycleCta}
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </RouteLink>
             </motion.div>
           </motion.div>
         </div>
@@ -327,30 +328,30 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/discovery')}
+              <RouteLink
+                to={'/discovery'}
+                onNavigate={onNavigate}
                 className="border border-jurassic-dark/15 text-jurassic-dark px-8 py-4 rounded-full font-bold hover:border-jurassic-dark/30 hover:bg-jurassic-dark/4 transition-all"
               >
                 {content.cta.secondaryCta}
-              </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/pilot-programme')}
+              </RouteLink>
+              <RouteLink
+                to={'/pilot-programme'}
+                onNavigate={onNavigate}
                 className="border border-jurassic-accent/30 text-jurassic-accent px-8 py-4 rounded-full font-bold hover:border-jurassic-accent/50 hover:bg-jurassic-accent/5 transition-all"
               >
                 {content.cta.pilotCta}
-              </button>
+              </RouteLink>
             </motion.div>
             {content.cta.overviewCta && (
               <motion.div variants={fadeUp} className="mb-4">
-                <button
-                  type="button"
-                  onClick={() => onNavigate('/get-started?interest=curriculum_overview&source=worldwise')}
+                <RouteLink
+                  to={'/get-started?interest=curriculum_overview&source=worldwise'}
+                  onNavigate={onNavigate}
                   className="text-sm font-semibold text-jurassic-dark/50 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
                 >
                   {content.cta.overviewCta}
-                </button>
+                </RouteLink>
               </motion.div>
             )}
             <motion.div variants={fadeUp} className="mb-4">

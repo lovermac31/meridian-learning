@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, BookOpen, ChevronRight, FileText, GitCompareArrows, GraduationCap, LibraryBig } from 'lucide-react';
 import { getLocalizedSeriesLevels, getSeriesComparisonContent } from '../i18n/content/series';
 import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
+import { RouteLink } from './RouteLink';
 
 type SeriesComparisonExperienceProps = {
   onBack: () => void;
@@ -130,13 +131,14 @@ export const SeriesComparisonExperience = ({
                   </div>
 
                   <div className="flex flex-wrap gap-3 pt-2">
-                    <button
-                      onClick={() => onSelectLevel(level.path)}
+                    <RouteLink
+                      to={level.path}
+                      onNavigate={onSelectLevel}
                       className="inline-flex items-center gap-2 rounded-full bg-jurassic-dark px-5 py-3 text-sm font-semibold text-white transition hover:bg-jurassic-blue"
                     >
                       {content.actions.viewLevelDetails}
                       <ChevronRight className="w-4 h-4" />
-                    </button>
+                    </RouteLink>
                     <a
                       href={
                         level.demoMaterialPath.startsWith('/available-soon')
@@ -153,13 +155,14 @@ export const SeriesComparisonExperience = ({
                       <FileText className="w-4 h-4" />
                       {content.actions.demoMaterial}
                     </a>
-                    <button
-                      onClick={() => onViewSyllabus(level.syllabusRoutePath)}
+                    <RouteLink
+                      to={level.syllabusRoutePath}
+                      onNavigate={onViewSyllabus}
                       className="inline-flex items-center gap-2 rounded-full border border-jurassic-soft bg-white px-5 py-3 text-sm font-semibold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent"
                     >
                       <BookOpen className="w-4 h-4" />
                       {content.actions.viewSyllabus}
-                    </button>
+                    </RouteLink>
                   </div>
                 </div>
               </div>
