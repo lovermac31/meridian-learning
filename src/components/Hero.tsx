@@ -6,6 +6,7 @@ import { getUiString } from '../i18n/ui';
 import { AudienceFork } from './AudienceFork';
 import { HeroTeacherPanel } from './HeroTeacherPanel';
 import { WorldWiseLink } from './WorldWiseLink';
+import { RouteLink } from './RouteLink';
 
 type HeroProps = {
   onNavigate: (path: string) => void;
@@ -113,9 +114,9 @@ export const Hero = ({ onNavigate }: HeroProps) => {
 
           {/* Compact B2B discovery strip — secondary to the fork, links to /companies.
               Deliberately NOT a fourth fork door and NOT in the top nav. */}
-          <button
-            type="button"
-            onClick={() => onNavigate('/companies')}
+          <RouteLink
+            to={'/companies'}
+            onNavigate={onNavigate}
             className="group mt-4 flex w-full flex-col items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.03] px-6 py-4 text-left transition hover:border-jurassic-accent/40 hover:bg-white/[0.06] sm:flex-row sm:items-center sm:justify-between sm:gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             <span className="min-w-0">
@@ -129,7 +130,7 @@ export const Hero = ({ onNavigate }: HeroProps) => {
               {hero.companiesStrip.cta}
               <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </span>
-          </button>
+          </RouteLink>
 
           <div className="mt-10 pt-6 border-t border-white/5 flex flex-wrap gap-x-6 gap-y-3 items-center">
             <div className="text-white/55 text-xs uppercase tracking-widest font-semibold">{hero.publishedBy}</div>

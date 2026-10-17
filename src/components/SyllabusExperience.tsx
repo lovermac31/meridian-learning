@@ -15,6 +15,7 @@ import { type SyllabusData } from '../lib/syllabusContent';
 import { LinkifyWorldWise } from './WorldWiseLink';
 import { getCurrentLocale } from '../i18n/routing';
 import { getSyllabusPageContent } from '../i18n/content/syllabus';
+import { RouteLink } from './RouteLink';
 
 type SyllabusExperienceProps = {
   level: SeriesLevelDetail;
@@ -76,13 +77,14 @@ export const SyllabusExperience = ({
           </motion.div>
 
           <div className="mt-10 flex flex-wrap gap-3">
-            <button
-              onClick={onViewLevel}
+            <RouteLink
+              to={level.path}
+              onNavigate={() => onViewLevel()}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
             >
               {pageContent.hero.viewLevelDetails}
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </RouteLink>
           </div>
         </div>
       </section>
@@ -361,13 +363,14 @@ export const SyllabusExperience = ({
           </div>
 
           <div className="mt-10 flex justify-center">
-            <button
-              onClick={onViewLevel}
+            <RouteLink
+              to={level.path}
+              onNavigate={() => onViewLevel()}
               className="inline-flex items-center gap-2 text-sm font-semibold text-jurassic-accent transition hover:text-jurassic-accent/80"
             >
               <ExternalLink className="w-4 h-4" />
               {pageContent.cta.viewFullLevel.replace('{{order}}', String(level.order))}
-            </button>
+            </RouteLink>
           </div>
         </div>
       </section>

@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { getPilotProgrammePageContent } from '../i18n/content/pilotProgramme';
 import type { Locale } from '../i18n/locales';
+import { RouteLink } from './RouteLink';
 
 type PilotProgrammePageProps = {
   locale: Locale;
@@ -140,14 +141,14 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
               </motion.p>
 
               <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-                <button
-                  type="button"
-                  onClick={() => onNavigate('/get-started?interest=curriculum_review&source=pilot-programme&access=pilot_pack')}
+                <RouteLink
+                  to={'/get-started?interest=curriculum_review&source=pilot-programme&access=pilot_pack'}
+                  onNavigate={onNavigate}
                   className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
                 >
                   {content.hero.primaryCta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </button>
+                </RouteLink>
                 <button
                   type="button"
                   onClick={onGetStarted}
@@ -155,13 +156,13 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                 >
                   {content.hero.consultationCta}
                 </button>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('/discovery')}
+                <RouteLink
+                  to={'/discovery'}
+                  onNavigate={onNavigate}
                   className="text-white/75 px-4 py-4 font-bold hover:text-white transition-colors"
                 >
                   {content.hero.secondaryCta}
-                </button>
+                </RouteLink>
               </motion.div>
             </motion.div>
 
@@ -884,14 +885,14 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
               {content.cta.body}
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mb-6">
-              <button
-                type="button"
-                onClick={() => onNavigate('/get-started?interest=curriculum_review&source=pilot-programme&access=pilot_pack')}
+              <RouteLink
+                to={'/get-started?interest=curriculum_review&source=pilot-programme&access=pilot_pack'}
+                onNavigate={onNavigate}
                 className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </RouteLink>
               <button
                 type="button"
                 onClick={onGetStarted}
@@ -899,13 +900,13 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
               >
                 {content.cta.consultationCta}
               </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/discovery')}
+              <RouteLink
+                to={'/discovery'}
+                onNavigate={onNavigate}
                 className="text-white/75 px-4 py-4 font-bold hover:text-white transition-colors"
               >
                 {content.cta.secondaryCta}
-              </button>
+              </RouteLink>
             </motion.div>
             <motion.p variants={fadeUp} className="text-xs text-white/45 leading-relaxed">
               {content.cta.note}

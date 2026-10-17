@@ -52,6 +52,18 @@ const en = {
       { label: 'Terms', href: '/legal/terms' },
       { label: 'Contact', href: '/get-started' },
     ],
+    // Crawlable entry points to the school & curriculum pages (SEO internal links, Oct 2026).
+    schools: {
+      label: 'For schools',
+      links: [
+        { label: 'Knowledge Hub', href: '/knowledge' },
+        { label: 'Curriculum Series', href: '/series/compare' },
+        { label: 'Thinking Cycle', href: '/thinking-cycle/compare' },
+        { label: 'School Framework', href: '/school-framework' },
+        { label: 'Digital Reasoning Engine', href: '/digital-reasoning-engine' },
+        { label: 'For Companies', href: '/companies' },
+      ],
+    },
     legalLabel: 'Legal & privacy requests:',
     institutionalLead: 'Looking for university AI governance, Circular 54 readiness, or school curriculum licensing? Visit',
     institutionalName: 'WorldWise Learning',
@@ -241,6 +253,17 @@ const vi: OverhaulContent = {
       { label: 'Điều khoản', href: '/legal/terms' },
       { label: 'Liên hệ', href: '/get-started' },
     ],
+    schools: {
+      label: 'Dành cho trường học',
+      links: [
+        { label: 'Trung tâm kiến thức', href: '/knowledge' },
+        { label: 'Bộ giáo trình', href: '/series/compare' },
+        { label: 'Thinking Cycle', href: '/thinking-cycle/compare' },
+        { label: 'Khung chương trình cho trường', href: '/school-framework' },
+        { label: 'Digital Reasoning Engine', href: '/digital-reasoning-engine' },
+        { label: 'Cho doanh nghiệp', href: '/companies' },
+      ],
+    },
     legalLabel: 'Yêu cầu pháp lý & quyền riêng tư:',
     institutionalLead: 'Bạn đang tìm giải pháp quản trị AI cho trường đại học, chuẩn bị theo Thông tư 54 hay cấp phép chương trình cho trường học? Mời bạn ghé',
     institutionalName: 'WorldWise Learning',

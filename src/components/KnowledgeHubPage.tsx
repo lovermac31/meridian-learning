@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { ArrowLeft, ChevronDown, MessageCircle } from 'lucide-react';
 import { getKnowledgeContent, type KnowledgeEntry, type KnowledgeGroup } from '../i18n/content/knowledge';
 import { getCurrentLocale } from '../i18n/routing';
+import { RouteLink } from './RouteLink';
 
 type KnowledgeHubPageProps = {
   onBack: () => void;
@@ -122,13 +123,13 @@ export function KnowledgeHubPage({ onBack, onNavigate }: KnowledgeHubPageProps) 
         >
           <p className="text-base leading-relaxed text-jurassic-dark/70">{entry.summary}</p>
           {entry.readMorePath ? (
-            <button
-              type="button"
-              onClick={() => onNavigate(entry.readMorePath as string)}
+            <RouteLink
+              to={entry.readMorePath as string}
+              onNavigate={onNavigate}
               className={`mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-jurassic-accent underline underline-offset-2 hover:opacity-80 ${FOCUS_RING} rounded-md`}
             >
               {content.readMoreLabel}
-            </button>
+            </RouteLink>
           ) : null}
         </div>
       </div>

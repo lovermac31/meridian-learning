@@ -7,6 +7,7 @@ import {
   getSeriesDetailPageContent,
 } from '../i18n/content/series';
 import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
+import { RouteLink } from './RouteLink';
 
 type SeriesExperienceProps = {
   level: SeriesLevelDetail;
@@ -61,9 +62,10 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
 
           <div className="mt-12 flex flex-wrap gap-3">
             {localizedSeriesLevels.map((item) => (
-              <button
+              <RouteLink
                 key={item.slug}
-                onClick={() => onSelectLevel(item.path)}
+                to={item.path}
+                onNavigate={onSelectLevel}
                 className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
                   item.slug === localizedLevel.slug
                     ? 'border-jurassic-accent bg-jurassic-accent text-white'
@@ -71,7 +73,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
                 }`}
               >
                 {item.levelName}
-              </button>
+              </RouteLink>
             ))}
             <a
               href={demoHref}
@@ -85,20 +87,22 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
               <FileText className="w-4 h-4" />
               {pageContent.hero.demoMaterial}
             </a>
-            <button
-              onClick={onViewSyllabus}
+            <RouteLink
+              to={level.syllabusRoutePath}
+              onNavigate={() => onViewSyllabus()}
               className="inline-flex items-center gap-2 rounded-full border border-jurassic-gold/30 bg-jurassic-gold/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-jurassic-gold/20"
             >
               <BookOpen className="w-4 h-4" />
               {pageContent.hero.viewSyllabus}
-            </button>
-            <button
-              onClick={onCompareLevels}
+            </RouteLink>
+            <RouteLink
+              to="/series/compare"
+              onNavigate={() => onCompareLevels()}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
             >
               {pageContent.hero.compareLevels}
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </RouteLink>
           </div>
         </div>
       </section>
