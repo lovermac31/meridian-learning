@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Locale } from '../i18n/locales';
-import { calculateOverallBand, isValidBand } from '../lib/ieltsBand';
+import { AVERAGE_FRACTIONS, calculateOverallBand, isValidBand, minimumBandForTarget, roundAverage } from '../lib/ieltsBand';
+import { ieltsCalculatorFaqs } from '../lib/ieltsToolsFaq';
 
 const source = 'https://ielts.org/take-a-test/your-results/ielts-scoring-in-detail';
 const calculatorEn = '/tools/ielts-band-score-calculator';
@@ -30,11 +31,16 @@ const copy = {
     speakingData: 'IELTS 2024–25 data lists a 5.61 Speaking mean against a 6.20 overall mean for Vietnamese test-takers. Use this as population context, not a prediction of your band.',
     baseline: 'Book a measured Speaking Baseline',
     faqTitle: 'Frequently asked questions',
-    faqs: [
-      ['How is my IELTS overall band calculated?', 'Add Listening, Reading, Writing and Speaking bands, divide by four, then round to the nearest half or whole band using IELTS rules.'],
-      ['Does 6.25 round to 6.5?', 'Yes. IELTS rounds an average ending in .25 to the next half band. An average ending in .75 rounds to the next whole band.'],
-      ['Is this an official IELTS result?', 'No. Only an authorised IELTS test can issue an official score. This tool calculates an estimate from the bands you enter.'],
-    ],
+    plannerTitle: 'What band do I need? Target planner',
+    plannerIntro: 'Enter the three bands you already have or expect, choose the skill that is still open, and pick your target overall. The planner shows the lowest band in that skill that reaches the target.',
+    missingSkill: 'Skill to plan for', target: 'Target overall',
+    plannerResult: (skill: string, band: string, target: string) => `You need at least ${band} in ${skill} for ${target} overall.`,
+    plannerImpossible: (skill: string, target: string) => `Even 9.0 in ${skill} would not reach ${target} overall with these bands.`,
+    roundingTitle: 'IELTS overall rounding table',
+    roundingIntro: 'Four half-band skills always give an average that ends in one of eight fractions. This is how each one rounds, shown for averages from 6.0 to 6.875; the same rule applies at every band.',
+    averageCol: 'Average of four skills', roundsCol: 'Overall band',
+    examplesTitle: 'Worked examples',
+    examplesCols: ['Listening', 'Reading', 'Writing', 'Speaking', 'Average', 'Overall'],
     timerIntro: 'Practice with one minute to plan and two minutes to speak. These original cue cards are practice prompts, not live test questions.',
     chooseTopic: 'Practice topic', plan: 'Planning', speak: 'Speaking', ready: 'Ready', done: 'Finished',
     start: 'Start practice', reset: 'Reset timer', next: 'Next topic',
@@ -48,7 +54,7 @@ const copy = {
     timerNotOfficial: 'Practice only: this timer does not score your answer and is not an official IELTS score.',
   },
   vi: {
-    calculator: 'Tính điểm IELTS overall', timer: 'Đồng hồ IELTS Speaking Part 2',
+    calculator: 'Tính điểm IELTS Overall và cách làm tròn', timer: 'Đồng hồ IELTS Speaking Part 2',
     keyFacts: 'Thông tin chính', overall: 'Điểm overall', calculate: 'Tính điểm overall',
     invalid: 'Nhập điểm từ 0 đến 9, theo bước 0,5 cho cả bốn kỹ năng.',
     notOfficial: 'Đây là kết quả ước tính, không phải điểm IELTS chính thức.',
@@ -68,11 +74,16 @@ const copy = {
     speakingData: 'Dữ liệu IELTS 2024–25 ghi nhận điểm Speaking trung bình 5,61 so với overall trung bình 6,20 của thí sinh Việt Nam. Đây là số liệu nhóm, không dự đoán điểm cá nhân.',
     baseline: 'Đặt lịch Speaking Baseline để được đánh giá',
     faqTitle: 'Câu hỏi thường gặp',
-    faqs: [
-      ['Điểm IELTS overall được tính thế nào?', 'Cộng điểm Listening, Reading, Writing và Speaking, chia cho bốn, rồi làm tròn theo quy tắc IELTS.'],
-      ['6,25 có được làm tròn thành 6,5 không?', 'Có. IELTS làm tròn trung bình kết thúc bằng ,25 lên nửa band tiếp theo; ,75 lên band nguyên tiếp theo.'],
-      ['Đây có phải điểm IELTS chính thức không?', 'Không. Chỉ kỳ thi IELTS được ủy quyền mới cấp điểm chính thức. Công cụ này ước tính từ điểm bạn nhập.'],
-    ],
+    plannerTitle: 'Cần bao nhiêu điểm? Công cụ tính điểm mục tiêu',
+    plannerIntro: 'Nhập ba điểm bạn đã có hoặc dự kiến, chọn kỹ năng còn lại và chọn overall mục tiêu. Công cụ cho biết điểm thấp nhất cần đạt ở kỹ năng đó.',
+    missingSkill: 'Kỹ năng cần tính', target: 'Overall mục tiêu',
+    plannerResult: (skill: string, band: string, target: string) => `Bạn cần tối thiểu ${band} ở ${skill} để đạt overall ${target}.`,
+    plannerImpossible: (skill: string, target: string) => `Với các điểm này, kể cả 9,0 ở ${skill} cũng không đạt overall ${target}.`,
+    roundingTitle: 'Bảng làm tròn điểm IELTS overall',
+    roundingIntro: 'Bốn kỹ năng tính theo nửa band luôn cho trung bình kết thúc bằng một trong tám phần thập phân. Bảng dưới cho thấy cách làm tròn từng trường hợp, ví dụ từ 6,0 đến 6,875; quy tắc giống nhau ở mọi band.',
+    averageCol: 'Trung bình bốn kỹ năng', roundsCol: 'Điểm overall',
+    examplesTitle: 'Ví dụ tính điểm',
+    examplesCols: ['Listening', 'Reading', 'Writing', 'Speaking', 'Trung bình', 'Overall'],
     timerIntro: 'Luyện tập với một phút chuẩn bị và hai phút nói. Các thẻ chủ đề do chúng tôi tự viết để luyện tập, không phải câu hỏi của đề thi thật.',
     chooseTopic: 'Chủ đề luyện tập', plan: 'Chuẩn bị', speak: 'Nói', ready: 'Sẵn sàng', done: 'Hoàn thành',
     start: 'Bắt đầu', reset: 'Đặt lại đồng hồ', next: 'Chủ đề tiếp theo',
@@ -119,6 +130,44 @@ function ToolHero({ locale, title, lead, eyebrow, counterpart }: { locale: Local
   </header>;
 }
 
+
+const SKILLS = ['Listening', 'Reading', 'Writing', 'Speaking'] as const;
+const fmt = (locale: Locale, value: number, digits = 1) => value.toFixed(digits).replace('.', locale === 'vi' ? ',' : '.');
+const BAND_OPTIONS = Array.from({ length: 19 }, (_, i) => i / 2);
+const EXAMPLES: ReadonlyArray<readonly [number, number, number, number]> = [
+  [7, 6.5, 6, 6.5], [6.5, 6.5, 6, 5.5], [7.5, 7, 6, 6.5], [6, 6, 5.5, 5.5], [8, 7.5, 6.5, 6], [6.5, 6, 6, 6],
+];
+
+function TargetPlanner({ locale }: { locale: Locale }) {
+  const c = copy[locale];
+  const [missing, setMissing] = useState(3);
+  const [known, setKnown] = useState([7, 6.5, 6, 6]);
+  const [target, setTarget] = useState(6.5);
+  const others = known.filter((_, index) => index !== missing);
+  const needed = minimumBandForTarget(others, target);
+  return <section className={cardClass} aria-labelledby="planner-title">
+    <h2 id="planner-title" className="mb-3 text-2xl font-bold">{c.plannerTitle}</h2><p className="mb-4">{c.plannerIntro}</p>
+    <div className="grid gap-4 sm:grid-cols-2">
+      <label className="block font-semibold">{c.missingSkill}<select className={inputClass} value={missing} onChange={(event) => setMissing(Number(event.target.value))}>{SKILLS.map((skill, index) => <option key={skill} value={index}>{skill}</option>)}</select></label>
+      <label className="block font-semibold">{c.target}<select className={inputClass} value={target} onChange={(event) => setTarget(Number(event.target.value))}>{BAND_OPTIONS.filter((b) => b >= 4).map((b) => <option key={b} value={b}>{fmt(locale, b)}</option>)}</select></label>
+      {SKILLS.map((skill, index) => index === missing ? null : <label key={skill} className="block font-semibold">{skill}<select className={inputClass} value={known[index]} onChange={(event) => { const next = [...known]; next[index] = Number(event.target.value); setKnown(next); }}>{BAND_OPTIONS.map((b) => <option key={b} value={b}>{fmt(locale, b)}</option>)}</select></label>)}
+    </div>
+    <p role="status" className="mt-5 text-xl font-bold">{needed === null ? c.plannerImpossible(SKILLS[missing], fmt(locale, target)) : c.plannerResult(SKILLS[missing], fmt(locale, needed), fmt(locale, target))}</p>
+  </section>;
+}
+
+function RoundingTable({ locale }: { locale: Locale }) {
+  const c = copy[locale];
+  return <section className={cardClass} aria-labelledby="rounding-title">
+    <h2 id="rounding-title" className="mb-3 text-2xl font-bold">{c.roundingTitle}</h2><p className="mb-4">{c.roundingIntro}</p>
+    <table className="w-full border-collapse text-left"><thead><tr><th scope="col" className="border-b p-2">{c.averageCol}</th><th scope="col" className="border-b p-2">{c.roundsCol}</th></tr></thead>
+      <tbody>{AVERAGE_FRACTIONS.map((fraction) => <tr key={fraction}><td className="border-b p-2 tabular-nums">{fmt(locale, 6 + fraction, 3)}</td><td className="border-b p-2 font-semibold tabular-nums">{fmt(locale, roundAverage(6 + fraction))}</td></tr>)}</tbody></table>
+    <h3 className="mt-6 mb-3 text-xl font-bold">{c.examplesTitle}</h3>
+    <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={c.examplesTitle}><table className="w-full min-w-[32rem] border-collapse text-left"><thead><tr>{c.examplesCols.map((col) => <th key={col} scope="col" className="border-b p-2">{col}</th>)}</tr></thead>
+      <tbody>{EXAMPLES.map((row) => { const average = row.reduce((a, b) => a + b, 0) / 4; return <tr key={row.join('-')}>{row.map((band, i) => <td key={i} className="border-b p-2 tabular-nums">{fmt(locale, band)}</td>)}<td className="border-b p-2 tabular-nums">{fmt(locale, average, 3)}</td><td className="border-b p-2 font-semibold tabular-nums">{fmt(locale, calculateOverallBand([...row]))}</td></tr>; })}</tbody></table></div>
+  </section>;
+}
+
 export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
   const c = copy[locale];
   const [bands, setBands] = useState(['6', '6', '6', '6']);
@@ -137,12 +186,14 @@ export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
         <button type="button" className={`${buttonClass} mt-5`} disabled={!valid} onClick={() => setResult(calculateOverallBand(bands.map(Number)))}>{c.calculate}</button>
         {result !== null && <p role="status" className="mt-5 text-2xl font-bold">{c.overall}: {result.toFixed(1)}</p>}
       </section>
+      <TargetPlanner locale={locale} />
+      <RoundingTable locale={locale} />
       <article className="space-y-5 leading-7"><h2 className="text-2xl font-bold">{c.how}</h2>{c.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<a className="underline" href={source}>{c.source}</a></article>
       <section className={cardClass}><h2 className="mb-3 text-2xl font-bold">{c.speakingHeading}</h2>
         {/* Verified 14 Oct 2026: ielts.org test-taker-performance-data-2024-2025.xlsx, Academic by nationality, Vietnam Speaking 5.61 vs Overall 6.20 (widest gap of 40). */}
         <p>{c.speakingData}</p><a className="mt-4 inline-block font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.baseline}</a>
       </section>
-      <section className={cardClass}><h2 className="mb-4 text-2xl font-bold">{c.faqTitle}</h2>{c.faqs.map(([question, answer]) => <div key={question} className="mb-4"><h3 className="font-semibold">{question}</h3><p>{answer}</p></div>)}</section>
+      <section className={cardClass}><h2 className="mb-4 text-2xl font-bold">{c.faqTitle}</h2>{ieltsCalculatorFaqs[locale].map(([question, answer]) => <div key={question} className="mb-4"><h3 className="font-semibold">{question}</h3><p>{answer}</p></div>)}</section>
       <p className="text-sm">{c.independent}</p>
     </div>
     <div className="insights-closing"><div><p>{c.baseline}</p><div className="insights-closing-actions"><a className="insights-button-primary" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.baseline}</a></div></div></div>

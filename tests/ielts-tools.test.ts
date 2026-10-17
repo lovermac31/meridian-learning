@@ -58,3 +58,20 @@ test('tool pages render the shared hero, language counterpart, and closing CTA',
     assert.ok(html.includes(`href="${counterpart}"`), path);
   }
 });
+
+test('rounding table and target planner agree with calculateOverallBand', async () => {
+  const { roundAverage, minimumBandForTarget, AVERAGE_FRACTIONS } = await import('../src/lib/ieltsBand');
+  assert.deepEqual(AVERAGE_FRACTIONS.map((f) => roundAverage(6 + f)), [6, 6, 6.5, 6.5, 6.5, 6.5, 7, 7]);
+  assert.equal(minimumBandForTarget([7, 6.5, 6], 6.5), 5.5);
+  assert.equal(minimumBandForTarget([6, 6, 6], 6.5), 7);
+  assert.equal(minimumBandForTarget([9, 9, 9], 0), 0);
+  assert.equal(minimumBandForTarget([5, 5, 5], 7.5), null);
+  for (let a = 0; a <= 18; a += 1) for (let b = 0; b <= 18; b += 1) {
+    const known = [a / 2, b / 2, 6];
+    for (let t = 0; t <= 18; t += 1) {
+      const m = minimumBandForTarget(known, t / 2);
+      if (m === null) assert.ok(calculateOverallBand([...known, 9]) < t / 2);
+      else { assert.ok(calculateOverallBand([...known, m]) >= t / 2); if (m > 0) assert.ok(calculateOverallBand([...known, m - 0.5]) < t / 2); }
+    }
+  }
+});
