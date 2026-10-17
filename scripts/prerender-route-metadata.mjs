@@ -211,19 +211,34 @@ function deferAppScriptUntilHeroPaint(html, pathname) {
   }
   // Chrome: start on the hero's own largest-contentful-paint entry (reported
   // after the frame is presented; frame callbacks alone can run while the
-  // first frame is still held). Elsewhere: hero decoded + two frames. Any
-  // tap/key, or 3 s, starts it immediately.
+  // first frame is still held). If the first LCP entry is another element
+  // (phones <= ~360 px, where the intro <p> outsizes the hero), the hero may
+  // never get one: also wait for the hero to decode, then two frames, and
+  // start on whichever comes first.
+  // Without LCP support: the same decode + two frames. Any tap/key, or 3 s,
+  // starts it immediately.
+  // Taps on a toggle (button[aria-expanded]: mobile menu, contact panel)
+  // before hydration have no handler yet. They are held (stopPropagation, so
+  // a half-hydrated React cannot also act on them) and clicked again in order
+  // once AppRoot's first effect fires 'je:hydrated' (50 ms apart, so React
+  // re-renders between two taps on the same toggle).
   const bootstrap =
-    `<script>(function(){var d=false;function go(){if(d)return;d=true;var s=document.createElement('script');` +
+    `<script>(function(){var d=false,h=false,q=[];function go(){if(d)return;d=true;var s=document.createElement('script');` +
     `s.type='module';s.crossOrigin='anonymous';s.src=${JSON.stringify(src)};document.head.appendChild(s)}` +
+    `function T(){return document.querySelectorAll('#root button[type="button"][aria-expanded]')}` +
+    `function tap(e){if(h)return;var b=e.target&&e.target.closest&&e.target.closest('#root button[type="button"][aria-expanded]');` +
+    `if(!b)return;e.stopPropagation();q.push([b,[].indexOf.call(T(),b)]);go()}` +
+    `document.addEventListener('click',tap,true);` +
+    `addEventListener('je:hydrated',function(){h=true;document.removeEventListener('click',tap,true);` +
+    `setTimeout(function r(){var x=q.shift();if(!x)return;var b=x[0].isConnected?x[0]:T()[x[1]];if(b)b.click();setTimeout(r,50)},0)},{once:true});` +
     `setTimeout(go,3000);addEventListener('pointerdown',go,{once:true,passive:true});addEventListener('keydown',go,{once:true});` +
     `function hero(){return document.querySelector('#root img[fetchpriority="high"]')}` +
-    `var P=window.PerformanceObserver,t=P&&P.supportedEntryTypes;` +
-    `if(t&&t.indexOf('largest-contentful-paint')>-1){new P(function(l,o){var i=hero();` +
-    `if(!i||l.getEntries().some(function(e){return e.element===i})){o.disconnect();setTimeout(go,0)}})` +
-    `.observe({type:'largest-contentful-paint',buffered:true});return}` +
     `function next(){requestAnimationFrame(function(){requestAnimationFrame(function(){setTimeout(go,0)})})}` +
     `function start(){var i=hero();if(!i||!i.decode){next();return}i.decode().then(next,next)}` +
+    `var P=window.PerformanceObserver,t=P&&P.supportedEntryTypes;` +
+    `if(t&&t.indexOf('largest-contentful-paint')>-1){var f=false;new P(function(l,o){var i=hero();` +
+    `if(!i||l.getEntries().some(function(e){return e.element===i})){o.disconnect();setTimeout(go,0)}else if(!f){f=true;start()}})` +
+    `.observe({type:'largest-contentful-paint',buffered:true});return}` +
     `if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start()})()</script>`;
   return html
     .replace(entryPattern, '')

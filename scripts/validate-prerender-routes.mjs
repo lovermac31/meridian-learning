@@ -102,6 +102,18 @@ for (const route of prerenderRoutes) {
     if (pattern.test(html)) fallbackErrors.push(`${route}: contains a ${label}`);
   }
 
+  // / and /vi start main.js from an inline bootstrap after the hero paints
+  // (scripts/prerender-route-metadata.mjs). It must also start when the LCP
+  // element is not the hero (narrow phones), and replay toggle taps made
+  // before hydration.
+  if (route === '/' || route === '/vi') {
+    if (/<script type="module"[^>]*src="\/assets\/main-/.test(html)) {
+      fallbackErrors.push(`${route}: main.js is a <script type="module"> tag; expected the deferred bootstrap`);
+    } else if (!html.includes("addEventListener('je:hydrated'") || !html.includes('else if(!f){f=true;start()}')) {
+      fallbackErrors.push(`${route}: deferred main.js bootstrap lacks the tap replay or the non-hero LCP fallback`);
+    }
+  }
+
   const words = countVisibleWords(html);
   const main = countMainContentWords(html);
   const inSitemap = sitemapRoutes.has(route);
