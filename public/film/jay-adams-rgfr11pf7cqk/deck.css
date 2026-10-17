@@ -18,6 +18,20 @@ a { color: inherit; }
 .chip { margin-inline-start: 10px; padding: 3px 10px; border: 1px solid var(--gold); border-radius: 999px; color: var(--gold); font-size: 11px; }
 .dnav { display: flex; gap: 8px; flex: none; }
 .dnav a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); text-decoration: none; font-weight: 700; font-size: 14px; }
+.dlang select { appearance: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--soft); font: inherit; font-weight: 700; font-size: 14px; cursor: pointer; }
+.dlang select option { color: var(--ink); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.s-film { background: #05080c; }
+.s-film .inner { width: 100%; }
+.filmhead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.filmhead .kicker { margin: 0; }
+.subpick { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; font-weight: 700; }
+.subpick select { appearance: none; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--gold); background: var(--panel); color: var(--soft); font: inherit; cursor: pointer; }
+.subpick select option { color: var(--ink); }
+.dvideo { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 12px; }
+.dvideo::cue { background: rgba(8, 12, 16, .82); color: #fff; font-family: var(--font); }
+.tagline-local { color: var(--soft); margin: 0 0 6px; }
+.tagline-local:empty { display: none; }
 .dnav .watch { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 /* Slides: stacked cards (default, phones, no JS, print) */
@@ -87,6 +101,9 @@ body.present .kicker { font-size: 1.15cqw; }
 body.present .quote, body.present .pillar h3, body.present .aud strong { font-size: 1.9cqw; }
 body.present .logo { height: 7cqw; }
 body.present .cards img { width: 15cqw; }
+body.present .s-film { padding: 2.5% 6%; }
+body.present .dvideo { width: min(100%, 76cqw); height: auto; aspect-ratio: 16 / 9; margin: 0 auto; }
+body.present .subpick, body.present .subpick select { font-size: 1.3cqw; }
 body.present .btn { min-height: 3.6cqw; font-size: 1.35cqw; padding: .6cqw 1.8cqw; }
 body.present:fullscreen .dtop { display: none; }
 
@@ -109,3 +126,6 @@ body.present:fullscreen .dtop { display: none; }
   .deck { padding: 0; gap: 0; max-width: none; }
   .slide { break-after: page; border-radius: 0; border: 0; width: 16in; height: 9in; padding: .7in .9in; }
 }
+.ainote { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+.ainote span { color: var(--gold); }
+body.present .ainote { font-size: 1.15cqw; margin-top: .6cqw; }

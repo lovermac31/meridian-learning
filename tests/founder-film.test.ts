@@ -16,10 +16,11 @@ function pages(dir: string): string[] {
   });
 }
 
-test('the film section exists with the Vietnamese page first, 9 more languages and a vi/en deck', () => {
+test('the film section exists with the Vietnamese page first, 9 more languages, and the deck in all 10', () => {
   assert.equal(tokens.length, 1, 'exactly one unlisted film folder');
   const root = join(FILM, tokens[0]);
-  for (const sub of ['', 'en', 'es', 'pt', 'id', 'ms', 'th', 'ar', 'ur', 'bn', 'deck', 'deck/en']) {
+  for (const sub of ['', 'en', 'es', 'pt', 'id', 'ms', 'th', 'ar', 'ur', 'bn',
+    'deck', 'deck/en', 'deck/es', 'deck/pt', 'deck/id', 'deck/ms', 'deck/th', 'deck/ar', 'deck/ur', 'deck/bn']) {
     assert.ok(existsSync(join(root, sub, 'index.html')), `missing ${sub || '(vi)'} page`);
   }
   assert.match(readFileSync(join(root, 'index.html'), 'utf8'), /<html lang="vi"/);
@@ -57,4 +58,29 @@ test('the film stays out of search: X-Robots-Tag header, not in the sitemap, not
   assert.ok(rule.headers.some((h: { key: string; value: string }) => h.key === 'X-Robots-Tag' && h.value.includes('noindex')));
   assert.doesNotMatch(readFileSync('scripts/generate-sitemap.mjs', 'utf8'), /\/film\//);
   assert.doesNotMatch(readFileSync('public/robots.txt', 'utf8'), new RegExp(tokens[0]));
+});
+
+test('the deck plays the film with subtitles in all 10 languages, and RTL decks are marked rtl', () => {
+  const deck = join(FILM, tokens[0], 'deck');
+  for (const [sub, lang] of [['', 'vi'], ['en', 'en'], ['ar', 'ar'], ['ur', 'ur'], ['th', 'th']]) {
+    const html = readFileSync(join(deck, sub, 'index.html'), 'utf8');
+    const tracks = [...html.matchAll(/<track kind="subtitles"[^>]*src="([^"]+)"/g)].map((m) => m[1]);
+    assert.equal(tracks.length, 10, `${lang} deck needs 10 subtitle tracks`);
+    assert.match(html, new RegExp(`<track kind="subtitles" srclang="${lang}"[^>]* default>`), `${lang} deck defaults to its own subtitles`);
+    assert.equal((html.match(/<option value="\/film\//g) || []).length, 10, `${lang} deck language menu lists 10 languages`);
+    if (lang === 'ar' || lang === 'ur') assert.match(html, /<html lang="(ar|ur)" dir="rtl">/);
+  }
+});
+
+test('every film and deck page carries the AI-production disclosure in its own language', () => {
+  const root = join(FILM, tokens[0]);
+  const data = JSON.parse(readFileSync(join(root, 'i18n.json'), 'utf8'));
+  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+  for (const [code, L] of Object.entries<any>(data.langs)) {
+    const note = esc(L.ui.aiNote);
+    assert.ok(note.length > 40, `${code} disclosure text`);
+    for (const page of [code === 'vi' ? 'index.html' : `${code}/index.html`, code === 'vi' ? 'deck/index.html' : `deck/${code}/index.html`]) {
+      assert.ok(readFileSync(join(root, page), 'utf8').includes(note), `${page} must show the ${code} AI disclosure`);
+    }
+  }
 });
