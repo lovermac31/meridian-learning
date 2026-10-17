@@ -350,6 +350,43 @@ async function checkApiRoutes() {
   }
 }
 
+// Deep Supabase health — exercises the CRON-authorized /api/health keepalive.
+// The public GET /api/health returns {status:ok, keepalive:'skipped'} even when
+// the write path is degraded, so the unauthenticated api-route probe cannot see
+// a supabase_not_configured / publishable-key failure. This closes that blind
+// spot: with CRON_SECRET set it hits the protected mode and FAILS (P0) on degraded.
+async function checkSupabaseDeepHealth() {
+  const cronSecret = process.env.CRON_SECRET?.trim();
+  if (!cronSecret) {
+    record('P1', 'supabase_deep_health', 'WARN', {
+      note: 'CRON_SECRET not provided — the protected /api/health Supabase keepalive was NOT exercised. Add CRON_SECRET (matching the Vercel value) as a GitHub Actions secret so this monitor detects degraded writes (e.g. a publishable SUPABASE_WRITE_KEY).',
+    });
+    return;
+  }
+  const r = await probe(`${SITE}/api/health`, { headers: { Authorization: `Bearer ${cronSecret}` } });
+  if (!r.ok) {
+    record('P0', 'supabase_deep_health', 'FAIL', { note: r.error });
+    return;
+  }
+  let body = null;
+  try {
+    body = await r.res.json();
+  } catch {
+    /* non-JSON body — treated as unhealthy below */
+  }
+  const healthy = r.status < 500 && body?.ok !== false && !body?.error && body?.keepalive !== 'skipped';
+  if (healthy) {
+    record('P0', 'supabase_deep_health', 'PASS', { status: r.status, keepalive: body?.keepalive ?? 'ran' });
+  } else {
+    record('P0', 'supabase_deep_health', 'FAIL', {
+      status: r.status,
+      error: body?.error ?? '(none)',
+      keepalive: body?.keepalive ?? '(unknown)',
+      note: 'Protected /api/health reports the Supabase write path is unhealthy. Most common cause: SUPABASE_WRITE_KEY is a publishable key (sb_publishable_…); it must be a secret key (sb_secret_…) or a service_role JWT. (If keepalive is "skipped", the CI CRON_SECRET does not match the Vercel value.)',
+    });
+  }
+}
+
 async function checkAnalyticsMarkers(homepageBody) {
   if (!homepageBody) {
     record('P2', 'cta_analytics_markers', 'SKIP', { note: 'homepage body unavailable' });
@@ -442,6 +479,7 @@ async function main() {
   await checkSecurityHeaders(homepageBody);
   await checkAllRoutes();
   await checkApiRoutes();
+  await checkSupabaseDeepHealth();
   await checkAnalyticsMarkers(homepageBody);
   await checkCanonical(homepageBody);
 
