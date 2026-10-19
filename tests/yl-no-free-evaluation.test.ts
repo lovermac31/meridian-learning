@@ -12,7 +12,7 @@
  *   - no promise that the 690.000₫ is credited against lessons (not built yet).
  *
  * Out of scope (reported to the owner, deliberately not matched here): the
- * Band 7 Target Pathway's "re-sit preparation at no extra tuition" terms.
+ * plan terms (now effort-based; see tests/yl-no-score-triggered-remedy.test.ts).
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
