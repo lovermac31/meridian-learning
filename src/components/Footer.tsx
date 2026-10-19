@@ -92,8 +92,8 @@ export const Footer = ({ onNavigate }: FooterProps) => {
         </p>
         <p className="mt-3 text-xs text-sb-slate">
           {footer.legalLabel}{' '}
-          <a href="mailto:legal@worldwiselearning.com" className="font-semibold text-sb-forest underline underline-offset-4">
-            legal@worldwiselearning.com
+          <a href="mailto:info@jurassicenglish.com" className="font-semibold text-sb-forest underline underline-offset-4">
+            info@jurassicenglish.com
           </a>
         </p>
         <p className="mt-3 text-xs text-sb-slate">
