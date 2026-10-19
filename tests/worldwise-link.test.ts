@@ -89,8 +89,9 @@ test('the site footer links both organisation mentions', () => {
   const html = renderToStaticMarkup(createElement(Footer, {}));
   const links = html.split(ANCHOR_OPEN).length - 1;
   assert.equal(links, 3, 'institutional line + copyright line + trademark line');
-  // The legal mailbox stays a mailto on its own domain — it is not a website link.
-  assert.ok(html.includes('href="mailto:legal@worldwiselearning.com"'));
+  // The legal mailbox is a mailto on a domain we own (worldwiselearning.com is not ours: parked for sale, 19 Oct 2026).
+  assert.ok(html.includes('href="mailto:info@jurassicenglish.com"'));
+  assert.ok(!html.includes('worldwiselearning.com"') && !html.includes('@worldwiselearning.com'), 'no mailbox on the unowned .com domain');
 });
 
 test('the homepage hero publisher lockup links the WorldWise mark and name as one target', async () => {

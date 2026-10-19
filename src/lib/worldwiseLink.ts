@@ -7,7 +7,7 @@
  * link per line of copy is enough, and it keeps legal/attribution lines from
  * becoming a row of identical links.
  *
- * Deliberately does NOT match the e-mail domain (`legal@worldwiselearning.com`):
+ * Deliberately does NOT match the e-mail domain (e.g. `name@worldwiselearning.app`):
  * that is a mailbox on a different TLD, not a reference to the website.
  */
 const BRAND_PATTERN = /World ?Wise Learning/;
