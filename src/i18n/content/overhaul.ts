@@ -5,7 +5,7 @@
  *
  * Rules this copy follows (spec §0.1):
  * - Prices are the live VND prices, unchanged. USD figures are approximate,
- *   at the owner's reference rate 1 USD ≈ 25.400₫, rounded.
+ *   at the checkout rate 1 USD ≈ 25.897₫ (VND_PER_USD in src/lib/paypal.ts), rounded up.
  * - Under-18 sessions are never recorded; no recorded portfolios are promised.
  * - AI Speaking scope is stated beside the offer (typed mode live, no
  *   pronunciation; spoken mode limited beta; sample audio is synthetic).
@@ -165,7 +165,7 @@ const en = {
     pricing: {
       heading: 'Clear starting options & transparent pricing',
       disclosure:
-        'All VietQR and online-checkout payments are billed in Vietnamese Đồng (VND ₫). Approximate US Dollar (~$) figures use 1 USD ≈ 25.400₫ for international reference; families outside Vietnam can also pay set US$ amounts by PayPal on the Speaking page. Live online sessions run across GMT+3 to GMT+8 (Hanoi is GMT+7).',
+        'All VietQR and online-checkout payments are billed in Vietnamese Đồng (VND ₫). Approximate US Dollar (~$) figures use 1 USD ≈ 25.897₫ for international reference; families outside Vietnam can also pay set US$ amounts by PayPal on the Speaking page. Live online sessions run across GMT+3 to GMT+8 (Hanoi is GMT+7).',
       entryLabel: 'Start here',
       ongoingLabel: 'Ongoing options & full commitment totals',
       rows: [
@@ -366,7 +366,7 @@ const vi: OverhaulContent = {
     pricing: {
       heading: 'Lựa chọn bắt đầu rõ ràng & học phí minh bạch',
       disclosure:
-        'Mọi khoản thanh toán qua VietQR và thanh toán trực tuyến đều tính bằng Việt Nam Đồng (VND ₫). Giá USD (~$) chỉ để tham khảo, quy đổi theo 1 USD ≈ 25.400₫; gia đình ở nước ngoài cũng có thể trả các khoản USD cố định qua PayPal trên trang Luyện nói. Các buổi học trực tuyến diễn ra trong khung GMT+3 đến GMT+8 (Hà Nội là GMT+7).',
+        'Mọi khoản thanh toán qua VietQR và thanh toán trực tuyến đều tính bằng Việt Nam Đồng (VND ₫). Giá USD (~$) chỉ để tham khảo, quy đổi theo 1 USD ≈ 25.897₫; gia đình ở nước ngoài cũng có thể trả các khoản USD cố định qua PayPal trên trang Luyện nói. Các buổi học trực tuyến diễn ra trong khung GMT+3 đến GMT+8 (Hà Nội là GMT+7).',
       entryLabel: 'Bắt đầu tại đây',
       ongoingLabel: 'Lựa chọn tiếp theo & tổng chi phí cam kết',
       rows: [

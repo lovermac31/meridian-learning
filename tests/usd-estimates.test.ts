@@ -27,3 +27,12 @@ test('USD estimates next to VND prices match the PayPal amount', () => {
   }
   assert.ok(checked >= 12, `expected at least 12 estimates, found ${checked}`);
 });
+
+test('the stated reference rate is the checkout rate', async () => {
+  const { VND_PER_USD } = await import('../src/lib/paypal.ts');
+  const shown = `1 USD ≈ ${VND_PER_USD.toLocaleString('de-DE')}₫`; // 25.897₫, Vietnamese thousands separator
+  for (const file of FILES) {
+    const text = readFileSync(resolve(ROOT, file), 'utf8');
+    for (const m of text.matchAll(/1 USD ≈ [\d.,]+₫/g)) assert.equal(m[0], shown, `${file}: ${m[0]}`);
+  }
+});
