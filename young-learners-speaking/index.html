@@ -400,6 +400,7 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 .yl2 .yl-promo-trigger:hover{color:#B45309}
 .yl2 a:focus-visible,.yl2 .btn:focus-visible,nav a:focus-visible,nav button:focus-visible,.yl2-footer a:focus-visible{outline:3px solid #1E4D3B;outline-offset:3px}
 .yl2-hero{padding:120px 0 56px}
+@media(max-width:880px){.yl2-hero{padding-top:40px}} /* the earlier 28px rule sits above the base rule and never applied */
 .yl2-hero-grid{display:grid;gap:32px;align-items:start}
 @media(min-width:900px){.yl2-hero-grid{grid-template-columns:1.1fr .9fr}}
 .yl2-hero h1{color:#1E4D3B;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.08;margin:.4rem 0 1rem}
@@ -456,16 +457,14 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 .yl2-wt2-list{margin:.6rem 0 0;padding-left:1.1rem;color:#1C2526;font-size:.95rem}
 .yl2-wt2-list li{margin:.2rem 0}
 .card-balanced-cta-wrapper .btn{min-height:48px}
-/* Cambridge Flyers coming-soon banner (§3.1) */
-.yl2-flyers{background:#1E4D3B;color:#fff;padding:96px 0 18px}
+/* Cambridge Flyers waitlist banner (§3.1): after the offer, so the first screen is the current offer only (15 Oct audit P1.5) */
+.yl2-flyers{background:#1E4D3B;color:#fff;padding:28px 0}
 .yl2-flyers-in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
 .yl2-flyers-tag{margin:0;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;background:#FAF7F2;color:#1E4D3B;border-radius:999px;padding:3px 10px}
 .yl2-flyers-h{margin:0;font-weight:900;font-size:1.05rem}
 .yl2-flyers-p{margin:0;flex:1 1 320px;color:rgba(255,255,255,.88);font-size:.92rem}
 .yl2 .yl2-flyers-cta{background:#B45309;color:#fff;min-height:42px}
 .yl2 .yl2-flyers-cta:hover{background:#FAF7F2;color:#1E4D3B}
-.yl2-flyers + .yl2-hero{padding-top:40px}
-@media(max-width:880px){.yl2-flyers{padding-top:18px}}
 
 /* ===== Header symmetry (Oct 2026) ===== */
 nav.yl2-hdr{position:relative;z-index:40}
@@ -532,14 +531,6 @@ nav.yl2-hdr{position:relative;z-index:40}
 </nav>
 
 <main id="main" class="yl2">
-  <aside class="yl2-flyers" aria-labelledby="yl2-flyers-h">
-    <div class="wrap yl2-flyers-in">
-      <p class="yl2-flyers-tag" data-i18n="yl2.flyers.tag">Coming soon · Ages 9–12</p>
-      <p id="yl2-flyers-h" class="yl2-flyers-h" data-i18n="yl2.flyers.h">Cambridge A2 Flyers Speaking Preparation — Levels 1 and 2</p>
-      <p class="yl2-flyers-p" data-i18n="yl2.flyers.p">An independent bridge before Band 5.0, not endorsed by Cambridge. Join the waitlist.</p>
-      <a class="btn yl2-flyers-cta" href="mailto:info@jurassicenglish.com?subject=Cambridge%20A2%20Flyers%20Priority%20Waitlist" data-i18n="yl2.flyers.cta">Join the priority waitlist</a>
-    </div>
-  </aside>
   <section class="yl2-hero" id="top">
     <div class="wrap yl2-hero-grid">
       <div>
@@ -638,6 +629,14 @@ nav.yl2-hdr{position:relative;z-index:40}
       <p class="yl2-fine" data-i18n="yl2.legal">Only an authorised IELTS test produces an official score. Sessions with learners under 18 are never recorded.</p>
     </div>
   </section>
+  <aside class="yl2-flyers" aria-labelledby="yl2-flyers-h">
+    <div class="wrap yl2-flyers-in">
+      <p class="yl2-flyers-tag" data-i18n="yl2.flyers.tag">Coming soon · Ages 9–12</p>
+      <p id="yl2-flyers-h" class="yl2-flyers-h" data-i18n="yl2.flyers.h">Cambridge A2 Flyers Speaking Preparation — Levels 1 and 2</p>
+      <p class="yl2-flyers-p" data-i18n="yl2.flyers.p">An independent bridge before Band 5.0, not endorsed by Cambridge. Join the waitlist.</p>
+      <a class="btn yl2-flyers-cta" href="mailto:info@jurassicenglish.com?subject=Cambridge%20A2%20Flyers%20Priority%20Waitlist" data-i18n="yl2.flyers.cta">Join the priority waitlist</a>
+    </div>
+  </aside>
 </main>
 
 <footer class="yl2-footer">
