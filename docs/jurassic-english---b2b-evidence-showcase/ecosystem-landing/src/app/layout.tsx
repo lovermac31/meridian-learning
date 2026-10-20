@@ -107,7 +107,7 @@ export default function RootLayout({
           Skip-to-main-content link (WCAG 2.4.1 Bypass Blocks).
           Must be the FIRST focusable element in <body> so that a keyboard
           user pressing Tab once on any ecosystem-rewritten page
-          (/student-academy, /interactive-demo, /book-diagnostic,
+          (/student-academy, /student-academy/resources, /interactive-demo, /book-diagnostic,
           /digital-reasoning-engine, /evidence, /school-framework) can jump
           straight to <main id="main-content"> and skip the production-style
           header navigation. Visually hidden via `sr-only` until focused;
@@ -126,7 +126,7 @@ export default function RootLayout({
         {/*
           Production-style header — visually + behaviorally mirrors the
           jurassicenglish.com homepage navbar so a user reading
-          /student-academy etc. (served via Vercel rewrite from
+          /student-academy/resources etc. (served via Vercel rewrite from
           ecosystem-landing) feels they are still on the same site.
           Replaces the previous parchment chrome + utility-strip pattern.
           See: src/components/ProductionStyleHeader.tsx
