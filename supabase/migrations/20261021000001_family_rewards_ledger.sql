@@ -118,7 +118,7 @@ create table family_rewards.referrals (
   payment_issue_open boolean not null default false,
   refunded           boolean not null default false,
   evidence_ref       text check (evidence_ref is null or length(evidence_ref) <= 200),
-  status             text not null default 'attributed' check (status in ('attributed', 'qualified', 'credited', 'void')),
+  status             text not null default 'attributed' check (status in ('attributed', 'credited', 'void')),
   qualified_at       timestamptz,
   credited_at        timestamptz,
   created_at         timestamptz not null default now(),
@@ -398,7 +398,7 @@ begin
       'posted',      v_posted,
       'held',        v_held,
       'available',   v_posted - v_held,
-      'pending',     coalesce((select sum(reward_vnd) from referrals where referrer_member_id = m.id and status in ('attributed', 'qualified')), 0)),
+      'pending',     coalesce((select sum(reward_vnd) from referrals where referrer_member_id = m.id and status = 'attributed'), 0)),
     'referrals', coalesce((select jsonb_agg(jsonb_build_object(
         'family', h.alias,
         'since', to_char(r.code_declared_at at time zone 'Asia/Ho_Chi_Minh', 'YYYY-MM-DD'),
@@ -551,8 +551,7 @@ begin
   update referrals set first_payment_at = p_first_payment_at, lessons_paid = p_lessons_paid, lessons_completed = p_lessons_completed,
          payment_issue_open = coalesce(p_payment_issue_open, false), refunded = coalesce(p_refunded, false),
          evidence_ref = nullif(btrim(p_evidence_ref), ''),
-         -- Any change of evidence invalidates an earlier qualification approval.
-         status = 'attributed', qualified_at = null
+         qualified_at = null
    where id = p_referral;
   perform _audit(w.email, 'update_evidence', p_referral::text, _check_reason(p_reason), p_key);
   return _idem_store(p_key, jsonb_build_object('referral_id', p_referral, 'status', 'attributed'));
@@ -570,46 +569,32 @@ language sql immutable as $$
     else null end;
 $$;
 
-create function family_rewards.fr_owner_qualify(p_session text, p_key text, p_referral uuid, p_reason text)
-returns jsonb language plpgsql security definer set search_path = pg_catalog, family_rewards as $$
-declare w record; r jsonb; x referrals; v_why text;
-begin
-  select * into w from _who(p_session, true);
-  r := _idem_claim(p_key, 'qualify', jsonb_build_object('r', p_referral, 'reason', p_reason));
-  if r is not null then return r; end if;
-  select * into x from referrals where id = p_referral for update;
-  if x.id is null then perform _fail('not_found', 'Unknown referral.'); end if;
-  if x.status <> 'attributed' then perform _fail('state', 'Only an attributed referral can be qualified.'); end if;
-  v_why := _qualifies(x);
-  if v_why is not null then perform _fail('not_qualified', v_why); end if;
-  update referrals set status = 'qualified', qualified_at = now() where id = p_referral;
-  perform _audit(w.email, 'qualify', p_referral::text, _check_reason(p_reason), p_key);
-  return _idem_store(p_key, jsonb_build_object('referral_id', p_referral, 'status', 'qualified'));
-end $$;
-
--- Post the snapshotted reward. Re-validates evidence under lock, so a refund or
--- dispute recorded after qualification blocks the posting.
-create function family_rewards.fr_owner_post_reward(p_session text, p_key text, p_referral uuid, p_reason text)
+-- Owner-approved qualification. Approval and crediting are one transaction:
+-- under a row lock the evidence is re-validated, the referral is marked
+-- credited, the snapshotted reward is posted to the referrer's ledger and the
+-- budget reservation is converted into an issued reward (same commitment, no
+-- second charge). A repeat approval, a concurrent approval, a refund or an
+-- open dispute cannot produce a second or unearned credit.
+create function family_rewards.fr_owner_approve_qualification(p_session text, p_key text, p_referral uuid, p_reason text)
 returns jsonb language plpgsql security definer set search_path = pg_catalog, family_rewards as $$
 declare w record; r jsonb; x referrals; v_why text; v_entry uuid;
 begin
   select * into w from _who(p_session, true);
-  r := _idem_claim(p_key, 'post_reward', jsonb_build_object('r', p_referral, 'reason', p_reason));
+  r := _idem_claim(p_key, 'approve_qualification', jsonb_build_object('r', p_referral, 'reason', p_reason));
   if r is not null then return r; end if;
   perform _writes_open();
   select * into x from referrals where id = p_referral for update;
   if x.id is null then perform _fail('not_found', 'Unknown referral.'); end if;
   if x.status = 'credited' then perform _fail('already_credited', 'This referral has already been credited.'); end if;
-  if x.status <> 'qualified' then perform _fail('state', 'Approve qualification first.'); end if;
+  if x.status <> 'attributed' then perform _fail('state', 'Only an attributed referral can be approved.'); end if;
   v_why := _qualifies(x);
   if v_why is not null then perform _fail('not_qualified', v_why); end if;
   insert into ledger_entries (member_id, amount_vnd, entry_type, referral_id, actor, reason)
   values (x.referrer_member_id, x.reward_vnd, 'reward', x.id, w.email, _check_reason(p_reason)) returning id into v_entry;
-  update referrals set status = 'credited', credited_at = now() where id = x.id;
-  -- Convert the reservation into an issued reward: same commitment, no second charge.
+  update referrals set status = 'credited', qualified_at = now(), credited_at = now() where id = x.id;
   update budget set reserved_vnd = reserved_vnd - x.reward_vnd, issued_vnd = issued_vnd + x.reward_vnd, updated_at = now() where id = 1;
-  perform _audit(w.email, 'post_reward', x.id::text, p_reason, p_key);
-  return _idem_store(p_key, jsonb_build_object('entry_id', v_entry, 'amount', x.reward_vnd));
+  perform _audit(w.email, 'approve_qualification', x.id::text, p_reason, p_key);
+  return _idem_store(p_key, jsonb_build_object('referral_id', x.id, 'status', 'credited', 'entry_id', v_entry, 'amount', x.reward_vnd));
 end $$;
 
 -- Void an unearned referral (refund, cancellation, ineligible) and release its reservation.
@@ -833,7 +818,7 @@ begin
       'ledger_total', coalesce((select sum(amount_vnd) from ledger_entries), 0),
       'rewards_posted', coalesce((select sum(amount_vnd) from ledger_entries where entry_type = 'reward'), 0),
       'budget_issued', (select issued_vnd from budget),
-      'reserved_open', coalesce((select sum(reward_vnd) from referrals where status in ('attributed', 'qualified')), 0),
+      'reserved_open', coalesce((select sum(reward_vnd) from referrals where status = 'attributed'), 0),
       'budget_reserved', (select reserved_vnd from budget)));
 end $$;
 
@@ -856,8 +841,7 @@ grant execute on function
   family_rewards.fr_owner_approve_member(text, text, text, text, text, text, timestamptz, text),
   family_rewards.fr_owner_record_referral(text, text, text, text, text, text, text, timestamptz, text),
   family_rewards.fr_owner_update_evidence(text, text, uuid, timestamptz, int, int, boolean, boolean, text, text),
-  family_rewards.fr_owner_qualify(text, text, uuid, text),
-  family_rewards.fr_owner_post_reward(text, text, uuid, text),
+  family_rewards.fr_owner_approve_qualification(text, text, uuid, text),
   family_rewards.fr_owner_void_referral(text, text, uuid, text),
   family_rewards.fr_owner_register_invoice(text, text, text, uuid, int, boolean, text, bigint, text),
   family_rewards.fr_owner_hold_redemption(text, text, uuid, text, bigint, text),

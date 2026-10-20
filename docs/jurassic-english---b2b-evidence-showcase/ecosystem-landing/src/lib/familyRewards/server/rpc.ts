@@ -59,7 +59,7 @@ export function parseKey(input: unknown): string {
 const FUNCTIONS = new Set([
   "fr_request_login", "fr_redeem_login", "fr_sign_out", "fr_customer_account",
   "fr_owner_set_budget", "fr_owner_set_flags", "fr_owner_approve_member", "fr_owner_record_referral",
-  "fr_owner_update_evidence", "fr_owner_qualify", "fr_owner_post_reward", "fr_owner_void_referral",
+  "fr_owner_update_evidence", "fr_owner_approve_qualification", "fr_owner_void_referral",
   "fr_owner_register_invoice", "fr_owner_hold_redemption", "fr_owner_confirm_redemption",
   "fr_owner_release_redemption", "fr_owner_reverse_redemption", "fr_owner_adjust", "fr_owner_opening_balance", "fr_owner_overview",
 ]);
@@ -92,8 +92,7 @@ export type OwnerOp =
   | { op: "approve_member"; fullName: string; email: string; phone: string; termsVersion: string; termsAcceptedAt: string; reason: string }
   | { op: "record_referral"; code: string; fullName: string; email: string; phone: string; packageRef: string; declaredAt: string; reason: string }
   | { op: "update_evidence"; referral: string; firstPaymentAt: string | null; lessonsPaid: number; lessonsCompleted: number; issueOpen: boolean; refunded: boolean; evidenceRef: string; reason: string }
-  | { op: "qualify"; referral: string; reason: string }
-  | { op: "post_reward"; referral: string; reason: string }
+  | { op: "approve_qualification"; referral: string; reason: string }
   | { op: "void_referral"; referral: string; reason: string }
   | { op: "register_invoice"; packageId: string; member: string; lessons: number; eligible: boolean; invoiceId: string; payable: number; reason: string }
   | { op: "hold_redemption"; member: string; invoiceId: string; amount: number; reason: string }
@@ -113,8 +112,7 @@ export function ownerOp(db: Queryable, session: string, key: string, o: OwnerOp)
     case "record_referral": return call(db, "fr_owner_record_referral", [session, k, o.code, o.fullName, o.email, o.phone, o.packageRef, parseInstant(o.declaredAt), o.reason]);
     case "update_evidence": return call(db, "fr_owner_update_evidence", [session, k, o.referral, parseInstant(o.firstPaymentAt, { optional: true }),
       parseCount(o.lessonsPaid), parseCount(o.lessonsCompleted), o.issueOpen, o.refunded, o.evidenceRef, o.reason]);
-    case "qualify": return call(db, "fr_owner_qualify", [session, k, o.referral, o.reason]);
-    case "post_reward": return call(db, "fr_owner_post_reward", [session, k, o.referral, o.reason]);
+    case "approve_qualification": return call(db, "fr_owner_approve_qualification", [session, k, o.referral, o.reason]);
     case "void_referral": return call(db, "fr_owner_void_referral", [session, k, o.referral, o.reason]);
     case "register_invoice": return call(db, "fr_owner_register_invoice", [session, k, o.packageId, o.member, parseCount(o.lessons), o.eligible, o.invoiceId, parseVnd(o.payable), o.reason]);
     case "hold_redemption": return call(db, "fr_owner_hold_redemption", [session, k, o.member, o.invoiceId, parseVnd(o.amount), o.reason]);

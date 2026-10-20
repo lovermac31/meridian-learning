@@ -109,13 +109,14 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             fields={[{ name: "code", label: "Referral code", placeholder: "JE-XXXXXX", required: true }, { name: "full_name", label: "New family adult's name", required: true },
               { name: "email", label: "New family email", type: "email" }, { name: "phone", label: "New family phone" }, { name: "package_ref", label: "Booking/package reference", required: true },
               { name: "declared_at", label: "Code given at (with time zone)", defaultValue: nowLocal, required: true }]} />
-          <OpForm op="update_evidence" title="Record payment and lesson evidence" hint="Resets any earlier qualification. First payment time cannot change once recorded."
+          <OpForm op="update_evidence" title="Record payment and lesson evidence" hint="First payment time cannot change once recorded."
             fields={[{ name: "referral", label: "Referral id", required: true }, { name: "first_payment_at", label: "First package payment at (with time zone)" },
               { name: "lessons_paid", label: "Lessons paid", type: "number", required: true }, { name: "lessons_completed", label: "Lessons completed", type: "number", required: true },
               { name: "issue_open", label: "Unresolved payment or refund issue", type: "checkbox" }, { name: "refunded", label: "Refunded or cancelled", type: "checkbox" },
               { name: "evidence_ref", label: "Evidence reference (bank ref, attendance sheet)" }]} />
-          <OpForm op="qualify" title="Approve qualification" fields={[{ name: "referral", label: "Referral id", required: true }]} />
-          <OpForm op="post_reward" title="Post reward" money fields={[{ name: "referral", label: "Referral id", required: true }]} />
+          <OpForm op="approve_qualification" title="Approve qualification and credit reward" money
+            hint="Checks the recorded evidence (8 paid and completed lessons, payment after the code, no open issue or refund) and credits the reward in the same step."
+            fields={[{ name: "referral", label: "Referral id", required: true }]} />
           <OpForm op="void_referral" title="Void unearned referral" money hint="Releases the reserved reward." fields={[{ name: "referral", label: "Referral id", required: true }]} />
           <OpForm op="register_invoice" title="Register later package invoice" fields={[{ name: "package_id", label: "Package id", required: true }, { name: "member", label: "Member id", required: true },
             { name: "lessons", label: "Lessons in package", type: "number", defaultValue: "8", required: true }, { name: "eligible", label: "Package takes part in Family Rewards", type: "checkbox", defaultValue: "on" },

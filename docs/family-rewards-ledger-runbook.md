@@ -11,7 +11,7 @@ This extends the Family Rewards pilot (`docs/family-rewards-pilot.md`, PR #171) 
 | Layer | What | Where |
 |---|---|---|
 | Database | Schema `family_rewards` in the Jurassic English Supabase project. Members, private contacts, referrals (with snapshotted terms and reward), packages, invoices, redemptions, the append-only ledger, idempotency, audit, login tokens and sessions | `supabase/migrations/20261021000001_family_rewards_ledger.sql` (down: `…_down.sql`) |
-| Money rules | One `SECURITY DEFINER` function per operation, each running in one transaction with row locks, unique indexes and CHECK constraints | same file |
+| Money rules | One `SECURITY DEFINER` function per operation, each running in one transaction with row locks, unique indexes and CHECK constraints. Owner approval of a qualification re-checks the evidence and credits the reward in the same transaction (automatic credit accounting); redemption is hold → confirm on a verified invoice | same file |
 | Database boundary | Role `fr_app` has `EXECUTE` on the `fr_*` functions only and no table privileges. Every function resolves the caller from a hashed session token, so the app cannot act as a member or as the owner without that person's session | same file |
 | App path | `src/lib/familyRewards/server/rpc.ts` (the only path to the ledger) and `server/env.ts` (pool, session cookie, mailer, origin check) | ecosystem-landing |
 | Pages | Account, sign-in, verify, sign-out, admin, admin action, admin export | `src/app/student-academy/referrals/account/**` |
@@ -49,7 +49,8 @@ Account pages are request-time rendered and set `Cache-Control: private, no-stor
 # isolated local Postgres 17 only — the suite drops and creates databases
 FR_TEST_ADMIN_URL=postgres://postgres@127.0.0.1:54329/postgres npm run test:family-rewards-db
 npm run test:family-rewards
-# HTTP journey against a locally running app on a fresh local database (see the script header)
+# HTTP journey: five synthetic referrals, duplicate requests, simultaneous redemptions
+# (locally running app on a fresh local database; see the script header)
 BASE=http://localhost:3418 LOG=<server log> node scripts/family-rewards-e2e.mjs
 ```
 

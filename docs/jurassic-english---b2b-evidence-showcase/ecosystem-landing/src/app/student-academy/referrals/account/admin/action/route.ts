@@ -5,7 +5,7 @@ import { FrError, ownerOp, type OwnerOp } from "@/lib/familyRewards/server/rpc";
 // session belongs to an owner; this handler only shapes the form input.
 // Money-moving operations require an explicit confirmation tick.
 
-const CONFIRM_REQUIRED = new Set(["post_reward", "hold_redemption", "confirm_redemption", "reverse_redemption", "adjust", "opening_balance", "set_budget", "void_referral"]);
+const CONFIRM_REQUIRED = new Set(["approve_qualification", "hold_redemption", "confirm_redemption", "reverse_redemption", "adjust", "opening_balance", "set_budget", "void_referral"]);
 
 const s = (f: FormData, k: string) => String(f.get(k) ?? "").trim();
 const b = (f: FormData, k: string) => f.get(k) === "on" || f.get(k) === "true";
@@ -19,8 +19,7 @@ function parse(f: FormData): OwnerOp {
     case "record_referral": return { op: "record_referral", code: s(f, "code"), fullName: s(f, "full_name"), email: s(f, "email"), phone: s(f, "phone"), packageRef: s(f, "package_ref"), declaredAt: s(f, "declared_at"), reason };
     case "update_evidence": return { op: "update_evidence", referral: s(f, "referral"), firstPaymentAt: s(f, "first_payment_at") || null, lessonsPaid: s(f, "lessons_paid") as unknown as number,
       lessonsCompleted: s(f, "lessons_completed") as unknown as number, issueOpen: b(f, "issue_open"), refunded: b(f, "refunded"), evidenceRef: s(f, "evidence_ref"), reason };
-    case "qualify": return { op: "qualify", referral: s(f, "referral"), reason };
-    case "post_reward": return { op: "post_reward", referral: s(f, "referral"), reason };
+    case "approve_qualification": return { op: "approve_qualification", referral: s(f, "referral"), reason };
     case "void_referral": return { op: "void_referral", referral: s(f, "referral"), reason };
     case "register_invoice": return { op: "register_invoice", packageId: s(f, "package_id"), member: s(f, "member"), lessons: s(f, "lessons") as unknown as number, eligible: b(f, "eligible"),
       invoiceId: s(f, "invoice_id"), payable: s(f, "payable") as unknown as number, reason };

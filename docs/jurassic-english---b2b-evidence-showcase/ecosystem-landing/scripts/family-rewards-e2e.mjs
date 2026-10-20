@@ -50,62 +50,114 @@ async function owner(cookie, op, fields) {
   return { loc, key, ok: loc.includes("?ok="), result: (() => { try { return JSON.parse(new URLSearchParams(loc.split("?")[1]).get("result")); } catch { return null; } })() };
 }
 
-// ---------- journey
+// ---------- journey: five synthetic referrals
+const money = (html, label) => html.match(new RegExp(`${label}</dt><dd[^>]*>([\\d,]+)₫`))?.[1];
 const ownerCookie = await signIn("owner@jurassic.test");
 let r = await owner(ownerCookie, "set_flags", { enrolment: "on", dashboard: "on", writes: "on", reason: "local staging pilot" });
 check("owner opens enrolment", r.ok, r.loc);
-r = await owner(ownerCookie, "set_budget", { funded: "1000000", reason: "local staging: approved pilot allocation" });
+r = await owner(ownerCookie, "set_budget", { funded: "1000000", reason: "local staging: approved pilot allocation (5 x 200,000)" });
 check("owner sets funded allocation 1,000,000", r.ok, r.loc);
 const member = await owner(ownerCookie, "approve_member", { full_name: "Synthetic Parent Linh", email: "linh.synthetic@example.org", phone: "",
   terms_version: "FR-2026-10-pilot-v1", terms_accepted_at: "2026-10-04T10:00:00+07:00", reason: "verified former customer (synthetic)" });
-check("owner approves member and code is issued", member.ok && /^JE-[A-Z2-9]{6}$/.test(member.result?.referral_code ?? ""), member.loc);
+check("owner approves member Linh and a code is issued", member.ok && /^JE-[A-Z2-9]{6}$/.test(member.result?.referral_code ?? ""), member.loc);
 const code = member.result.referral_code, memberId = member.result.member_id;
+const other = await owner(ownerCookie, "approve_member", { full_name: "Synthetic Parent Quang", email: "quang.synthetic@example.org", phone: "",
+  terms_version: "FR-2026-10-pilot-v1", terms_accepted_at: "2026-10-04T10:00:00+07:00", reason: "verified current customer (synthetic)" });
+check("owner approves a second member (Quang)", other.ok, other.loc);
 
-// Double submit with the same form key applies once.
-const ref = await owner(ownerCookie, "record_referral", { code, full_name: "Synthetic Referred Tran Thi Bich", email: "bich.synthetic@example.net", phone: "",
-  package_ref: "PKG-NEW-001", declared_at: "2026-10-05T09:00:00+07:00", reason: "code given at enquiry (synthetic)" });
-check("owner records referral", ref.ok, ref.loc);
-const dup = await post(`${A}/admin/action`, { op: "record_referral", key: ref.key, confirm: "on", code, full_name: "Synthetic Referred Tran Thi Bich", email: "bich.synthetic@example.net",
-  phone: "", package_ref: "PKG-NEW-001", declared_at: "2026-10-05T09:00:00+07:00", reason: "code given at enquiry (synthetic)" }, ownerCookie);
-check("resubmitting the same form returns the original result (no second referral)", decodeURIComponent(dup.headers.get("location")).includes(ref.result.referral_id));
-const refId = ref.result.referral_id;
-
-const pending = await (async () => { const c = await signIn("linh.synthetic@example.org"); return { c, p: await page(A, c) }; })();
-const memberCookie = pending.c;
-check("member sees pending 200,000 and available 0 before qualification", /Pending<\/dt><dd[^>]*>200,000₫/.test(pending.p.html) && /Available<\/dt><dd[^>]*>0₫/.test(pending.p.html));
-
-r = await owner(ownerCookie, "update_evidence", { referral: refId, first_payment_at: "2026-10-06T09:00:00+07:00", lessons_paid: "8", lessons_completed: "8", evidence_ref: "BANK-SYN-1; ATT-SYN-1", reason: "bank + attendance (synthetic)" });
-check("owner records evidence", r.ok, r.loc);
-r = await owner(ownerCookie, "qualify", { referral: refId, reason: "8 paid, 8 completed (synthetic)" });
-check("owner approves qualification", r.ok, r.loc);
-const noConfirm = await post(`${A}/admin/action`, { op: "post_reward", key: "nokeyconfirm_123", referral: refId, reason: "missing tick" }, ownerCookie);
-check("posting a reward without the confirmation tick is refused", decodeURIComponent(noConfirm.headers.get("location")).includes("error=confirm"));
-r = await owner(ownerCookie, "post_reward", { referral: refId, reason: "qualified reward (synthetic)" });
-check("owner posts reward", r.ok, r.loc);
-
+const memberCookie = await signIn("linh.synthetic@example.org");
+const refs = [];
+for (let n = 1; n <= 5; n++) {
+  const fields = { code, full_name: `Synthetic Referred Adult ${n} Nguyen`, email: `referred${n}.synthetic@example.net`, phone: "",
+    package_ref: `PKG-NEW-00${n}`, declared_at: `2026-10-0${n + 4}T09:00:00+07:00`, reason: `code given at enquiry ${n} (synthetic)` };
+  const rec = await owner(ownerCookie, "record_referral", fields);
+  check(`referral ${n}: recorded before payment, reward reserved`, rec.ok && rec.result.reserved === 200000, rec.loc);
+  if (n === 1) {
+    const again = await post(`${A}/admin/action`, { op: "record_referral", key: rec.key, confirm: "on", ...fields }, ownerCookie);
+    check("duplicate request: resubmitting the same referral form returns the original result", decodeURIComponent(again.headers.get("location")).includes(rec.result.referral_id));
+    const claim = await owner(ownerCookie, "record_referral", { ...fields, code: other.result.referral_code, reason: "second family claims the same household (synthetic)" });
+    check("duplicate claim: a second referrer cannot claim the same new household", claim.loc.includes("error=duplicate"), claim.loc);
+  }
+  refs.push(rec.result.referral_id);
+}
 let acc = await page(A, memberCookie);
-check("member account: earned 200,000, available 200,000, pending 0",
-  /Earned<\/dt><dd[^>]*>200,000₫/.test(acc.html) && /Available<\/dt><dd[^>]*>200,000₫/.test(acc.html) && /Pending<\/dt><dd[^>]*>0₫/.test(acc.html));
-check("member account shows own code", acc.html.includes(code));
-check("member HTML/RSC never contains the referred adult's name or email", !/Tran Thi Bich|bich\.synthetic/.test(acc.html));
-check("member account headers: private, no-store; noindex", /private/.test(acc.cc) && /no-store/.test(acc.cc) && /noindex/.test(acc.robots ?? ""), `${acc.cc} | ${acc.robots}`);
+check("before approval: pending 1,000,000, available 0", money(acc.html, "Pending") === "1,000,000" && money(acc.html, "Available") === "0");
 
-r = await owner(ownerCookie, "register_invoice", { package_id: "PKG-LINH-L2", member: memberId, lessons: "8", eligible: "on", invoice_id: "INV-LINH-L2", payable: "5600000", reason: "next package (synthetic)" });
-check("owner registers later invoice", r.ok, r.loc);
-const hold = await owner(ownerCookie, "hold_redemption", { member: memberId, invoice_id: "INV-LINH-L2", amount: "200000", reason: "member asked to use credit (synthetic)" });
-check("owner holds credit", hold.ok, hold.loc);
+for (const [n, id] of refs.entries()) {
+  r = await owner(ownerCookie, "update_evidence", { referral: id, first_payment_at: `2026-10-${String(n + 10).padStart(2, "0")}T09:00:00+07:00`, lessons_paid: "8", lessons_completed: "8",
+    evidence_ref: `BANK-SYN-${n + 1}; ATT-SYN-${n + 1}`, reason: "bank statement + attendance sheet (synthetic)" });
+  check(`referral ${n + 1}: evidence recorded (8 paid, 8 completed)`, r.ok, r.loc);
+}
+const early = await owner(ownerCookie, "approve_qualification", { referral: refs[0], reason: "probe" });
+const noTick = await post(`${A}/admin/action`, { op: "approve_qualification", key: "noconfirmtick_1234", referral: refs[0], reason: "missing tick" }, ownerCookie);
+check("approval without the confirmation tick is refused", decodeURIComponent(noTick.headers.get("location")).includes("error=confirm"));
+check("referral 1: owner approval credits 200,000 automatically", early.ok && early.result.amount === 200000 && early.result.status === "credited", early.loc);
+const approveAgain = await post(`${A}/admin/action`, { op: "approve_qualification", key: early.key, confirm: "on", referral: refs[0], reason: "probe" }, ownerCookie);
+check("duplicate request: resubmitting the approval returns the same credit entry", decodeURIComponent(approveAgain.headers.get("location")).includes(early.result.entry_id));
+const approveNew = await owner(ownerCookie, "approve_qualification", { referral: refs[0], reason: "second approval attempt (synthetic)" });
+check("duplicate approval with a new request cannot credit twice", approveNew.loc.includes("error=already_credited"), approveNew.loc);
+for (let n = 1; n < 5; n++) {
+  r = await owner(ownerCookie, "approve_qualification", { referral: refs[n], reason: `8 paid, 8 completed (synthetic ${n + 1})` });
+  check(`referral ${n + 1}: approval credits 200,000`, r.ok && r.result.amount === 200000, r.loc);
+}
 acc = await page(A, memberCookie);
-check("held credit is not available", /Available<\/dt><dd[^>]*>0₫/.test(acc.html) && acc.html.includes("reserved for an invoice"));
-r = await owner(ownerCookie, "confirm_redemption", { redemption: hold.result.redemption_id, external_ref: "INV-LINH-L2 discount line", reason: "discount on invoice (synthetic)" });
-check("owner confirms redemption", r.ok, r.loc);
+check("after five approvals: earned 1,000,000, available 1,000,000, pending 0",
+  money(acc.html, "Earned") === "1,000,000" && money(acc.html, "Available") === "1,000,000" && money(acc.html, "Pending") === "0");
+check("member account shows own code and five credited families", acc.html.includes(code) && (acc.html.match(/>credited</g) ?? []).length === 5);
+check("member HTML/RSC never contains referred adults' names or emails", !/Referred Adult|referred\d\.synthetic/.test(acc.html));
+check("member account headers: private, no-store; noindex", /private/.test(acc.cc) && /no-store/.test(acc.cc) && /noindex/.test(acc.robots ?? ""), `${acc.cc} | ${acc.robots}`);
+const sixth = await owner(ownerCookie, "record_referral", { code, full_name: "Synthetic Sixth", email: "referred6.synthetic@example.net", phone: "", package_ref: "PKG-NEW-006",
+  declared_at: "2026-10-12T09:00:00+07:00", reason: "beyond funded allocation (synthetic)" });
+check("a sixth referral is refused once the funded allocation is fully committed", sixth.loc.includes("error=budget_exhausted"), sixth.loc);
+
+// ---------- controlled redemption, including simultaneous requests
+for (const [pkg, inv] of [["PKG-LINH-L2", "INV-LINH-L2"], ["PKG-LINH-L3", "INV-LINH-L3"], ["PKG-LINH-L4", "INV-LINH-L4"]]) {
+  r = await owner(ownerCookie, "register_invoice", { package_id: pkg, member: memberId, lessons: "8", eligible: "on", invoice_id: inv, payable: "5600000", reason: "later 8-lesson package (synthetic)" });
+  check(`owner registers ${inv}`, r.ok, r.loc);
+}
+const overCap = await owner(ownerCookie, "hold_redemption", { member: memberId, invoice_id: "INV-LINH-L2", amount: "600000", reason: "more than the package cap (synthetic)" });
+check("a hold above 400,000 on one package is refused", overCap.loc.includes("error=over_cap"), overCap.loc);
+const h1 = await owner(ownerCookie, "hold_redemption", { member: memberId, invoice_id: "INV-LINH-L2", amount: "400000", reason: "use credit on next package (synthetic)" });
+r = await owner(ownerCookie, "confirm_redemption", { redemption: h1.result.redemption_id, external_ref: "INV-LINH-L2 discount line", reason: "discount on invoice (synthetic)" });
+check("first redemption: 400,000 confirmed on INV-LINH-L2", h1.ok && r.ok, r.loc);
 acc = await page(A, memberCookie);
-check("member account after redemption: used 200,000, available 0; history dated", /Used<\/dt><dd[^>]*>200,000₫/.test(acc.html) && /Available<\/dt><dd[^>]*>0₫/.test(acc.html) && /\d{4}-\d{2}-\d{2}/.test(acc.html));
+check("available 600,000 after the first redemption", money(acc.html, "Available") === "600,000" && money(acc.html, "Used") === "400,000");
+
+// Two simultaneous 400,000 redemptions against 600,000 available: exactly one may succeed.
+const admin = await page(`${A}/admin`, ownerCookie);
+const keys = [...admin.html.matchAll(/name="op" value="hold_redemption"\/><input type="hidden" name="key" value="([^"]+)"/g)].map((m) => m[1]);
+const k2 = keys[0], k3 = `${keys[0]}x2`;
+const [s1, s2] = await Promise.all([
+  post(`${A}/admin/action`, { op: "hold_redemption", key: k2, confirm: "on", member: memberId, invoice_id: "INV-LINH-L3", amount: "400000", reason: "simultaneous A (synthetic)" }, ownerCookie),
+  post(`${A}/admin/action`, { op: "hold_redemption", key: k3, confirm: "on", member: memberId, invoice_id: "INV-LINH-L4", amount: "400000", reason: "simultaneous B (synthetic)" }, ownerCookie),
+]);
+const locs = [s1, s2].map((x) => decodeURIComponent(x.headers.get("location")));
+const wins = locs.filter((l) => l.includes("ok=hold_redemption"));
+check("simultaneous redemptions: exactly one succeeds, the other is refused for insufficient credit", wins.length === 1 && locs.some((l) => l.includes("error=insufficient")), locs.join(" | "));
+const winId = JSON.parse(new URLSearchParams(wins[0].split("?")[1]).get("result")).redemption_id;
+r = await owner(ownerCookie, "confirm_redemption", { redemption: winId, external_ref: "second package discount line", reason: "discount on invoice (synthetic)" });
+check("the winning hold is confirmed", r.ok, r.loc);
+acc = await page(A, memberCookie);
+check("carry-forward: earned 1,000,000, used 800,000, available 200,000",
+  money(acc.html, "Earned") === "1,000,000" && money(acc.html, "Used") === "800,000" && money(acc.html, "Available") === "200,000");
+const loserInvoice = locs[0].includes("ok=") ? "INV-LINH-L4" : "INV-LINH-L3";
+const h3 = await owner(ownerCookie, "hold_redemption", { member: memberId, invoice_id: loserInvoice, amount: "200000", reason: "carried-forward balance on a later package (synthetic)" });
+r = await owner(ownerCookie, "confirm_redemption", { redemption: h3.result?.redemption_id, external_ref: `${loserInvoice} discount line`, reason: "discount on invoice (synthetic)" });
+check("the carried-forward 200,000 is used on a later package", h3.ok && r.ok, r.loc);
+const over = await owner(ownerCookie, "hold_redemption", { member: memberId, invoice_id: loserInvoice, amount: "100000", reason: "nothing left (synthetic)" });
+check("no further credit can be spent once the balance is 0", over.loc.includes("error="), over.loc);
+acc = await page(A, memberCookie);
+check("final account: earned 1,000,000, used 1,000,000, available 0, dated history of 8 entries",
+  money(acc.html, "Earned") === "1,000,000" && money(acc.html, "Used") === "1,000,000" && money(acc.html, "Available") === "0" && (acc.html.match(/<td class="py-2 pr-3">\d{4}-\d{2}-\d{2}<\/td>/g) ?? []).length >= 8);
+const overview = await page(`${A}/admin`, ownerCookie);
+check("owner reconciliation: rewards posted 1,000,000 = budget issued 1,000,000; open reservations 0",
+  /rewards posted 1,000,000₫ = budget issued 1,000,000₫; open reservations 0₫ = budget reserved 0₫/.test(overview.html.replace(/<!-- -->/g, "")));
 
 // ---------- access control over HTTP
 const anonAdmin = await page(`${A}/admin`);
 check("anonymous admin page shows no data", anonAdmin.html.includes("Owner access only") && !anonAdmin.html.includes("Synthetic Parent Linh"));
 const memberAdmin = await page(`${A}/admin`, memberCookie);
-check("member cannot open owner administration", memberAdmin.html.includes("Owner access only") && !memberAdmin.html.includes("Tran Thi Bich"));
+check("member cannot open owner administration", memberAdmin.html.includes("Owner access only") && !memberAdmin.html.includes("Referred Adult 1 Nguyen"));
 const memberAct = await post(`${A}/admin/action`, { op: "adjust", key: "member_tries_1234", member: memberId, amount: "1000000", confirm: "on", reason: "self credit" }, memberCookie);
 check("member cannot invoke owner actions", decodeURIComponent(memberAct.headers.get("location")).includes("error=forbidden"));
 const memberExport = await fetch(BASE + `${A}/admin/export`, { headers: { Cookie: memberCookie } });
@@ -114,7 +166,7 @@ const crossSite = await fetch(BASE + `${A}/admin/action`, { method: "POST", body
 check("cross-site POST is refused", crossSite.status === 403);
 const exp = await fetch(BASE + `${A}/admin/export`, { headers: { Cookie: ownerCookie } });
 const csv = await exp.text();
-check("owner export: private CSV with identities and ledger", exp.status === 200 && /no-store/.test(exp.headers.get("cache-control")) && csv.includes("Tran Thi Bich") && csv.includes("Ledger"));
+check("owner export: private CSV with identities and ledger", exp.status === 200 && /no-store/.test(exp.headers.get("cache-control")) && csv.includes("Referred Adult 1 Nguyen") && csv.includes("Ledger"));
 
 // Formula-injection: a name starting with '=' is neutralised in the export.
 await owner(ownerCookie, "approve_member", { full_name: "=HYPERLINK(\"http://x\")", email: "formula.synthetic@example.org", phone: "", terms_version: "FR-2026-10-pilot-v1", terms_accepted_at: "2026-10-04T10:00:00+07:00", reason: "csv injection probe (synthetic)" });

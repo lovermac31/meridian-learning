@@ -96,8 +96,7 @@ async function referral(env, n, { code = env.a.referral_code, credit = true, nam
   if (!credit) return r;
   await op(env.app, env.owner, { op: "update_evidence", referral: r.referral_id, firstPaymentAt: P, lessonsPaid: 8, lessonsCompleted: 8,
     issueOpen: false, refunded: false, evidenceRef: `BANK-${n}; ATT-${n}`, reason: "bank statement + attendance sheet (test)" });
-  await op(env.app, env.owner, { op: "qualify", referral: r.referral_id, reason: "8 paid, 8 completed (test)" });
-  await op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "qualified reward (test)" });
+  await op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "8 paid, 8 completed (test)" });
   return r;
 }
 
@@ -145,7 +144,7 @@ test("A5 pending and non-qualifying referrals do not increase available balance"
   const r3 = await referral(env, 3, { credit: false });
   await op(env.app, env.owner, { op: "update_evidence", referral: r3.referral_id, firstPaymentAt: P, lessonsPaid: 8, lessonsCompleted: 5,
     issueOpen: false, refunded: false, evidenceRef: "partial", reason: "5 of 8 completed (test)" });
-  await rejects(op(env.app, env.owner, { op: "qualify", referral: r3.referral_id, reason: "try early (test)" }), "not_qualified");
+  await rejects(op(env.app, env.owner, { op: "approve_qualification", referral: r3.referral_id, reason: "try early (test)" }), "not_qualified");
   const t = (await account(env)).totals;
   assert.equal(t.available, 200_000); assert.equal(t.pending, 400_000);
 });
@@ -165,12 +164,11 @@ test("B1 1,000,000 earned: redeem 400,000 -> 600,000; next package 400,000 -> 20
 });
 
 // ======================================================= C. concurrency and retries
-test("C1 20 simultaneous reward postings for one referral produce exactly one reward", async () => {
+test("C1 20 simultaneous approvals of one referral produce exactly one reward", async () => {
   const env = await setup();
   const r = await referral(env, 1, { credit: false });
   await op(env.app, env.owner, { op: "update_evidence", referral: r.referral_id, firstPaymentAt: P, lessonsPaid: 8, lessonsCompleted: 8, issueOpen: false, refunded: false, evidenceRef: "x", reason: "evidence (test)" });
-  await op(env.app, env.owner, { op: "qualify", referral: r.referral_id, reason: "ok (test)" });
-  const results = await Promise.allSettled(Array.from({ length: 20 }, () => op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "race (test)" })));
+  const results = await Promise.allSettled(Array.from({ length: 20 }, () => op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "race (test)" })));
   assert.equal(results.filter((x) => x.status === "fulfilled").length, 1);
   const { rows } = await env.su.query(`select count(*)::int n from family_rewards.ledger_entries where referral_id = $1`, [r.referral_id]);
   assert.equal(rows[0].n, 1);
@@ -219,16 +217,15 @@ test("C5 a repeated request returns the original result without a second effect;
   const env = await setup();
   const r = await referral(env, 1, { credit: false });
   await op(env.app, env.owner, { op: "update_evidence", referral: r.referral_id, firstPaymentAt: P, lessonsPaid: 8, lessonsCompleted: 8, issueOpen: false, refunded: false, evidenceRef: "x", reason: "evidence (test)" });
-  await op(env.app, env.owner, { op: "qualify", referral: r.referral_id, reason: "ok (test)" });
   const k = key();
   const [x, y] = await Promise.all([
-    op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "same request (test)" }, k),
-    op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "same request (test)" }, k),
+    op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "same request (test)" }, k),
+    op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "same request (test)" }, k),
   ]);
   assert.deepEqual(x, y);
-  const z = await op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "same request (test)" }, k);
+  const z = await op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "same request (test)" }, k);
   assert.deepEqual(z, x);
-  await rejects(op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "different payload (test)" }, k), "idempotency_conflict");
+  await rejects(op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "different payload (test)" }, k), "idempotency_conflict");
   assert.equal((await account(env)).totals.earned, 200_000);
 });
 
@@ -283,24 +280,22 @@ test("E1 a rolled-back transaction leaves no half-issued credit", async () => {
   const env = await setup();
   const r = await referral(env, 1, { credit: false });
   await op(env.app, env.owner, { op: "update_evidence", referral: r.referral_id, firstPaymentAt: P, lessonsPaid: 8, lessonsCompleted: 8, issueOpen: false, refunded: false, evidenceRef: "x", reason: "evidence (test)" });
-  await op(env.app, env.owner, { op: "qualify", referral: r.referral_id, reason: "ok (test)" });
   const c = await env.app.connect();
   await c.query("begin");
-  await fr.ownerOp(c, env.owner, key(), { op: "post_reward", referral: r.referral_id, reason: "then crash (test)" });
+  await fr.ownerOp(c, env.owner, key(), { op: "approve_qualification", referral: r.referral_id, reason: "then crash (test)" });
   await c.query("rollback"); c.release();
   const { rows } = await env.su.query(`select (select count(*)::int from family_rewards.ledger_entries) n,
      (select status from family_rewards.referrals where id=$1) s, (select issued_vnd::int from family_rewards.budget) i`, [r.referral_id]);
-  assert.deepEqual(rows[0], { n: 0, s: "qualified", i: 0 });
+  assert.deepEqual(rows[0], { n: 0, s: "attributed", i: 0 });
 });
 
 test("E2 failure after commit but before the response is safe to retry", async () => {
   const env = await setup();
   const r = await referral(env, 1, { credit: false });
   await op(env.app, env.owner, { op: "update_evidence", referral: r.referral_id, firstPaymentAt: P, lessonsPaid: 8, lessonsCompleted: 8, issueOpen: false, refunded: false, evidenceRef: "x", reason: "evidence (test)" });
-  await op(env.app, env.owner, { op: "qualify", referral: r.referral_id, reason: "ok (test)" });
   const k = key();
-  const first = await op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "lost response (test)" }, k);  // response "lost"
-  const retry = await op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "lost response (test)" }, k);
+  const first = await op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "lost response (test)" }, k);  // response "lost"
+  const retry = await op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "lost response (test)" }, k);
   assert.equal(retry.entry_id, first.entry_id);
   assert.equal((await account(env)).totals.earned, 200_000);
 });
@@ -387,25 +382,25 @@ test("F3 changing the global reward does not change snapshotted awards", async (
   const r1 = await referral(env, 1, { credit: false });
   await env.su.query(`update family_rewards.settings set reward_per_household = 300000`);
   await op(env.app, env.owner, { op: "update_evidence", referral: r1.referral_id, firstPaymentAt: P, lessonsPaid: 8, lessonsCompleted: 8, issueOpen: false, refunded: false, evidenceRef: "x", reason: "evidence (test)" });
-  await op(env.app, env.owner, { op: "qualify", referral: r1.referral_id, reason: "ok (test)" });
-  await op(env.app, env.owner, { op: "post_reward", referral: r1.referral_id, reason: "old terms (test)" });
+  await op(env.app, env.owner, { op: "approve_qualification", referral: r1.referral_id, reason: "old terms (test)" });
   await referral(env, 2);
   const h = (await account(env)).history.map((e) => e.amount);
   assert.deepEqual(h, [200_000, 300_000]);
 });
 
-test("F4 a stale qualification cannot post credit after a conflicting refund or payment issue", async () => {
+test("F4 approval re-checks evidence under lock: a refund or open payment issue blocks the credit", async () => {
   const env = await setup();
   const r = await referral(env, 1, { credit: false });
   await op(env.app, env.owner, { op: "update_evidence", referral: r.referral_id, firstPaymentAt: P, lessonsPaid: 8, lessonsCompleted: 8, issueOpen: false, refunded: false, evidenceRef: "x", reason: "evidence (test)" });
-  await op(env.app, env.owner, { op: "qualify", referral: r.referral_id, reason: "ok (test)" });
-  // A dispute lands on the row while the approval is still marked qualified (e.g. a concurrent writer).
+  // A dispute lands on the row by another path just before the owner approves.
   await env.su.query(`update family_rewards.referrals set payment_issue_open = true where id=$1`, [r.referral_id]);
-  await rejects(op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "stale (test)" }), "not_qualified");
-  // Recording a refund through the normal path resets the approval.
+  await rejects(op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "stale (test)" }), "not_qualified");
+  // A refund recorded through the normal path also blocks it.
   await op(env.app, env.owner, { op: "update_evidence", referral: r.referral_id, firstPaymentAt: P, lessonsPaid: 8, lessonsCompleted: 8, issueOpen: false, refunded: true, evidenceRef: "refund", reason: "refund (test)" });
-  await rejects(op(env.app, env.owner, { op: "post_reward", referral: r.referral_id, reason: "stale (test)" }), "state");
+  await rejects(op(env.app, env.owner, { op: "approve_qualification", referral: r.referral_id, reason: "stale (test)" }), "not_qualified");
   assert.equal((await account(env)).totals.earned, 0);
+  const { rows } = await env.su.query(`select reserved_vnd::int r, issued_vnd::int i from family_rewards.budget`);
+  assert.deepEqual(rows[0], { r: 200_000, i: 0 });
 });
 
 test("F5 forged or foreign invoice references cannot spend credit", async () => {
