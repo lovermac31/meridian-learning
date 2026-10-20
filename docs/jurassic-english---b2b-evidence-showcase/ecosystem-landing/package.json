@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:family-rewards": "node --experimental-strip-types --no-warnings --test scripts/family-rewards-ledger.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

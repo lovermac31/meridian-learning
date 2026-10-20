@@ -7,6 +7,7 @@ import { LayoutChrome } from "@/components/LayoutChrome";
 import { ProductionStyleHeader } from "@/components/ProductionStyleHeader";
 import { JsonLd } from "@/components/JsonLd";
 import { GlobalContactPanel } from "@/components/GlobalContactPanel";
+import { familyRewardsMode } from "@/lib/familyRewards/flag";
 
 // Sprint 3A — site-wide structured data.
 //
@@ -146,7 +147,7 @@ export default function RootLayout({
         <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
           {children}
         </main>
-        <LayoutChrome />
+        <LayoutChrome familyRewards={familyRewardsMode() !== "off"} />
 
         {/*
           Sprint 3C — Vercel Web Analytics + Speed Insights.
