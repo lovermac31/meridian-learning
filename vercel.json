@@ -393,6 +393,32 @@
       ]
     },
     {
+      "source": "/student-academy/referrals/account",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store, max-age=0"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/student-academy/referrals/account/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store, max-age=0"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/((?!assets|api|images|ai-speaking|student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework).*)",
       "headers": [
         {

@@ -168,6 +168,8 @@ create table family_rewards.ledger_entries (
 create unique index ledger_one_reward_per_referral on family_rewards.ledger_entries (referral_id) where entry_type = 'reward';
 create unique index ledger_one_posting_per_redemption on family_rewards.ledger_entries (redemption_id) where entry_type = 'redemption';
 create index ledger_member on family_rewards.ledger_entries (member_id, seq);
+-- Imported established credit: at most one opening entry per member.
+create unique index ledger_one_opening_per_member on family_rewards.ledger_entries (member_id) where entry_type = 'opening';
 
 create function family_rewards.forbid_ledger_change() returns trigger
 language plpgsql as $$
@@ -775,6 +777,29 @@ begin
   return _idem_store(p_key, jsonb_build_object('entry_id', v_entry, 'type', v_type, 'amount', v_amount));
 end $$;
 
+-- Import an established (pre-ledger) credit as an explicit opening transaction.
+-- Positive only, once per member, with the source record cited in the reason.
+create function family_rewards.fr_owner_opening_balance(p_session text, p_key text, p_member uuid, p_amount_vnd bigint, p_source_ref text, p_reason text)
+returns jsonb language plpgsql security definer set search_path = pg_catalog, family_rewards as $$
+declare w record; r jsonb; m members; v_entry uuid;
+begin
+  select * into w from _who(p_session, true);
+  r := _idem_claim(p_key, 'opening_balance', jsonb_build_object('m', p_member, 'a', p_amount_vnd, 's', p_source_ref, 'reason', p_reason));
+  if r is not null then return r; end if;
+  perform _writes_open();
+  perform _check_amount(p_amount_vnd);
+  if p_source_ref is null or length(btrim(p_source_ref)) < 3 then perform _fail('invalid', 'Cite the record the opening balance comes from.'); end if;
+  select * into m from members where id = p_member for update;
+  if m.id is null then perform _fail('not_found', 'Unknown member.'); end if;
+  if exists (select 1 from ledger_entries where member_id = m.id and entry_type = 'opening') then
+    perform _fail('duplicate', 'This member already has an opening balance.');
+  end if;
+  insert into ledger_entries (member_id, amount_vnd, entry_type, actor, reason)
+  values (m.id, p_amount_vnd, 'opening', w.email, _check_reason(p_reason) || ' [source: ' || btrim(p_source_ref) || ']') returning id into v_entry;
+  perform _audit(w.email, 'opening_balance', v_entry::text, p_reason, p_key);
+  return _idem_store(p_key, jsonb_build_object('entry_id', v_entry, 'amount', p_amount_vnd));
+end $$;
+
 -- Owner overview and export (full identity: owner only).
 create function family_rewards.fr_owner_overview(p_session text)
 returns jsonb language plpgsql security definer set search_path = pg_catalog, family_rewards as $$
@@ -840,5 +865,6 @@ grant execute on function
   family_rewards.fr_owner_release_redemption(text, text, uuid, text),
   family_rewards.fr_owner_reverse_redemption(text, text, uuid, text),
   family_rewards.fr_owner_adjust(text, text, uuid, bigint, uuid, text),
+  family_rewards.fr_owner_opening_balance(text, text, uuid, bigint, text, text),
   family_rewards.fr_owner_overview(text)
 to fr_app;

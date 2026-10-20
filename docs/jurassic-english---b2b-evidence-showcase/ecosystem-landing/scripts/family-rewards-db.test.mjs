@@ -43,6 +43,7 @@ const P = "2026-10-06T09:00:00+07:00";   // first payment
 async function adminClient(db = admin.pathname.slice(1)) {
   const u = new URL(ADMIN_URL); u.pathname = `/${db}`;
   const c = new pg.Client({ connectionString: u.toString() });
+  c.on("error", () => {});   // E5 restarts the server; idle test connections are expected to drop
   await c.connect();
   return c;
 }
@@ -62,6 +63,7 @@ async function freshDb() {
   const url = (user, pass) => { const u = new URL(ADMIN_URL); u.username = user; u.password = pass; u.pathname = `/${name}`; return u.toString(); };
   const app = new pg.Pool({ connectionString: url("fr_app", "fr_app_local_only"), max: 40 });
   const anon = new pg.Pool({ connectionString: url("fr_test_anon", "anon_local_only"), max: 2 });
+  for (const p of [app, anon]) p.on("error", () => {});
   opened.push(app, anon, s);
   return { name, su: s, app, anon, appUrl: url("fr_app", "fr_app_local_only") };
 }
@@ -342,7 +344,7 @@ test("E5 restart and reconnect preserve accounts, balances and history", async (
   if (process.env.FR_TEST_PGCTL && process.env.FR_TEST_PGDATA) {
     execSync(`"${process.env.FR_TEST_PGCTL}" -D "${process.env.FR_TEST_PGDATA}" restart -m fast -w`, { stdio: "ignore", env: { ...process.env, LC_ALL: "en_US.UTF-8" } });
   }
-  const app2 = new pg.Pool({ connectionString: env.appUrl, max: 2 }); opened.push(app2);
+  const app2 = new pg.Pool({ connectionString: env.appUrl, max: 2 }); app2.on("error", () => {}); opened.push(app2);
   const afterView = await fr.customerAccount(app2, env.aSession);
   assert.deepEqual(afterView, before);
   if (process.env.FR_TEST_PGCTL) console.log("# E5: postgres server restarted with pg_ctl");
@@ -458,4 +460,17 @@ test("G2 rollback cannot orphan or silently remove entitlements", async () => {
   await assert.rejects(env.su.query(`truncate family_rewards.ledger_entries cascade`), /append-only/);
   await assert.rejects(env.su.query(DOWN), /refusing to drop/);
   assert.equal((await account(env)).totals.available, 200_000);
+});
+
+// ======================================================= migration of established credit
+test("H1 an established credit imports once as an explicit opening transaction", async () => {
+  const env = await setup();
+  const k = key();
+  const first = await op(env.app, env.owner, { op: "opening_balance", member: env.a.member_id, amount: 200_000, sourceRef: "Zalo confirmation 2026-10-10 (synthetic)", reason: "credit confirmed before ledger (test)" }, k);
+  const again = await op(env.app, env.owner, { op: "opening_balance", member: env.a.member_id, amount: 200_000, sourceRef: "Zalo confirmation 2026-10-10 (synthetic)", reason: "credit confirmed before ledger (test)" }, k);
+  assert.equal(again.entry_id, first.entry_id);
+  await rejects(op(env.app, env.owner, { op: "opening_balance", member: env.a.member_id, amount: 200_000, sourceRef: "duplicate import", reason: "second import (test)" }), "duplicate");
+  const t = (await account(env)).totals;
+  assert.equal(t.earned, 200_000); assert.equal(t.available, 200_000);
+  assert.equal((await account(env)).history[0].type, "opening");
 });

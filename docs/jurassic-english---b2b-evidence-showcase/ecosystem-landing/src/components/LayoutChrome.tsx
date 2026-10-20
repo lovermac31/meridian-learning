@@ -49,7 +49,7 @@ function MinimalEcosystemFooter() {
 // shares the footer but not the bot.
 function isAcademyFooterRoute(pathname: string, familyRewards: boolean) {
   const path = pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-  return path === "/student-academy" || (familyRewards && path === FAMILY_REWARDS_ROUTE);
+  return path === "/student-academy" || (familyRewards && path === FAMILY_REWARDS_ROUTE) || path.startsWith(`${FAMILY_REWARDS_ROUTE}/account`);
 }
 
 export function LayoutChrome({ familyRewards = false }: { familyRewards?: boolean }) {

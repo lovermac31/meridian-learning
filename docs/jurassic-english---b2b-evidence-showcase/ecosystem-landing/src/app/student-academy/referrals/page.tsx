@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Mail, MessageCircle } from "lucide-react";
 import { familyRewardsMode } from "@/lib/familyRewards/flag";
+import { accountsEnabled, ACCOUNT_PATH } from "@/lib/familyRewards/server/env";
 import {
   CONTACT_EMAIL,
   EMAIL_HREF,
@@ -141,6 +142,15 @@ export default function FamilyRewardsPage() {
               : `Send us your name and say whether you are a current or former customer. We reply from ${CONTACT_EMAIL}.`}{" "}
             Joining confirms your request only. It does not create credit or enrol anyone in lessons.
           </p>
+          {accountsEnabled() ? (
+            <p className="mt-4 text-sm text-[#4A5568]">
+              Already a member?{" "}
+              <a href={ACCOUNT_PATH} className={TEXT_LINK}>
+                Sign in to see your code and credit
+              </a>
+              .
+            </p>
+          ) : null}
           <p className="mt-4 text-sm text-[#4A5568]">
             Questions, or prefer to join another way?{" "}
             <a href={EMAIL_HREF} className={TEXT_LINK}>

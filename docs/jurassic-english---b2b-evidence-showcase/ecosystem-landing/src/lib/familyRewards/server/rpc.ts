@@ -61,7 +61,7 @@ const FUNCTIONS = new Set([
   "fr_owner_set_budget", "fr_owner_set_flags", "fr_owner_approve_member", "fr_owner_record_referral",
   "fr_owner_update_evidence", "fr_owner_qualify", "fr_owner_post_reward", "fr_owner_void_referral",
   "fr_owner_register_invoice", "fr_owner_hold_redemption", "fr_owner_confirm_redemption",
-  "fr_owner_release_redemption", "fr_owner_reverse_redemption", "fr_owner_adjust", "fr_owner_overview",
+  "fr_owner_release_redemption", "fr_owner_reverse_redemption", "fr_owner_adjust", "fr_owner_opening_balance", "fr_owner_overview",
 ]);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -100,7 +100,8 @@ export type OwnerOp =
   | { op: "confirm_redemption"; redemption: string; externalRef: string; reason: string }
   | { op: "release_redemption"; redemption: string; reason: string }
   | { op: "reverse_redemption"; redemption: string; reason: string }
-  | { op: "adjust"; member: string; amount: number | null; reversesEntry: string | null; reason: string };
+  | { op: "adjust"; member: string; amount: number | null; reversesEntry: string | null; reason: string }
+  | { op: "opening_balance"; member: string; amount: number; sourceRef: string; reason: string };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ownerOp(db: Queryable, session: string, key: string, o: OwnerOp): Promise<any> {
@@ -121,6 +122,7 @@ export function ownerOp(db: Queryable, session: string, key: string, o: OwnerOp)
     case "release_redemption": return call(db, "fr_owner_release_redemption", [session, k, o.redemption, o.reason]);
     case "reverse_redemption": return call(db, "fr_owner_reverse_redemption", [session, k, o.redemption, o.reason]);
     case "adjust": return call(db, "fr_owner_adjust", [session, k, o.member, o.reversesEntry ? null : parseVnd(o.amount, { allowNegative: true }), o.reversesEntry, o.reason]);
+    case "opening_balance": return call(db, "fr_owner_opening_balance", [session, k, o.member, parseVnd(o.amount), o.sourceRef, o.reason]);
   }
 }
 
