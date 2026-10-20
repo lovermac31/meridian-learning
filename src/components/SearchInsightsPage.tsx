@@ -61,11 +61,11 @@ const languageLabels: Record<string, string> = {
   ar: 'العربية', ur: 'اردو', bn: 'বাংলা',
 };
 
-const chrome: Record<string, { resources: string; language: string; scroll: string; closing: string; baseline: string; lesson: string; from: string; minutes: string; note: string; ai: string; tools: string }> = {
-  en: { resources: 'Learning resources', language: 'Language', scroll: 'Scroll to see more →', closing: 'Ready to practise with a teacher?', baseline: 'Request a Speaking Baseline', lesson: 'Request a one-to-one lesson', from: 'from', minutes: 'min', note: 'Requests go to info@jurassicenglish.com. USD card payment is not live yet.', ai: 'See how AI Speaking practice works (18+)', tools: 'Free IELTS band score calculator' },
+const chrome: Record<string, { resources: string; language: string; scroll: string; closing: string; baseline: string; lesson: string; from: string; minutes: string; note: string; ai: string; tools: string; hubNote?: string }> = {
+  en: { resources: 'Learning resources', language: 'Language', scroll: 'Scroll to see more →', closing: 'Ready to practise with a teacher?', baseline: 'Request a Speaking Baseline', lesson: 'Request a one-to-one lesson', from: 'from', minutes: 'min', note: 'Requests go to info@jurassicenglish.com. USD card payment is not live yet.', hubNote: 'Requests go to info@jurassicenglish.com. PayPal (USD) is available on most country pages.', ai: 'See how AI Speaking practice works (18+)', tools: 'Free IELTS band score calculator' },
   vi: { resources: 'Tài liệu học tập', language: 'Ngôn ngữ', scroll: 'Vuốt để xem thêm →', closing: 'Sẵn sàng luyện tập cùng giáo viên?', baseline: 'Gửi yêu cầu đánh giá Speaking', lesson: 'Gửi yêu cầu học một kèm một', from: 'từ', minutes: 'phút', note: 'Yêu cầu được gửi tới info@jurassicenglish.com. Thanh toán thẻ bằng USD chưa được mở.', ai: 'Xem cách luyện Speaking với AI (18+)', tools: 'Công cụ tính điểm IELTS miễn phí' },
-  es: { resources: 'Recursos de aprendizaje', language: 'Idioma', scroll: 'Desliza para ver más →', closing: '¿Listo para practicar con un profesor?', baseline: 'Solicita una evaluación inicial de Speaking', lesson: 'Solicita una clase individual', from: 'desde', minutes: 'min', note: 'Las solicitudes llegan a info@jurassicenglish.com. El pago con tarjeta en USD aún no está activo.', ai: 'Cómo funciona la práctica de Speaking con IA (18+, en inglés)', tools: 'Calculadora gratuita de banda IELTS (en inglés)' },
-  'pt-BR': { resources: 'Recursos de aprendizagem', language: 'Idioma', scroll: 'Deslize para ver mais →', closing: 'Pronto para praticar com um professor?', baseline: 'Solicite uma avaliação inicial de Speaking', lesson: 'Solicite uma aula individual', from: 'a partir de', minutes: 'min', note: 'As solicitações vão para info@jurassicenglish.com. O pagamento com cartão em USD ainda não está ativo.', ai: 'Como funciona a prática de Speaking com IA (18+, em inglês)', tools: 'Calculadora gratuita de banda IELTS (em inglês)' },
+  es: { resources: 'Recursos de aprendizaje', language: 'Idioma', scroll: 'Desliza para ver más →', closing: '¿Listo para practicar con un profesor?', baseline: 'Solicita una evaluación inicial de Speaking', lesson: 'Solicita una clase individual', from: 'desde', minutes: 'min', note: 'Las solicitudes llegan a info@jurassicenglish.com. El pago con tarjeta en USD aún no está activo.', hubNote: 'Las solicitudes llegan a info@jurassicenglish.com. PayPal (USD) está disponible en la mayoría de las páginas de país.', ai: 'Cómo funciona la práctica de Speaking con IA (18+, en inglés)', tools: 'Calculadora gratuita de banda IELTS (en inglés)' },
+  'pt-BR': { resources: 'Recursos de aprendizagem', language: 'Idioma', scroll: 'Deslize para ver mais →', closing: 'Pronto para praticar com um professor?', baseline: 'Solicite uma avaliação inicial de Speaking', lesson: 'Solicite uma aula individual', from: 'a partir de', minutes: 'min', note: 'As solicitações vão para info@jurassicenglish.com. O pagamento com cartão em USD ainda não está ativo.', hubNote: 'As solicitações vão para info@jurassicenglish.com. O PayPal (USD) está disponível na maioria das páginas de país.', ai: 'Como funciona a prática de Speaking com IA (18+, em inglês)', tools: 'Calculadora gratuita de banda IELTS (em inglês)' },
   id: { resources: 'Sumber belajar', language: 'Bahasa', scroll: 'Geser untuk melihat selengkapnya →', closing: 'Siap berlatih bersama pengajar?', baseline: 'Ajukan asesmen awal Speaking', lesson: 'Ajukan les privat', from: 'mulai', minutes: 'menit', note: 'Permintaan dikirim ke info@jurassicenglish.com. Pembayaran kartu dalam USD belum aktif.', ai: 'Cara kerja latihan Speaking dengan AI (18+, bahasa Inggris)', tools: 'Kalkulator band IELTS gratis (bahasa Inggris)' },
   ms: { resources: 'Sumber pembelajaran', language: 'Bahasa', scroll: 'Leret untuk lihat lagi →', closing: 'Sedia berlatih dengan guru?', baseline: 'Mohon penilaian awal Speaking', lesson: 'Mohon kelas individu', from: 'bermula', minutes: 'minit', note: 'Permohonan dihantar ke info@jurassicenglish.com. Bayaran kad dalam USD belum aktif.', ai: 'Cara latihan Speaking AI berfungsi (18+, bahasa Inggeris)', tools: 'Kalkulator band IELTS percuma (bahasa Inggeris)' },
   th: { resources: 'แหล่งเรียนรู้', language: 'ภาษา', scroll: 'เลื่อนเพื่อดูเพิ่มเติม →', closing: 'พร้อมฝึกกับครูแล้วหรือยัง?', baseline: 'ขอรับการประเมิน Speaking เบื้องต้น', lesson: 'ขอเรียนตัวต่อตัว', from: 'เริ่มต้นที่', minutes: 'นาที', note: 'คำขอจะส่งไปที่ info@jurassicenglish.com ระบบชำระเงินด้วยบัตรเป็น USD ยังไม่เปิดใช้งาน', ai: 'ดูวิธีฝึก Speaking กับ AI (18+, ภาษาอังกฤษ)', tools: 'เครื่องคำนวณคะแนน IELTS ฟรี (ภาษาอังกฤษ)' },
@@ -134,13 +134,15 @@ export function prepareSeoContent(page: SeoPage) {
   return { html, intro };
 }
 
-function CtaNote({ locale, paypal }: { locale: string; paypal?: boolean }) {
+function CtaNote({ locale, paypal, hub }: { locale: string; paypal?: boolean; hub?: boolean }) {
   if (paypal) {
     const copy = payCopy[locale];
     const rtl = locale === 'ar' || locale === 'ur';
     return <p className="insights-cta-note">{rtl ? <span dangerouslySetInnerHTML={{ __html: rtlSafe(copy.hero) }} /> : copy.hero} <a className="insights-paypal-link" href="#pay">{copy.link}</a></p>;
   }
-  const note = (chrome[locale] ?? chrome.en).note;
+  // Hubs list every market, and most of them take PayPal, so they don't say USD payment is unavailable.
+  const c = chrome[locale] ?? chrome.en;
+  const note = hub && c.hubNote ? c.hubNote : c.note;
   // In RTL text the address is isolated whole; the Latin-run rule would split it at the @.
   const email = 'info@jurassicenglish.com';
   const rtlNote = note.split(email).map(isolateRtlText).join(`<bdi dir="ltr">${email}</bdi>`);
@@ -199,7 +201,7 @@ function PayPalPanel({ market, locale }: { market: string; locale: string }) {
 
 // Closing band: the booking request again for readers who reach the end, plus the two
 // routes that need no payment today (the AI Speaking explainer and a free tool).
-function ClosingBand({ locale, ctas, paypal }: { locale: string; ctas: Array<{ href: string; label: string }>; paypal?: boolean }) {
+function ClosingBand({ locale, ctas, paypal, hub }: { locale: string; ctas: Array<{ href: string; label: string }>; paypal?: boolean; hub?: boolean }) {
   const copy = chrome[locale] ?? chrome.en;
   const rtl = locale === 'ar' || locale === 'ur';
   const links = [
@@ -210,14 +212,14 @@ function ClosingBand({ locale, ctas, paypal }: { locale: string; ctas: Array<{ h
   return <div className="insights-closing" dir={rtl ? 'rtl' : 'ltr'}><div>
     <p>{copy.closing}</p>
     <div className="insights-closing-actions">{links.map(link => <a key={link.href} className={link.className} href={link.href}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(link.label) }} /> : link.label}</a>)}</div>
-    <CtaNote locale={locale} paypal={paypal} />
+    <CtaNote locale={locale} paypal={paypal} hub={hub} />
   </div></div>;
 }
 
-function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas, paypal }: {
+function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas, paypal, hub }: {
   eyebrow: string; title: string; intro: string; locale: string;
   alternate?: { path: string; locale: string }; market?: boolean;
-  ctas?: Array<{ href: string; label: string }>; paypal?: boolean;
+  ctas?: Array<{ href: string; label: string }>; paypal?: boolean; hub?: boolean;
 }) {
   const rtl = locale === 'ar' || locale === 'ur';
   return <header className="insights-hero" dir={rtl ? 'rtl' : 'ltr'}>
@@ -234,7 +236,7 @@ function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas, payp
       {market && <div className="insights-teacher">
         <div className="insights-teacher-row"><img src="/images/mr-jay-portrait.webp" width="76" height="76" alt="Mr. Jay Adams" /><div><span className="insights-badge">CELTA</span><strong>Mr. Jay Adams</strong></div></div>
         {ctas?.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}
-        {ctas?.length ? <CtaNote locale={locale} paypal={paypal} /> : null}
+        {ctas?.length ? <CtaNote locale={locale} paypal={paypal} hub={hub} /> : null}
       </div>}
     </div>
   </header>;
@@ -261,9 +263,9 @@ export function SearchInsightsPage({ pathname, onNavigate }: { pathname: string;
     const marketKey = marketFromPath(seoPage.path);
     const eyebrow = market ? (marketKey ? (countryNames[seoPage.locale] ?? countryNames.en)[marketKey] ?? countryNames.en[marketKey] : (chrome[seoPage.locale] ?? chrome.en).resources) : (seoPage.path.includes('/insights/') ? (chrome[seoPage.locale] ?? chrome.en).resources : 'Jurassic English · People');
     return <main id="main-content" className="insights-page" lang={seoPage.locale} dir={['ar', 'ur'].includes(seoPage.locale) ? 'rtl' : 'ltr'}>
-      <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} paypal={!!payMarket} />
+      <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} paypal={!!payMarket} hub={market && !marketKey} />
       <div className="insights-content"><nav aria-label="Breadcrumb"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{(chrome[seoPage.locale] ?? chrome.en).resources}</a></nav>{founderFactsEnd > 0 ? <article><div dangerouslySetInnerHTML={{ __html: html.slice(0, founderFactsEnd) }} /><FounderFilmLink locale={seoPage.locale === 'vi' ? 'vi' : 'en'} variant="card" /><div dangerouslySetInnerHTML={{ __html: html.slice(founderFactsEnd) }} /></article> : payMarket && factsEnd > 0 ? <article><div dangerouslySetInnerHTML={{ __html: html.slice(0, factsEnd) }} /><PayPalPanel market={payMarket} locale={seoPage.locale} /><div dangerouslySetInnerHTML={{ __html: html.slice(factsEnd) }} /></article> : <article dangerouslySetInnerHTML={{ __html: html }} />}</div>
-      {market && <ClosingBand locale={seoPage.locale} ctas={ctas} paypal={!!payMarket} />}
+      {market && <ClosingBand locale={seoPage.locale} ctas={ctas} paypal={!!payMarket} hub={!marketKey} />}
     </main>;
   }
   if (pathname === '/vi/insights') return <div className="insights-page"><HeroBand eyebrow="Tài liệu học tập" title="Tài liệu luyện IELTS Speaking" intro="Các bài hướng dẫn này giúp bạn xem lại câu trả lời Speaking của chính mình, hiểu một nhận xét dựa trên bằng chứng nào và chọn một việc để luyện tiếp. Bạn có thể đọc theo mục tiêu hiện tại: tìm điểm nghẽn giữa band 6 và band 7, luyện với các nhóm chủ đề forecast, tự kiểm tra tại nhà, hoặc hiểu giới hạn của phản hồi từ AI." locale="vi" /><main id="main-content" lang="vi" className="insights-content"><p className="mt-4">Mỗi bài phân biệt giữa việc luyện tập và kết quả thi IELTS. Các ví dụ dùng để minh họa cách suy nghĩ, không phải kết quả của học viên hay lời hứa tăng band. Nếu bạn muốn đánh giá cách mình thực sự nói, hãy ghi âm một câu trả lời, nghe lại theo bốn tiêu chí công khai và tìm phản hồi từ một người có thể nghe bạn trực tiếp.</p><div className="mt-8 space-y-6">{seoPages.filter(page => page.locale === 'vi' && page.path.startsWith('/vi/insights/')).map(page => <article key={page.path} className="rounded-lg border p-5"><h2 className="text-xl font-semibold"><a className="text-emerald-800 underline" href={page.path}>{page.h1}</a></h2><p className="mt-2">{page.description}</p></article>)}</div><p className="mt-8">Jurassic English™ là đơn vị độc lập, không liên kết với British Council, IDP hay Cambridge University Press &amp; Assessment. Điểm ước tính khi luyện tập không phải điểm IELTS chính thức. Hãy dùng những bài viết này để chọn câu hỏi mới, thử cách trả lời của riêng bạn và so sánh hai lần luyện trước khi quyết định bước tiếp theo.</p></main></div>;

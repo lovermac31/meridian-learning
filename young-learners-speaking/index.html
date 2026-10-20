@@ -400,6 +400,7 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 .yl2 .yl-promo-trigger:hover{color:#B45309}
 .yl2 a:focus-visible,.yl2 .btn:focus-visible,nav a:focus-visible,nav button:focus-visible,.yl2-footer a:focus-visible{outline:3px solid #1E4D3B;outline-offset:3px}
 .yl2-hero{padding:120px 0 56px}
+@media(max-width:880px){.yl2-hero{padding-top:40px}} /* the earlier 28px rule sits above the base rule and never applied */
 .yl2-hero-grid{display:grid;gap:32px;align-items:start}
 @media(min-width:900px){.yl2-hero-grid{grid-template-columns:1.1fr .9fr}}
 .yl2-hero h1{color:#1E4D3B;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.08;margin:.4rem 0 1rem}
@@ -456,16 +457,14 @@ nav[data-contact-panel]{top:auto;background:transparent;border:0;backdrop-filter
 .yl2-wt2-list{margin:.6rem 0 0;padding-left:1.1rem;color:#1C2526;font-size:.95rem}
 .yl2-wt2-list li{margin:.2rem 0}
 .card-balanced-cta-wrapper .btn{min-height:48px}
-/* Cambridge Flyers coming-soon banner (§3.1) */
-.yl2-flyers{background:#1E4D3B;color:#fff;padding:96px 0 18px}
+/* Cambridge Flyers waitlist banner (§3.1): after the offer, so the first screen is the current offer only (15 Oct audit P1.5) */
+.yl2-flyers{background:#1E4D3B;color:#fff;padding:28px 0}
 .yl2-flyers-in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
 .yl2-flyers-tag{margin:0;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;background:#FAF7F2;color:#1E4D3B;border-radius:999px;padding:3px 10px}
 .yl2-flyers-h{margin:0;font-weight:900;font-size:1.05rem}
 .yl2-flyers-p{margin:0;flex:1 1 320px;color:rgba(255,255,255,.88);font-size:.92rem}
 .yl2 .yl2-flyers-cta{background:#B45309;color:#fff;min-height:42px}
 .yl2 .yl2-flyers-cta:hover{background:#FAF7F2;color:#1E4D3B}
-.yl2-flyers + .yl2-hero{padding-top:40px}
-@media(max-width:880px){.yl2-flyers{padding-top:18px}}
 
 /* ===== Header symmetry (Oct 2026) ===== */
 nav.yl2-hdr{position:relative;z-index:40}
@@ -490,6 +489,7 @@ nav.yl2-hdr{position:relative;z-index:40}
 .yl2-hdr-panel>a:not(.yl2-hdr-cta){display:block;padding:10px 12px;border:1px solid #E6DEC8;border-radius:12px;background:#fff;text-decoration:none}
 .yl2-hdr-panel>a strong{display:block;color:#1E4D3B}
 .yl2-hdr-panel>a span{display:block;color:#1C2526;font-size:.85rem}
+.yl2-hdr-panel>a .yl2-nb{display:inline-block;color:#fff;font-size:11px}
 .yl2-hdr-panel .yl2-hdr-cta-panel{display:flex;justify-content:center}
 .yl2-hdr-panel .lang-select{display:inline-flex;align-self:flex-start}
 .yl2-hdr-menu:not([open]) .yl2-hdr-panel{display:none}
@@ -531,14 +531,6 @@ nav.yl2-hdr{position:relative;z-index:40}
 </nav>
 
 <main id="main" class="yl2">
-  <aside class="yl2-flyers" aria-labelledby="yl2-flyers-h">
-    <div class="wrap yl2-flyers-in">
-      <p class="yl2-flyers-tag" data-i18n="yl2.flyers.tag">Coming soon · Ages 9–12</p>
-      <p id="yl2-flyers-h" class="yl2-flyers-h" data-i18n="yl2.flyers.h">Cambridge A2 Flyers Speaking Preparation — Levels 1 and 2</p>
-      <p class="yl2-flyers-p" data-i18n="yl2.flyers.p">An independent bridge before Band 5.0, not endorsed by Cambridge. Join the waitlist.</p>
-      <a class="btn yl2-flyers-cta" href="mailto:info@jurassicenglish.com?subject=Cambridge%20A2%20Flyers%20Priority%20Waitlist" data-i18n="yl2.flyers.cta">Join the priority waitlist</a>
-    </div>
-  </aside>
   <section class="yl2-hero" id="top">
     <div class="wrap yl2-hero-grid">
       <div>
@@ -591,7 +583,7 @@ nav.yl2-hdr{position:relative;z-index:40}
     <div class="wrap">
       <p class="kicker" data-i18n="yl2.pricing.kicker">Family pricing</p>
       <h2 id="yl2-pricing-h" data-i18n="yl2.pricing.h2">Three simple ways to start</h2>
-      <p class="yl2-small" data-i18n="yl2.pricing.usd">VietQR and online checkout are billed in VND. Approximate USD (~$) uses 1 USD ≈ 25.400₫ for reference; outside Vietnam you can pay the set US$ amounts below by PayPal.</p>
+      <p class="yl2-small" data-i18n="yl2.pricing.usd">VietQR and online checkout are billed in VND. Approximate USD (~$) uses 1 USD ≈ 25.897₫ for reference; outside Vietnam you can pay the set US$ amounts below by PayPal.</p>
       <div class="yl2-cards">
         <article class="yl2-card card-balanced-item"><div class="card-balanced-body">
           <p class="yl2-tag" data-i18n="yl2.card1.tag">Option 1 · Start here</p><h3 data-i18n="yl2.card1.h">Live Speaking Baseline</h3><p class="yl2-price" data-i18n="yl2.card1.price">690.000₫ (~$27)</p><p class="yl2-small" data-i18n="yl2.card1.note">One 15–20 minute live session</p>
@@ -600,7 +592,7 @@ nav.yl2-hdr{position:relative;z-index:40}
           <a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.card1.cta">Book your child’s Baseline</a>
           </div></article>
         <article class="yl2-card card-balanced-item"><div class="card-balanced-body">
-          <p class="yl2-tag" data-i18n="yl2.card2.tag">Option 2 · Ages 9–14</p><h3 data-i18n="yl2.card2.h">Small-Group Speaking Lab</h3><p class="yl2-price" data-i18n="yl2.card2.price">2.900.000₫ total (~$114)</p><p class="yl2-small" data-i18n="yl2.card2.note">A 6-week course · for ages 9–14 only</p>
+          <p class="yl2-tag" data-i18n="yl2.card2.tag">Option 2 · Ages 9–14</p><h3 data-i18n="yl2.card2.h">Small-Group Speaking Lab</h3><p class="yl2-price" data-i18n="yl2.card2.price">2.900.000₫ total (~$112)</p><p class="yl2-small" data-i18n="yl2.card2.note">A 6-week course · for ages 9–14 only</p>
           <ul><li data-i18n="yl2.card2.b1">Max 6 international students, matched by level</li><li data-i18n="yl2.card2.b2">Speaking habits, confidence and peer energy</li><li data-i18n="yl2.card2.b3">Prefer self-study? Self-Study Speaking Toolkit: 990.000₫ (~$39)</li></ul>
           </div><div class="card-balanced-cta-wrapper">
           <a class="yl2-link" href="https://zalo.me/84396085076" target="_blank" rel="noopener noreferrer" data-i18n="yl2.card2.zalo">Zalo +84 396 085 076</a>
@@ -608,7 +600,7 @@ nav.yl2-hdr{position:relative;z-index:40}
           </div></article>
         <article class="yl2-card card-balanced-item"><div class="card-balanced-body">
           <p class="yl2-tag" data-i18n="yl2.card3.tag">Option 3 · All ages 9–18</p><h3 data-i18n="yl2.card3.h">1-to-1 Personal Coaching</h3><p class="yl2-price" data-i18n="yl2.card3.price">575.000–800.000₫ (~$23–$31)</p><p class="yl2-small" data-i18n="yl2.card3.note">per 60-minute lesson</p>
-          <ul><li data-i18n="yl2.card3.b1">Single trial lesson: 800.000₫ (~$31)</li><li data-i18n="yl2.card3.b2">Monthly plan, 8 lessons: 700.000₫/lesson · 5.600.000₫ total (~$220)</li><li data-i18n="yl2.card3.b3">6-month plan, 48 lessons: 625.000₫/lesson · 30.000.000₫ total (~$1,180)</li><li data-i18n="yl2.card3.b4">Annual plan, 96 lessons: 575.000₫/lesson · 55.200.000₫ total (~$2,170)</li><li data-i18n="yl2.card3.b5">6-month and annual plans can be paid monthly or biweekly by VietQR.</li></ul>
+          <ul><li data-i18n="yl2.card3.b1">Single trial lesson: 800.000₫ (~$31)</li><li data-i18n="yl2.card3.b2">Monthly plan, 8 lessons: 700.000₫/lesson · 5.600.000₫ total (~$217)</li><li data-i18n="yl2.card3.b3">6-month plan, 48 lessons: 625.000₫/lesson · 30.000.000₫ total (~$1,159)</li><li data-i18n="yl2.card3.b4">Annual plan, 96 lessons: 575.000₫/lesson · 55.200.000₫ total (~$2,132)</li><li data-i18n="yl2.card3.b5">6-month and annual plans can be paid monthly or biweekly by VietQR.</li></ul>
           </div><div class="card-balanced-cta-wrapper">
           <a class="btn" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.card3.cta">Book 1-to-1 or Baseline</a>
           </div></article>
@@ -633,10 +625,18 @@ nav.yl2-hdr{position:relative;z-index:40}
         </div>
         <p class="yl-paypal-note" data-i18n="pricing.paypalConfirm">We confirm PayPal payments by hand, usually within 1 business day.</p>
       </section>
-      <p class="yl2-fine" data-i18n="yl2.terms">Band 7 Target Pathway (6-Month and Annual): if your child completes full attendance and all practice and sits the test within 30 days without reaching Band 7, we add targeted coaching and re-sit preparation at no extra tuition. Band targets are training goals, not score guarantees.</p>
+      <p class="yl2-fine" data-i18n="yl2.terms">Progress review (6-Month and Annual plans): every plan ends with a written progress review. If your child attended every lesson and finished all practice but the practice goals agreed at the start were not met, we add up to 4 extra coaching sessions at no extra tuition. Band targets are training goals, not score guarantees.</p>
       <p class="yl2-fine" data-i18n="yl2.legal">Only an authorised IELTS test produces an official score. Sessions with learners under 18 are never recorded.</p>
     </div>
   </section>
+  <aside class="yl2-flyers" aria-labelledby="yl2-flyers-h">
+    <div class="wrap yl2-flyers-in">
+      <p class="yl2-flyers-tag" data-i18n="yl2.flyers.tag">Coming soon · Ages 9–12</p>
+      <p id="yl2-flyers-h" class="yl2-flyers-h" data-i18n="yl2.flyers.h">Cambridge A2 Flyers Speaking Preparation — Levels 1 and 2</p>
+      <p class="yl2-flyers-p" data-i18n="yl2.flyers.p">An independent bridge before Band 5.0, not endorsed by Cambridge. Join the waitlist.</p>
+      <a class="btn yl2-flyers-cta" href="mailto:info@jurassicenglish.com?subject=Cambridge%20A2%20Flyers%20Priority%20Waitlist" data-i18n="yl2.flyers.cta">Join the priority waitlist</a>
+    </div>
+  </aside>
 </main>
 
 <footer class="yl2-footer">

@@ -15,7 +15,7 @@ import { ArrowRight, BookOpen, Compass, Target } from "lucide-react";
 // primary CTA. No claims-risk language. Server-rendered (no client state).
 
 const JE_CTA_PRIMARY_LIGHT =
-  "inline-flex items-center justify-center bg-accent text-white px-6 py-3 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)]";
+  "inline-flex items-center justify-center bg-[#B45309] text-white px-6 py-3 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)]";
 const JE_CTA_OUTLINE_LIGHT =
   "inline-flex items-center justify-center bg-white border border-primary/15 text-primary px-6 py-3 rounded-full text-sm font-bold hover:bg-primary/5 transition-colors";
 const JE_EYEBROW_LIGHT =
@@ -79,7 +79,7 @@ export function DiagnosticBridge() {
 
               {/* Right column — proof points */}
               <div className="rounded-2xl bg-[#F4F1EA] border border-primary/5 p-5 md:p-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/60 mb-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/75 mb-4">
                   What the diagnostic looks at
                 </p>
                 <ul className="space-y-3">
@@ -103,7 +103,7 @@ export function DiagnosticBridge() {
                     );
                   })}
                 </ul>
-                <p className="mt-5 inline-flex items-center gap-1.5 text-[12px] text-foreground/55 italic">
+                <p className="mt-5 inline-flex items-center gap-1.5 text-[12px] text-foreground/75 italic">
                   <ArrowRight className="w-3 h-3" />
                   Reviewed by your child&rsquo;s teacher.
                 </p>

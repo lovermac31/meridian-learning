@@ -17,6 +17,12 @@ const tiers: Record<string, [number, number, number]> = {
   malaysia: [55, 385, 49], chile: [55, 385, 49], argentina: [55, 385, 49],
   singapore: [69, 483, 59], uae: [69, 483, 59], 'saudi-arabia': [69, 483, 59],
 };
+// Hubs list every market; most take PayPal, so a hub never says USD payment is unavailable.
+const hubPayments: Record<string, string> = {
+  en: 'Prices are in US dollars. Most country pages take PayPal in US dollars; where PayPal is not available, contact us to book.',
+  es: 'Los precios están en dólares estadounidenses. La mayoría de las páginas de país aceptan PayPal en dólares; donde PayPal no esté disponible, contáctanos para reservar.',
+  'pt-BR': 'Os preços estão em dólares americanos. A maioria das páginas de país aceita PayPal em dólares; onde o PayPal não estiver disponível, fale conosco para agendar.',
+};
 const payments: Record<string, string> = {
   en: 'Prices are in US dollars. International card checkout is opening soon; until then, contact us to book.',
   es: 'Los precios están en dólares estadounidenses. El pago internacional con tarjeta estará disponible pronto; mientras tanto, contáctanos para reservar.',
@@ -62,7 +68,7 @@ for (const page of pages) {
     assert.equal(metadata.htmlLang, page.locale);
     assert.equal(metadata.canonical, `${origin}${page.path}`);
     assert.ok(visible.includes('British Council') && visible.includes('IDP IELTS'), page.path);
-    const expected = !hubs.has(page.path) && !/pakistan|bangladesh/.test(page.path) ? paypalPayments[page.locale] : payments[page.locale];
+    const expected = hubs.has(page.path) ? hubPayments[page.locale] : !/pakistan|bangladesh/.test(page.path) ? paypalPayments[page.locale] : payments[page.locale];
     assert.ok(page.html.replace(/<\/?a\b[^>]*>/g, '').includes(expected), page.path);
     assert.match(rendered, /href="\/get-started"/);
     assert.doesNotMatch(`${page.description} ${page.html} ${JSON.stringify(page.faq)}`, /VND|VietQR|đồng/i);
@@ -197,5 +203,13 @@ test('market Service JSON-LD names the country and offers the approved USD price
     assert.doesNotMatch(service.areaServed.name, /[^\x00-\x7F]/, page.path);
     assert.deepEqual(service.offers.map((offer: Record<string, string>) => offer.price), [prices.lesson_usd, prices.pack8_usd, prices.baseline_usd].map((n: number) => n.toFixed(2)), page.path);
     assert.ok(service.offers.every((offer: Record<string, string>) => offer.priceCurrency === 'USD'), page.path);
+  }
+});
+
+test('hubs never say USD payment is unavailable while their country pages take PayPal', async () => {
+  for (const path of hubs) {
+    const visible = extractVisibleText(`<body>${await renderRoute(path)}</body>`);
+    assert.doesNotMatch(visible, /not live yet|opening soon|aún no está activo|disponible pronto|ainda não|em breve/i, path);
+    assert.match(visible, /PayPal/, path);
   }
 });

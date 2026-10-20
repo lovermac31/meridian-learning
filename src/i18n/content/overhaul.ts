@@ -5,7 +5,7 @@
  *
  * Rules this copy follows (spec §0.1):
  * - Prices are the live VND prices, unchanged. USD figures are approximate,
- *   at the owner's reference rate 1 USD ≈ 25.400₫, rounded.
+ *   at the checkout rate 1 USD ≈ 25.897₫ (VND_PER_USD in src/lib/paypal.ts), rounded up.
  * - Under-18 sessions are never recorded; no recorded portfolios are promised.
  * - AI Speaking scope is stated beside the offer (typed mode live, no
  *   pronunciation; spoken mode limited beta; sample audio is synthetic).
@@ -45,6 +45,7 @@ const en = {
       { label: 'Reading & Story Adventures', href: '/student-academy' },
       { label: 'Speaking & Teen IELTS', href: '/young-learners-speaking/' },
       { label: 'Adult IELTS Practice', href: '/ai-speaking' },
+      { label: 'IELTS Coaching by Country', href: '/ielts-speaking-online' },
       { label: 'IELTS Writing Task 2 (Coming Soon)', href: '/ai-speaking/writing' },
       { label: 'Live Speaking Baseline', href: '/ai-speaking/baseline' },
       { label: 'Academic Framework', href: '/framework' },
@@ -164,7 +165,7 @@ const en = {
     pricing: {
       heading: 'Clear starting options & transparent pricing',
       disclosure:
-        'All VietQR and online-checkout payments are billed in Vietnamese Đồng (VND ₫). Approximate US Dollar (~$) figures use 1 USD ≈ 25.400₫ for international reference; families outside Vietnam can also pay set US$ amounts by PayPal on the Speaking page. Live online sessions run across GMT+3 to GMT+8 (Hanoi is GMT+7).',
+        'All VietQR and online-checkout payments are billed in Vietnamese Đồng (VND ₫). Approximate US Dollar (~$) figures use 1 USD ≈ 25.897₫ for international reference; families outside Vietnam can also pay set US$ amounts by PayPal on the Speaking page. Live online sessions run across GMT+3 to GMT+8 (Hanoi is GMT+7).',
       entryLabel: 'Start here',
       ongoingLabel: 'Ongoing options & full commitment totals',
       rows: [
@@ -189,12 +190,12 @@ const en = {
             { name: '15–20 min human-assessed Live Speaking Baseline (Google Meet)', price: '690.000₫ (~$27)', note: 'Written 4-criterion band estimate (fluency, vocabulary, grammar, pronunciation), overall band estimate and your #1 next lesson priority. Under-18 sessions are never recorded.' },
           ],
           ongoing: [
-            { name: 'Small-Group Speaking Lab (ages 9–14, max 6, 6 weeks)', price: '2.900.000₫ total (~$114)', note: '' },
+            { name: 'Small-Group Speaking Lab (ages 9–14, max 6, 6 weeks)', price: '2.900.000₫ total (~$112)', note: '' },
             { name: 'Self-Study Speaking Toolkit', price: '990.000₫ (~$39)', note: '' },
             { name: '1-to-1 coaching, 60 min · single trial lesson', price: '800.000₫ (~$31)', note: '' },
-            { name: 'Monthly plan · 8 lessons · 700.000₫/lesson', price: '5.600.000₫ total (~$220)', note: '' },
-            { name: '6-month plan · 48 lessons · 625.000₫/lesson', price: '30.000.000₫ total (~$1,180)', note: '' },
-            { name: 'Annual plan · 96 lessons · 575.000₫/lesson', price: '55.200.000₫ total (~$2,170)', note: '' },
+            { name: 'Monthly plan · 8 lessons · 700.000₫/lesson', price: '5.600.000₫ total (~$217)', note: '' },
+            { name: '6-month plan · 48 lessons · 625.000₫/lesson', price: '30.000.000₫ total (~$1,159)', note: '' },
+            { name: 'Annual plan · 96 lessons · 575.000₫/lesson', price: '55.200.000₫ total (~$2,132)', note: '' },
           ],
           cta: { label: 'Book Live Speaking Baseline (690.000₫)', href: '/ai-speaking/baseline' },
         },
@@ -246,6 +247,7 @@ const vi: OverhaulContent = {
       { label: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy' },
       { label: 'Luyện nói & IELTS cho teen', href: '/young-learners-speaking/' },
       { label: 'Luyện IELTS cho người lớn', href: '/ai-speaking' },
+      { label: 'Hướng dẫn IELTS theo quốc gia', href: '/ielts-speaking-online' },
       { label: 'IELTS Writing Task 2 (Sắp ra mắt)', href: '/ai-speaking/writing' },
       { label: 'Đánh giá Nói trực tiếp', href: '/ai-speaking/baseline' },
       { label: 'Khung học thuật', href: '/framework' },
@@ -364,7 +366,7 @@ const vi: OverhaulContent = {
     pricing: {
       heading: 'Lựa chọn bắt đầu rõ ràng & học phí minh bạch',
       disclosure:
-        'Mọi khoản thanh toán qua VietQR và thanh toán trực tuyến đều tính bằng Việt Nam Đồng (VND ₫). Giá USD (~$) chỉ để tham khảo, quy đổi theo 1 USD ≈ 25.400₫; gia đình ở nước ngoài cũng có thể trả các khoản USD cố định qua PayPal trên trang Luyện nói. Các buổi học trực tuyến diễn ra trong khung GMT+3 đến GMT+8 (Hà Nội là GMT+7).',
+        'Mọi khoản thanh toán qua VietQR và thanh toán trực tuyến đều tính bằng Việt Nam Đồng (VND ₫). Giá USD (~$) chỉ để tham khảo, quy đổi theo 1 USD ≈ 25.897₫; gia đình ở nước ngoài cũng có thể trả các khoản USD cố định qua PayPal trên trang Luyện nói. Các buổi học trực tuyến diễn ra trong khung GMT+3 đến GMT+8 (Hà Nội là GMT+7).',
       entryLabel: 'Bắt đầu tại đây',
       ongoingLabel: 'Lựa chọn tiếp theo & tổng chi phí cam kết',
       rows: [
@@ -389,12 +391,12 @@ const vi: OverhaulContent = {
             { name: 'Buổi Đánh giá Nói trực tiếp 15–20 phút do giáo viên chấm (Google Meet)', price: '690.000₫ (~$27)', note: 'Ước tính band theo 4 tiêu chí bằng văn bản (trôi chảy, từ vựng, ngữ pháp, phát âm), band tổng và ưu tiên số 1 cho buổi tiếp theo. Buổi học với học viên dưới 18 tuổi không bao giờ được ghi âm, ghi hình.' },
           ],
           ongoing: [
-            { name: 'Lớp Luyện nói nhóm nhỏ (9–14 tuổi, tối đa 6 bạn, 6 tuần)', price: 'Tổng 2.900.000₫ (~$114)', note: '' },
+            { name: 'Lớp Luyện nói nhóm nhỏ (9–14 tuổi, tối đa 6 bạn, 6 tuần)', price: 'Tổng 2.900.000₫ (~$112)', note: '' },
             { name: 'Bộ công cụ tự học Nói', price: '990.000₫ (~$39)', note: '' },
             { name: 'Học 1 kèm 1, 60 phút · buổi học thử', price: '800.000₫ (~$31)', note: '' },
-            { name: 'Gói tháng · 8 buổi · 700.000₫/buổi', price: 'Tổng 5.600.000₫ (~$220)', note: '' },
-            { name: 'Gói 6 tháng · 48 buổi · 625.000₫/buổi', price: 'Tổng 30.000.000₫ (~$1,180)', note: '' },
-            { name: 'Gói 1 năm · 96 buổi · 575.000₫/buổi', price: 'Tổng 55.200.000₫ (~$2,170)', note: '' },
+            { name: 'Gói tháng · 8 buổi · 700.000₫/buổi', price: 'Tổng 5.600.000₫ (~$217)', note: '' },
+            { name: 'Gói 6 tháng · 48 buổi · 625.000₫/buổi', price: 'Tổng 30.000.000₫ (~$1,159)', note: '' },
+            { name: 'Gói 1 năm · 96 buổi · 575.000₫/buổi', price: 'Tổng 55.200.000₫ (~$2,132)', note: '' },
           ],
           cta: { label: 'Đặt buổi Đánh giá Nói (690.000₫)', href: '/ai-speaking/baseline' },
         },
