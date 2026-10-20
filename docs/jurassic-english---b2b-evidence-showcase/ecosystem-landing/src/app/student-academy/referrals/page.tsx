@@ -28,7 +28,14 @@ import {
 
 const DESCRIPTION = `Student Academy families earn ${REWARD} tuition credit for each new family they introduce who completes ${RULES.qualifyingLessons} paid individual lessons. Two qualifying families earn ${TWO_FAMILY_REWARD}. Terms, steps and how to join.`;
 
-export const metadata: Metadata = {
+// generateMetadata, not a static export: static metadata is still sent in
+// the RSC payload of the gated 404, which would publish the amounts.
+export function generateMetadata(): Metadata {
+  if (familyRewardsMode() === "off") return {};
+  return METADATA;
+}
+
+const METADATA: Metadata = {
   title: "Family Rewards | Jurassic English™ Student Academy",
   description: DESCRIPTION,
   alternates: { canonical: ROUTE },
