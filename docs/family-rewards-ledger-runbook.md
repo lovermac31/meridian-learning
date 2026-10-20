@@ -87,7 +87,8 @@ BASE=http://localhost:3418 LOG=<server log> node scripts/family-rewards-e2e.mjs
    1. Request a sign-in link to the owner email. It arrives, and the confirm page signs in.
    2. In admin: Set funded allocation, then Programme switches (enrolment on).
    3. Check `curl -sI https://jurassicenglish.com/student-academy/referrals/account` shows `private, no-store`, not `s-maxage`.
-   4. Run `node scripts/verify-overhaul.mjs --live --main https://jurassicenglish.com`.
+   4. Prove that no personalised response is shared: `x-vercel-cache` on account requests must be `MISS` or `BYPASS`, never `HIT`. A signed-out request from another client, made immediately after a signed-in one, must return the sign-in form, not dashboard content. This can only be proven after release; the header rules alone do not settle it.
+   5. Run `node scripts/verify-overhaul.mjs --live --main https://jurassicenglish.com`.
 8. First real member: approve them in admin after checking they are a current or former academy family. Then confirm they can sign in and see their code.
 
 ## Importing registrations
