@@ -47,9 +47,12 @@ export const ZALO_LABEL = "+84 396 085 076";
  * Google Form responder URL (…/viewform). Only a URL that was opened signed
  * out and submitted with synthetic data may go here; never an /edit link.
  * While null, the page's primary button falls back to the email request,
- * which is a working path, not a placeholder.
+ * which is a working path, not a placeholder. Verified 2026-10-21: opened
+ * signed out, one synthetic non-Gmail submission received in the private
+ * response sheet (owner-only), results summary off.
  */
-export const FORM_RESPONDER_URL: string | null = null;
+export const FORM_RESPONDER_URL: string | null =
+  "https://docs.google.com/forms/d/e/1FAIpQLSe_YKZ_4e4LozemiuVa5Rn0qjeaFzmTIGJMvoQGP-FLOWgpXQ/viewform";
 
 export const FORM_URL_PATTERN = /^https:\/\/docs\.google\.com\/forms\/d\/e\/[A-Za-z0-9_-]{20,}\/viewform$/;
 

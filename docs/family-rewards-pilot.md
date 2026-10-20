@@ -26,11 +26,11 @@ No change to checkout, payments, pricing, authentication, databases, Speaking, W
 
 ## Go-live checklist (only after funding is approved)
 
-1. Owner approves the reward reserve and confirms how participating teachers are compensated when credit is redeemed. The proposal is 2,000,000 VND for 10 qualifying referrals; this is **not approved**.
-2. Owner approves the retention schedule. The proposal: delete unqualified registrations after 90 days, and keep earned-credit records while a balance or statutory need exists.
-3. The Google Form exists, its responder URL was tested signed out, and `FORM_RESPONDER_URL` in `terms.ts` is set. The test rejects edit links.
+1. Done (21 Oct 2026). The owner approved a funded reward reserve and owner-funded teacher compensation. The amount is recorded privately, not in this public repo.
+2. Done. The owner chose to keep the published wording: details are kept only as long as needed to run the programme and honour a balance.
+3. Done. The Google Form exists, its responder URL was tested signed out, and `FORM_RESPONDER_URL` in `terms.ts` is set. The test rejects edit links.
 4. Set `FAMILY_REWARDS_ENABLED=1` on je-ecosystem-landing-preview (Production), then redeploy the current production commit.
-5. Add `/student-academy/referrals` to the sitemap: add it to `REWRITE_SERVED_ROUTES` in `src/lib/routeMetadata.ts` (root SPA). It is left out until then so the sitemap never lists a 404. No `vercel.json` change is needed: `/student-academy/:path*` already rewrites and has cache headers.
+5. Done. `/student-academy/referrals` is in `REWRITE_SERVED_ROUTES` (`src/lib/routeMetadata.ts`), so it appears in the sitemap. No `vercel.json` change is needed: `/student-academy/:path*` already rewrites and has cache headers. If the flag is ever unset, remove this entry too.
 6. Verify on jurassicenglish.com:
    - The page returns 200.
    - The canonical is `https://jurassicenglish.com/student-academy/referrals`.
@@ -66,6 +66,8 @@ No change to checkout, payments, pricing, authentication, databases, Speaking, W
   - Check each file's permissions separately.
 
 ## Private ledger (owner's Google Sheet; never public)
+
+The pilot reserve caps new eligible bookings. Its amount lives in the owner's private records; `ledger.ts` takes it as a parameter.
 
 Columns: registration ID · adult contact · referral code (random, opaque: no name or email) · terms version · consent timestamp · status (applied / approved / declined) · booking reference · new household ID · code declared at · first payment at · lessons paid · lessons completed · refund status · dispute open · reserve held (VND) · qualification date · credit issued (VND) · credit redeemed (VND) · invoice applied to · balance (VND) · audit note.
 
@@ -106,4 +108,5 @@ Analytics: page and card views only, through the existing cookieless Vercel Anal
 | Email request as the primary CTA until a verified form URL exists | A placeholder form link | Never ship a placeholder; email is a working path. |
 | Vietnamese kept as an unrendered draft in `terms.ts` | Render the machine draft | The app has no VI locale and the draft has had no native review. |
 | Ledger rules as pure code with synthetic tests, not wired to any UI | Spreadsheet only | Rules are executable and rehearsed; nothing in the browser can grant credit. |
+| Funding amount kept out of the repo | State it in the terms | The directive keeps funding evidence private. Only the per-household amounts are public. |
 | No public service-time promise ("within two working days") | Publish it | The blueprint says publish only if it can be staffed; not confirmed. |

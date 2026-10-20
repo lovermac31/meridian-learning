@@ -981,6 +981,8 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
  */
 const REWRITE_SERVED_ROUTES = [
   '/student-academy',
+  // Family Rewards (ecosystem app, FAMILY_REWARDS_ENABLED=1 in production).
+  '/student-academy/referrals',
   '/school-framework',
   '/digital-reasoning-engine',
   '/interactive-demo',

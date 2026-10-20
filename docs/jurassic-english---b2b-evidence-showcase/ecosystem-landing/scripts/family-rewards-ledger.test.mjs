@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { RULES, TERMS_VERSION, TERMS, STEPS, REWARD, TWO_FAMILY_REWARD, MAX_REDEMPTION, FORM_RESPONDER_URL, isVerifiedFormUrl } from "../src/lib/familyRewards/terms.ts";
 import { createLedger, approveMember, recordReferral, updateBooking, qualify, issueCredit, redeem, balanceOf, LedgerError } from "../src/lib/familyRewards/ledger.ts";
 
-const BUDGET = 2_000_000; // proposed pilot reserve (not approved); synthetic here
+const BUDGET = 2_000_000; // synthetic budget for the rehearsal, not the real reserve
 const T0 = "2026-11-01T09:00:00Z";
 const PAID = "2026-11-02T09:00:00Z";
 
