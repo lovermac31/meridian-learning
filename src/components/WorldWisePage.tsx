@@ -13,6 +13,7 @@ import {
 import { getWorldWisePageContent } from '../i18n/content/worldwise';
 import { LinkifyWorldWise, WorldWiseLink } from './WorldWiseLink';
 import type { Locale } from '../i18n/locales';
+import { FounderFilmLink } from './FounderFilmLink';
 import { RouteLink } from './RouteLink';
 
 type WorldWisePageProps = {
@@ -100,6 +101,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
                 {content.hero.secondaryCta}
               </RouteLink>
             </motion.div>
+            <motion.div variants={fadeUp}><FounderFilmLink locale={locale} variant="dark" /></motion.div>
           </motion.div>
         </div>
       </section>
