@@ -142,6 +142,7 @@ const termsAndConditions: LegalDocument = {
         ]),
         sub('6.3 Refund Policy', [
           p('Refunds are assessed on a case-by-case basis in accordance with the terms of your individual service agreement. Digital curriculum materials and downloaded resources are non-refundable once accessed.'),
+          p('1-to-1 lessons and sessions bought through jurassicenglish.com/ai-speaking are covered by the lesson terms shown at checkout and at jurassicenglish.com/ai-speaking/terms#lessons, which include a full refund within 14 days of payment if no lesson has been used. Each order keeps the terms version its buyer accepted. Nothing in this section limits any right you have under applicable law.'),
         ]),
       ],
     },

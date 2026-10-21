@@ -129,6 +129,7 @@ const termsVi: LegalDocument = {
       ]),
       sub('6.3 Chính sách hoàn tiền', [
         p('Các khoản hoàn tiền được xem xét theo từng trường hợp cụ thể phù hợp với điều khoản của thỏa thuận dịch vụ cá nhân của bạn. Tài liệu chương trình số và các tài nguyên đã tải xuống sẽ không được hoàn tiền sau khi đã được truy cập.'),
+        p('Các buổi học và buổi 1 kèm 1 mua qua jurassicenglish.com/ai-speaking áp dụng điều khoản buổi học hiển thị khi thanh toán và tại jurassicenglish.com/ai-speaking/terms#lessons, gồm hoàn toàn bộ trong vòng 14 ngày kể từ khi thanh toán nếu chưa dùng buổi nào. Mỗi đơn hàng giữ phiên bản điều khoản mà người mua đã chấp nhận. Điều khoản này không hạn chế bất kỳ quyền nào của bạn theo pháp luật hiện hành.'),
       ]),
     ]),
     section('7', 'Bảo mật thông tin', [
