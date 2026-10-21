@@ -2,10 +2,12 @@
  * PayPal — the second payment option for customers outside Vietnam.
  *
  * Owner decision (Jay Adams, 14 Oct 2026): payments go to the Jurassic English
- * PayPal business account (shown on PayPal as WorldWiseLearning) through PayPal's standard _xclick
- * checkout. Confirmation is manual: the customer puts their booking reference
- * or email in the PayPal note and Jay confirms by hand. VietQR stays the
- * primary option inside Vietnam.
+ * PayPal business account (shown on PayPal as WorldWiseLearning). VietQR stays the primary option inside Vietnam.
+ *
+ * Since 21 Oct 2026 the site's PayPal options no longer link to PayPal directly: the Young Learners page
+ * (PR #176) and the country pages (src/components/SearchInsightsPage.tsx, ?market=) open the order-first
+ * checkout in the AI Speaking app, where PayPal is automated (Orders v2) and confirmed automatically. The
+ * _xclick helpers below are kept for reference and tests; no page renders them.
  *
  * Link shape, logo and item-name pattern match the market-page panel shipped in
  * PR #128 (src/components/SearchInsightsPage.tsx), so every PayPal payment Jay
