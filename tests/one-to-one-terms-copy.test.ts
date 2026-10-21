@@ -9,13 +9,22 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const read = (p: string) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
-const SOURCES = ['young-learners-speaking/index.html', 'src/yl/i18n.vi.json', 'src/i18n/content/overhaul.ts', 'src/i18n/content/home.ts'];
+const SOURCES = ['young-learners-speaking/index.html', 'src/yl/i18n.ts', 'src/yl/i18n.vi.json', 'src/yl/i18n.zh-CN.json', 'src/i18n/content/overhaul.ts', 'src/i18n/content/home.ts'];
 
 test('no instalment promise ("monthly or biweekly") for plans that have no instalment mechanism', () => {
   for (const p of SOURCES) {
     const s = read(p);
     assert.doesNotMatch(s, /monthly or biweekly|biweekly/i, p);
-    assert.doesNotMatch(s, /theo tháng hoặc hai tuần/i, p);
+    assert.doesNotMatch(s, /theo tháng hoặc hai tuần|hai tuần một lần|hằng tuần/i, p);
+    assert.doesNotMatch(s, /weekly (payments|rhythm)|split into two smaller payments|two to four payments/i, p);
+    assert.doesNotMatch(s, /每两周|每周付款|分成两笔|分成两到四笔/, p);
+  }
+});
+
+test('the old flexible-payment block (unrendered pricing.flex* strings) stays removed in every locale', () => {
+  for (const p of ['src/yl/i18n.ts', 'src/yl/i18n.vi.json', 'src/yl/i18n.zh-CN.json']) {
+    const keys = read(p).match(/pricing\.flex\w+/g) ?? [];
+    assert.deepEqual([...new Set(keys)], ['pricing.flexTrust2'], p);
   }
 });
 
