@@ -10,6 +10,8 @@ import { resolve } from 'node:path';
 import pricing from '../src/content/marketPricing.json';
 import { buildViPage } from '../scripts/prerender-yl-vi.mjs';
 import { PAYPAL_BUSINESS_ID, PAYPAL_LOGO, VND_PER_USD, paypalHref, paypalItemName, usdFromVnd } from '../src/lib/paypal.ts';
+import { baselineHref } from '../src/lib/baselineLink.ts';
+import { lessonsHref } from '../src/yl/pageI18n.ts';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const read = (p: string) => readFileSync(resolve(ROOT, p), 'utf8');
@@ -60,24 +62,28 @@ const YL_OFFERS = [
   { item: 'lesson_single', offer: 'One-to-one lesson 60 min', vnd: 800_000 },
   { item: 'lesson_month', offer: 'Month of 8 lessons', vnd: 5_600_000 },
 ];
+// 21 Oct 2026: the options open the order-first checkout (automated PayPal in the AI Speaking app, PR #134 + 039), not
+// fixed _xclick links: the Baseline booking page, and the lessons checkout for 1 lesson and the 8-lesson pack.
 const ylOptions = (html: string) =>
-  [...html.matchAll(/<a class="yl-paypal-option" data-paypal-item="([^"]+)" href="([^"]+)" target="_blank" rel="noopener noreferrer"><span[^>]*>[^<]+<\/span><strong>US\$(\d+)<\/strong><\/a>/g)]
+  [...html.matchAll(/<a class="yl-paypal-option" data-paypal-item="([^"]+)" (?:data-baseline-link|data-lessons-pack="[^"]+") href="([^"]+)"><span[^>]*>[^<]+<\/span><strong>US\$(\d+)<\/strong><\/a>/g)]
     .map((m) => ({ item: m[1], href: m[2].replaceAll('&amp;', '&'), shown: Number(m[3]) }));
+const checkoutHref = (item: string, lang: 'en' | 'vi') => (item === 'baseline' ? baselineHref(lang) : lessonsHref(item, lang));
 
-for (const [name, html] of Object.entries({ EN: YL_EN, VI: YL_VI })) {
-  test(`YL ${name}: PayPal panel pays ceil(VND / 25,897) for Baseline, 1 lesson and a month`, () => {
+for (const [name, html, lang] of [['EN', YL_EN, 'en'], ['VI', YL_VI, 'vi']] as const) {
+  test(`YL ${name}: PayPal panel shows ceil(VND / 25,897) and opens the order-first checkout for Baseline, 1 lesson and a month`, () => {
     const options = ylOptions(html);
     assert.deepEqual(options.map((o) => o.item), YL_OFFERS.map((o) => o.item));
     for (const [i, o] of YL_OFFERS.entries()) {
       const usd = usdFromVnd(o.vnd);
       assert.equal(options[i].shown, usd, o.item);
-      assert.equal(options[i].href, paypalHref(paypalItemName(o.offer, 'Young Learners'), usd), o.item);
+      assert.equal(options[i].href, checkoutHref(o.item, lang), o.item);
     }
+    assert.doesNotMatch(html, /cgi-bin\/webscr/, 'no fixed PayPal link left on the YL page');
     assert.deepEqual(options.map((o) => o.shown), [27, 31, 217]);
     assert.match(html, new RegExp(`<img src="${PAYPAL_LOGO}" width="101" height="32" alt="PayPal"`));
   });
 
-  test(`YL ${name}: PayPal sits under VietQR, with manual confirmation and a jump link from booking`, () => {
+  test(`YL ${name}: PayPal sits under VietQR, with automatic confirmation and a jump link from booking`, () => {
     const vietqr = html.indexOf('data-lessons-pack="lesson_month"');
     const panel = html.indexOf('id="paypal"');
     assert.ok(vietqr > 0 && panel > vietqr);
@@ -88,21 +94,26 @@ for (const [name, html] of Object.entries({ EN: YL_EN, VI: YL_VI })) {
   });
 }
 
-test('YL copy: card line replaced in EN, VI and zh-CN; VietQR stays first; PayPal confirmation is manual', () => {
+test('YL copy: card line replaced in EN, VI and zh-CN; VietQR stays first; PayPal confirmation is automatic', () => {
   const dicts = {
     en: read('src/yl/i18n.ts'),
     vi: JSON.parse(read('src/yl/i18n.vi.json')),
     zh: JSON.parse(read('src/yl/i18n.zh-CN.json')),
   };
   assert.doesNotMatch(dicts.en + YL_EN + YL_VI + JSON.stringify(dicts.vi) + JSON.stringify(dicts.zh), /Card payments are not available|chưa nhận thanh toán bằng thẻ|暂不支持银行卡/);
-  assert.match(YL_EN, /data-i18n="pricing.flexTrust2">Bank transfer with VietQR in Vietnam, confirmed automatically\. Outside Vietnam, pay with PayPal, confirmed by hand\./);
+  assert.match(YL_EN, /data-i18n="pricing.flexTrust2">Bank transfer with VietQR in Vietnam, or PayPal in US dollars from outside Vietnam\. Both are confirmed automatically\./);
   for (const d of [dicts.vi, dicts.zh]) {
     for (const key of ['pricing.paypalH', 'pricing.paypalP', 'pricing.paypalBaseline', 'pricing.paypalSingle', 'pricing.paypalMonth', 'pricing.paypalConfirm', 'book.paypalLink', 'book.paypalConfirm']) {
       assert.ok(d[key], key);
     }
     assert.ok(d['pricing.flexTrust2'].indexOf('VietQR') < d['pricing.flexTrust2'].indexOf('PayPal'));
   }
-  assert.match(YL_EN, /We confirm PayPal payments by hand, usually within 1 business day\./);
+  // No PayPal string anywhere still says payments are checked by hand.
+  const paypalKeys = ['pricing.flexTrust2', 'pricing.paypalP', 'pricing.paypalConfirm', 'book.paypalConfirm', 'yl2.paypal.note'];
+  for (const d of [dicts.vi, dicts.zh]) for (const k of paypalKeys) if (d[k]) assert.doesNotMatch(d[k], /thủ công|人工/, k);
+  assert.doesNotMatch(dicts.en, /PayPal[^'"]*by hand|by hand[^'"]*PayPal/);
+  assert.doesNotMatch(YL_EN + YL_VI, /PayPal[^<]*by hand|by hand[^<]*PayPal|PayPal[^<]*thủ công/);
+  assert.match(YL_EN, /PayPal payments are confirmed automatically and your order code is attached for you\./);
 });
 
 test('YL: every PayPal link reports a unique click label', () => {
