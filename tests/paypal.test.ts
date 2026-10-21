@@ -46,11 +46,21 @@ test('payments go to the business account by merchant ID, never to an email', ()
   }
 });
 
-test('the market-page panel uses the shared account and logo', () => {
+test('the market-page panel uses the shared logo and payee name, and opens the automated checkout (no fixed PayPal link)', () => {
   const market = read('src/components/SearchInsightsPage.tsx');
-  assert.ok(market.includes("import { PAYPAL_BUSINESS_ID, PAYPAL_LOGO, PAYPAL_PAYEE_NAME } from '../lib/paypal'"));
-  assert.ok(market.includes('business: PAYPAL_BUSINESS_ID') && PAYPAL_LOGO.startsWith('https://www.paypalobjects.com/'));
-  assert.ok(market.includes("cmd: '_xclick'") && market.includes('(Jurassic English)'));
+  assert.ok(market.includes("import { PAYPAL_LOGO, PAYPAL_PAYEE_NAME } from '../lib/paypal'"));
+  assert.ok(PAYPAL_LOGO.startsWith('https://www.paypalobjects.com/'));
+  assert.doesNotMatch(market, /cgi-bin\/webscr|cmd: '_xclick'|business: PAYPAL_BUSINESS_ID/);
+  assert.match(market, /\/ai-speaking\/baseline\?market=/);
+  assert.match(market, /\/ai-speaking\/lessons\?pack=\$\{item === 'lesson' \? 'lesson_single' : 'lesson_month'\}&market=/);
+});
+
+test('marketPricing.json is pinned: the AI Speaking checkout charges these prices from its own copy', async () => {
+  // jurassic-ai-speaking mvp/content/market-pricing.json is a byte copy of this file, and its evals check lib/market-pricing.ts
+  // against it. Changing a price here must also update that copy (and its PR); then update this hash.
+  const { createHash } = await import('node:crypto');
+  const sha = createHash('sha256').update(readFileSync(resolve(ROOT, 'src/content/marketPricing.json'))).digest('hex');
+  assert.equal(sha, '6aedd82fba0fea382c680018fa82f716a5819848c36daedb728ce43bba77c5dc');
 });
 
 // ---- Young Learners (/young-learners-speaking/ and /vi/luyen-noi-ielts/) ----
