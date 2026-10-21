@@ -12,6 +12,7 @@
 import { createHash, randomBytes } from "node:crypto";
 import { Pool } from "pg";
 import { cookies } from "next/headers";
+import { poolConfig } from "./dbConfig";
 
 export const ACCOUNT_PATH = "/student-academy/referrals/account";
 export const SESSION_COOKIE = "fr_session";
@@ -27,7 +28,8 @@ let pool: Pool | null = null;
 export function db(): Pool {
   if (!process.env.FR_DATABASE_URL) throw new Error("FR_DATABASE_URL is not set");
   if (!pool) {
-    pool = new Pool({ connectionString: process.env.FR_DATABASE_URL, max: 3, idleTimeoutMillis: 10_000 });
+    // TLS is verified against the Supabase root CA; any sslmode in the URL is ignored.
+    pool = new Pool({ ...poolConfig(process.env.FR_DATABASE_URL), max: 3, idleTimeoutMillis: 10_000 });
     // A dropped idle connection (database restart, pooler failover) must not
     // crash the function; the pool replaces it on the next query.
     pool.on("error", (error) => console.error("[family-rewards] idle database connection lost:", error.message));
