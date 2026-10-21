@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test:family-rewards": "node --experimental-strip-types --no-warnings --test scripts/family-rewards-ledger.test.mjs",
-    "test:family-rewards-db": "node --experimental-strip-types --no-warnings --test --test-concurrency=1 scripts/family-rewards-db.test.mjs"
+    "test:family-rewards-db": "node --experimental-strip-types --no-warnings --test --test-concurrency=1 scripts/family-rewards-db.test.mjs",
+    "test:family-rewards-tls": "node --experimental-strip-types --no-warnings --test --test-concurrency=1 scripts/family-rewards-tls.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
