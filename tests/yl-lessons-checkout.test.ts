@@ -23,18 +23,22 @@ const DICTS = {
 const links = (html: string) =>
   [...html.matchAll(/<a\b[^>]*\sdata-lessons-pack="([^"]+)"[^>]*\shref="([^"]+)"/g)].map((m) => ({ pack: m[1], href: m[2] }));
 
-test('EN page links both lesson packs to the AI Speaking checkout', () => {
-  assert.deepEqual(links(EN_HTML), [
+// Each pack is linked twice: the VietQR buy buttons (#book-online), then the PayPal options (#paypal, 21 Oct 2026),
+// which open the same order-first checkout where PayPal is offered after the order is created.
+test('EN page links both lesson packs to the AI Speaking checkout (VietQR buttons and PayPal options)', () => {
+  const en = [
     { pack: 'lesson_single', href: '/ai-speaking/lessons?pack=lesson_single' },
     { pack: 'lesson_month', href: '/ai-speaking/lessons?pack=lesson_month' },
-  ]);
+  ];
+  assert.deepEqual(links(EN_HTML), [...en, ...en]);
 });
 
-test('VI edition links to the Vietnamese checkout', () => {
-  assert.deepEqual(links(VI_HTML), [
+test('VI edition links to the Vietnamese checkout (VietQR buttons and PayPal options)', () => {
+  const vi = [
     { pack: 'lesson_single', href: '/ai-speaking/lessons?lang=vi&amp;pack=lesson_single' },
     { pack: 'lesson_month', href: '/ai-speaking/lessons?lang=vi&amp;pack=lesson_month' },
-  ]);
+  ];
+  assert.deepEqual(links(VI_HTML), [...vi, ...vi]);
 });
 
 test('runtime language switch rewrites the links the same way', () => {
