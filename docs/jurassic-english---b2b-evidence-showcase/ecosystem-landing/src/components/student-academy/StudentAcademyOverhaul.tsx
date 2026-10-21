@@ -1,4 +1,5 @@
-import { ArrowRight, ArrowUpRight, Mail, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Gift, Mail, MessageCircle, ShieldCheck } from "lucide-react";
+import { REWARD, ROUTE as FAMILY_REWARDS_ROUTE } from "@/lib/familyRewards/terms";
 
 // Student Academy (human-centered overhaul, revised spec §3 Page B).
 // Plain-language copy for parents. Every image is a storybook illustration
@@ -58,7 +59,7 @@ function Illustration({ src, alt, className, eager = false, width, height, sizes
   );
 }
 
-export function StudentAcademyOverhaul() {
+export function StudentAcademyOverhaul({ familyRewards = false }: { familyRewards?: boolean }) {
   return (
     <div className="bg-[#FAF7F2] text-[#1C2526]">
       {/* Hero */}
@@ -213,6 +214,26 @@ export function StudentAcademyOverhaul() {
           </p>
         </div>
       </section>
+
+      {/* Family Rewards: deliberately compact (the page has a 550-word
+          ceiling in scripts/verify-overhaul.mjs). All terms live on the
+          referrals page. Rendered only while the release gate is open. */}
+      {familyRewards ? (
+        <section className="px-4 pb-14 sm:px-6" aria-labelledby="family-rewards-heading">
+          <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-[1.25rem] border border-[#E6DEC8] bg-white p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-3">
+              <Gift aria-hidden="true" className="mt-0.5 h-5 w-5 flex-none text-[#B45309]" />
+              <div>
+                <h2 id="family-rewards-heading" className="font-extrabold text-[#1E4D3B]">Family Rewards</h2>
+                <p className="mt-1 text-sm text-[#4A5568]">Introduce a new family; earn {REWARD} tuition credit.</p>
+              </div>
+            </div>
+            <a href={FAMILY_REWARDS_ROUTE} className={`${SECONDARY} flex-none`}>
+              How it works <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

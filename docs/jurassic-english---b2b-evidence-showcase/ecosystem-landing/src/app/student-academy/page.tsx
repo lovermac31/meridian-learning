@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
 import { StudentAcademyOverhaul } from "@/components/student-academy/StudentAcademyOverhaul";
+import { familyRewardsMode } from "@/lib/familyRewards/flag";
 
 // Sprint 3A — page-level structured data.
 //
@@ -132,7 +133,7 @@ export default function StudentAcademyPage() {
       <JsonLd data={STUDENT_ACADEMY_WEBPAGE_LD} id="ld-sa-webpage" />
       <JsonLd data={STUDENT_ACADEMY_BREADCRUMB_LD} id="ld-sa-breadcrumb" />
       <div className="sa-theme">
-        <StudentAcademyOverhaul />
+        <StudentAcademyOverhaul familyRewards={familyRewardsMode() !== "off"} />
       </div>
     </>
   );

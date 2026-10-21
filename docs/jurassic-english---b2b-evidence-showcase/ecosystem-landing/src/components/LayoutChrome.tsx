@@ -6,6 +6,7 @@ import { useCallback } from "react";
 import { BotUIChat } from "./BotUIChat";
 import { StudentAcademyFooter } from "./StudentAcademyFooter";
 import { isSaBotRouteAllowed } from "@/lib/saBotRoutes";
+import { ROUTE as FAMILY_REWARDS_ROUTE } from "@/lib/familyRewards/terms";
 
 // Client-side chrome wrapper. Decides which footer to render and whether
 // the Student Academy bot should mount, based on the current pathname.
@@ -43,11 +44,20 @@ function MinimalEcosystemFooter() {
   );
 }
 
-export function LayoutChrome() {
+// Routes that carry the academy footer. The bot stays scoped to
+// /student-academy alone (isSaBotRouteAllowed); the Family Rewards page
+// shares the footer but not the bot.
+function isAcademyFooterRoute(pathname: string, familyRewards: boolean) {
+  const path = pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  return path === "/student-academy" || (familyRewards && path === FAMILY_REWARDS_ROUTE) || path.startsWith(`${FAMILY_REWARDS_ROUTE}/account`);
+}
+
+export function LayoutChrome({ familyRewards = false }: { familyRewards?: boolean }) {
   const pathname = usePathname() ?? "/";
   const router = useRouter();
 
   const isStudentAcademy = isSaBotRouteAllowed(pathname);
+  const academyFooter = isAcademyFooterRoute(pathname, familyRewards);
 
   const handleBotNavigate = useCallback(
     (path: string) => {
@@ -68,7 +78,7 @@ export function LayoutChrome() {
 
   return (
     <>
-      {isStudentAcademy ? <StudentAcademyFooter /> : <MinimalEcosystemFooter />}
+      {academyFooter ? <StudentAcademyFooter familyRewards={familyRewards} /> : <MinimalEcosystemFooter />}
       {isStudentAcademy ? (
         <BotUIChat
           currentPathname={pathname}

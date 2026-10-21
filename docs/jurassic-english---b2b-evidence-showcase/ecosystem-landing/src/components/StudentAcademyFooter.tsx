@@ -2,6 +2,8 @@
 // footer: one navigation row, the institutional pointer, and the one-line
 // independence notice. Replaces the multi-column sitemap footer.
 
+import { ROUTE as FAMILY_REWARDS_ROUTE } from "@/lib/familyRewards/terms";
+
 const LINKS = [
   { label: "Reading & Story Adventures", href: "/student-academy" },
   { label: "Speaking & Teen IELTS", href: "/young-learners-speaking/" },
@@ -13,7 +15,12 @@ const LINKS = [
   { label: "Terms", href: "/legal/terms" },
 ];
 
-export function StudentAcademyFooter() {
+// Local link only (no global header item). Shown only while the Family
+// Rewards gate is open; see src/lib/familyRewards/flag.ts.
+const FAMILY_REWARDS_LINK = { label: "Family Rewards", href: FAMILY_REWARDS_ROUTE };
+
+export function StudentAcademyFooter({ familyRewards = false }: { familyRewards?: boolean }) {
+  const links = familyRewards ? [...LINKS.slice(0, 1), FAMILY_REWARDS_LINK, ...LINKS.slice(1)] : LINKS;
   return (
     <footer className="border-t border-[#E6DEC8] bg-white pb-24 lg:pb-0">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
@@ -26,7 +33,7 @@ export function StudentAcademyFooter() {
           </span>
           <nav aria-label="Footer">
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
-              {LINKS.map((link) => (
+              {links.map((link) => (
                 <li key={link.href}>
                   <a href={link.href} className="text-sm font-semibold text-[#1E4D3B] underline-offset-4 hover:text-[#B45309] hover:underline">
                     {link.label}
