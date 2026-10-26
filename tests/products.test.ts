@@ -116,3 +116,33 @@ test('reachable without clutter: one footer link (EN + VI) and one Kids Academy 
   assert.equal((academy.match(/data-link="academy-products"/g) ?? []).length, 1);
   assert.doesNotMatch(readFileSync('src/components/Navbar.tsx', 'utf8'), /products/i, 'no header change');
 });
+
+// More products are coming (Teacher Packs L2–5, a bundle): the cards come from one list, so a new card is one entry.
+test('cards are data-driven from PRODUCTS; a product image shows as a square when the entry has one', async () => {
+  const { PRODUCTS, productsPage } = await import('../src/i18n/content/products');
+  const { ProductsPage } = await import('../src/components/ProductsPage');
+  for (const locale of ['en', 'vi'] as const) {
+    const ids = productsPage(locale).sections.flatMap((s) => s.cards.map((c) => c.id));
+    assert.deepEqual(ids, PRODUCTS.map((p) => p.id), `${locale}: every entry is a card, in list order`);
+  }
+  // Each entry with an image has its square WebP in public/images/products.
+  for (const p of PRODUCTS.filter((entry) => entry.image)) readFileSync(`public/images/products/${p.id}.webp`);
+
+  // One new entry → one new card in its section, with its image slot.
+  const extra = {
+    id: 'test-extra', section: 'teachers' as const, price: '1.000₫', href: 'zalo', delivery: true, image: true,
+    en: { label: 'L', title: 'Extra pack', problem: 'P', inside: 'I', forWho: 'F', unit: 'one-time', cta: 'Order on Zalo' },
+    vi: { label: 'L', title: 'Gói thêm', problem: 'P', inside: 'I', forWho: 'F', unit: 'mua một lần', cta: 'Đặt mua qua Zalo' },
+  };
+  PRODUCTS.push(extra);
+  try {
+    setServerLocation(EN);
+    const html = renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' }));
+    const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
+    assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), ['teacher-pack', 'test-extra']);
+    assert.match(teachers, /<img src="\/images\/products\/test-extra\.webp" alt="Extra pack" width="480" height="480"[^>]*aspect-square/);
+    assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.image).length);
+  } finally {
+    PRODUCTS.pop();
+  }
+});

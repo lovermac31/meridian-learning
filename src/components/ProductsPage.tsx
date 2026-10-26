@@ -6,7 +6,8 @@ import {
   PRODUCTS_UTM,
   PRODUCTS_VI_PATH,
   PRODUCTS_ZALO,
-  productsContent,
+  PRODUCT_IMAGE_DIR,
+  productsPage,
   type ProductCard,
 } from '../i18n/content/products';
 import { ToolHero } from './IeltsToolsPage';
@@ -25,6 +26,18 @@ function Card({ card, locale, delivery, leadIns }: { card: ProductCard; locale: 
   const external = card.href === 'zalo';
   return (
     <li className="ielts-tool-card flex flex-col rounded-2xl bg-white p-6 shadow-sm" id={card.id}>
+      {card.image ? (
+        <img
+          src={`${PRODUCT_IMAGE_DIR}/${card.id}.webp`}
+          alt={card.imageAlt ?? card.title}
+          width={480}
+          height={480}
+          loading="lazy"
+          decoding="async"
+          className="mb-4 aspect-square w-full rounded-xl object-cover"
+          data-product-image={card.id}
+        />
+      ) : null}
       <p className="text-xs font-bold uppercase tracking-wider text-[#8a5a00]">{card.label}</p>
       <h3 className="mt-2 text-xl font-bold">{card.title}</h3>
       <dl className="mt-2 flex-1 space-y-2">
@@ -54,7 +67,7 @@ function Card({ card, locale, delivery, leadIns }: { card: ProductCard; locale: 
 }
 
 export function ProductsPage({ locale }: { locale: Locale }) {
-  const c = productsContent[locale];
+  const c = productsPage(locale);
   return (
     <main id="main-content" tabIndex={-1} className="insights-page ielts-tools-page story-club-page products-page min-h-screen" lang={locale}>
       <ToolHero
