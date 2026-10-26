@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { getLocalizedPathname, resolveLocalizedRoute } from '../src/i18n/routing';
 import { isPublicContentReleased } from '../src/i18n/content';
 import { resolveRouteMetadata, getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata';
-import { storyClubContent, STORY_CLUB_ZALO } from '../src/i18n/content/storyClub';
+import { storyClubContent, STORY_CLUB_FREE_STORIES, STORY_CLUB_ZALO } from '../src/i18n/content/storyClub';
 
 const EN = '/story-club';
 const VI = '/vi/story-club';
@@ -53,5 +53,21 @@ test('every booking button goes to Jay\'s Zalo; pages state the no-recording pol
     const body = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
     assert.ok(body.length > 0, 'main rendered');
     assert.ok(!body.includes('href="/young-learners-speaking/"') && !body.includes('href="/vi/luyen-noi-ielts/"'), 'no IELTS 9–18 link in the Story Club body');
+  }
+});
+
+// W-1 (Jay, 27 Oct 2026): one quiet link under the price to the Level 1 story collection, in both languages.
+test('under the price, one quiet link lets parents try a free story first (the Level 1 collection)', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  assert.deepEqual(STORY_CLUB_FREE_STORIES, { en: '/student-academy/stories#level-1', vi: '/vi/student-academy/stories#level-1' });
+  for (const [route, href, label] of [
+    [EN, '/student-academy/stories#level-1', 'Try a free story first'],
+    [VI, '/vi/student-academy/stories#level-1', 'Đọc thử một truyện miễn phí trước'],
+  ]) {
+    const html = await renderRoute(route);
+    const links = [...html.matchAll(/href="([^"]+)"[^>]*data-link="story-club-free-stories"[^>]*>([^<]+)</g)].map((m) => [m[1], m[2]]);
+    assert.deepEqual(links, [[href, label]], route);
+    const start = html.indexOf('class="story-price');
+    assert.ok(html.slice(start, html.indexOf('</section>', start)).includes(`href="${href}"`), `${route}: the link sits in the price block`);
   }
 });

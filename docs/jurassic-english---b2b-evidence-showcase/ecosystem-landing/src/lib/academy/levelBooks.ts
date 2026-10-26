@@ -77,7 +77,10 @@ export const LEVEL_BOOKS: AcademyLevel[] = [
   },
 ];
 
+export type Locale = "en" | "vi";
+
 export const STORIES_PATH = "/student-academy/stories";
+export const STORIES_VI_PATH = "/vi/student-academy/stories";
 
 export const levelAnchor = (level: number) => `level-${level}`;
 
@@ -94,5 +97,11 @@ export function coverSrc(level: AcademyLevel, book: Book): string | null {
   return `${BOOKS_BASE_URL}/assets/art/${book.id}/cover.jpg`;
 }
 
-/** The commercial next step: Story Club, carrying only non-personal context. */
-export const continueHref = (level: number) => `/story-club/?level=${level}&src=academy`;
+/**
+ * The commercial next step, carrying only non-personal context. Story Club is for ages 5–8, so Levels 1–2 go
+ * there; Levels 3–5 go to Mr. Jay's Live Speaking Baseline (the same split as the storybooks' own hand-off).
+ */
+export function continueHref(level: number, locale: Locale = "en"): string {
+  if (level <= 2) return `${locale === "vi" ? "/vi" : ""}/story-club/?level=${level}&utm_source=academy`;
+  return `/ai-speaking/${locale === "vi" ? "vi/" : ""}baseline?utm_source=academy&level=${level}`;
+}

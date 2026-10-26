@@ -66,6 +66,10 @@ function pathOf(href: string) {
   return pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
 }
 
+// Real Vietnamese pages served outside the SPA: the static YL page and the Student Academy story collections
+// (ecosystem app, vercel.json rewrite).
+const REWRITE_SERVED_VI = new Set(['/vi/luyen-noi-ielts', '/vi/student-academy/stories']);
+
 /** Navbar (the app's first <nav>) + Footer markup of a rendered route. */
 function chromeOf(html: string, route: string) {
   const navStart = html.indexOf('<nav');
@@ -127,7 +131,7 @@ test('(b) no link on a Vietnamese page points to a noindex placeholder or a miss
     for (const href of hrefsIn(html).filter(isInternal)) {
       const path = pathOf(href);
       const isViPath = path === '/vi' || path.startsWith('/vi/');
-      const isPlaceholder = NOINDEX_PLACEHOLDERS.has(path) || (isViPath && !INDEXABLE.has(path) && path !== '/vi/luyen-noi-ielts');
+      const isPlaceholder = NOINDEX_PLACEHOLDERS.has(path) || (isViPath && !INDEXABLE.has(path) && !REWRITE_SERVED_VI.has(path));
       if (isPlaceholder && (chromeHrefs.has(href) || !KNOWN_CONTENT_PLACEHOLDER_LINK.test(href))) {
         bad.push(`${route}: ${href}`);
       }

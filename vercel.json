@@ -151,6 +151,10 @@
       "destination": "https://je-ecosystem-landing-preview.vercel.app/student-academy/:path*"
     },
     {
+      "source": "/vi/student-academy/stories",
+      "destination": "https://je-ecosystem-landing-preview.vercel.app/vi/student-academy/stories"
+    },
+    {
       "source": "/school-framework",
       "destination": "https://je-ecosystem-landing-preview.vercel.app/school-framework"
     },
