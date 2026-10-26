@@ -117,7 +117,7 @@ const buttonClass = 'ielts-tool-button-primary inline-flex min-h-12 items-center
 const secondaryButtonClass = 'ielts-tool-button-secondary inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 font-bold';
 const inputClass = 'ielts-tool-input mt-2 block min-h-12 w-full rounded-xl border p-3';
 
-function ToolHero({ locale, title, lead, eyebrow, counterpart }: { locale: Locale; title: string; lead: string; eyebrow: string; counterpart: string }) {
+export function ToolHero({ locale, title, lead, eyebrow, counterpart }: { locale: Locale; title: string; lead: string; eyebrow: string; counterpart: string }) {
   return <header className="insights-hero">
     <picture className="insights-compass" aria-hidden="true"><source media="(max-width: 640px)" srcSet="/images/hero-compass-640.webp" /><img src="/images/hero-compass-960.webp" width="960" height="960" alt="" /></picture>
     <div className="insights-hero-inner"><div>

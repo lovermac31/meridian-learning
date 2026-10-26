@@ -30,6 +30,8 @@ const LOCALIZED_STATIC_HREFS: Record<string, Partial<Record<Locale, string>>> = 
   // Verified live and self-canonical on 14 Oct 2026 (homepage offers band).
   '/ai-speaking/solutions': { vi: '/ai-speaking/vi/solutions' },
   '/ai-speaking/writing/demo': { vi: '/ai-speaking/vi/writing/demo' },
+  // 1-to-1 lesson checkout. Verified live, lang="vi" and self-canonical on 26 Oct 2026.
+  '/ai-speaking/lessons': { vi: '/ai-speaking/vi/lessons' },
   [BASELINE_PATH]: { vi: baselineHref('vi') },
 };
 

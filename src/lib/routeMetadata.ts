@@ -164,6 +164,27 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       },
     },
   },
+  '/story-club': {
+    title: 'Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™',
+    description:
+      'A small online story group for children aged 5–8: a 30-minute live story time each week, one small task at home and a personal reply from Mr. Jay. Up to 6 children per group.',
+    canonicalPath: '/story-club',
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'Story Club', path: '/story-club' },
+    ],
+    localized: {
+      vi: {
+        title: 'Câu lạc bộ Truyện cùng thầy Jay — tiếng Anh qua truyện cho bé 5–8 tuổi | Jurassic English™',
+        description:
+          'Nhóm nhỏ trực tuyến cho bé 5–8 tuổi: mỗi tuần 30 phút kể chuyện trực tiếp, một bài nhỏ ở nhà và phản hồi riêng từ thầy Jay. Tối đa 6 bạn mỗi nhóm.',
+        breadcrumbs: [
+          { name: 'Trang chủ', path: '/' },
+          { name: 'Câu lạc bộ Truyện', path: '/story-club' },
+        ],
+      },
+    },
+  },
   '/framework': {
     title: 'Literature-Based Critical Thinking Framework | Jurassic English™',
     description:
@@ -1052,6 +1073,7 @@ export function getExpectedPublicIndexableRoutes(): string[] {
         '/methodology',
         '/cefr-alignment',
         '/teacher-standards',
+        '/story-club',
         '/series/compare',
         '/thinking-cycle/compare',
         '/tools/ielts-band-score-calculator',

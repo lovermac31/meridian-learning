@@ -43,6 +43,7 @@ const en = {
     navLabel: 'Footer',
     links: [
       { label: 'Reading & Story Adventures', href: '/student-academy' },
+      { label: 'Story Club (ages 5–8)', href: '/story-club' },
       { label: 'Speaking & Teen IELTS', href: '/young-learners-speaking/' },
       { label: 'Adult IELTS Practice', href: '/ai-speaking' },
       { label: 'IELTS Coaching by Country', href: '/ielts-speaking-online' },
@@ -245,6 +246,7 @@ const vi: OverhaulContent = {
     navLabel: 'Chân trang',
     links: [
       { label: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy' },
+      { label: 'Câu lạc bộ Truyện (5–8 tuổi)', href: '/story-club' },
       { label: 'Luyện nói & IELTS cho teen', href: '/young-learners-speaking/' },
       { label: 'Luyện IELTS cho người lớn', href: '/ai-speaking' },
       { label: 'Hướng dẫn IELTS theo quốc gia', href: '/ielts-speaking-online' },
