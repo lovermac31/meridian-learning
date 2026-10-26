@@ -6,8 +6,8 @@
  * home page), audience sections with anchors (#families, #teachers, #centres), cards with one CTA each, EN/VI twins,
  * and utm_source=products on every outbound link (query before any #anchor).
  *
- * PROPOSED until Jay confirms on merge: the Level 1 Printable Storybook Pack (149.000₫) and the Level 1 Teacher Pack
- * (690.000₫). Copy is a placeholder until the Kids Academy session's product copy (P-3) lands. The Vietnamese copy is
+ * Prices approved by Jay on 27 Oct 2026, including the Level 1 Printable Storybook Pack (149.000₫) and the Level 1
+ * Teacher Pack (690.000₫). Copy is a placeholder until the Kids Academy session's product copy (P-3) lands. The Vietnamese copy is
  * machine-drafted and needs a native read. No published book titles: the Teacher Pack only says the lessons use
  * 10 widely available picture books.
  */
