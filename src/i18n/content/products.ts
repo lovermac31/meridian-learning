@@ -194,7 +194,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l2',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
@@ -221,7 +221,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l3',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
@@ -248,7 +248,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l4',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
@@ -275,7 +275,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l5',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
@@ -329,7 +329,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'thinking-cycle-set',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '490.000₫',
     href: 'zalo',
@@ -356,7 +356,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'reasoning-assessment-kit',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '390.000₫',
     href: 'zalo',
@@ -383,7 +383,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-speaking-ladder',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '390.000₫',
     href: 'zalo',
@@ -437,7 +437,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-training-course',
-    live: false,
+    live: true,
     section: 'centres',
     price: '1.490.000₫',
     href: 'zalo',
@@ -464,7 +464,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pilot-class-kit',
-    live: false,
+    live: true,
     section: 'centres',
     price: '690.000₫',
     href: 'zalo',
@@ -491,7 +491,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'curriculum-overview',
-    live: false,
+    live: true,
     section: 'centres',
     price: '290.000₫',
     href: 'zalo',

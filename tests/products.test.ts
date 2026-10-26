@@ -28,7 +28,7 @@ const EXPECTED: Record<string, [string, string][]> = {
 };
 // Cards render only while their entry is live. The factory-built packs stay off the page until their 00 READ ME
 // says "Cleared" (master, 27 Oct 2026).
-const LIVE = new Set(['story-club', 'baseline', 'one-to-one', 'printable-pack', 'teacher-pack', 'centre-licence']);
+const LIVE = new Set(Object.values(EXPECTED).flat().map(([id]) => id).filter((id) => id !== 'teacher-bundle'));
 const SHOWN: Record<string, [string, string][]> = Object.fromEntries(
   Object.entries(EXPECTED).map(([section, cards]) => [section, cards.filter(([id]) => LIVE.has(id))]),
 );
@@ -174,7 +174,11 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
 test('the ChatGPT product images are on their cards, square and light', async () => {
   const expected: Record<string, string> = {
     'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
-    'teacher-pack': 'teacher-pack-l1', 'centre-licence': 'centre-licence',
+    'teacher-pack': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
+    'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'thinking-cycle-set': 'thinking-cycle-set',
+    'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder',
+    'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
+    'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
   };
   for (const locale of ['en', 'vi'] as const) {
     setServerLocation(locale === 'en' ? EN : VI);
@@ -197,10 +201,8 @@ test('uncleared factory packs are in the data but not on the page until they go 
   const { renderRoute } = await import('../src/entry-server');
   for (const p of PRODUCTS) assert.equal(typeof p.live, 'boolean', `${p.id}: live is set`);
   const hidden = PRODUCTS.filter((p) => !p.live).map((p) => p.id);
-  assert.deepEqual(hidden, [
-    'teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'thinking-cycle-set',
-    'reasoning-assessment-kit', 'ielts-speaking-ladder', 'teacher-training-course', 'pilot-class-kit', 'curriculum-overview',
-  ]);
+  // Cleared 27 Oct (Drive 00 READ MEs) and live once Jay approves the prices: L2–5 Teacher Packs and factory B's six packs.
+  assert.deepEqual(hidden, ['teacher-bundle']);
   for (const route of [EN, VI]) {
     const html = await renderRoute(route);
     for (const id of hidden) assert.ok(!html.includes(`id="${id}"`) && !html.includes(`product-${id}`), `${route}: ${id} hidden`);
