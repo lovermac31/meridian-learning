@@ -6,8 +6,9 @@
  * home page), audience sections with anchors (#families, #teachers, #centres), cards with one CTA each, EN/VI twins,
  * and utm_source=products on every outbound link (query before any #anchor).
  *
- * DATA-DRIVEN: PRODUCTS below is the one list of cards. A new product is one entry: its section, price, link, whether
- * it is a digital download, its image, and its EN + VI text. Cards appear in list order within their section.
+ * DATA-DRIVEN: PRODUCTS below is the one list of cards. A new product is one entry: whether it is live, its section,
+ * price, link, whether it is a digital download, its image, and its EN + VI text. Only live entries are shown; cards
+ * appear in list order within their section.
  * `image` names a square (1:1) WebP in public/images/products (ChatGPT illustrations from the image-studio session,
  * 27 Oct 2026, no text or faces); one image can serve several cards.
  *
@@ -41,6 +42,9 @@ type CardText = {
 
 export type Product = {
   id: string;
+  // Shown on the page only when true. A factory-built pack stays false until its Drive 00 READ ME says "Cleared"
+  // (copyright and buyer-facing checks done); its price stays PROPOSED in the PR until Jay approves it.
+  live: boolean;
   section: ProductSectionId;
   price: string;
   // Internal path (localized and tagged by the page) or 'zalo'.
@@ -56,6 +60,7 @@ export type Product = {
 export const PRODUCTS: Product[] = [
   {
     id: 'story-club',
+    live: true,
     section: 'families',
     price: '590.000₫',
     href: '/story-club',
@@ -81,6 +86,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'baseline',
+    live: true,
     section: 'families',
     price: '690.000₫',
     href: '/ai-speaking/baseline',
@@ -106,6 +112,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'one-to-one',
+    live: true,
     section: 'families',
     price: '800.000₫',
     href: '/ai-speaking/lessons',
@@ -131,6 +138,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'printable-pack',
+    live: true,
     section: 'families',
     price: '149.000₫',
     href: 'zalo',
@@ -157,6 +165,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack',
+    live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
@@ -183,6 +192,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l2',
+    live: false,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
@@ -209,6 +219,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l3',
+    live: false,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
@@ -235,6 +246,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l4',
+    live: false,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
@@ -261,6 +273,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l5',
+    live: false,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
@@ -287,6 +300,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-bundle',
+    live: false,
     section: 'teachers',
     price: '2.900.000₫',
     href: 'zalo',
@@ -313,6 +327,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'thinking-cycle-set',
+    live: false,
     section: 'teachers',
     price: '490.000₫',
     href: 'zalo',
@@ -338,6 +353,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'reasoning-assessment-kit',
+    live: false,
     section: 'teachers',
     price: '390.000₫',
     href: 'zalo',
@@ -363,6 +379,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-speaking-ladder',
+    live: false,
     section: 'teachers',
     price: '390.000₫',
     href: 'zalo',
@@ -388,6 +405,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'centre-licence',
+    live: true,
     section: 'centres',
     price: '4.900.000₫',
     href: 'zalo',
@@ -414,6 +432,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-training-course',
+    live: false,
     section: 'centres',
     price: '1.490.000₫',
     href: 'zalo',
@@ -439,6 +458,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pilot-class-kit',
+    live: false,
     section: 'centres',
     price: '690.000₫',
     href: 'zalo',
@@ -464,6 +484,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'curriculum-overview',
+    live: false,
     section: 'centres',
     price: '290.000₫',
     href: 'zalo',
@@ -542,7 +563,7 @@ export function productsPage(locale: Locale) {
     sections: PRODUCT_SECTIONS.map((id) => ({
       id,
       ...copy.sections[id],
-      cards: PRODUCTS.filter((p) => p.section === id).map(
+      cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
         ({ id: cardId, price, href, delivery, image, [locale]: text }): ProductCard => ({ id: cardId, price, href, delivery, image, ...text }),
       ),
     })).filter((section) => section.cards.length > 0),

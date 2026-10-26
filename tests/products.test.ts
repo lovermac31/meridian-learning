@@ -26,6 +26,12 @@ const EXPECTED: Record<string, [string, string][]> = {
   ],
   centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
 };
+// Cards render only while their entry is live. The factory-built packs stay off the page until their 00 READ ME
+// says "Cleared" (master, 27 Oct 2026).
+const LIVE = new Set(['story-club', 'baseline', 'one-to-one', 'printable-pack', 'teacher-pack', 'centre-licence']);
+const SHOWN: Record<string, [string, string][]> = Object.fromEntries(
+  Object.entries(EXPECTED).map(([section, cards]) => [section, cards.filter(([id]) => LIVE.has(id))]),
+);
 
 test('the products hub is released, indexable and paired EN/VI', () => {
   assert.equal(isPublicContentReleased(EN, 'vi'), true);
@@ -46,7 +52,7 @@ test('sections in order, each card with its price and exactly one CTA', async ()
     const main = amp(mainOf(await renderRoute(route)));
     const order = [...main.matchAll(/<section id="(families|teachers|centres)"/g)].map((m) => m[1]);
     assert.deepEqual(order, ['families', 'teachers', 'centres'], route);
-    for (const [section, cards] of Object.entries(EXPECTED)) {
+    for (const [section, cards] of Object.entries(SHOWN)) {
       const start = main.indexOf(`<section id="${section}"`);
       const block = main.slice(start, main.indexOf('</section>', start));
       const ids = [...block.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]);
@@ -70,7 +76,7 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     const main = amp(mainOf(await renderRoute(route)));
     const ctas = Object.fromEntries([...main.matchAll(/href="([^"]+)"[^>]*data-cta="product-([^"]+)"/g)].map((m) => [m[2], m[1]]));
     for (const [id, href] of Object.entries(expected[route])) assert.equal(ctas[id], href, `${route} ${id}`);
-    for (const id of ['printable-pack', ...EXPECTED.teachers.map(([cardId]) => cardId), ...EXPECTED.centres.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
+    for (const id of ['printable-pack', ...SHOWN.teachers.map(([cardId]) => cardId), ...SHOWN.centres.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
     assert.equal(PRODUCTS_ZALO, 'https://zalo.me/84396085076?utm_source=products');
     // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch.
     const counterpart = route === EN ? VI : EN;
@@ -91,7 +97,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
   ]) {
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', ...EXPECTED.teachers.map(([id]) => id), ...EXPECTED.centres.map(([id]) => id)], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id)], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -127,14 +133,14 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
   const { ProductsPage } = await import('../src/components/ProductsPage');
   for (const locale of ['en', 'vi'] as const) {
     const ids = productsPage(locale).sections.flatMap((s) => s.cards.map((c) => c.id));
-    assert.deepEqual(ids, PRODUCTS.map((p) => p.id), `${locale}: every entry is a card, in list order`);
+    assert.deepEqual(ids, PRODUCTS.filter((p) => p.live).map((p) => p.id), `${locale}: every live entry is a card, in list order`);
   }
   // Each image an entry names exists in public/images/products.
   for (const p of PRODUCTS.filter((entry) => entry.image)) readFileSync(`public/images/products/${p.image}.webp`);
 
   // One new entry → one new card in its section, with its image slot.
   const extra = {
-    id: 'test-extra', section: 'teachers' as const, price: '1.000₫', href: 'zalo', delivery: true, image: 'teacher-bundle',
+    id: 'test-extra', live: true, section: 'teachers' as const, price: '1.000₫', href: 'zalo', delivery: true, image: 'teacher-bundle',
     en: { label: 'L', title: 'Extra pack', problem: 'P', inside: 'I', forWho: 'F', unit: 'one-time', cta: 'Order on Zalo' },
     vi: { label: 'L', title: 'Gói thêm', problem: 'P', inside: 'I', forWho: 'F', unit: 'mua một lần', cta: 'Đặt mua qua Zalo' },
   };
@@ -143,29 +149,43 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     setServerLocation(EN);
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' }));
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
-    assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...EXPECTED.teachers.map(([id]) => id), 'test-extra']);
+    assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...SHOWN.teachers.map(([id]) => id), 'test-extra']);
     assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" alt="" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
-    assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.image).length);
+    assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.live && p.image).length);
   } finally {
     PRODUCTS.pop();
   }
 });
 
-test('the ChatGPT product images are on their cards, square and light', () => {
+test('the ChatGPT product images are on their cards, square and light', async () => {
   const expected: Record<string, string> = {
     'story-club': 'story-club', baseline: 'one-to-one', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
-    'teacher-pack': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
-    'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
-    'centre-licence': 'centre-licence',
+    'teacher-pack': 'teacher-pack-l1', 'centre-licence': 'centre-licence',
   };
   for (const locale of ['en', 'vi'] as const) {
     setServerLocation(locale === 'en' ? EN : VI);
     const cards = productsContent[locale].sections.flatMap((s) => s.cards);
     assert.deepEqual(Object.fromEntries(cards.filter((c) => c.image).map((c) => [c.id, c.image])), expected, locale);
   }
-  for (const name of new Set(Object.values(expected))) {
+  const { PRODUCTS } = await import('../src/i18n/content/products');
+  for (const name of new Set(PRODUCTS.map((p) => p.image).filter(Boolean) as string[])) {
     const file = readFileSync(`public/images/products/${name}.webp`);
     assert.equal(file.subarray(0, 4).toString(), 'RIFF', `${name} is a WebP`);
     assert.ok(file.length < 160_000, `${name}: ${file.length} bytes`);
+  }
+});
+
+test('uncleared factory packs are in the data but not on the page until they go live', async () => {
+  const { PRODUCTS } = await import('../src/i18n/content/products');
+  const { renderRoute } = await import('../src/entry-server');
+  for (const p of PRODUCTS) assert.equal(typeof p.live, 'boolean', `${p.id}: live is set`);
+  const hidden = PRODUCTS.filter((p) => !p.live).map((p) => p.id);
+  assert.deepEqual(hidden, [
+    'teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'thinking-cycle-set',
+    'reasoning-assessment-kit', 'ielts-speaking-ladder', 'teacher-training-course', 'pilot-class-kit', 'curriculum-overview',
+  ]);
+  for (const route of [EN, VI]) {
+    const html = await renderRoute(route);
+    for (const id of hidden) assert.ok(!html.includes(`id="${id}"`) && !html.includes(`product-${id}`), `${route}: ${id} hidden`);
   }
 });
