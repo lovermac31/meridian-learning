@@ -302,7 +302,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-bundle',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '2.900.000₫',
     href: 'zalo',
