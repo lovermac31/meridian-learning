@@ -30,6 +30,7 @@ import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { StoryClubPage } from './components/StoryClubPage';
+import { ProductsPage } from './components/ProductsPage';
 import { isInternationalMarketPath } from './lib/seoPageMeta';
 import { getCurrentLocation } from './lib/ssrLocation';
 
@@ -183,6 +184,7 @@ function App() {
   const isBandToolView = routePathname === '/tools/ielts-band-score-calculator';
   const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
   const isStoryClubView = routePathname === '/story-club';
+  const isProductsView = routePathname === '/products';
   const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams' || isInternationalMarketPath(routePathname);
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
@@ -220,7 +222,8 @@ function App() {
     isInsightsView ||
     isBandToolView ||
     isTimerToolView ||
-    isStoryClubView;
+    isStoryClubView ||
+    isProductsView;
   const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
   const isSubpageView =
     isGetStartedView ||
@@ -243,6 +246,7 @@ function App() {
     isBandToolView ||
     isTimerToolView ||
     isStoryClubView ||
+    isProductsView ||
     isSeriesView ||
     isSyllabusView ||
     isSeriesComparisonView ||
@@ -439,6 +443,8 @@ function App() {
         <IeltsSpeakingTimerPage locale={locale} />
       ) : isStoryClubView ? (
         <StoryClubPage locale={locale} />
+      ) : isProductsView ? (
+        <ProductsPage locale={locale} />
       ) : isInsightsView ? (
         <SearchInsightsPage pathname={pathname} onNavigate={navigateTo} />
       ) : isUnknownRouteView ? (
