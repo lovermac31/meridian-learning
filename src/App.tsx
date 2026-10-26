@@ -31,6 +31,7 @@ import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { StoryClubPage } from './components/StoryClubPage';
 import { isInternationalMarketPath } from './lib/seoPageMeta';
+import { marketHeaderCta } from './lib/marketCheckout';
 import { getCurrentLocation } from './lib/ssrLocation';
 
 /* ── Lazy-loaded subpages (code-split) ──────────────────────────── */
@@ -429,6 +430,7 @@ function App() {
           isPortalView={isSubpageView}
           forceSolidBackground={shouldForceSolidNavbar}
           languageSwitcher={<LanguageSwitcher currentRoute={route} onNavigate={pushRoute} />}
+          bookCta={marketHeaderCta(pathname)}
         />
       ) : null}
       <div id="page-content" tabIndex={-1} className="focus:outline-none">

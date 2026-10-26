@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
 import { CONTACT_EMAIL, getOverhaulContent, IMG, STORY_QUEST_URL, ZALO_URL } from '../i18n/content/overhaul';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
@@ -243,18 +243,25 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
                     </li>
                   ))}
                 </ul>
-                <p className="mt-4 text-xs font-extrabold uppercase tracking-wider text-sb-amber-deep">{pricing.ongoingLabel}</p>
-                <ul className="mt-1 flex-1 divide-y divide-sb-border">
-                  {row.ongoing.map((item) => (
-                    <li key={item.name} className="py-2 text-sm">
-                      <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-                        <span>{item.name}</span>
-                        {item.price ? <span className="font-extrabold text-sb-forest">{item.price}</span> : null}
-                      </div>
-                      {item.note ? <p className="mt-0.5 text-sb-slate">{item.note}</p> : null}
-                    </li>
-                  ))}
-                </ul>
+                {/* Re-assessment 26 Oct 2026: the first view shows one starting price per path; the full list of ongoing
+                    options and totals is one tap away, still in the page for search engines and the price-drift tests. */}
+                <details className="group mt-4 flex-1">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded text-xs font-extrabold uppercase tracking-wider text-sb-amber-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber [&::-webkit-details-marker]:hidden">
+                    <span>{pricing.ongoingLabel} ({row.ongoing.length})</span>
+                    <ChevronDown aria-hidden="true" className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" />
+                  </summary>
+                  <ul className="mt-1 divide-y divide-sb-border">
+                    {row.ongoing.map((item) => (
+                      <li key={item.name} className="py-2 text-sm">
+                        <div className="flex flex-wrap items-baseline justify-between gap-x-2">
+                          <span>{item.name}</span>
+                          {item.price ? <span className="font-extrabold text-sb-forest">{item.price}</span> : null}
+                        </div>
+                        {item.note ? <p className="mt-0.5 text-sb-slate">{item.note}</p> : null}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
                 <div className="mt-4 flex flex-col gap-2">
                   <CtaLink link={{ ...row.cta, kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track={`home_pricing_${row.key}`} />
                   {row.key === 'reading' ? (

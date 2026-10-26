@@ -39,6 +39,8 @@ type NavbarProps = {
   isPortalView?: boolean;
   forceSolidBackground?: boolean;
   languageSwitcher?: ReactNode;
+  // Overrides the site-wide Baseline button (country pages show their own US$ price; src/lib/marketCheckout.ts).
+  bookCta?: { href: string; label: string; mobileLabel: string };
 };
 
 export const Navbar = ({
@@ -50,6 +52,7 @@ export const Navbar = ({
   isPortalView = false,
   forceSolidBackground = false,
   languageSwitcher,
+  bookCta,
 }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -144,8 +147,9 @@ export const Navbar = ({
   const overhaul = getOverhaulContent(locale);
   const navItems = overhaul.nav.items;
   // "Book Baseline · 690k₫" → the Live Speaking Baseline booking page (AI Speaking app, native navigation).
-  const bookHref = getLocalizedHref(overhaul.nav.ctaHref, locale);
-  const bookLabel = overhaul.nav.cta;
+  const bookHref = bookCta?.href ?? getLocalizedHref(overhaul.nav.ctaHref, locale);
+  const bookLabel = bookCta?.label ?? overhaul.nav.cta;
+  const bookMobileLabel = bookCta?.mobileLabel ?? overhaul.nav.ctaMobile;
   // "New" / "Mới" badge on the IELTS Writing link; the accessible name starts with the visible text (WCAG 2.5.3).
   const badgeFor = (key: string) => (key === 'writing' ? overhaul.nav.newBadge : null);
   const NEW_BADGE = 'ml-1.5 inline-block rounded-full bg-sb-amber-deep px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white';
@@ -219,7 +223,7 @@ export const Navbar = ({
             className={`${NAV_CTA} px-2.5 min-[360px]:px-3 sm:px-5`}
           >
             <span className="hidden sm:inline">{bookLabel}</span>
-            <span className="sm:hidden">{overhaul.nav.ctaMobile}</span>
+            <span className="sm:hidden">{bookMobileLabel}</span>
             <ArrowRight aria-hidden="true" className="hidden h-4 w-4 min-[360px]:block" />
           </a>
           <button

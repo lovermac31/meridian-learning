@@ -45,12 +45,25 @@ test('every market CTA uses its approved tier and localized chrome', async () =>
     const tier = market ? pricing.markets[market as keyof typeof pricing.markets] : 1;
     const prices = pricing.tiers[String(tier) as keyof typeof pricing.tiers];
     const html = await renderRoute(page.path);
-    // The booking pages charge VND by VietQR, so a USD-priced CTA must open an email request, not a checkout.
+    // 26 Oct 2026: on PayPal markets both buttons open the automated checkout at this tier's price (the same links as the
+    // PayPal panel); the hub, Pakistan and Bangladesh keep the email booking request.
     const hero = html.match(/<div class="insights-teacher">[\s\S]*?<\/header>/)?.[0] ?? '';
-    const ctaHrefs = [...hero.matchAll(/class="insights-button-(?:primary|secondary)" href="([^"]+)"/g)].map(match => match[1]);
+    const ctaHrefs = [...hero.matchAll(/class="insights-button-(?:primary|secondary)" href="([^"]+)"/g)].map(match => match[1].replaceAll('&amp;', '&'));
     assert.equal(ctaHrefs.length, 2, page.path);
-    for (const href of ctaHrefs) assert.match(href, /^mailto:info@jurassicenglish\.com\?subject=/, page.path);
-    assert.match(hero, /class="insights-cta-note"[^>]*>[\s\S]*info@jurassicenglish\.com/, page.path);
+    if (market && market !== 'pakistan' && market !== 'bangladesh') {
+      assert.deepEqual(ctaHrefs, [`/ai-speaking/baseline?market=${market}`, `/ai-speaking/lessons?pack=lesson_single&market=${market}`], page.path);
+      assert.match(hero, /class="insights-cta-note"[^>]*>[\s\S]*href="#pay"/, page.path);
+      assert.doesNotMatch(hero, /info@jurassicenglish\.com/, page.path);
+    } else {
+      for (const href of ctaHrefs) assert.match(href, /^mailto:info@jurassicenglish\.com\?subject=/, page.path);
+      assert.match(hero, /class="insights-cta-note"[^>]*>[\s\S]*info@jurassicenglish\.com/, page.path);
+    }
+    // The header button shows this page's US$ Baseline price and goes where the hero's first button goes, not 690k₫.
+    const nav = html.match(/<nav class="fixed top-0[\s\S]*?<\/nav>/)?.[0] ?? '';
+    assert.doesNotMatch(nav, /690k₫/, page.path);
+    assert.ok(nav.includes(`US$${prices.baseline_usd}`), page.path);
+    if (ctaHrefs[0].startsWith('/')) assert.ok(nav.replaceAll('&amp;', '&').includes(`href="${ctaHrefs[0]}"`), page.path);
+    else assert.match(nav, /href="mailto:info@jurassicenglish\.com\?subject=Speaking%20Baseline%20request/, page.path);
     assert.ok(html.includes(`US$${prices.baseline_usd}`), page.path);
     assert.ok(html.includes(`US$${prices.lesson_usd}`), page.path);
     if (!market) assert.ok(html.includes(`from US$${prices.baseline_usd}`) || !['en'].includes(page.locale), page.path);
@@ -92,7 +105,10 @@ test('market closing band offers the booking request, AI Speaking and a free too
     const closing = html.match(/<div class="insights-closing"[\s\S]*?<\/main>/)?.[0] ?? '';
     const hrefs = [...closing.matchAll(/class="insights-button-(?:primary|secondary)" href="([^"]+)"/g)].map(match => match[1]);
     assert.equal(hrefs.length, 3, page.path);
-    assert.match(hrefs[0], /^mailto:info@jurassicenglish\.com\?subject=Speaking%20Baseline/, page.path);
+    const slug = page.path.split('/').at(-1);
+    const market = slug === 'ielts-speaking-online' ? undefined : slug === 'brasil' ? 'brazil' : slug;
+    if (market && market !== 'pakistan' && market !== 'bangladesh') assert.equal(hrefs[0], `/ai-speaking/baseline?market=${market}`, page.path);
+    else assert.match(hrefs[0], /^mailto:info@jurassicenglish\.com\?subject=Speaking%20Baseline/, page.path);
     assert.equal(hrefs[1], '/ai-speaking', page.path);
     assert.equal(hrefs[2], '/tools/ielts-band-score-calculator', page.path);
     if (page.locale !== 'en') assert.doesNotMatch(closing, /See how AI Speaking|Free IELTS band/, page.path);
