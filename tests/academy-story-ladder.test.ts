@@ -42,10 +42,18 @@ test('book links never point at localhost or a preview domain, and unaccepted le
   }
 });
 
-test('card → level collection → Story Club, carrying only non-personal context', () => {
+test('card → level collection → next step, carrying only non-personal context', () => {
+  // Story Club is for ages 5–8 (Levels 1–2); Levels 3–5 go to Mr. Jay's Live Speaking Baseline, as in the books.
   for (const l of LEVEL_BOOKS) {
     assert.equal(levelHref(l.level), `/student-academy/stories#level-${l.level}`);
-    assert.equal(continueHref(l.level), `/story-club/?level=${l.level}&src=academy`);
+    if (l.level <= 2) {
+      assert.equal(continueHref(l.level), `/story-club/?level=${l.level}&utm_source=academy`);
+      assert.equal(continueHref(l.level, 'vi'), `/vi/story-club/?level=${l.level}&utm_source=academy`);
+    } else {
+      assert.equal(continueHref(l.level), `/ai-speaking/baseline?utm_source=academy&level=${l.level}`);
+      assert.equal(continueHref(l.level, 'vi'), `/ai-speaking/vi/baseline?utm_source=academy&level=${l.level}`);
+    }
+    assert.doesNotMatch(continueHref(l.level), /[?&]src=/, 'utm_source, not src');
   }
   const card = read('components/student-academy/StudentAcademyOverhaul.tsx');
   assert.ok(card.includes('href={levelHref(lv.n)}'), 'each card opens its level');
@@ -53,7 +61,7 @@ test('card → level collection → Story Club, carrying only non-personal conte
   assert.ok(!/>\s*(Order|Buy|Pay now)\b/i.test(card), 'no order/pay wording on the cards');
   assert.ok(!card.includes('noreferrer'));
 
-  const stories = read('app/student-academy/stories/page.tsx');
+  const stories = read('components/student-academy/LevelStories.tsx');
   assert.ok(stories.includes('@/lib/academy/levelBooks'), 'collections read the central map');
   assert.ok(!stories.includes('book.html'), 'no hard-coded book links in the page');
   assert.ok(stories.includes('Continue with Mr. Jay') && stories.includes('Ask about a place'));
@@ -73,4 +81,24 @@ test('Story Club tells older families Mr. Jay confirms a suitable option first (
     assert.ok(!FORBIDDEN_HOSTS.test(html), 'no localhost or preview host on Story Club');
     assert.ok(!/Pay now|Thanh toán ngay/i.test(html));
   }
+});
+
+// W-1 (Jay, 27 Oct 2026): a Vietnamese twin of the story collections, same structure, served by a rewrite.
+test('the story collections exist in English and Vietnamese with the same structure', () => {
+  const en = read('app/student-academy/stories/page.tsx');
+  const vi = read('app/vi/student-academy/stories/page.tsx');
+  assert.match(en, /<LevelStories locale="en" \/>/);
+  assert.match(vi, /<LevelStories locale="vi" \/>/);
+  assert.match(vi, /native read needed/i);
+  const component = read('components/student-academy/LevelStories.tsx');
+  for (const key of ['back', 'title', 'intro', 'askPlace', 'continueCta', 'unsure', 'consultation']) {
+    assert.equal((component.match(new RegExp(`^\\s+${key}:`, 'gm')) ?? []).length, 2, `${key} in EN and VI`);
+  }
+  assert.ok(component.includes('Hỏi về một chỗ') && component.includes('Tiếp tục cùng thầy Jay'));
+  assert.ok(component.includes('continueHref(level.level, locale)'), 'the CTA follows the page language');
+  const vercel = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
+  assert.ok(
+    vercel.rewrites.some((r: { source: string; destination: string }) => r.source === '/vi/student-academy/stories' && r.destination === 'https://je-ecosystem-landing-preview.vercel.app/vi/student-academy/stories'),
+    'vercel.json serves /vi/student-academy/stories from the ecosystem app',
+  );
 });
