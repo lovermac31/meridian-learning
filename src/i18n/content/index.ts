@@ -19,6 +19,7 @@ export type PublicContentGroup =
   | 'cefrAlignment'
   | 'teacherStandards'
   | 'companies'
+  | 'storyClub'
   | 'seriesCompare'
   | 'thinkingCycleCompare'
   | 'series'
@@ -47,6 +48,8 @@ const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean
   teacherStandards: { en: true, vi: false },
   // B2B tech-workforce hub — EN-only for now; VI mirror is a follow-up.
   companies: { en: true, vi: false },
+  // Story Club with Mr. Jay (Oct 2026): EN + VI written together; price is a proposal until Jay merges.
+  storyClub: { en: true, vi: true },
   seriesCompare: { en: true, vi: true },
   thinkingCycleCompare: { en: true, vi: true },
   series: { en: true, vi: true },
@@ -76,6 +79,7 @@ export function getPublicContentGroup(pathname: string): PublicContentGroup | nu
   if (pathname === '/cefr-alignment') return 'cefrAlignment';
   if (pathname === '/teacher-standards') return 'teacherStandards';
   if (pathname === '/companies') return 'companies';
+  if (pathname === '/story-club') return 'storyClub';
   if (pathname === '/series/compare') return 'seriesCompare';
   if (pathname === '/thinking-cycle/compare') return 'thinkingCycleCompare';
   if (seriesLevels.some((level) => level.path === pathname)) return 'series';

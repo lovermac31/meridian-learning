@@ -88,3 +88,8 @@
 .insights-content .insights-paypal-note { margin: 1rem 0 0; font-size: .9rem; line-height: 1.6; color: #3d4a52; }
 .insights-cta-note .insights-paypal-link { font-weight: 700; color: var(--color-jurassic-blue); text-decoration: underline; text-decoration-color: var(--color-jurassic-accent); text-underline-offset: 3px; }
 .insights-closing .insights-cta-note .insights-paypal-link { color: white; }
+/* /story-club */
+.story-club-page .story-check { color: #137333; }
+.story-club-page .story-minus { color: #b45309; }
+.story-club-page .story-cta .insights-button-primary { color: var(--color-jurassic-dark); text-decoration: none; }
+.story-club-page details summary::marker { color: #b45309; }

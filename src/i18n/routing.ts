@@ -23,6 +23,7 @@ const STATIC_PUBLIC_PATHS = [
   '/methodology',
   '/cefr-alignment',
   '/teacher-standards',
+  '/story-club',
   '/series/compare',
   '/thinking-cycle/compare',
   '/tools/ielts-band-score-calculator',

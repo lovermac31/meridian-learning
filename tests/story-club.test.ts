@@ -1,0 +1,47 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { getLocalizedPathname, resolveLocalizedRoute } from '../src/i18n/routing';
+import { isPublicContentReleased } from '../src/i18n/content';
+import { resolveRouteMetadata, getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata';
+import { storyClubContent, STORY_CLUB_ZALO } from '../src/i18n/content/storyClub';
+
+const EN = '/story-club';
+const VI = '/vi/story-club';
+
+test('story-club is released, indexable and paired EN/VI', () => {
+  assert.equal(isPublicContentReleased(EN, 'vi'), true);
+  assert.equal(getLocalizedPathname(EN, 'vi'), VI);
+  assert.equal(resolveLocalizedRoute(VI).pathname, EN);
+  const routes = getExpectedPublicIndexableRoutes();
+  for (const route of [EN, VI]) {
+    assert.ok(routes.includes(route), route);
+    const m = resolveRouteMetadata(route);
+    assert.equal(m.robots, 'index, follow');
+    assert.equal(m.alternates?.find((a) => a.hrefLang === 'vi')?.href, `https://jurassicenglish.com${VI}`);
+  }
+});
+
+test('both locales state the same price, seat cap and payment method', () => {
+  for (const c of Object.values(storyClubContent)) {
+    assert.equal(c.price.amount, '590.000₫');
+    assert.match(c.price.seats, /6/);
+    assert.match(c.price.note, /VietQR/);
+  }
+  assert.equal(storyClubContent.vi.faq.items.length, storyClubContent.en.faq.items.length);
+});
+
+test('every booking button goes to Jay\'s Zalo; pages state the no-recording policy', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  for (const [route, counterpart, policy] of [
+    [EN, VI, 'never recorded'],
+    [VI, EN, 'không bao giờ được ghi âm, ghi hình'],
+  ]) {
+    const html = await renderRoute(route);
+    const ctas = [...html.matchAll(/data-cta="story-club-zalo"/g)].length;
+    assert.ok(ctas >= 3, `${route}: ${ctas} Zalo buttons`);
+    assert.ok(html.includes(`href="${STORY_CLUB_ZALO}"`), route);
+    assert.ok(html.includes(`href="${counterpart}"`), `${route} links its counterpart`);
+    assert.ok(html.includes(policy), route);
+  }
+  assert.ok((await renderRoute(VI)).includes('href="/vi/luyen-noi-ielts/"'), 'VI links the VI 1-to-1 page');
+});

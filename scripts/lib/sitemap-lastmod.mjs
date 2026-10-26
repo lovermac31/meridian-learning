@@ -84,6 +84,7 @@ const STATIC_ROUTE_SOURCES = {
   '/methodology': [component('MethodologyPage'), content('methodology')],
   '/cefr-alignment': [component('CefrAlignmentPage'), content('cefrAlignment')],
   '/teacher-standards': [component('TeacherStandardsPage'), content('teacherStandards')],
+  '/story-club': [component('StoryClubPage'), content('storyClub')],
   '/series/compare': [component('SeriesComparisonExperience'), content('series'), 'src/lib/seriesContent.ts'],
   '/thinking-cycle/compare': [
     component('ThinkingCycleComparisonExperience'),
