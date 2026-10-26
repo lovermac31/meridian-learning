@@ -16,6 +16,8 @@
  * Teacher Pack (690.000₫). Card copy (problem → what's inside → who it's for) is the Kids Academy session's P-3 copy
  * (Drive doc "08 /products page copy" v2, 27 Oct); the later teacher and centre packs follow the Selling Assets index, with two lines aligned to the live pages: the Baseline report as the
  * Baseline page describes it (no fee-credit promise), and 1-to-1 lessons "with Mr. Jay's team" as the checkout says.
+ * The IELTS Speaking Ladder, Teacher Training Course and Curriculum Overview cards follow their cleared Drive 00 READ MEs
+ * (27 Oct): the Ladder is 18 self-study lessons plus a separate 1-lesson One-to-One Starter, not a one-to-one course.
  * The Vietnamese copy is machine-drafted and needs a native read. Only Jurassic English's own storybooks are named;
  * the Teacher Pack says the lessons use 10 widely available picture books.
  */
@@ -388,21 +390,21 @@ export const PRODUCTS: Product[] = [
     delivery: true,
     image: 'ielts-speaking-ladder',
     en: {
-      label: 'Digital · learners and tutors',
+      label: 'Digital download · learners and tutors',
       title: 'IELTS Speaking Ladder Pack',
-      problem: 'Your speaking answers stop after one or two sentences, and you do not know how to build them into a full, well-supported answer.',
-      inside: '12 self-study lessons that build a speaking answer step by step, a lesson index and a one-to-one lesson plan. The lessons open as online pages.',
-      forWho: 'Learners working at around IELTS Speaking Band 5–6.5, and the tutors who teach them. Practice material, not an official score.',
-      unit: 'learner edition · tutor edition 490.000₫',
+      problem: 'You lose marks on the same small habits, like articles, -s and -ed endings and tense, and your Part 2 answer stops after less than a minute.',
+      inside: '18 self-study lessons in three levels, from Band 5.0 to 6.5–7.0. Each lesson fixes one habit, with model answers, timed Part 1, 2 and 3 speaking tasks, a self-check and an answer key. Tutors can add the One-to-One Starter: one 90-minute lesson plan with a student handout, 149.000₫ on its own.',
+      forWho: 'Learners at IELTS Speaking Band 5.0–6.5, and tutors who teach them one-to-one. Practice material, not an official score.',
+      unit: 'self-study pack · with the One-to-One Starter 490.000₫',
       cta: 'Order on Zalo',
     },
     vi: {
       label: 'Tài liệu số · học viên và gia sư',
       title: 'Bộ IELTS Speaking Ladder',
-      problem: 'Câu trả lời nói của bạn dừng lại sau một hai câu, và bạn chưa biết cách phát triển thành một câu trả lời đầy đủ, có lý lẽ.',
-      inside: '12 bài tự học xây dựng câu trả lời nói từng bước, mục lục bài học và một giáo án học 1 kèm 1. Các bài học mở dưới dạng trang web.',
-      forWho: 'Người học đang ở khoảng IELTS Speaking Band 5–6.5, và gia sư dạy các bạn. Tài liệu luyện tập, không phải điểm thi chính thức.',
-      unit: 'bản học viên · bản gia sư 490.000₫',
+      problem: 'Bạn liên tục mất điểm ở cùng những lỗi nhỏ như mạo từ, đuôi -s và -ed, thì của động từ, và câu trả lời Part 2 dừng lại chưa đến một phút.',
+      inside: '18 bài tự học chia ba cấp độ, từ Band 5.0 đến 6.5–7.0. Mỗi bài sửa một thói quen, có câu trả lời mẫu, bài nói Part 1, 2 và 3 có bấm giờ, phần tự kiểm tra và đáp án. Gia sư có thể mua thêm One-to-One Starter: một giáo án 1 kèm 1 dài 90 phút kèm phiếu cho học viên, 149.000₫ nếu mua riêng.',
+      forWho: 'Người học đang ở IELTS Speaking Band 5.0–6.5, và gia sư dạy 1 kèm 1. Tài liệu luyện tập, không phải điểm thi chính thức.',
+      unit: 'bộ tự học · kèm One-to-One Starter 490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
   },
@@ -445,7 +447,7 @@ export const PRODUCTS: Product[] = [
       label: 'Digital course · one centre',
       title: 'Teacher Training Course (train-the-trainer)',
       problem: 'Every new teacher learns your method differently, so lessons drift and quality depends on who is teaching.',
-      inside: 'A 30-module training manual, the training deck and slide template, rubric calibration exercises, a common-error guide, a lesson fidelity checklist and a sign-off checklist for each trained teacher.',
+      inside: 'The Train-the-Trainer manual (Edition 1.1), a trainer toolkit with a 3-hour rubric calibration session, a lesson observation checklist, a teacher certification checklist and a common-error coaching guide, and a bank of scored examples for every level.',
       forWho: 'Academic leads who train their own teachers in the Jurassic English method. One centre.',
       unit: 'per centre',
       cta: 'Order on Zalo',
@@ -454,7 +456,7 @@ export const PRODUCTS: Product[] = [
       label: 'Khóa học số · một trung tâm',
       title: 'Khóa đào tạo giáo viên (đào tạo người đào tạo)',
       problem: 'Mỗi giáo viên mới tiếp thu phương pháp một kiểu, nên bài dạy lệch dần và chất lượng phụ thuộc vào người dạy.',
-      inside: 'Sổ tay đào tạo 30 học phần, bài trình chiếu đào tạo và mẫu slide, bài tập hiệu chuẩn thang đánh giá, hướng dẫn lỗi thường gặp, danh sách kiểm tra mức độ bám sát giáo án và danh sách xác nhận cho từng giáo viên đã được đào tạo.',
+      inside: 'Sổ tay Đào tạo người đào tạo (Phiên bản 1.1), bộ công cụ cho người đào tạo gồm buổi hiệu chuẩn thang đánh giá 3 giờ, danh sách quan sát giờ dạy, danh sách cấp chứng nhận giáo viên và hướng dẫn kèm cặp các lỗi thường gặp, cùng ngân hàng bài mẫu đã chấm cho mọi cấp độ.',
       forWho: 'Trưởng học thuật tự đào tạo giáo viên theo phương pháp Jurassic English. Một trung tâm.',
       unit: 'mỗi trung tâm',
       cta: 'Đặt mua qua Zalo',
@@ -499,7 +501,7 @@ export const PRODUCTS: Product[] = [
       label: 'Digital · schools and centres',
       title: 'Curriculum Overview for Schools, Levels 1–5',
       problem: 'You need to show your board or parents how a literature-based programme fits together before you commit to it.',
-      inside: 'The Four-Lesson Cycle architecture, the curriculum framework, curriculum models for Levels 1–4, the Levels 1–5 syllabus pack and a unit sequence map.',
+      inside: 'The Four-Lesson Cycle architecture, the curriculum framework, curriculum models for all five levels and the Levels 1–5 syllabus and unit sequence.',
       forWho: 'Principals and heads of English comparing programmes before a licence decision.',
       unit: 'one-time',
       cta: 'Order on Zalo',
@@ -508,7 +510,7 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · trường học và trung tâm',
       title: 'Tổng quan Chương trình cho Trường học, Level 1–5',
       problem: 'Nhà trường cần cho hội đồng hoặc phụ huynh thấy một chương trình dựa trên văn học được xây dựng thế nào trước khi quyết định.',
-      inside: 'Kiến trúc Chu trình Bốn Bài học, khung chương trình, mô hình chương trình cho Level 1–4, bộ chương trình Level 1–5 và bản đồ trình tự các đơn vị bài học.',
+      inside: 'Kiến trúc Chu trình Bốn Bài học, khung chương trình, mô hình chương trình cho cả năm Level và chương trình học cùng trình tự đơn vị bài học Level 1–5.',
       forWho: 'Hiệu trưởng và trưởng bộ môn tiếng Anh đang so sánh các chương trình trước khi quyết định cấp phép.',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',

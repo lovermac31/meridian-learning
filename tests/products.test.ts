@@ -114,6 +114,20 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
   }
 });
 
+test('cleared packs match their 00 READ MEs: Ladder is 18 lessons + a 1-lesson Starter, no deck, all five curriculum models', async () => {
+  const { PRODUCTS } = await import('../src/i18n/content/products');
+  const entry = (id: string) => PRODUCTS.find((p) => p.id === id)!;
+  for (const locale of ['en', 'vi'] as const) {
+    const ladder = entry('ielts-speaking-ladder')[locale];
+    assert.match(ladder.inside, /^18 /, locale);
+    assert.match(ladder.inside, /One-to-One Starter.*149\.000₫/, locale);
+    assert.match(ladder.unit, /One-to-One Starter 490\.000₫/, locale);
+    assert.doesNotMatch(entry('teacher-training-course')[locale].inside, /deck|slide|trình chiếu|30/i, locale);
+    assert.doesNotMatch(entry('curriculum-overview')[locale].inside, /1–4/, locale);
+  }
+  assert.equal(entry('ielts-speaking-ladder').price, '390.000₫');
+});
+
 test('reachable without clutter: one footer link (EN + VI) and one Kids Academy card link; no header change', () => {
   for (const [path, href, label] of [['/', '/products', 'Products'], ['/vi', '/vi/products', 'Sản phẩm']]) {
     setServerLocation(path);
