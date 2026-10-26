@@ -10,10 +10,11 @@ import type { Locale } from '../locales';
 
 export const STORY_CLUB_ZALO = 'https://zalo.me/84396085076';
 // The Student Academy story collections (W-1, Jay 27 Oct 2026): a quiet link under the price for parents who
-// want to try a free story first. It opens the Level 1 collection, not the book app directly.
+// want to try a free story first. It opens the Level 1 collection, not the book app directly. The tag sits before the
+// #anchor so it reaches analytics.
 export const STORY_CLUB_FREE_STORIES: Record<Locale, string> = {
-  en: '/student-academy/stories#level-1',
-  vi: '/vi/student-academy/stories#level-1',
+  en: '/student-academy/stories?utm_source=storyclub#level-1',
+  vi: '/vi/student-academy/stories?utm_source=storyclub#level-1',
 };
 
 type Step = { title: string; body: string };

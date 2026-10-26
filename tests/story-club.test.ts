@@ -59,10 +59,13 @@ test('every booking button goes to Jay\'s Zalo; pages state the no-recording pol
 // W-1 (Jay, 27 Oct 2026): one quiet link under the price to the Level 1 story collection, in both languages.
 test('under the price, one quiet link lets parents try a free story first (the Level 1 collection)', async () => {
   const { renderRoute } = await import('../src/entry-server');
-  assert.deepEqual(STORY_CLUB_FREE_STORIES, { en: '/student-academy/stories#level-1', vi: '/vi/student-academy/stories#level-1' });
+  assert.deepEqual(STORY_CLUB_FREE_STORIES, {
+    en: '/student-academy/stories?utm_source=storyclub#level-1',
+    vi: '/vi/student-academy/stories?utm_source=storyclub#level-1',
+  });
   for (const [route, href, label] of [
-    [EN, '/student-academy/stories#level-1', 'Try a free story first'],
-    [VI, '/vi/student-academy/stories#level-1', 'Đọc thử một truyện miễn phí trước'],
+    [EN, '/student-academy/stories?utm_source=storyclub#level-1', 'Try a free story first'],
+    [VI, '/vi/student-academy/stories?utm_source=storyclub#level-1', 'Đọc thử một truyện miễn phí trước'],
   ]) {
     const html = await renderRoute(route);
     const links = [...html.matchAll(/href="([^"]+)"[^>]*data-link="story-club-free-stories"[^>]*>([^<]+)</g)].map((m) => [m[1], m[2]]);
