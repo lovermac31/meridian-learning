@@ -74,3 +74,17 @@ test('Story Club tells older families Mr. Jay confirms a suitable option first (
     assert.ok(!/Pay now|Thanh toán ngay/i.test(html));
   }
 });
+
+// W-1 (Jay, 27 Oct 2026): parents reaching Kids Academy see the two free/low-cost doors near the top, once each.
+test('Kids Academy shows one compact row with the free storybooks and Story Club, near the top', () => {
+  const page = read('components/student-academy/StudentAcademyOverhaul.tsx');
+  const doors = page.match(/data-door="[^"]+"/g) ?? [];
+  assert.deepEqual(doors, ['data-door="free-books"', 'data-door="story-club"']);
+  assert.match(page, /const FREE_BOOKS = `\$\{BOOKS_BASE_URL\}\/\?utm_source=academy`;/);
+  assert.equal(`${BOOKS_BASE_URL}/?utm_source=academy`, 'https://books.jurassicenglish.com/?utm_source=academy');
+  assert.match(page, /const STORY_CLUB = "\/story-club\?utm_source=academy";/);
+  assert.ok(page.includes('Free storybooks: read Story 1 of every level'));
+  assert.ok(page.includes('Story Club with Mr. Jay (ages 5–8) · Saturdays 9:00'));
+  // The row sits in the hero section, before "How every lesson works".
+  assert.ok(page.indexOf('data-door="free-books"') < page.indexOf('id="lesson-heading"'));
+});

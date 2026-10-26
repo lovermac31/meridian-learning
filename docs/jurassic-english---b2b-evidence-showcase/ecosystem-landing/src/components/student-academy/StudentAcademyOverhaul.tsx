@@ -1,6 +1,6 @@
-import { ArrowRight, ArrowUpRight, Gift, Mail, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BookOpen, Gift, Mail, MessageCircle, ShieldCheck, Users } from "lucide-react";
 import { REWARD, ROUTE as FAMILY_REWARDS_ROUTE } from "@/lib/familyRewards/terms";
-import { levelHref } from "@/lib/academy/levelBooks";
+import { BOOKS_BASE_URL, levelHref } from "@/lib/academy/levelBooks";
 
 // Student Academy (human-centered overhaul, revised spec §3 Page B).
 // Plain-language copy for parents. Every image is a storybook illustration
@@ -13,11 +13,16 @@ const IMG = "/images/overhaul";
 const STORY_QUEST = "https://worldwise-story-quest.vercel.app/#home";
 const EMAIL = "mailto:info@jurassicenglish.com?subject=Reading%20%26%20Thinking%20Placement%20Consultation";
 const ZALO = "https://zalo.me/84396085076";
+// The two doors parents look for first (W-1, Jay 27 Oct 2026): the free books and Story Club, one compact row.
+const FREE_BOOKS = `${BOOKS_BASE_URL}/?utm_source=academy`;
+const STORY_CLUB = "/story-club?utm_source=academy";
 
 const PRIMARY =
   "inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#B45309] px-5 py-2.5 text-center text-sm font-extrabold text-white transition hover:bg-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E4D3B] focus-visible:ring-offset-2";
 const SECONDARY =
   "inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#1E4D3B]/30 bg-white px-5 py-2.5 text-center text-sm font-bold text-[#1E4D3B] transition hover:border-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E4D3B] focus-visible:ring-offset-2";
+const DOOR =
+  "flex min-h-14 items-center gap-3 rounded-[1.25rem] border border-[#E6DEC8] bg-white px-4 py-3 font-extrabold text-[#1E4D3B] transition hover:border-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E4D3B] focus-visible:ring-offset-2";
 const EYEBROW = "text-xs font-bold uppercase tracking-[0.14em] text-[#B45309]";
 const H2 = "text-2xl font-extrabold leading-tight text-[#1E4D3B] sm:text-3xl";
 
@@ -99,6 +104,22 @@ export function StudentAcademyOverhaul({ familyRewards = false }: { familyReward
             className="aspect-[16/9] w-full rounded-[1.75rem] border border-[#E6DEC8] object-cover"
           />
         </div>
+        <ul aria-label="Start here" className="mx-auto mt-8 grid max-w-7xl gap-3 sm:grid-cols-2">
+          <li>
+            <a href={FREE_BOOKS} target="_blank" rel="noopener" className={DOOR} data-door="free-books">
+              <BookOpen aria-hidden="true" className="h-5 w-5 flex-none text-[#B45309]" />
+              <span className="flex-1">Free storybooks: read Story 1 of every level</span>
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4 flex-none" />
+            </a>
+          </li>
+          <li>
+            <a href={STORY_CLUB} className={DOOR} data-door="story-club">
+              <Users aria-hidden="true" className="h-5 w-5 flex-none text-[#B45309]" />
+              <span className="flex-1">Story Club with Mr. Jay (ages 5–8) · Saturdays 9:00</span>
+              <ArrowRight aria-hidden="true" className="h-4 w-4 flex-none" />
+            </a>
+          </li>
+        </ul>
       </section>
 
       {/* How every lesson works + thinking map */}

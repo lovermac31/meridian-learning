@@ -9,6 +9,8 @@
 import type { Locale } from '../locales';
 
 export const STORY_CLUB_ZALO = 'https://zalo.me/84396085076';
+// The free storybooks (W-1, Jay 27 Oct 2026): a quiet link under the price for parents who want to try first.
+export const STORY_CLUB_FREE_BOOKS = 'https://books.jurassicenglish.com/?utm_source=storyclub';
 
 type Step = { title: string; body: string };
 type Faq = { q: string; a: string };
@@ -17,7 +19,7 @@ type StoryClubCopy = {
   eyebrow: string;
   title: string;
   lead: string;
-  price: { amount: string; unit: string; note: string; seats: string };
+  price: { amount: string; unit: string; note: string; seats: string; tryFree: string };
   week: { heading: string; steps: Step[] };
   parents: { heading: string; items: string[] };
   forWho: { heading: string; yes: string[]; no: string[]; yesLabel: string; noLabel: string; link: string };
@@ -37,6 +39,7 @@ const en: StoryClubCopy = {
     unit: 'for 4 weeks',
     note: 'Founding price for the first group. Paid by bank transfer (VietQR) after you receive a written summary on Zalo.',
     seats: 'Up to 6 children per group',
+    tryFree: 'Try a free story first',
   },
   week: {
     heading: 'How one week works',
@@ -113,6 +116,7 @@ const vi: StoryClubCopy = {
     unit: 'cho 4 tuần',
     note: 'Giá ưu đãi cho nhóm đầu tiên. Thanh toán bằng chuyển khoản (VietQR) sau khi bạn nhận bản tóm tắt bằng văn bản qua Zalo.',
     seats: 'Tối đa 6 bạn nhỏ mỗi nhóm',
+    tryFree: 'Đọc thử một truyện miễn phí trước',
   },
   week: {
     heading: 'Một tuần diễn ra như thế nào',
