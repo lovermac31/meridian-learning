@@ -9,7 +9,7 @@ import { CENTRE_LICENCE_ZALO, FOUNDING_PRICE, centreLicenceContent } from '../sr
 
 // Unlisted Level 1 Centre Licence page (master directive L-4, 27 Oct 2026). Rules come from the Notion
 // "L1 Centre Licence — Launch Kit Spec": shared only in Zalo, so noindex, out of the sitemap and linked from
-// nowhere; one call to action; no price number; no published book title in selling copy; no outcome claims.
+// nowhere; one call to action; one price (spec §1); no published book title in selling copy; no outcome claims.
 const EN = '/centres/level-1';
 const VI = '/vi/centres/level-1';
 const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf('</main>') + 7);
@@ -79,16 +79,15 @@ test('one call to action: every button opens Mr. Jay’s Zalo with the centre-pa
   }
 });
 
-test('no price number: the single price slot says "on request"', async () => {
+test('one price, in one place: the approved founding price from spec §1', async () => {
   const { renderRoute } = await import('../src/entry-server');
-  assert.equal(FOUNDING_PRICE, null, 'the spec keeps the number in the order summary only');
+  assert.equal(FOUNDING_PRICE, '4.900.000₫', 'Jay approved 4,900,000 ₫ per campus per school year on 27 Oct');
   for (const route of [EN, VI]) {
     const html = await renderRoute(route);
-    assert.doesNotMatch(html, /\d[\d.,]*\s*(?:₫|VND|VNĐ)|US\$/, `${route}: no price number anywhere`);
     assert.equal([...html.matchAll(/data-price-slot=/g)].length, 1, `${route}: one price slot`);
+    assert.deepEqual([...html.matchAll(/\d[\d.,]*\s*(?:₫|VND|VNĐ)/g)].map((m) => m[0]), ['4.900.000₫'], `${route}: the only price on the page`);
+    assert.doesNotMatch(html, /US\$|discount|giảm giá/i, `${route}: no other currency and no discount`);
   }
-  assert.match(mainOf(await renderRoute(EN)), /Price on request/);
-  assert.match(mainOf(await renderRoute(VI)), /Giá: liên hệ/);
 });
 
 test('the selling copy names no published book, author or story detail, and makes no outcome claims', async () => {

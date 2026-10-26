@@ -3,7 +3,7 @@
  *
  * UNLISTED SALES PAGE (master directive L-4, 27 Oct 2026). Shared only in Zalo after an owner replies:
  * noindex, out of the sitemap, and linked from nowhere on the site. Copy follows the Notion
- * "L1 Centre Licence — Launch Kit Spec": no published book titles, no price number, no clients or
+ * "L1 Centre Licence — Launch Kit Spec": no published book titles, one price (the spec's §1), no clients or
  * outcome promises. The Vietnamese copy is machine-drafted and needs a native read before use.
  * Jay approves the page at the Tue 3 Nov review; it does not merge before then.
  */
@@ -13,9 +13,9 @@ export const CENTRE_LICENCE_PATH = '/centres/level-1';
 export const CENTRE_LICENCE_VI_PATH = '/vi/centres/level-1';
 export const CENTRE_LICENCE_ZALO = 'https://zalo.me/84396085076?utm_source=centre-page';
 
-// {FOUNDING_PRICE}: the one place a price could appear on this page. The spec keeps the number in the
-// written order summary only, so this stays null and the page says "price on request".
-export const FOUNDING_PRICE: string | null = null;
+// {FOUNDING_PRICE}: the one place the price appears on this page. Spec §1, approved by Jay on 27 Oct 2026:
+// 4,900,000 ₫ per campus per school year. Set it to null to show "price on request" instead.
+export const FOUNDING_PRICE: string | null = '4.900.000₫';
 
 type Item = { title: string; body: string };
 type Phase = { time: string; name: string; detail: string; script?: string };
@@ -172,7 +172,7 @@ const en: CentreLicenceCopy = {
     heading: 'Founding licence',
     unit: 'per campus, per school year',
     onRequest: 'Price on request',
-    note: 'A founding licence for the first centres. Ask Mr. Jay on Zalo for the price. Payment is by bank transfer (VietQR), in full, before access.',
+    note: 'A founding licence for the first centres. Payment is by bank transfer (VietQR), in full, before access.',
   },
   steps: {
     heading: 'How it works',
@@ -343,7 +343,7 @@ const vi: CentreLicenceCopy = {
     heading: 'Giấy phép sáng lập',
     unit: 'mỗi cơ sở, mỗi năm học',
     onRequest: 'Giá: liên hệ',
-    note: 'Giấy phép sáng lập dành cho những trung tâm đầu tiên. Hỏi giá thầy Jay qua Zalo. Thanh toán toàn bộ bằng chuyển khoản (VietQR) trước khi nhận tài liệu.',
+    note: 'Giấy phép sáng lập dành cho những trung tâm đầu tiên. Thanh toán toàn bộ bằng chuyển khoản (VietQR) trước khi nhận tài liệu.',
   },
   steps: {
     heading: 'Cách thức',
