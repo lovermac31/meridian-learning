@@ -19,8 +19,12 @@ const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
   families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫']],
-  teachers: [['teacher-pack', '690.000₫']],
-  centres: [['centre-licence', '4.900.000₫']],
+  teachers: [
+    ['teacher-pack', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
+    ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['thinking-cycle-set', '490.000₫'],
+    ['reasoning-assessment-kit', '390.000₫'], ['ielts-speaking-ladder', '390.000₫'],
+  ],
+  centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
 };
 
 test('the products hub is released, indexable and paired EN/VI', () => {
@@ -66,7 +70,7 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     const main = amp(mainOf(await renderRoute(route)));
     const ctas = Object.fromEntries([...main.matchAll(/href="([^"]+)"[^>]*data-cta="product-([^"]+)"/g)].map((m) => [m[2], m[1]]));
     for (const [id, href] of Object.entries(expected[route])) assert.equal(ctas[id], href, `${route} ${id}`);
-    for (const id of ['printable-pack', 'teacher-pack', 'centre-licence']) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
+    for (const id of ['printable-pack', ...EXPECTED.teachers.map(([cardId]) => cardId), ...EXPECTED.centres.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
     assert.equal(PRODUCTS_ZALO, 'https://zalo.me/84396085076?utm_source=products');
     // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch.
     const counterpart = route === EN ? VI : EN;
@@ -87,7 +91,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
   ]) {
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'teacher-pack', 'centre-licence'], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', ...EXPECTED.teachers.map(([id]) => id), ...EXPECTED.centres.map(([id]) => id)], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -139,7 +143,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     setServerLocation(EN);
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' }));
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
-    assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), ['teacher-pack', 'test-extra']);
+    assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...EXPECTED.teachers.map(([id]) => id), 'test-extra']);
     assert.match(teachers, /<img src="\/images\/products\/test-extra\.webp" alt="Extra pack" width="480" height="480"[^>]*aspect-square/);
     assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.image).length);
   } finally {
