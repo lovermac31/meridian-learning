@@ -159,7 +159,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
 
 test('the ChatGPT product images are on their cards, square and light', async () => {
   const expected: Record<string, string> = {
-    'story-club': 'story-club', baseline: 'one-to-one', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
+    'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
     'teacher-pack': 'teacher-pack-l1', 'centre-licence': 'centre-licence',
   };
   for (const locale of ['en', 'vi'] as const) {
@@ -168,6 +168,9 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     assert.deepEqual(Object.fromEntries(cards.filter((c) => c.image).map((c) => [c.id, c.image])), expected, locale);
   }
   const { PRODUCTS } = await import('../src/i18n/content/products');
+  // Every product, live or hidden, has its own image, so flipping live needs no image work.
+  for (const p of PRODUCTS) assert.ok(p.image, `${p.id} has an image`);
+  assert.equal(new Set(PRODUCTS.map((p) => p.image)).size, PRODUCTS.length, 'no two products share an image');
   for (const name of new Set(PRODUCTS.map((p) => p.image).filter(Boolean) as string[])) {
     const file = readFileSync(`public/images/products/${name}.webp`);
     assert.equal(file.subarray(0, 4).toString(), 'RIFF', `${name} is a WebP`);

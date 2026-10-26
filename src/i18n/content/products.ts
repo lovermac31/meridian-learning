@@ -10,7 +10,7 @@
  * price, link, whether it is a digital download, its image, and its EN + VI text. Only live entries are shown; cards
  * appear in list order within their section.
  * `image` names a square (1:1) WebP in public/images/products (ChatGPT illustrations from the image-studio session,
- * 27 Oct 2026, no text or faces); one image can serve several cards.
+ * 27 Oct 2026, no people or logos); every product has its own, hidden ones included, so going live is one line.
  *
  * Prices approved by Jay on 27 Oct 2026, including the Level 1 Printable Storybook Pack (149.000₫) and the Level 1
  * Teacher Pack (690.000₫). Card copy (problem → what's inside → who it's for) is the Kids Academy session's P-3 copy
@@ -90,7 +90,7 @@ export const PRODUCTS: Product[] = [
     section: 'families',
     price: '690.000₫',
     href: '/ai-speaking/baseline',
-    image: 'one-to-one',
+    image: 'baseline',
     en: {
       label: 'Live online · one session',
       title: 'Live Speaking Baseline',
@@ -332,6 +332,7 @@ export const PRODUCTS: Product[] = [
     price: '490.000₫',
     href: 'zalo',
     delivery: true,
+    image: 'thinking-cycle-set',
     en: {
       label: 'Digital download · teachers and tutors',
       title: 'Jurassic Thinking Cycle Manual Set',
@@ -358,6 +359,7 @@ export const PRODUCTS: Product[] = [
     price: '390.000₫',
     href: 'zalo',
     delivery: true,
+    image: 'reasoning-assessment-kit',
     en: {
       label: 'Digital download · teachers and centres',
       title: 'Reasoning Assessment Kit, Levels 1–5',
@@ -384,6 +386,7 @@ export const PRODUCTS: Product[] = [
     price: '390.000₫',
     href: 'zalo',
     delivery: true,
+    image: 'ielts-speaking-ladder',
     en: {
       label: 'Digital · learners and tutors',
       title: 'IELTS Speaking Ladder Pack',
@@ -437,6 +440,7 @@ export const PRODUCTS: Product[] = [
     price: '1.490.000₫',
     href: 'zalo',
     delivery: true,
+    image: 'teacher-training-course',
     en: {
       label: 'Digital course · one centre',
       title: 'Teacher Training Course (train-the-trainer)',
@@ -463,6 +467,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     delivery: true,
+    image: 'pilot-class-kit',
     en: {
       label: 'Digital kit · one centre · 6–8 weeks',
       title: 'Pilot Class Launch Kit',
@@ -489,6 +494,7 @@ export const PRODUCTS: Product[] = [
     price: '290.000₫',
     href: 'zalo',
     delivery: true,
+    image: 'curriculum-overview',
     en: {
       label: 'Digital · schools and centres',
       title: 'Curriculum Overview for Schools, Levels 1–5',
