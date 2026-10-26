@@ -51,8 +51,12 @@ test('the market-page panel uses the shared logo and payee name, and opens the a
   assert.ok(market.includes("import { PAYPAL_LOGO, PAYPAL_PAYEE_NAME } from '../lib/paypal'"));
   assert.ok(PAYPAL_LOGO.startsWith('https://www.paypalobjects.com/'));
   assert.doesNotMatch(market, /cgi-bin\/webscr|cmd: '_xclick'|business: PAYPAL_BUSINESS_ID/);
-  assert.match(market, /\/ai-speaking\/baseline\?market=/);
-  assert.match(market, /\/ai-speaking\/lessons\?pack=\$\{item === 'lesson' \? 'lesson_single' : 'lesson_month'\}&market=/);
+  // 26 Oct 2026: the checkout links live in src/lib/marketCheckout.ts, shared with the header button.
+  assert.ok(market.includes("from '../lib/marketCheckout'"));
+  const shared = read('src/lib/marketCheckout.ts');
+  assert.doesNotMatch(shared, /cgi-bin\/webscr|cmd: '_xclick'|business: PAYPAL_BUSINESS_ID/);
+  assert.match(shared, /\/ai-speaking\/baseline\?market=/);
+  assert.match(shared, /\/ai-speaking\/lessons\?pack=\$\{item === 'lesson' \? 'lesson_single' : 'lesson_month'\}&market=/);
 });
 
 test('marketPricing.json is pinned: the AI Speaking checkout charges these prices from its own copy', async () => {

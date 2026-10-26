@@ -9,6 +9,7 @@ import { FounderFilmLink } from './FounderFilmLink';
 const FOUNDER_PAGES = new Set(['/about/nathaniel-jay-adams', '/vi/ve-thay-jay-adams']);
 import marketPricing from '../content/marketPricing.json';
 import { PAYPAL_LOGO, PAYPAL_PAYEE_NAME } from '../lib/paypal';
+import { NO_PAYPAL_MARKETS, checkoutHref, marketFromPath } from '../lib/marketCheckout';
 
 const sources = <ul className="list-disc pl-6"><li><a href="https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-speaking" rel="noopener noreferrer">IELTS Academic Speaking test format</a></li><li><a href="https://ielts.org/cdn/ielts-guides/ielts-speaking-key-assessment-criteria.pdf" rel="noopener noreferrer">IELTS Speaking key assessment criteria</a></li></ul>;
 
@@ -81,13 +82,9 @@ const countryNames: Record<string, Record<string, string>> = {
   ar: { uae: 'الإمارات', 'saudi-arabia': 'السعودية', egypt: 'مصر' }, ur: { pakistan: 'پاکستان' }, bn: { bangladesh: 'বাংলাদেশ' },
 };
 
-const marketFromPath = (path: string) => {
-  const slug = path.split('/').filter(Boolean).at(-1);
-  return slug === 'ielts-speaking-online' ? undefined : slug === 'brasil' ? 'brazil' : slug;
-};
 
-// International card checkout is not live yet, and the booking pages charge VND by VietQR.
-// Market CTAs therefore open an email booking request instead of a checkout that cannot take the USD price.
+// Countries with PayPal (and a payCopy locale) open the automated checkout at this country's listed US$ price,
+// the same links as the PayPal panel. The hub, Pakistan and Bangladesh keep the email booking request.
 function marketCtas(path: string, locale: string) {
   const market = marketFromPath(path);
   const tier = market ? marketPricing.markets[market as keyof typeof marketPricing.markets] : 1;
@@ -98,11 +95,13 @@ function marketCtas(path: string, locale: string) {
   const lessonPrice = `${prefix}US$${prices.lesson_usd}`;
   const where = market ? countryNames.en[market] ?? market : 'International';
   const request = (offer: string, price: string) => `mailto:info@jurassicenglish.com?subject=${encodeURIComponent(`${offer} request - ${where} (${price})`)}`;
+  const payMarket = paypalMarket(path, locale);
   return [
-    { href: request('Speaking Baseline', baselinePrice), label: `${copy.baseline} · ${baselinePrice}` },
-    { href: request('One-to-one lesson', `${lessonPrice} / 60 min`), label: `${copy.lesson} · ${lessonPrice} / 60 ${copy.minutes}` },
+    { href: payMarket ? checkoutHref('baseline', payMarket) : request('Speaking Baseline', baselinePrice), label: `${copy.baseline} · ${baselinePrice}` },
+    { href: payMarket ? checkoutHref('lesson', payMarket) : request('One-to-one lesson', `${lessonPrice} / 60 min`), label: `${copy.lesson} · ${lessonPrice} / 60 ${copy.minutes}` },
   ];
 }
+
 
 const latinRun = /\(?[A-Za-z0-9$+](?:[A-Za-z0-9$+.,:/–-]|\s+(?=[A-Za-z0-9$+(])|\((?=[A-Za-z0-9])|\))*/g;
 // Sentence punctuation after a Latin run stays outside the LTR isolate so it lands at the RTL line end.
@@ -152,29 +151,21 @@ function CtaNote({ locale, paypal, hub }: { locale: string; paypal?: boolean; hu
 // PayPal (the Jurassic English business account, shown on PayPal as WorldWiseLearning) takes USD from
 // the market countries. PayPal is not available to residents of Pakistan or Bangladesh, so those pages
 // keep the email request only.
-const noPaypalMarkets = new Set(['pakistan', 'bangladesh']);
 const payCopy: Record<string, { title: string; baseline: string; lesson: string; pack: string; note: string; hero: string; link: string }> = {
-  en: { title: 'Pay in US dollars with PayPal', baseline: 'Live Speaking Baseline', lesson: 'One-to-one lesson, 60 min', pack: 'Pack of 8 lessons', note: 'Choose an option to open our checkout, then pay on paypal.com: you pay the US$ price shown here, to Jurassic English (WorldWiseLearning). Payment is confirmed automatically.', hero: 'Requests go to info@jurassicenglish.com.', link: 'Or pay in USD with PayPal' },
-  es: { title: 'Paga en dólares estadounidenses con PayPal', baseline: 'Evaluación inicial de Speaking', lesson: 'Clase individual, 60 min', pack: 'Paquete de 8 clases', note: 'Elige una opción para abrir nuestra página de pago y paga en paypal.com: pagas el precio en US$ que ves aquí, a Jurassic English (WorldWiseLearning). El pago se confirma automáticamente.', hero: 'Las solicitudes llegan a info@jurassicenglish.com.', link: 'O paga en USD con PayPal' },
-  'pt-BR': { title: 'Pague em dólares americanos com PayPal', baseline: 'Avaliação inicial de Speaking', lesson: 'Aula individual, 60 min', pack: 'Pacote de 8 aulas', note: 'Escolha uma opção para abrir nosso checkout e pague em paypal.com: você paga o preço em US$ mostrado aqui, para a Jurassic English (WorldWiseLearning). O pagamento é confirmado automaticamente.', hero: 'As solicitações vão para info@jurassicenglish.com.', link: 'Ou pague em USD com PayPal' },
-  id: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Asesmen awal Speaking', lesson: 'Les privat, 60 menit', pack: 'Paket 8 les', note: 'Pilih salah satu opsi untuk membuka halaman pembayaran kami, lalu bayar di paypal.com: Anda membayar harga US$ yang tertera di sini kepada Jurassic English (WorldWiseLearning). Pembayaran dikonfirmasi secara otomatis.', hero: 'Permintaan dikirim ke info@jurassicenglish.com.', link: 'Atau bayar dalam USD dengan PayPal' },
-  ms: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Penilaian awal Speaking', lesson: 'Kelas individu, 60 minit', pack: 'Pakej 8 kelas', note: 'Pilih satu pilihan untuk membuka halaman pembayaran kami, kemudian bayar di paypal.com: anda membayar harga US$ yang dipaparkan di sini kepada Jurassic English (WorldWiseLearning). Bayaran disahkan secara automatik.', hero: 'Permohonan dihantar ke info@jurassicenglish.com.', link: 'Atau bayar dalam USD dengan PayPal' },
-  th: { title: 'ชำระเป็นดอลลาร์สหรัฐผ่าน PayPal', baseline: 'การประเมิน Speaking เบื้องต้น', lesson: 'เรียนตัวต่อตัว 60 นาที', pack: 'แพ็กเกจเรียน 8 ครั้ง', note: 'เลือกตัวเลือกเพื่อเปิดหน้าชำระเงินของเรา แล้วชำระที่ paypal.com ตามราคา US$ ที่แสดงไว้ที่นี่ ให้กับ Jurassic English (WorldWiseLearning) การชำระเงินจะได้รับการยืนยันโดยอัตโนมัติ', hero: 'คำขอจะส่งไปที่ info@jurassicenglish.com', link: 'หรือชำระเป็น USD ผ่าน PayPal' },
-  ar: { title: 'ادفع بالدولار الأمريكي عبر PayPal', baseline: 'التقييم الأولي للمحادثة', lesson: 'درس فردي، 60 دقيقة', pack: 'باقة من 8 دروس', note: 'اختر خيارًا لفتح صفحة الدفع لدينا، ثم ادفع على paypal.com: تدفع السعر بالدولار الأمريكي (US$) المعروض هنا إلى Jurassic English (WorldWiseLearning). يتم تأكيد الدفع تلقائيًا.', hero: 'تصل الطلبات إلى info@jurassicenglish.com.', link: 'أو ادفع بالدولار الأمريكي عبر PayPal' },
+  en: { title: 'Pay in US dollars with PayPal', baseline: 'Live Speaking Baseline', lesson: 'One-to-one lesson, 60 min', pack: 'Pack of 8 lessons', note: 'Choose an option to open our checkout, then pay on paypal.com: you pay the US$ price shown here, to Jurassic English (WorldWiseLearning). Payment is confirmed automatically.', hero: 'Both buttons open our checkout: you pay the US$ price shown, by PayPal, confirmed automatically.', link: 'See all three PayPal options' },
+  es: { title: 'Paga en dólares estadounidenses con PayPal', baseline: 'Evaluación inicial de Speaking', lesson: 'Clase individual, 60 min', pack: 'Paquete de 8 clases', note: 'Elige una opción para abrir nuestra página de pago y paga en paypal.com: pagas el precio en US$ que ves aquí, a Jurassic English (WorldWiseLearning). El pago se confirma automáticamente.', hero: 'Ambos botones abren nuestra página de pago: pagas el precio en US$ indicado, con PayPal, con confirmación automática.', link: 'Ver las tres opciones de PayPal' },
+  'pt-BR': { title: 'Pague em dólares americanos com PayPal', baseline: 'Avaliação inicial de Speaking', lesson: 'Aula individual, 60 min', pack: 'Pacote de 8 aulas', note: 'Escolha uma opção para abrir nosso checkout e pague em paypal.com: você paga o preço em US$ mostrado aqui, para a Jurassic English (WorldWiseLearning). O pagamento é confirmado automaticamente.', hero: 'Os dois botões abrem nosso checkout: você paga o preço em US$ indicado, pelo PayPal, com confirmação automática.', link: 'Ver as três opções de PayPal' },
+  id: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Asesmen awal Speaking', lesson: 'Les privat, 60 menit', pack: 'Paket 8 les', note: 'Pilih salah satu opsi untuk membuka halaman pembayaran kami, lalu bayar di paypal.com: Anda membayar harga US$ yang tertera di sini kepada Jurassic English (WorldWiseLearning). Pembayaran dikonfirmasi secara otomatis.', hero: 'Kedua tombol membuka halaman pembayaran kami: Anda membayar harga US$ yang tertera melalui PayPal, dikonfirmasi otomatis.', link: 'Lihat ketiga opsi PayPal' },
+  ms: { title: 'Bayar dalam dolar AS dengan PayPal', baseline: 'Penilaian awal Speaking', lesson: 'Kelas individu, 60 minit', pack: 'Pakej 8 kelas', note: 'Pilih satu pilihan untuk membuka halaman pembayaran kami, kemudian bayar di paypal.com: anda membayar harga US$ yang dipaparkan di sini kepada Jurassic English (WorldWiseLearning). Bayaran disahkan secara automatik.', hero: 'Kedua-dua butang membuka halaman pembayaran kami: anda membayar harga US$ yang dipaparkan melalui PayPal, disahkan secara automatik.', link: 'Lihat ketiga-tiga pilihan PayPal' },
+  th: { title: 'ชำระเป็นดอลลาร์สหรัฐผ่าน PayPal', baseline: 'การประเมิน Speaking เบื้องต้น', lesson: 'เรียนตัวต่อตัว 60 นาที', pack: 'แพ็กเกจเรียน 8 ครั้ง', note: 'เลือกตัวเลือกเพื่อเปิดหน้าชำระเงินของเรา แล้วชำระที่ paypal.com ตามราคา US$ ที่แสดงไว้ที่นี่ ให้กับ Jurassic English (WorldWiseLearning) การชำระเงินจะได้รับการยืนยันโดยอัตโนมัติ', hero: 'ปุ่มทั้งสองจะเปิดหน้าชำระเงินของเรา: คุณชำระตามราคา US$ ที่แสดงผ่าน PayPal และยืนยันโดยอัตโนมัติ', link: 'ดูตัวเลือก PayPal ทั้งสามแบบ' },
+  ar: { title: 'ادفع بالدولار الأمريكي عبر PayPal', baseline: 'التقييم الأولي للمحادثة', lesson: 'درس فردي، 60 دقيقة', pack: 'باقة من 8 دروس', note: 'اختر خيارًا لفتح صفحة الدفع لدينا، ثم ادفع على paypal.com: تدفع السعر بالدولار الأمريكي (US$) المعروض هنا إلى Jurassic English (WorldWiseLearning). يتم تأكيد الدفع تلقائيًا.', hero: 'يفتح الزرّان صفحة الدفع لدينا: تدفع السعر المعروض بالدولار الأمريكي عبر PayPal، ويُؤكَّد الدفع تلقائيًا.', link: 'اطّلع على خيارات PayPal الثلاثة' },
 };
 
 function paypalMarket(path: string, locale: string) {
   const market = marketFromPath(path);
-  return market && !noPaypalMarkets.has(market) && payCopy[locale] ? market : undefined;
+  return market && !NO_PAYPAL_MARKETS.has(market) && payCopy[locale] ? market : undefined;
 }
 
-// The options open the order-first checkout in the AI Speaking app (automated PayPal, 21 Oct 2026). ?market= makes the
-// checkout show and charge this country's listed US$ price (jurassic-ai-speaking lib/market-pricing.ts, a checked copy of
-// src/content/marketPricing.json; terms LT-2026-10-24). The server prices from its table, never from this link.
-function checkoutHref(item: 'baseline' | 'lesson' | 'pack', market: string) {
-  const m = encodeURIComponent(market);
-  return item === 'baseline' ? `/ai-speaking/baseline?market=${m}` : `/ai-speaking/lessons?pack=${item === 'lesson' ? 'lesson_single' : 'lesson_month'}&market=${m}`;
-}
 
 // Isolates Latin runs for RTL, keeping the contact email (the Latin-run rule splits it at the @) and the
 // PayPal payee name whole.

@@ -32,6 +32,7 @@ import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/Ie
 import { StoryClubPage } from './components/StoryClubPage';
 import { ProductsPage } from './components/ProductsPage';
 import { isInternationalMarketPath } from './lib/seoPageMeta';
+import { marketHeaderCta } from './lib/marketCheckout';
 import { getCurrentLocation } from './lib/ssrLocation';
 
 /* ── Lazy-loaded subpages (code-split) ──────────────────────────── */
@@ -433,6 +434,7 @@ function App() {
           isPortalView={isSubpageView}
           forceSolidBackground={shouldForceSolidNavbar}
           languageSwitcher={<LanguageSwitcher currentRoute={route} onNavigate={pushRoute} />}
+          bookCta={marketHeaderCta(pathname)}
         />
       ) : null}
       <div id="page-content" tabIndex={-1} className="focus:outline-none">
