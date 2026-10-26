@@ -15,6 +15,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { injectSpeedInsights } from '@vercel/speed-insights';
 import { inject as injectAnalytics } from '@vercel/analytics';
+import { loadGa4 } from '../lib/ga4';
 import { YlBotUI } from './YlBotUI';
 import { PromoVideoModal } from './PromoVideoModal';
 import { initPageI18n } from './pageI18n';
@@ -32,6 +33,7 @@ try {
     route: YL_SPEED_INSIGHTS_ROUTE,
   });
   injectAnalytics();
+  loadGa4();
 } catch {
   // Telemetry is progressive enhancement and must never block the page.
 }

@@ -1,6 +1,7 @@
 import { StrictMode, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import App from './App';
+import { loadGa4 } from './lib/ga4';
 
 /**
  * The single React tree shared by the browser entry (src/main.tsx) and the
@@ -13,6 +14,7 @@ export function AppRoot() {
   // metadata.mjs) waits for this to replay toggle taps made before hydration.
   useEffect(() => {
     window.dispatchEvent(new Event('je:hydrated'));
+    loadGa4(); // after hydration, so the server and browser trees stay identical
   }, []);
 
   return (
