@@ -27,9 +27,10 @@ function Card({ card, locale, delivery, leadIns }: { card: ProductCard; locale: 
   return (
     <li className="ielts-tool-card flex flex-col rounded-2xl bg-white p-6 shadow-sm" id={card.id}>
       {card.image ? (
+        // Decorative: the card title follows as a heading, so the image has empty alt text.
         <img
-          src={`${PRODUCT_IMAGE_DIR}/${card.id}.webp`}
-          alt={card.imageAlt ?? card.title}
+          src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
+          alt=""
           width={480}
           height={480}
           loading="lazy"

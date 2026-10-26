@@ -129,12 +129,12 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     const ids = productsPage(locale).sections.flatMap((s) => s.cards.map((c) => c.id));
     assert.deepEqual(ids, PRODUCTS.map((p) => p.id), `${locale}: every entry is a card, in list order`);
   }
-  // Each entry with an image has its square WebP in public/images/products.
-  for (const p of PRODUCTS.filter((entry) => entry.image)) readFileSync(`public/images/products/${p.id}.webp`);
+  // Each image an entry names exists in public/images/products.
+  for (const p of PRODUCTS.filter((entry) => entry.image)) readFileSync(`public/images/products/${p.image}.webp`);
 
   // One new entry → one new card in its section, with its image slot.
   const extra = {
-    id: 'test-extra', section: 'teachers' as const, price: '1.000₫', href: 'zalo', delivery: true, image: true,
+    id: 'test-extra', section: 'teachers' as const, price: '1.000₫', href: 'zalo', delivery: true, image: 'teacher-bundle',
     en: { label: 'L', title: 'Extra pack', problem: 'P', inside: 'I', forWho: 'F', unit: 'one-time', cta: 'Order on Zalo' },
     vi: { label: 'L', title: 'Gói thêm', problem: 'P', inside: 'I', forWho: 'F', unit: 'mua một lần', cta: 'Đặt mua qua Zalo' },
   };
@@ -144,9 +144,28 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' }));
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
     assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...EXPECTED.teachers.map(([id]) => id), 'test-extra']);
-    assert.match(teachers, /<img src="\/images\/products\/test-extra\.webp" alt="Extra pack" width="480" height="480"[^>]*aspect-square/);
+    assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" alt="" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
     assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.image).length);
   } finally {
     PRODUCTS.pop();
+  }
+});
+
+test('the ChatGPT product images are on their cards, square and light', () => {
+  const expected: Record<string, string> = {
+    'story-club': 'story-club', baseline: 'one-to-one', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
+    'teacher-pack': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
+    'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
+    'centre-licence': 'centre-licence',
+  };
+  for (const locale of ['en', 'vi'] as const) {
+    setServerLocation(locale === 'en' ? EN : VI);
+    const cards = productsContent[locale].sections.flatMap((s) => s.cards);
+    assert.deepEqual(Object.fromEntries(cards.filter((c) => c.image).map((c) => [c.id, c.image])), expected, locale);
+  }
+  for (const name of new Set(Object.values(expected))) {
+    const file = readFileSync(`public/images/products/${name}.webp`);
+    assert.equal(file.subarray(0, 4).toString(), 'RIFF', `${name} is a WebP`);
+    assert.ok(file.length < 160_000, `${name}: ${file.length} bytes`);
   }
 });

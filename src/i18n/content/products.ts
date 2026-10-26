@@ -7,8 +7,9 @@
  * and utm_source=products on every outbound link (query before any #anchor).
  *
  * DATA-DRIVEN: PRODUCTS below is the one list of cards. A new product is one entry: its section, price, link, whether
- * it is a digital download, whether it has an image, and its EN + VI text. Cards appear in list order within their
- * section. A square (1:1) product image is shown when `image: true` and public/images/products/<id>.webp exists.
+ * it is a digital download, its image, and its EN + VI text. Cards appear in list order within their section.
+ * `image` names a square (1:1) WebP in public/images/products (ChatGPT illustrations from the image-studio session,
+ * 27 Oct 2026, no text or faces); one image can serve several cards.
  *
  * Prices approved by Jay on 27 Oct 2026, including the Level 1 Printable Storybook Pack (149.000₫) and the Level 1
  * Teacher Pack (690.000₫). Card copy (problem → what's inside → who it's for) is the Kids Academy session's P-3 copy
@@ -36,8 +37,6 @@ type CardText = {
   forWho: string;
   unit: string;
   cta: string;
-  // Alt text for the product image; the title is used when it is missing.
-  imageAlt?: string;
 };
 
 export type Product = {
@@ -48,8 +47,8 @@ export type Product = {
   href: string;
   // Digital download: the payment and delivery line is shown under the CTA.
   delivery?: boolean;
-  // A square WebP exists at public/images/products/<id>.webp.
-  image?: boolean;
+  // File name (no extension) of the card's square WebP in public/images/products.
+  image?: string;
   en: CardText;
   vi: CardText;
 };
@@ -60,6 +59,7 @@ export const PRODUCTS: Product[] = [
     section: 'families',
     price: '590.000₫',
     href: '/story-club',
+    image: 'story-club',
     en: {
       label: 'Live online group',
       title: 'Story Club with Mr. Jay',
@@ -84,6 +84,7 @@ export const PRODUCTS: Product[] = [
     section: 'families',
     price: '690.000₫',
     href: '/ai-speaking/baseline',
+    image: 'one-to-one',
     en: {
       label: 'Live online · one session',
       title: 'Live Speaking Baseline',
@@ -108,6 +109,7 @@ export const PRODUCTS: Product[] = [
     section: 'families',
     price: '800.000₫',
     href: '/ai-speaking/lessons',
+    image: 'one-to-one',
     en: {
       label: 'Live online · private',
       title: '1-to-1 lessons with Mr. Jay’s team',
@@ -132,6 +134,7 @@ export const PRODUCTS: Product[] = [
     section: 'families',
     price: '149.000₫',
     href: 'zalo',
+    image: 'printable-pack-l1',
     delivery: true,
     en: {
       label: 'Digital download',
@@ -157,6 +160,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
+    image: 'teacher-pack-l1',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -182,6 +186,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
+    image: 'teacher-pack-l2',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -207,6 +212,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
+    image: 'teacher-pack-l3',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -232,6 +238,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
+    image: 'teacher-pack-l4',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -257,6 +264,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
+    image: 'teacher-pack-l5',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -282,6 +290,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '2.900.000₫',
     href: 'zalo',
+    image: 'teacher-bundle',
     delivery: true,
     en: {
       label: 'Digital download · one teacher · Levels 1–5',
@@ -382,6 +391,7 @@ export const PRODUCTS: Product[] = [
     section: 'centres',
     price: '4.900.000₫',
     href: 'zalo',
+    image: 'centre-licence',
     delivery: true,
     en: {
       label: 'Founding price',
