@@ -17,7 +17,8 @@ function ZaloButton({ label, className = 'insights-button-primary' }: { label: s
 
 export function StoryClubPage({ locale }: { locale: Locale }) {
   const c = storyClubContent[locale];
-  const oneToOne = getLocalizedHref('/young-learners-speaking/', locale);
+  // 1-to-1 with Mr. Jay: the live lesson checkout (60 min, adults and young learners).
+  const oneToOne = getLocalizedHref('/ai-speaking/lessons', locale);
 
   return (
     <main id="main-content" tabIndex={-1} className="insights-page ielts-tools-page story-club-page min-h-screen" lang={locale}>

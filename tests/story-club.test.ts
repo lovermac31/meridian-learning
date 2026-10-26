@@ -43,5 +43,15 @@ test('every booking button goes to Jay\'s Zalo; pages state the no-recording pol
     assert.ok(html.includes(`href="${counterpart}"`), `${route} links its counterpart`);
     assert.ok(html.includes(policy), route);
   }
-  assert.ok((await renderRoute(VI)).includes('href="/vi/luyen-noi-ielts/"'), 'VI links the VI 1-to-1 page');
+  // The 1-to-1 link goes to the lesson checkout, not the IELTS page for ages 9–18.
+  const en = await renderRoute(EN);
+  const vi = await renderRoute(VI);
+  assert.ok(en.includes('href="/ai-speaking/lessons"'), 'EN links the 1-to-1 lesson checkout');
+  assert.ok(vi.includes('href="/ai-speaking/vi/lessons"'), 'VI links the VI 1-to-1 lesson checkout');
+  for (const html of [en, vi]) {
+    // Page body only: the site navbar links the IELTS page on every route.
+    const body = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
+    assert.ok(body.length > 0, 'main rendered');
+    assert.ok(!body.includes('href="/young-learners-speaking/"') && !body.includes('href="/vi/luyen-noi-ielts/"'), 'no IELTS 9–18 link in the Story Club body');
+  }
 });

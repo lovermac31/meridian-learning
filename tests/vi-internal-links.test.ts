@@ -50,6 +50,7 @@ const VI_EQUIVALENTS: Record<string, string> = {
   '/ai-speaking/writing': '/ai-speaking/vi/writing',
   '/ai-speaking/solutions': '/ai-speaking/vi/solutions',
   '/ai-speaking/writing/demo': '/ai-speaking/vi/writing/demo',
+  '/ai-speaking/lessons': '/ai-speaking/vi/lessons',
 };
 
 function hrefsIn(html: string) {
