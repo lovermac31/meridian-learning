@@ -30,6 +30,7 @@ import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { StoryClubPage } from './components/StoryClubPage';
+import { CentreLicencePage } from './components/CentreLicencePage';
 import { isInternationalMarketPath } from './lib/seoPageMeta';
 import { getCurrentLocation } from './lib/ssrLocation';
 
@@ -183,6 +184,7 @@ function App() {
   const isBandToolView = routePathname === '/tools/ielts-band-score-calculator';
   const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
   const isStoryClubView = routePathname === '/story-club';
+  const isCentreLicenceView = routePathname === '/centres/level-1';
   const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams' || isInternationalMarketPath(routePathname);
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
@@ -243,12 +245,16 @@ function App() {
     isBandToolView ||
     isTimerToolView ||
     isStoryClubView ||
+    isCentreLicenceView ||
     isSeriesView ||
     isSyllabusView ||
     isSeriesComparisonView ||
     isThinkingCycleView ||
     isThinkingCycleComparisonView ||
     isLegalView;
+  // The unlisted centre-licence page (shared in Zalo) has one call to action, so it renders without the site
+  // header, footer and contact launcher, like the internal operator page.
+  const hideSiteChrome = isInternalPilotRequestsView || isCentreLicenceView;
   const isUnknownRouteView = !isSubpageView && routePathname !== '/';
   const isHomeView = !isSubpageView && !isUnknownRouteView;
 
@@ -419,7 +425,7 @@ function App() {
       >
         {getUiString(locale, 'common.skipToContent')}
       </a>
-      {!isInternalPilotRequestsView ? (
+      {!hideSiteChrome ? (
         <Navbar
           onGetStarted={() => navigateTo('/get-started')}
           onNavigateHome={() => navigateTo('/')}
@@ -439,6 +445,8 @@ function App() {
         <IeltsSpeakingTimerPage locale={locale} />
       ) : isStoryClubView ? (
         <StoryClubPage locale={locale} />
+      ) : isCentreLicenceView ? (
+        <CentreLicencePage locale={locale} />
       ) : isInsightsView ? (
         <SearchInsightsPage pathname={pathname} onNavigate={navigateTo} />
       ) : isUnknownRouteView ? (
@@ -587,7 +595,7 @@ function App() {
       )}
       </Suspense>
       </div>
-      {!isInternalPilotRequestsView ? (
+      {!hideSiteChrome ? (
         <Footer
           onNavigate={navigateTo}
           onPricingClick={() => setIsPricingModalOpen(true)}
@@ -597,7 +605,7 @@ function App() {
       {/* One launcher per page (owner decision, 11 Oct 2026): the assistant, which carries the direct channels, wherever it
           runs; the Contact button only where the assistant does not (Vietnamese pages and routes outside its allowlist). */}
       {/* Contact button on every page (owner, 14 Oct 2026); the assistant keeps its own direct-channels row too. */}
-      {!isInternalPilotRequestsView ? <GlobalContactPanel /> : null}
+      {!hideSiteChrome ? <GlobalContactPanel /> : null}
       {isBotUIPilotVisible ? (
         <Suspense fallback={null}>
           <BotUIChat currentPathname={pathname} onNavigate={navigateTo} />

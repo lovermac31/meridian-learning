@@ -66,8 +66,16 @@ function pathOf(href: string) {
   return pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
 }
 
+// The unlisted centre-licence page renders without the site navbar by design (one call to action); its slim
+// footer is its only chrome.
+const ROUTES_WITHOUT_SITE_NAVBAR = new Set(['/centres/level-1', '/vi/centres/level-1']);
+
 /** Navbar (the app's first <nav>) + Footer markup of a rendered route. */
 function chromeOf(html: string, route: string) {
+  if (ROUTES_WITHOUT_SITE_NAVBAR.has(route)) {
+    assert.ok(!html.includes('<nav'), `${route}: renders without the site navbar`);
+    return html.slice(html.indexOf('<footer'), html.indexOf('</footer>'));
+  }
   const navStart = html.indexOf('<nav');
   const navEnd = html.indexOf('</nav>', navStart);
   const footerStart = html.indexOf('<footer');
@@ -126,6 +134,8 @@ test('(b) no link on a Vietnamese page points to a noindex placeholder or a miss
     const chromeHrefs = new Set(hrefsIn(chromeOf(html, route)));
     for (const href of hrefsIn(html).filter(isInternal)) {
       const path = pathOf(href);
+      // The unlisted centre-licence page's language switch links its own noindex twin.
+      if (ROUTES_WITHOUT_SITE_NAVBAR.has(route) && ROUTES_WITHOUT_SITE_NAVBAR.has(path)) continue;
       const isViPath = path === '/vi' || path.startsWith('/vi/');
       const isPlaceholder = NOINDEX_PLACEHOLDERS.has(path) || (isViPath && !INDEXABLE.has(path) && path !== '/vi/luyen-noi-ielts');
       if (isPlaceholder && (chromeHrefs.has(href) || !KNOWN_CONTENT_PLACEHOLDER_LINK.test(href))) {
