@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import { getOverhaulContent } from '../i18n/content/overhaul';
+import { PRODUCTS, PRODUCTS_PATH, productSampleAnchor } from '../i18n/content/products';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
@@ -143,8 +144,13 @@ export const Navbar = ({
   // homepage anchors, so they must be real document navigations.
   const overhaul = getOverhaulContent(locale);
   const navItems = overhaul.nav.items;
-  // "Book Baseline · 690k₫" → the Live Speaking Baseline booking page (AI Speaking app, native navigation).
-  const bookHref = getLocalizedHref(overhaul.nav.ctaHref, locale);
+  // "Book Baseline · 690k₫" → the Baseline card's sample on /products once that sample is in the repo (Jay, 27 Oct
+  // 2026: see a sample before booking); until then, the Live Speaking Baseline booking page (AI Speaking app, native
+  // navigation).
+  const baselineHasSample = Boolean(PRODUCTS.find((product) => product.id === 'baseline' && product.live)?.sample);
+  const bookHref = baselineHasSample
+    ? `${getLocalizedHref(PRODUCTS_PATH, locale)}#${productSampleAnchor('baseline')}`
+    : getLocalizedHref(overhaul.nav.ctaHref, locale);
   const bookLabel = overhaul.nav.cta;
   // "New" / "Mới" badge on the IELTS Writing link; the accessible name starts with the visible text (WCAG 2.5.3).
   const badgeFor = (key: string) => (key === 'writing' ? overhaul.nav.newBadge : null);

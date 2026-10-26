@@ -29,6 +29,10 @@ export const PRODUCTS_VI_PATH = '/vi/products';
 export const PRODUCTS_UTM = 'utm_source=products';
 export const PRODUCTS_ZALO = `https://zalo.me/84396085076?${PRODUCTS_UTM}`;
 export const PRODUCT_IMAGE_DIR = '/images/products';
+// Public sample of each product (Jay, 27 Oct 2026: "Everybody has to see the samples" before a price or a booking):
+// <stem>-sample.pdf plus three page thumbnails <stem>-p1.webp … -p3.webp, made by the factory sessions to the
+// master's SAMPLES-AND-BRANDED-PDF-SPEC.
+export const PRODUCT_SAMPLE_DIR = '/samples';
 
 export const PRODUCT_SECTIONS = ['families', 'teachers', 'centres'] as const;
 export type ProductSectionId = (typeof PRODUCT_SECTIONS)[number];
@@ -56,6 +60,9 @@ export type Product = {
   delivery?: boolean;
   // File name (no extension) of the card's square WebP in public/images/products.
   image?: string;
+  // File stem of the product's public sample in public/samples. Set it only once all four files are in the repo
+  // (a test checks both ways), so the "See a sample" block never shows a broken link.
+  sample?: string;
   en: CardText;
   vi: CardText;
 };
@@ -526,6 +533,7 @@ type PageCopy = {
   back: string;
   delivery: string;
   leadIns: { problem: string; inside: string; forWho: string };
+  sample: { heading: string; note: string; open: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   closing: { heading: string; body: string; cta: string };
 };
@@ -538,6 +546,7 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Jurassic English home',
     delivery: 'Pay by VietQR after a written order summary; your files arrive by Google Drive within 24 hours.',
     leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for' },
+    sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'Open the sample (PDF)' },
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
@@ -553,6 +562,7 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Trang chủ Jurassic English',
     delivery: 'Thanh toán qua VietQR sau khi nhận bản tóm tắt đơn hàng; tài liệu được gửi qua Google Drive trong vòng 24 giờ.',
     leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho' },
+    sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Mở bản mẫu (PDF)' },
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
@@ -562,7 +572,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image'>;
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample'>;
 
 /** The page in one language: its copy, and the sections in order with their cards from PRODUCTS. */
 export function productsPage(locale: Locale) {
@@ -573,10 +583,23 @@ export function productsPage(locale: Locale) {
       id,
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
-        ({ id: cardId, price, href, delivery, image, [locale]: text }): ProductCard => ({ id: cardId, price, href, delivery, image, ...text }),
+        ({ id: cardId, price, href, delivery, image, sample, [locale]: text }): ProductCard => ({
+          id: cardId, price, href, delivery, image, sample, ...text,
+        }),
       ),
     })).filter((section) => section.cards.length > 0),
   };
 }
 
 export const productsContent: Record<Locale, ReturnType<typeof productsPage>> = { en: productsPage('en'), vi: productsPage('vi') };
+
+/** The sample's PDF and its three page thumbnails, from a product's sample stem. */
+export function productSampleFiles(stem: string) {
+  return {
+    pdf: `${PRODUCT_SAMPLE_DIR}/${stem}-sample.pdf`,
+    pages: [1, 2, 3].map((n) => `${PRODUCT_SAMPLE_DIR}/${stem}-p${n}.webp`),
+  };
+}
+
+/** Anchor of a card's sample block on /products. */
+export const productSampleAnchor = (id: string) => `${id}-sample`;
