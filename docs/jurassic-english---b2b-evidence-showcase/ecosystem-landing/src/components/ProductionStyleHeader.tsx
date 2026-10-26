@@ -7,7 +7,7 @@ import { HeaderMenuDismiss } from "./HeaderMenuDismiss";
 // (SPA, static Young Learners page, AI Speaking app) behind one domain.
 
 const NAV = [
-  { label: "Ages 6–12", desc: "Reading & Story Adventures", href: "/student-academy" },
+  { label: "Kids Academy (5–12)", desc: "Reading & Story Adventures", href: "/student-academy" },
   { label: "Ages 9–18", desc: "Speaking Confidence & Teen IELTS", href: "/young-learners-speaking/" },
   { label: "IELTS Writing", badge: "New", desc: "IELTS Writing Task 2: introduction & demo", href: "/ai-speaking/writing" },
   { label: "AI Speaking Mocks", desc: "Adult IELTS Speaking practice (18+)", href: "/ai-speaking" },
@@ -15,6 +15,20 @@ const NAV = [
 ];
 // The Live Speaking Baseline booking page (AI Speaking app), as on every other page of the site.
 const CTA_HREF = "/ai-speaking/baseline";
+// The desktop row drops a bracketed suffix ("Kids Academy (5–12)" shows "Kids Academy"): the full label
+// pushes the last item under the language switch (same header as the main site, measured 26 Oct).
+// The mobile menu, aria-label and title keep the full label.
+function DesktopNavLabel({ label }: { label: string }) {
+  const match = label.match(/^(.*?)\s(\(.+\))$/);
+  if (!match) return <>{label}</>;
+  return (
+    <>
+      {match[1]}
+      <span className="sr-only"> {match[2]}</span>
+    </>
+  );
+}
+
 const NEW_BADGE = "ml-1.5 inline-block rounded-full bg-[#B45309] px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white";
 const CTA =
   "inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#B45309] px-2.5 py-2 text-[13px] font-extrabold text-white transition hover:bg-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E4D3B] focus-visible:ring-offset-2 min-[360px]:px-3 sm:px-4";
@@ -41,10 +55,10 @@ export function ProductionStyleHeader() {
                 key={item.href}
                 href={item.href}
                 aria-label={`${item.badge ? `${item.label} ${item.badge}` : item.label} · ${item.desc}`}
-                title={item.desc}
+                title={`${item.label} · ${item.desc}`}
                 className="whitespace-nowrap rounded-xl px-1 py-1.5 text-[0.95rem] font-semibold text-[#1E4D3B] transition hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2"
               >
-                {item.label}
+                <DesktopNavLabel label={item.label} />
                 {item.badge ? <>{" "}<span className={NEW_BADGE}>{item.badge}</span></> : null}
               </a>
             ))}

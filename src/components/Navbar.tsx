@@ -16,6 +16,20 @@ const NAV_LINK =
 const NAV_CTA =
   'inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full bg-sb-amber-deep px-4 py-2 text-[13px] font-bold text-white shadow-warm transition hover:bg-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-forest focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
 
+// The desktop row drops a bracketed suffix ("Kids Academy (5–12)" shows "Kids Academy"): the header
+// is width-capped, and the full label pushes Pricing under the language switch at every width
+// (measured 1280 and 1440, EN and VI). The mobile menu, aria-label and title keep the full label.
+function DesktopNavLabel({ label }: { label: string }) {
+  const match = label.match(/^(.*?)\s(\(.+\))$/);
+  if (!match) return <>{label}</>;
+  return (
+    <>
+      {match[1]}
+      <span className="sr-only"> {match[2]}</span>
+    </>
+  );
+}
+
 type NavbarProps = {
   onGetStarted: () => void;
   onNavigateHome: () => void;
@@ -189,9 +203,9 @@ export const Navbar = ({
               onClick={(event) => handleNavItemClick(event, item)}
               className={NAV_LINK}
               aria-label={`${badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label} · ${item.desc}`}
-              title={item.desc}
+              title={`${item.label} · ${item.desc}`}
             >
-              {item.label}
+              <DesktopNavLabel label={item.label} />
               {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
             </a>
           ))}
