@@ -18,14 +18,23 @@ export function productHref(href: string, locale: Locale): string {
   return `${base}${base.includes('?') ? '&' : '?'}${PRODUCTS_UTM}${hash ? `#${hash}` : ''}`;
 }
 
-function Card({ card, locale, delivery }: { card: ProductCard; locale: Locale; delivery: string }) {
+type LeadIns = { problem: string; inside: string; forWho: string };
+
+function Card({ card, locale, delivery, leadIns }: { card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns }) {
   const href = productHref(card.href, locale);
   const external = card.href === 'zalo';
   return (
     <li className="ielts-tool-card flex flex-col rounded-2xl bg-white p-6 shadow-sm" id={card.id}>
       <p className="text-xs font-bold uppercase tracking-wider text-[#8a5a00]">{card.label}</p>
       <h3 className="mt-2 text-xl font-bold">{card.title}</h3>
-      <p className="mt-2 flex-1">{card.body}</p>
+      <dl className="mt-2 flex-1 space-y-2">
+        {(['problem', 'inside', 'forWho'] as const).map((key) => (
+          <div key={key}>
+            <dt className="text-sm font-bold">{leadIns[key]}</dt>
+            <dd>{card[key]}</dd>
+          </div>
+        ))}
+      </dl>
       <p className="mt-4 text-2xl font-bold" data-price={card.id}>
         {card.price} <span className="text-base font-semibold">{card.unit}</span>
       </p>
@@ -65,7 +74,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
             <p className="mt-2 text-lg">{section.intro}</p>
             <ul className="mt-6 grid gap-4 md:grid-cols-2">
               {section.cards.map((card) => (
-                <Card key={card.id} card={card} locale={locale} delivery={c.delivery} />
+                <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} />
               ))}
             </ul>
           </section>

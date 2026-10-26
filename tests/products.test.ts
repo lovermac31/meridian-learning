@@ -94,7 +94,14 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
       assert.ok(!html.includes(name), `${route}: "${name}"`);
     }
   }
-  assert.match(productsContent.en.sections[1].cards[0].body, /10 widely available picture books, which you provide/);
+  assert.match(productsContent.en.sections[1].cards[0].forWho, /10 widely available picture books the teacher provides/);
+  // Lines aligned to the live pages: no Baseline fee-credit promise, and 1-to-1 lessons are with Mr. Jay's team.
+  for (const c of Object.values(productsContent)) {
+    const cards = c.sections.flatMap((s) => s.cards);
+    const text = JSON.stringify(cards);
+    assert.doesNotMatch(text, /credited|trừ vào/i);
+    assert.match(cards.find((card) => card.id === 'one-to-one')!.title, /Mr\. Jay’s team|đội ngũ của thầy Jay/);
+  }
 });
 
 test('reachable without clutter: one footer link (EN + VI) and one Kids Academy card link; no header change', () => {
