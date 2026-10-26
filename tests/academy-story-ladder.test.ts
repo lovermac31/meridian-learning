@@ -24,7 +24,7 @@ test('every Student Academy level maps to exactly two distinct original stories'
     for (const b of l.stories) assert.ok(b.id && b.title, `Level ${l.level} story has id and title`);
   }
   assert.ok(LEVEL_BOOKS[0].extras.some((b) => b.id === 'lina-and-the-orchard-map'), 'Lina stays available in Level 1');
-  assert.deepEqual(LEVEL_BOOKS.map((l) => l.accepted), [true, true, false, false, false]);
+  assert.deepEqual(LEVEL_BOOKS.map((l) => l.accepted), [true, true, true, true, true]);
 });
 
 test('book links never point at localhost or a preview domain, and unaccepted levels never link', () => {
