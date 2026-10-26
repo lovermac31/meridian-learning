@@ -106,10 +106,12 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
   }
   assert.match(productsContent.en.sections[1].cards[0].forWho, /10 widely available picture books the teacher provides/);
   // Lines aligned to the live pages: no Baseline fee-credit promise, and 1-to-1 lessons are with Mr. Jay's team.
+  // The only credit on the page is the one Jay approved (27 Oct): the Curriculum Overview against a Centre Licence.
   for (const c of Object.values(productsContent)) {
     const cards = c.sections.flatMap((s) => s.cards);
-    const text = JSON.stringify(cards);
-    assert.doesNotMatch(text, /credited|trừ vào/i);
+    const credited = cards.filter((card) => /credited|trừ vào/i.test(JSON.stringify(card))).map((card) => card.id);
+    assert.deepEqual(credited, ['curriculum-overview']);
+    assert.match(cards.find((card) => card.id === 'curriculum-overview')!.unit, /Centre Licence|Giấy phép Trung tâm/);
     assert.match(cards.find((card) => card.id === 'one-to-one')!.title, /Mr\. Jay’s team|đội ngũ của thầy Jay/);
   }
 });

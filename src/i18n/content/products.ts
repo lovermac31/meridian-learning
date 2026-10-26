@@ -13,7 +13,8 @@
  * 27 Oct 2026, no people or logos); every product has its own, hidden ones included, so going live is one line.
  *
  * Prices approved by Jay on 27 Oct 2026, including the Level 1 Printable Storybook Pack (149.000₫) and the Level 1
- * Teacher Pack (690.000₫). Card copy (problem → what's inside → who it's for) is the Kids Academy session's P-3 copy
+ * Teacher Pack (690.000₫); the 11 factory packs' prices were approved the same day (relayed by the master session),
+ * with the Curriculum Overview credited against a Centre Licence. Card copy (problem → what's inside → who it's for) is the Kids Academy session's P-3 copy
  * (Drive doc "08 /products page copy" v2, 27 Oct); the later teacher and centre packs follow the Selling Assets index, with two lines aligned to the live pages: the Baseline report as the
  * Baseline page describes it (no fee-credit promise), and 1-to-1 lessons "with Mr. Jay's team" as the checkout says.
  * The IELTS Speaking Ladder, Teacher Training Course and Curriculum Overview cards follow their cleared Drive 00 READ MEs
@@ -45,7 +46,7 @@ type CardText = {
 export type Product = {
   id: string;
   // Shown on the page only when true. A factory-built pack stays false until its Drive 00 READ ME says "Cleared"
-  // (copyright and buyer-facing checks done); its price stays PROPOSED in the PR until Jay approves it.
+  // (copyright and buyer-facing checks done) and Jay has approved its price.
   live: boolean;
   section: ProductSectionId;
   price: string;
@@ -503,7 +504,7 @@ export const PRODUCTS: Product[] = [
       problem: 'You need to show your board or parents how a literature-based programme fits together before you commit to it.',
       inside: 'The Four-Lesson Cycle architecture, the curriculum framework, curriculum models for all five levels and the Levels 1–5 syllabus and unit sequence.',
       forWho: 'Principals and heads of English comparing programmes before a licence decision.',
-      unit: 'one-time',
+      unit: 'one-time · credited against a Centre Licence',
       cta: 'Order on Zalo',
     },
     vi: {
@@ -512,7 +513,7 @@ export const PRODUCTS: Product[] = [
       problem: 'Nhà trường cần cho hội đồng hoặc phụ huynh thấy một chương trình dựa trên văn học được xây dựng thế nào trước khi quyết định.',
       inside: 'Kiến trúc Chu trình Bốn Bài học, khung chương trình, mô hình chương trình cho cả năm Level và chương trình học cùng trình tự đơn vị bài học Level 1–5.',
       forWho: 'Hiệu trưởng và trưởng bộ môn tiếng Anh đang so sánh các chương trình trước khi quyết định cấp phép.',
-      unit: 'mua một lần',
+      unit: 'mua một lần · được trừ vào phí Giấy phép Trung tâm',
       cta: 'Đặt mua qua Zalo',
     },
   },
