@@ -169,7 +169,7 @@ const en: CentreLicenceCopy = {
     ],
   },
   price: {
-    heading: 'Founding licence',
+    heading: 'Founding price',
     unit: 'per campus, per school year',
     onRequest: 'Price on request',
     note: 'A founding licence for the first centres. Payment is by bank transfer (VietQR), in full, before access.',
@@ -340,7 +340,7 @@ const vi: CentreLicenceCopy = {
     ],
   },
   price: {
-    heading: 'Giấy phép sáng lập',
+    heading: 'Giá sáng lập',
     unit: 'mỗi cơ sở, mỗi năm học',
     onRequest: 'Giá: liên hệ',
     note: 'Giấy phép sáng lập dành cho những trung tâm đầu tiên. Thanh toán toàn bộ bằng chuyển khoản (VietQR) trước khi nhận tài liệu.',

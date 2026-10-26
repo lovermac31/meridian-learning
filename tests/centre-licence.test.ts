@@ -87,6 +87,7 @@ test('one price, in one place: the approved founding price from spec §1', async
     assert.equal([...html.matchAll(/data-price-slot=/g)].length, 1, `${route}: one price slot`);
     assert.deepEqual([...html.matchAll(/\d[\d.,]*\s*(?:₫|VND|VNĐ)/g)].map((m) => m[0]), ['4.900.000₫'], `${route}: the only price on the page`);
     assert.doesNotMatch(html, /US\$|discount|giảm giá/i, `${route}: no other currency and no discount`);
+    assert.match(html, /<h2 id="centre-price"[^>]*>(?:Founding price|Giá sáng lập)<\/h2><p[^>]*data-price-slot="founding">4\.900\.000₫<\/p>/, `${route}: labelled as the founding price`);
   }
 });
 
