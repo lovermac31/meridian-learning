@@ -532,7 +532,7 @@ const PAGE: Record<Locale, PageCopy> = {
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
-      centres: { heading: 'For centres', intro: 'Licences, teacher training and launch kits for schools and centres.' },
+      centres: { heading: 'For centres', intro: 'Programmes and materials for schools and centres.' },
     },
     closing: { heading: 'Not sure which fits?', body: 'Message Mr. Jay on Zalo and he will point you to the right option. Nothing is charged until you accept a written order summary.', cta: 'Ask Mr. Jay on Zalo' },
   },
@@ -547,7 +547,7 @@ const PAGE: Record<Locale, PageCopy> = {
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
-      centres: { heading: 'Dành cho trung tâm', intro: 'Giấy phép, đào tạo giáo viên và bộ tài liệu khởi động cho trường học và trung tâm.' },
+      centres: { heading: 'Dành cho trung tâm', intro: 'Chương trình và tài liệu cho trường học và trung tâm.' },
     },
     closing: { heading: 'Chưa chắc sản phẩm nào phù hợp?', body: 'Nhắn thầy Jay qua Zalo, thầy sẽ gợi ý lựa chọn phù hợp. Không thu tiền cho đến khi bạn đồng ý bản tóm tắt đơn hàng bằng văn bản.', cta: 'Hỏi thầy Jay qua Zalo' },
   },
