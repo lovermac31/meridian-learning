@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createElement } from 'react';
+import { createElement, type ComponentType } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { renderRoute } from '../src/entry-server';
 import { Footer } from '../src/components/Footer';
@@ -10,7 +10,7 @@ import { setServerLocation } from '../src/lib/ssrLocation';
 // Site re-assessment, 26 Oct 2026 (Notion: "Re-assessment — 26 Oct 2026"). The home page is rendered component by
 // component: the full "/" route loads the chat widget's .scss, which Node cannot import.
 const noop = () => {};
-const render = (path: string, component: Parameters<typeof createElement>[0]) => {
+const render = (path: string, component: ComponentType<{ onNavigate: (path: string) => void }>) => {
   setServerLocation(path);
   return renderToStaticMarkup(createElement(component, { onNavigate: noop }));
 };
