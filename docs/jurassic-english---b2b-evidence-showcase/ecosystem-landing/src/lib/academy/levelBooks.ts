@@ -12,7 +12,7 @@
 // can never ship a localhost or preview-domain book link. Setting it (one edit,
 // no trailing slash) turns every accepted story into a link to
 // `${BOOKS_BASE_URL}/book.html#<id>` with its cover image.
-export const BOOKS_BASE_URL = "";
+export const BOOKS_BASE_URL = "https://books.jurassicenglish.com";
 
 export type Book = { id: string; title: string };
 
@@ -48,7 +48,7 @@ export const LEVEL_BOOKS: AcademyLevel[] = [
   {
     level: 3,
     world: "The Grand Archive",
-    accepted: false,
+    accepted: true,
     stories: [
       { id: "the-unsent-weather-report", title: "The Unsent Weather Report" },
       { id: "the-last-seat-on-the-night-ferry", title: "The Last Seat on the Night Ferry" },
@@ -58,7 +58,7 @@ export const LEVEL_BOOKS: AcademyLevel[] = [
   {
     level: 4,
     world: "Cloudpeak Observatory",
-    accepted: false,
+    accepted: true,
     stories: [
       { id: "the-missing-column", title: "The Missing Column" },
       { id: "the-bridge-committee", title: "The Bridge Committee" },
@@ -68,7 +68,7 @@ export const LEVEL_BOOKS: AcademyLevel[] = [
   {
     level: 5,
     world: "University & Exam Bridge",
-    accepted: false,
+    accepted: true,
     stories: [
       { id: "a-box-called-other", title: "A Box Called Other" },
       { id: "the-map-beneath-the-map", title: "The Map Beneath the Map" },
