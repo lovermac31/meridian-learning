@@ -86,6 +86,15 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
+        <section aria-labelledby="story-older" id="older" className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm">
+          <h2 id="story-older" className="text-2xl font-bold">{c.older.heading}</h2>
+          <p className="mt-2 text-lg">{c.older.body}</p>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <a className="font-semibold" href={oneToOne}>{c.older.oneToOne}</a>
+            <a className="font-semibold" href={STORY_CLUB_ZALO} target="_blank" rel="noopener noreferrer" data-cta="story-club-zalo-older">{c.older.ask}</a>
+          </div>
+        </section>
+
         <section aria-labelledby="story-join">
           <h2 id="story-join" className="text-3xl font-bold">{c.join.heading}</h2>
           <ol className="mt-6 grid gap-4 md:grid-cols-3">

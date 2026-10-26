@@ -1,5 +1,6 @@
 import { ArrowRight, ArrowUpRight, Gift, Mail, MessageCircle, ShieldCheck } from "lucide-react";
 import { REWARD, ROUTE as FAMILY_REWARDS_ROUTE } from "@/lib/familyRewards/terms";
+import { levelHref } from "@/lib/academy/levelBooks";
 
 // Student Academy (human-centered overhaul, revised spec §3 Page B).
 // Plain-language copy for parents. Every image is a storybook illustration
@@ -34,11 +35,11 @@ const COACHED = [
 ];
 
 const LEVELS = [
-  { level: "Level 1 · Foundation", world: "Mistwood Harbor", cefr: "Pre-A1 / A1", image: "world-01-mistwood-harbor", body: "Picture-rich stories, speaking in full sentences without fear, and linking an opinion to a story detail with a “Because Bridge.”" },
-  { level: "Level 2 · Early Reasoner", world: "Whispering Woods", cefr: "A1 / A2", image: "world-02-whispering-woods", body: "Explaining why characters make tough choices, Word Fossil notebooks, and clear 3–4 sentence story responses." },
-  { level: "Level 3 · Developing Analyst", world: "The Grand Archive", cefr: "A2 / B1", image: "world-03-grand-archive", body: "Leading small-group discussions, comparing two viewpoints, and analytical paragraphs backed by quotes." },
-  { level: "Level 4 · Academic Builder", world: "Cloudpeak Observatory", cefr: "B1 / B2", image: "world-04-cloudpeak-observatory", body: "Multi-paragraph essays with clear principles, academic vocabulary and seminar-style debate." },
-  { level: "Level 5 · Advanced Thinker", world: "University & Exam Bridge", cefr: "B2 / C1", image: "", body: "Handling counter-arguments and carrying reasoning into IELTS, IB, IGCSE and Cambridge essays and interviews." },
+  { n: 1, level: "Level 1 · Foundation", world: "Mistwood Harbor", cefr: "Pre-A1 / A1", image: "world-01-mistwood-harbor", body: "Picture-rich stories, speaking in full sentences without fear, and linking an opinion to a story detail with a “Because Bridge.”" },
+  { n: 2, level: "Level 2 · Early Reasoner", world: "Whispering Woods", cefr: "A1 / A2", image: "world-02-whispering-woods", body: "Explaining why characters make tough choices, Word Fossil notebooks, and clear 3–4 sentence story responses." },
+  { n: 3, level: "Level 3 · Developing Analyst", world: "The Grand Archive", cefr: "A2 / B1", image: "world-03-grand-archive", body: "Leading small-group discussions, comparing two viewpoints, and analytical paragraphs backed by quotes." },
+  { n: 4, level: "Level 4 · Academic Builder", world: "Cloudpeak Observatory", cefr: "B1 / B2", image: "world-04-cloudpeak-observatory", body: "Multi-paragraph essays with clear principles, academic vocabulary and seminar-style debate." },
+  { n: 5, level: "Level 5 · Advanced Thinker", world: "University & Exam Bridge", cefr: "B2 / C1", image: "", body: "Handling counter-arguments and carrying reasoning into IELTS, IB, IGCSE and Cambridge essays and interviews." },
 ];
 
 // Smaller width variants live in /images/overhaul/w/<name>-<width>.webp; the
@@ -79,7 +80,7 @@ export function StudentAcademyOverhaul({ familyRewards = false }: { familyReward
               <a href="#diagnostic" className={PRIMARY}>
                 Request a Reading Placement Consultation <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>
-              <a href={STORY_QUEST} target="_blank" rel="noopener noreferrer" className={SECONDARY}>
+              <a href={STORY_QUEST} target="_blank" rel="noopener" className={SECONDARY}>
                 Play the Free 2-Min Story Quest (ages 6–12) <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>
@@ -167,7 +168,7 @@ export function StudentAcademyOverhaul({ familyRewards = false }: { familyReward
           </div>
           <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {LEVELS.map((lv) => (
-              <li key={lv.level} className="overflow-hidden rounded-[1.25rem] border border-[#E6DEC8] bg-[#FAF7F2]">
+              <li key={lv.level} className="flex flex-col overflow-hidden rounded-[1.25rem] border border-[#E6DEC8] bg-[#FAF7F2]">
                 {lv.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={`${IMG}/${lv.image}.webp`} srcSet={srcSetFor(lv.image, [480, 800], 1200)} sizes={WORLD_SIZES} alt={`Storybook illustration of ${lv.world}`} width={1200} height={676} loading="lazy" decoding="async" className="aspect-[16/9] w-full object-cover" />
@@ -180,6 +181,9 @@ export function StudentAcademyOverhaul({ familyRewards = false }: { familyReward
                   <p className="mt-1 inline-flex rounded-full bg-[#E6F4EA] px-2.5 py-0.5 text-xs font-bold text-[#137333]">{lv.cefr}</p>
                   <p className="mt-2 text-sm leading-relaxed text-[#4A5568]">{lv.body}</p>
                 </div>
+                <a href={levelHref(lv.n)} className={`${PRIMARY} mx-4 mb-4 mt-auto`}>
+                  Open Level {lv.n} <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                </a>
               </li>
             ))}
           </ul>
@@ -200,13 +204,13 @@ export function StudentAcademyOverhaul({ familyRewards = false }: { familyReward
             <a href={EMAIL} className={PRIMARY}>
               <Mail aria-hidden="true" className="h-4 w-4" /> Request by email
             </a>
-            <a href={ZALO} target="_blank" rel="noopener noreferrer" className={SECONDARY}>
+            <a href={ZALO} target="_blank" rel="noopener" className={SECONDARY}>
               <MessageCircle aria-hidden="true" className="h-4 w-4" /> Message on Zalo (+84 396 085 076)
             </a>
           </div>
           <p className="mt-4 text-sm text-[#4A5568]">
             Want to try first?{" "}
-            <a href={STORY_QUEST} target="_blank" rel="noopener noreferrer" className="font-bold text-[#1E4D3B] underline underline-offset-4">
+            <a href={STORY_QUEST} target="_blank" rel="noopener" className="font-bold text-[#1E4D3B] underline underline-offset-4">
               Play the free 2-minute Story Quest
             </a>{" "}
             (ages 6–12). Is your child already a confident reader who is quiet out loud?{" "}

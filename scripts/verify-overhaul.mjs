@@ -68,7 +68,8 @@ const PAGES = [
   { route: '/vi/framework', site: 'main', local: 'dist/vi/framework/index.html', lang: 'vi', spa: true, family: false },
   { route: '/methodology', site: 'main', local: 'dist/methodology/index.html', lang: 'en', spa: true, family: false },
   { route: '/vi/methodology', site: 'main', local: 'dist/vi/methodology/index.html', lang: 'vi', spa: true, family: false },
-  { route: '/student-academy', site: 'academy', ceiling: 550, lang: 'en', policy: true, example: true },
+  // 575 (was 550): +15 words for the five 'Open Level N' card buttons (Jay, 26 Oct 2026).
+  { route: '/student-academy', site: 'academy', ceiling: 575, lang: 'en', policy: true, example: true },
   { route: '/ai-speaking', site: 'speaking', ceiling: 725, lang: 'en', scope: true },
   { route: '/ai-speaking/vi', site: 'speaking', lang: 'vi', scope: true },
   { route: '/ai-speaking/pricing', site: 'speaking', ceiling: 650, lang: 'en', scope: true },

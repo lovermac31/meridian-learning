@@ -21,6 +21,7 @@ type StoryClubCopy = {
   week: { heading: string; steps: Step[] };
   parents: { heading: string; items: string[] };
   forWho: { heading: string; yes: string[]; no: string[]; yesLabel: string; noLabel: string; link: string };
+  older: { heading: string; body: string; oneToOne: string; ask: string };
   join: { heading: string; steps: Step[]; cta: string; ctaNote: string };
   faq: { heading: string; items: Faq[] };
   closing: { heading: string; body: string; cta: string };
@@ -69,6 +70,12 @@ const en: StoryClubCopy = {
       'you need lessons recorded',
     ],
     link: 'See the 1-to-1 options',
+  },
+  older: {
+    heading: 'Older child, or Levels 3–5?',
+    body: 'Story Club is for ages 5–8. For older children or Levels 3–5, Mr. Jay will confirm a suitable option before you pay.',
+    oneToOne: 'See 1-to-1 lessons',
+    ask: 'Ask about a place',
   },
   join: {
     heading: 'How to join',
@@ -139,6 +146,12 @@ const vi: StoryClubCopy = {
       'bạn cần bản ghi âm, ghi hình buổi học',
     ],
     link: 'Xem các lựa chọn học 1 kèm 1',
+  },
+  older: {
+    heading: 'Con lớn hơn, hoặc ở Cấp độ 3–5?',
+    body: 'Câu lạc bộ Truyện dành cho bé 5–8 tuổi. Với các con lớn hơn hoặc ở Cấp độ 3–5, thầy Jay sẽ xác nhận lựa chọn phù hợp trước khi bạn thanh toán.',
+    oneToOne: 'Xem học 1 kèm 1',
+    ask: 'Hỏi về một chỗ',
   },
   join: {
     heading: 'Cách đăng ký',
