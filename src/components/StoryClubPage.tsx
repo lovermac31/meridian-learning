@@ -1,7 +1,7 @@
 import { Check, Minus } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
-import { STORY_CLUB_FREE_BOOKS, STORY_CLUB_ZALO, storyClubContent } from '../i18n/content/storyClub';
+import { STORY_CLUB_ZALO, storyClubContent } from '../i18n/content/storyClub';
 import { ToolHero } from './IeltsToolsPage';
 
 export const STORY_CLUB_PATH = '/story-club';
@@ -39,9 +39,6 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <div className="story-cta mt-5 max-w-sm">
             <ZaloButton label={c.join.cta} />
           </div>
-          <p className="mt-3 text-sm">
-            <a className="font-semibold underline underline-offset-4" href={STORY_CLUB_FREE_BOOKS} target="_blank" rel="noopener" data-link="story-club-free-books">{c.price.tryFree}</a>
-          </p>
         </section>
 
         <section aria-labelledby="story-week">

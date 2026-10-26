@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { getLocalizedPathname, resolveLocalizedRoute } from '../src/i18n/routing';
 import { isPublicContentReleased } from '../src/i18n/content';
 import { resolveRouteMetadata, getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata';
-import { storyClubContent, STORY_CLUB_FREE_BOOKS, STORY_CLUB_ZALO } from '../src/i18n/content/storyClub';
+import { storyClubContent, STORY_CLUB_ZALO } from '../src/i18n/content/storyClub';
 
 const EN = '/story-club';
 const VI = '/vi/story-club';
@@ -53,18 +53,5 @@ test('every booking button goes to Jay\'s Zalo; pages state the no-recording pol
     const body = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
     assert.ok(body.length > 0, 'main rendered');
     assert.ok(!body.includes('href="/young-learners-speaking/"') && !body.includes('href="/vi/luyen-noi-ielts/"'), 'no IELTS 9–18 link in the Story Club body');
-  }
-});
-
-// W-1 (Jay, 27 Oct 2026): one quiet link to the free storybooks under the price, in both languages.
-test('under the price, one quiet link lets parents try a free story first', async () => {
-  const { renderRoute } = await import('../src/entry-server');
-  assert.equal(STORY_CLUB_FREE_BOOKS, 'https://books.jurassicenglish.com/?utm_source=storyclub');
-  for (const [route, label] of [[EN, 'Try a free story first'], [VI, 'Đọc thử một truyện miễn phí trước']]) {
-    const html = await renderRoute(route);
-    const links = [...html.matchAll(/data-link="story-club-free-books"[^>]*>([^<]+)</g)].map((m) => m[1]);
-    assert.deepEqual(links, [label], route);
-    const price = html.slice(html.indexOf('class="story-price'), html.indexOf('</section>', html.indexOf('class="story-price')));
-    assert.ok(price.includes(`href="${STORY_CLUB_FREE_BOOKS}"`), `${route}: the link sits in the price block`);
   }
 });

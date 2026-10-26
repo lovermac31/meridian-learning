@@ -69,8 +69,7 @@ const PAGES = [
   { route: '/methodology', site: 'main', local: 'dist/methodology/index.html', lang: 'en', spa: true, family: false },
   { route: '/vi/methodology', site: 'main', local: 'dist/vi/methodology/index.html', lang: 'vi', spa: true, family: false },
   // 575 (was 550): +15 words for the five 'Open Level N' card buttons (Jay, 26 Oct 2026).
-  // 600 (was 575): +~19 words for the two-door row (free storybooks, Story Club) near the top (W-1, Jay 27 Oct 2026).
-  { route: '/student-academy', site: 'academy', ceiling: 600, lang: 'en', policy: true, example: true },
+  { route: '/student-academy', site: 'academy', ceiling: 575, lang: 'en', policy: true, example: true },
   { route: '/ai-speaking', site: 'speaking', ceiling: 725, lang: 'en', scope: true },
   { route: '/ai-speaking/vi', site: 'speaking', lang: 'vi', scope: true },
   { route: '/ai-speaking/pricing', site: 'speaking', ceiling: 650, lang: 'en', scope: true },
