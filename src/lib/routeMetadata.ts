@@ -415,6 +415,22 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       { name: 'WorldWise Learning', path: '/worldwise' },
     ],
   },
+  // Unlisted sales page for centre owners, shared only in Zalo: noindex, no canonical or alternates, out of the
+  // sitemap. The description carries no price (the number lives in the written order summary only).
+  '/centres/level-1': {
+    title: 'Level 1 Centre Licence for Ages 4–8 | Jurassic English™',
+    description:
+      'A full school year of thinking-English for ages 4–8: 40 lessons scripted minute by minute, teacher training and three original Jurassic English storybooks, licensed per campus.',
+    canonicalPath: '/centres/level-1',
+    shouldIndex: false,
+    localized: {
+      vi: {
+        title: 'Giấy phép Trung tâm Level 1 cho bé 4–8 tuổi | Jurassic English™',
+        description:
+          'Trọn một năm “tiếng Anh tư duy” cho bé 4–8 tuổi: 40 giáo án soạn sẵn từng phút, đào tạo giáo viên và ba truyện tranh gốc của Jurassic English, cấp phép theo từng cơ sở.',
+      },
+    },
+  },
   '/plans-pricing-access': {
     title: 'Private Plans and Pricing Access | Jurassic English™',
     description:

@@ -93,3 +93,11 @@
 .story-club-page .story-minus { color: #b45309; }
 .story-club-page .story-cta .insights-button-primary { color: var(--color-jurassic-dark); text-decoration: none; }
 .story-club-page details summary::marker { color: #b45309; }
+/* Unlisted centre-licence page */
+.centre-licence-page .centre-lesson-sheet { border-left: 6px solid var(--color-jurassic-accent); }
+.centre-licence-page .centre-lesson-time { display: inline-block; min-width: 6.5rem; color: #8a5a00; }
+.centre-licence-page .centre-lesson-script { border-left: 3px solid #d9cdb4; padding-left: .9rem; font-style: italic; color: #26343d; }
+.centre-licence-page .centre-lesson-script span { font-style: normal; color: #5b6770; }
+.centre-licence-page .centre-lesson-tier { background: #f7f2e6; }
+.centre-licence-page .centre-hero-cta .insights-button-primary { color: var(--color-jurassic-dark); text-decoration: none; }
+.centre-licence-page .centre-hero-cta p { color: #e4e8eb; }
