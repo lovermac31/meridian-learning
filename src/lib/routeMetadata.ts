@@ -164,6 +164,27 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       },
     },
   },
+  '/products': {
+    title: 'Products and Prices | Jurassic English™',
+    description:
+      'Story Club, the Live Speaking Baseline and 1-to-1 lessons for families, Level 1 materials for teachers and a licence for centres, each with its price and how to buy it.',
+    canonicalPath: '/products',
+    breadcrumbs: [
+      { name: 'Home', path: '/' },
+      { name: 'Products', path: '/products' },
+    ],
+    localized: {
+      vi: {
+        title: 'Sản phẩm và học phí | Jurassic English™',
+        description:
+          'Câu lạc bộ Truyện, Đánh giá Nói trực tiếp và học 1 kèm 1 cho gia đình, tài liệu Level 1 cho giáo viên và giấy phép cho trung tâm, kèm giá và cách mua.',
+        breadcrumbs: [
+          { name: 'Trang chủ', path: '/' },
+          { name: 'Sản phẩm', path: '/products' },
+        ],
+      },
+    },
+  },
   '/story-club': {
     title: 'Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™',
     description:
@@ -1074,6 +1095,7 @@ export function getExpectedPublicIndexableRoutes(): string[] {
         '/cefr-alignment',
         '/teacher-standards',
         '/story-club',
+        '/products',
         '/series/compare',
         '/thinking-cycle/compare',
         '/tools/ielts-band-score-calculator',
