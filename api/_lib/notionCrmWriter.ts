@@ -1,21 +1,23 @@
 /**
  * Notion CRM Writer
  * ─────────────────────────────────────────────────────────────────────────────
- * Writes a JE lead record to the Notion JE Leads database on every successful
- * Plans & Pricing intake submission.
+ * Writes a JE lead record to the Notion "Leads" database (Jurassic English B2C RevOps Hub) on every successful
+ * Plans & Pricing intake submission. The older "JE Leads" database was retired on 7 Oct 2026 (no rows since 12 Aug);
+ * registrations now go to "Leads", mapped field by field to its own properties (27 Oct 2026).
  *
  * Architecture rules:
  *   - Raw fetch only — no Notion SDK; consistent with Resend integration pattern
  *   - Server-side only — never imported by the frontend bundle
  *   - Never throws — all errors caught, logged, and returned as a typed result
  *   - Caller logs the result but never surfaces it to the user-facing response
- *   - Duplicate guard: checks for existing Registration ID before creating
- *   - Graceful degradation: if NOTION_TOKEN or NOTION_JE_LEADS_DB_ID are absent,
- *     the write is skipped with a warning — existing email flow is unaffected
+ *   - Duplicate guard: checks for an existing Registration ID (kept in "UTM / Raw Source") before creating
+ *   - Graceful degradation: if NOTION_TOKEN is absent, the write is skipped with a
+ *     warning — existing email flow is unaffected
  *
- * Required env vars:
- *   NOTION_TOKEN           — Notion internal integration token (secret_...)
- *   NOTION_JE_LEADS_DB_ID  — The JE Leads database ID from the Notion URL
+ * Env vars:
+ *   NOTION_TOKEN        — Notion internal integration token (secret_...); its integration needs access to "Leads"
+ *   NOTION_LEADS_DB_ID  — optional override of the "Leads" database ID (LEADS_DB_ID). NOTION_JE_LEADS_DB_ID (the
+ *                         retired database) is no longer read here.
  */
 
 import {
@@ -29,13 +31,18 @@ import { logEvent } from './observability.js';
 
 // ─── Notion select label maps ─────────────────────────────────────────────────
 
-/** Map alignment-status keys → Notion select option names (must match DB exactly). */
+/** Map alignment-status keys → the "Leads" Alignment Class options (must match the DB exactly). */
 const ALIGNMENT_NOTION_LABELS: Record<AlignmentStatus, string> = {
   primary:           'Primary',
   secondary:         'Secondary',
   context_dependent: 'Context-dependent',
-  manual_review:     'Manual Review',
+  manual_review:     'Manual review',
 };
+
+/** The "Leads" database in the Jurassic English B2C RevOps Hub (NOTION_LEADS_DB_ID overrides it). */
+export const LEADS_DB_ID = 'b5dcf12081844218a5d0d1bd0ea1ce0e';
+
+const PREFERRED_CHANNEL: Partial<Record<string, string>> = { email: 'Email', phone_whatsapp: 'WhatsApp' };
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -78,16 +85,6 @@ function notionHeaders(token: string): Record<string, string> {
   };
 }
 
-function supportsType(
-  schema: NotionDatabaseSchema | null,
-  propertyName: string,
-  allowedTypes: readonly NotionPropertyType[],
-): boolean {
-  if (!schema) return true;
-  const actualType = schema[propertyName];
-  return Boolean(actualType && allowedTypes.includes(actualType));
-}
-
 async function fetchDatabaseSchema(
   token: string,
   dbId: string,
@@ -126,68 +123,71 @@ async function fetchDatabaseSchema(
 
 // ─── Property builder ─────────────────────────────────────────────────────────
 
+/** One line per registration field, in the intake email's order: what "Leads" has no property for. */
+export function registrationSummary(r: NormalizedPricingRegistration): string {
+  const ctx = crmMap(normaliseBuyerType(r.buyerType), normaliseMAOI(r.interestArea));
+  return [
+    'lead_source: pricing-registration',
+    `registration_id: ${r.submissionId}`,
+    `submitted: ${r.submittedAt}`,
+    `buyer type: ${ctx.buyerType.label}`,
+    `organisation: ${r.organizationName}`,
+    `role: ${r.roleTitle}`,
+    `country: ${r.countryRegion}`,
+    r.organizationSize ? `size: ${r.organizationSize}` : null,
+    `interest: ${ctx.maoi.label}`,
+    `alignment: ${ALIGNMENT_NOTION_LABELS[ctx.alignment.status]}`,
+    `pricing: ${ctx.service.rangeSummary}`,
+    r.timeline ? `timeline: ${r.timeline}` : null,
+    r.preferredContactMethod ? `contact preference: ${r.preferredContactMethod}` : null,
+    `consent: ${r.contactConsent ? 'yes' : 'no'}`,
+  ].filter(Boolean).join(' · ');
+}
+
 /**
- * Build the Notion page properties object from a normalised registration record.
- * The CRM mapping engine is called here independently — this keeps the email
- * notification path completely untouched.
+ * The "Leads" page properties for a pricing registration, field by field (27 Oct 2026):
+ *   Full Name (+ organisation) → Lead Name · Work Email → Email · Phone / WhatsApp → Contact (Zalo / Phone)
+ *   Preferred Contact Method → Preferred Channel (email → Email, phone_whatsapp → WhatsApp; "either" left blank)
+ *   Alignment Status → Alignment Class · manual review → Human Review Needed · Recommended Next Step → Next Action
+ *   Lead Status New → Lifecycle Stage Lead · Buyer Type Parent / Guardian → Parent Name
+ *   Registration ID, Submitted At, Buyer Type, Organisation, Role, Country, Size, Interest, Pricing Range, Timeline,
+ *   consent → UTM / Raw Source (one line; "Leads" has no properties for them) · Message → the page body.
+ * Offer Fit (MAOI) is "Manual review": the B2C options (1:1 Speaking, Small Group, …) do not describe a B2B interest.
+ * Source is "Other". Only properties the database has (per its schema) and existing select options are written.
  */
-function buildProperties(
+export function buildProperties(
   r: NormalizedPricingRegistration,
   schema: NotionDatabaseSchema | null,
 ): Record<string, unknown> {
-  const btKey   = normaliseBuyerType(r.buyerType);
-  const maoiKey = normaliseMAOI(r.interestArea);
-  const ctx     = crmMap(btKey, maoiKey);
-
-  // ── Required properties ────────────────────────────────────────────────────
+  const ctx = crmMap(normaliseBuyerType(r.buyerType), normaliseMAOI(r.interestArea));
+  const has = (name: string, ...types: string[]) => !schema || types.includes(schema[name]);
   const props: Record<string, unknown> = {
-
-    // Title property — primary key in Notion; must be unique per record
-    'Registration ID': { title: rt(r.submissionId) },
-
-    // Intake timestamp — ISO 8601 date with time
-    'Submitted At': { date: { start: r.submittedAt } },
-
-    // Contact fields — from §2 of the CRM intake email
-    'Full Name':        { rich_text: rt(r.fullName) },
-    'Work Email':       { email: r.workEmail },
-    'Organisation':     { rich_text: rt(r.organizationName) },
-    'Role / Title':     { rich_text: rt(r.roleTitle) },
-    'Country / Region': { rich_text: rt(r.countryRegion) },
-
-    // CRM classification — derived from the JE CRM Mapping Engine
-    'Buyer Type':            { select: { name: ctx.buyerType.label } },
-    'Main Area of Interest': { select: { name: ctx.maoi.label } },
-    'Alignment Status':      { select: { name: ALIGNMENT_NOTION_LABELS[ctx.alignment.status] } },
-    'Service Category':      { rich_text: rt(ctx.maoi.label) },
-    'Pricing Range Summary': { rich_text: rt(ctx.service.rangeSummary) },
-    'Recommended Next Step': { rich_text: rt(ctx.cta) },
-
-    // Pipeline entry — always New on first write; updated manually by operator
-    'Lead Status': { status: { name: 'New' } },
+    'Lead Name': { title: rt(r.organizationName ? `${r.fullName} · ${r.organizationName}` : r.fullName) },
   };
-
-  // ── Optional properties — only written when present on the submission ───────
-  if (r.organizationSize && supportsType(schema, 'Organisation Size', ['rich_text'])) {
-    props['Organisation Size'] = { rich_text: rt(r.organizationSize) };
-  }
-  if (r.timeline && supportsType(schema, 'Timeline', ['rich_text'])) {
-    props['Timeline'] = { rich_text: rt(r.timeline) };
-  }
-  if (r.message && supportsType(schema, 'Notes', ['rich_text'])) {
-    props['Notes'] = { rich_text: rt(r.message) };
-  }
-  if (r.phoneWhatsapp && supportsType(schema, 'Phone / WhatsApp', ['rich_text'])) {
-    props['Phone / WhatsApp'] = { rich_text: rt(r.phoneWhatsapp) };
-  }
-  if (
-    r.preferredContactMethod &&
-    supportsType(schema, 'Preferred Contact Method', ['select', 'status'])
-  ) {
-    props['Preferred Contact Method'] = { select: { name: r.preferredContactMethod } };
-  }
-
+  if (r.workEmail && has('Email', 'email')) props['Email'] = { email: r.workEmail };
+  if (r.phoneWhatsapp && has('Contact (Zalo / Phone)', 'phone_number')) props['Contact (Zalo / Phone)'] = { phone_number: r.phoneWhatsapp };
+  const channel = r.preferredContactMethod ? PREFERRED_CHANNEL[r.preferredContactMethod] : undefined;
+  if (channel && has('Preferred Channel', 'select')) props['Preferred Channel'] = { select: { name: channel } };
+  if (has('Source', 'select')) props['Source'] = { select: { name: 'Other' } };
+  if (has('UTM / Raw Source', 'rich_text', 'text')) props['UTM / Raw Source'] = { rich_text: rt(registrationSummary(r)) };
+  if (has('Lifecycle Stage', 'select')) props['Lifecycle Stage'] = { select: { name: 'Lead' } };
+  if (has('Alignment Class', 'select')) props['Alignment Class'] = { select: { name: ALIGNMENT_NOTION_LABELS[ctx.alignment.status] } };
+  if (has('Offer Fit (MAOI)', 'select')) props['Offer Fit (MAOI)'] = { select: { name: 'Manual review' } };
+  if (ctx.alignment.status === 'manual_review' && has('Human Review Needed', 'checkbox')) props['Human Review Needed'] = { checkbox: true };
+  if (has('Next Action', 'rich_text', 'text')) props['Next Action'] = { rich_text: rt(ctx.cta) };
+  if (normaliseBuyerType(r.buyerType) === 'parent_guardian' && has('Parent Name', 'rich_text', 'text')) props['Parent Name'] = { rich_text: rt(r.fullName) };
   return props;
+}
+
+/** The page body: the registration summary and the message, so nothing the old database held is lost. */
+export function buildPageBody(r: NormalizedPricingRegistration): unknown[] {
+  const paragraph = (text: string) => ({ object: 'block', type: 'paragraph', paragraph: { rich_text: rt(text) } });
+  const message = (r.message ?? '').match(/[\s\S]{1,2000}/g) ?? [];
+  return [
+    { object: 'block', type: 'heading_3', heading_3: { rich_text: rt('Plans & Pricing registration') } },
+    paragraph(registrationSummary(r)),
+    ...(message.length ? [{ object: 'block', type: 'heading_3', heading_3: { rich_text: rt('Message') } }, ...message.map(paragraph)] : []),
+  ];
 }
 
 // ─── Duplicate guard ──────────────────────────────────────────────────────────
@@ -207,7 +207,7 @@ async function isDuplicate(
       method:  'POST',
       headers: notionHeaders(token),
       body:    JSON.stringify({
-        filter:    { property: 'Registration ID', title: { equals: submissionId } },
+        filter:    { property: 'UTM / Raw Source', rich_text: { contains: `registration_id: ${submissionId}` } },
         page_size: 1,
       }),
     });
@@ -244,10 +244,10 @@ export async function writeNotionLead(
   registration: NormalizedPricingRegistration,
 ): Promise<NotionWriteResult> {
   const token = process.env.NOTION_TOKEN?.trim();
-  const dbId  = process.env.NOTION_JE_LEADS_DB_ID?.trim();
+  const dbId  = process.env.NOTION_LEADS_DB_ID?.trim() || LEADS_DB_ID;
 
   // Graceful skip when not configured — does not break email flow
-  if (!token || !dbId) {
+  if (!token) {
     console.warn('[notion] env not configured — write skipped', {
       hasToken: Boolean(token),
       hasDbId:  Boolean(dbId),
@@ -276,6 +276,7 @@ export async function writeNotionLead(
       body:    JSON.stringify({
         parent:     { database_id: dbId },
         properties: buildProperties(registration, schema),
+        children:   buildPageBody(registration),
       }),
     });
   } catch (err) {
