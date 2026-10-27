@@ -23,6 +23,7 @@
  * the Teacher Pack says the lessons use 10 widely available picture books.
  */
 import type { Locale } from '../locales';
+import { SAMPLE_PAGE_COUNTS } from './samplePages';
 
 export const PRODUCTS_PATH = '/products';
 export const PRODUCTS_VI_PATH = '/vi/products';
@@ -30,8 +31,8 @@ export const PRODUCTS_UTM = 'utm_source=products';
 export const PRODUCTS_ZALO = `https://zalo.me/84396085076?${PRODUCTS_UTM}`;
 export const PRODUCT_IMAGE_DIR = '/images/products';
 // Public sample of each product (Jay, 27 Oct 2026: "Everybody has to see the samples" before a price or a booking):
-// <stem>-sample.pdf plus three page thumbnails <stem>-p1.webp … -p3.webp, made by the factory sessions to the
-// master's SAMPLES-AND-BRANDED-PDF-SPEC.
+// three card thumbnails <stem>-p1.webp … -p3.webp and, in the view-only sample viewer, the watermarked page set
+// pages/<stem>-pgNN.webp (samplePages.ts). No sample PDF is published (Jay, 27 Oct 2026: no download, no print).
 export const PRODUCT_SAMPLE_DIR = '/samples';
 
 export const PRODUCT_SECTIONS = ['families', 'teachers', 'centres'] as const;
@@ -668,6 +669,7 @@ type PageCopy = {
   delivery: string;
   leadIns: { problem: string; inside: string; forWho: string };
   sample: { heading: string; note: string; open: string };
+  viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   closing: { heading: string; body: string; cta: string };
 };
@@ -680,7 +682,8 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Jurassic English home',
     delivery: 'Pay by VietQR after a written order summary; your files arrive by Google Drive within 24 hours.',
     leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for' },
-    sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'Open the sample (PDF)' },
+    sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'See the sample pages' },
+    viewer: { title: 'Sample pages', prev: 'Previous page', next: 'Next page', close: 'Close', counter: 'Page {n} of {total}', end: 'That’s the sample. Ready to order?', viewOnly: 'Sample pages are for viewing only.' },
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
@@ -696,7 +699,8 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Trang chủ Jurassic English',
     delivery: 'Thanh toán qua VietQR sau khi nhận bản tóm tắt đơn hàng; tài liệu được gửi qua Google Drive trong vòng 24 giờ.',
     leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho' },
-    sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Mở bản mẫu (PDF)' },
+    sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Xem các trang mẫu' },
+    viewer: { title: 'Trang mẫu', prev: 'Trang trước', next: 'Trang sau', close: 'Đóng', counter: 'Trang {n}/{total}', end: 'Đó là bản mẫu. Sẵn sàng đặt mua?', viewOnly: 'Trang mẫu chỉ để xem.' },
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
@@ -734,9 +738,14 @@ export const productsContent: Record<Locale, ReturnType<typeof productsPage>> = 
 
 /** The sample's PDF and its three page thumbnails, from a product's sample stem. */
 export function productSampleFiles(stem: string) {
+  const thumbs = [1, 2, 3].map((n) => `${PRODUCT_SAMPLE_DIR}/${stem}-p${n}.webp`);
+  const count = SAMPLE_PAGE_COUNTS[stem] ?? 0;
   return {
-    pdf: `${PRODUCT_SAMPLE_DIR}/${stem}-sample.pdf`,
-    pages: [1, 2, 3].map((n) => `${PRODUCT_SAMPLE_DIR}/${stem}-p${n}.webp`),
+    thumbs,
+    // The viewer's pages: the full watermarked set, or the three thumbnails until that set lands.
+    pages: count
+      ? Array.from({ length: count }, (_, i) => `${PRODUCT_SAMPLE_DIR}/pages/${stem}-pg${String(i + 1).padStart(2, '0')}.webp`)
+      : thumbs,
   };
 }
 

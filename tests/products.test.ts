@@ -230,71 +230,111 @@ const SAMPLE_STEMS: Record<string, string> = {
   'ielts-speaking-ladder': 'ielts-speaking-ladder', 'centre-licence': 'centre-licence',
   'teacher-training-course': 'teacher-training-course', 'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
 };
-const SAMPLE_FILE = /^(.+)-(sample\.pdf|p[123]\.webp)$/;
+const SAMPLE_FILE = /^(.+)-p[123]\.webp$/;
+const PAGE_FILE = /^(.+)-pg(\d\d)\.webp$/;
+const filesUnder = (dir: string): string[] => (existsSync(dir) ? readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
+  entry.isDirectory() ? filesUnder(`${dir}/${entry.name}`) : entry.name.startsWith('.') ? [] : [`${dir}/${entry.name}`]) : []);
 
-test('samples: every sample stem is wired to its four files in public/samples, and every file to a product', async () => {
+test('samples: no PDF is published; every card has three thumbnails and every page set matches the manifest', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
+  const { SAMPLE_PAGE_COUNTS } = await import('../src/i18n/content/samplePages');
+  // Jay, 27 Oct 2026: no PDF download. Nothing under public/samples may be a PDF.
+  assert.deepEqual(filesUnder('public/samples').filter((file) => /\.pdf$/i.test(file)), [], 'no PDF under public/samples');
   assert.deepEqual(Object.keys(SAMPLE_STEMS).sort(), PRODUCTS.map((p) => p.id).sort(), 'one stem per product');
   for (const p of PRODUCTS.filter((entry) => entry.sample)) assert.equal(p.sample, SAMPLE_STEMS[p.id], `${p.id}: stem from the spec`);
-  const files = existsSync('public/samples') ? readdirSync('public/samples').filter((f) => !f.startsWith('.')) : [];
-  for (const file of files) assert.match(file, SAMPLE_FILE, `public/samples/${file}`);
-  const onDisk = [...new Set(files.map((file) => file.match(SAMPLE_FILE)![1]))].sort();
-  assert.deepEqual(onDisk, PRODUCTS.filter((p) => p.sample).map((p) => p.sample!).sort(), 'files in public/samples ↔ products with a sample');
-  for (const stem of onDisk) {
-    const pdf = readFileSync(`public/samples/${stem}-sample.pdf`);
-    assert.equal(pdf.subarray(0, 5).toString(), '%PDF-', `${stem}: PDF`);
-    assert.ok(pdf.length <= 3 * 1024 * 1024, `${stem}: PDF ≤ 3 MB (${pdf.length})`);
-    for (const n of [1, 2, 3]) {
-      const page = readFileSync(`public/samples/${stem}-p${n}.webp`);
-      assert.equal(page.subarray(8, 12).toString(), 'WEBP', `${stem}-p${n}: WebP`);
-      assert.ok(page.length < 80 * 1024, `${stem}-p${n}: < 80 KB (${page.length})`);
+  const stems = PRODUCTS.filter((p) => p.sample).map((p) => p.sample!).sort();
+  const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages');
+  for (const file of thumbs) assert.match(file, SAMPLE_FILE, `public/samples/${file}`);
+  assert.deepEqual([...new Set(thumbs.map((file) => file.match(SAMPLE_FILE)![1]))].sort(), stems, 'thumbnails ↔ products with a sample');
+  for (const stem of stems) for (const n of [1, 2, 3]) {
+    const page = readFileSync(`public/samples/${stem}-p${n}.webp`);
+    assert.equal(page.subarray(8, 12).toString(), 'WEBP', `${stem}-p${n}: WebP`);
+    assert.ok(page.length < 80 * 1024, `${stem}-p${n}: < 80 KB (${page.length})`);
+  }
+  // Viewer page sets: public/samples/pages/<stem>-pgNN.webp, 01…N, exactly as samplePages.ts lists them.
+  const pages = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.'));
+  for (const file of pages) assert.match(file, PAGE_FILE, `pages/${file}`);
+  const found: Record<string, number> = {};
+  for (const file of pages) { const [, stem] = file.match(PAGE_FILE)!; found[stem] = (found[stem] ?? 0) + 1; }
+  assert.deepEqual(found, SAMPLE_PAGE_COUNTS, 'page files ↔ manifest');
+  for (const [stem, count] of Object.entries(SAMPLE_PAGE_COUNTS)) {
+    assert.ok(stems.includes(stem), `${stem}: a product's sample`);
+    for (let n = 1; n <= count; n += 1) {
+      const file = readFileSync(`public/samples/pages/${stem}-pg${String(n).padStart(2, '0')}.webp`);
+      assert.equal(file.subarray(8, 12).toString(), 'WEBP', `${stem}-pg${n}: WebP`);
+      assert.ok(file.length < 300 * 1024, `${stem}-pg${n}: ${file.length} bytes`);
     }
   }
 });
 
-test('samples: the block sits above the price and order button, one link to the PDF with three page thumbnails', async () => {
+test('samples: the block sits above the price; one button opens the viewer; no link to any PDF', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
   const { ProductsPage } = await import('../src/components/ProductsPage');
-  const set = (ids: string[]) => {
-    const before = new Map(PRODUCTS.map((p) => [p.id, p.sample]));
-    for (const p of PRODUCTS) if (ids.includes(p.id)) p.sample = SAMPLE_STEMS[p.id];
-    return () => { for (const p of PRODUCTS) p.sample = before.get(p.id); };
-  };
-  // Hidden until wired: a card without a sample shows no block.
-  for (const [locale, route] of [['en', EN], ['vi', VI]] as const) {
+  for (const [locale, route, heading, open] of [['en', EN, 'See a sample', 'See the sample pages'], ['vi', VI, 'Xem mẫu', 'Xem các trang mẫu']] as const) {
     setServerLocation(route);
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
-    assert.equal([...html.matchAll(/data-sample="/g)].length, PRODUCTS.filter((p) => p.live && p.sample).length, locale);
-  }
-  const restore = set(['baseline', 'teacher-pack-l1']);
-  try {
-    for (const [locale, route, heading, open] of [['en', EN, 'See a sample', 'Open the sample (PDF)'], ['vi', VI, 'Xem mẫu', 'Mở bản mẫu (PDF)']] as const) {
-      setServerLocation(route);
-      const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
-      const shown = [...html.matchAll(/data-sample="([^"]+)"/g)].map((m) => m[1]);
-      assert.deepEqual(shown, PRODUCTS.filter((p) => p.live && p.sample).map((p) => p.id), locale);
-      for (const id of ['baseline', 'teacher-pack-l1']) assert.ok(shown.includes(id), `${locale}: ${id} sample shown`);
-      for (const [id, stem] of [['baseline', 'baseline'], ['teacher-pack-l1', 'teacher-pack-l1']]) {
-        const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
-        const at = (marker: string) => card.indexOf(marker);
-        assert.ok(at('</dl>') < at(`data-sample="${id}"`) && at(`data-sample="${id}"`) < at(`data-price="${id}"`), `${locale} ${id}: after the text, before the price`);
-        assert.ok(at(`data-price="${id}"`) < at(`data-cta="product-${id}"`), `${locale} ${id}: price before the order button`);
-        assert.match(card, new RegExp(`<div id="${id}-sample" class="[^"]*scroll-mt-24`), `${locale} ${id}: anchor clears the fixed header`);
-        assert.ok(card.includes(`>${heading}<`), `${locale} ${id}: heading`);
-        const links = [...card.matchAll(/<a [^>]*data-sample-link="[^"]+"[^>]*>/g)].map((m) => m[0]);
-        assert.equal(links.length, 1, `${locale} ${id}: one sample link`);
-        assert.match(links[0], new RegExp(`href="/samples/${stem}-sample\\.pdf" target="_blank" rel="noopener noreferrer"`), `${locale} ${id}`);
-        const label = links[0].match(/aria-label="([^"]+)"/)![1];
-        assert.ok(label.startsWith(`${open}: `) && label.length > open.length + 2, `${locale} ${id}: accessible name starts with the visible text`);
-        assert.ok(card.includes(`>${open}</span>`), `${locale} ${id}: visible link text`);
-        assert.deepEqual([...card.matchAll(/<img src="([^"]+)" alt="" width="600" height="849"[^>]*data-sample-page=/g)].map((m) => m[1]),
-          [1, 2, 3].map((n) => `/samples/${stem}-p${n}.webp`), `${locale} ${id}: three thumbnails`);
-        assert.equal([...card.matchAll(/data-cta="/g)].length, 1, `${locale} ${id}: still one CTA`);
-      }
+    assert.deepEqual([...html.matchAll(/data-sample="([^"]+)"/g)].map((m) => m[1]), PRODUCTS.filter((p) => p.live && p.sample).map((p) => p.id), locale);
+    assert.doesNotMatch(html, /href="[^"]*\.pdf/i, `${locale}: no PDF link`);
+    assert.doesNotMatch(html, /data-sample-viewer=/, `${locale}: the viewer opens only on request`);
+    assert.ok(html.includes('@media print { body { display: none !important; } }'), `${locale}: printing gives a blank page`);
+    for (const [id, stem] of [['baseline', 'baseline'], ['teacher-pack-l1', 'teacher-pack-l1']]) {
+      const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
+      const block = card.slice(card.indexOf(`data-sample="${id}"`), card.indexOf(`data-price="${id}"`));
+      const at = (marker: string) => card.indexOf(marker);
+      assert.ok(at('</dl>') < at(`data-sample="${id}"`) && at(`data-sample="${id}"`) < at(`data-price="${id}"`), `${locale} ${id}: after the text, before the price`);
+      assert.ok(at(`data-price="${id}"`) < at(`data-cta="product-${id}"`), `${locale} ${id}: price before the order button`);
+      assert.match(card, new RegExp(`<div id="${id}-sample" class="[^"]*scroll-mt-24`), `${locale} ${id}: anchor clears the fixed header`);
+      assert.ok(block.includes(`>${heading}<`), `${locale} ${id}: heading`);
+      assert.doesNotMatch(block, /<a /, `${locale} ${id}: no link in the sample block`);
+      const button = block.match(/<button type="button" aria-label="([^"]+)"[^>]*data-sample-link="[^"]+">/)!;
+      assert.ok(button[1].startsWith(`${open}: `) && button[1].length > open.length + 2, `${locale} ${id}: accessible name starts with the visible text`);
+      assert.ok(block.includes(`>${open}</span>`), `${locale} ${id}: visible text`);
+      assert.deepEqual([...block.matchAll(/<img src="([^"]+)" alt="" width="600" height="849"[^>]*draggable="false"[^>]*data-sample-page=/g)].map((m) => m[1]),
+        [1, 2, 3].map((n) => `/samples/${stem}-p${n}.webp`), `${locale} ${id}: three thumbnails, not draggable`);
+      assert.equal([...card.matchAll(/data-cta="/g)].length, 1, `${locale} ${id}: still one CTA`);
     }
-  } finally {
-    restore();
   }
+});
+
+test('samples: the viewer shows one watermarked page at a time, a counter, and the order button on the last page', async () => {
+  const { PRODUCTS, productsPage } = await import('../src/i18n/content/products');
+  const { SAMPLE_PAGE_COUNTS } = await import('../src/i18n/content/samplePages');
+  const { SampleViewer } = await import('../src/components/ProductsPage');
+  const noop = () => {};
+  for (const [locale, route, first, end] of [['en', EN, 'Page 1 of 8', 'That’s the sample. Ready to order?'], ['vi', VI, 'Trang 1/8', 'Đó là bản mẫu. Sẵn sàng đặt mua?']] as const) {
+    setServerLocation(route);
+    const c = productsPage(locale);
+    const card = c.sections.flatMap((section) => section.cards).find((entry) => entry.id === 'baseline')!;
+    const view = (initialPage: number) => renderToStaticMarkup(createElement(SampleViewer, { card, locale, source: null, copy: c.viewer, onClose: noop, initialPage }));
+    const start = view(0);
+    assert.match(start, /role="dialog" aria-modal="true"/, locale);
+    assert.ok(start.includes(`>${first}<`), `${locale}: counter`);
+    assert.match(start, /<img src="\/samples\/pages\/baseline-pg01\.webp" alt="[^"]+" width="1200" height="1699" draggable="false" class="pointer-events-none/, `${locale}: page 1, not draggable`);
+    assert.match(start, /disabled=""[^>]*data-viewer-prev/, `${locale}: no previous page on page 1`);
+    assert.doesNotMatch(start, /data-viewer-order=/, `${locale}: order button only at the end`);
+    assert.doesNotMatch(start, /href="[^"]*\.pdf|download|print/i, `${locale}: no PDF, download or print control`);
+    const last = view(SAMPLE_PAGE_COUNTS.baseline - 1);
+    assert.ok(last.includes('/samples/pages/baseline-pg08.webp') && last.includes(`>${end}<`), `${locale}: last page and end text`);
+    assert.match(last, /data-viewer-order="baseline"/, `${locale}: order button on the last page`);
+    assert.match(last, /disabled=""[^>]*data-viewer-next/, `${locale}: no next page at the end`);
+  }
+  // A card whose page set has not landed shows its three thumbnails.
+  const waiting = PRODUCTS.find((p) => p.sample && !SAMPLE_PAGE_COUNTS[p.sample])!;
+  setServerLocation(EN);
+  const card = productsPage('en').sections.flatMap((section) => section.cards).find((entry) => entry.id === waiting.id)!;
+  const html = renderToStaticMarkup(createElement(SampleViewer, { card, locale: 'en', source: null, copy: productsPage('en').viewer, onClose: noop }));
+  assert.ok(html.includes(`/samples/${waiting.sample}-p1.webp`) && html.includes('>Page 1 of 3<'), `${waiting.id}: thumbnails until its pages land`);
+});
+
+// The header Baseline link is covered by the next test (it leads to #baseline-sample); '/' lazy-loads BotUI, whose .scss
+// cannot load under tsx, so the rendered checks cover /products and the country pages.
+test('samples: no page links a PDF sample (products and country pages)', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  for (const route of [EN, VI, '/ielts-speaking-online/uae', '/ar/ielts-speaking-online/uae', '/ielts-speaking-online/pakistan', '/es/ielts-speaking-online/colombia']) {
+    const html = await renderRoute(route);
+    assert.doesNotMatch(html, /href="[^"]*\.pdf/i, `${route}: no .pdf link`);
+  }
+  assert.doesNotMatch(readFileSync('src/components/ProductsPage.tsx', 'utf8') + readFileSync('src/i18n/content/products.ts', 'utf8'), /sample\.pdf/);
 });
 
 test('samples: the header "Book Baseline" leads to the Baseline sample once it exists, else to the booking page', async () => {
@@ -340,7 +380,7 @@ test('wave 2: two new cards with their samples, US$ by PayPal, and the workbook 
     assert.equal([...html.matchAll(/data-also="/g)].length, 1, `${route}: one pointer line`);
     for (const [id, price, usd] of [['parent-pack-l1', '249.000₫', 10], ['parent-pack-l2', '249.000₫', 10], ['student-workbook-l1', '190.000₫', 8]] as const) {
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
-      assert.ok(card.includes(`data-sample="${id}"`) && card.includes(`/samples/${id}-sample.pdf`), `${route} ${id}: sample`);
+      assert.ok(card.includes(`data-sample="${id}"`) && card.includes(`data-sample-link="${id}"`) && card.includes(`/samples/${id}-p1.webp`), `${route} ${id}: sample`);
       assert.ok(card.includes(`data-price="${id}">${price}`), `${route} ${id}: ${price}`);
       assert.match(card, new RegExp(`data-paypal-link="${id}">[^<]*US\\$${usd} `), `${route} ${id}: US$${usd}`);
       assert.ok(card.indexOf(`data-sample="${id}"`) < card.indexOf(`data-price="${id}"`), `${route} ${id}: sample before price`);
