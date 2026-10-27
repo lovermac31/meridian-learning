@@ -3,6 +3,7 @@ import { ArrowLeft, ChevronRight, GitCompareArrows, LibraryBig, Scale, ShieldChe
 import { getCurrentLocale } from '../i18n/routing';
 import { getLocalizedThinkingCycleStages, getThinkingCycleComparisonContent } from '../i18n/content/thinkingCycle';
 import { RouteLink } from './RouteLink';
+import { ProductCardLink } from './ProductCardLink';
 
 type ThinkingCycleComparisonExperienceProps = {
   onBack: () => void;
@@ -155,6 +156,7 @@ export const ThinkingCycleComparisonExperience = ({
               </div>
             ))}
           </div>
+          <ProductCardLink id="thinking-cycle-set" source="thinking-cycle-compare" locale={locale} className="mt-10" />
         </div>
       </section>
     </main>

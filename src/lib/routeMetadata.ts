@@ -25,6 +25,7 @@ import {
   createServiceJsonLd,
   createWebsiteJsonLd,
   createArticleJsonLd,
+  createProductListJsonLd,
   type JsonLd,
 } from './structuredData';
 
@@ -71,6 +72,8 @@ type StaticRouteDefinition = {
   shouldIndex?: boolean;
   breadcrumbs?: Array<{ name: string; path: string }>;
   jsonLd?: JsonLd[];
+  // JSON-LD built for the page language (used instead of `jsonLd`).
+  jsonLdFor?: (locale: Locale) => JsonLd[];
   localized?: Partial<Record<Locale, Pick<StaticRouteDefinition, 'title' | 'description' | 'breadcrumbs'> & { faqJsonLd?: JsonLd }>>;
 };
 
@@ -167,8 +170,10 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/products': {
     title: 'Products and Prices | Jurassic English™',
     description:
-      'Story Club, the Live Speaking Baseline and 1-to-1 lessons for families, Level 1 materials for teachers and a licence for centres, each with its price and how to buy it.',
+      'Every Jurassic English product and price: Story Club, Speaking Baseline, 1-to-1 lessons, Level 1–5 Teacher Packs, teaching kits, centre licence and training.',
     canonicalPath: '/products',
+    // Product + Offer (VND) for every card on the page, in the page language.
+    jsonLdFor: (locale) => [createProductListJsonLd(locale)],
     breadcrumbs: [
       { name: 'Home', path: '/' },
       { name: 'Products', path: '/products' },
@@ -177,7 +182,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       vi: {
         title: 'Sản phẩm và học phí | Jurassic English™',
         description:
-          'Câu lạc bộ Truyện, Đánh giá Nói trực tiếp và học 1 kèm 1 cho gia đình, tài liệu Level 1 cho giáo viên và giấy phép cho trung tâm, kèm giá và cách mua.',
+          'Mọi sản phẩm Jurassic English kèm giá: Câu lạc bộ Truyện, Đánh giá Nói, học 1 kèm 1, tài liệu giáo viên Level 1–5, bộ công cụ dạy học, giấy phép, đào tạo.',
         breadcrumbs: [
           { name: 'Trang chủ', path: '/' },
           { name: 'Sản phẩm', path: '/products' },
@@ -589,9 +594,11 @@ function resolveStaticRoute(pathname: string, locale: Locale): RouteMetadata | n
   const localizedRoute = route.localized?.[locale];
   // A localized FAQPage replaces the default one so the markup matches the visible FAQ.
   const localizedFaq = localizedRoute?.faqJsonLd;
-  const routeJsonLd = route.jsonLd && localizedFaq
-    ? route.jsonLd.map((block) => ((block as { '@type'?: string })['@type'] === 'FAQPage' ? localizedFaq : block))
-    : route.jsonLd;
+  const routeJsonLd = route.jsonLdFor
+    ? route.jsonLdFor(locale)
+    : route.jsonLd && localizedFaq
+      ? route.jsonLd.map((block) => ((block as { '@type'?: string })['@type'] === 'FAQPage' ? localizedFaq : block))
+      : route.jsonLd;
   const isReleasedLocale = isPublicContentReleased(pathname, locale);
   const shouldIndex = (route.shouldIndex ?? true) && isReleasedLocale;
   const canonical = shouldIndex

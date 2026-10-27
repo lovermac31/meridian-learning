@@ -20,7 +20,7 @@ const amp = (s: string) => s.replaceAll('&amp;', '&');
 const EXPECTED: Record<string, [string, string][]> = {
   families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫']],
   teachers: [
-    ['teacher-pack', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
+    ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['thinking-cycle-set', '490.000₫'],
     ['reasoning-assessment-kit', '390.000₫'], ['ielts-speaking-ladder', '390.000₫'],
   ],
@@ -132,7 +132,7 @@ test('cleared packs match their 00 READ MEs: Ladder is 18 lessons + a 1-lesson S
 });
 
 test('reachable without clutter: one footer link (EN + VI) and one Kids Academy card link; no header change', () => {
-  for (const [path, href, label] of [['/', '/products', 'Products'], ['/vi', '/vi/products', 'Sản phẩm']]) {
+  for (const [path, href, label] of [['/', '/products', 'Products &amp; prices'], ['/vi', '/vi/products', 'Sản phẩm &amp; bảng giá']]) {
     setServerLocation(path);
     const footer = renderToStaticMarkup(createElement(Footer, { onNavigate: () => {} }));
     assert.equal([...footer.matchAll(/href="\/(vi\/)?products"/g)].length, 1, path);
@@ -178,7 +178,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
 test('the ChatGPT product images are on their cards, square and light', async () => {
   const expected: Record<string, string> = {
     'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
-    'teacher-pack': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
+    'teacher-pack-l1': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
     'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
     'thinking-cycle-set': 'thinking-cycle-set',
     'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder',
@@ -219,7 +219,7 @@ test('packs marked live: false stay in the data but off the page; all 17 are cle
 // by these stems (master's SAMPLES-AND-BRANDED-PDF-SPEC): public/samples/<stem>-sample.pdf and <stem>-p1..p3.webp.
 const SAMPLE_STEMS: Record<string, string> = {
   'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
-  'teacher-pack': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
+  'teacher-pack-l1': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
   'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
   'thinking-cycle-set': 'thinking-cycle-set', 'reasoning-assessment-kit': 'reasoning-assessment-kit',
   'ielts-speaking-ladder': 'ielts-speaking-ladder', 'centre-licence': 'centre-licence',
@@ -261,15 +261,15 @@ test('samples: the block sits above the price and order button, one link to the 
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     assert.equal([...html.matchAll(/data-sample="/g)].length, PRODUCTS.filter((p) => p.live && p.sample).length, locale);
   }
-  const restore = set(['baseline', 'teacher-pack']);
+  const restore = set(['baseline', 'teacher-pack-l1']);
   try {
     for (const [locale, route, heading, open] of [['en', EN, 'See a sample', 'Open the sample (PDF)'], ['vi', VI, 'Xem mẫu', 'Mở bản mẫu (PDF)']] as const) {
       setServerLocation(route);
       const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
       const shown = [...html.matchAll(/data-sample="([^"]+)"/g)].map((m) => m[1]);
       assert.deepEqual(shown, PRODUCTS.filter((p) => p.live && p.sample).map((p) => p.id), locale);
-      for (const id of ['baseline', 'teacher-pack']) assert.ok(shown.includes(id), `${locale}: ${id} sample shown`);
-      for (const [id, stem] of [['baseline', 'baseline'], ['teacher-pack', 'teacher-pack-l1']]) {
+      for (const id of ['baseline', 'teacher-pack-l1']) assert.ok(shown.includes(id), `${locale}: ${id} sample shown`);
+      for (const [id, stem] of [['baseline', 'baseline'], ['teacher-pack-l1', 'teacher-pack-l1']]) {
         const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
         const at = (marker: string) => card.indexOf(marker);
         assert.ok(at('</dl>') < at(`data-sample="${id}"`) && at(`data-sample="${id}"`) < at(`data-price="${id}"`), `${locale} ${id}: after the text, before the price`);

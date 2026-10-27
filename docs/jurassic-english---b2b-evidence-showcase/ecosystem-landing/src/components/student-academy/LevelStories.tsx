@@ -3,6 +3,7 @@ import {
   LEVEL_BOOKS,
   bookHref,
   continueHref,
+  teacherPackHref,
   coverSrc,
   levelAnchor,
   type AcademyLevel,
@@ -43,6 +44,7 @@ const COPY = {
     alsoInLevel: "Also in this level:",
     unsure: "Not sure which level fits?",
     consultation: "Request a placement consultation",
+    teacherPack: (level: number) => `For teachers: Level ${level} Teacher Pack`,
   },
   vi: {
     back: "Quay lại lộ trình 5 cấp độ",
@@ -66,6 +68,7 @@ const COPY = {
     alsoInLevel: "Cũng trong cấp độ này:",
     unsure: "Chưa chắc cấp độ nào phù hợp?",
     consultation: "Gửi yêu cầu tư vấn xếp lớp",
+    teacherPack: (level: number) => `Dành cho giáo viên: Bộ tài liệu Giáo viên Level ${level}`,
   },
 } as const;
 
@@ -159,6 +162,11 @@ export function LevelStories({ locale }: { locale: Locale }) {
                 })}
               </p>
             ) : null}
+            <p className="mt-3 text-sm">
+              <a href={teacherPackHref(level.level, locale)} className="font-bold text-[#1E4D3B] underline underline-offset-4" data-link={`story-hub-teacher-pack-l${level.level}`}>
+                {c.teacherPack(level.level)}
+              </a>
+            </p>
           </section>
         ))}
 

@@ -1,4 +1,5 @@
 import type { Locale } from '../i18n/locales';
+import { PRODUCT_IMAGE_DIR, PRODUCTS, PRODUCTS_PATH } from '../i18n/content/products';
 import { WORLDWISE_SITE_URL } from './contactConfig';
 
 const SITE_URL = 'https://jurassicenglish.com';
@@ -242,6 +243,43 @@ export function createFaqJsonLd(entries: FaqEntry[]): JsonLd {
       acceptedAnswer: {
         '@type': 'Answer',
         text: entry.answer,
+      },
+    })),
+  };
+}
+
+/** '4.900.000₫' → '4900000' (prices on /products are whole VND with dot grouping). */
+export const vndPriceValue = (price: string) => price.replace(/\D/g, '');
+
+// /products (master, 27 Oct 2026): one Product with a VND Offer for every live card, in the page language. The
+// offer URL is the card itself; the description is the card's "What's inside" line.
+export function createProductListJsonLd(locale: Locale): JsonLd {
+  const pageUrl = `${SITE_URL}${locale === 'vi' ? '/vi' : ''}${PRODUCTS_PATH}`;
+  const live = PRODUCTS.filter((product) => product.live);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: locale === 'vi' ? 'Sản phẩm Jurassic English' : 'Jurassic English products',
+    url: pageUrl,
+    numberOfItems: live.length,
+    itemListElement: live.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Product',
+        name: product[locale].title,
+        description: product[locale].inside,
+        url: `${pageUrl}#${product.id}`,
+        ...(product.image ? { image: `${SITE_URL}${PRODUCT_IMAGE_DIR}/${product.image}.webp` } : {}),
+        brand: { '@type': 'Brand', name: 'Jurassic English' },
+        offers: {
+          '@type': 'Offer',
+          price: vndPriceValue(product.price),
+          priceCurrency: 'VND',
+          availability: 'https://schema.org/InStock',
+          url: `${pageUrl}#${product.id}`,
+          seller: { '@id': organizationId },
+        },
       },
     })),
   };

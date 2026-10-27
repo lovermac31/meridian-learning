@@ -8,6 +8,7 @@ import {
 } from '../i18n/content/series';
 import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
 import { RouteLink } from './RouteLink';
+import { ProductCardLink } from './ProductCardLink';
 
 type SeriesExperienceProps = {
   level: SeriesLevelDetail;
@@ -261,6 +262,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
               <p className="text-white/80 leading-relaxed">{localizedLevel.progression.nextStageSummary}</p>
             </div>
           </div>
+          <ProductCardLink id={`teacher-pack-l${level.order}`} source="series" locale={locale} tone="dark" className="mt-10" />
         </div>
       </section>
     </main>

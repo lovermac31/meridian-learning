@@ -3,6 +3,7 @@ import { ArrowLeft, BookOpen, ChevronRight, FileText, GitCompareArrows, Graduati
 import { getLocalizedSeriesLevels, getSeriesComparisonContent } from '../i18n/content/series';
 import { getCurrentLocale, localizeRouteTarget } from '../i18n/routing';
 import { RouteLink } from './RouteLink';
+import { ProductCardLink } from './ProductCardLink';
 
 type SeriesComparisonExperienceProps = {
   onBack: () => void;
@@ -164,10 +165,12 @@ export const SeriesComparisonExperience = ({
                       {content.actions.viewSyllabus}
                     </RouteLink>
                   </div>
+                  <ProductCardLink id={`teacher-pack-l${level.order}`} source="series-compare" locale={locale} />
                 </div>
               </div>
             ))}
           </div>
+          <ProductCardLink id="teacher-bundle" source="series-compare" locale={locale} className="mt-10" />
         </div>
       </section>
     </main>

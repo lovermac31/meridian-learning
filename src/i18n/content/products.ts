@@ -47,6 +47,10 @@ type CardText = {
   cta: string;
 };
 
+// Card ids that were renamed but may still be linked: each stays an anchor on its card (master, 27 Oct 2026:
+// the Level 1 Teacher Pack is #teacher-pack-l1 like Levels 2–5; #teacher-pack keeps working).
+export const PRODUCT_FORMER_IDS: Record<string, string[]> = { 'teacher-pack-l1': ['teacher-pack'] };
+
 export type Product = {
   id: string;
   // Shown on the page only when true. A factory-built pack stays false until its Drive 00 READ ME says "Cleared"
@@ -156,6 +160,7 @@ export const PRODUCTS: Product[] = [
     price: '149.000₫',
     href: 'zalo',
     image: 'printable-pack-l1',
+    sample: 'printable-pack-l1',
     delivery: true,
     en: {
       label: 'Digital download',
@@ -177,12 +182,13 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    id: 'teacher-pack',
+    id: 'teacher-pack-l1',
     live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l1',
+    sample: 'teacher-pack-l1',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -210,6 +216,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l2',
+    sample: 'teacher-pack-l2',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -237,6 +244,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l3',
+    sample: 'teacher-pack-l3',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -264,6 +272,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l4',
+    sample: 'teacher-pack-l4',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -291,6 +300,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l5',
+    sample: 'teacher-pack-l5',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -318,6 +328,7 @@ export const PRODUCTS: Product[] = [
     price: '2.900.000₫',
     href: 'zalo',
     image: 'teacher-bundle',
+    sample: 'teacher-bundle',
     delivery: true,
     en: {
       label: 'Digital download · one teacher · Levels 1–5',
