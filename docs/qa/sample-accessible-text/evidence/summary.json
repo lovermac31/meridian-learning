@@ -1,0 +1,15 @@
+{
+  "generated": {
+    "products": 35,
+    "pages": 361,
+    "reviewedOCRPages": 14,
+    "approvedImageRefreshes": 7
+  },
+  "applicationTests": 393,
+  "pythonGuardTests": 7,
+  "axeScans": 50,
+  "browserMatrix": 12,
+  "keyboardRegression": 12,
+  "voiceOver": "not performed; accessibility-tree smoke only",
+  "cacheRevisions": 7
+}

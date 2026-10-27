@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "productId": "printable-pack",
+  "sampleStem": "printable-pack-l1",
+  "pageCount": 16,
+  "source": {
+    "file": "printable-pack-l1-sample.pdf",
+    "sha256": "10998eff8ae1de79d9f7591f1f513512a6cbd13eed78a4af7f311c0dfbcd8160"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "printable-pack-l1-pg01.webp",
+      "imageSha256": "f86b0f2944ce7dc69a5813d83f0b80bf3acb8be992de86a1dd4dc44b4ed30ecc",
+      "text": "JURASSIC ENGLISH\nJE Level 1 Printable Storybook Pack\nThree original Jurassic English storybooks with activity books for ages 4–8, ready to print at\nhome or in class.\nLevel\n1\nFoundation Ages\n4–8 CEFR\nPre-A1\n → \nA1 3\nstorybooks\nEdition 1.0 · 27 October 2026 Licensed edition · single-buyer licence\n™\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "216ef16af38ba77af8992658069faf2aa8cf907974e5678b08683a8782ffc389",
+      "method": "pdf-text"
+    },
+    {
+      "page": 2,
+      "image": "printable-pack-l1-pg02.webp",
+      "imageSha256": "fc9ffdbbcfa12885f752ccff961e1bb6dcf88d40502685f0a604b7b39c7fd3ee",
+      "text": "JE Level 1 Printable Storybook Pack JURASSIC ENGLISH ™\n2Licensed for one family or one classroom. © Jurassic English\n3\n4\n17\n30\nContents\nWhat you get in this pack\nPART\nA\n·\nMINA\nAND\nTHE\nMIDNIGHT\nDRUM\nPART\nB\n·\nTHE\nLANTERN\nWITH\nTWO\nHANDLES\nPART\nC\n·\nLINA\nAND\nTHE\nORCHARD\nMAP\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "7706da64a6b666618c0a4c2791ef8a9f9761e6527b33ce10ced5dfa4da3a5271",
+      "method": "pdf-text"
+    },
+    {
+      "page": 3,
+      "image": "printable-pack-l1-pg03.webp",
+      "imageSha256": "7600eebd1aa654da95571be32c64f86b49dac1560189663ad03de7e268b8a3a4",
+      "text": "JE Level 1 Printable Storybook Pack JURASSIC ENGLISH ™\n3Licensed for one family or one classroom. © Jurassic English\nWhat you get in this pack\nThree short original stories, each with a six-chapter storybook and a ﬁve-page activity book that\npractises the Jurassic Thinking Cycle: ﬁnd the clue, weigh the choice, say why with 'because'.\n42 printable\nA4\npages\nThis licensed PDF: cover, contents and the three storybooks with their activity books.\n3 original\nstorybooks\nMina and the Midnight Drum, The Lantern With Two Handles and Lina and the Orchard Map. Six chapters\neach, with a question on every page.\n3 activity\nbooks\nFive workbook pages for each story: words from the story, page-by-page questions, story order, the\nThinking Cycle and an 'I can' check.\n3 certiﬁcates\nOne for each story, on A4 landscape. They come as a separate print ﬁle in your Drive folder.\n2 Google\nDocs\nA short README and a 'How to use at home' guide in the same Drive folder.\nAll three stories are original Jurassic English stories. No published book is quoted or reproduced.\nLicence. One family or one classroom. Printable, single-buyer licence. No resale, sharing, uploading or\nredistribution. © 2026–2027 WorldWise Learning and JurassicEnglish.com.\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "1b0fc62f016ebd8aeefd4957e00fc9123c3f89ee2a1322d2449412b4a684b94c",
+      "method": "pdf-text"
+    },
+    {
+      "page": 4,
+      "image": "printable-pack-l1-pg04.webp",
+      "imageSha256": "eaf1100ade17810b75fc319d5f84793c13b1abe2d3c78bf727d2edbf6429c519",
+      "text": "PART A\nMina and the Midnight Drum\nStorybook and activity book, 12 pages. A friend needs a quieter sound.\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "e97662490d3e28751cb5fb061eabced4a68c1a909850280ece4126299e337fcc",
+      "method": "pdf-text"
+    },
+    {
+      "page": 5,
+      "image": "printable-pack-l1-pg05.webp",
+      "imageSha256": "5c46a54b451e7d6d391b5ab949b2f70c9e4cbb472e08f80f5aa7b8d57b105c1e",
+      "text": "LEVEL 1 · FOUNDATION\nMina and the Midnight Drum\nMina loves the big drum. Her friend Sami needs a quieter sound. Can they find a song for both of them?\nJurassic English · Original Stories · Level 1 Foundation\n\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "47b4ec0503d8b8073372b387f9820c9c3613b1f26a6e030634790a377ea40184",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 6,
+      "image": "printable-pack-l1-pg06.webp",
+      "imageSha256": "8b81dc40ba960f4b72ce9c88d0ced43792281e2dca9221fd56a6c1a7f5377eb9",
+      "text": "Chapter 1 · The big drum\nMina has a small drum.\nBOOM! Her aunt plays the big drum.\nIt is the Midnight Drum. It will play at the town party.\nMina smiles. ‘Can I play?’\nMina asks: Who plays the big drum first?\n1\n\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "44ceb2e59514b9622043c247d7d3e7ad544939e44fa24841671f0da109ac2550",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 7,
+      "image": "printable-pack-l1-pg07.webp",
+      "imageSha256": "56d902ea8e932d9e5f7ac9b8742aba102a723e2cdba5a55c633052ad2330a919",
+      "text": "Chapter 2 · A sound too big\nMina hits the drum.\nBOOM! BOOM! BOOM!\nHer friend Sami puts his hands over his ears.\n‘Too big,’ he says.\nMina stops. Her smile stops too.\nSami asks: What does Sami do when Mina hits the drum?\n2\n\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "743cb8e5541734939f8f3d7efced021ffe09523350ab5b61394e0919423c2639",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 8,
+      "image": "printable-pack-l1-pg08.webp",
+      "imageSha256": "cd21647733b9cdcfcf26f578c14ebf73060f4448a94cd896ac0624804982ac6b",
+      "text": "Chapter 3 · Two different needs\n‘I want to play,’ says Mina.\n‘I want to listen,’ says Sami. ‘But not so loud.’\nAuntie sits with them.\n‘We can try a small sound,’ she says.\nAuntie asks: What does Sami want?\n3\n\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "ae1918aa3b19a4cb8a06c547ec2686927be9e25716f28974c6adeb80d236cb79",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 9,
+      "image": "printable-pack-l1-pg09.webp",
+      "imageSha256": "ae5dfad3f9dc727d11f637be44cacddb571a658c9a71c0ba33cb674de297e8dc",
+      "text": "Chapter 4 · The soft sticks\nAuntie brings two soft drumsticks.\nMina taps.\nTum. Tum.\nSami takes his hands down.\n‘I can hear you,’ he says.\nMina smiles again.\nSami asks: What does Auntie bring?\n4\n\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "c7ba931085d3601a51839f691bfd8faacef3681d5fd5e676474affc896bd6f32",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 10,
+      "image": "printable-pack-l1-pg10.webp",
+      "imageSha256": "21e0da8fefc0b76a6d05f41f39bc1f0028e8bc8c7a0847cb1624ae927b6e29c5",
+      "text": "Chapter 5 · One more song?\nThey play a little song.\nThen Sami yawns.\n‘One more?’ asks Mina.\nSami shakes his head.\n‘I feel tired.’\nMina looks at the drum. Then she puts the sticks down.\nMina asks: What does Sami do after the little song?\n5\n\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "ce77532a72e30cdd4154dbb6d7e99c2ed1baaf6d96636e8ac041fe5535564f34",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 11,
+      "image": "printable-pack-l1-pg11.webp",
+      "imageSha256": "1425f811ec1fcd2e1f5bf4434bd91614db7b35a10a900938bd855255332fd161",
+      "text": "Chapter 6 · A song for tomorrow\nMina draws two drums on a card.\n‘Our song. Tomorrow,’ she writes with Auntie.\nSami adds a little moon.\nThey leave the drums to rest.\nOutside, Mina hums. Sami hums too.\nA small song is enough tonight.\nSami asks: What does Sami add to the card?\n6\n\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "649cff6bb772456ebf39903a431539289b297dfd8039513eec3947e08677d11e",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 12,
+      "image": "printable-pack-l1-pg12.webp",
+      "imageSha256": "05b61a09946f5d556e83faff17d0516cf17dffd3af7285711045f7c1073f094f",
+      "text": "PART B\nThe Lantern With Two Handles\nStorybook and activity book, 12 pages. Nuri wants to carry the lantern all by\nherself.\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "b7b645c5766e900cae0e45463ceed9a2c36b2fb015dadf48b5a74d99fe9ed102",
+      "method": "pdf-text"
+    },
+    {
+      "page": 13,
+      "image": "printable-pack-l1-pg13.webp",
+      "imageSha256": "f55aad7ffac3abc80d02db3f22b398843e3df2f858e6c401ce8a62cd4d698924",
+      "text": "LEVEL 1 · FOUNDATION\nThe Lantern With Two Handles\nNuri wants to carry the lantern all by herself. But her arm gets tired. What can two friends do with one light?\nJurassic English · Original Stories · Level 1 Foundation\n\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "93ec23277eb0d7c4148eb39572551b04c611fae45bd864eee240356f40184998",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 14,
+      "image": "printable-pack-l1-pg14.webp",
+      "imageSha256": "38945fa716e4beba0b585b2b5863f0a70befefe5ff6c4c1c4a81bc778371aeb4",
+      "text": "PART C\nLina and the Orchard Map\nStorybook and activity book, 12 pages. A small map with a red apple on it.\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "59d35207767e08dd8e086b5d3a8cda2cfc95d658950324e973718512c00bf5c4",
+      "method": "pdf-text"
+    },
+    {
+      "page": 15,
+      "image": "printable-pack-l1-pg15.webp",
+      "imageSha256": "5b67ddf4fb6f8a56c02278f3c785eda935a763b12274b36a1dd03d0e8aa6f0c8",
+      "text": "LEVEL 1 · FOUNDATION\nLina and the Orchard Map\nLina finds a little map with a red apple on it. Where will the orchard path take her and Pip?\nJurassic English · Original Stories · Level 1 Foundation\n\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "e65a6aeddc17ef39039dfe75eaa7f0f877ce87249431012ea4ed36a32d09c1e1",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 16,
+      "image": "printable-pack-l1-pg16.webp",
+      "imageSha256": "83c3ed6eb460f8f8913904c6095d92c3dc500b11edaececd774e23a5aab3b786",
+      "text": "JURASSIC ENGLISH™\nJE Level 1 Printable Storybook Pack\nThree original Jurassic English storybooks with activity books for ages 4–8, ready to print at home or in\nclass.\n149.000₫ one-off\nOne family or one classroom. Printable, single-buyer licence.\nOrder\non\nZalo\n→\nZalo:\n0396\n085\n076\n· jurassicenglish.com/products\nMessage us on Zalo, or go to jurassicenglish.com/products and press Order on this pack.\nYou receive the full licensed PDF and the editable Google Docs.\nThis sample shows real pages from the full edition.\nSample of the licensed edition. © 2026–2027 WorldWise Learning and JurassicEnglish.com.\nSAMPLE\n·\njurassicenglish.com/products",
+      "textSha256": "7a704a0ca73497f7ad4888dd2491d907de03a261af45dd719fc79c58b67e98a8",
+      "method": "pdf-text"
+    }
+  ]
+}

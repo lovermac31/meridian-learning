@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type SyntheticEvent } from 'react';
+import { useEffect, useId, useRef, useState, type SyntheticEvent } from 'react';
 import { ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
@@ -18,6 +18,7 @@ import {
   type ProductCard,
   type ProductSectionId,
 } from '../i18n/content/products';
+import { fetchSampleText, type SampleTextDocument } from '../lib/sampleText';
 import { ToolHero } from './IeltsToolsPage';
 import { SamplePackForm } from './SamplePackForm';
 import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
@@ -121,7 +122,7 @@ export function Sample({ card, copy, onOpen }: { card: ProductCard; copy: Sample
 
 const blockSave = (event: SyntheticEvent) => event.preventDefault();
 
-type ViewerCopy = { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string };
+type ViewerCopy = ReturnType<typeof productsPage>['viewer'];
 const VIEWER_BUTTON =
   'inline-flex h-11 w-11 items-center justify-center rounded-full border border-sb-border bg-white text-sb-forest disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber';
 
@@ -135,9 +136,23 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
   const pages = productSampleFiles(card.sample!).pages;
   const last = pages.length - 1;
   const [page, setPage] = useState(Math.min(initialPage, last));
+  const [text, setText] = useState<SampleTextDocument | null>(null);
+  const [textFailed, setTextFailed] = useState(false);
+  const [showText, setShowText] = useState(false);
+  const textId = useId();
   const dialog = useRef<HTMLDivElement>(null);
   const swipe = useRef<{ x: number; y: number } | null>(null);
   const go = (to: number) => setPage(Math.max(0, Math.min(last, to)));
+
+  useEffect(() => {
+    const controller = new AbortController();
+    setText(null);
+    setTextFailed(false);
+    fetchSampleText(card.id, card.sample!, pages.length, controller.signal)
+      .then((document) => { if (!controller.signal.aborted) setText(document); })
+      .catch(() => { if (!controller.signal.aborted) setTextFailed(true); });
+    return () => controller.abort();
+  }, [card.id, card.sample, pages.length]);
 
   useEffect(() => {
     const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -152,11 +167,12 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
+      else if ((event.key === 'ArrowRight' || event.key === 'ArrowLeft') && event.target instanceof Element && event.target.closest('[data-viewer-text-page][tabindex="0"]')) return;
       else if (event.key === 'ArrowRight') setPage((p) => Math.min(last, p + 1));
       else if (event.key === 'ArrowLeft') setPage((p) => Math.max(0, p - 1));
       else if (event.key === 'Tab' && dialog.current) {
         // Handle every Tab explicitly: WebKit can skip buttons in its native Tab order.
-        const items = [...dialog.current.querySelectorAll<HTMLElement>('button:not([disabled]), a[href]')];
+        const items = [...dialog.current.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], [data-viewer-text-page][tabindex="0"]')];
         if (!items.length) return;
         const current = items.indexOf(document.activeElement as HTMLElement);
         const next = event.shiftKey
@@ -199,10 +215,22 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
             <X aria-hidden="true" className="h-5 w-5" />
           </button>
         </div>
+        <button
+          type="button"
+          className="mt-2 min-h-11 self-start rounded-lg border border-sb-border bg-white px-3 py-2 text-sm font-bold text-sb-forest underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+          aria-expanded={showText}
+          aria-controls={`${textId}-region`}
+          onClick={() => setShowText((value) => !value)}
+          data-viewer-text-toggle
+        >{showText ? copy.hideText : copy.textVersion}</button>
         <div
-          className="mt-2 min-h-0 flex-1"
+          className={`mt-2 min-h-0 flex-1 ${showText ? 'overflow-y-auto' : 'overflow-hidden'}`}
+          data-viewer-viewport
           style={{ touchAction: 'pan-y' }}
-          onPointerDown={(event) => { swipe.current = { x: event.clientX, y: event.clientY }; }}
+          onPointerDown={(event) => {
+            swipe.current = event.target instanceof Element && event.target.closest('[data-viewer-text-page]')
+              ? null : { x: event.clientX, y: event.clientY };
+          }}
           onPointerUp={(event) => {
             const from = swipe.current;
             swipe.current = null;
@@ -215,12 +243,26 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
             key={pages[page]}
             src={pages[page]}
             alt={`${card.title}: ${counter}`}
+            aria-describedby={textId}
             width={1200}
             height={1699}
             draggable={false}
+            style={{ maxHeight: page === last ? 'min(68vh, calc(100dvh - 24rem))' : 'min(68vh, calc(100dvh - 16rem))' }}
             className="pointer-events-none mx-auto max-h-[68vh] w-auto rounded border border-sb-border bg-white object-contain"
             data-viewer-page={page + 1}
           />
+          <div
+            id={`${textId}-region`}
+            role="region"
+            aria-label={`${copy.pageText}: ${counter}`}
+            aria-live="polite"
+            aria-atomic="true"
+            tabIndex={showText ? 0 : -1}
+            className={showText ? 'mt-3 max-h-[45vh] overflow-y-auto select-text whitespace-pre-wrap rounded-lg border border-sb-border bg-sb-cream p-3 text-sm leading-relaxed text-sb-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber' : 'sr-only'}
+            data-viewer-text-page={page + 1}
+          >
+            <div id={textId} data-viewer-description>{text ? text.pages[page].text : textFailed ? copy.textError : copy.textLoading}</div>
+          </div>
         </div>
         <div className="mt-2 flex items-center justify-between gap-2">
           <button type="button" onClick={() => go(page - 1)} disabled={page === 0} aria-label={copy.prev} className={VIEWER_BUTTON} data-viewer-prev>

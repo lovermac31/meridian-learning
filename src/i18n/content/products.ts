@@ -23,7 +23,7 @@
  * the Teacher Pack says the lessons use 10 widely available picture books.
  */
 import type { Locale } from '../locales';
-import { SAMPLE_PAGE_COUNTS } from './samplePages';
+import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from './samplePages';
 
 export const PRODUCTS_PATH = '/products';
 export const PRODUCTS_VI_PATH = '/vi/products';
@@ -1181,7 +1181,7 @@ type PageCopy = {
   delivery: string;
   leadIns: { problem: string; inside: string; forWho: string };
   sample: { heading: string; note: string; open: string };
-  viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string };
+  viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string; textVersion: string; hideText: string; pageText: string; textLoading: string; textError: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   ielts: { groups: Record<IeltsGroup, string>; home: Record<IeltsGroup, string>; crumb: string };
   closing: { heading: string; body: string; cta: string };
@@ -1196,7 +1196,7 @@ const PAGE: Record<Locale, PageCopy> = {
     delivery: 'Pay by VietQR after a written order summary; your files arrive by Google Drive within 24 hours.',
     leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for' },
     sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'See the sample pages' },
-    viewer: { title: 'Sample pages', prev: 'Previous page', next: 'Next page', close: 'Close', counter: 'Page {n} of {total}', end: 'That’s the sample. Ready to order?', viewOnly: 'Sample pages are for viewing only.' },
+    viewer: { title: 'Sample pages', prev: 'Previous page', next: 'Next page', close: 'Close', counter: 'Page {n} of {total}', end: 'That’s the sample. Ready to order?', viewOnly: 'Sample pages are for viewing only.', textVersion: 'Text version', hideText: 'Hide text version', pageText: 'Sample page text', textLoading: 'Loading the sample page text…', textError: 'The text version could not load. Close the sample and try again.' },
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
@@ -1219,7 +1219,7 @@ const PAGE: Record<Locale, PageCopy> = {
     delivery: 'Thanh toán qua VietQR sau khi nhận bản tóm tắt đơn hàng; tài liệu được gửi qua Google Drive trong vòng 24 giờ.',
     leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho' },
     sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Xem các trang mẫu' },
-    viewer: { title: 'Trang mẫu', prev: 'Trang trước', next: 'Trang sau', close: 'Đóng', counter: 'Trang {n}/{total}', end: 'Đó là bản mẫu. Sẵn sàng đặt mua?', viewOnly: 'Trang mẫu chỉ để xem.' },
+    viewer: { title: 'Trang mẫu', prev: 'Trang trước', next: 'Trang sau', close: 'Đóng', counter: 'Trang {n}/{total}', end: 'Đó là bản mẫu. Sẵn sàng đặt mua?', viewOnly: 'Trang mẫu chỉ để xem.', textVersion: 'Bản văn bản', hideText: 'Ẩn bản văn bản', pageText: 'Nội dung trang mẫu', textLoading: 'Đang tải nội dung trang mẫu…', textError: 'Không tải được bản văn bản. Hãy đóng bản mẫu và thử lại.' },
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
@@ -1277,7 +1277,11 @@ export function productSampleFiles(stem: string) {
     thumbSrcSets: [1, 2, 3].map((n) => `${PRODUCT_SAMPLE_DIR}/small/${stem}-p${n}.webp 300w, ${PRODUCT_SAMPLE_DIR}/${stem}-p${n}.webp 600w`),
     // The viewer's pages: the full watermarked set, or the three thumbnails until that set lands.
     pages: count
-      ? Array.from({ length: count }, (_, i) => `${PRODUCT_SAMPLE_DIR}/pages/${stem}-pg${String(i + 1).padStart(2, '0')}.webp`)
+      ? Array.from({ length: count }, (_, i) => {
+          const file = `${stem}-pg${String(i + 1).padStart(2, '0')}.webp`;
+          const revision = SAMPLE_PAGE_REVISIONS[file];
+          return `${PRODUCT_SAMPLE_DIR}/pages/${file}${revision ? `?v=${revision}` : ''}`;
+        })
       : thumbs,
   };
 }
