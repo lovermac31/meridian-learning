@@ -1,0 +1,273 @@
+{
+  "checkedAt": "2026-10-27T13:45:38.782Z",
+  "target": "https://staging.jurassicenglish.com/portal",
+  "run": "codex-browser-1793108488336",
+  "syntheticUser": "7184d0af-fec3-4140-8b03-30767de004ff",
+  "syntheticOrder": "JEPDB58820",
+  "session": "seeded staging Supabase session; not an email-delivery test",
+  "httpBasicAuth": "existing root-only login loaded privately into process environment",
+  "rows": [
+    {
+      "surface": "buy",
+      "engine": "chromium",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "native-Tab-after-licence-input",
+      "engine": "chromium",
+      "width": 390,
+      "focusRemainsInForm": true,
+      "activeTag": "INPUT",
+      "note": "Observation only: a normal form is not a focus trap; WebKit native Tab skips controls by default on macOS."
+    },
+    {
+      "surface": "unpaid-QR-checkout",
+      "engine": "chromium",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "my-before-payment",
+      "engine": "chromium",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "buy",
+      "engine": "chromium",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "native-Tab-after-licence-input",
+      "engine": "chromium",
+      "width": 1440,
+      "focusRemainsInForm": true,
+      "activeTag": "INPUT",
+      "note": "Observation only: a normal form is not a focus trap; WebKit native Tab skips controls by default on macOS."
+    },
+    {
+      "surface": "unpaid-QR-checkout",
+      "engine": "chromium",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "my-before-payment",
+      "engine": "chromium",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "buy",
+      "engine": "webkit",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "native-Tab-after-licence-input",
+      "engine": "webkit",
+      "width": 390,
+      "focusRemainsInForm": false,
+      "activeTag": "BODY",
+      "note": "Observation only: a normal form is not a focus trap; WebKit native Tab skips controls by default on macOS."
+    },
+    {
+      "surface": "unpaid-QR-checkout",
+      "engine": "webkit",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "my-before-payment",
+      "engine": "webkit",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "buy",
+      "engine": "webkit",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "native-Tab-after-licence-input",
+      "engine": "webkit",
+      "width": 1440,
+      "focusRemainsInForm": false,
+      "activeTag": "BODY",
+      "note": "Observation only: a normal form is not a focus trap; WebKit native Tab skips controls by default on macOS."
+    },
+    {
+      "surface": "unpaid-QR-checkout",
+      "engine": "webkit",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "my-before-payment",
+      "engine": "webkit",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "buy",
+      "engine": "firefox",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "native-Tab-after-licence-input",
+      "engine": "firefox",
+      "width": 390,
+      "focusRemainsInForm": true,
+      "activeTag": "INPUT",
+      "note": "Observation only: a normal form is not a focus trap; WebKit native Tab skips controls by default on macOS."
+    },
+    {
+      "surface": "unpaid-QR-checkout",
+      "engine": "firefox",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "my-before-payment",
+      "engine": "firefox",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "buy",
+      "engine": "firefox",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "native-Tab-after-licence-input",
+      "engine": "firefox",
+      "width": 1440,
+      "focusRemainsInForm": true,
+      "activeTag": "INPUT",
+      "note": "Observation only: a normal form is not a focus trap; WebKit native Tab skips controls by default on macOS."
+    },
+    {
+      "surface": "unpaid-QR-checkout",
+      "engine": "firefox",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "my-before-payment",
+      "engine": "firefox",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "my-paid-ready",
+      "engine": "chromium",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "authorized-download",
+      "engine": "chromium",
+      "width": 390,
+      "bytes": 2028,
+      "pass": true
+    },
+    {
+      "surface": "my-paid-ready",
+      "engine": "chromium",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "authorized-download",
+      "engine": "chromium",
+      "width": 1440,
+      "bytes": 2028,
+      "pass": true
+    },
+    {
+      "surface": "my-paid-ready",
+      "engine": "webkit",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "authorized-download",
+      "engine": "webkit",
+      "width": 390,
+      "bytes": 2028,
+      "pass": true
+    },
+    {
+      "surface": "my-paid-ready",
+      "engine": "webkit",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "authorized-download",
+      "engine": "webkit",
+      "width": 1440,
+      "bytes": 2028,
+      "pass": true
+    },
+    {
+      "surface": "my-paid-ready",
+      "engine": "firefox",
+      "width": 390,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "authorized-download",
+      "engine": "firefox",
+      "width": 390,
+      "bytes": 2028,
+      "pass": true
+    },
+    {
+      "surface": "my-paid-ready",
+      "engine": "firefox",
+      "width": 1440,
+      "axeViolations": [],
+      "horizontalOverflow": false
+    },
+    {
+      "surface": "authorized-download",
+      "engine": "firefox",
+      "width": 1440,
+      "bytes": 2028,
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "blockedExternalRequests": 0,
+  "allFlowChecksPass": true,
+  "axeViolationCount": 0
+}

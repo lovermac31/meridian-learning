@@ -1,6 +1,6 @@
 # Functional and performance evidence — 27 October 2026
 
-Source baseline `d81d1bd`; isolated branch `codex/compliance-qa`. Anonymous production GET checks only. Forms and load use localhost with intercepted/forbidden outbound requests. No real message, lead, order, payment, webhook, upload, account or vendor setting changed.
+Source baseline `d81d1bd`; isolated branch `codex/compliance-qa`. Anonymous production GET checks only. Forms and load use localhost with intercepted/forbidden outbound requests. No real message, lead, money transfer or vendor setting changed in the initial audit. The later approved staging addendum explicitly records synthetic staging account/order/payment/entitlement fixtures; it makes no production data changes.
 
 ## A. Plan
 
@@ -53,7 +53,7 @@ Reader LCP is the clearest follow-up; inspect image/network waterfall and exact 
 
 Autocannon 8.0.0; actual sample-pack handler behind a minimal local HTTP adapter, **10 connections, 100 req/s, 5s**, invalid synthetic body only. All outbound fetches forbidden; durable store forced to local memory. 500 completed requests: five 400 validations then 495 responses with status 429; zero transport errors/timeouts/outbound attempts; average 2.2ms, p99=13ms. This establishes local validation/throttling behavior, not throughput of successful email/Notion writes, distributed rate limits or Vercel transport capacity.
 
-**Portal catalog load not run.** No approved isolated staging/database was provided; a mock catalog cannot substantiate real database capacity. No production load was performed. Staging simulation needs the foundation merged and safe test fixtures without production bank/data credentials.
+**Initial snapshot:** portal catalog load was not run before staging was approved. **Superseded by the [approved staging follow-up](STAGING-FOLLOWUP.md):** 600 actual staging catalog reads/10 concurrent clients/30.07 seconds, zero transport errors/timeouts/non2xx; 25 API assertions and 6 authenticated browser combinations pass. This is direct staging DB/RPC load, not public portal rendering capacity. No production load was performed.
 
 ### Reproduction
 
@@ -66,7 +66,7 @@ node --import tsx --test tests/products-international.test.ts tests/sample-pack-
 npm run preview -- --host 127.0.0.1 --port 5200
 ```
 
-Expected: types/tests/build pass; inspect `/products/` and `/vi/products/` PayPal hrefs without navigating to checkout. Vite preview extensionless `/products` can serve the SPA fallback; trailing-slash preregenerated route is required for faithful static-page measurements. QA tool versions: Lighthouse 12.8.2, autocannon 8.0.0, Playwright1.63.0 (external QA installation, not runtime dependencies). Machine-readable summaries in `evidence/functional`; full Lighthouse JSON and exploratory harnesses retained locally in ignored `.regen/runs/compliance`.
+Expected: types/tests/build pass; inspect `/products/` and `/vi/products/` PayPal hrefs without navigating to checkout. Vite preview extensionless `/products` can serve the SPA fallback; trailing-slash preregenerated route is required for faithful static-page measurements. QA tool versions: Lighthouse 12.8.2, autocannon 8.0.0, Playwright 1.63.0 (external QA installation, not runtime dependencies). Machine-readable summaries in `evidence/functional`; full Lighthouse JSON and exploratory harnesses retained locally in ignored `.regen/runs/compliance`.
 
 ## D. Hardening / rollback
 
@@ -76,11 +76,11 @@ Rollback: revert the functional commit and rebuild; this restores unbounded wait
 
 ## E. Confidence
 
-High (0.92) for the reproduced bounded defects, local tests and live link/price observations. Medium for end-to-end payment/production capacity: existing portal CI is green, while real merchant settlement, authenticated staging and distributed ingress remain unverified.
+High (0.92) for the reproduced bounded defects, local tests and live link/price observations. Medium for end-to-end payment/production capacity: existing portal CI is green, while real merchant settlement and distributed production ingress remain unverified; authenticated staging is now verified within the addendum’s stated boundaries.
 
 ## F. Assumptions
 
-Current35-card source is the intended price catalogue; no earlier27/28-row Notion snapshot was used as pricing authority. All frontend submissions were intercepted. The existing portal simulation evidence is intentionally reused per brief.
+Current 35-card source is the intended price catalogue; no earlier 27/28-row Notion snapshot was used as pricing authority. Initial main-site frontend submissions were intercepted; the separately approved staging follow-up created only the listed synthetic staging orders. The existing portal simulation evidence is intentionally reused per brief.
 
 ## G. Tradeoffs / blind spots
 
