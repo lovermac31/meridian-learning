@@ -288,7 +288,9 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
     assert.ok(page.length < 80 * 1024, `${stem}-p${n}: < 80 KB (${page.length})`);
   }
   // Viewer page sets: public/samples/pages/<stem>-pgNN.webp, 01…N, exactly as samplePages.ts lists them.
-  const pages = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.'));
+  const allPageAssets = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.'));
+  assert.deepEqual(allPageAssets.filter(f => f.endsWith('-text.json')).sort(), PRODUCTS.map(p => `${p.id}-text.json`).sort(), 'one approved text asset per product');
+  const pages = allPageAssets.filter(f => !f.endsWith('-text.json'));
   for (const file of pages) assert.match(file, PAGE_FILE, `pages/${file}`);
   const found: Record<string, number> = {};
   for (const file of pages) { const [, stem] = file.match(PAGE_FILE)!; found[stem] = (found[stem] ?? 0) + 1; }
@@ -345,7 +347,11 @@ test('samples: the viewer shows one watermarked page at a time, a counter, and t
     const start = view(0);
     assert.match(start, /role="dialog" aria-modal="true"/, locale);
     assert.ok(start.includes(`>${first}<`), `${locale}: counter`);
-    assert.match(start, /<img src="\/samples\/pages\/baseline-pg01\.webp" alt="[^"]+" width="1200" height="1699" draggable="false" class="pointer-events-none/, `${locale}: page 1, not draggable`);
+    const image = start.match(/<img [^>]*data-viewer-page="1"[^>]*>/)?.[0] ?? '';
+    assert.ok(image.includes('/samples/pages/baseline-pg01.webp'), `${locale}: page 1 image`);
+    assert.match(image, /aria-describedby="[^"]+"/, `${locale}: accessible page text linked`);
+    assert.match(image, /draggable="false"/, `${locale}: image is not draggable`);
+    assert.match(image, /class="pointer-events-none/, `${locale}: image pointer interactions remain disabled`);
     assert.match(start, /disabled=""[^>]*data-viewer-prev/, `${locale}: no previous page on page 1`);
     assert.doesNotMatch(start, /data-viewer-order=/, `${locale}: order button only at the end`);
     assert.doesNotMatch(start, /href="[^"]*\.pdf|download|print/i, `${locale}: no PDF, download or print control`);
