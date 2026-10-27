@@ -3,6 +3,8 @@ import { ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import {
+  IELTS_GROUPS,
+  IELTS_HOME,
   PRODUCTS_PATH,
   PRODUCTS_UTM,
   PRODUCTS_VI_PATH,
@@ -11,6 +13,7 @@ import {
   productSampleAnchor,
   productSampleFiles,
   productsPage,
+  type IeltsGroup,
   type ProductCard,
 } from '../i18n/content/products';
 import { ToolHero } from './IeltsToolsPage';
@@ -39,6 +42,18 @@ export function productHref(href: string, locale: Locale): string {
   if (href === 'zalo') return PRODUCTS_ZALO;
   const [base, hash] = getLocalizedHref(href, locale).split('#');
   return `${base}${base.includes('?') ? '&' : '?'}${PRODUCTS_UTM}${hash ? `#${hash}` : ''}`;
+}
+
+/** An IELTS card's home page on /ai-speaking (Speaking or Writing), in the page language, tagged utm_source=products. */
+export const ieltsHomeHref = (group: IeltsGroup, locale: Locale) => `${IELTS_HOME[group][locale]}?${PRODUCTS_UTM}`;
+
+/** One line under an IELTS card or on its product page: back to its IELTS home page. */
+export function IeltsHomeLink({ group, locale, label, id }: { group: IeltsGroup; locale: Locale; label: string; id: string }) {
+  return (
+    <p className="mt-2 text-sm" data-ielts-home={id}>
+      <a href={ieltsHomeHref(group, locale)} className="font-bold underline underline-offset-4 hover:text-sb-amber-deep">{label} →</a>
+    </p>
+  );
 }
 
 export type LeadIns = { problem: string; inside: string; forWho: string };
@@ -241,9 +256,9 @@ export function PayPalOption({ card, locale, source }: { card: ProductCard; loca
   );
 }
 
-function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }: {
+function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
-  onOpenSample: (card: ProductCard) => void;
+  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>;
 }) {
   const external = card.href === 'zalo';
   const href = external ? zaloHref(source) : productHref(card.href, locale);
@@ -307,6 +322,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }:
         ) : null}
         {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
         {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
+        {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={ieltsHome[card.group]} id={card.id} /> : null}
       </div>
     </li>
   );
@@ -352,11 +368,18 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="scroll-mt-24">
             <h2 id={`${section.id}-h`} className="text-3xl font-bold">{section.heading}</h2>
             <p className="mt-2 text-lg">{section.intro}</p>
-            <ul className="mt-6 grid gap-4 md:grid-cols-2">
-              {section.cards.map((card) => (
-                <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} />
+            {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }])
+              .filter((list) => list.cards.length > 0)
+              .map(({ group, cards }) => (
+                <div key={group ?? 'all'} data-ielts-group={group ?? undefined}>
+                  {group ? <h3 id={`ielts-${group}`} className="mt-8 scroll-mt-24 text-2xl font-bold">{c.ielts.groups[group]}</h3> : null}
+                  <ul className={`${group ? 'mt-4' : 'mt-6'} grid gap-4 md:grid-cols-2`}>
+                    {cards.map((card) => (
+                      <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} />
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
             {section.also.map((line) => (
               <p key={line.id} className="mt-4 text-sm" data-also={line.id}>
                 {line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}

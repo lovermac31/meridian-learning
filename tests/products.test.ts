@@ -22,9 +22,11 @@ const EXPECTED: Record<string, [string, string][]> = {
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['thinking-cycle-set', '490.000₫'],
-    ['reasoning-assessment-kit', '390.000₫'], ['ielts-speaking-ladder', '390.000₫'], ['ielts-writing-ladder-task2', '390.000₫'], ['ielts-writing-task1-method', '290.000₫'], ['ielts-writing-teacher-pack', '690.000₫'],
+    ['reasoning-assessment-kit', '390.000₫'],
   ],
   centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
+  // #ielts (Jay, 27 Oct 2026): moved out of Teachers; Speaking group, then Writing.
+  ielts: [['ielts-speaking-ladder', '390.000₫'], ['ielts-writing-ladder-task2', '390.000₫'], ['ielts-writing-task1-method', '290.000₫'], ['ielts-writing-teacher-pack', '690.000₫']],
 };
 // Cards render only while their entry is live. The factory-built packs stay off the page until their 00 READ ME
 // says "Cleared" (master, 27 Oct 2026).
@@ -50,8 +52,8 @@ test('sections in order, each card with its price and exactly one CTA', async ()
   const { renderRoute } = await import('../src/entry-server');
   for (const route of [EN, VI]) {
     const main = amp(mainOf(await renderRoute(route)));
-    const order = [...main.matchAll(/<section id="(families|teachers|centres)"/g)].map((m) => m[1]);
-    assert.deepEqual(order, ['families', 'teachers', 'centres'], route);
+    const order = [...main.matchAll(/<section id="(families|teachers|centres|ielts)"/g)].map((m) => m[1]);
+    assert.deepEqual(order, ['families', 'teachers', 'centres', 'ielts'], route);
     for (const [section, cards] of Object.entries(SHOWN)) {
       const start = main.indexOf(`<section id="${section}"`);
       const block = main.slice(start, main.indexOf('</section>', start));
@@ -76,7 +78,7 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     const main = amp(mainOf(await renderRoute(route)));
     const ctas = Object.fromEntries([...main.matchAll(/href="([^"]+)"[^>]*data-cta="product-([^"]+)"/g)].map((m) => [m[2], m[1]]));
     for (const [id, href] of Object.entries(expected[route])) assert.equal(ctas[id], href, `${route} ${id}`);
-    for (const id of ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId), ...SHOWN.centres.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
+    for (const id of ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId), ...SHOWN.centres.map(([cardId]) => cardId), ...SHOWN.ielts.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
     assert.equal(PRODUCTS_ZALO, 'https://zalo.me/84396085076?utm_source=products');
     // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch, the sample
     // PDFs (files on this site, not page links) and the PayPal payments (their item name carries the order code).
@@ -101,7 +103,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
   ]) {
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id)], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id)], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
