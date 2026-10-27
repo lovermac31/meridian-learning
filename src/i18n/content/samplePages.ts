@@ -4,7 +4,7 @@
 // thumbnails in the viewer until its page set lands. A test keeps this list and the files in sync.
 export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'baseline': 8,
-  'centre-licence': 16,
+  'centre-licence': 19,
   'curriculum-overview': 11,
   'ielts-speaking-ladder': 10,
   'one-to-one': 7,
