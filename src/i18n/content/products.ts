@@ -71,6 +71,8 @@ export type Product = {
   // File stem of the product's public sample in public/samples. Set it only once all four files are in the repo
   // (a test checks both ways), so the "See a sample" block never shows a broken link.
   sample?: string;
+  // Slug of the product's film in productVideos.ts (public/videos/<slug>/), shown above the sample on its page.
+  video?: string;
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
@@ -80,6 +82,7 @@ export type Product = {
 export const PRODUCTS: Product[] = [
   {
     id: 'story-club',
+    video: 'story-club',
     live: true,
     section: 'families',
     price: '590.000₫',
@@ -107,6 +110,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'baseline',
+    video: 'baseline',
     live: true,
     section: 'families',
     price: '690.000₫',
@@ -134,6 +138,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'one-to-one',
+    video: 'one-to-one',
     live: true,
     section: 'families',
     price: '800.000₫',
@@ -161,6 +166,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'printable-pack',
+    video: 'printable-pack',
     live: true,
     section: 'families',
     price: '149.000₫',
@@ -190,6 +196,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'parent-pack-l1',
+    video: 'parent-pack-l1',
     live: true,
     section: 'families',
     price: '249.000₫',
@@ -219,6 +226,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'parent-pack-l2',
+    video: 'parent-pack-l2',
     live: true,
     section: 'families',
     price: '249.000₫',
@@ -254,6 +262,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     image: 'teacher-pack-l1',
     sample: 'teacher-pack-l1',
+    video: 'teacher-pack-l1',
     delivery: true,
     paypal: true,
     en: {
@@ -277,6 +286,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l2',
+    video: 'teacher-pack-l2',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -306,6 +316,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l3',
+    video: 'teacher-pack-l3',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -335,6 +346,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l4',
+    video: 'teacher-pack-l4',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -364,6 +376,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l5',
+    video: 'teacher-pack-l5',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -393,6 +406,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-bundle',
+    video: 'teacher-bundle',
     live: true,
     section: 'teachers',
     price: '2.900.000₫',
@@ -422,6 +436,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l1',
+    video: 'student-workbook-l1',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -456,6 +471,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l2',
+    video: 'student-workbook-l2',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -485,6 +501,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l3',
+    video: 'student-workbook-l3',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -514,6 +531,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l4',
+    video: 'student-workbook-l4',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -543,6 +561,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l5',
+    video: 'student-workbook-l5',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -572,6 +591,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'thinking-cycle-set',
+    video: 'thinking-cycle-set',
     live: true,
     section: 'teachers',
     price: '490.000₫',
@@ -609,6 +629,7 @@ export const PRODUCTS: Product[] = [
     paypal: true,
     image: 'reasoning-assessment-kit',
     sample: 'reasoning-assessment-kit',
+    video: 'reasoning-assessment-kit',
     en: {
       label: 'Digital download · teachers and centres',
       title: 'Reasoning Assessment Kit, Levels 1–5',
@@ -638,6 +659,7 @@ export const PRODUCTS: Product[] = [
     paypal: true,
     image: 'ielts-speaking-ladder',
     sample: 'ielts-speaking-ladder',
+    video: 'ielts-speaking-ladder',
     en: {
       label: 'Digital download · learners and tutors',
       title: 'IELTS Speaking Ladder Pack',
@@ -659,6 +681,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-writing-ladder-task2',
+    video: 'ielts-writing-ladder-task2',
     live: true,
     section: 'teachers',
     price: '390.000₫',
@@ -688,6 +711,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-writing-task1-method',
+    video: 'ielts-writing-task1-method',
     live: true,
     section: 'teachers',
     price: '290.000₫',
@@ -717,6 +741,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-writing-teacher-pack',
+    video: 'ielts-writing-teacher-pack',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -746,6 +771,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'centre-licence',
+    video: 'centre-licence',
     live: true,
     section: 'centres',
     price: '4.900.000₫',
@@ -774,6 +800,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-training-course',
+    video: 'teacher-training-course',
     live: true,
     section: 'centres',
     price: '1.490.000₫',
@@ -803,6 +830,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pilot-class-kit',
+    video: 'pilot-class-kit',
     live: true,
     section: 'centres',
     price: '690.000₫',
@@ -832,6 +860,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'curriculum-overview',
+    video: 'curriculum-overview',
     live: true,
     section: 'centres',
     price: '290.000₫',
@@ -910,7 +939,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal'>;
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video'>;
 
 /** The page in one language: its copy, and the sections in order with their cards from PRODUCTS. */
 export function productsPage(locale: Locale) {
@@ -921,8 +950,8 @@ export function productsPage(locale: Locale) {
       id,
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
-        ({ id: cardId, price, href, delivery, image, sample, paypal, [locale]: text }): ProductCard => ({
-          id: cardId, price, href, delivery, image, sample, paypal, ...text,
+        ({ id: cardId, price, href, delivery, image, sample, paypal, video, [locale]: text }): ProductCard => ({
+          id: cardId, price, href, delivery, image, sample, paypal, video, ...text,
         }),
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).
