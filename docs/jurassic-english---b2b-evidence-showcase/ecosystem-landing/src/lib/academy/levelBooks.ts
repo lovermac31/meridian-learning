@@ -92,9 +92,23 @@ export function bookHref(level: AcademyLevel, book: Book): string | null {
   return `${BOOKS_BASE_URL}/book.html#${book.id}`;
 }
 
+/**
+ * Cover image for a story card: a resized WebP of the book's cover (public/student-academy/covers/<id>-400|640.webp,
+ * made from books.jurassicenglish.com/assets/art/<id>/cover.jpg). The full 1440 px JPGs were 270–380 KB each, about
+ * 2 MB per page, for a card drawn about 324 px wide on a phone (QA, 27 Oct 2026). The path sits under /student-academy,
+ * which jurassicenglish.com already proxies to this app.
+ */
+export const COVER_WIDTHS = [400, 640] as const;
+export const COVER_SIZES = "(min-width: 1024px) 300px, (min-width: 640px) 45vw, calc(100vw - 66px)";
+
 export function coverSrc(level: AcademyLevel, book: Book): string | null {
   if (!BOOKS_BASE_URL || !level.accepted) return null;
-  return `${BOOKS_BASE_URL}/assets/art/${book.id}/cover.jpg`;
+  return `/student-academy/covers/${book.id}-${COVER_WIDTHS[0]}.webp`;
+}
+
+export function coverSrcSet(level: AcademyLevel, book: Book): string | null {
+  if (!coverSrc(level, book)) return null;
+  return COVER_WIDTHS.map((w) => `/student-academy/covers/${book.id}-${w}.webp ${w}w`).join(", ");
 }
 
 /**
@@ -103,6 +117,15 @@ export function coverSrc(level: AcademyLevel, book: Book): string | null {
  */
 export function teacherPackHref(level: number, locale: Locale = "en"): string {
   return `${locale === "vi" ? "/vi" : ""}/products?utm_source=academy#teacher-pack-l${level}`;
+}
+
+/** The Level Stories hub's next step: Mr. Jay on Zalo (website assessment, 27 Oct 2026, fix 10). Zalo cannot prefill a
+ * message, so the link is tagged utm_source=story-hub for the Sale Team's table. */
+export const STORY_HUB_ZALO = "https://zalo.me/84396085076?utm_source=story-hub";
+
+/** The free sample pack form on the main site's home page, tagged like the hub's other links (academy, order code AC). */
+export function samplePackHref(locale: Locale = "en"): string {
+  return `${locale === "vi" ? "/vi" : "/"}?utm_source=academy#free-sample-pack`;
 }
 
 /**

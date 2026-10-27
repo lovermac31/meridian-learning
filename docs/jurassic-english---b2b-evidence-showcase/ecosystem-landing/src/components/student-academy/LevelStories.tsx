@@ -2,9 +2,12 @@ import { ArrowLeft, ArrowRight, BookOpen, MessageCircle } from "lucide-react";
 import {
   LEVEL_BOOKS,
   bookHref,
-  continueHref,
+  STORY_HUB_ZALO,
+  samplePackHref,
   teacherPackHref,
+  COVER_SIZES,
   coverSrc,
+  coverSrcSet,
   levelAnchor,
   type AcademyLevel,
   type Book,
@@ -39,8 +42,9 @@ const COPY = {
     continueTitle: "Continue with Mr. Jay",
     storyClub: "Story Club (ages 5–8): a small weekly story group with a personal reply from Mr. Jay.",
     baseline: "A Live Speaking Baseline with Mr. Jay, the first step for older readers.",
-    askPlace: "Ask about a place",
-    continueCta: "Continue with Mr. Jay",
+    continueCta: "Ask Mr. Jay on Zalo",
+    samplePack: "Free sample pack: one storybook, one activity page and one lesson plan.",
+    samplePackCta: "Send me the sample pack",
     alsoInLevel: "Also in this level:",
     unsure: "Not sure which level fits?",
     consultation: "Request a placement consultation",
@@ -63,8 +67,9 @@ const COPY = {
     continueTitle: "Tiếp tục cùng thầy Jay",
     storyClub: "Câu lạc bộ Truyện (5–8 tuổi): nhóm nhỏ đọc truyện mỗi tuần, có phản hồi riêng từ thầy Jay.",
     baseline: "Buổi Đánh giá Nói trực tiếp với thầy Jay, bước đầu tiên cho các bạn lớn hơn.",
-    askPlace: "Hỏi về một chỗ",
-    continueCta: "Tiếp tục cùng thầy Jay",
+    continueCta: "Nhắn thầy Jay qua Zalo",
+    samplePack: "Bộ mẫu miễn phí: 1 truyện, 1 trang bài tập và 1 giáo án.",
+    samplePackCta: "Gửi bộ mẫu cho tôi",
     alsoInLevel: "Cũng trong cấp độ này:",
     unsure: "Chưa chắc cấp độ nào phù hợp?",
     consultation: "Gửi yêu cầu tư vấn xếp lớp",
@@ -81,7 +86,7 @@ function StoryItem({ level, book, n, c }: { level: AcademyLevel; book: Book; n: 
     <>
       {cover ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={cover} alt={c.cover(book.title)} width={480} height={320} loading="lazy" decoding="async" className="aspect-[3/2] w-full rounded-xl object-cover" />
+        <img src={cover} srcSet={coverSrcSet(level, book) ?? undefined} sizes={COVER_SIZES} alt={c.cover(book.title)} width={400} height={267} loading="lazy" decoding="async" className="aspect-[3/2] w-full rounded-xl object-cover" />
       ) : (
         <div className="flex aspect-[3/2] w-full items-center justify-center rounded-xl bg-[#F4F1EA] px-4 text-center font-extrabold text-[#1E4D3B]">
           <BookOpen aria-hidden="true" className="mr-2 h-5 w-5 flex-none" />
@@ -119,8 +124,10 @@ function ContinueItem({ level, locale, c }: { level: AcademyLevel; locale: Local
         <p className="mt-1 text-lg font-extrabold">{c.continueTitle}</p>
         <p className="mt-2 text-sm leading-relaxed text-[#F4F1EA]">{storyClub ? c.storyClub : c.baseline}</p>
       </div>
-      <a href={continueHref(level.level, locale)} className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-extrabold text-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E4D3B]">
-        {storyClub ? c.askPlace : c.continueCta} <ArrowRight aria-hidden="true" className="h-4 w-4" />
+      {/* Straight to Zalo (website assessment, 27 Oct 2026, fix 10): one click instead of three via Story Club. Zalo
+          links cannot carry a message, so the link carries utm_source=story-hub. */}
+      <a href={STORY_HUB_ZALO} target="_blank" rel="noopener" className="mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-extrabold text-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E4D3B]">
+        {c.continueCta} <ArrowRight aria-hidden="true" className="h-4 w-4" />
       </a>
     </li>
   );
@@ -174,6 +181,14 @@ export function LevelStories({ locale }: { locale: Locale }) {
           <p className="font-extrabold text-[#1E4D3B]">{c.unsure}</p>
           <a href="/student-academy#diagnostic" className={`${PRIMARY} mt-3`}>
             <MessageCircle aria-hidden="true" className="h-4 w-4" /> {c.consultation}
+          </a>
+        </div>
+
+        {/* The free sample pack (website assessment, 27 Oct 2026): the form lives on the main site's home page. */}
+        <div className="mt-6 rounded-[1.25rem] border border-[#E6DEC8] bg-white p-5 text-center" data-sample-pack-link="">
+          <p className="font-extrabold text-[#1E4D3B]">{c.samplePack}</p>
+          <a href={samplePackHref(locale)} className={`${PRIMARY} mt-3`}>
+            {c.samplePackCta} <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </a>
         </div>
       </div>

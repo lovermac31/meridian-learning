@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from 'react';
 import { Mail, MessageCircle, X } from 'lucide-react';
 import { getCurrentLocale } from '../i18n/routing';
+import { getCurrentPathname } from '../lib/ssrLocation';
 
 const WhatsAppIcon = () => <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.9"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0 11.7 11.7 0 0 0 2 17.4L.4 23.6l6.4-1.6A11.8 11.8 0 0 0 12.1 24h.1A11.8 11.8 0 0 0 24 12.2a11.7 11.7 0 0 0-3.5-8.7Z"/><path d="M8.5 6.7c.2-.4.4-.4.8-.4h.6c.2 0 .5.1.6.5l.8 2c.1.3.1.5-.1.8l-.5.7c-.2.2-.2.4 0 .7.3.5 1 1.5 2.1 2.4 1.2 1 2.2 1.3 2.5 1.4.3.1.5 0 .7-.2l.8-.9c.2-.2.4-.3.7-.2l2.1 1c.3.1.4.3.3.6-.1.4-.4 1.4-.9 1.8-.5.5-1.2.7-2 .7-.5 0-1.2-.1-2-.4-1.5-.5-2.9-1.4-4.1-2.6-1.2-1.1-2.2-2.4-2.8-3.7-.5-1-.7-1.8-.7-2.4 0-.8.3-1.5.7-2.2Z"/></svg>;
 const WeChatIcon = () => <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor"><path d="M10.1 4.2c-4.2 0-7.6 2.8-7.6 6.3 0 2 1.1 3.8 3 4.9l-.8 2.9 3.1-1.6c.7.2 1.5.3 2.3.3.3 0 .6 0 .9-.1-.1-.4-.2-.8-.2-1.2 0-3.2 3-5.8 6.8-5.8.3 0 .6 0 .9.1-.9-3.3-4.3-5.8-8.4-5.8Zm-3.2 5.1a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8Zm5.8 0a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8Z"/><path d="M17.6 11.2c-3.3 0-6 2-6 4.6s2.7 4.6 6 4.6c.7 0 1.4-.1 2-.3l2.4 1.2-.6-2.2c1.4-.9 2.2-2 2.2-3.3 0-2.6-2.7-4.6-6-4.6Zm-2.2 4.1a.7.7 0 1 1 0-1.4.7.7 0 0 1 0 1.4Zm4.4 0a.7.7 0 1 1 0-1.4.7.7 0 0 1 0 1.4Z"/></svg>;
@@ -75,6 +76,7 @@ const focusRing = 'focus-visible:outline-none focus-visible:ring-2 focus-visible
 
 export const GlobalContactPanel = () => {
   const t = contactCopy[getCurrentLocale() === 'vi' ? 'vi' : 'en'];
+  const onProductsPage = /^(?:\/vi)?\/products(?:\/|$)/.test(getCurrentPathname());
   const [active, setActive] = useState<Channel | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [compactViewport, setCompactViewport] = useState(false);
@@ -180,7 +182,9 @@ export const GlobalContactPanel = () => {
 
   return <>
     {/* The left-side launcher reveals the contact stack in place at every viewport size. */}
-    <nav ref={navRef} hidden={!revealed && !expanded && !active} data-contact-panel="" className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center" aria-label={t.nav}>
+    {/* On phones the round launcher covered card text on /products, where every card has its own Zalo button
+        (website assessment, 27 Oct 2026): it is hidden there below 640px. */}
+    <nav ref={navRef} hidden={!revealed && !expanded && !active} data-contact-panel="" className={`${onProductsPage ? 'max-sm:hidden ' : ''}fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-[80] flex flex-col items-start gap-2 min-[1440px]:bottom-20 min-[1440px]:left-5 min-[1440px]:items-center`} aria-label={t.nav}>
       <ul id="contact-channel-list" hidden={!expanded || compactViewport} className="m-0 list-none flex flex-col items-center gap-2 rounded-full border border-white/10 bg-jurassic-dark/90 p-1.5 shadow-xl backdrop-blur">
         {channelOrder.map((channel) => <li key={channel}>
           <button data-contact-first={channel === channelOrder[0] ? '' : undefined} type="button" onClick={(event) => launch(channel, event.currentTarget)} className={`grid h-11 w-11 place-items-center rounded-full border border-white/25 text-white shadow-lg transition hover:-translate-y-0.5 hover:brightness-110 ${channelStyle[channel]} ${focusRing}`} aria-label={t.channels[channel].button} title={t.channels[channel].label}>{channelGlyph[channel]}</button>

@@ -143,5 +143,5 @@ test('privacy policy names PayPal as a payment processor in EN and VI', async ()
     assert.match(text, /PayPal/);
     assert.ok((text.match(/PayPal/g) ?? []).length >= 3, doc.title);
   }
-  assert.equal(legalDocuments['/legal/privacy'].lastUpdated, 'October 14, 2026');
+  assert.equal(legalDocuments['/legal/privacy'].lastUpdated, 'October 27, 2026');
 });

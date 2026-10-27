@@ -1,12 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import * as levelBooksModule from '../docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/lib/academy/levelBooks.ts';
 
 // The ecosystem app has no "type": "module", so tsx loads the file as CommonJS; read named exports via default.
 type LevelBooks = typeof levelBooksModule;
 const lb: LevelBooks = (levelBooksModule as unknown as { default?: LevelBooks }).default ?? levelBooksModule;
-const { BOOKS_BASE_URL, LEVEL_BOOKS, bookHref, continueHref, coverSrc, levelHref } = lb;
+const { BOOKS_BASE_URL, COVER_WIDTHS, LEVEL_BOOKS, STORY_HUB_ZALO, bookHref, continueHref, coverSrc, coverSrcSet, levelHref } = lb;
 
 const ECO = '../docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src';
 const read = (p: string) => readFileSync(new URL(`${ECO}/${p}`, import.meta.url), 'utf8');
@@ -64,7 +64,11 @@ test('card → level collection → next step, carrying only non-personal contex
   const stories = read('components/student-academy/LevelStories.tsx');
   assert.ok(stories.includes('@/lib/academy/levelBooks'), 'collections read the central map');
   assert.ok(!stories.includes('book.html'), 'no hard-coded book links in the page');
-  assert.ok(stories.includes('Continue with Mr. Jay') && stories.includes('Ask about a place'));
+  // Website assessment, 27 Oct 2026, fix 10: the next step goes straight to Zalo (1 click), tagged story-hub.
+  assert.ok(stories.includes('Continue with Mr. Jay') && stories.includes('Ask Mr. Jay on Zalo') && stories.includes('Nhắn thầy Jay qua Zalo'));
+  assert.ok(stories.includes('href={STORY_HUB_ZALO}'));
+  assert.equal(STORY_HUB_ZALO, 'https://zalo.me/84396085076?utm_source=story-hub');
+  assert.ok(stories.includes('href={samplePackHref(locale)}'), 'the free sample pack band');
   assert.ok(!/Pay now/i.test(stories));
   assert.ok(!FORBIDDEN_HOSTS.test(stories + card));
 });
@@ -85,20 +89,53 @@ test('Story Club tells older families Mr. Jay confirms a suitable option first (
 
 // W-1 (Jay, 27 Oct 2026): a Vietnamese twin of the story collections, same structure, served by a rewrite.
 test('the story collections exist in English and Vietnamese with the same structure', () => {
-  const en = read('app/student-academy/stories/page.tsx');
-  const vi = read('app/vi/student-academy/stories/page.tsx');
+  const en = read('app/(en)/student-academy/stories/page.tsx');
+  const vi = read('app/(vi)/vi/student-academy/stories/page.tsx');
   assert.match(en, /<LevelStories locale="en" \/>/);
   assert.match(vi, /<LevelStories locale="vi" \/>/);
   assert.match(vi, /native read needed/i);
   const component = read('components/student-academy/LevelStories.tsx');
-  for (const key of ['back', 'title', 'intro', 'askPlace', 'continueCta', 'unsure', 'consultation']) {
+  for (const key of ['back', 'title', 'intro', 'continueCta', 'samplePack', 'samplePackCta', 'unsure', 'consultation']) {
     assert.equal((component.match(new RegExp(`^\\s+${key}:`, 'gm')) ?? []).length, 2, `${key} in EN and VI`);
   }
-  assert.ok(component.includes('Hỏi về một chỗ') && component.includes('Tiếp tục cùng thầy Jay'));
-  assert.ok(component.includes('continueHref(level.level, locale)'), 'the CTA follows the page language');
+  assert.ok(component.includes('Nhắn thầy Jay qua Zalo') && component.includes('Tiếp tục cùng thầy Jay'));
+  assert.ok(component.includes('samplePackHref(locale)'), 'the sample pack link follows the page language');
   const vercel = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
   assert.ok(
     vercel.rewrites.some((r: { source: string; destination: string }) => r.source === '/vi/student-academy/stories' && r.destination === 'https://je-ecosystem-landing-preview.vercel.app/vi/student-academy/stories'),
     'vercel.json serves /vi/student-academy/stories from the ecosystem app',
   );
+});
+
+// QA, 27 Oct 2026 (ecosystem-landing defects 2–4): the page language comes from the route, the contact panel renders the
+// same text on the server and in the browser, and the story covers are small WebPs instead of 1440 px JPGs.
+test('every page declares its own language: an English and a Vietnamese root layout share one shell', () => {
+  assert.ok(!existsSync(new URL(`${ECO}/app/layout.tsx`, import.meta.url)), 'no single root layout with a hard-coded lang');
+  assert.match(read('components/RootShell.tsx'), /<html lang=\{lang\} suppressHydrationWarning>/);
+  assert.match(read('app/(en)/layout.tsx'), /<RootShell lang="en">/);
+  assert.match(read('app/(vi)/layout.tsx'), /<RootShell lang="vi">/);
+  const vi = readdirSync(new URL(`${ECO}/app/(vi)`, import.meta.url));
+  assert.deepEqual(vi.sort(), ['layout.tsx', 'vi'], 'only /vi routes use the Vietnamese layout');
+});
+
+test('the contact panel takes its language from the route, never from window during render (React #418)', () => {
+  const panel = read('components/GlobalContactPanel.tsx');
+  assert.match(panel, /contactLocale\(usePathname\(\) \?\? '\/'\)/);
+  assert.doesNotMatch(panel, /window\.location\.pathname/);
+});
+
+test('story covers are resized WebPs on a proxied path, with a srcset', () => {
+  for (const l of LEVEL_BOOKS.filter((level) => level.accepted)) {
+    for (const b of l.stories) {
+      assert.equal(coverSrc(l, b), `/student-academy/covers/${b.id}-${COVER_WIDTHS[0]}.webp`);
+      assert.equal(coverSrcSet(l, b), COVER_WIDTHS.map((w) => `/student-academy/covers/${b.id}-${w}.webp ${w}w`).join(', '));
+      for (const w of COVER_WIDTHS) {
+        const file = new URL(`${ECO}/../public/student-academy/covers/${b.id}-${w}.webp`, import.meta.url);
+        assert.ok(existsSync(file), `${b.id}-${w}.webp`);
+        assert.equal(readFileSync(file).subarray(8, 12).toString(), 'WEBP', `${b.id}-${w} is a WebP`);
+        assert.ok(statSync(file).size < 90_000, `${b.id}-${w}: ${statSync(file).size} bytes`);
+      }
+    }
+  }
+  assert.match(read('components/student-academy/LevelStories.tsx'), /srcSet=\{coverSrcSet\(level, book\) \?\? undefined\} sizes=\{COVER_SIZES\}/);
 });

@@ -21,6 +21,7 @@
  */
 
 import {
+  BT_LABELS,
   normaliseBuyerType,
   normaliseMAOI,
   map as crmMap,
@@ -255,15 +256,31 @@ export async function writeNotionLead(
     return { ok: false, reason: 'not_configured' };
   }
 
+  return createLeadPage(token, dbId, registration.submissionId, (schema) => buildProperties(registration, schema), {
+    duplicateGuard: true,
+    children: buildPageBody(registration),
+  });
+}
+
+type LeadPageOptions = { duplicateGuard: boolean; children?: unknown[] };
+
+/** Create one page in the "Leads" database (duplicate-guarded by the registration id unless told not to). Never throws. */
+async function createLeadPage(
+  token: string,
+  dbId: string,
+  submissionId: string,
+  build: (schema: NotionDatabaseSchema | null) => Record<string, unknown>,
+  options: LeadPageOptions = { duplicateGuard: true },
+): Promise<NotionWriteResult> {
   const schema = await fetchDatabaseSchema(token, dbId);
 
-  // Duplicate guard — skip if this registration ID already exists
-  const duplicate = await isDuplicate(token, dbId, registration.submissionId);
+  // Duplicate guard (pricing registrations: the registration id kept in "UTM / Raw Source") — skip if it already exists
+  const duplicate = options.duplicateGuard && await isDuplicate(token, dbId, submissionId);
   if (duplicate) {
     console.info('[notion] duplicate — record already exists, skipping', {
-      submissionId: registration.submissionId,
+      submissionId,
     });
-    logEvent({ event: 'notion_write_succeeded', reason: 'duplicate_skipped', submissionId: registration.submissionId });
+    logEvent({ event: 'notion_write_succeeded', reason: 'duplicate_skipped', submissionId });
     return { ok: true, pageId: '', reason: 'duplicate_skipped' };
   }
 
@@ -275,16 +292,16 @@ export async function writeNotionLead(
       headers: notionHeaders(token),
       body:    JSON.stringify({
         parent:     { database_id: dbId },
-        properties: buildProperties(registration, schema),
-        children:   buildPageBody(registration),
+        properties: build(schema),
+        ...(options.children ? { children: options.children } : {}),
       }),
     });
   } catch (err) {
     console.error('[notion] page create request threw (network error)', {
-      submissionId: registration.submissionId,
+      submissionId,
       error: String(err),
     });
-    logEvent({ event: 'notion_write_failed', reason: 'network_error', submissionId: registration.submissionId });
+    logEvent({ event: 'notion_write_failed', reason: 'network_error', submissionId });
     return { ok: false, reason: 'network_error' };
   }
 
@@ -292,18 +309,99 @@ export async function writeNotionLead(
     const errText = await createRes.text().catch(() => '(unreadable)');
     console.error('[notion] page create failed', {
       status:       createRes.status,
-      submissionId: registration.submissionId,
+      submissionId,
       response:     errText.slice(0, 500),
     });
-    logEvent({ event: 'notion_write_failed', status: createRes.status, reason: `api_${createRes.status}`, submissionId: registration.submissionId });
+    logEvent({ event: 'notion_write_failed', status: createRes.status, reason: `api_${createRes.status}`, submissionId });
     return { ok: false, reason: `api_${createRes.status}` };
   }
 
   const page = await createRes.json() as { id: string };
   console.info('[notion] lead record created', {
-    submissionId: registration.submissionId,
+    submissionId,
     pageId:       page.id,
   });
-  logEvent({ event: 'notion_write_succeeded', reason: 'created', submissionId: registration.submissionId });
+  logEvent({ event: 'notion_write_succeeded', reason: 'created', submissionId });
   return { ok: true, pageId: page.id, reason: 'created' };
+}
+
+// ─── Free sample pack leads (website assessment, 27 Oct 2026) ────────────────
+
+/** A sample-pack sign-up: a Zalo number or an email, consent, and a little context. */
+export type SampleLead = {
+  submissionId: string;
+  submittedAt: string;
+  name: string;
+  email?: string;
+  zalo?: string;
+  teacher: boolean;
+  childAge?: string;
+  locale: 'en' | 'vi';
+  placement: 'home' | 'products';
+  source?: string;
+};
+
+/**
+ * The B2C "Leads" database in the Jurassic English B2C RevOps Hub. The older "JE Leads" database (the pricing
+ * registrations' NOTION_JE_LEADS_DB_ID) was retired on 7 Oct 2026 and has no rows since 12 Aug; "Leads" is the live
+ * one (47 rows since 7 Oct). NOTION_LEADS_DB_ID overrides it.
+ */
+export const SAMPLE_LEADS_DB_ID = 'b5dcf12081844218a5d0d1bd0ea1ce0e';
+
+export function sampleLeadNotes(l: SampleLead): string {
+  return [
+    'lead_source: sample-pack',
+    `role: ${l.teacher ? 'teacher' : 'parent'}`,
+    `page: ${l.placement} (${l.locale})`,
+    l.source ? `utm_source: ${l.source}` : 'utm_source: none',
+    l.childAge ? `child age: ${l.childAge}` : null,
+    'consent: sample + occasional updates',
+  ].filter(Boolean).join(' · ');
+}
+
+const ageBand = (age?: string) => {
+  const n = Number(age);
+  if (!age || Number.isNaN(n)) return null;
+  return n >= 9 && n <= 10 ? '9–11' : n >= 11 && n <= 14 ? '11–14' : n >= 15 && n <= 18 ? '15–18' : null;
+};
+
+/**
+ * The "Leads" page properties for a sample-pack lead, by that database's own names and existing select options (the
+ * Notion API does not add options): Lead Name, Email or Contact (Zalo / Phone), Preferred Channel, Source (Facebook /
+ * Zalo from the utm, else Other), UTM / Raw Source (lead source, role, page, utm, age, consent), Lifecycle Stage Lead,
+ * Child Age Band when the age fits a band, Parent Name for a parent, and Next Action. A property the database does not
+ * have (per its schema) is left out.
+ */
+export function sampleLeadProperties(l: SampleLead, schema: NotionDatabaseSchema | null): Record<string, unknown> {
+  const has = (name: string, type: string) => !schema || schema[name] === type;
+  const props: Record<string, unknown> = {
+    'Lead Name': { title: rt(l.name || (l.teacher ? 'Sample pack request (teacher)' : 'Sample pack request')) },
+  };
+  if (l.email && has('Email', 'email')) props['Email'] = { email: l.email };
+  if (l.zalo && has('Contact (Zalo / Phone)', 'phone_number')) props['Contact (Zalo / Phone)'] = { phone_number: l.zalo };
+  if (has('Preferred Channel', 'select')) props['Preferred Channel'] = { select: { name: l.email ? 'Email' : 'Zalo' } };
+  if (has('Source', 'select')) props['Source'] = { select: { name: /^fb/.test(l.source ?? '') ? 'Facebook' : /^zalo/.test(l.source ?? '') ? 'Zalo' : 'Other' } };
+  if (has('UTM / Raw Source', 'text') || has('UTM / Raw Source', 'rich_text')) props['UTM / Raw Source'] = { rich_text: rt(sampleLeadNotes(l)) };
+  if (has('Lifecycle Stage', 'select')) props['Lifecycle Stage'] = { select: { name: 'Lead' } };
+  const band = ageBand(l.childAge);
+  if (band && has('Child Age Band', 'select')) props['Child Age Band'] = { select: { name: band } };
+  if (l.name && !l.teacher && (has('Parent Name', 'text') || has('Parent Name', 'rich_text'))) props['Parent Name'] = { rich_text: rt(l.name) };
+  if (has('Next Action', 'text') || has('Next Action', 'rich_text')) {
+    props['Next Action'] = { rich_text: rt(`Send the free sample pack by ${l.email ? 'email' : 'Zalo'} and follow up within 24 hours (${l.submissionId}).`) };
+  }
+  return props;
+}
+
+/**
+ * Write a sample-pack lead to the "Leads" database (master, 27 Oct 2026: no Supabase change; Notion + an email to Jay).
+ * Uses the site's NOTION_TOKEN, so that integration needs access to "Leads". Never throws.
+ */
+export async function writeNotionSampleLead(lead: SampleLead): Promise<NotionWriteResult> {
+  const token = process.env.NOTION_TOKEN?.trim();
+  const dbId  = process.env.NOTION_LEADS_DB_ID?.trim() || SAMPLE_LEADS_DB_ID;
+  if (!token) {
+    console.warn('[notion] env not configured — sample lead write skipped', { hasToken: false });
+    return { ok: false, reason: 'not_configured' };
+  }
+  return createLeadPage(token, dbId, lead.submissionId, (schema) => sampleLeadProperties(lead, schema), { duplicateGuard: false });
 }

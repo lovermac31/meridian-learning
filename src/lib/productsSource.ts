@@ -64,7 +64,9 @@ export function readVisitorSource(search: string, storage: SourceStorage | null)
 /** The code to mention: the channel's code, else the source itself, else (no source) the card id. */
 export function orderCode(source: string | null, cardId: string): string {
   if (source && ORDER_CODES[source]) return ORDER_CODES[source];
-  if (source && source !== DEFAULT_SOURCE) return source.toUpperCase();
+  // The home page's own links (home-hero, home-tiles) are the site itself: the code stays the card id, so Jay sees the
+  // product; the utm still reaches analytics and the Zalo link.
+  if (source && source !== DEFAULT_SOURCE && !source.startsWith('home-')) return source.toUpperCase();
   return cardId.toUpperCase();
 }
 

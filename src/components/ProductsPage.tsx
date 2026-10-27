@@ -17,6 +17,7 @@ import {
   type ProductCard,
 } from '../i18n/content/products';
 import { ToolHero } from './IeltsToolsPage';
+import { SamplePackForm } from './SamplePackForm';
 import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
 import { productPath } from '../i18n/content/productSeo';
 import { PRODUCT_VIDEO_ANCHOR, VIDEO_COPY } from '../i18n/content/productVideos';
@@ -237,8 +238,19 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
 }
 
 // S1: the US$ price by PayPal for international buyers, after the VND order button (VND and VietQR stay first).
-export function PayPalOption({ card, locale, source }: { card: ProductCard; locale: Locale; source: string | null }) {
+export function PayPalOption({ card, locale, source, compact = false }: { card: ProductCard; locale: Locale; source: string | null; compact?: boolean }) {
   const copy = PAYPAL_CARD_COPY[locale];
+  // On the /products hub the option is one line after the order button; its note folds into the card's Details.
+  if (compact) {
+    return (
+      <p className="mt-2 text-sm" data-paypal={card.id}>
+        {copy.lead}{' '}
+        <a href={productPaypalHref(card.id, source)} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4 hover:text-sb-amber-deep" data-paypal-link={card.id}>
+          {copy.pay(productUsd(card.price))}
+        </a>
+      </p>
+    );
+  }
   return (
     <div className="mt-3 rounded-xl border border-sb-border p-3" data-paypal={card.id}>
       <p className="text-sm font-bold">{copy.lead}</p>
@@ -256,6 +268,18 @@ export function PayPalOption({ card, locale, source }: { card: ProductCard; loca
   );
 }
 
+const DETAILS_LABEL: Record<Locale, string> = { en: 'Details', vi: 'Chi tiết' };
+const MINI_NAV: Record<Locale, { label: string; links: [string, string][] }> = {
+  en: { label: 'Product sections', links: [['families', 'Families'], ['teachers', 'Teachers'], ['centres', 'Centres'], ['ielts', 'IELTS']] },
+  vi: { label: 'Các nhóm sản phẩm', links: [['families', 'Gia đình'], ['teachers', 'Giáo viên'], ['centres', 'Trung tâm'], ['ielts', 'IELTS']] },
+};
+
+/** The first sentence of a card's "Who it's for" (the collapsed card's one line); "Mr. Jay" and decimals don't end it. */
+export function firstSentence(text: string): string {
+  const match = text.match(/^.*?(?<!\bMr|\bMs|\bDr)[.!?](?=\s+\S)/);
+  return match ? match[0] : text;
+}
+
 function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
   onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>;
@@ -263,65 +287,84 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
   const external = card.href === 'zalo';
   const href = external ? zaloHref(source) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
+  const detailsLabel = DETAILS_LABEL[locale];
   return (
-    <li className="ielts-tool-card flex scroll-mt-24 flex-col rounded-2xl bg-white p-6 shadow-sm" id={card.id}>
+    <li className="ielts-tool-card flex scroll-mt-24 max-md:scroll-mt-36 flex-col rounded-2xl bg-white p-4 shadow-sm sm:p-6" id={card.id}>
       {(PRODUCT_FORMER_IDS[card.id] ?? []).map((former) => (
         <span key={former} id={former} className="block scroll-mt-24" aria-hidden="true" />
       ))}
-      {card.image ? (
-        // Decorative: the card title follows as a heading, so the image has empty alt text.
-        <img
-          src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
-          alt=""
-          width={480}
-          height={480}
-          loading="lazy"
-          decoding="async"
-          className="mb-4 aspect-square w-full rounded-xl object-cover"
-          data-product-image={card.id}
-        />
-      ) : null}
-      <p className="text-xs font-bold uppercase tracking-wider text-[#8a5a00]">{card.label}</p>
-      <h3 className="mt-2 text-xl font-bold">
-        {/* Each card has its own indexable page (Jay, 27 Oct 2026); the card stays on the hub. */}
-        <a href={getLocalizedHref(productPath(card.id), locale)} className="underline-offset-4 hover:underline" data-product-page={card.id}>
-          {card.title}
-        </a>
-      </h3>
-      {/* The film plays on the product page, so /products stays light: a link only (27 Oct 2026). */}
-      {card.video ? (
-        <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="mt-1 inline-flex w-fit items-center gap-1 text-sm font-bold underline underline-offset-4" data-watch={card.id}>
-          <span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}
-        </a>
-      ) : null}
-      <dl className="mt-2 flex-1 space-y-2">
-        {(['problem', 'inside', 'forWho'] as const).map((key) => (
-          <div key={key}>
-            <dt className="text-sm font-bold">{leadIns[key]}</dt>
-            <dd>{card[key]}</dd>
-          </div>
-        ))}
-      </dl>
-      <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} />
-      <p className="mt-4 text-2xl font-bold" data-price={card.id}>
+      {/* Collapsed card (website assessment, 27 Oct 2026, fix 4): name, who it's for, price and two buttons; the problem,
+          what's inside and the sample thumbnails fold into "Details" (a <details>, so the prerendered page keeps them). */}
+      <div className="flex items-start gap-3">
+        {card.image ? (
+          // Decorative: the card title follows as a heading, so the image has empty alt text.
+          <img
+            src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
+            alt=""
+            width={480}
+            height={480}
+            loading="lazy"
+            decoding="async"
+            className="aspect-square w-16 flex-none rounded-xl object-cover sm:w-20"
+            data-product-image={card.id}
+          />
+        ) : null}
+        <div className="min-w-0">
+          <p className="text-xs font-bold uppercase tracking-wider text-[#8a5a00]">{card.label}</p>
+          <h3 className="mt-1 text-lg font-bold leading-snug">
+            {/* Each card has its own indexable page (Jay, 27 Oct 2026); the card stays on the hub. */}
+            <a href={getLocalizedHref(productPath(card.id), locale)} className="underline-offset-4 hover:underline" data-product-page={card.id}>
+              {card.title}
+            </a>
+          </h3>
+          <p className="mt-1 text-sm" data-for-who={card.id}>{firstSentence(card.forWho)}</p>
+          {/* The film plays on the product page, so /products stays light: a link only (27 Oct 2026). */}
+          {card.video ? (
+            <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="mt-1 inline-flex w-fit items-center gap-1 text-sm font-bold underline underline-offset-4" data-watch={card.id}>
+              <span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}
+            </a>
+          ) : null}
+        </div>
+      </div>
+      <details className="group mt-2 flex-1" data-details={card.id}>
+        <summary className="cursor-pointer text-sm font-bold underline underline-offset-4">{detailsLabel}</summary>
+        <dl className="mt-2 space-y-2">
+          {(['problem', 'inside', 'forWho'] as const).map((key) => (
+            <div key={key}>
+              <dt className="text-sm font-bold">{leadIns[key]}</dt>
+              <dd>{card[key]}</dd>
+            </div>
+          ))}
+        </dl>
+        <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} />
+        {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
+        {card.paypal ? <p className="mt-2 text-sm" data-paypal-note={card.id}>{PAYPAL_CARD_COPY[locale].note}</p> : null}
+      </details>
+      <p className="mt-3 text-2xl font-bold" data-price={card.id}>
         {card.price} <span className="text-base font-semibold">{card.unit}</span>
       </p>
       <div className="story-cta mt-3">
-        <a
-          className="insights-button-primary"
-          href={href}
-          data-cta={`product-${card.id}`}
-          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        >
-          {card.cta}
-        </a>
+        <div className="flex flex-wrap gap-2">
+          <a
+            className="insights-button-primary"
+            href={href}
+            data-cta={`product-${card.id}`}
+            {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            {card.cta}
+          </a>
+          {card.sample ? (
+            <button type="button" className="insights-button-secondary" onClick={() => onOpenSample(card)} data-sample-open={card.id}>
+              {sample.heading}
+            </button>
+          ) : null}
+        </div>
         {external ? (
-          <p className="mt-2 text-sm" data-order-code={card.id}>
+          <p className="mt-2 text-xs" data-order-code={card.id}>
             {code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}
           </p>
         ) : null}
-        {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
-        {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
+        {card.paypal ? <PayPalOption card={card} locale={locale} source={source} compact /> : null}
         {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={ieltsHome[card.group]} id={card.id} /> : null}
       </div>
     </li>
@@ -360,12 +403,20 @@ export function ProductsPage({ locale }: { locale: Locale }) {
         eyebrow={c.eyebrow}
         counterpart={locale === 'vi' ? PRODUCTS_PATH : PRODUCTS_VI_PATH}
       />
+      {/* Phones: a sticky mini-nav under the header (master, 27 Oct 2026) — Families · Teachers · Centres · IELTS. */}
+      <nav aria-label={MINI_NAV[locale].label} className="sticky top-[72px] z-40 border-b border-sb-border bg-sb-cream/95 backdrop-blur md:hidden" data-products-mini-nav="">
+        <ul className="mx-auto flex max-w-5xl justify-between gap-1 px-3 py-2 text-sm font-bold">
+          {MINI_NAV[locale].links.map(([anchor, label]) => (
+            <li key={anchor}><a href={`#${anchor}`} className="inline-flex min-h-11 items-center rounded-full px-3 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber">{label}</a></li>
+          ))}
+        </ul>
+      </nav>
       <div className="ielts-tool-content mx-auto max-w-5xl space-y-12 px-5 py-14">
         <a href={productHref('/', locale)} className="inline-flex items-center gap-2 text-sm font-bold underline underline-offset-4">
           <ArrowLeft aria-hidden="true" className="h-4 w-4" /> {c.back}
         </a>
         {c.sections.map((section) => (
-          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="scroll-mt-24">
+          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="scroll-mt-24 max-md:scroll-mt-36">
             <h2 id={`${section.id}-h`} className="text-3xl font-bold">{section.heading}</h2>
             <p className="mt-2 text-lg">{section.intro}</p>
             {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }])
@@ -388,6 +439,8 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           </section>
         ))}
       </div>
+      {/* The free sample pack at the end of /products (website assessment, 27 Oct 2026, lead-capture spec). */}
+      <SamplePackForm placement="products" />
       <div className="insights-closing">
         <div>
           <p>{c.closing.heading}</p>
