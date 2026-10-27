@@ -460,8 +460,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
-    // Placeholder until image-studio makes this workbook's own image.
-    image: 'student-workbook-l1',
+    image: 'student-workbook-l2',
     sample: 'student-workbook-l2',
     delivery: true,
     paypal: true,
@@ -490,8 +489,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
-    // Placeholder until image-studio makes this workbook's own image.
-    image: 'student-workbook-l1',
+    image: 'student-workbook-l3',
     sample: 'student-workbook-l3',
     delivery: true,
     paypal: true,
@@ -520,8 +518,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
-    // Placeholder until image-studio makes this workbook's own image.
-    image: 'student-workbook-l1',
+    image: 'student-workbook-l4',
     sample: 'student-workbook-l4',
     delivery: true,
     paypal: true,
@@ -550,8 +547,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
-    // Placeholder until image-studio makes this workbook's own image.
-    image: 'student-workbook-l1',
+    image: 'student-workbook-l5',
     sample: 'student-workbook-l5',
     delivery: true,
     paypal: true,
