@@ -18,7 +18,7 @@ const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf(
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
-  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫']],
+  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'],
@@ -76,7 +76,7 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     const main = amp(mainOf(await renderRoute(route)));
     const ctas = Object.fromEntries([...main.matchAll(/href="([^"]+)"[^>]*data-cta="product-([^"]+)"/g)].map((m) => [m[2], m[1]]));
     for (const [id, href] of Object.entries(expected[route])) assert.equal(ctas[id], href, `${route} ${id}`);
-    for (const id of ['printable-pack', 'parent-pack-l1', ...SHOWN.teachers.map(([cardId]) => cardId), ...SHOWN.centres.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
+    for (const id of ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId), ...SHOWN.centres.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
     assert.equal(PRODUCTS_ZALO, 'https://zalo.me/84396085076?utm_source=products');
     // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch, the sample
     // PDFs (files on this site, not page links) and the PayPal payments (their item name carries the order code).
@@ -98,7 +98,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
   ]) {
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id)], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id)], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -180,7 +180,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
     'teacher-pack-l1': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
     'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
-    'parent-pack-l1': 'printable-pack-l1', 'student-workbook-l1': 'printable-pack-l1', 'thinking-cycle-set': 'thinking-cycle-set',
+    'parent-pack-l1': 'printable-pack-l1', 'parent-pack-l2': 'printable-pack-l1', 'student-workbook-l1': 'printable-pack-l1', 'thinking-cycle-set': 'thinking-cycle-set',
     'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
@@ -194,7 +194,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
   // Every product, live or hidden, has its own image, so flipping live needs no image work.
   for (const p of PRODUCTS) assert.ok(p.image, `${p.id} has an image`);
   // Wave 2 (27 Oct 2026) borrows the Printable Pack image until image-studio makes its own; nothing else may share one.
-  const PLACEHOLDER = new Set(['parent-pack-l1', 'student-workbook-l1']);
+  const PLACEHOLDER = new Set(['parent-pack-l1', 'parent-pack-l2', 'student-workbook-l1']);
   const own = PRODUCTS.filter((p) => !PLACEHOLDER.has(p.id));
   assert.equal(new Set(own.map((p) => p.image)).size, own.length, 'no two products share an image');
   for (const p of PRODUCTS.filter((entry) => PLACEHOLDER.has(entry.id))) assert.equal(p.image, 'printable-pack-l1', `${p.id}: placeholder image`);
@@ -225,7 +225,7 @@ const SAMPLE_STEMS: Record<string, string> = {
   'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
   'teacher-pack-l1': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
   'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
-  'parent-pack-l1': 'parent-pack-l1', 'student-workbook-l1': 'student-workbook-l1',
+  'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1',
   'thinking-cycle-set': 'thinking-cycle-set', 'reasoning-assessment-kit': 'reasoning-assessment-kit',
   'ielts-speaking-ladder': 'ielts-speaking-ladder', 'centre-licence': 'centre-licence',
   'teacher-training-course': 'teacher-training-course', 'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
@@ -334,11 +334,11 @@ test('wave 2: two new cards with their samples, US$ by PayPal, and the workbook 
     const html = amp(mainOf(await renderRoute(route)).replaceAll('<!-- -->', ''));
     const families = html.slice(html.indexOf('<section id="families"'), html.indexOf('</section>', html.indexOf('<section id="families"')));
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
-    assert.ok(families.includes('id="parent-pack-l1"') && !families.includes('id="student-workbook-l1"'), `${route}: parent pack in families`);
+    assert.ok(families.includes('id="parent-pack-l1"') && families.includes('id="parent-pack-l2"') && !families.includes('id="student-workbook-l1"'), `${route}: parent packs in families`);
     assert.ok(teachers.includes('id="student-workbook-l1"'), `${route}: workbook in teachers`);
     assert.match(families, line, `${route}: workbook line in families`);
     assert.equal([...html.matchAll(/data-also="/g)].length, 1, `${route}: one pointer line`);
-    for (const [id, price, usd] of [['parent-pack-l1', '249.000₫', 10], ['student-workbook-l1', '190.000₫', 8]] as const) {
+    for (const [id, price, usd] of [['parent-pack-l1', '249.000₫', 10], ['parent-pack-l2', '249.000₫', 10], ['student-workbook-l1', '190.000₫', 8]] as const) {
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
       assert.ok(card.includes(`data-sample="${id}"`) && card.includes(`/samples/${id}-sample.pdf`), `${route} ${id}: sample`);
       assert.ok(card.includes(`data-price="${id}">${price}`), `${route} ${id}: ${price}`);
