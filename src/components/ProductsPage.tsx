@@ -155,18 +155,15 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
       else if (event.key === 'ArrowRight') setPage((p) => Math.min(last, p + 1));
       else if (event.key === 'ArrowLeft') setPage((p) => Math.max(0, p - 1));
       else if (event.key === 'Tab' && dialog.current) {
-        // Keep focus inside the dialog.
+        // Handle every Tab explicitly: WebKit can skip buttons in its native Tab order.
         const items = [...dialog.current.querySelectorAll<HTMLElement>('button:not([disabled]), a[href]')];
         if (!items.length) return;
-        const first = items[0];
-        const end = items[items.length - 1];
-        if (event.shiftKey && (document.activeElement === first || document.activeElement === dialog.current)) {
-          event.preventDefault();
-          end.focus();
-        } else if (!event.shiftKey && document.activeElement === end) {
-          event.preventDefault();
-          first.focus();
-        }
+        const current = items.indexOf(document.activeElement as HTMLElement);
+        const next = event.shiftKey
+          ? (current <= 0 ? items.length - 1 : current - 1)
+          : (current + 1) % items.length;
+        event.preventDefault();
+        items[next].focus();
       }
     };
     document.addEventListener('keydown', onKey);

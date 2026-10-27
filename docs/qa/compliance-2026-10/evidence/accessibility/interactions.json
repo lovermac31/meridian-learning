@@ -1,0 +1,1241 @@
+[
+  {
+    "engine": "chromium",
+    "width": 390,
+    "video": {
+      "time": 1.157519,
+      "paused": false,
+      "muted": true,
+      "controls": true,
+      "width": 1280,
+      "tracks": [
+        {
+          "lang": "en",
+          "mode": "showing"
+        },
+        {
+          "lang": "vi",
+          "mode": "disabled"
+        },
+        {
+          "lang": "zh",
+          "mode": "disabled"
+        }
+      ]
+    },
+    "subtitle": "false",
+    "readerButtons": [
+      "Teacher notes",
+      "My storybook",
+      "For grown-ups",
+      "+ New reader",
+      "Read the story",
+      "Story activities",
+      "Workbook",
+      "Reference lessons (4)",
+      "Back to the story",
+      "🔊 Hear the question",
+      "Mina",
+      "Her aunt",
+      "Sami",
+      "🔊 Hear the question",
+      "Happy. She wants to play.",
+      "Scared of the sound",
+      "Tired",
+      "Hear it",
+      "drum",
+      "ears",
+      "soft",
+      "drum",
+      "drum",
+      "Drum",
+      "MMina asks…3",
+      "Open the book",
+      "▶  Read to me",
+      "■ Stop",
+      "← Turn back",
+      "Turn the page →",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "♪",
+      "A song for tomorrow",
+      "The big drum",
+      "Two different needs",
+      "Two drums",
+      "Some words",
+      "A little moon",
+      "drum",
+      "ears",
+      "loud",
+      "soft",
+      "tired",
+      "tomorrow",
+      "page 3",
+      "page 6",
+      "page 2",
+      "page 1",
+      "page 4",
+      "page 5",
+      "Happy",
+      "Curious",
+      "Calm",
+      "Unsure",
+      "1",
+      "2",
+      "3",
+      "4",
+      "▶ Page 1",
+      "the small drum",
+      "the big drum",
+      "two drums",
+      "▶ Page 4",
+      "one",
+      "two",
+      "three",
+      "▶ Page 5",
+      "his hands",
+      "his head",
+      "the drum",
+      "▶ Page 6",
+      "two drums",
+      "a card",
+      "a little moon",
+      "Check & submit",
+      "🏅 Print my certificate",
+      "Go to page 1",
+      "Go to page 2",
+      "Go to page 3",
+      "Go to page 4",
+      "Go to page 5",
+      "Go to page 6",
+      "Back to my storybook",
+      "",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "",
+      "Export workbook",
+      "Return to scene 1",
+      "Return to scene 2",
+      "Return to scene 3",
+      "Return to scene 4",
+      "Return to scene 5",
+      "Return to scene 6",
+      "Print book and workbook",
+      "Back to my storybook",
+      "Print teacher edition"
+    ],
+    "readerCurrentScene": [
+      "2",
+      "1"
+    ],
+    "readerFocus": {
+      "name": null,
+      "tag": "ARTICLE"
+    },
+    "questControls": [
+      {
+        "tag": "A",
+        "text": "Story Quest",
+        "href": "#home"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tắt âm",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "EN",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tiếng Việt",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "6–7 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "8 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "9–10 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "11–12 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bắt đầu câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Khám phá các câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Dành cho phụ huynh",
+        "href": null
+      }
+    ],
+    "questFocus": {
+      "tag": "BUTTON",
+      "text": "Tắt âm",
+      "outline": "rgb(217, 119, 6) solid 2px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "video": {
+      "time": 1.156363,
+      "paused": false,
+      "muted": true,
+      "controls": true,
+      "width": 1280,
+      "tracks": [
+        {
+          "lang": "en",
+          "mode": "showing"
+        },
+        {
+          "lang": "vi",
+          "mode": "disabled"
+        },
+        {
+          "lang": "zh",
+          "mode": "disabled"
+        }
+      ]
+    },
+    "subtitle": "false",
+    "readerButtons": [
+      "Teacher notes",
+      "My storybook",
+      "For grown-ups",
+      "+ New reader",
+      "Read the story",
+      "Story activities",
+      "Workbook",
+      "Reference lessons (4)",
+      "Back to the story",
+      "🔊 Hear the question",
+      "Mina",
+      "Her aunt",
+      "Sami",
+      "🔊 Hear the question",
+      "Happy. She wants to play.",
+      "Scared of the sound",
+      "Tired",
+      "Hear it",
+      "drum",
+      "ears",
+      "soft",
+      "drum",
+      "drum",
+      "Drum",
+      "MMina asks…3",
+      "Open the book",
+      "▶  Read to me",
+      "■ Stop",
+      "← Turn back",
+      "Turn the page →",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "♪",
+      "A song for tomorrow",
+      "The big drum",
+      "Two different needs",
+      "Two drums",
+      "Some words",
+      "A little moon",
+      "drum",
+      "ears",
+      "loud",
+      "soft",
+      "tired",
+      "tomorrow",
+      "page 3",
+      "page 4",
+      "page 2",
+      "page 1",
+      "page 6",
+      "page 5",
+      "Happy",
+      "Curious",
+      "Calm",
+      "Unsure",
+      "1",
+      "2",
+      "3",
+      "4",
+      "▶ Page 1",
+      "the small drum",
+      "the big drum",
+      "two drums",
+      "▶ Page 4",
+      "one",
+      "two",
+      "three",
+      "▶ Page 5",
+      "his hands",
+      "his head",
+      "the drum",
+      "▶ Page 6",
+      "two drums",
+      "a card",
+      "a little moon",
+      "Check & submit",
+      "🏅 Print my certificate",
+      "Go to page 1",
+      "Go to page 2",
+      "Go to page 3",
+      "Go to page 4",
+      "Go to page 5",
+      "Go to page 6",
+      "Back to my storybook",
+      "",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "",
+      "Export workbook",
+      "Return to scene 1",
+      "Return to scene 2",
+      "Return to scene 3",
+      "Return to scene 4",
+      "Return to scene 5",
+      "Return to scene 6",
+      "Print book and workbook",
+      "Back to my storybook",
+      "Print teacher edition"
+    ],
+    "readerCurrentScene": [
+      "2",
+      "1",
+      "2"
+    ],
+    "readerFocus": {
+      "name": null,
+      "tag": "ARTICLE"
+    },
+    "questControls": [
+      {
+        "tag": "A",
+        "text": "Story Quest",
+        "href": "#home"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tắt âm",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "EN",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tiếng Việt",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "6–7 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "8 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "9–10 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "11–12 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bắt đầu câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Khám phá các câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Dành cho phụ huynh",
+        "href": null
+      }
+    ],
+    "questFocus": {
+      "tag": "BUTTON",
+      "text": "Tắt âm",
+      "outline": "rgb(217, 119, 6) solid 2px"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "video": {
+      "time": 1.188985666991007,
+      "paused": false,
+      "muted": true,
+      "controls": true,
+      "width": 1280,
+      "tracks": [
+        {
+          "lang": "en",
+          "mode": "showing"
+        },
+        {
+          "lang": "vi",
+          "mode": "disabled"
+        },
+        {
+          "lang": "zh",
+          "mode": "disabled"
+        }
+      ]
+    },
+    "subtitle": "true",
+    "readerButtons": [
+      "Teacher notes",
+      "My storybook",
+      "For grown-ups",
+      "+ New reader",
+      "Read the story",
+      "Story activities",
+      "Workbook",
+      "Reference lessons (4)",
+      "Back to the story",
+      "🔊 Hear the question",
+      "Mina",
+      "Her aunt",
+      "Sami",
+      "🔊 Hear the question",
+      "Happy. She wants to play.",
+      "Scared of the sound",
+      "Tired",
+      "Hear it",
+      "drum",
+      "ears",
+      "soft",
+      "drum",
+      "drum",
+      "Drum",
+      "MMina asks…3",
+      "Open the book",
+      "▶  Read to me",
+      "■ Stop",
+      "← Turn back",
+      "Turn the page →",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "♪",
+      "Two different needs",
+      "The big drum",
+      "A song for tomorrow",
+      "Two drums",
+      "Some words",
+      "A little moon",
+      "drum",
+      "ears",
+      "loud",
+      "soft",
+      "tired",
+      "tomorrow",
+      "page 2",
+      "page 4",
+      "page 6",
+      "page 5",
+      "page 1",
+      "page 3",
+      "Happy",
+      "Curious",
+      "Calm",
+      "Unsure",
+      "1",
+      "2",
+      "3",
+      "4",
+      "▶ Page 1",
+      "the small drum",
+      "the big drum",
+      "two drums",
+      "▶ Page 4",
+      "one",
+      "two",
+      "three",
+      "▶ Page 5",
+      "his hands",
+      "his head",
+      "the drum",
+      "▶ Page 6",
+      "two drums",
+      "a card",
+      "a little moon",
+      "Check & submit",
+      "🏅 Print my certificate",
+      "Go to page 1",
+      "Go to page 2",
+      "Go to page 3",
+      "Go to page 4",
+      "Go to page 5",
+      "Go to page 6",
+      "Back to my storybook",
+      "",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "",
+      "Export workbook",
+      "Return to scene 1",
+      "Return to scene 2",
+      "Return to scene 3",
+      "Return to scene 4",
+      "Return to scene 5",
+      "Return to scene 6",
+      "Print book and workbook",
+      "Back to my storybook",
+      "Print teacher edition"
+    ],
+    "readerCurrentScene": [
+      "2",
+      "1"
+    ],
+    "readerFocus": {
+      "name": null,
+      "tag": "ARTICLE"
+    },
+    "questControls": [
+      {
+        "tag": "A",
+        "text": "Story Quest",
+        "href": "#home"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tắt âm",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "EN",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tiếng Việt",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "6–7 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "8 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "9–10 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "11–12 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bắt đầu câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Khám phá các câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Dành cho phụ huynh",
+        "href": null
+      }
+    ],
+    "questFocus": {
+      "tag": "BODY",
+      "text": "Story QuestTắt âmENTiếng ViệtTrò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổiMột câu chuyện bí ẩn ",
+      "outline": "3px none oklch(0.216 0.006 56.042999)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "video": {
+      "time": 1.1914892089926388,
+      "paused": false,
+      "muted": true,
+      "controls": true,
+      "width": 1280,
+      "tracks": [
+        {
+          "lang": "en",
+          "mode": "showing"
+        },
+        {
+          "lang": "vi",
+          "mode": "disabled"
+        },
+        {
+          "lang": "zh",
+          "mode": "disabled"
+        }
+      ]
+    },
+    "subtitle": "true",
+    "readerButtons": [
+      "Teacher notes",
+      "My storybook",
+      "For grown-ups",
+      "+ New reader",
+      "Read the story",
+      "Story activities",
+      "Workbook",
+      "Reference lessons (4)",
+      "Back to the story",
+      "🔊 Hear the question",
+      "Mina",
+      "Her aunt",
+      "Sami",
+      "🔊 Hear the question",
+      "Happy. She wants to play.",
+      "Scared of the sound",
+      "Tired",
+      "Hear it",
+      "drum",
+      "ears",
+      "soft",
+      "drum",
+      "drum",
+      "Drum",
+      "MMina asks…3",
+      "Open the book",
+      "▶  Read to me",
+      "■ Stop",
+      "← Turn back",
+      "Turn the page →",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "♪",
+      "Two different needs",
+      "The big drum",
+      "A song for tomorrow",
+      "Two drums",
+      "Some words",
+      "A little moon",
+      "drum",
+      "ears",
+      "loud",
+      "soft",
+      "tired",
+      "tomorrow",
+      "page 5",
+      "page 4",
+      "page 3",
+      "page 6",
+      "page 2",
+      "page 1",
+      "Happy",
+      "Curious",
+      "Calm",
+      "Unsure",
+      "1",
+      "2",
+      "3",
+      "4",
+      "▶ Page 1",
+      "the small drum",
+      "the big drum",
+      "two drums",
+      "▶ Page 4",
+      "one",
+      "two",
+      "three",
+      "▶ Page 5",
+      "his hands",
+      "his head",
+      "the drum",
+      "▶ Page 6",
+      "two drums",
+      "a card",
+      "a little moon",
+      "Check & submit",
+      "🏅 Print my certificate",
+      "Go to page 1",
+      "Go to page 2",
+      "Go to page 3",
+      "Go to page 4",
+      "Go to page 5",
+      "Go to page 6",
+      "Back to my storybook",
+      "",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "",
+      "Export workbook",
+      "Return to scene 1",
+      "Return to scene 2",
+      "Return to scene 3",
+      "Return to scene 4",
+      "Return to scene 5",
+      "Return to scene 6",
+      "Print book and workbook",
+      "Back to my storybook",
+      "Print teacher edition"
+    ],
+    "readerCurrentScene": [
+      "2",
+      "1",
+      "2"
+    ],
+    "readerFocus": {
+      "name": null,
+      "tag": "ARTICLE"
+    },
+    "questControls": [
+      {
+        "tag": "A",
+        "text": "Story Quest",
+        "href": "#home"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tắt âm",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "EN",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tiếng Việt",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "6–7 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "8 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "9–10 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "11–12 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bắt đầu câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Khám phá các câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Dành cho phụ huynh",
+        "href": null
+      }
+    ],
+    "questFocus": {
+      "tag": "BODY",
+      "text": "Story QuestTắt âmENTiếng ViệtTrò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổiMột câu chuyện bí ẩn ",
+      "outline": "3px none oklch(0.216 0.006 56.042999)"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "video": {
+      "time": 1.164131,
+      "paused": false,
+      "muted": true,
+      "controls": true,
+      "width": 1280,
+      "tracks": [
+        {
+          "lang": "en",
+          "mode": "showing"
+        },
+        {
+          "lang": "vi",
+          "mode": "disabled"
+        },
+        {
+          "lang": "zh",
+          "mode": "disabled"
+        }
+      ]
+    },
+    "subtitle": "true",
+    "readerButtons": [
+      "Teacher notes",
+      "My storybook",
+      "For grown-ups",
+      "+ New reader",
+      "Read the story",
+      "Story activities",
+      "Workbook",
+      "Reference lessons (4)",
+      "Back to the story",
+      "🔊 Hear the question",
+      "Mina",
+      "Her aunt",
+      "Sami",
+      "🔊 Hear the question",
+      "Happy. She wants to play.",
+      "Scared of the sound",
+      "Tired",
+      "Hear it",
+      "drum",
+      "ears",
+      "soft",
+      "drum",
+      "drum",
+      "Drum",
+      "MMina asks…3",
+      "Open the book",
+      "▶  Read to me",
+      "■ Stop",
+      "← Turn back",
+      "Turn the page →",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "♪",
+      "Two different needs",
+      "The big drum",
+      "A song for tomorrow",
+      "Two drums",
+      "Some words",
+      "A little moon",
+      "drum",
+      "ears",
+      "loud",
+      "soft",
+      "tired",
+      "tomorrow",
+      "page 2",
+      "page 5",
+      "page 6",
+      "page 1",
+      "page 4",
+      "page 3",
+      "Happy",
+      "Curious",
+      "Calm",
+      "Unsure",
+      "1",
+      "2",
+      "3",
+      "4",
+      "▶ Page 1",
+      "the small drum",
+      "the big drum",
+      "two drums",
+      "▶ Page 4",
+      "one",
+      "two",
+      "three",
+      "▶ Page 5",
+      "his hands",
+      "his head",
+      "the drum",
+      "▶ Page 6",
+      "two drums",
+      "a card",
+      "a little moon",
+      "Check & submit",
+      "🏅 Print my certificate",
+      "Go to page 1",
+      "Go to page 2",
+      "Go to page 3",
+      "Go to page 4",
+      "Go to page 5",
+      "Go to page 6",
+      "Back to my storybook",
+      "",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "",
+      "Export workbook",
+      "Return to scene 1",
+      "Return to scene 2",
+      "Return to scene 3",
+      "Return to scene 4",
+      "Return to scene 5",
+      "Return to scene 6",
+      "Print book and workbook",
+      "Back to my storybook",
+      "Print teacher edition"
+    ],
+    "readerCurrentScene": [
+      "2",
+      "1"
+    ],
+    "readerFocus": {
+      "name": null,
+      "tag": "ARTICLE"
+    },
+    "questControls": [
+      {
+        "tag": "A",
+        "text": "Story Quest",
+        "href": "#home"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tắt âm",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "EN",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tiếng Việt",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "6–7 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "8 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "9–10 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "11–12 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bắt đầu câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Khám phá các câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Dành cho phụ huynh",
+        "href": null
+      }
+    ],
+    "questFocus": {
+      "tag": "BUTTON",
+      "text": "Tắt âm",
+      "outline": "rgb(217, 119, 6) solid 2px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "video": {
+      "time": 1.113213,
+      "paused": false,
+      "muted": true,
+      "controls": true,
+      "width": 1280,
+      "tracks": [
+        {
+          "lang": "en",
+          "mode": "showing"
+        },
+        {
+          "lang": "vi",
+          "mode": "disabled"
+        },
+        {
+          "lang": "zh",
+          "mode": "disabled"
+        }
+      ]
+    },
+    "subtitle": "false",
+    "readerButtons": [
+      "Teacher notes",
+      "My storybook",
+      "For grown-ups",
+      "+ New reader",
+      "Read the story",
+      "Story activities",
+      "Workbook",
+      "Reference lessons (4)",
+      "Back to the story",
+      "🔊 Hear the question",
+      "Mina",
+      "Her aunt",
+      "Sami",
+      "🔊 Hear the question",
+      "Happy. She wants to play.",
+      "Scared of the sound",
+      "Tired",
+      "Hear it",
+      "drum",
+      "ears",
+      "soft",
+      "drum",
+      "drum",
+      "Drum",
+      "MMina asks…3",
+      "Open the book",
+      "▶  Read to me",
+      "■ Stop",
+      "← Turn back",
+      "Turn the page →",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "♪",
+      "A song for tomorrow",
+      "The big drum",
+      "Two different needs",
+      "Two drums",
+      "Some words",
+      "A little moon",
+      "drum",
+      "ears",
+      "loud",
+      "soft",
+      "tired",
+      "tomorrow",
+      "page 2",
+      "page 4",
+      "page 3",
+      "page 1",
+      "page 6",
+      "page 5",
+      "Happy",
+      "Curious",
+      "Calm",
+      "Unsure",
+      "1",
+      "2",
+      "3",
+      "4",
+      "▶ Page 1",
+      "the small drum",
+      "the big drum",
+      "two drums",
+      "▶ Page 4",
+      "one",
+      "two",
+      "three",
+      "▶ Page 5",
+      "his hands",
+      "his head",
+      "the drum",
+      "▶ Page 6",
+      "two drums",
+      "a card",
+      "a little moon",
+      "Check & submit",
+      "🏅 Print my certificate",
+      "Go to page 1",
+      "Go to page 2",
+      "Go to page 3",
+      "Go to page 4",
+      "Go to page 5",
+      "Go to page 6",
+      "Back to my storybook",
+      "",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "",
+      "Export workbook",
+      "Return to scene 1",
+      "Return to scene 2",
+      "Return to scene 3",
+      "Return to scene 4",
+      "Return to scene 5",
+      "Return to scene 6",
+      "Print book and workbook",
+      "Back to my storybook",
+      "Print teacher edition"
+    ],
+    "readerCurrentScene": [
+      "2",
+      "1",
+      "2"
+    ],
+    "readerFocus": {
+      "name": null,
+      "tag": "ARTICLE"
+    },
+    "questControls": [
+      {
+        "tag": "A",
+        "text": "Story Quest",
+        "href": "#home"
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tắt âm",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "EN",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Tiếng Việt",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "6–7 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "8 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "9–10 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "11–12 tuổi",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Bắt đầu câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Khám phá các câu chuyện",
+        "href": null
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Dành cho phụ huynh",
+        "href": null
+      }
+    ],
+    "questFocus": {
+      "tag": "BUTTON",
+      "text": "Tắt âm",
+      "outline": "rgb(217, 119, 6) solid 2px"
+    }
+  }
+]
