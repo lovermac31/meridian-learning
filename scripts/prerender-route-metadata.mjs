@@ -235,14 +235,21 @@ function deferAppScriptUntilHeroPaint(html, pathname) {
   // a half-hydrated React cannot also act on them) and clicked again in order
   // once AppRoot's first effect fires 'je:hydrated' (50 ms apart, so React
   // re-renders between two taps on the same toggle).
+  // Form submits before hydration (the free sample pack form) would otherwise
+  // run the browser's native GET to the same URL — the visitor's email in the
+  // query string and no lead sent. They are held too and re-submitted 1.6 s
+  // after hydration (/api/sample-pack rejects a submit < 1.5 s after the form mounts).
   const bootstrap =
-    `<script>(function(){var d=false,h=false,q=[];function go(){if(d)return;d=true;var s=document.createElement('script');` +
+    `<script>(function(){var d=false,h=false,q=[],fq=[];function go(){if(d)return;d=true;var s=document.createElement('script');` +
     `s.type='module';s.crossOrigin='anonymous';s.src=${JSON.stringify(src)};document.head.appendChild(s)}` +
     `function T(){return document.querySelectorAll('#root button[type="button"]')}` +
     `function tap(e){if(h)return;var b=e.target&&e.target.closest&&e.target.closest('#root button[type="button"]');` +
     `if(!b)return;e.stopPropagation();q.push([b,[].indexOf.call(T(),b)]);go()}` +
-    `document.addEventListener('click',tap,true);` +
-    `addEventListener('je:hydrated',function(){h=true;document.removeEventListener('click',tap,true);` +
+    `function sub(e){if(h)return;var f=e.target;if(!f||!f.closest||!f.closest('#root'))return;` +
+    `e.preventDefault();e.stopPropagation();if(fq.indexOf(f)<0)fq.push(f);go()}` +
+    `document.addEventListener('click',tap,true);document.addEventListener('submit',sub,true);` +
+    `addEventListener('je:hydrated',function(){h=true;document.removeEventListener('click',tap,true);document.removeEventListener('submit',sub,true);` +
+    `if(fq.length)setTimeout(function(){fq.forEach(function(f){if(f.isConnected&&f.requestSubmit)f.requestSubmit()})},1600);` +
     `setTimeout(function r(){var x=q.shift();if(!x)return;var b=x[0].isConnected?x[0]:T()[x[1]];if(b)b.click();setTimeout(r,50)},0)},{once:true});` +
     `setTimeout(go,3000);addEventListener('pointerdown',go,{once:true,passive:true});addEventListener('keydown',go,{once:true});` +
     `function hero(){return document.querySelector('#root img[fetchpriority="high"]')}` +
