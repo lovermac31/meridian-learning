@@ -30,6 +30,7 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'teacher-pack-l5': 11,
   'teacher-training-course': 9,
   'thinking-cycle-set': 10,
+  'writing-baseline': 7,
 };
 
 export const SAMPLE_PAGE_WIDTH = 1200;

@@ -76,10 +76,16 @@ test('market order codes: the Sale Team table maps each market-<country> source 
 
 // S1 (master decision (a), 27 Oct 2026): a direct PayPal payment per digital card at Jay's approved US$ price.
 const USD: Record<string, number> = {
-  'printable-pack': 6, 'parent-pack-l1': 10, 'parent-pack-l2': 10, 'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27,
-  'teacher-pack-l5': 27, 'teacher-bundle': 112, 'student-workbook-l1': 8, 'student-workbook-l2': 8, 'student-workbook-l3': 8, 'student-workbook-l4': 8, 'student-workbook-l5': 8, 'thinking-cycle-set': 19, 'reasoning-assessment-kit': 16,
-  'ielts-speaking-ladder': 16, 'ielts-writing-ladder-task2': 16, 'ielts-writing-task1-method': 12, 'ielts-writing-teacher-pack': 27, 'teacher-training-course': 58, 'pilot-class-kit': 27, 'curriculum-overview': 12,
+  'printable-pack': 6, 'parent-pack-l1': 10, 'parent-pack-l2': 10, 'parent-pack-l3': 10, 'holiday-reading-challenge': 6,
+  'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27, 'teacher-pack-l5': 27, 'teacher-bundle': 112,
+  'student-workbook-l1': 8, 'student-workbook-l2': 8, 'student-workbook-l3': 8, 'student-workbook-l4': 8, 'student-workbook-l5': 8,
+  'word-fossil-flashcards-l1': 8, 'thinking-cycle-set': 19, 'thinking-cycle-posters': 6, 'reasoning-assessment-kit': 16,
+  'ielts-speaking-ladder': 16, 'ielts-one-to-one-starter': 6, 'ielts-cue-card-bank': 12, 'ielts-writing-ladder-task2': 16,
+  'ielts-writing-task1-method': 12, 'ielts-essay-bank-task2': 12, 'ielts-writing-teacher-pack': 27, 'teacher-training-course': 58,
+  'pilot-class-kit': 27, 'curriculum-overview': 12,
 };
+// The page shows PayPal only on live cards; hidden ones (35-today plan) are priced and ready for when they flip.
+const LIVE_USD = Object.keys(USD).filter((id) => PRODUCTS.find((p) => p.id === id)!.live);
 
 test('S1: the 13 digital cards take PayPal at the approved US$ prices; the Centre Licence and live services do not', () => {
   assert.deepEqual(PRODUCTS.filter((p) => p.paypal).map((p) => p.id), Object.keys(USD));
@@ -107,8 +113,8 @@ test('S1: each PayPal card shows the US$ option after the VND order button, with
     ['/vi/products', 'Thanh toán US$', 'Tài liệu được gửi qua Google Drive trong vòng 24 giờ'],
   ] as const) {
     const html = amp((await renderRoute(route)).replaceAll('<!-- -->', ''));
-    assert.deepEqual([...html.matchAll(/data-paypal="([^"]+)"/g)].map((m) => m[1]), Object.keys(USD), route);
-    for (const id of Object.keys(USD)) {
+    assert.deepEqual([...html.matchAll(/data-paypal="([^"]+)"/g)].map((m) => m[1]), LIVE_USD, route);
+    for (const id of LIVE_USD) {
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
       assert.ok(card.indexOf(`data-cta="product-${id}"`) < card.indexOf(`data-paypal="${id}"`), `${route} ${id}: VND first`);
       const link = card.match(/<a href="([^"]+)" target="_blank" rel="noopener noreferrer"[^>]*data-paypal-link="[^"]+">([^<]+)</)!;

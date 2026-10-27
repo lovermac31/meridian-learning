@@ -195,9 +195,11 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     assert.deepEqual(Object.fromEntries(cards.filter((c) => c.image).map((c) => [c.id, c.image])), expected, locale);
   }
   const { PRODUCTS } = await import('../src/i18n/content/products');
-  // Every product, live or hidden, has its own image, so flipping live needs no image work.
-  for (const p of PRODUCTS) assert.ok(p.image, `${p.id} has an image`);
-  assert.equal(new Set(PRODUCTS.map((p) => p.image)).size, PRODUCTS.length, 'no two products share an image');
+  // Every live product has its own image. A hidden card may wait for the image studio (35-today plan, 27 Oct 2026);
+  // it cannot go live without one.
+  for (const p of PRODUCTS.filter((entry) => entry.live)) assert.ok(p.image, `${p.id} has an image`);
+  const images = PRODUCTS.filter((p) => p.image).map((p) => p.image);
+  assert.equal(new Set(images).size, images.length, 'no two products share an image');
   for (const name of new Set(PRODUCTS.map((p) => p.image).filter(Boolean) as string[])) {
     const file = readFileSync(`public/images/products/${name}.webp`);
     assert.equal(file.subarray(0, 4).toString(), 'RIFF', `${name} is a WebP`);
@@ -205,17 +207,25 @@ test('the ChatGPT product images are on their cards, square and light', async ()
   }
 });
 
-test('packs marked live: false stay in the data but off the page; all 17 are cleared as of 27 Oct', async () => {
+test('packs marked live: false stay in the data, off the page and without a product page; the 8 new ones wait (35-today)', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
   const { renderRoute } = await import('../src/entry-server');
   for (const p of PRODUCTS) assert.equal(typeof p.live, 'boolean', `${p.id}: live is set`);
   const hidden = PRODUCTS.filter((p) => !p.live).map((p) => p.id);
-  // Cleared 27 Oct (Drive 00 READ MEs) and live once Jay approves the prices: L2–5 Teacher Packs, the Complete Teacher
-  // Bundle and factory B's six packs. A future pack can still ship hidden with live: false.
-  assert.deepEqual(hidden, []);
+  // 35-today plan (Jay, 27 Oct 2026): the eight new products ship hidden and flip live one by one once the master
+  // approves each sample (and its image is in). Everything before them is live.
+  assert.deepEqual(hidden, [
+    'parent-pack-l3', 'holiday-reading-challenge', 'word-fossil-flashcards-l1', 'thinking-cycle-posters',
+    'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'writing-baseline', 'ielts-essay-bank-task2',
+  ]);
+  const { PRODUCT_PAGE_PATHS } = await import('../src/i18n/content/productSeo');
   for (const route of [EN, VI]) {
     const html = await renderRoute(route);
     for (const id of hidden) assert.ok(!html.includes(`id="${id}"`) && !html.includes(`product-${id}`), `${route}: ${id} hidden`);
+  }
+  for (const id of hidden) {
+    assert.ok(!PRODUCT_PAGE_PATHS.includes(`/products/${id}`), `${id}: no product page, so nothing in the sitemap`);
+    assert.equal((await renderRoute(`/products/${id}`)).includes(`data-product-page-main="${id}"`), false, `${id}: /products/${id} is not served`);
   }
 });
 
@@ -231,6 +241,10 @@ const SAMPLE_STEMS: Record<string, string> = {
   'thinking-cycle-set': 'thinking-cycle-set', 'reasoning-assessment-kit': 'reasoning-assessment-kit',
   'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2', 'ielts-writing-task1-method': 'ielts-writing-task1-method', 'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack', 'centre-licence': 'centre-licence',
   'teacher-training-course': 'teacher-training-course', 'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
+  // 35-today plan (27 Oct 2026): the eight new products, stem = id.
+  'writing-baseline': 'writing-baseline', 'ielts-one-to-one-starter': 'ielts-one-to-one-starter', 'ielts-cue-card-bank': 'ielts-cue-card-bank',
+  'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3', 'holiday-reading-challenge': 'holiday-reading-challenge',
+  'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
 };
 const SAMPLE_FILE = /^(.+)-p[123]\.webp$/;
 const PAGE_FILE = /^(.+)-pg(\d\d)\.webp$/;

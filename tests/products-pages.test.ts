@@ -99,3 +99,21 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
   assert.match(readFileSync('index.html', 'utf8'), /<meta name="msvalidate\.01" content="E05B1F4111192BE2DE70E1F2137FF9C9"/);
   assert.ok(existsSync('public/BingSiteAuth.xml'));
 });
+
+// 35-today plan (Jay, 27 Oct 2026): the eight new cards ship hidden. Each already has its search copy, so flipping
+// `live` gives it /products/<id> and /vi/products/<id>, its JSON-LD and its sitemap entry with no other change.
+test('35-today: every hidden card has EN + VI search copy within the limits, ready to flip live', async () => {
+  const { PRODUCTS } = await import('../src/i18n/content/products');
+  const hidden = PRODUCTS.filter((p) => !p.live);
+  assert.equal(hidden.length, 8);
+  assert.equal(PRODUCTS.length, 35);
+  for (const p of hidden) {
+    for (const locale of ['en', 'vi'] as const) {
+      const seo = PRODUCT_SEO[p.id]?.[locale];
+      assert.ok(seo, `${p.id} ${locale}: search copy`);
+      assert.ok(seo.keyword && seo.title.length <= 60, `${p.id} ${locale}: title ${seo.title.length}`);
+      assert.ok(seo.description.length >= 80 && seo.description.length <= 160, `${p.id} ${locale}: description ${seo.description.length}`);
+      assert.ok(seo.description.includes(p.price.replace(/₫$/, '')), `${p.id} ${locale}: the price is in the description`);
+    }
+  }
+});
