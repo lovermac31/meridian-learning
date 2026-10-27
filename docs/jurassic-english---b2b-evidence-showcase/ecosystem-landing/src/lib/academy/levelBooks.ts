@@ -97,9 +97,12 @@ export function coverSrc(level: AcademyLevel, book: Book): string | null {
   return `${BOOKS_BASE_URL}/assets/art/${book.id}/cover.jpg`;
 }
 
-/** "For teachers: Level N Teacher Pack": the level's card on the main site's /products, tagged from the story hub. */
+/**
+ * "For teachers: Level N Teacher Pack": the level's card on the main site's /products. Tagged utm_source=academy like
+ * the hub's other links (the Sale Team's UTM table: the Level Stories hub is `academy`, order code AC).
+ */
 export function teacherPackHref(level: number, locale: Locale = "en"): string {
-  return `${locale === "vi" ? "/vi" : ""}/products?utm_source=story-hub#teacher-pack-l${level}`;
+  return `${locale === "vi" ? "/vi" : ""}/products?utm_source=academy#teacher-pack-l${level}`;
 }
 
 /**

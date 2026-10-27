@@ -128,12 +128,12 @@ test('contextual links: teacher, centre and level pages link their product card,
   assert.ok(checked.length >= CONTEXTUAL.length, `checked ${checked.length} page links`);
 });
 
-test('story hub: each level (EN + VI) has "For teachers: Level N Teacher Pack" to its card, tagged story-hub', () => {
+test('story hub: each level (EN + VI) has "For teachers: Level N Teacher Pack" to its card, tagged academy (code AC)', async () => {
   type LevelBooks = typeof levelBooksModule;
   const lb: LevelBooks = (levelBooksModule as unknown as { default?: LevelBooks }).default ?? levelBooksModule;
   for (const level of [1, 2, 3, 4, 5]) {
-    assert.equal(lb.teacherPackHref(level, 'en'), productsHref('en', 'story-hub', `teacher-pack-l${level}`));
-    assert.equal(lb.teacherPackHref(level, 'vi'), productsHref('vi', 'story-hub', `teacher-pack-l${level}`));
+    assert.equal(lb.teacherPackHref(level, 'en'), productsHref('en', 'academy', `teacher-pack-l${level}`));
+    assert.equal(lb.teacherPackHref(level, 'vi'), productsHref('vi', 'academy', `teacher-pack-l${level}`));
     assert.ok(PRODUCTS.some((p) => p.id === `teacher-pack-l${level}` && p.live), `teacher-pack-l${level} is a live card`);
   }
   const src = readFileSync('docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/components/student-academy/LevelStories.tsx', 'utf8');
@@ -141,6 +141,8 @@ test('story hub: each level (EN + VI) has "For teachers: Level N Teacher Pack" t
   assert.match(src, /teacherPack: \(level: number\) => `Dành cho giáo viên: Bộ tài liệu Giáo viên Level \$\{level\}`/);
   assert.match(src, /href=\{teacherPackHref\(level\.level, locale\)\}[^>]*data-link=\{`story-hub-teacher-pack-l\$\{level\.level\}`\}/);
   assert.equal(PRODUCTS.find((p) => p.id === 'teacher-pack-l2')!.vi.title, 'Bộ tài liệu Giáo viên Level 2', 'VI link text matches the card title');
+  const { orderCode } = await import('../src/lib/productsSource');
+  assert.equal(orderCode(new URL(lb.teacherPackHref(1), 'https://jurassicenglish.com').searchParams.get('utm_source'), 'teacher-pack-l1'), 'AC', 'story hub orders show code AC');
 });
 
 // Order codes (master, 27 Oct 2026): the Zalo buttons keep the buyer's channel. Codes from the Sale Team's
@@ -172,7 +174,7 @@ test('order codes: the channel code from the table, else the source, else the ca
     storybook: 'SB', academy: 'AC', video1: 'VD1', video2: 'VD2', video3: 'VD3',
   };
   for (const [source, code] of Object.entries(table)) assert.equal(orderCode(source, 'teacher-pack-l1'), code, source);
-  assert.equal(orderCode('story-hub', 'teacher-pack-l1'), 'STORY-HUB', 'a source not in the table is shown as itself');
+  assert.equal(orderCode('series', 'teacher-pack-l1'), 'SERIES', 'a source not in the table is shown as itself');
   assert.equal(orderCode(null, 'teacher-pack-l1'), 'TEACHER-PACK-L1', 'no source: the card id');
   assert.equal(orderCode('products', 'centre-licence'), 'CENTRE-LICENCE', 'the catch-all source: the card id');
   assert.equal(zaloHref('fb-teachers'), 'https://zalo.me/84396085076?utm_source=fb-teachers');
