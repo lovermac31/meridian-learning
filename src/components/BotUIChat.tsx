@@ -1,3 +1,4 @@
+import { analyticsAllowed } from '../lib/analyticsConsent';
 import '@botui/react/default-theme';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { track } from '@vercel/analytics';
@@ -41,6 +42,7 @@ function createPilotBot() {
 
 function sendTelemetry(eventName: string, properties?: Record<string, string | number | boolean | null>) {
   try {
+    if (!analyticsAllowed()) return;
     track(eventName, properties);
   } catch {
     // Keep telemetry non-blocking for the pilot.

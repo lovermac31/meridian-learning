@@ -13,9 +13,7 @@
  */
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { injectSpeedInsights } from '@vercel/speed-insights';
-import { inject as injectAnalytics } from '@vercel/analytics';
-import { loadGa4 } from '../lib/ga4';
+import { OptionalAnalytics, PrivacyControls } from '../components/PrivacyControls';
 import { YlBotUI } from './YlBotUI';
 import { PromoVideoModal } from './PromoVideoModal';
 import { initPageI18n } from './pageI18n';
@@ -24,19 +22,6 @@ import { GlobalContactPanel } from '../components/GlobalContactPanel';
 import './contact-panel.css';
 
 const YL_SPEED_INSIGHTS_ROUTE = '/young-learners-speaking';
-
-// Keep telemetry on the static YL page without asking Vite to resolve
-// Vercel's runtime-only /_vercel/* URLs during a multi-page build.
-try {
-  injectSpeedInsights({
-    framework: 'react',
-    route: YL_SPEED_INSIGHTS_ROUTE,
-  });
-  injectAnalytics();
-  loadGa4();
-} catch {
-  // Telemetry is progressive enhancement and must never block the page.
-}
 
 // Localize the static page (content + metadata + selector) for the resolved
 // language BEFORE mounting the island, so the page and the BotUI share one
@@ -82,6 +67,8 @@ if (mount) {
   createRoot(mount).render(
     <StrictMode>
       <YlBotUI />
+      <OptionalAnalytics route={YL_SPEED_INSIGHTS_ROUTE} />
+      <PrivacyControls />
       <PromoVideoModal />
     </StrictMode>,
   );

@@ -1,3 +1,4 @@
+import { analyticsAllowed } from '../lib/analyticsConsent';
 /**
  * Explicit promo-video lightbox for /young-learners-speaking/.
  *
@@ -22,6 +23,7 @@ const C = {
 };
 
 function track(name: string, data?: Record<string, string>) {
+  if (!analyticsAllowed()) return;
   try {
     (
       window as unknown as {

@@ -1,59 +1,35 @@
-/**
- * ga4.ts — Google Analytics 4 for jurassicenglish.com (property 560798867).
- *
- * Loads gtag.js once, in the browser, on the production hosts only (previews,
- * localhost and the build-time prerender never send data). Visitors whose
- * browser sends Global Privacy Control or Do Not Track are not measured.
- * SPA page changes are recorded by GA4's enhanced measurement (browser
- * history events), so no manual page_view is sent here.
- *
- * Vercel Web Analytics stays as it is; GA4 runs beside it. Atlas reads the
- * GA4 Data API with a read-only service account (Viewer on the property).
- */
+/** GA4: production only, explicit opt-in only, respecting GPC and DNT. */
+import { analyticsAllowed } from './analyticsConsent';
 export const GA4_MEASUREMENT_ID = 'G-H334PZMDYW';
-
 const PRODUCTION_HOSTS = new Set(['jurassicenglish.com', 'www.jurassicenglish.com']);
-
 type Gtag = (...args: unknown[]) => void;
 declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: Gtag;
-  }
+  interface Window { dataLayer?: unknown[]; gtag?: Gtag; }
 }
-
-/** True when the visitor asked not to be tracked (GPC or DNT). */
 export function optedOut(nav: Partial<Navigator> & { globalPrivacyControl?: boolean } = navigator): boolean {
   return nav.globalPrivacyControl === true || nav.doNotTrack === '1';
 }
-
-export function shouldLoadGa4(host: string, nav?: Partial<Navigator> & { globalPrivacyControl?: boolean }): boolean {
-  return PRODUCTION_HOSTS.has(host) && !optedOut(nav);
+export function shouldLoadGa4(host: string, nav?: Partial<Navigator> & { globalPrivacyControl?: boolean }, consent = false): boolean {
+  return consent && PRODUCTION_HOSTS.has(host) && !optedOut(nav);
 }
-
 let loaded = false;
-
-/**
- * Configure the property now and inject gtag.js once the page has loaded and the
- * browser is idle (perf, 27 Oct 2026: the 176 KB script used to download beside
- * the hero image and pushed mobile LCP past 2.5 s). Calls made before it arrives
- * queue in dataLayer, exactly as with Google's own async snippet, so no event is
- * lost. Safe to call more than once.
- */
+let generation = 0;
+const disable = (value: boolean) => { (window as unknown as Record<string, unknown>)[`ga-disable-${GA4_MEASUREMENT_ID}`] = value; };
 export function loadGa4(): void {
   if (loaded || typeof window === 'undefined' || typeof document === 'undefined') return;
-  if (!shouldLoadGa4(window.location.hostname)) return;
+  if (!shouldLoadGa4(window.location.hostname, navigator, analyticsAllowed())) return;
   loaded = true;
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag() {
-    // gtag.js reads the arguments object itself, exactly as Google's snippet does.
-    // eslint-disable-next-line prefer-rest-params
-    window.dataLayer!.push(arguments);
-  };
-  window.gtag('js', new Date());
-  window.gtag('config', GA4_MEASUREMENT_ID);
+  disable(false);
+  const scheduledGeneration = ++generation;
   const inject = () => {
+    // Withdrawal can occur while waiting for load/idle. Never inject a stale job.
+    if (scheduledGeneration !== generation || !analyticsAllowed()) return;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() { window.dataLayer!.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA4_MEASUREMENT_ID);
     const s = document.createElement('script');
+    s.id = 'je-ga4';
     s.async = true;
     s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
     document.head.appendChild(s);
@@ -65,9 +41,23 @@ export function loadGa4(): void {
   if (document.readyState === 'complete') whenIdle();
   else window.addEventListener('load', whenIdle, { once: true });
 }
-
-/** Send a custom event to GA4 when it is loaded; a no-op otherwise. */
+/** Stop future collection; already transmitted requests cannot be recalled. */
+export function stopGa4(): void {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  ++generation;
+  loaded = false;
+  disable(true);
+  document.getElementById('je-ga4')?.remove();
+  window.dataLayer = [];
+  // Best-effort removal of first-party GA cookies, including parent-domain scope.
+  for (const cookie of document.cookie.split(';')) {
+    const name = cookie.trim().split('=')[0];
+    if (!/^_ga(?:_|$)/.test(name)) continue;
+    const domains = ['', window.location.hostname, `.${window.location.hostname}`, '.jurassicenglish.com'];
+    for (const domain of domains) document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax${domain ? `; domain=${domain}` : ''}`;
+  }
+}
 export function ga4Event(name: string, params: Record<string, string | number | boolean | undefined>): void {
-  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
+  if (!analyticsAllowed() || typeof window === 'undefined' || typeof window.gtag !== 'function') return;
   window.gtag('event', name, params);
 }
