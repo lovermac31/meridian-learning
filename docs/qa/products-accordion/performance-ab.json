@@ -1,0 +1,446 @@
+{
+  "summary": [
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "n": 5,
+      "lcpMedian": 184,
+      "clsMedian": 0.000023561259930490882,
+      "clsMax": 0.000023561259930490882,
+      "productClsMedian": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "n": 5,
+      "lcpMedian": 180,
+      "clsMedian": 0.000023561259930490882,
+      "clsMax": 0.000023561259930490882,
+      "productClsMedian": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "n": 5,
+      "lcpMedian": 184,
+      "clsMedian": 0.000023561259930490882,
+      "clsMax": 0.000023561259930490882,
+      "productClsMedian": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "n": 5,
+      "lcpMedian": 192,
+      "clsMedian": 0.000023561259930490882,
+      "clsMax": 0.000023561259930490882,
+      "productClsMedian": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "n": 5,
+      "lcpMedian": 184,
+      "clsMedian": 0.0006358655304248114,
+      "clsMax": 0.0006358655304248114,
+      "productClsMedian": 0.0006358655304248114
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "n": 5,
+      "lcpMedian": 196,
+      "clsMedian": 0.0001833924930609139,
+      "clsMax": 0.0001833924930609139,
+      "productClsMedian": 0.0001833924930609139
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "n": 5,
+      "lcpMedian": 184,
+      "clsMedian": 0.00018118407533329045,
+      "clsMax": 0.00018118407533329045,
+      "productClsMedian": 0.00018118407533329045
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "n": 5,
+      "lcpMedian": 196,
+      "clsMedian": 0.00018118407533329045,
+      "clsMax": 0.00018118407533329045,
+      "productClsMedian": 0.00018118407533329045
+    }
+  ],
+  "runs": [
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 0,
+      "cls": 0.000023561259930490882,
+      "lcp": 244,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 0,
+      "cls": 0.000023561259930490882,
+      "lcp": 184,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 1,
+      "cls": 0.000023561259930490882,
+      "lcp": 176,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 1,
+      "cls": 0.000023561259930490882,
+      "lcp": 172,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 2,
+      "cls": 0.000023561259930490882,
+      "lcp": 200,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 2,
+      "cls": 0.000023561259930490882,
+      "lcp": 180,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 3,
+      "cls": 0.000023561259930490882,
+      "lcp": 188,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 3,
+      "cls": 0.000023561259930490882,
+      "lcp": 184,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 4,
+      "cls": 0.000023561259930490882,
+      "lcp": 184,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 4,
+      "cls": 0.000023561259930490882,
+      "lcp": 180,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 0,
+      "cls": 0.000023561259930490882,
+      "lcp": 180,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 0,
+      "cls": 0.000023561259930490882,
+      "lcp": 192,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 1,
+      "cls": 0.000023561259930490882,
+      "lcp": 192,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 1,
+      "cls": 0.000023561259930490882,
+      "lcp": 184,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 2,
+      "cls": 0,
+      "lcp": 184,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 2,
+      "cls": 0.000023561259930490882,
+      "lcp": 188,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 3,
+      "cls": 0.000023561259930490882,
+      "lcp": 208,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 3,
+      "cls": 0.000023561259930490882,
+      "lcp": 188,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 4,
+      "cls": 0.000023561259930490882,
+      "lcp": 184,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 4,
+      "cls": 0.000023561259930490882,
+      "lcp": 192,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 0,
+      "cls": 0.0006358655304248114,
+      "lcp": 180,
+      "productCls": 0.0006358655304248114
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 0,
+      "cls": 0.0001833924930609139,
+      "lcp": 196,
+      "productCls": 0.0001833924930609139
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 1,
+      "cls": 0.0001833924930609139,
+      "lcp": 192,
+      "productCls": 0.0001833924930609139
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 1,
+      "cls": 0.0006358655304248114,
+      "lcp": 184,
+      "productCls": 0.0006358655304248114
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 2,
+      "cls": 0.0006358655304248114,
+      "lcp": 184,
+      "productCls": 0.0006358655304248114
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 2,
+      "cls": 0.0001833924930609139,
+      "lcp": 196,
+      "productCls": 0.0001833924930609139
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 3,
+      "cls": 0.0001833924930609139,
+      "lcp": 196,
+      "productCls": 0.0001833924930609139
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 3,
+      "cls": 0.0006358655304248114,
+      "lcp": 188,
+      "productCls": 0.0006358655304248114
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 4,
+      "cls": 0.0006358655304248114,
+      "lcp": 184,
+      "productCls": 0.0006358655304248114
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 4,
+      "cls": 0.0001833924930609139,
+      "lcp": 208,
+      "productCls": 0.0001833924930609139
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 0,
+      "cls": 0.00018118407533329045,
+      "lcp": 184,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 0,
+      "cls": 0.00018118407533329045,
+      "lcp": 188,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 1,
+      "cls": 0.00018118407533329045,
+      "lcp": 196,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 1,
+      "cls": 0.00018118407533329045,
+      "lcp": 184,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 2,
+      "cls": 0.00018118407533329045,
+      "lcp": 184,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 2,
+      "cls": 0.00018118407533329045,
+      "lcp": 196,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 3,
+      "cls": 0.00018118407533329045,
+      "lcp": 188,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 3,
+      "cls": 0.00018118407533329045,
+      "lcp": 180,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 4,
+      "cls": 0.00018118407533329045,
+      "lcp": 200,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 4,
+      "cls": 0.00018118407533329045,
+      "lcp": 200,
+      "productCls": 0.00018118407533329045
+    }
+  ]
+}

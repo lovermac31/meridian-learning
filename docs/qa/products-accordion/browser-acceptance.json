@@ -1,0 +1,142 @@
+[
+  {
+    "locale": "en",
+    "width": 390,
+    "initial": {
+      "height": 4576,
+      "perf": {
+        "cls": 0.000023561259930490882,
+        "lcp": 236
+      },
+      "overviewBottom": 511.296875,
+      "thirdBottom": 1189.421875,
+      "overflow": false
+    },
+    "collapsedHeight": 2627,
+    "anchorCases": 42,
+    "scans": [
+      {
+        "state": "category-open",
+        "violations": []
+      },
+      {
+        "state": "collapsed",
+        "violations": []
+      },
+      {
+        "state": "product-expanded",
+        "violations": []
+      },
+      {
+        "state": "sample-modal",
+        "violations": []
+      }
+    ],
+    "errors": []
+  },
+  {
+    "locale": "vi",
+    "width": 390,
+    "initial": {
+      "height": 4921,
+      "perf": {
+        "cls": 0.000023561259930490882,
+        "lcp": 184
+      },
+      "overviewBottom": 510.421875,
+      "thirdBottom": 1208.9375,
+      "overflow": false
+    },
+    "collapsedHeight": 2692,
+    "anchorCases": 42,
+    "scans": [
+      {
+        "state": "category-open",
+        "violations": []
+      },
+      {
+        "state": "collapsed",
+        "violations": []
+      },
+      {
+        "state": "product-expanded",
+        "violations": []
+      },
+      {
+        "state": "sample-modal",
+        "violations": []
+      }
+    ],
+    "errors": []
+  },
+  {
+    "locale": "en",
+    "width": 1440,
+    "initial": {
+      "height": 3480,
+      "perf": {
+        "cls": 0.0001833924930609139,
+        "lcp": 188
+      },
+      "overviewBottom": 377.140625,
+      "thirdBottom": 1108.65625,
+      "overflow": false
+    },
+    "collapsedHeight": 1845,
+    "anchorCases": 42,
+    "scans": [
+      {
+        "state": "category-open",
+        "violations": []
+      },
+      {
+        "state": "collapsed",
+        "violations": []
+      },
+      {
+        "state": "product-expanded",
+        "violations": []
+      },
+      {
+        "state": "sample-modal",
+        "violations": []
+      }
+    ],
+    "errors": []
+  },
+  {
+    "locale": "vi",
+    "width": 1440,
+    "initial": {
+      "height": 3523,
+      "perf": {
+        "cls": 0.00018118407533329045,
+        "lcp": 200
+      },
+      "overviewBottom": 377.140625,
+      "thirdBottom": 1108.65625,
+      "overflow": false
+    },
+    "collapsedHeight": 1887,
+    "anchorCases": 42,
+    "scans": [
+      {
+        "state": "category-open",
+        "violations": []
+      },
+      {
+        "state": "collapsed",
+        "violations": []
+      },
+      {
+        "state": "product-expanded",
+        "violations": []
+      },
+      {
+        "state": "sample-modal",
+        "violations": []
+      }
+    ],
+    "errors": []
+  }
+]
