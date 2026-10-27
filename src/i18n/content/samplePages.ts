@@ -6,6 +6,10 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'baseline': 8,
   'centre-licence': 19,
   'curriculum-overview': 11,
+  'holiday-challenge': 11,
+  'ielts-cue-card-bank': 11,
+  'ielts-essay-bank-task2': 10,
+  'ielts-one-to-one-starter': 8,
   'ielts-speaking-ladder': 10,
   'ielts-writing-ladder-task2': 9,
   'ielts-writing-task1-method': 9,
@@ -13,6 +17,7 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'one-to-one': 7,
   'parent-pack-l1': 10,
   'parent-pack-l2': 10,
+  'parent-pack-l3': 10,
   'pilot-class-kit': 11,
   'printable-pack-l1': 16,
   'reasoning-assessment-kit': 10,
@@ -29,7 +34,10 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'teacher-pack-l4': 11,
   'teacher-pack-l5': 11,
   'teacher-training-course': 9,
+  'thinking-cycle-posters': 8,
   'thinking-cycle-set': 10,
+  'word-fossil-flashcards-l1': 7,
+  'writing-baseline': 7,
 };
 
 export const SAMPLE_PAGE_WIDTH = 1200;

@@ -38,7 +38,7 @@ test('metadata: the description covers the whole range in EN and VI, OG matches 
 });
 
 test('JSON-LD: one Product with a VND Offer for every live card, in the page language, plus the breadcrumbs', () => {
-  assert.equal(LIVE.length, 27);
+  assert.equal(LIVE.length, 35);
   for (const [path, locale] of [['/products', 'en'], ['/vi/products', 'vi']] as const) {
     const blocks = resolveRouteMetadata(path).jsonLd as Array<Record<string, any>>;
     assert.ok(blocks.some((b) => b['@type'] === 'BreadcrumbList'), `${path}: breadcrumbs kept`);
@@ -57,7 +57,8 @@ test('JSON-LD: one Product with a VND Offer for every live card, in the page lan
       assert.equal(product.offers['@type'], 'Offer');
       assert.equal(product.offers.priceCurrency, 'VND');
       assert.equal(product.offers.price, p.price.replace(/\D/g, ''), `${path} ${p.id}: ${p.price}`);
-      assert.ok(Number(product.offers.price) >= 100_000, `${path} ${p.id}: whole VND`);
+      // Whole đồng, not thousands: the cheapest card is the Writing Baseline's Basic tier, 79.000₫.
+      assert.ok(Number(product.offers.price) >= 10_000, `${path} ${p.id}: whole VND`);
       assert.equal(product.offers.availability, 'https://schema.org/InStock');
     });
   }

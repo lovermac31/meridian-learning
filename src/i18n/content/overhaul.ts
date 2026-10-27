@@ -95,7 +95,7 @@ const en = {
       heading: 'Find what you need',
       tiles: [
         { anchor: 'families', title: 'For families', promise: 'Live classes with Mr. Jay, and printables for home.', from: 'from 149.000₫', image: 'printable-pack-l1' },
-        { anchor: 'teachers', title: 'For teachers', promise: 'Ready-to-use materials for teachers and tutors.', from: 'from 190.000₫', image: 'student-workbook-l1' },
+        { anchor: 'teachers', title: 'For teachers', promise: 'Ready-to-use materials for teachers and tutors.', from: 'from 149.000₫', image: 'student-workbook-l1' },
         { anchor: 'centres', title: 'For centres', promise: 'Programmes and materials for schools and centres.', from: 'from 290.000₫', image: 'curriculum-overview' },
       ],
     },
@@ -308,7 +308,7 @@ const vi: OverhaulContent = {
       heading: 'Tìm đúng thứ bạn cần',
       tiles: [
         { anchor: 'families', title: 'Dành cho gia đình', promise: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.', from: 'từ 149.000₫', image: 'printable-pack-l1' },
-        { anchor: 'teachers', title: 'Dành cho giáo viên', promise: 'Tài liệu dùng ngay cho giáo viên và gia sư.', from: 'từ 190.000₫', image: 'student-workbook-l1' },
+        { anchor: 'teachers', title: 'Dành cho giáo viên', promise: 'Tài liệu dùng ngay cho giáo viên và gia sư.', from: 'từ 149.000₫', image: 'student-workbook-l1' },
         { anchor: 'centres', title: 'Dành cho trung tâm', promise: 'Chương trình và tài liệu cho trường học và trung tâm.', from: 'từ 290.000₫', image: 'curriculum-overview' },
       ],
     },

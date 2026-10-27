@@ -81,6 +81,8 @@ export type Product = {
   // File stem of the product's public sample in public/samples. Set it only once all four files are in the repo
   // (a test checks both ways), so the "See a sample" block never shows a broken link.
   sample?: string;
+  // An extra link under the card text, e.g. the Writing Baseline's sample reports (internal path, localized and tagged).
+  link?: { href: string; en: string; vi: string };
   // Slug of the product's film in productVideos.ts (public/videos/<slug>/), shown above the sample on its page.
   video?: string;
   // The #ielts sub-group (Speaking or Writing); set on every 'ielts' product.
@@ -262,6 +264,68 @@ export const PRODUCTS: Product[] = [
       problem: 'Con 8–10 tuổi đã tự đọc tiếng Anh, nhưng hiếm khi giải thích ý nghĩa câu chuyện hay dùng chi tiết trong truyện để chứng minh ý kiến.',
       inside: 'Hướng dẫn cho phụ huynh bằng tiếng Anh và tiếng Việt với nếp đọc mười lăm phút mỗi ngày, hai truyện tranh gốc Level 2 kèm trang hoạt động, và bảng theo dõi tiến bộ: 34 trang A4 in được cho bốn tuần đọc cùng con.',
       forWho: 'Phụ huynh có con 8–10 tuổi (CEFR A1 → A2). Không cần kinh nghiệm dạy học. Bản quyền cho một gia đình, in tại nhà.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/parent-pack-l3.json).
+    id: 'parent-pack-l3',
+    video: 'parent-pack-l3',
+    live: true,
+    section: 'families',
+    price: '249.000₫',
+    href: 'zalo',
+    image: 'parent-pack-l3',
+    sample: 'parent-pack-l3',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · families',
+      title: 'Level 3 Parent Home Reading Pack',
+      problem: 'You want to keep reading English with your older child at home, but the books and the talk need to grow with them.',
+      inside: 'Fifteen minutes a day for six weeks: a parent guide in English and Vietnamese, three original storybooks (two illustrated, and one text edition whose pictures come later), 12 activity pages and a progress chart with a certificate: 41 printable A4 pages.',
+      forWho: 'Parents of children aged 10–12 (CEFR A2 → B1). No teaching experience needed. One family, for its own children; printable at home.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · gia đình',
+      title: 'Bộ đọc sách tại nhà cho phụ huynh Level 3',
+      problem: 'Bạn muốn tiếp tục đọc tiếng Anh cùng con lớn hơn ở nhà, nhưng sách và cách trò chuyện cần lớn lên cùng con.',
+      inside: 'Mười lăm phút mỗi ngày trong sáu tuần: hướng dẫn cho phụ huynh bằng tiếng Anh và tiếng Việt, ba truyện gốc (hai truyện có tranh, một bản chữ sẽ có tranh sau), 12 trang hoạt động và bảng theo dõi tiến bộ kèm giấy khen: 41 trang A4 in được.',
+      forWho: 'Phụ huynh có con 10–12 tuổi (CEFR A2 → B1). Không cần kinh nghiệm dạy học. Một gia đình, cho con của mình; in tại nhà.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/holiday-challenge.json).
+    id: 'holiday-reading-challenge',
+    video: 'holiday-reading-challenge',
+    live: true,
+    section: 'families',
+    price: '149.000₫',
+    href: 'zalo',
+    image: 'holiday-reading-challenge',
+    sample: 'holiday-challenge',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · families',
+      title: 'Holiday Reading Challenge, Levels 1–2',
+      problem: 'Over the holidays your child stops reading English, and the first weeks back at school are hard.',
+      inside: 'Four weeks, four original stories (free to read in the online reader), ten minutes a day: a day-by-day home plan in English and Vietnamese, 12 story activities, a reading log and a certificate: 29 printable A4 pages.',
+      forWho: 'Families with children aged 4–10 at Levels 1–2. One family, for its own children; printable at home.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · gia đình',
+      title: 'Thử thách đọc sách kỳ nghỉ, Level 1–2',
+      problem: 'Trong kỳ nghỉ con ngừng đọc tiếng Anh, và những tuần đầu quay lại trường thật vất vả.',
+      inside: 'Bốn tuần, bốn truyện gốc (đọc miễn phí trên trình đọc trực tuyến), mười phút mỗi ngày: kế hoạch từng ngày tại nhà bằng tiếng Anh và tiếng Việt, 12 hoạt động theo truyện, sổ ghi chép đọc sách và giấy khen: 29 trang A4 in được.',
+      forWho: 'Gia đình có con 4–10 tuổi ở Level 1–2. Một gia đình, cho con của mình; in tại nhà.',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
@@ -602,6 +666,37 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/word-fossil-flashcards-l1.json).
+    id: 'word-fossil-flashcards-l1',
+    video: 'word-fossil-flashcards-l1',
+    live: true,
+    section: 'teachers',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'word-fossil-flashcards-l1',
+    sample: 'word-fossil-flashcards-l1',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · teachers and families',
+      title: 'Word Fossil Flashcards, Level 1',
+      problem: 'New words from the stories are gone by the next lesson because there is nothing to practise them with.',
+      inside: '120 printable picture cards for the Level 1 Word Wall (feelings, character words and nature words), each with an original picture, the English word and the Vietnamese word, plus 8 blank cards and 8 games and routines: 26 printable A4 pages.',
+      forWho: 'Teachers and parents of Level 1 learners (ages 4–8). One teacher, one classroom or one family.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · giáo viên và gia đình',
+      title: 'Thẻ từ vựng Word Fossil, Level 1',
+      problem: 'Từ mới trong truyện bị quên ngay buổi sau vì không có gì để luyện lại.',
+      inside: '120 thẻ hình in được cho Bức tường từ vựng Level 1 (từ cảm xúc, từ chỉ tính cách và từ về thiên nhiên), mỗi thẻ có hình gốc, từ tiếng Anh và từ tiếng Việt, kèm 8 thẻ trống và 8 trò chơi, hoạt động: 26 trang A4 in được.',
+      forWho: 'Giáo viên và phụ huynh của học sinh Level 1 (4–8 tuổi). Một giáo viên, một lớp học hoặc một gia đình.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
     id: 'thinking-cycle-set',
     video: 'thinking-cycle-set',
     live: true,
@@ -627,6 +722,37 @@ export const PRODUCTS: Product[] = [
       problem: 'Học sinh chỉ trả lời một từ và nêu ý kiến không kèm lý do, dù thầy cô dùng văn bản nào.',
       inside: 'Sổ tay giáo viên và học sinh cho bốn bước Analyze, Evaluate, Justify và Reflect, cùng khung viết CEIW và mẫu giáo án dùng được với mọi văn bản.',
       forWho: 'Giáo viên và gia sư ở mọi cấp độ muốn có một thói quen tư duy để dùng với sách và tài liệu của chính mình.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/thinking-cycle-posters.json).
+    id: 'thinking-cycle-posters',
+    video: 'thinking-cycle-posters',
+    live: true,
+    section: 'teachers',
+    price: '149.000₫',
+    href: 'zalo',
+    image: 'thinking-cycle-posters',
+    sample: 'thinking-cycle-posters',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · teachers and centres',
+      title: 'Thinking Cycle Classroom Posters',
+      problem: 'Students forget the Thinking Cycle steps between lessons because nothing in the room shows them.',
+      inside: 'Eight A3 classroom posters in English and Vietnamese: the Thinking Cycle, Claim, Evidence, Interpretation, Warrant, Word Fossils, the Butterfly Hug and Accountable Talk. A separate true-A3 print file, plus a 14-page guide with the posters at A4.',
+      forWho: 'Teachers who use the Thinking Cycle in class, at any level. One teacher, one classroom.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · giáo viên và trung tâm',
+      title: 'Bộ poster lớp học Thinking Cycle',
+      problem: 'Học sinh quên các bước của Thinking Cycle giữa các buổi học vì trong lớp không có gì nhắc lại.',
+      inside: 'Tám poster A3 cho lớp học bằng tiếng Anh và tiếng Việt: Thinking Cycle, Claim, Evidence, Interpretation, Warrant, Word Fossils, Butterfly Hug và Accountable Talk. Kèm một tệp in A3 chuẩn riêng và hướng dẫn 14 trang có các poster khổ A4.',
+      forWho: 'Giáo viên dùng Thinking Cycle trong lớp, ở mọi cấp độ. Một giáo viên, một lớp học.',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
@@ -812,6 +938,103 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
+    // 35-today plan (Jay, 27 Oct 2026): built (pdf-studio ielts-one-to-one-starter.json); view-only sample (8 pages with real lesson pages) by ielts-generic-lesson, approved by the master.
+    id: 'ielts-one-to-one-starter',
+    video: 'ielts-one-to-one-starter',
+    live: true,
+    section: 'ielts',
+    group: 'speaking',
+    price: '149.000₫',
+    href: 'zalo',
+    image: 'ielts-one-to-one-starter',
+    sample: 'ielts-one-to-one-starter',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · tutors',
+      title: 'IELTS Speaking One-to-One Starter',
+      problem: 'You tutor IELTS Speaking one-to-one and plan every lesson from scratch.',
+      inside: 'One complete 90-minute one-to-one lesson, Lesson 6 of the Speaking Ladder, "The Full Ladder: 110 Seconds": tutor notes, keys and scripts, and an answer-free student handout.',
+      forWho: 'Tutors who teach IELTS Speaking one-to-one. One tutor, with their own students. 490.000₫ together with the 18-lesson IELTS Speaking Ladder Pack. Practice material, not an official score.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · gia sư',
+      title: 'IELTS Speaking One-to-One Starter',
+      problem: 'Bạn dạy IELTS Speaking 1 kèm 1 và phải tự soạn từng buổi.',
+      inside: 'Một giáo án 1 kèm 1 trọn vẹn 90 phút, Bài 6 của Speaking Ladder, "The Full Ladder: 110 Seconds": ghi chú cho gia sư, đáp án và kịch bản, kèm phiếu cho học viên không có đáp án.',
+      forWho: 'Gia sư dạy IELTS Speaking 1 kèm 1. Một gia sư, dùng với học viên của mình. 490.000₫ khi mua kèm bộ 18 bài IELTS Speaking Ladder. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/ielts-cue-card-bank.json).
+    id: 'ielts-cue-card-bank',
+    video: 'ielts-cue-card-bank',
+    live: true,
+    section: 'ielts',
+    group: 'speaking',
+    price: '290.000₫',
+    href: 'zalo',
+    image: 'ielts-cue-card-bank',
+    sample: 'ielts-cue-card-bank',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Speaking Part 2 Cue Card Bank',
+      problem: 'Your Part 2 answers run out early because you have practised too few cue cards.',
+      inside: '60 original Part 2 cue cards across six themes, each with a 1-minute plan on the four-rung ladder, a full Band 7-style answer and the same key moment at Band 6 and Band 8 style, plus two Part 3 questions: 69 printable pages.',
+      forWho: 'Teens and adults preparing for IELTS Speaking, and tutors who teach them. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'Bộ thẻ đề IELTS Speaking Part 2',
+      problem: 'Câu trả lời Part 2 của bạn hết ý sớm vì bạn mới luyện quá ít đề.',
+      inside: '60 thẻ đề Part 2 gốc theo sáu chủ đề, mỗi thẻ có dàn ý 1 phút theo bốn bậc thang, một bài trả lời đầy đủ mức Band 7 và cùng đoạn then chốt ở mức Band 6 và Band 8, kèm hai câu hỏi Part 3: 69 trang in được.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Speaking, và gia sư dạy họ. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026; master's decision): sold now on Zalo as a manual service at the three approved
+    // prices (pdf-studio writing-baseline.json). Mr. Jay or his team reads each essay by hand; the Writing app is not
+    // open, so the card links only to its sample reports. No PayPal.
+    id: 'writing-baseline',
+    video: 'writing-baseline',
+    live: true,
+    section: 'ielts',
+    group: 'writing',
+    price: '79.000₫',
+    href: 'zalo',
+    image: 'writing-baseline',
+    sample: 'writing-baseline',
+    link: { href: '/ai-speaking/writing/demo', en: 'See a sample report', vi: 'Xem báo cáo mẫu' },
+    en: {
+      label: 'Practice feedback · teens and adults',
+      title: 'IELTS Writing Baseline',
+      problem: 'You keep writing Task 2 essays without knowing which problem to fix first.',
+      inside: 'Send one Task 2 essay. Mr. Jay or his team reads it by hand and sends back, by Zalo or email, one strength to keep and three priorities in the order to fix them. Each priority quotes your own sentence, shows an example of the fix and names the lesson that trains it.',
+      forWho: 'Teens and adults preparing for IELTS Writing. Basic 79.000₫ · Intermediate 199.000₫ (your revision and a new essay, read again) · Advanced 449.000₫ (Intermediate plus a written review by Mr. Jay’s team). Practice feedback, not an official IELTS score; no band number is given.',
+      unit: 'Basic · one essay',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Phản hồi luyện tập · thanh thiếu niên và người lớn',
+      title: 'IELTS Writing Baseline',
+      problem: 'Bạn viết bài Task 2 liên tục mà không biết nên sửa điều gì trước.',
+      inside: 'Gửi một bài luận Task 2. Thầy Jay hoặc đội ngũ của thầy đọc bằng tay và gửi lại qua Zalo hoặc email một điểm mạnh cần giữ và ba ưu tiên cần sửa theo thứ tự. Mỗi ưu tiên trích câu của chính bạn, có ví dụ cách sửa và bài học luyện kỹ năng đó.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing. Cơ bản 79.000₫ · Trung cấp 199.000₫ (bài sửa và một bài mới, được đọc lại) · Nâng cao 449.000₫ (Trung cấp kèm nhận xét bằng văn bản của đội ngũ thầy Jay). Phản hồi luyện tập, không phải điểm IELTS chính thức; không đưa ra điểm band.',
+      unit: 'Cơ bản · một bài luận',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
     id: 'ielts-writing-ladder-task2',
     video: 'ielts-writing-ladder-task2',
     live: true,
@@ -870,6 +1093,38 @@ export const PRODUCTS: Product[] = [
       inside: 'Bốn bài học cho Academic và General Training. Viết phần tổng quan trước, rồi chọn và so sánh số liệu thay vì liệt kê. Mô tả bản đồ và quy trình theo thứ tự, và viết thư đúng giọng điệu, tất cả trong 20 phút. Mỗi bài có bài mẫu mức Band 6, 7, 8 và bài tập sửa đoạn văn, kèm hỗ trợ tiếng Việt.',
       forWho: 'Thí sinh IELTS Academic và General Training, và gia sư dạy họ. Chỉ Task 1. Tài liệu luyện tập, không phải điểm chính thức.',
       unit: 'bộ tự học · 4 bài',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/ielts-essay-bank-task2.json).
+    id: 'ielts-essay-bank-task2',
+    video: 'ielts-essay-bank-task2',
+    live: true,
+    section: 'ielts',
+    group: 'writing',
+    price: '290.000₫',
+    href: 'zalo',
+    image: 'ielts-essay-bank-task2',
+    sample: 'ielts-essay-bank-task2',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Writing Task 2 Essay Bank',
+      problem: 'You know the essay types, but you have not planned and compared enough complete answers.',
+      inside: '40 original Task 2 prompts, eight of each kind (opinion, discuss both views, advantages and disadvantages, causes and solutions, two-part questions), each with a Thinking Cycle plan and a complete Band 7-style model essay of at least 250 words: 85 printable pages.',
+      forWho: 'Teens and adults preparing for IELTS Writing, and tutors who teach them. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'Ngân hàng bài luận IELTS Writing Task 2',
+      problem: 'Bạn biết các dạng đề, nhưng chưa lập dàn ý và so sánh với đủ nhiều bài viết hoàn chỉnh.',
+      inside: '40 đề Task 2 gốc, mỗi dạng tám đề (nêu quan điểm, thảo luận hai quan điểm, ưu và nhược điểm, nguyên nhân và giải pháp, câu hỏi hai phần), mỗi đề có dàn ý theo Thinking Cycle và một bài mẫu hoàn chỉnh mức Band 7 dài ít nhất 250 từ: 85 trang in được.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing, và gia sư dạy họ. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
   },
@@ -968,7 +1223,12 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group'>;
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group'> & {
+  link?: { href: string; label: string };
+};
+
+/** A product's extra link in one language. */
+export const cardLink = (product: Product, locale: Locale) => (product.link ? { href: product.link.href, label: product.link[locale] } : undefined);
 
 /** The page in one language: its copy, and the sections in order with their cards from PRODUCTS. */
 export function productsPage(locale: Locale) {
@@ -979,9 +1239,10 @@ export function productsPage(locale: Locale) {
       id,
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
-        ({ id: cardId, price, href, delivery, image, sample, paypal, video, group, [locale]: text }): ProductCard => ({
-          id: cardId, price, href, delivery, image, sample, paypal, video, group, ...text,
-        }),
+        (product): ProductCard => {
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal, video, group, link: cardLink(product, locale), ...text };
+        },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).
       also: PRODUCTS.filter((p) => p.live && p.alsoIn?.section === id).map((p) => {

@@ -100,10 +100,32 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
   assert.ok(existsSync('public/BingSiteAuth.xml'));
 });
 
-// #ielts (Jay, 27 Oct 2026): the 4 IELTS cards leave Teachers for their own section, Speaking then Writing, each linked
+// 35-today plan (Jay, 27 Oct 2026): the eight new products are live, each with its page, JSON-LD and sitemap entry.
+test('35-today: all 35 products are live, and the eight new ones have EN + VI pages with search copy and a sample', async () => {
+  const { PRODUCTS } = await import('../src/i18n/content/products');
+  assert.equal(PRODUCTS.length, 35);
+  assert.equal(PRODUCTS.filter((p) => !p.live).length, 0);
+  const fresh = ['writing-baseline', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'ielts-essay-bank-task2', 'parent-pack-l3',
+    'holiday-reading-challenge', 'thinking-cycle-posters', 'word-fossil-flashcards-l1'];
+  for (const id of fresh) {
+    const p = PRODUCTS.find((entry) => entry.id === id)!;
+    assert.ok(p.image && p.sample, `${id}: image and sample`);
+    assert.ok(PAGE_PRODUCTS.includes(p), `${id}: has a page`);
+    for (const locale of ['en', 'vi'] as const) {
+      const seo = PRODUCT_SEO[id][locale];
+      assert.ok(seo.title.length <= 60 && seo.description.length >= 80 && seo.description.length <= 160, `${id} ${locale}`);
+      assert.ok(seo.description.includes(p.price.replace(/₫$/, '')), `${id} ${locale}: the price is in the description`);
+    }
+  }
+});
+
+// #ielts (Jay, 27 Oct 2026): the IELTS cards (8 with the 35-today products) leave Teachers for their own section, Speaking then Writing, each linked
 // to its IELTS home page on /ai-speaking; their product pages carry Products › IELTS › product.
 test('#ielts: Speaking and Writing groups, no IELTS card under Teachers, each card links its IELTS home page', () => {
-  const groups = { speaking: ['ielts-speaking-ladder'], writing: ['ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-writing-teacher-pack'] };
+  const groups = {
+    speaking: ['ielts-speaking-ladder', 'ielts-one-to-one-starter', 'ielts-cue-card-bank'],
+    writing: ['writing-baseline', 'ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-essay-bank-task2', 'ielts-writing-teacher-pack'],
+  };
   const home = {
     en: { speaking: '/ai-speaking?utm_source=products', writing: '/ai-speaking/writing?utm_source=products' },
     vi: { speaking: '/ai-speaking/vi?utm_source=products', writing: '/ai-speaking/vi/writing?utm_source=products' },

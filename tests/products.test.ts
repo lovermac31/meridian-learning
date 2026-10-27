@@ -18,15 +18,18 @@ const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf(
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
-  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫']],
+  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
-    ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['thinking-cycle-set', '490.000₫'],
+    ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
     ['reasoning-assessment-kit', '390.000₫'],
   ],
   centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
   // #ielts (Jay, 27 Oct 2026): moved out of Teachers; Speaking group, then Writing.
-  ielts: [['ielts-speaking-ladder', '390.000₫'], ['ielts-writing-ladder-task2', '390.000₫'], ['ielts-writing-task1-method', '290.000₫'], ['ielts-writing-teacher-pack', '690.000₫']],
+  ielts: [
+    ['ielts-speaking-ladder', '390.000₫'], ['ielts-one-to-one-starter', '149.000₫'], ['ielts-cue-card-bank', '290.000₫'],
+    ['writing-baseline', '79.000₫'], ['ielts-writing-ladder-task2', '390.000₫'], ['ielts-writing-task1-method', '290.000₫'], ['ielts-essay-bank-task2', '290.000₫'], ['ielts-writing-teacher-pack', '690.000₫'],
+  ],
 };
 // Cards render only while their entry is live. The factory-built packs stay off the page until their 00 READ ME
 // says "Cleared" (master, 27 Oct 2026).
@@ -105,7 +108,8 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
   ]) {
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id)], route);
+    // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -198,6 +202,9 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1', 'student-workbook-l2': 'student-workbook-l2', 'student-workbook-l3': 'student-workbook-l3',
     'student-workbook-l4': 'student-workbook-l4', 'student-workbook-l5': 'student-workbook-l5', 'thinking-cycle-set': 'thinking-cycle-set',
     'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2', 'ielts-writing-task1-method': 'ielts-writing-task1-method', 'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack',
+    'ielts-one-to-one-starter': 'ielts-one-to-one-starter', 'writing-baseline': 'writing-baseline',
+    'ielts-cue-card-bank': 'ielts-cue-card-bank', 'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3',
+    'holiday-reading-challenge': 'holiday-reading-challenge', 'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
   };
@@ -207,9 +214,11 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     assert.deepEqual(Object.fromEntries(cards.filter((c) => c.image).map((c) => [c.id, c.image])), expected, locale);
   }
   const { PRODUCTS } = await import('../src/i18n/content/products');
-  // Every product, live or hidden, has its own image, so flipping live needs no image work.
-  for (const p of PRODUCTS) assert.ok(p.image, `${p.id} has an image`);
-  assert.equal(new Set(PRODUCTS.map((p) => p.image)).size, PRODUCTS.length, 'no two products share an image');
+  // Every live product has its own image. A hidden card may wait for the image studio (35-today plan, 27 Oct 2026);
+  // it cannot go live without one.
+  for (const p of PRODUCTS.filter((entry) => entry.live)) assert.ok(p.image, `${p.id} has an image`);
+  const images = PRODUCTS.filter((p) => p.image).map((p) => p.image);
+  assert.equal(new Set(images).size, images.length, 'no two products share an image');
   for (const name of new Set(PRODUCTS.map((p) => p.image).filter(Boolean) as string[])) {
     const file = readFileSync(`public/images/products/${name}.webp`);
     assert.equal(file.subarray(0, 4).toString(), 'RIFF', `${name} is a WebP`);
@@ -217,17 +226,22 @@ test('the ChatGPT product images are on their cards, square and light', async ()
   }
 });
 
-test('packs marked live: false stay in the data but off the page; all 17 are cleared as of 27 Oct', async () => {
+test('packs marked live: false stay in the data, off the page and without a product page; all 35 are live (35-today)', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
   const { renderRoute } = await import('../src/entry-server');
   for (const p of PRODUCTS) assert.equal(typeof p.live, 'boolean', `${p.id}: live is set`);
   const hidden = PRODUCTS.filter((p) => !p.live).map((p) => p.id);
-  // Cleared 27 Oct (Drive 00 READ MEs) and live once Jay approves the prices: L2–5 Teacher Packs, the Complete Teacher
-  // Bundle and factory B's six packs. A future pack can still ship hidden with live: false.
+  // 35-today plan (Jay, 27 Oct 2026): every new product went live once the master approved its sample. A future
+  // pack can still ship hidden with live: false.
   assert.deepEqual(hidden, []);
+  const { PRODUCT_PAGE_PATHS } = await import('../src/i18n/content/productSeo');
   for (const route of [EN, VI]) {
     const html = await renderRoute(route);
     for (const id of hidden) assert.ok(!html.includes(`id="${id}"`) && !html.includes(`product-${id}`), `${route}: ${id} hidden`);
+  }
+  for (const id of hidden) {
+    assert.ok(!PRODUCT_PAGE_PATHS.includes(`/products/${id}`), `${id}: no product page, so nothing in the sitemap`);
+    assert.equal((await renderRoute(`/products/${id}`)).includes(`data-product-page-main="${id}"`), false, `${id}: /products/${id} is not served`);
   }
 });
 
@@ -243,6 +257,10 @@ const SAMPLE_STEMS: Record<string, string> = {
   'thinking-cycle-set': 'thinking-cycle-set', 'reasoning-assessment-kit': 'reasoning-assessment-kit',
   'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2', 'ielts-writing-task1-method': 'ielts-writing-task1-method', 'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack', 'centre-licence': 'centre-licence',
   'teacher-training-course': 'teacher-training-course', 'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
+  // 35-today plan (27 Oct 2026): the eight new products, stem = id.
+  'writing-baseline': 'writing-baseline', 'ielts-one-to-one-starter': 'ielts-one-to-one-starter', 'ielts-cue-card-bank': 'ielts-cue-card-bank',
+  'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3', 'holiday-reading-challenge': 'holiday-challenge',
+  'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
 };
 const SAMPLE_FILE = /^(.+)-p[123]\.webp$/;
 const PAGE_FILE = /^(.+)-pg(\d\d)\.webp$/;

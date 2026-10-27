@@ -340,6 +340,103 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       description: 'Chu trình Bốn Bài học, khung chương trình, mô hình cho cả năm level và đề cương Level 1–5. Dành cho hiệu trưởng so sánh chương trình. 290.000₫.',
     },
   },
+  // 35-today plan (27 Oct 2026): search copy for the eight new products; each page appears when its card goes live.
+  'parent-pack-l3': {
+    en: {
+      keyword: 'english reading at home for kids 10-12',
+      title: 'Level 3 Parent Home Reading Pack: Ages 10–12 (PDF)',
+      description: 'A parent guide in English and Vietnamese, three original Level 3 storybooks, 12 activity pages and a progress chart: six weeks at home, ages 10–12. 249.000₫.',
+    },
+    vi: {
+      keyword: 'đọc sách tiếng anh tại nhà cho con 10-12 tuổi',
+      title: 'Bộ đọc sách tại nhà cho phụ huynh Level 3 (10–12 tuổi)',
+      description: 'Hướng dẫn cho phụ huynh song ngữ, ba truyện gốc Level 3, 12 trang hoạt động và bảng theo dõi tiến bộ: sáu tuần tại nhà cho con 10–12 tuổi. 249.000₫.',
+    },
+  },
+  'holiday-reading-challenge': {
+    en: {
+      keyword: 'holiday reading challenge for kids',
+      title: 'Holiday Reading Challenge for Kids, Levels 1–2 (PDF)',
+      description: 'A four-week home reading plan for the holidays: a reading log, 12 story activities and a certificate, for children at Levels 1–2. 149.000₫.',
+    },
+    vi: {
+      keyword: 'thử thách đọc sách tiếng anh kỳ nghỉ',
+      title: 'Thử thách đọc sách tiếng Anh kỳ nghỉ, Level 1–2',
+      description: 'Kế hoạch đọc tại nhà bốn tuần cho kỳ nghỉ: sổ ghi chép đọc sách, 12 hoạt động theo truyện và giấy khen cho con ở Level 1–2. 149.000₫.',
+    },
+  },
+  'word-fossil-flashcards-l1': {
+    en: {
+      keyword: 'printable english flashcards for kids',
+      title: 'Printable English Picture Flashcards, Level 1 (120)',
+      description: '120 printable picture flashcards in English and Vietnamese for Level 1 learners aged 4–8, for teachers and parents. 190.000₫.',
+    },
+    vi: {
+      keyword: 'thẻ từ vựng tiếng anh có hình cho bé',
+      title: 'Thẻ từ vựng tiếng Anh có hình để in, Level 1 (120 thẻ)',
+      description: '120 thẻ từ vựng có hình để in, song ngữ Anh–Việt, cho học sinh Level 1 từ 4–8 tuổi, dành cho giáo viên và phụ huynh. 190.000₫.',
+    },
+  },
+  'thinking-cycle-posters': {
+    en: {
+      keyword: 'critical thinking classroom posters',
+      title: 'Thinking Cycle Classroom Posters: 8 A3, EN/VI (PDF)',
+      description: '8 A3 classroom posters of the Jurassic Thinking Cycle in English and Vietnamese, ready to print, for teachers and centres. 149.000₫.',
+    },
+    vi: {
+      keyword: 'poster tư duy phản biện cho lớp học',
+      title: 'Bộ poster lớp học Thinking Cycle: 8 tờ A3 song ngữ',
+      description: '8 poster A3 cho lớp học về Jurassic Thinking Cycle, song ngữ Anh–Việt, sẵn sàng để in, dành cho giáo viên và trung tâm. 149.000₫.',
+    },
+  },
+  'ielts-one-to-one-starter': {
+    en: {
+      keyword: 'ielts speaking 1 to 1 lesson plan',
+      title: 'IELTS Speaking One-to-One Lesson Plan (90 min, PDF)',
+      description: 'One complete 90-minute IELTS Speaking one-to-one lesson with tutor notes, keys, scripts and an answer-free student handout. For tutors. 149.000₫.',
+    },
+    vi: {
+      keyword: 'giáo án ielts speaking 1 kèm 1',
+      title: 'Giáo án IELTS Speaking 1 kèm 1 trọn vẹn 90 phút',
+      description: 'Một giáo án IELTS Speaking 1 kèm 1 trọn vẹn 90 phút, có ghi chú cho gia sư, đáp án, kịch bản và phiếu cho học viên. Dành cho gia sư. 149.000₫.',
+    },
+  },
+  'ielts-cue-card-bank': {
+    en: {
+      keyword: 'ielts speaking part 2 cue cards',
+      title: 'IELTS Speaking Part 2 Cue Cards with Model Answers',
+      description: '60 original IELTS Speaking Part 2 cue cards, each with a 1-minute plan, a Band 7-style answer and Band 6 and 8-style moments. Practice material. 290.000₫.',
+    },
+    vi: {
+      keyword: 'đề ielts speaking part 2 có bài mẫu',
+      title: 'Bộ thẻ đề IELTS Speaking Part 2 kèm bài mẫu',
+      description: '60 thẻ đề IELTS Speaking Part 2 gốc, mỗi thẻ có dàn ý 1 phút, bài trả lời mức Band 7 và đoạn mẫu mức Band 6, 8. Tài liệu luyện tập. 290.000₫.',
+    },
+  },
+  'writing-baseline': {
+    en: {
+      keyword: 'ielts writing task 2 feedback',
+      title: 'IELTS Writing Task 2 Feedback: One Essay, Three Priorities',
+      description: 'Send one IELTS Task 2 essay. Mr. Jay or his team reads it by hand and returns one strength and three ranked priorities by Zalo or email. From 79.000₫.',
+    },
+    vi: {
+      keyword: 'chấm bài ielts writing task 2',
+      title: 'Chấm bài IELTS Writing Task 2: một bài, ba ưu tiên sửa',
+      description: 'Gửi một bài IELTS Task 2. Thầy Jay hoặc đội ngũ đọc bằng tay và gửi lại một điểm mạnh, ba ưu tiên cần sửa qua Zalo hoặc email. Từ 79.000₫.',
+    },
+  },
+  'ielts-essay-bank-task2': {
+    en: {
+      keyword: 'ielts writing task 2 sample essays',
+      title: 'IELTS Writing Task 2 Essay Bank: 40 Prompts and Models',
+      description: '40 original IELTS Writing Task 2 prompts, each with a Thinking Cycle plan and a Band 7-style model essay. Practice material. 290.000₫.',
+    },
+    vi: {
+      keyword: 'bài mẫu ielts writing task 2',
+      title: 'Ngân hàng bài luận IELTS Writing Task 2: 40 đề và bài mẫu',
+      description: '40 đề IELTS Writing Task 2 gốc, mỗi đề có dàn ý theo Thinking Cycle và một bài mẫu mức Band 7. Tài liệu luyện tập. 290.000₫.',
+    },
+  },
 };
 
 export const productPath = (id: string) => `/products/${id}`;
