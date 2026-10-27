@@ -20,7 +20,7 @@ const amp = (s: string) => s.replaceAll('&amp;', '&');
 const EXPECTED: Record<string, [string, string][]> = {
   families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫']],
   teachers: [
-    ['teacher-pack', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
+    ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['thinking-cycle-set', '490.000₫'],
     ['reasoning-assessment-kit', '390.000₫'], ['ielts-speaking-ladder', '390.000₫'],
   ],
@@ -131,7 +131,7 @@ test('cleared packs match their 00 READ MEs: Ladder is 18 lessons + a 1-lesson S
 });
 
 test('reachable without clutter: one footer link (EN + VI) and one Kids Academy card link; no header change', () => {
-  for (const [path, href, label] of [['/', '/products', 'Products'], ['/vi', '/vi/products', 'Sản phẩm']]) {
+  for (const [path, href, label] of [['/', '/products', 'Products &amp; prices'], ['/vi', '/vi/products', 'Sản phẩm &amp; bảng giá']]) {
     setServerLocation(path);
     const footer = renderToStaticMarkup(createElement(Footer, { onNavigate: () => {} }));
     assert.equal([...footer.matchAll(/href="\/(vi\/)?products"/g)].length, 1, path);
@@ -176,7 +176,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
 test('the ChatGPT product images are on their cards, square and light', async () => {
   const expected: Record<string, string> = {
     'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
-    'teacher-pack': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
+    'teacher-pack-l1': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
     'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
     'thinking-cycle-set': 'thinking-cycle-set',
     'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder',

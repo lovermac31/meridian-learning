@@ -8,6 +8,7 @@ import {
   getThinkingCycleDetailPageContent,
 } from '../i18n/content/thinkingCycle';
 import { RouteLink } from './RouteLink';
+import { ProductCardLink } from './ProductCardLink';
 
 type ThinkingCycleExperienceProps = {
   stage: ThinkingCycleStageDetail;
@@ -240,6 +241,7 @@ export const ThinkingCycleExperience = ({
                 <p className="mt-4 text-white/65 leading-relaxed">{localizedStage.crossStageConnection}</p>
               </div>
             </div>
+            <ProductCardLink id="thinking-cycle-set" source="thinking-cycle" locale={locale} tone="dark" className="mt-10" />
           </div>
         </div>
       </section>

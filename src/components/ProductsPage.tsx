@@ -11,6 +11,7 @@ import {
   type ProductCard,
 } from '../i18n/content/products';
 import { ToolHero } from './IeltsToolsPage';
+import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
 
 /** The page's own language version of an internal path, tagged utm_source=products (query before any #anchor). */
 export function productHref(href: string, locale: Locale): string {
@@ -25,7 +26,10 @@ function Card({ card, locale, delivery, leadIns }: { card: ProductCard; locale: 
   const href = productHref(card.href, locale);
   const external = card.href === 'zalo';
   return (
-    <li className="ielts-tool-card flex flex-col rounded-2xl bg-white p-6 shadow-sm" id={card.id}>
+    <li className="ielts-tool-card flex scroll-mt-24 flex-col rounded-2xl bg-white p-6 shadow-sm" id={card.id}>
+      {(PRODUCT_FORMER_IDS[card.id] ?? []).map((former) => (
+        <span key={former} id={former} className="block scroll-mt-24" aria-hidden="true" />
+      ))}
       {card.image ? (
         // Decorative: the card title follows as a heading, so the image has empty alt text.
         <img

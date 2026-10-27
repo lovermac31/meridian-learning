@@ -43,6 +43,10 @@ type CardText = {
   cta: string;
 };
 
+// Card ids that were renamed but may still be linked: each stays an anchor on its card (master, 27 Oct 2026:
+// the Level 1 Teacher Pack is #teacher-pack-l1 like Levels 2–5; #teacher-pack keeps working).
+export const PRODUCT_FORMER_IDS: Record<string, string[]> = { 'teacher-pack-l1': ['teacher-pack'] };
+
 export type Product = {
   id: string;
   // Shown on the page only when true. A factory-built pack stays false until its Drive 00 READ ME says "Cleared"
@@ -167,7 +171,7 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    id: 'teacher-pack',
+    id: 'teacher-pack-l1',
     live: true,
     section: 'teachers',
     price: '690.000₫',

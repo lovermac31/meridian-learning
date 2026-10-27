@@ -25,6 +25,7 @@ import { getPilotProgrammePageContent } from '../i18n/content/pilotProgramme';
 import type { Locale } from '../i18n/locales';
 import { FounderFilmLink } from './FounderFilmLink';
 import { RouteLink } from './RouteLink';
+import { ProductCardLink } from './ProductCardLink';
 
 type PilotProgrammePageProps = {
   locale: Locale;
@@ -909,6 +910,9 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
               >
                 {content.cta.secondaryCta}
               </RouteLink>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <ProductCardLink id="pilot-class-kit" source="pilot-programme" locale={locale} tone="dark" className="mb-6" />
             </motion.div>
             <motion.p variants={fadeUp} className="text-xs text-white/45 leading-relaxed">
               {content.cta.note}

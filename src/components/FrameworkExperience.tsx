@@ -12,6 +12,7 @@ import {
 import { getFrameworkContent, getFrameworkPageContent } from '../i18n/content/framework';
 import { getCurrentLocale } from '../i18n/routing';
 import { WorldWiseLink } from './WorldWiseLink';
+import { ProductCardLink } from './ProductCardLink';
 
 type FrameworkExperienceProps = {
   onBack: () => void;
@@ -359,6 +360,7 @@ export const FrameworkExperience = ({
                 {frameworkPageContent.sections.nextStep.secondaryCta}
               </button>
             </div>
+            <ProductCardLink id="curriculum-overview" source="framework" locale={locale} tone="dark" className="mt-8" />
           </div>
         </div>
       </section>

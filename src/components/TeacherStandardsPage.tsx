@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { getTeacherStandardsPageContent } from '../i18n/content/teacherStandards';
 import { RouteLink } from './RouteLink';
+import { ProductCardLink } from './ProductCardLink';
+import { getCurrentLocale } from '../i18n/routing';
 
 type TeacherStandardsPageProps = {
   onBack: () => void;
@@ -427,6 +429,9 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
               </RouteLink>
             </motion.div>
 
+            <motion.div variants={fadeUp}>
+              <ProductCardLink id="teacher-training-course" source="teacher-standards" locale={getCurrentLocale()} className="mb-6" />
+            </motion.div>
             <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">
               {content.cta.note}
             </motion.p>

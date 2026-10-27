@@ -16,6 +16,7 @@ import { LinkifyWorldWise } from './WorldWiseLink';
 import { getCurrentLocale } from '../i18n/routing';
 import { getSyllabusPageContent } from '../i18n/content/syllabus';
 import { RouteLink } from './RouteLink';
+import { ProductCardLink } from './ProductCardLink';
 
 type SyllabusExperienceProps = {
   level: SeriesLevelDetail;
@@ -360,6 +361,7 @@ export const SyllabusExperience = ({
             <p className="mt-6 text-sm text-gray-400">
               <LinkifyWorldWise text={pageContent.cta.published} />
             </p>
+            <ProductCardLink id={`teacher-pack-l${level.order}`} source="syllabus" locale={locale} className="mt-6" />
           </div>
 
           <div className="mt-10 flex justify-center">

@@ -97,6 +97,11 @@ export function coverSrc(level: AcademyLevel, book: Book): string | null {
   return `${BOOKS_BASE_URL}/assets/art/${book.id}/cover.jpg`;
 }
 
+/** "For teachers: Level N Teacher Pack": the level's card on the main site's /products, tagged from the story hub. */
+export function teacherPackHref(level: number, locale: Locale = "en"): string {
+  return `${locale === "vi" ? "/vi" : ""}/products?utm_source=story-hub#teacher-pack-l${level}`;
+}
+
 /**
  * The commercial next step, carrying only non-personal context. Story Club is for ages 5–8, so Levels 1–2 go
  * there; Levels 3–5 go to Mr. Jay's Live Speaking Baseline (the same split as the storybooks' own hand-off).
