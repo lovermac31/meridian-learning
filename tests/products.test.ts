@@ -22,7 +22,7 @@ const EXPECTED: Record<string, [string, string][]> = {
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['thinking-cycle-set', '490.000₫'],
-    ['reasoning-assessment-kit', '390.000₫'], ['ielts-speaking-ladder', '390.000₫'], ['ielts-writing-ladder-task2', '390.000₫'],
+    ['reasoning-assessment-kit', '390.000₫'], ['ielts-speaking-ladder', '390.000₫'], ['ielts-writing-ladder-task2', '390.000₫'], ['ielts-writing-task1-method', '290.000₫'], ['ielts-writing-teacher-pack', '690.000₫'],
   ],
   centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
 };
@@ -182,7 +182,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
     'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1', 'student-workbook-l2': 'student-workbook-l2', 'student-workbook-l3': 'student-workbook-l3',
     'student-workbook-l4': 'student-workbook-l4', 'student-workbook-l5': 'student-workbook-l5', 'thinking-cycle-set': 'thinking-cycle-set',
-    'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2',
+    'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2', 'ielts-writing-task1-method': 'ielts-writing-task1-method', 'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
   };
@@ -226,7 +226,7 @@ const SAMPLE_STEMS: Record<string, string> = {
   'student-workbook-l2': 'student-workbook-l2', 'student-workbook-l3': 'student-workbook-l3', 'student-workbook-l4': 'student-workbook-l4',
   'student-workbook-l5': 'student-workbook-l5',
   'thinking-cycle-set': 'thinking-cycle-set', 'reasoning-assessment-kit': 'reasoning-assessment-kit',
-  'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2', 'centre-licence': 'centre-licence',
+  'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2', 'ielts-writing-task1-method': 'ielts-writing-task1-method', 'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack', 'centre-licence': 'centre-licence',
   'teacher-training-course': 'teacher-training-course', 'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
 };
 const SAMPLE_FILE = /^(.+)-p[123]\.webp$/;
