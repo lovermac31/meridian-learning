@@ -47,3 +47,12 @@ test('sample pack: success needs Notion or the email; contact details are never 
     assert.deepEqual(samplePackContent[locale].thanks.items.map((item) => item.id), ['story-club', 'printable-pack', 'teacher-pack-l1', 'baseline']);
   }
 });
+
+test('privacy notice: the sample pack retention line, EN + VI (master, 27 Oct 2026)', async () => {
+  const { legalDocuments } = await import('../src/lib/legalContent');
+  const { getLocalizedLegalDocument } = await import('../src/i18n/content/legal');
+  const en = JSON.stringify(legalDocuments['/legal/privacy'].sections);
+  const vi = JSON.stringify(getLocalizedLegalDocument('/legal/privacy', 'vi')!.sections);
+  assert.ok(en.includes('Free sample pack: we keep your email or Zalo number and your request for 12 months, or delete them sooner if you ask: info@jurassicenglish.com.'));
+  assert.ok(vi.includes('Bộ mẫu miễn phí: chúng tôi lưu email hoặc số Zalo và yêu cầu của bạn trong 12 tháng, hoặc xóa sớm hơn nếu bạn yêu cầu: info@jurassicenglish.com.'));
+});
