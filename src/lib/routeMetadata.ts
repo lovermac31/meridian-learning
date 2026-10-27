@@ -16,6 +16,7 @@ import { getLocalizedThinkingCycleStageByPath } from '../i18n/content/thinkingCy
 import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
 import marketPricing from '../content/marketPricing.json';
+import { PAGE_PRODUCTS, PRODUCT_PAGE_PATHS, PRODUCT_SEO, productFaq, productPath } from '../i18n/content/productSeo';
 import { getSeoPageMeta as getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath, getInternationalAlternates } from './seoPageMeta';
 import {
   createBreadcrumbJsonLd,
@@ -26,6 +27,7 @@ import {
   createWebsiteJsonLd,
   createArticleJsonLd,
   createProductListJsonLd,
+  createProductJsonLd,
   type JsonLd,
 } from './structuredData';
 
@@ -135,6 +137,26 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     jsonLd: [createArticleJsonLd({ headline: article.title, description: article.description ?? article.deck, slug: article.slug, datePublished: article.datePublished, dateModified: article.dateModified, image: article.heroImage, authorName: article.authorName, authorType: 'Organization', section: article.section })],
     breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Learning resources', path: '/insights' }, { name: article.section, path: `${INSIGHTS_BASE_PATH}/${article.slug}` }],
   } as StaticRouteDefinition])),
+  // One page per live product (Jay, 27 Oct 2026): its own title and description (productSeo.ts), Product + Offer
+  // (VND, and USD where PayPal is offered), the FAQ shown on the page, and Home → Products → product breadcrumbs.
+  ...Object.fromEntries(PAGE_PRODUCTS.map((product) => {
+    const path = productPath(product.id);
+    const seo = PRODUCT_SEO[product.id];
+    return [path, {
+      title: seo.en.title,
+      description: seo.en.description,
+      canonicalPath: path,
+      jsonLdFor: (locale: Locale) => [createProductJsonLd(product, locale), createFaqJsonLd(productFaq(product, locale))],
+      breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Products', path: '/products' }, { name: product.en.title, path }],
+      localized: {
+        vi: {
+          title: seo.vi.title,
+          description: seo.vi.description,
+          breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Sản phẩm', path: '/products' }, { name: product.vi.title, path }],
+        },
+      },
+    } as StaticRouteDefinition];
+  })),
   '/': {
     title: homeTitle,
     description: homeDescription,
@@ -1103,6 +1125,7 @@ export function getExpectedPublicIndexableRoutes(): string[] {
         '/teacher-standards',
         '/story-club',
         '/products',
+        ...PRODUCT_PAGE_PATHS,
         '/series/compare',
         '/thinking-cycle/compare',
         '/tools/ielts-band-score-calculator',

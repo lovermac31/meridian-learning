@@ -4,6 +4,7 @@ import { seriesLevels } from './series';
 import { syllabusData } from './syllabus';
 import { thinkingCycleStages } from './thinkingCycle';
 import { seoEnglishPaths } from '../../lib/seoPageMeta';
+import { getProductByPath } from './productSeo';
 
 export type PublicContentGroup =
   | 'home'
@@ -83,7 +84,7 @@ export function getPublicContentGroup(pathname: string): PublicContentGroup | nu
   if (pathname === '/teacher-standards') return 'teacherStandards';
   if (pathname === '/companies') return 'companies';
   if (pathname === '/story-club') return 'storyClub';
-  if (pathname === '/products') return 'products';
+  if (pathname === '/products' || getProductByPath(pathname)) return 'products';
   if (pathname === '/series/compare') return 'seriesCompare';
   if (pathname === '/thinking-cycle/compare') return 'thinkingCycleCompare';
   if (seriesLevels.some((level) => level.path === pathname)) return 'series';

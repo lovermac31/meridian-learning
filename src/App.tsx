@@ -31,6 +31,8 @@ import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { StoryClubPage } from './components/StoryClubPage';
 import { ProductsPage } from './components/ProductsPage';
+import { ProductPage } from './components/ProductPage';
+import { getProductByPath } from './i18n/content/productSeo';
 import { isInternationalMarketPath } from './lib/seoPageMeta';
 import { getCurrentLocation } from './lib/ssrLocation';
 
@@ -185,6 +187,9 @@ function App() {
   const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
   const isStoryClubView = routePathname === '/story-club';
   const isProductsView = routePathname === '/products';
+  // /products/<id> for a live product; any other id falls through to the 404 view.
+  const productPageProduct = getProductByPath(routePathname);
+  const isProductPageView = productPageProduct !== null;
   const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams' || isInternationalMarketPath(routePathname);
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
@@ -223,7 +228,8 @@ function App() {
     isBandToolView ||
     isTimerToolView ||
     isStoryClubView ||
-    isProductsView;
+    isProductsView ||
+    isProductPageView;
   const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
   const isSubpageView =
     isGetStartedView ||
@@ -247,6 +253,7 @@ function App() {
     isTimerToolView ||
     isStoryClubView ||
     isProductsView ||
+    isProductPageView ||
     isSeriesView ||
     isSyllabusView ||
     isSeriesComparisonView ||
@@ -445,6 +452,8 @@ function App() {
         <StoryClubPage locale={locale} />
       ) : isProductsView ? (
         <ProductsPage locale={locale} />
+      ) : productPageProduct ? (
+        <ProductPage product={productPageProduct} locale={locale} />
       ) : isInsightsView ? (
         <SearchInsightsPage pathname={pathname} onNavigate={navigateTo} />
       ) : isUnknownRouteView ? (

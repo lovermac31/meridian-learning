@@ -4,6 +4,7 @@ import { syllabusData } from '../lib/syllabusContent';
 import { thinkingCycleStages } from '../lib/thinkingCycleContent';
 import { getCurrentPathname } from '../lib/ssrLocation';
 import { seoEnglishPaths, seoPathPairs } from '../lib/seoPageMeta';
+import { PRODUCT_PAGE_PATHS } from './content/productSeo';
 import {
   DEFAULT_LOCALE,
   SECONDARY_LOCALE,
@@ -51,6 +52,7 @@ const LOCALIZABLE_PUBLIC_PATHS = new Set([
   ...syllabusData.map((syllabus) => syllabus.syllabusRoutePath),
   ...thinkingCycleStages.map((stage) => stage.path),
   ...Object.keys(legalDocuments),
+  ...PRODUCT_PAGE_PATHS,
   '/insights',
   ...seoEnglishPaths,
 ]);

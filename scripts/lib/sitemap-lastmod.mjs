@@ -97,6 +97,9 @@ const STATIC_ROUTE_SOURCES = {
   '/vi/luyen-noi-ielts/': [...YOUNG_LEARNERS_SOURCES, 'scripts/prerender-yl-vi.mjs'],
 };
 
+// One page per product (/products/<id>, /vi/products/<id>): the page, the hub's shared pieces and both content files.
+const PRODUCT_PAGE_SOURCES = [component('ProductPage'), component('ProductsPage'), content('products'), content('productSeo')];
+
 /**
  * URLs that are public and in the sitemap but deliberately have no lastmod:
  * they are served by other Vercel projects through vercel.json rewrites, so
@@ -121,6 +124,7 @@ export function getRouteSourceFiles(pathname) {
   if (/^\/(?:es\/|pt\/|id\/|ms\/|th\/|ar\/|ur\/|bn\/)?ielts-speaking-online(?:\/[^/]+)?$/.test(pathname)) return ['src/content/seoPages.json'];
   if (pathname === '/vi/ve-thay-jay-adams' || pathname.startsWith('/vi/insights/') || ['/about/nathaniel-jay-adams','/insights/ielts-speaking-6-to-7','/insights/ielts-speaking-forecast-september-december-2026','/insights/ielts-online-test','/insights/ai-ielts-speaking-scoring'].includes(pathname)) return ['src/components/SearchInsightsPage.tsx', 'src/content/seoPages.json'];
   if (/^\/insights\/[^/]+$/.test(canonical)) return ['src/components/SearchInsightsPage.tsx', 'src/lib/insightsContent.ts'];
+  if (/^\/products\/[^/]+$/.test(canonical)) return [...PRODUCT_PAGE_SOURCES];
   if (STATIC_ROUTE_SOURCES[canonical]) return [...STATIC_ROUTE_SOURCES[canonical]];
   if (/^\/series\/level-[^/]+\/syllabus$/.test(canonical)) return [...SYLLABUS_SOURCES];
   if (/^\/series\/level-[^/]+$/.test(canonical)) return [...SERIES_SOURCES];
@@ -138,6 +142,7 @@ export function getAllMappedSourceFiles() {
       ...SYLLABUS_SOURCES,
       ...THINKING_CYCLE_SOURCES,
       ...LEGAL_SOURCES,
+      ...PRODUCT_PAGE_SOURCES,
     ]),
   ];
 }
