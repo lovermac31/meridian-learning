@@ -95,7 +95,9 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
             </a>
           </div>
         ) : (
-          <form className="mt-4 space-y-4" onSubmit={onSubmit} noValidate>
+          // Before hydration the submit button is disabled (startedAt is set by the first effect), so an early tap or Enter
+          // cannot fall back to a native submit; method="post" keeps the contact out of any URL regardless (QA, 27 Oct 2026).
+          <form method="post" className="mt-4 space-y-4" onSubmit={onSubmit} noValidate>
             <label className="block text-sm font-bold text-sb-forest">
               {copy.contact}
               <input className={FIELD} name="contact" type="text" inputMode="email" autoComplete="email" required maxLength={254} aria-describedby={error ? `${SAMPLE_PACK_ANCHOR}-error` : undefined} />
@@ -121,7 +123,7 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
               <span>{copy.consent}</span>
             </label>
             {error ? <p id={`${SAMPLE_PACK_ANCHOR}-error`} className="text-sm font-bold text-red-700" role="alert">{error}</p> : null}
-            <button type="submit" className={PRIMARY_BTN} disabled={status === 'sending'}>
+            <button type="submit" className={PRIMARY_BTN} disabled={!startedAt || status === 'sending'}>
               {status === 'sending' ? copy.sending : copy.submit}
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </button>

@@ -96,3 +96,13 @@ test('sample pack: the lead goes to the live "Leads" database by its own propert
   assert.equal(t['Parent Name'], undefined);
   assert.equal(t.Source.select.name, 'Other');
 });
+
+test('sample pack: before hydration the form cannot submit natively, and never by GET (QA, 27 Oct 2026)', async () => {
+  const { createElement } = await import('react');
+  const { renderToStaticMarkup } = await import('react-dom/server');
+  const { SamplePackForm } = await import('../src/components/SamplePackForm');
+  const html = renderToStaticMarkup(createElement(SamplePackForm, { placement: 'home' }));
+  assert.match(html, /<form[^>]* method="post"/);
+  assert.match(html, /<button type="submit"[^>]* disabled=""/, 'the submit button is disabled until hydration');
+  assert.doesNotMatch(html, /<form[^>]*action=/);
+});
