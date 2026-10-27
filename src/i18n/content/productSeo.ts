@@ -345,12 +345,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'english reading at home for kids 10-12',
       title: 'Level 3 Parent Home Reading Pack: Ages 10–12 (PDF)',
-      description: 'A parent guide in English and Vietnamese with a daily reading routine, Level 3 storybooks, activity pages and a progress chart, for ages 10–12. 249.000₫.',
+      description: 'A parent guide in English and Vietnamese, three original Level 3 storybooks, 12 activity pages and a progress chart: six weeks at home, ages 10–12. 249.000₫.',
     },
     vi: {
       keyword: 'đọc sách tiếng anh tại nhà cho con 10-12 tuổi',
       title: 'Bộ đọc sách tại nhà cho phụ huynh Level 3 (10–12 tuổi)',
-      description: 'Hướng dẫn cho phụ huynh song ngữ với nếp đọc mỗi ngày, truyện Level 3, trang hoạt động và bảng theo dõi tiến bộ cho con 10–12 tuổi. 249.000₫.',
+      description: 'Hướng dẫn cho phụ huynh song ngữ, ba truyện gốc Level 3, 12 trang hoạt động và bảng theo dõi tiến bộ: sáu tuần tại nhà cho con 10–12 tuổi. 249.000₫.',
     },
   },
   'holiday-reading-challenge': {
@@ -405,12 +405,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'ielts speaking part 2 cue cards',
       title: 'IELTS Speaking Part 2 Cue Cards with Model Answers',
-      description: '60 original IELTS Speaking Part 2 cue cards, each with Band 6, 7 and 8-style model answers and a 2-minute plan. Practice material. 290.000₫.',
+      description: '60 original IELTS Speaking Part 2 cue cards, each with a 1-minute plan, a Band 7-style answer and Band 6 and 8-style moments. Practice material. 290.000₫.',
     },
     vi: {
       keyword: 'đề ielts speaking part 2 có bài mẫu',
       title: 'Bộ thẻ đề IELTS Speaking Part 2 kèm bài mẫu',
-      description: '60 thẻ đề IELTS Speaking Part 2 gốc, mỗi thẻ có câu trả lời mẫu mức Band 6, 7, 8 và dàn ý 2 phút. Tài liệu luyện tập. 290.000₫.',
+      description: '60 thẻ đề IELTS Speaking Part 2 gốc, mỗi thẻ có dàn ý 1 phút, bài trả lời mức Band 7 và đoạn mẫu mức Band 6, 8. Tài liệu luyện tập. 290.000₫.',
     },
   },
   'writing-baseline': {
