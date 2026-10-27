@@ -9,7 +9,7 @@ import {
   PRODUCTS_UTM,
   PRODUCTS_VI_PATH,
   PRODUCTS_ZALO,
-  PRODUCT_IMAGE_DIR,
+  productImageSources,
   productSampleAnchor,
   productSampleFiles,
   productsPage,
@@ -94,10 +94,12 @@ export function Sample({ card, copy, onOpen }: { card: ProductCard; copy: Sample
         data-sample-link={card.id}
       >
         <span className="grid grid-cols-3 gap-2">
-          {files.thumbs.map((src) => (
+          {files.thumbs.map((src, i) => (
             <img
               key={src}
               src={src}
+              srcSet={files.thumbSrcSets[i]}
+              sizes="(min-width: 768px) 135px, calc((100vw - 120px) / 3)"
               alt=""
               width={600}
               height={849}
@@ -309,7 +311,8 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
         {card.image ? (
           // Decorative: the card title follows as a heading, so the image has empty alt text.
           <img
-            src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
+            {...productImageSources(card.image)}
+            sizes="80px"
             alt=""
             width={480}
             height={480}

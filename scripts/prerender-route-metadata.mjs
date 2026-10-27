@@ -143,8 +143,19 @@ function makeStylesheetsRenderBlocking(html) {
 }
 
 const HERO_PRELOAD_ROUTES = new Set(['/', '/vi']);
-const LEGACY_HERO_PRELOAD_PATTERN =
-  /\s*<!-- LCP hero image[^>]*-->\s*<link\s+rel="preload"\s+as="image"\s+href="\/images\/hero-compass-960\.webp"[^>]*\/>/;
+
+/**
+ * Perf (27 Oct): the compass backdrop of the insights/products hero is the LCP
+ * element on most routes. Its <picture> shows the 640 file up to 640 px wide and
+ * the 960 file above, so the preloads carry the same media queries: exactly one
+ * file downloads. (The template used to preload one srcset for every route, which
+ * on phones fetched the 960 file at high priority and then the 640 file as well.)
+ */
+const COMPASS_BACKDROP = '/images/hero-compass-bg-640.webp';
+const COMPASS_PRELOADS = [
+  '<link rel="preload" as="image" href="/images/hero-compass-bg-640.webp" type="image/webp" media="(max-width: 640px)" fetchpriority="high" />',
+  '<link rel="preload" as="image" href="/images/hero-compass-bg-960.webp" type="image/webp" media="(min-width: 641px)" fetchpriority="high" />',
+];
 
 function injectServerRenderedRoute(html, pathname, ssrHtml) {
   assertStaticMarkup(pathname, ssrHtml);
@@ -165,13 +176,10 @@ function injectServerRenderedRoute(html, pathname, ssrHtml) {
   // WP3 (A2 P5): on the homepage the LCP element is the overhaul hero image.
   // React emits its responsive preload (imagesrcset/imagesizes from the img's
   // srcSet/sizes), but appended at </head> it sits behind the scripts and
-  // JSON-LD, and the template's legacy hero-compass preload (fetchpriority
-  // high, an image the homepage no longer shows) competes with it. For / and
-  // /vi only: drop the legacy preload and put the hero preload first in <head>.
+  // JSON-LD. For / and /vi only: put the hero preload first in <head>.
   if (HERO_PRELOAD_ROUTES.has(pathname)) {
     const heroPreloads = newHeadTags.filter((tag) => /rel="preload"/.test(tag) && /as="image"/.test(tag));
     if (heroPreloads.length > 0) {
-      output = output.replace(LEGACY_HERO_PRELOAD_PATTERN, '');
       output = output.replace(
         /(<meta name="viewport"[^>]*\/>)/,
         (match) => `${match}\n    ${heroPreloads.join('\n    ')}`,
@@ -180,19 +188,24 @@ function injectServerRenderedRoute(html, pathname, ssrHtml) {
     }
   }
 
+  if (body.includes(COMPASS_BACKDROP)) {
+    newHeadTags = newHeadTags.filter((tag) => !tag.includes('/images/hero-compass-bg-'));
+    output = output.replace(
+      /(<meta name="viewport"[^>]*\/>)/,
+      (match) => `${match}\n    ${COMPASS_PRELOADS.join('\n    ')}`,
+    );
+  }
+
   if (newHeadTags.length > 0) {
     output = output.replace('</head>', `${newHeadTags.map((tag) => `    ${tag}`).join('\n')}\n  </head>`);
   }
 
-  if (HERO_PRELOAD_ROUTES.has(pathname)) {
-    output = deferAppScriptUntilHeroPaint(output, pathname);
-  }
-
-  return output;
+  return deferAppScriptUntilHeroPaint(output, pathname);
 }
 
 /**
- * LCP (16 Oct): on / and /vi the server-rendered body is complete and styled
+ * LCP (16 Oct on / and /vi; every server-rendered route since 27 Oct, where
+ * mobile LCP was 3.3-7.1 s for the same reason): the server-rendered body is complete and styled
  * without JavaScript, but the module entry and its four modulepreloads used to
  * download and evaluate (hydration) before the browser produced its first
  * frame — so the hero image only painted after ~260 KB of JS, and Lighthouse's
@@ -217,19 +230,26 @@ function deferAppScriptUntilHeroPaint(html, pathname) {
   // start on whichever comes first.
   // Without LCP support: the same decode + two frames. Any tap/key, or 3 s,
   // starts it immediately.
-  // Taps on a toggle (button[aria-expanded]: mobile menu, contact panel)
-  // before hydration have no handler yet. They are held (stopPropagation, so
+  // Taps on a button[type=button] (menu and contact toggles; on /products the
+  // "See the sample pages" button) before hydration have no handler yet. They are held (stopPropagation, so
   // a half-hydrated React cannot also act on them) and clicked again in order
   // once AppRoot's first effect fires 'je:hydrated' (50 ms apart, so React
   // re-renders between two taps on the same toggle).
+  // Form submits before hydration (the free sample pack form) would otherwise
+  // run the browser's native GET to the same URL — the visitor's email in the
+  // query string and no lead sent. They are held too and re-submitted 1.6 s
+  // after hydration (/api/sample-pack rejects a submit < 1.5 s after the form mounts).
   const bootstrap =
-    `<script>(function(){var d=false,h=false,q=[];function go(){if(d)return;d=true;var s=document.createElement('script');` +
+    `<script>(function(){var d=false,h=false,q=[],fq=[];function go(){if(d)return;d=true;var s=document.createElement('script');` +
     `s.type='module';s.crossOrigin='anonymous';s.src=${JSON.stringify(src)};document.head.appendChild(s)}` +
-    `function T(){return document.querySelectorAll('#root button[type="button"][aria-expanded]')}` +
-    `function tap(e){if(h)return;var b=e.target&&e.target.closest&&e.target.closest('#root button[type="button"][aria-expanded]');` +
+    `function T(){return document.querySelectorAll('#root button[type="button"]')}` +
+    `function tap(e){if(h)return;var b=e.target&&e.target.closest&&e.target.closest('#root button[type="button"]');` +
     `if(!b)return;e.stopPropagation();q.push([b,[].indexOf.call(T(),b)]);go()}` +
-    `document.addEventListener('click',tap,true);` +
-    `addEventListener('je:hydrated',function(){h=true;document.removeEventListener('click',tap,true);` +
+    `function sub(e){if(h)return;var f=e.target;if(!f||!f.closest||!f.closest('#root'))return;` +
+    `e.preventDefault();e.stopPropagation();if(fq.indexOf(f)<0)fq.push(f);go()}` +
+    `document.addEventListener('click',tap,true);document.addEventListener('submit',sub,true);` +
+    `addEventListener('je:hydrated',function(){h=true;document.removeEventListener('click',tap,true);document.removeEventListener('submit',sub,true);` +
+    `if(fq.length)setTimeout(function(){fq.forEach(function(f){if(f.isConnected&&f.requestSubmit)f.requestSubmit()})},1600);` +
     `setTimeout(function r(){var x=q.shift();if(!x)return;var b=x[0].isConnected?x[0]:T()[x[1]];if(b)b.click();setTimeout(r,50)},0)},{once:true});` +
     `setTimeout(go,3000);addEventListener('pointerdown',go,{once:true,passive:true});addEventListener('keydown',go,{once:true});` +
     `function hero(){return document.querySelector('#root img[fetchpriority="high"]')}` +

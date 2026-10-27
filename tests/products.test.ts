@@ -187,7 +187,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' }));
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
     assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...SHOWN.teachers.map(([id]) => id), 'test-extra']);
-    assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" alt="" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
+    assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" srcSet="[^"]*\/images\/products\/w\/teacher-bundle-400\.webp 400w[^"]*" sizes="[^"]+" alt="" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
     assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.live && p.image).length);
   } finally {
     PRODUCTS.pop();
@@ -223,6 +223,8 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     const file = readFileSync(`public/images/products/${name}.webp`);
     assert.equal(file.subarray(0, 4).toString(), 'RIFF', `${name} is a WebP`);
     assert.ok(file.length < 160_000, `${name}: ${file.length} bytes`);
+    // Perf: the 400/600 px srcset candidates exist beside it.
+    for (const w of [400, 600]) assert.equal(readFileSync(`public/images/products/w/${name}-${w}.webp`).subarray(8, 12).toString(), 'WEBP', `${name}-${w}`);
   }
 });
 
@@ -275,7 +277,9 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
   assert.deepEqual(Object.keys(SAMPLE_STEMS).sort(), PRODUCTS.map((p) => p.id).sort(), 'one stem per product');
   for (const p of PRODUCTS.filter((entry) => entry.sample)) assert.equal(p.sample, SAMPLE_STEMS[p.id], `${p.id}: stem from the spec`);
   const stems = PRODUCTS.filter((p) => p.sample).map((p) => p.sample!).sort();
-  const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages');
+  const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages' && f !== 'small');
+  // Perf: every thumbnail has a 300 px copy in small/ (its srcset's small candidate), and nothing else is there.
+  assert.deepEqual(readdirSync('public/samples/small').filter((f) => !f.startsWith('.')).sort(), [...thumbs].sort(), 'small/ ↔ thumbnails');
   for (const file of thumbs) assert.match(file, SAMPLE_FILE, `public/samples/${file}`);
   assert.deepEqual([...new Set(thumbs.map((file) => file.match(SAMPLE_FILE)![1]))].sort(), stems, 'thumbnails ↔ products with a sample');
   for (const stem of stems) for (const n of [1, 2, 3]) {
@@ -321,7 +325,7 @@ test('samples: the block sits above the price; one button opens the viewer; no l
       const button = block.match(/<button type="button" aria-label="([^"]+)"[^>]*data-sample-link="[^"]+">/)!;
       assert.ok(button[1].startsWith(`${open}: `) && button[1].length > open.length + 2, `${locale} ${id}: accessible name starts with the visible text`);
       assert.ok(block.includes(`>${open}</span>`), `${locale} ${id}: visible text`);
-      assert.deepEqual([...block.matchAll(/<img src="([^"]+)" alt="" width="600" height="849"[^>]*draggable="false"[^>]*data-sample-page=/g)].map((m) => m[1]),
+      assert.deepEqual([...block.matchAll(/<img src="([^"]+)" srcSet="[^"]+ 300w, [^"]+ 600w" sizes="[^"]+" alt="" width="600" height="849"[^>]*draggable="false"[^>]*data-sample-page=/g)].map((m) => m[1]),
         [1, 2, 3].map((n) => `/samples/${stem}-p${n}.webp`), `${locale} ${id}: three thumbnails, not draggable`);
       assert.equal([...card.matchAll(/data-cta="/g)].length, 1, `${locale} ${id}: still one CTA`);
     }
