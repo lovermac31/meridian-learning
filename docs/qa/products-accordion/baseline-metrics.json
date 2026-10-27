@@ -1,0 +1,46 @@
+[
+  {
+    "locale": "en",
+    "width": 390,
+    "height": 17893,
+    "mainHeight": 17031.03125,
+    "perf": {
+      "cls": 0.000023561259930490882,
+      "lcp": 444
+    },
+    "cards": 35
+  },
+  {
+    "locale": "vi",
+    "width": 390,
+    "height": 18271,
+    "mainHeight": 17312.84375,
+    "perf": {
+      "cls": 0.000023561259930490882,
+      "lcp": 296
+    },
+    "cards": 35
+  },
+  {
+    "locale": "en",
+    "width": 1440,
+    "height": 9728,
+    "mainHeight": 9360.53125,
+    "perf": {
+      "cls": 0.0006358655304248114,
+      "lcp": 416
+    },
+    "cards": 35
+  },
+  {
+    "locale": "vi",
+    "width": 1440,
+    "height": 9917,
+    "mainHeight": 9506.78125,
+    "perf": {
+      "cls": 0.00018118407533329045,
+      "lcp": 300
+    },
+    "cards": 35
+  }
+]

@@ -44,14 +44,17 @@ test('home: one "Find what you need" strip right under the hero, a tile per /pro
   }
 });
 
-test('/products: a phone mini-nav (Families · Teachers · Centres · IELTS) whose anchors exist; smooth, reduced-motion-safe scrolling', async () => {
+test('/products: category overview (Families · Teachers · Centres · IELTS) controls persistent panels; reduced-motion-safe scrolling', async () => {
   const { renderRoute } = await import('../src/entry-server');
   for (const [route, labels] of [['/products', ['Families', 'Teachers', 'Centres', 'IELTS']], ['/vi/products', ['Gia đình', 'Giáo viên', 'Trung tâm', 'IELTS']]] as const) {
     const html = await renderRoute(route);
-    const nav = html.match(/<nav aria-label="[^"]+" class="sticky top-\[72px\][^"]*md:hidden" data-products-mini-nav="">[\s\S]*?<\/nav>/)?.[0] ?? '';
-    const links = [...nav.matchAll(/<a href="#([^"]+)"[^>]*>([^<]+)</g)];
-    assert.deepEqual(links.map((m) => m[2]), labels, route);
-    for (const [, anchor] of links) assert.match(html, new RegExp(`id="${anchor}"[^>]*scroll-mt-24[^"]*max-md:scroll-mt-36|class="[^"]*scroll-mt-24[^"]*max-md:scroll-mt-36[^"]*"[^>]*id="${anchor}"|id="${anchor}" [^>]*class="[^"]*max-md:scroll-mt-36`), `${route}: #${anchor} clears the header and the mini-nav`);
+    const nav = html.match(/<nav aria-label="[^"]+" class="products-overview" data-products-mini-nav="">[\s\S]*?<\/nav>/)?.[0] ?? '';
+    const tiles = [...nav.matchAll(/<button type="button" aria-expanded="(?:true|false)" aria-controls="([^"]+)" data-category-tile="([^"]+)">([\s\S]*?)<\/button>/g)];
+    assert.deepEqual(tiles.map((m) => m[2]), ['families', 'teachers', 'centres', 'ielts'], route);
+    for (let i = 0; i < tiles.length; i++) {
+      assert.ok(tiles[i][3].includes(labels[i]), `${route}: translated category name`);
+      assert.ok(html.includes(`id="${tiles[i][1]}"`), `${route}: tile controls a real panel`);
+    }
     assert.ok(html.indexOf('id="ielts"') > html.indexOf('<section id="teachers"') && html.indexOf('id="ielts"') < html.indexOf('id="ielts-speaking-ladder"'), `${route}: IELTS heading before the first IELTS card`);
   }
   const css = readFileSync('src/index.css', 'utf8');

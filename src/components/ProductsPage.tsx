@@ -5,6 +5,7 @@ import { getLocalizedHref } from '../i18n/localizedHref';
 import {
   IELTS_GROUPS,
   IELTS_HOME,
+  PRODUCT_SECTIONS,
   PRODUCTS_PATH,
   PRODUCTS_UTM,
   PRODUCTS_VI_PATH,
@@ -15,6 +16,7 @@ import {
   productsPage,
   type IeltsGroup,
   type ProductCard,
+  type ProductSectionId,
 } from '../i18n/content/products';
 import { ToolHero } from './IeltsToolsPage';
 import { SamplePackForm } from './SamplePackForm';
@@ -279,104 +281,78 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
 }
 
 const DETAILS_LABEL: Record<Locale, string> = { en: 'Details', vi: 'Chi tiết' };
-const MINI_NAV: Record<Locale, { label: string; links: [string, string][] }> = {
-  en: { label: 'Product sections', links: [['families', 'Families'], ['teachers', 'Teachers'], ['centres', 'Centres'], ['ielts', 'IELTS']] },
-  vi: { label: 'Các nhóm sản phẩm', links: [['families', 'Gia đình'], ['teachers', 'Giáo viên'], ['centres', 'Trung tâm'], ['ielts', 'IELTS']] },
+const CATEGORY_COPY = {
+  en: { label: 'Product sections', names: { families: 'Families', teachers: 'Teachers', centres: 'Centres', ielts: 'IELTS' }, count: 'products', from: 'from' },
+  vi: { label: 'Các nhóm sản phẩm', names: { families: 'Gia đình', teachers: 'Giáo viên', centres: 'Trung tâm', ielts: 'IELTS' }, count: 'sản phẩm', from: 'từ' },
 };
 
-/** The first sentence of a card's "Who it's for" (the collapsed card's one line); "Mr. Jay" and decimals don't end it. */
+/** The first sentence; titles such as Mr. Jay and decimals are not sentence endings. */
 export function firstSentence(text: string): string {
   const match = text.match(/^.*?(?<!\bMr|\bMs|\bDr)[.!?](?=\s+\S)/);
   return match ? match[0] : text;
 }
 
-function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome }: {
+/** Resolve public anchors against the same catalogue used for SSR, including former ids and sample links. */
+export function productAnchor(hash: string, locale: Locale) {
+  let anchor: string;
+  try { anchor = decodeURIComponent(hash.replace(/^#/, '')); } catch { return null; }
+  const sections = productsPage(locale).sections;
+  const section = sections.find((entry) => entry.id === anchor || (entry.id === 'ielts' && IELTS_GROUPS.some((group) => anchor === `ielts-${group}`)));
+  if (section) return { section: section.id, product: null, sample: false, target: anchor };
+  const sample = anchor.endsWith('-sample');
+  const id = sample ? anchor.slice(0, -7) : anchor;
+  for (const entry of sections) {
+    const card = entry.cards.find((card) => card.id === id || PRODUCT_FORMER_IDS[card.id]?.includes(id));
+    if (card) return { section: entry.id, product: card.id, sample: sample && !!card.sample, target: card.id };
+  }
+  return null;
+}
+
+function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome, expanded, onToggle }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
-  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>;
+  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>; expanded: boolean; onToggle: () => void;
 }) {
   const external = card.href === 'zalo';
   const href = external ? zaloHref(source) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
-  const detailsLabel = DETAILS_LABEL[locale];
   return (
-    <li className="ielts-tool-card flex scroll-mt-24 max-md:scroll-mt-36 flex-col rounded-2xl bg-white p-4 shadow-sm sm:p-6" id={card.id}>
+    <li className="product-row ielts-tool-card scroll-mt-24 max-md:scroll-mt-36" id={card.id}
+      onClick={(event) => { if (!(event.target as HTMLElement).closest('a, button, input, select, textarea, [data-product-panel]')) onToggle(); }}>
       {(PRODUCT_FORMER_IDS[card.id] ?? []).map((former) => (
         <span key={former} id={former} className="block scroll-mt-24" aria-hidden="true" />
       ))}
-      {/* Collapsed card (website assessment, 27 Oct 2026, fix 4): name, who it's for, price and two buttons; the problem,
-          what's inside and the sample thumbnails fold into "Details" (a <details>, so the prerendered page keeps them). */}
-      <div className="flex items-start gap-3">
-        {card.image ? (
-          // Decorative: the card title follows as a heading, so the image has empty alt text.
-          <img
-            src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
-            alt=""
-            width={480}
-            height={480}
-            loading="lazy"
-            decoding="async"
-            className="aspect-square w-16 flex-none rounded-xl object-cover sm:w-20"
-            data-product-image={card.id}
-          />
-        ) : null}
-        <div className="min-w-0">
-          <p className="text-xs font-bold uppercase tracking-wider text-[#8a5a00]">{card.label}</p>
-          <h3 className="mt-1 text-lg font-bold leading-snug">
-            {/* Each card has its own indexable page (Jay, 27 Oct 2026); the card stays on the hub. */}
-            <a href={getLocalizedHref(productPath(card.id), locale)} className="underline-offset-4 hover:underline" data-product-page={card.id}>
-              {card.title}
-            </a>
-          </h3>
-          <p className="mt-1 text-sm" data-for-who={card.id}>{firstSentence(card.forWho)}</p>
-          {/* The film plays on the product page, so /products stays light: a link only (27 Oct 2026). */}
-          {card.video ? (
-            <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="mt-1 inline-flex w-fit items-center gap-1 text-sm font-bold underline underline-offset-4" data-watch={card.id}>
-              <span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}
-            </a>
-          ) : null}
+      <div className="product-row-heading">
+        {card.image ? <img src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`} alt="" width={480} height={480} loading="lazy" decoding="async" className="product-row-image aspect-square" data-product-image={card.id} /> : null}
+        <div className="product-row-title">
+          <h3><a href={getLocalizedHref(productPath(card.id), locale)} data-product-page={card.id}>{card.title}</a></h3>
+          <p className="product-row-problem">{card.problem}</p>
+        </div>
+        <button type="button" className="product-row-toggle" aria-label={`${DETAILS_LABEL[locale]}: ${card.title}`} aria-expanded={expanded} aria-controls={`${card.id}-details`} data-product-toggle={card.id} onClick={onToggle}>
+          <span>{DETAILS_LABEL[locale]}</span><span aria-hidden="true">{expanded ? '−' : '+'}</span>
+        </button>
+      </div>
+      <div id={`${card.id}-details`} className="products-fold" data-open={expanded} data-details={card.id} data-product-panel={card.id} inert={!expanded}>
+        <div className="products-fold-inner">
+          <div className="product-row-description">
+            <p className="text-xs font-bold uppercase tracking-wider">{card.label}</p>
+            <dl className="mt-2 space-y-2">
+              {(['problem', 'inside', 'forWho'] as const).map((key) => <div key={key}><dt className="text-sm font-bold">{leadIns[key]}</dt><dd>{card[key]}</dd></div>)}
+            </dl>
+            <CardLink card={card} locale={locale} />
+            <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} />
+            {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
+            {card.paypal ? <p className="mt-2 text-sm" data-paypal-note={card.id}>{PAYPAL_CARD_COPY[locale].note}</p> : null}
+            {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={ieltsHome[card.group]} id={card.id} /> : null}
+          </div>
         </div>
       </div>
-      <details className="group mt-2 flex-1" data-details={card.id}>
-        <summary className="cursor-pointer text-sm font-bold underline underline-offset-4">{detailsLabel}</summary>
-        <dl className="mt-2 space-y-2">
-          {(['problem', 'inside', 'forWho'] as const).map((key) => (
-            <div key={key}>
-              <dt className="text-sm font-bold">{leadIns[key]}</dt>
-              <dd>{card[key]}</dd>
-            </div>
-          ))}
-        </dl>
-        <CardLink card={card} locale={locale} />
-        <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} />
-        {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
-        {card.paypal ? <p className="mt-2 text-sm" data-paypal-note={card.id}>{PAYPAL_CARD_COPY[locale].note}</p> : null}
-      </details>
-      <p className="mt-3 text-2xl font-bold" data-price={card.id}>
-        {card.price} <span className="text-base font-semibold">{card.unit}</span>
-      </p>
-      <div className="story-cta mt-3">
-        <div className="flex flex-wrap gap-2">
-          <a
-            className="insights-button-primary"
-            href={href}
-            data-cta={`product-${card.id}`}
-            {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-          >
-            {card.cta}
-          </a>
-          {card.sample ? (
-            <button type="button" className="insights-button-secondary" onClick={() => onOpenSample(card)} data-sample-open={card.id}>
-              {sample.heading}
-            </button>
-          ) : null}
-        </div>
-        {external ? (
-          <p className="mt-2 text-xs" data-order-code={card.id}>
-            {code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}
-          </p>
-        ) : null}
+      <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
+      <div className="product-row-actions story-cta">
+        {card.sample ? <button type="button" className="insights-button-secondary" onClick={() => onOpenSample(card)} data-sample-open={card.id}>{sample.heading}</button> : null}
+        <a className="insights-button-primary" href={href} data-cta={`product-${card.id}`} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{card.cta}</a>
+        {external ? <p className="mt-2 text-xs" data-order-code={card.id}>{code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}</p> : null}
+        {card.video ? <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="product-row-watch" data-watch={card.id}><span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}</a> : null}
         {card.paypal ? <PayPalOption card={card} locale={locale} source={source} compact /> : null}
-        {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={ieltsHome[card.group]} id={card.id} /> : null}
       </div>
     </li>
   );
@@ -386,16 +362,38 @@ export function ProductsPage({ locale }: { locale: Locale }) {
   const c = productsPage(locale);
   const source = useVisitorSource();
   const [viewer, setViewer] = useState<ProductCard | null>(null);
-  // /products#<card>-sample (the header Baseline button, the country pages) opens the viewer at that card's sample.
+  const [openSections, setOpenSections] = useState<Set<ProductSectionId>>(() => new Set(['families']));
+  const [openProducts, setOpenProducts] = useState<Set<string>>(() => new Set());
+  const categoryCopy = CATEGORY_COPY[locale];
+  const toggleSection = (id: ProductSectionId) => setOpenSections((previous) => { const next = new Set(previous); if (next.has(id)) next.delete(id); else next.add(id); return next; });
+  const toggleProduct = (id: string) => setOpenProducts((previous) => { const next = new Set(previous); if (next.has(id)) next.delete(id); else next.add(id); return next; });
   useEffect(() => {
+    let scrollTimer: ReturnType<typeof setTimeout>;
     const openFromHash = () => {
-      const id = window.location.hash.match(/^#(.+)-sample$/)?.[1];
-      const card = id ? productsPage(locale).sections.flatMap((section) => section.cards).find((entry) => entry.id === id && entry.sample) : undefined;
-      if (card) setViewer(card);
+      const anchor = productAnchor(window.location.hash, locale);
+      if (!anchor) return;
+      setOpenSections((previous) => new Set(previous).add(anchor.section));
+      if (anchor.product) setOpenProducts((previous) => new Set(previous).add(anchor.product!));
+      if (anchor.sample) {
+        const card = productsPage(locale).sections.flatMap((section) => section.cards).find((card) => card.id === anchor.product);
+        if (card) setViewer(card);
+      }
+      clearTimeout(scrollTimer);
+      // Wait for the panel's height to settle before scrolling to a previously hidden target.
+      scrollTimer = setTimeout(() => document.getElementById(anchor.target)?.scrollIntoView({ block: 'start', behavior: 'auto' }), window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 260);
+    };
+    const onAnchorClick = (event: MouseEvent) => {
+      const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('.products-page a[href^="#"]');
+      if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || !productAnchor(link.hash, locale)) return;
+      event.preventDefault();
+      if (window.location.hash !== link.hash) window.history.pushState(null, '', link.hash);
+      openFromHash();
     };
     openFromHash();
     window.addEventListener('hashchange', openFromHash);
-    return () => window.removeEventListener('hashchange', openFromHash);
+    window.addEventListener('popstate', openFromHash);
+    document.addEventListener('click', onAnchorClick);
+    return () => { clearTimeout(scrollTimer); window.removeEventListener('hashchange', openFromHash); window.removeEventListener('popstate', openFromHash); document.removeEventListener('click', onAnchorClick); };
   }, [locale]);
   const closeViewer = () => {
     const id = viewer?.id;
@@ -414,39 +412,41 @@ export function ProductsPage({ locale }: { locale: Locale }) {
         eyebrow={c.eyebrow}
         counterpart={locale === 'vi' ? PRODUCTS_PATH : PRODUCTS_VI_PATH}
       />
-      {/* Phones: a sticky mini-nav under the header (master, 27 Oct 2026) — Families · Teachers · Centres · IELTS. */}
-      <nav aria-label={MINI_NAV[locale].label} className="sticky top-[72px] z-40 border-b border-sb-border bg-sb-cream/95 backdrop-blur md:hidden" data-products-mini-nav="">
-        <ul className="mx-auto flex max-w-5xl justify-between gap-1 px-3 py-2 text-sm font-bold">
-          {MINI_NAV[locale].links.map(([anchor, label]) => (
-            <li key={anchor}><a href={`#${anchor}`} className="inline-flex min-h-11 items-center rounded-full px-3 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber">{label}</a></li>
-          ))}
+      <nav aria-label={categoryCopy.label} className="products-overview" data-products-mini-nav="">
+        <ul>
+          {PRODUCT_SECTIONS.map((id) => {
+            const section = c.sections.find((section) => section.id === id);
+            if (!section) return null;
+            const lowest = Math.min(...section.cards.map((card) => Number(card.price.replace(/[^\d]/g, ''))));
+            return <li key={id}>
+              <button type="button" aria-expanded={openSections.has(id)} aria-controls={`${id}-products`} data-category-tile={id} onClick={() => toggleSection(id)}>
+                <span className="products-overview-name">{categoryCopy.names[id]} <span aria-hidden="true">{openSections.has(id) ? '−' : '+'}</span></span>
+                <span>{section.cards.length} {categoryCopy.count} · {categoryCopy.from} {lowest.toLocaleString('de-DE')}₫</span>
+                {id === 'ielts' ? <span>{c.ielts.groups.speaking} · {c.ielts.groups.writing}</span> : null}
+              </button>
+            </li>;
+          })}
         </ul>
       </nav>
-      <div className="ielts-tool-content mx-auto max-w-5xl space-y-12 px-5 py-14">
-        <a href={productHref('/', locale)} className="inline-flex items-center gap-2 text-sm font-bold underline underline-offset-4">
-          <ArrowLeft aria-hidden="true" className="h-4 w-4" /> {c.back}
-        </a>
+      <div className="ielts-tool-content products-catalogue mx-auto max-w-5xl px-5">
+        <a href={productHref('/', locale)} className="products-home inline-flex items-center gap-2 text-sm font-bold underline underline-offset-4"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> {c.back}</a>
         {c.sections.map((section) => (
-          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="scroll-mt-24 max-md:scroll-mt-36">
-            <h2 id={`${section.id}-h`} className="text-3xl font-bold">{section.heading}</h2>
-            <p className="mt-2 text-lg">{section.intro}</p>
-            {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }])
-              .filter((list) => list.cards.length > 0)
-              .map(({ group, cards }) => (
-                <div key={group ?? 'all'} data-ielts-group={group ?? undefined}>
-                  {group ? <h3 id={`ielts-${group}`} className="mt-8 scroll-mt-24 text-2xl font-bold">{c.ielts.groups[group]}</h3> : null}
-                  <ul className={`${group ? 'mt-4' : 'mt-6'} grid gap-4 md:grid-cols-2`}>
-                    {cards.map((card) => (
-                      <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} />
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            {section.also.map((line) => (
-              <p key={line.id} className="mt-4 text-sm" data-also={line.id}>
-                {line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}
-              </p>
-            ))}
+          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="products-category scroll-mt-24 max-md:scroll-mt-36">
+            <h2 id={`${section.id}-h`}><button type="button" aria-expanded={openSections.has(section.id)} aria-controls={`${section.id}-products`} data-category-toggle={section.id} onClick={() => toggleSection(section.id)}>{section.heading}<span aria-hidden="true">{openSections.has(section.id) ? '−' : '+'}</span></button></h2>
+            <div id={`${section.id}-products`} className="products-fold" data-category-panel={section.id} data-open={openSections.has(section.id)} inert={!openSections.has(section.id)}>
+              <div className="products-fold-inner">
+                <p className="products-category-intro">{section.intro}</p>
+                {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }]).filter((list) => list.cards.length > 0).map(({ group, cards }) => (
+                  <div key={group ?? 'all'} data-ielts-group={group ?? undefined}>
+                    {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24">{c.ielts.groups[group]}</h3> : null}
+                    <ul className="products-rows">
+                      {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} expanded={openProducts.has(card.id)} onToggle={() => toggleProduct(card.id)} />)}
+                    </ul>
+                  </div>
+                ))}
+                {section.also.map((line) => <p key={line.id} className="mt-4 text-sm" data-also={line.id}>{line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}</p>)}
+              </div>
+            </div>
           </section>
         ))}
       </div>

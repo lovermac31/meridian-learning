@@ -1,0 +1,446 @@
+{
+  "summary": [
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "n": 5,
+      "lcpMedian": 288,
+      "clsMedian": 0.000023561259930490882,
+      "clsMax": 0.000023561259930490882,
+      "productClsMedian": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "n": 5,
+      "lcpMedian": 292,
+      "clsMedian": 0.000023561259930490882,
+      "clsMax": 0.000023561259930490882,
+      "productClsMedian": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "n": 5,
+      "lcpMedian": 284,
+      "clsMedian": 0.000023561259930490882,
+      "clsMax": 0.000023561259930490882,
+      "productClsMedian": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "n": 5,
+      "lcpMedian": 296,
+      "clsMedian": 0.000023561259930490882,
+      "clsMax": 0.000023561259930490882,
+      "productClsMedian": 0
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "n": 5,
+      "lcpMedian": 280,
+      "clsMedian": 0,
+      "clsMax": 0.02991592312617884,
+      "productClsMedian": 0
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "n": 5,
+      "lcpMedian": 292,
+      "clsMedian": 0.0001833924930609139,
+      "clsMax": 0.02991592312617884,
+      "productClsMedian": 0.0001833924930609139
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "n": 5,
+      "lcpMedian": 284,
+      "clsMedian": 0.00018118407533329045,
+      "clsMax": 0.02991592312617884,
+      "productClsMedian": 0.00018118407533329045
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "n": 5,
+      "lcpMedian": 304,
+      "clsMedian": 0.00018118407533329045,
+      "clsMax": 0.02991592312617884,
+      "productClsMedian": 0.00018118407533329045
+    }
+  ],
+  "runs": [
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 0,
+      "cls": 0.000023561259930490882,
+      "lcp": 408,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 0,
+      "cls": 0.000023561259930490882,
+      "lcp": 300,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 1,
+      "cls": 0.000023561259930490882,
+      "lcp": 288,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 1,
+      "cls": 0.000023561259930490882,
+      "lcp": 280,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 2,
+      "cls": 0.000023561259930490882,
+      "lcp": 288,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 2,
+      "cls": 0.000023561259930490882,
+      "lcp": 292,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 3,
+      "cls": 0,
+      "lcp": 288,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 3,
+      "cls": 0.000023561259930490882,
+      "lcp": 288,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "en",
+      "run": 4,
+      "cls": 0,
+      "lcp": 280,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "en",
+      "run": 4,
+      "cls": 0.000023561259930490882,
+      "lcp": 308,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 0,
+      "cls": 0.000023561259930490882,
+      "lcp": 300,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 0,
+      "cls": 0.000023561259930490882,
+      "lcp": 288,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 1,
+      "cls": 0,
+      "lcp": 292,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 1,
+      "cls": 0.000023561259930490882,
+      "lcp": 272,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 2,
+      "cls": 0.000023561259930490882,
+      "lcp": 284,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 2,
+      "cls": 0.000023561259930490882,
+      "lcp": 304,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 3,
+      "cls": 0,
+      "lcp": 296,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 3,
+      "cls": 0.000023561259930490882,
+      "lcp": 268,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 4,
+      "cls": 0,
+      "lcp": 288,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 390,
+      "locale": "vi",
+      "run": 4,
+      "cls": 0.000023561259930490882,
+      "lcp": 308,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 0,
+      "cls": 0.02991592312617884,
+      "lcp": 292,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 0,
+      "cls": 0.02991592312617884,
+      "lcp": 296,
+      "productCls": 0.02991592312617884
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 1,
+      "cls": 0.02991592312617884,
+      "lcp": 356,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 1,
+      "cls": 0,
+      "lcp": 296,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 2,
+      "cls": 0,
+      "lcp": 280,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 2,
+      "cls": 0.0001833924930609139,
+      "lcp": 292,
+      "productCls": 0.0001833924930609139
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 3,
+      "cls": 0.0001833924930609139,
+      "lcp": 288,
+      "productCls": 0.0001833924930609139
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 3,
+      "cls": 0,
+      "lcp": 280,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "en",
+      "run": 4,
+      "cls": 0.02991592312617884,
+      "lcp": 268,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "en",
+      "run": 4,
+      "cls": 0,
+      "lcp": 284,
+      "productCls": 0
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 0,
+      "cls": 0,
+      "lcp": 284,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 0,
+      "cls": 0.00018118407533329045,
+      "lcp": 300,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 1,
+      "cls": 0.00018118407533329045,
+      "lcp": 312,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 1,
+      "cls": 0.00018118407533329045,
+      "lcp": 288,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 2,
+      "cls": 0.00018118407533329045,
+      "lcp": 300,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 2,
+      "cls": 0.02991592312617884,
+      "lcp": 320,
+      "productCls": 0.02991592312617884
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 3,
+      "cls": 0.00018118407533329045,
+      "lcp": 300,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 3,
+      "cls": 0.00018118407533329045,
+      "lcp": 276,
+      "productCls": 0.00018118407533329045
+    },
+    {
+      "version": "before",
+      "width": 1440,
+      "locale": "vi",
+      "run": 4,
+      "cls": 0.02991592312617884,
+      "lcp": 280,
+      "productCls": 0
+    },
+    {
+      "version": "after",
+      "width": 1440,
+      "locale": "vi",
+      "run": 4,
+      "cls": 0.02991592312617884,
+      "lcp": 304,
+      "productCls": 0.02991592312617884
+    }
+  ]
+}
