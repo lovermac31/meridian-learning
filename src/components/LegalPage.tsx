@@ -155,6 +155,14 @@ export const LegalPage = ({ onBack }: LegalPageProps) => {
           ))}
         </div>
 
+        {pathname === '/legal/privacy' && (
+          <p className="mt-8 text-sm">
+            <a className="font-semibold text-sb-forest underline underline-offset-4" href={`mailto:info@jurassicenglish.com?subject=${encodeURIComponent(locale === 'vi' ? 'Yêu cầu xóa dữ liệu cá nhân' : 'Personal data deletion request')}`}>
+              {locale === 'vi' ? 'Yêu cầu xóa dữ liệu của tôi qua email' : 'Request deletion of my personal data by email'}
+            </a>
+          </p>
+        )}
+
         {/* Contact block */}
         {doc.contact.length > 0 && (
           <div className="mt-10 rounded-xl bg-jurassic-dark p-6 md:p-8">

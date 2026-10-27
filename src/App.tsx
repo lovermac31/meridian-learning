@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+import { OptionalAnalytics } from './components/PrivacyControls';
 import { GlobalContactPanel } from './components/GlobalContactPanel';
 import { Navbar } from './components/Navbar';
 import { HomeOverhaul } from './components/HomeOverhaul';
@@ -631,7 +631,7 @@ function App() {
           onNavigate={navigateTo}
         />
       </Suspense>
-      <SpeedInsights route={speedInsightsRoute} />
+      <OptionalAnalytics route={speedInsightsRoute} />
     </div>
   );
 }

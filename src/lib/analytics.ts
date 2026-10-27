@@ -7,9 +7,11 @@
  */
 import { track as vercelTrack } from '@vercel/analytics';
 import { ga4Event } from './ga4';
+import { analyticsAllowed } from './analyticsConsent';
 
 /** Every event goes to Vercel Web Analytics and, when loaded, to GA4 (same name and fields). */
 function track(name: string, params: Record<string, string | number | boolean | undefined>) {
+  if (!analyticsAllowed()) return;
   vercelTrack(name, params as Record<string, string | number | boolean>);
   ga4Event(name, params);
 }

@@ -1,3 +1,4 @@
+import { analyticsAllowed } from '../lib/analyticsConsent';
 /**
  * YlBotUI — parent-admissions guide for /young-learners-speaking/.
  *
@@ -93,6 +94,7 @@ function useLang(): Lang {
 
 /** Fire-and-forget Vercel Analytics custom event. Never throws if `va` is absent. */
 function track(name: string, data?: Record<string, string>) {
+  if (!analyticsAllowed()) return;
   try {
     const w = window as unknown as {
       va?: (cmd: string, payload: { name: string; data?: Record<string, string> }) => void;
