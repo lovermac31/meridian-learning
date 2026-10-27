@@ -26,6 +26,7 @@ import {
 } from '../src/lib/routeMetadata.ts';
 import { getLocaleDefinition } from '../src/i18n/locales.ts';
 import { resolveLocalizedRoute } from '../src/i18n/routing.ts';
+import { readFileSync as readTranscriptFile } from 'node:fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, '..', 'dist');
@@ -419,6 +420,7 @@ function injectMetadata(html, pathname) {
   output = output.replace(/\s*<script type="application\/ld\+json" data-prerendered-route="true">[\s\S]*?<\/script>/g, '');
   const jsonLd = metadata.jsonLd?.length
     ? metadata.jsonLd
+        .map((block) => withTranscript(block, locale))
         .map((block) => `    <script type="application/ld+json" data-prerendered-route="true">${JSON.stringify(block)}</script>`)
         .join('\n')
     : '';
@@ -453,6 +455,16 @@ async function loadServerRenderer() {
   }
   const { renderRoute } = await import(pathToFileURL(ssrEntryPath).href);
   return renderRoute;
+}
+
+// Video SEO (27 Oct 2026): a VideoObject's transcript in the page language, from src/content/videoTranscripts.json.
+// Added here, in the prerendered HTML only, so ~27 KB of subtitle text stays out of the app bundle.
+const VIDEO_TRANSCRIPTS = JSON.parse(readTranscriptFile(new URL('../src/content/videoTranscripts.json', import.meta.url), 'utf8'));
+function withTranscript(block, locale) {
+  if (block?.['@type'] !== 'VideoObject') return block;
+  const slug = String(block.contentUrl ?? '').match(/\/videos\/([^/]+)\/video\.mp4$/)?.[1];
+  const text = slug && VIDEO_TRANSCRIPTS[slug]?.[locale === 'vi' ? 'vi' : 'en'];
+  return text ? { ...block, transcript: text } : block;
 }
 
 async function main() {
