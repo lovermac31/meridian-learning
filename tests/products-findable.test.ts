@@ -142,3 +142,56 @@ test('story hub: each level (EN + VI) has "For teachers: Level N Teacher Pack" t
   assert.match(src, /href=\{teacherPackHref\(level\.level, locale\)\}[^>]*data-link=\{`story-hub-teacher-pack-l\$\{level\.level\}`\}/);
   assert.equal(PRODUCTS.find((p) => p.id === 'teacher-pack-l2')!.vi.title, 'Bộ tài liệu Giáo viên Level 2', 'VI link text matches the card title');
 });
+
+// Order codes (master, 27 Oct 2026): the Zalo buttons keep the buyer's channel. Codes from the Sale Team's
+// 03_UTM_Link_Table.md.
+test('order codes: the visit source is read from the URL, kept for the visit, and safe when storage is blocked', async () => {
+  const { cleanSource, readVisitorSource } = await import('../src/lib/productsSource');
+  const store = () => {
+    const data = new Map<string, string>();
+    return { getItem: (k: string) => data.get(k) ?? null, setItem: (k: string, v: string) => { data.set(k, v); }, data };
+  };
+  const s = store();
+  assert.equal(readVisitorSource('?utm_source=fb-teachers', s), 'fb-teachers');
+  assert.equal(readVisitorSource('', s), 'fb-teachers', 'kept for the rest of the visit');
+  assert.equal(readVisitorSource('?utm_source=Zalo-Centre', s), 'zalo-centre', 'a newer source replaces it, lower-cased');
+  assert.equal(readVisitorSource('?utm_source=%3Cscript%3E', store()), null, 'unsafe values are ignored');
+  assert.equal(readVisitorSource('', store()), null, 'no source');
+  const blocked = { getItem: () => { throw new Error('blocked'); }, setItem: () => { throw new Error('blocked'); } };
+  assert.equal(readVisitorSource('?utm_source=academy', blocked), 'academy', 'the URL still works when storage throws');
+  assert.equal(readVisitorSource('', blocked), null);
+  assert.equal(readVisitorSource('?utm_source=video2', null), 'video2');
+  assert.equal(cleanSource('x'.repeat(41)), null);
+});
+
+test('order codes: the channel code from the table, else the source, else the card id; Zalo links carry the source', async () => {
+  const { orderCode, zaloHref } = await import('../src/lib/productsSource');
+  const { PRODUCTS_ZALO } = await import('../src/i18n/content/products');
+  const table: Record<string, string> = {
+    'fb-teachers': 'FBT', 'zalo-teachers': 'ZT', 'zalo-centre': 'ZC', 'email-centre': 'EC', 'zalo-parent': 'ZP',
+    storybook: 'SB', academy: 'AC', video1: 'VD1', video2: 'VD2', video3: 'VD3',
+  };
+  for (const [source, code] of Object.entries(table)) assert.equal(orderCode(source, 'teacher-pack-l1'), code, source);
+  assert.equal(orderCode('story-hub', 'teacher-pack-l1'), 'STORY-HUB', 'a source not in the table is shown as itself');
+  assert.equal(orderCode(null, 'teacher-pack-l1'), 'TEACHER-PACK-L1', 'no source: the card id');
+  assert.equal(orderCode('products', 'centre-licence'), 'CENTRE-LICENCE', 'the catch-all source: the card id');
+  assert.equal(zaloHref('fb-teachers'), 'https://zalo.me/84396085076?utm_source=fb-teachers');
+  assert.equal(zaloHref(null), PRODUCTS_ZALO, 'the prerendered page keeps utm_source=products until the visit is read');
+});
+
+test('order codes: every Order on Zalo button shows its code line (EN + VI); other buttons do not', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  const zalo = PRODUCTS.filter((p) => p.live && p.href === 'zalo').map((p) => p.id);
+  assert.ok(zalo.length >= 10);
+  for (const [route, before] of [['/products', 'When you message, mention code'], ['/vi/products', 'Khi nhắn tin, hãy nhắc mã']] as const) {
+    const html = await renderRoute(route);
+    const lines = [...html.replaceAll('<!-- -->', '').matchAll(/<p class="mt-2 text-sm" data-order-code="([^"]+)">([^<]*)<strong>([^<]+)<\/strong>\.<\/p>/g)];
+    assert.deepEqual(lines.map((m) => m[1]), zalo, route);
+    for (const [, id, text, code] of lines) {
+      assert.equal(text.trim(), before, `${route} ${id}`);
+      assert.equal(code, id.toUpperCase(), `${route} ${id}: card id until the visit source is read`);
+      const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
+      assert.ok(card.indexOf(`data-cta="product-${id}"`) < card.indexOf(`data-order-code="${id}"`), `${route} ${id}: next to the button`);
+    }
+  }
+});
