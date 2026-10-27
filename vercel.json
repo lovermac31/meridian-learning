@@ -423,7 +423,7 @@
       ]
     },
     {
-      "source": "/((?!assets|api|images|ai-speaking|student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework).*)",
+      "source": "/((?!assets|api|images|samples|ai-speaking|student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework).*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -464,6 +464,10 @@
         {
           "key": "X-Robots-Tag",
           "value": "noindex, noimageindex"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
         }
       ]
     },
