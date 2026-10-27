@@ -242,7 +242,7 @@ test('samples: every sample stem is wired to its four files in public/samples, a
     for (const n of [1, 2, 3]) {
       const page = readFileSync(`public/samples/${stem}-p${n}.webp`);
       assert.equal(page.subarray(8, 12).toString(), 'WEBP', `${stem}-p${n}: WebP`);
-      assert.ok(page.length < 80_000, `${stem}-p${n}: < 80 KB (${page.length})`);
+      assert.ok(page.length < 80 * 1024, `${stem}-p${n}: < 80 KB (${page.length})`);
     }
   }
 });

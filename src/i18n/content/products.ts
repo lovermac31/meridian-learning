@@ -346,6 +346,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'thinking-cycle-set',
+    sample: 'thinking-cycle-set',
     en: {
       label: 'Digital download · teachers and tutors',
       title: 'Jurassic Thinking Cycle Manual Set',
@@ -373,6 +374,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'reasoning-assessment-kit',
+    sample: 'reasoning-assessment-kit',
     en: {
       label: 'Digital download · teachers and centres',
       title: 'Reasoning Assessment Kit, Levels 1–5',
@@ -400,6 +402,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'ielts-speaking-ladder',
+    sample: 'ielts-speaking-ladder',
     en: {
       label: 'Digital download · learners and tutors',
       title: 'IELTS Speaking Ladder Pack',
@@ -426,6 +429,7 @@ export const PRODUCTS: Product[] = [
     price: '4.900.000₫',
     href: 'zalo',
     image: 'centre-licence',
+    sample: 'centre-licence',
     delivery: true,
     en: {
       label: 'Founding price',
@@ -454,6 +458,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'teacher-training-course',
+    sample: 'teacher-training-course',
     en: {
       label: 'Digital course · one centre',
       title: 'Teacher Training Course (train-the-trainer)',
@@ -481,6 +486,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'pilot-class-kit',
+    sample: 'pilot-class-kit',
     en: {
       label: 'Digital kit · one centre · 6–8 weeks',
       title: 'Pilot Class Launch Kit',
@@ -508,6 +514,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'curriculum-overview',
+    sample: 'curriculum-overview',
     en: {
       label: 'Digital · schools and centres',
       title: 'Curriculum Overview for Schools, Levels 1–5',
