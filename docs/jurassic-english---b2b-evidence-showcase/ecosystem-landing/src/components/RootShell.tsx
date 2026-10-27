@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import "./globals.css";
 import { LayoutChrome } from "@/components/LayoutChrome";
 import { ProductionStyleHeader } from "@/components/ProductionStyleHeader";
 import { JsonLd } from "@/components/JsonLd";
@@ -56,7 +55,7 @@ const geistSans = Geist({
 // now resolves to undefined; any future code that needs a monospace
 // stack should fall back to the system mono via CSS.
 
-export const metadata: Metadata = {
+export const rootMetadata: Metadata = {
   // Canonical apex domain. www.jurassicenglish.com 308-redirects here.
   // All page-level relative metadata URLs (canonical, OG, Twitter images)
   // resolve against this base.
@@ -86,13 +85,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+/**
+ * The shared root shell. Two root layouts render it, (en)/layout.tsx with lang="en" and (vi)/layout.tsx with lang="vi",
+ * so every page declares its own language (QA, 27 Oct 2026: /vi/student-academy/stories declared lang="en").
+ */
+export function RootShell({
+  lang,
   children,
 }: Readonly<{
+  lang: "en" | "vi";
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         {/* The Neuland-Inline wordmark font is self-hosted: globals.css
             declares its @font-face from src/fonts, which Next emits under
