@@ -259,7 +259,7 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
     return (
       <p className="mt-2 text-sm" data-paypal={card.id}>
         {copy.lead}{' '}
-        <a href={productPaypalHref(card.id, source)} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4 hover:text-sb-amber-deep" data-paypal-link={card.id}>
+        <a href={productPaypalHref(card.id, source, locale)} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4 hover:text-sb-amber-deep" data-paypal-link={card.id}>
           {copy.pay(productUsd(card.price))}
         </a>
       </p>
@@ -269,7 +269,7 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
     <div className="mt-3 rounded-xl border border-sb-border p-3" data-paypal={card.id}>
       <p className="text-sm font-bold">{copy.lead}</p>
       <a
-        href={productPaypalHref(card.id, source)}
+        href={productPaypalHref(card.id, source, locale)}
         target="_blank"
         rel="noopener noreferrer"
         className="mt-1 inline-block text-sm font-bold underline underline-offset-4 hover:text-sb-amber-deep"
