@@ -18,7 +18,7 @@ test('films: every mapped film has its video, poster and one subtitle file per l
     assert.ok(statSync(`${dir}/video.mp4`).size < 6 * 1024 * 1024, `${slug}: web video under 6 MB`);
     assert.equal(readFileSync(`${dir}/poster.webp`).subarray(8, 12).toString(), 'WEBP', `${slug}: poster is WebP`);
     for (const l of film.langs) assert.match(readFileSync(`${dir}/${l}.vtt`, 'utf8'), /^WEBVTT/, `${slug}/${l}.vtt`);
-    assert.ok(film.langs.includes('en') && film.langs.includes('vi'), `${slug}: EN and VI subtitles`);
+    assert.deepEqual(film.langs, ['en', 'vi', 'zh'], `${slug}: EN, VI and 中文 subtitles`);
   }
 });
 
@@ -55,7 +55,8 @@ test('films: the product page plays the film muted, on demand, above the sample,
     assert.match(html, new RegExp(`<track kind="subtitles" srcLang="${lang}" label="[^"]+" src="/videos/je-04-level1-teacher-pack/${lang}\\.vtt" default=""/>`), `${route}: ${lang} track is the default`);
     assert.equal((html.match(/default=""/g) ?? []).length, 1, `${route}: one default track`);
     assert.match(html, new RegExp(`<button type="button" lang="${lang}" aria-pressed="true"`), `${route}: picker on ${lang}`);
-    assert.match(html, /data-subtitle-lang="en"[\s\S]*data-subtitle-lang="vi"/, `${route}: EN and VI buttons`);
+    assert.match(html, /data-subtitle-lang="en"[\s\S]*data-subtitle-lang="vi"[\s\S]*data-subtitle-lang="zh"[^>]*>中文</, `${route}: EN · VI · 中文 buttons`);
+    assert.match(html, /<track kind="subtitles" srcLang="zh" label="中文" src="\/videos\/je-04-level1-teacher-pack\/zh\.vtt"\/>/, `${route}: zh track`);
     assert.match(html, /aspect-video/, `${route}: box reserved, no shift`);
     assert.ok(html.indexOf('data-product-video=') < html.indexOf('data-sample="teacher-pack-l1"'), `${route}: film above the sample`);
     assert.match(html, /id="video"[^>]*data-product-video="je-04-level1-teacher-pack"/, `${route}: #video anchor`);

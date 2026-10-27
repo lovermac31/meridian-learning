@@ -15,18 +15,18 @@ export type VideoLang = (typeof VIDEO_LANGS)[number];
 export const VIDEO_LANG_LABELS: Record<VideoLang, string> = { en: 'EN', vi: 'VI', zh: '中文' };
 
 export type ProductVideo = {
-  // Subtitle files present in public/videos/<slug>/ (zh joins when the video factory delivers zh.vtt).
+  // Subtitle files present in public/videos/<slug>/ (VI and 中文 are machine-drafted, awaiting native review).
   langs: VideoLang[];
   title: Record<Locale, string>;
 };
 
 export const PRODUCT_VIDEOS: Record<string, ProductVideo> = {
-  'je-01-the-one-question': { langs: ['en', 'vi'], title: { en: 'The one question', vi: 'Một câu hỏi' } },
-  'je-02-spot-the-clue': { langs: ['en', 'vi'], title: { en: 'Spot the clue', vi: 'Tìm manh mối' } },
-  'je-03-why-stories': { langs: ['en', 'vi'], title: { en: 'Why Mr. Jay teaches with stories', vi: 'Vì sao Mr. Jay dạy bằng truyện' } },
-  'je-04-level1-teacher-pack': { langs: ['en', 'vi'], title: { en: 'Inside the Level 1 Teacher Pack', vi: 'Bên trong bộ Giáo án Level 1' } },
-  'je-05-reasoning-assessment-kit': { langs: ['en', 'vi'], title: { en: 'Inside the Reasoning Assessment Kit', vi: 'Bên trong bộ Đánh giá Tư duy' } },
-  'je-06-ielts-speaking-ladder': { langs: ['en', 'vi'], title: { en: 'Inside the IELTS Speaking Ladder', vi: 'Bên trong IELTS Speaking Ladder' } },
+  'je-01-the-one-question': { langs: ['en', 'vi', 'zh'], title: { en: 'The one question', vi: 'Một câu hỏi' } },
+  'je-02-spot-the-clue': { langs: ['en', 'vi', 'zh'], title: { en: 'Spot the clue', vi: 'Tìm manh mối' } },
+  'je-03-why-stories': { langs: ['en', 'vi', 'zh'], title: { en: 'Why Mr. Jay teaches with stories', vi: 'Vì sao Mr. Jay dạy bằng truyện' } },
+  'je-04-level1-teacher-pack': { langs: ['en', 'vi', 'zh'], title: { en: 'Inside the Level 1 Teacher Pack', vi: 'Bên trong bộ Giáo án Level 1' } },
+  'je-05-reasoning-assessment-kit': { langs: ['en', 'vi', 'zh'], title: { en: 'Inside the Reasoning Assessment Kit', vi: 'Bên trong bộ Đánh giá Tư duy' } },
+  'je-06-ielts-speaking-ladder': { langs: ['en', 'vi', 'zh'], title: { en: 'Inside the IELTS Speaking Ladder', vi: 'Bên trong IELTS Speaking Ladder' } },
 };
 
 /** Films 01–03 on /story-club and /vi/story-club, in this order. */
