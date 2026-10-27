@@ -84,6 +84,8 @@
 @media (min-width: 640px) { .insights-paypal-options { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .insights-paypal-option { display: flex; flex-direction: column; justify-content: space-between; gap: .35rem; min-height: 88px; padding: .9rem 1rem; border: 2px solid var(--color-jurassic-dark); border-radius: .875rem; color: var(--color-jurassic-dark); text-decoration: none; line-height: 1.35; transition: background-color .2s, border-color .2s; }
 .insights-paypal-option:hover { background: #fdf2ea; border-color: var(--color-jurassic-accent); }
+.insights-sample-link { margin: .9rem 0 0; font-weight: 700; }
+.insights-teacher .insights-sample-link a { color: var(--color-jurassic-blue); text-decoration: underline; text-decoration-color: var(--color-jurassic-accent); text-underline-offset: 4px; }
 .insights-paypal-option strong { font-size: 1.35rem; }
 .insights-content .insights-paypal-note { margin: 1rem 0 0; font-size: .9rem; line-height: 1.6; color: #3d4a52; }
 .insights-cta-note .insights-paypal-link { font-weight: 700; color: var(--color-jurassic-blue); text-decoration: underline; text-decoration-color: var(--color-jurassic-accent); text-underline-offset: 3px; }

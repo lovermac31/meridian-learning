@@ -15,6 +15,18 @@ export const ORDER_CODES: Record<string, string> = {
   video1: 'VD1',
   video2: 'VD2',
   video3: 'VD3',
+  // Market pages (S2): utm_source=market-<country>.
+  'market-uae': 'MAE',
+  'market-saudi-arabia': 'MSA',
+  'market-egypt': 'MEG',
+  'market-india': 'MIN',
+  'market-pakistan': 'MPK',
+  'market-bangladesh': 'MBD',
+  'market-philippines': 'MPH',
+  'market-indonesia': 'MID',
+  'market-malaysia': 'MMY',
+  'market-thailand': 'MTH',
+  'market-singapore': 'MSG',
 };
 
 export const ZALO_CHAT = 'https://zalo.me/84396085076';

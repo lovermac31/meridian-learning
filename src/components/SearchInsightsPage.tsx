@@ -163,6 +163,28 @@ const payCopy: Record<string, { title: string; baseline: string; lesson: string;
   ar: { title: 'ادفع بالدولار الأمريكي عبر PayPal', baseline: 'التقييم الأولي للمحادثة', lesson: 'درس فردي، 60 دقيقة', pack: 'باقة من 8 دروس', note: 'اختر خيارًا لفتح صفحة الدفع لدينا، ثم ادفع على paypal.com: تدفع السعر بالدولار الأمريكي (US$) المعروض هنا إلى Jurassic English (WorldWiseLearning). يتم تأكيد الدفع تلقائيًا.', hero: 'تصل الطلبات إلى info@jurassicenglish.com.', link: 'أو ادفع بالدولار الأمريكي عبر PayPal' },
 };
 
+// S2 + S3 (master, 27 Oct 2026): every country page links the Baseline sample report on /products, tagged
+// utm_source=market-<country> before the #anchor so orders from market pages show in the weekly measure. /products
+// is in English, so other languages say so, like the page's other English-only links.
+export const marketSampleHref = (market: string) => `/products?utm_source=market-${market}#baseline-sample`;
+const sampleCopy: Record<string, string> = {
+  en: 'See a sample report first',
+  es: 'Mira primero un informe de muestra (en inglés)',
+  'pt-BR': 'Veja primeiro um relatório de exemplo (em inglês)',
+  id: 'Lihat contoh laporan dulu (bahasa Inggris)',
+  ms: 'Lihat contoh laporan dahulu (bahasa Inggeris)',
+  th: 'ดูตัวอย่างรายงานก่อน (ภาษาอังกฤษ)',
+  ar: 'اطّلع أولًا على نموذج تقرير (بالإنجليزية)',
+  ur: 'پہلے نمونہ رپورٹ دیکھیں (انگریزی میں)',
+  bn: 'আগে একটি নমুনা রিপোর্ট দেখুন (ইংরেজিতে)',
+};
+
+function SampleLink({ market, locale }: { market: string; locale: string }) {
+  const text = sampleCopy[locale] ?? sampleCopy.en;
+  const rtl = locale === 'ar' || locale === 'ur';
+  return <p className="insights-sample-link"><a href={marketSampleHref(market)} data-link="market-sample">{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(text) }} /> : text} {rtl ? '←' : '→'}</a></p>;
+}
+
 function paypalMarket(path: string, locale: string) {
   const market = marketFromPath(path);
   return market && !noPaypalMarkets.has(market) && payCopy[locale] ? market : undefined;
@@ -198,6 +220,7 @@ function PayPalPanel({ market, locale }: { market: string; locale: string }) {
     <div className="insights-paypal-options">{items.map(entry => <a key={entry.item} className="insights-paypal-option" href={checkoutHref(entry.item, market)}>
       <span>{text(entry.label)}</span><strong><bdi dir="ltr">US${entry.amount}</bdi></strong>
     </a>)}</div>
+    <SampleLink market={market} locale={locale} />
     <p className="insights-paypal-note">{text(copy.note)}</p>
   </section>;
 }
@@ -219,10 +242,10 @@ function ClosingBand({ locale, ctas, paypal, hub }: { locale: string; ctas: Arra
   </div></div>;
 }
 
-function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas, paypal, hub }: {
+function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas, paypal, hub, sampleMarket }: {
   eyebrow: string; title: string; intro: string; locale: string;
   alternate?: { path: string; locale: string }; market?: boolean;
-  ctas?: Array<{ href: string; label: string }>; paypal?: boolean; hub?: boolean;
+  ctas?: Array<{ href: string; label: string }>; paypal?: boolean; hub?: boolean; sampleMarket?: string;
 }) {
   const rtl = locale === 'ar' || locale === 'ur';
   return <header className="insights-hero" dir={rtl ? 'rtl' : 'ltr'}>
@@ -240,6 +263,7 @@ function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas, payp
         <div className="insights-teacher-row"><img src="/images/mr-jay-portrait.webp" width="76" height="76" alt="Mr. Jay Adams" /><div><span className="insights-badge">CELTA</span><strong>Mr. Jay Adams</strong></div></div>
         {ctas?.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}
         {ctas?.length ? <CtaNote locale={locale} paypal={paypal} hub={hub} /> : null}
+        {sampleMarket ? <SampleLink market={sampleMarket} locale={locale} /> : null}
       </div>}
     </div>
   </header>;
@@ -266,7 +290,7 @@ export function SearchInsightsPage({ pathname, onNavigate }: { pathname: string;
     const marketKey = marketFromPath(seoPage.path);
     const eyebrow = market ? (marketKey ? (countryNames[seoPage.locale] ?? countryNames.en)[marketKey] ?? countryNames.en[marketKey] : (chrome[seoPage.locale] ?? chrome.en).resources) : (seoPage.path.includes('/insights/') ? (chrome[seoPage.locale] ?? chrome.en).resources : 'Jurassic English · People');
     return <main id="main-content" className="insights-page" lang={seoPage.locale} dir={['ar', 'ur'].includes(seoPage.locale) ? 'rtl' : 'ltr'}>
-      <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} paypal={!!payMarket} hub={market && !marketKey} />
+      <HeroBand eyebrow={eyebrow} title={seoPage.h1} intro={intro} locale={seoPage.locale} alternate={alternate} market={market} ctas={ctas} paypal={!!payMarket} hub={market && !marketKey} sampleMarket={market && marketKey && !payMarket ? marketKey : undefined} />
       <div className="insights-content"><nav aria-label="Breadcrumb"><a href={seoPage.locale === 'vi' ? '/vi/insights' : '/insights'}>{(chrome[seoPage.locale] ?? chrome.en).resources}</a></nav>{founderFactsEnd > 0 ? <article><div dangerouslySetInnerHTML={{ __html: html.slice(0, founderFactsEnd) }} /><FounderFilmLink locale={seoPage.locale === 'vi' ? 'vi' : 'en'} variant="card" /><div dangerouslySetInnerHTML={{ __html: html.slice(founderFactsEnd) }} /></article> : payMarket && factsEnd > 0 ? <article><div dangerouslySetInnerHTML={{ __html: html.slice(0, factsEnd) }} /><PayPalPanel market={payMarket} locale={seoPage.locale} /><div dangerouslySetInnerHTML={{ __html: html.slice(factsEnd) }} /></article> : <article dangerouslySetInnerHTML={{ __html: html }} />}</div>
       {market && <ClosingBand locale={seoPage.locale} ctas={ctas} paypal={!!payMarket} hub={!marketKey} />}
     </main>;
