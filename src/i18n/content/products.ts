@@ -156,6 +156,7 @@ export const PRODUCTS: Product[] = [
     price: '149.000₫',
     href: 'zalo',
     image: 'printable-pack-l1',
+    sample: 'printable-pack-l1',
     delivery: true,
     en: {
       label: 'Digital download',
@@ -183,6 +184,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l1',
+    sample: 'teacher-pack-l1',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -210,6 +212,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l2',
+    sample: 'teacher-pack-l2',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -237,6 +240,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l3',
+    sample: 'teacher-pack-l3',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -264,6 +268,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l4',
+    sample: 'teacher-pack-l4',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -291,6 +296,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l5',
+    sample: 'teacher-pack-l5',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -318,6 +324,7 @@ export const PRODUCTS: Product[] = [
     price: '2.900.000₫',
     href: 'zalo',
     image: 'teacher-bundle',
+    sample: 'teacher-bundle',
     delivery: true,
     en: {
       label: 'Digital download · one teacher · Levels 1–5',
