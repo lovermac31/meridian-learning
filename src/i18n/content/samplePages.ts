@@ -17,6 +17,12 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'student-workbook-l1': 10,
   'teacher-bundle': 16,
   'teacher-pack-l1': 12,
+  'teacher-pack-l2': 11,
+  'teacher-pack-l3': 11,
+  'teacher-pack-l4': 11,
+  'teacher-pack-l5': 11,
+  'teacher-training-course': 9,
+  'thinking-cycle-set': 10,
 };
 
 export const SAMPLE_PAGE_WIDTH = 1200;

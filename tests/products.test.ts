@@ -314,12 +314,19 @@ test('samples: the viewer shows one watermarked page at a time, a counter, and t
     assert.match(last, /data-viewer-order="baseline"/, `${locale}: order button on the last page`);
     assert.match(last, /disabled=""[^>]*data-viewer-next/, `${locale}: no next page at the end`);
   }
-  // A card whose page set has not landed shows its three thumbnails.
-  const waiting = PRODUCTS.find((p) => p.sample && !SAMPLE_PAGE_COUNTS[p.sample])!;
-  setServerLocation(EN);
-  const card = productsPage('en').sections.flatMap((section) => section.cards).find((entry) => entry.id === waiting.id)!;
-  const html = renderToStaticMarkup(createElement(SampleViewer, { card, locale: 'en', source: null, copy: productsPage('en').viewer, onClose: noop }));
-  assert.ok(html.includes(`/samples/${waiting.sample}-p1.webp`) && html.includes('>Page 1 of 3<'), `${waiting.id}: thumbnails until its pages land`);
+  // A future card whose page set has not landed yet shows its three thumbnails.
+  const waiting = PRODUCTS.find((p) => p.id === 'teacher-pack-l2')!;
+  const count = SAMPLE_PAGE_COUNTS[waiting.sample!];
+  delete SAMPLE_PAGE_COUNTS[waiting.sample!];
+  try {
+    setServerLocation(EN);
+    const card = productsPage('en').sections.flatMap((section) => section.cards).find((entry) => entry.id === waiting.id)!;
+    const html = renderToStaticMarkup(createElement(SampleViewer, { card, locale: 'en', source: null, copy: productsPage('en').viewer, onClose: noop }));
+    assert.ok(html.includes(`/samples/${waiting.sample}-p1.webp`) && html.includes('>Page 1 of 3<'), `${waiting.id}: thumbnails until its pages land`);
+  } finally {
+    SAMPLE_PAGE_COUNTS[waiting.sample!] = count;
+  }
+  assert.equal(PRODUCTS.filter((p) => p.sample && !SAMPLE_PAGE_COUNTS[p.sample]).length, 0, 'every card has its full page set');
 });
 
 // The header Baseline link is covered by the next test (it leads to #baseline-sample); '/' lazy-loads BotUI, whose .scss
