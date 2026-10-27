@@ -194,8 +194,7 @@ export const PRODUCTS: Product[] = [
     section: 'families',
     price: '249.000₫',
     href: 'zalo',
-    // Placeholder until image-studio makes this pack's own image.
-    image: 'printable-pack-l1',
+    image: 'parent-pack-l1',
     sample: 'parent-pack-l1',
     delivery: true,
     paypal: true,
@@ -224,8 +223,7 @@ export const PRODUCTS: Product[] = [
     section: 'families',
     price: '249.000₫',
     href: 'zalo',
-    // Placeholder until image-studio makes this pack's own image.
-    image: 'printable-pack-l1',
+    image: 'parent-pack-l2',
     sample: 'parent-pack-l2',
     delivery: true,
     paypal: true,
@@ -428,8 +426,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
-    // Placeholder until image-studio makes this workbook's own image.
-    image: 'printable-pack-l1',
+    image: 'student-workbook-l1',
     sample: 'student-workbook-l1',
     delivery: true,
     paypal: true,
