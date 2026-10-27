@@ -13,7 +13,7 @@ const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
 
 // Light storybook header (10/10 overhaul). Two-line door links: age + what it is.
 const NAV_LINK =
-  'whitespace-nowrap rounded-xl px-1 py-1.5 text-[0.95rem] font-semibold text-sb-forest transition hover:text-sb-amber-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
+  'whitespace-nowrap rounded-xl px-0.5 py-1.5 text-[0.95rem] font-semibold text-sb-forest transition hover:text-sb-amber-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
 // White text only on #B45309 (5.0:1) or forest #1E4D3B (9.4:1), never on #D97706.
 const NAV_CTA =
   'inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full bg-sb-amber-deep px-4 py-2 text-[13px] font-bold text-white shadow-warm transition hover:bg-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-forest focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
@@ -21,7 +21,9 @@ const NAV_CTA =
 // The desktop row drops a bracketed suffix ("Kids Academy (5–12)" shows "Kids Academy"): the header
 // is width-capped, and the full label pushes Pricing under the language switch at every width
 // (measured 1280 and 1440, EN and VI). The mobile menu, aria-label and title keep the full label.
-function DesktopNavLabel({ label }: { label: string }) {
+function DesktopNavLabel({ label, short }: { label: string; short?: string }) {
+  // "Products & prices" shows "Products" in the desktop row (website assessment, 27 Oct 2026: six links must fit).
+  if (short && label.startsWith(short)) return <>{short}<span className="sr-only">{label.slice(short.length)}</span></>;
   const match = label.match(/^(.*?)\s(\(.+\))$/);
   if (!match) return <>{label}</>;
   return (
@@ -183,7 +185,7 @@ export const Navbar = ({
     <nav className={`fixed top-0 w-full z-50 border-b transition-shadow duration-300 bg-sb-cream/95 backdrop-blur-md ${isSolidNav ? 'border-sb-border shadow-warm' : 'border-transparent'}`}>
       {/* Two balanced clusters on one 72px row, never wrapping: [logo + doors] … [EN | Tiếng Việt + Baseline CTA]. */}
       <div className="max-w-7xl mx-auto h-[72px] px-3 min-[360px]:px-4 sm:px-6 flex flex-nowrap justify-between items-center gap-1.5 min-[360px]:gap-3">
-        <div className="flex min-w-0 flex-nowrap items-center gap-6">
+        <div className="flex min-w-0 flex-nowrap items-center gap-4 2xl:gap-6">
         {/* Below 430px the wordmark wraps to two lines (min-content width) so the Baseline CTA never covers it; the row stays one 72px line. */}
         <button
           type="button"
@@ -199,7 +201,7 @@ export const Navbar = ({
         </button>
 
         {/* Desktop (>= xl): the four age doors sit beside the logo. */}
-        <div className="hidden xl:flex flex-nowrap items-center gap-6">
+        <div className="hidden xl:flex flex-nowrap items-center gap-3 2xl:gap-6">
           {navItems.map((item) => (
             <a
               key={item.key}
@@ -209,7 +211,7 @@ export const Navbar = ({
               aria-label={[badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label, item.desc].filter(Boolean).join(' · ')}
               title={[item.label, item.desc].filter(Boolean).join(' · ')}
             >
-              <DesktopNavLabel label={item.label} />
+              <DesktopNavLabel label={item.label} short={'short' in item ? item.short : undefined} />
               {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
             </a>
           ))}

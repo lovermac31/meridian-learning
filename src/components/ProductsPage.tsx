@@ -222,8 +222,19 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
 }
 
 // S1: the US$ price by PayPal for international buyers, after the VND order button (VND and VietQR stay first).
-export function PayPalOption({ card, locale, source }: { card: ProductCard; locale: Locale; source: string | null }) {
+export function PayPalOption({ card, locale, source, compact = false }: { card: ProductCard; locale: Locale; source: string | null; compact?: boolean }) {
   const copy = PAYPAL_CARD_COPY[locale];
+  // On the /products hub the option is one line after the order button; its note folds into the card's Details.
+  if (compact) {
+    return (
+      <p className="mt-2 text-sm" data-paypal={card.id}>
+        {copy.lead}{' '}
+        <a href={productPaypalHref(card.id, source)} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4 hover:text-sb-amber-deep" data-paypal-link={card.id}>
+          {copy.pay(productUsd(card.price))}
+        </a>
+      </p>
+    );
+  }
   return (
     <div className="mt-3 rounded-xl border border-sb-border p-3" data-paypal={card.id}>
       <p className="text-sm font-bold">{copy.lead}</p>
@@ -258,7 +269,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }:
   const code = ORDER_CODE_COPY[locale];
   const detailsLabel = DETAILS_LABEL[locale];
   return (
-    <li className="ielts-tool-card flex scroll-mt-24 flex-col rounded-2xl bg-white p-6 shadow-sm" id={card.id}>
+    <li className="ielts-tool-card flex scroll-mt-24 flex-col rounded-2xl bg-white p-4 shadow-sm sm:p-6" id={card.id}>
       {(PRODUCT_FORMER_IDS[card.id] ?? []).map((former) => (
         <span key={former} id={former} className="block scroll-mt-24" aria-hidden="true" />
       ))}
@@ -301,6 +312,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }:
         </dl>
         <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} />
         {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
+        {card.paypal ? <p className="mt-2 text-sm" data-paypal-note={card.id}>{PAYPAL_CARD_COPY[locale].note}</p> : null}
       </details>
       <p className="mt-3 text-2xl font-bold" data-price={card.id}>
         {card.price} <span className="text-base font-semibold">{card.unit}</span>
@@ -322,11 +334,11 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }:
           ) : null}
         </div>
         {external ? (
-          <p className="mt-2 text-sm" data-order-code={card.id}>
+          <p className="mt-2 text-xs" data-order-code={card.id}>
             {code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}
           </p>
         ) : null}
-        {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
+        {card.paypal ? <PayPalOption card={card} locale={locale} source={source} compact /> : null}
       </div>
     </li>
   );
