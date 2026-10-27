@@ -17,6 +17,25 @@ import { fileURLToPath } from 'node:url';
 import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.ts';
 import { createLastmodResolver } from './lib/sitemap-lastmod.mjs';
 import { getSeoPage, isInternationalMarketPath, getInternationalAlternates } from '../src/lib/seoPages.ts';
+import { videosForPath } from '../src/lib/videoSeo.ts';
+
+const xml = (value) => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+// Video sitemap (27 Oct 2026): one <video:video> per film shown on the page, from the same manifest as its VideoObject.
+// Google's limits: title ≤ 100 characters, description ≤ 2048, duration in whole seconds.
+function videoLines(pathname) {
+  return videosForPath(pathname).flatMap((video) => [
+    '    <video:video>',
+    `      <video:thumbnail_loc>${xml(video.thumbnailUrl)}</video:thumbnail_loc>`,
+    `      <video:title>${xml(video.name.slice(0, 100))}</video:title>`,
+    `      <video:description>${xml(video.description.slice(0, 2048))}</video:description>`,
+    `      <video:content_loc>${xml(video.contentUrl)}</video:content_loc>`,
+    `      <video:duration>${Math.max(1, Math.round(video.seconds))}</video:duration>`,
+    `      <video:publication_date>2026-10-27</video:publication_date>`,
+    `      <video:family_friendly>yes</video:family_friendly>`,
+    '    </video:video>',
+  ]);
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir   = path.resolve(__dirname, '..', 'dist');
@@ -96,6 +115,7 @@ function buildUrl(pathname) {
     ...lastmodLine(pathname),
     `    <changefreq>${getChangefreq(pathname)}</changefreq>`,
     `    <priority>${getPriority(pathname)}</priority>`,
+    ...videoLines(pathname),
     '  </url>',
   ].join('\n');
 }
@@ -174,7 +194,7 @@ async function main() {
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">',
     urlTags,
     extraTags,
     '</urlset>',

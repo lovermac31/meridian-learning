@@ -289,7 +289,7 @@ export function createProductListJsonLd(locale: Locale): JsonLd {
 
 // One product page (/products/<id>, Jay 27 Oct 2026): a Product with its VND Offer and, when the card takes PayPal,
 // the US$ Offer (ceil(VND ÷ 25,897), the price the PayPal button charges). Cards without PayPal get no USD offer.
-export function createProductJsonLd(product: Product, locale: Locale): JsonLd {
+export function createProductJsonLd(product: Product, locale: Locale, videoId?: string): JsonLd {
   const pageUrl = `${SITE_URL}${locale === 'vi' ? '/vi' : ''}${PRODUCTS_PATH}/${product.id}`;
   const vnd = vndPriceValue(product.price);
   const offer = (price: string, priceCurrency: string) => ({
@@ -311,5 +311,7 @@ export function createProductJsonLd(product: Product, locale: Locale): JsonLd {
     ...(product.image ? { image: `${SITE_URL}${PRODUCT_IMAGE_DIR}/${product.image}.webp` } : {}),
     brand: { '@type': 'Brand', name: 'Jurassic English' },
     offers: [offer(vnd, 'VND'), ...(product.paypal ? [offer(String(usdFromVnd(Number(vnd))), 'USD')] : [])],
+    // The product's film on the same page (video SEO, 27 Oct 2026).
+    ...(videoId ? { subjectOf: { '@id': videoId } } : {}),
   };
 }

@@ -17,6 +17,7 @@ import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
 import marketPricing from '../content/marketPricing.json';
 import { PAGE_PRODUCTS, PRODUCT_PAGE_PATHS, PRODUCT_SEO, productFaq, productPath } from '../i18n/content/productSeo';
+import { createVideoJsonLd, productPageVideo, storyClubVideos, videoId } from './videoSeo';
 import { getSeoPageMeta as getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath, getInternationalAlternates } from './seoPageMeta';
 import {
   createBreadcrumbJsonLd,
@@ -150,7 +151,14 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       title: seo.en.title,
       description: seo.en.description,
       canonicalPath: path,
-      jsonLdFor: (locale: Locale) => [createProductJsonLd(product, locale), createFaqJsonLd(productFaq(product, locale))],
+      jsonLdFor: (locale: Locale) => {
+        const video = productPageVideo(product, locale);
+        return [
+          createProductJsonLd(product, locale, video ? videoId(video) : undefined),
+          ...(video ? [createVideoJsonLd(video)] : []),
+          createFaqJsonLd(productFaq(product, locale)),
+        ];
+      },
       breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Products', path: '/products' }, { name: product.en.title, path }],
       // Shared links show the product (image studio, 27 Oct 2026), not the site's generic compass image.
       ...(product.image ? { ogImage: { url: `${SITE_URL}/images/products/${product.image}.webp`, width: 800, height: 800 } } : {}),
@@ -223,6 +231,8 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     description:
       'A small online story group for children aged 5–8: a 30-minute live story time each week, one small task at home and a personal reply from Mr. Jay. Up to 6 children per group.',
     canonicalPath: '/story-club',
+    // The three Story Club films shown on the page (video SEO, 27 Oct 2026).
+    jsonLdFor: (locale) => storyClubVideos(locale).map(createVideoJsonLd),
     breadcrumbs: [
       { name: 'Home', path: '/' },
       { name: 'Story Club', path: '/story-club' },
