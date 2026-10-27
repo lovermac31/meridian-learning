@@ -347,7 +347,7 @@ export function sampleLeadNotes(l: SampleLead): string {
 /**
  * Write a sample-pack lead to the same JE Leads database as the pricing registrations (master, 27 Oct 2026: no Supabase
  * change). Buyer Type is Parent / Guardian, or Teacher / CPD Lead when they tick "I'm a teacher"; the lead source,
- * page and utm go in Notes (and in a "Lead Source" property when the database has one). Only the properties a
+ * page and utm go in Notes (and in a "Lead Source" text property if the database has one; a select is left alone). Only the properties a
  * sample lead actually has are written. Never throws.
  */
 export async function writeNotionSampleLead(lead: SampleLead): Promise<NotionWriteResult> {
@@ -369,9 +369,9 @@ export async function writeNotionSampleLead(lead: SampleLead): Promise<NotionWri
     if (lead.email) props['Work Email'] = { email: lead.email };
     if (lead.zalo && supportsType(schema, 'Phone / WhatsApp', ['rich_text'])) props['Phone / WhatsApp'] = { rich_text: rt(`Zalo ${lead.zalo}`) };
     if (supportsType(schema, 'Notes', ['rich_text'])) props['Notes'] = { rich_text: rt(sampleLeadNotes(lead)) };
-    // Only when the database is known to have it: an unknown property would fail the whole create.
-    if (schema?.['Lead Source'] === 'select') props['Lead Source'] = { select: { name: 'sample-pack' } };
-    else if (schema?.['Lead Source'] === 'rich_text') props['Lead Source'] = { rich_text: rt('sample-pack') };
+    // A "Lead Source" select is not written: its options are fixed (Form Submission, Email Reply, …) and the Notion API
+    // does not add a new option, so 'sample-pack' would fail the whole create. Notes carry lead_source instead.
+    if (schema?.['Lead Source'] === 'rich_text') props['Lead Source'] = { rich_text: rt('sample-pack') };
     return props;
   });
 }
