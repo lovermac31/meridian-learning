@@ -7,6 +7,7 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'centre-licence': 19,
   'curriculum-overview': 11,
   'ielts-speaking-ladder': 10,
+  'ielts-writing-ladder-task2': 9,
   'one-to-one': 7,
   'parent-pack-l1': 10,
   'parent-pack-l2': 10,
