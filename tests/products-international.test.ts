@@ -77,7 +77,7 @@ test('market order codes: the Sale Team table maps each market-<country> source 
 // S1 (master decision (a), 27 Oct 2026): a direct PayPal payment per digital card at Jay's approved US$ price.
 const USD: Record<string, number> = {
   'printable-pack': 6, 'parent-pack-l1': 10, 'parent-pack-l2': 10, 'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27,
-  'teacher-pack-l5': 27, 'teacher-bundle': 112, 'student-workbook-l1': 8, 'thinking-cycle-set': 19, 'reasoning-assessment-kit': 16,
+  'teacher-pack-l5': 27, 'teacher-bundle': 112, 'student-workbook-l1': 8, 'student-workbook-l2': 8, 'student-workbook-l3': 8, 'student-workbook-l4': 8, 'student-workbook-l5': 8, 'thinking-cycle-set': 19, 'reasoning-assessment-kit': 16,
   'ielts-speaking-ladder': 16, 'teacher-training-course': 58, 'pilot-class-kit': 27, 'curriculum-overview': 12,
 };
 

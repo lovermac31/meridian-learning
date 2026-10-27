@@ -21,7 +21,7 @@ const EXPECTED: Record<string, [string, string][]> = {
   families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
-    ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'],
+    ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['thinking-cycle-set', '490.000₫'],
     ['reasoning-assessment-kit', '390.000₫'], ['ielts-speaking-ladder', '390.000₫'],
   ],
   centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
@@ -180,7 +180,8 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
     'teacher-pack-l1': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
     'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
-    'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1', 'thinking-cycle-set': 'thinking-cycle-set',
+    'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1', 'student-workbook-l2': 'student-workbook-l1', 'student-workbook-l3': 'student-workbook-l1',
+    'student-workbook-l4': 'student-workbook-l1', 'student-workbook-l5': 'student-workbook-l1', 'thinking-cycle-set': 'thinking-cycle-set',
     'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
@@ -193,7 +194,11 @@ test('the ChatGPT product images are on their cards, square and light', async ()
   const { PRODUCTS } = await import('../src/i18n/content/products');
   // Every product, live or hidden, has its own image, so flipping live needs no image work.
   for (const p of PRODUCTS) assert.ok(p.image, `${p.id} has an image`);
-  assert.equal(new Set(PRODUCTS.map((p) => p.image)).size, PRODUCTS.length, 'no two products share an image');
+  // Student Workbooks L2–L5 (27 Oct 2026) borrow the L1 workbook image until image-studio makes theirs; nothing else may share one.
+  const PLACEHOLDER = new Set(['student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5']);
+  const own = PRODUCTS.filter((p) => !PLACEHOLDER.has(p.id));
+  assert.equal(new Set(own.map((p) => p.image)).size, own.length, 'no two products share an image');
+  for (const p of PRODUCTS.filter((entry) => PLACEHOLDER.has(entry.id))) assert.equal(p.image, 'student-workbook-l1', `${p.id}: placeholder image`);
   for (const name of new Set(PRODUCTS.map((p) => p.image).filter(Boolean) as string[])) {
     const file = readFileSync(`public/images/products/${name}.webp`);
     assert.equal(file.subarray(0, 4).toString(), 'RIFF', `${name} is a WebP`);
@@ -222,6 +227,8 @@ const SAMPLE_STEMS: Record<string, string> = {
   'teacher-pack-l1': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
   'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
   'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1',
+  'student-workbook-l2': 'student-workbook-l2', 'student-workbook-l3': 'student-workbook-l3', 'student-workbook-l4': 'student-workbook-l4',
+  'student-workbook-l5': 'student-workbook-l5',
   'thinking-cycle-set': 'thinking-cycle-set', 'reasoning-assessment-kit': 'reasoning-assessment-kit',
   'ielts-speaking-ladder': 'ielts-speaking-ladder', 'centre-licence': 'centre-licence',
   'teacher-training-course': 'teacher-training-course', 'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',

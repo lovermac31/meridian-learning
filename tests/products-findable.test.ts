@@ -38,7 +38,7 @@ test('metadata: the description covers the whole range in EN and VI, OG matches 
 });
 
 test('JSON-LD: one Product with a VND Offer for every live card, in the page language, plus the breadcrumbs', () => {
-  assert.equal(LIVE.length, 20);
+  assert.equal(LIVE.length, 24);
   for (const [path, locale] of [['/products', 'en'], ['/vi/products', 'vi']] as const) {
     const blocks = resolveRouteMetadata(path).jsonLd as Array<Record<string, any>>;
     assert.ok(blocks.some((b) => b['@type'] === 'BreadcrumbList'), `${path}: breadcrumbs kept`);
