@@ -1,0 +1,62 @@
+import type { Locale } from '../locales';
+
+/**
+ * Sales and product films (Jay, 27 Oct 2026: "put the videos on the site, each with the correct product").
+ * Each film lives in public/videos/<slug>/: video.mp4 (16:9, starts muted, loads only on play), poster.webp,
+ * and one <lang>.vtt per subtitle language listed here. A product shows its film when its PRODUCTS entry
+ * has `video: '<slug>'`; a test checks every file both ways, so a new film is one entry here plus one line there.
+ */
+export const VIDEO_DIR = '/videos';
+
+export const VIDEO_LANGS = ['en', 'vi', 'zh'] as const;
+export type VideoLang = (typeof VIDEO_LANGS)[number];
+
+/** The picker's labels, each in its own language. */
+export const VIDEO_LANG_LABELS: Record<VideoLang, string> = { en: 'EN', vi: 'VI', zh: '中文' };
+
+export type ProductVideo = {
+  // Subtitle files present in public/videos/<slug>/ (zh joins when the video factory delivers zh.vtt).
+  langs: VideoLang[];
+  title: Record<Locale, string>;
+};
+
+export const PRODUCT_VIDEOS: Record<string, ProductVideo> = {
+  'je-01-the-one-question': { langs: ['en', 'vi'], title: { en: 'The one question', vi: 'Một câu hỏi' } },
+  'je-02-spot-the-clue': { langs: ['en', 'vi'], title: { en: 'Spot the clue', vi: 'Tìm manh mối' } },
+  'je-03-why-stories': { langs: ['en', 'vi'], title: { en: 'Why Mr. Jay teaches with stories', vi: 'Vì sao Mr. Jay dạy bằng truyện' } },
+  'je-04-level1-teacher-pack': { langs: ['en', 'vi'], title: { en: 'Inside the Level 1 Teacher Pack', vi: 'Bên trong bộ Giáo án Level 1' } },
+  'je-05-reasoning-assessment-kit': { langs: ['en', 'vi'], title: { en: 'Inside the Reasoning Assessment Kit', vi: 'Bên trong bộ Đánh giá Tư duy' } },
+  'je-06-ielts-speaking-ladder': { langs: ['en', 'vi'], title: { en: 'Inside the IELTS Speaking Ladder', vi: 'Bên trong IELTS Speaking Ladder' } },
+};
+
+/** Films 01–03 on /story-club and /vi/story-club, in this order. */
+export const STORY_CLUB_VIDEOS = ['je-01-the-one-question', 'je-02-spot-the-clue', 'je-03-why-stories'];
+
+export const VIDEO_COPY: Record<Locale, { subtitles: string; muted: string; watch: string; storyClubHeading: string }> = {
+  en: {
+    subtitles: 'Subtitles',
+    muted: 'Starts muted: tap the speaker for sound.',
+    watch: 'Watch',
+    storyClubHeading: 'Watch Story Club in under a minute',
+  },
+  vi: {
+    subtitles: 'Phụ đề',
+    muted: 'Video bắt đầu ở chế độ tắt tiếng: chạm biểu tượng loa để nghe.',
+    watch: 'Xem video',
+    storyClubHeading: 'Xem Story Club trong chưa đầy một phút',
+  },
+};
+
+/** Anchor of a product page's film, for the "Watch" link on /products. */
+export const PRODUCT_VIDEO_ANCHOR = 'video';
+
+export function videoFiles(slug: string) {
+  const base = `${VIDEO_DIR}/${slug}`;
+  return { src: `${base}/video.mp4`, poster: `${base}/poster.webp`, track: (lang: VideoLang) => `${base}/${lang}.vtt` };
+}
+
+/** The subtitle language a visitor sees first: the page's language when the film has it, else the first one. */
+export function defaultVideoLang(slug: string, locale: Locale): VideoLang {
+  const langs = PRODUCT_VIDEOS[slug]?.langs ?? [];
+  return langs.includes(locale) ? locale : (langs[0] ?? 'en');
+}

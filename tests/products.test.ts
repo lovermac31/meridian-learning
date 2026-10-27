@@ -84,7 +84,7 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     // there would overwrite the visit's real source (e.g. fb-teachers) that the page keeps for the order code.
     const counterpart = route === EN ? VI : EN;
     for (const [, href] of main.matchAll(/href="([^"]+)"/g)) {
-      if (/^(\/vi)?\/products\/[a-z0-9-]+$/.test(href)) continue;
+      if (/^(\/vi)?\/products\/[a-z0-9-]+(#video)?$/.test(href)) continue; // #video: the card's "Watch" link to the product's film
       if (href === counterpart || href.startsWith('#') || /^\/samples\/[^/?#]+-sample\.pdf$/.test(href) || href.startsWith('https://www.paypal.com/cgi-bin/webscr?')) continue;
       assert.match(href, /[?&]utm_source=products(#|$)/, `${route}: ${href}`);
       assert.ok(!/#[^?]*\?/.test(href), `${route}: query before the anchor in ${href}`);

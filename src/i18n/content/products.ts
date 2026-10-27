@@ -71,6 +71,8 @@ export type Product = {
   // File stem of the product's public sample in public/samples. Set it only once all four files are in the repo
   // (a test checks both ways), so the "See a sample" block never shows a broken link.
   sample?: string;
+  // Slug of the product's film in productVideos.ts (public/videos/<slug>/), shown above the sample on its page.
+  video?: string;
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
@@ -254,6 +256,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     image: 'teacher-pack-l1',
     sample: 'teacher-pack-l1',
+    video: 'je-04-level1-teacher-pack',
     delivery: true,
     paypal: true,
     en: {
@@ -609,6 +612,7 @@ export const PRODUCTS: Product[] = [
     paypal: true,
     image: 'reasoning-assessment-kit',
     sample: 'reasoning-assessment-kit',
+    video: 'je-05-reasoning-assessment-kit',
     en: {
       label: 'Digital download · teachers and centres',
       title: 'Reasoning Assessment Kit, Levels 1–5',
@@ -638,6 +642,7 @@ export const PRODUCTS: Product[] = [
     paypal: true,
     image: 'ielts-speaking-ladder',
     sample: 'ielts-speaking-ladder',
+    video: 'je-06-ielts-speaking-ladder',
     en: {
       label: 'Digital download · learners and tutors',
       title: 'IELTS Speaking Ladder Pack',
@@ -910,7 +915,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal'>;
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video'>;
 
 /** The page in one language: its copy, and the sections in order with their cards from PRODUCTS. */
 export function productsPage(locale: Locale) {
@@ -921,8 +926,8 @@ export function productsPage(locale: Locale) {
       id,
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
-        ({ id: cardId, price, href, delivery, image, sample, paypal, [locale]: text }): ProductCard => ({
-          id: cardId, price, href, delivery, image, sample, paypal, ...text,
+        ({ id: cardId, price, href, delivery, image, sample, paypal, video, [locale]: text }): ProductCard => ({
+          id: cardId, price, href, delivery, image, sample, paypal, video, ...text,
         }),
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).

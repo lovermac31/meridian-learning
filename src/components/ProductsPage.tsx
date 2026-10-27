@@ -16,6 +16,7 @@ import {
 import { ToolHero } from './IeltsToolsPage';
 import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
 import { productPath } from '../i18n/content/productSeo';
+import { PRODUCT_VIDEO_ANCHOR, VIDEO_COPY } from '../i18n/content/productVideos';
 import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
 
 /** The visit's utm_source, read after hydration so the prerendered page and the first client render match. */
@@ -272,6 +273,12 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }:
           {card.title}
         </a>
       </h3>
+      {/* The film plays on the product page, so /products stays light: a link only (27 Oct 2026). */}
+      {card.video ? (
+        <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="mt-1 inline-flex w-fit items-center gap-1 text-sm font-bold underline underline-offset-4" data-watch={card.id}>
+          <span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}
+        </a>
+      ) : null}
       <dl className="mt-2 flex-1 space-y-2">
         {(['problem', 'inside', 'forWho'] as const).map((key) => (
           <div key={key}>
