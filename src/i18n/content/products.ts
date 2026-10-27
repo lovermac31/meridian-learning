@@ -3,7 +3,7 @@
  * "start building things that I can sell").
  *
  * Follows the JE Page Infrastructure Standard: one hub (reached from the footer and Kids Academy, never the header or
- * home page), audience sections with anchors (#families, #teachers, #centres), cards with one CTA each, EN/VI twins,
+ * home page), audience sections with anchors (#families, #teachers, #centres, #ielts), cards with one CTA each, EN/VI twins,
  * and utm_source=products on every outbound link (query before any #anchor).
  *
  * DATA-DRIVEN: PRODUCTS below is the one list of cards. A new product is one entry: whether it is live, its section,
@@ -35,8 +35,18 @@ export const PRODUCT_IMAGE_DIR = '/images/products';
 // pages/<stem>-pgNN.webp (samplePages.ts). No sample PDF is published (Jay, 27 Oct 2026: no download, no print).
 export const PRODUCT_SAMPLE_DIR = '/samples';
 
-export const PRODUCT_SECTIONS = ['families', 'teachers', 'centres'] as const;
+// #ielts (Jay, 27 Oct 2026: "Everything has to be in the right categories"): the IELTS packs for teens and adults, in a
+// Speaking and a Writing group, each linked to its IELTS home page on /ai-speaking.
+export const PRODUCT_SECTIONS = ['families', 'teachers', 'centres', 'ielts'] as const;
 export type ProductSectionId = (typeof PRODUCT_SECTIONS)[number];
+
+export const IELTS_GROUPS = ['speaking', 'writing'] as const;
+export type IeltsGroup = (typeof IELTS_GROUPS)[number];
+/** Each IELTS group's home page (the AI Speaking app, EN + VI). */
+export const IELTS_HOME: Record<IeltsGroup, Record<Locale, string>> = {
+  speaking: { en: '/ai-speaking', vi: '/ai-speaking/vi' },
+  writing: { en: '/ai-speaking/writing', vi: '/ai-speaking/vi/writing' },
+};
 
 type CardText = {
   label: string;
@@ -75,6 +85,8 @@ export type Product = {
   link?: { href: string; en: string; vi: string };
   // Slug of the product's film in productVideos.ts (public/videos/<slug>/), shown above the sample on its page.
   video?: string;
+  // The #ielts sub-group (Speaking or Writing); set on every 'ielts' product.
+  group?: IeltsGroup;
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
@@ -776,251 +788,6 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    id: 'ielts-speaking-ladder',
-    live: true,
-    section: 'teachers',
-    price: '390.000₫',
-    href: 'zalo',
-    delivery: true,
-    paypal: true,
-    image: 'ielts-speaking-ladder',
-    sample: 'ielts-speaking-ladder',
-    video: 'ielts-speaking-ladder',
-    en: {
-      label: 'Digital download · learners and tutors',
-      title: 'IELTS Speaking Ladder Pack',
-      problem: 'You lose marks on the same small habits, like articles, -s and -ed endings and tense, and your Part 2 answer stops after less than a minute.',
-      inside: '18 self-study lessons in three levels, from Band 5.0 to 6.5–7.0. Each lesson fixes one habit, with model answers, timed Part 1, 2 and 3 speaking tasks, a self-check and an answer key. Tutors can add the One-to-One Starter: one 90-minute lesson plan with a student handout, 149.000₫ on its own.',
-      forWho: 'Learners at IELTS Speaking Band 5.0–6.5, and tutors who teach them one-to-one. Practice material, not an official score.',
-      unit: 'self-study pack · with the One-to-One Starter 490.000₫',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · học viên và gia sư',
-      title: 'Bộ IELTS Speaking Ladder',
-      problem: 'Bạn liên tục mất điểm ở cùng những lỗi nhỏ như mạo từ, đuôi -s và -ed, thì của động từ, và câu trả lời Part 2 dừng lại chưa đến một phút.',
-      inside: '18 bài tự học chia ba cấp độ, từ Band 5.0 đến 6.5–7.0. Mỗi bài sửa một thói quen, có câu trả lời mẫu, bài nói Part 1, 2 và 3 có bấm giờ, phần tự kiểm tra và đáp án. Gia sư có thể mua thêm One-to-One Starter: một giáo án 1 kèm 1 dài 90 phút kèm phiếu cho học viên, 149.000₫ nếu mua riêng.',
-      forWho: 'Người học đang ở IELTS Speaking Band 5.0–6.5, và gia sư dạy 1 kèm 1. Tài liệu luyện tập, không phải điểm thi chính thức.',
-      unit: 'bộ tự học · kèm One-to-One Starter 490.000₫',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    // 35-today plan (Jay, 27 Oct 2026): built (pdf-studio ielts-one-to-one-starter.json); view-only sample (8 pages with real lesson pages) by ielts-generic-lesson, approved by the master.
-    id: 'ielts-one-to-one-starter',
-    video: 'ielts-one-to-one-starter',
-    live: true,
-    section: 'teachers',
-    price: '149.000₫',
-    href: 'zalo',
-    image: 'ielts-one-to-one-starter',
-    sample: 'ielts-one-to-one-starter',
-    delivery: true,
-    paypal: true,
-    en: {
-      label: 'Digital download · tutors',
-      title: 'IELTS Speaking One-to-One Starter',
-      problem: 'You tutor IELTS Speaking one-to-one and plan every lesson from scratch.',
-      inside: 'One complete 90-minute one-to-one lesson, Lesson 6 of the Speaking Ladder, "The Full Ladder: 110 Seconds": tutor notes, keys and scripts, and an answer-free student handout.',
-      forWho: 'Tutors who teach IELTS Speaking one-to-one. One tutor, with their own students. 490.000₫ together with the 18-lesson IELTS Speaking Ladder Pack. Practice material, not an official score.',
-      unit: 'one-time',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · gia sư',
-      title: 'IELTS Speaking One-to-One Starter',
-      problem: 'Bạn dạy IELTS Speaking 1 kèm 1 và phải tự soạn từng buổi.',
-      inside: 'Một giáo án 1 kèm 1 trọn vẹn 90 phút, Bài 6 của Speaking Ladder, "The Full Ladder: 110 Seconds": ghi chú cho gia sư, đáp án và kịch bản, kèm phiếu cho học viên không có đáp án.',
-      forWho: 'Gia sư dạy IELTS Speaking 1 kèm 1. Một gia sư, dùng với học viên của mình. 490.000₫ khi mua kèm bộ 18 bài IELTS Speaking Ladder. Tài liệu luyện tập, không phải điểm chính thức.',
-      unit: 'mua một lần',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/ielts-cue-card-bank.json).
-    id: 'ielts-cue-card-bank',
-    video: 'ielts-cue-card-bank',
-    live: true,
-    section: 'teachers',
-    price: '290.000₫',
-    href: 'zalo',
-    image: 'ielts-cue-card-bank',
-    sample: 'ielts-cue-card-bank',
-    delivery: true,
-    paypal: true,
-    en: {
-      label: 'Digital download · learners and tutors',
-      title: 'IELTS Speaking Part 2 Cue Card Bank',
-      problem: 'Your Part 2 answers run out early because you have practised too few cue cards.',
-      inside: '60 original Part 2 cue cards across six themes, each with a 1-minute plan on the four-rung ladder, a full Band 7-style answer and the same key moment at Band 6 and Band 8 style, plus two Part 3 questions: 69 printable pages.',
-      forWho: 'Teens and adults preparing for IELTS Speaking, and tutors who teach them. One learner, or one tutor with their own students. Practice material, not an official score.',
-      unit: 'one-time',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · học viên và gia sư',
-      title: 'Bộ thẻ đề IELTS Speaking Part 2',
-      problem: 'Câu trả lời Part 2 của bạn hết ý sớm vì bạn mới luyện quá ít đề.',
-      inside: '60 thẻ đề Part 2 gốc theo sáu chủ đề, mỗi thẻ có dàn ý 1 phút theo bốn bậc thang, một bài trả lời đầy đủ mức Band 7 và cùng đoạn then chốt ở mức Band 6 và Band 8, kèm hai câu hỏi Part 3: 69 trang in được.',
-      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Speaking, và gia sư dạy họ. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
-      unit: 'mua một lần',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    // 35-today plan (Jay, 27 Oct 2026; master's decision): sold now on Zalo as a manual service at the three approved
-    // prices (pdf-studio writing-baseline.json). Mr. Jay or his team reads each essay by hand; the Writing app is not
-    // open, so the card links only to its sample reports. No PayPal.
-    id: 'writing-baseline',
-    video: 'writing-baseline',
-    live: true,
-    section: 'teachers',
-    price: '79.000₫',
-    href: 'zalo',
-    image: 'writing-baseline',
-    sample: 'writing-baseline',
-    link: { href: '/ai-speaking/writing/demo', en: 'See a sample report', vi: 'Xem báo cáo mẫu' },
-    en: {
-      label: 'Practice feedback · teens and adults',
-      title: 'IELTS Writing Baseline',
-      problem: 'You keep writing Task 2 essays without knowing which problem to fix first.',
-      inside: 'Send one Task 2 essay. Mr. Jay or his team reads it by hand and sends back, by Zalo or email, one strength to keep and three priorities in the order to fix them. Each priority quotes your own sentence, shows an example of the fix and names the lesson that trains it.',
-      forWho: 'Teens and adults preparing for IELTS Writing. Basic 79.000₫ · Intermediate 199.000₫ (your revision and a new essay, read again) · Advanced 449.000₫ (Intermediate plus a written review by Mr. Jay’s team). Practice feedback, not an official IELTS score; no band number is given.',
-      unit: 'Basic · one essay',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Phản hồi luyện tập · thanh thiếu niên và người lớn',
-      title: 'IELTS Writing Baseline',
-      problem: 'Bạn viết bài Task 2 liên tục mà không biết nên sửa điều gì trước.',
-      inside: 'Gửi một bài luận Task 2. Thầy Jay hoặc đội ngũ của thầy đọc bằng tay và gửi lại qua Zalo hoặc email một điểm mạnh cần giữ và ba ưu tiên cần sửa theo thứ tự. Mỗi ưu tiên trích câu của chính bạn, có ví dụ cách sửa và bài học luyện kỹ năng đó.',
-      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing. Cơ bản 79.000₫ · Trung cấp 199.000₫ (bài sửa và một bài mới, được đọc lại) · Nâng cao 449.000₫ (Trung cấp kèm nhận xét bằng văn bản của đội ngũ thầy Jay). Phản hồi luyện tập, không phải điểm IELTS chính thức; không đưa ra điểm band.',
-      unit: 'Cơ bản · một bài luận',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    id: 'ielts-writing-ladder-task2',
-    video: 'ielts-writing-ladder-task2',
-    live: true,
-    section: 'teachers',
-    price: '390.000₫',
-    href: 'zalo',
-    delivery: true,
-    paypal: true,
-    image: 'ielts-writing-ladder-task2',
-    sample: 'ielts-writing-ladder-task2',
-    en: {
-      label: 'Digital download · learners and tutors',
-      title: 'IELTS Writing Ladder: Task 2',
-      problem: 'Your Task 2 essays are stuck at 5.5–6.0. Examiners mark your reasoning, and a memorised template does not show it.',
-      inside: 'Seven lessons that teach the reasoning: take a position, give reasons that hold, prove them, answer the other side, and finish a full essay in 40 minutes. Every lesson has timed writing, Band 6, 7 and 8-style model answers and a fix-the-paragraph drill, with Vietnamese support.',
-      forWho: 'Writers stuck at IELTS Writing 5.5–6.0, and tutors who teach them. Task 2 only. Practice material, not an official score.',
-      unit: 'self-study pack · 7 lessons',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · học viên và gia sư',
-      title: 'IELTS Writing Ladder: Task 2',
-      problem: 'Bài luận Task 2 của bạn đang dừng ở 5.5–6.0. Giám khảo chấm cách bạn lập luận, và một bài mẫu học thuộc lòng không thể hiện được điều đó.',
-      inside: 'Bảy bài học dạy chính cách lập luận: nêu quan điểm, đưa lý do vững chắc, chứng minh, phản biện ý kiến trái chiều và hoàn thành bài luận trong 40 phút. Mỗi bài có phần viết bấm giờ, bài mẫu mức Band 6, 7, 8 và bài tập sửa đoạn văn, kèm hỗ trợ tiếng Việt.',
-      forWho: 'Người viết đang dừng ở IELTS Writing 5.5–6.0, và gia sư dạy họ. Chỉ Task 2. Tài liệu luyện tập, không phải điểm chính thức.',
-      unit: 'bộ tự học · 7 bài',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    id: 'ielts-writing-task1-method',
-    video: 'ielts-writing-task1-method',
-    live: true,
-    section: 'teachers',
-    price: '290.000₫',
-    href: 'zalo',
-    delivery: true,
-    paypal: true,
-    image: 'ielts-writing-task1-method',
-    sample: 'ielts-writing-task1-method',
-    en: {
-      label: 'Digital download · learners and tutors',
-      title: 'IELTS Writing Task 1: the 20-minute method',
-      problem: 'You write Task 1 like an essay: no clear overview, and the figures listed one after another instead of compared.',
-      inside: 'Four lessons for Academic and General Training. Write the overview first, then choose and compare figures instead of listing them. Describe maps and processes in order, and write letters in the right tone, all on a 20-minute clock. Each lesson includes model answers in Band 6, 7 and 8 style and a fix-the-paragraph drill, with Vietnamese support.',
-      forWho: 'IELTS Academic and General Training candidates, and tutors who teach them. Task 1 only. Practice material, not an official score.',
-      unit: 'self-study pack · 4 lessons',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · học viên và gia sư',
-      title: 'IELTS Writing Task 1: Phương pháp 20 phút',
-      problem: 'Bạn viết Task 1 như một bài luận: không có phần tổng quan rõ ràng, và liệt kê số liệu lần lượt thay vì so sánh.',
-      inside: 'Bốn bài học cho Academic và General Training. Viết phần tổng quan trước, rồi chọn và so sánh số liệu thay vì liệt kê. Mô tả bản đồ và quy trình theo thứ tự, và viết thư đúng giọng điệu, tất cả trong 20 phút. Mỗi bài có bài mẫu mức Band 6, 7, 8 và bài tập sửa đoạn văn, kèm hỗ trợ tiếng Việt.',
-      forWho: 'Thí sinh IELTS Academic và General Training, và gia sư dạy họ. Chỉ Task 1. Tài liệu luyện tập, không phải điểm chính thức.',
-      unit: 'bộ tự học · 4 bài',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/ielts-essay-bank-task2.json).
-    id: 'ielts-essay-bank-task2',
-    video: 'ielts-essay-bank-task2',
-    live: true,
-    section: 'teachers',
-    price: '290.000₫',
-    href: 'zalo',
-    image: 'ielts-essay-bank-task2',
-    sample: 'ielts-essay-bank-task2',
-    delivery: true,
-    paypal: true,
-    en: {
-      label: 'Digital download · learners and tutors',
-      title: 'IELTS Writing Task 2 Essay Bank',
-      problem: 'You know the essay types, but you have not planned and compared enough complete answers.',
-      inside: '40 original Task 2 prompts, eight of each kind (opinion, discuss both views, advantages and disadvantages, causes and solutions, two-part questions), each with a Thinking Cycle plan and a complete Band 7-style model essay of at least 250 words: 85 printable pages.',
-      forWho: 'Teens and adults preparing for IELTS Writing, and tutors who teach them. One learner, or one tutor with their own students. Practice material, not an official score.',
-      unit: 'one-time',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · học viên và gia sư',
-      title: 'Ngân hàng bài luận IELTS Writing Task 2',
-      problem: 'Bạn biết các dạng đề, nhưng chưa lập dàn ý và so sánh với đủ nhiều bài viết hoàn chỉnh.',
-      inside: '40 đề Task 2 gốc, mỗi dạng tám đề (nêu quan điểm, thảo luận hai quan điểm, ưu và nhược điểm, nguyên nhân và giải pháp, câu hỏi hai phần), mỗi đề có dàn ý theo Thinking Cycle và một bài mẫu hoàn chỉnh mức Band 7 dài ít nhất 250 từ: 85 trang in được.',
-      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing, và gia sư dạy họ. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
-      unit: 'mua một lần',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    id: 'ielts-writing-teacher-pack',
-    video: 'ielts-writing-teacher-pack',
-    live: true,
-    section: 'teachers',
-    price: '690.000₫',
-    href: 'zalo',
-    delivery: true,
-    paypal: true,
-    image: 'ielts-writing-teacher-pack',
-    sample: 'ielts-writing-teacher-pack',
-    en: {
-      label: 'Digital download · teachers and centres',
-      title: 'IELTS Writing Teacher Pack',
-      problem: 'You plan every IELTS Writing class from scratch, and your marking does not tell students which lesson fixes their mistake.',
-      inside: 'Ten ready-to-teach 60-minute class lessons: six for Task 2, built on the Thinking Cycle, and four for Task 1 reports and letters. Every step comes with projected text, teacher notes and a line on running it with a class. Also inside: a countable marking guide, 24 margin codes that each point to the lesson that fixes them, and 55 model scripts in Band 6, 7 and 8 style.',
-      forWho: 'Teachers and centres running IELTS Writing classes. Practice material, not an official score.',
-      unit: 'one teacher or one centre · one-time',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · giáo viên và trung tâm',
-      title: 'Bộ giáo viên IELTS Writing',
-      problem: 'Thầy cô soạn từng buổi IELTS Writing từ đầu, và lời chấm bài không cho học viên biết bài học nào sửa được lỗi của mình.',
-      inside: 'Mười bài dạy lớp 60 phút, sẵn sàng sử dụng: sáu bài Task 2 theo Thinking Cycle và bốn bài Task 1 về báo cáo và thư. Mỗi bước có phần trình chiếu, ghi chú cho giáo viên và hướng dẫn tổ chức lớp. Kèm theo: bảng chấm điểm dạng đếm, 24 mã sửa bài gắn với bài học tương ứng, và 55 bài mẫu mức Band 6, 7, 8.',
-      forWho: 'Giáo viên và trung tâm dạy lớp IELTS Writing. Tài liệu luyện tập, không phải điểm chính thức.',
-      unit: 'một giáo viên hoặc một trung tâm · mua một lần',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
     id: 'centre-licence',
     video: 'centre-licence',
     live: true,
@@ -1139,6 +906,259 @@ export const PRODUCTS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
+  {
+    id: 'ielts-speaking-ladder',
+    live: true,
+    section: 'ielts',
+    group: 'speaking',
+    price: '390.000₫',
+    href: 'zalo',
+    delivery: true,
+    paypal: true,
+    image: 'ielts-speaking-ladder',
+    sample: 'ielts-speaking-ladder',
+    video: 'ielts-speaking-ladder',
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Speaking Ladder Pack',
+      problem: 'You lose marks on the same small habits, like articles, -s and -ed endings and tense, and your Part 2 answer stops after less than a minute.',
+      inside: '18 self-study lessons in three levels, from Band 5.0 to 6.5–7.0. Each lesson fixes one habit, with model answers, timed Part 1, 2 and 3 speaking tasks, a self-check and an answer key. Tutors can add the One-to-One Starter: one 90-minute lesson plan with a student handout, 149.000₫ on its own.',
+      forWho: 'Learners at IELTS Speaking Band 5.0–6.5, and tutors who teach them one-to-one. Practice material, not an official score.',
+      unit: 'self-study pack · with the One-to-One Starter 490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'Bộ IELTS Speaking Ladder',
+      problem: 'Bạn liên tục mất điểm ở cùng những lỗi nhỏ như mạo từ, đuôi -s và -ed, thì của động từ, và câu trả lời Part 2 dừng lại chưa đến một phút.',
+      inside: '18 bài tự học chia ba cấp độ, từ Band 5.0 đến 6.5–7.0. Mỗi bài sửa một thói quen, có câu trả lời mẫu, bài nói Part 1, 2 và 3 có bấm giờ, phần tự kiểm tra và đáp án. Gia sư có thể mua thêm One-to-One Starter: một giáo án 1 kèm 1 dài 90 phút kèm phiếu cho học viên, 149.000₫ nếu mua riêng.',
+      forWho: 'Người học đang ở IELTS Speaking Band 5.0–6.5, và gia sư dạy 1 kèm 1. Tài liệu luyện tập, không phải điểm thi chính thức.',
+      unit: 'bộ tự học · kèm One-to-One Starter 490.000₫',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026): built (pdf-studio ielts-one-to-one-starter.json); view-only sample (8 pages with real lesson pages) by ielts-generic-lesson, approved by the master.
+    id: 'ielts-one-to-one-starter',
+    video: 'ielts-one-to-one-starter',
+    live: true,
+    section: 'ielts',
+    group: 'speaking',
+    price: '149.000₫',
+    href: 'zalo',
+    image: 'ielts-one-to-one-starter',
+    sample: 'ielts-one-to-one-starter',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · tutors',
+      title: 'IELTS Speaking One-to-One Starter',
+      problem: 'You tutor IELTS Speaking one-to-one and plan every lesson from scratch.',
+      inside: 'One complete 90-minute one-to-one lesson, Lesson 6 of the Speaking Ladder, "The Full Ladder: 110 Seconds": tutor notes, keys and scripts, and an answer-free student handout.',
+      forWho: 'Tutors who teach IELTS Speaking one-to-one. One tutor, with their own students. 490.000₫ together with the 18-lesson IELTS Speaking Ladder Pack. Practice material, not an official score.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · gia sư',
+      title: 'IELTS Speaking One-to-One Starter',
+      problem: 'Bạn dạy IELTS Speaking 1 kèm 1 và phải tự soạn từng buổi.',
+      inside: 'Một giáo án 1 kèm 1 trọn vẹn 90 phút, Bài 6 của Speaking Ladder, "The Full Ladder: 110 Seconds": ghi chú cho gia sư, đáp án và kịch bản, kèm phiếu cho học viên không có đáp án.',
+      forWho: 'Gia sư dạy IELTS Speaking 1 kèm 1. Một gia sư, dùng với học viên của mình. 490.000₫ khi mua kèm bộ 18 bài IELTS Speaking Ladder. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/ielts-cue-card-bank.json).
+    id: 'ielts-cue-card-bank',
+    video: 'ielts-cue-card-bank',
+    live: true,
+    section: 'ielts',
+    group: 'speaking',
+    price: '290.000₫',
+    href: 'zalo',
+    image: 'ielts-cue-card-bank',
+    sample: 'ielts-cue-card-bank',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Speaking Part 2 Cue Card Bank',
+      problem: 'Your Part 2 answers run out early because you have practised too few cue cards.',
+      inside: '60 original Part 2 cue cards across six themes, each with a 1-minute plan on the four-rung ladder, a full Band 7-style answer and the same key moment at Band 6 and Band 8 style, plus two Part 3 questions: 69 printable pages.',
+      forWho: 'Teens and adults preparing for IELTS Speaking, and tutors who teach them. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'Bộ thẻ đề IELTS Speaking Part 2',
+      problem: 'Câu trả lời Part 2 của bạn hết ý sớm vì bạn mới luyện quá ít đề.',
+      inside: '60 thẻ đề Part 2 gốc theo sáu chủ đề, mỗi thẻ có dàn ý 1 phút theo bốn bậc thang, một bài trả lời đầy đủ mức Band 7 và cùng đoạn then chốt ở mức Band 6 và Band 8, kèm hai câu hỏi Part 3: 69 trang in được.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Speaking, và gia sư dạy họ. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026; master's decision): sold now on Zalo as a manual service at the three approved
+    // prices (pdf-studio writing-baseline.json). Mr. Jay or his team reads each essay by hand; the Writing app is not
+    // open, so the card links only to its sample reports. No PayPal.
+    id: 'writing-baseline',
+    video: 'writing-baseline',
+    live: true,
+    section: 'ielts',
+    group: 'writing',
+    price: '79.000₫',
+    href: 'zalo',
+    image: 'writing-baseline',
+    sample: 'writing-baseline',
+    link: { href: '/ai-speaking/writing/demo', en: 'See a sample report', vi: 'Xem báo cáo mẫu' },
+    en: {
+      label: 'Practice feedback · teens and adults',
+      title: 'IELTS Writing Baseline',
+      problem: 'You keep writing Task 2 essays without knowing which problem to fix first.',
+      inside: 'Send one Task 2 essay. Mr. Jay or his team reads it by hand and sends back, by Zalo or email, one strength to keep and three priorities in the order to fix them. Each priority quotes your own sentence, shows an example of the fix and names the lesson that trains it.',
+      forWho: 'Teens and adults preparing for IELTS Writing. Basic 79.000₫ · Intermediate 199.000₫ (your revision and a new essay, read again) · Advanced 449.000₫ (Intermediate plus a written review by Mr. Jay’s team). Practice feedback, not an official IELTS score; no band number is given.',
+      unit: 'Basic · one essay',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Phản hồi luyện tập · thanh thiếu niên và người lớn',
+      title: 'IELTS Writing Baseline',
+      problem: 'Bạn viết bài Task 2 liên tục mà không biết nên sửa điều gì trước.',
+      inside: 'Gửi một bài luận Task 2. Thầy Jay hoặc đội ngũ của thầy đọc bằng tay và gửi lại qua Zalo hoặc email một điểm mạnh cần giữ và ba ưu tiên cần sửa theo thứ tự. Mỗi ưu tiên trích câu của chính bạn, có ví dụ cách sửa và bài học luyện kỹ năng đó.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing. Cơ bản 79.000₫ · Trung cấp 199.000₫ (bài sửa và một bài mới, được đọc lại) · Nâng cao 449.000₫ (Trung cấp kèm nhận xét bằng văn bản của đội ngũ thầy Jay). Phản hồi luyện tập, không phải điểm IELTS chính thức; không đưa ra điểm band.',
+      unit: 'Cơ bản · một bài luận',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'ielts-writing-ladder-task2',
+    video: 'ielts-writing-ladder-task2',
+    live: true,
+    section: 'ielts',
+    group: 'writing',
+    price: '390.000₫',
+    href: 'zalo',
+    delivery: true,
+    paypal: true,
+    image: 'ielts-writing-ladder-task2',
+    sample: 'ielts-writing-ladder-task2',
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Writing Ladder: Task 2',
+      problem: 'Your Task 2 essays are stuck at 5.5–6.0. Examiners mark your reasoning, and a memorised template does not show it.',
+      inside: 'Seven lessons that teach the reasoning: take a position, give reasons that hold, prove them, answer the other side, and finish a full essay in 40 minutes. Every lesson has timed writing, Band 6, 7 and 8-style model answers and a fix-the-paragraph drill, with Vietnamese support.',
+      forWho: 'Writers stuck at IELTS Writing 5.5–6.0, and tutors who teach them. Task 2 only. Practice material, not an official score.',
+      unit: 'self-study pack · 7 lessons',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'IELTS Writing Ladder: Task 2',
+      problem: 'Bài luận Task 2 của bạn đang dừng ở 5.5–6.0. Giám khảo chấm cách bạn lập luận, và một bài mẫu học thuộc lòng không thể hiện được điều đó.',
+      inside: 'Bảy bài học dạy chính cách lập luận: nêu quan điểm, đưa lý do vững chắc, chứng minh, phản biện ý kiến trái chiều và hoàn thành bài luận trong 40 phút. Mỗi bài có phần viết bấm giờ, bài mẫu mức Band 6, 7, 8 và bài tập sửa đoạn văn, kèm hỗ trợ tiếng Việt.',
+      forWho: 'Người viết đang dừng ở IELTS Writing 5.5–6.0, và gia sư dạy họ. Chỉ Task 2. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'bộ tự học · 7 bài',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'ielts-writing-task1-method',
+    video: 'ielts-writing-task1-method',
+    live: true,
+    section: 'ielts',
+    group: 'writing',
+    price: '290.000₫',
+    href: 'zalo',
+    delivery: true,
+    paypal: true,
+    image: 'ielts-writing-task1-method',
+    sample: 'ielts-writing-task1-method',
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Writing Task 1: the 20-minute method',
+      problem: 'You write Task 1 like an essay: no clear overview, and the figures listed one after another instead of compared.',
+      inside: 'Four lessons for Academic and General Training. Write the overview first, then choose and compare figures instead of listing them. Describe maps and processes in order, and write letters in the right tone, all on a 20-minute clock. Each lesson includes model answers in Band 6, 7 and 8 style and a fix-the-paragraph drill, with Vietnamese support.',
+      forWho: 'IELTS Academic and General Training candidates, and tutors who teach them. Task 1 only. Practice material, not an official score.',
+      unit: 'self-study pack · 4 lessons',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'IELTS Writing Task 1: Phương pháp 20 phút',
+      problem: 'Bạn viết Task 1 như một bài luận: không có phần tổng quan rõ ràng, và liệt kê số liệu lần lượt thay vì so sánh.',
+      inside: 'Bốn bài học cho Academic và General Training. Viết phần tổng quan trước, rồi chọn và so sánh số liệu thay vì liệt kê. Mô tả bản đồ và quy trình theo thứ tự, và viết thư đúng giọng điệu, tất cả trong 20 phút. Mỗi bài có bài mẫu mức Band 6, 7, 8 và bài tập sửa đoạn văn, kèm hỗ trợ tiếng Việt.',
+      forWho: 'Thí sinh IELTS Academic và General Training, và gia sư dạy họ. Chỉ Task 1. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'bộ tự học · 4 bài',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/ielts-essay-bank-task2.json).
+    id: 'ielts-essay-bank-task2',
+    video: 'ielts-essay-bank-task2',
+    live: true,
+    section: 'ielts',
+    group: 'writing',
+    price: '290.000₫',
+    href: 'zalo',
+    image: 'ielts-essay-bank-task2',
+    sample: 'ielts-essay-bank-task2',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Writing Task 2 Essay Bank',
+      problem: 'You know the essay types, but you have not planned and compared enough complete answers.',
+      inside: '40 original Task 2 prompts, eight of each kind (opinion, discuss both views, advantages and disadvantages, causes and solutions, two-part questions), each with a Thinking Cycle plan and a complete Band 7-style model essay of at least 250 words: 85 printable pages.',
+      forWho: 'Teens and adults preparing for IELTS Writing, and tutors who teach them. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'Ngân hàng bài luận IELTS Writing Task 2',
+      problem: 'Bạn biết các dạng đề, nhưng chưa lập dàn ý và so sánh với đủ nhiều bài viết hoàn chỉnh.',
+      inside: '40 đề Task 2 gốc, mỗi dạng tám đề (nêu quan điểm, thảo luận hai quan điểm, ưu và nhược điểm, nguyên nhân và giải pháp, câu hỏi hai phần), mỗi đề có dàn ý theo Thinking Cycle và một bài mẫu hoàn chỉnh mức Band 7 dài ít nhất 250 từ: 85 trang in được.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing, và gia sư dạy họ. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'ielts-writing-teacher-pack',
+    video: 'ielts-writing-teacher-pack',
+    live: true,
+    section: 'ielts',
+    group: 'writing',
+    price: '690.000₫',
+    href: 'zalo',
+    delivery: true,
+    paypal: true,
+    image: 'ielts-writing-teacher-pack',
+    sample: 'ielts-writing-teacher-pack',
+    en: {
+      label: 'Digital download · teachers and centres',
+      title: 'IELTS Writing Teacher Pack',
+      problem: 'You plan every IELTS Writing class from scratch, and your marking does not tell students which lesson fixes their mistake.',
+      inside: 'Ten ready-to-teach 60-minute class lessons: six for Task 2, built on the Thinking Cycle, and four for Task 1 reports and letters. Every step comes with projected text, teacher notes and a line on running it with a class. Also inside: a countable marking guide, 24 margin codes that each point to the lesson that fixes them, and 55 model scripts in Band 6, 7 and 8 style.',
+      forWho: 'Teachers and centres running IELTS Writing classes. Practice material, not an official score.',
+      unit: 'one teacher or one centre · one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · giáo viên và trung tâm',
+      title: 'Bộ giáo viên IELTS Writing',
+      problem: 'Thầy cô soạn từng buổi IELTS Writing từ đầu, và lời chấm bài không cho học viên biết bài học nào sửa được lỗi của mình.',
+      inside: 'Mười bài dạy lớp 60 phút, sẵn sàng sử dụng: sáu bài Task 2 theo Thinking Cycle và bốn bài Task 1 về báo cáo và thư. Mỗi bước có phần trình chiếu, ghi chú cho giáo viên và hướng dẫn tổ chức lớp. Kèm theo: bảng chấm điểm dạng đếm, 24 mã sửa bài gắn với bài học tương ứng, và 55 bài mẫu mức Band 6, 7, 8.',
+      forWho: 'Giáo viên và trung tâm dạy lớp IELTS Writing. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'một giáo viên hoặc một trung tâm · mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
 ];
 
 type PageCopy = {
@@ -1151,6 +1171,7 @@ type PageCopy = {
   sample: { heading: string; note: string; open: string };
   viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
+  ielts: { groups: Record<IeltsGroup, string>; home: Record<IeltsGroup, string>; crumb: string };
   closing: { heading: string; body: string; cta: string };
 };
 
@@ -1168,6 +1189,12 @@ const PAGE: Record<Locale, PageCopy> = {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
       centres: { heading: 'For centres', intro: 'Programmes and materials for schools and centres.' },
+      ielts: { heading: 'IELTS: teens and adults', intro: 'Self-study packs and teaching materials for IELTS Speaking and Writing.' },
+    },
+    ielts: {
+      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing' },
+      home: { speaking: 'More IELTS Speaking help', writing: 'More IELTS Writing help' },
+      crumb: 'IELTS',
     },
     closing: { heading: 'Not sure which fits?', body: 'Message Mr. Jay on Zalo and he will point you to the right option. Nothing is charged until you accept a written order summary.', cta: 'Ask Mr. Jay on Zalo' },
   },
@@ -1185,12 +1212,18 @@ const PAGE: Record<Locale, PageCopy> = {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
       centres: { heading: 'Dành cho trung tâm', intro: 'Chương trình và tài liệu cho trường học và trung tâm.' },
+      ielts: { heading: 'IELTS: thanh thiếu niên và người lớn', intro: 'Bộ tự học và tài liệu giảng dạy IELTS Speaking và Writing.' },
+    },
+    ielts: {
+      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing' },
+      home: { speaking: 'Thêm về luyện IELTS Speaking', writing: 'Thêm về luyện IELTS Writing' },
+      crumb: 'IELTS',
     },
     closing: { heading: 'Chưa chắc sản phẩm nào phù hợp?', body: 'Nhắn thầy Jay qua Zalo, thầy sẽ gợi ý lựa chọn phù hợp. Không thu tiền cho đến khi bạn đồng ý bản tóm tắt đơn hàng bằng văn bản.', cta: 'Hỏi thầy Jay qua Zalo' },
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video'> & {
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group'> & {
   link?: { href: string; label: string };
 };
 
@@ -1207,8 +1240,8 @@ export function productsPage(locale: Locale) {
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal, video, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal, video, group, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).

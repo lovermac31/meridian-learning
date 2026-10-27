@@ -80,9 +80,10 @@ const USD: Record<string, number> = {
   'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27, 'teacher-pack-l5': 27, 'teacher-bundle': 112,
   'student-workbook-l1': 8, 'student-workbook-l2': 8, 'student-workbook-l3': 8, 'student-workbook-l4': 8, 'student-workbook-l5': 8,
   'word-fossil-flashcards-l1': 8, 'thinking-cycle-set': 19, 'thinking-cycle-posters': 6, 'reasoning-assessment-kit': 16,
+  'teacher-training-course': 58, 'pilot-class-kit': 27, 'curriculum-overview': 12,
+  // #ielts, last on the page (27 Oct 2026).
   'ielts-speaking-ladder': 16, 'ielts-one-to-one-starter': 6, 'ielts-cue-card-bank': 12, 'ielts-writing-ladder-task2': 16,
-  'ielts-writing-task1-method': 12, 'ielts-essay-bank-task2': 12, 'ielts-writing-teacher-pack': 27, 'teacher-training-course': 58,
-  'pilot-class-kit': 27, 'curriculum-overview': 12,
+  'ielts-writing-task1-method': 12, 'ielts-essay-bank-task2': 12, 'ielts-writing-teacher-pack': 27,
 };
 // The page shows PayPal only on live cards; hidden ones (35-today plan) are priced and ready for when they flip.
 const LIVE_USD = Object.keys(USD).filter((id) => PRODUCTS.find((p) => p.id === id)!.live);

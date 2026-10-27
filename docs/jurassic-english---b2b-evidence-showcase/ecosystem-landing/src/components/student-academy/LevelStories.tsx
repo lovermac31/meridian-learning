@@ -5,7 +5,9 @@ import {
   STORY_HUB_ZALO,
   samplePackHref,
   teacherPackHref,
+  COVER_SIZES,
   coverSrc,
+  coverSrcSet,
   levelAnchor,
   type AcademyLevel,
   type Book,
@@ -84,7 +86,7 @@ function StoryItem({ level, book, n, c }: { level: AcademyLevel; book: Book; n: 
     <>
       {cover ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={cover} alt={c.cover(book.title)} width={480} height={320} loading="lazy" decoding="async" className="aspect-[3/2] w-full rounded-xl object-cover" />
+        <img src={cover} srcSet={coverSrcSet(level, book) ?? undefined} sizes={COVER_SIZES} alt={c.cover(book.title)} width={400} height={267} loading="lazy" decoding="async" className="aspect-[3/2] w-full rounded-xl object-cover" />
       ) : (
         <div className="flex aspect-[3/2] w-full items-center justify-center rounded-xl bg-[#F4F1EA] px-4 text-center font-extrabold text-[#1E4D3B]">
           <BookOpen aria-hidden="true" className="mr-2 h-5 w-5 flex-none" />
