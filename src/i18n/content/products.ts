@@ -64,6 +64,9 @@ export type Product = {
   delivery?: boolean;
   // File name (no extension) of the card's square WebP in public/images/products.
   image?: string;
+  // International buyers can pay the US$ price (ceil(VND ÷ 25,897), approved by Jay 27 Oct 2026) by PayPal, with
+  // Google Drive delivery within 24 hours (S1). VND and VietQR stay first for Vietnam.
+  paypal?: boolean;
   // File stem of the product's public sample in public/samples. Set it only once all four files are in the repo
   // (a test checks both ways), so the "See a sample" block never shows a broken link.
   sample?: string;
@@ -162,6 +165,7 @@ export const PRODUCTS: Product[] = [
     image: 'printable-pack-l1',
     sample: 'printable-pack-l1',
     delivery: true,
+    paypal: true,
     en: {
       label: 'Digital download',
       title: 'Level 1 Printable Storybook Pack',
@@ -190,6 +194,7 @@ export const PRODUCTS: Product[] = [
     image: 'teacher-pack-l1',
     sample: 'teacher-pack-l1',
     delivery: true,
+    paypal: true,
     en: {
       label: 'Digital download · one teacher',
       title: 'Level 1 Teacher Pack',
@@ -218,6 +223,7 @@ export const PRODUCTS: Product[] = [
     image: 'teacher-pack-l2',
     sample: 'teacher-pack-l2',
     delivery: true,
+    paypal: true,
     en: {
       label: 'Digital download · one teacher',
       title: 'Level 2 Teacher Pack',
@@ -246,6 +252,7 @@ export const PRODUCTS: Product[] = [
     image: 'teacher-pack-l3',
     sample: 'teacher-pack-l3',
     delivery: true,
+    paypal: true,
     en: {
       label: 'Digital download · one teacher',
       title: 'Level 3 Teacher Pack',
@@ -274,6 +281,7 @@ export const PRODUCTS: Product[] = [
     image: 'teacher-pack-l4',
     sample: 'teacher-pack-l4',
     delivery: true,
+    paypal: true,
     en: {
       label: 'Digital download · one teacher',
       title: 'Level 4 Teacher Pack',
@@ -302,6 +310,7 @@ export const PRODUCTS: Product[] = [
     image: 'teacher-pack-l5',
     sample: 'teacher-pack-l5',
     delivery: true,
+    paypal: true,
     en: {
       label: 'Digital download · one teacher',
       title: 'Level 5 Teacher Pack',
@@ -330,6 +339,7 @@ export const PRODUCTS: Product[] = [
     image: 'teacher-bundle',
     sample: 'teacher-bundle',
     delivery: true,
+    paypal: true,
     en: {
       label: 'Digital download · one teacher · Levels 1–5',
       title: 'Complete Teacher Bundle, Levels 1–5',
@@ -356,6 +366,7 @@ export const PRODUCTS: Product[] = [
     price: '490.000₫',
     href: 'zalo',
     delivery: true,
+    paypal: true,
     image: 'thinking-cycle-set',
     sample: 'thinking-cycle-set',
     en: {
@@ -384,6 +395,7 @@ export const PRODUCTS: Product[] = [
     price: '390.000₫',
     href: 'zalo',
     delivery: true,
+    paypal: true,
     image: 'reasoning-assessment-kit',
     sample: 'reasoning-assessment-kit',
     en: {
@@ -412,6 +424,7 @@ export const PRODUCTS: Product[] = [
     price: '390.000₫',
     href: 'zalo',
     delivery: true,
+    paypal: true,
     image: 'ielts-speaking-ladder',
     sample: 'ielts-speaking-ladder',
     en: {
@@ -468,6 +481,7 @@ export const PRODUCTS: Product[] = [
     price: '1.490.000₫',
     href: 'zalo',
     delivery: true,
+    paypal: true,
     image: 'teacher-training-course',
     sample: 'teacher-training-course',
     en: {
@@ -496,6 +510,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     delivery: true,
+    paypal: true,
     image: 'pilot-class-kit',
     sample: 'pilot-class-kit',
     en: {
@@ -524,6 +539,7 @@ export const PRODUCTS: Product[] = [
     price: '290.000₫',
     href: 'zalo',
     delivery: true,
+    paypal: true,
     image: 'curriculum-overview',
     sample: 'curriculum-overview',
     en: {
@@ -593,7 +609,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample'>;
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal'>;
 
 /** The page in one language: its copy, and the sections in order with their cards from PRODUCTS. */
 export function productsPage(locale: Locale) {
@@ -604,8 +620,8 @@ export function productsPage(locale: Locale) {
       id,
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
-        ({ id: cardId, price, href, delivery, image, sample, [locale]: text }): ProductCard => ({
-          id: cardId, price, href, delivery, image, sample, ...text,
+        ({ id: cardId, price, href, delivery, image, sample, paypal, [locale]: text }): ProductCard => ({
+          id: cardId, price, href, delivery, image, sample, paypal, ...text,
         }),
       ),
     })).filter((section) => section.cards.length > 0),

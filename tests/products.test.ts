@@ -78,11 +78,11 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     for (const [id, href] of Object.entries(expected[route])) assert.equal(ctas[id], href, `${route} ${id}`);
     for (const id of ['printable-pack', ...SHOWN.teachers.map(([cardId]) => cardId), ...SHOWN.centres.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
     assert.equal(PRODUCTS_ZALO, 'https://zalo.me/84396085076?utm_source=products');
-    // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch and the sample
-    // PDFs (files on this site, not page links).
+    // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch, the sample
+    // PDFs (files on this site, not page links) and the PayPal payments (their item name carries the order code).
     const counterpart = route === EN ? VI : EN;
     for (const [, href] of main.matchAll(/href="([^"]+)"/g)) {
-      if (href === counterpart || /^\/samples\/[^/?#]+-sample\.pdf$/.test(href)) continue;
+      if (href === counterpart || /^\/samples\/[^/?#]+-sample\.pdf$/.test(href) || href.startsWith('https://www.paypal.com/cgi-bin/webscr?')) continue;
       assert.match(href, /[?&]utm_source=products(#|$)/, `${route}: ${href}`);
       assert.ok(!/#[^?]*\?/.test(href), `${route}: query before the anchor in ${href}`);
     }
