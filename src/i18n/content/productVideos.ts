@@ -55,6 +55,15 @@ export const PRODUCT_VIDEOS: Record<string, ProductVideo> = {
   'teacher-training-course': { langs: ALL_LANGS },
   'pilot-class-kit': { langs: ALL_LANGS },
   'curriculum-overview': { langs: ALL_LANGS },
+  // PR #206 products: films are ready here; each product gets its video line when #206 merges.
+  'ielts-cue-card-bank': { langs: ALL_LANGS },
+  'ielts-essay-bank-task2': { langs: ALL_LANGS },
+  'parent-pack-l3': { langs: ALL_LANGS },
+  'holiday-reading-challenge': { langs: ALL_LANGS },
+  'thinking-cycle-posters': { langs: ALL_LANGS },
+  'word-fossil-flashcards-l1': { langs: ALL_LANGS },
+  'ielts-one-to-one-starter': { langs: ALL_LANGS },
+  'writing-baseline': { langs: ALL_LANGS },
 };
 
 /** Films 01–03 on /story-club and /vi/story-club, in this order. */
