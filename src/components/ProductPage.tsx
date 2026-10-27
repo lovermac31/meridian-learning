@@ -7,7 +7,7 @@ import { productFaq, productPath, relatedProducts } from '../i18n/content/produc
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
-import { PayPalOption, Sample, SampleViewer, productHref, useVisitorSource } from './ProductsPage';
+import { IeltsHomeLink, PayPalOption, Sample, SampleViewer, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
 
 const COPY: Record<Locale, { home: string; products: string; faq: string; related: string; all: string }> = {
@@ -16,8 +16,8 @@ const COPY: Record<Locale, { home: string; products: string; faq: string; relate
 };
 
 const toCard = (product: Product, locale: Locale): ProductCard => {
-  const { id, price, href, delivery, image, sample, paypal, video } = product;
-  return { id, price, href, delivery, image, sample, paypal, video, ...product[locale] };
+  const { id, price, href, delivery, image, sample, paypal, video, group } = product;
+  return { id, price, href, delivery, image, sample, paypal, video, group, ...product[locale] };
 };
 
 // One product's own page (Jay, 27 Oct 2026: every product findable on Google and Bing). Same copy, sample viewer,
@@ -60,6 +60,12 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             <li aria-hidden="true">›</li>
             <li><a href={getLocalizedHref(PRODUCTS_PATH, locale)} className="underline underline-offset-4">{t.products}</a></li>
             <li aria-hidden="true">›</li>
+            {product.group ? (
+              <>
+                <li><a href={`${getLocalizedHref(PRODUCTS_PATH, locale)}#ielts`} className="underline underline-offset-4">{c.ielts.crumb}</a></li>
+                <li aria-hidden="true">›</li>
+              </>
+            ) : null}
             <li aria-current="page" className="font-bold">{card.title}</li>
           </ol>
         </nav>
@@ -103,6 +109,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             ) : null}
             {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{c.delivery}</p> : null}
             {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
+            {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={c.ielts.home[card.group]} id={card.id} /> : null}
           </div>
         </section>
         <section aria-labelledby="product-faq-h">

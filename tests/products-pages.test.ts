@@ -99,3 +99,36 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
   assert.match(readFileSync('index.html', 'utf8'), /<meta name="msvalidate\.01" content="E05B1F4111192BE2DE70E1F2137FF9C9"/);
   assert.ok(existsSync('public/BingSiteAuth.xml'));
 });
+
+// #ielts (Jay, 27 Oct 2026): the 4 IELTS cards leave Teachers for their own section, Speaking then Writing, each linked
+// to its IELTS home page on /ai-speaking; their product pages carry Products › IELTS › product.
+test('#ielts: Speaking and Writing groups, no IELTS card under Teachers, each card links its IELTS home page', () => {
+  const groups = { speaking: ['ielts-speaking-ladder'], writing: ['ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-writing-teacher-pack'] };
+  const home = {
+    en: { speaking: '/ai-speaking?utm_source=products', writing: '/ai-speaking/writing?utm_source=products' },
+    vi: { speaking: '/ai-speaking/vi?utm_source=products', writing: '/ai-speaking/vi/writing?utm_source=products' },
+  };
+  for (const locale of ['en', 'vi'] as const) {
+    const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
+    const section = (id: string) => html.slice(html.indexOf(`<section id="${id}"`), html.indexOf('</section>', html.indexOf(`<section id="${id}"`)));
+    assert.doesNotMatch(section('teachers'), /id="ielts-/, `${locale}: Teachers has no IELTS card`);
+    const ielts = section('ielts');
+    for (const [group, ids] of Object.entries(groups) as Array<['speaking' | 'writing', string[]]>) {
+      const block = ielts.slice(ielts.indexOf(`data-ielts-group="${group}"`));
+      const end = block.indexOf('data-ielts-group=', 1);
+      const list = end > 0 ? block.slice(0, end) : block;
+      assert.deepEqual([...list.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), ids, `${locale} ${group}`);
+      for (const id of ids) assert.match(list, new RegExp(`data-ielts-home="${id}"><a href="${home[locale][group].replace('?', '\\?')}"`), `${locale} ${id}`);
+    }
+  }
+});
+
+test('IELTS product pages: Products › IELTS › product breadcrumb and the IELTS home link', () => {
+  for (const p of LIVE.filter((entry) => entry.group)) {
+    for (const locale of ['en', 'vi'] as const) {
+      const html = renderToStaticMarkup(createElement(ProductPage, { product: p, locale }));
+      assert.match(html, new RegExp(`/products#ielts"[^>]*>IELTS</a>`), `${p.id} ${locale}`);
+      assert.match(html, new RegExp(`data-ielts-home="${p.id}"`), `${p.id} ${locale}`);
+    }
+  }
+});

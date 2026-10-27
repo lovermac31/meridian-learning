@@ -7,8 +7,8 @@ import { PRODUCTS, PRODUCTS_PATH, type ProductSectionId } from '../i18n/content/
 // the JE Page Infrastructure Standard: link the card, never a new page). The text is the card's audience and title,
 // "For teachers: Level 2 Teacher Pack", and the link is tagged utm_source=<source page>, query before the #card.
 const LEADS: Record<Locale, Record<ProductSectionId, string>> = {
-  en: { families: 'For families:', teachers: 'For teachers:', centres: 'For centres:' },
-  vi: { families: 'Dành cho gia đình:', teachers: 'Dành cho giáo viên:', centres: 'Dành cho trung tâm:' },
+  en: { families: 'For families:', teachers: 'For teachers:', centres: 'For centres:', ielts: 'IELTS:' },
+  vi: { families: 'Dành cho gia đình:', teachers: 'Dành cho giáo viên:', centres: 'Dành cho trung tâm:', ielts: 'IELTS:' },
 };
 
 /** /products (or /vi/products) tagged with the source page, anchored on the card. */
