@@ -27,10 +27,7 @@ export const PRODUCT_VIDEOS: Record<string, ProductVideo> = {
   'je-01-the-one-question': { langs: ['en', 'vi', 'zh'], title: { en: 'The one question', vi: 'Một câu hỏi' } },
   'je-02-spot-the-clue': { langs: ['en', 'vi', 'zh'], title: { en: 'Spot the clue', vi: 'Tìm manh mối' } },
   'je-03-why-stories': { langs: ['en', 'vi', 'zh'], title: { en: 'Why Mr. Jay teaches with stories', vi: 'Vì sao Mr. Jay dạy bằng truyện' } },
-  'je-04-level1-teacher-pack': { langs: ['en', 'vi', 'zh'], title: { en: 'Inside the Level 1 Teacher Pack', vi: 'Bên trong bộ Giáo án Level 1' } },
-  'je-05-reasoning-assessment-kit': { langs: ['en', 'vi', 'zh'], title: { en: 'Inside the Reasoning Assessment Kit', vi: 'Bên trong bộ Đánh giá Tư duy' } },
-  'je-06-ielts-speaking-ladder': { langs: ['en', 'vi', 'zh'], title: { en: 'Inside the IELTS Speaking Ladder', vi: 'Bên trong IELTS Speaking Ladder' } },
-  // Product films (video factory, batch 1, 27 Oct 2026): slug = product id, one line each.
+  // Product films (video factory, 27 Oct 2026): slug = product id, one line each.
   'ielts-writing-ladder-task2': { langs: ALL_LANGS },
   'ielts-writing-task1-method': { langs: ALL_LANGS },
   'ielts-writing-teacher-pack': { langs: ALL_LANGS },
@@ -41,6 +38,23 @@ export const PRODUCT_VIDEOS: Record<string, ProductVideo> = {
   'one-to-one': { langs: ALL_LANGS },
   'printable-pack': { langs: ALL_LANGS },
   'centre-licence': { langs: ALL_LANGS },
+  'parent-pack-l1': { langs: ALL_LANGS },
+  'parent-pack-l2': { langs: ALL_LANGS },
+  'teacher-pack-l1': { langs: ALL_LANGS },
+  'teacher-pack-l2': { langs: ALL_LANGS },
+  'teacher-pack-l3': { langs: ALL_LANGS },
+  'teacher-pack-l4': { langs: ALL_LANGS },
+  'teacher-pack-l5': { langs: ALL_LANGS },
+  'student-workbook-l1': { langs: ALL_LANGS },
+  'student-workbook-l2': { langs: ALL_LANGS },
+  'student-workbook-l3': { langs: ALL_LANGS },
+  'student-workbook-l4': { langs: ALL_LANGS },
+  'student-workbook-l5': { langs: ALL_LANGS },
+  'reasoning-assessment-kit': { langs: ALL_LANGS },
+  'ielts-speaking-ladder': { langs: ALL_LANGS },
+  'teacher-training-course': { langs: ALL_LANGS },
+  'pilot-class-kit': { langs: ALL_LANGS },
+  'curriculum-overview': { langs: ALL_LANGS },
 };
 
 /** Films 01–03 on /story-club and /vi/story-club, in this order. */

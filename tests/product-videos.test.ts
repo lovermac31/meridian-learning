@@ -25,28 +25,15 @@ test('films: every mapped film has its video, poster and one subtitle file per l
 test('films: each sales film sits on its own product', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
   const mapped = Object.fromEntries(PRODUCTS.filter((p) => p.video).map((p) => [p.id, p.video]));
-  assert.deepEqual(mapped, {
-    'teacher-pack-l1': 'je-04-level1-teacher-pack',
-    'reasoning-assessment-kit': 'je-05-reasoning-assessment-kit',
-    'ielts-speaking-ladder': 'je-06-ielts-speaking-ladder',
-    // Batch 1 product films: the film's folder is the product id.
-    'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2',
-    'ielts-writing-task1-method': 'ielts-writing-task1-method',
-    'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack',
-    'teacher-bundle': 'teacher-bundle',
-    'thinking-cycle-set': 'thinking-cycle-set',
-    'story-club': 'story-club',
-    'baseline': 'baseline',
-    'one-to-one': 'one-to-one',
-    'printable-pack': 'printable-pack',
-    'centre-licence': 'centre-licence',
-  });
+  // Every product has its own film, in public/videos/<product id>/.
+  assert.deepEqual(mapped, Object.fromEntries(PRODUCTS.map((p) => [p.id, p.id])));
+
 });
 
 test('films: the picker starts on the page language, and falls back when a film lacks it', async () => {
   const { defaultVideoLang } = await import('../src/i18n/content/productVideos');
-  assert.equal(defaultVideoLang('je-04-level1-teacher-pack', 'en'), 'en');
-  assert.equal(defaultVideoLang('je-04-level1-teacher-pack', 'vi'), 'vi');
+  assert.equal(defaultVideoLang('teacher-pack-l1', 'en'), 'en');
+  assert.equal(defaultVideoLang('teacher-pack-l1', 'vi'), 'vi');
   assert.equal(defaultVideoLang('no-such-film', 'vi'), 'en');
 });
 
@@ -61,22 +48,21 @@ test('films: the product page plays the film muted, on demand, above the sample,
     assert.match(tag, /preload="none"/, `${route}: loads nothing before play`);
     assert.match(tag, /\bcontrols=""/, `${route}: controls`);
     assert.doesNotMatch(tag, /autoplay/i, `${route}: never autoplays`);
-    assert.match(tag, /poster="\/videos\/je-04-level1-teacher-pack\/poster\.webp"/);
-    assert.match(html, /<source src="\/videos\/je-04-level1-teacher-pack\/video\.mp4" type="video\/mp4"\/>/);
-    assert.match(html, new RegExp(`<track kind="subtitles" srcLang="${lang}" label="[^"]+" src="/videos/je-04-level1-teacher-pack/${lang}\\.vtt" default=""/>`), `${route}: ${lang} track is the default`);
+    assert.match(tag, /poster="\/videos\/teacher-pack-l1\/poster\.webp"/);
+    assert.match(html, /<source src="\/videos\/teacher-pack-l1\/video\.mp4" type="video\/mp4"\/>/);
+    assert.match(html, new RegExp(`<track kind="subtitles" srcLang="${lang}" label="[^"]+" src="/videos/teacher-pack-l1/${lang}\\.vtt" default=""/>`), `${route}: ${lang} track is the default`);
     assert.equal((html.match(/default=""/g) ?? []).length, 1, `${route}: one default track`);
     assert.match(html, new RegExp(`<button type="button" lang="${lang}" aria-pressed="true"`), `${route}: picker on ${lang}`);
     assert.match(html, /data-subtitle-lang="en"[\s\S]*data-subtitle-lang="vi"[\s\S]*data-subtitle-lang="zh"[^>]*>中文</, `${route}: EN · VI · 中文 buttons`);
-    assert.match(html, /<track kind="subtitles" srcLang="zh" label="中文" src="\/videos\/je-04-level1-teacher-pack\/zh\.vtt"\/>/, `${route}: zh track`);
+    assert.match(html, /<track kind="subtitles" srcLang="zh" label="中文" src="\/videos\/teacher-pack-l1\/zh\.vtt"\/>/, `${route}: zh track`);
     assert.match(html, /aspect-video/, `${route}: box reserved, no shift`);
     assert.ok(html.indexOf('data-product-video=') < html.indexOf('data-sample="teacher-pack-l1"'), `${route}: film above the sample`);
-    assert.match(html, /id="video"[^>]*data-product-video="je-04-level1-teacher-pack"/, `${route}: #video anchor`);
+    assert.match(html, /id="video"[^>]*data-product-video="teacher-pack-l1"/, `${route}: #video anchor`);
   }
   // A product film without its own title shows the product's title.
   const baseline = await renderRoute('/vi/products/baseline');
   assert.match(baseline, /data-product-video="baseline"/, 'baseline film on its page');
   assert.match(videoTag(baseline), /aria-label="[^"]+"/, 'product film is labelled');
-  assert.doesNotMatch(await renderRoute('/products/curriculum-overview'), /<video\b/, 'no film, no player');
 });
 
 test('films: /products shows a Watch link to the product page, never a player; /story-club shows films 01–03', async () => {

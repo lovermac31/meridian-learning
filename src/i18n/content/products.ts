@@ -196,6 +196,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'parent-pack-l1',
+    video: 'parent-pack-l1',
     live: true,
     section: 'families',
     price: '249.000₫',
@@ -225,6 +226,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'parent-pack-l2',
+    video: 'parent-pack-l2',
     live: true,
     section: 'families',
     price: '249.000₫',
@@ -260,7 +262,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     image: 'teacher-pack-l1',
     sample: 'teacher-pack-l1',
-    video: 'je-04-level1-teacher-pack',
+    video: 'teacher-pack-l1',
     delivery: true,
     paypal: true,
     en: {
@@ -284,6 +286,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l2',
+    video: 'teacher-pack-l2',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -313,6 +316,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l3',
+    video: 'teacher-pack-l3',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -342,6 +346,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l4',
+    video: 'teacher-pack-l4',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -371,6 +376,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l5',
+    video: 'teacher-pack-l5',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -430,6 +436,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l1',
+    video: 'student-workbook-l1',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -464,6 +471,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l2',
+    video: 'student-workbook-l2',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -493,6 +501,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l3',
+    video: 'student-workbook-l3',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -522,6 +531,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l4',
+    video: 'student-workbook-l4',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -551,6 +561,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l5',
+    video: 'student-workbook-l5',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -618,7 +629,7 @@ export const PRODUCTS: Product[] = [
     paypal: true,
     image: 'reasoning-assessment-kit',
     sample: 'reasoning-assessment-kit',
-    video: 'je-05-reasoning-assessment-kit',
+    video: 'reasoning-assessment-kit',
     en: {
       label: 'Digital download · teachers and centres',
       title: 'Reasoning Assessment Kit, Levels 1–5',
@@ -648,7 +659,7 @@ export const PRODUCTS: Product[] = [
     paypal: true,
     image: 'ielts-speaking-ladder',
     sample: 'ielts-speaking-ladder',
-    video: 'je-06-ielts-speaking-ladder',
+    video: 'ielts-speaking-ladder',
     en: {
       label: 'Digital download · learners and tutors',
       title: 'IELTS Speaking Ladder Pack',
@@ -789,6 +800,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-training-course',
+    video: 'teacher-training-course',
     live: true,
     section: 'centres',
     price: '1.490.000₫',
@@ -818,6 +830,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pilot-class-kit',
+    video: 'pilot-class-kit',
     live: true,
     section: 'centres',
     price: '690.000₫',
@@ -847,6 +860,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'curriculum-overview',
+    video: 'curriculum-overview',
     live: true,
     section: 'centres',
     price: '290.000₫',
