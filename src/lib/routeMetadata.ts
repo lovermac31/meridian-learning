@@ -67,6 +67,8 @@ export type RouteMetadata = BaseMetadata & {
   };
 };
 
+type OgImage = { url: string; width: number; height: number };
+
 type StaticRouteDefinition = {
   title: string;
   description: string;
@@ -76,6 +78,8 @@ type StaticRouteDefinition = {
   jsonLd?: JsonLd[];
   // JSON-LD built for the page language (used instead of `jsonLd`).
   jsonLdFor?: (locale: Locale) => JsonLd[];
+  // The share image (Facebook, Zalo, X) when the page has its own, e.g. a product's square image.
+  ogImage?: OgImage;
   localized?: Partial<Record<Locale, Pick<StaticRouteDefinition, 'title' | 'description' | 'breadcrumbs'> & { faqJsonLd?: JsonLd }>>;
 };
 
@@ -148,6 +152,8 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       canonicalPath: path,
       jsonLdFor: (locale: Locale) => [createProductJsonLd(product, locale), createFaqJsonLd(productFaq(product, locale))],
       breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Products', path: '/products' }, { name: product.en.title, path }],
+      // Shared links show the product (image studio, 27 Oct 2026), not the site's generic compass image.
+      ...(product.image ? { ogImage: { url: `${SITE_URL}/images/products/${product.image}.webp`, width: 800, height: 800 } } : {}),
       localized: {
         vi: {
           title: seo.vi.title,
@@ -552,11 +558,13 @@ function createMetadata({
   ogTitle,
   ogDescription,
   ogUrl,
+  ogImage,
   locale = 'en',
 }: BaseMetadata & {
   ogTitle?: string;
   ogDescription?: string;
   ogUrl?: string;
+  ogImage?: OgImage;
   locale?: Locale | 'es' | 'pt-BR' | 'id' | 'ms' | 'th' | 'ar' | 'ur' | 'bn';
 }): RouteMetadata {
   const normalizedDescription = normalizeDescription(description);
@@ -576,18 +584,19 @@ function createMetadata({
       title: socialTitle,
       description: socialDescription,
       url: socialUrl,
-      image: DEFAULT_OG_IMAGE,
-      imageWidth: DEFAULT_OG_IMAGE_WIDTH,
-      imageHeight: DEFAULT_OG_IMAGE_HEIGHT,
+      image: ogImage?.url ?? DEFAULT_OG_IMAGE,
+      imageWidth: ogImage?.width ?? DEFAULT_OG_IMAGE_WIDTH,
+      imageHeight: ogImage?.height ?? DEFAULT_OG_IMAGE_HEIGHT,
       type: 'website',
       siteName: SITE_NAME,
       locale: ({ es: 'es_ES', 'pt-BR': 'pt_BR', id: 'id_ID', ms: 'ms_MY', th: 'th_TH', ar: 'ar_AR', ur: 'ur_PK', bn: 'bn_BD' } as Record<string, string>)[locale] ?? getLocaleDefinition(locale as Locale).ogLocale,
     },
     twitter: {
-      card: 'summary_large_image',
+      // A square share image is a "summary" card; the wide default stays "summary_large_image".
+      card: ogImage && ogImage.width === ogImage.height ? 'summary' : 'summary_large_image',
       title: socialTitle,
       description: socialDescription,
-      image: DEFAULT_OG_IMAGE,
+      image: ogImage?.url ?? DEFAULT_OG_IMAGE,
     },
   };
 }
@@ -659,6 +668,7 @@ function resolveStaticRoute(pathname: string, locale: Locale): RouteMetadata | n
     alternates: route.shouldIndex === false ? undefined : createAlternates(route.canonicalPath, locale),
     jsonLd,
     ogUrl: shouldIndex ? canonical : toAbsoluteUrl(getCanonicalPath(route.canonicalPath, locale)),
+    ogImage: route.ogImage,
     locale,
   });
 }

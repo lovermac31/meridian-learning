@@ -3,6 +3,8 @@ import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { STORY_CLUB_FREE_STORIES, STORY_CLUB_ZALO, storyClubContent } from '../i18n/content/storyClub';
 import { ToolHero } from './IeltsToolsPage';
+import { ProductVideo } from './ProductVideo';
+import { STORY_CLUB_VIDEOS, VIDEO_COPY } from '../i18n/content/productVideos';
 
 export const STORY_CLUB_PATH = '/story-club';
 const STORY_CLUB_VI_PATH = '/vi/story-club';
@@ -42,6 +44,13 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <p className="mt-3 text-sm">
             <a className="font-semibold underline underline-offset-4" href={STORY_CLUB_FREE_STORIES[locale]} data-link="story-club-free-stories">{c.price.tryFree}</a>
           </p>
+        </section>
+
+        <section aria-labelledby="story-videos" data-story-videos>
+          <h2 id="story-videos" className="text-3xl font-bold">{VIDEO_COPY[locale].storyClubHeading}</h2>
+          <div className="mt-2 grid gap-6 md:grid-cols-2">
+            {STORY_CLUB_VIDEOS.map((slug) => <ProductVideo key={slug} slug={slug} locale={locale} />)}
+          </div>
         </section>
 
         <section aria-labelledby="story-week">

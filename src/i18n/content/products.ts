@@ -73,6 +73,8 @@ export type Product = {
   sample?: string;
   // An extra link under the card text, e.g. the Writing Baseline's sample reports (internal path, localized and tagged).
   link?: { href: string; en: string; vi: string };
+  // Slug of the product's film in productVideos.ts (public/videos/<slug>/), shown above the sample on its page.
+  video?: string;
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
@@ -82,6 +84,7 @@ export type Product = {
 export const PRODUCTS: Product[] = [
   {
     id: 'story-club',
+    video: 'story-club',
     live: true,
     section: 'families',
     price: '590.000₫',
@@ -109,6 +112,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'baseline',
+    video: 'baseline',
     live: true,
     section: 'families',
     price: '690.000₫',
@@ -136,6 +140,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'one-to-one',
+    video: 'one-to-one',
     live: true,
     section: 'families',
     price: '800.000₫',
@@ -163,6 +168,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'printable-pack',
+    video: 'printable-pack',
     live: true,
     section: 'families',
     price: '149.000₫',
@@ -192,6 +198,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'parent-pack-l1',
+    video: 'parent-pack-l1',
     live: true,
     section: 'families',
     price: '249.000₫',
@@ -221,6 +228,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'parent-pack-l2',
+    video: 'parent-pack-l2',
     live: true,
     section: 'families',
     price: '249.000₫',
@@ -251,6 +259,7 @@ export const PRODUCTS: Product[] = [
   {
     // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/parent-pack-l3.json).
     id: 'parent-pack-l3',
+    video: 'parent-pack-l3',
     live: true,
     section: 'families',
     price: '249.000₫',
@@ -281,6 +290,7 @@ export const PRODUCTS: Product[] = [
   {
     // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/holiday-challenge.json).
     id: 'holiday-reading-challenge',
+    video: 'holiday-reading-challenge',
     live: true,
     section: 'families',
     price: '149.000₫',
@@ -316,6 +326,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     image: 'teacher-pack-l1',
     sample: 'teacher-pack-l1',
+    video: 'teacher-pack-l1',
     delivery: true,
     paypal: true,
     en: {
@@ -339,6 +350,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l2',
+    video: 'teacher-pack-l2',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -368,6 +380,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l3',
+    video: 'teacher-pack-l3',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -397,6 +410,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l4',
+    video: 'teacher-pack-l4',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -426,6 +440,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l5',
+    video: 'teacher-pack-l5',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -455,6 +470,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-bundle',
+    video: 'teacher-bundle',
     live: true,
     section: 'teachers',
     price: '2.900.000₫',
@@ -484,6 +500,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l1',
+    video: 'student-workbook-l1',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -518,6 +535,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l2',
+    video: 'student-workbook-l2',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -547,6 +565,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l3',
+    video: 'student-workbook-l3',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -576,6 +595,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l4',
+    video: 'student-workbook-l4',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -605,6 +625,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l5',
+    video: 'student-workbook-l5',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -635,6 +656,7 @@ export const PRODUCTS: Product[] = [
   {
     // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/word-fossil-flashcards-l1.json).
     id: 'word-fossil-flashcards-l1',
+    video: 'word-fossil-flashcards-l1',
     live: true,
     section: 'teachers',
     price: '190.000₫',
@@ -664,6 +686,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'thinking-cycle-set',
+    video: 'thinking-cycle-set',
     live: true,
     section: 'teachers',
     price: '490.000₫',
@@ -694,6 +717,7 @@ export const PRODUCTS: Product[] = [
   {
     // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/thinking-cycle-posters.json).
     id: 'thinking-cycle-posters',
+    video: 'thinking-cycle-posters',
     live: true,
     section: 'teachers',
     price: '149.000₫',
@@ -731,6 +755,7 @@ export const PRODUCTS: Product[] = [
     paypal: true,
     image: 'reasoning-assessment-kit',
     sample: 'reasoning-assessment-kit',
+    video: 'reasoning-assessment-kit',
     en: {
       label: 'Digital download · teachers and centres',
       title: 'Reasoning Assessment Kit, Levels 1–5',
@@ -760,6 +785,7 @@ export const PRODUCTS: Product[] = [
     paypal: true,
     image: 'ielts-speaking-ladder',
     sample: 'ielts-speaking-ladder',
+    video: 'ielts-speaking-ladder',
     en: {
       label: 'Digital download · learners and tutors',
       title: 'IELTS Speaking Ladder Pack',
@@ -782,6 +808,7 @@ export const PRODUCTS: Product[] = [
   {
     // 35-today plan (Jay, 27 Oct 2026): built (pdf-studio ielts-one-to-one-starter.json); view-only sample (8 pages with real lesson pages) by ielts-generic-lesson, approved by the master.
     id: 'ielts-one-to-one-starter',
+    video: 'ielts-one-to-one-starter',
     live: true,
     section: 'teachers',
     price: '149.000₫',
@@ -812,6 +839,7 @@ export const PRODUCTS: Product[] = [
   {
     // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/ielts-cue-card-bank.json).
     id: 'ielts-cue-card-bank',
+    video: 'ielts-cue-card-bank',
     live: true,
     section: 'teachers',
     price: '290.000₫',
@@ -844,6 +872,7 @@ export const PRODUCTS: Product[] = [
     // prices (pdf-studio writing-baseline.json). Mr. Jay or his team reads each essay by hand; the Writing app is not
     // open, so the card links only to its sample reports. No PayPal.
     id: 'writing-baseline',
+    video: 'writing-baseline',
     live: true,
     section: 'teachers',
     price: '79.000₫',
@@ -872,6 +901,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-writing-ladder-task2',
+    video: 'ielts-writing-ladder-task2',
     live: true,
     section: 'teachers',
     price: '390.000₫',
@@ -901,6 +931,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-writing-task1-method',
+    video: 'ielts-writing-task1-method',
     live: true,
     section: 'teachers',
     price: '290.000₫',
@@ -931,6 +962,7 @@ export const PRODUCTS: Product[] = [
   {
     // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/ielts-essay-bank-task2.json).
     id: 'ielts-essay-bank-task2',
+    video: 'ielts-essay-bank-task2',
     live: true,
     section: 'teachers',
     price: '290.000₫',
@@ -960,6 +992,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-writing-teacher-pack',
+    video: 'ielts-writing-teacher-pack',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -989,6 +1022,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'centre-licence',
+    video: 'centre-licence',
     live: true,
     section: 'centres',
     price: '4.900.000₫',
@@ -1017,6 +1051,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-training-course',
+    video: 'teacher-training-course',
     live: true,
     section: 'centres',
     price: '1.490.000₫',
@@ -1046,6 +1081,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pilot-class-kit',
+    video: 'pilot-class-kit',
     live: true,
     section: 'centres',
     price: '690.000₫',
@@ -1075,6 +1111,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'curriculum-overview',
+    video: 'curriculum-overview',
     live: true,
     section: 'centres',
     price: '290.000₫',
@@ -1153,7 +1190,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal'> & {
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video'> & {
   link?: { href: string; label: string };
 };
 
@@ -1170,8 +1207,8 @@ export function productsPage(locale: Locale) {
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal, video, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).

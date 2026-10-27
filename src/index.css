@@ -144,6 +144,11 @@ html[lang='vi'] {
   --font-display: Georgia, "Times New Roman", serif;
 }
 
+/* Smooth in-page anchors (master, 27 Oct 2026: a smooth path from home to /products); off for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
 /*
  * Phase 9 — Reduced-motion accessibility guard.
  *

@@ -61,8 +61,8 @@ const languageLabels: Record<string, string> = {
   ar: 'العربية', ur: 'اردو', bn: 'বাংলা',
 };
 
-const chrome: Record<string, { resources: string; language: string; scroll: string; closing: string; baseline: string; lesson: string; from: string; minutes: string; note: string; ai: string; tools: string; hubNote?: string }> = {
-  en: { resources: 'Learning resources', language: 'Language', scroll: 'Scroll to see more →', closing: 'Ready to practise with a teacher?', baseline: 'Request a Speaking Baseline', lesson: 'Request a one-to-one lesson', from: 'from', minutes: 'min', note: 'Requests go to info@jurassicenglish.com. USD card payment is not live yet.', hubNote: 'Requests go to info@jurassicenglish.com. PayPal (USD) is available on most country pages.', ai: 'See how AI Speaking practice works (18+)', tools: 'Free IELTS band score calculator' },
+const chrome: Record<string, { resources: string; language: string; scroll: string; closing: string; baseline: string; book?: string; lesson: string; from: string; minutes: string; note: string; ai: string; tools: string; hubNote?: string }> = {
+  en: { resources: 'Learning resources', language: 'Language', scroll: 'Scroll to see more →', closing: 'Ready to practise with a teacher?', baseline: 'Request a Speaking Baseline', book: 'Book a Speaking Baseline', lesson: 'Request a one-to-one lesson', from: 'from', minutes: 'min', note: 'Requests go to info@jurassicenglish.com. USD card payment is not live yet.', hubNote: 'Requests go to info@jurassicenglish.com. PayPal (USD) is available on most country pages.', ai: 'See how AI Speaking practice works (18+)', tools: 'Free IELTS band score calculator' },
   vi: { resources: 'Tài liệu học tập', language: 'Ngôn ngữ', scroll: 'Vuốt để xem thêm →', closing: 'Sẵn sàng luyện tập cùng giáo viên?', baseline: 'Gửi yêu cầu đánh giá Speaking', lesson: 'Gửi yêu cầu học một kèm một', from: 'từ', minutes: 'phút', note: 'Yêu cầu được gửi tới info@jurassicenglish.com. Thanh toán thẻ bằng USD chưa được mở.', ai: 'Xem cách luyện Speaking với AI (18+)', tools: 'Công cụ tính điểm IELTS miễn phí' },
   es: { resources: 'Recursos de aprendizaje', language: 'Idioma', scroll: 'Desliza para ver más →', closing: '¿Listo para practicar con un profesor?', baseline: 'Solicita una evaluación inicial de Speaking', lesson: 'Solicita una clase individual', from: 'desde', minutes: 'min', note: 'Las solicitudes llegan a info@jurassicenglish.com. El pago con tarjeta en USD aún no está activo.', hubNote: 'Las solicitudes llegan a info@jurassicenglish.com. PayPal (USD) está disponible en la mayoría de las páginas de país.', ai: 'Cómo funciona la práctica de Speaking con IA (18+, en inglés)', tools: 'Calculadora gratuita de banda IELTS (en inglés)' },
   'pt-BR': { resources: 'Recursos de aprendizagem', language: 'Idioma', scroll: 'Deslize para ver mais →', closing: 'Pronto para praticar com um professor?', baseline: 'Solicite uma avaliação inicial de Speaking', lesson: 'Solicite uma aula individual', from: 'a partir de', minutes: 'min', note: 'As solicitações vão para info@jurassicenglish.com. O pagamento com cartão em USD ainda não está ativo.', hubNote: 'As solicitações vão para info@jurassicenglish.com. O PayPal (USD) está disponível na maioria das páginas de país.', ai: 'Como funciona a prática de Speaking com IA (18+, em inglês)', tools: 'Calculadora gratuita de banda IELTS (em inglês)' },
@@ -86,8 +86,9 @@ const marketFromPath = (path: string) => {
   return slug === 'ielts-speaking-online' ? undefined : slug === 'brasil' ? 'brazil' : slug;
 };
 
-// International card checkout is not live yet, and the booking pages charge VND by VietQR.
-// Market CTAs therefore open an email booking request instead of a checkout that cannot take the USD price.
+// Market CTAs (website assessment, 27 Oct 2026, fix 7): on a PayPal market the buttons open the live order-first
+// checkout at the country's US$ price (the PayPal panel's own links), never an email. Pakistan and Bangladesh (PayPal
+// is not available to residents) and the hubs (no single country price) keep the email booking request.
 function marketCtas(path: string, locale: string) {
   const market = marketFromPath(path);
   const tier = market ? marketPricing.markets[market as keyof typeof marketPricing.markets] : 1;
@@ -98,6 +99,12 @@ function marketCtas(path: string, locale: string) {
   const lessonPrice = `${prefix}US$${prices.lesson_usd}`;
   const where = market ? countryNames.en[market] ?? market : 'International';
   const request = (offer: string, price: string) => `mailto:info@jurassicenglish.com?subject=${encodeURIComponent(`${offer} request - ${where} (${price})`)}`;
+  if (market && paypalMarket(path, locale)) {
+    return [
+      { href: checkoutHref('baseline', market), label: `${copy.book ?? copy.baseline} · ${baselinePrice}` },
+      { href: checkoutHref('lesson', market), label: `${copy.lesson} · ${lessonPrice} / 60 ${copy.minutes}` },
+    ];
+  }
   return [
     { href: request('Speaking Baseline', baselinePrice), label: `${copy.baseline} · ${baselinePrice}` },
     { href: request('One-to-one lesson', `${lessonPrice} / 60 min`), label: `${copy.lesson} · ${lessonPrice} / 60 ${copy.minutes}` },
@@ -115,6 +122,19 @@ function isolateRtlText(source: string) {
   return source.split(/(<[^>]+>|&(?:#\d+|#x[\da-f]+|[A-Za-z]+);)/gi).map(part => part.startsWith('<') || part.startsWith('&') ? part : part.replace(latinRun, isolateRun)).join('');
 }
 
+// Country pages fold their research sections (website assessment, 27 Oct 2026, fix 8): the first sections after the key
+// facts, which cite universities and IELTS statistics, sit in a <details> whose summary is the first section's own
+// heading (already in the page language). Three sections where the requirements section has a table (they end with the
+// Speaking statistics), otherwise two. The prerendered HTML keeps every word.
+export function foldResearch(html: string) {
+  const factsEnd = html.indexOf('</aside>');
+  const starts = [...html.matchAll(/<h2\b/g)].map((match) => match.index!).filter((index) => index > factsEnd);
+  if (starts.length < 4) return html;
+  const count = html.slice(starts[1], starts[2]).includes('<table') ? 3 : 2;
+  const firstHeadingEnd = html.indexOf('</h2>', starts[0]) + '</h2>'.length;
+  return `${html.slice(0, starts[0])}<details class="insights-fold"><summary>${html.slice(starts[0], firstHeadingEnd)}</summary>${html.slice(firstHeadingEnd, starts[count])}</details>${html.slice(starts[count])}`;
+}
+
 // The source HTML remains authoritative: move its existing heading and first
 // paragraph into the hero, and preserve all following copy in the article.
 export function prepareSeoContent(page: SeoPage) {
@@ -127,6 +147,7 @@ export function prepareSeoContent(page: SeoPage) {
   html = html.replace(/(<aside\b[^>]*?) class="[^"]*"/g, '$1');
   const hint = (chrome[page.locale] ?? chrome.en).scroll;
   html = html.replace(/(<table\b[\s\S]*?<\/table>)/g, `<div class="insights-table-wrap"><p class="insights-table-hint">${hint}</p><div class="insights-table-scroll" tabindex="0" role="region" aria-label="${hint}">$1</div></div>`);
+  if (isInternationalMarketPath(page.path) && marketFromPath(page.path)) html = foldResearch(html);
   if (page.locale === 'ar' || page.locale === 'ur') {
     html = isolateRtlText(html);
     intro = isolateRtlText(intro);
@@ -136,9 +157,10 @@ export function prepareSeoContent(page: SeoPage) {
 
 function CtaNote({ locale, paypal, hub }: { locale: string; paypal?: boolean; hub?: boolean }) {
   if (paypal) {
+    // The buttons are the checkout itself, so the note says how it works (the PayPal panel's own note).
     const copy = payCopy[locale];
     const rtl = locale === 'ar' || locale === 'ur';
-    return <p className="insights-cta-note">{rtl ? <span dangerouslySetInnerHTML={{ __html: rtlSafe(copy.hero) }} /> : copy.hero} <a className="insights-paypal-link" href="#pay">{copy.link}</a></p>;
+    return <p className="insights-cta-note">{rtl ? <span dangerouslySetInnerHTML={{ __html: rtlSafe(copy.note) }} /> : copy.note}</p>;
   }
   // Hubs list every market, and most of them take PayPal, so they don't say USD payment is unavailable.
   const c = chrome[locale] ?? chrome.en;
