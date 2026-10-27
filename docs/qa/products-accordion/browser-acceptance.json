@@ -6,7 +6,7 @@
       "height": 4576,
       "perf": {
         "cls": 0.000023561259930490882,
-        "lcp": 304
+        "lcp": 236
       },
       "overviewBottom": 511.296875,
       "thirdBottom": 1189.421875,
@@ -41,7 +41,7 @@
       "height": 4921,
       "perf": {
         "cls": 0.000023561259930490882,
-        "lcp": 296
+        "lcp": 184
       },
       "overviewBottom": 510.421875,
       "thirdBottom": 1208.9375,
@@ -76,7 +76,7 @@
       "height": 3480,
       "perf": {
         "cls": 0.0001833924930609139,
-        "lcp": 288
+        "lcp": 188
       },
       "overviewBottom": 377.140625,
       "thirdBottom": 1108.65625,
@@ -111,7 +111,7 @@
       "height": 3523,
       "perf": {
         "cls": 0.00018118407533329045,
-        "lcp": 296
+        "lcp": 200
       },
       "overviewBottom": 377.140625,
       "thirdBottom": 1108.65625,

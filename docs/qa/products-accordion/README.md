@@ -1,6 +1,6 @@
 # Products accordion verification — 27 October 2026
 
-Base: `fa4016d` (merged #199 and #206). Branch: `codex/products-accordion`.
+Base: `85ded15` (merged #199, #206, #201 performance and #207 video SEO). Branch: `codex/products-accordion`.
 
 ## Result
 
@@ -17,7 +17,7 @@ At 390px, the overview ends at 511px EN / 510px VI; the third Families product e
 
 ## Executed checks
 
-- Baseline: 372/372 tests; final: 378/378 tests, including six accordion SSR/anchor tests.
+- Initial baseline: 372/372 tests; final after syncing main: 384/384 tests, including six accordion SSR/anchor tests.
 - TypeScript: `npm run lint` passes.
 - Production client/SSR/prerender/sitemap build: `npm run build` passes.
 - `npm run validate:prerender`: 184 public indexable routes pass; 7 rewrite-served routes exempted by the existing validator.
@@ -45,11 +45,13 @@ Browser acceptance (separate terminal):
 BROWSER_TOOLS=/path/to/qa/node_modules node scripts/test-products-accordion-browser.mjs
 ```
 
+The browser harness uses `/products/` and `/vi/products/`: Vite preview resolves the prerendered directory index at the trailing-slash URL; extensionless requests otherwise use its SPA fallback. Production canonical URLs stay unchanged.
+
 QA used external Playwright 1.63.0 and @axe-core/playwright 4.14.0; no packages were added to this project. If these packages resolve normally, omit BROWSER_TOOLS. BASE_URL defaults to http://127.0.0.1:5198; EVIDENCE_DIR defaults to .regen/runs/products-accordion. Chromium launches with --mute-audio. Raw results: [browser-acceptance.json](browser-acceptance.json), [baseline-metrics.json](baseline-metrics.json).
 
 ## Performance limits and existing risks
 
-Five fresh contexts per version/locale/viewport were measured with alternating before/after ordering on production preview builds. Local LCP medians before → after: EN390 288→292ms; VI390 284→296ms; EN1440 280→292ms; VI1440 284→304ms. These 4–20ms differences are local lab measurements, not field CWV or a guarantee of identical LCP. The existing bootstrap/homepage/font frame produced a maximum CLS of 0.029916 on both base and feature builds. Phone median CLS is 0.000024 in both; desktop medians range from 0 to 0.000183. No new catalogue layout movement was observed after reserving the title height. See [performance-ab.json](performance-ab.json).
+Five fresh contexts per version/locale/viewport were measured with alternating before/after ordering on production preview builds, using the actual prerendered directory-index URLs. Local LCP medians before → after: EN390 184→180ms; VI390 184→192ms; EN1440 184→196ms; VI1440 184→196ms. These −4 to +12ms differences are local lab measurements, not field CWV or a guarantee of identical LCP. Phone median/max CLS is 0.000024 in both builds. EN desktop CLS improves from 0.000636 to 0.000183; VI desktop remains 0.000181. No new layout-shift regression was measured. See [performance-ab.json](performance-ab.json).
 
 The unchanged production dependency tree reports one pre-existing HIGH body-parser advisory (GHSA-27r3-jxmh-p828, <1.20.9). No dependency fix was mixed into this layout PR; owner unassigned. A dedicated dependency update should verify compressed-request handling. No new endpoints, persistence, credentials, analytics or external submissions were introduced.
 

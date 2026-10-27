@@ -5,17 +5,17 @@
       "width": 390,
       "locale": "en",
       "n": 5,
-      "lcpMedian": 288,
+      "lcpMedian": 184,
       "clsMedian": 0.000023561259930490882,
       "clsMax": 0.000023561259930490882,
-      "productClsMedian": 0
+      "productClsMedian": 0.000023561259930490882
     },
     {
       "version": "after",
       "width": 390,
       "locale": "en",
       "n": 5,
-      "lcpMedian": 292,
+      "lcpMedian": 180,
       "clsMedian": 0.000023561259930490882,
       "clsMax": 0.000023561259930490882,
       "productClsMedian": 0.000023561259930490882
@@ -25,39 +25,39 @@
       "width": 390,
       "locale": "vi",
       "n": 5,
-      "lcpMedian": 284,
+      "lcpMedian": 184,
       "clsMedian": 0.000023561259930490882,
       "clsMax": 0.000023561259930490882,
-      "productClsMedian": 0
+      "productClsMedian": 0.000023561259930490882
     },
     {
       "version": "after",
       "width": 390,
       "locale": "vi",
       "n": 5,
-      "lcpMedian": 296,
+      "lcpMedian": 192,
       "clsMedian": 0.000023561259930490882,
       "clsMax": 0.000023561259930490882,
-      "productClsMedian": 0
+      "productClsMedian": 0.000023561259930490882
     },
     {
       "version": "before",
       "width": 1440,
       "locale": "en",
       "n": 5,
-      "lcpMedian": 280,
-      "clsMedian": 0,
-      "clsMax": 0.02991592312617884,
-      "productClsMedian": 0
+      "lcpMedian": 184,
+      "clsMedian": 0.0006358655304248114,
+      "clsMax": 0.0006358655304248114,
+      "productClsMedian": 0.0006358655304248114
     },
     {
       "version": "after",
       "width": 1440,
       "locale": "en",
       "n": 5,
-      "lcpMedian": 292,
+      "lcpMedian": 196,
       "clsMedian": 0.0001833924930609139,
-      "clsMax": 0.02991592312617884,
+      "clsMax": 0.0001833924930609139,
       "productClsMedian": 0.0001833924930609139
     },
     {
@@ -65,9 +65,9 @@
       "width": 1440,
       "locale": "vi",
       "n": 5,
-      "lcpMedian": 284,
+      "lcpMedian": 184,
       "clsMedian": 0.00018118407533329045,
-      "clsMax": 0.02991592312617884,
+      "clsMax": 0.00018118407533329045,
       "productClsMedian": 0.00018118407533329045
     },
     {
@@ -75,9 +75,9 @@
       "width": 1440,
       "locale": "vi",
       "n": 5,
-      "lcpMedian": 304,
+      "lcpMedian": 196,
       "clsMedian": 0.00018118407533329045,
-      "clsMax": 0.02991592312617884,
+      "clsMax": 0.00018118407533329045,
       "productClsMedian": 0.00018118407533329045
     }
   ],
@@ -88,7 +88,7 @@
       "locale": "en",
       "run": 0,
       "cls": 0.000023561259930490882,
-      "lcp": 408,
+      "lcp": 244,
       "productCls": 0.000023561259930490882
     },
     {
@@ -97,7 +97,7 @@
       "locale": "en",
       "run": 0,
       "cls": 0.000023561259930490882,
-      "lcp": 300,
+      "lcp": 184,
       "productCls": 0.000023561259930490882
     },
     {
@@ -106,7 +106,7 @@
       "locale": "en",
       "run": 1,
       "cls": 0.000023561259930490882,
-      "lcp": 288,
+      "lcp": 176,
       "productCls": 0.000023561259930490882
     },
     {
@@ -115,8 +115,8 @@
       "locale": "en",
       "run": 1,
       "cls": 0.000023561259930490882,
-      "lcp": 280,
-      "productCls": 0
+      "lcp": 172,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "before",
@@ -124,8 +124,8 @@
       "locale": "en",
       "run": 2,
       "cls": 0.000023561259930490882,
-      "lcp": 288,
-      "productCls": 0
+      "lcp": 200,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "after",
@@ -133,17 +133,17 @@
       "locale": "en",
       "run": 2,
       "cls": 0.000023561259930490882,
-      "lcp": 292,
-      "productCls": 0
+      "lcp": 180,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "after",
       "width": 390,
       "locale": "en",
       "run": 3,
-      "cls": 0,
-      "lcp": 288,
-      "productCls": 0
+      "cls": 0.000023561259930490882,
+      "lcp": 188,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "before",
@@ -151,7 +151,7 @@
       "locale": "en",
       "run": 3,
       "cls": 0.000023561259930490882,
-      "lcp": 288,
+      "lcp": 184,
       "productCls": 0.000023561259930490882
     },
     {
@@ -159,9 +159,9 @@
       "width": 390,
       "locale": "en",
       "run": 4,
-      "cls": 0,
-      "lcp": 280,
-      "productCls": 0
+      "cls": 0.000023561259930490882,
+      "lcp": 184,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "after",
@@ -169,7 +169,7 @@
       "locale": "en",
       "run": 4,
       "cls": 0.000023561259930490882,
-      "lcp": 308,
+      "lcp": 180,
       "productCls": 0.000023561259930490882
     },
     {
@@ -178,8 +178,8 @@
       "locale": "vi",
       "run": 0,
       "cls": 0.000023561259930490882,
-      "lcp": 300,
-      "productCls": 0
+      "lcp": 180,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "after",
@@ -187,35 +187,35 @@
       "locale": "vi",
       "run": 0,
       "cls": 0.000023561259930490882,
-      "lcp": 288,
-      "productCls": 0
+      "lcp": 192,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "after",
       "width": 390,
       "locale": "vi",
       "run": 1,
+      "cls": 0.000023561259930490882,
+      "lcp": 192,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 1,
+      "cls": 0.000023561259930490882,
+      "lcp": 184,
+      "productCls": 0.000023561259930490882
+    },
+    {
+      "version": "before",
+      "width": 390,
+      "locale": "vi",
+      "run": 2,
       "cls": 0,
-      "lcp": 292,
+      "lcp": 184,
       "productCls": 0
-    },
-    {
-      "version": "before",
-      "width": 390,
-      "locale": "vi",
-      "run": 1,
-      "cls": 0.000023561259930490882,
-      "lcp": 272,
-      "productCls": 0
-    },
-    {
-      "version": "before",
-      "width": 390,
-      "locale": "vi",
-      "run": 2,
-      "cls": 0.000023561259930490882,
-      "lcp": 284,
-      "productCls": 0.000023561259930490882
     },
     {
       "version": "after",
@@ -223,7 +223,7 @@
       "locale": "vi",
       "run": 2,
       "cls": 0.000023561259930490882,
-      "lcp": 304,
+      "lcp": 188,
       "productCls": 0.000023561259930490882
     },
     {
@@ -231,9 +231,9 @@
       "width": 390,
       "locale": "vi",
       "run": 3,
-      "cls": 0,
-      "lcp": 296,
-      "productCls": 0
+      "cls": 0.000023561259930490882,
+      "lcp": 208,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "before",
@@ -241,17 +241,17 @@
       "locale": "vi",
       "run": 3,
       "cls": 0.000023561259930490882,
-      "lcp": 268,
-      "productCls": 0
+      "lcp": 188,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "before",
       "width": 390,
       "locale": "vi",
       "run": 4,
-      "cls": 0,
-      "lcp": 288,
-      "productCls": 0
+      "cls": 0.000023561259930490882,
+      "lcp": 184,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "after",
@@ -259,53 +259,53 @@
       "locale": "vi",
       "run": 4,
       "cls": 0.000023561259930490882,
-      "lcp": 308,
-      "productCls": 0
+      "lcp": 192,
+      "productCls": 0.000023561259930490882
     },
     {
       "version": "before",
       "width": 1440,
       "locale": "en",
       "run": 0,
-      "cls": 0.02991592312617884,
-      "lcp": 292,
-      "productCls": 0
+      "cls": 0.0006358655304248114,
+      "lcp": 180,
+      "productCls": 0.0006358655304248114
     },
     {
       "version": "after",
       "width": 1440,
       "locale": "en",
       "run": 0,
-      "cls": 0.02991592312617884,
-      "lcp": 296,
-      "productCls": 0.02991592312617884
+      "cls": 0.0001833924930609139,
+      "lcp": 196,
+      "productCls": 0.0001833924930609139
     },
     {
       "version": "after",
       "width": 1440,
       "locale": "en",
       "run": 1,
-      "cls": 0.02991592312617884,
-      "lcp": 356,
-      "productCls": 0
+      "cls": 0.0001833924930609139,
+      "lcp": 192,
+      "productCls": 0.0001833924930609139
     },
     {
       "version": "before",
       "width": 1440,
       "locale": "en",
       "run": 1,
-      "cls": 0,
-      "lcp": 296,
-      "productCls": 0
+      "cls": 0.0006358655304248114,
+      "lcp": 184,
+      "productCls": 0.0006358655304248114
     },
     {
       "version": "before",
       "width": 1440,
       "locale": "en",
       "run": 2,
-      "cls": 0,
-      "lcp": 280,
-      "productCls": 0
+      "cls": 0.0006358655304248114,
+      "lcp": 184,
+      "productCls": 0.0006358655304248114
     },
     {
       "version": "after",
@@ -313,7 +313,7 @@
       "locale": "en",
       "run": 2,
       "cls": 0.0001833924930609139,
-      "lcp": 292,
+      "lcp": 196,
       "productCls": 0.0001833924930609139
     },
     {
@@ -322,7 +322,7 @@
       "locale": "en",
       "run": 3,
       "cls": 0.0001833924930609139,
-      "lcp": 288,
+      "lcp": 196,
       "productCls": 0.0001833924930609139
     },
     {
@@ -330,36 +330,36 @@
       "width": 1440,
       "locale": "en",
       "run": 3,
-      "cls": 0,
-      "lcp": 280,
-      "productCls": 0
+      "cls": 0.0006358655304248114,
+      "lcp": 188,
+      "productCls": 0.0006358655304248114
     },
     {
       "version": "before",
       "width": 1440,
       "locale": "en",
       "run": 4,
-      "cls": 0.02991592312617884,
-      "lcp": 268,
-      "productCls": 0
+      "cls": 0.0006358655304248114,
+      "lcp": 184,
+      "productCls": 0.0006358655304248114
     },
     {
       "version": "after",
       "width": 1440,
       "locale": "en",
       "run": 4,
-      "cls": 0,
-      "lcp": 284,
-      "productCls": 0
+      "cls": 0.0001833924930609139,
+      "lcp": 208,
+      "productCls": 0.0001833924930609139
     },
     {
       "version": "before",
       "width": 1440,
       "locale": "vi",
       "run": 0,
-      "cls": 0,
-      "lcp": 284,
-      "productCls": 0
+      "cls": 0.00018118407533329045,
+      "lcp": 184,
+      "productCls": 0.00018118407533329045
     },
     {
       "version": "after",
@@ -367,7 +367,7 @@
       "locale": "vi",
       "run": 0,
       "cls": 0.00018118407533329045,
-      "lcp": 300,
+      "lcp": 188,
       "productCls": 0.00018118407533329045
     },
     {
@@ -376,7 +376,7 @@
       "locale": "vi",
       "run": 1,
       "cls": 0.00018118407533329045,
-      "lcp": 312,
+      "lcp": 196,
       "productCls": 0.00018118407533329045
     },
     {
@@ -385,7 +385,7 @@
       "locale": "vi",
       "run": 1,
       "cls": 0.00018118407533329045,
-      "lcp": 288,
+      "lcp": 184,
       "productCls": 0.00018118407533329045
     },
     {
@@ -394,7 +394,7 @@
       "locale": "vi",
       "run": 2,
       "cls": 0.00018118407533329045,
-      "lcp": 300,
+      "lcp": 184,
       "productCls": 0.00018118407533329045
     },
     {
@@ -402,9 +402,9 @@
       "width": 1440,
       "locale": "vi",
       "run": 2,
-      "cls": 0.02991592312617884,
-      "lcp": 320,
-      "productCls": 0.02991592312617884
+      "cls": 0.00018118407533329045,
+      "lcp": 196,
+      "productCls": 0.00018118407533329045
     },
     {
       "version": "after",
@@ -412,7 +412,7 @@
       "locale": "vi",
       "run": 3,
       "cls": 0.00018118407533329045,
-      "lcp": 300,
+      "lcp": 188,
       "productCls": 0.00018118407533329045
     },
     {
@@ -421,7 +421,7 @@
       "locale": "vi",
       "run": 3,
       "cls": 0.00018118407533329045,
-      "lcp": 276,
+      "lcp": 180,
       "productCls": 0.00018118407533329045
     },
     {
@@ -429,18 +429,18 @@
       "width": 1440,
       "locale": "vi",
       "run": 4,
-      "cls": 0.02991592312617884,
-      "lcp": 280,
-      "productCls": 0
+      "cls": 0.00018118407533329045,
+      "lcp": 200,
+      "productCls": 0.00018118407533329045
     },
     {
       "version": "after",
       "width": 1440,
       "locale": "vi",
       "run": 4,
-      "cls": 0.02991592312617884,
-      "lcp": 304,
-      "productCls": 0.02991592312617884
+      "cls": 0.00018118407533329045,
+      "lcp": 200,
+      "productCls": 0.00018118407533329045
     }
   ]
 }

@@ -119,7 +119,7 @@ const inputClass = 'ielts-tool-input mt-2 block min-h-12 w-full rounded-xl borde
 
 export function ToolHero({ locale, title, lead, eyebrow, counterpart }: { locale: Locale; title: string; lead: string; eyebrow: string; counterpart: string }) {
   return <header className="insights-hero">
-    <picture className="insights-compass" aria-hidden="true"><source media="(max-width: 640px)" srcSet="/images/hero-compass-640.webp" /><img src="/images/hero-compass-960.webp" width="960" height="960" alt="" /></picture>
+    <picture className="insights-compass" aria-hidden="true"><source media="(max-width: 640px)" srcSet="/images/hero-compass-bg-640.webp" /><img src="/images/hero-compass-bg-960.webp" width="960" height="960" alt="" fetchPriority="high" /></picture>
     <div className="insights-hero-inner"><div>
       <p className="insights-eyebrow">{eyebrow}</p><h1 className={`insights-title ${locale === 'vi' ? 'insights-title-native' : 'font-display'}`}>{title}</h1><p className="insights-lead">{lead}</p>
       <div className="insights-language" role="group" aria-label={locale === 'vi' ? 'Ngôn ngữ' : 'Language'}>

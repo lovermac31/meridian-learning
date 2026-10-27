@@ -10,7 +10,7 @@ import {
   PRODUCTS_UTM,
   PRODUCTS_VI_PATH,
   PRODUCTS_ZALO,
-  PRODUCT_IMAGE_DIR,
+  productImageSources,
   productSampleAnchor,
   productSampleFiles,
   productsPage,
@@ -96,10 +96,12 @@ export function Sample({ card, copy, onOpen }: { card: ProductCard; copy: Sample
         data-sample-link={card.id}
       >
         <span className="grid grid-cols-3 gap-2">
-          {files.thumbs.map((src) => (
+          {files.thumbs.map((src, i) => (
             <img
               key={src}
               src={src}
+              srcSet={files.thumbSrcSets[i]}
+              sizes="(min-width: 768px) 135px, calc((100vw - 120px) / 3)"
               alt=""
               width={600}
               height={849}
@@ -322,7 +324,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
         <span key={former} id={former} className="block scroll-mt-24" aria-hidden="true" />
       ))}
       <div className="product-row-heading">
-        {card.image ? <img src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`} alt="" width={480} height={480} loading="lazy" decoding="async" className="product-row-image aspect-square" data-product-image={card.id} /> : null}
+        {card.image ? <img {...productImageSources(card.image)} sizes="80px" alt="" width={480} height={480} loading="lazy" decoding="async" className="product-row-image aspect-square" data-product-image={card.id} /> : null}
         <div className="product-row-title">
           <h3><a href={getLocalizedHref(productPath(card.id), locale)} data-product-page={card.id}>{card.title}</a></h3>
           <p className="product-row-problem">{card.problem}</p>

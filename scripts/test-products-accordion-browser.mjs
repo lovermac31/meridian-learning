@@ -15,7 +15,8 @@ for(const width of [390,1440])for(const locale of ['en','vi']){
  const context=await browser.newContext({viewport:{width,height:width===390?844:900},reducedMotion:'reduce'});
  const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(()=>{window.__perf={cls:0,lcp:0};new PerformanceObserver(l=>{for(const e of l.getEntries())if(!e.hadRecentInput)window.__perf.cls+=e.value;}).observe({type:'layout-shift',buffered:true});new PerformanceObserver(l=>{for(const e of l.getEntries())window.__perf.lcp=e.startTime;}).observe({type:'largest-contentful-paint',buffered:true});});
- const route=`/${locale==='vi'?'vi/':''}products`;
+ // Vite preview resolves the prerendered directory index with a trailing slash.
+ const route=`/${locale==='vi'?'vi/':''}products/`;
  await page.goto(base+route,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
  const cat=id=>page.locator(`[data-category-toggle="${id}"]`);const tile=id=>page.locator(`[data-category-tile="${id}"]`);
  const row=id=>page.locator(`[data-product-toggle="${id}"]`);

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
-import { PRODUCTS_PATH, PRODUCT_IMAGE_DIR, cardLink, productsPage, type Product, type ProductCard } from '../i18n/content/products';
+import { PRODUCTS_PATH, cardLink, productImageSources, productsPage, type Product, type ProductCard } from '../i18n/content/products';
 import { productFaq, productPath, relatedProducts } from '../i18n/content/productSeo';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
@@ -72,7 +72,8 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
         <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-label={card.title} data-product={card.id}>
           {card.image ? (
             <img
-              src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
+              {...productImageSources(card.image)}
+              sizes="(min-width: 480px) 384px, calc(100vw - 88px)"
               alt=""
               width={480}
               height={480}

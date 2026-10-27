@@ -33,7 +33,13 @@ export function shouldLoadGa4(host: string, nav?: Partial<Navigator> & { globalP
 
 let loaded = false;
 
-/** Inject gtag.js and configure the property. Safe to call more than once. */
+/**
+ * Configure the property now and inject gtag.js once the page has loaded and the
+ * browser is idle (perf, 27 Oct 2026: the 176 KB script used to download beside
+ * the hero image and pushed mobile LCP past 2.5 s). Calls made before it arrives
+ * queue in dataLayer, exactly as with Google's own async snippet, so no event is
+ * lost. Safe to call more than once.
+ */
 export function loadGa4(): void {
   if (loaded || typeof window === 'undefined' || typeof document === 'undefined') return;
   if (!shouldLoadGa4(window.location.hostname)) return;
@@ -46,10 +52,18 @@ export function loadGa4(): void {
   };
   window.gtag('js', new Date());
   window.gtag('config', GA4_MEASUREMENT_ID);
-  const s = document.createElement('script');
-  s.async = true;
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
-  document.head.appendChild(s);
+  const inject = () => {
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
+    document.head.appendChild(s);
+  };
+  const whenIdle = () => {
+    if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(inject, { timeout: 3000 });
+    else setTimeout(inject, 1500);
+  };
+  if (document.readyState === 'complete') whenIdle();
+  else window.addEventListener('load', whenIdle, { once: true });
 }
 
 /** Send a custom event to GA4 when it is loaded; a no-op otherwise. */
