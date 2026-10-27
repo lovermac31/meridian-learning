@@ -1,6 +1,8 @@
 import type { Locale } from '../i18n/locales';
 import { PRODUCT_IMAGE_DIR, PRODUCTS, PRODUCTS_PATH } from '../i18n/content/products';
 import { WORLDWISE_SITE_URL } from './contactConfig';
+import { usdFromVnd } from './paypal';
+import type { Product } from '../i18n/content/products';
 
 const SITE_URL = 'https://jurassicenglish.com';
 
@@ -282,5 +284,32 @@ export function createProductListJsonLd(locale: Locale): JsonLd {
         },
       },
     })),
+  };
+}
+
+// One product page (/products/<id>, Jay 27 Oct 2026): a Product with its VND Offer and, when the card takes PayPal,
+// the US$ Offer (ceil(VND ÷ 25,897), the price the PayPal button charges). Cards without PayPal get no USD offer.
+export function createProductJsonLd(product: Product, locale: Locale): JsonLd {
+  const pageUrl = `${SITE_URL}${locale === 'vi' ? '/vi' : ''}${PRODUCTS_PATH}/${product.id}`;
+  const vnd = vndPriceValue(product.price);
+  const offer = (price: string, priceCurrency: string) => ({
+    '@type': 'Offer',
+    price,
+    priceCurrency,
+    availability: 'https://schema.org/InStock',
+    url: pageUrl,
+    seller: { '@id': organizationId },
+  });
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': `${pageUrl}#product`,
+    name: product[locale].title,
+    description: `${product[locale].problem} ${product[locale].inside}`,
+    url: pageUrl,
+    sku: product.id,
+    ...(product.image ? { image: `${SITE_URL}${PRODUCT_IMAGE_DIR}/${product.image}.webp` } : {}),
+    brand: { '@type': 'Brand', name: 'Jurassic English' },
+    offers: [offer(vnd, 'VND'), ...(product.paypal ? [offer(String(usdFromVnd(Number(vnd))), 'USD')] : [])],
   };
 }

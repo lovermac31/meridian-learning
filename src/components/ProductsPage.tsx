@@ -15,10 +15,11 @@ import {
 } from '../i18n/content/products';
 import { ToolHero } from './IeltsToolsPage';
 import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
+import { productPath } from '../i18n/content/productSeo';
 import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
 
 /** The visit's utm_source, read after hydration so the prerendered page and the first client render match. */
-function useVisitorSource(): string | null {
+export function useVisitorSource(): string | null {
   const [source, setSource] = useState<string | null>(null);
   useEffect(() => {
     let storage: Storage | null = null;
@@ -39,14 +40,14 @@ export function productHref(href: string, locale: Locale): string {
   return `${base}${base.includes('?') ? '&' : '?'}${PRODUCTS_UTM}${hash ? `#${hash}` : ''}`;
 }
 
-type LeadIns = { problem: string; inside: string; forWho: string };
-type SampleCopy = { heading: string; note: string; open: string };
+export type LeadIns = { problem: string; inside: string; forWho: string };
+export type SampleCopy = { heading: string; note: string; open: string };
 
 // "See a sample" (Jay, 27 Oct 2026): real pages from the product, shown above the price and the order button.
 // Renders only for a card whose sample files are in public/samples (the entry's `sample` stem), so nothing is broken.
 // One button per card: three page thumbnails (decorative) and the visible "See the sample pages" text. It opens the
 // view-only sample viewer; no sample PDF is linked or published (Jay, 27 Oct 2026).
-function Sample({ card, copy, onOpen }: { card: ProductCard; copy: SampleCopy; onOpen: () => void }) {
+export function Sample({ card, copy, onOpen }: { card: ProductCard; copy: SampleCopy; onOpen: () => void }) {
   if (!card.sample) return null;
   const files = productSampleFiles(card.sample);
   return (
@@ -220,7 +221,7 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
 }
 
 // S1: the US$ price by PayPal for international buyers, after the VND order button (VND and VietQR stay first).
-function PayPalOption({ card, locale, source }: { card: ProductCard; locale: Locale; source: string | null }) {
+export function PayPalOption({ card, locale, source }: { card: ProductCard; locale: Locale; source: string | null }) {
   const copy = PAYPAL_CARD_COPY[locale];
   return (
     <div className="mt-3 rounded-xl border border-sb-border p-3" data-paypal={card.id}>
@@ -265,7 +266,12 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }:
         />
       ) : null}
       <p className="text-xs font-bold uppercase tracking-wider text-[#8a5a00]">{card.label}</p>
-      <h3 className="mt-2 text-xl font-bold">{card.title}</h3>
+      <h3 className="mt-2 text-xl font-bold">
+        {/* Each card has its own indexable page (Jay, 27 Oct 2026); the card stays on the hub. */}
+        <a href={getLocalizedHref(productPath(card.id), locale)} className="underline-offset-4 hover:underline" data-product-page={card.id}>
+          {card.title}
+        </a>
+      </h3>
       <dl className="mt-2 flex-1 space-y-2">
         {(['problem', 'inside', 'forWho'] as const).map((key) => (
           <div key={key}>

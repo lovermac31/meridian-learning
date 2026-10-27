@@ -80,8 +80,11 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     assert.equal(PRODUCTS_ZALO, 'https://zalo.me/84396085076?utm_source=products');
     // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch, the sample
     // PDFs (files on this site, not page links) and the PayPal payments (their item name carries the order code).
+    // Product pages (/products/<id>, 27 Oct 2026) stay untagged: they are the same funnel, and a utm_source=products
+    // there would overwrite the visit's real source (e.g. fb-teachers) that the page keeps for the order code.
     const counterpart = route === EN ? VI : EN;
     for (const [, href] of main.matchAll(/href="([^"]+)"/g)) {
+      if (/^(\/vi)?\/products\/[a-z0-9-]+$/.test(href)) continue;
       if (href === counterpart || href.startsWith('#') || /^\/samples\/[^/?#]+-sample\.pdf$/.test(href) || href.startsWith('https://www.paypal.com/cgi-bin/webscr?')) continue;
       assert.match(href, /[?&]utm_source=products(#|$)/, `${route}: ${href}`);
       assert.ok(!/#[^?]*\?/.test(href), `${route}: query before the anchor in ${href}`);
