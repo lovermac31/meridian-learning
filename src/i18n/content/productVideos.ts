@@ -17,8 +17,11 @@ export const VIDEO_LANG_LABELS: Record<VideoLang, string> = { en: 'EN', vi: 'VI'
 export type ProductVideo = {
   // Subtitle files present in public/videos/<slug>/ (VI and 中文 are machine-drafted, awaiting native review).
   langs: VideoLang[];
-  title: Record<Locale, string>;
+  // Product films omit it and show the product's own title.
+  title?: Record<Locale, string>;
 };
+
+const ALL_LANGS: VideoLang[] = [...VIDEO_LANGS];
 
 export const PRODUCT_VIDEOS: Record<string, ProductVideo> = {
   'je-01-the-one-question': { langs: ['en', 'vi', 'zh'], title: { en: 'The one question', vi: 'Một câu hỏi' } },
@@ -27,6 +30,17 @@ export const PRODUCT_VIDEOS: Record<string, ProductVideo> = {
   'je-04-level1-teacher-pack': { langs: ['en', 'vi', 'zh'], title: { en: 'Inside the Level 1 Teacher Pack', vi: 'Bên trong bộ Giáo án Level 1' } },
   'je-05-reasoning-assessment-kit': { langs: ['en', 'vi', 'zh'], title: { en: 'Inside the Reasoning Assessment Kit', vi: 'Bên trong bộ Đánh giá Tư duy' } },
   'je-06-ielts-speaking-ladder': { langs: ['en', 'vi', 'zh'], title: { en: 'Inside the IELTS Speaking Ladder', vi: 'Bên trong IELTS Speaking Ladder' } },
+  // Product films (video factory, batch 1, 27 Oct 2026): slug = product id, one line each.
+  'ielts-writing-ladder-task2': { langs: ALL_LANGS },
+  'ielts-writing-task1-method': { langs: ALL_LANGS },
+  'ielts-writing-teacher-pack': { langs: ALL_LANGS },
+  'teacher-bundle': { langs: ALL_LANGS },
+  'thinking-cycle-set': { langs: ALL_LANGS },
+  'story-club': { langs: ALL_LANGS },
+  'baseline': { langs: ALL_LANGS },
+  'one-to-one': { langs: ALL_LANGS },
+  'printable-pack': { langs: ALL_LANGS },
+  'centre-licence': { langs: ALL_LANGS },
 };
 
 /** Films 01–03 on /story-club and /vi/story-club, in this order. */

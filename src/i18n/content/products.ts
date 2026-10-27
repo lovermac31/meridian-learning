@@ -82,6 +82,7 @@ export type Product = {
 export const PRODUCTS: Product[] = [
   {
     id: 'story-club',
+    video: 'story-club',
     live: true,
     section: 'families',
     price: '590.000₫',
@@ -109,6 +110,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'baseline',
+    video: 'baseline',
     live: true,
     section: 'families',
     price: '690.000₫',
@@ -136,6 +138,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'one-to-one',
+    video: 'one-to-one',
     live: true,
     section: 'families',
     price: '800.000₫',
@@ -163,6 +166,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'printable-pack',
+    video: 'printable-pack',
     live: true,
     section: 'families',
     price: '149.000₫',
@@ -396,6 +400,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-bundle',
+    video: 'teacher-bundle',
     live: true,
     section: 'teachers',
     price: '2.900.000₫',
@@ -575,6 +580,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'thinking-cycle-set',
+    video: 'thinking-cycle-set',
     live: true,
     section: 'teachers',
     price: '490.000₫',
@@ -664,6 +670,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-writing-ladder-task2',
+    video: 'ielts-writing-ladder-task2',
     live: true,
     section: 'teachers',
     price: '390.000₫',
@@ -693,6 +700,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-writing-task1-method',
+    video: 'ielts-writing-task1-method',
     live: true,
     section: 'teachers',
     price: '290.000₫',
@@ -722,6 +730,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ielts-writing-teacher-pack',
+    video: 'ielts-writing-teacher-pack',
     live: true,
     section: 'teachers',
     price: '690.000₫',
@@ -751,6 +760,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'centre-licence',
+    video: 'centre-licence',
     live: true,
     section: 'centres',
     price: '4.900.000₫',

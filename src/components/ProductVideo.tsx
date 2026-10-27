@@ -14,7 +14,7 @@ import {
  * (preload="none"). The 16:9 box is reserved before anything loads, so the page does not shift.
  * The subtitle picker switches the video's text tracks; it starts on the page's language.
  */
-export function ProductVideo({ slug, locale, id }: { slug: string; locale: Locale; id?: string }) {
+export function ProductVideo({ slug, locale, id, fallbackTitle = '' }: { slug: string; locale: Locale; id?: string; fallbackTitle?: string }) {
   const film = PRODUCT_VIDEOS[slug];
   const [lang, setLang] = useState<VideoLang>(() => defaultVideoLang(slug, locale));
   const ref = useRef<HTMLVideoElement>(null);
@@ -29,6 +29,7 @@ export function ProductVideo({ slug, locale, id }: { slug: string; locale: Local
   const files = videoFiles(slug);
   const copy = VIDEO_COPY[locale];
   const pickerId = `${slug}-subtitles`;
+  const title = film.title?.[locale] ?? fallbackTitle;
   return (
     <figure id={id} className="mt-4 scroll-mt-24" data-product-video={slug}>
       <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-[#101820]">
@@ -40,7 +41,7 @@ export function ProductVideo({ slug, locale, id }: { slug: string; locale: Local
           playsInline
           preload="none"
           poster={files.poster}
-          aria-label={film.title[locale]}
+          aria-label={title}
           data-video-player={slug}
         >
           <source src={files.src} type="video/mp4" />
@@ -50,7 +51,7 @@ export function ProductVideo({ slug, locale, id }: { slug: string; locale: Local
         </video>
       </div>
       <figcaption className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
-        <span className="font-bold">{film.title[locale]}</span>
+        <span className="font-bold">{title}</span>
         <span id={pickerId} className="sr-only">{copy.subtitles}</span>
         <span aria-hidden="true">{copy.subtitles}:</span>
         <span role="group" aria-labelledby={pickerId} className="inline-flex rounded-full border border-sb-border p-0.5">

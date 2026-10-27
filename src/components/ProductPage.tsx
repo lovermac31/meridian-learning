@@ -82,7 +82,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
               </div>
             ))}
           </dl>
-          {card.video ? <ProductVideo slug={card.video} locale={locale} id={PRODUCT_VIDEO_ANCHOR} /> : null}
+          {card.video ? <ProductVideo slug={card.video} locale={locale} id={PRODUCT_VIDEO_ANCHOR} fallbackTitle={card.title} /> : null}
           <Sample card={card} copy={c.sample} onOpen={() => setViewer(true)} />
           <p className="mt-4 text-2xl font-bold" data-price={card.id}>
             {card.price} <span className="text-base font-semibold">{card.unit}</span>

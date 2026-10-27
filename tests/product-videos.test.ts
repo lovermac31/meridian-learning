@@ -29,6 +29,17 @@ test('films: each sales film sits on its own product', async () => {
     'teacher-pack-l1': 'je-04-level1-teacher-pack',
     'reasoning-assessment-kit': 'je-05-reasoning-assessment-kit',
     'ielts-speaking-ladder': 'je-06-ielts-speaking-ladder',
+    // Batch 1 product films: the film's folder is the product id.
+    'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2',
+    'ielts-writing-task1-method': 'ielts-writing-task1-method',
+    'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack',
+    'teacher-bundle': 'teacher-bundle',
+    'thinking-cycle-set': 'thinking-cycle-set',
+    'story-club': 'story-club',
+    'baseline': 'baseline',
+    'one-to-one': 'one-to-one',
+    'printable-pack': 'printable-pack',
+    'centre-licence': 'centre-licence',
   });
 });
 
@@ -61,16 +72,21 @@ test('films: the product page plays the film muted, on demand, above the sample,
     assert.ok(html.indexOf('data-product-video=') < html.indexOf('data-sample="teacher-pack-l1"'), `${route}: film above the sample`);
     assert.match(html, /id="video"[^>]*data-product-video="je-04-level1-teacher-pack"/, `${route}: #video anchor`);
   }
-  assert.doesNotMatch(await renderRoute('/products/baseline'), /<video\b/, 'no film, no player');
+  // A product film without its own title shows the product's title.
+  const baseline = await renderRoute('/vi/products/baseline');
+  assert.match(baseline, /data-product-video="baseline"/, 'baseline film on its page');
+  assert.match(videoTag(baseline), /aria-label="[^"]+"/, 'product film is labelled');
+  assert.doesNotMatch(await renderRoute('/products/curriculum-overview'), /<video\b/, 'no film, no player');
 });
 
 test('films: /products shows a Watch link to the product page, never a player; /story-club shows films 01–03', async () => {
   const { renderRoute } = await import('../src/entry-server');
+  const { PRODUCTS } = await import('../src/i18n/content/products');
   for (const [route, label] of [['/products', 'Watch'], ['/vi/products', 'Xem video']] as const) {
     const html = await renderRoute(route);
     assert.doesNotMatch(html, /<video\b/, `${route}: stays light`);
     const watch = [...html.matchAll(/<a href="([^"]+)"[^>]*data-watch="([^"]+)"[^>]*>[\s\S]*?<\/a>/g)];
-    assert.deepEqual(watch.map((m) => m[2]).sort(), ['ielts-speaking-ladder', 'reasoning-assessment-kit', 'teacher-pack-l1'], route);
+    assert.deepEqual(watch.map((m) => m[2]).sort(), PRODUCTS.filter((p) => p.live && p.video).map((p) => p.id).sort(), route);
     for (const m of watch) {
       assert.equal(m[1], `${route === '/vi/products' ? '/vi' : ''}/products/${m[2]}#video`);
       assert.match(m[0], new RegExp(label));
