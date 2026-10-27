@@ -271,7 +271,7 @@ function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas, payp
 }) {
   const rtl = locale === 'ar' || locale === 'ur';
   return <header className="insights-hero" dir={rtl ? 'rtl' : 'ltr'}>
-    <picture className="insights-compass" aria-hidden="true"><source media="(max-width: 640px)" srcSet="/images/hero-compass-640.webp" /><img src="/images/hero-compass-960.webp" width="960" height="960" alt="" /></picture>
+    <picture className="insights-compass" aria-hidden="true"><source media="(max-width: 640px)" srcSet="/images/hero-compass-bg-640.webp" /><img src="/images/hero-compass-bg-960.webp" width="960" height="960" alt="" fetchPriority="high" /></picture>
     <div className="insights-hero-inner">
       <div className="min-w-0">
         <p className="insights-eyebrow">{eyebrow}</p>
