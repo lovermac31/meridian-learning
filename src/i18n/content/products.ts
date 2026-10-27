@@ -75,6 +75,7 @@ export const PRODUCTS: Product[] = [
     price: '590.000₫',
     href: '/story-club',
     image: 'story-club',
+    sample: 'story-club',
     en: {
       label: 'Live online group',
       title: 'Story Club with Mr. Jay',
@@ -101,6 +102,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: '/ai-speaking/baseline',
     image: 'baseline',
+    sample: 'baseline',
     en: {
       label: 'Live online · one session',
       title: 'Live Speaking Baseline',
@@ -127,6 +129,7 @@ export const PRODUCTS: Product[] = [
     price: '800.000₫',
     href: '/ai-speaking/lessons',
     image: 'one-to-one',
+    sample: 'one-to-one',
     en: {
       label: 'Live online · private',
       title: '1-to-1 lessons with Mr. Jay’s team',
