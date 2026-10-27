@@ -450,6 +450,15 @@
       ]
     },
     {
+      "source": "/samples/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, noimageindex"
+        }
+      ]
+    },
+    {
       "source": "/film/:token/media/(.*)",
       "headers": [
         {

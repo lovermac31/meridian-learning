@@ -23,6 +23,7 @@
  * the Teacher Pack says the lessons use 10 widely available picture books.
  */
 import type { Locale } from '../locales';
+import { SAMPLE_PAGE_COUNTS } from './samplePages';
 
 export const PRODUCTS_PATH = '/products';
 export const PRODUCTS_VI_PATH = '/vi/products';
@@ -30,8 +31,8 @@ export const PRODUCTS_UTM = 'utm_source=products';
 export const PRODUCTS_ZALO = `https://zalo.me/84396085076?${PRODUCTS_UTM}`;
 export const PRODUCT_IMAGE_DIR = '/images/products';
 // Public sample of each product (Jay, 27 Oct 2026: "Everybody has to see the samples" before a price or a booking):
-// <stem>-sample.pdf plus three page thumbnails <stem>-p1.webp … -p3.webp, made by the factory sessions to the
-// master's SAMPLES-AND-BRANDED-PDF-SPEC.
+// three card thumbnails <stem>-p1.webp … -p3.webp and, in the view-only sample viewer, the watermarked page set
+// pages/<stem>-pgNN.webp (samplePages.ts). No sample PDF is published (Jay, 27 Oct 2026: no download, no print).
 export const PRODUCT_SAMPLE_DIR = '/samples';
 
 export const PRODUCT_SECTIONS = ['families', 'teachers', 'centres'] as const;
@@ -70,6 +71,8 @@ export type Product = {
   // File stem of the product's public sample in public/samples. Set it only once all four files are in the repo
   // (a test checks both ways), so the "See a sample" block never shows a broken link.
   sample?: string;
+  // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
+  alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
   vi: CardText;
 };
@@ -181,6 +184,64 @@ export const PRODUCTS: Product[] = [
       problem: 'Con thích đọc truyện miễn phí trên màn hình, nhưng bố mẹ muốn có truyện in để cùng đọc với con, kèm hoạt động giúp con nói về câu chuyện.',
       inside: 'Bản PDF sẵn sàng để in của 3 cuốn truyện gốc Jurassic English Level 1 (Mina and the Midnight Drum, The Lantern With Two Handles, Lina and the Orchard Map) kèm sách hoạt động và giấy chứng nhận.',
       forWho: 'Gia đình có bé 4–8 tuổi. Bản quyền cho một gia đình: in bao nhiêu bản cũng được để dùng trong nhà.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'parent-pack-l1',
+    live: true,
+    section: 'families',
+    price: '249.000₫',
+    href: 'zalo',
+    image: 'parent-pack-l1',
+    sample: 'parent-pack-l1',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · families',
+      title: 'Level 1 Parent Home Reading Pack',
+      problem: 'You want to read English with your child at home but are not sure what to do or say, especially if your own English feels rusty.',
+      inside: 'A parent guide in English and Vietnamese with a ten-minute daily routine, the three original Level 1 storybooks, 12 activity pages, and a progress chart with a certificate: 46 printable A4 pages for six weeks of reading together.',
+      forWho: 'Parents of children aged 4–8 (CEFR Pre-A1 → A1). No teaching experience needed. One-family licence, printable at home.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · gia đình',
+      title: 'Bộ đọc sách tại nhà cho phụ huynh Level 1',
+      problem: 'Bạn muốn đọc tiếng Anh cùng con ở nhà nhưng chưa biết nên làm gì, nói gì, nhất là khi tiếng Anh của bạn đã lâu không dùng.',
+      inside: 'Hướng dẫn cho phụ huynh bằng tiếng Anh và tiếng Việt với nếp đọc mười phút mỗi ngày, ba truyện tranh gốc Level 1, 12 trang hoạt động và bảng theo dõi tiến bộ kèm giấy khen: 46 trang A4 in được cho sáu tuần đọc cùng con.',
+      forWho: 'Phụ huynh có con 4–8 tuổi (CEFR Pre-A1 → A1). Không cần kinh nghiệm dạy học. Bản quyền cho một gia đình, in tại nhà.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'parent-pack-l2',
+    live: true,
+    section: 'families',
+    price: '249.000₫',
+    href: 'zalo',
+    image: 'parent-pack-l2',
+    sample: 'parent-pack-l2',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · families',
+      title: 'Level 2 Parent Home Reading Pack',
+      problem: 'Your 8–10 year old reads English alone now, but rarely explains what a story means or backs up an idea with evidence.',
+      inside: 'A parent guide in English and Vietnamese with a fifteen-minute daily routine, two original Level 2 storybooks with their activity pages, and a progress chart: 34 printable A4 pages for four weeks of reading together.',
+      forWho: 'Parents of children aged 8–10 (CEFR A1 → A2). No teaching experience needed. One-family licence, printable at home.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · gia đình',
+      title: 'Bộ đọc sách tại nhà cho phụ huynh Level 2',
+      problem: 'Con 8–10 tuổi đã tự đọc tiếng Anh, nhưng hiếm khi giải thích ý nghĩa câu chuyện hay dùng chi tiết trong truyện để chứng minh ý kiến.',
+      inside: 'Hướng dẫn cho phụ huynh bằng tiếng Anh và tiếng Việt với nếp đọc mười lăm phút mỗi ngày, hai truyện tranh gốc Level 2 kèm trang hoạt động, và bảng theo dõi tiến bộ: 34 trang A4 in được cho bốn tuần đọc cùng con.',
+      forWho: 'Phụ huynh có con 8–10 tuổi (CEFR A1 → A2). Không cần kinh nghiệm dạy học. Bản quyền cho một gia đình, in tại nhà.',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
@@ -356,6 +417,156 @@ export const PRODUCTS: Product[] = [
       inside: 'Cả năm Bộ tài liệu Giáo viên: chương trình học, Sổ tay triển khai và 40 giáo án cho mỗi cấp độ, tổng cộng 200 giáo án.',
       forWho: 'Một giáo viên đứng tên dạy nhiều cấp độ. Mua lẻ, năm bộ có giá 3.450.000₫. Giáo án được xây dựng trên các cuốn sách đã xuất bản, giáo viên tự chuẩn bị.',
       unit: 'mua một lần · cả 5 cấp độ',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l1',
+    live: true,
+    section: 'teachers',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l1',
+    sample: 'student-workbook-l1',
+    delivery: true,
+    paypal: true,
+    alsoIn: {
+      section: 'families',
+      en: 'Doing Level 1 at home? The {link} has a page for every lesson: {price} a learner, using 10 picture books you provide.',
+      vi: 'Học Level 1 ở nhà? {link} có một trang cho mỗi bài học: {price} mỗi học viên, dùng 10 cuốn sách tranh bạn tự chuẩn bị.',
+    },
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 1 Student Workbook',
+      problem: 'Your Level 1 learners need their own page for every lesson, and copying worksheets together each week takes hours.',
+      inside: '63 printable A4 pages: 40 lesson pages (Dig, Weigh, Because, Show) in the order of the Level 1 Teacher Pack, 10 story openers, a Thinking Passport, a word wall and a certificate. You receive the PDF and editable Google Docs.',
+      forWho: 'Children aged 4–8 doing Level 1 with a teacher, tutor or parent. The lessons use 10 widely available picture books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 1',
+      problem: 'Học viên Level 1 cần trang riêng cho mỗi bài học, còn tự photo phiếu bài tập mỗi tuần thì tốn hàng giờ.',
+      inside: '63 trang A4 in được: 40 trang theo từng bài (Dig, Weigh, Because, Show) đúng thứ tự Bộ tài liệu Giáo viên Level 1, 10 trang mở đầu truyện, Hộ chiếu tư duy, bức tường từ vựng và giấy khen. Bạn nhận file PDF và Google Docs chỉnh sửa được.',
+      forWho: 'Trẻ 4–8 tuổi học Level 1 cùng giáo viên, gia sư hoặc phụ huynh. Bài học dùng 10 cuốn sách tranh phổ biến, bạn tự chuẩn bị. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l2',
+    live: true,
+    section: 'teachers',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l2',
+    sample: 'student-workbook-l2',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 2 Student Workbook',
+      problem: 'Your Level 2 learners need their own organiser for every lesson, and building those pages each week takes hours.',
+      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 2 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
+      forWho: 'Learners aged 8–10 (CEFR A1 → A2) following Level 2 Development with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 2',
+      problem: 'Học viên Level 2 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 2, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
+      forWho: 'Học viên 8–10 tuổi (CEFR A1 → A2) học Level 2 Development cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l3',
+    live: true,
+    section: 'teachers',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l3',
+    sample: 'student-workbook-l3',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 3 Student Workbook',
+      problem: 'Your Level 3 learners need their own organiser for every lesson, and building those pages each week takes hours.',
+      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 3 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
+      forWho: 'Learners aged 10–12 (CEFR A2 → B1) following Level 3 Expansion with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 3',
+      problem: 'Học viên Level 3 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 3, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
+      forWho: 'Học viên 10–12 tuổi (CEFR A2 → B1) học Level 3 Expansion cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l4',
+    live: true,
+    section: 'teachers',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l4',
+    sample: 'student-workbook-l4',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 4 Student Workbook',
+      problem: 'Your Level 4 learners need their own organiser for every lesson, and building those pages each week takes hours.',
+      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 4 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
+      forWho: 'Learners aged 12–14 (CEFR B1 → B2) following Level 4 Mastery with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 4',
+      problem: 'Học viên Level 4 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 4, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
+      forWho: 'Học viên 12–14 tuổi (CEFR B1 → B2) học Level 4 Mastery cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l5',
+    live: true,
+    section: 'teachers',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l5',
+    sample: 'student-workbook-l5',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 5 Student Workbook',
+      problem: 'Your Level 5 learners need their own organiser for every lesson, and building those pages each week takes hours.',
+      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 5 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
+      forWho: 'Learners aged 14+ (CEFR B2 → C1) following Level 5 Advanced with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 5',
+      problem: 'Học viên Level 5 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 5, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
+      forWho: 'Học viên từ 14 tuổi (CEFR B2 → C1) học Level 5 Advanced cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
   },
@@ -571,6 +782,7 @@ type PageCopy = {
   delivery: string;
   leadIns: { problem: string; inside: string; forWho: string };
   sample: { heading: string; note: string; open: string };
+  viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   closing: { heading: string; body: string; cta: string };
 };
@@ -583,7 +795,8 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Jurassic English home',
     delivery: 'Pay by VietQR after a written order summary; your files arrive by Google Drive within 24 hours.',
     leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for' },
-    sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'Open the sample (PDF)' },
+    sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'See the sample pages' },
+    viewer: { title: 'Sample pages', prev: 'Previous page', next: 'Next page', close: 'Close', counter: 'Page {n} of {total}', end: 'That’s the sample. Ready to order?', viewOnly: 'Sample pages are for viewing only.' },
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
@@ -599,7 +812,8 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Trang chủ Jurassic English',
     delivery: 'Thanh toán qua VietQR sau khi nhận bản tóm tắt đơn hàng; tài liệu được gửi qua Google Drive trong vòng 24 giờ.',
     leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho' },
-    sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Mở bản mẫu (PDF)' },
+    sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Xem các trang mẫu' },
+    viewer: { title: 'Trang mẫu', prev: 'Trang trước', next: 'Trang sau', close: 'Đóng', counter: 'Trang {n}/{total}', end: 'Đó là bản mẫu. Sẵn sàng đặt mua?', viewOnly: 'Trang mẫu chỉ để xem.' },
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
@@ -624,6 +838,11 @@ export function productsPage(locale: Locale) {
           id: cardId, price, href, delivery, image, sample, paypal, ...text,
         }),
       ),
+      // One-line pointers to a card listed in another section ({link} becomes a link to that card).
+      also: PRODUCTS.filter((p) => p.live && p.alsoIn?.section === id).map((p) => {
+        const [before, after] = p.alsoIn![locale].replace('{price}', p.price).split('{link}');
+        return { id: p.id, title: p[locale].title, before, after };
+      }),
     })).filter((section) => section.cards.length > 0),
   };
 }
@@ -632,9 +851,14 @@ export const productsContent: Record<Locale, ReturnType<typeof productsPage>> = 
 
 /** The sample's PDF and its three page thumbnails, from a product's sample stem. */
 export function productSampleFiles(stem: string) {
+  const thumbs = [1, 2, 3].map((n) => `${PRODUCT_SAMPLE_DIR}/${stem}-p${n}.webp`);
+  const count = SAMPLE_PAGE_COUNTS[stem] ?? 0;
   return {
-    pdf: `${PRODUCT_SAMPLE_DIR}/${stem}-sample.pdf`,
-    pages: [1, 2, 3].map((n) => `${PRODUCT_SAMPLE_DIR}/${stem}-p${n}.webp`),
+    thumbs,
+    // The viewer's pages: the full watermarked set, or the three thumbnails until that set lands.
+    pages: count
+      ? Array.from({ length: count }, (_, i) => `${PRODUCT_SAMPLE_DIR}/pages/${stem}-pg${String(i + 1).padStart(2, '0')}.webp`)
+      : thumbs,
   };
 }
 
