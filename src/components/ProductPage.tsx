@@ -72,7 +72,8 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
         <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-label={card.title} data-product={card.id}>
           {card.image ? (
             <img
-              src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
+              {...productImageSources(card.image)}
+              sizes="(min-width: 480px) 384px, calc(100vw - 88px)"
               alt=""
               width={480}
               height={480}

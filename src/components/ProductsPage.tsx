@@ -9,7 +9,7 @@ import {
   PRODUCTS_UTM,
   PRODUCTS_VI_PATH,
   PRODUCTS_ZALO,
-  PRODUCT_IMAGE_DIR,
+  productImageSources,
   productSampleAnchor,
   productSampleFiles,
   productsPage,
@@ -309,7 +309,8 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
         {card.image ? (
           // Decorative: the card title follows as a heading, so the image has empty alt text.
           <img
-            src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
+            {...productImageSources(card.image)}
+            sizes="80px"
             alt=""
             width={480}
             height={480}

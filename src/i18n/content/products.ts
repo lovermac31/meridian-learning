@@ -35,6 +35,18 @@ export const PRODUCT_IMAGE_DIR = '/images/products';
 // pages/<stem>-pgNN.webp (samplePages.ts). No sample PDF is published (Jay, 27 Oct 2026: no download, no print).
 export const PRODUCT_SAMPLE_DIR = '/samples';
 
+/**
+ * Responsive sources for a product's 800 px card image (perf, 27 Oct 2026): 400/600 px copies live in w/.
+ * Cards show it at ~300 px (phone) to ~440 px (two-column desktop); the product page caps it at 384 px.
+ */
+export function productImageSources(image: string) {
+  const w = `${PRODUCT_IMAGE_DIR}/w/${image}`;
+  return {
+    src: `${PRODUCT_IMAGE_DIR}/${image}.webp`,
+    srcSet: `${w}-400.webp 400w, ${w}-600.webp 600w, ${PRODUCT_IMAGE_DIR}/${image}.webp 800w`,
+  };
+}
+
 // #ielts (Jay, 27 Oct 2026: "Everything has to be in the right categories"): the IELTS packs for teens and adults, in a
 // Speaking and a Writing group, each linked to its IELTS home page on /ai-speaking.
 export const PRODUCT_SECTIONS = ['families', 'teachers', 'centres', 'ielts'] as const;
@@ -1261,6 +1273,8 @@ export function productSampleFiles(stem: string) {
   const count = SAMPLE_PAGE_COUNTS[stem] ?? 0;
   return {
     thumbs,
+    // 300 px copies in small/ for the ~90–130 px card slots; the 600 px originals stay for sharp screens.
+    thumbSrcSets: [1, 2, 3].map((n) => `${PRODUCT_SAMPLE_DIR}/small/${stem}-p${n}.webp 300w, ${PRODUCT_SAMPLE_DIR}/${stem}-p${n}.webp 600w`),
     // The viewer's pages: the full watermarked set, or the three thumbnails until that set lands.
     pages: count
       ? Array.from({ length: count }, (_, i) => `${PRODUCT_SAMPLE_DIR}/pages/${stem}-pg${String(i + 1).padStart(2, '0')}.webp`)
