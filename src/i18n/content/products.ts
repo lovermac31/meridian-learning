@@ -29,6 +29,10 @@ export const PRODUCTS_VI_PATH = '/vi/products';
 export const PRODUCTS_UTM = 'utm_source=products';
 export const PRODUCTS_ZALO = `https://zalo.me/84396085076?${PRODUCTS_UTM}`;
 export const PRODUCT_IMAGE_DIR = '/images/products';
+// Public sample of each product (Jay, 27 Oct 2026: "Everybody has to see the samples" before a price or a booking):
+// <stem>-sample.pdf plus three page thumbnails <stem>-p1.webp … -p3.webp, made by the factory sessions to the
+// master's SAMPLES-AND-BRANDED-PDF-SPEC.
+export const PRODUCT_SAMPLE_DIR = '/samples';
 
 export const PRODUCT_SECTIONS = ['families', 'teachers', 'centres'] as const;
 export type ProductSectionId = (typeof PRODUCT_SECTIONS)[number];
@@ -60,6 +64,9 @@ export type Product = {
   delivery?: boolean;
   // File name (no extension) of the card's square WebP in public/images/products.
   image?: string;
+  // File stem of the product's public sample in public/samples. Set it only once all four files are in the repo
+  // (a test checks both ways), so the "See a sample" block never shows a broken link.
+  sample?: string;
   en: CardText;
   vi: CardText;
 };
@@ -72,6 +79,7 @@ export const PRODUCTS: Product[] = [
     price: '590.000₫',
     href: '/story-club',
     image: 'story-club',
+    sample: 'story-club',
     en: {
       label: 'Live online group',
       title: 'Story Club with Mr. Jay',
@@ -98,6 +106,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: '/ai-speaking/baseline',
     image: 'baseline',
+    sample: 'baseline',
     en: {
       label: 'Live online · one session',
       title: 'Live Speaking Baseline',
@@ -124,6 +133,7 @@ export const PRODUCTS: Product[] = [
     price: '800.000₫',
     href: '/ai-speaking/lessons',
     image: 'one-to-one',
+    sample: 'one-to-one',
     en: {
       label: 'Live online · private',
       title: '1-to-1 lessons with Mr. Jay’s team',
@@ -150,6 +160,7 @@ export const PRODUCTS: Product[] = [
     price: '149.000₫',
     href: 'zalo',
     image: 'printable-pack-l1',
+    sample: 'printable-pack-l1',
     delivery: true,
     en: {
       label: 'Digital download',
@@ -177,6 +188,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l1',
+    sample: 'teacher-pack-l1',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -204,6 +216,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l2',
+    sample: 'teacher-pack-l2',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -231,6 +244,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l3',
+    sample: 'teacher-pack-l3',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -258,6 +272,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l4',
+    sample: 'teacher-pack-l4',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -285,6 +300,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l5',
+    sample: 'teacher-pack-l5',
     delivery: true,
     en: {
       label: 'Digital download · one teacher',
@@ -312,6 +328,7 @@ export const PRODUCTS: Product[] = [
     price: '2.900.000₫',
     href: 'zalo',
     image: 'teacher-bundle',
+    sample: 'teacher-bundle',
     delivery: true,
     en: {
       label: 'Digital download · one teacher · Levels 1–5',
@@ -340,6 +357,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'thinking-cycle-set',
+    sample: 'thinking-cycle-set',
     en: {
       label: 'Digital download · teachers and tutors',
       title: 'Jurassic Thinking Cycle Manual Set',
@@ -367,6 +385,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'reasoning-assessment-kit',
+    sample: 'reasoning-assessment-kit',
     en: {
       label: 'Digital download · teachers and centres',
       title: 'Reasoning Assessment Kit, Levels 1–5',
@@ -394,6 +413,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'ielts-speaking-ladder',
+    sample: 'ielts-speaking-ladder',
     en: {
       label: 'Digital download · learners and tutors',
       title: 'IELTS Speaking Ladder Pack',
@@ -420,6 +440,7 @@ export const PRODUCTS: Product[] = [
     price: '4.900.000₫',
     href: 'zalo',
     image: 'centre-licence',
+    sample: 'centre-licence',
     delivery: true,
     en: {
       label: 'Founding price',
@@ -448,6 +469,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'teacher-training-course',
+    sample: 'teacher-training-course',
     en: {
       label: 'Digital course · one centre',
       title: 'Teacher Training Course (train-the-trainer)',
@@ -475,6 +497,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'pilot-class-kit',
+    sample: 'pilot-class-kit',
     en: {
       label: 'Digital kit · one centre · 6–8 weeks',
       title: 'Pilot Class Launch Kit',
@@ -502,6 +525,7 @@ export const PRODUCTS: Product[] = [
     href: 'zalo',
     delivery: true,
     image: 'curriculum-overview',
+    sample: 'curriculum-overview',
     en: {
       label: 'Digital · schools and centres',
       title: 'Curriculum Overview for Schools, Levels 1–5',
@@ -530,6 +554,7 @@ type PageCopy = {
   back: string;
   delivery: string;
   leadIns: { problem: string; inside: string; forWho: string };
+  sample: { heading: string; note: string; open: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   closing: { heading: string; body: string; cta: string };
 };
@@ -542,6 +567,7 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Jurassic English home',
     delivery: 'Pay by VietQR after a written order summary; your files arrive by Google Drive within 24 hours.',
     leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for' },
+    sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'Open the sample (PDF)' },
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
@@ -557,6 +583,7 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Trang chủ Jurassic English',
     delivery: 'Thanh toán qua VietQR sau khi nhận bản tóm tắt đơn hàng; tài liệu được gửi qua Google Drive trong vòng 24 giờ.',
     leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho' },
+    sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Mở bản mẫu (PDF)' },
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
@@ -566,7 +593,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image'>;
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample'>;
 
 /** The page in one language: its copy, and the sections in order with their cards from PRODUCTS. */
 export function productsPage(locale: Locale) {
@@ -577,10 +604,23 @@ export function productsPage(locale: Locale) {
       id,
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
-        ({ id: cardId, price, href, delivery, image, [locale]: text }): ProductCard => ({ id: cardId, price, href, delivery, image, ...text }),
+        ({ id: cardId, price, href, delivery, image, sample, [locale]: text }): ProductCard => ({
+          id: cardId, price, href, delivery, image, sample, ...text,
+        }),
       ),
     })).filter((section) => section.cards.length > 0),
   };
 }
 
 export const productsContent: Record<Locale, ReturnType<typeof productsPage>> = { en: productsPage('en'), vi: productsPage('vi') };
+
+/** The sample's PDF and its three page thumbnails, from a product's sample stem. */
+export function productSampleFiles(stem: string) {
+  return {
+    pdf: `${PRODUCT_SAMPLE_DIR}/${stem}-sample.pdf`,
+    pages: [1, 2, 3].map((n) => `${PRODUCT_SAMPLE_DIR}/${stem}-p${n}.webp`),
+  };
+}
+
+/** Anchor of a card's sample block on /products. */
+export const productSampleAnchor = (id: string) => `${id}-sample`;

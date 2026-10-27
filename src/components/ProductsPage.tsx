@@ -8,6 +8,8 @@ import {
   PRODUCTS_VI_PATH,
   PRODUCTS_ZALO,
   PRODUCT_IMAGE_DIR,
+  productSampleAnchor,
+  productSampleFiles,
   productsPage,
   type ProductCard,
 } from '../i18n/content/products';
@@ -38,8 +40,50 @@ export function productHref(href: string, locale: Locale): string {
 }
 
 type LeadIns = { problem: string; inside: string; forWho: string };
+type SampleCopy = { heading: string; note: string; open: string };
 
-function Card({ card, locale, delivery, leadIns, source }: { card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; source: string | null }) {
+// "See a sample" (Jay, 27 Oct 2026): real pages from the product, shown above the price and the order button.
+// Renders only for a card whose sample files are in public/samples (the entry's `sample` stem), so nothing is broken.
+// One link per card: three page thumbnails (decorative) and the visible "Open the sample (PDF)" text.
+function Sample({ card, copy }: { card: ProductCard; copy: SampleCopy }) {
+  if (!card.sample) return null;
+  const files = productSampleFiles(card.sample);
+  return (
+    <div id={productSampleAnchor(card.id)} className="mt-4 scroll-mt-24 rounded-xl border border-sb-border bg-sb-cream p-3" data-sample={card.id}>
+      <p className="text-sm font-bold">{copy.heading}</p>
+      <p className="text-sm">{copy.note}</p>
+      <a
+        href={files.pdf}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${copy.open}: ${card.title}`}
+        className="group mt-2 block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+        data-sample-link={card.id}
+      >
+        <span className="grid grid-cols-3 gap-2">
+          {files.pages.map((src) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              width={600}
+              height={849}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[210/297] w-full rounded border border-sb-border bg-white object-cover object-top"
+              data-sample-page={card.id}
+            />
+          ))}
+        </span>
+        <span className="mt-2 inline-block text-sm font-bold underline underline-offset-4 group-hover:text-sb-amber-deep">{copy.open}</span>
+      </a>
+    </div>
+  );
+}
+
+function Card({ card, locale, delivery, leadIns, sample, source }: {
+  card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
+}) {
   const external = card.href === 'zalo';
   const href = external ? zaloHref(source) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
@@ -71,6 +115,7 @@ function Card({ card, locale, delivery, leadIns, source }: { card: ProductCard; 
           </div>
         ))}
       </dl>
+      <Sample card={card} copy={sample} />
       <p className="mt-4 text-2xl font-bold" data-price={card.id}>
         {card.price} <span className="text-base font-semibold">{card.unit}</span>
       </p>
@@ -116,7 +161,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
             <p className="mt-2 text-lg">{section.intro}</p>
             <ul className="mt-6 grid gap-4 md:grid-cols-2">
               {section.cards.map((card) => (
-                <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} source={source} />
+                <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} />
               ))}
             </ul>
           </section>
