@@ -78,7 +78,7 @@ test('market order codes: the Sale Team table maps each market-<country> source 
 const USD: Record<string, number> = {
   'printable-pack': 6, 'parent-pack-l1': 10, 'parent-pack-l2': 10, 'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27,
   'teacher-pack-l5': 27, 'teacher-bundle': 112, 'student-workbook-l1': 8, 'student-workbook-l2': 8, 'student-workbook-l3': 8, 'student-workbook-l4': 8, 'student-workbook-l5': 8, 'thinking-cycle-set': 19, 'reasoning-assessment-kit': 16,
-  'ielts-speaking-ladder': 16, 'teacher-training-course': 58, 'pilot-class-kit': 27, 'curriculum-overview': 12,
+  'ielts-speaking-ladder': 16, 'ielts-writing-ladder-task2': 16, 'ielts-writing-task1-method': 12, 'ielts-writing-teacher-pack': 27, 'teacher-training-course': 58, 'pilot-class-kit': 27, 'curriculum-overview': 12,
 };
 
 test('S1: the 13 digital cards take PayPal at the approved US$ prices; the Centre Licence and live services do not', () => {
