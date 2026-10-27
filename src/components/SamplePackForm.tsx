@@ -50,6 +50,7 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
           name: String(data.get('name') ?? ''),
           contact,
           childAge: String(data.get('childAge') ?? ''),
+          teacher: data.get('teacher') === 'on',
           consent: true,
           locale,
           placement,
@@ -109,6 +110,10 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
                 <input className={FIELD} name="childAge" type="text" inputMode="numeric" maxLength={2} pattern="[0-9]*" />
               </label>
             </div>
+            <label className="flex items-center gap-3 text-sm text-sb-ink">
+              <input type="checkbox" name="teacher" className="h-5 w-5 flex-none accent-sb-amber-deep" />
+              <span>{copy.teacher}</span>
+            </label>
             {/* Honeypot: people never see or fill it. */}
             <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
             <label className="flex items-start gap-3 text-sm text-sb-ink">

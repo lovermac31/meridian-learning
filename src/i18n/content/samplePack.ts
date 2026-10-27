@@ -3,12 +3,13 @@ import type { Locale } from '../locales';
 // The one lead capture (website assessment, 27 Oct 2026, lead-capture spec): a free sample pack for a Zalo number or an
 // email. The offer and consent lines are the assessment's validated EN/VI copy; the form chrome is short and plain.
 // The pack is the existing view-only samples on /products (no PDF): a storybook (Story Club), an activity page
-// (Printable Pack) and a lesson plan (Level 1 Teacher Pack).
+// (Printable Pack) and a lesson plan (Level 1 Teacher Pack), plus the Live Speaking Baseline's sample report (master).
 export type SamplePackCopy = {
   heading: string;
   name: string;
   contact: string;
   childAge: string;
+  teacher: string;
   consent: string;
   privacy: string;
   privacyLink: string;
@@ -23,6 +24,7 @@ const en: SamplePackCopy = {
   name: 'Your name (optional)',
   contact: 'Zalo number or email',
   childAge: 'Child’s age (optional)',
+  teacher: 'I’m a teacher',
   consent: 'Send me the sample and occasional updates. Unsubscribe any time.',
   privacy: 'We keep your contact only to send the sample and these updates.',
   privacyLink: 'Privacy notice',
@@ -39,6 +41,7 @@ const en: SamplePackCopy = {
       { id: 'story-club', label: 'Storybook' },
       { id: 'printable-pack', label: 'Activity page' },
       { id: 'teacher-pack-l1', label: 'Lesson plan' },
+      { id: 'baseline', label: 'Sample speaking report' },
     ],
     next: 'Book Story Club on Zalo',
   },
@@ -49,6 +52,7 @@ const vi: SamplePackCopy = {
   name: 'Tên của bạn (không bắt buộc)',
   contact: 'Số Zalo hoặc email',
   childAge: 'Tuổi của con (không bắt buộc)',
+  teacher: 'Tôi là giáo viên',
   consent: 'Gửi cho tôi bộ mẫu và thỉnh thoảng cập nhật. Có thể hủy bất cứ lúc nào.',
   privacy: 'Chúng tôi chỉ giữ thông tin liên hệ để gửi bộ mẫu và các cập nhật này.',
   privacyLink: 'Chính sách quyền riêng tư',
@@ -65,6 +69,7 @@ const vi: SamplePackCopy = {
       { id: 'story-club', label: 'Truyện' },
       { id: 'printable-pack', label: 'Trang bài tập' },
       { id: 'teacher-pack-l1', label: 'Giáo án' },
+      { id: 'baseline', label: 'Báo cáo Nói mẫu' },
     ],
     next: 'Đăng ký giữ chỗ qua Zalo',
   },

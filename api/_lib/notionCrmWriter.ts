@@ -19,6 +19,7 @@
  */
 
 import {
+  BT_LABELS,
   normaliseBuyerType,
   normaliseMAOI,
   map as crmMap,
@@ -255,15 +256,25 @@ export async function writeNotionLead(
     return { ok: false, reason: 'not_configured' };
   }
 
+  return createLeadPage(token, dbId, registration.submissionId, (schema) => buildProperties(registration, schema));
+}
+
+/** Create one page in the JE Leads database (duplicate-guarded by Registration ID). Never throws. */
+async function createLeadPage(
+  token: string,
+  dbId: string,
+  submissionId: string,
+  build: (schema: NotionDatabaseSchema | null) => Record<string, unknown>,
+): Promise<NotionWriteResult> {
   const schema = await fetchDatabaseSchema(token, dbId);
 
   // Duplicate guard — skip if this registration ID already exists
-  const duplicate = await isDuplicate(token, dbId, registration.submissionId);
+  const duplicate = await isDuplicate(token, dbId, submissionId);
   if (duplicate) {
     console.info('[notion] duplicate — record already exists, skipping', {
-      submissionId: registration.submissionId,
+      submissionId,
     });
-    logEvent({ event: 'notion_write_succeeded', reason: 'duplicate_skipped', submissionId: registration.submissionId });
+    logEvent({ event: 'notion_write_succeeded', reason: 'duplicate_skipped', submissionId });
     return { ok: true, pageId: '', reason: 'duplicate_skipped' };
   }
 
@@ -275,15 +286,15 @@ export async function writeNotionLead(
       headers: notionHeaders(token),
       body:    JSON.stringify({
         parent:     { database_id: dbId },
-        properties: buildProperties(registration, schema),
+        properties: build(schema),
       }),
     });
   } catch (err) {
     console.error('[notion] page create request threw (network error)', {
-      submissionId: registration.submissionId,
+      submissionId,
       error: String(err),
     });
-    logEvent({ event: 'notion_write_failed', reason: 'network_error', submissionId: registration.submissionId });
+    logEvent({ event: 'notion_write_failed', reason: 'network_error', submissionId });
     return { ok: false, reason: 'network_error' };
   }
 
@@ -291,18 +302,76 @@ export async function writeNotionLead(
     const errText = await createRes.text().catch(() => '(unreadable)');
     console.error('[notion] page create failed', {
       status:       createRes.status,
-      submissionId: registration.submissionId,
+      submissionId,
       response:     errText.slice(0, 500),
     });
-    logEvent({ event: 'notion_write_failed', status: createRes.status, reason: `api_${createRes.status}`, submissionId: registration.submissionId });
+    logEvent({ event: 'notion_write_failed', status: createRes.status, reason: `api_${createRes.status}`, submissionId });
     return { ok: false, reason: `api_${createRes.status}` };
   }
 
   const page = await createRes.json() as { id: string };
   console.info('[notion] lead record created', {
-    submissionId: registration.submissionId,
+    submissionId,
     pageId:       page.id,
   });
-  logEvent({ event: 'notion_write_succeeded', reason: 'created', submissionId: registration.submissionId });
+  logEvent({ event: 'notion_write_succeeded', reason: 'created', submissionId });
   return { ok: true, pageId: page.id, reason: 'created' };
+}
+
+// ─── Free sample pack leads (website assessment, 27 Oct 2026) ────────────────
+
+/** A sample-pack sign-up: a Zalo number or an email, consent, and a little context. */
+export type SampleLead = {
+  submissionId: string;
+  submittedAt: string;
+  name: string;
+  email?: string;
+  zalo?: string;
+  teacher: boolean;
+  childAge?: string;
+  locale: 'en' | 'vi';
+  placement: 'home' | 'products';
+  source?: string;
+};
+
+export function sampleLeadNotes(l: SampleLead): string {
+  return [
+    'lead_source: sample-pack',
+    `page: ${l.placement} (${l.locale})`,
+    l.source ? `utm_source: ${l.source}` : 'utm_source: none',
+    l.childAge ? `child age: ${l.childAge}` : null,
+    'consent: sample + occasional updates',
+  ].filter(Boolean).join(' · ');
+}
+
+/**
+ * Write a sample-pack lead to the same JE Leads database as the pricing registrations (master, 27 Oct 2026: no Supabase
+ * change). Buyer Type is Parent / Guardian, or Teacher / CPD Lead when they tick "I'm a teacher"; the lead source,
+ * page and utm go in Notes (and in a "Lead Source" property when the database has one). Only the properties a
+ * sample lead actually has are written. Never throws.
+ */
+export async function writeNotionSampleLead(lead: SampleLead): Promise<NotionWriteResult> {
+  const token = process.env.NOTION_TOKEN?.trim();
+  const dbId  = process.env.NOTION_JE_LEADS_DB_ID?.trim();
+  if (!token || !dbId) {
+    console.warn('[notion] env not configured — sample lead write skipped', { hasToken: Boolean(token), hasDbId: Boolean(dbId) });
+    return { ok: false, reason: 'not_configured' };
+  }
+  return createLeadPage(token, dbId, lead.submissionId, (schema) => {
+    const props: Record<string, unknown> = {
+      'Registration ID': { title: rt(lead.submissionId) },
+      'Submitted At':    { date: { start: lead.submittedAt } },
+      'Full Name':       { rich_text: rt(lead.name) },
+      'Role / Title':    { rich_text: rt(lead.teacher ? 'Teacher' : 'Parent') },
+      'Buyer Type':      { select: { name: BT_LABELS[lead.teacher ? 'teacher_cpd_lead' : 'parent_guardian'] } },
+      'Lead Status':     { status: { name: 'New' } },
+    };
+    if (lead.email) props['Work Email'] = { email: lead.email };
+    if (lead.zalo && supportsType(schema, 'Phone / WhatsApp', ['rich_text'])) props['Phone / WhatsApp'] = { rich_text: rt(`Zalo ${lead.zalo}`) };
+    if (supportsType(schema, 'Notes', ['rich_text'])) props['Notes'] = { rich_text: rt(sampleLeadNotes(lead)) };
+    // Only when the database is known to have it: an unknown property would fail the whole create.
+    if (schema?.['Lead Source'] === 'select') props['Lead Source'] = { select: { name: 'sample-pack' } };
+    else if (schema?.['Lead Source'] === 'rich_text') props['Lead Source'] = { rich_text: rt('sample-pack') };
+    return props;
+  });
 }
