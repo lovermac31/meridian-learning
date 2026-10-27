@@ -15,7 +15,7 @@ import {
 } from '../i18n/content/products';
 import { ToolHero } from './IeltsToolsPage';
 import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
-import { ORDER_CODE_COPY, orderCode, readVisitorSource, zaloHref } from '../lib/productsSource';
+import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
 
 /** The visit's utm_source, read after hydration so the prerendered page and the first client render match. */
 function useVisitorSource(): string | null {
@@ -81,6 +81,26 @@ function Sample({ card, copy }: { card: ProductCard; copy: SampleCopy }) {
   );
 }
 
+// S1: the US$ price by PayPal for international buyers, after the VND order button (VND and VietQR stay first).
+function PayPalOption({ card, locale, source }: { card: ProductCard; locale: Locale; source: string | null }) {
+  const copy = PAYPAL_CARD_COPY[locale];
+  return (
+    <div className="mt-3 rounded-xl border border-sb-border p-3" data-paypal={card.id}>
+      <p className="text-sm font-bold">{copy.lead}</p>
+      <a
+        href={productPaypalHref(card.id, source)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-1 inline-block text-sm font-bold underline underline-offset-4 hover:text-sb-amber-deep"
+        data-paypal-link={card.id}
+      >
+        {copy.pay(productUsd(card.price))}
+      </a>
+      <p className="mt-1 text-xs">{copy.note}</p>
+    </div>
+  );
+}
+
 function Card({ card, locale, delivery, leadIns, sample, source }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
 }) {
@@ -134,6 +154,7 @@ function Card({ card, locale, delivery, leadIns, sample, source }: {
           </p>
         ) : null}
         {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
+        {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
       </div>
     </li>
   );

@@ -1,4 +1,6 @@
 import type { Locale } from '../i18n/locales';
+import { PRODUCTS } from '../i18n/content/products';
+import { paypalHref, paypalItemName, usdFromVnd } from './paypal';
 
 // Where a /products buyer came from (master, 27 Oct 2026): the Order on Zalo buttons used to say
 // utm_source=products for everyone. The page now reads utm_source on arrival, keeps it for the visit, passes it in
@@ -15,6 +17,18 @@ export const ORDER_CODES: Record<string, string> = {
   video1: 'VD1',
   video2: 'VD2',
   video3: 'VD3',
+  // Market pages (S2): utm_source=market-<country>.
+  'market-uae': 'MAE',
+  'market-saudi-arabia': 'MSA',
+  'market-egypt': 'MEG',
+  'market-india': 'MIN',
+  'market-pakistan': 'MPK',
+  'market-bangladesh': 'MBD',
+  'market-philippines': 'MPH',
+  'market-indonesia': 'MID',
+  'market-malaysia': 'MMY',
+  'market-thailand': 'MTH',
+  'market-singapore': 'MSG',
 };
 
 export const ZALO_CHAT = 'https://zalo.me/84396085076';
@@ -62,4 +76,29 @@ export function zaloHref(source: string | null): string {
 export const ORDER_CODE_COPY: Record<Locale, { before: string; after: string }> = {
   en: { before: 'When you message, mention code', after: '.' },
   vi: { before: 'Khi nhắn tin, hãy nhắc mã', after: '.' },
+};
+
+// S1 (master, 27 Oct 2026): international buyers pay a digital card's US$ price by PayPal. The item name and the
+// custom field carry the card id and the order code, so Jay matches each payment by hand and sends the files by
+// Google Drive within 24 hours (until the portal automates it, ADR-008).
+export const productUsd = (price: string) => usdFromVnd(Number(price.replace(/\D/g, '')));
+
+export function productPaypalHref(id: string, source: string | null): string {
+  const product = PRODUCTS.find((entry) => entry.id === id);
+  if (!product?.paypal) throw new Error(`No PayPal option for ${id}`);
+  const code = orderCode(source, id);
+  return paypalHref(paypalItemName(product.en.title, `/products ${id} code ${code}`), productUsd(product.price), `${id}|${code}`);
+}
+
+export const PAYPAL_CARD_COPY: Record<Locale, { lead: string; pay: (usd: number) => string; note: string }> = {
+  en: {
+    lead: 'Outside Vietnam?',
+    pay: (usd) => `Pay US$${usd} with PayPal`,
+    note: 'You pay on paypal.com to Jurassic English (WorldWiseLearning). Your files arrive by Google Drive within 24 hours, at your PayPal email.',
+  },
+  vi: {
+    lead: 'Ở ngoài Việt Nam?',
+    pay: (usd) => `Thanh toán US$${usd} qua PayPal`,
+    note: 'Bạn thanh toán trên paypal.com cho Jurassic English (WorldWiseLearning). Tài liệu được gửi qua Google Drive trong vòng 24 giờ, tới email PayPal của bạn.',
+  },
 };
