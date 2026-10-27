@@ -6,7 +6,7 @@ import * as levelBooksModule from '../docs/jurassic-english---b2b-evidence-showc
 // The ecosystem app has no "type": "module", so tsx loads the file as CommonJS; read named exports via default.
 type LevelBooks = typeof levelBooksModule;
 const lb: LevelBooks = (levelBooksModule as unknown as { default?: LevelBooks }).default ?? levelBooksModule;
-const { BOOKS_BASE_URL, LEVEL_BOOKS, bookHref, continueHref, coverSrc, levelHref } = lb;
+const { BOOKS_BASE_URL, LEVEL_BOOKS, STORY_HUB_ZALO, bookHref, continueHref, coverSrc, levelHref } = lb;
 
 const ECO = '../docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src';
 const read = (p: string) => readFileSync(new URL(`${ECO}/${p}`, import.meta.url), 'utf8');
@@ -64,7 +64,11 @@ test('card → level collection → next step, carrying only non-personal contex
   const stories = read('components/student-academy/LevelStories.tsx');
   assert.ok(stories.includes('@/lib/academy/levelBooks'), 'collections read the central map');
   assert.ok(!stories.includes('book.html'), 'no hard-coded book links in the page');
-  assert.ok(stories.includes('Continue with Mr. Jay') && stories.includes('Ask about a place'));
+  // Website assessment, 27 Oct 2026, fix 10: the next step goes straight to Zalo (1 click), tagged story-hub.
+  assert.ok(stories.includes('Continue with Mr. Jay') && stories.includes('Ask Mr. Jay on Zalo') && stories.includes('Nhắn thầy Jay qua Zalo'));
+  assert.ok(stories.includes('href={STORY_HUB_ZALO}'));
+  assert.equal(STORY_HUB_ZALO, 'https://zalo.me/84396085076?utm_source=story-hub');
+  assert.ok(stories.includes('href={samplePackHref(locale)}'), 'the free sample pack band');
   assert.ok(!/Pay now/i.test(stories));
   assert.ok(!FORBIDDEN_HOSTS.test(stories + card));
 });
@@ -91,11 +95,11 @@ test('the story collections exist in English and Vietnamese with the same struct
   assert.match(vi, /<LevelStories locale="vi" \/>/);
   assert.match(vi, /native read needed/i);
   const component = read('components/student-academy/LevelStories.tsx');
-  for (const key of ['back', 'title', 'intro', 'askPlace', 'continueCta', 'unsure', 'consultation']) {
+  for (const key of ['back', 'title', 'intro', 'continueCta', 'samplePack', 'samplePackCta', 'unsure', 'consultation']) {
     assert.equal((component.match(new RegExp(`^\\s+${key}:`, 'gm')) ?? []).length, 2, `${key} in EN and VI`);
   }
-  assert.ok(component.includes('Hỏi về một chỗ') && component.includes('Tiếp tục cùng thầy Jay'));
-  assert.ok(component.includes('continueHref(level.level, locale)'), 'the CTA follows the page language');
+  assert.ok(component.includes('Nhắn thầy Jay qua Zalo') && component.includes('Tiếp tục cùng thầy Jay'));
+  assert.ok(component.includes('samplePackHref(locale)'), 'the sample pack link follows the page language');
   const vercel = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
   assert.ok(
     vercel.rewrites.some((r: { source: string; destination: string }) => r.source === '/vi/student-academy/stories' && r.destination === 'https://je-ecosystem-landing-preview.vercel.app/vi/student-academy/stories'),

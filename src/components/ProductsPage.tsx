@@ -14,6 +14,7 @@ import {
   type ProductCard,
 } from '../i18n/content/products';
 import { ToolHero } from './IeltsToolsPage';
+import { SamplePackForm } from './SamplePackForm';
 import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
 import { productPath } from '../i18n/content/productSeo';
 import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
@@ -240,6 +241,14 @@ export function PayPalOption({ card, locale, source }: { card: ProductCard; loca
   );
 }
 
+const DETAILS_LABEL: Record<Locale, string> = { en: 'Details', vi: 'Chi tiết' };
+
+/** The first sentence of a card's "Who it's for" (the collapsed card's one line); "Mr. Jay" and decimals don't end it. */
+export function firstSentence(text: string): string {
+  const match = text.match(/^.*?(?<!\bMr|\bMs|\bDr)[.!?](?=\s+\S)/);
+  return match ? match[0] : text;
+}
+
 function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
   onOpenSample: (card: ProductCard) => void;
@@ -247,58 +256,76 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }:
   const external = card.href === 'zalo';
   const href = external ? zaloHref(source) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
+  const detailsLabel = DETAILS_LABEL[locale];
   return (
     <li className="ielts-tool-card flex scroll-mt-24 flex-col rounded-2xl bg-white p-6 shadow-sm" id={card.id}>
       {(PRODUCT_FORMER_IDS[card.id] ?? []).map((former) => (
         <span key={former} id={former} className="block scroll-mt-24" aria-hidden="true" />
       ))}
-      {card.image ? (
-        // Decorative: the card title follows as a heading, so the image has empty alt text.
-        <img
-          src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
-          alt=""
-          width={480}
-          height={480}
-          loading="lazy"
-          decoding="async"
-          className="mb-4 aspect-square w-full rounded-xl object-cover"
-          data-product-image={card.id}
-        />
-      ) : null}
-      <p className="text-xs font-bold uppercase tracking-wider text-[#8a5a00]">{card.label}</p>
-      <h3 className="mt-2 text-xl font-bold">
-        {/* Each card has its own indexable page (Jay, 27 Oct 2026); the card stays on the hub. */}
-        <a href={getLocalizedHref(productPath(card.id), locale)} className="underline-offset-4 hover:underline" data-product-page={card.id}>
-          {card.title}
-        </a>
-      </h3>
-      <dl className="mt-2 flex-1 space-y-2">
-        {(['problem', 'inside', 'forWho'] as const).map((key) => (
-          <div key={key}>
-            <dt className="text-sm font-bold">{leadIns[key]}</dt>
-            <dd>{card[key]}</dd>
-          </div>
-        ))}
-      </dl>
-      <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} />
-      <p className="mt-4 text-2xl font-bold" data-price={card.id}>
+      {/* Collapsed card (website assessment, 27 Oct 2026, fix 4): name, who it's for, price and two buttons; the problem,
+          what's inside and the sample thumbnails fold into "Details" (a <details>, so the prerendered page keeps them). */}
+      <div className="flex items-start gap-3">
+        {card.image ? (
+          // Decorative: the card title follows as a heading, so the image has empty alt text.
+          <img
+            src={`${PRODUCT_IMAGE_DIR}/${card.image}.webp`}
+            alt=""
+            width={480}
+            height={480}
+            loading="lazy"
+            decoding="async"
+            className="aspect-square w-16 flex-none rounded-xl object-cover sm:w-20"
+            data-product-image={card.id}
+          />
+        ) : null}
+        <div className="min-w-0">
+          <p className="text-xs font-bold uppercase tracking-wider text-[#8a5a00]">{card.label}</p>
+          <h3 className="mt-1 text-lg font-bold leading-snug">
+            {/* Each card has its own indexable page (Jay, 27 Oct 2026); the card stays on the hub. */}
+            <a href={getLocalizedHref(productPath(card.id), locale)} className="underline-offset-4 hover:underline" data-product-page={card.id}>
+              {card.title}
+            </a>
+          </h3>
+          <p className="mt-1 text-sm" data-for-who={card.id}>{firstSentence(card.forWho)}</p>
+        </div>
+      </div>
+      <details className="group mt-2 flex-1" data-details={card.id}>
+        <summary className="cursor-pointer text-sm font-bold underline underline-offset-4">{detailsLabel}</summary>
+        <dl className="mt-2 space-y-2">
+          {(['problem', 'inside', 'forWho'] as const).map((key) => (
+            <div key={key}>
+              <dt className="text-sm font-bold">{leadIns[key]}</dt>
+              <dd>{card[key]}</dd>
+            </div>
+          ))}
+        </dl>
+        <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} />
+        {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
+      </details>
+      <p className="mt-3 text-2xl font-bold" data-price={card.id}>
         {card.price} <span className="text-base font-semibold">{card.unit}</span>
       </p>
       <div className="story-cta mt-3">
-        <a
-          className="insights-button-primary"
-          href={href}
-          data-cta={`product-${card.id}`}
-          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        >
-          {card.cta}
-        </a>
+        <div className="flex flex-wrap gap-2">
+          <a
+            className="insights-button-primary"
+            href={href}
+            data-cta={`product-${card.id}`}
+            {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            {card.cta}
+          </a>
+          {card.sample ? (
+            <button type="button" className="insights-button-secondary" onClick={() => onOpenSample(card)} data-sample-open={card.id}>
+              {sample.heading}
+            </button>
+          ) : null}
+        </div>
         {external ? (
           <p className="mt-2 text-sm" data-order-code={card.id}>
             {code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}
           </p>
         ) : null}
-        {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
         {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
       </div>
     </li>
@@ -358,6 +385,8 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           </section>
         ))}
       </div>
+      {/* The free sample pack at the end of /products (website assessment, 27 Oct 2026, lead-capture spec). */}
+      <SamplePackForm placement="products" />
       <div className="insights-closing">
         <div>
           <p>{c.closing.heading}</p>

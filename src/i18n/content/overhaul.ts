@@ -32,12 +32,16 @@ const en = {
       { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: introduction & demo', href: '/ai-speaking/writing', kind: 'native' },
       { key: 'adults', label: 'AI Speaking Mocks', desc: 'Adult IELTS Speaking practice (18+)', href: '/ai-speaking', kind: 'native' },
       { key: 'jay', label: 'Pricing', desc: 'Mr. Jay, plans and pricing', href: '/#pricing-options', kind: 'native' },
+      // Products in the main menu (website assessment, 27 Oct 2026, fix 3: Jay wants easy access; supersedes footer-only).
+      { key: 'products', label: 'Products & prices', desc: '', href: '/products', kind: 'route' },
     ],
     // Small badge after the IELTS Writing link (owner, Oct 2026).
     newBadge: 'New',
     cta: 'Book Baseline · 690k₫',
     ctaMobile: 'Baseline · 690k₫',
     ctaHref: '/ai-speaking/baseline',
+    // Parent pages: the header offers the free sample pack (fix 2).
+    sampleCta: 'Free sample pack',
   },
   footer: {
     navLabel: 'Footer',
@@ -87,7 +91,7 @@ const en = {
     paths: {
       heading: "Choose the path that fits your learner's goal",
       helper:
-        'Not sure whether to start with Reading or Speaking for a 9–14 year old? Choose Path 1 (Reading & Story Adventures) if your child needs richer vocabulary, reading comprehension and structured paragraph writing. Choose Path 2 (Speaking Confidence & Teen IELTS) if your child already reads well on paper but hesitates to speak out loud.',
+        'Ages 6–14: start with stories. Ages 9–18: start with speaking.',
       bestFor: 'Best for',
       purpose: 'Clear purpose',
       cards: [
@@ -167,7 +171,7 @@ const en = {
     pricing: {
       heading: 'Clear starting options & transparent pricing',
       disclosure:
-        'All VietQR and online-checkout payments are billed in Vietnamese Đồng (VND ₫). Approximate US Dollar (~$) figures use 1 USD ≈ 25.897₫ for international reference; families outside Vietnam can also pay set US$ amounts by PayPal on the Speaking page. Live online sessions run across GMT+3 to GMT+8 (Hanoi is GMT+7).',
+        'Prices in VND. USD is approximate.',
       entryLabel: 'Start here',
       ongoingLabel: 'Ongoing options & full commitment totals',
       rows: [
@@ -237,11 +241,13 @@ const vi: OverhaulContent = {
       { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: giới thiệu & bản demo', href: '/ai-speaking/writing', kind: 'native' },
       { key: 'adults', label: 'Thi thử Nói AI', desc: 'Luyện Nói IELTS cho người lớn (18+)', href: '/ai-speaking', kind: 'native' },
       { key: 'jay', label: 'Học phí', desc: 'Thầy Jay, gói học và học phí', href: '/#pricing-options', kind: 'native' },
+      { key: 'products', label: 'Sản phẩm & học phí', desc: '', href: '/products', kind: 'route' },
     ],
     newBadge: 'Mới',
     cta: 'Đặt Đánh giá · 690k₫',
     ctaMobile: 'Đánh giá · 690k₫',
     ctaHref: '/ai-speaking/baseline',
+    sampleCta: 'Nhận bộ mẫu miễn phí',
   },
   footer: {
     navLabel: 'Chân trang',
@@ -290,7 +296,7 @@ const vi: OverhaulContent = {
     paths: {
       heading: 'Chọn lộ trình phù hợp với mục tiêu của người học',
       helper:
-        'Chưa biết nên cho con 9–14 tuổi bắt đầu với Đọc hay Nói? Hãy chọn Lộ trình 1 (Đọc sách & Phiêu lưu truyện) nếu con cần vốn từ phong phú hơn, đọc hiểu tốt hơn và viết đoạn văn có cấu trúc. Hãy chọn Lộ trình 2 (Tự tin nói & IELTS cho teen) nếu con đã đọc tốt trên giấy nhưng còn ngại nói thành lời.',
+        '6–14 tuổi: bắt đầu với truyện. 9–18 tuổi: bắt đầu với nói.',
       bestFor: 'Phù hợp nhất',
       purpose: 'Mục tiêu rõ ràng',
       cards: [
@@ -370,7 +376,7 @@ const vi: OverhaulContent = {
     pricing: {
       heading: 'Lựa chọn bắt đầu rõ ràng & học phí minh bạch',
       disclosure:
-        'Mọi khoản thanh toán qua VietQR và thanh toán trực tuyến đều tính bằng Việt Nam Đồng (VND ₫). Giá USD (~$) chỉ để tham khảo, quy đổi theo 1 USD ≈ 25.897₫; gia đình ở nước ngoài cũng có thể trả các khoản USD cố định qua PayPal trên trang Luyện nói. Các buổi học trực tuyến diễn ra trong khung GMT+3 đến GMT+8 (Hà Nội là GMT+7).',
+        'Giá tính bằng VND. USD chỉ tham khảo.',
       entryLabel: 'Bắt đầu tại đây',
       ongoingLabel: 'Lựa chọn tiếp theo & tổng chi phí cam kết',
       rows: [

@@ -105,6 +105,15 @@ export function teacherPackHref(level: number, locale: Locale = "en"): string {
   return `${locale === "vi" ? "/vi" : ""}/products?utm_source=academy#teacher-pack-l${level}`;
 }
 
+/** The Level Stories hub's next step: Mr. Jay on Zalo (website assessment, 27 Oct 2026, fix 10). Zalo cannot prefill a
+ * message, so the link is tagged utm_source=story-hub for the Sale Team's table. */
+export const STORY_HUB_ZALO = "https://zalo.me/84396085076?utm_source=story-hub";
+
+/** The free sample pack form on the main site's home page, tagged like the hub's other links (academy, order code AC). */
+export function samplePackHref(locale: Locale = "en"): string {
+  return `${locale === "vi" ? "/vi" : "/"}?utm_source=academy#free-sample-pack`;
+}
+
 /**
  * The commercial next step, carrying only non-personal context. Story Club is for ages 5–8, so Levels 1–2 go
  * there; Levels 3–5 go to Mr. Jay's Live Speaking Baseline (the same split as the storybooks' own hand-off).

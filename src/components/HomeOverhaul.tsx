@@ -4,6 +4,7 @@ import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
 import { FounderFilmLink } from './FounderFilmLink';
+import { SamplePackForm } from './SamplePackForm';
 
 /**
  * Homepage (human-centered overhaul, revised spec §3 Page A): six sections —
@@ -147,6 +148,9 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
           </div>
         </div>
       </section>
+
+      {/* The one lead capture: the free sample pack, right after the paths (website assessment, 27 Oct 2026). */}
+      <SamplePackForm placement="home" />
 
       {/* 3 · Illustrative lesson demonstration (HTML/CSS, badged) */}
       <section className="px-4 py-16 sm:px-6" aria-labelledby="lesson-heading">

@@ -85,6 +85,8 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     const counterpart = route === EN ? VI : EN;
     for (const [, href] of main.matchAll(/href="([^"]+)"/g)) {
       if (/^(\/vi)?\/products\/[a-z0-9-]+$/.test(href)) continue;
+      // The sample pack form's privacy notice link is a legal page, not a step in the funnel.
+      if (/^(\/vi)?\/legal\/privacy$/.test(href)) continue;
       if (href === counterpart || href.startsWith('#') || /^\/samples\/[^/?#]+-sample\.pdf$/.test(href) || href.startsWith('https://www.paypal.com/cgi-bin/webscr?')) continue;
       assert.match(href, /[?&]utm_source=products(#|$)/, `${route}: ${href}`);
       assert.ok(!/#[^?]*\?/.test(href), `${route}: query before the anchor in ${href}`);
@@ -134,7 +136,7 @@ test('cleared packs match their 00 READ MEs: Ladder is 18 lessons + a 1-lesson S
   assert.equal(entry('ielts-speaking-ladder').price, '390.000₫');
 });
 
-test('reachable without clutter: one footer link (EN + VI) and one Kids Academy card link; no header change', () => {
+test('reachable: one footer link (EN + VI), one Kids Academy card link, and Products & prices in the main menu', async () => {
   for (const [path, href, label] of [['/', '/products', 'Products &amp; prices'], ['/vi', '/vi/products', 'Sản phẩm &amp; bảng giá']]) {
     setServerLocation(path);
     const footer = renderToStaticMarkup(createElement(Footer, { onNavigate: () => {} }));
@@ -144,8 +146,16 @@ test('reachable without clutter: one footer link (EN + VI) and one Kids Academy 
   const academy = readFileSync('docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/components/student-academy/StudentAcademyOverhaul.tsx', 'utf8');
   assert.equal((academy.match(/\/products\?utm_source=academy/g) ?? []).length, 1);
   assert.equal((academy.match(/data-link="academy-products"/g) ?? []).length, 1);
-  // The header links /products only through the Baseline sample (Jay, 27 Oct 2026; tested below).
-  assert.equal((readFileSync('src/components/Navbar.tsx', 'utf8').match(/PRODUCTS_PATH/g) ?? []).length, 2, 'header: Baseline sample only');
+  // Website assessment, 27 Oct 2026, fix 3: Jay wants easy access, so the main menu links /products (supersedes footer-only).
+  const { Navbar } = await import('../src/components/Navbar');
+  const noop = () => {};
+  for (const [path, href, label] of [['/', '/products', 'Products &amp; prices'], ['/vi', '/vi/products', 'Sản phẩm &amp; học phí']]) {
+    setServerLocation(path);
+    const header = renderToStaticMarkup(createElement(Navbar, { onGetStarted: noop, onNavigateHome: noop, onNavigate: noop, onPricingClick: noop, onEducationAffiliateClick: noop }));
+    setServerLocation('/');
+    assert.equal([...header.matchAll(new RegExp(`href="${href}"`, 'g'))].length, 1, path);
+    assert.match(header, new RegExp(`href="${href}"[^>]*aria-label="${label}"`), path);
+  }
 });
 
 // More products are coming (Teacher Packs L2–5, a bundle): the cards come from one list, so a new card is one entry.
@@ -346,30 +356,29 @@ test('samples: no page links a PDF sample (products and country pages)', async (
   assert.doesNotMatch(readFileSync('src/components/ProductsPage.tsx', 'utf8') + readFileSync('src/i18n/content/products.ts', 'utf8'), /sample\.pdf/);
 });
 
-test('samples: the header "Book Baseline" leads to the Baseline sample once it exists, else to the booking page', async () => {
-  const { PRODUCTS } = await import('../src/i18n/content/products');
+// Website assessment, 27 Oct 2026, fix 2: the header button is the page's own next step.
+test('header button: free sample pack on parent pages, the Baseline booking page on IELTS pages, US$ on country pages', async () => {
   const { Navbar } = await import('../src/components/Navbar');
   const noop = () => {};
-  const headerHrefs = (path: string) => {
+  const header = (path: string) => {
     setServerLocation(path);
     const html = renderToStaticMarkup(createElement(Navbar, {
       onGetStarted: noop, onNavigateHome: noop, onNavigate: noop, onPricingClick: noop, onEducationAffiliateClick: noop,
     }));
     setServerLocation('/');
-    return [...html.matchAll(/<a href="([^"]+)"[^>]*class="inline-flex min-h-11/g)].map((m) => m[1]);
+    const cta = html.match(/<a href="([^"]+)"[^>]*class="inline-flex min-h-11[^>]*><span class="hidden sm:inline">([^<]+)<\/span>/)!;
+    return [cta[1], cta[2]];
   };
-  const baseline = PRODUCTS.find((p) => p.id === 'baseline')!;
-  const before = baseline.sample;
-  try {
-    baseline.sample = undefined;
-    assert.deepEqual(headerHrefs('/'), ['/ai-speaking/baseline']);
-    assert.deepEqual(headerHrefs('/vi'), ['/ai-speaking/baseline?lang=vi']);
-    baseline.sample = 'baseline';
-    assert.deepEqual(headerHrefs('/'), ['/products#baseline-sample']);
-    assert.deepEqual(headerHrefs('/vi'), ['/vi/products#baseline-sample']);
-  } finally {
-    baseline.sample = before;
-  }
+  assert.deepEqual(header('/'), ['#free-sample-pack', 'Free sample pack']);
+  assert.deepEqual(header('/vi'), ['#free-sample-pack', 'Nhận bộ mẫu miễn phí']);
+  assert.deepEqual(header(EN), ['#free-sample-pack', 'Free sample pack']);
+  assert.deepEqual(header('/story-club'), ['/#free-sample-pack', 'Free sample pack']);
+  assert.deepEqual(header('/vi/story-club'), ['/vi#free-sample-pack', 'Nhận bộ mẫu miễn phí']);
+  assert.deepEqual(header('/insights/ielts-online-test'), ['/ai-speaking/baseline', 'Book Baseline · 690k₫']);
+  assert.deepEqual(header('/vi/insights/ielts-online-test'), ['/ai-speaking/baseline?lang=vi', 'Đặt Đánh giá · 690k₫']);
+  assert.deepEqual(header('/ielts-speaking-online/uae'), ['/ai-speaking/baseline?market=uae', 'Book Baseline · US$59']);
+  assert.deepEqual(header('/pt/ielts-speaking-online/brasil'), ['/ai-speaking/baseline?market=brazil', 'Book Baseline · US$39']);
+  assert.deepEqual(header('/ielts-speaking-online'), ['/ai-speaking/baseline', 'Book Baseline']);
 });
 
 // Wave 2 (master, 27 Oct 2026; Jay gave authority): the Level 1 Parent Home Reading Pack (families) and the Level 1
