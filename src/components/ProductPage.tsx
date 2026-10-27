@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
-import { PRODUCTS_PATH, PRODUCT_IMAGE_DIR, cardLink, productsPage, type Product, type ProductCard } from '../i18n/content/products';
+import { PRODUCTS_PATH, cardLink, productImageSources, productsPage, type Product, type ProductCard } from '../i18n/content/products';
 import { productFaq, productPath, relatedProducts } from '../i18n/content/productSeo';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';

@@ -94,10 +94,12 @@ export function Sample({ card, copy, onOpen }: { card: ProductCard; copy: Sample
         data-sample-link={card.id}
       >
         <span className="grid grid-cols-3 gap-2">
-          {files.thumbs.map((src) => (
+          {files.thumbs.map((src, i) => (
             <img
               key={src}
               src={src}
+              srcSet={files.thumbSrcSets[i]}
+              sizes="(min-width: 768px) 135px, calc((100vw - 120px) / 3)"
               alt=""
               width={600}
               height={849}
