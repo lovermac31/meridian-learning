@@ -7,6 +7,7 @@
 - `/srv/story-quest/releases/20261027-live-mirror/` holds the exact files of the live Vercel deployment `dpl_AX1csQURcPyBpmE1u9KGWiNJdafn` (26 files, 13 MB, mirrored byte for byte). `../20261027-live-mirror.sha256` is its manifest. `sha256sum -c` passed on the host.
 - `/srv/story-quest/current` is a symlink to the active release.
 - Story Quest makes no `/api` calls, so it is a static site.
+- One known difference from Vercel: an unknown path returns the app (200) where Vercel returns a text/plain 404. Story Quest routes with `#`, so visitors never hit it.
 
 ## Files
 
@@ -19,7 +20,7 @@
 ## Order (the homepage must never link to a dead host)
 
 1. Namecheap: add an A record `story-quest` → `152.42.198.173`.
-2. `bash scripts/host/story-quest/install-site.sh` (from the repo root; run it again if DNS was not visible yet).
+2. In Terminal: `cd ~/Downloads/JE_site_live/.claude/worktrees/off-vercel && bash scripts/host/story-quest/install-site.sh` (run it again if DNS was not visible yet). If certbot stops on account registration, run on the host: `sudo certbot --nginx -d story-quest.jurassicenglish.com --redirect --register-unsafely-without-email --agree-tos -n`.
 3. Check: `curl -sI https://story-quest.jurassicenglish.com/`. Expect 200, the six headers, and no `X-Robots-Tag`.
 4. Only then merge the PR that points the homepage at the new address.
 
