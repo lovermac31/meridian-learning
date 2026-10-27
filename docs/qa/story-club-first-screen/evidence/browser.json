@@ -1,0 +1,398 @@
+[
+  {
+    "engine": "chromium",
+    "width": 390,
+    "locale": "en",
+    "price": {
+      "x": 16,
+      "y": 256.0625,
+      "width": 358,
+      "height": 32,
+      "bottom": 288.0625
+    },
+    "action": {
+      "x": 16,
+      "y": 300.0625,
+      "width": 358,
+      "height": 48,
+      "bottom": 348.0625
+    },
+    "image": {
+      "x": 50,
+      "y": 569.4375,
+      "width": 295,
+      "height": 295,
+      "bottom": 864.4375
+    },
+    "lead": "Online story groups for children aged 5–8.",
+    "schedule": "Saturdays 9:00 · Google Meet · Up to 6 children",
+    "href": "/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "locale": "vi",
+    "price": {
+      "x": 16,
+      "y": 256.0625,
+      "width": 358,
+      "height": 32,
+      "bottom": 288.0625
+    },
+    "action": {
+      "x": 16,
+      "y": 300.0625,
+      "width": 358,
+      "height": 48,
+      "bottom": 348.0625
+    },
+    "image": {
+      "x": 50,
+      "y": 597.4375,
+      "width": 295,
+      "height": 295,
+      "bottom": 892.4375
+    },
+    "lead": "Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi.",
+    "schedule": "Sáng thứ Bảy 9:00 · Google Meet · Tối đa 6 bé",
+    "href": "/vi/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "locale": "en",
+    "price": {
+      "x": 208,
+      "y": 239.734375,
+      "width": 1024,
+      "height": 32,
+      "bottom": 271.734375
+    },
+    "action": {
+      "x": 208,
+      "y": 283.734375,
+      "width": 1024,
+      "height": 48,
+      "bottom": 331.734375
+    },
+    "image": {
+      "x": 386,
+      "y": 553.109375,
+      "width": 384,
+      "height": 384,
+      "bottom": 937.109375
+    },
+    "lead": "Online story groups for children aged 5–8.",
+    "schedule": "Saturdays 9:00 · Google Meet · Up to 6 children",
+    "href": "/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "locale": "vi",
+    "price": {
+      "x": 208,
+      "y": 239.734375,
+      "width": 1024,
+      "height": 32,
+      "bottom": 271.734375
+    },
+    "action": {
+      "x": 208,
+      "y": 283.734375,
+      "width": 1024,
+      "height": 48,
+      "bottom": 331.734375
+    },
+    "image": {
+      "x": 386,
+      "y": 553.109375,
+      "width": 384,
+      "height": 384,
+      "bottom": 937.109375
+    },
+    "lead": "Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi.",
+    "schedule": "Sáng thứ Bảy 9:00 · Google Meet · Tối đa 6 bé",
+    "href": "/vi/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "locale": "en",
+    "price": {
+      "x": 16,
+      "y": 256.046875,
+      "width": 358,
+      "height": 32,
+      "bottom": 288.046875
+    },
+    "action": {
+      "x": 16,
+      "y": 300.046875,
+      "width": 358,
+      "height": 48,
+      "bottom": 348.046875
+    },
+    "image": {
+      "x": 50,
+      "y": 569.421875,
+      "width": 295,
+      "height": 295,
+      "bottom": 864.421875
+    },
+    "lead": "Online story groups for children aged 5–8.",
+    "schedule": "Saturdays 9:00 · Google Meet · Up to 6 children",
+    "href": "/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "locale": "vi",
+    "price": {
+      "x": 16,
+      "y": 256.046875,
+      "width": 358,
+      "height": 32,
+      "bottom": 288.046875
+    },
+    "action": {
+      "x": 16,
+      "y": 300.046875,
+      "width": 358,
+      "height": 48,
+      "bottom": 348.046875
+    },
+    "image": {
+      "x": 50,
+      "y": 597.421875,
+      "width": 295,
+      "height": 295,
+      "bottom": 892.421875
+    },
+    "lead": "Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi.",
+    "schedule": "Sáng thứ Bảy 9:00 · Google Meet · Tối đa 6 bé",
+    "href": "/vi/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "locale": "en",
+    "price": {
+      "x": 208,
+      "y": 239.71875,
+      "width": 1024,
+      "height": 32,
+      "bottom": 271.71875
+    },
+    "action": {
+      "x": 208,
+      "y": 283.71875,
+      "width": 1024,
+      "height": 48,
+      "bottom": 331.71875
+    },
+    "image": {
+      "x": 386,
+      "y": 553.09375,
+      "width": 384,
+      "height": 384,
+      "bottom": 937.09375
+    },
+    "lead": "Online story groups for children aged 5–8.",
+    "schedule": "Saturdays 9:00 · Google Meet · Up to 6 children",
+    "href": "/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "locale": "vi",
+    "price": {
+      "x": 208,
+      "y": 239.71875,
+      "width": 1024,
+      "height": 32,
+      "bottom": 271.71875
+    },
+    "action": {
+      "x": 208,
+      "y": 283.71875,
+      "width": 1024,
+      "height": 48,
+      "bottom": 331.71875
+    },
+    "image": {
+      "x": 386,
+      "y": 553.09375,
+      "width": 384,
+      "height": 384,
+      "bottom": 937.09375
+    },
+    "lead": "Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi.",
+    "schedule": "Sáng thứ Bảy 9:00 · Google Meet · Tối đa 6 bé",
+    "href": "/vi/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "locale": "en",
+    "price": {
+      "x": 16,
+      "y": 256.1000061035156,
+      "width": 358,
+      "height": 32,
+      "bottom": 288.1000061035156
+    },
+    "action": {
+      "x": 16,
+      "y": 300.1000061035156,
+      "width": 358,
+      "height": 48,
+      "bottom": 348.1000061035156
+    },
+    "image": {
+      "x": 50,
+      "y": 569.5,
+      "width": 295,
+      "height": 295,
+      "bottom": 864.5
+    },
+    "lead": "Online story groups for children aged 5–8.",
+    "schedule": "Saturdays 9:00 · Google Meet · Up to 6 children",
+    "href": "/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "locale": "vi",
+    "price": {
+      "x": 16,
+      "y": 256.1166687011719,
+      "width": 358,
+      "height": 32,
+      "bottom": 288.1166687011719
+    },
+    "action": {
+      "x": 16,
+      "y": 300.1166687011719,
+      "width": 358,
+      "height": 48,
+      "bottom": 348.1166687011719
+    },
+    "image": {
+      "x": 50,
+      "y": 597.5166625976562,
+      "width": 295,
+      "height": 295,
+      "bottom": 892.5166625976562
+    },
+    "lead": "Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi.",
+    "schedule": "Sáng thứ Bảy 9:00 · Google Meet · Tối đa 6 bé",
+    "href": "/vi/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "locale": "en",
+    "price": {
+      "x": 208,
+      "y": 239.75,
+      "width": 1024,
+      "height": 32,
+      "bottom": 271.75
+    },
+    "action": {
+      "x": 208,
+      "y": 283.75,
+      "width": 1024,
+      "height": 48,
+      "bottom": 331.75
+    },
+    "image": {
+      "x": 386,
+      "y": 553.1500244140625,
+      "width": 384,
+      "height": 384,
+      "bottom": 937.1500244140625
+    },
+    "lead": "Online story groups for children aged 5–8.",
+    "schedule": "Saturdays 9:00 · Google Meet · Up to 6 children",
+    "href": "/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "locale": "vi",
+    "price": {
+      "x": 208,
+      "y": 239.75,
+      "width": 1024,
+      "height": 32,
+      "bottom": 271.75
+    },
+    "action": {
+      "x": 208,
+      "y": 283.75,
+      "width": 1024,
+      "height": 48,
+      "bottom": 331.75
+    },
+    "image": {
+      "x": 386,
+      "y": 553.1500244140625,
+      "width": 384,
+      "height": 384,
+      "bottom": 937.1500244140625
+    },
+    "lead": "Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi.",
+    "schedule": "Sáng thứ Bảy 9:00 · Google Meet · Tối đa 6 bé",
+    "href": "/vi/story-club?utm_source=products",
+    "ctaCount": 1,
+    "actionUnobscured": true,
+    "overflow": false,
+    "axeViolations": 0
+  }
+]

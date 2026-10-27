@@ -42,6 +42,37 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
     setViewer(false);
     if (window.location.hash === `#${card.id}-sample`) window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
   };
+  const isStoryClub = product.id === 'story-club';
+  const shortLead = locale === 'vi'
+    ? 'Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi.'
+    : 'Online story groups for children aged 5–8.';
+  const schedule = locale === 'vi'
+    ? 'Sáng thứ Bảy 9:00 · Google Meet · Tối đa 6 bé'
+    : 'Saturdays 9:00 · Google Meet · Up to 6 children';
+  // One existing purchase block, promoted only for Story Club. Other product DOM order stays unchanged.
+  const purchase = <>
+          <p className="mt-4 text-2xl font-bold" data-price={card.id}>
+            {card.price} <span className="text-base font-semibold">{card.unit}</span>
+          </p>
+          <div className="story-cta mt-3">
+            <a
+              className="insights-button-primary"
+              href={href}
+              data-cta={`product-page-${card.id}`}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              {card.cta}
+            </a>
+            {external ? (
+              <p className="mt-2 text-sm" data-order-code={card.id}>
+                {code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}
+              </p>
+            ) : null}
+            {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{c.delivery}</p> : null}
+            {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
+            {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={c.ielts.home[card.group]} id={card.id} /> : null}
+          </div>
+  </>;
   return (
     <main id="main-content" tabIndex={-1} className="insights-page ielts-tools-page story-club-page products-page min-h-screen" lang={locale} data-product-page-main={product.id}>
       {/* Deterrent: printing a product page gives a blank page, as on /products (Jay, 27 Oct 2026). */}
@@ -49,10 +80,15 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
       <ToolHero
         locale={locale}
         title={card.title}
-        lead={card.problem}
+        lead={isStoryClub ? shortLead : card.problem}
         eyebrow={card.label}
         counterpart={getLocalizedHref(path, locale === 'vi' ? 'en' : 'vi')}
-      />
+      >
+        {isStoryClub ? <div data-story-club-first-screen>
+          <p className="mt-3 text-sm" data-story-club-schedule>{schedule}</p>
+          {purchase}
+        </div> : null}
+      </ToolHero>
       <div className="ielts-tool-content mx-auto max-w-3xl space-y-10 px-5 py-14">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-2 text-sm">
@@ -92,27 +128,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
           <CardLink card={card} locale={locale} />
           {card.video ? <ProductVideo slug={card.video} locale={locale} id={PRODUCT_VIDEO_ANCHOR} fallbackTitle={card.title} /> : null}
           <Sample card={card} copy={c.sample} onOpen={() => setViewer(true)} />
-          <p className="mt-4 text-2xl font-bold" data-price={card.id}>
-            {card.price} <span className="text-base font-semibold">{card.unit}</span>
-          </p>
-          <div className="story-cta mt-3">
-            <a
-              className="insights-button-primary"
-              href={href}
-              data-cta={`product-page-${card.id}`}
-              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            >
-              {card.cta}
-            </a>
-            {external ? (
-              <p className="mt-2 text-sm" data-order-code={card.id}>
-                {code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}
-              </p>
-            ) : null}
-            {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{c.delivery}</p> : null}
-            {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
-            {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={c.ielts.home[card.group]} id={card.id} /> : null}
-          </div>
+          {!isStoryClub ? purchase : null}
         </section>
         <section aria-labelledby="product-faq-h">
           <h2 id="product-faq-h" className="text-2xl font-bold">{t.faq}</h2>
