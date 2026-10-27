@@ -180,7 +180,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
     'teacher-pack-l1': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
     'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
-    'parent-pack-l1': 'printable-pack-l1', 'parent-pack-l2': 'printable-pack-l1', 'student-workbook-l1': 'printable-pack-l1', 'thinking-cycle-set': 'thinking-cycle-set',
+    'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1', 'thinking-cycle-set': 'thinking-cycle-set',
     'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
@@ -193,11 +193,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
   const { PRODUCTS } = await import('../src/i18n/content/products');
   // Every product, live or hidden, has its own image, so flipping live needs no image work.
   for (const p of PRODUCTS) assert.ok(p.image, `${p.id} has an image`);
-  // Wave 2 (27 Oct 2026) borrows the Printable Pack image until image-studio makes its own; nothing else may share one.
-  const PLACEHOLDER = new Set(['parent-pack-l1', 'parent-pack-l2', 'student-workbook-l1']);
-  const own = PRODUCTS.filter((p) => !PLACEHOLDER.has(p.id));
-  assert.equal(new Set(own.map((p) => p.image)).size, own.length, 'no two products share an image');
-  for (const p of PRODUCTS.filter((entry) => PLACEHOLDER.has(entry.id))) assert.equal(p.image, 'printable-pack-l1', `${p.id}: placeholder image`);
+  assert.equal(new Set(PRODUCTS.map((p) => p.image)).size, PRODUCTS.length, 'no two products share an image');
   for (const name of new Set(PRODUCTS.map((p) => p.image).filter(Boolean) as string[])) {
     const file = readFileSync(`public/images/products/${name}.webp`);
     assert.equal(file.subarray(0, 4).toString(), 'RIFF', `${name} is a WebP`);
