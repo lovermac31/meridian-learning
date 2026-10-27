@@ -22,7 +22,7 @@ const EXPECTED: Record<string, [string, string][]> = {
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['thinking-cycle-set', '490.000₫'],
-    ['reasoning-assessment-kit', '390.000₫'], ['ielts-speaking-ladder', '390.000₫'], ['ielts-writing-ladder-task2', '390.000₫'], ['ielts-writing-task1-method', '290.000₫'], ['ielts-writing-teacher-pack', '690.000₫'],
+    ['reasoning-assessment-kit', '390.000₫'], ['ielts-speaking-ladder', '390.000₫'], ['ielts-one-to-one-starter', '149.000₫'], ['writing-baseline', '79.000₫'], ['ielts-writing-ladder-task2', '390.000₫'], ['ielts-writing-task1-method', '290.000₫'], ['ielts-writing-teacher-pack', '690.000₫'],
   ],
   centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
 };
@@ -101,7 +101,8 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
   ]) {
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id)], route);
+    // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([id]) => id).filter((id) => id !== 'writing-baseline'), ...SHOWN.centres.map(([id]) => id)], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -186,6 +187,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1', 'student-workbook-l2': 'student-workbook-l2', 'student-workbook-l3': 'student-workbook-l3',
     'student-workbook-l4': 'student-workbook-l4', 'student-workbook-l5': 'student-workbook-l5', 'thinking-cycle-set': 'thinking-cycle-set',
     'reasoning-assessment-kit': 'reasoning-assessment-kit', 'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2', 'ielts-writing-task1-method': 'ielts-writing-task1-method', 'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack',
+    'ielts-one-to-one-starter': 'ielts-one-to-one-starter', 'writing-baseline': 'writing-baseline',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
   };
@@ -207,16 +209,16 @@ test('the ChatGPT product images are on their cards, square and light', async ()
   }
 });
 
-test('packs marked live: false stay in the data, off the page and without a product page; the 8 new ones wait (35-today)', async () => {
+test('packs marked live: false stay in the data, off the page and without a product page; 6 new ones wait (35-today)', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
   const { renderRoute } = await import('../src/entry-server');
   for (const p of PRODUCTS) assert.equal(typeof p.live, 'boolean', `${p.id}: live is set`);
   const hidden = PRODUCTS.filter((p) => !p.live).map((p) => p.id);
-  // 35-today plan (Jay, 27 Oct 2026): the eight new products ship hidden and flip live one by one once the master
-  // approves each sample (and its image is in). Everything before them is live.
+  // 35-today plan (Jay, 27 Oct 2026): the new products flip live one by one once the master approves each sample.
+  // The Writing Baseline and the One-to-One Starter are live; these six wait for their factory samples.
   assert.deepEqual(hidden, [
     'parent-pack-l3', 'holiday-reading-challenge', 'word-fossil-flashcards-l1', 'thinking-cycle-posters',
-    'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'writing-baseline', 'ielts-essay-bank-task2',
+    'ielts-cue-card-bank', 'ielts-essay-bank-task2',
   ]);
   const { PRODUCT_PAGE_PATHS } = await import('../src/i18n/content/productSeo');
   for (const route of [EN, VI]) {

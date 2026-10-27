@@ -41,6 +41,16 @@ export function productHref(href: string, locale: Locale): string {
 }
 
 export type LeadIns = { problem: string; inside: string; forWho: string };
+
+/** A card's extra link (e.g. the Writing Baseline's sample reports), in the page language and tagged like the hub. */
+export function CardLink({ card, locale }: { card: ProductCard; locale: Locale }) {
+  if (!card.link) return null;
+  return (
+    <p className="mt-2 text-sm" data-card-link={card.id}>
+      <a href={productHref(card.link.href, locale)} className="font-bold underline underline-offset-4 hover:text-sb-amber-deep">{card.link.label} →</a>
+    </p>
+  );
+}
 export type SampleCopy = { heading: string; note: string; open: string };
 
 // "See a sample" (Jay, 27 Oct 2026): real pages from the product, shown above the price and the order button.
@@ -280,6 +290,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }:
           </div>
         ))}
       </dl>
+      <CardLink card={card} locale={locale} />
       <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} />
       <p className="mt-4 text-2xl font-bold" data-price={card.id}>
         {card.price} <span className="text-base font-semibold">{card.unit}</span>

@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
-import { PRODUCTS_PATH, PRODUCT_IMAGE_DIR, productsPage, type Product, type ProductCard } from '../i18n/content/products';
+import { PRODUCTS_PATH, PRODUCT_IMAGE_DIR, cardLink, productsPage, type Product, type ProductCard } from '../i18n/content/products';
 import { productFaq, productPath, relatedProducts } from '../i18n/content/productSeo';
 import { ToolHero } from './IeltsToolsPage';
-import { PayPalOption, Sample, SampleViewer, productHref, useVisitorSource } from './ProductsPage';
+import { CardLink, PayPalOption, Sample, SampleViewer, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
 
 const COPY: Record<Locale, { home: string; products: string; faq: string; related: string; all: string }> = {
@@ -15,7 +15,7 @@ const COPY: Record<Locale, { home: string; products: string; faq: string; relate
 
 const toCard = (product: Product, locale: Locale): ProductCard => {
   const { id, price, href, delivery, image, sample, paypal } = product;
-  return { id, price, href, delivery, image, sample, paypal, ...product[locale] };
+  return { id, price, href, delivery, image, sample, paypal, link: cardLink(product, locale), ...product[locale] };
 };
 
 // One product's own page (Jay, 27 Oct 2026: every product findable on Google and Bing). Same copy, sample viewer,
@@ -80,6 +80,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
               </div>
             ))}
           </dl>
+          <CardLink card={card} locale={locale} />
           <Sample card={card} copy={c.sample} onOpen={() => setViewer(true)} />
           <p className="mt-4 text-2xl font-bold" data-price={card.id}>
             {card.price} <span className="text-base font-semibold">{card.unit}</span>

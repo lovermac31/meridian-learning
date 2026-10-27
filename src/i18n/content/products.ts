@@ -71,6 +71,8 @@ export type Product = {
   // File stem of the product's public sample in public/samples. Set it only once all four files are in the repo
   // (a test checks both ways), so the "See a sample" block never shows a broken link.
   sample?: string;
+  // An extra link under the card text, e.g. the Writing Baseline's sample reports (internal path, localized and tagged).
+  link?: { href: string; en: string; vi: string };
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
@@ -253,6 +255,7 @@ export const PRODUCTS: Product[] = [
     section: 'families',
     price: '249.000₫',
     href: 'zalo',
+    image: 'parent-pack-l3',
     delivery: true,
     paypal: true,
     en: {
@@ -281,6 +284,7 @@ export const PRODUCTS: Product[] = [
     section: 'families',
     price: '149.000₫',
     href: 'zalo',
+    image: 'holiday-reading-challenge',
     delivery: true,
     paypal: true,
     en: {
@@ -633,6 +637,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
+    image: 'word-fossil-flashcards-l1',
     delivery: true,
     paypal: true,
     en: {
@@ -690,6 +695,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '149.000₫',
     href: 'zalo',
+    image: 'thinking-cycle-posters',
     delivery: true,
     paypal: true,
     en: {
@@ -770,12 +776,14 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    // 35-today plan (Jay, 27 Oct 2026): built (pdf-studio ielts-one-to-one-starter.json). Hidden until its product image and view-only sample land.
+    // 35-today plan (Jay, 27 Oct 2026): built (pdf-studio ielts-one-to-one-starter.json); view-only sample by ielts-generic-lesson.
     id: 'ielts-one-to-one-starter',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '149.000₫',
     href: 'zalo',
+    image: 'ielts-one-to-one-starter',
+    sample: 'ielts-one-to-one-starter',
     delivery: true,
     paypal: true,
     en: {
@@ -804,6 +812,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '290.000₫',
     href: 'zalo',
+    image: 'ielts-cue-card-bank',
     delivery: true,
     paypal: true,
     en: {
@@ -826,29 +835,33 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    // 35-today plan (Jay, 27 Oct 2026): a Writing service (pdf-studio writing-baseline.json, Sale Team/ielts-writing-reader/README.md WR3), ordered on Zalo at the approved Basic / Intermediate / Advanced prices. Hidden until its product image lands.
+    // 35-today plan (Jay, 27 Oct 2026; master's decision): sold now on Zalo as a manual service at the three approved
+    // prices (pdf-studio writing-baseline.json). Mr. Jay or his team reads each essay by hand; the Writing app is not
+    // open, so the card links only to its sample reports. No PayPal.
     id: 'writing-baseline',
-    live: false,
+    live: true,
     section: 'teachers',
     price: '79.000₫',
     href: 'zalo',
+    image: 'writing-baseline',
     sample: 'writing-baseline',
+    link: { href: '/ai-speaking/writing/demo', en: 'See a sample report', vi: 'Xem báo cáo mẫu' },
     en: {
       label: 'Practice feedback · teens and adults',
       title: 'IELTS Writing Baseline',
       problem: 'You keep writing Task 2 essays without knowing which problem to fix first.',
-      inside: 'Write one Task 2 essay. You get back one strength to keep and three priorities in the order to fix them. Each priority quotes your own sentence, shows an example of the fix and names the lesson that trains it.',
-      forWho: 'Teens and adults preparing for IELTS Writing. Intermediate (199.000₫) adds your revision and a new essay, read again; Advanced (449.000₫) adds a review by Mr. Jay’s team. Practice feedback, not an official IELTS score; no band number is given.',
-      unit: 'Basic report · one essay',
+      inside: 'Send one Task 2 essay. Mr. Jay or his team reads it by hand and sends back, by Zalo or email, one strength to keep and three priorities in the order to fix them. Each priority quotes your own sentence, shows an example of the fix and names the lesson that trains it.',
+      forWho: 'Teens and adults preparing for IELTS Writing. Basic 79.000₫ · Intermediate 199.000₫ (your revision and a new essay, read again) · Advanced 449.000₫ (Intermediate plus a written review by Mr. Jay’s team). Practice feedback, not an official IELTS score; no band number is given.',
+      unit: 'Basic · one essay',
       cta: 'Order on Zalo',
     },
     vi: {
       label: 'Phản hồi luyện tập · thanh thiếu niên và người lớn',
       title: 'IELTS Writing Baseline',
       problem: 'Bạn viết bài Task 2 liên tục mà không biết nên sửa điều gì trước.',
-      inside: 'Viết một bài luận Task 2. Bạn nhận lại một điểm mạnh cần giữ và ba ưu tiên cần sửa theo thứ tự. Mỗi ưu tiên trích câu của chính bạn, có ví dụ cách sửa và bài học luyện kỹ năng đó.',
-      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing. Trung cấp (199.000₫) có bài sửa và một bài mới, được đọc lại; Nâng cao (449.000₫) thêm nhận xét của đội ngũ thầy Jay. Phản hồi luyện tập, không phải điểm IELTS chính thức; không đưa ra điểm band.',
-      unit: 'Báo cáo cơ bản · một bài luận',
+      inside: 'Gửi một bài luận Task 2. Thầy Jay hoặc đội ngũ của thầy đọc bằng tay và gửi lại qua Zalo hoặc email một điểm mạnh cần giữ và ba ưu tiên cần sửa theo thứ tự. Mỗi ưu tiên trích câu của chính bạn, có ví dụ cách sửa và bài học luyện kỹ năng đó.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing. Cơ bản 79.000₫ · Trung cấp 199.000₫ (bài sửa và một bài mới, được đọc lại) · Nâng cao 449.000₫ (Trung cấp kèm nhận xét bằng văn bản của đội ngũ thầy Jay). Phản hồi luyện tập, không phải điểm IELTS chính thức; không đưa ra điểm band.',
+      unit: 'Cơ bản · một bài luận',
       cta: 'Đặt mua qua Zalo',
     },
   },
@@ -917,6 +930,7 @@ export const PRODUCTS: Product[] = [
     section: 'teachers',
     price: '290.000₫',
     href: 'zalo',
+    image: 'ielts-essay-bank-task2',
     delivery: true,
     paypal: true,
     en: {
@@ -1133,7 +1147,12 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal'>;
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal'> & {
+  link?: { href: string; label: string };
+};
+
+/** A product's extra link in one language. */
+export const cardLink = (product: Product, locale: Locale) => (product.link ? { href: product.link.href, label: product.link[locale] } : undefined);
 
 /** The page in one language: its copy, and the sections in order with their cards from PRODUCTS. */
 export function productsPage(locale: Locale) {
@@ -1144,9 +1163,10 @@ export function productsPage(locale: Locale) {
       id,
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
-        ({ id: cardId, price, href, delivery, image, sample, paypal, [locale]: text }): ProductCard => ({
-          id: cardId, price, href, delivery, image, sample, paypal, ...text,
-        }),
+        (product): ProductCard => {
+          const { id: cardId, price, href, delivery, image, sample, paypal, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal, link: cardLink(product, locale), ...text };
+        },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).
       also: PRODUCTS.filter((p) => p.live && p.alsoIn?.section === id).map((p) => {
