@@ -83,10 +83,21 @@ const en = {
       title: 'English your child can use—not just memorise.',
       body: 'Story-led lessons that help children and teens explain ideas using details from real books, speak confidently out loud, and write clearly—plus evidence-based IELTS practice for older teens and adults.',
       primary: 'Explore Learning Paths',
-      secondary: 'Try the Free 2-Min Story Quest Activity (Ages 6–12)',
+      // One clear secondary button to the products (master, 27 Oct 2026: a clean path from home to /products).
+      secondary: 'See all products',
       imageAlt: 'Storybook illustration: Professor Rex and young explorers gathered around an illustrated map of story worlds',
       artLabel: 'Illustration',
       rexAlt: 'Illustration of Professor Rex, the Jurassic English storybook guide',
+    },
+    // "Find what you need" (master, 27 Oct 2026): one strip under the hero, a tile per /products section with its
+    // starting price and the image of the product at that price. Promise lines are the /products section intros.
+    find: {
+      heading: 'Find what you need',
+      tiles: [
+        { anchor: 'families', title: 'For families', promise: 'Live classes with Mr. Jay, and printables for home.', from: 'from 149.000₫', image: 'printable-pack-l1' },
+        { anchor: 'teachers', title: 'For teachers', promise: 'Ready-to-use materials for teachers and tutors.', from: 'from 190.000₫', image: 'student-workbook-l1' },
+        { anchor: 'centres', title: 'For centres', promise: 'Programmes and materials for schools and centres.', from: 'from 290.000₫', image: 'curriculum-overview' },
+      ],
     },
     paths: {
       heading: "Choose the path that fits your learner's goal",
@@ -288,10 +299,18 @@ const vi: OverhaulContent = {
       title: 'Tiếng Anh con dùng được—không chỉ học thuộc.',
       body: 'Những bài học xoay quanh câu chuyện giúp trẻ em và tuổi teen giải thích ý tưởng bằng chi tiết từ sách thật, tự tin nói thành lời và viết mạch lạc—cùng phần luyện IELTS dựa trên bằng chứng cho học sinh lớn và người lớn.',
       primary: 'Xem các lộ trình học',
-      secondary: 'Chơi thử Story Quest 2 phút miễn phí (6–12 tuổi)',
+      secondary: 'Xem tất cả sản phẩm',
       imageAlt: 'Tranh minh hoạ truyện: Giáo sư Rex và các nhà thám hiểm nhỏ quây quanh tấm bản đồ các thế giới truyện',
       artLabel: 'Tranh minh hoạ',
       rexAlt: 'Tranh minh hoạ Giáo sư Rex, người dẫn đường trong truyện của Jurassic English',
+    },
+    find: {
+      heading: 'Tìm đúng thứ bạn cần',
+      tiles: [
+        { anchor: 'families', title: 'Dành cho gia đình', promise: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.', from: 'từ 149.000₫', image: 'printable-pack-l1' },
+        { anchor: 'teachers', title: 'Dành cho giáo viên', promise: 'Tài liệu dùng ngay cho giáo viên và gia sư.', from: 'từ 190.000₫', image: 'student-workbook-l1' },
+        { anchor: 'centres', title: 'Dành cho trung tâm', promise: 'Chương trình và tài liệu cho trường học và trung tâm.', from: 'từ 290.000₫', image: 'curriculum-overview' },
+      ],
     },
     paths: {
       heading: 'Chọn lộ trình phù hợp với mục tiêu của người học',

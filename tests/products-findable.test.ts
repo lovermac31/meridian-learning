@@ -187,7 +187,7 @@ test('order codes: every Order on Zalo button shows its code line (EN + VI); oth
   assert.ok(zalo.length >= 10);
   for (const [route, before] of [['/products', 'When you message, mention code'], ['/vi/products', 'Khi nhắn tin, hãy nhắc mã']] as const) {
     const html = await renderRoute(route);
-    const lines = [...html.replaceAll('<!-- -->', '').matchAll(/<p class="mt-2 text-sm" data-order-code="([^"]+)">([^<]*)<strong>([^<]+)<\/strong>\.<\/p>/g)];
+    const lines = [...html.replaceAll('<!-- -->', '').matchAll(/<p class="mt-2 text-xs" data-order-code="([^"]+)">([^<]*)<strong>([^<]+)<\/strong>\.<\/p>/g)];
     assert.deepEqual(lines.map((m) => m[1]), zalo, route);
     for (const [, id, text, code] of lines) {
       assert.equal(text.trim(), before, `${route} ${id}`);

@@ -1,5 +1,5 @@
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
-import { CONTACT_EMAIL, getOverhaulContent, IMG, STORY_QUEST_URL, ZALO_URL } from '../i18n/content/overhaul';
+import { CONTACT_EMAIL, getOverhaulContent, IMG, ZALO_URL } from '../i18n/content/overhaul';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
@@ -55,7 +55,7 @@ const STEP_STYLES = ['bg-sb-sage text-sb-sage-ink', 'bg-amber-100 text-sb-amber-
 export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => void }) {
   const locale = getCurrentLocale();
   const { home } = getOverhaulContent(locale);
-  const { hero, paths, lesson, jay, pricing, faq } = home;
+  const { hero, find, paths, lesson, jay, pricing, faq } = home;
 
   return (
     <div className="bg-sb-cream text-sb-ink">
@@ -68,7 +68,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
             <p className="mt-5 max-w-xl text-base leading-relaxed text-sb-slate sm:text-lg">{hero.body}</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <CtaLink link={{ label: hero.primary, href: '#learning-paths', kind: 'anchor' }} className={PRIMARY_BTN} onNavigate={onNavigate} track="home_hero_paths" />
-              <CtaLink link={{ label: hero.secondary, href: STORY_QUEST_URL, kind: 'external' }} className={SECONDARY_BTN} onNavigate={onNavigate} track="home_hero_story_quest" />
+              <CtaLink link={{ label: hero.secondary, href: '/products?utm_source=home-hero', kind: 'page' }} className={SECONDARY_BTN} onNavigate={onNavigate} track="home_hero_products" />
             </div>
           </div>
           <figure className="relative">
@@ -98,6 +98,40 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
               className="absolute bottom-3 right-3 h-[72px] w-[72px] rounded-full border-4 border-white bg-sb-cream object-cover shadow-warm sm:h-24 sm:w-24"
             />
           </figure>
+        </div>
+      </section>
+
+      {/* 1b · Find what you need (master, 27 Oct 2026): one compact strip, a tile per /products section (2 clicks from
+          home to any product: tile → section → the card's order button). Plain links, so #anchor lands on the heading. */}
+      <section className="border-t border-sb-border bg-white px-4 py-8 sm:px-6" aria-labelledby="find-heading">
+        <div className="mx-auto max-w-7xl">
+          <h2 id="find-heading" className="text-xl font-extrabold text-sb-forest">{find.heading}</h2>
+          <ul className="mt-4 grid gap-3 md:grid-cols-3">
+            {find.tiles.map((tile) => (
+              <li key={tile.anchor}>
+                <a
+                  href={`${getLocalizedHref('/products', locale)}?utm_source=home-tiles#${tile.anchor}`}
+                  onClick={() => {
+                    try {
+                      trackCtaClick({ label: `home_tile_${tile.anchor}`, type: 'primary', segment: 'parent_student' });
+                    } catch {
+                      /* Measurement must not block navigation. */
+                    }
+                  }}
+                  className="flex h-full items-center gap-3 rounded-2xl border border-sb-border bg-sb-cream p-3 transition hover:border-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+                  data-home-tile={tile.anchor}
+                >
+                  <img src={`/images/products/${tile.image}.webp`} alt="" width={480} height={480} loading="lazy" decoding="async" className="h-16 w-16 flex-none rounded-xl object-cover" />
+                  <span className="min-w-0">
+                    <span className="block font-extrabold text-sb-forest">{tile.title}</span>
+                    <span className="block text-sm text-sb-slate">{tile.promise}</span>
+                    <span className="mt-0.5 block text-sm font-bold text-sb-amber-deep">{tile.from}</span>
+                  </span>
+                  <ArrowRight aria-hidden="true" className="ml-auto h-4 w-4 flex-none text-sb-forest" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

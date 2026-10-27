@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type SyntheticEvent } from 'react';
+import { Fragment, useEffect, useRef, useState, type SyntheticEvent } from 'react';
 import { ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
@@ -253,6 +253,10 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
 }
 
 const DETAILS_LABEL: Record<Locale, string> = { en: 'Details', vi: 'Chi tiết' };
+const MINI_NAV: Record<Locale, { label: string; links: [string, string][] }> = {
+  en: { label: 'Product sections', links: [['families', 'Families'], ['teachers', 'Teachers'], ['centres', 'Centres'], ['ielts', 'IELTS']] },
+  vi: { label: 'Các nhóm sản phẩm', links: [['families', 'Gia đình'], ['teachers', 'Giáo viên'], ['centres', 'Trung tâm'], ['ielts', 'IELTS']] },
+};
 
 /** The first sentence of a card's "Who it's for" (the collapsed card's one line); "Mr. Jay" and decimals don't end it. */
 export function firstSentence(text: string): string {
@@ -269,7 +273,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample }:
   const code = ORDER_CODE_COPY[locale];
   const detailsLabel = DETAILS_LABEL[locale];
   return (
-    <li className="ielts-tool-card flex scroll-mt-24 flex-col rounded-2xl bg-white p-4 shadow-sm sm:p-6" id={card.id}>
+    <li className="ielts-tool-card flex scroll-mt-24 max-md:scroll-mt-36 flex-col rounded-2xl bg-white p-4 shadow-sm sm:p-6" id={card.id}>
       {(PRODUCT_FORMER_IDS[card.id] ?? []).map((former) => (
         <span key={former} id={former} className="block scroll-mt-24" aria-hidden="true" />
       ))}
@@ -376,26 +380,44 @@ export function ProductsPage({ locale }: { locale: Locale }) {
         eyebrow={c.eyebrow}
         counterpart={locale === 'vi' ? PRODUCTS_PATH : PRODUCTS_VI_PATH}
       />
+      {/* Phones: a sticky mini-nav under the header (master, 27 Oct 2026) — Families · Teachers · Centres · IELTS. */}
+      <nav aria-label={MINI_NAV[locale].label} className="sticky top-[72px] z-40 border-b border-sb-border bg-sb-cream/95 backdrop-blur md:hidden" data-products-mini-nav="">
+        <ul className="mx-auto flex max-w-5xl justify-between gap-1 px-3 py-2 text-sm font-bold">
+          {MINI_NAV[locale].links.map(([anchor, label]) => (
+            <li key={anchor}><a href={`#${anchor}`} className="inline-flex min-h-11 items-center rounded-full px-3 underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber">{label}</a></li>
+          ))}
+        </ul>
+      </nav>
       <div className="ielts-tool-content mx-auto max-w-5xl space-y-12 px-5 py-14">
         <a href={productHref('/', locale)} className="inline-flex items-center gap-2 text-sm font-bold underline underline-offset-4">
           <ArrowLeft aria-hidden="true" className="h-4 w-4" /> {c.back}
         </a>
-        {c.sections.map((section) => (
-          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="scroll-mt-24">
+        {c.sections.map((section) => {
+          // The IELTS cards close the teachers section under their own heading (the phone mini-nav's "IELTS").
+          const ielts = section.cards.findIndex((card) => card.id.startsWith('ielts-'));
+          const groups = ielts > 0 ? [section.cards.slice(0, ielts), section.cards.slice(ielts)] : [section.cards];
+          return (
+          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="scroll-mt-24 max-md:scroll-mt-36">
             <h2 id={`${section.id}-h`} className="text-3xl font-bold">{section.heading}</h2>
             <p className="mt-2 text-lg">{section.intro}</p>
-            <ul className="mt-6 grid gap-4 md:grid-cols-2">
-              {section.cards.map((card) => (
-                <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} />
-              ))}
-            </ul>
+            {groups.map((cards, index) => (
+              <Fragment key={index}>
+                {index > 0 ? <h3 id="ielts" className="mt-10 scroll-mt-24 text-2xl font-bold max-md:scroll-mt-36">IELTS</h3> : null}
+                <ul className="mt-6 grid gap-4 md:grid-cols-2">
+                  {cards.map((card) => (
+                    <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} />
+                  ))}
+                </ul>
+              </Fragment>
+            ))}
             {section.also.map((line) => (
               <p key={line.id} className="mt-4 text-sm" data-also={line.id}>
                 {line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}
               </p>
             ))}
           </section>
-        ))}
+          );
+        })}
       </div>
       {/* The free sample pack at the end of /products (website assessment, 27 Oct 2026, lead-capture spec). */}
       <SamplePackForm placement="products" />
