@@ -1,0 +1,577 @@
+{
+  "date": "2026-10-27",
+  "preview": "https://jurassic-english-o0hb2meuk-jay71adams-1388s-projects.vercel.app",
+  "head": "5847697a0a5851bb56f072ba711d91e54f930298",
+  "access": "Authenticated Vercel connector; temporary private preview access, no credentials in evidence",
+  "pages": [
+    "/products",
+    "/vi/products"
+  ],
+  "cardsChecked": 70,
+  "paypalLinksChecked": 60,
+  "priceMismatches": 0,
+  "returnOrCancelMismatches": 0,
+  "checks": [
+    {
+      "locale": "en",
+      "id": "story-club",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "en",
+      "id": "baseline",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "en",
+      "id": "one-to-one",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "en",
+      "id": "printable-pack",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "parent-pack-l1",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "parent-pack-l2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "parent-pack-l3",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "holiday-reading-challenge",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "teacher-pack-l1",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "teacher-pack-l2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "teacher-pack-l3",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "teacher-pack-l4",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "teacher-pack-l5",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "teacher-bundle",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "student-workbook-l1",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "student-workbook-l2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "student-workbook-l3",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "student-workbook-l4",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "student-workbook-l5",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "word-fossil-flashcards-l1",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "thinking-cycle-set",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "thinking-cycle-posters",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "reasoning-assessment-kit",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "centre-licence",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "en",
+      "id": "teacher-training-course",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "pilot-class-kit",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "curriculum-overview",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "ielts-speaking-ladder",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "ielts-one-to-one-starter",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "ielts-cue-card-bank",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "writing-baseline",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "en",
+      "id": "ielts-writing-ladder-task2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "ielts-writing-task1-method",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "ielts-essay-bank-task2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "en",
+      "id": "ielts-writing-teacher-pack",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "story-club",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "vi",
+      "id": "baseline",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "vi",
+      "id": "one-to-one",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "vi",
+      "id": "printable-pack",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "parent-pack-l1",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "parent-pack-l2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "parent-pack-l3",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "holiday-reading-challenge",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "teacher-pack-l1",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "teacher-pack-l2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "teacher-pack-l3",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "teacher-pack-l4",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "teacher-pack-l5",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "teacher-bundle",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "student-workbook-l1",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "student-workbook-l2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "student-workbook-l3",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "student-workbook-l4",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "student-workbook-l5",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "word-fossil-flashcards-l1",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "thinking-cycle-set",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "thinking-cycle-posters",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "reasoning-assessment-kit",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "centre-licence",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "vi",
+      "id": "teacher-training-course",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "pilot-class-kit",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "curriculum-overview",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "ielts-speaking-ladder",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "ielts-one-to-one-starter",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "ielts-cue-card-bank",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "writing-baseline",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": null
+    },
+    {
+      "locale": "vi",
+      "id": "ielts-writing-ladder-task2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "ielts-writing-task1-method",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "ielts-essay-bank-task2",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    },
+    {
+      "locale": "vi",
+      "id": "ielts-writing-teacher-pack",
+      "vndMatches": true,
+      "amountMatches": true,
+      "returnMatches": true,
+      "rm": "1"
+    }
+  ],
+  "productionRequests": 0
+}

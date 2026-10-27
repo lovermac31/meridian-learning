@@ -8,6 +8,7 @@ import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
 import { SAMPLE_PACK_ANCHOR } from '../lib/headerCta';
 import { readVisitorSource } from '../lib/productsSource';
+import { submitSamplePack } from '../lib/samplePackRequest';
 import { PRIMARY_BTN } from './HomeOverhaul';
 
 const FIELD =
@@ -43,23 +44,18 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
       source = null;
     }
     try {
-      const res = await fetch('/api/sample-pack', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: String(data.get('name') ?? ''),
-          contact,
-          childAge: String(data.get('childAge') ?? ''),
-          teacher: data.get('teacher') === 'on',
-          consent: true,
-          locale,
-          placement,
-          source,
-          website: String(data.get('website') ?? ''),
-          startedAt,
-        }),
+      await submitSamplePack({
+        name: String(data.get('name') ?? ''),
+        contact,
+        childAge: String(data.get('childAge') ?? ''),
+        teacher: data.get('teacher') === 'on',
+        consent: true,
+        locale,
+        placement,
+        source,
+        website: String(data.get('website') ?? ''),
+        startedAt,
       });
-      if (!res.ok) throw new Error(String(res.status));
       setStatus('sent');
       try {
         trackCtaClick({ label: `sample_pack_submit_${placement}`, type: 'primary', segment: 'parent_student' });

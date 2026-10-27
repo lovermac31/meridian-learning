@@ -102,6 +102,11 @@ test('S1: the 13 digital cards take PayPal at the approved US$ prices; the Centr
     assert.equal(q.amount, `${USD[p.id]}.00`, `${p.id}: US$${USD[p.id]} = ceil(${p.price} ÷ 25,897)`);
     assert.equal(q.item_name, `${p.en.title} - /products ${p.id} code ${p.id.toUpperCase()} (Jurassic English)`);
     assert.equal(q.custom, `${p.id}|${p.id.toUpperCase()}`, `${p.id}: card id and code for matching`);
+    assert.equal(q.return, `https://jurassicenglish.com/products#${p.id}`);
+    assert.equal(q.cancel_return, q.return);
+    assert.equal(q.rm, '1', 'no payment variables on the navigation-only return');
+    const vi = new URL(productPaypalHref(p.id, null, 'vi'));
+    assert.equal(vi.searchParams.get('return'), `https://jurassicenglish.com/vi/products#${p.id}`);
   }
   const fb = Object.fromEntries(new URL(productPaypalHref('teacher-pack-l1', 'fb-teachers')).searchParams);
   assert.equal(fb.custom, 'teacher-pack-l1|FBT');
@@ -121,6 +126,7 @@ test('S1: each PayPal card shows the US$ option after the VND order button, with
       const link = card.match(/<a href="([^"]+)" target="_blank" rel="noopener noreferrer"[^>]*data-paypal-link="[^"]+">([^<]+)</)!;
       assert.ok(link[1].startsWith('https://www.paypal.com/cgi-bin/webscr?cmd=_xclick'), `${route} ${id}`);
       assert.ok(link[2].startsWith(`${pay}${USD[id]} `), `${route} ${id}: ${link[2]}`);
+      assert.equal(new URL(link[1]).searchParams.get('return'), `https://jurassicenglish.com${route}#${id}`);
       assert.ok(card.includes(note), `${route} ${id}: delivery promise`);
       assert.equal([...card.matchAll(/data-cta="/g)].length, 1, `${route} ${id}: still one CTA`);
     }

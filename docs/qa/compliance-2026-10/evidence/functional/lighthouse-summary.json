@@ -1,0 +1,82 @@
+[
+  {
+    "id": "home",
+    "url": "http://127.0.0.1:5200/",
+    "finalUrl": "http://127.0.0.1:5200/",
+    "score": 0.99,
+    "error": null,
+    "lcpMs": 2110.4045,
+    "cls": 0.00002345584722655682,
+    "tbtMs": 35.5
+  },
+  {
+    "id": "products",
+    "url": "http://127.0.0.1:5200/products/",
+    "finalUrl": "http://127.0.0.1:5200/products/",
+    "score": 0.99,
+    "error": null,
+    "lcpMs": 2037.6003,
+    "cls": 0.00002345584722655682,
+    "tbtMs": 79
+  },
+  {
+    "id": "product",
+    "url": "http://127.0.0.1:5200/products/story-club/",
+    "finalUrl": "http://127.0.0.1:5200/products/story-club/",
+    "score": 0.99,
+    "error": null,
+    "lcpMs": 2087.2187999999996,
+    "cls": 0.00002345584722655682,
+    "tbtMs": 0
+  },
+  {
+    "id": "story-club",
+    "url": "http://127.0.0.1:5200/story-club/",
+    "finalUrl": "http://127.0.0.1:5200/story-club/",
+    "score": 0.99,
+    "error": null,
+    "lcpMs": 1959.1734999999999,
+    "cls": 0.00002345584722655682,
+    "tbtMs": 0
+  },
+  {
+    "id": "ai-speaking",
+    "url": "https://jurassicenglish.com/ai-speaking",
+    "finalUrl": "https://jurassicenglish.com/ai-speaking",
+    "score": 0.9,
+    "error": null,
+    "lcpMs": 3202.9945,
+    "cls": 0.017827535281107813,
+    "tbtMs": 195
+  },
+  {
+    "id": "books",
+    "url": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "finalUrl": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "score": 0.74,
+    "error": null,
+    "lcpMs": 6218.864,
+    "cls": 0,
+    "tbtMs": 114
+  },
+  {
+    "id": "portal-buy",
+    "url": "https://my.jurassicenglish.com/buy/printable-pack",
+    "finalUrl": "https://my.jurassicenglish.com/login?next=%2Fbuy%2Fprintable-pack",
+    "score": 0.99,
+    "error": null,
+    "lcpMs": 1188.4140000000002,
+    "cls": 0,
+    "tbtMs": 52
+  },
+  {
+    "id": "story-quest",
+    "url": "https://worldwise-story-quest.vercel.app/#home",
+    "finalUrl": "https://worldwise-story-quest.vercel.app/#home",
+    "score": 0.88,
+    "error": null,
+    "lcpMs": 3095.1259999999997,
+    "cls": 0,
+    "tbtMs": 0
+  }
+]

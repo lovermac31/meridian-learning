@@ -1,0 +1,72 @@
+[
+  {
+    "locale": "en",
+    "mode": "success",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  },
+  {
+    "locale": "en",
+    "mode": "400",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  },
+  {
+    "locale": "en",
+    "mode": "429",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  },
+  {
+    "locale": "en",
+    "mode": "502",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  },
+  {
+    "locale": "en",
+    "mode": "network",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  },
+  {
+    "locale": "vi",
+    "mode": "success",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  },
+  {
+    "locale": "vi",
+    "mode": "400",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  },
+  {
+    "locale": "vi",
+    "mode": "429",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  },
+  {
+    "locale": "vi",
+    "mode": "502",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  },
+  {
+    "locale": "vi",
+    "mode": "network",
+    "clientValidation": "pass",
+    "outbound": "intercepted locally",
+    "result": "pass"
+  }
+]

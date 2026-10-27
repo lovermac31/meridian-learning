@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-27T13:46:58.353Z",
+  "target": "https://staging.jurassicenglish.com/portal/buy/teacher-pack-l2?lang=en",
+  "finalUrl": "https://staging.jurassicenglish.com/portal/buy/teacher-pack-l2?lang=en",
+  "authenticated": true,
+  "tool": "Lighthouse12.8.2",
+  "score": 1,
+  "runtimeError": null,
+  "lcpMs": 977.656,
+  "cls": 0,
+  "tbtMs": 19.5,
+  "scope": "One simulated-mobile lab navigation to real authenticated staging buy page; storage reset disabled only to preserve synthetic auth; no field-CWV or production claim; full LHR intentionally not saved because configuration contains authorization."
+}

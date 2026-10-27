@@ -85,11 +85,17 @@ export const ORDER_CODE_COPY: Record<Locale, { before: string; after: string }> 
 // Google Drive within 24 hours (until the portal automates it, ADR-008).
 export const productUsd = (price: string) => usdFromVnd(Number(price.replace(/\D/g, '')));
 
-export function productPaypalHref(id: string, source: string | null): string {
+export function productPaypalHref(id: string, source: string | null, locale: Locale = 'en'): string {
   const product = PRODUCTS.find((entry) => entry.id === id);
   if (!product?.paypal) throw new Error(`No PayPal option for ${id}`);
   const code = orderCode(source, id);
-  return paypalHref(paypalItemName(product.en.title, `/products ${id} code ${code}`), productUsd(product.price), `${id}|${code}`);
+  const href = new URL(paypalHref(paypalItemName(product.en.title, `/products ${id} code ${code}`), productUsd(product.price), `${id}|${code}`));
+  // Navigation only: returning does not confirm a payment or unlock an edition.
+  const back = `https://jurassicenglish.com/${locale === 'vi' ? 'vi/' : ''}products#${id}`;
+  href.searchParams.set('return', back);
+  href.searchParams.set('cancel_return', back);
+  href.searchParams.set('rm', '1'); // GET without payment variables in the return URL.
+  return href.toString();
 }
 
 export const PAYPAL_CARD_COPY: Record<Locale, { lead: string; pay: (usd: number) => string; note: string }> = {
