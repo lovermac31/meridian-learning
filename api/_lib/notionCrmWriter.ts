@@ -259,17 +259,20 @@ export async function writeNotionLead(
   return createLeadPage(token, dbId, registration.submissionId, (schema) => buildProperties(registration, schema));
 }
 
+type LeadPageOptions = { duplicateGuard: boolean };
+
 /** Create one page in the JE Leads database (duplicate-guarded by Registration ID). Never throws. */
 async function createLeadPage(
   token: string,
   dbId: string,
   submissionId: string,
   build: (schema: NotionDatabaseSchema | null) => Record<string, unknown>,
+  options: LeadPageOptions = { duplicateGuard: true },
 ): Promise<NotionWriteResult> {
   const schema = await fetchDatabaseSchema(token, dbId);
 
-  // Duplicate guard — skip if this registration ID already exists
-  const duplicate = await isDuplicate(token, dbId, submissionId);
+  // Duplicate guard (pricing registrations: Registration ID is the title) — skip if this ID already exists
+  const duplicate = options.duplicateGuard && await isDuplicate(token, dbId, submissionId);
   if (duplicate) {
     console.info('[notion] duplicate — record already exists, skipping', {
       submissionId,
@@ -334,9 +337,17 @@ export type SampleLead = {
   source?: string;
 };
 
+/**
+ * The B2C "Leads" database in the Jurassic English B2C RevOps Hub. The older "JE Leads" database (the pricing
+ * registrations' NOTION_JE_LEADS_DB_ID) was retired on 7 Oct 2026 and has no rows since 12 Aug; "Leads" is the live
+ * one (47 rows since 7 Oct). NOTION_LEADS_DB_ID overrides it.
+ */
+export const SAMPLE_LEADS_DB_ID = 'b5dcf12081844218a5d0d1bd0ea1ce0e';
+
 export function sampleLeadNotes(l: SampleLead): string {
   return [
     'lead_source: sample-pack',
+    `role: ${l.teacher ? 'teacher' : 'parent'}`,
     `page: ${l.placement} (${l.locale})`,
     l.source ? `utm_source: ${l.source}` : 'utm_source: none',
     l.childAge ? `child age: ${l.childAge}` : null,
@@ -344,34 +355,49 @@ export function sampleLeadNotes(l: SampleLead): string {
   ].filter(Boolean).join(' · ');
 }
 
+const ageBand = (age?: string) => {
+  const n = Number(age);
+  if (!age || Number.isNaN(n)) return null;
+  return n >= 9 && n <= 10 ? '9–11' : n >= 11 && n <= 14 ? '11–14' : n >= 15 && n <= 18 ? '15–18' : null;
+};
+
 /**
- * Write a sample-pack lead to the same JE Leads database as the pricing registrations (master, 27 Oct 2026: no Supabase
- * change). Buyer Type is Parent / Guardian, or Teacher / CPD Lead when they tick "I'm a teacher"; the lead source,
- * page and utm go in Notes (and in a "Lead Source" text property if the database has one; a select is left alone). Only the properties a
- * sample lead actually has are written. Never throws.
+ * The "Leads" page properties for a sample-pack lead, by that database's own names and existing select options (the
+ * Notion API does not add options): Lead Name, Email or Contact (Zalo / Phone), Preferred Channel, Source (Facebook /
+ * Zalo from the utm, else Other), UTM / Raw Source (lead source, role, page, utm, age, consent), Lifecycle Stage Lead,
+ * Child Age Band when the age fits a band, Parent Name for a parent, and Next Action. A property the database does not
+ * have (per its schema) is left out.
+ */
+export function sampleLeadProperties(l: SampleLead, schema: NotionDatabaseSchema | null): Record<string, unknown> {
+  const has = (name: string, type: string) => !schema || schema[name] === type;
+  const props: Record<string, unknown> = {
+    'Lead Name': { title: rt(l.name || (l.teacher ? 'Sample pack request (teacher)' : 'Sample pack request')) },
+  };
+  if (l.email && has('Email', 'email')) props['Email'] = { email: l.email };
+  if (l.zalo && has('Contact (Zalo / Phone)', 'phone_number')) props['Contact (Zalo / Phone)'] = { phone_number: l.zalo };
+  if (has('Preferred Channel', 'select')) props['Preferred Channel'] = { select: { name: l.email ? 'Email' : 'Zalo' } };
+  if (has('Source', 'select')) props['Source'] = { select: { name: /^fb/.test(l.source ?? '') ? 'Facebook' : /^zalo/.test(l.source ?? '') ? 'Zalo' : 'Other' } };
+  if (has('UTM / Raw Source', 'text') || has('UTM / Raw Source', 'rich_text')) props['UTM / Raw Source'] = { rich_text: rt(sampleLeadNotes(l)) };
+  if (has('Lifecycle Stage', 'select')) props['Lifecycle Stage'] = { select: { name: 'Lead' } };
+  const band = ageBand(l.childAge);
+  if (band && has('Child Age Band', 'select')) props['Child Age Band'] = { select: { name: band } };
+  if (l.name && !l.teacher && (has('Parent Name', 'text') || has('Parent Name', 'rich_text'))) props['Parent Name'] = { rich_text: rt(l.name) };
+  if (has('Next Action', 'text') || has('Next Action', 'rich_text')) {
+    props['Next Action'] = { rich_text: rt(`Send the free sample pack by ${l.email ? 'email' : 'Zalo'} and follow up within 24 hours (${l.submissionId}).`) };
+  }
+  return props;
+}
+
+/**
+ * Write a sample-pack lead to the "Leads" database (master, 27 Oct 2026: no Supabase change; Notion + an email to Jay).
+ * Uses the site's NOTION_TOKEN, so that integration needs access to "Leads". Never throws.
  */
 export async function writeNotionSampleLead(lead: SampleLead): Promise<NotionWriteResult> {
   const token = process.env.NOTION_TOKEN?.trim();
-  const dbId  = process.env.NOTION_JE_LEADS_DB_ID?.trim();
-  if (!token || !dbId) {
-    console.warn('[notion] env not configured — sample lead write skipped', { hasToken: Boolean(token), hasDbId: Boolean(dbId) });
+  const dbId  = process.env.NOTION_LEADS_DB_ID?.trim() || SAMPLE_LEADS_DB_ID;
+  if (!token) {
+    console.warn('[notion] env not configured — sample lead write skipped', { hasToken: false });
     return { ok: false, reason: 'not_configured' };
   }
-  return createLeadPage(token, dbId, lead.submissionId, (schema) => {
-    const props: Record<string, unknown> = {
-      'Registration ID': { title: rt(lead.submissionId) },
-      'Submitted At':    { date: { start: lead.submittedAt } },
-      'Full Name':       { rich_text: rt(lead.name) },
-      'Role / Title':    { rich_text: rt(lead.teacher ? 'Teacher' : 'Parent') },
-      'Buyer Type':      { select: { name: BT_LABELS[lead.teacher ? 'teacher_cpd_lead' : 'parent_guardian'] } },
-      'Lead Status':     { status: { name: 'New' } },
-    };
-    if (lead.email) props['Work Email'] = { email: lead.email };
-    if (lead.zalo && supportsType(schema, 'Phone / WhatsApp', ['rich_text'])) props['Phone / WhatsApp'] = { rich_text: rt(`Zalo ${lead.zalo}`) };
-    if (supportsType(schema, 'Notes', ['rich_text'])) props['Notes'] = { rich_text: rt(sampleLeadNotes(lead)) };
-    // A "Lead Source" select is not written: its options are fixed (Form Submission, Email Reply, …) and the Notion API
-    // does not add a new option, so 'sample-pack' would fail the whole create. Notes carry lead_source instead.
-    if (schema?.['Lead Source'] === 'rich_text') props['Lead Source'] = { rich_text: rt('sample-pack') };
-    return props;
-  });
+  return createLeadPage(token, dbId, lead.submissionId, (schema) => sampleLeadProperties(lead, schema), { duplicateGuard: false });
 }
