@@ -70,6 +70,8 @@ export type Product = {
   // File stem of the product's public sample in public/samples. Set it only once all four files are in the repo
   // (a test checks both ways), so the "See a sample" block never shows a broken link.
   sample?: string;
+  // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
+  alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
   vi: CardText;
 };
@@ -181,6 +183,36 @@ export const PRODUCTS: Product[] = [
       problem: 'Con thích đọc truyện miễn phí trên màn hình, nhưng bố mẹ muốn có truyện in để cùng đọc với con, kèm hoạt động giúp con nói về câu chuyện.',
       inside: 'Bản PDF sẵn sàng để in của 3 cuốn truyện gốc Jurassic English Level 1 (Mina and the Midnight Drum, The Lantern With Two Handles, Lina and the Orchard Map) kèm sách hoạt động và giấy chứng nhận.',
       forWho: 'Gia đình có bé 4–8 tuổi. Bản quyền cho một gia đình: in bao nhiêu bản cũng được để dùng trong nhà.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'parent-pack-l1',
+    live: true,
+    section: 'families',
+    price: '249.000₫',
+    href: 'zalo',
+    // Placeholder until image-studio makes this pack's own image.
+    image: 'printable-pack-l1',
+    sample: 'parent-pack-l1',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · families',
+      title: 'Level 1 Parent Home Reading Pack',
+      problem: 'You want to read English with your child at home but are not sure what to do or say, especially if your own English feels rusty.',
+      inside: 'A parent guide in English and Vietnamese with a ten-minute daily routine, the three original Level 1 storybooks, 12 activity pages, and a progress chart with a certificate: 46 printable A4 pages for six weeks of reading together.',
+      forWho: 'Parents of children aged 4–8 (CEFR Pre-A1 → A1). No teaching experience needed. One-family licence, printable at home.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · gia đình',
+      title: 'Bộ đọc sách tại nhà cho phụ huynh Level 1',
+      problem: 'Bạn muốn đọc tiếng Anh cùng con ở nhà nhưng chưa biết nên làm gì, nói gì, nhất là khi tiếng Anh của bạn đã lâu không dùng.',
+      inside: 'Hướng dẫn cho phụ huynh bằng tiếng Anh và tiếng Việt với nếp đọc mười phút mỗi ngày, ba truyện tranh gốc Level 1, 12 trang hoạt động và bảng theo dõi tiến bộ kèm giấy khen: 46 trang A4 in được cho sáu tuần đọc cùng con.',
+      forWho: 'Phụ huynh có con 4–8 tuổi (CEFR Pre-A1 → A1). Không cần kinh nghiệm dạy học. Bản quyền cho một gia đình, in tại nhà.',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
@@ -356,6 +388,41 @@ export const PRODUCTS: Product[] = [
       inside: 'Cả năm Bộ tài liệu Giáo viên: chương trình học, Sổ tay triển khai và 40 giáo án cho mỗi cấp độ, tổng cộng 200 giáo án.',
       forWho: 'Một giáo viên đứng tên dạy nhiều cấp độ. Mua lẻ, năm bộ có giá 3.450.000₫. Giáo án được xây dựng trên các cuốn sách đã xuất bản, giáo viên tự chuẩn bị.',
       unit: 'mua một lần · cả 5 cấp độ',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l1',
+    live: true,
+    section: 'teachers',
+    price: '190.000₫',
+    href: 'zalo',
+    // Placeholder until image-studio makes this workbook's own image.
+    image: 'printable-pack-l1',
+    sample: 'student-workbook-l1',
+    delivery: true,
+    paypal: true,
+    alsoIn: {
+      section: 'families',
+      en: 'Doing Level 1 at home? The {link} has a page for every lesson: {price} a learner, using 10 picture books you provide.',
+      vi: 'Học Level 1 ở nhà? {link} có một trang cho mỗi bài học: {price} mỗi học viên, dùng 10 cuốn sách tranh bạn tự chuẩn bị.',
+    },
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 1 Student Workbook',
+      problem: 'Your Level 1 learners need their own page for every lesson, and copying worksheets together each week takes hours.',
+      inside: '63 printable A4 pages: 40 lesson pages (Dig, Weigh, Because, Show) in the order of the Level 1 Teacher Pack, 10 story openers, a Thinking Passport, a word wall and a certificate. You receive the PDF and editable Google Docs.',
+      forWho: 'Children aged 4–8 doing Level 1 with a teacher, tutor or parent. The lessons use 10 widely available picture books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 1',
+      problem: 'Học viên Level 1 cần trang riêng cho mỗi bài học, còn tự photo phiếu bài tập mỗi tuần thì tốn hàng giờ.',
+      inside: '63 trang A4 in được: 40 trang theo từng bài (Dig, Weigh, Because, Show) đúng thứ tự Bộ tài liệu Giáo viên Level 1, 10 trang mở đầu truyện, Hộ chiếu tư duy, bức tường từ vựng và giấy khen. Bạn nhận file PDF và Google Docs chỉnh sửa được.',
+      forWho: 'Trẻ 4–8 tuổi học Level 1 cùng giáo viên, gia sư hoặc phụ huynh. Bài học dùng 10 cuốn sách tranh phổ biến, bạn tự chuẩn bị. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
   },
@@ -624,6 +691,11 @@ export function productsPage(locale: Locale) {
           id: cardId, price, href, delivery, image, sample, paypal, ...text,
         }),
       ),
+      // One-line pointers to a card listed in another section ({link} becomes a link to that card).
+      also: PRODUCTS.filter((p) => p.live && p.alsoIn?.section === id).map((p) => {
+        const [before, after] = p.alsoIn![locale].replace('{price}', p.price).split('{link}');
+        return { id: p.id, title: p[locale].title, before, after };
+      }),
     })).filter((section) => section.cards.length > 0),
   };
 }

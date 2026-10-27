@@ -185,6 +185,11 @@ export function ProductsPage({ locale }: { locale: Locale }) {
                 <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} />
               ))}
             </ul>
+            {section.also.map((line) => (
+              <p key={line.id} className="mt-4 text-sm" data-also={line.id}>
+                {line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}
+              </p>
+            ))}
           </section>
         ))}
       </div>
