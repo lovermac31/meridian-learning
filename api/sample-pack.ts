@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { contactKind } from '../src/i18n/content/samplePack.js';
+import { normalizeVietnamesePhone, sampleContactError, samplePackContent } from '../src/i18n/content/samplePack.js';
 import { sampleLeadNotes, writeNotionSampleLead, type SampleLead } from './_lib/notionCrmWriter.js';
 import { checkRateLimit, createThrottleLogContext, getClientHash, logRateLimited } from './_lib/requestSecurity.js';
 import { logEvent } from './_lib/observability.js';
@@ -8,13 +8,13 @@ import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 // The free sample pack (website assessment, 27 Oct 2026; master's decision the same day): no Supabase change. Each
 // sign-up goes to the Notion JE Leads CRM and to Jay by a Resend email. The form shows success when at least one of
 // the two succeeded. Contact details are never logged, only their kind.
-const MIN_SUBMISSION_DELAY_MS = 1500;
+const MIN_SUBMISSION_DELAY_MS = 30_000;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
 const RESEND_TIMEOUT_MS = 8_000;
 const NOTION_TIMEOUT_MS = 4_000;
 
 type Input = {
-  name: string; contact: string; childAge: string; teacher: boolean; consent: boolean;
+  name: string; phone: string; email: string; childAge: string; teacher: boolean; consent: boolean;
   locale: string; placement: string; source: string; website: string; startedAt: string;
 };
 
@@ -24,7 +24,8 @@ export function coerceSampleInput(body: unknown): Input {
   const r = (body && typeof body === 'object' ? body : {}) as Record<string, unknown>;
   return {
     name: str(r.name, 120),
-    contact: str(r.contact, 254),
+    phone: str(r.phone, 32),
+    email: str(r.email, 254),
     childAge: str(r.childAge, 2),
     teacher: r.teacher === true,
     consent: r.consent === true,
@@ -45,15 +46,17 @@ function isSpam(startedAt: string, website: string) {
 }
 
 /** The lead the CRM and the email receive, or the reason the input is not accepted. */
-export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'consent' } {
-  const kind = contactKind(input.contact);
-  if (!kind) return { error: 'contact' };
+export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' } {
+  const contactError = sampleContactError(input.phone, input.email);
+  if (contactError) return { error: contactError };
   if (!input.consent) return { error: 'consent' };
+  const phone = input.phone.trim() ? normalizeVietnamesePhone(input.phone) : null;
   return {
     submissionId: `JE-SP-${now.getTime().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
     submittedAt: now.toISOString(),
     name: input.name,
-    ...(kind === 'email' ? { email: input.contact.toLowerCase() } : { zalo: input.contact.replace(/[\s().-]/g, '') }),
+    ...(input.email.trim() ? { email: input.email.trim().toLowerCase() } : {}),
+    ...(phone ? { zalo: phone } : {}),
     teacher: input.teacher,
     ...(/^\d{1,2}$/.test(input.childAge) ? { childAge: input.childAge } : {}),
     locale: input.locale === 'vi' ? 'vi' : 'en',
@@ -131,13 +134,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const lead = toSampleLead(input);
   if ('error' in lead) {
     logEvent({ event: 'validation_failed', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), errorFields: [lead.error], errorFieldCount: 1 });
-    return res.status(400).json({ ok: false, error: lead.error });
+    const locale = input.locale === 'vi' ? 'vi' : 'en';
+    return res.status(400).json({ ok: false, error: lead.error, message: samplePackContent[locale].errors[lead.error] });
   }
 
   const [notion, email] = await Promise.all([safeNotion(lead), sendEmail(lead)]);
   console.info('[sample-pack] submission', {
     submissionId: lead.submissionId,
-    contactKind: lead.email ? 'email' : 'zalo',
+    contactKind: lead.zalo ? 'zalo' : 'email',
     teacher: lead.teacher,
     placement: lead.placement,
     notionOk: notion.ok,

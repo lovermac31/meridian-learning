@@ -7,7 +7,9 @@ import type { Locale } from '../locales';
 export type SamplePackCopy = {
   heading: string;
   name: string;
-  contact: string;
+  phone: string;
+  email: string;
+  contactConsent: string;
   childAge: string;
   teacher: string;
   consent: string;
@@ -15,14 +17,16 @@ export type SamplePackCopy = {
   privacyLink: string;
   submit: string;
   sending: string;
-  errors: { contact: string; consent: string; failed: string };
+  errors: { contact: string; phone: string; email: string; consent: string; failed: string };
   thanks: { heading: string; items: { id: string; label: string }[]; next: string };
 };
 
 const en: SamplePackCopy = {
   heading: 'Free sample pack: one storybook, one activity page and one lesson plan.',
   name: 'Your name (optional)',
-  contact: 'Zalo number or email',
+  phone: 'Zalo or phone number',
+  email: 'Email (alternative)',
+  contactConsent: 'Mr. Jay will contact you on Zalo or email about this request.',
   childAge: 'Child’s age (optional)',
   teacher: 'I’m a teacher',
   consent: 'Send me the sample and occasional updates. Unsubscribe any time.',
@@ -32,6 +36,8 @@ const en: SamplePackCopy = {
   sending: 'Sending…',
   errors: {
     contact: 'Enter a Zalo number or an email.',
+    phone: 'Enter a Vietnamese number as 0xxxxxxxxx or +84xxxxxxxxx.',
+    email: 'Enter a valid email address.',
     consent: 'Tick the box so we can send the sample.',
     failed: 'That didn’t send. Please try again, or message Mr. Jay on Zalo.',
   },
@@ -50,7 +56,9 @@ const en: SamplePackCopy = {
 const vi: SamplePackCopy = {
   heading: 'Bộ mẫu miễn phí: 1 truyện, 1 trang bài tập và 1 giáo án.',
   name: 'Tên của bạn (không bắt buộc)',
-  contact: 'Số Zalo hoặc email',
+  phone: 'Số Zalo / điện thoại',
+  email: 'Email (phương án thay thế)',
+  contactConsent: 'Thầy Jay sẽ liên hệ qua Zalo hoặc email về yêu cầu này.',
   childAge: 'Tuổi của con (không bắt buộc)',
   teacher: 'Tôi là giáo viên',
   consent: 'Gửi cho tôi bộ mẫu và thỉnh thoảng cập nhật. Có thể hủy bất cứ lúc nào.',
@@ -60,6 +68,8 @@ const vi: SamplePackCopy = {
   sending: 'Đang gửi…',
   errors: {
     contact: 'Vui lòng nhập số Zalo hoặc email.',
+    phone: 'Vui lòng nhập số điện thoại Việt Nam dạng 0xxxxxxxxx hoặc +84xxxxxxxxx.',
+    email: 'Vui lòng nhập địa chỉ email hợp lệ.',
     consent: 'Vui lòng đánh dấu ô đồng ý để chúng tôi gửi bộ mẫu.',
     failed: 'Chưa gửi được. Vui lòng thử lại, hoặc nhắn thầy Jay qua Zalo.',
   },
@@ -77,11 +87,25 @@ const vi: SamplePackCopy = {
 
 export const samplePackContent: Record<Locale, SamplePackCopy> = { en, vi };
 
-// A Zalo number (Vietnamese mobile, 9–11 digits with an optional +84) or an email. Shared with /api/sample-pack.
-export function contactKind(value: string): 'email' | 'zalo' | null {
-  const v = value.trim();
-  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length <= 254) return 'email';
-  const digits = v.replace(/[\s().-]/g, '');
-  if (/^\+?\d{9,15}$/.test(digits)) return 'zalo';
+// Accept the standard Vietnamese national or international form; spaces and dots are presentation separators.
+// The API validates again and persists only the canonical +84 value.
+export function normalizeVietnamesePhone(value: string): string | null {
+  const normalized = value.trim().replace(/[ .]/g, '');
+  if (/^0\d{9}$/.test(normalized)) return `+84${normalized.slice(1)}`;
+  if (/^\+84\d{9}$/.test(normalized)) return normalized;
+  return null;
+}
+
+export function isValidContactEmail(value: string): boolean {
+  const email = value.trim();
+  return email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+export function sampleContactError(phone: string, email: string): 'contact' | 'phone' | 'email' | null {
+  const hasPhone = phone.trim().length > 0;
+  const hasEmail = email.trim().length > 0;
+  if (!hasPhone && !hasEmail) return 'contact';
+  if (hasPhone && !normalizeVietnamesePhone(phone)) return 'phone';
+  if (hasEmail && !isValidContactEmail(email)) return 'email';
   return null;
 }

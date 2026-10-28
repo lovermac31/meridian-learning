@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { ArrowRight, Check, MessageCircle } from 'lucide-react';
 import { PRODUCTS_PATH, productSampleAnchor } from '../i18n/content/products';
-import { contactKind, samplePackContent } from '../i18n/content/samplePack';
+import { sampleContactError, samplePackContent } from '../i18n/content/samplePack';
 import { STORY_CLUB_ZALO } from '../i18n/content/storyClub';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
@@ -33,8 +33,10 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const contact = String(data.get('contact') ?? '');
-    if (!contactKind(contact)) return setError(copy.errors.contact);
+    const phone = String(data.get('phone') ?? '');
+    const email = String(data.get('email') ?? '');
+    const contactError = sampleContactError(phone, email);
+    if (contactError) return setError(copy.errors[contactError]);
     if (data.get('consent') !== 'on') return setError(copy.errors.consent);
     setError(null);
     setStatus('sending');
@@ -47,7 +49,8 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
     try {
       await submitSamplePack({
         name: String(data.get('name') ?? ''),
-        contact,
+        phone,
+        email,
         childAge: String(data.get('childAge') ?? ''),
         teacher: data.get('teacher') === 'on',
         consent: true,
@@ -103,10 +106,17 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
           // Before hydration the submit button is disabled (startedAt is set by the first effect), so an early tap or Enter
           // cannot fall back to a native submit; method="post" keeps the contact out of any URL regardless (QA, 27 Oct 2026).
           <form method="post" className="mt-4 space-y-4" onSubmit={onSubmit} noValidate>
-            <label className="block text-sm font-bold text-sb-forest">
-              {copy.contact}
-              <input className={FIELD} name="contact" type="text" inputMode="email" autoComplete="email" required maxLength={254} aria-describedby={error ? `${SAMPLE_PACK_ANCHOR}-error` : undefined} />
-            </label>
+            <div className="space-y-3" data-sample-pack-contact>
+              <label className="block text-sm font-bold text-sb-forest">
+                {copy.phone}
+                <input className={FIELD} name="phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={32} aria-invalid={error === 'phone' || error === 'contact'} aria-describedby={error ? `${SAMPLE_PACK_ANCHOR}-error` : undefined} />
+              </label>
+              <label className="block text-sm font-bold text-sb-forest">
+                {copy.email}
+                <input className={FIELD} name="email" type="email" inputMode="email" autoComplete="email" maxLength={254} aria-invalid={error === 'email' || error === 'contact'} aria-describedby={error ? `${SAMPLE_PACK_ANCHOR}-error` : undefined} />
+              </label>
+              <p className="text-xs text-sb-slate">{copy.contactConsent}</p>
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block text-sm font-bold text-sb-forest">
                 {copy.name}
