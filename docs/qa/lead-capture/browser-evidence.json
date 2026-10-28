@@ -1,0 +1,45 @@
+{
+  "note": "Local browser only; sample-pack and event APIs are mocked; no production or Notion writes.",
+  "cases": [
+    {
+      "placement": "home",
+      "locale": "en",
+      "viewport": 375,
+      "inlineNoContact": true,
+      "phoneOnlySuccess": true,
+      "leadSubmitEvents": 1,
+      "eventHasNoPersonalData": true,
+      "screenshot": "docs/qa/lead-capture/sample-pack-home-en-375.png"
+    },
+    {
+      "placement": "home",
+      "locale": "vi",
+      "viewport": 375,
+      "inlineNoContact": true,
+      "phoneOnlySuccess": true,
+      "leadSubmitEvents": 1,
+      "eventHasNoPersonalData": true,
+      "screenshot": "docs/qa/lead-capture/sample-pack-home-vi-375.png"
+    },
+    {
+      "placement": "products",
+      "locale": "en",
+      "viewport": 375,
+      "inlineNoContact": true,
+      "phoneOnlySuccess": true,
+      "leadSubmitEvents": 1,
+      "eventHasNoPersonalData": true,
+      "screenshot": "docs/qa/lead-capture/sample-pack-products-en-375.png"
+    },
+    {
+      "placement": "products",
+      "locale": "vi",
+      "viewport": 375,
+      "inlineNoContact": true,
+      "phoneOnlySuccess": true,
+      "leadSubmitEvents": 1,
+      "eventHasNoPersonalData": true,
+      "screenshot": "docs/qa/lead-capture/sample-pack-products-vi-375.png"
+    }
+  ]
+}

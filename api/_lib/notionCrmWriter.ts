@@ -379,7 +379,7 @@ export function sampleLeadProperties(l: SampleLead, schema: NotionDatabaseSchema
   };
   if (l.email && has('Email', 'email')) props['Email'] = { email: l.email };
   if (l.zalo && has('Contact (Zalo / Phone)', 'phone_number')) props['Contact (Zalo / Phone)'] = { phone_number: l.zalo };
-  if (has('Preferred Channel', 'select')) props['Preferred Channel'] = { select: { name: l.email ? 'Email' : 'Zalo' } };
+  if (has('Preferred Channel', 'select')) props['Preferred Channel'] = { select: { name: l.zalo ? 'Zalo' : 'Email' } };
   if (has('Source', 'select')) props['Source'] = { select: { name: /^fb/.test(l.source ?? '') ? 'Facebook' : /^zalo/.test(l.source ?? '') ? 'Zalo' : 'Other' } };
   if (has('UTM / Raw Source', 'text') || has('UTM / Raw Source', 'rich_text')) props['UTM / Raw Source'] = { rich_text: rt(sampleLeadNotes(l)) };
   if (has('Lifecycle Stage', 'select')) props['Lifecycle Stage'] = { select: { name: 'Lead' } };
@@ -387,7 +387,7 @@ export function sampleLeadProperties(l: SampleLead, schema: NotionDatabaseSchema
   if (band && has('Child Age Band', 'select')) props['Child Age Band'] = { select: { name: band } };
   if (l.name && !l.teacher && (has('Parent Name', 'text') || has('Parent Name', 'rich_text'))) props['Parent Name'] = { rich_text: rt(l.name) };
   if (has('Next Action', 'text') || has('Next Action', 'rich_text')) {
-    props['Next Action'] = { rich_text: rt(`Send the free sample pack by ${l.email ? 'email' : 'Zalo'} and follow up within 24 hours (${l.submissionId}).`) };
+    props['Next Action'] = { rich_text: rt(`Send the free sample pack by ${l.zalo ? 'Zalo' : 'email'} and follow up within 24 hours (${l.submissionId}).`) };
   }
   return props;
 }
