@@ -139,6 +139,14 @@
   ],
   "rewrites": [
     {
+      "source": "/go/zalo",
+      "destination": "/api/go/zalo"
+    },
+    {
+      "source": "/go/zalo/:product",
+      "destination": "/api/go/zalo?product=:product"
+    },
+    {
       "source": "/challenges/one-change",
       "destination": "/challenges/one-change/index.html"
     },

@@ -8,6 +8,7 @@ import {
   videoFiles,
   type VideoLang,
 } from '../i18n/content/productVideos';
+import { recordClientEvent } from '../lib/tracker';
 
 /**
  * A product film: muted, never autoplays, and nothing but the poster loads until the visitor presses play
@@ -43,6 +44,7 @@ export function ProductVideo({ slug, locale, id, fallbackTitle = '' }: { slug: s
           poster={files.poster}
           aria-label={title}
           data-video-player={slug}
+          onPlay={() => recordClientEvent({ event: 'video_play', product_id: slug })}
         >
           <source src={files.src} type="video/mp4" />
           {film.langs.map((l) => (

@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
 import { CONTACT_EMAIL, getOverhaulContent, IMG, ZALO_URL } from '../i18n/content/overhaul';
+import { recordClientEvent } from '../lib/tracker';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
@@ -300,7 +301,13 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
                       <a href={`mailto:${CONTACT_EMAIL}?subject=Reading%20placement%20consultation`} className={`${SECONDARY_BTN} flex-1`}>
                         <Mail aria-hidden="true" className="h-4 w-4" /> Email
                       </a>
-                      <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className={`${SECONDARY_BTN} flex-1`}>
+                      <a
+                        href={ZALO_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${SECONDARY_BTN} flex-1`}
+                        onClick={() => recordClientEvent({ event: 'checkout_start' })}
+                      >
                         <MessageCircle aria-hidden="true" className="h-4 w-4" /> Zalo
                       </a>
                     </div>

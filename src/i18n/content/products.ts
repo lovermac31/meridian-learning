@@ -28,7 +28,7 @@ import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from './samplePages';
 export const PRODUCTS_PATH = '/products';
 export const PRODUCTS_VI_PATH = '/vi/products';
 export const PRODUCTS_UTM = 'utm_source=products';
-export const PRODUCTS_ZALO = `https://zalo.me/84396085076?${PRODUCTS_UTM}`;
+export const PRODUCTS_ZALO = `/go/zalo?${PRODUCTS_UTM}`;
 export const PRODUCT_IMAGE_DIR = '/images/products';
 // Public sample of each product (Jay, 27 Oct 2026: "Everybody has to see the samples" before a price or a booking):
 // three card thumbnails <stem>-p1.webp … -p3.webp and, in the view-only sample viewer, the watermarked page set

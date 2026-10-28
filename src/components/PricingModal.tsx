@@ -14,6 +14,7 @@ import {
   validatePricingRegistration,
   type PricingRegistrationValues,
 } from '../lib/pricingRegistrationSchema';
+import { recordClientEvent } from '../lib/tracker';
 
 type PricingModalProps = {
   isOpen: boolean;
@@ -45,6 +46,7 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
       setValues({ ...initialPricingValues, startedAt: new Date().toISOString() });
       setErrors({});
       setSubmitState({ status: 'idle' });
+      recordClientEvent({ event: 'pricing_view' });
     }
   }, [isOpen]);
 
@@ -139,6 +141,7 @@ export function PricingModal({ isOpen, onClose }: PricingModalProps) {
       }
 
       setSubmitState({ status: 'success' });
+      recordClientEvent({ event: 'lead_submit' });
     } catch (error: any) {
       setSubmitState({
         status: 'error',
