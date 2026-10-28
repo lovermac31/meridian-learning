@@ -31,7 +31,7 @@ export const ORDER_CODES: Record<string, string> = {
   'market-singapore': 'MSG',
 };
 
-export const ZALO_CHAT = 'https://zalo.me/84396085076';
+export const ZALO_CHAT = '/go/zalo';
 export const DEFAULT_SOURCE = 'products';
 const STORAGE_KEY = 'je_products_utm_source';
 
@@ -70,9 +70,10 @@ export function orderCode(source: string | null, cardId: string): string {
   return cardId.toUpperCase();
 }
 
-/** The Zalo chat link, tagged with the visit's real source. */
-export function zaloHref(source: string | null): string {
-  return `${ZALO_CHAT}?utm_source=${source ?? DEFAULT_SOURCE}`;
+/** The Zalo chat link, tagged with the visit's real source and optional product id. */
+export function zaloHref(source: string | null, productId?: string): string {
+  const base = productId ? `/go/zalo/${productId}` : ZALO_CHAT;
+  return `${base}?utm_source=${source ?? DEFAULT_SOURCE}`;
 }
 
 export const ORDER_CODE_COPY: Record<Locale, { before: string; after: string }> = {

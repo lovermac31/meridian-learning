@@ -82,7 +82,7 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     const ctas = Object.fromEntries([...main.matchAll(/href="([^"]+)"[^>]*data-cta="product-([^"]+)"/g)].map((m) => [m[2], m[1]]));
     for (const [id, href] of Object.entries(expected[route])) assert.equal(ctas[id], href, `${route} ${id}`);
     for (const id of ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId), ...SHOWN.centres.map(([cardId]) => cardId), ...SHOWN.ielts.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
-    assert.equal(PRODUCTS_ZALO, 'https://zalo.me/84396085076?utm_source=products');
+    assert.equal(PRODUCTS_ZALO, '/go/zalo?utm_source=products');
     // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch, the sample
     // PDFs (files on this site, not page links) and the PayPal payments (their item name carries the order code).
     // Product pages (/products/<id>, 27 Oct 2026) stay untagged: they are the same funnel, and a utm_source=products

@@ -2,6 +2,7 @@ import { Check, Minus } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { STORY_CLUB_FREE_STORIES, STORY_CLUB_ZALO, storyClubContent } from '../i18n/content/storyClub';
+import { recordClientEvent } from '../lib/tracker';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
 import { STORY_CLUB_VIDEOS, VIDEO_COPY } from '../i18n/content/productVideos';
@@ -11,7 +12,14 @@ const STORY_CLUB_VI_PATH = '/vi/story-club';
 
 function ZaloButton({ label, className = 'insights-button-primary' }: { label: string; className?: string }) {
   return (
-    <a className={className} href={STORY_CLUB_ZALO} target="_blank" rel="noopener noreferrer" data-cta="story-club-zalo">
+    <a
+      className={className}
+      href={STORY_CLUB_ZALO}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-cta="story-club-zalo"
+      onClick={() => recordClientEvent({ event: 'checkout_start', product_id: 'story-club' })}
+    >
       {label}
     </a>
   );
@@ -103,7 +111,16 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <p className="mt-2 text-lg">{c.older.body}</p>
           <div className="mt-4 flex flex-wrap gap-4">
             <a className="font-semibold" href={oneToOne}>{c.older.oneToOne}</a>
-            <a className="font-semibold" href={STORY_CLUB_ZALO} target="_blank" rel="noopener noreferrer" data-cta="story-club-zalo-older">{c.older.ask}</a>
+            <a
+              className="font-semibold"
+              href={STORY_CLUB_ZALO}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cta="story-club-zalo-older"
+              onClick={() => recordClientEvent({ event: 'checkout_start', product_id: 'story-club' })}
+            >
+              {c.older.ask}
+            </a>
           </div>
         </section>
 

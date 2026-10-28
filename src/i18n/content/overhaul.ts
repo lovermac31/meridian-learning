@@ -19,7 +19,7 @@ import type { Locale } from '../locales';
 export const STORY_QUEST_URL = 'https://worldwise-story-quest.vercel.app/#home';
 export const WORLDWISE_URL = 'https://www.worldwiselearning.app/';
 export const CONTACT_EMAIL = 'info@jurassicenglish.com';
-export const ZALO_URL = 'https://zalo.me/84396085076';
+export const ZALO_URL = '/go/zalo';
 export const IMG = '/images/overhaul';
 export const UNDER_18_POLICY_EN = 'Sessions with learners under 18 are never recorded.';
 

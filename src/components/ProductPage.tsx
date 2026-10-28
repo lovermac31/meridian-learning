@@ -9,6 +9,7 @@ import { ProductVideo } from './ProductVideo';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
 import { CardLink, IeltsHomeLink, PayPalOption, Sample, SampleViewer, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
+import { recordClientEvent } from '../lib/tracker';
 
 const COPY: Record<Locale, { home: string; products: string; faq: string; related: string; all: string }> = {
   en: { home: 'Home', products: 'Products', faq: 'Questions', related: 'You may also need', all: 'All products and prices' },
@@ -30,7 +31,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
   const source = useVisitorSource();
   const [viewer, setViewer] = useState(false);
   const external = card.href === 'zalo';
-  const href = external ? zaloHref(source) : productHref(card.href, locale);
+  const href = external ? zaloHref(source, product.id) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
   const faq = productFaq(product, locale);
   const path = productPath(product.id);
@@ -59,6 +60,11 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
               className="insights-button-primary"
               href={href}
               data-cta={`product-page-${card.id}`}
+              onClick={() => {
+                if (external) {
+                  recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined });
+                }
+              }}
               {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             >
               {card.cta}

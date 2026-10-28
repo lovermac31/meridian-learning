@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, 
 import { Mail, MessageCircle, X } from 'lucide-react';
 import { getCurrentLocale } from '../i18n/routing';
 import { getCurrentPathname } from '../lib/ssrLocation';
+import { recordClientEvent } from '../lib/tracker';
 
 const WhatsAppIcon = () => <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.9"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0 11.7 11.7 0 0 0 2 17.4L.4 23.6l6.4-1.6A11.8 11.8 0 0 0 12.1 24h.1A11.8 11.8 0 0 0 24 12.2a11.7 11.7 0 0 0-3.5-8.7Z"/><path d="M8.5 6.7c.2-.4.4-.4.8-.4h.6c.2 0 .5.1.6.5l.8 2c.1.3.1.5-.1.8l-.5.7c-.2.2-.2.4 0 .7.3.5 1 1.5 2.1 2.4 1.2 1 2.2 1.3 2.5 1.4.3.1.5 0 .7-.2l.8-.9c.2-.2.4-.3.7-.2l2.1 1c.3.1.4.3.3.6-.1.4-.4 1.4-.9 1.8-.5.5-1.2.7-2 .7-.5 0-1.2-.1-2-.4-1.5-.5-2.9-1.4-4.1-2.6-1.2-1.1-2.2-2.4-2.8-3.7-.5-1-.7-1.8-.7-2.4 0-.8.3-1.5.7-2.2Z"/></svg>;
 const WeChatIcon = () => <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor"><path d="M10.1 4.2c-4.2 0-7.6 2.8-7.6 6.3 0 2 1.1 3.8 3 4.9l-.8 2.9 3.1-1.6c.7.2 1.5.3 2.3.3.3 0 .6 0 .9-.1-.1-.4-.2-.8-.2-1.2 0-3.2 3-5.8 6.8-5.8.3 0 .6 0 .9.1-.9-3.3-4.3-5.8-8.4-5.8Zm-3.2 5.1a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8Zm5.8 0a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8Z"/><path d="M17.6 11.2c-3.3 0-6 2-6 4.6s2.7 4.6 6 4.6c.7 0 1.4-.1 2-.3l2.4 1.2-.6-2.2c1.4-.9 2.2-2 2.2-3.3 0-2.6-2.7-4.6-6-4.6Zm-2.2 4.1a.7.7 0 1 1 0-1.4.7.7 0 0 1 0 1.4Zm4.4 0a.7.7 0 1 1 0-1.4.7.7 0 0 1 0 1.4Z"/></svg>;
@@ -15,7 +16,7 @@ const WECHAT_QR = '/images/wechat-qr.jpg';
 // Platform destinations. wa.me/qr/… is the link encoded in the WhatsApp QR image itself.
 // WeChat's QR link (u.wechat.com) only works when scanned inside the WeChat app, so WeChat offers image actions only.
 const WHATSAPP_LINK = 'https://wa.me/qr/GGEQLLXJBTWEK1';
-const ZALO_LINK = 'https://zalo.me/84396085076';
+const ZALO_LINK = '/go/zalo';
 const FACEBOOK_LINK = 'https://www.facebook.com/profile.php?id=61570824718837';
 const EMAIL_LINK = 'mailto:info@jurassicenglish.com?subject=Jurassic%20English%20enquiry';
 
@@ -214,7 +215,7 @@ export const GlobalContactPanel = () => {
         <h2 id="contact-modal-title" className="mt-2 text-2xl font-semibold normal-case tracking-normal">{detail.label}</h2>
         <p id="contact-modal-description" className="mt-2 text-sm leading-6 text-white/70">{detail.description}</p>
         <div className="mt-5 flex flex-col gap-3">
-          {(detail.actions as Action[]).map((action, index) => <a key={action.label} href={action.href} {...(action.download ? { download: '' } : {})} {...(action.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className={`inline-flex min-h-11 w-full items-center justify-center rounded-xl px-4 py-3 font-semibold transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${index === 0 ? 'bg-jurassic-accent text-jurassic-dark' : 'border border-white/30 text-white'}`}>
+          {(detail.actions as Action[]).map((action, index) => <a key={action.label} href={action.href} onClick={() => { if (active === 'zalo') recordClientEvent({ event: 'checkout_start' }); }} {...(action.download ? { download: '' } : {})} {...(action.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className={`inline-flex min-h-11 w-full items-center justify-center rounded-xl px-4 py-3 font-semibold transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${index === 0 ? 'bg-jurassic-accent text-jurassic-dark' : 'border border-white/30 text-white'}`}>
             {action.label}{action.external && <span aria-hidden="true" className="ml-2">↗</span>}
           </a>)}
         </div>

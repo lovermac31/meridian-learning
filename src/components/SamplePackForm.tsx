@@ -6,6 +6,7 @@ import { STORY_CLUB_ZALO } from '../i18n/content/storyClub';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
+import { recordClientEvent } from '../lib/tracker';
 import { SAMPLE_PACK_ANCHOR } from '../lib/headerCta';
 import { readVisitorSource } from '../lib/productsSource';
 import { submitSamplePack } from '../lib/samplePackRequest';
@@ -57,6 +58,7 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
         startedAt,
       });
       setStatus('sent');
+      recordClientEvent({ event: 'lead_submit' });
       try {
         trackCtaClick({ label: `sample_pack_submit_${placement}`, type: 'primary', segment: 'parent_student' });
       } catch {
@@ -85,7 +87,14 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
                 </li>
               ))}
             </ul>
-            <a className={`${PRIMARY_BTN} mt-5`} href={STORY_CLUB_ZALO} target="_blank" rel="noopener noreferrer" data-cta="sample-pack-zalo">
+            <a
+              className={`${PRIMARY_BTN} mt-5`}
+              href={STORY_CLUB_ZALO}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cta="sample-pack-zalo"
+              onClick={() => recordClientEvent({ event: 'checkout_start', product_id: 'story-club' })}
+            >
               <MessageCircle aria-hidden="true" className="h-4 w-4" />
               {copy.thanks.next}
             </a>

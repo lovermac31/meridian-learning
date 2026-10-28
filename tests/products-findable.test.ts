@@ -178,7 +178,8 @@ test('order codes: the channel code from the table, else the source, else the ca
   assert.equal(orderCode('series', 'teacher-pack-l1'), 'SERIES', 'a source not in the table is shown as itself');
   assert.equal(orderCode(null, 'teacher-pack-l1'), 'TEACHER-PACK-L1', 'no source: the card id');
   assert.equal(orderCode('products', 'centre-licence'), 'CENTRE-LICENCE', 'the catch-all source: the card id');
-  assert.equal(zaloHref('fb-teachers'), 'https://zalo.me/84396085076?utm_source=fb-teachers');
+  assert.equal(zaloHref('fb-teachers'), '/go/zalo?utm_source=fb-teachers');
+  assert.equal(zaloHref('fb-teachers', 'holiday-reading-challenge'), '/go/zalo/holiday-reading-challenge?utm_source=fb-teachers');
   assert.equal(zaloHref(null), PRODUCTS_ZALO, 'the prerendered page keeps utm_source=products until the visit is read');
 });
 

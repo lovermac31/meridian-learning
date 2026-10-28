@@ -25,6 +25,7 @@ import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
 import { productPath } from '../i18n/content/productSeo';
 import { PRODUCT_VIDEO_ANCHOR, VIDEO_COPY } from '../i18n/content/productVideos';
 import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
+import { recordClientEvent } from '../lib/tracker';
 
 /** The visit's utm_source, read after hydration so the prerendered page and the first client render match. */
 export function useVisitorSource(): string | null {
@@ -298,7 +299,14 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
     return (
       <p className="mt-2 text-sm" data-paypal={card.id}>
         {copy.lead}{' '}
-        <a href={productPaypalHref(card.id, source, locale)} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4 hover:text-sb-amber-deep" data-paypal-link={card.id}>
+        <a
+          href={productPaypalHref(card.id, source, locale)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-bold underline underline-offset-4 hover:text-sb-amber-deep"
+          data-paypal-link={card.id}
+          onClick={() => recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined })}
+        >
           {copy.pay(productUsd(card.price))}
         </a>
       </p>
@@ -313,6 +321,7 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
         rel="noopener noreferrer"
         className="mt-1 inline-block text-sm font-bold underline underline-offset-4 hover:text-sb-amber-deep"
         data-paypal-link={card.id}
+        onClick={() => recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined })}
       >
         {copy.pay(productUsd(card.price))}
       </a>
@@ -389,8 +398,8 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
       </div>
       <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
       <div className="product-row-actions story-cta">
-        {card.sample ? <button type="button" className="insights-button-secondary" onClick={() => onOpenSample(card)} data-sample-open={card.id}>{sample.heading}</button> : null}
-        <a className="insights-button-primary" href={href} data-cta={`product-${card.id}`} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{card.cta}</a>
+        {card.sample ? <button type="button" className="insights-button-secondary" onClick={() => { onOpenSample(card); recordClientEvent({ event: 'sample_open', product_id: card.id }); }} data-sample-open={card.id}>{sample.heading}</button> : null}
+        <a className="insights-button-primary" href={href} data-cta={`product-${card.id}`} onClick={() => { if (external) recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined }); }} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{card.cta}</a>
         {external ? <p className="mt-2 text-xs" data-order-code={card.id}>{code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}</p> : null}
         {card.video ? <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="product-row-watch" data-watch={card.id}><span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}</a> : null}
         {card.paypal ? <PayPalOption card={card} locale={locale} source={source} compact /> : null}
@@ -498,7 +507,14 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           <p>{c.closing.heading}</p>
           <p className="insights-cta-note">{c.closing.body}</p>
           <div className="insights-closing-actions mt-5">
-            <a className="insights-button-primary" href={zaloHref(source)} target="_blank" rel="noopener noreferrer" data-cta="products-closing">
+            <a
+              className="insights-button-primary"
+              href={zaloHref(source)}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cta="products-closing"
+              onClick={() => recordClientEvent({ event: 'checkout_start', utm_source: source ?? undefined })}
+            >
               {c.closing.cta}
             </a>
           </div>
