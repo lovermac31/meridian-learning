@@ -10,6 +10,7 @@ import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
 import { CardLink, IeltsHomeLink, PayPalOption, Sample, SampleViewer, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
+import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
 
 const COPY: Record<Locale, { home: string; products: string; faq: string; related: string; all: string }> = {
   en: { home: 'Home', products: 'Products', faq: 'Questions', related: 'You may also need', all: 'All products and prices' },
@@ -55,9 +56,20 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
           <p className="mt-4 text-2xl font-bold" data-price={card.id}>
             {card.price} <span className="text-base font-semibold">{card.unit}</span>
           </p>
-          <div className="story-cta mt-3">
+          <div className="story-cta mt-3 flex flex-wrap items-center gap-3">
+            {isPortalBuyEnabled(card.id) ? (
+              <a
+                className="insights-button-primary portal-buy-btn"
+                href={getPortalBuyUrl(card.id, locale)}
+                data-portal-buy={card.id}
+                data-cta={`portal-buy-${card.id}`}
+                onClick={() => recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined })}
+              >
+                {locale === 'vi' ? 'Mua ngay' : 'Buy'}
+              </a>
+            ) : null}
             <a
-              className="insights-button-primary"
+              className={isPortalBuyEnabled(card.id) ? "insights-button-secondary" : "insights-button-primary"}
               href={href}
               data-cta={`product-page-${card.id}`}
               onClick={() => {
