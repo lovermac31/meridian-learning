@@ -81,6 +81,8 @@ test('missing bank config falls back; invalid amount or memo cannot produce a dy
 
 test('meeting CTAs use attributed Zalo links and never render payment instructions', async () => {
   const { readFileSync } = await import('node:fs');
+  const { getBotUIPublicDestination } = await import('../src/lib/botUiRoutes');
+  for (const key of ['discovery', 'institutionalGetStarted'] as const) assert.match(getBotUIPublicDestination(key).path, /^\/go\/zalo\?utm_source=assistant&utm_content=[a-z-]+$/);
   for (const file of ['WorldWisePage', 'PilotProgrammePage', 'MethodologyPage', 'AuditSprintPage', 'CefrAlignmentPage', 'DiscoveryPage', 'TeacherStandardsPage', 'CompaniesPage']) {
     const source = readFileSync(`src/components/${file}.tsx`, 'utf8');
     assert.match(source, /href="\/go\/zalo\?utm_source=[a-z-]+&utm_content=(discovery-call|book-call)"/);
