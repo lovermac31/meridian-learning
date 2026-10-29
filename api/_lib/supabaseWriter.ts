@@ -44,6 +44,10 @@ export type StoryClubPaidResult =
   | { ok: true; status: 'paid' | 'already_paid'; paidAt: string }
   | { ok: false; reason: 'not_configured' | 'network_error' | 'api_error' | 'invalid_response' | 'not_found' };
 
+export type StoryClubPaymentStatusResult =
+  | { ok: true; paid: boolean }
+  | { ok: false; reason: 'not_configured' | 'network_error' | 'api_error' | 'invalid_response' };
+
 // ─── Internal helpers ─────────────────────────────────────────────────────────
 
 type SupabaseWriteKey =
@@ -152,6 +156,32 @@ export async function markStoryClubReservationPaid(memo: string): Promise<StoryC
     return { ok: false, reason: 'invalid_response' };
   }
   return { ok: true, status, paidAt };
+}
+
+/** Read only the payment boolean for a single canonical memo using the server-only key. */
+export async function getStoryClubPaymentStatus(memo: string): Promise<StoryClubPaymentStatusResult> {
+  const config = resolveConfig();
+  if (!config) return { ok: false, reason: 'not_configured' };
+  const query = new URLSearchParams({ select: 'paid_at', memo: `eq.${memo}`, limit: '1' });
+  try {
+    const response = await fetch(`${config.url}/rest/v1/story_club_reservations?${query}`, {
+      method: 'GET', headers: supabaseHeaders(config.writeKey), signal: AbortSignal.timeout(5_000),
+    });
+    if (!response.ok) {
+      console.error('[supabase] Story Club payment status read failed', { status: response.status });
+      return { ok: false, reason: 'api_error' };
+    }
+    const rows = await response.json() as unknown;
+    if (!Array.isArray(rows) || rows.length > 1 || (rows.length === 1 && (typeof rows[0] !== 'object' || rows[0] === null || !('paid_at' in rows[0])))) {
+      console.error('[supabase] Story Club payment status response invalid');
+      return { ok: false, reason: 'invalid_response' };
+    }
+    return { ok: true, paid: rows.length === 1 && rows[0].paid_at !== null };
+  } catch (error) {
+    const reason = error instanceof Error && error.name === 'TimeoutError' ? 'timeout' : 'network_error';
+    console.error('[supabase] Story Club payment status read failed', { reason });
+    return { ok: false, reason: 'network_error' };
+  }
 }
 
 function resolveConfig(): SupabaseConfig | null {
