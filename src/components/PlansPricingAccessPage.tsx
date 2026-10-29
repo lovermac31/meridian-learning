@@ -377,7 +377,7 @@ function UnlockedPricingContent({
                 ['4', 'Implementation Review', 'Move to onboarding, pilot planning, or institutional decision-making.'],
               ].map(([num, title, body]) => (
                 <div key={title} className="rounded-2xl border border-jurassic-dark/8 bg-jurassic-soft/35 p-5">
-                  <div className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-jurassic-accent text-sm font-bold text-white">
+                  <div className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-jurassic-accent text-sm font-bold text-jurassic-dark">
                     {num}
                   </div>
                   <h3 className="mt-4 text-lg font-bold text-jurassic-dark">{title}</h3>
@@ -400,7 +400,7 @@ function UnlockedPricingContent({
             </p>
             <a
               href="mailto:info@jurassicenglish.com?subject=Jurassic%20English%20%E2%80%94%20Discovery%20Call%20Request"
-              className="mt-6 inline-flex rounded-2xl bg-jurassic-accent px-5 py-3 text-sm font-bold text-white transition hover:brightness-110"
+              className="mt-6 inline-flex rounded-2xl bg-jurassic-accent px-5 py-3 text-sm font-bold text-jurassic-dark transition hover:brightness-110"
             >
               Contact info@jurassicenglish.com
             </a>

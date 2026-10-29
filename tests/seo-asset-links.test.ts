@@ -22,7 +22,7 @@ test('asset inventory covers published IELTS SEO pages, with localized anchors a
       assert.equal(url.searchParams.get('utm_medium'), 'internal');
       assert.equal(url.searchParams.get('utm_content'), card.path.slice(1).replaceAll('/', '-'));
       if (link.href.startsWith('/')) assert.ok(publicRoutes.has(url.pathname) || url.pathname === '/ai-speaking/baseline', link.href);
-      else assert.ok(['books.jurassicenglish.com', 'worldwise-story-quest.vercel.app'].includes(url.hostname));
+      else assert.ok(['books.jurassicenglish.com', 'story-quest.jurassicenglish.com'].includes(url.hostname));
     }
     if (/ielts|insights|cong-cu/.test(card.path)) {
       assert.ok(card.links.some(link => link.href.startsWith('/ai-speaking/baseline?')));

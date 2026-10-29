@@ -24,7 +24,9 @@
     "samples:text:check": "node --import tsx scripts/prepare-sample-text.mjs",
     "verify:asset-links": "node scripts/check-seo-asset-links.mjs",
     "validate:indexability": "node scripts/seo/indexability-check.mjs",
-    "validate:crawl": "node scripts/seo/crawl-check.mjs"
+    "validate:crawl": "node scripts/seo/crawl-check.mjs",
+    "check:links": "node scripts/check-internal-links.mjs",
+    "test:site-quality": "node scripts/audit-site-quality.mjs"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",
@@ -48,6 +50,7 @@
     "resend": "^6.9.4"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.11.0",
     "@playwright/test": "^1.64.1",
     "@types/express": "^4.17.21",
     "@types/node": "^22.14.0",

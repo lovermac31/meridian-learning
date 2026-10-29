@@ -264,7 +264,7 @@ export function InternalPilotRequestsPage() {
       <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-5 border-b border-jurassic-dark/10 pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-jurassic-accent">
+            <p className="text-xs font-bold uppercase tracking-widest text-jurassic-accent-ink">
               Internal Operator Portal
             </p>
             <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -387,7 +387,7 @@ export function InternalPilotRequestsPage() {
                   <button
                     type="button"
                     onClick={loadQueue}
-                    className="min-h-11 rounded-md bg-jurassic-accent px-4 text-sm font-bold text-white"
+                    className="min-h-11 rounded-md bg-jurassic-accent px-4 text-sm font-bold text-jurassic-dark"
                   >
                     Apply filters
                   </button>
@@ -449,7 +449,7 @@ export function InternalPilotRequestsPage() {
                       <>
                         <div className="flex flex-col gap-4 border-b border-jurassic-dark/10 pb-4 sm:flex-row sm:items-start sm:justify-between">
                           <div>
-                            <p className="text-xs font-bold uppercase tracking-widest text-jurassic-accent">
+                            <p className="text-xs font-bold uppercase tracking-widest text-jurassic-accent-ink">
                               {selectedRequest.submissionId}
                             </p>
                             <h2 className="mt-2 text-2xl font-bold">{selectedRequest.organisationName}</h2>

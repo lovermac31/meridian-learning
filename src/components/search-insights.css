@@ -68,6 +68,7 @@
 .ielts-tools-page .ielts-tool-card { border: 1px solid #e6e1d6; border-inline-start: 6px solid var(--color-jurassic-gold); box-shadow: 0 10px 30px -18px #10182059; line-height: 1.7; }
 .ielts-tools-page .ielts-tool-card h2 { line-height: 1.3; }
 .ielts-tools-page .ielts-tool-content a { color: #104761; text-decoration: underline; text-underline-offset: 3px; }
+.ielts-tools-page .ielts-tool-content a.insights-button-primary { color: var(--color-jurassic-dark); text-decoration: none; }
 .ielts-tools-page .ielts-tool-input { border-color: #52646c; color: var(--color-jurassic-dark); background: white; }
 .ielts-tools-page .ielts-tool-button-primary { color: var(--color-jurassic-dark); background: var(--color-jurassic-accent); }
 .ielts-tools-page .ielts-tool-button-secondary { color: var(--color-jurassic-dark); background: white; border: 2px solid var(--color-jurassic-dark); }

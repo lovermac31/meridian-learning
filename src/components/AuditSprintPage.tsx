@@ -90,7 +90,7 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
               <button
                 type="button"
                 onClick={onGetStarted}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -117,7 +117,7 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.problem.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -218,7 +218,7 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.deliverables.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -245,10 +245,10 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
                   className="rounded-2xl border border-jurassic-dark/8 bg-jurassic-ivory p-7 flex flex-col"
                 >
                   <div className="flex items-start justify-between mb-5">
-                    <span className="text-3xl font-bold text-jurassic-accent/20 leading-none">
+                    <span className="text-3xl font-bold text-jurassic-accent-ink leading-none">
                       {item.number}
                     </span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-jurassic-accent bg-jurassic-accent/10 rounded-full px-2.5 py-1">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-jurassic-accent-ink bg-jurassic-accent/10 rounded-full px-2.5 py-1">
                       {item.tag}
                     </span>
                   </div>
@@ -274,7 +274,7 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.process.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -299,10 +299,10 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
                 className="relative rounded-2xl border border-jurassic-dark/10 bg-white p-7"
               >
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-3xl font-bold text-jurassic-accent/20 leading-none">
+                  <span className="text-3xl font-bold text-jurassic-accent-ink leading-none">
                     {step.number}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-jurassic-dark/55 bg-jurassic-dark/6 rounded-full px-2.5 py-1">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-jurassic-dark/70 bg-jurassic-dark/6 rounded-full px-2.5 py-1">
                     <Clock className="w-3 h-3" />
                     {step.duration}
                   </span>
@@ -364,7 +364,7 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
             variants={staggerContainer}
             className="max-w-2xl"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.cta.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -377,7 +377,7 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
               <button
                 type="button"
                 onClick={onGetStarted}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -392,12 +392,12 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
               <RouteLink
                 to={'/pilot-programme'}
                 onNavigate={onNavigate}
-                className="border border-jurassic-accent/30 text-jurassic-accent px-8 py-4 rounded-full font-bold hover:border-jurassic-accent/50 hover:bg-jurassic-accent/5 transition-all"
+                className="border border-jurassic-accent/30 text-jurassic-accent-ink px-8 py-4 rounded-full font-bold hover:border-jurassic-accent/50 hover:bg-jurassic-accent/5 transition-all"
               >
                 {content.cta.pilotCta}
               </RouteLink>
             </motion.div>
-            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">
+            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/70 leading-relaxed">
               {content.cta.note}
             </motion.p>
           </motion.div>

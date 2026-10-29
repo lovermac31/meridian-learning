@@ -39,7 +39,7 @@ export function AvailableSoonPage({
             <button
               type="button"
               onClick={onGetStarted}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-6 py-3 text-sm font-bold text-white shadow-premium transition hover:brightness-110"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-6 py-3 text-sm font-bold text-jurassic-dark shadow-premium transition hover:brightness-110"
             >
               Get started
               <ArrowRight className="h-4 w-4" />
@@ -47,7 +47,7 @@ export function AvailableSoonPage({
             <button
               type="button"
               onClick={onContactUs}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-jurassic-accent/25 bg-jurassic-accent/8 px-6 py-3 text-sm font-semibold text-jurassic-accent transition hover:bg-jurassic-accent/15"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-jurassic-accent/25 bg-jurassic-accent/8 px-6 py-3 text-sm font-semibold text-jurassic-accent-ink transition hover:bg-jurassic-accent/15"
             >
               <Mail className="h-4 w-4" />
               Contact us

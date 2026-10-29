@@ -3,7 +3,7 @@ import type { Locale } from '../i18n/locales';
 import { normalizeVietnamesePhone } from '../i18n/content/samplePack';
 import { recordClientEvent } from '../lib/tracker';
 import { validateStoryClubReserve } from '../lib/storyClubReserve';
-import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_PRICE_VND, STORY_CLUB_QR_PATH, STORY_CLUB_SAMPLE_URL } from '../config/storyClubReserve';
+import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_PRICE_VND, STORY_CLUB_SAMPLE_URL } from '../config/storyClubReserve';
 import { ToolHero } from './IeltsToolsPage';
 
 const copy = {
@@ -141,23 +141,22 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
             <p className="mt-2">{t.amount}</p>
             <p className="mt-2">{t.transfer}: <strong data-transfer-memo>{confirmation.memo}</strong></p>
             <p className="mt-3 font-semibold" data-payment-status>{paymentReceived ? t.paymentReceived : t.paymentPending}</p>
-            <img src={STORY_CLUB_QR_PATH} alt="Story Club VietQR payment" className="mt-4 max-h-72 w-auto" onError={(event) => { event.currentTarget.hidden = true; const fallback = document.getElementById('reserve-qr-fallback'); if (fallback) fallback.hidden = false; }} />
-            <p id="reserve-qr-fallback" className="mt-3" hidden>{t.qrFallback}</p>
+            <p id="reserve-qr-fallback" className="mt-3">{t.qrFallback}</p>
             <a className="insights-button-primary mt-5" href="/go/zalo?utm_source=reserve&utm_content=after-submit" data-after-submit-zalo>{t.zalo}</a>
           </section>
         ) : (
           <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-labelledby="reserve-form-heading">
             <h2 id="reserve-form-heading" className="text-2xl font-bold">{t.form}</h2>
             <p className="mt-2">{t.formDetails}</p>
-            <form className="mt-4 space-y-4" method="post" onSubmit={onSubmit} noValidate data-reserve-form>
-              <label className="block font-semibold">{t.name}<input className={FIELD} name="name" autoComplete="name" maxLength={120} required /></label>
-              <label className="block font-semibold">{t.phone}<input className={FIELD} name="phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={32} required aria-describedby={error ? 'reserve-error' : undefined} /></label>
-              <label className="block font-semibold">{t.age}<select className={FIELD} name="childAge" defaultValue="" required><option value="" disabled>—</option>{[5, 6, 7, 8].map(age => <option key={age} value={age}>{age}</option>)}</select></label>
-              <label className="block font-semibold">{t.group}<select className={FIELD} name="group" defaultValue="sat-0900">{STORY_CLUB_GROUPS.map(group => <option key={group.id} value={group.id}>{group.label[locale]}</option>)}</select></label>
+            <form className="mt-4 space-y-4" aria-labelledby="reserve-form-heading" method="post" onSubmit={onSubmit} noValidate data-reserve-form>
+              <label htmlFor="reserve-name" className="block font-semibold">{t.name}<input className={FIELD} id="reserve-name" name="name" autoComplete="name" maxLength={120} required /></label>
+              <label htmlFor="reserve-phone" className="block font-semibold">{t.phone}<input className={FIELD} id="reserve-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={32} required aria-describedby={error ? 'reserve-error' : undefined} /></label>
+              <label htmlFor="reserve-childAge" className="block font-semibold">{t.age}<select className={FIELD} id="reserve-childAge" name="childAge" defaultValue="" required><option value="" disabled>—</option>{[5, 6, 7, 8].map(age => <option key={age} value={age}>{age}</option>)}</select></label>
+              <label htmlFor="reserve-group" className="block font-semibold">{t.group}<select className={FIELD} id="reserve-group" name="group" defaultValue="sat-0900">{STORY_CLUB_GROUPS.map(group => <option key={group.id} value={group.id}>{group.label[locale]}</option>)}</select></label>
               <input name="website" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
               <label className="flex items-start gap-3 text-sm"><input type="checkbox" name="consent" className="mt-1 h-5 w-5" required /><span>{t.consent} <a className="underline" href={locale === 'vi' ? '/vi/legal/privacy' : '/legal/privacy'}>{t.privacy}</a></span></label>
               {error ? <p id="reserve-error" role="alert" className="font-semibold text-red-700">{error}</p> : null}
-              <button className="insights-button-primary" type="submit" disabled={sending}>{sending ? '…' : t.submit}</button>
+              <button className="insights-button-primary" type="submit" disabled={sending} aria-busy={sending}>{t.submit}</button>
             </form>
           </section>
         )}

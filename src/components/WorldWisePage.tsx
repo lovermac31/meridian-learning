@@ -88,7 +88,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
               <button
                 type="button"
                 onClick={onGetStarted}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -116,7 +116,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.proposition.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -217,7 +217,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.process.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -244,7 +244,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
                   className="relative rounded-2xl border border-jurassic-dark/8 p-7"
                 >
                   <div className="flex items-start gap-4 mb-5">
-                    <span className="text-3xl font-bold text-jurassic-accent/25 leading-none font-display">
+                    <span className="text-3xl font-bold text-jurassic-accent-ink leading-none font-display">
                       {step.number}
                     </span>
                     <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-jurassic-accent/10">
@@ -312,7 +312,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
             variants={staggerContainer}
             className="max-w-2xl"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.cta.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -325,7 +325,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
               <button
                 type="button"
                 onClick={onGetStarted}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -340,7 +340,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
               <RouteLink
                 to={'/pilot-programme'}
                 onNavigate={onNavigate}
-                className="border border-jurassic-accent/30 text-jurassic-accent px-8 py-4 rounded-full font-bold hover:border-jurassic-accent/50 hover:bg-jurassic-accent/5 transition-all"
+                className="border border-jurassic-accent/30 text-jurassic-accent-ink px-8 py-4 rounded-full font-bold hover:border-jurassic-accent/50 hover:bg-jurassic-accent/5 transition-all"
               >
                 {content.cta.pilotCta}
               </RouteLink>
@@ -350,7 +350,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
                 <RouteLink
                   to={'/get-started?interest=curriculum_overview&source=worldwise'}
                   onNavigate={onNavigate}
-                  className="text-sm font-semibold text-jurassic-dark/50 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                  className="text-sm font-semibold text-jurassic-dark/70 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
                 >
                   {content.cta.overviewCta}
                 </RouteLink>
@@ -361,7 +361,7 @@ export const WorldWisePage = ({ locale, onBack, onGetStarted, onNavigate }: Worl
                 {content.cta.siteCta}
               </WorldWiseLink>
             </motion.div>
-            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">
+            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/70 leading-relaxed">
               <LinkifyWorldWise text={content.cta.note} />
             </motion.p>
           </motion.div>

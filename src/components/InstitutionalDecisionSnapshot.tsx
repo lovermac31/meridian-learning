@@ -102,7 +102,7 @@ export const InstitutionalDecisionSnapshot = ({
                 trackCtaClick({ label: decisionSnapshot.primaryCta, type: 'primary', segment: 'institutional_snapshot' });
                 onAuditSprint();
               }}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-6 py-3 text-sm font-bold text-white shadow-premium transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-6 py-3 text-sm font-bold text-jurassic-dark shadow-premium transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
             >
               {decisionSnapshot.primaryCta}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />

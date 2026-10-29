@@ -95,6 +95,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
               width={160}
               height={160}
               fetchPriority="low"
+              loading="lazy"
               decoding="async"
               className="absolute bottom-3 right-3 h-[72px] w-[72px] rounded-full border-4 border-white bg-sb-cream object-cover shadow-warm sm:h-24 sm:w-24"
             />

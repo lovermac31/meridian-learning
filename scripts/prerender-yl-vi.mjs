@@ -97,6 +97,9 @@ function localiseHead(html) {
   h = setMeta(h, 'property', 'og:description', VI['meta.ogDescription']);
   h = setMeta(h, 'property', 'og:url', `${SITE}${VI_PATH}`);
   h = setMeta(h, 'property', 'og:locale', 'vi_VN');
+  // Vietnamese display text uses the native sans stack, so the Latin-only hero
+  // font is unused here. Keep the Neuland preload used by the brand wordmark.
+  h = h.replace(/<link\b(?=[^>]*rel="preload")(?=[^>]*as="font")(?=[^>]*href="https:\/\/fonts\.gstatic\.com\/s\/lilitaone\/)[^>]*>\s*/g, '');
   h = setMeta(h, 'name', 'twitter:title', VI['meta.twitterTitle']);
   h = setMeta(h, 'name', 'twitter:description', VI['meta.twitterDescription']);
   return h;

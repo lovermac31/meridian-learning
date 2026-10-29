@@ -93,10 +93,14 @@ function injectRouteFallback(html, pathname, metadata, locale) {
   const fallback = buildRouteFallback(pathname, metadata, locale);
   if (!fallback) return html;
 
-  return replaceRouteContent(
+  const output = replaceRouteContent(
     html,
     `<div id="root" data-prerendered-route-path="${escapeAttribute(pathname)}">\n${fallback}\n    </div>`,
   );
+  // The private operator screen uses the system stack and has no brand header.
+  return pathname === '/internal/pilot-requests'
+    ? output.replace(/<link\b(?=[^>]*rel="preload")(?=[^>]*as="font")(?=[^>]*href="https:\/\/db\.onlinewebfonts\.com\/)[^>]*>\s*/g, '')
+    : output;
 }
 
 /**

@@ -1,6 +1,25 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+// Synthetic form responses below override this guard; every other API or
+// third-party request is blocked, even if a local backend happens to be running.
+test.beforeEach(async ({ page, baseURL }) => {
+  await page.route('**/*', route => {
+    const url = new URL(route.request().url());
+    if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/')) return route.abort();
+    return route.fallback();
+  });
+});
+
+async function checkAccessibility(page: import('@playwright/test').Page) {
+  await expect(page.locator('h1')).toHaveCount(1);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  const result = await new AxeBuilder({ page }).withRules(['color-contrast', 'label', 'image-alt', 'button-name', 'link-name', 'select-name']).analyze();
+  expect(result.violations).toEqual([]);
+}
+
 
 const cases = [
   { locale: 'vi', path: '/story-club/reserve', width: 375, sample: 'Đọc thử Truyện 1 miễn phí trước', price: '590.000₫' },
@@ -40,6 +59,7 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
     await page.setViewportSize({ width: item.width, height: 900 });
     await page.goto(`${item.path}?utm_source=reserve&utm_content=story-club-reserve&utm_medium=social&utm_campaign=autumn&utm_term=story%20time`);
     await expect.poll(() => events.filter(event => event === 'reserve_view').length).toBe(viewsBefore + 1);
+    await checkAccessibility(page);
     const rejectAnalytics = page.getByRole('button', { name: item.locale === 'vi' ? 'Từ chối phân tích' : 'Reject analytics' });
     if (await rejectAnalytics.isVisible().catch(() => false)) await rejectAnalytics.click();
     await expect(page.locator('[data-story-club-reserve]')).toHaveAttribute('lang', item.locale);
@@ -75,6 +95,8 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
     await expect.poll(() => events.filter(event => event === 'pay_instructions_shown').length).toBe(paymentBefore + 1);
     await expect(page.locator('[data-transfer-memo]')).toHaveText('SC-AB12CD');
     await expect(page.locator('#reserve-qr-fallback')).toBeVisible();
+    await expect(page.locator('[data-payment-instructions] img')).toHaveCount(0);
+    await checkAccessibility(page);
     await expect(page.locator('[data-after-submit-zalo]')).toHaveAttribute('href', '/go/zalo?utm_source=reserve&utm_content=after-submit');
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({ path: resolve(shots, `${item.width}-${item.locale}-payment.png`), fullPage: true });
@@ -83,4 +105,27 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
   expect(events.filter(event => event === 'reserve_view')).toHaveLength(4);
   expect(events.filter(event => event === 'reserve_submit')).toHaveLength(4);
   expect(events.filter(event => event === 'pay_instructions_shown')).toHaveLength(4);
+});
+
+
+test('products keep named controls, labelled sample forms and a contained mobile sample dialog', async ({ page }) => {
+  for (const locale of ['en', 'vi']) for (const width of [375, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(locale === 'vi' ? '/vi/products' : '/products');
+    await expect(page.locator('[data-category-toggle="families"]')).toHaveAttribute('aria-expanded', 'true');
+    await checkAccessibility(page);
+    if (width === 375) {
+      await mkdir(resolve('docs/qa/site-quality'), { recursive: true });
+      await page.screenshot({ path: resolve('docs/qa/site-quality', `375-products-${locale}.png`), fullPage: true });
+    }
+    await page.locator('[data-product-toggle="story-club"]').click();
+    await checkAccessibility(page);
+    const opener = page.locator('[data-sample-open="story-club"]');
+    await opener.click();
+    await expect(page.locator('[data-sample-viewer="story-club"]')).toBeVisible();
+    await checkAccessibility(page);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('[data-sample-viewer]')).toHaveCount(0);
+    await expect(opener).toBeFocused();
+  }
 });

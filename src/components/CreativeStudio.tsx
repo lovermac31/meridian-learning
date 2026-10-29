@@ -102,7 +102,7 @@ export const CreativeStudio = () => {
               <button
                 onClick={generateImage}
                 disabled={!isCreativeStudioLive || isGenerating || !prompt.trim()}
-                className="w-full bg-jurassic-accent text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all glow-hover"
+                className="w-full bg-jurassic-accent text-jurassic-dark py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all glow-hover"
               >
                 {isGenerating ? (
                   <>
@@ -141,6 +141,8 @@ export const CreativeStudio = () => {
                 >
                   <img
                     src={generatedImage}
+                    width={1280}
+                    height={720}
                     alt={homeContent.creativeStudio.generatedImageAlt}
                     className="w-full h-full object-contain"
                   />

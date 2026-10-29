@@ -68,7 +68,7 @@ export function StudentAcademyMural({ onNavigate }: StudentAcademyMuralProps) {
             <a
               href="/book-diagnostic"
               onClick={handleNavClick('/book-diagnostic')}
-              className="inline-flex items-center justify-center bg-jurassic-accent text-white px-8 py-4 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              className="inline-flex items-center justify-center bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full text-sm font-bold transition-all duration-500 shadow-[0_15px_30px_-12px_rgba(242,100,25,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(242,100,25,0.4)] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               Book a Student Thinking Diagnostic
               <ArrowRight aria-hidden="true" className="w-4 h-4 ml-2" />

@@ -112,7 +112,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
       <section className="py-24 bg-jurassic-soft/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">
               {pageContent.sections.glance.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
@@ -131,7 +131,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
                 key={item.label}
                 className="rounded-3xl bg-white border border-jurassic-soft/60 p-6 shadow-premium"
               >
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">
+                <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-3">
                   {item.label}
                 </p>
                 <p className="text-lg font-semibold text-jurassic-dark leading-relaxed">{item.value}</p>
@@ -159,7 +159,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
               <div className="w-12 h-12 rounded-2xl bg-jurassic-accent/10 text-jurassic-accent flex items-center justify-center mb-6">
                 <LibraryBig className="w-5 h-5" />
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-4">
+              <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-4">
                 {pageContent.sections.textComplexity.label}
               </p>
               <h2 className="text-3xl font-bold tracking-tight text-jurassic-dark mb-5">
@@ -176,7 +176,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
       <section className="py-24 bg-jurassic-soft/25">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">
               {pageContent.sections.competencies.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">
@@ -190,7 +190,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
                 key={competency.title}
                 className="rounded-3xl bg-white border border-jurassic-soft/60 p-7 shadow-premium"
               >
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">
+                <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-3">
                   {competency.title}
                 </p>
                 <p className="text-gray-700 leading-relaxed">{competency.description}</p>
@@ -203,7 +203,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">
               {pageContent.sections.assessment.eyebrow}
             </span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">

@@ -11,7 +11,7 @@ import { levelHref } from "@/lib/academy/levelBooks";
 // White text only on #1E4D3B or #B45309; #D97706 is decorative.
 
 const IMG = "/images/overhaul";
-const STORY_QUEST = "https://worldwise-story-quest.vercel.app/#home";
+const STORY_QUEST = "https://story-quest.jurassicenglish.com/#home";
 const EMAIL = "mailto:info@jurassicenglish.com?subject=Reading%20%26%20Thinking%20Placement%20Consultation";
 const ZALO = "https://zalo.me/84396085076";
 // Products and prices hub on the main site (P-1, Jay 27 Oct 2026): one compact card link, nothing else added.

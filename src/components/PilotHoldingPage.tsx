@@ -68,7 +68,7 @@ export function PilotHoldingPage({ onBack }: PilotHoldingPageProps) {
           <button
             type="button"
             onClick={onBack}
-            className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-7 py-3 text-sm font-bold text-white shadow-premium transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-7 py-3 text-sm font-bold text-jurassic-dark shadow-premium transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             Visit jurassicenglish.com
             <ArrowRight className="h-4 w-4" />
