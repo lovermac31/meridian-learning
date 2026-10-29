@@ -76,6 +76,10 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await expect.poll(() => events).toEqual(['reserve_view', 'reserve_submit', 'pay_instructions_shown']);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     if (offer.id !== 'story-club') await expect(page.locator('[data-payment-status]')).toHaveCount(0);
+    // A fast pre-hydration navigation may leave the optional analytics banner unchosen.
+    // Dismiss it through the real control before capturing the payment QR.
+    const remainingReject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });
+    if (await remainingReject.isVisible()) { await remainingReject.click(); await expect(remainingReject).toBeHidden(); }
     await page.screenshot({ path: resolve(shots, `${offer.id}-${locale}-${width}.png`), fullPage: false });
     if (offer.id === 'story-club') {
       const axe = await new AxeBuilder({ page }).withRules(['label', 'image-alt', 'button-name', 'link-name', 'select-name', 'color-contrast']).analyze();
