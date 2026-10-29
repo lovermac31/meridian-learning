@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { STORY_CLUB_NEXT_GROUP, STORY_CLUB_SAMPLE_URL } from '../src/config/storyClubReserve';
+import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_SAMPLE_URL } from '../src/config/storyClubReserve';
 import { createStoryClubTransferMemo, validateStoryClubReserve } from '../src/lib/storyClubReserve';
 import { getExpectedPublicIndexableRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata';
 import { resolveLocalizedRoute, getLocalizedPathname } from '../src/i18n/routing';
@@ -15,10 +15,20 @@ test('Story Club reserve validates name, Vietnam Zalo, age and configured group'
   assert.equal(validateStoryClubReserve({ ...valid, name: ' ' }), 'name');
 });
 
+test('group labels are localized while stored option values remain stable', () => {
+  assert.deepEqual(STORY_CLUB_NEXT_GROUP, { en: 'Sat 9:00', vi: 'Thứ Bảy 9:00' });
+  assert.deepEqual(STORY_CLUB_GROUPS, [
+    { id: 'sat-0900', label: { en: 'Sat 9:00', vi: 'Thứ Bảy 9:00' } },
+    { id: 'flexible', label: { en: 'Another time / please ask me', vi: 'Thời gian khác / vui lòng liên hệ' } },
+  ]);
+  for (const group of STORY_CLUB_GROUPS) {
+    assert.equal(validateStoryClubReserve({ name: 'Synthetic Parent', phone: '0396 085 076', childAge: '7', group: group.id }), null);
+  }
+});
+
 test('payment memo is a bounded SC-prefixed short ID', () => {
   assert.equal(createStoryClubTransferMemo('test-ab12cd'), 'SC-TESTAB12');
   assert.throws(() => createStoryClubTransferMemo('???'), /at least four/);
-  assert.equal(STORY_CLUB_NEXT_GROUP, 'Sat 9:00');
 });
 
 test('reserve routes use campaign URLs and have indexable localized metadata', () => {
