@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { motion } from 'motion/react';
 import { ArrowLeft, ChevronRight, ClipboardList, Download, Leaf, LibraryBig, MessagesSquare } from 'lucide-react';
 import { type ThinkingCycleStageDetail } from '../lib/thinkingCycleContent';
@@ -245,6 +246,7 @@ export const ThinkingCycleExperience = ({
           </div>
         </div>
       </section>
+    <GscEditorial />
     </main>
   );
 };

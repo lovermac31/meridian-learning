@@ -1,0 +1,4475 @@
+{
+  "rows": [
+    {
+      "url": "https://jurassicenglish.com/student-academy/referrals",
+      "reason": "Crawled - currently not indexed",
+      "path": "/student-academy/referrals",
+      "target": "/student-academy/referrals",
+      "indexedInboundCount": 1,
+      "indexedSources": [
+        "/student-academy"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/solutions",
+      "reason": "Crawled - currently not indexed",
+      "path": "/ai-speaking/vi/solutions",
+      "target": "/ai-speaking/vi/solutions",
+      "indexedInboundCount": 2,
+      "indexedSources": [
+        "/ai-speaking/vi",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/legal/privacy",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/legal/privacy",
+      "target": "/vi/legal/privacy",
+      "indexedInboundCount": 54,
+      "indexedSources": [
+        "/story-club/reserve",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/legal/terms",
+      "reason": "Crawled - currently not indexed",
+      "path": "/legal/terms",
+      "target": "/legal/terms",
+      "indexedInboundCount": 74,
+      "indexedSources": [
+        "/",
+        "/ai-speaking/exam",
+        "/ai-speaking/privacy",
+        "/ai-speaking/samples",
+        "/ai-speaking/terms",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/student-academy",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi/luyen-noi-ielts/",
+        "/worldwise",
+        "/young-learners-speaking/"
+      ],
+      "contextualSources": [],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/thinking-cycle/evaluate",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/thinking-cycle/evaluate",
+      "target": "/vi/thinking-cycle/evaluate",
+      "indexedInboundCount": 1,
+      "indexedSources": [
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/thinking-cycle/analyze",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/thinking-cycle/analyze",
+      "target": "/vi/thinking-cycle/analyze",
+      "indexedInboundCount": 1,
+      "indexedSources": [
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/thinking-cycle/compare",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/thinking-cycle/compare",
+      "target": "/vi/thinking-cycle/compare",
+      "indexedInboundCount": 54,
+      "indexedSources": [
+        "/story-club/reserve",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/get-started",
+      "reason": "Crawled - currently not indexed",
+      "path": "/get-started",
+      "target": "/get-started",
+      "indexedInboundCount": 68,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/school-framework",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/worldwise"
+      ],
+      "contextualSources": [],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/series/level-4-mastery/syllabus",
+      "reason": "Crawled - currently not indexed",
+      "path": "/series/level-4-mastery/syllabus",
+      "target": "/series/level-4-mastery/syllabus",
+      "indexedInboundCount": 2,
+      "indexedSources": [
+        "/series/compare",
+        "/series/level-4-mastery"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/series/level-2-development/syllabus",
+      "reason": "Crawled - currently not indexed",
+      "path": "/series/level-2-development/syllabus",
+      "target": "/series/level-2-development/syllabus",
+      "indexedInboundCount": 2,
+      "indexedSources": [
+        "/series/compare",
+        "/series/level-2-development"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/discovery",
+      "reason": "Crawled - currently not indexed",
+      "path": "/discovery",
+      "target": "/discovery",
+      "indexedInboundCount": 5,
+      "indexedSources": [
+        "/cefr-alignment",
+        "/methodology",
+        "/pilot-programme",
+        "/school-framework",
+        "/worldwise"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/audit-sprint",
+      "reason": "Crawled - currently not indexed",
+      "path": "/audit-sprint",
+      "target": "/audit-sprint",
+      "indexedInboundCount": 1,
+      "indexedSources": [
+        "/school-framework"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/interactive-demo",
+      "reason": "Crawled - currently not indexed",
+      "path": "/interactive-demo",
+      "target": "/interactive-demo",
+      "indexedInboundCount": 2,
+      "indexedSources": [
+        "/book-diagnostic",
+        "/digital-reasoning-engine"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/teacher-standards",
+      "reason": "Crawled - currently not indexed",
+      "path": "/teacher-standards",
+      "target": "/teacher-standards",
+      "indexedInboundCount": 121,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/story-club/reserve",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect",
+        "/worldwise"
+      ],
+      "contextualSources": [],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/thinking-cycle/reflect",
+      "reason": "Crawled - currently not indexed",
+      "path": "/thinking-cycle/reflect",
+      "target": "/thinking-cycle/reflect",
+      "indexedInboundCount": 5,
+      "indexedSources": [
+        "/methodology",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/legal/terms",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/legal/terms",
+      "target": "/vi/legal/terms",
+      "indexedInboundCount": 54,
+      "indexedSources": [
+        "/story-club/reserve",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/series/level-5-advanced",
+      "reason": "Crawled - currently not indexed",
+      "path": "/series/level-5-advanced",
+      "target": "/series/level-5-advanced",
+      "indexedInboundCount": 6,
+      "indexedSources": [
+        "/cefr-alignment",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-2-development",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/series/level-3-expansion",
+      "reason": "Crawled - currently not indexed",
+      "path": "/series/level-3-expansion",
+      "target": "/series/level-3-expansion",
+      "indexedInboundCount": 6,
+      "indexedSources": [
+        "/cefr-alignment",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/series/level-1-foundation/syllabus",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/series/level-1-foundation/syllabus",
+      "target": "/vi/series/level-1-foundation/syllabus",
+      "indexedInboundCount": 1,
+      "indexedSources": [
+        "/vi/series/level-1-foundation"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/series/level-4-mastery/syllabus",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/series/level-4-mastery/syllabus",
+      "target": "/vi/series/level-4-mastery/syllabus",
+      "indexedInboundCount": 1,
+      "indexedSources": [
+        "/vi/series/level-4-mastery"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/legal/accessibility",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/legal/accessibility",
+      "target": "/vi/legal/accessibility",
+      "indexedInboundCount": 0,
+      "indexedSources": [],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/thinking-cycle/justify",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/thinking-cycle/justify",
+      "target": "/vi/thinking-cycle/justify",
+      "indexedInboundCount": 1,
+      "indexedSources": [
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/series/level-5-advanced/syllabus",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/series/level-5-advanced/syllabus",
+      "target": "/vi/series/level-5-advanced/syllabus",
+      "indexedInboundCount": 1,
+      "indexedSources": [
+        "/vi/series/level-5-advanced"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/series/compare",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/series/compare",
+      "target": "/vi/series/compare",
+      "indexedInboundCount": 54,
+      "indexedSources": [
+        "/story-club/reserve",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/series/level-3-expansion/syllabus",
+      "reason": "Crawled - currently not indexed",
+      "path": "/vi/series/level-3-expansion/syllabus",
+      "target": "/vi/series/level-3-expansion/syllabus",
+      "indexedInboundCount": 1,
+      "indexedSources": [
+        "/vi/series/level-3-expansion"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/about/nathaniel-jay-adams",
+      "reason": "Discovered - currently not indexed",
+      "path": "/about/nathaniel-jay-adams",
+      "target": "/about/nathaniel-jay-adams",
+      "indexedInboundCount": 67,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/worldwise"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/lessons",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/lessons",
+      "target": "/ai-speaking/lessons",
+      "indexedInboundCount": 69,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi/luyen-noi-ielts/",
+        "/worldwise",
+        "/young-learners-speaking/"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/samples/advanced",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/samples/advanced",
+      "target": "/ai-speaking/samples/advanced",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/ai-speaking/samples",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/samples/basic",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/samples/basic",
+      "target": "/ai-speaking/samples",
+      "indexedInboundCount": 8,
+      "indexedSources": [
+        "/",
+        "/ai-speaking/exam",
+        "/ai-speaking/pricing",
+        "/ai-speaking/privacy",
+        "/ai-speaking/samples",
+        "/ai-speaking/terms",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/samples/intermediate",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/samples/intermediate",
+      "target": "/ai-speaking/samples/intermediate",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/ai-speaking/samples",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/solutions",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/solutions",
+      "target": "/ai-speaking/solutions",
+      "indexedInboundCount": 13,
+      "indexedSources": [
+        "/",
+        "/ai-speaking",
+        "/ai-speaking/exam",
+        "/ai-speaking/privacy",
+        "/ai-speaking/samples",
+        "/ai-speaking/terms",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/saudi-arabia",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/lessons",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/vi/lessons",
+      "target": "/ai-speaking/vi/lessons",
+      "indexedInboundCount": 57,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products",
+        "/story-club/reserve",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/pricing",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/vi/pricing",
+      "target": "/ai-speaking/vi/pricing",
+      "indexedInboundCount": 5,
+      "indexedSources": [
+        "/",
+        "/ai-speaking/pricing",
+        "/ai-speaking/vi",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/samples",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/vi/samples",
+      "target": "/ai-speaking/vi/samples",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/samples/advanced",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/vi/samples/advanced",
+      "target": "/ai-speaking/vi/samples/advanced",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/samples/basic",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/vi/samples/basic",
+      "target": "/ai-speaking/vi/samples",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/samples/intermediate",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/vi/samples/intermediate",
+      "target": "/ai-speaking/vi/samples/intermediate",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/writing",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/vi/writing",
+      "target": "/ai-speaking/vi/writing",
+      "indexedInboundCount": 60,
+      "indexedSources": [
+        "/",
+        "/ai-speaking/vi",
+        "/ai-speaking/vi/baseline",
+        "/framework",
+        "/products",
+        "/story-club/reserve",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/luyen-noi-ielts/",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/writing/demo",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/vi/writing/demo",
+      "target": "/ai-speaking/vi/writing/demo",
+      "indexedInboundCount": 5,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products",
+        "/vi/products",
+        "/vi/products/writing-baseline"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/writing/sample",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/vi/writing/sample",
+      "target": "/ai-speaking/vi/writing/sample",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/writing",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/writing",
+      "target": "/ai-speaking/writing",
+      "indexedInboundCount": 82,
+      "indexedSources": [
+        "/",
+        "/ai-speaking",
+        "/ai-speaking/baseline",
+        "/ai-speaking/exam",
+        "/ai-speaking/pricing",
+        "/ai-speaking/privacy",
+        "/ai-speaking/samples",
+        "/ai-speaking/terms",
+        "/book-diagnostic",
+        "/cefr-alignment",
+        "/companies",
+        "/digital-reasoning-engine",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/evidence",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/school-framework",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/student-academy",
+        "/student-academy/stories",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi/student-academy/stories",
+        "/worldwise",
+        "/young-learners-speaking/"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/writing/demo",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/writing/demo",
+      "target": "/ai-speaking/writing/demo",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products",
+        "/products/writing-baseline"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/writing/sample",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ai-speaking/writing/sample",
+      "target": "/ai-speaking/writing/sample",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ar/ielts-speaking-online/egypt",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ar/ielts-speaking-online/egypt",
+      "target": "/ar/ielts-speaking-online/egypt",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ar/ielts-speaking-online/saudi-arabia",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ar/ielts-speaking-online/saudi-arabia",
+      "target": "/ar/ielts-speaking-online/saudi-arabia",
+      "indexedInboundCount": 5,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/saudi-arabia",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ar/ielts-speaking-online/uae",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ar/ielts-speaking-online/uae",
+      "target": "/ar/ielts-speaking-online/uae",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/bn/ielts-speaking-online/bangladesh",
+      "reason": "Discovered - currently not indexed",
+      "path": "/bn/ielts-speaking-online/bangladesh",
+      "target": "/bn/ielts-speaking-online/bangladesh",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/challenges/one-change",
+      "reason": "Discovered - currently not indexed",
+      "path": "/challenges/one-change",
+      "target": "/challenges/one-change",
+      "indexedInboundCount": 121,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/story-club/reserve",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect",
+        "/worldwise"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/es/ielts-speaking-online",
+      "reason": "Discovered - currently not indexed",
+      "path": "/es/ielts-speaking-online",
+      "target": "/es/ielts-speaking-online",
+      "indexedInboundCount": 5,
+      "indexedSources": [
+        "/",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/es/ielts-speaking-online/argentina",
+      "reason": "Discovered - currently not indexed",
+      "path": "/es/ielts-speaking-online/argentina",
+      "target": "/es/ielts-speaking-online/argentina",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/es/ielts-speaking-online/colombia",
+      "reason": "Discovered - currently not indexed",
+      "path": "/es/ielts-speaking-online/colombia",
+      "target": "/es/ielts-speaking-online/colombia",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/es/ielts-speaking-online/peru",
+      "reason": "Discovered - currently not indexed",
+      "path": "/es/ielts-speaking-online/peru",
+      "target": "/es/ielts-speaking-online/peru",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/argentina",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/argentina",
+      "target": "/ielts-speaking-online/argentina",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/bangladesh",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/bangladesh",
+      "target": "/ielts-speaking-online/bangladesh",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/brazil",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/brazil",
+      "target": "/ielts-speaking-online/brazil",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/chile",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/chile",
+      "target": "/ielts-speaking-online/chile",
+      "indexedInboundCount": 5,
+      "indexedSources": [
+        "/",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/colombia",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/colombia",
+      "target": "/ielts-speaking-online/colombia",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/egypt",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/egypt",
+      "target": "/ielts-speaking-online/egypt",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/india",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/india",
+      "target": "/ielts-speaking-online/india",
+      "indexedInboundCount": 121,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/story-club/reserve",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect",
+        "/worldwise"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/malaysia",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/malaysia",
+      "target": "/ielts-speaking-online/malaysia",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/nigeria",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/nigeria",
+      "target": "/ielts-speaking-online/nigeria",
+      "indexedInboundCount": 121,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/story-club/reserve",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect",
+        "/worldwise"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/peru",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/peru",
+      "target": "/ielts-speaking-online/peru",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/philippines",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/philippines",
+      "target": "/ielts-speaking-online/philippines",
+      "indexedInboundCount": 121,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/story-club/reserve",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect",
+        "/worldwise"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/singapore",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/singapore",
+      "target": "/ielts-speaking-online/singapore",
+      "indexedInboundCount": 121,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/story-club/reserve",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect",
+        "/worldwise"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/thailand",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/thailand",
+      "target": "/ielts-speaking-online/thailand",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online/uae",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ielts-speaking-online/uae",
+      "target": "/ielts-speaking-online/uae",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/insights",
+      "reason": "Discovered - currently not indexed",
+      "path": "/insights",
+      "target": "/insights",
+      "indexedInboundCount": 9,
+      "indexedSources": [
+        "/",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/insights/ai-ielts-speaking-scoring",
+      "reason": "Discovered - currently not indexed",
+      "path": "/insights/ai-ielts-speaking-scoring",
+      "target": "/insights/ai-ielts-speaking-scoring",
+      "indexedInboundCount": 6,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/saudi-arabia",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/insights/from-speaking-diagnostic-to-one-to-one-lesson",
+      "reason": "Discovered - currently not indexed",
+      "path": "/insights/from-speaking-diagnostic-to-one-to-one-lesson",
+      "target": "/insights/from-speaking-diagnostic-to-one-to-one-lesson",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/insights/ielts-online-test",
+      "reason": "Discovered - currently not indexed",
+      "path": "/insights/ielts-online-test",
+      "target": "/insights/ielts-online-test",
+      "indexedInboundCount": 8,
+      "indexedSources": [
+        "/",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/insights/ielts-speaking-6-to-7",
+      "reason": "Discovered - currently not indexed",
+      "path": "/insights/ielts-speaking-6-to-7",
+      "target": "/insights/ielts-speaking-6-to-7",
+      "indexedInboundCount": 9,
+      "indexedSources": [
+        "/",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/products",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/insights/ielts-speaking-forecast-september-december-2026",
+      "reason": "Discovered - currently not indexed",
+      "path": "/insights/ielts-speaking-forecast-september-december-2026",
+      "target": "/insights/ielts-speaking-forecast-september-december-2026",
+      "indexedInboundCount": 68,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/worldwise"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/insights/online-ielts-speaking-coaching",
+      "reason": "Discovered - currently not indexed",
+      "path": "/insights/online-ielts-speaking-coaching",
+      "target": "/insights/online-ielts-speaking-coaching",
+      "indexedInboundCount": 6,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/saudi-arabia",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/insights/what-to-fix-first-in-ielts-speaking",
+      "reason": "Discovered - currently not indexed",
+      "path": "/insights/what-to-fix-first-in-ielts-speaking",
+      "target": "/insights/what-to-fix-first-in-ielts-speaking",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/insights/what-typed-speaking-practice-can-assess",
+      "reason": "Discovered - currently not indexed",
+      "path": "/insights/what-typed-speaking-practice-can-assess",
+      "target": "/insights/what-typed-speaking-practice-can-assess",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/knowledge",
+      "reason": "Discovered - currently not indexed",
+      "path": "/knowledge",
+      "target": "/knowledge",
+      "indexedInboundCount": 121,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/story-club/reserve",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect",
+        "/worldwise"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ms/ielts-speaking-online/malaysia",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ms/ielts-speaking-online/malaysia",
+      "target": "/ms/ielts-speaking-online/malaysia",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/pt/ielts-speaking-online",
+      "reason": "Discovered - currently not indexed",
+      "path": "/pt/ielts-speaking-online",
+      "target": "/pt/ielts-speaking-online",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/pt/ielts-speaking-online/brasil",
+      "reason": "Discovered - currently not indexed",
+      "path": "/pt/ielts-speaking-online/brasil",
+      "target": "/pt/ielts-speaking-online/brasil",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/th/ielts-speaking-online/thailand",
+      "reason": "Discovered - currently not indexed",
+      "path": "/th/ielts-speaking-online/thailand",
+      "target": "/th/ielts-speaking-online/thailand",
+      "indexedInboundCount": 4,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/tools/ielts-speaking-part-2-timer",
+      "reason": "Discovered - currently not indexed",
+      "path": "/tools/ielts-speaking-part-2-timer",
+      "target": "/tools/ielts-speaking-part-2-timer",
+      "indexedInboundCount": 68,
+      "indexedSources": [
+        "/",
+        "/cefr-alignment",
+        "/companies",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/worldwise"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/ur/ielts-speaking-online/pakistan",
+      "reason": "Discovered - currently not indexed",
+      "path": "/ur/ielts-speaking-online/pakistan",
+      "target": "/ur/ielts-speaking-online/pakistan",
+      "indexedInboundCount": 5,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/pakistan",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/insights",
+      "reason": "Discovered - currently not indexed",
+      "path": "/vi/insights",
+      "target": "/vi/insights",
+      "indexedInboundCount": 5,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/insights/ai-cham-ielts-speaking",
+      "reason": "Discovered - currently not indexed",
+      "path": "/vi/insights/ai-cham-ielts-speaking",
+      "target": "/vi/insights/ai-cham-ielts-speaking",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/insights/ielts-online-test",
+      "reason": "Discovered - currently not indexed",
+      "path": "/vi/insights/ielts-online-test",
+      "target": "/vi/insights/ielts-online-test",
+      "indexedInboundCount": 3,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/ve-thay-jay-adams",
+      "reason": "Discovered - currently not indexed",
+      "path": "/vi/ve-thay-jay-adams",
+      "target": "/vi/ve-thay-jay-adams",
+      "indexedInboundCount": 57,
+      "indexedSources": [
+        "/",
+        "/framework",
+        "/products",
+        "/story-club/reserve",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [
+        "/",
+        "/framework",
+        "/products"
+      ],
+      "clickDepth": 1
+    },
+    {
+      "url": "https://www.jurassicenglish.com/",
+      "reason": "Page with redirect",
+      "path": "/",
+      "target": "/",
+      "indexedInboundCount": 83,
+      "indexedSources": [
+        "/",
+        "/ai-speaking",
+        "/ai-speaking/baseline",
+        "/ai-speaking/exam",
+        "/ai-speaking/pricing",
+        "/ai-speaking/privacy",
+        "/ai-speaking/samples",
+        "/ai-speaking/terms",
+        "/book-diagnostic",
+        "/cefr-alignment",
+        "/companies",
+        "/digital-reasoning-engine",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/evidence",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/school-framework",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/student-academy",
+        "/student-academy/stories",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi/luyen-noi-ielts/",
+        "/vi/student-academy/stories",
+        "/worldwise",
+        "/young-learners-speaking/"
+      ],
+      "contextualSources": [],
+      "clickDepth": 0
+    },
+    {
+      "url": "http://www.jurassicenglish.com/",
+      "reason": "Page with redirect",
+      "path": "/",
+      "target": "/",
+      "indexedInboundCount": 83,
+      "indexedSources": [
+        "/",
+        "/ai-speaking",
+        "/ai-speaking/baseline",
+        "/ai-speaking/exam",
+        "/ai-speaking/pricing",
+        "/ai-speaking/privacy",
+        "/ai-speaking/samples",
+        "/ai-speaking/terms",
+        "/book-diagnostic",
+        "/cefr-alignment",
+        "/companies",
+        "/digital-reasoning-engine",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/evidence",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/school-framework",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/student-academy",
+        "/student-academy/stories",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi/luyen-noi-ielts/",
+        "/vi/student-academy/stories",
+        "/worldwise",
+        "/young-learners-speaking/"
+      ],
+      "contextualSources": [],
+      "clickDepth": 0
+    },
+    {
+      "url": "http://jurassicenglish.com/",
+      "reason": "Page with redirect",
+      "path": "/",
+      "target": "/",
+      "indexedInboundCount": 83,
+      "indexedSources": [
+        "/",
+        "/ai-speaking",
+        "/ai-speaking/baseline",
+        "/ai-speaking/exam",
+        "/ai-speaking/pricing",
+        "/ai-speaking/privacy",
+        "/ai-speaking/samples",
+        "/ai-speaking/terms",
+        "/book-diagnostic",
+        "/cefr-alignment",
+        "/companies",
+        "/digital-reasoning-engine",
+        "/en/story-club/reserve",
+        "/es/ielts-speaking-online/chile",
+        "/evidence",
+        "/framework",
+        "/id/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online",
+        "/ielts-speaking-online/indonesia",
+        "/ielts-speaking-online/pakistan",
+        "/ielts-speaking-online/saudi-arabia",
+        "/legal/accessibility",
+        "/legal/cookies",
+        "/legal/disclaimer",
+        "/legal/privacy",
+        "/methodology",
+        "/pilot-programme",
+        "/products",
+        "/products/baseline",
+        "/products/centre-licence",
+        "/products/curriculum-overview",
+        "/products/holiday-reading-challenge",
+        "/products/ielts-cue-card-bank",
+        "/products/ielts-essay-bank-task2",
+        "/products/ielts-one-to-one-starter",
+        "/products/ielts-speaking-ladder",
+        "/products/ielts-writing-ladder-task2",
+        "/products/ielts-writing-task1-method",
+        "/products/ielts-writing-teacher-pack",
+        "/products/one-to-one",
+        "/products/parent-pack-l1",
+        "/products/parent-pack-l2",
+        "/products/parent-pack-l3",
+        "/products/pilot-class-kit",
+        "/products/printable-pack",
+        "/products/reasoning-assessment-kit",
+        "/products/story-club",
+        "/products/student-workbook-l1",
+        "/products/student-workbook-l2",
+        "/products/student-workbook-l3",
+        "/products/student-workbook-l4",
+        "/products/student-workbook-l5",
+        "/products/teacher-bundle",
+        "/products/teacher-pack-l1",
+        "/products/teacher-pack-l2",
+        "/products/teacher-pack-l3",
+        "/products/teacher-pack-l4",
+        "/products/teacher-pack-l5",
+        "/products/teacher-training-course",
+        "/products/thinking-cycle-posters",
+        "/products/thinking-cycle-set",
+        "/products/word-fossil-flashcards-l1",
+        "/products/writing-baseline",
+        "/school-framework",
+        "/series/compare",
+        "/series/level-1-foundation",
+        "/series/level-1-foundation/syllabus",
+        "/series/level-2-development",
+        "/series/level-3-expansion/syllabus",
+        "/series/level-4-mastery",
+        "/series/level-5-advanced/syllabus",
+        "/story-club",
+        "/student-academy",
+        "/student-academy/stories",
+        "/thinking-cycle/analyze",
+        "/thinking-cycle/compare",
+        "/thinking-cycle/evaluate",
+        "/thinking-cycle/justify",
+        "/tools/ielts-band-score-calculator",
+        "/vi/luyen-noi-ielts/",
+        "/vi/student-academy/stories",
+        "/worldwise",
+        "/young-learners-speaking/"
+      ],
+      "contextualSources": [],
+      "clickDepth": 0
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/get-started (query string omitted)",
+      "reason": "Alternate page with proper canonical tag",
+      "path": "/vi/get-started",
+      "target": "/vi/get-started",
+      "indexedInboundCount": 54,
+      "indexedSources": [
+        "/story-club/reserve",
+        "/vi",
+        "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+        "/vi/cong-cu/tinh-diem-ielts",
+        "/vi/framework",
+        "/vi/get-started",
+        "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+        "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+        "/vi/legal/cookies",
+        "/vi/legal/disclaimer",
+        "/vi/products",
+        "/vi/products/baseline",
+        "/vi/products/centre-licence",
+        "/vi/products/curriculum-overview",
+        "/vi/products/holiday-reading-challenge",
+        "/vi/products/ielts-cue-card-bank",
+        "/vi/products/ielts-essay-bank-task2",
+        "/vi/products/ielts-one-to-one-starter",
+        "/vi/products/ielts-speaking-ladder",
+        "/vi/products/ielts-writing-ladder-task2",
+        "/vi/products/ielts-writing-task1-method",
+        "/vi/products/ielts-writing-teacher-pack",
+        "/vi/products/one-to-one",
+        "/vi/products/parent-pack-l1",
+        "/vi/products/parent-pack-l2",
+        "/vi/products/parent-pack-l3",
+        "/vi/products/pilot-class-kit",
+        "/vi/products/printable-pack",
+        "/vi/products/reasoning-assessment-kit",
+        "/vi/products/story-club",
+        "/vi/products/student-workbook-l1",
+        "/vi/products/student-workbook-l2",
+        "/vi/products/student-workbook-l3",
+        "/vi/products/student-workbook-l4",
+        "/vi/products/student-workbook-l5",
+        "/vi/products/teacher-bundle",
+        "/vi/products/teacher-pack-l1",
+        "/vi/products/teacher-pack-l2",
+        "/vi/products/teacher-pack-l3",
+        "/vi/products/teacher-pack-l4",
+        "/vi/products/teacher-pack-l5",
+        "/vi/products/teacher-training-course",
+        "/vi/products/thinking-cycle-posters",
+        "/vi/products/thinking-cycle-set",
+        "/vi/products/word-fossil-flashcards-l1",
+        "/vi/products/writing-baseline",
+        "/vi/series/level-1-foundation",
+        "/vi/series/level-2-development",
+        "/vi/series/level-2-development/syllabus",
+        "/vi/series/level-3-expansion",
+        "/vi/series/level-4-mastery",
+        "/vi/series/level-5-advanced",
+        "/vi/story-club",
+        "/vi/thinking-cycle/reflect"
+      ],
+      "contextualSources": [],
+      "clickDepth": 2
+    },
+    {
+      "url": "https://jurassicenglish.com/index.html",
+      "reason": "Redirect error",
+      "path": "/index.html",
+      "target": "/index.html",
+      "indexedInboundCount": 0,
+      "indexedSources": [],
+      "contextualSources": [],
+      "clickDepth": null
+    }
+  ],
+  "failures": [],
+  "upstreamWarnings": [
+    {
+      "from": "/ai-speaking/samples",
+      "error": "redirecting-internal-link",
+      "href": "https://jurassicenglish.com/ai-speaking/samples/basic",
+      "source": "live-external-rewrite"
+    },
+    {
+      "from": "/ai-speaking/samples/advanced",
+      "error": "redirecting-internal-link",
+      "href": "https://jurassicenglish.com/ai-speaking/samples/basic",
+      "source": "live-external-rewrite"
+    },
+    {
+      "from": "/ai-speaking/samples/intermediate",
+      "error": "redirecting-internal-link",
+      "href": "https://jurassicenglish.com/ai-speaking/samples/basic",
+      "source": "live-external-rewrite"
+    },
+    {
+      "from": "/ai-speaking/vi/samples",
+      "error": "redirecting-internal-link",
+      "href": "https://jurassicenglish.com/ai-speaking/vi/samples/basic",
+      "source": "live-external-rewrite"
+    },
+    {
+      "from": "/ai-speaking/vi/samples/advanced",
+      "error": "redirecting-internal-link",
+      "href": "https://jurassicenglish.com/ai-speaking/vi/samples/basic",
+      "source": "live-external-rewrite"
+    },
+    {
+      "from": "/ai-speaking/vi/samples/intermediate",
+      "error": "redirecting-internal-link",
+      "href": "https://jurassicenglish.com/ai-speaking/vi/samples/basic",
+      "source": "live-external-rewrite"
+    }
+  ],
+  "inventory": [
+    {
+      "path": "/",
+      "depth": 0
+    },
+    {
+      "path": "/vi",
+      "depth": 2
+    },
+    {
+      "path": "/framework",
+      "depth": 1
+    },
+    {
+      "path": "/vi/framework",
+      "depth": 2
+    },
+    {
+      "path": "/knowledge",
+      "depth": 1
+    },
+    {
+      "path": "/get-started",
+      "depth": 1
+    },
+    {
+      "path": "/vi/get-started",
+      "depth": 2
+    },
+    {
+      "path": "/worldwise",
+      "depth": 1
+    },
+    {
+      "path": "/audit-sprint",
+      "depth": 2
+    },
+    {
+      "path": "/companies",
+      "depth": 1
+    },
+    {
+      "path": "/pilot-programme",
+      "depth": 2
+    },
+    {
+      "path": "/discovery",
+      "depth": 2
+    },
+    {
+      "path": "/methodology",
+      "depth": 2
+    },
+    {
+      "path": "/cefr-alignment",
+      "depth": 1
+    },
+    {
+      "path": "/teacher-standards",
+      "depth": 1
+    },
+    {
+      "path": "/story-club",
+      "depth": 1
+    },
+    {
+      "path": "/vi/story-club",
+      "depth": 2
+    },
+    {
+      "path": "/en/story-club/reserve",
+      "depth": 2
+    },
+    {
+      "path": "/story-club/reserve",
+      "depth": 2
+    },
+    {
+      "path": "/products",
+      "depth": 1
+    },
+    {
+      "path": "/vi/products",
+      "depth": 2
+    },
+    {
+      "path": "/products/story-club",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/story-club",
+      "depth": 2
+    },
+    {
+      "path": "/products/baseline",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/baseline",
+      "depth": 2
+    },
+    {
+      "path": "/products/one-to-one",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/one-to-one",
+      "depth": 2
+    },
+    {
+      "path": "/products/printable-pack",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/printable-pack",
+      "depth": 2
+    },
+    {
+      "path": "/products/parent-pack-l1",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/parent-pack-l1",
+      "depth": 2
+    },
+    {
+      "path": "/products/parent-pack-l2",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/parent-pack-l2",
+      "depth": 2
+    },
+    {
+      "path": "/products/parent-pack-l3",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/parent-pack-l3",
+      "depth": 2
+    },
+    {
+      "path": "/products/holiday-reading-challenge",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/holiday-reading-challenge",
+      "depth": 2
+    },
+    {
+      "path": "/products/teacher-pack-l1",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/teacher-pack-l1",
+      "depth": 2
+    },
+    {
+      "path": "/products/teacher-pack-l2",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/teacher-pack-l2",
+      "depth": 2
+    },
+    {
+      "path": "/products/teacher-pack-l3",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/teacher-pack-l3",
+      "depth": 2
+    },
+    {
+      "path": "/products/teacher-pack-l4",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/teacher-pack-l4",
+      "depth": 2
+    },
+    {
+      "path": "/products/teacher-pack-l5",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/teacher-pack-l5",
+      "depth": 2
+    },
+    {
+      "path": "/products/teacher-bundle",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/teacher-bundle",
+      "depth": 2
+    },
+    {
+      "path": "/products/student-workbook-l1",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/student-workbook-l1",
+      "depth": 2
+    },
+    {
+      "path": "/products/student-workbook-l2",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/student-workbook-l2",
+      "depth": 2
+    },
+    {
+      "path": "/products/student-workbook-l3",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/student-workbook-l3",
+      "depth": 2
+    },
+    {
+      "path": "/products/student-workbook-l4",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/student-workbook-l4",
+      "depth": 2
+    },
+    {
+      "path": "/products/student-workbook-l5",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/student-workbook-l5",
+      "depth": 2
+    },
+    {
+      "path": "/products/word-fossil-flashcards-l1",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/word-fossil-flashcards-l1",
+      "depth": 2
+    },
+    {
+      "path": "/products/thinking-cycle-set",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/thinking-cycle-set",
+      "depth": 2
+    },
+    {
+      "path": "/products/thinking-cycle-posters",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/thinking-cycle-posters",
+      "depth": 2
+    },
+    {
+      "path": "/products/reasoning-assessment-kit",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/reasoning-assessment-kit",
+      "depth": 2
+    },
+    {
+      "path": "/products/centre-licence",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/centre-licence",
+      "depth": 2
+    },
+    {
+      "path": "/products/teacher-training-course",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/teacher-training-course",
+      "depth": 2
+    },
+    {
+      "path": "/products/pilot-class-kit",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/pilot-class-kit",
+      "depth": 2
+    },
+    {
+      "path": "/products/curriculum-overview",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/curriculum-overview",
+      "depth": 2
+    },
+    {
+      "path": "/products/ielts-speaking-ladder",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/ielts-speaking-ladder",
+      "depth": 2
+    },
+    {
+      "path": "/products/ielts-one-to-one-starter",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/ielts-one-to-one-starter",
+      "depth": 2
+    },
+    {
+      "path": "/products/ielts-cue-card-bank",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/ielts-cue-card-bank",
+      "depth": 2
+    },
+    {
+      "path": "/products/writing-baseline",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/writing-baseline",
+      "depth": 2
+    },
+    {
+      "path": "/products/ielts-writing-ladder-task2",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/ielts-writing-ladder-task2",
+      "depth": 2
+    },
+    {
+      "path": "/products/ielts-writing-task1-method",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/ielts-writing-task1-method",
+      "depth": 2
+    },
+    {
+      "path": "/products/ielts-essay-bank-task2",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/ielts-essay-bank-task2",
+      "depth": 2
+    },
+    {
+      "path": "/products/ielts-writing-teacher-pack",
+      "depth": 2
+    },
+    {
+      "path": "/vi/products/ielts-writing-teacher-pack",
+      "depth": 2
+    },
+    {
+      "path": "/series/compare",
+      "depth": 1
+    },
+    {
+      "path": "/vi/series/compare",
+      "depth": 2
+    },
+    {
+      "path": "/thinking-cycle/compare",
+      "depth": 1
+    },
+    {
+      "path": "/vi/thinking-cycle/compare",
+      "depth": 2
+    },
+    {
+      "path": "/tools/ielts-band-score-calculator",
+      "depth": 1
+    },
+    {
+      "path": "/vi/cong-cu/tinh-diem-ielts",
+      "depth": 2
+    },
+    {
+      "path": "/tools/ielts-speaking-part-2-timer",
+      "depth": 1
+    },
+    {
+      "path": "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-1-foundation",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-1-foundation",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-2-development",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-2-development",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-3-expansion",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-3-expansion",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-4-mastery",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-4-mastery",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-5-advanced",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-5-advanced",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-1-foundation/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-1-foundation/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-2-development/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-2-development/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-3-expansion/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-3-expansion/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-4-mastery/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-4-mastery/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/series/level-5-advanced/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/vi/series/level-5-advanced/syllabus",
+      "depth": 2
+    },
+    {
+      "path": "/thinking-cycle/analyze",
+      "depth": 2
+    },
+    {
+      "path": "/vi/thinking-cycle/analyze",
+      "depth": 2
+    },
+    {
+      "path": "/thinking-cycle/evaluate",
+      "depth": 2
+    },
+    {
+      "path": "/vi/thinking-cycle/evaluate",
+      "depth": 2
+    },
+    {
+      "path": "/thinking-cycle/justify",
+      "depth": 2
+    },
+    {
+      "path": "/vi/thinking-cycle/justify",
+      "depth": 2
+    },
+    {
+      "path": "/thinking-cycle/reflect",
+      "depth": 2
+    },
+    {
+      "path": "/vi/thinking-cycle/reflect",
+      "depth": 2
+    },
+    {
+      "path": "/legal/terms",
+      "depth": 1
+    },
+    {
+      "path": "/vi/legal/terms",
+      "depth": 2
+    },
+    {
+      "path": "/legal/privacy",
+      "depth": 1
+    },
+    {
+      "path": "/vi/legal/privacy",
+      "depth": 2
+    },
+    {
+      "path": "/legal/cookies",
+      "depth": 2
+    },
+    {
+      "path": "/vi/legal/cookies",
+      "depth": 2
+    },
+    {
+      "path": "/legal/accessibility",
+      "depth": 2
+    },
+    {
+      "path": "/vi/legal/accessibility",
+      "depth": 2
+    },
+    {
+      "path": "/legal/disclaimer",
+      "depth": 2
+    },
+    {
+      "path": "/vi/legal/disclaimer",
+      "depth": 2
+    },
+    {
+      "path": "/insights",
+      "depth": 1
+    },
+    {
+      "path": "/vi/insights",
+      "depth": 1
+    },
+    {
+      "path": "/insights/online-ielts-speaking-coaching",
+      "depth": 1
+    },
+    {
+      "path": "/insights/what-to-fix-first-in-ielts-speaking",
+      "depth": 1
+    },
+    {
+      "path": "/insights/what-typed-speaking-practice-can-assess",
+      "depth": 1
+    },
+    {
+      "path": "/insights/from-speaking-diagnostic-to-one-to-one-lesson",
+      "depth": 1
+    },
+    {
+      "path": "/vi/ve-thay-jay-adams",
+      "depth": 1
+    },
+    {
+      "path": "/about/nathaniel-jay-adams",
+      "depth": 1
+    },
+    {
+      "path": "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+      "depth": 2
+    },
+    {
+      "path": "/insights/ielts-speaking-6-to-7",
+      "depth": 1
+    },
+    {
+      "path": "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+      "depth": 2
+    },
+    {
+      "path": "/insights/ielts-speaking-forecast-september-december-2026",
+      "depth": 1
+    },
+    {
+      "path": "/vi/insights/ielts-online-test",
+      "depth": 1
+    },
+    {
+      "path": "/insights/ielts-online-test",
+      "depth": 1
+    },
+    {
+      "path": "/vi/insights/ai-cham-ielts-speaking",
+      "depth": 1
+    },
+    {
+      "path": "/insights/ai-ielts-speaking-scoring",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/india",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/philippines",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/indonesia",
+      "depth": 2
+    },
+    {
+      "path": "/ielts-speaking-online/malaysia",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/singapore",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/thailand",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/uae",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/saudi-arabia",
+      "depth": 2
+    },
+    {
+      "path": "/ielts-speaking-online",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/pakistan",
+      "depth": 2
+    },
+    {
+      "path": "/ielts-speaking-online/bangladesh",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/nigeria",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/egypt",
+      "depth": 1
+    },
+    {
+      "path": "/es/ielts-speaking-online/colombia",
+      "depth": 1
+    },
+    {
+      "path": "/es/ielts-speaking-online/peru",
+      "depth": 1
+    },
+    {
+      "path": "/es/ielts-speaking-online/chile",
+      "depth": 2
+    },
+    {
+      "path": "/es/ielts-speaking-online/argentina",
+      "depth": 1
+    },
+    {
+      "path": "/pt/ielts-speaking-online/brasil",
+      "depth": 1
+    },
+    {
+      "path": "/es/ielts-speaking-online",
+      "depth": 1
+    },
+    {
+      "path": "/pt/ielts-speaking-online",
+      "depth": 1
+    },
+    {
+      "path": "/id/ielts-speaking-online/indonesia",
+      "depth": 2
+    },
+    {
+      "path": "/ms/ielts-speaking-online/malaysia",
+      "depth": 1
+    },
+    {
+      "path": "/th/ielts-speaking-online/thailand",
+      "depth": 1
+    },
+    {
+      "path": "/ar/ielts-speaking-online/uae",
+      "depth": 1
+    },
+    {
+      "path": "/ar/ielts-speaking-online/saudi-arabia",
+      "depth": 1
+    },
+    {
+      "path": "/ar/ielts-speaking-online/egypt",
+      "depth": 1
+    },
+    {
+      "path": "/ur/ielts-speaking-online/pakistan",
+      "depth": 1
+    },
+    {
+      "path": "/bn/ielts-speaking-online/bangladesh",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/colombia",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/peru",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/chile",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/argentina",
+      "depth": 1
+    },
+    {
+      "path": "/ielts-speaking-online/brazil",
+      "depth": 1
+    },
+    {
+      "path": "/student-academy",
+      "depth": 1
+    },
+    {
+      "path": "/student-academy/referrals",
+      "depth": 2
+    },
+    {
+      "path": "/school-framework",
+      "depth": 1
+    },
+    {
+      "path": "/digital-reasoning-engine",
+      "depth": 1
+    },
+    {
+      "path": "/interactive-demo",
+      "depth": 2
+    },
+    {
+      "path": "/evidence",
+      "depth": 2
+    },
+    {
+      "path": "/book-diagnostic",
+      "depth": 2
+    },
+    {
+      "path": "/site-map",
+      "depth": 1
+    },
+    {
+      "path": "/vi/so-do-trang",
+      "depth": 2
+    },
+    {
+      "path": "/ai-speaking/exam",
+      "depth": 2
+    },
+    {
+      "path": "/ai-speaking/lessons",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/privacy",
+      "depth": 2
+    },
+    {
+      "path": "/ai-speaking/solutions",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/terms",
+      "depth": 2
+    },
+    {
+      "path": "/ai-speaking/vi/baseline",
+      "depth": 2
+    },
+    {
+      "path": "/ai-speaking/vi/lessons",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/vi/pricing",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/vi/samples",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/vi/samples/advanced",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/vi/samples/intermediate",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/vi/solutions",
+      "depth": 2
+    },
+    {
+      "path": "/ai-speaking/vi/writing",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/writing",
+      "depth": 1
+    },
+    {
+      "path": "/student-academy/stories",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/vi/writing/demo",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/vi/writing/sample",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/writing/demo",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/writing/sample",
+      "depth": 1
+    },
+    {
+      "path": "/vi/student-academy/stories",
+      "depth": 2
+    },
+    {
+      "path": "/challenges/one-change",
+      "depth": 1
+    },
+    {
+      "path": "/young-learners-speaking/",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/pricing",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/vi",
+      "depth": 2
+    },
+    {
+      "path": "/ai-speaking/samples",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/samples/intermediate",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/samples/advanced",
+      "depth": 1
+    },
+    {
+      "path": "/ai-speaking/baseline",
+      "depth": 1
+    },
+    {
+      "path": "/vi/luyen-noi-ielts/",
+      "depth": 2
+    }
+  ]
+}

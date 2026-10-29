@@ -286,6 +286,11 @@ export default function InteractiveDemoPage() {
         <PathwayExplorer />
         <TryOneThinkingMove />
         <DiagnosticBridge />
+        <section className="mx-auto max-w-3xl px-6 py-12">
+          <h2 className="text-2xl font-bold">Try the demo as a conversation, then compare the answers</h2>
+          <p className="mt-4">Choose one thinking move in the demo and ask the learner to answer before reading any suggested wording. If the response is a claim without a reason, ask which detail supports it. Then invite a second attempt. Keep the two versions separate: the useful observation is what the learner changed after a prompt, rather than whether their first sentence sounded polished. This is a way to use the demonstration, not a scored assessment or a report of a real learner’s progress.</p>
+          <p className="mt-4">Parents can note three things: what the learner understood independently, what required a question and what remained unclear. Avoid correcting every language error while the learner is trying to explain an idea. A brief explanation in the learner’s own words can reveal more than a long answer supplied by an adult. The pathway explorer shows how the reasoning demands change across levels; a diagnostic conversation serves a different purpose by considering a learner’s needs. Use the demo to prepare a specific question for that conversation, rather than treating one activity as a placement result or an enrolment decision.</p>
+        </section>
         <ParentEvidencePanel />
         <FinalConversionSection />
       </div>

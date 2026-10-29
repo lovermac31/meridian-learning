@@ -1,3 +1,4 @@
+import { CrawlResources } from './components/CrawlResources';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { OptionalAnalytics } from './components/PrivacyControls';
 import { GlobalContactPanel } from './components/GlobalContactPanel';
@@ -604,6 +605,7 @@ function App() {
         <main id="main-content" tabIndex={-1} className="focus:outline-none">
           {/* 10/10 overhaul homepage: hero + 3 age doors, Before/After, Meet Mr. Jay. */}
           <HomeOverhaul onNavigate={navigateTo} />
+          <CrawlResources context="home" />
         </main>
       )}
       </Suspense>

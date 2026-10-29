@@ -50,6 +50,9 @@ jobs:
           npm run build --prefix docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing
           npm run verify:asset-links
 
+      - name: Validate rendered click depth, indexed inbound links and redirects
+        run: npm run validate:crawl
+
       - name: Validate every sitemap URL (local build and public external rewrites)
         run: npm run validate:indexability
 

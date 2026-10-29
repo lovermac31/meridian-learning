@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { useState } from 'react';
 import { motion, type Variants } from 'motion/react';
 import {
@@ -388,6 +389,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
         </div>
       </section>
 
+    <GscEditorial />
     </main>
   );
 };

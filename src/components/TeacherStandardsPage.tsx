@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { motion, type Variants } from 'motion/react';
 import {
   AlertTriangle,
@@ -439,6 +440,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
         </div>
       </section>
 
+    <GscEditorial />
     </main>
   );
 };

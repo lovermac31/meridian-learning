@@ -452,7 +452,7 @@ export default function SchoolFramework() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href="https://www.jurassicenglish.com/get-started"
+                href="https://jurassicenglish.com/get-started"
                 className={JE_CTA_PRIMARY_DARK}
               >
                 Get Started

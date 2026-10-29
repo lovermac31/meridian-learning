@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host=0.0.0.0",
     "dev:server": "tsx server.ts",
-    "build": "node --import tsx scripts/prepare-sample-text.mjs && node scripts/generate-seo-pages-meta.mjs && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender-yl-vi.mjs && node --import tsx scripts/prerender-route-metadata.mjs && node --import tsx scripts/generate-sitemap.mjs",
+    "build": "node --import tsx scripts/prepare-sample-text.mjs && node scripts/generate-seo-pages-meta.mjs && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender-yl-vi.mjs && node --import tsx scripts/prerender-route-metadata.mjs && node --import tsx scripts/generate-sitemap.mjs && node --import tsx scripts/seo/build-html-sitemap.mjs",
     "start": "NODE_ENV=production tsx server.ts",
     "preview": "vite preview",
     "test:metadata": "node --import tsx --test tests/metadata.test.ts",
@@ -23,7 +23,8 @@
     "samples:text:generate": "node --import tsx scripts/prepare-sample-text.mjs --generate",
     "samples:text:check": "node --import tsx scripts/prepare-sample-text.mjs",
     "verify:asset-links": "node scripts/check-seo-asset-links.mjs",
-    "validate:indexability": "node scripts/seo/indexability-check.mjs"
+    "validate:indexability": "node scripts/seo/indexability-check.mjs",
+    "validate:crawl": "node scripts/seo/crawl-check.mjs"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",

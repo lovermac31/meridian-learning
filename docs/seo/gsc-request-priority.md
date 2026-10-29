@@ -1,34 +1,36 @@
-# GSC request priority — after approved merge and release
+# GSC request priority — Runbook F, 29 October 2026
 
-Owner: SEO Manager / master agent. No GSC or IndexNow submission was made by this job. Verify deployed canonical, 200 status and indexability first. These 30 URLs are queued in order; batch within the current daily GSC limit (about 10), accounting for requests already used that day. Re-submit the sitemap before individual requests. Do not request the redirected basic aliases or noindex session/account pages.
+Operator action only after approved merge and release. No submission is made by this PR. Verify deployed 200 status, self-canonical, useful visible content and the new links first. Use about ten requests per day, accounting for any already used. Recheck GSC on **5 November** and **12 November 2026**; record indexed counts and outcomes rather than promising indexing.
 
-1. https://jurassicenglish.com/story-club/reserve — changed heading, stronger discovery or priority programme entry
-2. https://jurassicenglish.com/en/story-club/reserve — changed heading, stronger discovery or priority programme entry
-3. https://jurassicenglish.com/products/story-club — changed heading, stronger discovery or priority programme entry
-4. https://jurassicenglish.com/vi/products/story-club — changed heading, stronger discovery or priority programme entry
-5. https://jurassicenglish.com/ai-speaking/vi/lessons — new discovery / stronger internal links
-6. https://jurassicenglish.com/ai-speaking/lessons — new discovery / stronger internal links
-7. https://jurassicenglish.com/ai-speaking/vi/writing — new discovery / stronger internal links
-8. https://jurassicenglish.com/ai-speaking/writing — new discovery / stronger internal links
-9. https://jurassicenglish.com/vi/student-academy/stories — new discovery / stronger internal links
-10. https://jurassicenglish.com/student-academy/stories — new discovery / stronger internal links
-11. https://jurassicenglish.com/ai-speaking/vi/baseline — new discovery / stronger internal links
-12. https://jurassicenglish.com/ai-speaking/vi/pricing — new discovery / stronger internal links
-13. https://jurassicenglish.com/ai-speaking/vi/solutions — new discovery / stronger internal links
-14. https://jurassicenglish.com/ai-speaking/solutions — new discovery / stronger internal links
-15. https://jurassicenglish.com/ai-speaking/vi/samples — new discovery / stronger internal links
-16. https://jurassicenglish.com/ai-speaking/vi/samples/intermediate — new discovery / stronger internal links
-17. https://jurassicenglish.com/ai-speaking/vi/samples/advanced — new discovery / stronger internal links
-18. https://jurassicenglish.com/ai-speaking/vi/writing/demo — new discovery / stronger internal links
-19. https://jurassicenglish.com/ai-speaking/vi/writing/sample — new discovery / stronger internal links
-20. https://jurassicenglish.com/ai-speaking/writing/demo — new discovery / stronger internal links
-21. https://jurassicenglish.com/ai-speaking/writing/sample — new discovery / stronger internal links
-22. https://jurassicenglish.com/ielts-speaking-online/india — changed heading, stronger discovery or priority programme entry
-23. https://jurassicenglish.com/ielts-speaking-online/philippines — changed heading, stronger discovery or priority programme entry
-24. https://jurassicenglish.com/ielts-speaking-online/nigeria — changed heading, stronger discovery or priority programme entry
-25. https://jurassicenglish.com/ielts-speaking-online/singapore — changed heading, stronger discovery or priority programme entry
-26. https://jurassicenglish.com/vi/cong-cu/tinh-diem-ielts — changed heading, stronger discovery or priority programme entry
-27. https://jurassicenglish.com/vi/cong-cu/dong-ho-ielts-speaking-part-2 — changed heading, stronger discovery or priority programme entry
-28. https://jurassicenglish.com/story-club — changed heading, stronger discovery or priority programme entry
-29. https://jurassicenglish.com/vi/story-club — changed heading, stronger discovery or priority programme entry
-30. https://jurassicenglish.com/ielts-speaking-online — changed heading, stronger discovery or priority programme entry
+These are 30 exact final URLs from the Discovered cohort, prioritising lessons and practice, then guides and markets. Basic-sample aliases, host aliases, `/index.html`, canonicalised query variants and the unfinished VI solutions content change are excluded.
+
+1. https://jurassicenglish.com/ai-speaking/lessons
+2. https://jurassicenglish.com/ai-speaking/vi/lessons
+3. https://jurassicenglish.com/ai-speaking/vi/pricing
+4. https://jurassicenglish.com/ai-speaking/solutions
+5. https://jurassicenglish.com/ai-speaking/writing
+6. https://jurassicenglish.com/ai-speaking/vi/writing
+7. https://jurassicenglish.com/ai-speaking/writing/demo
+8. https://jurassicenglish.com/ai-speaking/vi/writing/demo
+9. https://jurassicenglish.com/ai-speaking/writing/sample
+10. https://jurassicenglish.com/ai-speaking/vi/writing/sample
+11. https://jurassicenglish.com/ai-speaking/vi/samples
+12. https://jurassicenglish.com/ai-speaking/samples/intermediate
+13. https://jurassicenglish.com/ai-speaking/samples/advanced
+14. https://jurassicenglish.com/ai-speaking/vi/samples/intermediate
+15. https://jurassicenglish.com/ai-speaking/vi/samples/advanced
+16. https://jurassicenglish.com/insights
+17. https://jurassicenglish.com/vi/insights
+18. https://jurassicenglish.com/insights/what-to-fix-first-in-ielts-speaking
+19. https://jurassicenglish.com/insights/from-speaking-diagnostic-to-one-to-one-lesson
+20. https://jurassicenglish.com/insights/online-ielts-speaking-coaching
+21. https://jurassicenglish.com/insights/ielts-speaking-6-to-7
+22. https://jurassicenglish.com/vi/insights/ai-cham-ielts-speaking
+23. https://jurassicenglish.com/insights/ai-ielts-speaking-scoring
+24. https://jurassicenglish.com/tools/ielts-speaking-part-2-timer
+25. https://jurassicenglish.com/about/nathaniel-jay-adams
+26. https://jurassicenglish.com/vi/ve-thay-jay-adams
+27. https://jurassicenglish.com/ielts-speaking-online/india
+28. https://jurassicenglish.com/ielts-speaking-online/philippines
+29. https://jurassicenglish.com/ielts-speaking-online/nigeria
+30. https://jurassicenglish.com/ielts-speaking-online/thailand

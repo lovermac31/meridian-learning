@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { motion } from 'motion/react';
 import { ArrowLeft, BookOpen, ChevronRight, ClipboardList, FileText, GraduationCap, Layers3, LibraryBig } from 'lucide-react';
 import type { SeriesLevelDetail } from '../lib/seriesContent';
@@ -265,6 +266,7 @@ export const SeriesExperience = ({ level, onBack, onSelectLevel, onCompareLevels
           <ProductCardLink id={`teacher-pack-l${level.order}`} source="series" locale={locale} tone="dark" className="mt-10" />
         </div>
       </section>
+    <GscEditorial />
     </main>
   );
 };
