@@ -46,6 +46,10 @@ export const CANONICAL_EVENTS = [
   // ── Phase 4A — operator boundary ─────────────────────────────────
   'operator_unauthorized',
   'operator_ip_denied',
+  'story_club_reservation_failed',
+  'story_club_payment_not_found',
+  'story_club_payment_failed',
+  'story_club_payment_marked',
 ] as const;
 
 export type CanonicalEvent = (typeof CANONICAL_EVENTS)[number];
@@ -66,6 +70,10 @@ const DEFAULT_SEVERITY: Record<CanonicalEvent, EventSeverity> = {
   email_failed: 'error',
   operator_unauthorized: 'warn',
   operator_ip_denied: 'warn',
+  story_club_reservation_failed: 'error',
+  story_club_payment_not_found: 'warn',
+  story_club_payment_failed: 'error',
+  story_club_payment_marked: 'info',
 };
 
 // Fields the alert layer cares about. All optional except `event`.

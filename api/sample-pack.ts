@@ -3,6 +3,7 @@ import { normalizeVietnamesePhone, sampleContactError, samplePackContent } from 
 import { sampleLeadNotes, writeNotionSampleLead, type SampleLead } from './_lib/notionCrmWriter.js';
 import { checkRateLimit, createThrottleLogContext, getClientHash, logRateLimited } from './_lib/requestSecurity.js';
 import { logEvent } from './_lib/observability.js';
+import { createStoryClubReservation } from './_lib/supabaseWriter.js';
 import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 
 // The free sample pack (website assessment, 27 Oct 2026; master's decision the same day): no Supabase change. Each
@@ -172,6 +173,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ ok: false, error: lead.error, message: samplePackContent[locale].errors[lead.error] });
   }
 
+  let storyClubMemo: string | undefined;
+  if (lead.product === 'story-club') {
+    const reservation = await createStoryClubReservation(lead.submissionId, lead.group);
+    if (!reservation.ok) {
+      logEvent({ event: 'story_club_reservation_failed', route: '/api/sample-pack', status: 503, reason: reservation.reason });
+      return res.status(503).json({ ok: false, error: 'reserve_temporarily_unavailable' });
+    }
+    storyClubMemo = reservation.memo;
+  }
+
   const notionPromise = safeNotion(lead);
   const emailPromise = notionPromise.then((result) =>
     result.ok && result.reason === 'duplicate_skipped' ? 'skipped' : sendEmail(lead));
@@ -185,6 +196,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     notionReason: notion.reason,
     email,
   });
-  if (notion.ok || email === 'sent') return res.status(200).json({ ok: true, submissionId: lead.submissionId });
+  if (notion.ok || email === 'sent') return res.status(200).json({ ok: true, submissionId: lead.submissionId, ...(storyClubMemo ? { memo: storyClubMemo } : {}) });
   return res.status(502).json({ ok: false, error: 'not_stored' });
 }
