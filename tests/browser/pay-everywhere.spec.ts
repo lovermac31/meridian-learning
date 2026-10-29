@@ -108,8 +108,14 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     if (await reject.isVisible()) await reject.click();
     await page.locator('[name="name"]').fill('Synthetic Parent');
     await page.locator('[name="phone"]').fill('0396085076');
-    await page.locator('[type="submit"]').click();
-    await expect(page.getByRole('alert')).toBeVisible();
+    const [failedResponse] = await Promise.all([
+      page.waitForResponse(response => response.url().endsWith('/api/sample-pack') && response.request().method() === 'POST'),
+      page.locator('[type="submit"]').click(),
+    ]);
+    expect(failedResponse.status()).toBe(503);
+    await expect(page.getByRole('alert')).toHaveText(locale === 'vi'
+      ? 'Chưa gửi được yêu cầu. Vui lòng thử lại hoặc nhắn thầy Jay qua Zalo.'
+      : 'We could not send your request. Please try again or message Mr. Jay on Zalo.');
     await expect(page.getByRole('alert')).not.toContainText('internal_secret');
     expect(failedRequests).toBe(1);
     await expect(page.locator('[name="name"]')).toHaveValue('Synthetic Parent');
@@ -118,6 +124,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     await page.route('**/api/sample-pack', route => route.fulfill({ json: { ok: true, memo: 'BL-AB12CD' } }));
     await page.locator('[type="submit"]').click();
     await expect(page.locator('[data-payment-qr]')).toHaveAttribute('src', STATIC_QR);
+    await expect.poll(() => page.locator('[data-payment-qr]').evaluate(img => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
     await expect(page.locator('#reserve-qr-fallback')).toBeVisible();
     await expect(page.locator('[data-transfer-memo]')).toHaveText('BL-AB12CD');
     await page.screenshot({ path: resolve(shots, `fallback-${locale}-${width}.png`), fullPage: false });
