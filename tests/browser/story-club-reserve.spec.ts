@@ -30,7 +30,7 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
     expect(body.utm_campaign).toBe('autumn');
     expect(body.utm_term).toBe('story time');
     expect(body.phone).toBe('+84396085076');
-    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, submissionId: 'JE-SP-TEST-AB12CD' }) });
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, submissionId: 'JE-SP-TEST-AB12CD', memo: 'SC-AB12CD' }) });
   });
 
   for (const item of cases) {
