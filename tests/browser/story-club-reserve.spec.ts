@@ -22,6 +22,7 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
     leadRequests += 1;
     const body = JSON.parse(route.request().postData() ?? '{}') as Record<string, unknown>;
     expect(body.product).toBe('story-club');
+    expect(body.submissionKey).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
     expect(body.group).toBe(cases[leadRequests - 1].width === 375 ? 'sat-0900' : 'flexible');
     expect(body.utm_source).toBe('reserve');
     expect(body.utm_content).toBe('story-club-reserve');
@@ -33,8 +34,12 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
   });
 
   for (const item of cases) {
+    const viewsBefore = events.filter(event => event === 'reserve_view').length;
+    const submitsBefore = events.filter(event => event === 'reserve_submit').length;
+    const paymentBefore = events.filter(event => event === 'pay_instructions_shown').length;
     await page.setViewportSize({ width: item.width, height: 900 });
     await page.goto(`${item.path}?utm_source=reserve&utm_content=story-club-reserve&utm_medium=social&utm_campaign=autumn&utm_term=story%20time`);
+    await expect.poll(() => events.filter(event => event === 'reserve_view').length).toBe(viewsBefore + 1);
     const rejectAnalytics = page.getByRole('button', { name: item.locale === 'vi' ? 'Từ chối phân tích' : 'Reject analytics' });
     if (await rejectAnalytics.isVisible().catch(() => false)) await rejectAnalytics.click();
     await expect(page.locator('[data-story-club-reserve]')).toHaveAttribute('lang', item.locale);
@@ -66,6 +71,8 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
     await page.locator('[name="phone"]').fill('0396 085 076');
     await page.getByRole('button', { name: item.locale === 'vi' ? 'Đặt chỗ' : 'Reserve a seat' }).click();
     await expect(page.locator('[data-payment-instructions]')).toBeVisible();
+    await expect.poll(() => events.filter(event => event === 'reserve_submit').length).toBe(submitsBefore + 1);
+    await expect.poll(() => events.filter(event => event === 'pay_instructions_shown').length).toBe(paymentBefore + 1);
     await expect(page.locator('[data-transfer-memo]')).toHaveText('SC-AB12CD');
     await expect(page.locator('#reserve-qr-fallback')).toBeVisible();
     await expect(page.locator('[data-after-submit-zalo]')).toHaveAttribute('href', '/go/zalo?utm_source=reserve&utm_content=after-submit');

@@ -17,7 +17,7 @@ const NOTION_TIMEOUT_MS = 4_000;
 type Input = {
   name: string; phone: string; email: string; childAge: string; teacher: boolean; consent: boolean;
   locale: string; placement: string; source: string; website: string; startedAt: string;
-  product?: string; utm_source?: string; utm_content?: string; utm_medium?: string; utm_campaign?: string; utm_term?: string; group?: string;
+  product?: string; submissionKey?: string; utm_source?: string; utm_content?: string; utm_medium?: string; utm_campaign?: string; utm_term?: string; group?: string;
 };
 
 const str = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
@@ -37,6 +37,7 @@ export function coerceSampleInput(body: unknown): Input {
     website: typeof r.website === 'string' ? r.website : '',
     startedAt: str(r.startedAt, 40),
     product: str(r.product, 32),
+    submissionKey: str(r.submissionKey, 36),
     utm_source: str(r.utm_source, 64),
     utm_content: str(r.utm_content, 64),
     group: str(r.group, 32),
@@ -55,20 +56,23 @@ function isSpam(startedAt: string, website: string, product: string) {
 }
 
 /** The lead the CRM and the email receive, or the reason the input is not accepted. */
-export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' | 'name' | 'age' | 'group' | 'product' } {
+export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' | 'name' | 'age' | 'group' | 'product' | 'submission' } {
   if (input.product && input.product !== 'story-club') return { error: 'product' };
   if (input.product === 'story-club') {
     if (!input.name.trim()) return { error: 'name' };
     const age = Number(input.childAge);
     if (!Number.isInteger(age) || age < 5 || age > 8) return { error: 'age' };
     if (!/^(sat-0900|flexible)$/.test(input.group)) return { error: 'group' };
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.submissionKey ?? '')) return { error: 'submission' };
   }
   const contactError = sampleContactError(input.phone, input.email);
   if (contactError) return { error: contactError };
   if (!input.consent) return { error: 'consent' };
   const phone = input.phone.trim() ? normalizeVietnamesePhone(input.phone) : null;
   return {
-    submissionId: `JE-SP-${now.getTime().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
+    submissionId: input.product === 'story-club'
+      ? `JE-SC-${input.submissionKey!.toLowerCase()}`
+      : `JE-SP-${now.getTime().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
     submittedAt: now.toISOString(),
     name: input.name,
     ...(input.email.trim() ? { email: input.email.trim().toLowerCase() } : {}),
@@ -168,7 +172,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ ok: false, error: lead.error, message: samplePackContent[locale].errors[lead.error] });
   }
 
-  const [notion, email] = await Promise.all([safeNotion(lead), sendEmail(lead)]);
+  const notionPromise = safeNotion(lead);
+  const emailPromise = notionPromise.then((result) =>
+    result.ok && result.reason === 'duplicate_skipped' ? 'skipped' : sendEmail(lead));
+  const [notion, email] = await Promise.all([notionPromise, emailPromise]);
   console.info('[sample-pack] submission', {
     submissionId: lead.submissionId,
     contactKind: lead.zalo ? 'zalo' : 'email',
