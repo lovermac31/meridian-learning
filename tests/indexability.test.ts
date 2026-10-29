@@ -14,6 +14,10 @@ test('indexability rejects wrong canonical, noindex header, hidden shell and mis
   assert.ok(inspectHtml(fixture.replace('<main>', '<main><div hidden>').replace('</main>', '</div></main>'), url).errors.includes('empty-or-placeholder-content'));
   assert.ok(inspectHtml(fixture.replace('name="description"', 'name="other"'), url).errors.includes('missing-description'));
 });
+test('indexability rejects empty and malformed canonicals, including the home URL', () => {
+  assert.ok(inspectHtml(fixture.replace(url, ''), 'https://jurassicenglish.com/').errors.includes('non-self-canonical'));
+  assert.ok(inspectHtml(fixture.replace(url, 'https://['), url).errors.includes('non-self-canonical'));
+});
 test('indexability requires Vietnamese language for Vietnamese routes', () => {
   assert.ok(inspectHtml(fixture, 'https://jurassicenglish.com/vi/example').errors.includes('wrong-html-lang'));
 });

@@ -42,7 +42,7 @@ def analyze(results,sitemap):
  for u,r in results.items():
   for h in r['links']:
    v=page_url(h,r['final'])
-   if v: incoming[v].add(u)
+   if v and v!=u: incoming[v].add(u)
  for u,r in results.items():
   r['in_sitemap']=u in sitemap; r['word_count']=len(r['text'].split()); r['incoming']=len(incoming[u]); r['hreflang_errors']=[]
   for a in r['alternates']:
@@ -74,9 +74,14 @@ def analyze(results,sitemap):
   for r in rows: w.writerow({k:json.dumps(r[k],ensure_ascii=False) if isinstance(r[k],(list,dict)) else r[k] for k in fields})
 
 def main():
- pending=[BASE+'/sitemap.xml']; sitemap=set()
+ pending=[BASE+'/sitemap.xml']; sitemap=set(); visited=set()
  while pending:
-  u=pending.pop(); data=urllib.request.urlopen(u,timeout=25).read().decode()
+  u=pending.pop()
+  if u in visited: continue
+  if urllib.parse.urlsplit(u).scheme!='https' or urllib.parse.urlsplit(u).netloc!='jurassicenglish.com': raise ValueError('off-origin sitemap')
+  visited.add(u)
+  if len(visited)>20: raise RuntimeError('sitemap limit exceeded')
+  data=urllib.request.urlopen(u,timeout=25).read(5_000_000).decode()
   locs=re.findall(r'<loc>(.*?)</loc>',data)
   if '<sitemapindex' in data: pending+=locs
   else: sitemap.update(locs)

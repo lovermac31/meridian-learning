@@ -18,7 +18,9 @@ export function inspectHtml(html, url, xrobots = '') {
   const metas = [...html.matchAll(/<meta\b[^>]*>/gi)].map((m) => attrs(m[0]));
   const canonicals = links.filter((a) => a.rel === 'canonical');
   // URL() normalizes the equivalent bare origin and origin + '/' spelling.
-  if (canonicals.length !== 1 || new URL(canonicals[0]?.href || '/', ORIGIN).href !== new URL(url).href) errors.push('non-self-canonical');
+  try {
+    if (canonicals.length !== 1 || !canonicals[0].href?.trim() || new URL(canonicals[0].href, ORIGIN).href !== new URL(url).href) errors.push('non-self-canonical');
+  } catch { errors.push('non-self-canonical'); }
   if (/noindex|none/i.test([xrobots, ...metas.filter((a) => /^(robots|googlebot|bingbot)$/i.test(a.name || '')).map((a) => a.content)].join(' '))) errors.push('noindex');
   const main = countMainContentWords(html);
   const mainHtml = /<main\b[^>]*>[\s\S]*?<\/main>/i.exec(html)?.[0] || '';

@@ -20,6 +20,21 @@ for c in checked:
   p=audit.Parser();p.feed((Path('dist')/urlsplit(c['url']).path.lstrip('/')/'index.html').read_text())
   r.update(h1=' '.join(p.h1),title=' '.join(p.title),text=' '.join(' '.join(p.text).split()),links=[a['href'] for t,a in p.tags if t=='a' and 'href' in a])
  after.append(r)
+# Count distinct referring pages from the built native HTML plus retained external crawl.
+inventory={r['url']: r for r in before}
+inventory.update({r['url']:r for r in after})
+for alias in ['/ai-speaking/samples/basic','/ai-speaking/vi/samples/basic']:
+ inventory.pop(base+alias,None)
+incoming=defaultdict(set)
+for source,r in inventory.items():
+ for href in r['links']:
+  target=audit.page_url(href,source)
+  if target and target!=source: incoming[target].add(source)
+low_after=[r['url'] for r in after if len(incoming[r['url']])<2]
+assert not low_after, 'Important pages still need distinct incoming links: '+str(low_after)
+with (out/'indexing-internal-links-after-2026-10-29.csv').open('w') as f:
+ w=csv.writer(f,lineterminator='\n');w.writerow(['url','distinct_other_referring_pages'])
+ for r in after:w.writerow([r['url'],len(incoming[r['url']])])
 def groups(rows,key):
  d=defaultdict(list)
  for r in rows:
@@ -38,7 +53,7 @@ lines=['# Live indexing audit — 29 October 2026','',
 '| Duplicate without user-selected canonical | 0 sitemap URLs | 0 | Every sitemap response has a canonical; no eligible public page lacks one. |',
 '| Alternate page with proper canonical | 1 sitemap URL; 2 public aliases overall | 0 sitemap aliases | `/ai-speaking/samples/basic` and its VI twin duplicate the samples hubs exactly. Keep the hubs, remove the EN alias from sitemap, redirect both aliases permanently. |',
 '| Crawled – currently not indexed | Unknown in GSC | Unknown in GSC | Proxy: '+str(hbefore)+' sitemap pages shared an H1 before, '+str(hafter)+' after. Detailed native product offers and syllabus pages now have distinct localized headings. All sitemap pages have real raw HTML content. |',
-'| Discovered – currently not indexed | Unknown in GSC; 20 eligible linked pages missing from sitemap | Unknown in GSC; 0 of those 20 missing | Add the verified canonical public pages, strengthen lesson/writing/story links. No original sitemap URL had fewer than two incoming source pages. |',
+'| Discovered – currently not indexed | Unknown in GSC; 20 eligible linked pages missing from sitemap | Unknown in GSC; 0 of those 20 missing | Add the verified canonical public pages, strengthen lesson/writing/story links. Twelve original sitemap pages had only one other referring page; resource links now give each at least two. Self-links are excluded from incoming counts. |',
 '| Page with redirect | 0 sitemap URLs | 0 | Two intentional basic-sample aliases now redirect by configuration, outside sitemap. Hosting behavior must be rechecked after release. |',
 '| Not found (404) | 0 | 0 | No crawl response was non-200; local gate also checks actual static-file coverage without SPA fallback. |',
 '| Excluded by noindex | 0 sitemap URLs; 6 internal routes | 0 sitemap URLs | Six account/exam/writing-session pages are intentionally excluded; retain privacy controls. |',
@@ -46,6 +61,7 @@ lines=['# Live indexing audit — 29 October 2026','',
 '## Additional checks','',
 f'- Sitemap inventory: **204 → 223** (remove one alias, add 20 verified public pages). Native build: 189 URLs; public external rewrites: 34 URLs.',
 '- Non-200, accidental noindex, missing SSR content, sitemap redirect: **0 → 0** each.',
+'- Original sitemap pages with fewer than two distinct other referring pages: **12 → 0**. All 223 after URLs have at least two; counts are retained in `indexing-internal-links-after-2026-10-29.csv` (built native HTML plus retained live external links).',
 '- Broken reciprocal alternates on eligible canonical sitemap pages: **0 → 0**. The basic aliases had six failed return-link checks; permanent redirects consolidate them. Noindex EN writing practice/history each advertises three nonreciprocal hub alternates in the external app; these are outside the sitemap and remain an external-app follow-up.',
 '- Wrong `lang` on EN/VI twins: **0 → 0**. Existing VI metadata is correct; no speculative translation or language rewrite was introduced.',
 f'- Duplicate title groups in sitemap: **{len(groups(b,"title"))} → {len(groups(a,"title"))}**. Duplicate-description groups: **{len(groups(b,"description"))} → {len(groups(a,"description"))}**; see external ownership below.',
