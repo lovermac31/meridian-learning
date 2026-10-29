@@ -78,3 +78,12 @@ test('missing bank config falls back; invalid amount or memo cannot produce a dy
   for (const amount of [0, -1, 1.5, NaN, Infinity]) assert.throws(() => paymentQrUrl(amount, 'SC-ABC123'));
   assert.throws(() => paymentQrUrl(590000, 'SC-BAD&amount=1'));
 });
+
+test('meeting CTAs use attributed Zalo links and never render payment instructions', async () => {
+  const { readFileSync } = await import('node:fs');
+  for (const file of ['WorldWisePage', 'PilotProgrammePage', 'MethodologyPage', 'AuditSprintPage', 'CefrAlignmentPage', 'DiscoveryPage', 'TeacherStandardsPage', 'CompaniesPage']) {
+    const source = readFileSync(`src/components/${file}.tsx`, 'utf8');
+    assert.match(source, /href="\/go\/zalo\?utm_source=[a-z-]+&utm_content=(discovery-call|book-call)"/);
+    assert.doesNotMatch(source, /<PayStep|data-payment-qr|to=\{'\/discovery'\}/);
+  }
+});

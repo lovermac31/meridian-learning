@@ -1,6 +1,6 @@
 import { reserveCta, paymentHref, buyCta } from '../config/payment';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
-import { CONTACT_EMAIL, getOverhaulContent, IMG, ZALO_URL } from '../i18n/content/overhaul';
+import { CONTACT_EMAIL, getOverhaulContent, IMG } from '../i18n/content/overhaul';
 import { recordClientEvent } from '../lib/tracker';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';

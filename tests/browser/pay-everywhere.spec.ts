@@ -101,6 +101,8 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     await page.route('https://qr.sepay.vn/**', route => route.abort());
     await page.route('**/api/sample-pack', route => route.fulfill({ status: 503, json: { error: 'internal_secret_do_not_show' } }));
     await page.goto(paymentHref('baseline', locale));
+    const reject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });
+    if (await reject.isVisible()) await reject.click();
     await page.locator('[name="name"]').fill('Synthetic Parent');
     await page.locator('[name="phone"]').fill('0396085076');
     await page.locator('[type="submit"]').click();

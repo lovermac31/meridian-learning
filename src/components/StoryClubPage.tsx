@@ -3,7 +3,7 @@ import { AssetNextStep } from './AssetNextStep';
 import { Check, Minus } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
-import { STORY_CLUB_FREE_STORIES, STORY_CLUB_ZALO, storyClubContent } from '../i18n/content/storyClub';
+import { STORY_CLUB_FREE_STORIES, storyClubContent } from '../i18n/content/storyClub';
 import { recordClientEvent } from '../lib/tracker';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';

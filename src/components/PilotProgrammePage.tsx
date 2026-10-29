@@ -158,13 +158,11 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                 >
                   {content.hero.consultationCta}
                 </button>
-                <RouteLink
-                  to={'/discovery'}
-                  onNavigate={onNavigate}
+                <a href="/go/zalo?utm_source=pilot-programme&utm_content=discovery-call"
                   className="text-white/75 px-4 py-4 font-bold hover:text-white transition-colors"
                 >
                   {content.hero.secondaryCta}
-                </RouteLink>
+                </a>
               </motion.div>
               <motion.div variants={fadeUp}><FounderFilmLink locale={locale} variant="dark" /></motion.div>
             </motion.div>
@@ -903,13 +901,11 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
               >
                 {content.cta.consultationCta}
               </button>
-              <RouteLink
-                to={'/discovery'}
-                onNavigate={onNavigate}
+              <a href="/go/zalo?utm_source=pilot-programme&utm_content=discovery-call"
                 className="text-white/75 px-4 py-4 font-bold hover:text-white transition-colors"
               >
                 {content.cta.secondaryCta}
-              </RouteLink>
+              </a>
             </motion.div>
             <motion.div variants={fadeUp}>
               <ProductCardLink id="pilot-class-kit" source="pilot-programme" locale={locale} tone="dark" className="mb-6" />

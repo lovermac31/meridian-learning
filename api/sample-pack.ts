@@ -88,7 +88,7 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
     ...(/^[a-z0-9_-]+$/i.test(input.source) ? { source: input.source } : {}),
     ...(input.product ? {
       product: input.product,
-      group: input.group as 'sat-0900' | 'flexible',
+      ...(input.group ? { group: input.group as 'sat-0900' | 'flexible' } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_medium ?? '') ? { utmMedium: input.utm_medium } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_campaign ?? '') ? { utmCampaign: input.utm_campaign } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_term ?? '') ? { utmTerm: input.utm_term } : {}),

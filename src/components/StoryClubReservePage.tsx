@@ -3,7 +3,7 @@ import type { Locale } from '../i18n/locales';
 import { normalizeVietnamesePhone } from '../i18n/content/samplePack';
 import { recordClientEvent } from '../lib/tracker';
 import { validateStoryClubReserve } from '../lib/storyClubReserve';
-import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_PRICE_VND, STORY_CLUB_QR_PATH, STORY_CLUB_SAMPLE_URL } from '../config/storyClubReserve';
+import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_SAMPLE_URL } from '../config/storyClubReserve';
 import { PayStep } from './PayStep';
 import { paidOffer, paymentAmount, paymentHref } from '../config/payment';
 import { ToolHero } from './IeltsToolsPage';
