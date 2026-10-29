@@ -9,6 +9,7 @@ import { STORY_CLUB_VIDEOS, VIDEO_COPY } from '../i18n/content/productVideos';
 
 export const STORY_CLUB_PATH = '/story-club';
 const STORY_CLUB_VI_PATH = '/vi/story-club';
+const STORY_CLUB_RESERVE_PATH = '/story-club/reserve';
 
 function ZaloButton({ label, className = 'insights-button-primary' }: { label: string; className?: string }) {
   return (
@@ -48,6 +49,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <p className="mt-3">{c.price.note}</p>
           <div className="story-cta mt-5 max-w-sm">
             <ZaloButton label={c.join.cta} />
+            <a className="insights-button-secondary mt-3" href={locale === 'vi' ? STORY_CLUB_RESERVE_PATH : `/en${STORY_CLUB_RESERVE_PATH}`} data-cta="story-club-reserve">{locale === 'vi' ? 'Đặt chỗ' : 'Reserve a seat'}</a>
           </div>
           <p className="mt-3 text-sm">
             <a className="font-semibold underline underline-offset-4" href={STORY_CLUB_FREE_STORIES[locale]} data-link="story-club-free-stories">{c.price.tryFree}</a>
@@ -136,6 +138,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           </ol>
           <div className="story-cta mt-6 max-w-sm">
             <ZaloButton label={c.join.cta} />
+            <a className="insights-button-secondary mt-3" href={locale === 'vi' ? STORY_CLUB_RESERVE_PATH : `/en${STORY_CLUB_RESERVE_PATH}`} data-cta="story-club-reserve">{locale === 'vi' ? 'Đặt chỗ' : 'Reserve a seat'}</a>
             <p className="mt-2 text-sm">{c.join.ctaNote}</p>
           </div>
         </section>

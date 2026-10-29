@@ -10,6 +10,9 @@ export const ALLOWED_EVENTS = [
   'sample_open',
   'video_play',
   'lead_submit',
+  'reserve_view',
+  'reserve_submit',
+  'pay_instructions_shown',
 ] as const;
 
 export type AllowedEvent = (typeof ALLOWED_EVENTS)[number];

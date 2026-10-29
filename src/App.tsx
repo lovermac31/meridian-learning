@@ -30,6 +30,7 @@ import { isPublicContentReleased } from './i18n/content';
 import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { StoryClubPage } from './components/StoryClubPage';
+import { StoryClubReservePage } from './components/StoryClubReservePage';
 import { ProductsPage } from './components/ProductsPage';
 import { ProductPage } from './components/ProductPage';
 import { getProductByPath } from './i18n/content/productSeo';
@@ -186,6 +187,7 @@ function App() {
   const isBandToolView = routePathname === '/tools/ielts-band-score-calculator';
   const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
   const isStoryClubView = routePathname === '/story-club';
+  const isStoryClubReserveView = routePathname === '/story-club/reserve';
   const isProductsView = routePathname === '/products';
   // /products/<id> for a live product; any other id falls through to the 404 view.
   const productPageProduct = getProductByPath(routePathname);
@@ -228,6 +230,7 @@ function App() {
     isBandToolView ||
     isTimerToolView ||
     isStoryClubView ||
+    isStoryClubReserveView ||
     isProductsView ||
     isProductPageView;
   const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
@@ -252,6 +255,7 @@ function App() {
     isBandToolView ||
     isTimerToolView ||
     isStoryClubView ||
+    isStoryClubReserveView ||
     isProductsView ||
     isProductPageView ||
     isSeriesView ||
@@ -450,6 +454,8 @@ function App() {
         <IeltsSpeakingTimerPage locale={locale} />
       ) : isStoryClubView ? (
         <StoryClubPage locale={locale} />
+      ) : isStoryClubReserveView ? (
+        <StoryClubReservePage locale={locale} />
       ) : isProductsView ? (
         <ProductsPage locale={locale} />
       ) : productPageProduct ? (

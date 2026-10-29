@@ -14,7 +14,7 @@ type FooterProps = {
 
 // SPA routes navigate in place; everything else (static YL page, the AI
 // Speaking app, the Student Academy rewrite) is a real document navigation.
-const SPA_PREFIXES = ['/framework', '/legal/', '/get-started', '/story-club'];
+const SPA_PREFIXES = ['/framework', '/legal/', '/get-started', '/story-club', '/en/story-club'];
 
 /**
  * Clean pan-regional footer (10/10 overhaul, spec §4 Page A). One navigation

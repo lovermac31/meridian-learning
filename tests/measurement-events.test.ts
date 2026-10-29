@@ -82,6 +82,9 @@ test('unknown events rejected: only whitelisted events are accepted', () => {
     'sample_open',
     'video_play',
     'lead_submit',
+    'reserve_view',
+    'reserve_submit',
+    'pay_instructions_shown',
   ]);
 
   for (const event of ALLOWED_EVENTS) {

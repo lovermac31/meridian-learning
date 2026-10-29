@@ -249,6 +249,19 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       },
     },
   },
+  '/story-club/reserve': {
+    title: 'Reserve a Story Club seat — Jurassic English™',
+    description: 'Reserve a place in Story Club with Mr. Jay: a small online English story group for children aged 5–8.',
+    canonicalPath: '/story-club/reserve',
+    breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Story Club', path: '/story-club' }, { name: 'Reserve a seat', path: '/story-club/reserve' }],
+    localized: {
+      vi: {
+        title: 'Đặt chỗ Câu lạc bộ Truyện — Jurassic English™',
+        description: 'Đăng ký một chỗ trong Câu lạc bộ Truyện cùng thầy Jay: nhóm tiếng Anh trực tuyến nhỏ cho trẻ 5–8 tuổi.',
+        breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Câu lạc bộ Truyện', path: '/story-club' }, { name: 'Đặt chỗ', path: '/story-club/reserve' }],
+      },
+    },
+  },
   '/framework': {
     title: 'Literature-Based Critical Thinking Framework | Jurassic English™',
     description:
@@ -1144,6 +1157,7 @@ export function getExpectedPublicIndexableRoutes(): string[] {
         '/cefr-alignment',
         '/teacher-standards',
         '/story-club',
+        '/story-club/reserve',
         '/products',
         ...PRODUCT_PAGE_PATHS,
         '/series/compare',

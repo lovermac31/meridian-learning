@@ -42,3 +42,19 @@ jobs:
 
       - name: Validate prerender routes
         run: npm run validate:prerender
+
+      - name: Install muted browser test runtime
+        run: npx playwright install --with-deps chromium
+
+      - name: Story Club reserve browser acceptance (synthetic only)
+        run: npm run test:browser:reserve
+
+      - name: Retain reserve screenshots and browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: story-club-reserve-qa
+          path: |
+            docs/qa/story-club-reserve/
+            test-results/
+          retention-days: 14

@@ -9,6 +9,7 @@ import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 // sign-up goes to the Notion JE Leads CRM and to Jay by a Resend email. The form shows success when at least one of
 // the two succeeded. Contact details are never logged, only their kind.
 const MIN_SUBMISSION_DELAY_MS = 30_000;
+const MIN_RESERVE_SUBMISSION_DELAY_MS = 1_500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
 const RESEND_TIMEOUT_MS = 8_000;
 const NOTION_TIMEOUT_MS = 4_000;
@@ -16,6 +17,7 @@ const NOTION_TIMEOUT_MS = 4_000;
 type Input = {
   name: string; phone: string; email: string; childAge: string; teacher: boolean; consent: boolean;
   locale: string; placement: string; source: string; website: string; startedAt: string;
+  product?: string; utm_source?: string; utm_content?: string; utm_medium?: string; utm_campaign?: string; utm_term?: string; group?: string;
 };
 
 const str = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
@@ -34,19 +36,33 @@ export function coerceSampleInput(body: unknown): Input {
     source: str(r.source, 64),
     website: typeof r.website === 'string' ? r.website : '',
     startedAt: str(r.startedAt, 40),
+    product: str(r.product, 32),
+    utm_source: str(r.utm_source, 64),
+    utm_content: str(r.utm_content, 64),
+    group: str(r.group, 32),
+    utm_medium: str(r.utm_medium, 64),
+    utm_campaign: str(r.utm_campaign, 64),
+    utm_term: str(r.utm_term, 64),
   };
 }
 
-function isSpam(startedAt: string, website: string) {
+function isSpam(startedAt: string, website: string, product: string) {
   if (website.trim().length > 0 || !startedAt) return true;
   const started = new Date(startedAt).getTime();
   if (Number.isNaN(started)) return true;
   const elapsed = Date.now() - started;
-  return elapsed < MIN_SUBMISSION_DELAY_MS || elapsed > MAX_SUBMISSION_AGE_MS;
+  return elapsed < (product === 'story-club' ? MIN_RESERVE_SUBMISSION_DELAY_MS : MIN_SUBMISSION_DELAY_MS) || elapsed > MAX_SUBMISSION_AGE_MS;
 }
 
 /** The lead the CRM and the email receive, or the reason the input is not accepted. */
-export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' } {
+export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' | 'name' | 'age' | 'group' | 'product' } {
+  if (input.product && input.product !== 'story-club') return { error: 'product' };
+  if (input.product === 'story-club') {
+    if (!input.name.trim()) return { error: 'name' };
+    const age = Number(input.childAge);
+    if (!Number.isInteger(age) || age < 5 || age > 8) return { error: 'age' };
+    if (!/^(sat-0900|flexible)$/.test(input.group)) return { error: 'group' };
+  }
   const contactError = sampleContactError(input.phone, input.email);
   if (contactError) return { error: contactError };
   if (!input.consent) return { error: 'consent' };
@@ -62,6 +78,15 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
     locale: input.locale === 'vi' ? 'vi' : 'en',
     placement: input.placement === 'products' ? 'products' : 'home',
     ...(/^[a-z0-9_-]+$/i.test(input.source) ? { source: input.source } : {}),
+    ...(input.product === 'story-club' ? {
+      product: 'story-club' as const,
+      group: input.group as 'sat-0900' | 'flexible',
+      ...( /^[a-z0-9 _.-]+$/i.test(input.utm_medium ?? '') ? { utmMedium: input.utm_medium } : {}),
+      ...( /^[a-z0-9 _.-]+$/i.test(input.utm_campaign ?? '') ? { utmCampaign: input.utm_campaign } : {}),
+      ...( /^[a-z0-9 _.-]+$/i.test(input.utm_term ?? '') ? { utmTerm: input.utm_term } : {}),
+      ...( /^[a-z0-9_-]+$/i.test(input.utm_source ?? '') ? { utmSource: input.utm_source } : {}),
+      ...( /^[a-z0-9_-]+$/i.test(input.utm_content ?? '') ? { utmContent: input.utm_content } : {}),
+    } : {}),
   };
 }
 
@@ -78,9 +103,10 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
   const from = process.env.GET_STARTED_FROM_EMAIL?.trim() || 'onboarding@resend.dev';
   if (!apiKey || !to) return 'skipped';
   const who = lead.teacher ? 'Teacher' : 'Parent';
+  const isReserve = lead.product === 'story-club';
   const contact = lead.email ? `Email: ${lead.email}` : `Zalo: ${lead.zalo}`;
   const text = [
-    `Free sample pack request (${who})`,
+    `${isReserve ? 'Story Club reserve request' : 'Free sample pack request'} (${who})`,
     '',
     `Name: ${lead.name || '(not given)'}`,
     contact,
@@ -88,7 +114,7 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
     `Reference: ${lead.submissionId}`,
     sampleLeadNotes(lead),
     '',
-    'The thank-you screen showed the view-only samples and "Book Story Club on Zalo". Send the pack and follow up within 24 hours.',
+    isReserve ? 'The reserve thank-you screen showed the payment amount, transfer memo and available QR or Zalo fallback.' : 'The thank-you screen showed the view-only samples and "Book Story Club on Zalo". Send the pack and follow up within 24 hours.',
   ].filter((line) => line !== null).join('\n');
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), RESEND_TIMEOUT_MS);
@@ -101,7 +127,7 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
         from,
         to: [to],
         ...(lead.email ? { reply_to: lead.email } : {}),
-        subject: `Free sample pack — ${who} — ${lead.email ? 'email' : 'Zalo'} (${lead.placement})`,
+        subject: `${isReserve ? 'Story Club reserve' : 'Free sample pack'} — ${who} — ${lead.email ? 'email' : 'Zalo'} (${lead.placement})`,
         text,
       }),
     });
@@ -127,7 +153,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const input = coerceSampleInput(req.body);
-  if (isSpam(input.startedAt, input.website)) {
+  if (isSpam(input.startedAt, input.website, input.product)) {
     logEvent({ event: 'spam_rejected', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), reason: input.website.trim() ? 'honeypot_filled' : 'submission_timing' });
     return res.status(400).json({ ok: false, error: 'Submission could not be accepted.' });
   }
@@ -135,6 +161,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if ('error' in lead) {
     logEvent({ event: 'validation_failed', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), errorFields: [lead.error], errorFieldCount: 1 });
     const locale = input.locale === 'vi' ? 'vi' : 'en';
+    if (input.product === 'story-club') {
+      const message = locale === 'vi' ? 'Vui lòng kiểm tra thông tin đặt chỗ và số Zalo.' : 'Please check the reserve details and Vietnamese Zalo number.';
+      return res.status(400).json({ ok: false, error: lead.error, message });
+    }
     return res.status(400).json({ ok: false, error: lead.error, message: samplePackContent[locale].errors[lead.error] });
   }
 

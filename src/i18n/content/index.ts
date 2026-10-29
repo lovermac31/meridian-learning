@@ -83,7 +83,7 @@ export function getPublicContentGroup(pathname: string): PublicContentGroup | nu
   if (pathname === '/cefr-alignment') return 'cefrAlignment';
   if (pathname === '/teacher-standards') return 'teacherStandards';
   if (pathname === '/companies') return 'companies';
-  if (pathname === '/story-club') return 'storyClub';
+  if (pathname === '/story-club' || pathname === '/story-club/reserve') return 'storyClub';
   if (pathname === '/products' || getProductByPath(pathname)) return 'products';
   if (pathname === '/series/compare') return 'seriesCompare';
   if (pathname === '/thinking-cycle/compare') return 'thinkingCycleCompare';
