@@ -22,7 +22,8 @@
     "video:meta": "node --import tsx scripts/generate-video-meta.mjs",
     "samples:text:generate": "node --import tsx scripts/prepare-sample-text.mjs --generate",
     "samples:text:check": "node --import tsx scripts/prepare-sample-text.mjs",
-    "verify:asset-links": "node scripts/check-seo-asset-links.mjs"
+    "verify:asset-links": "node scripts/check-seo-asset-links.mjs",
+    "validate:indexability": "node scripts/seo/indexability-check.mjs"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",

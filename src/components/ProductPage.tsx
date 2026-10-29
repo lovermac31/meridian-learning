@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { PRODUCTS_PATH, cardLink, productImageSources, productsPage, type Product, type ProductCard } from '../i18n/content/products';
-import { productFaq, productPath, relatedProducts } from '../i18n/content/productSeo';
+import { PRODUCT_SEO, productFaq, productPath, relatedProducts } from '../i18n/content/productSeo';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
@@ -97,7 +97,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
       <style>{'@media print { body { display: none !important; } }'}</style>
       <ToolHero
         locale={locale}
-        title={card.title}
+        title={PRODUCT_SEO[product.id][locale].title.split(' | ')[0]}
         lead={isStoryClub ? shortLead : card.problem}
         eyebrow={card.label}
         counterpart={getLocalizedHref(path, locale === 'vi' ? 'en' : 'vi')}

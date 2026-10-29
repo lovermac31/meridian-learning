@@ -4,7 +4,7 @@
  * /products/<id> and /vi/products/<id>, built from PRODUCTS (products.ts) plus the search copy below.
  *
  * Per product: the one search phrase the page targets in each language (Vietnam demand first), and the page title
- * (≤ 60 characters) and meta description (80–160). The H1 stays the product name. Phrase choice and evidence:
+ * (≤ 60 characters) and meta description (80–160). The H1 uses the localized search title to distinguish the detailed offer from hubs and cards. Phrase choice and evidence:
  * Marketing/SEO-Manager/products-seo-plan.md (SEO Manager, 27 Oct 2026). The Vietnamese is machine-drafted and needs
  * a native read, like the hub's.
  */
