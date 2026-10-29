@@ -202,7 +202,11 @@ test('CANONICAL_EVENTS list covers all 14 documented events', () => {
   // Phase 4A operator boundary
   assert.ok(CANONICAL_EVENTS.includes('operator_unauthorized'));
   assert.ok(CANONICAL_EVENTS.includes('operator_ip_denied'));
-  assert.equal(CANONICAL_EVENTS.length, 14);
+  assert.ok(CANONICAL_EVENTS.includes('story_club_reservation_failed'));
+  assert.ok(CANONICAL_EVENTS.includes('story_club_payment_not_found'));
+  assert.ok(CANONICAL_EVENTS.includes('story_club_payment_failed'));
+  assert.ok(CANONICAL_EVENTS.includes('story_club_payment_marked'));
+  assert.equal(CANONICAL_EVENTS.length, 18);
 });
 
 test('withTiming reports ok=true and a non-negative durationMs on success', async () => {

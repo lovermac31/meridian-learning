@@ -40,10 +40,10 @@ test('sample pack: a Zalo-only parent lead has no email; a teacher tick, the pag
   assert.equal(coerceSampleInput({ teacher: 'yes', consent: 'true' }).consent, false, 'booleans only');
 });
 
-test('sample pack: success needs Notion or the email; contact details are never logged; no Supabase write', () => {
+test('free sample pack: success needs Notion or the email and does not use the Story Club reservation RPC', () => {
   const api = readFileSync('api/sample-pack.ts', 'utf8');
   assert.match(api, /if \(notion\.ok \|\| email === 'sent'\) return res\.status\(200\)/);
-  assert.doesNotMatch(api, /supabaseWriter|rest\/v1/);
+  assert.match(api, /if \(lead\.product === 'story-club'\) \{\s+const reservation = await createStoryClubReservation\(lead\.submissionId, lead\.group\);/);
   const logged = api.match(/console\.info\('\[sample-pack\] submission', \{[\s\S]*?\}\);/)![0];
   assert.doesNotMatch(logged, /lead\.(email|zalo|name)\b(?!\s*\?)/);
   for (const locale of ['en', 'vi'] as const) {
