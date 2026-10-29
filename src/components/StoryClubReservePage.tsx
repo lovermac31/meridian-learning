@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { Locale } from '../i18n/locales';
 import { normalizeVietnamesePhone } from '../i18n/content/samplePack';
 import { recordClientEvent } from '../lib/tracker';
-import { createStoryClubTransferMemo, validateStoryClubReserve } from '../lib/storyClubReserve';
+import { validateStoryClubReserve } from '../lib/storyClubReserve';
 import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_PRICE_VND, STORY_CLUB_QR_PATH, STORY_CLUB_SAMPLE_URL } from '../config/storyClubReserve';
 import { ToolHero } from './IeltsToolsPage';
 
@@ -71,9 +71,9 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
         }),
       });
       if (!response.ok) throw new Error('Request failed');
-      const result = await response.json() as { submissionId?: string };
-      const id = String(result.submissionId ?? '').replace(/[^a-z0-9]/gi, '').slice(-6).toUpperCase();
-      setConfirmation({ memo: createStoryClubTransferMemo(id) });
+      const result = await response.json() as { memo?: unknown; submissionId?: string };
+      if (typeof result.memo !== 'string' || !/^SC-[A-Z0-9]{6}$/.test(result.memo)) throw new Error('Missing canonical reserve memo');
+      setConfirmation({ memo: result.memo });
       recordClientEvent({ event: 'reserve_submit', product_id: 'story-club', locale });
     } catch {
       setError(t.failed);
