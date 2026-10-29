@@ -42,8 +42,8 @@ test('sample pack: a Zalo-only parent lead has no email; a teacher tick, the pag
 
 test('free sample pack: success needs Notion or the email and does not use the Story Club reservation RPC', () => {
   const api = readFileSync('api/sample-pack.ts', 'utf8');
-  assert.match(api, /if \(notion\.ok \|\| email === 'sent'\) return res\.status\(200\)/);
-  assert.match(api, /if \(lead\.product === 'story-club'\) \{\s+const reservation = await createStoryClubReservation\(lead\.submissionId, lead\.group\);/);
+  assert.match(api, /if \(notion\.ok \|\| \(\(!lead\.product \|\| lead\.product === 'story-club'\) && email === 'sent'\)\)/);
+  assert.match(api, /if \(lead\.product === 'story-club'\) \{\s+const reservation = await createStoryClubReservation\(lead\.submissionId, lead\.group \|\| 'flexible'\);/);
   const logged = api.match(/console\.info\('\[sample-pack\] submission', \{[\s\S]*?\}\);/)![0];
   assert.doesNotMatch(logged, /lead\.(email|zalo|name)\b(?!\s*\?)/);
   for (const locale of ['en', 'vi'] as const) {

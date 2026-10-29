@@ -16,7 +16,7 @@ const WECHAT_QR = '/images/wechat-qr.jpg';
 // Platform destinations. wa.me/qr/… is the link encoded in the WhatsApp QR image itself.
 // WeChat's QR link (u.wechat.com) only works when scanned inside the WeChat app, so WeChat offers image actions only.
 const WHATSAPP_LINK = 'https://wa.me/qr/GGEQLLXJBTWEK1';
-const ZALO_LINK = '/go/zalo';
+const ZALO_LINK = '/go/zalo?utm_source=contact-panel&utm_content=talk-to-jay';
 const FACEBOOK_LINK = 'https://www.facebook.com/profile.php?id=61570824718837';
 const EMAIL_LINK = 'mailto:info@jurassicenglish.com?subject=Jurassic%20English%20enquiry';
 

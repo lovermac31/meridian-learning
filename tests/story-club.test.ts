@@ -39,7 +39,7 @@ test('every booking button goes to Jay\'s Zalo; pages state the no-recording pol
     const html = await renderRoute(route);
     const ctas = [...html.matchAll(/data-cta="story-club-zalo"/g)].length;
     assert.ok(ctas >= 3, `${route}: ${ctas} Zalo buttons`);
-    assert.ok(html.includes(`href="${STORY_CLUB_ZALO}"`), route);
+    assert.ok(html.includes('href="/go/zalo?utm_source=story-club&amp;utm_content=talk-to-jay"'), route);
     assert.ok(html.includes(`href="${counterpart}"`), `${route} links its counterpart`);
     assert.ok(html.includes(policy), route);
   }

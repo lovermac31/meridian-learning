@@ -6,8 +6,8 @@ export function validateStoryClubReserve(values: ReserveFormValues): 'name' | 'p
   if (!values.name.trim() || values.name.trim().length > 120) return 'name';
   if (!normalizeVietnamesePhone(values.phone)) return 'phone';
   const age = Number(values.childAge);
-  if (!Number.isInteger(age) || age < 5 || age > 8) return 'age';
-  if (!/^(sat-0900|flexible)$/.test(values.group)) return 'group';
+  if (values.childAge && (!Number.isInteger(age) || age < 5 || age > 8)) return 'age';
+  if (values.group && !/^(sat-0900|flexible)$/.test(values.group)) return 'group';
   return null;
 }
 

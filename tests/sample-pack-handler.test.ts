@@ -262,3 +262,46 @@ test('sample-pack server logs never contain the submitted or normalized phone nu
   assert.equal(output.includes('0396 085.076'), false);
   assert.equal(output.includes('+84396085076'), false);
 });
+
+// Full handler coverage uses only the synthetic Notion/RPC transport above.
+for (const [i, product] of ['baseline', 'one-to-one', 'printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'teacher-pack-l1', 'teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l1', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5', 'word-fossil-flashcards-l1', 'thinking-cycle-set', 'thinking-cycle-posters', 'reasoning-assessment-kit', 'centre-licence', 'teacher-training-course', 'pilot-class-kit', 'curriculum-overview', 'ielts-speaking-ladder', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'writing-baseline', 'ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-essay-bank-task2', 'ielts-writing-teacher-pack'].entries()) {
+  test(`${product}: only name and Zalo, server memo persisted to CRM, stable retries`, async () => {
+    const database = { ids: new Set<string>() };
+    const body = {
+      product, name: 'Synthetic Parent', phone: '0396085076', consent: true, locale: 'en',
+      childAge: '', group: '', submissionKey: '22222222-2222-4222-8222-222222222222',
+      startedAt: new Date(Date.now() - 2000).toISOString(),
+    };
+    const first = await submit(body, `198.51.100.${100 + i}`, { database });
+    assert.equal(first.statusCode, 200);
+    assert.match(String(first.responseBody?.memo), /^(BL|1T|PR[A-Z0-9]{2})-[A-Z0-9]{6}$/);
+    assert.equal(first.reservationCalls, 0, 'non-SC checkout cannot call the Story Club DB');
+    const notes = JSON.stringify(first.writes);
+    assert.ok(notes.includes(`payment memo: ${first.responseBody?.memo}`));
+    assert.match(notes, /payment amount VND: /);
+    assert.match(notes, /child age: not given/);
+    assert.match(notes, /preferred group: not given/);
+    const second = await submit(body, `198.51.100.${100 + i}`, { database });
+    assert.equal(second.responseBody?.memo, first.responseBody?.memo);
+    assert.equal(second.writes.length, 0);
+  });
+}
+
+test('Story Club accepts empty optional fields while preserving canonical reservation', async () => {
+  const result = await submit({ product: 'story-club', name: 'Synthetic Parent', phone: '0396085076', consent: true,
+    submissionKey: '33333333-3333-4333-8333-333333333333', startedAt: new Date(Date.now() - 2000).toISOString(),
+  }, '198.51.100.180');
+  assert.equal(result.statusCode, 200);
+  assert.equal(result.reservationCalls, 1);
+  assert.match(JSON.stringify(result.writes), /child age: not given/);
+  assert.match(JSON.stringify(result.writes), /preferred group: not given/);
+});
+
+test('non-SC checkout fails closed without a stored memo even when email works', async () => {
+  const result = await submit({ product: 'baseline', name: 'Synthetic Parent', phone: '0396085076', consent: true,
+    submissionKey: '44444444-4444-4444-8444-444444444444', startedAt: new Date(Date.now() - 2000).toISOString(),
+  }, '198.51.100.181', { notion: 'down', email: true });
+  assert.equal(result.statusCode, 502);
+  assert.equal(result.responseBody?.memo, undefined);
+  assert.equal(result.reservationCalls, 0);
+});
