@@ -1,0 +1,24 @@
+[Unit]
+Description=books.jurassicenglish.com API (storybooks api/book.js)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/opt/node-v24.21.0/bin/node /srv/books/current/books-api-server.cjs /srv/books/current 3110
+Restart=always
+RestartSec=2
+DynamicUser=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+MemoryMax=128M
+CPUQuota=30%
+
+[Install]
+WantedBy=multi-user.target
