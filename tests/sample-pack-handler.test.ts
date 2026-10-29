@@ -116,7 +116,7 @@ test('sample-pack API retains the 30-second start-time guard and website honeypo
 test('Story Club reserve accepts a valid short-form lead with product and UTM context', async () => {
   const result = await submit({
     name: 'Synthetic Parent', phone: '0396 085 076', childAge: '7', group: 'sat-0900', product: 'story-club',
-    utm_source: 'reserve', utm_content: 'story-club-reserve', startedAt: new Date(Date.now() - 2_000).toISOString(),
+    utm_source: 'reserve', utm_content: 'story-club-reserve', utm_medium: 'social', utm_campaign: 'autumn', utm_term: 'story time', startedAt: new Date(Date.now() - 2_000).toISOString(),
   }, '198.51.100.48');
   assert.equal(result.statusCode, 200);
   const properties = result.writes[0].properties as Record<string, Record<string, any>>;
@@ -124,6 +124,9 @@ test('Story Club reserve accepts a valid short-form lead with product and UTM co
   assert.match(notes, /product: story-club/);
   assert.match(notes, /utm_source: reserve/);
   assert.match(notes, /utm_content: story-club-reserve/);
+  assert.match(notes, /utm_medium: social/);
+  assert.match(notes, /utm_campaign: autumn/);
+  assert.match(notes, /utm_term: story time/);
   assert.match(notes, /preferred group: sat-0900/);
   assert.equal(result.logs.join('\n').includes('0396 085 076'), false);
 });

@@ -24,13 +24,16 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
     expect(body.product).toBe('story-club');
     expect(body.utm_source).toBe('reserve');
     expect(body.utm_content).toBe('story-club-reserve');
+    expect(body.utm_medium).toBe('social');
+    expect(body.utm_campaign).toBe('autumn');
+    expect(body.utm_term).toBe('story time');
     expect(body.phone).toBe('+84396085076');
     await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, submissionId: 'JE-SP-TEST-AB12CD' }) });
   });
 
   for (const item of cases) {
     await page.setViewportSize({ width: item.width, height: 900 });
-    await page.goto(`${item.path}?utm_source=reserve&utm_content=story-club-reserve`);
+    await page.goto(`${item.path}?utm_source=reserve&utm_content=story-club-reserve&utm_medium=social&utm_campaign=autumn&utm_term=story%20time`);
     const rejectAnalytics = page.getByRole('button', { name: item.locale === 'vi' ? 'Từ chối phân tích' : 'Reject analytics' });
     if (await rejectAnalytics.isVisible().catch(() => false)) await rejectAnalytics.click();
     await expect(page.locator('[data-story-club-reserve]')).toHaveAttribute('lang', item.locale);

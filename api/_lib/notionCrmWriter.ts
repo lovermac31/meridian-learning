@@ -343,6 +343,9 @@ export type SampleLead = {
   group?: 'sat-0900' | 'flexible';
   utmSource?: string;
   utmContent?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmTerm?: string;
 };
 
 /**
@@ -359,6 +362,9 @@ export function sampleLeadNotes(l: SampleLead): string {
     `page: ${l.placement} (${l.locale})`,
     l.utmSource ? `utm_source: ${l.utmSource}` : l.source ? `utm_source: ${l.source}` : 'utm_source: none',
     l.utmContent ? `utm_content: ${l.utmContent}` : null,
+    l.utmMedium ? `utm_medium: ${l.utmMedium}` : null,
+    l.utmCampaign ? `utm_campaign: ${l.utmCampaign}` : null,
+    l.utmTerm ? `utm_term: ${l.utmTerm}` : null,
     l.product ? `product: ${l.product}` : null,
     l.group ? `preferred group: ${l.group}` : null,
     l.childAge ? `child age: ${l.childAge}` : null,

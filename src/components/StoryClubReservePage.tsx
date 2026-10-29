@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { Locale } from '../i18n/locales';
 import { normalizeVietnamesePhone } from '../i18n/content/samplePack';
 import { recordClientEvent } from '../lib/tracker';
-import { submitSamplePack } from '../lib/samplePackRequest';
 import { createStoryClubTransferMemo, validateStoryClubReserve } from '../lib/storyClubReserve';
 import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_PRICE_VND, STORY_CLUB_QR_PATH, STORY_CLUB_SAMPLE_URL } from '../config/storyClubReserve';
 import { ToolHero } from './IeltsToolsPage';
@@ -53,14 +52,17 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
     setError('');
     setSending(true);
     const params = new URLSearchParams(window.location.search);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15_000);
     try {
       const response = await fetch('/api/sample-pack', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        method: 'POST', signal: controller.signal, headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: values.name.trim(), phone: normalizeVietnamesePhone(values.phone), email: '', childAge: values.childAge,
           teacher: false, consent: true, locale, placement: 'home', source: params.get('utm_source') || 'reserve',
           utm_source: params.get('utm_source') || 'reserve', utm_content: params.get('utm_content') || 'story-club-reserve',
-          product: 'story-club', group: values.group, website: '', startedAt,
+          utm_medium: params.get('utm_medium') || '', utm_campaign: params.get('utm_campaign') || '', utm_term: params.get('utm_term') || '',
+          product: 'story-club', group: values.group, website: String(form.get('website') ?? ''), startedAt,
         }),
       });
       if (!response.ok) throw new Error('Request failed');
@@ -71,6 +73,7 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
     } catch {
       setError(t.failed);
     } finally {
+      clearTimeout(timer);
       setSending(false);
     }
   };

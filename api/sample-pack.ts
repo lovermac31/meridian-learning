@@ -17,7 +17,7 @@ const NOTION_TIMEOUT_MS = 4_000;
 type Input = {
   name: string; phone: string; email: string; childAge: string; teacher: boolean; consent: boolean;
   locale: string; placement: string; source: string; website: string; startedAt: string;
-  product?: string; utm_source?: string; utm_content?: string; group?: string;
+  product?: string; utm_source?: string; utm_content?: string; utm_medium?: string; utm_campaign?: string; utm_term?: string; group?: string;
 };
 
 const str = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
@@ -40,6 +40,9 @@ export function coerceSampleInput(body: unknown): Input {
     utm_source: str(r.utm_source, 64),
     utm_content: str(r.utm_content, 64),
     group: str(r.group, 32),
+    utm_medium: str(r.utm_medium, 64),
+    utm_campaign: str(r.utm_campaign, 64),
+    utm_term: str(r.utm_term, 64),
   };
 }
 
@@ -78,6 +81,9 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
     ...(input.product === 'story-club' ? {
       product: 'story-club' as const,
       group: input.group as 'sat-0900' | 'flexible',
+      ...( /^[a-z0-9 _.-]+$/i.test(input.utm_medium ?? '') ? { utmMedium: input.utm_medium } : {}),
+      ...( /^[a-z0-9 _.-]+$/i.test(input.utm_campaign ?? '') ? { utmCampaign: input.utm_campaign } : {}),
+      ...( /^[a-z0-9 _.-]+$/i.test(input.utm_term ?? '') ? { utmTerm: input.utm_term } : {}),
       ...( /^[a-z0-9_-]+$/i.test(input.utm_source ?? '') ? { utmSource: input.utm_source } : {}),
       ...( /^[a-z0-9_-]+$/i.test(input.utm_content ?? '') ? { utmContent: input.utm_content } : {}),
     } : {}),
