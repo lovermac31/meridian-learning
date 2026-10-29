@@ -237,8 +237,11 @@ function deferAppScriptUntilHeroPaint(html, pathname) {
   // starts it immediately.
   // Taps on a button[type=button] (menu and contact toggles; on /products the
   // "See the sample pages" button) before hydration have no handler yet. They are held (stopPropagation, so
-  // a half-hydrated React cannot also act on them) and clicked again in order
-  // once AppRoot's first effect fires 'je:hydrated' (50 ms apart, so React
+  // a half-hydrated React cannot also act on them) and clicked again by stable identity in order
+  // Never fall back to a button ordinal: hydration can replace nodes and change
+  // their order (e.g. a consent tap must never open a contact dialog).
+  // Replay a disconnected node only when its identity has one unique match.
+  // Once AppRoot's first effect fires 'je:hydrated' (50 ms apart, so React
   // re-renders between two taps on the same toggle).
   // Form submits before hydration (the free sample pack form) would otherwise
   // run the browser's native GET to the same URL — the visitor's email in the
@@ -248,14 +251,15 @@ function deferAppScriptUntilHeroPaint(html, pathname) {
     `<script>(function(){var d=false,h=false,q=[],fq=[];function go(){if(d)return;d=true;var s=document.createElement('script');` +
     `s.type='module';s.crossOrigin='anonymous';s.src=${JSON.stringify(src)};document.head.appendChild(s)}` +
     `function T(){return document.querySelectorAll('#root button[type="button"]')}` +
+    `function K(b){return [b.id,b.getAttribute('aria-label')||'',b.getAttribute('name')||'',b.textContent.trim()].join('|')}` +
     `function tap(e){if(h)return;var b=e.target&&e.target.closest&&e.target.closest('#root button[type="button"]');` +
-    `if(!b)return;e.stopPropagation();q.push([b,[].indexOf.call(T(),b)]);go()}` +
+    `if(!b)return;e.stopPropagation();q.push([b,K(b)]);go()}` +
     `function sub(e){if(h)return;var f=e.target;if(!f||!f.closest||!f.closest('#root'))return;` +
     `e.preventDefault();e.stopPropagation();if(fq.indexOf(f)<0)fq.push(f);go()}` +
     `document.addEventListener('click',tap,true);document.addEventListener('submit',sub,true);` +
     `addEventListener('je:hydrated',function(){h=true;document.removeEventListener('click',tap,true);document.removeEventListener('submit',sub,true);` +
     `if(fq.length)setTimeout(function(){fq.forEach(function(f){if(f.isConnected&&f.requestSubmit)f.requestSubmit()})},1600);` +
-    `setTimeout(function r(){var x=q.shift();if(!x)return;var b=x[0].isConnected?x[0]:T()[x[1]];if(b)b.click();setTimeout(r,50)},0)},{once:true});` +
+    `setTimeout(function r(){var x=q.shift();if(!x)return;var a=[].filter.call(T(),function(b){return K(b)===x[1]});var b=x[0].isConnected&&K(x[0])===x[1]?x[0]:a.length===1?a[0]:null;if(b)b.click();setTimeout(r,50)},0)},{once:true});` +
     `setTimeout(go,3000);addEventListener('pointerdown',go,{once:true,passive:true});addEventListener('keydown',go,{once:true});` +
     `function hero(){return document.querySelector('#root img[fetchpriority="high"]')}` +
     `function next(){requestAnimationFrame(function(){requestAnimationFrame(function(){setTimeout(go,0)})})}` +

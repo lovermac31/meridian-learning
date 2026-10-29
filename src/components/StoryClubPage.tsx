@@ -13,7 +13,7 @@ export const STORY_CLUB_PATH = '/story-club';
 const STORY_CLUB_VI_PATH = '/vi/story-club';
 const STORY_CLUB_RESERVE_PATH = '/story-club/reserve';
 
-function ZaloButton({ label, className = 'insights-button-primary' }: { label: string; className?: string }) {
+function ZaloButton({ label, className = 'insights-button-secondary' }: { label: string; className?: string }) {
   return (
     <a
       className={className}

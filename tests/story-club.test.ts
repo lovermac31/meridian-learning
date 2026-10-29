@@ -30,7 +30,7 @@ test('both locales state the same price, seat cap and payment method', () => {
   assert.equal(storyClubContent.vi.faq.items.length, storyClubContent.en.faq.items.length);
 });
 
-test('every booking button goes to Jay\'s Zalo; pages state the no-recording policy', async () => {
+test('talk buttons use attributed Zalo links; pages state the no-recording policy', async () => {
   const { renderRoute } = await import('../src/entry-server');
   for (const [route, counterpart, policy] of [
     [EN, VI, 'never recorded'],
