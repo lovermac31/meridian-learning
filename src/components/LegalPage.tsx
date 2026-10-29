@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { ArrowLeft } from 'lucide-react';
 import { isLegalPath, type ContentBlock } from '../lib/legalContent';
 import { resolveLocalizedRoute, getCurrentLocale } from '../i18n/routing';
@@ -194,7 +195,8 @@ export const LegalPage = ({ onBack }: LegalPageProps) => {
         <p className="mt-8 text-sm text-gray-500">
           <LinkifyWorldWise text={chrome.copyright} />
         </p>
-      </main>
+      <GscEditorial />
+    </main>
     </div>
   );
 };

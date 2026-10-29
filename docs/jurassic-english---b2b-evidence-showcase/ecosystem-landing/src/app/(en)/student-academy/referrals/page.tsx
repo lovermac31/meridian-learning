@@ -85,6 +85,11 @@ export default function FamilyRewardsPage() {
           </p>
         </header>
 
+        <section aria-labelledby="referral-example" className="mt-8">
+          <h2 id="referral-example" className={H2}>Before introducing a family: a practical example</h2>
+          <p className="mt-4">Suppose a friend asks whether the Academy fits their child. Share the public programme information first and let the family decide whether to enquire. A referral is an introduction, not a promise that the learner will be accepted, receive a particular timetable or achieve an examination result. Do not send the child’s private learning records or contact details on their behalf. The new family should use the published contact process and provide its own information.</p>
+          <p className="mt-4">Before relying on a reward, read the qualifying steps and conditions below. Check when the referral code must be supplied, what counts as a qualifying household and when credit is confirmed. An initial enquiry or a submitted membership form does not establish that the qualifying conditions have been met. If there is uncertainty about a code or an introduction, ask through the published contact channel before making a payment decision. Keep the programme terms with your own correspondence; do not publish another family’s enrolment or payment information. This example explains how to approach an introduction and does not change the reward amounts, eligibility rules or redemption limits published on this page.</p>
+        </section>
         <section aria-labelledby="amounts-heading" className="mt-8">
           <h2 id="amounts-heading" className="sr-only">Reward amounts</h2>
           <dl className="grid gap-3 sm:grid-cols-2">

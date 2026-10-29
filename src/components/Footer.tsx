@@ -32,6 +32,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
           <span className="font-wordmark text-[1.2rem] text-sb-forest" dir="ltr">
             Jurassic English<sup className="text-sb-amber-deep">™</sup>
           </span>
+          <a className="text-sm font-semibold underline" href={locale === 'vi' ? '/vi/so-do-trang' : '/site-map'}>{locale === 'vi' ? 'Sơ đồ trang' : 'Site map'}</a>
           <nav aria-label={footer.navLabel}>
             <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {footer.links.map((link) => {

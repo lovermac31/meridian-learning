@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { motion } from 'motion/react';
 import { ArrowLeft, BookOpen, ChevronRight, FileText, GitCompareArrows, GraduationCap, LibraryBig } from 'lucide-react';
 import { getLocalizedSeriesLevels, getSeriesComparisonContent } from '../i18n/content/series';
@@ -173,6 +174,7 @@ export const SeriesComparisonExperience = ({
           <ProductCardLink id="teacher-bundle" source="series-compare" locale={locale} className="mt-10" />
         </div>
       </section>
+    <GscEditorial />
     </main>
   );
 };

@@ -128,6 +128,7 @@ function buildUrl(pathname) {
  * discovered by search engines without touching routeMetadata.ts.
  */
 const STATIC_EXTRA_URLS = [
+  ...['/site-map', '/vi/so-do-trang'].map(pathname => ({ loc: `${SITE_URL}${pathname}`, changefreq: 'weekly', priority: '0.6' })),
   // Read-only live audit: final, self-canonical public routes linked by the external apps.
   ...[
     '/ai-speaking/exam',

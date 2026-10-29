@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { motion } from 'motion/react';
 import { ArrowLeft, ChevronRight, GitCompareArrows, LibraryBig, Scale, ShieldCheck } from 'lucide-react';
 import { getCurrentLocale } from '../i18n/routing';
@@ -159,6 +160,7 @@ export const ThinkingCycleComparisonExperience = ({
           <ProductCardLink id="thinking-cycle-set" source="thinking-cycle-compare" locale={locale} className="mt-10" />
         </div>
       </section>
+    <GscEditorial />
     </main>
   );
 };

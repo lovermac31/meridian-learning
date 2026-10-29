@@ -1,3 +1,4 @@
+import { CrawlResources } from './CrawlResources';
 import { motion } from 'motion/react';
 import {
   ArrowLeft,
@@ -364,6 +365,7 @@ export const FrameworkExperience = ({
           </div>
         </div>
       </section>
+    <CrawlResources context="framework" />
     </main>
   );
 };

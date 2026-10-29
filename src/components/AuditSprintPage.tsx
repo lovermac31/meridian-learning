@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { motion, type Variants } from 'motion/react';
 import {
   ArrowLeft,
@@ -403,6 +404,7 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
         </div>
       </section>
 
+    <GscEditorial />
     </main>
   );
 };

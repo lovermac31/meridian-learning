@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { motion } from 'motion/react';
 import {
   ArrowLeft,
@@ -376,6 +377,7 @@ export const SyllabusExperience = ({
           </div>
         </div>
       </section>
+    <GscEditorial />
     </main>
   );
 };

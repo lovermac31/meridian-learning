@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
@@ -666,6 +667,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
           </motion.div>
         </div>
       </section>
+    <GscEditorial />
     </main>
   );
 };

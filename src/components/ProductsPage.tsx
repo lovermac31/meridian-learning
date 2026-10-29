@@ -1,3 +1,4 @@
+import { CrawlResources } from './CrawlResources';
 import { useEffect, useId, useRef, useState, type SyntheticEvent } from 'react';
 import { ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
@@ -533,6 +534,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
         </div>
       </div>
       {viewer ? <SampleViewer card={viewer} locale={locale} source={source} copy={c.viewer} onClose={closeViewer} /> : null}
+    <CrawlResources context="products" />
     </main>
   );
 }

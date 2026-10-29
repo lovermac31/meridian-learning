@@ -199,7 +199,7 @@ export function MobileNav() {
 
             <div className="mt-4">
               <a
-                href="https://www.jurassicenglish.com"
+                href="https://jurassicenglish.com"
                 onClick={close}
                 className="inline-flex items-center gap-1.5 rounded-md px-1 py-1 text-sm font-medium text-foreground/60 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent"
               >

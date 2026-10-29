@@ -841,12 +841,15 @@ function resolveSyllabusRoute(pathname: string, locale: Locale): RouteMetadata |
     canonical: canonicalUrl,
     robots: isReleasedLocale ? 'index, follow' : 'noindex, nofollow',
     alternates: createAlternates(pathname, locale),
-    jsonLd: isReleasedLocale ? createBreadcrumbs([
+    jsonLd: isReleasedLocale ? [...(createBreadcrumbs([
       { name: locale === 'vi' ? 'Trang chủ' : 'Home', path: '/' },
       { name: locale === 'vi' ? 'So sánh chuỗi cấp độ' : 'Series Comparison', path: '/series/compare' },
       { name: localizedLevel.title, path: levelPath },
       { name: locale === 'vi' ? 'Đề cương' : 'Syllabus', path: pathname },
-    ], locale) : undefined,
+    ], locale) ?? []), createCourseJsonLd({ name: localizedLevel.title, description,
+      educationalLevel: localizedLevel.cefrRange, typicalAgeRange: localizedLevel.ageBand,
+      url: canonicalUrl, locale,
+    })] : undefined,
     ogUrl: toAbsoluteUrl(getCanonicalPath(pathname, locale)),
     locale,
   });

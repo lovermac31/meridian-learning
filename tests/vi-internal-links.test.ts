@@ -68,7 +68,7 @@ function pathOf(href: string) {
 
 // Real Vietnamese pages served outside the SPA: the static YL page and the Student Academy story collections
 // (ecosystem app, vercel.json rewrite).
-const REWRITE_SERVED_VI = new Set(['/vi/luyen-noi-ielts', '/vi/student-academy/stories']);
+const REWRITE_SERVED_VI = new Set(['/vi/luyen-noi-ielts', '/vi/student-academy/stories', '/vi/so-do-trang']);
 
 /** Navbar (the app's first <nav>) + Footer markup of a rendered route. */
 function chromeOf(html: string, route: string) {
