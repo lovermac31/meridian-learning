@@ -35,4 +35,5 @@ G. Tradeoffs / blind spots
 - F2 is 24/25, not fully complete; the separate AI app also retains six basic-alias hrefs and two duplicate-description warnings.
 - Crawl depth demonstrates reachability, not Google indexing or traffic. Index requests/rechecks remain operator tasks after approved merge/release (5 and 12 November).
 
-RESULT: Draft implementation prepared; F2 external-source gap remains. PR URL and hosted checks pending.
+RESULT: Draft PR #233 opened; F2 external-source gap remains. Hosted checks pending at this commit; final hosted result will be appended to the workspace command log.
+https://github.com/lovermac31/meridian-learning/pull/233
