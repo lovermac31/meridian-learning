@@ -25,7 +25,7 @@ type CompaniesPageProps = {
 const PROBLEM_ICONS = [PhoneCall, FileText, TrendingUp];
 const AUDIENCE_ICONS = [Building2, Cpu, GraduationCap, Store];
 
-export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: CompaniesPageProps) => {
+export const CompaniesPage = ({ locale, onBack, onNavigate }: CompaniesPageProps) => {
   const content = getCompaniesPageContent(locale);
 
   return (
@@ -53,14 +53,12 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-white/75">{content.hero.body}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                onClick={onGetStarted}
+              <a href="/go/zalo?utm_source=companies&utm_content=book-call"
                 className="inline-flex items-center gap-2 rounded-xl bg-jurassic-accent px-6 py-3 text-sm font-bold text-jurassic-dark transition hover:brightness-110"
               >
                 {content.hero.primaryCta}
                 <ArrowRight className="h-4 w-4" />
-              </button>
+              </a>
               <RouteLink
                 to={'/pilot-programme'}
                 onNavigate={onNavigate}
@@ -175,14 +173,12 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
         <h2 className="mt-3 text-3xl font-extrabold text-jurassic-dark">{content.cta.title}</h2>
         <p className="mt-4 text-base leading-relaxed text-jurassic-dark/70">{content.cta.body}</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <button
-            type="button"
-            onClick={onGetStarted}
+          <a href="/go/zalo?utm_source=companies&utm_content=book-call"
             className="inline-flex items-center gap-2 rounded-xl bg-jurassic-accent px-6 py-3 text-sm font-bold text-jurassic-dark transition hover:brightness-110"
           >
             {content.cta.primaryCta}
             <ArrowRight className="h-4 w-4" />
-          </button>
+          </a>
           <RouteLink
             to={'/pilot-programme'}
             onNavigate={onNavigate}

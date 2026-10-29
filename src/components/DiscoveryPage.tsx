@@ -36,7 +36,7 @@ const PATH_ICONS = {
   training: Users,
 } as const;
 
-export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPageProps) => {
+export const DiscoveryPage = ({ onBack, onNavigate }: DiscoveryPageProps) => {
   const content = getDiscoveryPageContent();
   const [activePath, setActivePath] = useState<number | null>(null);
 
@@ -89,14 +89,12 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-              <button
-                type="button"
-                onClick={onGetStarted}
+              <a href="/go/zalo?utm_source=discovery&utm_content=book-call"
                 className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </a>
               <RouteLink
                 to={'/audit-sprint'}
                 onNavigate={onNavigate}
@@ -240,14 +238,12 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             variants={fadeUp}
             className="mt-10 flex justify-center"
           >
-            <button
-              type="button"
-              onClick={onGetStarted}
+            <a href="/go/zalo?utm_source=discovery&utm_content=book-call"
               className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
             >
               {content.hero.primaryCta}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </button>
+            </a>
           </motion.div>
         </div>
       </section>
@@ -346,14 +342,12 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mb-4">
-              <button
-                type="button"
-                onClick={onGetStarted}
+              <a href="/go/zalo?utm_source=discovery&utm_content=book-call"
                 className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </a>
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-6">

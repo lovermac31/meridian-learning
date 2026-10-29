@@ -331,7 +331,9 @@ export type SampleLead = {
   locale: 'en' | 'vi';
   placement: 'home' | 'products';
   source?: string;
-  product?: 'story-club';
+  product?: string;
+  paymentMemo?: string;
+  paymentAmount?: number;
   group?: 'sat-0900' | 'flexible';
   utmSource?: string;
   utmContent?: string;
@@ -349,8 +351,8 @@ export const SAMPLE_LEADS_DB_ID = 'b5dcf12081844218a5d0d1bd0ea1ce0e';
 
 export function sampleLeadNotes(l: SampleLead): string {
   return [
-    l.product === 'story-club' ? `registration_id: ${l.submissionId}` : null,
-    `lead_source: ${l.product === 'story-club' ? 'story-club-reserve' : 'sample-pack'}`,
+    l.product ? `registration_id: ${l.submissionId}` : null,
+    `lead_source: ${l.product ? `${l.product}-reserve` : 'sample-pack'}`,
     `role: ${l.teacher ? 'teacher' : 'parent'}`,
     `page: ${l.placement} (${l.locale})`,
     l.utmSource ? `utm_source: ${l.utmSource}` : l.source ? `utm_source: ${l.source}` : 'utm_source: none',
@@ -359,9 +361,11 @@ export function sampleLeadNotes(l: SampleLead): string {
     l.utmCampaign ? `utm_campaign: ${l.utmCampaign}` : null,
     l.utmTerm ? `utm_term: ${l.utmTerm}` : null,
     l.product ? `product: ${l.product}` : null,
-    l.group ? `preferred group: ${l.group}` : null,
-    l.childAge ? `child age: ${l.childAge}` : null,
-    l.product === 'story-club' ? 'consent: reply to reserve request' : 'consent: sample + occasional updates',
+    l.product ? `preferred group: ${l.group || 'not given'}` : null,
+    l.childAge ? `child age: ${l.childAge}` : l.product ? 'child age: not given' : null,
+    l.paymentMemo ? `payment memo: ${l.paymentMemo}` : null,
+    l.paymentAmount ? `payment amount VND: ${l.paymentAmount}` : null,
+    l.product ? 'consent: reply to reserve request' : 'consent: sample + occasional updates',
   ].filter(Boolean).join(' · ');
 }
 
@@ -393,8 +397,8 @@ export function sampleLeadProperties(l: SampleLead, schema: NotionDatabaseSchema
   if (band && has('Child Age Band', 'select')) props['Child Age Band'] = { select: { name: band } };
   if (l.name && !l.teacher && (has('Parent Name', 'text') || has('Parent Name', 'rich_text'))) props['Parent Name'] = { rich_text: rt(l.name) };
   if (has('Next Action', 'text') || has('Next Action', 'rich_text')) {
-    props['Next Action'] = { rich_text: rt(l.product === 'story-club'
-      ? `Reply to the Story Club reserve request by ${l.zalo ? 'Zalo' : 'email'} (${l.submissionId}).`
+    props['Next Action'] = { rich_text: rt(l.product
+      ? `Reply to the ${l.product} reserve request by ${l.zalo ? 'Zalo' : 'email'} (${l.submissionId}).`
       : `Send the free sample pack by ${l.zalo ? 'Zalo' : 'email'} and follow up within 24 hours (${l.submissionId}).`) };
   }
   return props;
@@ -412,6 +416,6 @@ export async function writeNotionSampleLead(lead: SampleLead): Promise<NotionWri
     return { ok: false, reason: 'not_configured' };
   }
   return createLeadPage(token, dbId, lead.submissionId, (schema) => sampleLeadProperties(lead, schema), {
-    duplicateGuard: lead.product === 'story-club' ? 'strict' : 'off',
+    duplicateGuard: lead.product ? 'strict' : 'off',
   });
 }

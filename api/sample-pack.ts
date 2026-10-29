@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+import { paidOffer } from '../src/config/payment.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { normalizeVietnamesePhone, sampleContactError, samplePackContent } from '../src/i18n/content/samplePack.js';
 import { sampleLeadNotes, writeNotionSampleLead, type SampleLead } from './_lib/notionCrmWriter.js';
@@ -53,17 +55,18 @@ function isSpam(startedAt: string, website: string, product: string) {
   const started = new Date(startedAt).getTime();
   if (Number.isNaN(started)) return true;
   const elapsed = Date.now() - started;
-  return elapsed < (product === 'story-club' ? MIN_RESERVE_SUBMISSION_DELAY_MS : MIN_SUBMISSION_DELAY_MS) || elapsed > MAX_SUBMISSION_AGE_MS;
+  return elapsed < (product ? MIN_RESERVE_SUBMISSION_DELAY_MS : MIN_SUBMISSION_DELAY_MS) || elapsed > MAX_SUBMISSION_AGE_MS;
 }
 
 /** The lead the CRM and the email receive, or the reason the input is not accepted. */
 export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' | 'name' | 'age' | 'group' | 'product' | 'submission' } {
-  if (input.product && input.product !== 'story-club') return { error: 'product' };
-  if (input.product === 'story-club') {
+  if (input.product && !paidOffer(input.product)) return { error: 'product' };
+  if (input.product) {
+    if (!normalizeVietnamesePhone(input.phone)) return { error: 'phone' };
     if (!input.name.trim()) return { error: 'name' };
     const age = Number(input.childAge);
-    if (!Number.isInteger(age) || age < 5 || age > 8) return { error: 'age' };
-    if (!/^(sat-0900|flexible)$/.test(input.group)) return { error: 'group' };
+    if (input.childAge && (!Number.isInteger(age) || age < 5 || age > 8)) return { error: 'age' };
+    if (input.group && !/^(sat-0900|flexible)$/.test(input.group)) return { error: 'group' };
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.submissionKey ?? '')) return { error: 'submission' };
   }
   const contactError = sampleContactError(input.phone, input.email);
@@ -71,8 +74,8 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
   if (!input.consent) return { error: 'consent' };
   const phone = input.phone.trim() ? normalizeVietnamesePhone(input.phone) : null;
   return {
-    submissionId: input.product === 'story-club'
-      ? `JE-SC-${input.submissionKey!.toLowerCase()}`
+    submissionId: input.product
+      ? `JE-${paidOffer(input.product)!.prefix}-${input.submissionKey!.toLowerCase()}`
       : `JE-SP-${now.getTime().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
     submittedAt: now.toISOString(),
     name: input.name,
@@ -83,9 +86,9 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
     locale: input.locale === 'vi' ? 'vi' : 'en',
     placement: input.placement === 'products' ? 'products' : 'home',
     ...(/^[a-z0-9_-]+$/i.test(input.source) ? { source: input.source } : {}),
-    ...(input.product === 'story-club' ? {
-      product: 'story-club' as const,
-      group: input.group as 'sat-0900' | 'flexible',
+    ...(input.product ? {
+      product: input.product,
+      ...(input.group ? { group: input.group as 'sat-0900' | 'flexible' } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_medium ?? '') ? { utmMedium: input.utm_medium } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_campaign ?? '') ? { utmCampaign: input.utm_campaign } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_term ?? '') ? { utmTerm: input.utm_term } : {}),
@@ -108,10 +111,10 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
   const from = process.env.GET_STARTED_FROM_EMAIL?.trim() || 'onboarding@resend.dev';
   if (!apiKey || !to) return 'skipped';
   const who = lead.teacher ? 'Teacher' : 'Parent';
-  const isReserve = lead.product === 'story-club';
+  const isReserve = !!lead.product;
   const contact = lead.email ? `Email: ${lead.email}` : `Zalo: ${lead.zalo}`;
   const text = [
-    `${isReserve ? 'Story Club reserve request' : 'Free sample pack request'} (${who})`,
+    `${isReserve ? `${lead.product} reserve request` : 'Free sample pack request'} (${who})`,
     '',
     `Name: ${lead.name || '(not given)'}`,
     contact,
@@ -132,7 +135,7 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
         from,
         to: [to],
         ...(lead.email ? { reply_to: lead.email } : {}),
-        subject: `${isReserve ? 'Story Club reserve' : 'Free sample pack'} — ${who} — ${lead.email ? 'email' : 'Zalo'} (${lead.placement})`,
+        subject: `${isReserve ? `${lead.product} reserve` : 'Free sample pack'} — ${who} — ${lead.email ? 'email' : 'Zalo'} (${lead.placement})`,
         text,
       }),
     });
@@ -142,6 +145,13 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
   } finally {
     clearTimeout(timer);
   }
+}
+
+/** Stable across retries; product namespace prevents cross-product memo reuse. */
+export function createPaidMemo(product: string, submissionId: string): string {
+  const offer = paidOffer(product);
+  if (!offer || !submissionId) throw new Error('Invalid reservation');
+  return `${offer.prefix}-${(createHash('sha256').update(`${product}:${submissionId}`).digest().readUIntBE(0, 6) % 36 ** 6).toString(36).toUpperCase().padStart(6, '0')}`;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -166,7 +176,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if ('error' in lead) {
     logEvent({ event: 'validation_failed', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), errorFields: [lead.error], errorFieldCount: 1 });
     const locale = input.locale === 'vi' ? 'vi' : 'en';
-    if (input.product === 'story-club') {
+    if (input.product) {
       const message = locale === 'vi' ? 'Vui lòng kiểm tra thông tin đặt chỗ và số Zalo.' : 'Please check the reserve details and Vietnamese Zalo number.';
       return res.status(400).json({ ok: false, error: lead.error, message });
     }
@@ -175,7 +185,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   let storyClubMemo: string | undefined;
   if (lead.product === 'story-club') {
-    const reservation = await createStoryClubReservation(lead.submissionId, lead.group);
+    const reservation = await createStoryClubReservation(lead.submissionId, lead.group || 'flexible');
     if (!reservation.ok) {
       logEvent({ event: 'story_club_reservation_failed', route: '/api/sample-pack', status: 503, reason: reservation.reason });
       return res.status(503).json({ ok: false, error: 'reserve_temporarily_unavailable' });
@@ -183,6 +193,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     storyClubMemo = reservation.memo;
   }
 
+  if (lead.product) {
+    const offer = paidOffer(lead.product)!;
+    storyClubMemo ??= createPaidMemo(lead.product, lead.submissionId);
+    lead.paymentMemo = storyClubMemo;
+    lead.paymentAmount = offer.amount;
+  }
   const notionPromise = safeNotion(lead);
   const emailPromise = notionPromise.then((result) =>
     result.ok && result.reason === 'duplicate_skipped' ? 'skipped' : sendEmail(lead));
@@ -196,6 +212,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     notionReason: notion.reason,
     email,
   });
-  if (notion.ok || email === 'sent') return res.status(200).json({ ok: true, submissionId: lead.submissionId, ...(storyClubMemo ? { memo: storyClubMemo } : {}) });
+  if (notion.ok || ((!lead.product || lead.product === 'story-club') && email === 'sent')) return res.status(200).json({ ok: true, submissionId: lead.submissionId, ...(storyClubMemo ? { memo: storyClubMemo } : {}) });
   return res.status(502).json({ ok: false, error: 'not_stored' });
 }

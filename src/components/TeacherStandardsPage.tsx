@@ -48,7 +48,7 @@ const QUAL_TAGS: Record<string, string> = {
 const CONSISTENCY_ICONS = [Shield, RefreshCw, Users, ClipboardList];
 const INSTITUTION_ICONS = [Award, ShieldCheck, FileText];
 
-export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: TeacherStandardsPageProps) => {
+export const TeacherStandardsPage = ({ onBack, onNavigate }: TeacherStandardsPageProps) => {
   const content = getTeacherStandardsPageContent();
 
   return (
@@ -100,14 +100,12 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-              <button
-                type="button"
-                onClick={onGetStarted}
+              <a href="/go/zalo?utm_source=teacher-standards&utm_content=book-call"
                 className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </a>
               <RouteLink
                 to={'/audit-sprint'}
                 onNavigate={onNavigate}
@@ -402,14 +400,12 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mb-4">
-              <button
-                type="button"
-                onClick={onGetStarted}
+              <a href="/go/zalo?utm_source=teacher-standards&utm_content=book-call"
                 className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </a>
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-6">

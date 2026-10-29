@@ -6,6 +6,7 @@ for (const item of [
 ]) {
   test(`shows paid confirmation in ${item.locale} after mocked status polling`, async ({ page }) => {
     let statusRequests = 0;
+    await page.route('https://qr.sepay.vn/**', route => route.abort());
     await page.addInitScript(() => {
       const originalSetInterval = window.setInterval.bind(window);
       window.setInterval = ((handler: TimerHandler, timeout?: number, ...args: unknown[]) =>
@@ -25,7 +26,6 @@ for (const item of [
     await page.locator('[name="name"]').fill('Synthetic Parent');
     await page.locator('[name="phone"]').fill('0396 085 076');
     await page.locator('[name="childAge"]').selectOption('7');
-    await page.locator('[name="consent"]').check();
     await page.getByRole('button', { name: item.submit }).click();
     await expect(page.locator('[data-payment-status]')).toContainText(/checking your payment|đang kiểm tra thanh toán/i);
     await expect.poll(() => statusRequests, { timeout: 3_000, intervals: [50, 100, 250] }).toBe(2);

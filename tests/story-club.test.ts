@@ -30,7 +30,7 @@ test('both locales state the same price, seat cap and payment method', () => {
   assert.equal(storyClubContent.vi.faq.items.length, storyClubContent.en.faq.items.length);
 });
 
-test('every booking button goes to Jay\'s Zalo; pages state the no-recording policy', async () => {
+test('talk buttons use attributed Zalo links; pages state the no-recording policy', async () => {
   const { renderRoute } = await import('../src/entry-server');
   for (const [route, counterpart, policy] of [
     [EN, VI, 'never recorded'],
@@ -39,7 +39,7 @@ test('every booking button goes to Jay\'s Zalo; pages state the no-recording pol
     const html = await renderRoute(route);
     const ctas = [...html.matchAll(/data-cta="story-club-zalo"/g)].length;
     assert.ok(ctas >= 3, `${route}: ${ctas} Zalo buttons`);
-    assert.ok(html.includes(`href="${STORY_CLUB_ZALO}"`), route);
+    assert.ok(html.includes('href="/go/zalo?utm_source=story-club&amp;utm_content=talk-to-jay"'), route);
     assert.ok(html.includes(`href="${counterpart}"`), `${route} links its counterpart`);
     assert.ok(html.includes(policy), route);
   }

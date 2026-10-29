@@ -26,7 +26,8 @@
     "validate:indexability": "node scripts/seo/indexability-check.mjs",
     "validate:crawl": "node scripts/seo/crawl-check.mjs",
     "check:links": "node scripts/check-internal-links.mjs",
-    "test:site-quality": "node scripts/audit-site-quality.mjs"
+    "test:site-quality": "node scripts/audit-site-quality.mjs",
+    "test:browser:payments": "playwright test -c playwright.pay-everywhere.config.ts"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",

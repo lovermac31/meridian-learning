@@ -1,3 +1,5 @@
+import { StoryClubReservePage } from './StoryClubReservePage';
+import { buyCta, paymentHref } from '../config/payment';
 import { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
@@ -31,6 +33,8 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
   const card = toCard(product, locale);
   const source = useVisitorSource();
   const [viewer, setViewer] = useState(false);
+  const [checkout, setCheckout] = useState(false);
+  useEffect(() => { setCheckout(new URLSearchParams(window.location.search).get('checkout') === '1'); }, [product.id]);
   const external = card.href === 'zalo';
   const href = external ? zaloHref(source, product.id) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
@@ -57,6 +61,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             {card.price} <span className="text-base font-semibold">{card.unit}</span>
           </p>
           <div className="story-cta mt-3 flex flex-wrap items-center gap-3">
+            <a className="insights-button-primary" href={paymentHref(card.id, locale)} data-buy-now={card.id}>{buyCta(card.id, locale)}</a>
             {isPortalBuyEnabled(card.id) ? (
               <a
                 className="insights-button-primary portal-buy-btn"
@@ -69,7 +74,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
               </a>
             ) : null}
             <a
-              className={isPortalBuyEnabled(card.id) ? "insights-button-secondary" : "insights-button-primary"}
+              className="insights-button-secondary"
               href={href}
               data-cta={`product-page-${card.id}`}
               onClick={() => {
@@ -91,6 +96,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={c.ielts.home[card.group]} id={card.id} /> : null}
           </div>
   </>;
+  if (checkout) return <StoryClubReservePage locale={locale} productId={product.id} />;
   return (
     <main id="main-content" tabIndex={-1} className="insights-page ielts-tools-page story-club-page products-page min-h-screen" lang={locale} data-product-page-main={product.id}>
       {/* Deterrent: printing a product page gives a blank page, as on /products (Jay, 27 Oct 2026). */}

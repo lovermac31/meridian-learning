@@ -75,7 +75,7 @@ const BOTUI_PUBLIC_DESTINATIONS: Record<BotUIPublicDestinationKey, BotUIPublicDe
   framework: { key: 'framework', label: 'View the full framework', path: '/framework' },
   worldwise: { key: 'worldwise', label: 'WorldWise Learning — institutional curriculum', path: '/worldwise' },
   auditSprint: { key: 'auditSprint', label: 'Curriculum Coherence Audit Sprint (10-day review)', path: '/audit-sprint' },
-  discovery: { key: 'discovery', label: 'Book a Discovery Call (45-min structured session)', path: '/discovery' },
+  discovery: { key: 'discovery', label: 'Book a Discovery Call (45-min structured session)', path: '/go/zalo?utm_source=assistant&utm_content=discovery-call' },
   methodology: { key: 'methodology', label: 'Deep-dive: the Jurassic Thinking Cycle™ methodology', path: '/methodology' },
   cefrAlignment: { key: 'cefrAlignment', label: 'CEFR, CEFR-V and MOET 2030 standards alignment', path: '/cefr-alignment' },
   teacherStandards: { key: 'teacherStandards', label: 'Teacher quality, iPGCE standards and methodology fidelity', path: '/teacher-standards' },
@@ -92,7 +92,7 @@ const BOTUI_PUBLIC_DESTINATIONS: Record<BotUIPublicDestinationKey, BotUIPublicDe
   institutionalGetStarted: {
     key: 'institutionalGetStarted',
     label: 'Book a Discovery Call',
-    path: '/get-started?interest=partnership',
+    path: '/go/zalo?utm_source=assistant&utm_content=institutional-call',
   },
   getStarted: { key: 'getStarted', label: 'Get Started portal', path: '/get-started' },
   contact: { key: 'contact', label: 'Contact section', path: '/get-started' },

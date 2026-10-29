@@ -1,0 +1,321 @@
+{
+  "source": "https://qr.sepay.vn/img",
+  "decoder": "jsqr@1.4.0 + pngjs@7.0.0",
+  "results": [
+    {
+      "product": "story-club",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 590000,
+      "requestedMemo": "SC-AB12CD",
+      "decodedMemo": "SCAB12CD",
+      "canonicalMemo": "SC-AB12CD"
+    },
+    {
+      "product": "baseline",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 690000,
+      "requestedMemo": "BL-AB12CD",
+      "decodedMemo": "BLAB12CD",
+      "canonicalMemo": "BL-AB12CD"
+    },
+    {
+      "product": "one-to-one",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 5600000,
+      "requestedMemo": "1T-AB12CD",
+      "decodedMemo": "1TAB12CD",
+      "canonicalMemo": "1T-AB12CD"
+    },
+    {
+      "product": "printable-pack",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 149000,
+      "requestedMemo": "PR03-AB12CD",
+      "decodedMemo": "PR03AB12CD",
+      "canonicalMemo": "PR03-AB12CD"
+    },
+    {
+      "product": "parent-pack-l1",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 249000,
+      "requestedMemo": "PR04-AB12CD",
+      "decodedMemo": "PR04AB12CD",
+      "canonicalMemo": "PR04-AB12CD"
+    },
+    {
+      "product": "parent-pack-l2",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 249000,
+      "requestedMemo": "PR05-AB12CD",
+      "decodedMemo": "PR05AB12CD",
+      "canonicalMemo": "PR05-AB12CD"
+    },
+    {
+      "product": "parent-pack-l3",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 249000,
+      "requestedMemo": "PR06-AB12CD",
+      "decodedMemo": "PR06AB12CD",
+      "canonicalMemo": "PR06-AB12CD"
+    },
+    {
+      "product": "holiday-reading-challenge",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 149000,
+      "requestedMemo": "PR07-AB12CD",
+      "decodedMemo": "PR07AB12CD",
+      "canonicalMemo": "PR07-AB12CD"
+    },
+    {
+      "product": "teacher-pack-l1",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 690000,
+      "requestedMemo": "PR08-AB12CD",
+      "decodedMemo": "PR08AB12CD",
+      "canonicalMemo": "PR08-AB12CD"
+    },
+    {
+      "product": "teacher-pack-l2",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 690000,
+      "requestedMemo": "PR09-AB12CD",
+      "decodedMemo": "PR09AB12CD",
+      "canonicalMemo": "PR09-AB12CD"
+    },
+    {
+      "product": "teacher-pack-l3",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 690000,
+      "requestedMemo": "PR0A-AB12CD",
+      "decodedMemo": "PR0AAB12CD",
+      "canonicalMemo": "PR0A-AB12CD"
+    },
+    {
+      "product": "teacher-pack-l4",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 690000,
+      "requestedMemo": "PR0B-AB12CD",
+      "decodedMemo": "PR0BAB12CD",
+      "canonicalMemo": "PR0B-AB12CD"
+    },
+    {
+      "product": "teacher-pack-l5",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 690000,
+      "requestedMemo": "PR0C-AB12CD",
+      "decodedMemo": "PR0CAB12CD",
+      "canonicalMemo": "PR0C-AB12CD"
+    },
+    {
+      "product": "teacher-bundle",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 2900000,
+      "requestedMemo": "PR0D-AB12CD",
+      "decodedMemo": "PR0DAB12CD",
+      "canonicalMemo": "PR0D-AB12CD"
+    },
+    {
+      "product": "student-workbook-l1",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 190000,
+      "requestedMemo": "PR0E-AB12CD",
+      "decodedMemo": "PR0EAB12CD",
+      "canonicalMemo": "PR0E-AB12CD"
+    },
+    {
+      "product": "student-workbook-l2",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 190000,
+      "requestedMemo": "PR0F-AB12CD",
+      "decodedMemo": "PR0FAB12CD",
+      "canonicalMemo": "PR0F-AB12CD"
+    },
+    {
+      "product": "student-workbook-l3",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 190000,
+      "requestedMemo": "PR0G-AB12CD",
+      "decodedMemo": "PR0GAB12CD",
+      "canonicalMemo": "PR0G-AB12CD"
+    },
+    {
+      "product": "student-workbook-l4",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 190000,
+      "requestedMemo": "PR0H-AB12CD",
+      "decodedMemo": "PR0HAB12CD",
+      "canonicalMemo": "PR0H-AB12CD"
+    },
+    {
+      "product": "student-workbook-l5",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 190000,
+      "requestedMemo": "PR0I-AB12CD",
+      "decodedMemo": "PR0IAB12CD",
+      "canonicalMemo": "PR0I-AB12CD"
+    },
+    {
+      "product": "word-fossil-flashcards-l1",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 190000,
+      "requestedMemo": "PR0J-AB12CD",
+      "decodedMemo": "PR0JAB12CD",
+      "canonicalMemo": "PR0J-AB12CD"
+    },
+    {
+      "product": "thinking-cycle-set",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 490000,
+      "requestedMemo": "PR0K-AB12CD",
+      "decodedMemo": "PR0KAB12CD",
+      "canonicalMemo": "PR0K-AB12CD"
+    },
+    {
+      "product": "thinking-cycle-posters",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 149000,
+      "requestedMemo": "PR0L-AB12CD",
+      "decodedMemo": "PR0LAB12CD",
+      "canonicalMemo": "PR0L-AB12CD"
+    },
+    {
+      "product": "reasoning-assessment-kit",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 390000,
+      "requestedMemo": "PR0M-AB12CD",
+      "decodedMemo": "PR0MAB12CD",
+      "canonicalMemo": "PR0M-AB12CD"
+    },
+    {
+      "product": "centre-licence",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 4900000,
+      "requestedMemo": "PR0N-AB12CD",
+      "decodedMemo": "PR0NAB12CD",
+      "canonicalMemo": "PR0N-AB12CD"
+    },
+    {
+      "product": "teacher-training-course",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 1490000,
+      "requestedMemo": "PR0O-AB12CD",
+      "decodedMemo": "PR0OAB12CD",
+      "canonicalMemo": "PR0O-AB12CD"
+    },
+    {
+      "product": "pilot-class-kit",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 690000,
+      "requestedMemo": "PR0P-AB12CD",
+      "decodedMemo": "PR0PAB12CD",
+      "canonicalMemo": "PR0P-AB12CD"
+    },
+    {
+      "product": "curriculum-overview",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 290000,
+      "requestedMemo": "PR0Q-AB12CD",
+      "decodedMemo": "PR0QAB12CD",
+      "canonicalMemo": "PR0Q-AB12CD"
+    },
+    {
+      "product": "ielts-speaking-ladder",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 390000,
+      "requestedMemo": "PR0R-AB12CD",
+      "decodedMemo": "PR0RAB12CD",
+      "canonicalMemo": "PR0R-AB12CD"
+    },
+    {
+      "product": "ielts-one-to-one-starter",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 149000,
+      "requestedMemo": "PR0S-AB12CD",
+      "decodedMemo": "PR0SAB12CD",
+      "canonicalMemo": "PR0S-AB12CD"
+    },
+    {
+      "product": "ielts-cue-card-bank",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 290000,
+      "requestedMemo": "PR0T-AB12CD",
+      "decodedMemo": "PR0TAB12CD",
+      "canonicalMemo": "PR0T-AB12CD"
+    },
+    {
+      "product": "writing-baseline",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 79000,
+      "requestedMemo": "PR0U-AB12CD",
+      "decodedMemo": "PR0UAB12CD",
+      "canonicalMemo": "PR0U-AB12CD"
+    },
+    {
+      "product": "ielts-writing-ladder-task2",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 390000,
+      "requestedMemo": "PR0V-AB12CD",
+      "decodedMemo": "PR0VAB12CD",
+      "canonicalMemo": "PR0V-AB12CD"
+    },
+    {
+      "product": "ielts-writing-task1-method",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 290000,
+      "requestedMemo": "PR0W-AB12CD",
+      "decodedMemo": "PR0WAB12CD",
+      "canonicalMemo": "PR0W-AB12CD"
+    },
+    {
+      "product": "ielts-essay-bank-task2",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 290000,
+      "requestedMemo": "PR0X-AB12CD",
+      "decodedMemo": "PR0XAB12CD",
+      "canonicalMemo": "PR0X-AB12CD"
+    },
+    {
+      "product": "ielts-writing-teacher-pack",
+      "bankBin": "970422",
+      "account": "0269494315526",
+      "amount": 690000,
+      "requestedMemo": "PR0Y-AB12CD",
+      "decodedMemo": "PR0YAB12CD",
+      "canonicalMemo": "PR0Y-AB12CD"
+    }
+  ]
+}

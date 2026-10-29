@@ -108,13 +108,11 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </RouteLink>
-              <RouteLink
-                to={'/discovery'}
-                onNavigate={onNavigate}
+              <a href="/go/zalo?utm_source=cefr-alignment&utm_content=discovery-call"
                 className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all"
               >
                 {content.hero.secondaryCta}
-              </RouteLink>
+              </a>
             </motion.div>
           </motion.div>
         </div>
@@ -499,13 +497,11 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-6">
-              <RouteLink
-                to={'/discovery'}
-                onNavigate={onNavigate}
+              <a href="/go/zalo?utm_source=cefr-alignment&utm_content=discovery-call"
                 className="text-sm font-semibold text-jurassic-dark/70 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.discoveryCta}
-              </RouteLink>
+              </a>
               <span className="text-jurassic-dark/20 select-none">·</span>
               <RouteLink
                 to={'/get-started?interest=curriculum_overview'}

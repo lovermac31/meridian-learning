@@ -1,10 +1,10 @@
+import { canonicalPaymentMemo } from '../src/config/payment.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { timingSafeEqual } from 'node:crypto';
 import { markStoryClubReservationPaid } from './_lib/supabaseWriter.js';
 
 const MAX_BODY_BYTES = 4_096;
 const MINIMUM_STORY_CLUB_AMOUNT_VND = 590_000;
-const MEMO_PATTERN = /(?:^|[^A-Z0-9])SC(?:[-\s]?)([A-Z0-9]{6})(?![A-Z0-9])/i;
 
 function matchesConfiguredKey(header: unknown, configuredKey: string): boolean {
   if (typeof header !== 'string' || !header.startsWith('Apikey ')) return false;
@@ -13,11 +13,6 @@ function matchesConfiguredKey(header: unknown, configuredKey: string): boolean {
   return supplied.length === expected.length && timingSafeEqual(supplied, expected);
 }
 
-function canonicalMemo(content: unknown): string | null {
-  if (typeof content !== 'string' || content.length > 2_000) return null;
-  const match = MEMO_PATTERN.exec(content);
-  return match ? `SC-${match[1].toUpperCase()}` : null;
-}
 
 function complete(res: VercelResponse, status: number, success: boolean) {
   return res.status(status).json({ success });
@@ -48,9 +43,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return complete(res, 200, true);
   }
 
-  const memo = canonicalMemo(body.content);
+  const memo = canonicalPaymentMemo(body.content);
   if (!memo) {
     console.info('sepay_story_club_payment', { memo: 'unknown', status: 'needs_review' });
+    return complete(res, 200, true);
+  }
+
+  if (!memo.startsWith('SC-')) {
+    console.info('sepay_product_payment', { memo, status: 'needs_review' });
     return complete(res, 200, true);
   }
 

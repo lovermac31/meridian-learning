@@ -103,7 +103,8 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
       target_label: label,
       target_path: path,
     });
-    onNavigate(path);
+    if (path.startsWith('/go/zalo?')) window.location.assign(path);
+    else onNavigate(path);
     closePanel(false);
   };
 
