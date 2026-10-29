@@ -16,7 +16,8 @@
  */
 import type { Locale } from '../locales';
 
-export const STORY_QUEST_URL = 'https://worldwise-story-quest.vercel.app/#home';
+// Served from Jay's own server (Oct 2026), never a vercel.app address: tests/no-vercel-app-links.test.ts.
+export const STORY_QUEST_URL = 'https://story-quest.jurassicenglish.com/#home';
 export const WORLDWISE_URL = 'https://www.worldwiselearning.app/';
 export const CONTACT_EMAIL = 'info@jurassicenglish.com';
 export const ZALO_URL = '/go/zalo';

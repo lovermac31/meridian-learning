@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { getHomeContent } from '../i18n/content/home';
+import { STORY_QUEST_URL } from '../i18n/content/overhaul';
 import { getCurrentLocale } from '../i18n/routing';
 import { getUiString } from '../i18n/ui';
 import { AudienceFork } from './AudienceFork';
@@ -90,10 +91,10 @@ export const Hero = ({ onNavigate }: HeroProps) => {
               {hero.body}
             </p>
 
-            {/* Story Quest — WorldWise literature app for ages 6–12 (external, new tab). */}
+            {/* Story Quest — WorldWise literature app for ages 6–12 (own subdomain on Jay's server, new tab). */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
-                href="https://worldwise-story-quest.vercel.app/#home"
+                href={STORY_QUEST_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-jurassic-accent hover:bg-[#f97b38] px-7 py-3.5 text-base font-extrabold text-jurassic-dark shadow-[0_12px_30px_-10px_rgba(249,87,12,0.6)] transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
