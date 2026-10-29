@@ -33,6 +33,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
   const submitting = useRef(false);
   const trackedView = useRef(false);
   const trackedPay = useRef(false);
+  const confirmationRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (trackedView.current) return;
@@ -44,6 +45,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
     if (!confirmation || trackedPay.current) return;
     trackedPay.current = true;
     recordClientEvent({ event: 'pay_instructions_shown', product_id: productId, locale });
+    confirmationRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
   }, [confirmation, locale, productId]);
 
   useEffect(() => {
@@ -131,7 +133,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
         </section>
 
         {confirmation ? (
-          <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-labelledby="reserve-confirmation" data-payment-instructions role="status">
+          <section ref={confirmationRef} className="ielts-tool-card scroll-mt-28 rounded-2xl bg-white p-6 shadow-sm" aria-labelledby="reserve-confirmation" data-payment-instructions role="status">
             <h2 id="reserve-confirmation" className="text-2xl font-bold">{t.thanks}</h2>
             <PayStep key={confirmation.memo} locale={locale} amount={offer!.amount} memo={confirmation.memo} productId={productId} />
             {isStory ? <p className="mt-3 font-semibold" data-payment-status>{paymentReceived ? t.paymentReceived : t.paymentPending}</p> : <p className="mt-3">{locale === 'vi' ? 'Thầy Jay sẽ xác nhận thanh toán qua Zalo.' : 'Mr. Jay will confirm your payment on Zalo.'}</p>}

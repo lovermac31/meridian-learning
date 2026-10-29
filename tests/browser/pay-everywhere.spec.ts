@@ -7,6 +7,7 @@ import { PAID_OFFERS, paymentAmount, paymentHref, STATIC_QR, reserveCta } from '
 const shots = resolve('docs/qa/pay-everywhere');
 test.beforeEach(async ({ page, baseURL }) => {
   await mkdir(shots, { recursive: true });
+  await page.addInitScript(() => window.addEventListener('je:hydrated', () => { document.documentElement.dataset.qaHydrated = 'true'; }, { once: true }));
   await page.route('**/*', route => {
     const url = new URL(route.request().url());
     if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/')) return route.abort();
@@ -75,7 +76,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await expect.poll(() => events).toEqual(['reserve_view', 'reserve_submit', 'pay_instructions_shown']);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     if (offer.id !== 'story-club') await expect(page.locator('[data-payment-status]')).toHaveCount(0);
-    await page.screenshot({ path: resolve(shots, `${offer.id}-${locale}-${width}.png`), fullPage: true });
+    await page.screenshot({ path: resolve(shots, `${offer.id}-${locale}-${width}.png`), fullPage: false });
     if (offer.id === 'story-club') {
       const axe = await new AxeBuilder({ page }).withRules(['label', 'image-alt', 'button-name', 'link-name', 'select-name', 'color-contrast']).analyze();
       expect(axe.violations).toEqual([]);
@@ -86,7 +87,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
 for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
   test(`hero CTA ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of locale === 'vi' ? ['/vi', '/vi/story-club'] : ['/', '/en/', '/story-club']) {
+    for (const path of locale === 'vi' ? ['/vi', '/vi/story-club', '/vi/products/story-club'] : ['/', '/en/', '/story-club', '/products/story-club']) {
       await page.goto(path);
       const cta = page.getByRole('link', { name: reserveCta(locale), exact: true }).first();
       await expect(cta).toHaveAttribute('href', paymentHref('story-club', locale));
@@ -99,8 +100,10 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
   test(`QR fallback and safe API failure ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.route('https://qr.sepay.vn/**', route => route.abort());
-    await page.route('**/api/sample-pack', route => route.fulfill({ status: 503, json: { error: 'internal_secret_do_not_show' } }));
+    let failedRequests = 0;
+    await page.route('**/api/sample-pack', route => { failedRequests++; return route.fulfill({ status: 503, json: { error: 'internal_secret_do_not_show' } }); });
     await page.goto(paymentHref('baseline', locale));
+    await page.waitForFunction(() => document.documentElement.dataset.qaHydrated === 'true');
     const reject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });
     if (await reject.isVisible()) await reject.click();
     await page.locator('[name="name"]').fill('Synthetic Parent');
@@ -108,13 +111,16 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     await page.locator('[type="submit"]').click();
     await expect(page.getByRole('alert')).toBeVisible();
     await expect(page.getByRole('alert')).not.toContainText('internal_secret');
+    expect(failedRequests).toBe(1);
+    await expect(page.locator('[name="name"]')).toHaveValue('Synthetic Parent');
+    await expect(page.locator('[name="phone"]')).toHaveValue('0396085076');
     await expect(page.locator('[data-payment-qr]')).toHaveCount(0);
     await page.route('**/api/sample-pack', route => route.fulfill({ json: { ok: true, memo: 'BL-AB12CD' } }));
     await page.locator('[type="submit"]').click();
     await expect(page.locator('[data-payment-qr]')).toHaveAttribute('src', STATIC_QR);
     await expect(page.locator('#reserve-qr-fallback')).toBeVisible();
     await expect(page.locator('[data-transfer-memo]')).toHaveText('BL-AB12CD');
-    await page.screenshot({ path: resolve(shots, `fallback-${locale}-${width}.png`), fullPage: true });
+    await page.screenshot({ path: resolve(shots, `fallback-${locale}-${width}.png`), fullPage: false });
     await page.route(`**${STATIC_QR}`, route => route.abort());
     await page.locator('[data-payment-qr]').evaluate(img => img.dispatchEvent(new Event('error')));
     await expect(page.locator('[data-payment-qr]')).toHaveCount(0);
