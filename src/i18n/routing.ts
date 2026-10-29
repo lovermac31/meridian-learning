@@ -25,6 +25,7 @@ const STATIC_PUBLIC_PATHS = [
   '/cefr-alignment',
   '/teacher-standards',
   '/story-club',
+  '/story-club/reserve',
   '/products',
   '/series/compare',
   '/thinking-cycle/compare',
@@ -106,6 +107,10 @@ export function getLocalizablePublicPaths() {
 export function getLocalizedPathname(pathname: string, locale: Locale) {
   const normalizedPathname = normalizePathname(pathname);
 
+  if (normalizedPathname === '/story-club/reserve') {
+    return locale === 'vi' ? normalizedPathname : `/en${normalizedPathname}`;
+  }
+
   if (!isLocalizablePublicPath(normalizedPathname) || isPrivateOrNonLocalizedPath(normalizedPathname)) {
     return normalizedPathname;
   }
@@ -130,6 +135,14 @@ export function isPrivateOrNonLocalizedPath(pathname: string) {
 
 export function resolveLocalizedRoute(pathname: string): LocalizedRoute {
   const normalizedPathname = normalizePathname(pathname);
+  // Story Club reserve page uses the approved campaign URLs: Vietnamese at
+  // /story-club/reserve and English at /en/story-club/reserve.
+  if (normalizedPathname === '/story-club/reserve' || normalizedPathname === '/vi/story-club/reserve') {
+    return { locale: 'vi', pathname: '/story-club/reserve', localizedPathname: '/story-club/reserve', isLocalizedVariant: true, isLocalizable: true, isPrivateOrNonLocalized: false };
+  }
+  if (normalizedPathname === '/en/story-club/reserve') {
+    return { locale: 'en', pathname: '/story-club/reserve', localizedPathname: normalizedPathname, isLocalizedVariant: false, isLocalizable: true, isPrivateOrNonLocalized: false };
+  }
   const isVietnameseRoute =
     normalizedPathname === `/${SECONDARY_LOCALE}` ||
     normalizedPathname.startsWith(`/${SECONDARY_LOCALE}/`);

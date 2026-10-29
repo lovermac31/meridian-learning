@@ -113,6 +113,32 @@ test('sample-pack API retains the 30-second start-time guard and website honeypo
   assert.equal(honeypot.writes.length, 0);
 });
 
+test('Story Club reserve accepts a valid short-form lead with product and UTM context', async () => {
+  const result = await submit({
+    name: 'Synthetic Parent', phone: '0396 085 076', childAge: '7', group: 'sat-0900', product: 'story-club',
+    utm_source: 'reserve', utm_content: 'story-club-reserve', startedAt: new Date(Date.now() - 2_000).toISOString(),
+  }, '198.51.100.48');
+  assert.equal(result.statusCode, 200);
+  const properties = result.writes[0].properties as Record<string, Record<string, any>>;
+  const notes = properties['UTM / Raw Source'].rich_text[0].text.content as string;
+  assert.match(notes, /product: story-club/);
+  assert.match(notes, /utm_source: reserve/);
+  assert.match(notes, /utm_content: story-club-reserve/);
+  assert.match(notes, /preferred group: sat-0900/);
+  assert.equal(result.logs.join('\n').includes('0396 085 076'), false);
+});
+
+test('Story Club reserve rejects invalid age, group and product at the existing endpoint', async () => {
+  const base = { name: 'Synthetic Parent', phone: '0396 085 076', product: 'story-club', startedAt: new Date(Date.now() - 2_000).toISOString() };
+  const invalidAge = await submit({ ...base, childAge: '9', group: 'sat-0900' }, '198.51.100.49');
+  assert.equal(invalidAge.statusCode, 400);
+  assert.equal(invalidAge.writes.length, 0);
+  const invalidGroup = await submit({ ...base, childAge: '7', group: 'unknown' }, '198.51.100.50');
+  assert.equal(invalidGroup.statusCode, 400);
+  const invalidProduct = await submit({ product: 'other', phone: '0396 085 076' }, '198.51.100.51');
+  assert.equal(invalidProduct.statusCode, 400);
+});
+
 test('sample-pack server logs never contain the submitted or normalized phone number', async () => {
   const result = await submit({ phone: '0396 085.076' }, '198.51.100.45');
   const output = result.logs.join('\n');

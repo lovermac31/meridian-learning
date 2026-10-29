@@ -5,7 +5,7 @@
  *
  * Privacy rules:
  *   - NEVER sends IP, cookies, session identifiers, or user personal data.
- *   - Fires ONLY on visitor interaction (clicks/submits), NEVER on page load.
+ *   - Fires on visitor interactions and explicitly approved, route-specific funnel views.
  *   - Uses navigator.sendBeacon with a fetch fallback; non-blocking.
  */
 
@@ -15,7 +15,10 @@ export type AnonymousEvent =
   | 'paypal_return'
   | 'sample_open'
   | 'video_play'
-  | 'lead_submit';
+  | 'lead_submit'
+  | 'reserve_view'
+  | 'reserve_submit'
+  | 'pay_instructions_shown';
 
 export type ClientEventParams = {
   event: AnonymousEvent;
