@@ -24,6 +24,8 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
   const [error, setError] = useState('');
   const [sending, setSending] = useState(false);
   const [startedAt] = useState(() => new Date().toISOString());
+  const submissionKey = useRef<string | null>(null);
+  const submitting = useRef(false);
   const trackedView = useRef(false);
   const trackedPay = useRef(false);
 
@@ -41,6 +43,7 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting.current) return;
     const form = new FormData(event.currentTarget);
     const values = {
       name: String(form.get('name') ?? ''), phone: String(form.get('phone') ?? ''),
@@ -50,6 +53,7 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
     if (invalid) { setError(t.invalid); return; }
     if (form.get('consent') !== 'on') { setError(t.required); return; }
     setError('');
+    submitting.current = true;
     setSending(true);
     const params = new URLSearchParams(window.location.search);
     const controller = new AbortController();
@@ -60,6 +64,7 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
         body: JSON.stringify({
           name: values.name.trim(), phone: normalizeVietnamesePhone(values.phone), email: '', childAge: values.childAge,
           teacher: false, consent: true, locale, placement: 'home', source: params.get('utm_source') || 'reserve',
+          submissionKey: submissionKey.current ??= window.crypto.randomUUID(),
           utm_source: params.get('utm_source') || 'reserve', utm_content: params.get('utm_content') || 'story-club-reserve',
           utm_medium: params.get('utm_medium') || '', utm_campaign: params.get('utm_campaign') || '', utm_term: params.get('utm_term') || '',
           product: 'story-club', group: values.group, website: String(form.get('website') ?? ''), startedAt,
@@ -74,6 +79,7 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
       setError(t.failed);
     } finally {
       clearTimeout(timer);
+      submitting.current = false;
       setSending(false);
     }
   };

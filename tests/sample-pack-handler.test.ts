@@ -13,7 +13,9 @@ const schema = {
   'Next Action': { type: 'rich_text' },
 };
 
-async function submit(body: Record<string, unknown>, ip: string) {
+type MockNotion = { ids: Set<string> };
+
+async function submit(body: Record<string, unknown>, ip: string, options: { notion?: 'up' | 'down'; database?: MockNotion; email?: boolean } = {}) {
   const originalFetch = globalThis.fetch;
   const originalEnv = {
     token: process.env.NOTION_TOKEN,
@@ -25,15 +27,33 @@ async function submit(body: Record<string, unknown>, ip: string) {
   const originalConsole = { info: console.info, warn: console.warn, error: console.error };
   const logs: string[] = [];
   const writes: Record<string, unknown>[] = [];
+  let emailCalls = 0;
+  const database = options.database ?? { ids: new Set<string>() };
   let statusCode = 200;
   let responseBody: unknown;
   globalThis.fetch = (async (input, init) => {
     const url = String(input);
+    if (url === 'https://api.resend.com/emails') {
+      emailCalls++;
+      return new Response(JSON.stringify({ id: 'mock-email' }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }
+    if (url.includes('/databases/') && url.endsWith('/query')) {
+      if (options.notion === 'down') return new Response('Synthetic Notion outage', { status: 503 });
+      const payload = JSON.parse(String(init?.body)) as { filter?: { property?: string; rich_text?: { contains?: string } } };
+      const id = payload.filter?.rich_text?.contains?.replace('registration_id: ', '') ?? '';
+      return new Response(JSON.stringify({ results: database.ids.has(id) ? [{ id: 'mock-existing' }] : [] }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }
     if (url.includes('/databases/')) {
+      if (options.notion === 'down') return new Response('Synthetic Notion outage', { status: 503 });
       return new Response(JSON.stringify({ properties: schema }), { status: 200, headers: { 'Content-Type': 'application/json' } });
     }
     if (url.endsWith('/pages') && init?.method === 'POST') {
+      if (options.notion === 'down') return new Response('Synthetic Notion outage', { status: 503 });
       writes.push(JSON.parse(String(init.body)) as Record<string, unknown>);
+      const record = writes.at(-1) as { properties?: { 'UTM / Raw Source'?: { rich_text?: Array<{ text?: { content?: string } }> } } };
+      const notes = record.properties?.['UTM / Raw Source']?.rich_text?.[0]?.text?.content ?? '';
+      const match = notes.match(/registration_id: ([^ ·]+)/);
+      if (match) database.ids.add(match[1]);
       return new Response(JSON.stringify({ id: 'mock-notion-page' }), { status: 200, headers: { 'Content-Type': 'application/json' } });
     }
     throw new Error('Unexpected network request in sample-pack handler test');
@@ -43,6 +63,10 @@ async function submit(body: Record<string, unknown>, ip: string) {
   delete process.env.RESEND_API_KEY;
   delete process.env.GET_STARTED_NOTIFY_EMAIL;
   delete process.env.GET_STARTED_FROM_EMAIL;
+  if (options.email) {
+    process.env.RESEND_API_KEY = 'synthetic-resend-key';
+    process.env.GET_STARTED_NOTIFY_EMAIL = 'synthetic-notify@example.invalid';
+  }
   for (const method of ['info', 'warn', 'error'] as const) {
     console[method] = ((...args: unknown[]) => { logs.push(JSON.stringify(args)); }) as typeof console[typeof method];
   }
@@ -57,7 +81,7 @@ async function submit(body: Record<string, unknown>, ip: string) {
       headers: { 'x-forwarded-for': ip, 'content-type': 'application/json' },
       body: { consent: true, locale: 'en', placement: 'home', startedAt: new Date(Date.now() - 31_000).toISOString(), ...body },
     } as never, res as never);
-    return { statusCode, responseBody: responseBody as Record<string, unknown> | undefined, writes, logs };
+    return { statusCode, responseBody: responseBody as Record<string, unknown> | undefined, writes, logs, database, emailCalls };
   } finally {
     globalThis.fetch = originalFetch;
     for (const method of ['info', 'warn', 'error'] as const) console[method] = originalConsole[method];
@@ -116,6 +140,7 @@ test('sample-pack API retains the 30-second start-time guard and website honeypo
 test('Story Club reserve accepts a valid short-form lead with product and UTM context', async () => {
   const result = await submit({
     name: 'Synthetic Parent', phone: '0396 085 076', childAge: '7', group: 'sat-0900', product: 'story-club',
+    submissionKey: '123e4567-e89b-42d3-a456-426614174000',
     utm_source: 'reserve', utm_content: 'story-club-reserve', utm_medium: 'social', utm_campaign: 'autumn', utm_term: 'story time', startedAt: new Date(Date.now() - 2_000).toISOString(),
   }, '198.51.100.48');
   assert.equal(result.statusCode, 200);
@@ -129,6 +154,67 @@ test('Story Club reserve accepts a valid short-form lead with product and UTM co
   assert.match(notes, /utm_term: story time/);
   assert.match(notes, /preferred group: sat-0900/);
   assert.equal(result.logs.join('\n').includes('0396 085 076'), false);
+});
+
+test('Story Club accepts valid English and Vietnamese submissions through the mocked CRM writer', async () => {
+  for (const [locale, ip] of [['en', '198.51.100.61'], ['vi', '198.51.100.62']] as const) {
+    const result = await submit({
+      locale, name: 'Synthetic Parent', phone: '0396 085 076', childAge: '7', group: 'sat-0900', product: 'story-club',
+      submissionKey: locale === 'en' ? '223e4567-e89b-42d3-a456-426614174000' : '323e4567-e89b-42d3-a456-426614174000',
+    }, ip);
+    assert.equal(result.statusCode, 200, locale);
+    assert.equal(result.responseBody?.ok, true, locale);
+    assert.equal(result.writes.length, 1, locale);
+  }
+});
+
+test('Story Club rejects an invalid Zalo number, a filled honeypot and a too-fast submission', async () => {
+  const key = '423e4567-e89b-42d3-a456-426614174000';
+  const base = { name: 'Synthetic Parent', childAge: '7', group: 'sat-0900', product: 'story-club', submissionKey: key };
+  const badZalo = await submit({ ...base, phone: '12345' }, '198.51.100.63');
+  assert.equal(badZalo.statusCode, 400);
+  assert.equal(badZalo.responseBody?.error, 'phone');
+  assert.equal(badZalo.writes.length, 0);
+
+  const honeypot = await submit({ ...base, phone: '0396 085 076', website: 'Synthetic bot' }, '198.51.100.64');
+  assert.equal(honeypot.statusCode, 400);
+  assert.equal(honeypot.writes.length, 0);
+
+  const tooFast = await submit({ ...base, phone: '0396 085 076', startedAt: new Date().toISOString() }, '198.51.100.65');
+  assert.equal(tooFast.statusCode, 400);
+  assert.equal(tooFast.responseBody?.error, 'Submission could not be accepted.');
+  assert.equal(tooFast.writes.length, 0);
+});
+
+test('Notion outage keeps the reserve thank-you response when the mocked email fallback succeeds; logs omit PII', async () => {
+  const result = await submit({
+    name: 'Synthetic Private Parent', phone: '0396 085 076', childAge: '7', group: 'sat-0900', product: 'story-club',
+    submissionKey: '523e4567-e89b-42d3-a456-426614174000',
+  }, '198.51.100.66', { notion: 'down', email: true });
+  assert.equal(result.statusCode, 200);
+  assert.equal(result.responseBody?.ok, true);
+  const logs = result.logs.join('\n');
+  assert.match(logs, /"notionOk":false/);
+  assert.equal(logs.includes('Synthetic Private Parent'), false);
+  assert.equal(logs.includes('0396 085 076'), false);
+  assert.equal(result.writes.length, 0);
+});
+
+test('Story Club duplicate submission reuses its key and does not create a second CRM page or email', async () => {
+  const database = { ids: new Set<string>() };
+  const body = {
+    name: 'Synthetic Parent', phone: '0396 085 076', childAge: '7', group: 'sat-0900', product: 'story-club',
+    submissionKey: '623e4567-e89b-42d3-a456-426614174000',
+  };
+  const first = await submit(body, '198.51.100.67', { database, email: true });
+  const second = await submit(body, '198.51.100.67', { database, email: true });
+  assert.equal(first.statusCode, 200);
+  assert.equal(first.writes.length, 1);
+  assert.equal(second.statusCode, 200);
+  assert.equal(second.writes.length, 0);
+  assert.equal(second.logs.join('\n').includes('duplicate_skipped'), true);
+  assert.equal(first.emailCalls, 1);
+  assert.equal(second.emailCalls, 0);
 });
 
 test('Story Club reserve rejects invalid age, group and product at the existing endpoint', async () => {

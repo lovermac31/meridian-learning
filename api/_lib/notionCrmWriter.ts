@@ -116,7 +116,7 @@ async function fetchDatabaseSchema(
     );
   } catch (err) {
     console.warn('[notion] schema lookup threw — continuing without schema gating', {
-      error: String(err),
+      error: err instanceof Error ? err.name : 'unknown',
     });
     return null;
   }
@@ -193,16 +193,12 @@ export function buildPageBody(r: NormalizedPricingRegistration): unknown[] {
 
 // ─── Duplicate guard ──────────────────────────────────────────────────────────
 
-/**
- * Check whether a record with this Registration ID already exists in the database.
- * On any check failure (network error, bad credentials, wrong dbId), returns false
- * so the create proceeds rather than silently swallowing the write.
- */
+/** Check whether a record with this Registration ID already exists. Null means the check failed. */
 async function isDuplicate(
   token: string,
   dbId: string,
   submissionId: string,
-): Promise<boolean> {
+): Promise<boolean | null> {
   try {
     const res = await fetch(`${NOTION_BASE}/databases/${encodeURIComponent(dbId)}/query`, {
       method:  'POST',
@@ -214,21 +210,15 @@ async function isDuplicate(
     });
 
     if (!res.ok) {
-      console.warn('[notion] duplicate check returned non-OK — proceeding with create', {
-        status: res.status,
-        submissionId,
-      });
-      return false;
+      console.warn('[notion] duplicate check returned non-OK', { status: res.status });
+      return null;
     }
 
     const data = await res.json() as { results: unknown[] };
     return Array.isArray(data.results) && data.results.length > 0;
   } catch (err) {
-    console.warn('[notion] duplicate check threw — proceeding with create', {
-      submissionId,
-      error: String(err),
-    });
-    return false;
+    console.warn('[notion] duplicate check threw', { error: err instanceof Error ? err.name : 'unknown' });
+    return null;
   }
 }
 
@@ -257,12 +247,12 @@ export async function writeNotionLead(
   }
 
   return createLeadPage(token, dbId, registration.submissionId, (schema) => buildProperties(registration, schema), {
-    duplicateGuard: true,
+    duplicateGuard: 'best-effort',
     children: buildPageBody(registration),
   });
 }
 
-type LeadPageOptions = { duplicateGuard: boolean; children?: unknown[] };
+type LeadPageOptions = { duplicateGuard: 'off' | 'best-effort' | 'strict'; children?: unknown[] };
 
 /** Create one page in the "Leads" database (duplicate-guarded by the registration id unless told not to). Never throws. */
 async function createLeadPage(
@@ -270,18 +260,22 @@ async function createLeadPage(
   dbId: string,
   submissionId: string,
   build: (schema: NotionDatabaseSchema | null) => Record<string, unknown>,
-  options: LeadPageOptions = { duplicateGuard: true },
+  options: LeadPageOptions = { duplicateGuard: 'best-effort' },
 ): Promise<NotionWriteResult> {
   const schema = await fetchDatabaseSchema(token, dbId);
 
   // Duplicate guard (pricing registrations: the registration id kept in "UTM / Raw Source") — skip if it already exists
-  const duplicate = options.duplicateGuard && await isDuplicate(token, dbId, submissionId);
+  const duplicate = options.duplicateGuard !== 'off' ? await isDuplicate(token, dbId, submissionId) : false;
   if (duplicate) {
     console.info('[notion] duplicate — record already exists, skipping', {
       submissionId,
     });
     logEvent({ event: 'notion_write_succeeded', reason: 'duplicate_skipped', submissionId });
     return { ok: true, pageId: '', reason: 'duplicate_skipped' };
+  }
+  if (duplicate === null && options.duplicateGuard === 'strict') {
+    logEvent({ event: 'notion_write_failed', reason: 'duplicate_check_failed', submissionId });
+    return { ok: false, reason: 'duplicate_check_failed' };
   }
 
   // Build and dispatch the page create request
@@ -306,11 +300,9 @@ async function createLeadPage(
   }
 
   if (!createRes.ok) {
-    const errText = await createRes.text().catch(() => '(unreadable)');
+    // Notion error payloads may echo submitted fields. Keep logs metadata-only.
     console.error('[notion] page create failed', {
       status:       createRes.status,
-      submissionId,
-      response:     errText.slice(0, 500),
     });
     logEvent({ event: 'notion_write_failed', status: createRes.status, reason: `api_${createRes.status}`, submissionId });
     return { ok: false, reason: `api_${createRes.status}` };
@@ -357,6 +349,7 @@ export const SAMPLE_LEADS_DB_ID = 'b5dcf12081844218a5d0d1bd0ea1ce0e';
 
 export function sampleLeadNotes(l: SampleLead): string {
   return [
+    l.product === 'story-club' ? `registration_id: ${l.submissionId}` : null,
     `lead_source: ${l.product === 'story-club' ? 'story-club-reserve' : 'sample-pack'}`,
     `role: ${l.teacher ? 'teacher' : 'parent'}`,
     `page: ${l.placement} (${l.locale})`,
@@ -418,5 +411,7 @@ export async function writeNotionSampleLead(lead: SampleLead): Promise<NotionWri
     console.warn('[notion] env not configured — sample lead write skipped', { hasToken: false });
     return { ok: false, reason: 'not_configured' };
   }
-  return createLeadPage(token, dbId, lead.submissionId, (schema) => sampleLeadProperties(lead, schema), { duplicateGuard: false });
+  return createLeadPage(token, dbId, lead.submissionId, (schema) => sampleLeadProperties(lead, schema), {
+    duplicateGuard: lead.product === 'story-club' ? 'strict' : 'off',
+  });
 }
