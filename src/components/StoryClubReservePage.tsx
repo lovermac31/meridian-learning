@@ -93,7 +93,7 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
           <p className="mt-2 text-3xl font-extrabold" data-reserve-price>{t.amount}</p>
           <p className="mt-2">{t.details}</p>
           <p className="mt-3">{t.groupDetails}</p>
-          <p className="mt-2 font-semibold">{t.next} {STORY_CLUB_NEXT_GROUP}</p>
+          <p className="mt-2 font-semibold">{t.next} {STORY_CLUB_NEXT_GROUP[locale]}</p>
         </section>
 
         {confirmation ? (
@@ -114,7 +114,7 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
               <label className="block font-semibold">{t.name}<input className={FIELD} name="name" autoComplete="name" maxLength={120} required /></label>
               <label className="block font-semibold">{t.phone}<input className={FIELD} name="phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={32} required aria-describedby={error ? 'reserve-error' : undefined} /></label>
               <label className="block font-semibold">{t.age}<select className={FIELD} name="childAge" defaultValue="" required><option value="" disabled>—</option>{[5, 6, 7, 8].map(age => <option key={age} value={age}>{age}</option>)}</select></label>
-              <label className="block font-semibold">{t.group}<select className={FIELD} name="group" defaultValue="sat-0900">{STORY_CLUB_GROUPS.map(group => <option key={group.id} value={group.id}>{group.label}</option>)}</select></label>
+              <label className="block font-semibold">{t.group}<select className={FIELD} name="group" defaultValue="sat-0900">{STORY_CLUB_GROUPS.map(group => <option key={group.id} value={group.id}>{group.label[locale]}</option>)}</select></label>
               <input name="website" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
               <label className="flex items-start gap-3 text-sm"><input type="checkbox" name="consent" className="mt-1 h-5 w-5" required /><span>{t.consent} <a className="underline" href={locale === 'vi' ? '/vi/legal/privacy' : '/legal/privacy'}>{t.privacy}</a></span></label>
               {error ? <p id="reserve-error" role="alert" className="font-semibold text-red-700">{error}</p> : null}

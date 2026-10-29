@@ -22,6 +22,7 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
     leadRequests += 1;
     const body = JSON.parse(route.request().postData() ?? '{}') as Record<string, unknown>;
     expect(body.product).toBe('story-club');
+    expect(body.group).toBe(cases[leadRequests - 1].width === 375 ? 'sat-0900' : 'flexible');
     expect(body.utm_source).toBe('reserve');
     expect(body.utm_content).toBe('story-club-reserve');
     expect(body.utm_medium).toBe('social');
@@ -37,6 +38,15 @@ test('reserve funnel is localized, validates Zalo, submits to the existing endpo
     const rejectAnalytics = page.getByRole('button', { name: item.locale === 'vi' ? 'Từ chối phân tích' : 'Reject analytics' });
     if (await rejectAnalytics.isVisible().catch(() => false)) await rejectAnalytics.click();
     await expect(page.locator('[data-story-club-reserve]')).toHaveAttribute('lang', item.locale);
+    const nextGroup = item.locale === 'vi' ? 'Thứ Bảy 9:00' : 'Sat 9:00';
+    const flexibleGroup = item.locale === 'vi' ? 'Thời gian khác / vui lòng liên hệ' : 'Another time / please ask me';
+    await expect(page.getByText(`${item.locale === 'vi' ? 'Nhóm tiếp theo:' : 'Next group:'} ${nextGroup}`, { exact: true })).toBeVisible();
+    const group = page.locator('[name="group"]');
+    await expect(group.locator('option')).toHaveText([nextGroup, flexibleGroup]);
+    await expect(group.locator('option').nth(0)).toHaveAttribute('value', 'sat-0900');
+    await expect(group.locator('option').nth(1)).toHaveAttribute('value', 'flexible');
+    await expect(group).toHaveValue('sat-0900');
+    if (item.width === 1440) await group.selectOption('flexible');
     const sample = page.locator('[data-reserve-sample]');
     const price = page.locator('[data-reserve-price]');
     await expect(sample).toContainText(item.sample);
