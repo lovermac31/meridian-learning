@@ -8,7 +8,8 @@
   --font-serif: Georgia, "Times New Roman", serif;
 
   --color-jurassic-dark: #101820;   /* Sleeker Dark */
-  --color-jurassic-accent: #F26419; /* Richer Orange */
+  --color-jurassic-accent: #F26419;
+  --color-jurassic-accent-ink: #9A3B08; /* AA small text on light and orange-tinted surfaces. */ /* Richer Orange */
   --color-jurassic-gold: #D4AF37;   /* Added Gold */
   --color-jurassic-soft: #F4F1EA;   /* Warm Ivory */
   --color-jurassic-blue: #1C3F60;   /* Slate Blue */

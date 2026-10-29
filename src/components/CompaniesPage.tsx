@@ -79,7 +79,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
 
       {/* ── Problem ──────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-jurassic-accent">
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-jurassic-accent-ink">
           {content.problem.eyebrow}
         </p>
         <h2 className="mt-3 max-w-3xl text-3xl font-extrabold text-jurassic-dark">{content.problem.title}</h2>
@@ -89,7 +89,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
             const Icon = PROBLEM_ICONS[i] ?? PhoneCall;
             return (
               <div key={mode.title} className="rounded-2xl border border-jurassic-dark/10 bg-jurassic-light/40 p-6">
-                <Icon className="h-6 w-6 text-jurassic-accent" aria-hidden="true" />
+                <Icon className="h-6 w-6 text-jurassic-accent-ink" aria-hidden="true" />
                 <h3 className="mt-4 text-lg font-bold text-jurassic-dark">{mode.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-jurassic-dark/70">{mode.body}</p>
               </div>
@@ -101,7 +101,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
       {/* ── Audiences ────────────────────────────────────────────── */}
       <section className="bg-jurassic-light/50 py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-jurassic-accent">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-jurassic-accent-ink">
             {content.audiences.eyebrow}
           </p>
           <h2 className="mt-3 max-w-3xl text-3xl font-extrabold text-jurassic-dark">{content.audiences.title}</h2>
@@ -113,7 +113,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
                 <div key={card.role} className="flex flex-col rounded-2xl border border-jurassic-dark/10 bg-white p-7">
                   <div className="flex items-center gap-3">
                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-jurassic-accent/15">
-                      <Icon className="h-5 w-5 text-jurassic-accent" aria-hidden="true" />
+                      <Icon className="h-5 w-5 text-jurassic-accent-ink" aria-hidden="true" />
                     </span>
                     <span className="text-sm font-bold uppercase tracking-wide text-jurassic-dark/60">{card.role}</span>
                   </div>
@@ -122,7 +122,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
                   <ul className="mt-5 space-y-2">
                     {card.signals.map((signal) => (
                       <li key={signal} className="flex items-start gap-2 text-sm text-jurassic-dark/80">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-jurassic-accent" aria-hidden="true" />
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-jurassic-accent-ink" aria-hidden="true" />
                         {signal}
                       </li>
                     ))}
@@ -136,7 +136,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
 
       {/* ── Approach ─────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-jurassic-accent">
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-jurassic-accent-ink">
           {content.approach.eyebrow}
         </p>
         <h2 className="mt-3 max-w-3xl text-3xl font-extrabold text-jurassic-dark">{content.approach.title}</h2>
@@ -144,7 +144,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {content.approach.steps.map((step) => (
             <div key={step.number} className="rounded-2xl border border-jurassic-dark/10 p-6">
-              <span className="font-mono text-sm font-bold text-jurassic-accent">{step.number}</span>
+              <span className="font-mono text-sm font-bold text-jurassic-accent-ink">{step.number}</span>
               <h3 className="mt-2 text-lg font-bold text-jurassic-dark">{step.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-jurassic-dark/70">{step.body}</p>
             </div>
@@ -171,7 +171,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
 
       {/* ── CTA ──────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
-        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-jurassic-accent">{content.cta.eyebrow}</p>
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-jurassic-accent-ink">{content.cta.eyebrow}</p>
         <h2 className="mt-3 text-3xl font-extrabold text-jurassic-dark">{content.cta.title}</h2>
         <p className="mt-4 text-base leading-relaxed text-jurassic-dark/70">{content.cta.body}</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -191,7 +191,7 @@ export const CompaniesPage = ({ locale, onBack, onGetStarted, onNavigate }: Comp
             {content.cta.secondaryCta}
           </RouteLink>
         </div>
-        <p className="mt-6 text-xs leading-relaxed text-jurassic-dark/50">{content.cta.note}</p>
+        <p className="mt-6 text-xs leading-relaxed text-jurassic-dark/70">{content.cta.note}</p>
       </section>
     </main>
   );

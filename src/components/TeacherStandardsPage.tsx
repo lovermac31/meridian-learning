@@ -103,7 +103,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
               <button
                 type="button"
                 onClick={onGetStarted}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -130,7 +130,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.problem.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -213,7 +213,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
                     </span>
                   </div>
                   <h3 className="text-xl font-bold text-white mb-1">{item.label}</h3>
-                  <p className="text-xs text-white/40 font-medium mb-4 leading-relaxed italic">
+                  <p className="text-xs text-white/70 font-medium mb-4 leading-relaxed italic">
                     {item.fullName}
                   </p>
                   <p className="text-sm text-white/70 leading-relaxed flex-1">{item.body}</p>
@@ -234,7 +234,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.preparation.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -259,7 +259,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
                 className="rounded-2xl border border-jurassic-dark/10 bg-jurassic-ivory p-7 flex flex-col"
               >
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-3xl font-bold text-jurassic-accent/18 leading-none">
+                  <span className="text-3xl font-bold text-jurassic-accent-ink leading-none">
                     {stage.number}
                   </span>
                   <div className="w-6 h-px bg-jurassic-accent/30" />
@@ -282,7 +282,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.consistency.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -391,7 +391,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
             variants={staggerContainer}
             className="max-w-2xl"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.cta.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -405,7 +405,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
               <button
                 type="button"
                 onClick={onGetStarted}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -416,7 +416,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
               <RouteLink
                 to={'/audit-sprint'}
                 onNavigate={onNavigate}
-                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                className="text-sm font-semibold text-jurassic-dark/70 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.auditCta}
               </RouteLink>
@@ -424,7 +424,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
               <RouteLink
                 to={'/get-started?interest=curriculum_overview'}
                 onNavigate={onNavigate}
-                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                className="text-sm font-semibold text-jurassic-dark/70 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.overviewCta}
               </RouteLink>
@@ -433,7 +433,7 @@ export const TeacherStandardsPage = ({ onBack, onGetStarted, onNavigate }: Teach
             <motion.div variants={fadeUp}>
               <ProductCardLink id="teacher-training-course" source="teacher-standards" locale={getCurrentLocale()} className="mb-6" />
             </motion.div>
-            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">
+            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/70 leading-relaxed">
               {content.cta.note}
             </motion.p>
           </motion.div>

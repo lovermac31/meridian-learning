@@ -41,11 +41,11 @@ const PILLAR_ICONS = [BookOpen, Users, PenLine];
 const INSTITUTION_ICONS = [Award, ShieldCheck, FileText];
 
 const LEVEL_ACCENTS = [
-  { text: 'text-jurassic-teal',   bg: 'bg-jurassic-teal/12',   border: 'border-jurassic-teal/25',   bar: 'bg-jurassic-teal'   },
-  { text: 'text-jurassic-green',  bg: 'bg-jurassic-green/12',  border: 'border-jurassic-green/25',  bar: 'bg-jurassic-green'  },
-  { text: 'text-jurassic-gold',   bg: 'bg-jurassic-gold/12',   border: 'border-jurassic-gold/25',   bar: 'bg-jurassic-gold'   },
-  { text: 'text-jurassic-accent', bg: 'bg-jurassic-accent/12', border: 'border-jurassic-accent/25', bar: 'bg-jurassic-accent' },
-  { text: 'text-[#c97adb]',       bg: 'bg-[#c97adb]/12',       border: 'border-[#c97adb]/25',       bar: 'bg-[#c97adb]'       },
+  { text: 'text-teal-800',   bg: 'bg-jurassic-teal/12',   border: 'border-jurassic-teal/25',   bar: 'bg-jurassic-teal'   },
+  { text: 'text-green-800',  bg: 'bg-jurassic-green/12',  border: 'border-jurassic-green/25',  bar: 'bg-jurassic-green'  },
+  { text: 'text-yellow-800',   bg: 'bg-jurassic-gold/12',   border: 'border-jurassic-gold/25',   bar: 'bg-jurassic-gold'   },
+  { text: 'text-jurassic-accent-ink', bg: 'bg-jurassic-accent/12', border: 'border-jurassic-accent/25', bar: 'bg-jurassic-accent' },
+  { text: 'text-purple-800',       bg: 'bg-[#c97adb]/12',       border: 'border-[#c97adb]/25',       bar: 'bg-[#c97adb]'       },
 ] as const;
 
 export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: CefrAlignmentPageProps) => {
@@ -103,7 +103,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
               <RouteLink
                 to={'/get-started?interest=audit_sprint'}
                 onNavigate={onNavigate}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -130,7 +130,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.problem.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -215,7 +215,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
                     {pillar.descriptor}
                   </p>
                   <div className="pt-4 border-t border-white/10">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1.5">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 mb-1.5">
                       How the Thinking Cycle addresses this
                     </p>
                     <p className="text-sm text-white/70 leading-relaxed">{pillar.howAddressed}</p>
@@ -249,7 +249,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.vietnam.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -285,7 +285,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
                   {framework.detail}
                 </p>
                 <div className="rounded-xl bg-jurassic-accent/6 border border-jurassic-accent/15 px-4 py-3">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-jurassic-accent mb-1">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-jurassic-accent-ink mb-1">
                     Institutional implication
                   </p>
                   <p className="text-sm text-jurassic-dark/75 leading-relaxed">
@@ -320,7 +320,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.progressionMap.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -355,7 +355,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
                     <span className={['text-[10px] font-bold uppercase tracking-widest', accent.text].join(' ')}>
                       {level.tag}
                     </span>
-                    <span className="text-2xl font-bold text-jurassic-dark/10 leading-none">
+                    <span className="text-2xl font-bold text-jurassic-dark/70 leading-none">
                       {level.number}
                     </span>
                   </div>
@@ -373,7 +373,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
                   </div>
 
                   {/* Age band */}
-                  <p className="text-xs text-jurassic-dark/50 mb-5">{level.ageBand}</p>
+                  <p className="text-xs text-jurassic-dark/70 mb-5">{level.ageBand}</p>
 
                   {/* Accent divider */}
                   <div className={['w-8 h-0.5 mb-4 rounded-full', accent.bar].join(' ')} />
@@ -393,7 +393,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
                     to={level.path}
                     onNavigate={onNavigate}
                     className={[
-                      'mt-5 pt-4 border-t flex items-center gap-1.5 text-xs font-semibold transition-opacity opacity-60 hover:opacity-100',
+                      'mt-5 pt-4 border-t flex items-center gap-1.5 text-xs font-semibold transition-opacity hover:opacity-90',
                       `border-current ${accent.text}`,
                     ].join(' ')}
                     style={{ borderColor: 'currentColor' }}
@@ -477,7 +477,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
             variants={staggerContainer}
             className="max-w-2xl"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.cta.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -491,7 +491,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
               <RouteLink
                 to={'/get-started?interest=audit_sprint'}
                 onNavigate={onNavigate}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -502,7 +502,7 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
               <RouteLink
                 to={'/discovery'}
                 onNavigate={onNavigate}
-                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                className="text-sm font-semibold text-jurassic-dark/70 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.discoveryCta}
               </RouteLink>
@@ -510,13 +510,13 @@ export const CefrAlignmentPage = ({ locale, onBack, onGetStarted, onNavigate }: 
               <RouteLink
                 to={'/get-started?interest=curriculum_overview'}
                 onNavigate={onNavigate}
-                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                className="text-sm font-semibold text-jurassic-dark/70 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.overviewCta}
               </RouteLink>
             </motion.div>
 
-            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">
+            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/70 leading-relaxed">
               {content.cta.note}
             </motion.p>
           </motion.div>

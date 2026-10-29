@@ -32,7 +32,7 @@ a { color: inherit; }
 .dvideo::cue { background: rgba(8, 12, 16, .82); color: #fff; font-family: var(--font); }
 .tagline-local { color: var(--soft); margin: 0 0 6px; }
 .tagline-local:empty { display: none; }
-.dnav .watch { background: var(--accent); border-color: var(--accent); color: #fff; }
+.dnav .watch { background: var(--accent); border-color: var(--accent); color: var(--ink); }
 
 /* Slides: stacked cards (default, phones, no JS, print) */
 .deck { max-width: 1240px; margin: 0 auto; padding: 0 16px 40px; display: grid; gap: 18px; }
@@ -76,7 +76,7 @@ blockquote { margin: 0 0 18px; font-size: clamp(1.6rem, 1rem + 3vw, 3.4rem); lin
 .tagline { color: var(--gold); font-weight: 700; margin: 0 0 6px; }
 .mail a { color: var(--muted); }
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 10px 22px; border-radius: 999px; font-weight: 800; text-decoration: none; border: 1px solid var(--line); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--ink); }
 .btn.primary:hover { background: #d9550f; }
 
 /* Controls (present mode only) */
@@ -129,3 +129,12 @@ body.present:fullscreen .dtop { display: none; }
 .ainote { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
 .ainote span { color: var(--gold); }
 body.present .ainote { font-size: 1.15cqw; margin-top: .6cqw; }
+
+/* Allow translated header actions to wrap at narrow widths. */
+@media (max-width: 640px) {
+  .dtop { flex-wrap: wrap; }
+  .dnav { flex-wrap: wrap; max-width: 100%; }
+  .dnav a { white-space: normal; }
+  .dlang { min-width: 0; }
+  .dlang select { max-width: 100%; }
+}

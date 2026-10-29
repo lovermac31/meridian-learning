@@ -131,6 +131,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
               alt=""
               width={480}
               height={480}
+              loading="lazy"
               decoding="async"
               className="mb-4 aspect-square w-full max-w-sm rounded-xl object-cover"
             />

@@ -146,7 +146,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                 <RouteLink
                   to={'/get-started?interest=curriculum_review&source=pilot-programme&access=pilot_pack'}
                   onNavigate={onNavigate}
-                  className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                  className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
                 >
                   {content.hero.primaryCta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -237,7 +237,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
             className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-12 items-start"
           >
             <div>
-              <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+              <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
                 {content.overview.eyebrow}
               </motion.span>
               <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -325,7 +325,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.structure.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -357,7 +357,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-jurassic-blue text-white">
                       <Icon className="h-4 w-4" />
                     </div>
-                    <span className="text-2xl font-bold text-jurassic-dark/15">0{index + 1}</span>
+                    <span className="text-2xl font-bold text-jurassic-dark/70">0{index + 1}</span>
                   </div>
                   <p className="text-sm font-bold leading-snug text-jurassic-dark">{label}</p>
                   {index < timelineVisual.length - 1 && (
@@ -382,23 +382,23 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                 className="rounded-2xl border border-jurassic-dark/8 p-7"
               >
                 <div className="mb-5 flex items-start justify-between gap-4">
-                  <span className="text-3xl font-bold text-jurassic-accent/25 leading-none font-display">
+                  <span className="text-3xl font-bold text-jurassic-accent-ink leading-none font-display">
                     {step.number}
                   </span>
-                  <span className="rounded-full bg-jurassic-accent/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-jurassic-accent">
+                  <span className="rounded-full bg-jurassic-accent/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-jurassic-accent-ink">
                     {step.duration}
                   </span>
                 </div>
                 <h3 className="text-lg font-bold text-jurassic-dark mb-3">{step.title}</h3>
                 <div className="space-y-5">
                   <div>
-                    <h4 className="mb-1 text-[10px] font-bold uppercase tracking-widest text-jurassic-accent">
+                    <h4 className="mb-1 text-[10px] font-bold uppercase tracking-widest text-jurassic-accent-ink">
                       Purpose
                     </h4>
                     <p className="text-sm text-jurassic-dark/65 leading-relaxed">{step.purpose}</p>
                   </div>
                   <div>
-                    <h4 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-jurassic-dark/40">
+                    <h4 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-jurassic-dark/70">
                       Activities
                     </h4>
                     <ul className="space-y-2">
@@ -411,7 +411,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                     </ul>
                   </div>
                   <div>
-                    <h4 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-jurassic-dark/40">
+                    <h4 className="mb-2 text-[10px] font-bold uppercase tracking-widest text-jurassic-dark/70">
                       Outputs
                     </h4>
                     <div className="flex flex-wrap gap-2">
@@ -426,7 +426,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                     </div>
                   </div>
                   <div className="rounded-xl border border-jurassic-accent/20 bg-jurassic-accent/5 p-4">
-                    <h4 className="mb-1 text-[10px] font-bold uppercase tracking-widest text-jurassic-accent">
+                    <h4 className="mb-1 text-[10px] font-bold uppercase tracking-widest text-jurassic-accent-ink">
                       Decision Gate
                     </h4>
                     <p className="text-xs text-jurassic-dark/70 leading-relaxed">{step.decisionGate}</p>
@@ -536,7 +536,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.measures.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -609,7 +609,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
             variants={staggerContainer}
             className="rounded-2xl border border-jurassic-dark/8 p-8"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.support.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-3xl font-bold tracking-tight text-jurassic-dark leading-tight mb-4">
@@ -691,7 +691,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
             className="grid lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] gap-12 items-start"
           >
             <div>
-              <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+              <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
                 {content.deliverables.eyebrow}
               </motion.span>
               <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -728,7 +728,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.proof.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -772,7 +772,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
             className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-12 items-start"
           >
             <div>
-              <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+              <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
                 {content.reporting.eyebrow}
               </motion.span>
               <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -797,7 +797,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                     <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-jurassic-blue text-white">
                       <Icon className="h-4 w-4" />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-jurassic-accent">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-jurassic-accent-ink">
                       Report layer 0{index + 1}
                     </span>
                   </div>
@@ -824,7 +824,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.investor.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -855,7 +855,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                 <div className="mb-5 flex items-center justify-between gap-4">
                   <Icon className="w-5 h-5 text-jurassic-accent" />
                   <span className="h-px flex-1 bg-jurassic-dark/10" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-jurassic-dark/35">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-jurassic-dark/70">
                     Scale 0{index + 1}
                   </span>
                 </div>
@@ -891,7 +891,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
               <RouteLink
                 to={'/get-started?interest=curriculum_review&source=pilot-programme&access=pilot_pack'}
                 onNavigate={onNavigate}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -914,7 +914,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
             <motion.div variants={fadeUp}>
               <ProductCardLink id="pilot-class-kit" source="pilot-programme" locale={locale} tone="dark" className="mb-6" />
             </motion.div>
-            <motion.p variants={fadeUp} className="text-xs text-white/45 leading-relaxed">
+            <motion.p variants={fadeUp} className="text-xs text-white/70 leading-relaxed">
               {content.cta.note}
             </motion.p>
           </motion.div>

@@ -107,15 +107,15 @@
 | `/vi/cong-cu/dong-ho-ielts-speaking-part-2` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-cong-cu-dong-ho-ielts-speaking-part-2` | Xem buổi đánh giá Speaking trực tiếp |
 | `/vi/cong-cu/dong-ho-ielts-speaking-part-2` | `/vi/products/ielts-cue-card-bank?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-cong-cu-dong-ho-ielts-speaking-part-2` | Xem tài liệu luyện IELTS Speaking |
 | `/story-club` | `https://books.jurassicenglish.com/?utm_source=jurassicenglish&utm_medium=internal&utm_content=story-club` | Read Story 1 of each level for free |
-| `/story-club` | `https://worldwise-story-quest.vercel.app/?utm_source=jurassicenglish&utm_medium=internal&utm_content=story-club` | Play the free Story Quest game together |
+| `/story-club` | `https://story-quest.jurassicenglish.com/?utm_source=jurassicenglish&utm_medium=internal&utm_content=story-club` | Play the free Story Quest game together |
 | `/vi/story-club` | `https://books.jurassicenglish.com/?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-story-club` | Đọc miễn phí Truyện 1 của mỗi cấp độ |
-| `/vi/story-club` | `https://worldwise-story-quest.vercel.app/?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-story-club` | Chơi Story Quest miễn phí cùng con |
+| `/vi/story-club` | `https://story-quest.jurassicenglish.com/?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-story-club` | Chơi Story Quest miễn phí cùng con |
 | `/student-academy` | `/en/story-club/reserve?utm_source=jurassicenglish&utm_medium=internal&utm_content=student-academy` | Review Story Club for ages 5–8 · 590,000₫ |
 | `/student-academy` | `https://books.jurassicenglish.com/?utm_source=jurassicenglish&utm_medium=internal&utm_content=student-academy` | Read Story 1 of each level for free |
 | `/student-academy/stories` | `/en/story-club/reserve?utm_source=jurassicenglish&utm_medium=internal&utm_content=student-academy-stories` | Review Story Club for ages 5–8 · 590,000₫ |
-| `/student-academy/stories` | `https://worldwise-story-quest.vercel.app/?utm_source=jurassicenglish&utm_medium=internal&utm_content=student-academy-stories` | Play the free Story Quest game together |
+| `/student-academy/stories` | `https://story-quest.jurassicenglish.com/?utm_source=jurassicenglish&utm_medium=internal&utm_content=student-academy-stories` | Play the free Story Quest game together |
 | `/vi/student-academy/stories` | `/story-club/reserve?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-student-academy-stories` | Xem Story Club cho bé 5–8 tuổi · 590.000₫ |
-| `/vi/student-academy/stories` | `https://worldwise-story-quest.vercel.app/?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-student-academy-stories` | Chơi Story Quest miễn phí cùng con |
+| `/vi/student-academy/stories` | `https://story-quest.jurassicenglish.com/?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-student-academy-stories` | Chơi Story Quest miễn phí cùng con |
 
 ## Scope and verification
 

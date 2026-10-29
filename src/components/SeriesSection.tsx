@@ -44,7 +44,7 @@ export const SeriesSection = ({ onSelectLevel, onCompareLevels }: SeriesSectionP
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-2xl">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">
               {homeContent.series.eyebrow}
             </span>
             <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-jurassic-dark">{homeContent.series.title}</h2>

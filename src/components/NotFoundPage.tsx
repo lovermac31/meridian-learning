@@ -30,7 +30,7 @@ export function NotFoundPage({ onBack, onGetStarted }: NotFoundPageProps) {
         <button
           type="button"
           onClick={onGetStarted}
-          className="rounded-full bg-jurassic-accent px-6 py-3 text-sm font-bold text-white shadow-premium transition hover:brightness-110"
+          className="rounded-full bg-jurassic-accent px-6 py-3 text-sm font-bold text-jurassic-dark shadow-premium transition hover:brightness-110"
         >
           Get Started
         </button>

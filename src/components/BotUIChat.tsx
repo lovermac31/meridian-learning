@@ -6,7 +6,7 @@ import { createBot, type BotuiInterface } from 'botui';
 import { BotUI, BotUIAction, BotUIMessageList } from '@botui/react';
 import { AnimatePresence, motion } from 'motion/react';
 import { MessageSquareMore, Sparkles, X } from 'lucide-react';
-import { contactCopy, channelOrder, channelStyle, channelGlyph, qrFor, type Channel } from './GlobalContactPanel';
+import { contactCopy, channelOrder, channelStyle, channelGlyph, qrFor, qrDimensions, type Channel } from './GlobalContactPanel';
 import { getCurrentLocale } from '../i18n/routing';
 import {
   getBotUIPublicDestination,
@@ -379,7 +379,7 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
         aria-label="Open the Jurassic English assistant"
         className={`pointer-events-auto ml-auto inline-flex items-center gap-3 rounded-full border border-[#8e7448]/40 bg-jurassic-dark/95 p-2 text-left ${compactLauncher ? '' : 'sm:px-4 sm:py-3'} text-white shadow-[0_18px_45px_rgba(0,0,0,0.38)] backdrop-blur-md transition hover:-translate-y-0.5 hover:border-jurassic-accent/60 hover:bg-jurassic-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white`}
       >
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-jurassic-accent text-white shadow-[0_12px_24px_rgba(242,100,25,0.25)]">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-jurassic-accent text-jurassic-dark shadow-[0_12px_24px_rgba(242,100,25,0.25)]">
           <MessageSquareMore className="h-5 w-5" />
         </span>
         {/* Compact round launcher below sm so it never covers page CTAs or footer links (overhaul Gate 2). */}
@@ -420,10 +420,10 @@ function DirectChannels() {
       {qr && (
         <div id="je-direct-qr" className="mt-3 rounded-2xl border border-white/10 bg-white/5 p-3">
           <p className="text-xs leading-5 text-white/70">{t.channels[qr].description}</p>
-          <img className="mx-auto mt-2 max-h-48 w-auto rounded-xl bg-white object-contain p-2" src={qrFor[qr]} alt={t.qrAlt(t.channels[qr].label)} loading="lazy" />
+          <img className="mx-auto mt-2 max-h-48 w-auto rounded-xl bg-white object-contain p-2" src={qrFor[qr]} {...qrDimensions[qr as keyof typeof qrDimensions]} alt={t.qrAlt(t.channels[qr].label)} loading="lazy" />
           <div className="mt-2 flex flex-wrap gap-2">
             {(t.channels[qr].actions as Array<{ label: string; href: string; download?: boolean; external?: boolean }>).map((action) => (
-              <a key={action.href + action.label} className="inline-flex min-h-11 items-center rounded-full bg-jurassic-accent px-4 text-xs font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              <a key={action.href + action.label} className="inline-flex min-h-11 items-center rounded-full bg-jurassic-accent px-4 text-xs font-semibold text-jurassic-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 href={action.href} {...(action.download ? { download: '' } : {})} {...(action.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{action.label}</a>
             ))}
           </div>

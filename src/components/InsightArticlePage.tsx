@@ -122,7 +122,7 @@ export const InsightArticlePage = ({ article, children, related, onNavigate, fol
           <a
             href="/get-started"
             onClick={(e) => go(e, '/get-started')}
-            className="mt-4 inline-flex items-center gap-2 rounded-full bg-jurassic-accent px-6 py-3 text-sm font-semibold text-white shadow-premium transition-all hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-jurassic-accent px-6 py-3 text-sm font-semibold text-jurassic-dark shadow-premium transition-all hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
           >
             Book a Student Thinking Diagnostic
             <ArrowRight aria-hidden="true" className="h-4 w-4" />

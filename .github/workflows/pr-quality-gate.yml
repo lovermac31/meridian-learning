@@ -12,6 +12,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 concurrency:
   group: quality-${{ github.ref }}
   cancel-in-progress: true
@@ -50,6 +53,9 @@ jobs:
           npm run build --prefix docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing
           npm run verify:asset-links
 
+      - name: Reject broken built internal links, fragments and assets
+        run: npm run check:links
+
       - name: Validate rendered click depth, indexed inbound links and redirects
         run: npm run validate:crawl
 
@@ -58,6 +64,9 @@ jobs:
 
       - name: Install muted browser test runtime
         run: npx playwright install --with-deps chromium
+
+      - name: Built-site accessibility, image sizing and 375px layout
+        run: npm run test:site-quality -- /tmp/site-quality.json
 
       - name: Story Club reserve browser acceptance (synthetic only)
         run: npm run test:browser:reserve
@@ -70,4 +79,5 @@ jobs:
           path: |
             docs/qa/story-club-reserve/
             test-results/
+            /tmp/site-quality.json
           retention-days: 14
