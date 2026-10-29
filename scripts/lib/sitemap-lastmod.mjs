@@ -29,6 +29,9 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
+const ASSET_LINK_SOURCES = ['src/content/assetLinks.json', 'src/components/AssetNextStep.tsx'];
+const ASSET_LINK_PATHS = new Set(JSON.parse(fs.readFileSync(new URL('../../src/content/assetLinks.json', import.meta.url), 'utf8')).map(card => card.path));
+
 const component = (name) => `src/components/${name}.tsx`;
 const content = (name) => `src/i18n/content/${name}.ts`;
 
@@ -119,7 +122,7 @@ function toCanonicalPath(pathname) {
 }
 
 /** Source files for a sitemap pathname, or null when it has no honest mapping. */
-export function getRouteSourceFiles(pathname) {
+function getBaseRouteSourceFiles(pathname) {
   if (UNMAPPED_URL_PATTERNS.some((pattern) => pattern.test(pathname))) return null;
 
   const canonical = toCanonicalPath(pathname);
@@ -135,11 +138,18 @@ export function getRouteSourceFiles(pathname) {
   return null;
 }
 
+/** Include contextual content only for pages that actually render the asset card. */
+export function getRouteSourceFiles(pathname) {
+  const files = getBaseRouteSourceFiles(pathname);
+  return files && ASSET_LINK_PATHS.has(pathname) ? [...files, ...ASSET_LINK_SOURCES] : files;
+}
+
 /** Every file path the map references (for the existence test). */
 export function getAllMappedSourceFiles() {
   return [
     ...new Set([
       ...Object.values(STATIC_ROUTE_SOURCES).flat(),
+      ...ASSET_LINK_SOURCES,
       ...SERIES_SOURCES,
       ...SYLLABUS_SOURCES,
       ...THINKING_CYCLE_SOURCES,

@@ -1,3 +1,4 @@
+import { AssetNextStep } from './AssetNextStep';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Locale } from '../i18n/locales';
 import { AVERAGE_FRACTIONS, calculateOverallBand, isValidBand, minimumBandForTarget, roundAverage } from '../lib/ieltsBand';
@@ -198,7 +199,7 @@ export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
       <p className="text-sm">{c.independent}</p>
     </div>
     <div className="insights-closing"><div><p>{c.baseline}</p><div className="insights-closing-actions"><a className="insights-button-primary" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.baseline}</a></div></div></div>
-  </main>;
+  <AssetNextStep pathname={locale === 'vi' ? '/vi/cong-cu/tinh-diem-ielts' : '/tools/ielts-band-score-calculator'} /></main>;
 }
 
 export function IeltsSpeakingTimerPage({ locale }: { locale: Locale }) {
@@ -279,7 +280,7 @@ export function IeltsSpeakingTimerPage({ locale }: { locale: Locale }) {
     <section className={cardClass}><h2 className="text-xl font-bold">{c.record}</h2><p className="my-3">{c.privacy}</p><button type="button" className={buttonClass} onClick={recording ? stopRecording : () => void startRecording()}>{recording ? c.stop : c.record}</button>{recording && <p role="status" className="mt-3">{c.recording}</p>}{micError && <p role="alert" className="mt-3 text-red-800">{c.micError}</p>}{playback && <div className="mt-4"><label className="block" htmlFor="timer-playback">{c.playback}</label><audio id="timer-playback" controls src={playback} /></div>}</section>
     <div className="flex flex-wrap gap-6"><a className="font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi' : '/ai-speaking'}>{c.practice}</a><a className="font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.measured}</a></div>
     <p className="text-sm">{c.timerNotOfficial} {c.independent}</p>
-  </div><div className="insights-closing"><div><p>{c.measured}</p><div className="insights-closing-actions"><a className="insights-button-primary" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.measured}</a></div></div></div></main>;
+  </div><div className="insights-closing"><div><p>{c.measured}</p><div className="insights-closing-actions"><a className="insights-button-primary" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.measured}</a></div></div></div><AssetNextStep pathname={locale === 'vi' ? '/vi/cong-cu/dong-ho-ielts-speaking-part-2' : '/tools/ielts-speaking-part-2-timer'} /></main>;
 }
 
 export { copy as ieltsToolsCopy, calculatorEn, calculatorVi, timerEn, timerVi };

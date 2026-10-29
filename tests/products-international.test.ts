@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { renderRoute } from '../src/entry-server';
 import { seoPages, isInternationalMarketPath } from '../src/lib/seoPages';
 import { orderCode, productPaypalHref } from '../src/lib/productsSource';
+import assetCards from '../src/content/assetLinks.json';
 import { PRODUCTS } from '../src/i18n/content/products';
 
 // Overseas buyers (master, 27 Oct 2026; Sale Team visibility-me-asia/campaign/03): every country page links the
@@ -29,7 +30,8 @@ test('S2 + S3: every country page links the Baseline sample once, tagged market-
     countries += 1;
     const market = slug(page.path);
     assert.deepEqual(samples, [`/products?utm_source=market-${market}#baseline-sample`], page.path);
-    assert.deepEqual(productLinks, samples, `${page.path}: every /products link is tagged, utm before the #`);
+    const assetProductLinks = assetCards.find(card => card.path === page.path)!.links.filter(link => link.href.startsWith('/products/')).map(link => link.href);
+    assert.deepEqual(productLinks, [...samples, ...assetProductLinks], `${page.path}: existing sample plus contextual tracked product link`);
     // Beside the PayPal options where the page takes PayPal; under the hero buttons where it does not.
     const pay = html.indexOf('<section id="pay"');
     const at = html.indexOf('data-link="market-sample"');
