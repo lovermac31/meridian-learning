@@ -1,3 +1,4 @@
+import { AssetNextStep } from './AssetNextStep';
 import { ArrowRight, ArrowUpRight, Gift, Mail, MessageCircle, ShieldCheck } from "lucide-react";
 import { REWARD, ROUTE as FAMILY_REWARDS_ROUTE } from "@/lib/familyRewards/terms";
 import { levelHref } from "@/lib/academy/levelBooks";
@@ -191,6 +192,8 @@ export function StudentAcademyOverhaul({ familyRewards = false }: { familyReward
           </ul>
         </div>
       </section>
+
+      <AssetNextStep pathname="/student-academy" />
 
       {/* Placement consultation */}
       <section id="diagnostic" className="scroll-mt-24 px-4 py-14 sm:px-6" aria-labelledby="diagnostic-heading">

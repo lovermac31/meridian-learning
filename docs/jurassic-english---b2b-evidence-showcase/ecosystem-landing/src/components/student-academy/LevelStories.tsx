@@ -1,3 +1,4 @@
+import { AssetNextStep } from './AssetNextStep';
 import { ArrowLeft, ArrowRight, BookOpen, MessageCircle } from "lucide-react";
 import {
   LEVEL_BOOKS,
@@ -144,6 +145,8 @@ export function LevelStories({ locale }: { locale: Locale }) {
         </a>
         <h1 className="mt-4 text-[2rem] font-extrabold leading-tight text-[#1E4D3B]">{c.title}</h1>
         <p className="mt-2 max-w-2xl text-[#4A5568]">{c.intro}</p>
+
+        <AssetNextStep pathname={locale === 'vi' ? '/vi/student-academy/stories' : '/student-academy/stories'} />
 
         {LEVEL_BOOKS.map((level) => (
           <section key={level.level} id={levelAnchor(level.level)} aria-labelledby={`${levelAnchor(level.level)}-h`} className="mt-10 scroll-mt-24">

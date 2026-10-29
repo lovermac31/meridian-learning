@@ -78,6 +78,7 @@ function getChangefreq(pathname) {
 }
 
 const toolPairs = [
+  ['/en/story-club/reserve', '/story-club/reserve'],
   ['/tools/ielts-band-score-calculator', '/vi/cong-cu/tinh-diem-ielts'],
   ['/tools/ielts-speaking-part-2-timer', '/vi/cong-cu/dong-ho-ielts-speaking-part-2'],
 ];

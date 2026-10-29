@@ -43,6 +43,13 @@ jobs:
       - name: Validate prerender routes
         run: npm run validate:prerender
 
+      - name: Build Academy pages and verify every new SEO asset link
+        run: |
+          npm ci --prefix docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing --no-audit --no-fund
+          npm run test:family-rewards --prefix docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing
+          npm run build --prefix docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing
+          npm run verify:asset-links
+
       - name: Install muted browser test runtime
         run: npx playwright install --with-deps chromium
 

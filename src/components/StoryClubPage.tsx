@@ -1,3 +1,4 @@
+import { AssetNextStep } from './AssetNextStep';
 import { Check, Minus } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
@@ -165,6 +166,6 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           </div>
         </div>
       </div>
-    </main>
+    <AssetNextStep pathname={locale === 'vi' ? '/vi/story-club' : '/story-club'} /></main>
   );
 }
