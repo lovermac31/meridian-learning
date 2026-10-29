@@ -8,10 +8,10 @@ import { ToolHero } from './IeltsToolsPage';
 
 const copy = {
   en: {
-    title: 'Reserve a Story Club seat', intro: 'A small, friendly English story group with Mr. Jay.', sample: 'Read a free Story 1 first', sampleTitle: 'Mina and the Midnight Drum · Level 1', price: 'Story Club with Mr. Jay', amount: '590,000₫ · 4 weeks', details: 'Online on Google Meet · Ages 5–8 · Up to 6 children', groupDetails: 'The group meets weekly for four weeks. Mr. Jay reads an original Jurassic English story, leads a short discussion, and gives children one small follow-up task.', next: 'Next group:', form: 'Ask for a place', formDetails: 'This form does not charge a card. After sending your request, you will see the bank-transfer instructions and a short payment memo.', name: 'Parent name', phone: 'Zalo number', age: "Child's age", group: 'Preferred group', consent: 'I agree that Jurassic English may use my details to reply to this Story Club request. See the privacy notice.', submit: 'Reserve a seat', invalid: 'Please check your name, Vietnamese Zalo number, child age (5–8), and preferred group.', failed: 'We could not send your request. Please try again or message Mr. Jay on Zalo.', thanks: 'Thank you. Your request has been received.', pay: 'Payment instructions', transfer: 'Transfer memo', qrFallback: 'Mr. Jay will send the payment QR on Zalo within the day', zalo: 'Ask Mr. Jay on Zalo', privacy: 'Privacy notice', required: 'Please agree before sending your request.',
+    title: 'Reserve a Story Club seat', intro: 'A small, friendly English story group with Mr. Jay.', sample: 'Read a free Story 1 first', sampleTitle: 'Mina and the Midnight Drum · Level 1', price: 'Story Club with Mr. Jay', amount: '590,000₫ · 4 weeks', details: 'Online on Google Meet · Ages 5–8 · Up to 6 children', groupDetails: 'The group meets weekly for four weeks. Mr. Jay reads an original Jurassic English story, leads a short discussion, and gives children one small follow-up task.', next: 'Next group:', form: 'Ask for a place', formDetails: 'This form does not charge a card. After sending your request, you will see the bank-transfer instructions and a short payment memo.', name: 'Parent name', phone: 'Zalo number', age: "Child's age", group: 'Preferred group', consent: 'I agree that Jurassic English may use my details to reply to this Story Club request. See the privacy notice.', submit: 'Reserve a seat', invalid: 'Please check your name, Vietnamese Zalo number, child age (5–8), and preferred group.', failed: 'We could not send your request. Please try again or message Mr. Jay on Zalo.', thanks: 'Thank you. Your request has been received.', pay: 'Payment instructions', transfer: 'Transfer memo', qrFallback: 'Mr. Jay will send the payment QR on Zalo within the day', zalo: 'Ask Mr. Jay on Zalo', privacy: 'Privacy notice', required: 'Please agree before sending your request.', paymentPending: 'We’re checking your payment. This can take a moment.', paymentReceived: 'Payment received ✓ Mr. Jay will add you to the Saturday group on Zalo',
   },
   vi: {
-    title: 'Đặt chỗ Câu lạc bộ Truyện', intro: 'Nhóm tiếng Anh qua truyện nhỏ, thân thiện cùng thầy Jay.', sample: 'Đọc thử Truyện 1 miễn phí trước', sampleTitle: 'Mina và chiếc trống lúc nửa đêm · Cấp độ 1', price: 'Câu lạc bộ Truyện cùng thầy Jay', amount: '590.000₫ · 4 tuần', details: 'Học trực tuyến qua Google Meet · Bé 5–8 tuổi · Tối đa 6 bé', groupDetails: 'Nhóm gặp nhau mỗi tuần trong bốn tuần. Thầy Jay đọc truyện gốc của Jurassic English, cùng các bé trò chuyện và giao một hoạt động nhỏ sau buổi học.', next: 'Nhóm tiếp theo:', form: 'Đăng ký chỗ', formDetails: 'Biểu mẫu này không thu tiền qua thẻ. Sau khi gửi yêu cầu, bạn sẽ thấy hướng dẫn chuyển khoản và mã nội dung thanh toán.', name: 'Tên phụ huynh', phone: 'Số Zalo', age: 'Tuổi của bé', group: 'Nhóm mong muốn', consent: 'Tôi đồng ý để Jurassic English sử dụng thông tin của mình để phản hồi yêu cầu về Câu lạc bộ Truyện. Xem thông báo quyền riêng tư.', submit: 'Đặt chỗ', invalid: 'Vui lòng kiểm tra họ tên, số Zalo Việt Nam, tuổi của bé (5–8) và nhóm mong muốn.', failed: 'Chưa gửi được yêu cầu. Vui lòng thử lại hoặc nhắn thầy Jay qua Zalo.', thanks: 'Cảm ơn bạn. Chúng tôi đã nhận được yêu cầu.', pay: 'Hướng dẫn thanh toán', transfer: 'Nội dung chuyển khoản', qrFallback: 'Thầy Jay sẽ gửi mã QR thanh toán qua Zalo trong ngày hôm nay', zalo: 'Hỏi thầy Jay qua Zalo', privacy: 'Thông báo quyền riêng tư', required: 'Vui lòng đồng ý trước khi gửi yêu cầu.',
+    title: 'Đặt chỗ Câu lạc bộ Truyện', intro: 'Nhóm tiếng Anh qua truyện nhỏ, thân thiện cùng thầy Jay.', sample: 'Đọc thử Truyện 1 miễn phí trước', sampleTitle: 'Mina và chiếc trống lúc nửa đêm · Cấp độ 1', price: 'Câu lạc bộ Truyện cùng thầy Jay', amount: '590.000₫ · 4 tuần', details: 'Học trực tuyến qua Google Meet · Bé 5–8 tuổi · Tối đa 6 bé', groupDetails: 'Nhóm gặp nhau mỗi tuần trong bốn tuần. Thầy Jay đọc truyện gốc của Jurassic English, cùng các bé trò chuyện và giao một hoạt động nhỏ sau buổi học.', next: 'Nhóm tiếp theo:', form: 'Đăng ký chỗ', formDetails: 'Biểu mẫu này không thu tiền qua thẻ. Sau khi gửi yêu cầu, bạn sẽ thấy hướng dẫn chuyển khoản và mã nội dung thanh toán.', name: 'Tên phụ huynh', phone: 'Số Zalo', age: 'Tuổi của bé', group: 'Nhóm mong muốn', consent: 'Tôi đồng ý để Jurassic English sử dụng thông tin của mình để phản hồi yêu cầu về Câu lạc bộ Truyện. Xem thông báo quyền riêng tư.', submit: 'Đặt chỗ', invalid: 'Vui lòng kiểm tra họ tên, số Zalo Việt Nam, tuổi của bé (5–8) và nhóm mong muốn.', failed: 'Chưa gửi được yêu cầu. Vui lòng thử lại hoặc nhắn thầy Jay qua Zalo.', thanks: 'Cảm ơn bạn. Chúng tôi đã nhận được yêu cầu.', pay: 'Hướng dẫn thanh toán', transfer: 'Nội dung chuyển khoản', qrFallback: 'Thầy Jay sẽ gửi mã QR thanh toán qua Zalo trong ngày hôm nay', zalo: 'Hỏi thầy Jay qua Zalo', privacy: 'Thông báo quyền riêng tư', required: 'Vui lòng đồng ý trước khi gửi yêu cầu.', paymentPending: 'Đang kiểm tra thanh toán. Vui lòng chờ trong giây lát.', paymentReceived: 'Đã nhận thanh toán ✓ Thầy Jay sẽ thêm bạn vào nhóm Thứ Bảy trên Zalo',
   },
 } as const;
 
@@ -21,6 +21,7 @@ const FIELD = 'mt-1 block min-h-11 w-full rounded-xl border border-sb-border bg-
 export function StoryClubReservePage({ locale }: { locale: Locale }) {
   const t = copy[locale];
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
+  const [paymentReceived, setPaymentReceived] = useState(false);
   const [error, setError] = useState('');
   const [sending, setSending] = useState(false);
   const [startedAt] = useState(() => new Date().toISOString());
@@ -40,6 +41,36 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
     trackedPay.current = true;
     recordClientEvent({ event: 'pay_instructions_shown', product_id: 'story-club', locale });
   }, [confirmation, locale]);
+
+  useEffect(() => {
+    if (!confirmation) return;
+    let stopped = false;
+    let inFlight = false;
+    let interval = 0;
+    const poll = async () => {
+      if (stopped || inFlight) return;
+      inFlight = true;
+      try {
+        const response = await fetch(`/api/story-club/status?memo=${encodeURIComponent(confirmation.memo)}`, {
+          method: 'GET', cache: 'no-store', headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(5_000),
+        });
+        if (!response.ok) return;
+        const result = await response.json() as { paid?: unknown };
+        if (result.paid === true && !stopped) {
+          stopped = true;
+          window.clearInterval(interval);
+          setPaymentReceived(true);
+        }
+      } catch {
+        // Transient polling failures are quiet; the bounded interval keeps retrying.
+      } finally {
+        inFlight = false;
+      }
+    };
+    interval = window.setInterval(() => { void poll(); }, 20_000);
+    const expiry = window.setTimeout(() => { stopped = true; window.clearInterval(interval); }, 15 * 60_000);
+    return () => { stopped = true; window.clearInterval(interval); window.clearTimeout(expiry); };
+  }, [confirmation]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -74,6 +105,7 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
       const result = await response.json() as { memo?: unknown; submissionId?: string };
       if (typeof result.memo !== 'string' || !/^SC-[A-Z0-9]{6}$/.test(result.memo)) throw new Error('Missing canonical reserve memo');
       setConfirmation({ memo: result.memo });
+      setPaymentReceived(false);
       recordClientEvent({ event: 'reserve_submit', product_id: 'story-club', locale });
     } catch {
       setError(t.failed);
@@ -108,6 +140,7 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
             <h3 className="mt-5 text-xl font-bold">{t.pay}</h3>
             <p className="mt-2">{t.amount}</p>
             <p className="mt-2">{t.transfer}: <strong data-transfer-memo>{confirmation.memo}</strong></p>
+            <p className="mt-3 font-semibold" data-payment-status>{paymentReceived ? t.paymentReceived : t.paymentPending}</p>
             <img src={STORY_CLUB_QR_PATH} alt="Story Club VietQR payment" className="mt-4 max-h-72 w-auto" onError={(event) => { event.currentTarget.hidden = true; const fallback = document.getElementById('reserve-qr-fallback'); if (fallback) fallback.hidden = false; }} />
             <p id="reserve-qr-fallback" className="mt-3" hidden>{t.qrFallback}</p>
             <a className="insights-button-primary mt-5" href="/go/zalo?utm_source=reserve&utm_content=after-submit" data-after-submit-zalo>{t.zalo}</a>
