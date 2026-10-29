@@ -79,6 +79,12 @@ export const Footer = ({ onNavigate }: FooterProps) => {
           </ul>
         </nav>
 
+        <nav aria-label={locale === 'vi' ? 'Luyện tập và bài học' : 'Practice and lessons'} className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-sb-forest">
+          <a href={locale === 'vi' ? '/ai-speaking/vi/lessons' : '/ai-speaking/lessons'}>{locale === 'vi' ? 'Bài học 1 kèm 1' : 'One-to-one lessons'}</a>
+          <a href={locale === 'vi' ? '/ai-speaking/vi/writing' : '/ai-speaking/writing'}>{locale === 'vi' ? 'Luyện viết IELTS' : 'IELTS Writing practice'}</a>
+          <a href={locale === 'vi' ? '/vi/student-academy/stories' : '/student-academy/stories'}>{locale === 'vi' ? 'Truyện theo cấp độ' : 'Level stories'}</a>
+        </nav>
+
         <p className="mt-8 max-w-3xl text-sm leading-relaxed text-sb-slate">
           {footer.institutionalLead}{' '}
           <WorldWiseLink className="font-bold text-sb-forest underline underline-offset-4 hover:text-sb-amber-deep">

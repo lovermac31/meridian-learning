@@ -128,6 +128,31 @@ function buildUrl(pathname) {
  * discovered by search engines without touching routeMetadata.ts.
  */
 const STATIC_EXTRA_URLS = [
+  // Read-only live audit: final, self-canonical public routes linked by the external apps.
+  ...[
+    '/ai-speaking/exam',
+    '/ai-speaking/lessons',
+    '/ai-speaking/privacy',
+    '/ai-speaking/solutions',
+    '/ai-speaking/terms',
+    '/ai-speaking/vi/baseline',
+    '/ai-speaking/vi/lessons',
+    '/ai-speaking/vi/pricing',
+    '/ai-speaking/vi/samples',
+    '/ai-speaking/vi/samples/advanced',
+    '/ai-speaking/vi/samples/intermediate',
+    '/ai-speaking/vi/solutions',
+    '/ai-speaking/vi/writing',
+    '/ai-speaking/writing',
+    '/student-academy/stories',
+    '/ai-speaking/vi/writing/demo',
+    '/ai-speaking/vi/writing/sample',
+    '/ai-speaking/writing/demo',
+    '/ai-speaking/writing/sample',
+    '/vi/student-academy/stories',
+  ].map((pathname) => ({
+    loc: `${SITE_URL}${pathname}`, changefreq: 'monthly', priority: '0.6',
+  })),
   {
     loc: `${SITE_URL}/challenges/one-change`,
     changefreq: 'monthly',
@@ -159,7 +184,7 @@ const STATIC_EXTRA_URLS = [
     changefreq: 'monthly',
     priority: '0.6',
   },
-  ...['basic', 'intermediate', 'advanced'].map((tier) => ({
+  ...['intermediate', 'advanced'].map((tier) => ({
     loc: `${SITE_URL}/ai-speaking/samples/${tier}`,
     changefreq: 'monthly',
     priority: '0.5',

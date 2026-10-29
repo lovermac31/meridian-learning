@@ -67,7 +67,7 @@ export const SyllabusExperience = ({
           >
             <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">{pageContent.hero.eyebrow}</span>
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-              {level.title}
+              {locale === 'vi' ? `Đề cương chương trình ${level.title}` : `${level.title} — Curriculum syllabus`}
             </h1>
             <p className="mt-4 text-jurassic-gold text-lg font-semibold">{level.tagline}</p>
             <div className="mt-6 space-y-4 text-lg text-white/72 leading-relaxed max-w-3xl">

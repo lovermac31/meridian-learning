@@ -69,11 +69,11 @@ test('an unknown product id is not a product page and is not indexed', () => {
   assert.equal(resolveRouteMetadata('/products/not-a-product').robots, 'noindex, nofollow');
 });
 
-test('page: H1 is the product name, with the copy, sample viewer button (no PDF), price, order, FAQ and 3 related', () => {
+test('page: H1 distinguishes the localized offer, with the copy, sample viewer button (no PDF), price, order, FAQ and 3 related', () => {
   for (const [, locale, p] of pages) {
     const html = renderToStaticMarkup(createElement(ProductPage, { product: p, locale }));
     const h1 = html.match(/<h1[^>]*>(.*?)<\/h1>/)?.[1];
-    assert.equal(h1?.replaceAll('&#x27;', '’').replaceAll('&amp;', '&'), p[locale].title.replaceAll('&', '&'), `${p.id} ${locale}`);
+    assert.equal(h1?.replaceAll('&#x27;', '’').replaceAll('&amp;', '&'), PRODUCT_SEO[p.id][locale].title.split(' | ')[0], `${p.id} ${locale}`);
     assert.match(html, new RegExp(`data-price="${p.id}"`));
     assert.match(html, new RegExp(`data-cta="product-page-${p.id}"`));
     assert.match(html, /aria-label="Breadcrumb"/);

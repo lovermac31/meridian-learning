@@ -11,6 +11,16 @@
   ],
   "redirects": [
     {
+      "source": "/ai-speaking/samples/basic",
+      "destination": "/ai-speaking/samples",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking/vi/samples/basic",
+      "destination": "/ai-speaking/vi/samples",
+      "permanent": true
+    },
+    {
       "source": "/challenges/one-change/",
       "destination": "/challenges/one-change",
       "permanent": true

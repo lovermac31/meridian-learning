@@ -1,0 +1,5313 @@
+[
+  {
+    "url": "https://jurassicenglish.com/",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking",
+    "description": "Jurassic English™ helps students, parents, schools, and learning centers build academic English, critical thinking, literature-based reasoning, and IELTS-aligned speaking confidence.",
+    "mainWords": 1215,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Jurassic English™ | Tư duy phản biện, tiếng Anh học thuật & luyện nói IELTS",
+    "description": "Jurassic English™ giúp học sinh, phụ huynh, nhà trường và trung tâm đào tạo phát triển tiếng Anh học thuật, tư duy phản biện, lập luận dựa trên văn học và sự tự tin khi nói theo chuẩn IELTS.",
+    "mainWords": 1773,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/framework",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Literature-Based Critical Thinking Framework | Jurassic English™",
+    "description": "The Jurassic English™ framework integrates the Jurassic Thinking Cycle, CEFR progression, and ecocentric pedagogy into a structured school curriculum from Pre-A1 to C1.",
+    "mainWords": 972,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/framework"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/framework"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/framework"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/framework",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Khung tư duy phản biện dựa trên văn học | Jurassic English™",
+    "description": "Khung Jurassic English™ tích hợp Jurassic Thinking Cycle, tiến trình CEFR và định hướng sư phạm sinh thái vào một chương trình học đường có cấu trúc từ Pre-A1 đến C1.",
+    "mainWords": 1723,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/framework"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/framework"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/framework"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/knowledge",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Ask / Knowledge Hub — Framework, Methodology, CEFR & IELTS Speaking | Jurassic English™",
+    "description": "One place for the depth on demand: the Jurassic English™ framework, methodology, CEFR alignment, teacher standards, the Jurassic Thinking Cycle™, and parent answers on reading, diagnostics, progress, and IELTS-aligned speaking for ages 9-18.",
+    "mainWords": 324,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/knowledge"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/knowledge"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/get-started",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Get Started — Teacher Training, School Licensing & Family Enquiries | Jurassic English™",
+    "description": "Get started with Jurassic English™: teacher training, school licensing, curriculum review, academic consulting, and family enquiries about academic English and IELTS-aligned speaking coaching for ages 9-18.",
+    "mainWords": 252,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/get-started"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/get-started"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/get-started"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/get-started",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Liên hệ về đào tạo giáo viên và cấp phép cho trường | Jurassic English™",
+    "description": "Liên hệ Jurassic English™ để trao đổi về đào tạo giáo viên, cấp phép cho trường, rà soát chương trình hoặc tư vấn học thuật phù hợp với bối cảnh của bạn.",
+    "mainWords": 362,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/get-started"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/get-started"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/get-started"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/worldwise",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "WorldWise Learning — Institutional Curriculum Architecture | Jurassic English™",
+    "description": "WorldWise Learning provides the structural foundation for high-quality English instruction — standards alignment, methodology governance, and implementation architecture for schools, training centres, and institutional partners.",
+    "mainWords": 647,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/worldwise"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/worldwise"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/audit-sprint",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Curriculum Coherence Audit Sprint | Jurassic English™",
+    "description": "A focused curriculum review for schools and centers: alignment, materials, teacher practice, progression logic, and an implementation roadmap.",
+    "mainWords": 875,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/audit-sprint"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/audit-sprint"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/companies",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Business & Technical English for Tech Teams | Jurassic English™",
+    "description": "AI-assisted business and technical English for Vietnam's tech and export teams (Ho Chi Minh City & Hanoi). Client-ready communication for engineers, measured in CEFR/IELTS gains and built on the public assessment criteria. Book a scoping call.",
+    "mainWords": 753,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/companies"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/companies"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/pilot-programme",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Jurassic English™ Pilot Programme — 6-8 Week Institutional Evaluation",
+    "description": "A structured 6-8 week Jurassic English™ pilot pathway for schools, academies, and training centres. Measure student reasoning evidence, teacher fidelity, progression fit, and implementation readiness before wider rollout.",
+    "mainWords": 1802,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/pilot-programme"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/pilot-programme"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/discovery",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Discovery Call for Schools | Jurassic English™",
+    "description": "Book a structured consultation for curriculum alignment, teacher training, school licensing, or academic English implementation.",
+    "mainWords": 632,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/discovery"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/discovery"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/methodology",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Jurassic Thinking Cycle™ Methodology | Jurassic English™",
+    "description": "Explore the four-stage reasoning architecture behind Jurassic English™ lessons: analyze, evaluate, justify, and reflect.",
+    "mainWords": 1143,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/methodology"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/methodology"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/cefr-alignment",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "CEFR Alignment, CEFR-V and MOET 2030 — Curriculum Standards Architecture | Jurassic English™",
+    "description": "How Jurassic English™ and WorldWise Learning map to CEFR, CEFR-V, and MOET 2030 national standards. A standards-facing companion to the methodology page — for institutional procurement, accreditation, and compliance review.",
+    "mainWords": 1306,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/cefr-alignment"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/cefr-alignment"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/teacher-standards",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Teacher Quality, iPGCE Standards and Methodology Fidelity | Jurassic English™",
+    "description": "Why teacher quality must be structural, not personality-dependent. iPGCE and PGCE qualification standards, Jurassic Thinking Cycle™ methodology preparation, and the delivery governance architecture that makes classroom consistency possible at scale.",
+    "mainWords": 1464,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/teacher-standards"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/teacher-standards"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/story-club",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™",
+    "description": "A small online story group for children aged 5–8: a 30-minute live story time each week, one small task at home and a personal reply from Mr. Jay. Up to 6 children per group.",
+    "mainWords": 619,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/story-club"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/story-club"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/story-club"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/story-club",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Câu lạc bộ Truyện cùng thầy Jay — tiếng Anh qua truyện cho bé 5–8 tuổi | Jurassic English™",
+    "description": "Nhóm nhỏ trực tuyến cho bé 5–8 tuổi: mỗi tuần 30 phút kể chuyện trực tiếp, một bài nhỏ ở nhà và phản hồi riêng từ thầy Jay. Tối đa 6 bạn mỗi nhóm.",
+    "mainWords": 785,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/story-club"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/story-club"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/story-club"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/en/story-club/reserve",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Reserve a Story Club seat — Jurassic English™",
+    "description": "Reserve a place in Story Club with Mr. Jay: a small online English story group for children aged 5–8.",
+    "mainWords": 158,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/en/story-club/reserve"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/story-club/reserve"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/story-club/reserve"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/story-club/reserve",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Đặt chỗ Câu lạc bộ Truyện — Jurassic English™",
+    "description": "Đăng ký một chỗ trong Câu lạc bộ Truyện cùng thầy Jay: nhóm tiếng Anh trực tuyến nhỏ cho trẻ 5–8 tuổi.",
+    "mainWords": 196,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/en/story-club/reserve"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/story-club/reserve"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/story-club/reserve"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Products and Prices | Jurassic English™",
+    "description": "Every Jurassic English product and price: Story Club, Speaking Baseline, 1-to-1 lessons, Level 1–5 Teacher Packs, teaching kits, centre licence and training.",
+    "mainWords": 6689,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Sản phẩm và học phí | Jurassic English™",
+    "description": "Mọi sản phẩm Jurassic English kèm giá: Câu lạc bộ Truyện, Đánh giá Nói, học 1 kèm 1, tài liệu giáo viên Level 1–5, bộ công cụ dạy học, giấy phép, đào tạo.",
+    "mainWords": 8458,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/story-club",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Online English Story Club for Kids 5–8 | Mr. Jay",
+    "description": "A small online English story group for ages 5–8: four 30-minute Saturday sessions, a task at home each week and Mr. Jay’s personal reply. 590.000₫.",
+    "mainWords": 226,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/story-club"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/story-club"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/story-club"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/story-club",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Câu lạc bộ đọc truyện tiếng Anh online cho bé 5–8 tuổi",
+    "description": "Nhóm nhỏ đọc truyện tiếng Anh trực tuyến cho bé 5–8 tuổi: 4 buổi sáng thứ Bảy, bài nhỏ ở nhà mỗi tuần và thầy Jay phản hồi riêng từng bé. 590.000₫.",
+    "mainWords": 291,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/story-club"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/story-club"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/story-club"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/baseline",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Speaking Level Test for Ages 9–18 | Baseline",
+    "description": "A live 15–20 minute speaking session with Mr. Jay, then a written plan: four criterion bands, an overall band and what to work on next. 690.000₫.",
+    "mainWords": 232,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/baseline"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/baseline"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/baseline"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/baseline",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Kiểm tra trình độ nói tiếng Anh cho con 9–18 tuổi",
+    "description": "Một buổi nói trực tiếp 15–20 phút với thầy Jay, sau đó là kế hoạch bằng văn bản: điểm bốn tiêu chí, điểm tổng và điều cần luyện tiếp. 690.000₫.",
+    "mainWords": 312,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/baseline"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/baseline"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/baseline"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/one-to-one",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Online 1-to-1 English & IELTS Speaking Lessons",
+    "description": "Private 60-minute online lessons with Mr. Jay’s team of professional teachers, built on a speaking diagnosis. 800.000₫ a lesson, 8 lessons 5.600.000₫.",
+    "mainWords": 226,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/one-to-one"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/one-to-one"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/one-to-one"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/one-to-one",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Học tiếng Anh 1 kèm 1 online với đội ngũ thầy Jay",
+    "description": "Buổi học riêng 60 phút trực tuyến với đội ngũ giáo viên chuyên nghiệp của thầy Jay, dựa trên đánh giá nói. 800.000₫/buổi, gói 8 buổi 5.600.000₫.",
+    "mainWords": 300,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/one-to-one"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/one-to-one"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/one-to-one"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/printable-pack",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Printable English Storybooks for Kids 4–8 (PDF)",
+    "description": "Print-ready PDFs of 3 original Jurassic English Level 1 storybooks for ages 4–8. One-family licence, print as many copies as you like. 149.000₫.",
+    "mainWords": 360,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/printable-pack"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/printable-pack"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/printable-pack"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/printable-pack",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Truyện tiếng Anh cho bé 4–8 tuổi bản in PDF",
+    "description": "Bản PDF in sẵn 3 truyện tiếng Anh gốc Level 1 của Jurassic English cho bé 4–8 tuổi. Giấy phép một gia đình, in bao nhiêu bản tùy ý. 149.000₫.",
+    "mainWords": 453,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/printable-pack"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/printable-pack"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/printable-pack"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/parent-pack-l1",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Reading at Home for Kids 4–8 | Parent Pack",
+    "description": "A ten-minute daily English reading routine for parents of children aged 4–8: bilingual guide, three storybooks, 12 activity pages, progress chart. 249.000₫.",
+    "mainWords": 365,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/parent-pack-l1"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/parent-pack-l1"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/parent-pack-l1"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/parent-pack-l1",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Dạy con đọc tiếng Anh tại nhà (4–8 tuổi) | Level 1",
+    "description": "Lộ trình đọc tiếng Anh 10 phút mỗi ngày cho phụ huynh có con 4–8 tuổi: hướng dẫn song ngữ, 3 truyện, 12 trang hoạt động, bảng tiến bộ. 249.000₫.",
+    "mainWords": 470,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/parent-pack-l1"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/parent-pack-l1"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/parent-pack-l1"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/parent-pack-l2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Reading at Home for Kids 8–10 | Parent Pack",
+    "description": "A fifteen-minute daily English reading routine for parents of children aged 8–10: bilingual guide, two storybooks, activity pages, progress chart. 249.000₫.",
+    "mainWords": 355,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/parent-pack-l2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/parent-pack-l2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/parent-pack-l2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/parent-pack-l2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Dạy con đọc tiếng Anh tại nhà (8–10 tuổi) | Level 2",
+    "description": "Lộ trình đọc tiếng Anh 15 phút mỗi ngày cho phụ huynh có con 8–10 tuổi: hướng dẫn song ngữ, 2 truyện, trang hoạt động và bảng tiến bộ. 249.000₫.",
+    "mainWords": 465,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/parent-pack-l2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/parent-pack-l2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/parent-pack-l2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/parent-pack-l3",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 3 Parent Home Reading Pack: Ages 10–12 (PDF)",
+    "description": "A parent guide in English and Vietnamese, three original Level 3 storybooks, 12 activity pages and a progress chart: six weeks at home, ages 10–12. 249.000₫.",
+    "mainWords": 367,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/parent-pack-l3"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/parent-pack-l3"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/parent-pack-l3"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/parent-pack-l3",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Bộ đọc sách tại nhà cho phụ huynh Level 3 (10–12 tuổi)",
+    "description": "Hướng dẫn cho phụ huynh song ngữ, ba truyện gốc Level 3, 12 trang hoạt động và bảng theo dõi tiến bộ: sáu tuần tại nhà cho con 10–12 tuổi. 249.000₫.",
+    "mainWords": 460,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/parent-pack-l3"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/parent-pack-l3"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/parent-pack-l3"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/holiday-reading-challenge",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Holiday Reading Challenge for Kids, Levels 1–2 (PDF)",
+    "description": "A four-week home reading plan for the holidays: a reading log, 12 story activities and a certificate, for children at Levels 1–2. 149.000₫.",
+    "mainWords": 350,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/holiday-reading-challenge"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/holiday-reading-challenge"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/holiday-reading-challenge"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/holiday-reading-challenge",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Thử thách đọc sách tiếng Anh kỳ nghỉ, Level 1–2",
+    "description": "Kế hoạch đọc tại nhà bốn tuần cho kỳ nghỉ: sổ ghi chép đọc sách, 12 hoạt động theo truyện và giấy khen cho con ở Level 1–2. 149.000₫.",
+    "mainWords": 438,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/holiday-reading-challenge"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/holiday-reading-challenge"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/holiday-reading-challenge"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/teacher-pack-l1",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Lesson Plans for Kids 4–8 | Teacher Pack L1",
+    "description": "40 scripted English lessons for ages 4–8 with the teacher’s lines and a simple rubric, plus the syllabus and implementation manual. One teacher. 690.000₫.",
+    "mainWords": 335,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l1"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l1"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l1"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/teacher-pack-l1",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Giáo án tiếng Anh cho trẻ 4–8 tuổi | Level 1",
+    "description": "40 giáo án tiếng Anh soạn sẵn từng phút cho trẻ 4–8 tuổi, có lời thoại giáo viên và tiêu chí chấm, kèm khung chương trình và sổ tay. 690.000₫.",
+    "mainWords": 442,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l1"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l1"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l1"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/teacher-pack-l2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Lesson Plans for Ages 8–10 | Teacher Pack L2",
+    "description": "Level 2 teacher materials for ages 8–10 (CEFR A1 → A2): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.",
+    "mainWords": 337,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/teacher-pack-l2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Giáo án tiếng Anh cho học sinh 8–10 tuổi | Level 2",
+    "description": "Tài liệu giáo viên Level 2 cho học sinh 8–10 tuổi (CEFR A1 → A2): khung chương trình, sổ tay triển khai và 40 giáo án. Một giáo viên. 690.000₫.",
+    "mainWords": 446,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/teacher-pack-l3",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Lesson Plans for Ages 10–12 | Teacher Pack L3",
+    "description": "Level 3 teacher materials for ages 10–12 (CEFR A2 → B1): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.",
+    "mainWords": 345,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l3"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l3"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l3"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/teacher-pack-l3",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Giáo án tiếng Anh cho học sinh 10–12 tuổi | Level 3",
+    "description": "Tài liệu giáo viên Level 3 cho học sinh 10–12 tuổi (CEFR A2 → B1): khung chương trình, sổ tay triển khai và 40 giáo án. Một giáo viên. 690.000₫.",
+    "mainWords": 453,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l3"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l3"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l3"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/teacher-pack-l4",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Lesson Plans for Ages 12–14 | Teacher Pack L4",
+    "description": "Level 4 teacher materials for ages 12–14 (CEFR B1 → B2): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.",
+    "mainWords": 335,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l4"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l4"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l4"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/teacher-pack-l4",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Giáo án tiếng Anh cho học sinh 12–14 tuổi | Level 4",
+    "description": "Tài liệu giáo viên Level 4 cho học sinh 12–14 tuổi (CEFR B1 → B2): khung chương trình, sổ tay triển khai và 40 giáo án. Một giáo viên. 690.000₫.",
+    "mainWords": 444,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l4"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l4"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l4"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/teacher-pack-l5",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Lesson Plans for Teens 14+ | Teacher Pack L5",
+    "description": "Level 5 teacher materials for ages 14+ (CEFR B2 → C1): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.",
+    "mainWords": 355,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l5"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l5"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l5"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/teacher-pack-l5",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Giáo án tiếng Anh nâng cao cho học sinh 14+ | Level 5",
+    "description": "Tài liệu giáo viên Level 5 cho học sinh từ 14 tuổi (CEFR B2 → C1): khung chương trình, sổ tay triển khai và 40 giáo án. Một giáo viên. 690.000₫.",
+    "mainWords": 455,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l5"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-pack-l5"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-pack-l5"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/teacher-bundle",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "200 English Lesson Plans, Levels 1–5 | Teacher Bundle",
+    "description": "All five Jurassic English Teacher Packs: the syllabus, implementation manual and 40 lesson plans for each level, 200 in all. One teacher. 2.900.000₫.",
+    "mainWords": 363,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-bundle"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-bundle"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-bundle"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/teacher-bundle",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Trọn bộ 200 giáo án tiếng Anh Level 1–5",
+    "description": "Cả năm bộ tài liệu giáo viên Jurassic English: khung chương trình, sổ tay triển khai và 40 giáo án mỗi level, tổng 200 giáo án. Một giáo viên. 2.900.000₫.",
+    "mainWords": 467,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-bundle"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-bundle"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-bundle"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/student-workbook-l1",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Printable English Workbook for Kids 4–8 | Level 1",
+    "description": "63 printable A4 English pages for ages 4–8: 40 lesson pages, story openers and a Thinking Passport. 190.000₫ per learner, class set of 10 for 1.490.000₫.",
+    "mainWords": 390,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l1"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l1"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l1"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/student-workbook-l1",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Sách bài tập tiếng Anh cho bé 4–8 tuổi | Level 1",
+    "description": "63 trang A4 in sẵn cho bé 4–8 tuổi: 40 trang bài học, mở đầu truyện và Hộ chiếu Tư duy. 190.000₫ mỗi học viên, bộ lớp 10 em 1.490.000₫.",
+    "mainWords": 493,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l1"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l1"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l1"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/student-workbook-l2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Printable English Workbook for Ages 8–10 | Level 2",
+    "description": "62 printable A4 pages for learners aged 8–10 (CEFR A1 → A2), in the order of the Level 2 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.",
+    "mainWords": 395,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/student-workbook-l2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Sách bài tập tiếng Anh cho học sinh 8–10 tuổi | Level 2",
+    "description": "62 trang A4 in sẵn cho học sinh 8–10 tuổi (CEFR A1 → A2), theo thứ tự giáo án Level 2. 190.000₫ mỗi học viên, bộ lớp 10 em 1.490.000₫.",
+    "mainWords": 505,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/student-workbook-l3",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Printable English Workbook for Ages 10–12 | Level 3",
+    "description": "62 printable A4 pages for learners aged 10–12 (CEFR A2 → B1), in the order of the Level 3 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.",
+    "mainWords": 390,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l3"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l3"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l3"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/student-workbook-l3",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Sách bài tập tiếng Anh cho học sinh 10–12 tuổi | Level 3",
+    "description": "62 trang A4 in sẵn cho học sinh 10–12 tuổi (CEFR A2 → B1), theo thứ tự giáo án Level 3. 190.000₫ mỗi học viên, bộ lớp 10 em 1.490.000₫.",
+    "mainWords": 500,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l3"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l3"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l3"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/student-workbook-l4",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Printable English Workbook for Ages 12–14 | Level 4",
+    "description": "62 printable A4 pages for learners aged 12–14 (CEFR B1 → B2), in the order of the Level 4 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.",
+    "mainWords": 385,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l4"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l4"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l4"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/student-workbook-l4",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Sách bài tập tiếng Anh cho học sinh 12–14 tuổi | Level 4",
+    "description": "62 trang A4 in sẵn cho học sinh 12–14 tuổi (CEFR B1 → B2), theo thứ tự giáo án Level 4. 190.000₫ mỗi học viên, bộ lớp 10 em 1.490.000₫.",
+    "mainWords": 496,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l4"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l4"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l4"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/student-workbook-l5",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Advanced English Workbook for Teens 14+ | Level 5",
+    "description": "62 printable A4 pages for learners aged 14+ (CEFR B2 → C1), in the order of the Level 5 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.",
+    "mainWords": 379,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l5"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l5"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l5"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/student-workbook-l5",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Sách bài tập tiếng Anh nâng cao cho học sinh 14+ | Level 5",
+    "description": "62 trang A4 in sẵn cho học sinh từ 14 tuổi (CEFR B2 → C1), theo thứ tự giáo án Level 5. 190.000₫ mỗi học viên, bộ lớp 10 em 1.490.000₫.",
+    "mainWords": 492,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/student-workbook-l5"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/student-workbook-l5"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/student-workbook-l5"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/word-fossil-flashcards-l1",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Printable English Picture Flashcards, Level 1 (120)",
+    "description": "120 printable picture flashcards in English and Vietnamese for Level 1 learners aged 4–8, for teachers and parents. 190.000₫.",
+    "mainWords": 350,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/word-fossil-flashcards-l1"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/word-fossil-flashcards-l1"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/word-fossil-flashcards-l1"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/word-fossil-flashcards-l1",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Thẻ từ vựng tiếng Anh có hình để in, Level 1 (120 thẻ)",
+    "description": "120 thẻ từ vựng có hình để in, song ngữ Anh–Việt, cho học sinh Level 1 từ 4–8 tuổi, dành cho giáo viên và phụ huynh. 190.000₫.",
+    "mainWords": 443,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/word-fossil-flashcards-l1"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/word-fossil-flashcards-l1"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/word-fossil-flashcards-l1"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/thinking-cycle-set",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Critical Thinking Routine for English Classes | Manuals",
+    "description": "Teacher and student manuals for the Jurassic Thinking Cycle (Analyze, Evaluate, Justify, Reflect), the CEIW writing framework, a lesson template. 490.000₫.",
+    "mainWords": 329,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/thinking-cycle-set"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/thinking-cycle-set"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/thinking-cycle-set"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/thinking-cycle-set",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Dạy tư duy phản biện trong lớp tiếng Anh | Sổ tay",
+    "description": "Sổ tay giáo viên và học sinh cho Chu trình Tư duy Jurassic bốn bước (Phân tích, Đánh giá, Lập luận, Suy ngẫm), khung viết CEIW và mẫu giáo án. 490.000₫.",
+    "mainWords": 434,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/thinking-cycle-set"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/thinking-cycle-set"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/thinking-cycle-set"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/thinking-cycle-posters",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Thinking Cycle Classroom Posters: 8 A3, EN/VI (PDF)",
+    "description": "8 A3 classroom posters of the Jurassic Thinking Cycle in English and Vietnamese, ready to print, for teachers and centres. 149.000₫.",
+    "mainWords": 335,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/thinking-cycle-posters"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/thinking-cycle-posters"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/thinking-cycle-posters"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/thinking-cycle-posters",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Bộ poster lớp học Thinking Cycle: 8 tờ A3 song ngữ",
+    "description": "8 poster A3 cho lớp học về Jurassic Thinking Cycle, song ngữ Anh–Việt, sẵn sàng để in, dành cho giáo viên và trung tâm. 149.000₫.",
+    "mainWords": 433,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/thinking-cycle-posters"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/thinking-cycle-posters"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/thinking-cycle-posters"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/reasoning-assessment-kit",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Reasoning Assessment & Placement Kit, Levels 1–5",
+    "description": "Reasoning worksheets for Levels 1–5, scoring sheets with feedback codes, a placement guide and a parent report template. For teachers and centres. 390.000₫.",
+    "mainWords": 333,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/reasoning-assessment-kit"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/reasoning-assessment-kit"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/reasoning-assessment-kit"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/reasoning-assessment-kit",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Bộ đánh giá lập luận và xếp lớp tiếng Anh Level 1–5",
+    "description": "Phiếu lập luận Level 1–5, phiếu chấm có mã nhận xét, hướng dẫn kiểm tra xếp lớp và mẫu báo cáo cho phụ huynh. Dành cho giáo viên và trung tâm. 390.000₫.",
+    "mainWords": 447,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/reasoning-assessment-kit"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/reasoning-assessment-kit"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/reasoning-assessment-kit"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/centre-licence",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Curriculum Licence for Centres, Ages 4–8",
+    "description": "A full school year of English for ages 4–8: 40 scripted lessons, implementation and training manuals and slides. Per campus, per school year. 4.900.000₫.",
+    "mainWords": 306,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/centre-licence"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/centre-licence"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/centre-licence"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/centre-licence",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Bản quyền chương trình tiếng Anh cho trung tâm (4–8 tuổi)",
+    "description": "Trọn một năm học tiếng Anh cho trẻ 4–8 tuổi: 40 giáo án soạn sẵn, sổ tay triển khai và đào tạo, slide. Mỗi cơ sở, mỗi năm học. 4.900.000₫.",
+    "mainWords": 407,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/centre-licence"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/centre-licence"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/centre-licence"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/teacher-training-course",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Teacher Training Course for Centres (Trainer Kit)",
+    "description": "Train your own teachers in the Jurassic English method: Train-the-Trainer manual, rubric calibration session, observation checklist. One centre. 1.490.000₫.",
+    "mainWords": 348,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-training-course"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-training-course"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-training-course"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/teacher-training-course",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Khóa đào tạo giáo viên tiếng Anh cho trung tâm",
+    "description": "Tự đào tạo giáo viên theo phương pháp Jurassic English: sổ tay đào tạo người đào tạo, buổi thống nhất tiêu chí chấm, phiếu dự giờ. Một trung tâm. 1.490.000₫.",
+    "mainWords": 470,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/teacher-training-course"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/teacher-training-course"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/teacher-training-course"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/pilot-class-kit",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Pilot English Class Launch Kit for Centres (6–8 Weeks)",
+    "description": "Run one pilot English class before rolling out: a 6–8 week plan, teacher guide, parent orientation script and FAQ, and demo lessons for Levels 1–5. 690.000₫.",
+    "mainWords": 372,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/pilot-class-kit"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/pilot-class-kit"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/pilot-class-kit"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/pilot-class-kit",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Bộ tài liệu mở lớp tiếng Anh thí điểm (6–8 tuần)",
+    "description": "Chạy một lớp tiếng Anh thí điểm trước khi triển khai: kế hoạch 6–8 tuần, hướng dẫn giáo viên, kịch bản họp phụ huynh và bài dạy mẫu Level 1–5. 690.000₫.",
+    "mainWords": 491,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/pilot-class-kit"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/pilot-class-kit"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/pilot-class-kit"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/curriculum-overview",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "English Curriculum Overview for Schools, Levels 1–5",
+    "description": "The Four-Lesson Cycle, the curriculum framework, models for all five levels and the Levels 1–5 syllabus. For principals comparing programmes. 290.000₫.",
+    "mainWords": 335,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/curriculum-overview"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/curriculum-overview"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/curriculum-overview"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/curriculum-overview",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Khung chương trình tiếng Anh cho trường học, Level 1–5",
+    "description": "Chu trình Bốn Bài học, khung chương trình, mô hình cho cả năm level và đề cương Level 1–5. Dành cho hiệu trưởng so sánh chương trình. 290.000₫.",
+    "mainWords": 453,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/curriculum-overview"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/curriculum-overview"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/curriculum-overview"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/ielts-speaking-ladder",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Self-Study: Band 5.0 to 6.5–7.0",
+    "description": "18 self-study IELTS Speaking lessons from Band 5.0 to 6.5–7.0, one habit per lesson, timed Part 1–3 tasks. Not an official IELTS score. 390.000₫.",
+    "mainWords": 389,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-speaking-ladder"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-speaking-ladder"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-speaking-ladder"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/ielts-speaking-ladder",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Tự học IELTS Speaking từ 5.0 lên 6.5–7.0",
+    "description": "18 bài tự học IELTS Speaking từ Band 5.0 lên 6.5–7.0, mỗi bài sửa một thói quen, bài nói Part 1–3 bấm giờ. Không phải điểm IELTS chính thức. 390.000₫.",
+    "mainWords": 488,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-speaking-ladder"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-speaking-ladder"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-speaking-ladder"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/ielts-one-to-one-starter",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking One-to-One Lesson Plan (90 min, PDF)",
+    "description": "One complete 90-minute IELTS Speaking one-to-one lesson with tutor notes, keys, scripts and an answer-free student handout. For tutors. 149.000₫.",
+    "mainWords": 338,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-one-to-one-starter"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-one-to-one-starter"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-one-to-one-starter"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/ielts-one-to-one-starter",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Giáo án IELTS Speaking 1 kèm 1 trọn vẹn 90 phút",
+    "description": "Một giáo án IELTS Speaking 1 kèm 1 trọn vẹn 90 phút, có ghi chú cho gia sư, đáp án, kịch bản và phiếu cho học viên. Dành cho gia sư. 149.000₫.",
+    "mainWords": 430,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-one-to-one-starter"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-one-to-one-starter"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-one-to-one-starter"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/ielts-cue-card-bank",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Part 2 Cue Cards with Model Answers",
+    "description": "60 original IELTS Speaking Part 2 cue cards, each with a 1-minute plan, a Band 7-style answer and Band 6 and 8-style moments. Practice material. 290.000₫.",
+    "mainWords": 375,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-cue-card-bank"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-cue-card-bank"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-cue-card-bank"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/ielts-cue-card-bank",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Bộ thẻ đề IELTS Speaking Part 2 kèm bài mẫu",
+    "description": "60 thẻ đề IELTS Speaking Part 2 gốc, mỗi thẻ có dàn ý 1 phút, bài trả lời mức Band 7 và đoạn mẫu mức Band 6, 8. Tài liệu luyện tập. 290.000₫.",
+    "mainWords": 462,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-cue-card-bank"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-cue-card-bank"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-cue-card-bank"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/writing-baseline",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Writing Task 2 Feedback: One Essay, Three Priorities",
+    "description": "Send one IELTS Task 2 essay. Mr. Jay or his team reads it by hand and returns one strength and three ranked priorities by Zalo or email. From 79.000₫.",
+    "mainWords": 297,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/writing-baseline"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/writing-baseline"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/writing-baseline"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/writing-baseline",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Chấm bài IELTS Writing Task 2: một bài, ba ưu tiên sửa",
+    "description": "Gửi một bài IELTS Task 2. Thầy Jay hoặc đội ngũ đọc bằng tay và gửi lại một điểm mạnh, ba ưu tiên cần sửa qua Zalo hoặc email. Từ 79.000₫.",
+    "mainWords": 363,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/writing-baseline"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/writing-baseline"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/writing-baseline"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/ielts-writing-ladder-task2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Writing Task 2 Self-Study: 7 Lessons from 5.5",
+    "description": "Seven IELTS Writing Task 2 lessons: take a position, give reasons that hold, answer the other side, finish in 40 minutes. Not an official IELTS score. 390.000₫.",
+    "mainWords": 382,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-writing-ladder-task2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-writing-ladder-task2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-writing-ladder-task2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/ielts-writing-ladder-task2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Tự học IELTS Writing Task 2: 7 bài từ 5.5 trở lên",
+    "description": "7 bài IELTS Writing Task 2: chọn quan điểm, đưa lý do vững, phản biện ý ngược lại, xong bài trong 40 phút. Không phải điểm IELTS chính thức. 390.000₫.",
+    "mainWords": 490,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-writing-ladder-task2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-writing-ladder-task2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-writing-ladder-task2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/ielts-writing-task1-method",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Writing Task 1: the 20-Minute Method (4 Lessons)",
+    "description": "Four IELTS Writing Task 1 lessons for Academic and General Training: overview first, compare figures, maps, processes, letters. Not an official score. 290.000₫.",
+    "mainWords": 397,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-writing-task1-method"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-writing-task1-method"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-writing-task1-method"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/ielts-writing-task1-method",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Writing Task 1: phương pháp 20 phút (4 bài)",
+    "description": "4 bài IELTS Writing Task 1 cho Academic và General Training: overview trước, so sánh số liệu, bản đồ, quy trình, thư. Không phải điểm chính thức. 290.000₫.",
+    "mainWords": 492,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-writing-task1-method"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-writing-task1-method"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-writing-task1-method"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/ielts-essay-bank-task2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Writing Task 2 Essay Bank: 40 Prompts and Models",
+    "description": "40 original IELTS Writing Task 2 prompts, each with a Thinking Cycle plan and a Band 7-style model essay. Practice material. 290.000₫.",
+    "mainWords": 373,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-essay-bank-task2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-essay-bank-task2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-essay-bank-task2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/ielts-essay-bank-task2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Ngân hàng bài luận IELTS Writing Task 2: 40 đề và bài mẫu",
+    "description": "40 đề IELTS Writing Task 2 gốc, mỗi đề có dàn ý theo Thinking Cycle và một bài mẫu mức Band 7. Tài liệu luyện tập. 290.000₫.",
+    "mainWords": 479,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-essay-bank-task2"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-essay-bank-task2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-essay-bank-task2"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/products/ielts-writing-teacher-pack",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Writing Lesson Plans for Teachers (10 Lessons)",
+    "description": "Ten ready-to-teach 60-minute IELTS Writing class lessons: six for Task 2 and four for Task 1 reports and letters. For teachers and centres. 690.000₫.",
+    "mainWords": 392,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-writing-teacher-pack"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-writing-teacher-pack"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-writing-teacher-pack"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/products/ielts-writing-teacher-pack",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Giáo án IELTS Writing cho giáo viên (10 buổi)",
+    "description": "10 giáo án IELTS Writing 60 phút dạy ngay: 6 buổi Task 2 và 4 buổi Task 1 (báo cáo và thư). Dành cho giáo viên và trung tâm. 690.000₫.",
+    "mainWords": 479,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/products/ielts-writing-teacher-pack"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/products/ielts-writing-teacher-pack"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/products/ielts-writing-teacher-pack"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/compare",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Compare Jurassic English™ Curriculum Levels | Jurassic English™",
+    "description": "Compare all five Jurassic English™ curriculum levels — ages 4–14+, Pre-A1 to C1 — by age band, CEFR range, text complexity, and reasoning expectations.",
+    "mainWords": 432,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/compare"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/compare"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/compare"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/compare",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "So sánh các cấp độ chương trình Jurassic English™ | Jurassic English™",
+    "description": "So sánh toàn bộ năm cấp độ chương trình Jurassic English™ theo độ tuổi, dải CEFR, độ phức tạp văn bản và kỳ vọng về tư duy học thuật.",
+    "mainWords": 713,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/compare"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/compare"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/compare"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/thinking-cycle/compare",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "The Jurassic Thinking Cycle™ — All Four Stages | Jurassic English™",
+    "description": "Compare the Analyze, Evaluate, Justify, and Reflect stages of the Jurassic Thinking Cycle™ and see how structured reasoning develops across every lesson.",
+    "mainWords": 383,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/compare"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/compare"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/compare"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/thinking-cycle/compare",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Jurassic Thinking Cycle™ — So sánh cả bốn giai đoạn | Jurassic English™",
+    "description": "So sánh bốn giai đoạn Analyze, Evaluate, Justify và Reflect của Jurassic Thinking Cycle™ để thấy cách lập luận có cấu trúc phát triển qua từng bài học.",
+    "mainWords": 634,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/compare"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/compare"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/compare"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/tools/ielts-band-score-calculator",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Band Score Calculator: Overall Band & Rounding Rules",
+    "description": "Calculate your IELTS overall band, see exactly how .25 and .75 averages round, and find the lowest band you need in one skill to reach your target.",
+    "mainWords": 1009,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/tools/ielts-band-score-calculator"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/cong-cu/tinh-diem-ielts"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/tools/ielts-band-score-calculator"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/cong-cu/tinh-diem-ielts",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Cách tính điểm IELTS Overall và làm tròn | Công cụ tính điểm",
+    "description": "Tính điểm IELTS Overall từ 4 kỹ năng, xem bảng làm tròn ,25 và ,75, và tìm điểm tối thiểu cần ở một kỹ năng để đạt overall mục tiêu.",
+    "mainWords": 1152,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/tools/ielts-band-score-calculator"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/cong-cu/tinh-diem-ielts"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/tools/ielts-band-score-calculator"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/tools/ielts-speaking-part-2-timer",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Part 2 Timer | Jurassic English™",
+    "description": "Practice with one minute to prepare, two minutes to speak, original cue cards and optional private, on-device recording.",
+    "mainWords": 261,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/tools/ielts-speaking-part-2-timer"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/cong-cu/dong-ho-ielts-speaking-part-2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/tools/ielts-speaking-part-2-timer"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Đồng hồ IELTS Speaking Part 2 | Jurassic English™",
+    "description": "Luyện nói với một phút chuẩn bị, hai phút trình bày và ghi âm tùy chọn chỉ trên thiết bị.",
+    "mainWords": 344,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/tools/ielts-speaking-part-2-timer"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/cong-cu/dong-ho-ielts-speaking-part-2"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/tools/ielts-speaking-part-2-timer"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-1-foundation",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 1: Foundation — Ages 4–8 years | Jurassic English™",
+    "description": "Jurassic English™ Level 1 develops critical thinking for ages 4–8 through picture books, guided reasoning, and first academic writing. Supports Pre-A1 to A1 CEFR progression.",
+    "mainWords": 353,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-1-foundation"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-1-foundation"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-1-foundation"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-1-foundation",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Cấp độ 1: Nền tảng — Độ tuổi 4–8 tuổi | Jurassic English™",
+    "description": "Jurassic English™ Cấp độ 1 phát triển tư duy phản biện cho độ tuổi 4–8 thông qua sách tranh, lập luận có hướng dẫn và những bài viết học thuật đầu tiên. Hỗ trợ tiến trình CEFR từ Pre-A1 đến A1.",
+    "mainWords": 550,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-1-foundation"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-1-foundation"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-1-foundation"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-2-development",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 2: Development — Ages 8–10 years | Jurassic English™",
+    "description": "Jurassic English™ Level 2 builds structured reasoning for ages 8–10 through early chapter books, evidence-based writing, and Socratic discussion. Supports A1 to A2 CEFR progression.",
+    "mainWords": 391,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-2-development"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-2-development"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-2-development"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-2-development",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Cấp độ 2: Phát triển — Độ tuổi 8–10 tuổi | Jurassic English™",
+    "description": "Jurassic English™ Cấp độ 2 xây dựng lập luận có cấu trúc cho độ tuổi 8–10 thông qua truyện chương hồi đầu cấp, viết dựa trên bằng chứng và đối thoại Socratic. Hỗ trợ tiến trình CEFR từ A1 đến A2.",
+    "mainWords": 598,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-2-development"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-2-development"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-2-development"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-3-expansion",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 3: Expansion — Ages 10–12 years | Jurassic English™",
+    "description": "Jurassic English™ Level 3 develops the Literacy Pivot for ages 10–12, using complex chapter books to build academic reasoning and CEIW writing. Supports A2 to B1 CEFR progression.",
+    "mainWords": 393,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-3-expansion"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-3-expansion"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-3-expansion"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-3-expansion",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Cấp độ 3: Mở rộng — Độ tuổi 10–12 tuổi | Jurassic English™",
+    "description": "Jurassic English™ Cấp độ 3 phát triển Literacy Pivot cho độ tuổi 10–12, dùng văn bản phức hợp để xây dựng lập luận học thuật và viết CEIW. Hỗ trợ tiến trình CEFR từ A2 đến B1.",
+    "mainWords": 626,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-3-expansion"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-3-expansion"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-3-expansion"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-4-mastery",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 4: Mastery — Ages 12–14 years | Jurassic English™",
+    "description": "Jurassic English™ Level 4 develops novel analysis and academic argumentation for ages 12–14 through contested texts and multi-paragraph essays. Supports B1 to B2 CEFR progression.",
+    "mainWords": 397,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-4-mastery"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-4-mastery"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-4-mastery"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-4-mastery",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Cấp độ 4: Thành thạo — Độ tuổi 12–14 tuổi | Jurassic English™",
+    "description": "Jurassic English™ Cấp độ 4 phát triển phân tích tiểu thuyết và lập luận học thuật cho độ tuổi 12–14 thông qua văn bản đa nghĩa và bài luận nhiều đoạn. Hỗ trợ tiến trình CEFR từ B1 đến B2.",
+    "mainWords": 719,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-4-mastery"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-4-mastery"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-4-mastery"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-5-advanced",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 5: Advanced — Ages 14+ years | Jurassic English™",
+    "description": "Jurassic English™ Level 5 builds full academic language proficiency for ages 14+ through intertextual analysis and research essays. Supports B2 to C1 CEFR and IB/Cambridge preparation.",
+    "mainWords": 406,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-5-advanced"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-5-advanced"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-5-advanced"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-5-advanced",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Cấp độ 5: Nâng cao — Độ tuổi 14+ tuổi | Jurassic English™",
+    "description": "Jurassic English™ Cấp độ 5 phát triển năng lực ngôn ngữ học thuật đầy đủ cho độ tuổi 14+ thông qua phân tích liên văn bản và bài luận nghiên cứu. Hỗ trợ CEFR từ B2 đến C1 và chuẩn bị cho IB/Cambridge.",
+    "mainWords": 625,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-5-advanced"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-5-advanced"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-5-advanced"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-1-foundation/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 1: Foundation Syllabus — Ages 4–8 years | Jurassic English™",
+    "description": "The full Jurassic English™ Level 1: Foundation curriculum syllabus for ages 4–8 years. Core texts, term breakdown, assessment methods, eco-reasoning strand, and CEFR progression (Pre-A1 → A1).",
+    "mainWords": 922,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-1-foundation/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-1-foundation/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-1-foundation/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-1-foundation/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Đề cương Cấp độ 1: Nền tảng — Độ tuổi 4–8 tuổi | Jurassic English™",
+    "description": "Đề cương đầy đủ của Cấp độ 1: Nền tảng trong chương trình Jurassic English™ cho độ tuổi 4–8 tuổi. Bao gồm văn bản cốt lõi, phân bổ học kỳ, phương pháp đánh giá, mạch tư duy sinh thái và tiến trình CEFR (Pre-A1 → A1).",
+    "mainWords": 1477,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-1-foundation/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-1-foundation/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-1-foundation/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-2-development/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 2: Development Syllabus — Ages 8–10 years | Jurassic English™",
+    "description": "The full Jurassic English™ Level 2: Development curriculum syllabus for ages 8–10 years. Core texts, term breakdown, assessment methods, eco-reasoning strand, and CEFR progression (A1 → A2).",
+    "mainWords": 949,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-2-development/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-2-development/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-2-development/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-2-development/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Đề cương Cấp độ 2: Phát triển — Độ tuổi 8–10 tuổi | Jurassic English™",
+    "description": "Đề cương đầy đủ của Cấp độ 2: Phát triển trong chương trình Jurassic English™ cho độ tuổi 8–10 tuổi. Bao gồm văn bản cốt lõi, phân bổ học kỳ, phương pháp đánh giá, mạch tư duy sinh thái và tiến trình CEFR (A1 → A2).",
+    "mainWords": 1490,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-2-development/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-2-development/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-2-development/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-3-expansion/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 3: Expansion Syllabus — Ages 10–12 years | Jurassic English™",
+    "description": "The full Jurassic English™ Level 3: Expansion curriculum syllabus for ages 10–12 years. Core texts, term breakdown, assessment methods, eco-reasoning strand, and CEFR progression (A2 → B1).",
+    "mainWords": 950,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-3-expansion/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-3-expansion/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-3-expansion/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-3-expansion/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Đề cương Cấp độ 3: Mở rộng — Độ tuổi 10–12 tuổi | Jurassic English™",
+    "description": "Đề cương đầy đủ của Cấp độ 3: Mở rộng trong chương trình Jurassic English™ cho độ tuổi 10–12 tuổi. Bao gồm văn bản cốt lõi, phân bổ học kỳ, phương pháp đánh giá, mạch tư duy sinh thái và tiến trình CEFR (A2 → B1).",
+    "mainWords": 1529,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-3-expansion/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-3-expansion/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-3-expansion/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-4-mastery/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 4: Mastery Syllabus — Ages 12–14 years | Jurassic English™",
+    "description": "The full Jurassic English™ Level 4: Mastery curriculum syllabus for ages 12–14 years. Core texts, term breakdown, assessment methods, eco-reasoning strand, and CEFR progression (B1 → B2).",
+    "mainWords": 965,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-4-mastery/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-4-mastery/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-4-mastery/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-4-mastery/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Đề cương Cấp độ 4: Thành thạo — Độ tuổi 12–14 tuổi | Jurassic English™",
+    "description": "Đề cương đầy đủ của Cấp độ 4: Thành thạo trong chương trình Jurassic English™ cho độ tuổi 12–14 tuổi. Bao gồm văn bản cốt lõi, phân bổ học kỳ, phương pháp đánh giá, mạch tư duy sinh thái và tiến trình CEFR (B1 → B2).",
+    "mainWords": 1535,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-4-mastery/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-4-mastery/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-4-mastery/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-5-advanced/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level 5: Advanced Syllabus — Ages 14+ years | Jurassic English™",
+    "description": "The full Jurassic English™ Level 5: Advanced curriculum syllabus for ages 14+ years. Core texts, term breakdown, assessment methods, eco-reasoning strand, and CEFR progression (B2 → C1).",
+    "mainWords": 976,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-5-advanced/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-5-advanced/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-5-advanced/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-5-advanced/syllabus",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Đề cương Cấp độ 5: Nâng cao — Độ tuổi 14+ tuổi | Jurassic English™",
+    "description": "Đề cương đầy đủ của Cấp độ 5: Nâng cao trong chương trình Jurassic English™ cho độ tuổi 14+ tuổi. Bao gồm văn bản cốt lõi, phân bổ học kỳ, phương pháp đánh giá, mạch tư duy sinh thái và tiến trình CEFR (B2 → C1).",
+    "mainWords": 1603,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/series/level-5-advanced/syllabus"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/series/level-5-advanced/syllabus"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/series/level-5-advanced/syllabus"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/thinking-cycle/analyze",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "ANALYZE — Jurassic Thinking Cycle™ Stage Guide | Jurassic English™",
+    "description": "The ANALYZE stage of the Jurassic Thinking Cycle™: Break the text apart. Find the evidence. Establish what is really there. A structured reasoning framework to guide teachers and students through literature at every level.",
+    "mainWords": 478,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/analyze"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/analyze"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/analyze"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/thinking-cycle/analyze",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "PHÂN TÍCH — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+    "description": "Giai đoạn PHÂN TÍCH của Jurassic Thinking Cycle™: Tách văn bản ra. Tìm bằng chứng. Xác lập điều thật sự hiện diện trong văn bản. Một khung lập luận có cấu trúc để định hướng giáo viên và học sinh làm việc với văn học ở mọi cấp độ.",
+    "mainWords": 778,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/analyze"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/analyze"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/analyze"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/thinking-cycle/evaluate",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "EVALUATE — Jurassic Thinking Cycle™ Stage Guide | Jurassic English™",
+    "description": "The EVALUATE stage of the Jurassic Thinking Cycle™: Make a judgment. Apply a standard. Defend it with reason. A structured reasoning framework to guide teachers and students through literature at every level.",
+    "mainWords": 522,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/evaluate"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/evaluate"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/evaluate"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/thinking-cycle/evaluate",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "ĐÁNH GIÁ — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+    "description": "Giai đoạn ĐÁNH GIÁ của Jurassic Thinking Cycle™: Đưa ra phán đoán. Áp dụng tiêu chuẩn. Bảo vệ phán đoán đó bằng lý lẽ. Một khung lập luận có cấu trúc để định hướng giáo viên và học sinh làm việc với văn học ở mọi cấp độ.",
+    "mainWords": 840,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/evaluate"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/evaluate"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/evaluate"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/thinking-cycle/justify",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "JUSTIFY — Jurassic Thinking Cycle™ Stage Guide | Jurassic English™",
+    "description": "The JUSTIFY stage of the Jurassic Thinking Cycle™: Make your claim. Cite your evidence. Explain the connection. Show the impact. A structured reasoning framework to guide teachers and students through literature at every level.",
+    "mainWords": 518,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/justify"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/justify"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/justify"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/thinking-cycle/justify",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "LẬP LUẬN — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+    "description": "Giai đoạn LẬP LUẬN của Jurassic Thinking Cycle™: Nêu luận điểm. Trích bằng chứng. Giải thích mối nối. Chỉ ra tác động. Một khung lập luận có cấu trúc để định hướng giáo viên và học sinh làm việc với văn học ở mọi cấp độ.",
+    "mainWords": 796,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/justify"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/justify"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/justify"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/thinking-cycle/reflect",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "REFLECT — Jurassic Thinking Cycle™ Stage Guide | Jurassic English™",
+    "description": "The REFLECT stage of the Jurassic Thinking Cycle™: Connect. Transform. Take your thinking beyond the text. A structured reasoning framework to guide teachers and students through literature at every level.",
+    "mainWords": 575,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/reflect"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/reflect"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/reflect"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/thinking-cycle/reflect",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "PHẢN TƯ — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+    "description": "Giai đoạn PHẢN TƯ của Jurassic Thinking Cycle™: Kết nối. Chuyển hóa. Đưa suy nghĩ của em vượt ra ngoài văn bản. Một khung lập luận có cấu trúc để định hướng giáo viên và học sinh làm việc với văn học ở mọi cấp độ.",
+    "mainWords": 883,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/thinking-cycle/reflect"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/thinking-cycle/reflect"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/thinking-cycle/reflect"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/legal/terms",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Terms & Conditions | Jurassic English™",
+    "description": "Terms and conditions for using Jurassic English™ website content, resources, enquiries, and educational service information.",
+    "mainWords": 1807,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/terms"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/terms"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/terms"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/legal/terms",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Điều khoản & Điều kiện | Jurassic English™",
+    "description": "Điều khoản và điều kiện sử dụng nội dung, tài nguyên, yêu cầu liên hệ và thông tin dịch vụ giáo dục của Jurassic English™.",
+    "mainWords": 2938,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/terms"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/terms"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/terms"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/legal/privacy",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Privacy Policy | Jurassic English™",
+    "description": "Privacy information for Jurassic English™ website visitors, enquiries, forms, communications, and educational service interactions.",
+    "mainWords": 1332,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/privacy"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/privacy"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/privacy"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/legal/privacy",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Chính sách quyền riêng tư | Jurassic English™",
+    "description": "Thông tin về quyền riêng tư cho người truy cập website, yêu cầu liên hệ, biểu mẫu, trao đổi và tương tác dịch vụ giáo dục Jurassic English™.",
+    "mainWords": 2223,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/privacy"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/privacy"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/privacy"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/legal/cookies",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Cookie Policy | Jurassic English™",
+    "description": "Cookie policy for the Jurassic English™ website, including the categories of cookies we use and how to manage your preferences.",
+    "mainWords": 745,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/cookies"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/cookies"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/cookies"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/legal/cookies",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Chính sách cookie | Jurassic English™",
+    "description": "Chính sách cookie của website Jurassic English™, các loại cookie được sử dụng và cách bạn có thể quản lý tùy chọn.",
+    "mainWords": 1193,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/cookies"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/cookies"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/cookies"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/legal/accessibility",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Accessibility Statement | Jurassic English™",
+    "description": "Accessibility statement for the Jurassic English™ website, outlining standards we follow and how to request accessibility support.",
+    "mainWords": 979,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/accessibility"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/accessibility"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/accessibility"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/legal/accessibility",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Tuyên bố trợ năng | Jurassic English™",
+    "description": "Tuyên bố về khả năng tiếp cận của website Jurassic English™, các tiêu chuẩn được áp dụng và cách yêu cầu hỗ trợ tiếp cận.",
+    "mainWords": 1572,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/accessibility"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/accessibility"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/accessibility"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/legal/disclaimer",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Disclaimer | Jurassic English™",
+    "description": "Disclaimer for Jurassic English™ website content and educational service information, including limits on warranty and liability.",
+    "mainWords": 1112,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/disclaimer"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/disclaimer"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/disclaimer"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/legal/disclaimer",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Tuyên bố miễn trừ trách nhiệm | Jurassic English™",
+    "description": "Tuyên bố miễn trừ trách nhiệm liên quan đến nội dung website và thông tin dịch vụ giáo dục Jurassic English™, gồm giới hạn về bảo đảm và trách nhiệm.",
+    "mainWords": 1883,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/legal/disclaimer"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/legal/disclaimer"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/legal/disclaimer"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/insights",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking and English Learning Resources | Jurassic English™",
+    "description": "Evidence-led guidance on IELTS Speaking practice, typed feedback and one-to-one learning from Jurassic English™.",
+    "mainWords": 209,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/insights",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Tài liệu luyện IELTS Speaking | Jurassic English™",
+    "description": "Hướng dẫn luyện IELTS Speaking, hiểu phản hồi và chọn bước tiếp theo từ Jurassic English™.",
+    "mainWords": 313,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/insights/online-ielts-speaking-coaching",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Online IELTS Speaking Coaching for Adults: A Buyer Guide | Jurassic English™",
+    "description": "An adult buyer guide to online IELTS Speaking coaching: free practice, paid live baseline, one-to-one lessons, assessment limits and booking checks.",
+    "mainWords": 732,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/online-ielts-speaking-coaching"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/online-ielts-speaking-coaching"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/insights/what-to-fix-first-in-ielts-speaking",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "What should I fix first in IELTS Speaking? | Jurassic English™",
+    "description": "Learn how to turn an IELTS Speaking practice answer into one evidence-based priority and a focused independent practice task.",
+    "mainWords": 274,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/what-to-fix-first-in-ielts-speaking"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/what-to-fix-first-in-ielts-speaking"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/insights/what-typed-speaking-practice-can-assess",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "What can typed IELTS-style speaking practice assess? | Jurassic English™",
+    "description": "Understand the evidence and limitations of typed IELTS-style speaking practice, including why pronunciation requires audio.",
+    "mainWords": 223,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/what-typed-speaking-practice-can-assess"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/what-typed-speaking-practice-can-assess"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/insights/from-speaking-diagnostic-to-one-to-one-lesson",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "How does a speaking diagnostic lead to a one-to-one lesson? | Jurassic English™",
+    "description": "See how Jurassic English connects a speaking diagnostic to guided one-to-one practice and a clear follow-up action.",
+    "mainWords": 219,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/from-speaking-diagnostic-to-one-to-one-lesson"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/from-speaking-diagnostic-to-one-to-one-lesson"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/ve-thay-jay-adams",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Thầy Jay Adams: giáo viên IELTS CELTA tại Hà Nội",
+    "description": "Thầy Jay Adams (Nathaniel Jay Adams), giáo viên IELTS Speaking có CELTA và TEFL 120 giờ tại Hà Nội. Cách thầy dạy, điều thầy không hứa và cách bắt đầu học.",
+    "mainWords": 2375,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/ve-thay-jay-adams"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/about/nathaniel-jay-adams"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/about/nathaniel-jay-adams"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/about/nathaniel-jay-adams",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Mr. Jay Adams: CELTA IELTS Speaking Coach in Hanoi",
+    "description": "Nathaniel Jay Adams (Mr. Jay Adams): CELTA and 120-hour TEFL, IELTS Speaking coach in Hanoi. How he teaches, what he does not promise, and how to start.",
+    "mainWords": 1004,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/ve-thay-jay-adams"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/about/nathaniel-jay-adams"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/about/nathaniel-jay-adams"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/insights/tang-ielts-speaking-tu-6-len-7",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking 6.0 lên 7.0: điều gì đang giữ bạn lại",
+    "description": "Band 6 và band 7 IELTS Speaking khác nhau ở đâu theo band descriptor công khai, và cách tìm ra một điểm nghẽn chính trong câu trả lời của chính bạn.",
+    "mainWords": 4091,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights/tang-ielts-speaking-tu-6-len-7"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/ielts-speaking-6-to-7"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/ielts-speaking-6-to-7"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/insights/ielts-speaking-6-to-7",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking 6 to 7: Find What Is Holding You Back",
+    "description": "How band 6 and band 7 IELTS Speaking differ in the public band descriptors, and how to find the one constraint holding your own answers back. Unofficial advice.",
+    "mainWords": 1289,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights/tang-ielts-speaking-tu-6-len-7"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/ielts-speaking-6-to-7"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/ielts-speaking-6-to-7"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/insights/ielts-speaking-forecast-quy-3-2026",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking forecast quý 3/2026 (T9–12): chủ đề và cách nói",
+    "description": "Các nhóm chủ đề IELTS Speaking tháng 9–12/2026 mà các bộ dự đoán ở Việt Nam đang nhắc tới, và cách tự xây câu trả lời thay vì học thuộc.",
+    "mainWords": 3004,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights/ielts-speaking-forecast-quy-3-2026"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/ielts-speaking-forecast-september-december-2026"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/ielts-speaking-forecast-september-december-2026"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/insights/ielts-speaking-forecast-september-december-2026",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking forecast Sep–Dec 2026: topics and how to answer",
+    "description": "The IELTS Speaking topic families Vietnamese prep sites predict for September–December 2026, and how to build your own answer instead of memorising one.",
+    "mainWords": 1396,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights/ielts-speaking-forecast-quy-3-2026"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/ielts-speaking-forecast-september-december-2026"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/ielts-speaking-forecast-september-december-2026"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/insights/ielts-online-test",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS online test: bài thi thử cho bạn biết gì về Speaking",
+    "description": "IELTS trên máy tính khác bài thi thử online ra sao, bài thi thử chấm được phần nào, vì sao Speaking cần người nghe, và cách tự kiểm tra Speaking tại nhà.",
+    "mainWords": 3390,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights/ielts-online-test"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/ielts-online-test"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/ielts-online-test"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/insights/ielts-online-test",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS online test: what a practice test misses in Speaking",
+    "description": "How computer-delivered IELTS differs from an online practice test, what a practice test can mark, why Speaking needs a trained listener, and how to self-check.",
+    "mainWords": 1161,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights/ielts-online-test"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/ielts-online-test"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/ielts-online-test"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/insights/ai-cham-ielts-speaking",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "AI chấm IELTS Speaking: làm được gì, dùng thế nào cho đúng",
+    "description": "AI chấm IELTS Speaking cho bạn một ước tính luyện tập, không phải điểm chính thức. Điều AI làm tốt, điều cần người nghe thật, và cách dùng để tiến bộ.",
+    "mainWords": 3932,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights/ai-cham-ielts-speaking"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/ai-ielts-speaking-scoring"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/ai-ielts-speaking-scoring"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/insights/ai-ielts-speaking-scoring",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "AI IELTS Speaking Scoring: What It Can and Cannot Do",
+    "description": "What AI scoring of IELTS Speaking can and cannot tell you, how to use any AI practice well, and when a live human assessment is worth it. Unofficial advice.",
+    "mainWords": 1245,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/insights/ai-cham-ielts-speaking"
+      },
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/insights/ai-ielts-speaking-scoring"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/insights/ai-ielts-speaking-scoring"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/india",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Coaching Online in India | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in India, led by CELTA-qualified Mr. Jay Adams. US$35 per 60-min lesson; Speaking Baseline US$29.",
+    "mainWords": 1177,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/philippines",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in the Philippines | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in the Philippines, led by CELTA-qualified Mr. Jay Adams. US$35 per 60-min lesson; Speaking Baseline US$29.",
+    "mainWords": 1125,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/indonesia",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Indonesia | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Indonesia, led by CELTA-qualified Mr. Jay Adams. US$45 per 60-min lesson; Speaking Baseline US$39.",
+    "mainWords": 1111,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/indonesia"
+      },
+      {
+        "lang": "id",
+        "url": "https://jurassicenglish.com/id/ielts-speaking-online/indonesia"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/indonesia"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/malaysia",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Malaysia | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Malaysia, led by CELTA-qualified Mr. Jay Adams. US$55 per 60-min lesson; Speaking Baseline US$49.",
+    "mainWords": 1082,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/malaysia"
+      },
+      {
+        "lang": "ms",
+        "url": "https://jurassicenglish.com/ms/ielts-speaking-online/malaysia"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/malaysia"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/singapore",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Singapore | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Singapore, led by CELTA-qualified Mr. Jay Adams. US$69 per 60-min lesson; Speaking Baseline US$59.",
+    "mainWords": 1053,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/thailand",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Thailand | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Thailand, led by CELTA-qualified Mr. Jay Adams. US$45 per 60-min lesson; Speaking Baseline US$39.",
+    "mainWords": 1065,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/thailand"
+      },
+      {
+        "lang": "th",
+        "url": "https://jurassicenglish.com/th/ielts-speaking-online/thailand"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/thailand"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/uae",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Coaching Online in the UAE | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in the UAE, led by CELTA-qualified Mr. Jay Adams. US$69 per 60-min lesson; Speaking Baseline US$59.",
+    "mainWords": 1088,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/uae"
+      },
+      {
+        "lang": "ar",
+        "url": "https://jurassicenglish.com/ar/ielts-speaking-online/uae"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/uae"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/saudi-arabia",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Saudi Arabia | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Saudi Arabia, led by CELTA-qualified Mr. Jay Adams. US$69 per 60-min lesson; Speaking Baseline US$59.",
+    "mainWords": 1079,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/saudi-arabia"
+      },
+      {
+        "lang": "ar",
+        "url": "https://jurassicenglish.com/ar/ielts-speaking-online/saudi-arabia"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/saudi-arabia"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online: 1-to-1 Coaching | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults outside Vietnam, led by CELTA-qualified Mr. Jay Adams. Prices in US dollars for 17 countries.",
+    "mainWords": 578,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/pakistan",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Online IELTS Speaking Classes in Pakistan | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Pakistan, led by CELTA-qualified Mr. Jay Adams. US$35 per 60-min lesson; Speaking Baseline US$29.",
+    "mainWords": 1075,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/pakistan"
+      },
+      {
+        "lang": "ur",
+        "url": "https://jurassicenglish.com/ur/ielts-speaking-online/pakistan"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/pakistan"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/bangladesh",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Online IELTS Speaking in Bangladesh | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Bangladesh, led by CELTA-qualified Mr. Jay Adams. US$35 per 60-min lesson; Speaking Baseline US$29.",
+    "mainWords": 1040,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/bangladesh"
+      },
+      {
+        "lang": "bn",
+        "url": "https://jurassicenglish.com/bn/ielts-speaking-online/bangladesh"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/bangladesh"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/nigeria",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Online IELTS Speaking Classes in Nigeria | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Nigeria, led by CELTA-qualified Mr. Jay Adams. US$35 per 60-min lesson; Speaking Baseline US$29.",
+    "mainWords": 1125,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/egypt",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Egypt | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Egypt, led by CELTA-qualified Mr. Jay Adams. US$35 per 60-min lesson; Speaking Baseline US$29.",
+    "mainWords": 1128,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/egypt"
+      },
+      {
+        "lang": "ar",
+        "url": "https://jurassicenglish.com/ar/ielts-speaking-online/egypt"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/egypt"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/es/ielts-speaking-online/colombia",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Examen IELTS Colombia: Speaking online | Jurassic English™",
+    "description": "Clases 1 a 1 de IELTS Speaking online para adultos en Colombia, dirigidas por Mr. Jay Adams (CELTA). US$45 por clase de 60 min; evaluación inicial US$39.",
+    "mainWords": 1014,
+    "lang": "es",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/colombia"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online/colombia"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/colombia"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/es/ielts-speaking-online/peru",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Examen IELTS Perú: Speaking online | Jurassic English™",
+    "description": "Clases 1 a 1 de IELTS Speaking online para adultos en Perú, dirigidas por Mr. Jay Adams (CELTA). US$45 por clase de 60 min; evaluación inicial US$39.",
+    "mainWords": 1030,
+    "lang": "es",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/peru"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online/peru"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/peru"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/es/ielts-speaking-online/chile",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Examen IELTS Chile: Speaking online | Jurassic English™",
+    "description": "Clases 1 a 1 de IELTS Speaking online para adultos en Chile, dirigidas por Mr. Jay Adams (CELTA). US$55 por clase de 60 min; evaluación inicial US$49.",
+    "mainWords": 1032,
+    "lang": "es",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/chile"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online/chile"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/chile"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/es/ielts-speaking-online/argentina",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Examen IELTS Argentina: Speaking online | Jurassic English™",
+    "description": "Clases 1 a 1 de IELTS Speaking online para adultos en Argentina, dirigidas por Mr. Jay Adams (CELTA). US$55 por clase de 60 min; evaluación inicial US$49.",
+    "mainWords": 1060,
+    "lang": "es",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/argentina"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online/argentina"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/argentina"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/pt/ielts-speaking-online/brasil",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Aulas de inglês online para IELTS no Brasil | Jurassic English™",
+    "description": "Aulas 1 a 1 de IELTS Speaking online para adultos no Brasil, com equipe liderada por Mr. Jay Adams (CELTA). US$45 por aula de 60 min; avaliação US$39.",
+    "mainWords": 836,
+    "lang": "pt-BR",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/brazil"
+      },
+      {
+        "lang": "pt-BR",
+        "url": "https://jurassicenglish.com/pt/ielts-speaking-online/brasil"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/brazil"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/es/ielts-speaking-online",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Examen IELTS: clases de Speaking online | Jurassic English™",
+    "description": "Clases 1 a 1 de IELTS Speaking online para adultos en Colombia, Perú, Chile y Argentina, dirigidas por Mr. Jay Adams (CELTA). Precios en US$.",
+    "mainWords": 524,
+    "lang": "es",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/pt/ielts-speaking-online",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking online: aulas 1 a 1 | Jurassic English™",
+    "description": "Aulas 1 a 1 de IELTS Speaking online para adultos no Brasil, com equipe liderada por Mr. Jay Adams (CELTA). Preços em dólares americanos.",
+    "mainWords": 561,
+    "lang": "pt-BR",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/id/ielts-speaking-online/indonesia",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Kursus IELTS Speaking Online di Indonesia | Jurassic English™",
+    "description": "Les privat IELTS Speaking online untuk dewasa di Indonesia, dipimpin Mr. Jay Adams (CELTA). US$45 per sesi 60 menit; asesmen awal Speaking US$39.",
+    "mainWords": 1183,
+    "lang": "id",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/indonesia"
+      },
+      {
+        "lang": "id",
+        "url": "https://jurassicenglish.com/id/ielts-speaking-online/indonesia"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/indonesia"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ms/ielts-speaking-online/malaysia",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Kelas IELTS Speaking Online di Malaysia | Jurassic English™",
+    "description": "Kelas IELTS Speaking 1-ke-1 secara online untuk dewasa di Malaysia, dipimpin Mr. Jay Adams (CELTA). US$55 sejam; penilaian awal Speaking US$49.",
+    "mainWords": 1137,
+    "lang": "ms",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/malaysia"
+      },
+      {
+        "lang": "ms",
+        "url": "https://jurassicenglish.com/ms/ielts-speaking-online/malaysia"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/malaysia"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/th/ielts-speaking-online/thailand",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "ติว IELTS Speaking ออนไลน์ ตัวต่อตัว ในไทย | Jurassic English™",
+    "description": "ติว IELTS Speaking ออนไลน์แบบตัวต่อตัวสำหรับผู้ใหญ่ในไทย นำโดย Mr. Jay Adams (CELTA) ชั่วโมงละ US$45 การประเมินเบื้องต้น US$39",
+    "mainWords": 474,
+    "lang": "th",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/thailand"
+      },
+      {
+        "lang": "th",
+        "url": "https://jurassicenglish.com/th/ielts-speaking-online/thailand"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/thailand"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ar/ielts-speaking-online/uae",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "دورة ايلتس محادثة اونلاين في الإمارات | Jurassic English™",
+    "description": "دروس ايلتس محادثة فردية عبر الإنترنت للبالغين في الإمارات بإشراف Mr. Jay Adams (CELTA). الدرس 60 دقيقة بـ US$69، والتقييم الأولي US$59.",
+    "mainWords": 1108,
+    "lang": "ar",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/uae"
+      },
+      {
+        "lang": "ar",
+        "url": "https://jurassicenglish.com/ar/ielts-speaking-online/uae"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/uae"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ar/ielts-speaking-online/saudi-arabia",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "دورة ايلتس محادثة اونلاين في السعودية | Jurassic English™",
+    "description": "دروس ايلتس محادثة فردية عبر الإنترنت للبالغين في السعودية بإشراف Mr. Jay Adams (CELTA). الدرس 60 دقيقة بـ US$69، والتقييم الأولي US$59.",
+    "mainWords": 1117,
+    "lang": "ar",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/saudi-arabia"
+      },
+      {
+        "lang": "ar",
+        "url": "https://jurassicenglish.com/ar/ielts-speaking-online/saudi-arabia"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/saudi-arabia"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ar/ielts-speaking-online/egypt",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "دورة ايلتس محادثة اونلاين في مصر | Jurassic English™",
+    "description": "دروس ايلتس محادثة فردية عبر الإنترنت للبالغين في مصر بإشراف Mr. Jay Adams (CELTA). الدرس 60 دقيقة بـ US$35، والتقييم الأولي US$29.",
+    "mainWords": 1178,
+    "lang": "ar",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/egypt"
+      },
+      {
+        "lang": "ar",
+        "url": "https://jurassicenglish.com/ar/ielts-speaking-online/egypt"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/egypt"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ur/ielts-speaking-online/pakistan",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking آن لائن کلاسز – پاکستان | Jurassic English™",
+    "description": "پاکستان میں بالغوں کے لیے IELTS Speaking کی ون ٹو ون آن لائن کوچنگ، Mr. Jay Adams (CELTA) کی رہنمائی میں۔ 60 منٹ کا سبق US$35، ابتدائی جائزہ US$29۔",
+    "mainWords": 1452,
+    "lang": "ur",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/pakistan"
+      },
+      {
+        "lang": "ur",
+        "url": "https://jurassicenglish.com/ur/ielts-speaking-online/pakistan"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/pakistan"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/bn/ielts-speaking-online/bangladesh",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "অনলাইন IELTS Speaking কোচিং – বাংলাদেশ | Jurassic English™",
+    "description": "বাংলাদেশের প্রাপ্তবয়স্কদের জন্য ওয়ান-টু-ওয়ান অনলাইন IELTS Speaking কোচিং, Mr. Jay Adams (CELTA)-এর নেতৃত্বে। ৬০ মিনিট US$35, প্রাথমিক মূল্যায়ন US$29।",
+    "mainWords": 1044,
+    "lang": "bn",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/bangladesh"
+      },
+      {
+        "lang": "bn",
+        "url": "https://jurassicenglish.com/bn/ielts-speaking-online/bangladesh"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/bangladesh"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/colombia",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Colombia | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Colombia, led by CELTA-qualified Mr. Jay Adams. US$45 per 60-min lesson; Speaking Baseline US$39.",
+    "mainWords": 982,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/colombia"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online/colombia"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/colombia"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/peru",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Peru | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Peru, led by CELTA-qualified Mr. Jay Adams. US$45 per 60-min lesson; Speaking Baseline US$39.",
+    "mainWords": 996,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/peru"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online/peru"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/peru"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/chile",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Chile | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Chile, led by CELTA-qualified Mr. Jay Adams. US$55 per 60-min lesson; Speaking Baseline US$49.",
+    "mainWords": 986,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/chile"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online/chile"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/chile"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/argentina",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Argentina | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Argentina, led by CELTA-qualified Mr. Jay Adams. US$55 per 60-min lesson; Speaking Baseline US$49.",
+    "mainWords": 1012,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/argentina"
+      },
+      {
+        "lang": "es",
+        "url": "https://jurassicenglish.com/es/ielts-speaking-online/argentina"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/argentina"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ielts-speaking-online/brazil",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Online in Brazil | Jurassic English™",
+    "description": "1-to-1 IELTS Speaking lessons online for adults in Brazil, led by CELTA-qualified Mr. Jay Adams. US$45 per 60-min lesson; Speaking Baseline US$39.",
+    "mainWords": 760,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/brazil"
+      },
+      {
+        "lang": "pt-BR",
+        "url": "https://jurassicenglish.com/pt/ielts-speaking-online/brasil"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ielts-speaking-online/brazil"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/student-academy",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Jurassic English™ Student Academy | Literature-Based English Thinking for Students",
+    "description": "Literature-based English for ages 6–14: real storybooks, confident speaking, evidence-backed writing and a written monthly Growth Portfolio. Start with a 45-minute Reading & Thinking Placement Consultation.",
+    "mainWords": 585,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/student-academy/referrals",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Family Rewards | Jurassic English™ Student Academy",
+    "description": "Student Academy families earn 200,000₫ tuition credit for each new family they introduce who completes 8 paid individual lessons. Two qualifying families earn 400,000₫. Terms, steps and how to join.",
+    "mainWords": 616,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/school-framework",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "School Framework | Jurassic English™",
+    "description": "A coherent literature-based English curriculum for schools and centers — curriculum alignment, teacher consistency, visible portfolio evidence, and a premium academic English pathway.",
+    "mainWords": 353,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/digital-reasoning-engine",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Digital Reasoning Engine | Jurassic English™",
+    "description": "How the Jurassic English™ Digital Reasoning Engine helps students build claims, organize evidence, construct CEIW arguments, and generate portfolio proof.",
+    "mainWords": 304,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/interactive-demo",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Interactive Demo | Jurassic English™ Student Academy Pathway Explorer",
+    "description": "Preview how a Jurassic English™ student moves from first story claims at Level 1 to advanced exam-transfer reasoning at Level 5. A guided, parent-friendly look at the five-level pathway.",
+    "mainWords": 803,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/evidence",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Evidence, Student Progress, and Responsible Claims | Jurassic English™",
+    "description": "How Jurassic English™ tracks learning through visible student work, diagnostic evidence, portfolio artifacts, and teacher-reviewed progress.",
+    "mainWords": 196,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/book-diagnostic",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Book a Student Thinking Diagnostic | Jurassic English™ Student Academy",
+    "description": "Find the right starting point for your child. Tell us about your child's English level, learning goals, and current needs. We will review the information and follow up with the next step.",
+    "mainWords": 292,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/exam",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Mock exam | Jurassic AI Speaking",
+    "description": "Take an IELTS-style Speaking practice mock (Parts 1, 2 and 3) and get AI practice feedback with evidence from your own words. For university applicants, graduates and working professionals.",
+    "mainWords": 539,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/lessons",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "1-to-1 lessons with Mr. Jay's team | Jurassic English",
+    "description": "60-minute 1-to-1 English and IELTS Speaking lessons with Mr. Jay's team on Google Meet. 1 lesson 800.000₫ · 8 lessons 5.600.000₫. Pay by bank transfer, then book each lesson from Mr. Jay's calendar.",
+    "mainWords": 151,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/lessons"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/lessons"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/lessons"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/privacy",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Privacy notice | Jurassic AI Speaking",
+    "description": "What Jurassic AI Speaking collects, where your answers go for AI scoring, what we keep, and how to ask for access or deletion.",
+    "mainWords": 2600,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/solutions",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Online 1-to-1 IELTS Speaking Tutor | Jurassic English",
+    "description": "Online 1-to-1 IELTS Speaking tutor on Google Meet: review your answer, choose one priority, practise, then answer again. 60 min 800,000 VND, Mr. Jay's team.",
+    "mainWords": 1446,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/solutions"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/solutions"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/solutions"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/terms",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Terms | Jurassic AI Speaking",
+    "description": "Plain-language terms for Jurassic AI Speaking practice credits: what you buy, who it is for, 12-month credits, refunds, and how your answers are handled.",
+    "mainWords": 1412,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/baseline",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Thi thử IELTS Speaking 1 kèm 1 với người chấm, online | Jurassic English",
+    "description": "Thi thử IELTS Speaking 1 kèm 1: buổi đánh giá kỹ năng Nói theo định dạng IELTS, trực tiếp 15–20 phút qua Google Meet với người chấm của Jurassic English: bốn band theo tiêu chí, band tổng và kế hoạch học bằng văn bản. Dành cho người lớn và học viên dưới 18 tuổi khi cha, mẹ hoặc người giám hộ hợp pháp đặt lịch và đồng ý. Không phải điểm IELTS chính thức.",
+    "mainWords": 1936,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/baseline"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/baseline"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/baseline"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/lessons",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Học 1 kèm 1 với đội ngũ của thầy Jay | Jurassic English",
+    "description": "Buổi học 60 phút qua Google Meet, cho người lớn và học viên nhỏ tuổi. Thanh toán bằng chuyển khoản, rồi tự đặt từng buổi học theo lịch của thầy Jay.",
+    "mainWords": 207,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/lessons"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/lessons"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/lessons"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/pricing",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Bảng giá | Jurassic AI Speaking",
+    "description": "Mua lượt, nhận một mã truy cập và dùng cho các bài thi thử Nói đầy đủ theo định dạng IELTS. Báo cáo Cơ bản dùng 1 lượt, Trung cấp 2 lượt, Nâng cao 3 lượt.",
+    "mainWords": 547,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/pricing"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/pricing"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/pricing"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/samples",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Báo cáo mẫu | Jurassic AI Speaking",
+    "description": "Một câu trả lời mẫu, hiển thị ở cả ba loại báo cáo. Band của bạn giống nhau ở mọi loại; loại cao hơn giải thích chi tiết hơn. Các báo cáo mẫu này được chấm bằng bộ quy tắc demo ngoại tuyến, không phải bằng AI dùng cho báo cáo trả phí, nên band và lời khuyên chỉ mang tính minh họa.",
+    "mainWords": 1894,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/samples"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/samples"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/samples"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/samples/advanced",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [
+      "duplicate-description:https://jurassicenglish.com/ai-speaking/vi/samples"
+    ],
+    "status": 200,
+    "title": "Báo cáo mẫu Nâng cao | Jurassic AI Speaking",
+    "description": "Một câu trả lời mẫu, hiển thị ở cả ba loại báo cáo. Band của bạn giống nhau ở mọi loại; loại cao hơn giải thích chi tiết hơn. Các báo cáo mẫu này được chấm bằng bộ quy tắc demo ngoại tuyến, không phải bằng AI dùng cho báo cáo trả phí, nên band và lời khuyên chỉ mang tính minh họa.",
+    "mainWords": 4666,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/samples/advanced"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/samples/advanced"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/samples/advanced"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/samples/intermediate",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [
+      "duplicate-description:https://jurassicenglish.com/ai-speaking/vi/samples"
+    ],
+    "status": 200,
+    "title": "Báo cáo mẫu Trung cấp | Jurassic AI Speaking",
+    "description": "Một câu trả lời mẫu, hiển thị ở cả ba loại báo cáo. Band của bạn giống nhau ở mọi loại; loại cao hơn giải thích chi tiết hơn. Các báo cáo mẫu này được chấm bằng bộ quy tắc demo ngoại tuyến, không phải bằng AI dùng cho báo cáo trả phí, nên band và lời khuyên chỉ mang tính minh họa.",
+    "mainWords": 3940,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/samples/intermediate"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/samples/intermediate"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/samples/intermediate"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/solutions",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Luyện IELTS Speaking online 1 kèm 1 | Jurassic English",
+    "description": "Luyện IELTS Speaking online 1 kèm 1 qua Google Meet: xem lại câu trả lời, chọn một ưu tiên, luyện rồi tự nói lại. 60 phút 800.000₫, đội ngũ của thầy Jay.",
+    "mainWords": 3545,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/solutions"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/solutions"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/solutions"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/writing",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Luyện IELTS Writing Task 2: Phản hồi dựa trên bằng chứng (Sắp ra mắt) | Jurassic English",
+    "description": "Jurassic Writing Practice sắp ra mắt: phản hồi IELTS Task 2 chỉ ra chính các câu văn đứng sau mỗi nhận xét, một ưu tiên cần sửa và một lần viết lại để kiểm chứng. Không phải điểm IELTS. Buổi học viết với giáo viên đã có ngay bây giờ.",
+    "mainWords": 2261,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/writing"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/writing"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/writing"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/writing",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Writing Task 2 Practice: Evidence-First Feedback (Coming Soon) | Jurassic English",
+    "description": "Jurassic Writing Practice is coming soon: IELTS Task 2 feedback that shows the sentences behind each point, one priority to fix and a revision to test it. No grade, no prediction. Writing lessons with a teacher are available now.",
+    "mainWords": 1721,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/writing"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/writing"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/writing"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/student-academy/stories",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Level stories | Jurassic English™ Student Academy",
+    "description": "Two original Jurassic English storybooks for each Student Academy level, and the next step with Mr. Jay.",
+    "mainWords": 376,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/student-academy/stories"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/student-academy/stories"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/writing/demo",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Ba báo cáo mẫu IELTS Writing Task 2: dẫn chứng, ưu tiên, kế hoạch | Jurassic English",
+    "description": "Xem ba báo cáo mẫu đầy đủ của Jurassic Writing cho ba bài luận IELTS Task 2 giả định ở ba giai đoạn: dẫn chứng bằng chính câu chữ của người viết, một ưu tiên, cầu nối từ điểm mạnh, trích dẫn theo từng tiêu chí và kế hoạch hai tuần.",
+    "mainWords": 1113,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/writing/demo"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/writing/demo"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/writing/demo"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/writing/sample",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Thử bài mẫu IELTS Writing Task 2: Bằng chứng, Một ưu tiên, Viết lại | Jurassic English",
+    "description": "Bấm qua một hành trình Jurassic Writing mẫu trên một bài IELTS Task 2 được tạo ra: bằng chứng đứng sau phản hồi, một ưu tiên, một lần viết lại và một đề mới. Không cần đăng ký, không cần gõ, không cho con số.",
+    "mainWords": 274,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/writing/sample"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/writing/sample"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/writing/sample"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/writing/demo",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Three Sample IELTS Writing Task 2 Reports: Evidence, Priority, Plan | Jurassic English",
+    "description": "Open three full sample Jurassic Writing reports on invented IELTS Task 2 essays at three stages: the evidence in the learner's own words, one priority, a bridge from a strength, criterion-by-criterion quotes and a two-week plan.",
+    "mainWords": 886,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/writing/demo"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/writing/demo"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/writing/demo"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/writing/sample",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Try the IELTS Writing Task 2 Sample: Evidence, One Priority, Revision | Jurassic English",
+    "description": "Click through a sample Jurassic Writing journey on an invented IELTS Task 2 essay: the evidence behind the feedback, one priority, a revision and a new task. No sign-up, nothing to type, no grade.",
+    "mainWords": 227,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/writing/sample"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/writing/sample"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/writing/sample"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/student-academy/stories",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Truyện theo cấp độ | Học viện Jurassic English™",
+    "description": "Hai truyện tranh gốc của Jurassic English cho mỗi cấp độ của Học viện, và bước tiếp theo cùng thầy Jay.",
+    "mainWords": 459,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/student-academy/stories"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/student-academy/stories"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/challenges/one-change",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Free IELTS Speaking Practice: One Change Challenge | Jurassic English",
+    "description": "One answer. One useful change. An interactive English speaking practice challenge from Jurassic English.",
+    "mainWords": 370,
+    "lang": "en",
+    "alternates": []
+  },
+  {
+    "url": "https://jurassicenglish.com/young-learners-speaking/",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Coaching, Band 5.0 to 8.5, Ages 9–18 | Jurassic English",
+    "description": "IELTS-aligned speaking coaching for ages 9–18 from Band 5.0 Foundation to Band 8.5 Mastery, 1-to-1 or in small groups. Start with a 15–20 minute Live Speaking Baseline on Google Meet, 690.000₫.",
+    "mainWords": 826,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/young-learners-speaking/"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/luyen-noi-ielts/"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/young-learners-speaking/"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "AI IELTS Speaking Practice: Online Mock Test with Feedback | Jurassic English",
+    "description": "Practise IELTS-style Speaking online with AI feedback: an estimated band range, evidence from your own answer and the one thing to fix next. Typed mode does not assess pronunciation. Practice estimate, not an official IELTS score.",
+    "mainWords": 722,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/pricing",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Pricing | Jurassic AI Speaking",
+    "description": "Typed IELTS-style Speaking practice with evidence-based reports. 1 credit 79.000₫, 3 credits 199.000₫, 10 credits 549.000₫; valid 12 months. Basic uses 1 credit, Intermediate 2, Advanced 3. Not an official IELTS score.",
+    "mainWords": 413,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/pricing"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/pricing"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/pricing"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Luyện IELTS Speaking online với AI: thi thử, band ước tính và phản hồi | Jurassic English",
+    "description": "Luyện IELTS Speaking online với AI bằng câu trả lời đánh máy. Xem bằng chứng từ chính bài làm, khoảng điểm ước tính và một việc cần luyện tiếp. Không đánh giá phát âm từ văn bản; không phải điểm IELTS chính thức.",
+    "mainWords": 1037,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/samples",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Sample reports: Basic, Intermediate, Advanced | Jurassic AI Speaking",
+    "description": "See all three IELTS-style Speaking practice reports side by side: Basic (1 credit), Intermediate with error log and charts (2 credits), Advanced with part-by-part breakdown, model answers and a 4-week plan (3 credits). Practice feedback, not an official IELTS score.",
+    "mainWords": 1346,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/samples"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/samples"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/samples"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/samples/intermediate",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Intermediate sample report | Jurassic AI Speaking",
+    "description": "Explore a synthetic Intermediate IELTS-style Speaking practice report. See the evidence, uncertainty and next practice step before choosing a credit pack. Not an official IELTS score.",
+    "mainWords": 3025,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/samples/intermediate"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/samples/intermediate"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/samples/intermediate"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/samples/advanced",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Advanced sample report | Jurassic AI Speaking",
+    "description": "Explore a synthetic Advanced IELTS-style Speaking practice report. See the evidence, uncertainty and next practice step before choosing a credit pack. Not an official IELTS score.",
+    "mainWords": 3688,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/samples/advanced"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/samples/advanced"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/samples/advanced"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/baseline",
+    "source": "live-external-rewrite",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "IELTS Speaking Mock Test with a Live Assessor, Online | Jurassic English",
+    "description": "A 15–20 minute live IELTS-style Speaking mock test on Google Meet with a Jurassic English assessor: four criterion bands, an overall band and a written plan. For adults and learners under 18 when a parent or legal guardian books and consents. Not an official IELTS score.",
+    "mainWords": 1523,
+    "lang": "en",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/ai-speaking/baseline"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/ai-speaking/vi/baseline"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/ai-speaking/baseline"
+      }
+    ]
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/luyen-noi-ielts/",
+    "source": "local-build",
+    "errors": [],
+    "warnings": [],
+    "status": 200,
+    "title": "Luyện Nói IELTS từ Band 5.0 đến 8.5 cho 9–18 tuổi | Jurassic English",
+    "description": "Huấn luyện Nói theo định hướng IELTS cho 9–18 tuổi, từ Band 5.0 Nền tảng đến Band 8.5 Thành thạo, học 1 kèm 1 hoặc nhóm nhỏ. Bắt đầu với buổi Đánh giá Nói trực tiếp 15–20 phút qua Google Meet, 690.000₫.",
+    "mainWords": 1191,
+    "lang": "vi",
+    "alternates": [
+      {
+        "lang": "en",
+        "url": "https://jurassicenglish.com/young-learners-speaking/"
+      },
+      {
+        "lang": "vi",
+        "url": "https://jurassicenglish.com/vi/luyen-noi-ielts/"
+      },
+      {
+        "lang": "x-default",
+        "url": "https://jurassicenglish.com/young-learners-speaking/"
+      }
+    ]
+  }
+]
