@@ -1,0 +1,10 @@
+# Runs when jurassic-health.service fails: an error-priority journal entry plus a marker file that the operator's
+# check (and any future alert channel) can read. No external alert channel is configured on this host yet.
+[Unit]
+Description=Jurassic English health check failure alert
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/logger -p user.err -t jurassic-health "ALERT: jurassic-health.service failed; see journalctl -u jurassic-health"
+ExecStart=/usr/bin/install -d -m 0755 /var/lib/jurassic-health
+ExecStart=/usr/bin/sh -c 'date -u +%%Y-%%m-%%dT%%H:%%M:%%SZ > /var/lib/jurassic-health/LAST_FAILURE'

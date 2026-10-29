@@ -1,0 +1,11 @@
+# Same schedule as vercel.json "crons": "0 12 * * *" (12:00 UTC daily).
+[Unit]
+Description=Jurassic English daily health check at 12:00 UTC
+
+[Timer]
+OnCalendar=*-*-* 12:00:00 UTC
+Persistent=true
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target
