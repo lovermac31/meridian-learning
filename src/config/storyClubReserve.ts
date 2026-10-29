@@ -10,4 +10,5 @@ export const STORY_CLUB_GROUPS = [
 ] as const;
 
 export const STORY_CLUB_PRICE_VND = 590_000;
+export const STORY_CLUB_QR_PATH = '/assets/pay/vietqr-story-club.png';
 export const STORY_CLUB_SAMPLE_URL = 'https://books.jurassicenglish.com/book.html?utm_source=reserve&utm_content=mina-and-the-midnight-drum#mina-and-the-midnight-drum';

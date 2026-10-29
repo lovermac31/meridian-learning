@@ -3,7 +3,7 @@ import type { Locale } from '../i18n/locales';
 import { normalizeVietnamesePhone } from '../i18n/content/samplePack';
 import { recordClientEvent } from '../lib/tracker';
 import { validateStoryClubReserve } from '../lib/storyClubReserve';
-import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_PRICE_VND, STORY_CLUB_SAMPLE_URL } from '../config/storyClubReserve';
+import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_PRICE_VND, STORY_CLUB_QR_PATH, STORY_CLUB_SAMPLE_URL } from '../config/storyClubReserve';
 import { ToolHero } from './IeltsToolsPage';
 
 const copy = {
@@ -141,7 +141,8 @@ export function StoryClubReservePage({ locale }: { locale: Locale }) {
             <p className="mt-2">{t.amount}</p>
             <p className="mt-2">{t.transfer}: <strong data-transfer-memo>{confirmation.memo}</strong></p>
             <p className="mt-3 font-semibold" data-payment-status>{paymentReceived ? t.paymentReceived : t.paymentPending}</p>
-            <p id="reserve-qr-fallback" className="mt-3">{t.qrFallback}</p>
+            <img src={STORY_CLUB_QR_PATH} alt="Story Club VietQR payment" width={320} height={320} className="mt-4 max-h-72 w-auto max-w-full object-contain" onError={(event) => { event.currentTarget.hidden = true; const fallback = document.getElementById('reserve-qr-fallback'); if (fallback) fallback.hidden = false; }} />
+            <p id="reserve-qr-fallback" className="mt-3" hidden>{t.qrFallback}</p>
             <a className="insights-button-primary mt-5" href="/go/zalo?utm_source=reserve&utm_content=after-submit" data-after-submit-zalo>{t.zalo}</a>
           </section>
         ) : (
