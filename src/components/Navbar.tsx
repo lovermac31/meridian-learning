@@ -185,7 +185,7 @@ export const Navbar = ({
     <nav className={`fixed top-0 w-full z-50 border-b transition-shadow duration-300 bg-sb-cream/95 backdrop-blur-md ${isSolidNav ? 'border-sb-border shadow-warm' : 'border-transparent'}`}>
       {/* Two balanced clusters on one 72px row: [logo + doors] … [language + CTA]. */}
       <div className="max-w-[1600px] mx-auto h-[72px] px-3 min-[360px]:px-4 sm:px-6 flex flex-nowrap justify-between items-center gap-1.5 min-[360px]:gap-3">
-        <div className="flex min-w-0 flex-nowrap items-center gap-4 min-[1600px]:gap-4">
+        <div className="flex min-w-0 flex-nowrap items-center gap-4 2xl:gap-4">
         {/* Below 430px the wordmark wraps to two lines (min-content width) so the Baseline CTA never covers it; the row stays one 72px line. */}
         <button
           type="button"
@@ -201,7 +201,7 @@ export const Navbar = ({
         </button>
 
         {/* Show the full link row only when the logo, links, language control and CTA fit. */}
-        <div className="hidden min-[1600px]:flex flex-nowrap items-center gap-2 min-[1600px]:gap-3">
+        <div className="hidden 2xl:flex flex-nowrap items-center gap-2 2xl:gap-3">
           {navItems.map((item) => (
             <a
               key={item.key}
@@ -218,7 +218,7 @@ export const Navbar = ({
         </div>
         </div>
         <div className="flex shrink-0 flex-nowrap items-center gap-1.5 min-[360px]:gap-2 sm:gap-3">
-          <div className="hidden min-[1600px]:block">{languageSwitcher}</div>
+          <div className="hidden 2xl:block">{languageSwitcher}</div>
           <a
             href={bookHref}
             onClick={() => handleBookClick('desktop')}
@@ -231,7 +231,7 @@ export const Navbar = ({
           <button
             ref={triggerRef}
             type="button"
-            className="min-[1600px]:hidden shrink-0 text-sb-forest inline-flex h-11 w-11 items-center justify-center rounded-full border border-sb-border bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
+            className="2xl:hidden shrink-0 text-sb-forest inline-flex h-11 w-11 items-center justify-center rounded-full border border-sb-border bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={
               isMobileMenuOpen
@@ -259,7 +259,7 @@ export const Navbar = ({
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            className="absolute top-full left-0 w-full max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain bg-sb-cream border-b border-sb-border py-5 px-5 flex flex-col gap-3 min-[1600px]:hidden shadow-warm"
+            className="absolute top-full left-0 w-full max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain bg-sb-cream border-b border-sb-border py-5 px-5 flex flex-col gap-3 2xl:hidden shadow-warm"
           >
             <a
               href={bookHref}

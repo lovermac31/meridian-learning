@@ -50,10 +50,10 @@ export function LanguageSwitcher({ currentRoute, onNavigate }: LanguageSwitcherP
               }`}
             >
               {/* The switcher uses full names in the drawer and compact labels
-                  only when the full desktop navigation is visible (>= 1600px). */}
-              <span className="min-[1600px]:hidden">{getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
+                  only when the full desktop navigation is visible (>= 2xl). */}
+              <span className="2xl:hidden">{getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
               {/* Desktop header reads "EN | Tiếng Việt". */}
-              <span className="hidden min-[1600px]:inline">{locale === 'en' ? 'EN' : getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
+              <span className="hidden 2xl:inline">{locale === 'en' ? 'EN' : getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
             </button>
           );
         })}

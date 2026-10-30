@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const desktopWidths = [1600, 1700, 1920];
+const desktopWidths = [1536, 1565, 1600, 1700, 1920];
 
 test('desktop navigation keeps Products clear of the language switcher in English and Vietnamese', async ({ page }) => {
   for (const width of desktopWidths) {
@@ -32,7 +32,7 @@ test('desktop navigation keeps Products clear of the language switcher in Englis
 });
 
 test('navigation switches to a menu before the full row can become crowded', async ({ page }) => {
-  for (const width of [1280, 1440, 1535, 1599]) {
+  for (const width of [1280, 1440, 1535]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
     await expect(page.locator('nav button[aria-controls="root-mobile-nav"]'), `${width}px uses the compact menu`).toBeVisible();
