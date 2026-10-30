@@ -3,18 +3,22 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { coerceSampleInput, toSampleLead } from '../api/sample-pack';
 import { SAMPLE_LEADS_DB_ID, sampleLeadNotes, sampleLeadProperties } from '../api/_lib/notionCrmWriter';
-import { isValidContactEmail, normalizeVietnamesePhone, sampleContactError, samplePackContent } from '../src/i18n/content/samplePack';
+import { isValidContactEmail, normalizePhoneNumber, normalizeVietnamesePhone, sampleContactError, samplePackContent } from '../src/i18n/content/samplePack';
 
 // The free sample pack (website assessment, 27 Oct 2026; master's decision): no Supabase change, a Notion CRM lead plus
 // a Resend email to Jay. Contact is a Zalo number OR an email; name and age optional; consent required.
-const base = { name: '', phone: '', email: '', childAge: '', teacher: false, consent: true, locale: 'en', placement: 'home', source: '', website: '', startedAt: '' };
+const base = { name: '', phone: '', email: '', location: '', childAge: '', teacher: false, consent: true, locale: 'en', placement: 'home', source: '', website: '', startedAt: '' };
 
 test('sample pack: a Zalo number or an email is the one required contact, and consent is required', () => {
   assert.equal(normalizeVietnamesePhone('0396 085.076'), '+84396085076');
   assert.equal(normalizeVietnamesePhone('+84 396 085 076'), '+84396085076');
   assert.equal(normalizeVietnamesePhone('+84 0396 085 076'), '+84396085076', 'international input may retain the domestic leading zero');
+  assert.equal(normalizeVietnamesePhone('396 085 076'), '+84396085076', 'unprefixed numbers use the default Vietnam country selector');
+  assert.equal(normalizePhoneNumber('(415) 555-2671', 'US'), '+14155552671', 'selected countries normalize to E.164');
+  assert.equal(normalizePhoneNumber('+14155552671'), '+14155552671', 'international pasted numbers keep their own country code');
+  assert.equal(normalizeVietnamesePhone('396 085 076', { assumeVietnameseCountryCode: true }), '+84396085076');
   assert.equal(normalizeVietnamesePhone('+84'), null, 'the default prefix alone is not a complete phone number');
-  assert.equal(normalizeVietnamesePhone('0396-085-076'), null, 'only spaces and dots are stripped');
+  assert.equal(normalizeVietnamesePhone('0396-085-076'), '+84396085076', 'common phone punctuation is normalized');
   assert.equal(normalizeVietnamesePhone('12345'), null);
   assert.equal(sampleContactError('', ''), 'contact');
   assert.equal(sampleContactError('invalid', 'parent@example.com'), 'phone');

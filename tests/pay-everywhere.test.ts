@@ -45,7 +45,7 @@ for (const offer of PAID_OFFERS) test(`${offer.id}: server memo, exact QR amount
   assert.equal(qr.searchParams.get('bank'), 'MBBank');
   for (const value of [memo, memo.replace('-', ''), memo.replace('-', ' '), `PAY ${memo.toLowerCase()} thanks`]) assert.equal(canonicalPaymentMemo(value), memo);
   assert.equal(canonicalPaymentMemo(memo + 'X'), null);
-  const lead = toSampleLead(coerceSampleInput({ product: offer.id, name: 'Synthetic Parent', phone: '0396085076', consent: true, submissionKey: key, amount: 1, memo: 'SC-HACKED' }));
+  const lead = toSampleLead(coerceSampleInput({ product: offer.id, name: 'Synthetic Parent', phone: '0396085076', email: 'parent@example.test', location: 'VN', consent: true, submissionKey: key, amount: 1, memo: 'SC-HACKED' }));
   if ('error' in lead) return assert.fail(lead.error);
   assert.equal(lead.product, offer.id);
   assert.equal(lead.childAge, undefined);
@@ -63,7 +63,7 @@ for (const offer of PAID_OFFERS) test(`${offer.id}: server memo, exact QR amount
 });
 
 test('optional age/group stay validated when supplied; name and Zalo remain mandatory', () => {
-  const values = { name: 'Synthetic', phone: '0396085076', childAge: '', group: '' };
+  const values = { name: 'Synthetic', phone: '0396085076', email: 'parent@example.test', location: 'VN', childAge: '', group: '' };
   assert.equal(validateStoryClubReserve(values), null);
   assert.equal(validateStoryClubReserve({ ...values, name: '' }), 'name');
   assert.equal(validateStoryClubReserve({ ...values, phone: '' }), 'phone');

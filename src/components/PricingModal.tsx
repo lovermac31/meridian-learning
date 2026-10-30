@@ -15,6 +15,7 @@ import {
   type PricingRegistrationValues,
 } from '../lib/pricingRegistrationSchema';
 import { recordClientEvent } from '../lib/tracker';
+import { PhoneNumberField } from './PhoneNumberField';
 
 type PricingModalProps = {
   isOpen: boolean;
@@ -354,12 +355,14 @@ function RegistrationForm({
           label={getUiString(locale, 'pricingModal.labels.phoneWhatsapp')}
           fieldId="pr-phoneWhatsapp"
           input={
-            <input
+            <PhoneNumberField
               id="pr-phoneWhatsapp"
-              className={fieldClass}
+              label={getUiString(locale, 'pricingModal.labels.phoneWhatsapp')}
+              locale={locale}
               value={values.phoneWhatsapp}
-              onChange={(e) => updateValue('phoneWhatsapp', e.target.value)}
-              autoComplete="tel"
+              onChange={(value) => updateValue('phoneWhatsapp', value)}
+              inputClassName="text-sm"
+              selectClassName="text-sm"
               placeholder={getUiString(locale, 'pricingModal.placeholders.phoneWhatsapp')}
             />
           }

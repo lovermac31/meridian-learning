@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { getCountries, type CountryCode } from 'libphonenumber-js';
 import { paidOffer } from '../src/config/payment.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { normalizeVietnamesePhone, sampleContactError, samplePackContent } from '../src/i18n/content/samplePack.js';
@@ -18,9 +19,9 @@ const RESEND_TIMEOUT_MS = 8_000;
 const NOTION_TIMEOUT_MS = 4_000;
 
 type Input = {
-  name: string; phone: string; email: string; childAge: string; teacher: boolean; consent: boolean;
+  name: string; phone: string; email: string; location: string; childAge: string; teacher: boolean; consent: boolean;
   locale: string; placement: string; source: string; website: string; startedAt: string;
-  product?: string; submissionKey?: string; utm_source?: string; utm_content?: string; utm_medium?: string; utm_campaign?: string; utm_term?: string; group?: string;
+  product?: string; submissionKey?: string; intent?: string; utm_source?: string; utm_content?: string; utm_medium?: string; utm_campaign?: string; utm_term?: string; group?: string;
 };
 
 const str = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
@@ -31,6 +32,7 @@ export function coerceSampleInput(body: unknown): Input {
     name: str(r.name, 120),
     phone: str(r.phone, 32),
     email: str(r.email, 254),
+    location: str(r.location, 2),
     childAge: str(r.childAge, 2),
     teacher: r.teacher === true,
     consent: r.consent === true,
@@ -40,6 +42,7 @@ export function coerceSampleInput(body: unknown): Input {
     website: typeof r.website === 'string' ? r.website : '',
     startedAt: str(r.startedAt, 40),
     product: str(r.product, 32),
+    intent: str(r.intent, 24),
     submissionKey: str(r.submissionKey, 36),
     utm_source: str(r.utm_source, 64),
     utm_content: str(r.utm_content, 64),
@@ -64,6 +67,8 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
   if (input.product) {
     if (!normalizeVietnamesePhone(input.phone)) return { error: 'phone' };
     if (!input.name.trim()) return { error: 'name' };
+    if (!input.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email) || input.email.length > 254) return { error: 'email' };
+    if (!getCountries().includes(input.location as CountryCode)) return { error: 'contact' };
     const age = Number(input.childAge);
     if (input.childAge && (!Number.isInteger(age) || age < 5 || age > 8)) return { error: 'age' };
     if (input.group && !/^(sat-0900|flexible)$/.test(input.group)) return { error: 'group' };
@@ -88,6 +93,7 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
     ...(/^[a-z0-9_-]+$/i.test(input.source) ? { source: input.source } : {}),
     ...(input.product ? {
       product: input.product,
+      location: input.location,
       ...(input.group ? { group: input.group as 'sat-0900' | 'flexible' } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_medium ?? '') ? { utmMedium: input.utm_medium } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_campaign ?? '') ? { utmCampaign: input.utm_campaign } : {}),
@@ -172,12 +178,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     logEvent({ event: 'spam_rejected', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), reason: input.website.trim() ? 'honeypot_filled' : 'submission_timing' });
     return res.status(400).json({ ok: false, error: 'Submission could not be accepted.' });
   }
+
+  // Create the priced order reference before collecting contact details, so the buyer can see and scan the QR first.
+  if (input.intent === 'prepare_payment') {
+    const offer = paidOffer(input.product ?? '');
+    if (!offer || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.submissionKey ?? '')) {
+      return res.status(400).json({ ok: false, error: 'invalid_order' });
+    }
+    const submissionId = `JE-${offer.prefix}-${input.submissionKey!.toLowerCase()}`;
+    let memo: string;
+    if (input.product === 'story-club') {
+      const reservation = await createStoryClubReservation(submissionId, 'flexible');
+      if (!reservation.ok) {
+        logEvent({ event: 'story_club_reservation_failed', route: '/api/sample-pack', status: 503, reason: reservation.reason });
+        return res.status(503).json({ ok: false, error: 'reserve_temporarily_unavailable' });
+      }
+      memo = reservation.memo;
+    } else {
+      memo = createPaidMemo(input.product!, submissionId);
+    }
+    return res.status(200).json({ ok: true, submissionId, memo });
+  }
+
   const lead = toSampleLead(input);
   if ('error' in lead) {
     logEvent({ event: 'validation_failed', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), errorFields: [lead.error], errorFieldCount: 1 });
     const locale = input.locale === 'vi' ? 'vi' : 'en';
     if (input.product) {
-      const message = locale === 'vi' ? 'Vui lòng kiểm tra thông tin đặt chỗ và số Zalo.' : 'Please check the reserve details and Vietnamese Zalo number.';
+      const message = locale === 'vi' ? 'Vui lòng kiểm tra thông tin đặt chỗ và số điện thoại.' : 'Please check your reserve details and phone number.';
       return res.status(400).json({ ok: false, error: lead.error, message });
     }
     return res.status(400).json({ ok: false, error: lead.error, message: samplePackContent[locale].errors[lead.error] });
