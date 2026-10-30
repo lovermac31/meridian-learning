@@ -54,6 +54,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await expect(page).toHaveURL(new RegExp(paymentHref(offer.id, locale).replace(/[?]/g, '\\?') + '$'));
     const form = page.locator('[data-reserve-form]');
     await expect(form.locator('[required]')).toHaveCount(2);
+    await expect(form.locator('[name="phone"]')).toHaveValue('+84 ');
     await expect(page.locator('[data-payment-qr]')).toHaveCount(0);
     if (offer.id === 'story-club') {
       const sampleY = (await page.locator('[data-reserve-sample]').boundingBox())!.y;
@@ -64,7 +65,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await expect(page.getByRole('alert')).toBeVisible();
     expect(submissions).toBe(0);
     await form.locator('[name="name"]').fill('Synthetic Parent');
-    await form.locator('[name="phone"]').fill('0396085076');
+    await form.locator('[name="phone"]').fill('+84 0396 085 076');
     await form.locator('[type="submit"]').click();
     await expect(page.locator('[data-payment-instructions]')).toBeVisible();
     await expect(page.locator('[data-payment-amount]')).toHaveText(paymentAmount(offer.amount, locale));

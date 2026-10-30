@@ -12,6 +12,8 @@ const base = { name: '', phone: '', email: '', childAge: '', teacher: false, con
 test('sample pack: a Zalo number or an email is the one required contact, and consent is required', () => {
   assert.equal(normalizeVietnamesePhone('0396 085.076'), '+84396085076');
   assert.equal(normalizeVietnamesePhone('+84 396 085 076'), '+84396085076');
+  assert.equal(normalizeVietnamesePhone('+84 0396 085 076'), '+84396085076', 'international input may retain the domestic leading zero');
+  assert.equal(normalizeVietnamesePhone('+84'), null, 'the default prefix alone is not a complete phone number');
   assert.equal(normalizeVietnamesePhone('0396-085-076'), null, 'only spaces and dots are stripped');
   assert.equal(normalizeVietnamesePhone('12345'), null);
   assert.equal(sampleContactError('', ''), 'contact');
