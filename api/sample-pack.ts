@@ -7,47 +7,47 @@ import { createStoryClubReservation } from './_lib/supabaseWriter.js';
 import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 
 // Server-safe product map. Do not import src/config/payment.ts here — it uses import.meta.env (Vite) and crashes the serverless function.
-const PRODUCT_PREFIX: Record<string, string> = {
-  'story-club': 'SC',
-  'baseline': 'BL',
-  'one-to-one': '1T',
-  'printable-pack': 'PR03',
-  'parent-pack-l1': 'PR04',
-  'parent-pack-l2': 'PR05',
-  'parent-pack-l3': 'PR06',
-  'holiday-reading-challenge': 'PR07',
-  'teacher-pack-l1': 'PR08',
-  'teacher-pack-l2': 'PR09',
-  'teacher-pack-l3': 'PR0A',
-  'teacher-pack-l4': 'PR0B',
-  'teacher-pack-l5': 'PR0C',
-  'teacher-bundle': 'PR0D',
-  'student-workbook-l1': 'PR0E',
-  'student-workbook-l2': 'PR0F',
-  'student-workbook-l3': 'PR0G',
-  'student-workbook-l4': 'PR0H',
-  'student-workbook-l5': 'PR0I',
-  'word-fossil-flashcards-l1': 'PR0J',
-  'thinking-cycle-set': 'PR0K',
-  'thinking-cycle-posters': 'PR0L',
-  'reasoning-assessment-kit': 'PR0M',
-  'centre-licence': 'PR0N',
-  'teacher-training-course': 'PR0O',
-  'pilot-class-kit': 'PR0P',
-  'curriculum-overview': 'PR0Q',
-  'ielts-speaking-ladder': 'PR0R',
-  'ielts-one-to-one-starter': 'PR0S',
-  'ielts-cue-card-bank': 'PR0T',
-  'writing-baseline': 'PR0U',
-  'ielts-writing-ladder-task2': 'PR0V',
-  'ielts-writing-task1-method': 'PR0W',
-  'ielts-essay-bank-task2': 'PR0X',
-  'ielts-writing-teacher-pack': 'PR0Y',
+const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
+  'story-club': { prefix: 'SC', amount: 590000 },
+  'baseline': { prefix: 'BL', amount: 690000 },
+  'one-to-one': { prefix: '1T', amount: 5600000 },
+  'printable-pack': { prefix: 'PR03', amount: 149000 },
+  'parent-pack-l1': { prefix: 'PR04', amount: 249000 },
+  'parent-pack-l2': { prefix: 'PR05', amount: 249000 },
+  'parent-pack-l3': { prefix: 'PR06', amount: 249000 },
+  'holiday-reading-challenge': { prefix: 'PR07', amount: 149000 },
+  'teacher-pack-l1': { prefix: 'PR08', amount: 690000 },
+  'teacher-pack-l2': { prefix: 'PR09', amount: 690000 },
+  'teacher-pack-l3': { prefix: 'PR0A', amount: 690000 },
+  'teacher-pack-l4': { prefix: 'PR0B', amount: 690000 },
+  'teacher-pack-l5': { prefix: 'PR0C', amount: 690000 },
+  'teacher-bundle': { prefix: 'PR0D', amount: 2900000 },
+  'student-workbook-l1': { prefix: 'PR0E', amount: 190000 },
+  'student-workbook-l2': { prefix: 'PR0F', amount: 190000 },
+  'student-workbook-l3': { prefix: 'PR0G', amount: 190000 },
+  'student-workbook-l4': { prefix: 'PR0H', amount: 190000 },
+  'student-workbook-l5': { prefix: 'PR0I', amount: 190000 },
+  'word-fossil-flashcards-l1': { prefix: 'PR0J', amount: 190000 },
+  'thinking-cycle-set': { prefix: 'PR0K', amount: 490000 },
+  'thinking-cycle-posters': { prefix: 'PR0L', amount: 149000 },
+  'reasoning-assessment-kit': { prefix: 'PR0M', amount: 390000 },
+  'centre-licence': { prefix: 'PR0N', amount: 4900000 },
+  'teacher-training-course': { prefix: 'PR0O', amount: 1490000 },
+  'pilot-class-kit': { prefix: 'PR0P', amount: 690000 },
+  'curriculum-overview': { prefix: 'PR0Q', amount: 290000 },
+  'ielts-speaking-ladder': { prefix: 'PR0R', amount: 390000 },
+  'ielts-one-to-one-starter': { prefix: 'PR0S', amount: 149000 },
+  'ielts-cue-card-bank': { prefix: 'PR0T', amount: 290000 },
+  'writing-baseline': { prefix: 'PR0U', amount: 79000 },
+  'ielts-writing-ladder-task2': { prefix: 'PR0V', amount: 390000 },
+  'ielts-writing-task1-method': { prefix: 'PR0W', amount: 290000 },
+  'ielts-essay-bank-task2': { prefix: 'PR0X', amount: 290000 },
+  'ielts-writing-teacher-pack': { prefix: 'PR0Y', amount: 690000 },
 };
 
 function paidOffer(id: string) {
-  const prefix = PRODUCT_PREFIX[id];
-  return prefix ? { id, prefix } : undefined;
+  const entry = PRODUCT_MAP[id];
+  return entry ? { id, prefix: entry.prefix, amount: entry.amount } : undefined;
 }
 
 const MIN_SUBMISSION_DELAY_MS = 30_000;
@@ -275,6 +275,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       placement: 'products',
       product: input.product,
       paymentMemo: memo,
+      paymentAmount: offer.amount,
       source: 'prepare_payment',
     };
     void safeNotion(lead);
