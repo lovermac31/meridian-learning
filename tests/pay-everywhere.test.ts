@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { PAID_OFFERS, BANK_CONFIG, STATIC_QR, canonicalPaymentMemo, paymentQrUrl, paymentHref } from '../src/config/payment';
+import { PAID_OFFERS, BANK_CONFIG, canonicalPaymentMemo, paymentQrUrl, paymentHref } from '../src/config/payment';
 import { createPaidMemo, coerceSampleInput, toSampleLead } from '../api/sample-pack';
 import { sampleLeadNotes } from '../api/_lib/notionCrmWriter';
 import { PayStep } from '../src/components/PayStep';
@@ -26,7 +26,6 @@ const amounts: Record<string, number> = {
 test('every priced offer has an approved price and a unique stable memo namespace', () => {
   assert.deepEqual(PAID_OFFERS.map(o => o.id).sort(), Object.keys(amounts).sort());
   assert.equal(new Set(PAID_OFFERS.map(o => o.prefix)).size, PAID_OFFERS.length);
-  assert.equal(STATIC_QR, '/assets/pay/vietqr-story-club.png');
   assert.equal(BANK_CONFIG.bank, 'MBBank');
   assert.equal(BANK_CONFIG.account, '0269494315526');
 });
@@ -56,6 +55,8 @@ for (const offer of PAID_OFFERS) test(`${offer.id}: server memo, exact QR amount
   for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(PayStep, { locale, amount: offer.amount, memo, productId: offer.id }));
     assert.ok(html.includes('https://qr.sepay.vn/img?'));
+    assert.match(html, /data-payment-qr/);
+    assert.doesNotMatch(html, /vietqr-story-club\.png|enter the amount|nhập số tiền/i);
     const path = new URL(paymentHref(offer.id, locale), 'https://example.invalid');
     assert.equal(resolveLocalizedRoute(path.pathname).locale, locale);
   }
@@ -73,7 +74,7 @@ test('optional age/group stay validated when supplied; name and Zalo remain mand
   assert.equal(canonicalPaymentMemo('PRZZABC123'), null);
 });
 
-test('missing bank config falls back; invalid amount or memo cannot produce a dynamic URL', () => {
+test('missing bank config disables the dynamic QR; invalid amount or memo cannot produce a URL', () => {
   for (const key of ['bank', 'account', 'name'] as const) assert.equal(paymentQrUrl(590000, 'SC-ABC123', { ...BANK_CONFIG, [key]: '' }), null);
   for (const amount of [0, -1, 1.5, NaN, Infinity]) assert.throws(() => paymentQrUrl(amount, 'SC-ABC123'));
   assert.throws(() => paymentQrUrl(590000, 'SC-BAD&amount=1'));

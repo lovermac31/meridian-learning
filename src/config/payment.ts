@@ -60,7 +60,6 @@ export const BANK_CONFIG = {
   account: env.VITE_VIETQR_ACCOUNT_NO ?? '0269494315526',
   name: env.VITE_VIETQR_ACCOUNT_NAME ?? 'ADAMS NATHANIEL JAY',
 };
-export const STATIC_QR = '/assets/pay/vietqr-story-club.png';
 export function paymentQrUrl(amount: number, memo: string, config = BANK_CONFIG): string | null {
   if (!/^[A-Za-z0-9]+$/.test(config.bank) || !/^\d{6,20}$/.test(config.account) || !config.name.trim()) return null;
   if (!Number.isSafeInteger(amount) || amount <= 0 || !/^(SC|BL|1T|PR[A-Z0-9]{2})-[A-Z0-9]{6}$/.test(memo)) throw new Error('Invalid payment instructions');
