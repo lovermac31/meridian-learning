@@ -2,8 +2,6 @@
 
 > Jurassic English™ is a literature-based academic English and critical-thinking framework, published by World Wise Learning. It helps students, parents, schools and learning centres build academic English, critical thinking, literature-based reasoning and IELTS-aligned speaking confidence. The site is in English and Vietnamese.
 
-The complete machine-readable product catalogue is at https://jurassicenglish.com/llms-products.md.
-
 Jurassic English is an independent education provider. It is not endorsed by or affiliated with IELTS, Cambridge University Press & Assessment, the British Council or IDP. Only an authorised IELTS test produces an official IELTS score.
 
 ## Main offers
@@ -55,6 +53,7 @@ Jurassic English is an independent education provider. It is not endorsed by or 
 
 ## Optional
 
+- [Product catalogue](https://jurassicenglish.com/llms-products.md)
 - [Sitemap](https://jurassicenglish.com/sitemap.xml)
 - [Privacy policy](https://jurassicenglish.com/legal/privacy)
 - [Terms of use](https://jurassicenglish.com/legal/terms)
