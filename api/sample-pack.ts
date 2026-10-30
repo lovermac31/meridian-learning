@@ -1,5 +1,4 @@
 import { createHash } from 'node:crypto';
-import { getCountries, type CountryCode } from 'libphonenumber-js';
 import { paidOffer } from '../src/config/payment.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { normalizeVietnamesePhone, sampleContactError, samplePackContent } from '../src/i18n/content/samplePack.js';
@@ -73,7 +72,8 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
     if (!normalizeVietnamesePhone(input.phone)) return { error: 'phone' };
     if (!input.name.trim()) return { error: 'name' };
     if (!input.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email) || input.email.length > 254) return { error: 'email' };
-    if (!getCountries().includes(input.location as CountryCode)) return { error: 'contact' };
+    // Simple ISO 3166-1 alpha-2 check. Full country validation is done on the client with libphonenumber-js.
+    if (!/^[A-Z]{2}$/.test(input.location)) return { error: 'contact' };
     const age = Number(input.childAge);
     if (input.childAge && (!Number.isInteger(age) || age < 5 || age > 8)) return { error: 'age' };
     if (input.group && !/^(sat-0900|flexible)$/.test(input.group)) return { error: 'group' };
