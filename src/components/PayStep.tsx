@@ -21,7 +21,9 @@ export function PayStep({ locale, amount, memo, productId }: { locale: Locale; a
         <p className="mt-2">{BANK_CONFIG.bank} · {BANK_CONFIG.name} · <strong>{BANK_CONFIG.account}</strong></p>
         <p className="mt-3">{vi ? 'Quét bằng ứng dụng ngân hàng bất kỳ → kiểm tra số tiền và nội dung chuyển khoản.' : 'Scan in any banking app → check the amount and transfer note.'}</p>
         <img data-payment-qr src={dynamic} alt={vi ? 'Mã VietQR thanh toán' : 'VietQR payment code'} width={320} height={320} referrerPolicy="no-referrer" className="mt-4 max-h-72 w-auto max-w-full object-contain" onError={() => setQrUnavailable(true)} />
+        <p className="mt-3 text-sm">{vi ? 'Dùng điện thoại: lưu mã QR, mở ứng dụng ngân hàng, chọn Quét QR → Chọn ảnh / Thư viện.' : 'On your phone: save the QR, open your banking app, then Scan QR → From Gallery / Album.'}</p>
         <div className="mt-4 flex flex-wrap gap-3">
+          <a className="insights-button-secondary" href={dynamic} download="jurassic-english-payment-qr.png" target="_blank" rel="noopener noreferrer">{vi ? 'Tải mã QR' : 'Download QR'}</a>
           <button type="button" className="insights-button-secondary" onClick={() => void copy(BANK_CONFIG.account)}>{vi ? 'Sao chép số tài khoản' : 'Copy account number'}</button>
           <button type="button" className="insights-button-secondary" onClick={() => void copy(memo)}>{vi ? 'Sao chép mã' : 'Copy code'}</button>
         </div>
