@@ -92,7 +92,11 @@ export const samplePackContent: Record<Locale, SamplePackCopy> = { en, vi };
 export function normalizeVietnamesePhone(value: string): string | null {
   const normalized = value.trim().replace(/[ .]/g, '');
   if (/^0\d{9}$/.test(normalized)) return `+84${normalized.slice(1)}`;
-  if (/^\+84\d{9}$/.test(normalized)) return normalized;
+  const international = normalized.match(/^\+84(\d+)$/);
+  if (!international) return null;
+  // People often keep the domestic trunk prefix when adding the country code.
+  const nationalNumber = international[1].startsWith('0') ? international[1].slice(1) : international[1];
+  if (/^\d{9}$/.test(nationalNumber)) return `+84${nationalNumber}`;
   return null;
 }
 
