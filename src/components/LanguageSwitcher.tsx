@@ -49,11 +49,11 @@ export function LanguageSwitcher({ currentRoute, onNavigate }: LanguageSwitcherP
                   : 'text-sb-slate hover:text-sb-forest'
               }`}
             >
-              {/* The switcher sits in the drawer below xl (full names) and in the
-                  one-row desktop header from xl (EN / VI codes). */}
-              <span className="xl:hidden">{getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
+              {/* The switcher uses full names in the drawer and compact labels
+                  only when the full desktop navigation is visible (>= 1600px). */}
+              <span className="min-[1600px]:hidden">{getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
               {/* Desktop header reads "EN | Tiếng Việt". */}
-              <span className="hidden xl:inline">{locale === 'en' ? 'EN' : getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
+              <span className="hidden min-[1600px]:inline">{locale === 'en' ? 'EN' : getUiString(currentLocale, `languageSwitcher.options.${locale}`)}</span>
             </button>
           );
         })}
