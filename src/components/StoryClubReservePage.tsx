@@ -178,6 +178,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
           <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-live="polite" data-payment-preparing>
             <h2 className="text-2xl font-bold">{locale === 'vi' ? 'Đang chuẩn bị mã thanh toán' : 'Preparing your payment QR'}</h2>
             {preparing ? <p className="mt-2">{locale === 'vi' ? 'Vui lòng chờ trong giây lát…' : 'Please wait a moment…'}</p> : null}
+            <p className="mt-2">{locale === 'vi' ? 'Mã QR sẽ điền sẵn đúng số tiền và nội dung chuyển khoản riêng cho sản phẩm này. Hãy quét bằng ứng dụng ngân hàng, kiểm tra số tiền và thông tin tài khoản trước khi xác nhận. Sau khi thanh toán, gửi thông tin liên hệ bên dưới để chúng tôi xác nhận đơn hàng. Trang này không yêu cầu thông tin thẻ.' : 'The QR will contain the exact price and a unique transfer memo for this product. Scan it with your banking app and check the amount and account details before confirming. After paying, send your contact details below so we can identify and fulfil your order. This page never asks for card details.'}</p>
             {prepareError ? <><p role="alert" className="mt-2 text-red-700">{prepareError}</p><button className="insights-button-primary mt-4" type="button" onClick={() => void preparePayment()}>{locale === 'vi' ? 'Thử lại' : 'Try again'}</button></> : null}
           </section>
         )}
