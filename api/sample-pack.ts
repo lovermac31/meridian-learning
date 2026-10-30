@@ -53,7 +53,12 @@ export function coerceSampleInput(body: unknown): Input {
   };
 }
 
-function isSpam(startedAt: string, website: string, product: string) {
+function isSpam(startedAt: string, website: string, product: string, intent?: string) {
+  // prepare_payment is an automated memo-creation call made by the QR-first checkout,
+  // not a human form submission. The timing gate was rejecting it and blocking the QR.
+  if (intent === 'prepare_payment') {
+    return website.trim().length > 0;
+  }
   if (website.trim().length > 0 || !startedAt) return true;
   const started = new Date(startedAt).getTime();
   if (Number.isNaN(started)) return true;
@@ -174,7 +179,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const input = coerceSampleInput(req.body);
-  if (isSpam(input.startedAt, input.website, input.product)) {
+  if (isSpam(input.startedAt, input.website, input.product, input.intent)) {
     logEvent({ event: 'spam_rejected', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), reason: input.website.trim() ? 'honeypot_filled' : 'submission_timing' });
     return res.status(400).json({ ok: false, error: 'Submission could not be accepted.' });
   }
