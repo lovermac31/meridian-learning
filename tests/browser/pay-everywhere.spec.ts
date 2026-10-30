@@ -134,9 +134,12 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const path of locale === 'vi' ? ['/vi', '/vi/story-club', '/vi/products/story-club'] : ['/', '/en/', '/story-club', '/products/story-club']) {
       await page.goto(path);
-      const cta = page.getByRole('link', { name: reserveCta(locale), exact: true }).first();
+      const cta = page.getByRole('link', { name: reserveCta(locale), exact: true }).filter({ visible: true }).first();
       await expect(cta).toHaveAttribute('href', paymentHref('story-club', locale));
-      const box = (await cta.boundingBox())!;
+      await expect(cta, `visible Story Club CTA on ${path} at ${width}px`).toBeVisible();
+      const box = await cta.boundingBox();
+      expect(box, `Story Club CTA must have a rendered box on ${path} at ${width}px`).not.toBeNull();
+      if (!box) continue;
       expect(box.y + box.height).toBeLessThanOrEqual(900);
       expect(box.x).toBeGreaterThanOrEqual(0);
       await page.screenshot({ path: resolve(shots, `hero-${path.replace(/\//g, '_') || 'root'}-${width}.png`), fullPage: false });
