@@ -264,6 +264,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } else {
       memo = createPaidMemo(input.product!, submissionId);
     }
+
+    // Store the memo immediately so the order is trackable even if the buyer never fills the contact form.
+    const lead: SampleLead = {
+      submissionId,
+      submittedAt: new Date().toISOString(),
+      name: `(QR prepared) ${input.product}`,
+      teacher: false,
+      locale: input.locale === 'vi' ? 'vi' : 'en',
+      placement: 'products',
+      product: input.product,
+      paymentMemo: memo,
+      source: 'prepare_payment',
+    };
+    void safeNotion(lead);
+
     return res.status(200).json({ ok: true, submissionId, memo });
   }
 
