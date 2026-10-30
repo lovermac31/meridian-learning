@@ -1,7 +1,6 @@
 import { createHash } from 'node:crypto';
 import { paidOffer } from '../src/config/payment.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { normalizeVietnamesePhone, sampleContactError, samplePackContent } from '../src/i18n/content/samplePack.js';
 import { sampleLeadNotes, writeNotionSampleLead, type SampleLead } from './_lib/notionCrmWriter.js';
 import { checkRateLimit, createThrottleLogContext, getClientHash, logRateLimited } from './_lib/requestSecurity.js';
 import { logEvent } from './_lib/observability.js';
@@ -24,6 +23,33 @@ type Input = {
 };
 
 const str = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
+
+// Minimal server-side checks. Full phone validation is done on the client with libphonenumber-js.
+function looksLikePhone(value: string): boolean {
+  const cleaned = value.replace(/[\s()-]/g, '');
+  return /^\+?[0-9]{8,15}$/.test(cleaned);
+}
+
+function looksLikeEmail(value: string): boolean {
+  return value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+const ERRORS = {
+  en: {
+    contact: 'Enter a Zalo number or an email.',
+    phone: 'Enter a valid phone number.',
+    email: 'Enter a valid email address.',
+    consent: 'Tick the box so we can send the sample.',
+    failed: 'That didn’t send. Please try again.',
+  },
+  vi: {
+    contact: 'Vui lòng nhập số Zalo hoặc email.',
+    phone: 'Vui lòng nhập số điện thoại hợp lệ.',
+    email: 'Vui lòng nhập địa chỉ email hợp lệ.',
+    consent: 'Vui lòng đánh dấu ô đồng ý.',
+    failed: 'Chưa gửi được. Vui lòng thử lại.',
+  },
+} as const;
 
 export function coerceSampleInput(body: unknown): Input {
   const r = (body && typeof body === 'object' ? body : {}) as Record<string, unknown>;
@@ -53,8 +79,6 @@ export function coerceSampleInput(body: unknown): Input {
 }
 
 function isSpam(startedAt: string, website: string, product: string, intent?: string) {
-  // prepare_payment is an automated memo-creation call made by the QR-first checkout,
-  // not a human form submission. The timing gate was rejecting it and blocking the QR.
   if (intent === 'prepare_payment') {
     return website.trim().length > 0;
   }
@@ -65,24 +89,25 @@ function isSpam(startedAt: string, website: string, product: string, intent?: st
   return elapsed < (product ? MIN_RESERVE_SUBMISSION_DELAY_MS : MIN_SUBMISSION_DELAY_MS) || elapsed > MAX_SUBMISSION_AGE_MS;
 }
 
-/** The lead the CRM and the email receive, or the reason the input is not accepted. */
 export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' | 'name' | 'age' | 'group' | 'product' | 'submission' } {
   if (input.product && !paidOffer(input.product)) return { error: 'product' };
   if (input.product) {
-    if (!normalizeVietnamesePhone(input.phone)) return { error: 'phone' };
+    if (!looksLikePhone(input.phone)) return { error: 'phone' };
     if (!input.name.trim()) return { error: 'name' };
-    if (!input.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email) || input.email.length > 254) return { error: 'email' };
-    // Simple ISO 3166-1 alpha-2 check. Full country validation is done on the client with libphonenumber-js.
+    if (!looksLikeEmail(input.email)) return { error: 'email' };
     if (!/^[A-Z]{2}$/.test(input.location)) return { error: 'contact' };
     const age = Number(input.childAge);
     if (input.childAge && (!Number.isInteger(age) || age < 5 || age > 8)) return { error: 'age' };
     if (input.group && !/^(sat-0900|flexible)$/.test(input.group)) return { error: 'group' };
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.submissionKey ?? '')) return { error: 'submission' };
   }
-  const contactError = sampleContactError(input.phone, input.email);
-  if (contactError) return { error: contactError };
+  const hasPhone = input.phone.trim().length > 0;
+  const hasEmail = input.email.trim().length > 0;
+  if (!hasPhone && !hasEmail) return { error: 'contact' };
+  if (hasPhone && !looksLikePhone(input.phone)) return { error: 'phone' };
+  if (hasEmail && !looksLikeEmail(input.email)) return { error: 'email' };
   if (!input.consent) return { error: 'consent' };
-  const phone = input.phone.trim() ? normalizeVietnamesePhone(input.phone) : null;
+  const phone = hasPhone ? input.phone.replace(/[\s()-]/g, '') : null;
   return {
     submissionId: input.product
       ? `JE-${paidOffer(input.product)!.prefix}-${input.submissionKey!.toLowerCase()}`
@@ -158,7 +183,6 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
   }
 }
 
-/** Stable across retries; product namespace prevents cross-product memo reuse. */
 export function createPaidMemo(product: string, submissionId: string): string {
   const offer = paidOffer(product);
   if (!offer || !submissionId) throw new Error('Invalid reservation');
@@ -184,7 +208,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ ok: false, error: 'Submission could not be accepted.' });
   }
 
-  // Create the priced order reference before collecting contact details, so the buyer can see and scan the QR first.
   if (input.intent === 'prepare_payment') {
     const offer = paidOffer(input.product ?? '');
     if (!offer || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.submissionKey ?? '')) {
@@ -209,11 +232,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if ('error' in lead) {
     logEvent({ event: 'validation_failed', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), errorFields: [lead.error], errorFieldCount: 1 });
     const locale = input.locale === 'vi' ? 'vi' : 'en';
-    if (input.product) {
-      const message = locale === 'vi' ? 'Vui lòng kiểm tra thông tin đặt chỗ và số điện thoại.' : 'Please check your reserve details and phone number.';
-      return res.status(400).json({ ok: false, error: lead.error, message });
-    }
-    return res.status(400).json({ ok: false, error: lead.error, message: samplePackContent[locale].errors[lead.error] });
+    const message = ERRORS[locale][lead.error as keyof typeof ERRORS.en] || 'Please check your details.';
+    return res.status(400).json({ ok: false, error: lead.error, message });
   }
 
   let storyClubMemo: string | undefined;
