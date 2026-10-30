@@ -2,7 +2,7 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { PAID_OFFERS, paymentAmount, paymentHref, STATIC_QR, reserveCta } from '../../src/config/payment';
+import { PAID_OFFERS, paymentAmount, paymentHref, reserveCta } from '../../src/config/payment';
 
 const shots = resolve('docs/qa/pay-everywhere');
 test.beforeEach(async ({ page, baseURL }) => {
@@ -101,7 +101,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
       await page.screenshot({ path: resolve(shots, `hero-${path.replace(/\//g, '_') || 'root'}-${width}.png`), fullPage: false });
     }
   });
-  test(`QR fallback and safe API failure ${locale} ${width}`, async ({ page }) => {
+  test(`QR failure never falls back to a non-prefilled code ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.route('https://qr.sepay.vn/**', route => route.abort());
     let failedRequests = 0;
@@ -125,16 +125,18 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     await expect(page.locator('[name="name"]')).toHaveValue('Synthetic Parent');
     await expect(page.locator('[name="phone"]')).toHaveValue('0396085076');
     await expect(page.locator('[data-payment-qr]')).toHaveCount(0);
+    let staticQrRequests = 0;
+    page.on('request', request => { if (request.url().includes('vietqr-story-club.png')) staticQrRequests++; });
     await page.route('**/api/sample-pack', route => route.fulfill({ json: { ok: true, memo: 'BL-AB12CD' } }));
     await page.locator('[type="submit"]').click();
-    await expect(page.locator('[data-payment-qr]')).toHaveAttribute('src', STATIC_QR);
-    await expect.poll(() => page.locator('[data-payment-qr]').evaluate(img => (img as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
-    await expect(page.locator('#reserve-qr-fallback')).toBeVisible();
-    await expect(page.locator('[data-transfer-memo]')).toHaveText('BL-AB12CD');
-    await page.screenshot({ path: resolve(shots, `fallback-${locale}-${width}.png`), fullPage: false });
-    await page.route(`**${STATIC_QR}`, route => route.abort());
-    await page.locator('[data-payment-qr]').evaluate(img => img.dispatchEvent(new Event('error')));
+    await expect(page.locator('[data-payment-qr-error]')).toBeVisible();
     await expect(page.locator('[data-payment-qr]')).toHaveCount(0);
+    await expect(page.locator('#payment-qr-unavailable')).toContainText(locale === 'vi' ? 'Không tải được mã QR' : 'automatic payment QR could not be loaded');
+    await expect(page.locator('#payment-qr-unavailable')).toContainText(locale === 'vi' ? 'Không quét mã khác hoặc tự nhập số tiền' : 'Do not use a different QR or enter the amount manually');
+    await expect(page.locator('[data-transfer-memo]')).toHaveText('BL-AB12CD');
+    await expect(page.locator('[data-after-submit-zalo]')).toBeVisible();
+    await expect.poll(() => staticQrRequests).toBe(0);
+    await page.screenshot({ path: resolve(shots, `qr-unavailable-${locale}-${width}.png`), fullPage: false });
     await expect(page.locator('[data-after-submit-zalo]')).toBeVisible();
   });
 }
