@@ -53,6 +53,7 @@ Jurassic English is an independent education provider. It is not endorsed by or 
 
 ## Optional
 
+- [Product catalogue](https://jurassicenglish.com/llms-products.md)
 - [Sitemap](https://jurassicenglish.com/sitemap.xml)
 - [Privacy policy](https://jurassicenglish.com/legal/privacy)
 - [Terms of use](https://jurassicenglish.com/legal/terms)
