@@ -64,9 +64,17 @@ type Input = {
 
 const str = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
 
+/** Vietnam mobile: 0xxxxxxxxx or +84xxxxxxxxx. No libphonenumber-js (crashes the serverless function). */
+function normalizeVietnamesePhone(raw: string): string | null {
+  const cleaned = raw.replace(/[\s().-]/g, '');
+  if (/^0[0-9]{9}$/.test(cleaned)) return `+84${cleaned.slice(1)}`;
+  if (/^84[0-9]{9}$/.test(cleaned)) return `+${cleaned}`;
+  if (/^\+84[0-9]{9}$/.test(cleaned)) return cleaned;
+  return null;
+}
+
 function looksLikePhone(value: string): boolean {
-  const cleaned = value.replace(/[\s()-]/g, '');
-  return /^\+?[0-9]{8,15}$/.test(cleaned);
+  return normalizeVietnamesePhone(value) !== null;
 }
 
 function looksLikeEmail(value: string): boolean {
@@ -76,7 +84,7 @@ function looksLikeEmail(value: string): boolean {
 const ERRORS = {
   en: {
     contact: 'Enter a Zalo number or an email.',
-    phone: 'Enter a valid phone number.',
+    phone: 'Enter a valid phone number for the selected country.',
     email: 'Enter a valid email address.',
     consent: 'Tick the box so we can send the sample.',
     failed: 'That didn’t send. Please try again.',
@@ -146,7 +154,7 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
   if (hasPhone && !looksLikePhone(input.phone)) return { error: 'phone' };
   if (hasEmail && !looksLikeEmail(input.email)) return { error: 'email' };
   if (!input.consent) return { error: 'consent' };
-  const phone = hasPhone ? input.phone.replace(/[\s()-]/g, '') : null;
+  const phone = hasPhone ? normalizeVietnamesePhone(input.phone) : null;
   return {
     submissionId: input.product
       ? `JE-${paidOffer(input.product)!.prefix}-${input.submissionKey!.toLowerCase()}`
