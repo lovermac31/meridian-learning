@@ -1,4 +1,5 @@
 import type { Locale } from '../locales';
+import { parsePhoneNumberFromString, type CountryCode } from 'libphonenumber-js';
 
 // The one lead capture (website assessment, 27 Oct 2026, lead-capture spec): a free sample pack for a Zalo number or an
 // email. The offer and consent lines are the assessment's validated EN/VI copy; the form chrome is short and plain.
@@ -36,7 +37,7 @@ const en: SamplePackCopy = {
   sending: 'Sending…',
   errors: {
     contact: 'Enter a Zalo number or an email.',
-    phone: 'Enter a Vietnamese number as 0xxxxxxxxx or +84xxxxxxxxx.',
+    phone: 'Enter a valid phone number for the selected country.',
     email: 'Enter a valid email address.',
     consent: 'Tick the box so we can send the sample.',
     failed: 'That didn’t send. Please try again, or message Mr. Jay on Zalo.',
@@ -68,7 +69,7 @@ const vi: SamplePackCopy = {
   sending: 'Đang gửi…',
   errors: {
     contact: 'Vui lòng nhập số Zalo hoặc email.',
-    phone: 'Vui lòng nhập số điện thoại Việt Nam dạng 0xxxxxxxxx hoặc +84xxxxxxxxx.',
+    phone: 'Vui lòng nhập số điện thoại hợp lệ theo quốc gia đã chọn.',
     email: 'Vui lòng nhập địa chỉ email hợp lệ.',
     consent: 'Vui lòng đánh dấu ô đồng ý để chúng tôi gửi bộ mẫu.',
     failed: 'Chưa gửi được. Vui lòng thử lại, hoặc nhắn thầy Jay qua Zalo.',
@@ -87,18 +88,18 @@ const vi: SamplePackCopy = {
 
 export const samplePackContent: Record<Locale, SamplePackCopy> = { en, vi };
 
-// Accept the standard Vietnamese national or international form; spaces and dots are presentation separators.
-// The API validates again and persists only the canonical +84 value.
+// Accept a valid number entered for the selected country; persist only canonical E.164.
+export function normalizePhoneNumber(value: string, country: CountryCode = 'VN'): string | null {
+  const parsed = value.trim().startsWith('+')
+    ? parsePhoneNumberFromString(value)
+    : parsePhoneNumberFromString(value, country);
+  return parsed?.isValid() ? parsed.number : null;
+}
+
+/** Backwards-compatible Vietnam default used by existing forms and server validation. */
 export function normalizeVietnamesePhone(value: string, options: { assumeVietnameseCountryCode?: boolean } = {}): string | null {
-  const normalized = value.trim().replace(/[ .]/g, '');
-  if (/^0\d{9}$/.test(normalized)) return `+84${normalized.slice(1)}`;
-  if (options.assumeVietnameseCountryCode && /^[1-9]\d{8}$/.test(normalized)) return `+84${normalized}`;
-  const international = normalized.match(/^\+84(\d+)$/);
-  if (!international) return null;
-  // People often keep the domestic trunk prefix when adding the country code.
-  const nationalNumber = international[1].startsWith('0') ? international[1].slice(1) : international[1];
-  if (/^\d{9}$/.test(nationalNumber)) return `+84${nationalNumber}`;
-  return null;
+  void options;
+  return normalizePhoneNumber(value, 'VN');
 }
 
 export function isValidContactEmail(value: string): boolean {
@@ -110,7 +111,7 @@ export function sampleContactError(phone: string, email: string): 'contact' | 'p
   const hasPhone = phone.trim().length > 0;
   const hasEmail = email.trim().length > 0;
   if (!hasPhone && !hasEmail) return 'contact';
-  if (hasPhone && !normalizeVietnamesePhone(phone)) return 'phone';
+  if (hasPhone && !normalizePhoneNumber(phone)) return 'phone';
   if (hasEmail && !isValidContactEmail(email)) return 'email';
   return null;
 }

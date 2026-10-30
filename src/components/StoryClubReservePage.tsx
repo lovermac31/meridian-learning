@@ -7,13 +7,14 @@ import { STORY_CLUB_GROUPS, STORY_CLUB_NEXT_GROUP, STORY_CLUB_SAMPLE_URL } from 
 import { PayStep } from './PayStep';
 import { paidOffer, paymentAmount, paymentHref } from '../config/payment';
 import { ToolHero } from './IeltsToolsPage';
+import { PhoneNumberField } from './PhoneNumberField';
 
 const copy = {
   en: {
-    title: 'Reserve a Story Club seat', intro: 'A small, friendly English story group with Mr. Jay.', sample: 'Read a free Story 1 first', sampleTitle: 'Mina and the Midnight Drum · Level 1', price: 'Story Club with Mr. Jay', amount: '590,000₫ · 4 weeks', details: 'Online on Google Meet · Ages 5–8 · Up to 6 children', groupDetails: 'The group meets weekly for four weeks. Mr. Jay reads an original Jurassic English story, leads a short discussion, and gives children one small follow-up task.', next: 'Next group:', form: 'Ask for a place', formDetails: 'This form does not charge a card. After sending your request, you will see the bank-transfer instructions and a short payment memo.', name: 'Parent name', phone: 'Zalo number', phoneHint: 'Enter the 9 local digits. +84 is shown and added automatically; a leading 0 is accepted too.', age: "Child's age", group: 'Preferred group', consent: 'By sending this request, I agree that Jurassic English may use my details to reply. See the privacy notice.', submit: 'Reserve a seat', invalid: 'Please check your name and Vietnamese Zalo number. Age and group are optional.', failed: 'We could not send your request. Please try again or message Mr. Jay on Zalo.', thanks: 'Thank you. Your request has been received.', pay: 'Payment instructions', transfer: 'Transfer memo', qrFallback: 'Mr. Jay will send the payment QR on Zalo within the day', zalo: 'Ask Mr. Jay on Zalo', privacy: 'Privacy notice', required: 'Please agree before sending your request.', paymentPending: 'We’re checking your payment. This can take a moment.', paymentReceived: 'Payment received ✓ Mr. Jay will add you to the Saturday group on Zalo',
+    title: 'Reserve a Story Club seat', intro: 'A small, friendly English story group with Mr. Jay.', sample: 'Read a free Story 1 first', sampleTitle: 'Mina and the Midnight Drum · Level 1', price: 'Story Club with Mr. Jay', amount: '590,000₫ · 4 weeks', details: 'Online on Google Meet · Ages 5–8 · Up to 6 children', groupDetails: 'The group meets weekly for four weeks. Mr. Jay reads an original Jurassic English story, leads a short discussion, and gives children one small follow-up task.', next: 'Next group:', form: 'Ask for a place', formDetails: 'Scan the payment QR above first. After you pay, send your contact details below so we can confirm your order.', name: 'Parent name', phone: 'Phone / Zalo number', phoneHint: 'Choose your country, then enter your phone number.', age: "Child's age", group: 'Preferred group', consent: 'By sending this request, I agree that Jurassic English may use my details to reply. See the privacy notice.', submit: 'Send my details', invalid: 'Please check your name and phone number. Age and group are optional.', failed: 'We could not send your request. Please try again or message Mr. Jay on Zalo.', thanks: 'Thank you. Your request has been received.', pay: 'Pay now', transfer: 'Transfer memo', qrFallback: 'Mr. Jay will send the payment QR on Zalo within the day', zalo: 'Ask Mr. Jay on Zalo', privacy: 'Privacy notice', required: 'Please agree before sending your request.', paymentPending: 'We’re checking your payment. This can take a moment.', paymentReceived: 'Payment received. Please send your contact details below to confirm your place.',
   },
   vi: {
-    title: 'Đặt chỗ Câu lạc bộ Truyện', intro: 'Nhóm tiếng Anh qua truyện nhỏ, thân thiện cùng thầy Jay.', sample: 'Đọc thử Truyện 1 miễn phí trước', sampleTitle: 'Mina và chiếc trống lúc nửa đêm · Cấp độ 1', price: 'Câu lạc bộ Truyện cùng thầy Jay', amount: '590.000₫ · 4 tuần', details: 'Học trực tuyến qua Google Meet · Bé 5–8 tuổi · Tối đa 6 bé', groupDetails: 'Nhóm gặp nhau mỗi tuần trong bốn tuần. Thầy Jay đọc truyện gốc của Jurassic English, cùng các bé trò chuyện và giao một hoạt động nhỏ sau buổi học.', next: 'Nhóm tiếp theo:', form: 'Đăng ký chỗ', formDetails: 'Biểu mẫu này không thu tiền qua thẻ. Sau khi gửi yêu cầu, bạn sẽ thấy hướng dẫn chuyển khoản và mã nội dung thanh toán.', name: 'Tên phụ huynh', phone: 'Số Zalo', phoneHint: 'Nhập 9 chữ số nội địa. Mã +84 được hiển thị và tự thêm; có thể giữ số 0 ở đầu.', age: 'Tuổi của bé', group: 'Nhóm mong muốn', consent: 'Khi gửi yêu cầu, tôi đồng ý để Jurassic English sử dụng thông tin của mình để phản hồi. Xem thông báo quyền riêng tư.', submit: 'Đặt chỗ', invalid: 'Vui lòng kiểm tra họ tên và số Zalo Việt Nam. Tuổi và nhóm không bắt buộc.', failed: 'Chưa gửi được yêu cầu. Vui lòng thử lại hoặc nhắn thầy Jay qua Zalo.', thanks: 'Cảm ơn bạn. Chúng tôi đã nhận được yêu cầu.', pay: 'Hướng dẫn thanh toán', transfer: 'Nội dung chuyển khoản', qrFallback: 'Thầy Jay sẽ gửi mã QR thanh toán qua Zalo trong ngày hôm nay', zalo: 'Hỏi thầy Jay qua Zalo', privacy: 'Thông báo quyền riêng tư', required: 'Vui lòng đồng ý trước khi gửi yêu cầu.', paymentPending: 'Đang kiểm tra thanh toán. Vui lòng chờ trong giây lát.', paymentReceived: 'Đã nhận thanh toán ✓ Thầy Jay sẽ thêm bạn vào nhóm Thứ Bảy trên Zalo',
+    title: 'Đặt chỗ Câu lạc bộ Truyện', intro: 'Nhóm tiếng Anh qua truyện nhỏ, thân thiện cùng thầy Jay.', sample: 'Đọc thử Truyện 1 miễn phí trước', sampleTitle: 'Mina và chiếc trống lúc nửa đêm · Cấp độ 1', price: 'Câu lạc bộ Truyện cùng thầy Jay', amount: '590.000₫ · 4 tuần', details: 'Học trực tuyến qua Google Meet · Bé 5–8 tuổi · Tối đa 6 bé', groupDetails: 'Nhóm gặp nhau mỗi tuần trong bốn tuần. Thầy Jay đọc truyện gốc của Jurassic English, cùng các bé trò chuyện và giao một hoạt động nhỏ sau buổi học.', next: 'Nhóm tiếp theo:', form: 'Đăng ký chỗ', formDetails: 'Quét mã QR thanh toán ở trên trước. Sau khi chuyển khoản, hãy gửi thông tin liên hệ bên dưới để chúng tôi xác nhận đơn hàng.', name: 'Tên phụ huynh', phone: 'Số điện thoại / Zalo', phoneHint: 'Chọn quốc gia, sau đó nhập số điện thoại.', age: 'Tuổi của bé', group: 'Nhóm mong muốn', consent: 'Khi gửi yêu cầu, tôi đồng ý để Jurassic English sử dụng thông tin của mình để phản hồi. Xem thông báo quyền riêng tư.', submit: 'Gửi thông tin của tôi', invalid: 'Vui lòng kiểm tra họ tên và số điện thoại. Tuổi và nhóm không bắt buộc.', failed: 'Chưa gửi được yêu cầu. Vui lòng thử lại hoặc nhắn thầy Jay qua Zalo.', thanks: 'Cảm ơn bạn. Chúng tôi đã nhận được yêu cầu.', pay: 'Thanh toán ngay', transfer: 'Nội dung chuyển khoản', qrFallback: 'Thầy Jay sẽ gửi mã QR thanh toán qua Zalo trong ngày hôm nay', zalo: 'Hỏi thầy Jay qua Zalo', privacy: 'Thông báo quyền riêng tư', required: 'Vui lòng đồng ý trước khi gửi yêu cầu.', paymentPending: 'Đang kiểm tra thanh toán. Vui lòng chờ trong giây lát.', paymentReceived: 'Đã nhận thanh toán. Vui lòng gửi thông tin liên hệ bên dưới để xác nhận chỗ.',
   },
 } as const;
 
@@ -26,6 +27,9 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
   const t = copy[locale];
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
   const [paymentReceived, setPaymentReceived] = useState(false);
+  const [preparing, setPreparing] = useState(false);
+  const [prepareError, setPrepareError] = useState('');
+  const [contactSent, setContactSent] = useState(false);
   const [error, setError] = useState('');
   const [sending, setSending] = useState(false);
   const [startedAt] = useState(() => new Date().toISOString());
@@ -34,6 +38,37 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
   const trackedView = useRef(false);
   const trackedPay = useRef(false);
   const confirmationRef = useRef<HTMLElement | null>(null);
+
+  const preparePayment = async () => {
+    if (!offer || confirmation || preparing) return;
+    setPreparing(true);
+    setPrepareError('');
+    const key = submissionKey.current ??= window.crypto.randomUUID();
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 15_000);
+    try {
+      const response = await fetch('/api/sample-pack', {
+        method: 'POST', signal: controller.signal, headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ intent: 'prepare_payment', product: productId, submissionKey: key, startedAt, website: '' }),
+      });
+      if (!response.ok) throw new Error('Could not prepare payment');
+      const result = await response.json() as { memo?: unknown };
+      if (typeof result.memo !== 'string' || !new RegExp(`^${offer.prefix}-[A-Z0-9]{6}$`).test(result.memo)) throw new Error('Invalid payment reference');
+      setConfirmation({ memo: result.memo });
+      setPaymentReceived(false);
+    } catch {
+      setPrepareError(locale === 'vi' ? 'Chưa tạo được mã thanh toán. Vui lòng thử lại.' : 'We could not prepare the payment code. Please try again.');
+    } finally {
+      clearTimeout(timer);
+      setPreparing(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!offer) return;
+    const timer = window.setTimeout(() => { void preparePayment(); }, 2_000);
+    return () => window.clearTimeout(timer);
+  }, [productId]);
 
   useEffect(() => {
     if (trackedView.current) return;
@@ -109,8 +144,8 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
       if (!response.ok) throw new Error('Request failed');
       const result = await response.json() as { memo?: unknown; submissionId?: string };
       if (!offer || typeof result.memo !== 'string' || !new RegExp(`^${offer.prefix}-[A-Z0-9]{6}$`).test(result.memo)) throw new Error('Missing canonical reserve memo');
-      setConfirmation({ memo: result.memo });
-      setPaymentReceived(false);
+      if (typeof result.memo !== 'string' || result.memo !== confirmation?.memo) throw new Error('Order reference mismatch');
+      setContactSent(true);
       recordClientEvent({ event: 'reserve_submit', product_id: productId, locale });
     } catch {
       setError(t.failed);
@@ -133,28 +168,37 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
         </section>
 
         {confirmation ? (
-          <section ref={confirmationRef} className="ielts-tool-card scroll-mt-28 rounded-2xl bg-white p-6 shadow-sm" aria-labelledby="reserve-confirmation" data-payment-instructions role="status">
-            <h2 id="reserve-confirmation" className="text-2xl font-bold">{t.thanks}</h2>
+          <section ref={confirmationRef} className="ielts-tool-card scroll-mt-28 rounded-2xl bg-white p-6 shadow-sm" aria-labelledby="reserve-confirmation" data-payment-instructions>
+            <h2 id="reserve-confirmation" className="text-2xl font-bold">{t.pay}</h2>
             <PayStep key={confirmation.memo} locale={locale} amount={offer!.amount} memo={confirmation.memo} productId={productId} />
-            {isStory ? <p className="mt-3 font-semibold" data-payment-status>{paymentReceived ? t.paymentReceived : t.paymentPending}</p> : <p className="mt-3">{locale === 'vi' ? 'Thầy Jay sẽ xác nhận thanh toán qua Zalo.' : 'Mr. Jay will confirm your payment on Zalo.'}</p>}
+            {isStory && <p className="mt-3 font-semibold" data-payment-status>{paymentReceived ? t.paymentReceived : t.paymentPending}</p>}
+            <p className="mt-4">{locale === 'vi' ? 'Sau khi thanh toán, hãy gửi thông tin bên dưới để chúng tôi xác nhận và giao sản phẩm.' : 'After paying, send your details below so we can confirm and deliver your product.'}</p>
           </section>
         ) : (
+          <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-live="polite" data-payment-preparing>
+            <h2 className="text-2xl font-bold">{locale === 'vi' ? 'Đang chuẩn bị mã thanh toán' : 'Preparing your payment QR'}</h2>
+            {preparing ? <p className="mt-2">{locale === 'vi' ? 'Vui lòng chờ trong giây lát…' : 'Please wait a moment…'}</p> : null}
+            {prepareError ? <><p role="alert" className="mt-2 text-red-700">{prepareError}</p><button className="insights-button-primary mt-4" type="button" onClick={() => void preparePayment()}>{locale === 'vi' ? 'Thử lại' : 'Try again'}</button></> : null}
+          </section>
+        )}
+
+        {confirmation && !contactSent ? (
           <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-labelledby="reserve-form-heading">
-            <h2 id="reserve-form-heading" className="text-2xl font-bold">{isStory ? t.form : locale === 'vi' ? 'Thông tin của bạn' : 'Your details'}</h2>
+            <h2 id="reserve-form-heading" className="text-2xl font-bold">{locale === 'vi' ? 'Thông tin liên hệ của bạn' : 'Your contact details'}</h2>
             <p className="mt-2">{t.formDetails}</p>
             <form className="mt-4 space-y-4" aria-labelledby="reserve-form-heading" method="post" onSubmit={onSubmit} noValidate data-reserve-form>
               <label htmlFor="reserve-name" className="block font-semibold">{t.name}<input className={FIELD} id="reserve-name" name="name" autoComplete="name" maxLength={120} required /></label>
-              <label htmlFor="reserve-phone" className="block font-semibold">{t.phone}<span className="mt-1 flex min-h-11 w-full overflow-hidden rounded-xl border border-sb-border bg-white focus-within:ring-2 focus-within:ring-sb-amber"><span data-phone-country-code className="flex shrink-0 items-center border-r border-sb-border bg-slate-50 px-3 font-semibold text-sb-ink" aria-hidden="true">+84</span><input className="min-w-0 flex-1 bg-white px-3 py-2 text-base text-sb-ink focus-visible:outline-none" id="reserve-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel-national" placeholder="396 085 076" maxLength={32} required aria-describedby={error ? 'reserve-phone-hint reserve-error' : 'reserve-phone-hint'} /></span></label>
+              <div className="block font-semibold"><span>{t.phone}</span><PhoneNumberField id="reserve-phone" name="phone" label={t.phone} locale={locale} className="mt-1" placeholder={locale === 'vi' ? 'Nhập số điện thoại' : 'Enter phone number'} required describedBy={error ? 'reserve-phone-hint reserve-error' : 'reserve-phone-hint'} /></div>
               <p id="reserve-phone-hint" className="-mt-2 text-sm text-sb-muted">{t.phoneHint}</p>
               {isStory && <><label htmlFor="reserve-childAge" className="block font-semibold">{t.age} ({locale === 'vi' ? 'không bắt buộc' : 'optional'})<select className={FIELD} id="reserve-childAge" name="childAge" defaultValue=""><option value="">—</option>{[5, 6, 7, 8].map(age => <option key={age} value={age}>{age}</option>)}</select></label>
               <label htmlFor="reserve-group" className="block font-semibold">{t.group} ({locale === 'vi' ? 'không bắt buộc' : 'optional'})<select className={FIELD} id="reserve-group" name="group" defaultValue=""><option value="">—</option>{STORY_CLUB_GROUPS.map(group => <option key={group.id} value={group.id}>{group.label[locale]}</option>)}</select></label></>}
               <input name="website" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
               <p className="text-sm">{t.consent} <a className="underline" href={locale === 'vi' ? '/vi/legal/privacy' : '/legal/privacy'}>{t.privacy}</a></p>
               {error ? <p id="reserve-error" role="alert" className="font-semibold text-red-700">{error}</p> : null}
-              <button className="insights-button-primary" type="submit" disabled={sending} aria-busy={sending}>{isStory ? t.submit : locale === 'vi' ? 'Đặt ngay' : 'Buy now'}</button>
+              <button className="insights-button-primary" type="submit" disabled={sending} aria-busy={sending}>{t.submit}</button>
             </form>
           </section>
-        )}
+        ) : contactSent ? <p role="status" className="ielts-tool-card rounded-2xl bg-white p-6 font-semibold">{t.thanks}</p> : null}
         {isStory && <p className="text-sm">{t.groupDetails} {locale === 'vi' ? 'Sau khi gửi thông tin, hãy kiểm tra số tiền và mã chuyển khoản trước khi thanh toán. Thầy Jay sẽ liên hệ qua Zalo để xác nhận chỗ học của bé.' : 'After sending your details, check the amount and transfer memo before paying. Mr. Jay will contact you on Zalo to confirm your child’s place in the group.'}</p>}
         {isStory && <a className="block text-sm underline underline-offset-4" href={STORY_CLUB_SAMPLE_URL} data-reserve-sample>{t.sample}</a>}
       </div>

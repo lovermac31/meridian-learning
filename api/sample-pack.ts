@@ -20,7 +20,7 @@ const NOTION_TIMEOUT_MS = 4_000;
 type Input = {
   name: string; phone: string; email: string; childAge: string; teacher: boolean; consent: boolean;
   locale: string; placement: string; source: string; website: string; startedAt: string;
-  product?: string; submissionKey?: string; utm_source?: string; utm_content?: string; utm_medium?: string; utm_campaign?: string; utm_term?: string; group?: string;
+  product?: string; submissionKey?: string; intent?: string; utm_source?: string; utm_content?: string; utm_medium?: string; utm_campaign?: string; utm_term?: string; group?: string;
 };
 
 const str = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
@@ -40,6 +40,7 @@ export function coerceSampleInput(body: unknown): Input {
     website: typeof r.website === 'string' ? r.website : '',
     startedAt: str(r.startedAt, 40),
     product: str(r.product, 32),
+    intent: str(r.intent, 24),
     submissionKey: str(r.submissionKey, 36),
     utm_source: str(r.utm_source, 64),
     utm_content: str(r.utm_content, 64),
@@ -172,12 +173,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     logEvent({ event: 'spam_rejected', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), reason: input.website.trim() ? 'honeypot_filled' : 'submission_timing' });
     return res.status(400).json({ ok: false, error: 'Submission could not be accepted.' });
   }
+
+  // Create the priced order reference before collecting contact details, so the buyer can see and scan the QR first.
+  if (input.intent === 'prepare_payment') {
+    const offer = paidOffer(input.product ?? '');
+    if (!offer || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.submissionKey ?? '')) {
+      return res.status(400).json({ ok: false, error: 'invalid_order' });
+    }
+    const submissionId = `JE-${offer.prefix}-${input.submissionKey!.toLowerCase()}`;
+    let memo: string;
+    if (input.product === 'story-club') {
+      const reservation = await createStoryClubReservation(submissionId, 'flexible');
+      if (!reservation.ok) {
+        logEvent({ event: 'story_club_reservation_failed', route: '/api/sample-pack', status: 503, reason: reservation.reason });
+        return res.status(503).json({ ok: false, error: 'reserve_temporarily_unavailable' });
+      }
+      memo = reservation.memo;
+    } else {
+      memo = createPaidMemo(input.product!, submissionId);
+    }
+    return res.status(200).json({ ok: true, submissionId, memo });
+  }
+
   const lead = toSampleLead(input);
   if ('error' in lead) {
     logEvent({ event: 'validation_failed', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), errorFields: [lead.error], errorFieldCount: 1 });
     const locale = input.locale === 'vi' ? 'vi' : 'en';
     if (input.product) {
-      const message = locale === 'vi' ? 'Vui lòng kiểm tra thông tin đặt chỗ và số Zalo.' : 'Please check the reserve details and Vietnamese Zalo number.';
+      const message = locale === 'vi' ? 'Vui lòng kiểm tra thông tin đặt chỗ và số điện thoại.' : 'Please check your reserve details and phone number.';
       return res.status(400).json({ ok: false, error: lead.error, message });
     }
     return res.status(400).json({ ok: false, error: lead.error, message: samplePackContent[locale].errors[lead.error] });

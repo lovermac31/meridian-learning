@@ -133,11 +133,11 @@ test('sample-pack API accepts email-only submissions', async () => {
   assert.equal((properties['Preferred Channel'].select as { name: string }).name, 'Email');
 });
 
-test('sample-pack API rejects an invalid Vietnam phone even when email is also supplied', async () => {
-  const result = await submit({ phone: '090-1234-567', email: 'parent@example.com' }, '198.51.100.44');
+test('sample-pack API rejects an invalid phone even when email is also supplied', async () => {
+  const result = await submit({ phone: '12345', email: 'parent@example.com' }, '198.51.100.44');
   assert.equal(result.statusCode, 400);
   assert.equal(result.responseBody?.error, 'phone');
-  assert.equal(result.responseBody?.message, 'Enter a Vietnamese number as 0xxxxxxxxx or +84xxxxxxxxx.');
+  assert.equal(result.responseBody?.message, 'Enter a valid phone number for the selected country.');
   assert.equal(result.writes.length, 0);
 });
 
