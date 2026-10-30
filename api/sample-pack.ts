@@ -1,5 +1,4 @@
 import { createHash } from 'node:crypto';
-import { paidOffer } from '../src/config/payment.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { sampleLeadNotes, writeNotionSampleLead, type SampleLead } from './_lib/notionCrmWriter.js';
 import { checkRateLimit, createThrottleLogContext, getClientHash, logRateLimited } from './_lib/requestSecurity.js';
@@ -7,9 +6,50 @@ import { logEvent } from './_lib/observability.js';
 import { createStoryClubReservation } from './_lib/supabaseWriter.js';
 import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 
-// The free sample pack (website assessment, 27 Oct 2026; master's decision the same day): no Supabase change. Each
-// sign-up goes to the Notion JE Leads CRM and to Jay by a Resend email. The form shows success when at least one of
-// the two succeeded. Contact details are never logged, only their kind.
+// Server-safe product map. Do not import src/config/payment.ts here — it uses import.meta.env (Vite) and crashes the serverless function.
+const PRODUCT_PREFIX: Record<string, string> = {
+  'story-club': 'SC',
+  'baseline': 'BL',
+  'one-to-one': '1T',
+  'printable-pack': 'PR03',
+  'parent-pack-l1': 'PR04',
+  'parent-pack-l2': 'PR05',
+  'parent-pack-l3': 'PR06',
+  'holiday-reading-challenge': 'PR07',
+  'teacher-pack-l1': 'PR08',
+  'teacher-pack-l2': 'PR09',
+  'teacher-pack-l3': 'PR0A',
+  'teacher-pack-l4': 'PR0B',
+  'teacher-pack-l5': 'PR0C',
+  'teacher-bundle': 'PR0D',
+  'student-workbook-l1': 'PR0E',
+  'student-workbook-l2': 'PR0F',
+  'student-workbook-l3': 'PR0G',
+  'student-workbook-l4': 'PR0H',
+  'student-workbook-l5': 'PR0I',
+  'word-fossil-flashcards-l1': 'PR0J',
+  'thinking-cycle-set': 'PR0K',
+  'thinking-cycle-posters': 'PR0L',
+  'reasoning-assessment-kit': 'PR0M',
+  'centre-licence': 'PR0N',
+  'teacher-training-course': 'PR0O',
+  'pilot-class-kit': 'PR0P',
+  'curriculum-overview': 'PR0Q',
+  'ielts-speaking-ladder': 'PR0R',
+  'ielts-one-to-one-starter': 'PR0S',
+  'ielts-cue-card-bank': 'PR0T',
+  'writing-baseline': 'PR0U',
+  'ielts-writing-ladder-task2': 'PR0V',
+  'ielts-writing-task1-method': 'PR0W',
+  'ielts-essay-bank-task2': 'PR0X',
+  'ielts-writing-teacher-pack': 'PR0Y',
+};
+
+function paidOffer(id: string) {
+  const prefix = PRODUCT_PREFIX[id];
+  return prefix ? { id, prefix } : undefined;
+}
+
 const MIN_SUBMISSION_DELAY_MS = 30_000;
 const MIN_RESERVE_SUBMISSION_DELAY_MS = 1_500;
 const MAX_SUBMISSION_AGE_MS = 1000 * 60 * 60 * 8;
@@ -24,7 +64,6 @@ type Input = {
 
 const str = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
 
-// Minimal server-side checks. Full phone validation is done on the client with libphonenumber-js.
 function looksLikePhone(value: string): boolean {
   const cleaned = value.replace(/[\s()-]/g, '');
   return /^\+?[0-9]{8,15}$/.test(cleaned);
