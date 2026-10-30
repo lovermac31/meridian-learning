@@ -4,7 +4,7 @@ export type ReserveFormValues = { name: string; phone: string; childAge: string;
 
 export function validateStoryClubReserve(values: ReserveFormValues): 'name' | 'phone' | 'age' | 'group' | null {
   if (!values.name.trim() || values.name.trim().length > 120) return 'name';
-  if (!normalizeVietnamesePhone(values.phone)) return 'phone';
+  if (!normalizeVietnamesePhone(values.phone, { assumeVietnameseCountryCode: true })) return 'phone';
   const age = Number(values.childAge);
   if (values.childAge && (!Number.isInteger(age) || age < 5 || age > 8)) return 'age';
   if (values.group && !/^(sat-0900|flexible)$/.test(values.group)) return 'group';

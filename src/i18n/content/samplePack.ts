@@ -89,9 +89,10 @@ export const samplePackContent: Record<Locale, SamplePackCopy> = { en, vi };
 
 // Accept the standard Vietnamese national or international form; spaces and dots are presentation separators.
 // The API validates again and persists only the canonical +84 value.
-export function normalizeVietnamesePhone(value: string): string | null {
+export function normalizeVietnamesePhone(value: string, options: { assumeVietnameseCountryCode?: boolean } = {}): string | null {
   const normalized = value.trim().replace(/[ .]/g, '');
   if (/^0\d{9}$/.test(normalized)) return `+84${normalized.slice(1)}`;
+  if (options.assumeVietnameseCountryCode && /^[1-9]\d{8}$/.test(normalized)) return `+84${normalized}`;
   const international = normalized.match(/^\+84(\d+)$/);
   if (!international) return null;
   // People often keep the domestic trunk prefix when adding the country code.
