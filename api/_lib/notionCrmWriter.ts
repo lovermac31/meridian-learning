@@ -325,6 +325,7 @@ export type SampleLead = {
   submittedAt: string;
   name: string;
   email?: string;
+  location?: string;
   zalo?: string;
   teacher: boolean;
   childAge?: string;
@@ -361,6 +362,7 @@ export function sampleLeadNotes(l: SampleLead): string {
     l.utmCampaign ? `utm_campaign: ${l.utmCampaign}` : null,
     l.utmTerm ? `utm_term: ${l.utmTerm}` : null,
     l.product ? `product: ${l.product}` : null,
+    l.location ? `buyer location: ${l.location}` : null,
     l.product ? `preferred group: ${l.group || 'not given'}` : null,
     l.childAge ? `child age: ${l.childAge}` : l.product ? 'child age: not given' : null,
     l.paymentMemo ? `payment memo: ${l.paymentMemo}` : null,

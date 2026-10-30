@@ -91,7 +91,7 @@ async function submit(body: Record<string, unknown>, ip: string, options: { noti
     await handler({
       method: 'POST',
       headers: { 'x-forwarded-for': ip, 'content-type': 'application/json' },
-      body: { consent: true, locale: 'en', placement: 'home', startedAt: new Date(Date.now() - 31_000).toISOString(), ...body },
+      body: { consent: true, locale: 'en', placement: 'home', startedAt: new Date(Date.now() - 31_000).toISOString(), ...(body.product && body.intent !== 'prepare_payment' ? { email: 'parent@example.test', location: 'VN' } : {}), ...body },
     } as never, res as never);
     return { statusCode, responseBody: responseBody as Record<string, unknown> | undefined, writes, logs, database, emailCalls, reservationCalls };
   } finally {

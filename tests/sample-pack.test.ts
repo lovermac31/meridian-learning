@@ -7,7 +7,7 @@ import { isValidContactEmail, normalizePhoneNumber, normalizeVietnamesePhone, sa
 
 // The free sample pack (website assessment, 27 Oct 2026; master's decision): no Supabase change, a Notion CRM lead plus
 // a Resend email to Jay. Contact is a Zalo number OR an email; name and age optional; consent required.
-const base = { name: '', phone: '', email: '', childAge: '', teacher: false, consent: true, locale: 'en', placement: 'home', source: '', website: '', startedAt: '' };
+const base = { name: '', phone: '', email: '', location: '', childAge: '', teacher: false, consent: true, locale: 'en', placement: 'home', source: '', website: '', startedAt: '' };
 
 test('sample pack: a Zalo number or an email is the one required contact, and consent is required', () => {
   assert.equal(normalizeVietnamesePhone('0396 085.076'), '+84396085076');

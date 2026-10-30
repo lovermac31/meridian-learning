@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { getCountries, type CountryCode } from 'libphonenumber-js';
 import { paidOffer } from '../src/config/payment.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { normalizeVietnamesePhone, sampleContactError, samplePackContent } from '../src/i18n/content/samplePack.js';
@@ -18,7 +19,7 @@ const RESEND_TIMEOUT_MS = 8_000;
 const NOTION_TIMEOUT_MS = 4_000;
 
 type Input = {
-  name: string; phone: string; email: string; childAge: string; teacher: boolean; consent: boolean;
+  name: string; phone: string; email: string; location: string; childAge: string; teacher: boolean; consent: boolean;
   locale: string; placement: string; source: string; website: string; startedAt: string;
   product?: string; submissionKey?: string; intent?: string; utm_source?: string; utm_content?: string; utm_medium?: string; utm_campaign?: string; utm_term?: string; group?: string;
 };
@@ -31,6 +32,7 @@ export function coerceSampleInput(body: unknown): Input {
     name: str(r.name, 120),
     phone: str(r.phone, 32),
     email: str(r.email, 254),
+    location: str(r.location, 2),
     childAge: str(r.childAge, 2),
     teacher: r.teacher === true,
     consent: r.consent === true,
@@ -65,6 +67,8 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
   if (input.product) {
     if (!normalizeVietnamesePhone(input.phone)) return { error: 'phone' };
     if (!input.name.trim()) return { error: 'name' };
+    if (!input.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email) || input.email.length > 254) return { error: 'email' };
+    if (!getCountries().includes(input.location as CountryCode)) return { error: 'contact' };
     const age = Number(input.childAge);
     if (input.childAge && (!Number.isInteger(age) || age < 5 || age > 8)) return { error: 'age' };
     if (input.group && !/^(sat-0900|flexible)$/.test(input.group)) return { error: 'group' };
@@ -89,6 +93,7 @@ export function toSampleLead(input: Input, now = new Date()): SampleLead | { err
     ...(/^[a-z0-9_-]+$/i.test(input.source) ? { source: input.source } : {}),
     ...(input.product ? {
       product: input.product,
+      location: input.location,
       ...(input.group ? { group: input.group as 'sat-0900' | 'flexible' } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_medium ?? '') ? { utmMedium: input.utm_medium } : {}),
       ...( /^[a-z0-9 _.-]+$/i.test(input.utm_campaign ?? '') ? { utmCampaign: input.utm_campaign } : {}),

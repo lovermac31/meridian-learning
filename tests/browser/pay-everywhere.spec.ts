@@ -37,6 +37,8 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
       }
       expect(body.name).toBe('Synthetic Parent');
       expect(body.phone).toBe('+84396085076');
+      expect(body.email).toBe('parent@example.test');
+      expect(body.location).toBe('VN');
       expect(body.childAge).toBe('');
       expect(body.group).toBe('');
       expect(body.consent).toBe(true);
@@ -58,7 +60,11 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await expect(page).toHaveURL(new RegExp(paymentHref(offer.id, locale).replace(/[?]/g, '\\?') + '$'));
     await expect(page.locator('[data-payment-qr]')).toBeVisible();
     const form = page.locator('[data-reserve-form]');
-    await expect(form.locator('[required]')).toHaveCount(2);
+    await expect(form).toHaveCount(0);
+    await expect(page.locator('[data-open-contact-form]')).toBeVisible();
+    await page.locator('[data-open-contact-form]').click();
+    await expect(form).toBeVisible();
+    await expect(form.locator('[required]')).toHaveCount(5);
     await expect(form.locator('[name="phone"]')).toHaveValue('');
     if (offer.id === 'story-club') {
       const sampleY = (await page.locator('[data-reserve-sample]').boundingBox())!.y;
@@ -69,8 +75,11 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await expect(page.getByRole('alert')).toBeVisible();
     expect(submissions).toBe(1);
     await form.locator('[name="name"]').fill('Synthetic Parent');
+    await form.locator('[name="email"]').fill('parent@example.test');
+    await expect(form.locator('[name="location"]')).toHaveValue('VN');
     await form.locator('#reserve-phone').fill('396085076');
     await expect(form.locator('[name="phone"]')).toHaveValue('+84396085076');
+    await form.locator('[name="consent"]').check();
     await form.locator('[type="submit"]').click();
     await expect(page.locator('[data-payment-instructions]')).toBeVisible();
     await expect(page.locator('[data-payment-amount]')).toHaveText(paymentAmount(offer.amount, locale));
@@ -107,10 +116,14 @@ test('reserve checkout accepts a selected non-Vietnam country and submits E.164'
   const reject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });
   if (await reject.isVisible()) await reject.click();
   await expect(page.locator('[data-payment-qr]')).toBeVisible();
+  await expect(page.locator('[data-reserve-form]')).toHaveCount(0);
+  await page.locator('[data-open-contact-form]').click();
   await page.locator('#reserve-phone-country').selectOption('US');
   await page.locator('#reserve-phone').fill('4155552671');
   await expect(page.locator('[name="phone"]')).toHaveValue('+14155552671');
   await page.locator('[name="name"]').fill('Synthetic Parent');
+  await page.locator('[name="email"]').fill('parent@example.test');
+  await page.locator('[name="consent"]').check();
   await page.locator('[data-reserve-form] [type="submit"]').click();
   await expect(page.locator('[data-transfer-memo]')).toHaveText('SC-AB12CD');
   expect(submittedPhone).toBe('+14155552671');
@@ -144,9 +157,14 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     const reject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });
     if (await reject.isVisible()) await reject.click();
     await expect(page.locator('[data-payment-qr-error]')).toBeVisible();
+    await expect(page.locator('[data-reserve-form]')).toHaveCount(0);
+    await page.locator('[data-open-contact-form]').click();
     await expect(page.locator('[data-reserve-form]')).toBeVisible();
+    await page.locator('[name="email"]').fill('parent@example.test');
+    await expect(page.locator('[name="location"]')).toHaveValue('VN');
     await page.locator('[name="name"]').fill('Synthetic Parent');
     await page.locator('#reserve-phone').fill('0396085076');
+    await page.locator('[name="consent"]').check();
     const [failedResponse] = await Promise.all([
       page.waitForResponse(response => response.url().endsWith('/api/sample-pack') && response.request().method() === 'POST'),
       page.locator('[type="submit"]').click(),
