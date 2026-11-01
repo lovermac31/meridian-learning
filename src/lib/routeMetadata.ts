@@ -33,6 +33,13 @@ import {
 } from './structuredData';
 
 const SITE_URL = 'https://jurassicenglish.com';
+
+// Google documents ProfilePage.dateModified as a DateTime. Our content
+// manifest intentionally stores editorial dates as YYYY-MM-DD for sitemap
+// and display use, so add the site's local midnight only at the schema
+// boundary rather than changing the source-of-truth date format.
+const toProfileDateTime = (date: string): string =>
+  date.includes('T') ? date : `${date}T00:00:00+07:00`;
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/hero-compass-960.webp`;
 const DEFAULT_OG_IMAGE_WIDTH = 960;
 const DEFAULT_OG_IMAGE_HEIGHT = 640;
@@ -1018,7 +1025,7 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
     }, {
       '@context': 'https://schema.org', '@type': 'ProfilePage', url: canonical,
       inLanguage: seoPage.locale, mainEntity: { '@id': `${SITE_URL}/#jay-adams` },
-      dateModified: seoPage.dateModified, isPartOf: { '@id': `${SITE_URL}/#website` },
+      dateModified: toProfileDateTime(seoPage.dateModified), isPartOf: { '@id': `${SITE_URL}/#website` },
     }];
     jsonLd.push(createFaqJsonLd(seoPage.faq.map(item => ({ question: item.question, answer: item.answer }))));
     jsonLd.push(createBreadcrumbJsonLd(seoPage.path.includes('/insights/') ? [

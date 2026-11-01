@@ -15,6 +15,7 @@ import {
   type PricingRegistrationValues,
 } from '../lib/pricingRegistrationSchema';
 import { recordClientEvent } from '../lib/tracker';
+import { PhoneNumberField } from './PhoneNumberField';
 
 type PricingModalProps = {
   isOpen: boolean;
@@ -354,12 +355,14 @@ function RegistrationForm({
           label={getUiString(locale, 'pricingModal.labels.phoneWhatsapp')}
           fieldId="pr-phoneWhatsapp"
           input={
-            <input
+            <PhoneNumberField
               id="pr-phoneWhatsapp"
-              className={fieldClass}
+              label={getUiString(locale, 'pricingModal.labels.phoneWhatsapp')}
+              locale={locale}
               value={values.phoneWhatsapp}
-              onChange={(e) => updateValue('phoneWhatsapp', e.target.value)}
-              autoComplete="tel"
+              onChange={(value) => updateValue('phoneWhatsapp', value)}
+              inputClassName="text-sm"
+              selectClassName="text-sm"
               placeholder={getUiString(locale, 'pricingModal.placeholders.phoneWhatsapp')}
             />
           }
@@ -520,7 +523,7 @@ function RegistrationForm({
       <button
         type="submit"
         disabled={submitState.status === 'submitting'}
-        className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-jurassic-accent px-6 py-3.5 text-sm font-bold text-white shadow-[0_4px_16px_rgba(242,100,25,0.25)] transition hover:shadow-[0_4px_24px_rgba(242,100,25,0.35)] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-jurassic-accent px-6 py-3.5 text-sm font-bold text-jurassic-dark shadow-[0_4px_16px_rgba(242,100,25,0.25)] transition hover:shadow-[0_4px_24px_rgba(242,100,25,0.35)] hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {submitState.status === 'submitting' ? (
           <>

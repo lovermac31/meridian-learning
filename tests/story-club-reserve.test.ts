@@ -7,8 +7,9 @@ import { getExpectedPublicIndexableRoutes, resolveRouteMetadata } from '../src/l
 import { resolveLocalizedRoute, getLocalizedPathname } from '../src/i18n/routing';
 
 test('Story Club reserve validates name, Vietnam Zalo, age and configured group', () => {
-  const valid = { name: 'Synthetic Parent', phone: '0396 085 076', childAge: '7', group: 'sat-0900' };
+  const valid = { name: 'Synthetic Parent', phone: '0396 085 076', email: 'parent@example.test', location: 'VN', childAge: '7', group: 'sat-0900' };
   assert.equal(validateStoryClubReserve(valid), null);
+  assert.equal(validateStoryClubReserve({ ...valid, phone: '396085076' }), null, 'the checkout shows +84 separately and accepts the 9 local digits');
   assert.equal(validateStoryClubReserve({ ...valid, phone: '12345' }), 'phone');
   assert.equal(validateStoryClubReserve({ ...valid, childAge: '9' }), 'age');
   assert.equal(validateStoryClubReserve({ ...valid, group: 'unlisted' }), 'group');
@@ -22,7 +23,7 @@ test('group labels are localized while stored option values remain stable', () =
     { id: 'flexible', label: { en: 'Another time / please ask me', vi: 'Thời gian khác / vui lòng liên hệ' } },
   ]);
   for (const group of STORY_CLUB_GROUPS) {
-    assert.equal(validateStoryClubReserve({ name: 'Synthetic Parent', phone: '0396 085 076', childAge: '7', group: group.id }), null);
+    assert.equal(validateStoryClubReserve({ name: 'Synthetic Parent', phone: '0396 085 076', email: 'parent@example.test', location: 'VN', childAge: '7', group: group.id }), null);
   }
 });
 

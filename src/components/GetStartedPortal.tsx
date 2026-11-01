@@ -294,7 +294,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   {pageContent.urgentContact}{' '}
                   <a
                     href="mailto:info@jurassicenglish.com"
-                    className="font-semibold text-[#B45309] hover:underline"
+                    className="font-semibold text-jurassic-accent-ink hover:underline"
                   >
                     info@jurassicenglish.com
                   </a>
@@ -307,7 +307,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   <h2 className="text-3xl font-bold text-jurassic-dark">
                     {isPilotAccessFlow ? pageContent.pilotAccess.title : pageContent.formTitle}
                   </h2>
-                  <p className="text-gray-500 text-sm mt-2">
+                  <p className="text-gray-600 text-sm mt-2">
                     {isPilotAccessFlow ? pageContent.pilotAccess.intro : pageContent.formIntro}
                   </p>
                 </div>
@@ -641,7 +641,7 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                   <button
                     type="submit"
                     disabled={submitState.status === 'submitting'}
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-8 py-4 font-bold text-white shadow-premium transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-jurassic-accent px-8 py-4 font-bold text-jurassic-dark shadow-premium transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {submitState.status === 'submitting' ? (
                       <>
@@ -654,9 +654,9 @@ export const GetStartedPortal = ({ onBack }: GetStartedPortalProps) => {
                         : getUiString(locale, 'common.submitEnquiry')
                     )}
                   </button>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-600">
                     {getUiString(locale, 'common.emailDirect')}{' '}
-                    <a href="mailto:info@jurassicenglish.com" className="font-semibold text-[#B45309] hover:underline">
+                    <a href="mailto:info@jurassicenglish.com" className="font-semibold text-jurassic-accent-ink hover:underline">
                       info@jurassicenglish.com
                     </a>
                     .
@@ -684,7 +684,7 @@ type FieldProps = {
 function Field({ label, fieldId, input, required, error, className }: FieldProps) {
   return (
     <div className={className}>
-      <label htmlFor={fieldId} className="mb-2 block text-xs font-bold uppercase tracking-widest text-gray-500">
+      <label htmlFor={fieldId} className="mb-2 block text-xs font-bold uppercase tracking-widest text-gray-600">
         {label} {required ? <span className="text-jurassic-accent">*</span> : null}
       </label>
       {input}

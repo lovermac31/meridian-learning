@@ -20,6 +20,7 @@ const STATIC_PUBLIC_PATHS = [
   '/ai-speaking/vi',
   '/ai-speaking/one-to-one',
   '/sitemap.xml',
+  '/llms-products.md',
 ];
 
 test('llms.txt follows the llmstxt.org shape and stays under 60 lines', () => {

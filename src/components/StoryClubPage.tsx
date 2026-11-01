@@ -1,8 +1,9 @@
+import { reserveCta, paymentHref } from '../config/payment';
 import { AssetNextStep } from './AssetNextStep';
 import { Check, Minus } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
-import { STORY_CLUB_FREE_STORIES, STORY_CLUB_ZALO, storyClubContent } from '../i18n/content/storyClub';
+import { STORY_CLUB_FREE_STORIES, storyClubContent } from '../i18n/content/storyClub';
 import { recordClientEvent } from '../lib/tracker';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
@@ -12,11 +13,11 @@ export const STORY_CLUB_PATH = '/story-club';
 const STORY_CLUB_VI_PATH = '/vi/story-club';
 const STORY_CLUB_RESERVE_PATH = '/story-club/reserve';
 
-function ZaloButton({ label, className = 'insights-button-primary' }: { label: string; className?: string }) {
+function ZaloButton({ label, className = 'insights-button-secondary' }: { label: string; className?: string }) {
   return (
     <a
       className={className}
-      href={STORY_CLUB_ZALO}
+      href="/go/zalo?utm_source=story-club&utm_content=talk-to-jay"
       target="_blank"
       rel="noopener noreferrer"
       data-cta="story-club-zalo"
@@ -40,7 +41,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
         lead={c.lead}
         eyebrow={c.eyebrow}
         counterpart={locale === 'vi' ? STORY_CLUB_PATH : STORY_CLUB_VI_PATH}
-      />
+      ><a className="insights-button-primary mt-4" href={paymentHref('story-club', locale)} data-cta="story-club-reserve">{reserveCta(locale)}</a></ToolHero>
       <div className="ielts-tool-content mx-auto max-w-4xl space-y-12 px-5 py-14">
         <section aria-label={c.price.amount} className="story-price ielts-tool-card rounded-2xl bg-white p-6 shadow-sm">
           <p className="text-4xl font-bold">
@@ -50,7 +51,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <p className="mt-3">{c.price.note}</p>
           <div className="story-cta mt-5 max-w-sm">
             <ZaloButton label={c.join.cta} />
-            <a className="insights-button-secondary mt-3" href={locale === 'vi' ? STORY_CLUB_RESERVE_PATH : `/en${STORY_CLUB_RESERVE_PATH}`} data-cta="story-club-reserve">{locale === 'vi' ? 'Đặt chỗ' : 'Reserve a seat'}</a>
+            <a className="insights-button-primary mt-3" href={locale === 'vi' ? STORY_CLUB_RESERVE_PATH : `/en${STORY_CLUB_RESERVE_PATH}`} data-cta="story-club-reserve">{reserveCta(locale)}</a>
           </div>
           <p className="mt-3 text-sm">
             <a className="font-semibold underline underline-offset-4" href={STORY_CLUB_FREE_STORIES[locale]} data-link="story-club-free-stories">{c.price.tryFree}</a>
@@ -116,7 +117,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
             <a className="font-semibold" href={oneToOne}>{c.older.oneToOne}</a>
             <a
               className="font-semibold"
-              href={STORY_CLUB_ZALO}
+              href="/go/zalo?utm_source=story-club&utm_content=talk-to-jay"
               target="_blank"
               rel="noopener noreferrer"
               data-cta="story-club-zalo-older"
@@ -139,7 +140,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           </ol>
           <div className="story-cta mt-6 max-w-sm">
             <ZaloButton label={c.join.cta} />
-            <a className="insights-button-secondary mt-3" href={locale === 'vi' ? STORY_CLUB_RESERVE_PATH : `/en${STORY_CLUB_RESERVE_PATH}`} data-cta="story-club-reserve">{locale === 'vi' ? 'Đặt chỗ' : 'Reserve a seat'}</a>
+            <a className="insights-button-primary mt-3" href={locale === 'vi' ? STORY_CLUB_RESERVE_PATH : `/en${STORY_CLUB_RESERVE_PATH}`} data-cta="story-club-reserve">{reserveCta(locale)}</a>
             <p className="mt-2 text-sm">{c.join.ctaNote}</p>
           </div>
         </section>

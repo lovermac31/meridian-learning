@@ -283,7 +283,7 @@ function HeroBand({ eyebrow, title, intro, locale, alternate, market, ctas, payp
         </div>}
       </div>
       {market && <div className="insights-teacher">
-        <div className="insights-teacher-row"><img src="/images/mr-jay-portrait.webp" width="76" height="76" alt="Mr. Jay Adams" /><div><span className="insights-badge">CELTA</span><strong>Mr. Jay Adams</strong></div></div>
+        <div className="insights-teacher-row"><img src="/images/mr-jay-portrait.webp" width="76" height="76" alt="Mr. Jay Adams" loading="lazy" /><div><span className="insights-badge">CELTA</span><strong>Mr. Jay Adams</strong></div></div>
         {ctas?.map((cta, index) => <a key={cta.href} className={index === 0 ? 'insights-button-primary' : 'insights-button-secondary'} href={cta.href}>{rtl ? <span dangerouslySetInnerHTML={{ __html: isolateRtlText(cta.label) }} /> : cta.label}</a>)}
         {ctas?.length ? <CtaNote locale={locale} paypal={paypal} hub={hub} /> : null}
         {sampleMarket ? <SampleLink market={sampleMarket} locale={locale} /> : null}

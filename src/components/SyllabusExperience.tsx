@@ -95,7 +95,7 @@ export const SyllabusExperience = ({
       <section className="py-24 bg-jurassic-soft/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.glance.eyebrow}</span>
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.glance.eyebrow}</span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.glance.title}</h2>
           </div>
 
@@ -105,7 +105,7 @@ export const SyllabusExperience = ({
                 key={item.label}
                 className="rounded-2xl bg-white border border-jurassic-soft/60 p-5 shadow-premium"
               >
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">
+                <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-2">
                   {item.label}
                 </p>
                 <p className="text-sm font-semibold text-jurassic-dark leading-relaxed">
@@ -121,7 +121,7 @@ export const SyllabusExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.coreTexts.eyebrow}</span>
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.coreTexts.eyebrow}</span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.coreTexts.title}</h2>
             <p className="text-lg text-gray-600 leading-relaxed font-light">{pageContent.coreTexts.body}</p>
           </div>
@@ -145,7 +145,7 @@ export const SyllabusExperience = ({
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-2">
+                  <p className="text-xs text-gray-600 font-semibold uppercase tracking-wide mb-2">
                     {text.author}
                   </p>
                   <p className="text-sm text-gray-600 leading-relaxed">{text.theme}</p>
@@ -169,7 +169,7 @@ export const SyllabusExperience = ({
       <section className="py-24 bg-jurassic-soft/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.academicYear.eyebrow}</span>
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.academicYear.eyebrow}</span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.academicYear.title}</h2>
           </div>
 
@@ -180,12 +180,12 @@ export const SyllabusExperience = ({
                 className="rounded-3xl bg-white border border-jurassic-soft/60 p-8 shadow-premium"
               >
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-xl bg-jurassic-accent text-white flex items-center justify-center text-sm font-bold shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-jurassic-accent text-jurassic-dark flex items-center justify-center text-sm font-bold shrink-0">
                     {i + 1}
                   </div>
                   <div>
                     <p className="font-bold text-jurassic-dark">{term.term}</p>
-                    <p className="text-xs text-gray-400 font-semibold">
+                    <p className="text-xs text-gray-600 font-semibold">
                       {term.lessonRange} · {term.units}
                     </p>
                   </div>
@@ -208,7 +208,7 @@ export const SyllabusExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.assessment.eyebrow}</span>
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.assessment.eyebrow}</span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.assessment.title}</h2>
             <p className="text-lg text-gray-600 leading-relaxed font-light">{pageContent.assessment.body}</p>
           </div>
@@ -226,7 +226,7 @@ export const SyllabusExperience = ({
                   <div>
                     <div className="flex items-center gap-2 flex-wrap mb-1">
                       <p className="font-bold text-jurassic-dark">{method.method}</p>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-jurassic-accent bg-jurassic-accent/10 rounded-full px-2 py-0.5">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-jurassic-accent-ink bg-jurassic-accent/10 rounded-full px-2 py-0.5">
                         {method.frequency}
                       </span>
                     </div>
@@ -354,12 +354,12 @@ export const SyllabusExperience = ({
             </p>
             <a
               href="mailto:info@jurassicenglish.com"
-              className="inline-flex items-center gap-2 rounded-full bg-jurassic-accent px-8 py-4 text-sm font-bold text-white transition hover:bg-jurassic-accent/90"
+              className="inline-flex items-center gap-2 rounded-full bg-jurassic-accent px-8 py-4 text-sm font-bold text-jurassic-dark transition hover:bg-jurassic-accent/90"
             >
               <Mail className="w-4 h-4" />
               info@jurassicenglish.com
             </a>
-            <p className="mt-6 text-sm text-gray-400">
+            <p className="mt-6 text-sm text-gray-600">
               <LinkifyWorldWise text={pageContent.cta.published} />
             </p>
             <ProductCardLink id={`teacher-pack-l${level.order}`} source="syllabus" locale={locale} className="mt-6" />
@@ -369,7 +369,7 @@ export const SyllabusExperience = ({
             <RouteLink
               to={level.path}
               onNavigate={() => onViewLevel()}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-jurassic-accent transition hover:text-jurassic-accent/80"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-jurassic-accent-ink transition hover:text-jurassic-accent/80"
             >
               <ExternalLink className="w-4 h-4" />
               {pageContent.cta.viewFullLevel.replace('{{order}}', String(level.order))}

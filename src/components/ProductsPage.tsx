@@ -1,3 +1,4 @@
+import { buyCta, paymentHref, paidOffer } from '../config/payment';
 import { CrawlResources } from './CrawlResources';
 import { useEffect, useId, useRef, useState, type SyntheticEvent } from 'react';
 import { ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
@@ -400,6 +401,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
       </div>
       <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
       <div className="product-row-actions story-cta">
+        {paidOffer(card.id) ? <a className="insights-button-primary" href={paymentHref(card.id, locale)} data-buy-now={card.id}>{buyCta(card.id, locale)}</a> : null}
         {card.sample ? <button type="button" className="insights-button-secondary" onClick={() => { onOpenSample(card); recordClientEvent({ event: 'sample_open', product_id: card.id }); }} data-sample-open={card.id}>{sample.heading}</button> : null}
         {isPortalBuyEnabled(card.id) ? (
           <a
@@ -412,7 +414,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
             {locale === 'vi' ? 'Mua ngay' : 'Buy'}
           </a>
         ) : null}
-        <a className={isPortalBuyEnabled(card.id) ? "insights-button-secondary" : "insights-button-primary"} href={href} data-cta={`product-${card.id}`} onClick={() => { if (external) recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined }); }} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{card.cta}</a>
+        <a className="insights-button-secondary" href={href} data-cta={`product-${card.id}`} onClick={() => { if (external) recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined }); }} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{card.cta}</a>
         {external ? <p className="mt-2 text-xs" data-order-code={card.id}>{code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}</p> : null}
         {card.video ? <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="product-row-watch" data-watch={card.id}><span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}</a> : null}
         {card.paypal ? <PayPalOption card={card} locale={locale} source={source} compact /> : null}

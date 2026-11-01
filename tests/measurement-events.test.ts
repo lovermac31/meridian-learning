@@ -47,7 +47,7 @@ test('302 target: /go/zalo redirects to https://zalo.me/84396085076', async () =
     method: 'GET',
     url: '/go/zalo?utm_source=tiktok&utm_content=bio',
     query: { utm_source: 'tiktok', utm_content: 'bio' },
-    headers: {},
+    headers: { 'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1' },
   } as any;
 
   const res = createMockRes();
@@ -63,7 +63,7 @@ test('302 target with product id: carries product, fails open without database, 
     method: 'GET',
     url: '/go/zalo/holiday-reading-challenge?utm_source=social-desk',
     query: { product: 'holiday-reading-challenge', utm_source: 'social-desk' },
-    headers: {},
+    headers: { 'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1' },
   } as any;
 
   const res = createMockRes();

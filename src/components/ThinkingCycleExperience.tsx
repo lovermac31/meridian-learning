@@ -106,7 +106,7 @@ export const ThinkingCycleExperience = ({
       <section className="py-24 bg-jurassic-soft/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.glance.eyebrow}</span>
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.glance.eyebrow}</span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.glance.title}</h2>
           </div>
 
@@ -121,7 +121,7 @@ export const ThinkingCycleExperience = ({
                 key={item.label}
                 className="rounded-3xl bg-white border border-jurassic-soft/60 p-6 shadow-premium"
               >
-                <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">
+                <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-3">
                   {item.label}
                 </p>
                 <p className="text-lg font-semibold text-jurassic-dark leading-relaxed">{item.value}</p>
@@ -134,7 +134,7 @@ export const ThinkingCycleExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.studentExpectations.eyebrow}</span>
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.studentExpectations.eyebrow}</span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.studentExpectations.title}</h2>
           </div>
 
@@ -155,12 +155,12 @@ export const ThinkingCycleExperience = ({
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <div>
-              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.promptBank.eyebrow}</span>
+              <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.promptBank.eyebrow}</span>
               <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-6">{pageContent.promptBank.title}</h2>
               <div className="space-y-4">
                 {localizedStage.promptBank.map((item) => (
                   <div key={item.type} className="rounded-3xl bg-white border border-jurassic-soft/60 p-6 shadow-premium">
-                    <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">{item.type}</p>
+                    <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-2">{item.type}</p>
                     <p className="text-gray-700 leading-relaxed">{item.summary}</p>
                   </div>
                 ))}
@@ -168,12 +168,12 @@ export const ThinkingCycleExperience = ({
             </div>
 
             <div>
-              <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.languageBank.eyebrow}</span>
+              <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.languageBank.eyebrow}</span>
               <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-6">{pageContent.languageBank.title}</h2>
               <div className="space-y-4">
                 {localizedStage.languageBank.map((item) => (
                   <div key={item.function} className="rounded-3xl bg-white border border-jurassic-soft/60 p-6 shadow-premium">
-                    <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">{item.function}</p>
+                    <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-2">{item.function}</p>
                     <p className="text-gray-700 leading-relaxed">{item.frame}</p>
                   </div>
                 ))}
@@ -186,7 +186,7 @@ export const ThinkingCycleExperience = ({
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mb-12">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.practicePrompts.eyebrow}</span>
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.practicePrompts.eyebrow}</span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.practicePrompts.title}</h2>
           </div>
 
@@ -195,7 +195,7 @@ export const ThinkingCycleExperience = ({
               <div key={item.levelBand} className="rounded-3xl border border-jurassic-soft/60 bg-jurassic-soft/15 p-6 shadow-premium">
                 <div className="flex items-center gap-3 mb-4">
                   <MessagesSquare className="w-4 h-4 text-jurassic-accent" />
-                  <p className="text-xs uppercase tracking-widest text-gray-400 font-bold">{item.levelBand}</p>
+                  <p className="text-xs uppercase tracking-widest text-gray-600 font-bold">{item.levelBand}</p>
                 </div>
                 <p className="text-gray-700 leading-relaxed">{item.prompt}</p>
               </div>

@@ -5,6 +5,8 @@ import './index.css';
 // section consumes it. Imported here (not in the component) so the component
 // stays unit-testable under node:test.
 import './styles/testimonials.css';
+// Floating Zalo button (src/components/ZaloFloat.tsx). Plain CSS, ≤ 2 KB, imported here for the same reason.
+import './styles/zalo-float.css';
 
 const container = document.getElementById('root')!;
 

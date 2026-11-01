@@ -135,6 +135,7 @@ export function isPrivateOrNonLocalizedPath(pathname: string) {
 
 export function resolveLocalizedRoute(pathname: string): LocalizedRoute {
   const normalizedPathname = normalizePathname(pathname);
+  if (normalizedPathname === '/en') return { locale: 'en', pathname: '/', localizedPathname: '/', isLocalizedVariant: false, isLocalizable: true, isPrivateOrNonLocalized: false };
   // Story Club reserve page uses the approved campaign URLs: Vietnamese at
   // /story-club/reserve and English at /en/story-club/reserve.
   if (normalizedPathname === '/story-club/reserve' || normalizedPathname === '/vi/story-club/reserve') {

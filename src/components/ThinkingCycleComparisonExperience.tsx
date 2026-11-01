@@ -56,7 +56,7 @@ export const ThinkingCycleComparisonExperience = ({
       <section className="py-24 bg-jurassic-soft/20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mb-10">
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.overview.eyebrow}</span>
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">{pageContent.overview.eyebrow}</span>
             <h2 className="text-4xl font-bold tracking-tight text-jurassic-dark mb-4">{pageContent.overview.title}</h2>
           </div>
 
@@ -69,13 +69,13 @@ export const ThinkingCycleComparisonExperience = ({
                 <div className="flex flex-col gap-5">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-3">
+                      <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-3">
                         {pageContent.labels.stage}
                       </p>
                       <h3 className="text-3xl font-bold text-jurassic-dark tracking-tight">
                         {stage.title}
                       </h3>
-                      <p className={`mt-2 font-semibold ${stage.accent}`}>{stage.line}</p>
+                      <p className={`mt-2 font-semibold ${['text-jurassic-accent-ink', 'text-amber-800', 'text-yellow-800', 'text-emerald-800'][stage.order - 1]}`}>{stage.line}</p>
                     </div>
                     <div className="w-12 h-12 rounded-2xl bg-jurassic-accent/10 text-jurassic-accent flex items-center justify-center shrink-0">
                       <GitCompareArrows className="w-5 h-5" />
@@ -84,19 +84,19 @@ export const ThinkingCycleComparisonExperience = ({
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="rounded-2xl bg-jurassic-soft/25 p-5">
-                      <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">{pageContent.labels.cognitiveOperation}</p>
+                      <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-2">{pageContent.labels.cognitiveOperation}</p>
                       <p className="text-jurassic-dark font-semibold leading-relaxed">{stage.cognitiveOperation}</p>
                     </div>
                     <div className="rounded-2xl bg-jurassic-soft/25 p-5">
-                      <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">{pageContent.labels.bloomLevel}</p>
+                      <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-2">{pageContent.labels.bloomLevel}</p>
                       <p className="text-jurassic-dark font-semibold leading-relaxed">{stage.bloomLevel}</p>
                     </div>
                     <div className="rounded-2xl bg-jurassic-soft/25 p-5">
-                      <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">{pageContent.labels.primaryTarget}</p>
+                      <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-2">{pageContent.labels.primaryTarget}</p>
                       <p className="text-jurassic-dark font-semibold leading-relaxed">{stage.primaryTarget}</p>
                     </div>
                     <div className="rounded-2xl bg-jurassic-soft/25 p-5">
-                      <p className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-2">{pageContent.labels.lessonSlot}</p>
+                      <p className="text-xs uppercase tracking-widest text-gray-600 font-bold mb-2">{pageContent.labels.lessonSlot}</p>
                       <p className="text-jurassic-dark font-semibold leading-relaxed">{stage.lessonSlot}</p>
                     </div>
                   </div>
@@ -105,7 +105,7 @@ export const ThinkingCycleComparisonExperience = ({
                     <div className="rounded-2xl border border-jurassic-soft/70 p-5">
                       <div className="flex items-center gap-3 mb-3">
                         <LibraryBig className="w-4 h-4 text-jurassic-accent" />
-                        <p className="text-xs uppercase tracking-widest text-gray-400 font-bold">{pageContent.labels.primaryActivity}</p>
+                        <p className="text-xs uppercase tracking-widest text-gray-600 font-bold">{pageContent.labels.primaryActivity}</p>
                       </div>
                       <p className="text-gray-700 leading-relaxed">{stage.primaryActivity}</p>
                     </div>
@@ -113,7 +113,7 @@ export const ThinkingCycleComparisonExperience = ({
                     <div className="rounded-2xl border border-jurassic-soft/70 p-5">
                       <div className="flex items-center gap-3 mb-3">
                         <Scale className="w-4 h-4 text-jurassic-accent" />
-                        <p className="text-xs uppercase tracking-widest text-gray-400 font-bold">{pageContent.labels.assessmentType}</p>
+                        <p className="text-xs uppercase tracking-widest text-gray-600 font-bold">{pageContent.labels.assessmentType}</p>
                       </div>
                       <p className="text-gray-700 leading-relaxed">
                         {getAssessmentType(stage.assessmentSnapshot[0] ?? '')}
@@ -123,7 +123,7 @@ export const ThinkingCycleComparisonExperience = ({
                     <div className="rounded-2xl border border-jurassic-soft/70 p-5">
                       <div className="flex items-center gap-3 mb-3">
                         <ShieldCheck className="w-4 h-4 text-jurassic-accent" />
-                        <p className="text-xs uppercase tracking-widest text-gray-400 font-bold">{pageContent.labels.crossStageRole}</p>
+                        <p className="text-xs uppercase tracking-widest text-gray-600 font-bold">{pageContent.labels.crossStageRole}</p>
                       </div>
                       <p className="text-gray-700 leading-relaxed">{stage.crossStageConnection}</p>
                     </div>

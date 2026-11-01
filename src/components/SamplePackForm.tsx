@@ -10,6 +10,7 @@ import { recordClientEvent } from '../lib/tracker';
 import { SAMPLE_PACK_ANCHOR } from '../lib/headerCta';
 import { readVisitorSource } from '../lib/productsSource';
 import { submitSamplePack } from '../lib/samplePackRequest';
+import { PhoneNumberField } from './PhoneNumberField';
 import { PRIMARY_BTN } from './HomeOverhaul';
 
 const FIELD =
@@ -107,10 +108,10 @@ export function SamplePackForm({ placement }: { placement: 'home' | 'products' }
           // cannot fall back to a native submit; method="post" keeps the contact out of any URL regardless (QA, 27 Oct 2026).
           <form method="post" className="mt-4 space-y-4" onSubmit={onSubmit} noValidate>
             <div className="space-y-3" data-sample-pack-contact>
-              <label className="block text-sm font-bold text-sb-forest">
-                {copy.phone}
-                <input className={FIELD} name="phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={32} aria-invalid={error === 'phone' || error === 'contact'} aria-describedby={error ? `${SAMPLE_PACK_ANCHOR}-error` : undefined} />
-              </label>
+              <div className="block text-sm font-bold text-sb-forest">
+                <span>{copy.phone}</span>
+                <PhoneNumberField id={`${SAMPLE_PACK_ANCHOR}-phone`} name="phone" label={copy.phone} locale={locale} className="mt-1" invalid={error === 'phone' || error === 'contact'} describedBy={error ? `${SAMPLE_PACK_ANCHOR}-error` : undefined} />
+              </div>
               <label className="block text-sm font-bold text-sb-forest">
                 {copy.email}
                 <input className={FIELD} name="email" type="email" inputMode="email" autoComplete="email" maxLength={254} aria-invalid={error === 'email' || error === 'contact'} aria-describedby={error ? `${SAMPLE_PACK_ANCHOR}-error` : undefined} />

@@ -45,7 +45,7 @@ export const FrameworkFoundations = ({
           className="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-start"
         >
           <div>
-            <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+            <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">
               {homeContent.frameworkFoundations.eyebrow}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-jurassic-dark mb-5 leading-tight">
@@ -125,7 +125,7 @@ export const FrameworkFoundations = ({
               <button
                 type="button"
                 onClick={onExploreFramework}
-                className="inline-flex items-center gap-2 rounded-full bg-jurassic-accent px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
+                className="inline-flex items-center gap-2 rounded-full bg-jurassic-accent px-5 py-3 text-sm font-bold text-jurassic-dark transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-jurassic-dark"
               >
                 {homeContent.frameworkFoundations.exploreCta}
                 <ArrowRight aria-hidden="true" className="w-4 h-4" />

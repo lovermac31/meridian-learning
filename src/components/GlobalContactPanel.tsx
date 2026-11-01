@@ -16,7 +16,7 @@ const WECHAT_QR = '/images/wechat-qr.jpg';
 // Platform destinations. wa.me/qr/… is the link encoded in the WhatsApp QR image itself.
 // WeChat's QR link (u.wechat.com) only works when scanned inside the WeChat app, so WeChat offers image actions only.
 const WHATSAPP_LINK = 'https://wa.me/qr/GGEQLLXJBTWEK1';
-const ZALO_LINK = '/go/zalo';
+const ZALO_LINK = '/go/zalo?utm_source=contact-panel&utm_content=talk-to-jay';
 const FACEBOOK_LINK = 'https://www.facebook.com/profile.php?id=61570824718837';
 const EMAIL_LINK = 'mailto:info@jurassicenglish.com?subject=Jurassic%20English%20enquiry';
 
@@ -57,6 +57,7 @@ export const contactCopy = {
   },
 } satisfies Record<'en' | 'vi', unknown>;
 
+export const qrDimensions = { whatsapp: { width: 1280, height: 2774 }, wechat: { width: 632, height: 658 } } as const;
 export const qrFor: Partial<Record<Channel, string>> = { whatsapp: WHATSAPP_QR, wechat: WECHAT_QR };
 export const channelOrder: Channel[] = ['zalo', 'whatsapp', 'wechat', 'facebook', 'email'];
 export const channelStyle: Record<Channel, string> = {
@@ -219,7 +220,7 @@ export const GlobalContactPanel = () => {
             {action.label}{action.external && <span aria-hidden="true" className="ml-2">↗</span>}
           </a>)}
         </div>
-        {qr && <img className="mx-auto mt-5 max-h-[55dvh] w-auto max-w-full rounded-xl bg-white object-contain p-3 sm:max-w-[320px]" src={qr} alt={t.qrAlt(detail.label)} />}
+        {qr && <img className="mx-auto mt-5 max-h-[55dvh] w-auto max-w-full rounded-xl bg-white object-contain p-3 sm:max-w-[320px]" src={qr} {...qrDimensions[active as keyof typeof qrDimensions]} loading="lazy" alt={t.qrAlt(detail.label)} />}
       </section>
     </div>}
   </>;

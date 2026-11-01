@@ -136,7 +136,7 @@ export function ComingSoonModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 inline-flex items-center justify-center rounded-2xl bg-jurassic-accent px-6 py-3 text-sm font-bold text-white shadow-[0_4px_16px_rgba(242,100,25,0.25)] transition hover:shadow-[0_4px_24px_rgba(242,100,25,0.35)] hover:brightness-110"
+                  className="flex-1 inline-flex items-center justify-center rounded-2xl bg-jurassic-accent px-6 py-3 text-sm font-bold text-jurassic-dark shadow-[0_4px_16px_rgba(242,100,25,0.25)] transition hover:shadow-[0_4px_24px_rgba(242,100,25,0.35)] hover:brightness-110"
                 >
                   {getUiString(locale, 'comingSoonModal.close')}
                 </button>

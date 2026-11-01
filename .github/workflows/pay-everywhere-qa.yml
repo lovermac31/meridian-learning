@@ -1,0 +1,43 @@
+name: Pay everywhere QA
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'api/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'public/**'
+      - 'playwright*.ts'
+      - 'package*.json'
+      - '.github/workflows/pay-everywhere-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: pay-everywhere-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  payments:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm run lint && npm test && npm run build && npm run validate:prerender && npm run validate:indexability
+      - run: npm run test:browser:payments
+      - run: npm run test:browser:reserve
+      - run: npx playwright test -c playwright.story-club-status.config.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pay-everywhere-qa
+          path: |
+            docs/qa/pay-everywhere/
+            test-results/
+          retention-days: 14
