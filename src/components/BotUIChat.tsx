@@ -296,6 +296,12 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
     previousPathnameRef.current = currentPathname;
   }, [currentPathname, isOpen]);
 
+  // Lets other fixed bottom-right UI (the floating Zalo button) hide while the assistant panel is open.
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-je-assistant-open', isOpen);
+    return () => document.documentElement.removeAttribute('data-je-assistant-open');
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) {
       return;

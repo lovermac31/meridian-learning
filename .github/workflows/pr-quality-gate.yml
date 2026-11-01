@@ -71,6 +71,9 @@ jobs:
       - name: Story Club reserve browser acceptance (synthetic only)
         run: npm run test:browser:reserve
 
+      - name: Floating Zalo button browser acceptance (muted, synthetic only)
+        run: npm run test:browser:zalo-float
+
       - name: Retain reserve screenshots and browser diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -78,6 +81,7 @@ jobs:
           name: story-club-reserve-qa
           path: |
             docs/qa/story-club-reserve/
+            docs/qa/zalo-float/
             test-results/
             /tmp/site-quality.json
           retention-days: 14

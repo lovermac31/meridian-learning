@@ -28,7 +28,9 @@
     "validate:crawl": "node scripts/seo/crawl-check.mjs",
     "check:links": "node scripts/check-internal-links.mjs",
     "test:site-quality": "node scripts/audit-site-quality.mjs",
-    "test:browser:payments": "playwright test -c playwright.pay-everywhere.config.ts"
+    "test:browser:payments": "playwright test -c playwright.pay-everywhere.config.ts",
+    "test:browser:zalo-float": "playwright test -c playwright.zalo-float.config.ts",
+    "qr:zalo": "node scripts/generate-zalo-qr.mjs"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",
@@ -61,6 +63,7 @@
     "@types/react-dom": "^19.2.3",
     "@vercel/node": "^5.6.16",
     "autoprefixer": "^10.4.21",
+    "qrcode": "^1.5.4",
     "sass": "^1.98.0",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
