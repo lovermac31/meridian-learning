@@ -8,6 +8,8 @@ export default defineConfig({
   reporter: 'list',
   timeout: 45_000,
   use: {
+    // Every request from a test run carries this header: api/go/zalo.ts (PR #252) then redirects but never counts it.
+    extraHTTPHeaders: { 'x-je-automation': 'playwright' },
     baseURL: 'http://127.0.0.1:4177',
     browserName: 'chromium',
     headless: true,
