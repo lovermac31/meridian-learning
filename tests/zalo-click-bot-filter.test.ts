@@ -44,6 +44,11 @@ const AUTOMATED_USER_AGENTS: Record<string, string> = {
   'Uptime monitor': 'UptimeRobot/2.0; http://www.uptimerobot.com/',
   'Monitor': 'Site24x7 monitor',
   'Selenium': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Selenium WebDriver',
+  // Link-preview fetchers: every shared link gets a GET from these before any human taps it.
+  'Facebook link preview': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+  'WhatsApp link preview': 'WhatsApp/2.23.20.0 A',
+  'Telegram link preview': 'TelegramBot (like TwitterBot)',
+  'Zalo link preview (bot token)': 'Mozilla/5.0 (compatible; Zalo-Bot/1.0; +https://zalo.me)',
 };
 
 test('real browsers, including the Zalo and Facebook in-app browsers, are counted', () => {
