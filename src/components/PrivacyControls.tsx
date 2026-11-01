@@ -38,7 +38,7 @@ export function PrivacyControls() {
     saveAnalyticsConsent(value);
     setOpen(false);
   };
-  return <aside aria-label={vi ? 'Tùy chọn quyền riêng tư' : 'Privacy choices'} className="fixed bottom-3 left-3 right-3 z-[40] max-w-sm rounded-xl border border-gray-300 bg-white p-3 text-sm text-gray-900 shadow-lg">
+  return <aside data-privacy-controls="" aria-label={vi ? 'Tùy chọn quyền riêng tư' : 'Privacy choices'} className="fixed bottom-3 left-3 right-3 z-[40] max-w-sm rounded-xl border border-gray-300 bg-white p-3 text-sm text-gray-900 shadow-lg">
     {choice === null || open ? <>
       <p className="mb-3">{vi ? 'Chỉ bật Google Analytics và Vercel Analytics/Speed Insights khi bạn đồng ý. Bạn có thể thay đổi lựa chọn bất kỳ lúc nào.' : 'Google Analytics and Vercel Analytics/Speed Insights stay off until you accept. You can change your choice at any time.'}</p>
       <div className="flex flex-wrap gap-3">
