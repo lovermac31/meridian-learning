@@ -14,7 +14,9 @@
 export const AUTOMATION_HEADER = 'x-je-automation';
 
 /** Pure pattern test, exported for tests and for anything that classifies a stored UA later. */
-export const AUTOMATED_USER_AGENT = /HeadlessChrome|Playwright|Puppeteer|Lighthouse|Page ?Speed|Chrome-Lighthouse|bot|crawler|spider|curl|wget|python-requests|python-urllib|aiohttp|node-fetch|undici|axios|Go-http-client|okhttp|java\/|libwww|AtlasHealth|GoogleOther|Vercel|uptime|monitor|HeadlessShell|PhantomJS|Selenium|WebDriver|scrapy|httpx|facebookexternalhit|WhatsApp\/|TelegramBot|Slackbot|Discordbot|LinkedInBot|Twitterbot/i;
+// "bot" only as a standalone word or in the crawler form "…bot/" / "…bot;" / "…bot-", never inside a brand name:
+// Cubot phones (UA "CUBOT NOTE 30") are real handsets and must stay counted.
+export const AUTOMATED_USER_AGENT = /HeadlessChrome|Playwright|Puppeteer|Lighthouse|Page ?Speed|Chrome-Lighthouse|(?<![a-z])bot(?![a-z])|bot[/;-]|crawler|spider|curl|wget|python-requests|python-urllib|aiohttp|node-fetch|undici|axios|Go-http-client|okhttp|java\/|libwww|AtlasHealth|GoogleOther|Vercel|uptime|monitor|HeadlessShell|PhantomJS|Selenium|WebDriver|scrapy|httpx|facebookexternalhit|WhatsApp\/|TelegramBot|Slackbot|Discordbot|LinkedInBot|Twitterbot/i;
 
 type HeaderValue = string | string[] | undefined;
 type Headers = Record<string, HeaderValue> | undefined;

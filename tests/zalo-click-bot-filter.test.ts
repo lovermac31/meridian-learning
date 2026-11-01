@@ -20,6 +20,9 @@ const HUMAN_USER_AGENTS: Record<string, string> = {
   'Zalo in-app browser (iOS)': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Zalo iOS/23.10.01 ZaloTheme/light ZaloLanguage/vi',
   'Facebook in-app browser': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [FBAN/FBIOS;FBAV/470.0.0.29.106;FBBV/612345678;FBDV/iPhone15,2;FBMD/iPhone;FBSN/iOS;FBSV/17.5;FBSS/3;FBID/phone;FBLC/vi_VN;FBOP/5]',
   'Edge on Windows': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.2849.56',
+  // Brand names that contain "bot" are phones, not robots.
+  'Cubot phone (Android)': 'Mozilla/5.0 (Linux; Android 12; CUBOT NOTE 30) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36',
+  'Cubot phone, underscore model': 'Mozilla/5.0 (Linux; Android 11; CUBOT_P80 Build/RP1A.200720.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
 };
 
 const AUTOMATED_USER_AGENTS: Record<string, string> = {
@@ -30,6 +33,11 @@ const AUTOMATED_USER_AGENTS: Record<string, string> = {
   'Googlebot': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/130.0.0.0 Safari/537.36',
   'GoogleOther': 'GoogleOther',
   'Bingbot': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/116.0.1938.76 Safari/537.36',
+  'Applebot': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15 (Applebot/0.1; +http://www.apple.com/go/applebot)',
+  'PetalBot': 'Mozilla/5.0 (Linux; Android 7.0;) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; PetalBot;+https://webmaster.petalsearch.com/site/petalbot)',
+  'AhrefsBot': 'Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)',
+  'Googlebot-Image': 'Googlebot-Image/1.0',
+  'Standalone word bot': 'Mozilla/5.0 (compatible; my bot 1.0)',
   'Generic crawler': 'SomethingCrawler/1.0 (+https://example.test)',
   'Spider': 'Mozilla/5.0 (compatible; AhrefsSiteAudit/6.1; +http://ahrefs.com/robot/site-audit) spider',
   'curl': 'curl/8.7.1',
