@@ -65,13 +65,16 @@ test('copy: English and Vietnamese expose the same keys, Vietnamese reads as Vie
   }
 });
 
-test('QR asset: committed SVG generated from the qrcode library for the owner-specified zalo.me link', () => {
-  assert.equal(ZALO_QR_TARGET, 'https://zalo.me/0396085076');
+test('QR asset: committed SVG generated from the qrcode library, encoding the tracked redirect so scans are counted', () => {
+  assert.equal(ZALO_QR_TARGET, 'https://jurassicenglish.com/go/zalo?utm_source=float&utm_content=zalo-float-qr');
+  const params = new URL(ZALO_QR_TARGET).searchParams;
+  assert.equal(params.get('utm_source'), 'float');
+  assert.equal(params.get('utm_content'), 'zalo-float-qr', 'scans are counted apart from Open Zalo clicks (zalo-float)');
   const svg = readFileSync(new URL(`../public${ZALO_QR_IMAGE}`, import.meta.url), 'utf8');
   assert.match(svg, /^<svg width="320" height="320" /);
   assert.match(svg, /shape-rendering="crispEdges"/, 'produced by scripts/generate-zalo-qr.mjs');
   assert.doesNotMatch(svg, /<script/i);
-  assert.match(readFileSync(new URL('../scripts/generate-zalo-qr.mjs', import.meta.url), 'utf8'), new RegExp(ZALO_QR_TARGET.replace(/[.]/g, '\\.')));
+  assert.ok(readFileSync(new URL('../scripts/generate-zalo-qr.mjs', import.meta.url), 'utf8').includes(`'${ZALO_QR_TARGET}'`), 'generator encodes the same target');
 });
 
 test('stylesheet: at most 2 KB, CSS-only motion with a static ring under reduced motion, hidden while the assistant is open', () => {

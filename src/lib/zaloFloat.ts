@@ -8,8 +8,12 @@ import type { Locale } from '../i18n/locales';
 /** Both taps go through the tracked redirect (api/go/zalo.ts logs a zalo_click row); the master counts this utm_content. */
 export const ZALO_FLOAT_UTM = { source: 'float', content: 'zalo-float' } as const;
 
-/** What the QR encodes (owner brief, 1 Nov 2026). Regenerate the SVG with `npm run qr:zalo` after changing it. */
-export const ZALO_QR_TARGET = 'https://zalo.me/0396085076';
+/**
+ * What the QR encodes (master, 1 Nov 2026): the tracked redirect, not zalo.me directly, so a phone camera scan is
+ * logged as a zalo_click with utm_content=zalo-float-qr before api/go/zalo.ts forwards it to Zalo. Absolute URL,
+ * because a camera app has no origin to resolve against. Regenerate the SVG with `npm run qr:zalo` after changing it.
+ */
+export const ZALO_QR_TARGET = 'https://jurassicenglish.com/go/zalo?utm_source=float&utm_content=zalo-float-qr';
 export const ZALO_QR_IMAGE = '/images/zalo-qr.svg';
 export const ZALO_DISPLAY_NUMBER = '0396 085 076';
 

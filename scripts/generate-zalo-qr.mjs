@@ -4,7 +4,8 @@
 import { writeFile } from 'node:fs/promises';
 import QRCode from 'qrcode';
 
-const target = 'https://zalo.me/0396085076';
+// Keep in step with ZALO_QR_TARGET in src/lib/zaloFloat.ts (tests/zalo-float.test.ts checks they match).
+const target = 'https://jurassicenglish.com/go/zalo?utm_source=float&utm_content=zalo-float-qr';
 const svg = await QRCode.toString(target, { type: 'svg', errorCorrectionLevel: 'M', margin: 2, color: { dark: '#1c2526', light: '#ffffff' } });
 // qrcode emits a viewBox only; explicit width/height keep the image's intrinsic size stable for the <img> element.
 const sized = svg.replace('<svg ', '<svg width="320" height="320" role="img" aria-label="Zalo QR code" ');
