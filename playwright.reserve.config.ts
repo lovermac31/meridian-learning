@@ -6,6 +6,8 @@ export default defineConfig({
   fullyParallel: false,
   reporter: 'list',
   use: {
+    // Every request from a test run carries this header: api/go/zalo.ts then redirects but never counts it as a click.
+    extraHTTPHeaders: { 'x-je-automation': 'playwright' },
     baseURL: 'http://127.0.0.1:4174',
     browserName: 'chromium',
     launchOptions: { args: ['--mute-audio'] },

@@ -8,7 +8,7 @@ import AxeBuilder from '@axe-core/playwright';
 test.beforeEach(async ({ page, baseURL }) => {
   await page.route('**/*', route => {
     const url = new URL(route.request().url());
-    if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/')) return route.abort();
+    if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/go/')) return route.abort();
     return route.fallback();
   });
 });
