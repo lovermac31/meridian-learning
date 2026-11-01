@@ -10,7 +10,7 @@ test.beforeEach(async ({ page, baseURL }) => {
   await page.addInitScript(() => window.addEventListener('je:hydrated', () => { document.documentElement.dataset.qaHydrated = 'true'; }, { once: true }));
   await page.route('**/*', route => {
     const url = new URL(route.request().url());
-    if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/')) return route.abort();
+    if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/go/')) return route.abort();
     return route.fallback();
   });
 });

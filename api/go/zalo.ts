@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { recordServerEvent } from '../_lib/eventWriter.js';
+import { classifyRequest } from '../_lib/automation.js';
 
 export const ZALO_TARGET = 'https://zalo.me/84396085076';
 
@@ -25,18 +26,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const path = product ? `/go/zalo/${product}` : '/go/zalo';
 
-  // Fail-open event logging: database errors never prevent the redirect
-  try {
-    await recordServerEvent({
-      event: 'zalo_click',
-      path,
-      product_id: product,
-      utm_source: utmSource,
-      utm_content: utmContent,
-      locale,
-    });
-  } catch (err) {
-    console.warn('[go/zalo] event recording threw (fail-open)', err);
+  // Automated requests (HEAD probes, headless browsers, crawlers, monitors, this repo's own browser tests) are
+  // redirected like anyone else but never counted as a zalo_click (api/_lib/automation.ts). The response says
+  // which branch ran so tests and debugging can tell without reading the database.
+  const verdict = classifyRequest(req.headers as Record<string, string | string[] | undefined>, req.method);
+  if (verdict.automated) {
+    res.setHeader('X-JE-Click', `skipped:${verdict.reason}`);
+  } else {
+    res.setHeader('X-JE-Click', 'recorded');
+    // Fail-open event logging: database errors never prevent the redirect
+    try {
+      await recordServerEvent({
+        event: 'zalo_click',
+        path,
+        product_id: product,
+        utm_source: utmSource,
+        utm_content: utmContent,
+        locale,
+      });
+    } catch (err) {
+      console.warn('[go/zalo] event recording threw (fail-open)', err);
+    }
   }
 
   res.setHeader('Location', ZALO_TARGET);
