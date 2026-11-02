@@ -1,0 +1,100 @@
+name: Payment Path Probe
+
+# Hourly plain-GET probe of every payment-path and entrance endpoint. It FAILS the run on any 5xx or unexpected
+# status, and opens/updates one GitHub issue "PAYMENT PATH DOWN" (label: urgent) so the owner is notified.
+# Added 2 Nov 2026 after /api/sepay-webhook crashed on load in production (GET 500, ERR_MODULE_NOT_FOUND) and
+# nothing noticed. No POSTs, no credentials, no webhook is triggered. /go/zalo is probed with HEAD so no click is
+# logged (api/_lib/automation.ts skips HEAD). The log prints name, status and reason only, never a body.
+# Public repo on purpose: runner minutes are free. workflow_dispatch simulate_failure=true proves the failure path.
+
+on:
+  schedule:
+    - cron: '41 * * * *'
+  workflow_dispatch:
+    inputs:
+      simulate_failure:
+        description: 'Prove the failure path: also probe a path that must fail (opens/updates the issue)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: payment-path-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    name: Payment path endpoints
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SIMULATE_FAILURE: ${{ inputs.simulate_failure && '1' || '0' }}
+    steps:
+      - name: Probe endpoints
+        run: |
+          set -uo pipefail
+          fail=0
+          report="$(mktemp)"
+          # probe NAME METHOD URL EXPECTED(space-separated codes)
+          probe() {
+            local name="$1" method="$2" url="$3" expected="$4" code ts ok=0
+            local flags=(--silent --output /dev/null --write-out '%{http_code}' --max-time 15 --retry 1 --retry-delay 10 \
+              --header 'User-Agent: payment-path-probe (github-actions)')
+            [ "$method" = "HEAD" ] && flags+=(--head)
+            code="$(curl "${flags[@]}" "$url")"
+            [ -n "$code" ] || code="000"
+            ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            for e in $expected; do [ "$code" = "$e" ] && ok=1; done
+            if [ "$ok" = "1" ]; then
+              echo "OK   ${name} ${code} ${ts}"
+            else
+              echo "::error title=${name}::${name} got ${code}, expected ${expected} ${ts}"
+              echo "- ${name}: got ${code}, expected ${expected} (${method} ${url}) at ${ts}" >> "$report"
+              fail=1
+            fi
+          }
+          J=https://jurassicenglish.com
+          # Main site payment path (Vercel). A webhook GET must answer 405 (route loaded); 500 means it crashes on load.
+          probe "main-sepay-webhook"      GET  "$J/api/sepay-webhook"              "405"
+          probe "main-story-club-status"  GET  "$J/api/story-club/status"          "200 400"
+          probe "main-story-club-paid"    GET  "$J/api/story-club-paid"            "405"
+          probe "main-event"              GET  "$J/api/event"                      "405"
+          probe "main-sample-pack"        GET  "$J/api/sample-pack"                "405"
+          probe "main-go-zalo"            HEAD "$J/go/zalo"                        "302"
+          probe "main-health"             GET  "$J/api/health"                     "200"
+          # AI Speaking payment path
+          probe "ais-sepay-webhook"       GET  "$J/ai-speaking/api/pay/sepay"      "405"
+          probe "ais-paypal-webhook"      GET  "$J/ai-speaking/api/pay/paypal/webhook" "405"
+          probe "ais-paypal-status"       GET  "$J/ai-speaking/api/pay/paypal/status"  "200"
+          probe "ais-health"              GET  "$J/ai-speaking/api/health"         "200"
+          # Entrance pages and the droplet hosts (public routes only; the IELTS app /api/health is auth-gated)
+          probe "story-club-reserve"      GET  "$J/story-club/reserve"             "200"
+          probe "ielts-app"               GET  "https://ielts.jurassicenglish.com/" "200"
+          probe "books"                   GET  "https://books.jurassicenglish.com/" "200"
+          if [ "$SIMULATE_FAILURE" = "1" ]; then
+            probe "simulated-failure"     GET  "$J/api/payment-probe-simulated-failure" "200"
+          fi
+          if [ "$fail" != "0" ]; then
+            body="$(printf 'The hourly Payment Path Probe found:\n\n%s\n\nRun: %s/%s/actions/runs/%s\n\nA 500 on a webhook GET means the function crashes on load, so a real payment delivery would be lost. Confirm bank transfers by hand until this clears.' \
+              "$(cat "$report")" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID")"
+            gh label create urgent --color B60205 --description "Needs the owner now" 2>/dev/null || true
+            num="$(gh issue list --state open --label urgent --search 'PAYMENT PATH DOWN in:title' --json number --jq '.[0].number // empty')"
+            if [ -n "$num" ]; then
+              gh issue comment "$num" --body "$body"
+            else
+              gh issue create --title "PAYMENT PATH DOWN" --label urgent --body "$body"
+            fi
+            echo "::error::Payment path probe failed (see the lines above)."
+            exit 1
+          fi
+          # Healthy: close an open alert so the issue reflects the current state.
+          num="$(gh issue list --state open --label urgent --search 'PAYMENT PATH DOWN in:title' --json number --jq '.[0].number // empty')"
+          if [ -n "$num" ]; then
+            gh issue close "$num" --comment "All payment-path probes passed at $(date -u +%Y-%m-%dT%H:%M:%SZ)."
+          fi
+          echo "All payment-path endpoints healthy."
