@@ -34,3 +34,18 @@ for (const page of answers) {
     if (page.alternatePath === page.path) assert.ok(page.locale === 'en');
   });
 }
+
+// Deepened country pages (Nov 2026): Philippines, Malaysia, India carry a dated sources box, 2,200+ words and the first-step path.
+for (const country of ['philippines', 'malaysia', 'india']) {
+  test(`/ielts-speaking-online/${country}: deepened with sources box, first-step path and no team claim`, () => {
+    const page = seoPages.find(p => p.path === `/ielts-speaking-online/${country}`)!;
+    const text = page.html.replace(/<[^>]+>/g, ' ');
+    assert.ok(text.split(/\s+/).filter(Boolean).length >= 2200);
+    assert.match(page.html, /Sources and last checked/);
+    assert.match(page.html, /2 November 2026/);
+    assert.match(page.html, /\/live-speaking-check/);
+    assert.match(page.html, /\/ai-speaking\/baseline/);
+    assert.ok((page.html.match(/<a /g) ?? []).length >= 40);
+    assert.doesNotMatch(page.html, /guarantee/i);
+  });
+}
