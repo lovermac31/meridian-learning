@@ -108,16 +108,16 @@ const homeFaqEntries = (locale: Locale) =>
 
 const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/tools/ielts-band-score-calculator': {
-    title: 'IELTS Band Score Calculator: Overall Band & Rounding Rules',
-    description: 'Calculate your IELTS overall band, see exactly how .25 and .75 averages round, and find the lowest band you need in one skill to reach your target.',
+    title: 'IELTS Score Calculator: Free Overall Band Calculator',
+    description: 'Free IELTS band calculator: enter your Listening, Reading, Writing and Speaking bands to get the overall score. See how .25 rounds up to .5 and .75 up to 1.0.',
     canonicalPath: '/tools/ielts-band-score-calculator',
-    localized: { vi: { title: 'Cách tính điểm IELTS Overall và làm tròn | Công cụ tính điểm', description: 'Tính điểm IELTS Overall từ 4 kỹ năng, xem bảng làm tròn ,25 và ,75, và tìm điểm tối thiểu cần ở một kỹ năng để đạt overall mục tiêu.' } },
+    localized: { vi: { title: 'Cách làm tròn điểm IELTS Overall: công cụ tính điểm 4 kỹ năng', description: 'Điểm IELTS làm tròn thế nào? Trung bình ,25 làm tròn lên 0,5 và ,75 lên 1,0 (6,25 → 6,5; 6,75 → 7,0). Nhập 4 điểm kỹ năng để tính overall ngay.' } },
   },
   '/tools/ielts-speaking-part-2-timer': {
-    title: 'IELTS Speaking Part 2 Timer | Jurassic English™',
-    description: 'Practice with one minute to prepare, two minutes to speak, original cue cards and optional private, on-device recording.',
+    title: 'IELTS Speaking Part 2 Timer: 1 Min Prep, 2 Min Speaking | Jurassic English™',
+    description: 'Free IELTS Speaking Part 2 timer: one minute to prepare, two minutes to speak, original practice cue cards and optional private, on-device recording.',
     canonicalPath: '/tools/ielts-speaking-part-2-timer',
-    localized: { vi: { title: 'Đồng hồ IELTS Speaking Part 2 | Jurassic English™', description: 'Luyện nói với một phút chuẩn bị, hai phút trình bày và ghi âm tùy chọn chỉ trên thiết bị.' } },
+    localized: { vi: { title: 'Đồng hồ IELTS Speaking Part 2: 1 phút chuẩn bị, 2 phút nói | Jurassic English™', description: 'Đồng hồ miễn phí cho IELTS Speaking Part 2: 1 phút chuẩn bị, 2 phút nói, thẻ chủ đề luyện tập tự soạn và ghi âm tùy chọn chỉ trên thiết bị.' } },
   },
   '/insights': {
     title: 'IELTS Speaking and English Learning Resources | Jurassic English™',
