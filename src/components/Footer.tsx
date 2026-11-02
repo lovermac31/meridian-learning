@@ -99,6 +99,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 ['/ielts-speaking-online/nigeria', 'IELTS Speaking in Nigeria', 'Luyện IELTS Speaking tại Nigeria (EN)'],
                 ['/ielts-speaking-online/philippines', 'IELTS Speaking in the Philippines', 'Luyện IELTS Speaking tại Philippines (EN)'],
                 ['/ielts-speaking-online/singapore', 'IELTS Speaking in Singapore', 'Luyện IELTS Speaking tại Singapore (EN)'],
+                ['/insights/ielts-scams-fake-certificates-vietnam', 'IELTS scams and fake certificates (Vietnam)', 'Cảnh báo lừa đảo IELTS (bản tiếng Anh)'],
                 ['/insights/ielts-speaking-forecast-september-december-2026', 'IELTS Speaking: September–December 2026', 'Dự báo chủ đề IELTS Speaking'],
                 ['/tools/ielts-band-score-calculator', 'IELTS band calculator', 'Tính điểm IELTS'],
                 ['/tools/ielts-speaking-part-2-timer', 'IELTS Speaking Part 2 timer', 'Đồng hồ IELTS Speaking Part 2'],

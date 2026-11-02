@@ -8,6 +8,7 @@ export const IELTS_APP_ORIGIN = 'https://ielts.jurassicenglish.com';
 
 export type IeltsAppPlacement = 'home' | 'products' | 'country' | 'insights' | 'tool';
 
-export function ieltsAppHref(placement: IeltsAppPlacement, locale: string = 'en') {
-  return `${IELTS_APP_ORIGIN}/?utm_source=site&utm_medium=entrance&utm_content=${placement}${locale === 'vi' ? '-vi' : ''}`;
+export function ieltsAppHref(placement: IeltsAppPlacement, locale: string = 'en', content?: string) {
+  // `content` (an answer page's slug) replaces the placement as utm_content, so each page's clicks can be told apart.
+  return `${IELTS_APP_ORIGIN}/?utm_source=site&utm_medium=entrance&utm_content=${content ?? placement}${locale === 'vi' ? '-vi' : ''}`;
 }

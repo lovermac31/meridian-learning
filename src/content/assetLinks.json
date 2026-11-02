@@ -838,5 +838,50 @@
         "text": "Chơi Story Quest miễn phí cùng con"
       }
     ]
+  },
+  {
+    "path": "/insights/ielts-scams-fake-certificates-philippines",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-philippines",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-philippines",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/insights/ielts-scams-fake-certificates-vietnam",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-vietnam",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-vietnam",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam",
+    "locale": "vi",
+    "heading": "Bước tiếp theo",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-lua-dao-ielts-chung-chi-gia-viet-nam",
+        "text": "Xem buổi đánh giá Speaking trực tiếp"
+      },
+      {
+        "href": "/vi/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-lua-dao-ielts-chung-chi-gia-viet-nam",
+        "text": "Xem tài liệu luyện IELTS Speaking"
+      }
+    ]
   }
 ]

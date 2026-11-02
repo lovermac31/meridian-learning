@@ -12,13 +12,13 @@ import { ieltsAppHref, type IeltsAppPlacement } from '../lib/ieltsApp';
  */
 const PRIMARY = 'inline-flex min-h-11 items-center justify-center rounded-full bg-jurassic-accent px-5 py-2.5 text-sm font-bold text-jurassic-dark';
 
-export function IeltsAppEntrance({ placement, locale, variant = 'compact' }: { placement: IeltsAppPlacement; locale: string; variant?: 'strip' | 'compact' | 'banner' }) {
+export function IeltsAppEntrance({ placement, locale, variant = 'compact', content }: { placement: IeltsAppPlacement; locale: string; variant?: 'strip' | 'compact' | 'banner'; content?: string }) {
   const copyLocale = locale === 'vi' ? 'vi' : 'en';
   const { ieltsApp } = getOverhaulContent(copyLocale).home;
   const packs = `${IELTS_HOME.speaking[copyLocale]}?utm_source=${placement === 'home' ? 'home-ielts-app' : `${placement}-ielts-app`}`;
   const track = () => { try { trackCtaClick({ label: `${placement}_ielts_app`, type: 'primary', segment: 'parent_student' }); } catch { /* measurement never blocks navigation */ } };
   const headingId = `ielts-app-heading-${placement}`;
-  const href = ieltsAppHref(placement, copyLocale);
+  const href = ieltsAppHref(placement, copyLocale, content);
   if (variant === 'banner') {
     // One row on the first screen (home, above the hero; /products, above the segment tiles): no image, one button.
     return (
