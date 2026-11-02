@@ -23,7 +23,7 @@
  * the Teacher Pack says the lessons use 10 widely available picture books.
  */
 import type { Locale } from '../locales';
-import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from './samplePages';
+import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from './samplePages.js';
 
 export const PRODUCTS_PATH = '/products';
 export const PRODUCTS_VI_PATH = '/vi/products';

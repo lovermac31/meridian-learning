@@ -1,4 +1,4 @@
-import { PRODUCTS } from '../i18n/content/products';
+import { PRODUCTS } from '../i18n/content/products.js';
 import type { Locale } from '../i18n/locales';
 
 const PRODUCT_MEMO_CODES: Record<string, string> = {
