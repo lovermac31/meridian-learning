@@ -47,8 +47,19 @@ export const PAID_OFFERS = PRODUCTS.map(product => ({
   title: product,
 }));
 export type PaidOffer = typeof PAID_OFFERS[number];
-export const paidOffer = (id: string) => PAID_OFFERS.find(offer => offer.id === id);
-export const paymentHref = (id: string, locale: Locale) => id === 'story-club' ? `${locale === 'en' ? '/en' : ''}/story-club/reserve` : `${locale === 'vi' ? '/vi' : ''}/products/${encodeURIComponent(id)}?checkout=1`;
+// 30-minute Live Speaking Check (SEO sprint, Nov 2026): an unlisted first step, 250.000₫, credited toward the Baseline.
+// Not a PRODUCTS entry (no card, no sitemap URL, no llms catalogue line). Its own memo prefix 'LC' cannot collide with
+// 'BL' (Baseline) or the AI Speaking app's JE* prefixes. Price stays unpublished until Jay approves it.
+export const LIVE_CHECK_OFFER = {
+  id: 'live-speaking-check',
+  amount: 250_000,
+  prefix: 'LC',
+  title: { en: { title: '30-minute Live Speaking Check' }, vi: { title: 'Kiểm tra Nói trực tiếp 30 phút' } },
+} as const;
+export const LIVE_CHECK_PATH = '/live-speaking-check';
+type OfferLike = { id: string; amount: number; prefix: string; title: Record<'en' | 'vi', { title: string }> };
+export const paidOffer = (id: string): OfferLike | undefined => id === LIVE_CHECK_OFFER.id ? LIVE_CHECK_OFFER : PAID_OFFERS.find(offer => offer.id === id);
+export const paymentHref = (id: string, locale: Locale) => id === LIVE_CHECK_OFFER.id ? `${LIVE_CHECK_PATH}${locale === 'vi' ? '?lang=vi' : ''}` : id === 'story-club' ? `${locale === 'en' ? '/en' : ''}/story-club/reserve` : `${locale === 'vi' ? '/vi' : ''}/products/${encodeURIComponent(id)}?checkout=1`;
 export const paymentAmount = (amount: number, locale: Locale) => `${new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US').format(amount)}₫`;
 export const reserveCta = (locale: Locale) => locale === 'vi' ? 'Đặt chỗ Story Club · 590.000₫' : 'Reserve Story Club · 590,000₫';
 export const buyCta = (id: string, locale: Locale) => id === 'story-club' ? reserveCta(locale) : `${locale === 'vi' ? 'Đặt ngay' : 'Buy now'} · ${paymentAmount(paidOffer(id)!.amount, locale)}${id === 'one-to-one' ? (locale === 'vi' ? ' · 8 buổi' : ' · 8 lessons') : ''}`;
@@ -62,13 +73,13 @@ export const BANK_CONFIG = {
 };
 export function paymentQrUrl(amount: number, memo: string, config = BANK_CONFIG): string | null {
   if (!/^[A-Za-z0-9]+$/.test(config.bank) || !/^\d{6,20}$/.test(config.account) || !config.name.trim()) return null;
-  if (!Number.isSafeInteger(amount) || amount <= 0 || !/^(SC|BL|1T|PR[A-Z0-9]{2})-[A-Z0-9]{6}$/.test(memo)) throw new Error('Invalid payment instructions');
+  if (!Number.isSafeInteger(amount) || amount <= 0 || !/^(SC|BL|1T|LC|PR[A-Z0-9]{2})-[A-Z0-9]{6}$/.test(memo)) throw new Error('Invalid payment instructions');
   return `https://qr.sepay.vn/img?${new URLSearchParams({ acc: config.account, bank: config.bank, amount: String(amount), des: memo })}`;
 }
 
 export function canonicalPaymentMemo(content: unknown): string | null {
   if (typeof content !== 'string' || content.length > 2000) return null;
-  const prefixes = PAID_OFFERS.map(offer => offer.prefix).join('|');
+  const prefixes = [...PAID_OFFERS.map(offer => offer.prefix), LIVE_CHECK_OFFER.prefix].join('|');
   const match = new RegExp(`(?:^|[^A-Z0-9])(${prefixes})[-\\s]?([A-Z0-9]{6})(?![A-Z0-9])`, 'i').exec(content);
   return match ? `${match[1].toUpperCase()}-${match[2].toUpperCase()}` : null;
 }

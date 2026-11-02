@@ -1,5 +1,5 @@
 import { readFirstTouch, useFirstTouch, withFirstTouch } from '../lib/utmFirstTouch';
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import type { Locale } from '../i18n/locales';
 import { normalizeVietnamesePhone } from '../i18n/content/samplePack';
 import { recordClientEvent } from '../lib/tracker';
@@ -23,7 +23,7 @@ const copy = {
 type Confirmation = { memo: string };
 const FIELD = 'mt-1 block min-h-11 w-full rounded-xl border border-sb-border bg-white px-3 py-2 text-base text-sb-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber';
 
-export function StoryClubReservePage({ locale, productId = 'story-club' }: { locale: Locale; productId?: string }) {
+export function StoryClubReservePage({ locale, productId = 'story-club', intro }: { locale: Locale; productId?: string; intro?: ReactNode }) {
   const offer = paidOffer(productId);
   const isStory = productId === 'story-club';
   const t = copy[locale];
@@ -173,6 +173,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
         <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-labelledby="reserve-offer">
           <h2 id="reserve-offer" className="text-2xl font-bold">{offer?.title[locale].title}</h2>
           <p className="mt-2 text-3xl font-extrabold" data-reserve-price>{paymentAmount(offer!.amount, locale)}{productId === 'one-to-one' ? (locale === 'vi' ? ' · 8 buổi' : ' · 8 lessons') : ''}</p>
+          {intro}
           {isStory && <><p className="mt-2">{t.details}</p><p className="mt-2 font-semibold">{t.next} {STORY_CLUB_NEXT_GROUP[locale]}</p></>}
         </section>
 
