@@ -22,6 +22,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const product = cleanStr(req.query?.product) ?? cleanStr(url.searchParams.get('product'));
   const utmSource = cleanStr(req.query?.utm_source) ?? cleanStr(url.searchParams.get('utm_source'));
   const utmContent = cleanStr(req.query?.utm_content) ?? cleanStr(url.searchParams.get('utm_content'));
+  // Funnel audit fix 2 (2 Nov 2026): the campaign and medium of the visit's first landing are stored too.
+  const utmMedium = cleanStr(req.query?.utm_medium) ?? cleanStr(url.searchParams.get('utm_medium'));
+  const utmCampaign = cleanStr(req.query?.utm_campaign) ?? cleanStr(url.searchParams.get('utm_campaign'));
   const locale = cleanStr(req.query?.locale, 8) ?? cleanStr(url.searchParams.get('locale'), 8);
 
   const path = product ? `/go/zalo/${product}` : '/go/zalo';
@@ -42,6 +45,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         product_id: product,
         utm_source: utmSource,
         utm_content: utmContent,
+        utm_medium: utmMedium,
+        utm_campaign: utmCampaign,
         locale,
       });
     } catch (err) {

@@ -26,6 +26,8 @@ export type ClientEventParams = {
   product_id?: string;
   utm_source?: string;
   utm_content?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
   locale?: string;
 };
 
@@ -36,12 +38,22 @@ export function recordClientEvent(params: ClientEventParams): void {
     const searchParams = new URLSearchParams(window.location.search);
     const pathname = window.location.pathname;
 
+    // The visit's first utm_* set (src/lib/utmFirstTouch.ts) fills in what the current URL does not carry.
+    let touch: Record<string, string | undefined> = {};
+    try {
+      touch = JSON.parse(window.sessionStorage.getItem('je_utm_first_touch') ?? '{}') as Record<string, string | undefined>;
+    } catch {
+      touch = {};
+    }
+    const utm = (key: 'utm_source' | 'utm_content' | 'utm_medium' | 'utm_campaign') => params[key] ?? (searchParams.get(key) || undefined) ?? touch[key] ?? undefined;
     const payload = {
       event: params.event,
       path: params.path ?? pathname,
       product_id: params.product_id,
-      utm_source: params.utm_source ?? (searchParams.get('utm_source') || undefined),
-      utm_content: params.utm_content ?? (searchParams.get('utm_content') || undefined),
+      utm_source: utm('utm_source'),
+      utm_content: utm('utm_content'),
+      utm_medium: utm('utm_medium'),
+      utm_campaign: utm('utm_campaign'),
       locale: params.locale ?? (pathname.startsWith('/vi') ? 'vi' : 'en'),
     };
 

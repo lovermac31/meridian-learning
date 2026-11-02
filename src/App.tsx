@@ -4,6 +4,7 @@ import { OptionalAnalytics } from './components/PrivacyControls';
 import { GlobalContactPanel } from './components/GlobalContactPanel';
 import { ZaloFloat } from './components/ZaloFloat';
 import { isZaloFloatHidden } from './lib/zaloFloat';
+import { captureFirstTouchFromLocation } from './lib/utmFirstTouch';
 import { Navbar } from './components/Navbar';
 import { HomeOverhaul } from './components/HomeOverhaul';
 import { AiSpeakingLaunch } from './components/AiSpeakingLaunch';
@@ -279,6 +280,11 @@ function App() {
       setRoute('/');
     }
   }, [pathname]);
+
+  // First-touch utm_* for the visit (funnel audit fix 2): kept once per page load, before any link is clicked.
+  useEffect(() => {
+    captureFirstTouchFromLocation();
+  }, []);
 
   useEffect(() => {
     const handlePopState = () => setRoute(getCurrentRoute());

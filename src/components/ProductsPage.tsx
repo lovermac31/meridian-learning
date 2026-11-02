@@ -30,6 +30,7 @@ import { PRODUCT_VIDEO_ANCHOR, VIDEO_COPY } from '../i18n/content/productVideos'
 import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
+import { useFirstTouch, withFirstTouch, type FirstTouch } from '../lib/utmFirstTouch';
 
 /** The visit's utm_source, read after hydration so the prerendered page and the first client render match. */
 export function useVisitorSource(): string | null {
@@ -135,8 +136,8 @@ const VIEWER_BUTTON =
 // want that feature disabled completely"). One watermarked page image at a time: previous/next, swipe, arrow keys,
 // a page counter and the card's order button on the last page. No PDF, no download and no print button. Blocking the
 // context menu, dragging and selection only deters casual saving; a screenshot still works.
-export function SampleViewer({ card, locale, source, copy, onClose, initialPage = 0 }: {
-  card: ProductCard; locale: Locale; source: string | null; copy: ViewerCopy; onClose: () => void; initialPage?: number;
+export function SampleViewer({ card, locale, source, copy, onClose, initialPage = 0, touch = null }: {
+  card: ProductCard; locale: Locale; source: string | null; copy: ViewerCopy; onClose: () => void; initialPage?: number; touch?: FirstTouch | null;
 }) {
   const pages = productSampleFiles(card.sample!).pages;
   const last = pages.length - 1;
@@ -195,7 +196,7 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
   }, [page, last, pages]);
 
   const external = card.href === 'zalo';
-  const href = external ? zaloHref(source) : productHref(card.href, locale);
+  const href = external ? withFirstTouch(zaloHref(source), touch) : productHref(card.href, locale);
   const counter = copy.counter.replace('{n}', String(page + 1)).replace('{total}', String(pages.length));
   return (
     <div
@@ -410,12 +411,12 @@ export function productAnchor(hash: string, locale: Locale) {
 // One wide card per product (the mock's row): icon tile, badge pill and audience line, the title, "The problem" and two
 // tick lines from the card's own copy, the sample thumbnails above the price, then the order buttons. DOM order is the
 // one the tests and Jay's rule pin: text → sample → price → buttons; the grid places the sample and price on the right.
-function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome, visible }: {
+function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome, visible, touch }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
-  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>; visible: boolean;
+  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>; visible: boolean; touch: FirstTouch | null;
 }) {
   const external = card.href === 'zalo';
-  const href = external ? zaloHref(source) : productHref(card.href, locale);
+  const href = external ? withFirstTouch(zaloHref(source), touch) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
   return (
     <li className="product-row scroll-mt-24 max-md:scroll-mt-36" id={card.id} hidden={!visible}>
@@ -472,6 +473,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
   const hub = HUB_COPY[locale];
   const { jay: why, ieltsApp } = getOverhaulContent(locale).home;
   const source = useVisitorSource();
+  const touch = useFirstTouch();
   const [viewer, setViewer] = useState<ProductCard | null>(null);
   // The segment filter. SSR and the first client render show every section; a segment narrows the page to its cards.
   const [filter, setFilter] = useState<ProductSectionId | null>(null);
@@ -595,7 +597,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
               <div key={group ?? 'all'} data-ielts-group={group ?? undefined}>
                 {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card.id, section.id))}>{c.ielts.groups[group]}</h3> : null}
                 <ul className="products-rows">
-                  {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} visible={isVisible(card.id, section.id)} />)}
+                  {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} visible={isVisible(card.id, section.id)} touch={touch} />)}
                 </ul>
               </div>
             ))}
@@ -642,7 +644,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           <div className="insights-closing-actions mt-5">
             <a
               className="insights-button-primary"
-              href={zaloHref(source)}
+              href={withFirstTouch(zaloHref(source), touch)}
               target="_blank"
               rel="noopener noreferrer"
               data-cta="products-closing"
@@ -653,7 +655,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           </div>
         </div>
       </div>
-      {viewer ? <SampleViewer card={viewer} locale={locale} source={source} copy={c.viewer} onClose={closeViewer} /> : null}
+      {viewer ? <SampleViewer card={viewer} locale={locale} source={source} copy={c.viewer} onClose={closeViewer} touch={touch} /> : null}
       <CrawlResources context="products" />
     </main>
   );

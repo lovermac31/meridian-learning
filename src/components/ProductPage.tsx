@@ -13,6 +13,7 @@ import { CardLink, IeltsHomeLink, PayPalOption, Sample, SampleViewer, productHre
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
+import { useFirstTouch, withFirstTouch } from '../lib/utmFirstTouch';
 
 const COPY: Record<Locale, { home: string; products: string; faq: string; related: string; all: string }> = {
   en: { home: 'Home', products: 'Products', faq: 'Questions', related: 'You may also need', all: 'All products and prices' },
@@ -32,11 +33,12 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
   const t = COPY[locale];
   const card = toCard(product, locale);
   const source = useVisitorSource();
+  const touch = useFirstTouch();
   const [viewer, setViewer] = useState(false);
   const [checkout, setCheckout] = useState(false);
   useEffect(() => { setCheckout(new URLSearchParams(window.location.search).get('checkout') === '1'); }, [product.id]);
   const external = card.href === 'zalo';
-  const href = external ? zaloHref(source, product.id) : productHref(card.href, locale);
+  const href = external ? withFirstTouch(zaloHref(source, product.id), touch) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
   const faq = productFaq(product, locale);
   const path = productPath(product.id);
@@ -183,7 +185,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
           <ArrowLeft aria-hidden="true" className="h-4 w-4" /> {t.all}
         </a>
       </div>
-      {viewer && card.sample ? <SampleViewer card={card} locale={locale} source={source} copy={c.viewer} onClose={closeViewer} /> : null}
+      {viewer && card.sample ? <SampleViewer card={card} locale={locale} source={source} copy={c.viewer} onClose={closeViewer} touch={touch} /> : null}
     </main>
   );
 }

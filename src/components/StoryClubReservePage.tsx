@@ -1,3 +1,4 @@
+import { readFirstTouch, useFirstTouch, withFirstTouch } from '../lib/utmFirstTouch';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { Locale } from '../i18n/locales';
 import { normalizeVietnamesePhone } from '../i18n/content/samplePack';
@@ -29,6 +30,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
   const [paymentReceived, setPaymentReceived] = useState(false);
   const [contactFormOpen, setContactFormOpen] = useState(false);
+  const firstTouch = useFirstTouch();
   const [preparing, setPreparing] = useState(false);
   const [prepareError, setPrepareError] = useState('');
   const [contactSent, setContactSent] = useState(false);
@@ -132,6 +134,8 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
     submitting.current = true;
     setSending(true);
     const params = new URLSearchParams(window.location.search);
+    // The visit's first utm_* set fills in whatever the reserve URL itself does not carry (funnel audit fix 2).
+    for (const [key, value] of Object.entries(readFirstTouch(window.sessionStorage))) if (!params.get(key)) params.set(key, value);
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 15_000);
     try {
@@ -178,7 +182,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club' }: { loc
             <PayStep key={confirmation.memo} locale={locale} amount={offer!.amount} memo={confirmation.memo} productId={productId} />
             {isStory && <p className="mt-3 font-semibold" data-payment-status>{paymentReceived ? t.paymentReceived : t.paymentPending}</p>}
             <p className="mt-4">{locale === 'vi' ? 'Quét mã bằng ứng dụng ngân hàng và kiểm tra đúng số tiền trước khi xác nhận. Thông tin cá nhân chỉ cần nhập sau khi thanh toán.' : 'Scan with your banking app and verify the exact amount before confirming. You only need to enter personal details after paying.'}</p>
-            <a className="mt-3 inline-block underline" href={`/go/zalo?utm_source=checkout&utm_content=${encodeURIComponent(productId)}-prepayment-question`}>{t.question}</a>
+            <a className="mt-3 inline-block underline" href={withFirstTouch(`/go/zalo?utm_source=checkout&utm_content=${encodeURIComponent(productId)}-prepayment-question`, firstTouch)}>{t.question}</a>
             {!contactFormOpen && <button type="button" className="insights-button-primary mt-5 block" onClick={() => setContactFormOpen(true)} data-open-contact-form>{t.ivePaid}</button>}
           </section>
         ) : (
