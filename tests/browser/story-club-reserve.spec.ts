@@ -25,13 +25,21 @@ test('products keep named controls, labelled sample forms and a contained mobile
   for (const locale of ['en', 'vi']) for (const width of [375, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(locale === 'vi' ? '/vi/products' : '/products');
-    await expect(page.locator('[data-category-toggle="families"]')).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.locator('[data-category-tile="families"]')).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('.products-page li[id]')).toHaveCount(35);
     await checkAccessibility(page);
     if (width === 375) {
       await mkdir(resolve('docs/qa/site-quality'), { recursive: true });
       await page.screenshot({ path: resolve('docs/qa/site-quality', `375-products-${locale}.png`), fullPage: true });
     }
-    await page.locator('[data-product-toggle="story-club"]').click();
+    // The segment filter narrows the catalogue to one section and the count line follows; pressing again shows all.
+    await page.locator('[data-category-tile="teachers"]').click();
+    await expect(page.locator('[data-category-tile="teachers"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#families')).toBeHidden();
+    await expect(page.locator('#teachers li[id]')).toHaveCount(15);
+    await expect(page.locator('[data-products-count]')).toHaveAttribute('data-products-count', '15');
+    await page.locator('[data-products-show-all]').click();
+    await expect(page.locator('#families')).toBeVisible();
     await checkAccessibility(page);
     const opener = page.locator('[data-sample-open="story-club"]');
     await opener.click();

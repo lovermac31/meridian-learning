@@ -464,7 +464,7 @@ export function relatedProducts(id: string, count = 3): Product[] {
   return [...wrapped, ...others].slice(0, count);
 }
 
-const FAQ_QUESTIONS: Record<Locale, { sample: string; pay: string; abroad: string; unsure: string }> = {
+export const FAQ_QUESTIONS: Record<Locale, { sample: string; pay: string; abroad: string; unsure: string }> = {
   en: {
     sample: 'Can I see it before I pay?',
     pay: 'How do I pay, and when do the files arrive?',

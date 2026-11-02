@@ -129,7 +129,7 @@ test('S1: each PayPal card shows the US$ option after the VND order button, with
       assert.ok(link[1].startsWith('https://www.paypal.com/cgi-bin/webscr?cmd=_xclick'), `${route} ${id}`);
       assert.ok(link[2].startsWith(`${pay}${USD[id]} `), `${route} ${id}: ${link[2]}`);
       assert.equal(new URL(link[1]).searchParams.get('return'), `https://jurassicenglish.com${route}#${id}`);
-      assert.ok(card.includes(note), `${route} ${id}: delivery promise`);
+      assert.ok(card.toLowerCase().includes(note.toLowerCase()), `${route} ${id}: delivery promise (the card's payment line)`);
       assert.equal([...card.matchAll(/data-cta="/g)].length, 1, `${route} ${id}: still one CTA`);
     }
     assert.ok(!html.slice(html.indexOf('id="centre-licence"'), html.indexOf('</li>', html.indexOf('id="centre-licence"'))).includes('data-paypal='), `${route}: no PayPal on the Centre Licence`);

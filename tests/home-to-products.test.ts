@@ -44,12 +44,12 @@ test('home: one "Find what you need" strip right under the hero, a tile per /pro
   }
 });
 
-test('/products: category overview (Families · Teachers · Centres · IELTS) controls persistent panels; reduced-motion-safe scrolling', async () => {
+test('/products: segment filter row (Families · Teachers · Centres · IELTS) names its section; reduced-motion-safe scrolling', async () => {
   const { renderRoute } = await import('../src/entry-server');
   for (const [route, labels] of [['/products', ['Families', 'Teachers', 'Centres', 'IELTS']], ['/vi/products', ['Gia đình', 'Giáo viên', 'Trung tâm', 'IELTS']]] as const) {
     const html = await renderRoute(route);
     const nav = html.match(/<nav aria-label="[^"]+" class="products-overview" data-products-mini-nav="">[\s\S]*?<\/nav>/)?.[0] ?? '';
-    const tiles = [...nav.matchAll(/<button type="button" aria-expanded="(?:true|false)" aria-controls="([^"]+)" data-category-tile="([^"]+)">([\s\S]*?)<\/button>/g)];
+    const tiles = [...nav.matchAll(/<button type="button" aria-pressed="(?:true|false)" aria-controls="([^"]+)" data-category-tile="([^"]+)">([\s\S]*?)<\/button>/g)];
     assert.deepEqual(tiles.map((m) => m[2]), ['families', 'teachers', 'centres', 'ielts'], route);
     for (let i = 0; i < tiles.length; i++) {
       assert.ok(tiles[i][3].includes(labels[i]), `${route}: translated category name`);
