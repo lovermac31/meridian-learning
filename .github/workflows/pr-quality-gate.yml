@@ -40,6 +40,9 @@ jobs:
       - name: Test suite (incl. brand-typography guard)
         run: npm test
 
+      - name: Every API handler loads under Node ESM and answers GET without a 5xx (payment webhook guard)
+        run: npm run check:api-handlers
+
       - name: Build (server-rendered prerender + sitemap)
         run: npm run build
 
