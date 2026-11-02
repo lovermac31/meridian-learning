@@ -6,7 +6,7 @@ import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata';
 
 // Hand-checked answer pages (Nov 2026): official sources only, a visible "Sources and last checked" box, no score promises.
 const answers = seoPages.filter(page => page.answer);
-const OFFICIAL = /^(ielts\.org|www\.ielts\.org|ielts\.idp\.com|idp\.com|www\.idp\.com|www\.gov\.uk|www\.britishcouncil\.[a-z.]+|britishcouncil\.[a-z.]+|takeielts\.britishcouncil\.org|ieltsidpindia\.com)$/;
+const OFFICIAL = /^(ielts\.org|www\.ielts\.org|ielts\.idp\.com|idp\.com|www\.idp\.com|www\.gov\.uk|www\.britishcouncil\.[a-z.]+|britishcouncil\.[a-z.]+|takeielts\.britishcouncil\.org|ieltsidpindia\.com|www\.britishcouncilfoundation\.id)$/;
 const wordCount = (html: string) => html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
 
 test('answer pages exist and are in the sitemap list', () => {

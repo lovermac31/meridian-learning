@@ -1934,5 +1934,79 @@
       "name": "Thailand",
       "path": "/ielts-speaking-online/thailand"
     }
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/ielts-for-ukvi-indonesia",
+    "alternatePath": "/insights/ielts-for-ukvi-indonesia",
+    "locale": "en",
+    "title": "IELTS for UKVI Indonesia: Fee, ID and How to Book",
+    "description": "IELTS for UKVI in Indonesia: who needs a UK secure English test, the British Council Foundation Indonesia fee, KTP or passport ID, and how to book.",
+    "h1": "IELTS for UKVI in Indonesia: what it is, who needs it, how to book",
+    "faq": [
+      {
+        "question": "What does IELTS for UKVI cost with the British Council in Indonesia?",
+        "answer": "Its page showed Rp 4,060,000 for IELTS for UKVI Academic and General Training on computer and Rp 3,021,000 for UKVI Life Skills (A1 and B1) on 2 November 2026. Check the provider."
+      },
+      {
+        "question": "Is IELTS for UKVI available on paper in Indonesia?",
+        "answer": "The British Council says all its IELTS tests are delivered on computer from 21 June 2026."
+      },
+      {
+        "question": "Which ID do I need?",
+        "answer": "The British Council Foundation Indonesia says a valid identification document (KTP or passport). IDP's pages state the ID rule differently, so check your own booking."
+      },
+      {
+        "question": "Do all UK student visas need a secure English test?",
+        "answer": "No. GOV.UK says degree-level applicants may have English assessed by their education provider at CEFR B2. Check your route and university."
+      },
+      {
+        "question": "Can I take IELTS Online at home in Indonesia?",
+        "answer": "The British Council says it does not provide IELTS Online testing in Indonesia."
+      }
+    ],
+    "hub": {
+      "name": "Indonesia",
+      "path": "/ielts-speaking-online/indonesia"
+    }
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/computer-delivered-ielts-indonesia",
+    "alternatePath": "/insights/computer-delivered-ielts-indonesia",
+    "locale": "en",
+    "title": "Computer-Delivered IELTS Indonesia: Fee, Cities, Results",
+    "description": "Computer-delivered IELTS in Indonesia: British Council Foundation Indonesia fee, cities, the 21 June 2026 end of paper, payment methods and results time.",
+    "h1": "Computer-delivered IELTS in Indonesia: what changed on 21 June 2026",
+    "faq": [
+      {
+        "question": "Is IELTS on paper still offered in Indonesia?",
+        "answer": "The British Council says it will no longer offer IELTS on paper in Indonesia starting 21 June 2026. Check IDP Indonesia for its own formats."
+      },
+      {
+        "question": "How much is IELTS on computer in Indonesia?",
+        "answer": "The British Council Foundation Indonesia listed Rp 3,600,000 for Academic and General Training on computer on 2 November 2026. Check the provider."
+      },
+      {
+        "question": "How fast are results?",
+        "answer": "Its pages say typically 1-2 days and under 5 days (one line says typically within 1 day). ielts.org says 1-5 days. Plan with a margin."
+      },
+      {
+        "question": "Which payment methods work?",
+        "answer": "From 1 July 2026 the British Council says payment is online only: card, QRIS, Shopee Pay, Jenius Pay, DOKU Wallet or Virtual Account."
+      },
+      {
+        "question": "Is Speaking on a computer?",
+        "answer": "No. ielts.org says Speaking is a face-to-face session with a trained examiner."
+      }
+    ],
+    "hub": {
+      "name": "Indonesia",
+      "path": "/ielts-speaking-online/indonesia"
+    }
   }
 ]
