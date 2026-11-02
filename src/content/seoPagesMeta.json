@@ -1433,5 +1433,285 @@
     "datePublished": "2026-11-02",
     "dateModified": "2026-11-02",
     "answer": true
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-philippines",
+    "alternatePath": "/insights/ielts-for-ukvi-philippines",
+    "locale": "en",
+    "title": "IELTS for UKVI in the Philippines: who needs it and how to book",
+    "description": "What IELTS for UKVI is, how it differs from standard IELTS, which UK visa routes need a secure English test, and how to book with IDP in the Philippines.",
+    "h1": "IELTS for UKVI in the Philippines: what it is, who needs it, how to book",
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "faq": [
+      {
+        "question": "Is IELTS for UKVI harder than standard IELTS?",
+        "answer": "IDP says it is exactly the same in format, content, scoring and difficulty. The difference is the security and the Test Report Form."
+      },
+      {
+        "question": "Can I take IELTS for UKVI online at home?",
+        "answer": "No. ielts.org says UKVI only accepts tests taken in person at an official IELTS for UKVI test centre."
+      },
+      {
+        "question": "What does IELTS for UKVI cost in the Philippines?",
+        "answer": "IDP Philippines listed PHP 16,230 for the Academic test on 2 November 2026. Fees change: check the provider."
+      },
+      {
+        "question": "Do all UK student visas need a SELT?",
+        "answer": "No. GOV.UK says degree-level applicants may have English assessed by their provider at CEFR B2. Check your route and your university."
+      },
+      {
+        "question": "Which ID should I bring?",
+        "answer": "The same one you registered with. IDP lists a valid passport, the Philippine National ID and certain government cards; GOV.UK requires an original, valid document with a photo."
+      }
+    ],
+    "hub": {
+      "name": "Philippines",
+      "path": "/ielts-speaking-online/philippines"
+    },
+    "answer": true
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-malaysia",
+    "alternatePath": "/insights/ielts-for-ukvi-malaysia",
+    "locale": "en",
+    "title": "IELTS for UKVI in Malaysia: checklist, fee and booking with IDP",
+    "description": "A practical checklist for booking IELTS for UKVI in Malaysia with IDP: formats, MyKad or passport, the RM935 Academic fee shown on 2 Nov 2026, and how to check your visa route first.",
+    "h1": "IELTS for UKVI in Malaysia: a booking checklist, and how to tell if you need it",
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "faq": [
+      {
+        "question": "Is the speaking test different for UKVI?",
+        "answer": "IDP Malaysia says the test is exactly the same in format, content, scoring and level of difficulty. The extra is security."
+      },
+      {
+        "question": "What does IELTS for UKVI Academic cost in Malaysia?",
+        "answer": "IDP Malaysia showed RM935 on 2 November 2026. Fees change: confirm in the booking system."
+      },
+      {
+        "question": "Which ID can I use?",
+        "answer": "IDP Malaysia asks for a scanned valid passport or MyKad at registration and the same ID on test day. GOV.UK requires an original, valid document with a photo."
+      },
+      {
+        "question": "Can I choose computer or paper?",
+        "answer": "IDP Malaysia says you decide between paper-based and computer-delivered formats when you book."
+      },
+      {
+        "question": "Do I always need a UKVI test for a UK student visa?",
+        "answer": "No. GOV.UK says degree-level applicants may have their English assessed by their provider at CEFR B2. Check with your university."
+      }
+    ],
+    "hub": {
+      "name": "Malaysia",
+      "path": "/ielts-speaking-online/malaysia"
+    },
+    "answer": true
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/computer-delivered-ielts-philippines",
+    "alternatePath": "/insights/computer-delivered-ielts-philippines",
+    "locale": "en",
+    "title": "Computer-delivered IELTS in the Philippines: what changes on test day",
+    "description": "A test-day walkthrough of computer-delivered IELTS for Filipino candidates: typing, notes, timer, Speaking with an examiner, results time and the fee from IDP.",
+    "h1": "Computer-delivered IELTS in the Philippines: what changes, hour by hour",
+    "faq": [
+      {
+        "question": "Is the Speaking test on a computer?",
+        "answer": "No. ielts.org says the Speaking section is a face-to-face session with a trained IELTS examiner, in a private, quiet room (IDP)."
+      },
+      {
+        "question": "Do I type my answers?",
+        "answer": "Yes. IDP says all answers are typed on the screen, and you can write notes on a notes sheet during Listening."
+      },
+      {
+        "question": "How fast are computer results?",
+        "answer": "ielts.org says 1 to 5 days after test completion. Check the provider for your session."
+      },
+      {
+        "question": "How much is IELTS on computer in the Philippines?",
+        "answer": "IDP Philippines announced PHP 14,470 for standard IELTS on computer from 1 July 2026. Check the provider before paying."
+      },
+      {
+        "question": "Is the score different from paper?",
+        "answer": "ielts.org says scores are comparable across formats, overall and within each score band."
+      }
+    ],
+    "hub": {
+      "name": "Philippines",
+      "path": "/ielts-speaking-online/philippines"
+    }
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/computer-delivered-ielts-malaysia",
+    "alternatePath": "/insights/computer-delivered-ielts-malaysia",
+    "locale": "en",
+    "title": "Computer-delivered IELTS in Malaysia: fees, cities and where pages disagree",
+    "description": "Computer-delivered IELTS for Malaysian candidates: IDP Malaysia fee, cities, ID rules, and the places where official pages disagree (fee, results time, Speaking format).",
+    "h1": "Computer-delivered IELTS in Malaysia: fee, cities, and where the official pages disagree",
+    "faq": [
+      {
+        "question": "What does IELTS on Computer cost at IDP Malaysia?",
+        "answer": "IDP Malaysia's fee table showed RM 960 for IELTS on Computer on 2 November 2026. Another IDP page still showed RM 835, so confirm in the booking system."
+      },
+      {
+        "question": "Is Speaking in person or by video?",
+        "answer": "ielts.org says face to face with a trained examiner. One IDP Malaysia page mentions video calls. Check your booking details."
+      },
+      {
+        "question": "Which Malaysian cities offer it?",
+        "answer": "IDP Malaysia lists Subang Jaya, Kuala Lumpur, Johor Bahru, Penang, Kota Kinabalu, Kuching, Ipoh, Kepong, Melaka and Tawau. Confirm dates in the booking system."
+      },
+      {
+        "question": "How long do results take?",
+        "answer": "ielts.org says 1 to 5 days. IDP Malaysia pages say three to five days and, in one place, two days. Ask your centre."
+      },
+      {
+        "question": "Do I bring ID?",
+        "answer": "Yes: the same passport or national identity card you booked with."
+      }
+    ],
+    "hub": {
+      "name": "Malaysia",
+      "path": "/ielts-speaking-online/malaysia"
+    }
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/computer-delivered-ielts-vietnam",
+    "alternatePath": "/vi/insights/ielts-tren-may-tinh-viet-nam",
+    "locale": "en",
+    "title": "Computer-delivered IELTS in Vietnam: fee, cities, Speaking, ID",
+    "description": "Computer-delivered IELTS in Vietnam from official pages: IDP cities, the fee on its booking page and its date caveat, Speaking timing, ID rules and results time.",
+    "h1": "Computer-delivered IELTS in Vietnam: your questions, answered from official pages",
+    "faq": [
+      {
+        "question": "Is IELTS on computer available in Vietnam?",
+        "answer": "IDP Vietnam lists computer-delivered Academic and General Training, held regularly in Hanoi, Ho Chi Minh City and Da Nang."
+      },
+      {
+        "question": "How much is it?",
+        "answer": "IDP Vietnam's booking page showed VND 4,664,000 for Academic and General Training, but its VAT note ends 30/06/2025, so confirm the current price."
+      },
+      {
+        "question": "Is the Speaking test on the same day?",
+        "answer": "IDP Vietnam says Speaking is on the official test date or within one week before or after it."
+      },
+      {
+        "question": "Which ID do I bring?",
+        "answer": "Only the original identification document or passport used to register (IDP Vietnam)."
+      },
+      {
+        "question": "Will my score be different from paper?",
+        "answer": "ielts.org says scores are comparable across formats."
+      }
+    ]
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/vi/insights/ielts-tren-may-tinh-viet-nam",
+    "alternatePath": "/insights/computer-delivered-ielts-vietnam",
+    "locale": "vi",
+    "title": "IELTS trên máy tính tại Việt Nam: lệ phí, địa điểm, Speaking, giấy tờ",
+    "description": "IELTS trên máy tính tại Việt Nam từ các trang chính thức: địa điểm IDP, lệ phí trên trang đăng ký và lưu ý về ngày, lịch Speaking, giấy tờ và thời gian có kết quả.",
+    "h1": "IELTS trên máy tính tại Việt Nam: giải đáp từ các trang chính thức",
+    "faq": [
+      {
+        "question": "IELTS trên máy tính có ở Việt Nam không?",
+        "answer": "IDP Việt Nam liệt kê bài thi trên máy tính (Academic và General Training), tổ chức đều đặn tại Hà Nội, TP. Hồ Chí Minh và Đà Nẵng."
+      },
+      {
+        "question": "Lệ phí bao nhiêu?",
+        "answer": "Trang đăng ký của IDP Việt Nam ghi 4.664.000 VND cho Academic và General Training, nhưng ghi chú về VAT chỉ đến 30/06/2025, nên hãy xác nhận mức phí hiện hành."
+      },
+      {
+        "question": "Thi Speaking có cùng ngày không?",
+        "answer": "IDP Việt Nam cho biết Speaking diễn ra vào ngày thi chính thức hoặc trong vòng một tuần trước hoặc sau ngày đó."
+      },
+      {
+        "question": "Mang theo giấy tờ gì?",
+        "answer": "Chỉ mang bản gốc giấy tờ tùy thân hoặc hộ chiếu đã dùng để đăng ký (IDP Việt Nam)."
+      },
+      {
+        "question": "Điểm có khác bài thi trên giấy không?",
+        "answer": "ielts.org cho biết điểm có thể so sánh được giữa các hình thức thi."
+      }
+    ]
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/ielts-test-centres-booking-vietnam",
+    "alternatePath": "/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam",
+    "locale": "en",
+    "title": "IELTS test centres and booking in Vietnam: what IDP says, and what is not offered",
+    "description": "IELTS test centres in Vietnam from official pages: IDP's three centre numbers, the British Council centre, how to book, fees and caveats, and what is not offered.",
+    "h1": "IELTS test centres and booking in Vietnam: who runs them, where, and what is not offered",
+    "faq": [
+      {
+        "question": "How many IDP test centres are there in Vietnam?",
+        "answer": "IDP says there are only three official IELTS test centres of IDP and IELTS Australia in Vietnam: VN104 (Hanoi), VN501 (Da Nang) and VN101 (Ho Chi Minh City)."
+      },
+      {
+        "question": "Can I take IELTS at home in Vietnam?",
+        "answer": "IDP says that, apart from computer-delivered IELTS at its test centres, it and the IELTS partners are not offering the IELTS Indicator or any home-based IELTS in Vietnam."
+      },
+      {
+        "question": "Where else can I book?",
+        "answer": "The British Council: ielts.org lists a British Council centre in Hung Yen (British University Vietnam) with computer-delivered Academic and General Training at VND 4,664,000. Check the British Council directly."
+      },
+      {
+        "question": "How can I tell a result is genuine?",
+        "answer": "IDP says Test Report Forms it issues for tests taken in or from Vietnam should come only from its three test centre numbers: VN104, VN501 or VN101."
+      },
+      {
+        "question": "What should I bring to register in person?",
+        "answer": "IDP asks you to bring your original identification document or passport when registering at its offices."
+      }
+    ]
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam",
+    "alternatePath": "/insights/ielts-test-centres-booking-vietnam",
+    "locale": "vi",
+    "title": "Địa điểm thi và đăng ký IELTS tại Việt Nam: IDP nói gì, những gì không có",
+    "description": "Địa điểm thi IELTS tại Việt Nam từ các trang chính thức: ba mã điểm thi của IDP, điểm thi British Council, cách đăng ký, lệ phí và lưu ý, và những gì không có.",
+    "h1": "Địa điểm thi và đăng ký IELTS tại Việt Nam: ai tổ chức, ở đâu, và những gì không có",
+    "faq": [
+      {
+        "question": "IDP có bao nhiêu điểm thi IELTS tại Việt Nam?",
+        "answer": "IDP cho biết chỉ có ba điểm thi IELTS chính thức của IDP và IELTS Australia tại Việt Nam: VN104 (Hà Nội), VN501 (Đà Nẵng) và VN101 (TP. Hồ Chí Minh)."
+      },
+      {
+        "question": "Có thi IELTS tại nhà ở Việt Nam không?",
+        "answer": "IDP cho biết ngoài IELTS thi trên máy tính tại các điểm thi của IDP, IDP và các đối tác IELTS không cung cấp IELTS Indicator hay bất kỳ hình thức IELTS thi tại nhà nào ở Việt Nam."
+      },
+      {
+        "question": "Còn đăng ký ở đâu nữa?",
+        "answer": "British Council: ielts.org liệt kê một điểm thi của British Council tại Hưng Yên (Đại học Anh Quốc Việt Nam) với bài thi máy tính Academic và General Training, 4.664.000 VND. Hãy kiểm tra trực tiếp với British Council."
+      },
+      {
+        "question": "Làm sao biết kết quả là thật?",
+        "answer": "IDP cho biết Test Report Form do IDP cấp cho thí sinh thi tại hoặc từ Việt Nam chỉ đến từ ba mã điểm thi: VN104, VN501 hoặc VN101."
+      },
+      {
+        "question": "Đăng ký trực tiếp cần mang gì?",
+        "answer": "IDP yêu cầu mang bản gốc giấy tờ tùy thân hoặc hộ chiếu khi đăng ký tại văn phòng."
+      }
+    ]
   }
 ]

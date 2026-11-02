@@ -883,5 +883,125 @@
         "text": "Xem tài liệu luyện IELTS Speaking"
       }
     ]
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-philippines",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-philippines",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-philippines",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-malaysia",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-malaysia",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-malaysia",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/insights/computer-delivered-ielts-philippines",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-philippines",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-philippines",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/insights/computer-delivered-ielts-malaysia",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-malaysia",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-malaysia",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/insights/computer-delivered-ielts-vietnam",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-vietnam",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-vietnam",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/vi/insights/ielts-tren-may-tinh-viet-nam",
+    "locale": "vi",
+    "heading": "Bước tiếp theo",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-ielts-tren-may-tinh-viet-nam",
+        "text": "Xem buổi đánh giá Speaking trực tiếp"
+      },
+      {
+        "href": "/vi/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-ielts-tren-may-tinh-viet-nam",
+        "text": "Xem tài liệu luyện IELTS Speaking"
+      }
+    ]
+  },
+  {
+    "path": "/insights/ielts-test-centres-booking-vietnam",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-test-centres-booking-vietnam",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-test-centres-booking-vietnam",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam",
+    "locale": "vi",
+    "heading": "Bước tiếp theo",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-dia-diem-thi-ielts-dang-ky-viet-nam",
+        "text": "Xem buổi đánh giá Speaking trực tiếp"
+      },
+      {
+        "href": "/vi/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-dia-diem-thi-ielts-dang-ky-viet-nam",
+        "text": "Xem tài liệu luyện IELTS Speaking"
+      }
+    ]
   }
 ]
