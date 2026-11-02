@@ -13,7 +13,7 @@ const timerVi = '/vi/cong-cu/dong-ho-ielts-speaking-part-2';
 
 const copy = {
   en: {
-    calculator: 'IELTS Band Score Calculator', timer: 'IELTS Speaking Part 2 Timer',
+    calculator: 'IELTS Score Calculator: Overall Band and Rounding', timer: 'IELTS Speaking Part 2 Timer',
     keyFacts: 'Key facts', overall: 'Overall band', calculate: 'Calculate overall band',
     invalid: 'Enter a band from 0 to 9 in steps of 0.5 for every skill.',
     notOfficial: 'This is an estimate, not an official IELTS score.',
@@ -56,7 +56,7 @@ const copy = {
     timerNotOfficial: 'Practice only: this timer does not score your answer and is not an official IELTS score.',
   },
   vi: {
-    calculator: 'Tính điểm IELTS Overall và cách làm tròn', timer: 'Đồng hồ IELTS Speaking Part 2',
+    calculator: 'Cách làm tròn điểm IELTS Overall và công cụ tính điểm', timer: 'Đồng hồ IELTS Speaking Part 2',
     keyFacts: 'Thông tin chính', overall: 'Điểm overall', calculate: 'Tính điểm overall',
     invalid: 'Nhập điểm từ 0 đến 9, theo bước 0,5 cho cả bốn kỹ năng.',
     notOfficial: 'Đây là kết quả ước tính, không phải điểm IELTS chính thức.',
