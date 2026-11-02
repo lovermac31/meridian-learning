@@ -25,7 +25,8 @@ for (const page of seoPages) {
     assert.equal(metadata.title, page.title);
     assert.equal(metadata.description, page.description);
     assert.equal(metadata.canonical, `${origin}${page.path}`);
-    assert.deepEqual(metadata.alternates, [
+    // hreflang only where a real translation exists: English-only answer pages (alternatePath === path) declare none.
+    assert.deepEqual(metadata.alternates, page.alternatePath === page.path ? undefined : [
       { hrefLang: 'vi', href: `${origin}${vi}` },
       { hrefLang: 'en', href: `${origin}${en}` },
       { hrefLang: 'x-default', href: `${origin}${en}` },

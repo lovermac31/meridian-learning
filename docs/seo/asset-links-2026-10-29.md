@@ -116,6 +116,12 @@
 | `/student-academy/stories` | `https://story-quest.jurassicenglish.com/?utm_source=jurassicenglish&utm_medium=internal&utm_content=student-academy-stories` | Play the free Story Quest game together |
 | `/vi/student-academy/stories` | `/story-club/reserve?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-student-academy-stories` | Xem Story Club cho bé 5–8 tuổi · 590.000₫ |
 | `/vi/student-academy/stories` | `https://story-quest.jurassicenglish.com/?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-student-academy-stories` | Chơi Story Quest miễn phí cùng con |
+| `/insights/ielts-scams-fake-certificates-philippines` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-philippines` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/ielts-scams-fake-certificates-philippines` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-philippines` | Browse IELTS Speaking practice materials |
+| `/insights/ielts-scams-fake-certificates-vietnam` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-vietnam` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/ielts-scams-fake-certificates-vietnam` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-vietnam` | Browse IELTS Speaking practice materials |
+| `/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-lua-dao-ielts-chung-chi-gia-viet-nam` | Xem buổi đánh giá Speaking trực tiếp |
+| `/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam` | `/vi/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-lua-dao-ielts-chung-chi-gia-viet-nam` | Xem tài liệu luyện IELTS Speaking |
 
 ## Scope and verification
 

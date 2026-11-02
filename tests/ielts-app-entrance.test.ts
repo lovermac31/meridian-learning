@@ -24,11 +24,13 @@ test('country pages (all locales), insights pages and the two tools carry one en
     assert.equal((html.match(/data-ielts-app-entrance="/g) ?? []).length, 1, `${path}: one entrance`);
     assert.ok(html.includes(`data-ielts-app-entrance="${placement}"`), `${path}: placement ${placement}`);
     const vi = path.startsWith('/vi');
-    assert.ok(html.includes(`href="${ieltsAppHref(placement, vi ? 'vi' : 'en')}" target="_blank" rel="noopener noreferrer"`), `${path}: entrance link`);
+    // Hand-checked answer pages carry their single entrance at the end of the page, tagged with the page slug.
+    const answer = seoPages.find((p) => p.path === path)?.answer;
+    assert.ok(html.includes(`href="${ieltsAppHref(placement, vi ? 'vi' : 'en', answer ? path.split('/').at(-1) : undefined)}" target="_blank" rel="noopener noreferrer"`), `${path}: entrance link`);
     assert.ok(html.includes(vi ? '>Người lớn 18+<' : '>Adults 18+<'), `${path}: adults label`);
     assert.ok(html.includes(`href="${packs}?utm_source=${placement}-ielts-app"`), `${path}: packs link`);
     assert.ok(html.includes('Practise with an AI examiner. 2 free attempts.') || html.includes('Luyện nói với giám khảo AI. 2 lượt thử miễn phí.'), `${path}: wording`);
-    assert.ok(html.indexOf('data-ielts-app-entrance') < html.indexOf('insights-content') || html.indexOf('data-ielts-app-entrance') < html.indexOf('ielts-tool-content'), `${path}: near the top, before the article`);
+    assert.ok(answer || html.indexOf('data-ielts-app-entrance') < html.indexOf('insights-content') || html.indexOf('data-ielts-app-entrance') < html.indexOf('ielts-tool-content'), `${path}: near the top, before the article`);
     assert.match(html, /<img src="\/images\/w\/ielts-app-screen-640\.webp"[^>]*width="640" height="400"/, `${path}: image box reserved`);
   }
   assert.equal(ieltsAppHref('country'), 'https://ielts.jurassicenglish.com/?utm_source=site&utm_medium=entrance&utm_content=country');

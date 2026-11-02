@@ -1330,5 +1330,108 @@
       }
     ],
     "counterpartLanguageLabel": "Português"
+  },
+  {
+    "path": "/insights/ielts-scams-fake-certificates-philippines",
+    "alternatePath": "/insights/ielts-scams-fake-certificates-philippines",
+    "locale": "en",
+    "title": "IELTS scams and fake certificates in the Philippines: spot them, check them",
+    "description": "What IDP and ielts.org say about fake IELTS certificates, fake centres and \"buy IELTS\" offers in the Philippines, how to check a booking, and what to do if you paid.",
+    "h1": "IELTS scams and fake certificates in the Philippines: how to spot them and what to do",
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "faq": [
+      {
+        "question": "Is \"IELTS without exam\" ever legitimate?",
+        "answer": "No. IDP lists adverts to buy IELTS without taking the exam as scams, and a fake certificate will be rejected."
+      },
+      {
+        "question": "Can I check a certificate someone showed me?",
+        "answer": "Only organisations can use the IELTS Results Service. Ask the person to share the result electronically through the official route, or ask the receiving organisation to verify it."
+      },
+      {
+        "question": "What ID do I need on test day?",
+        "answer": "IDP's terms say a passport or National Identity Card at registration, the same valid original document on test day, and a passport if you test outside your own country. Confirm with your centre."
+      },
+      {
+        "question": "I was approached at a test centre. What now?",
+        "answer": "Report it to the centre, email security.ielts@idp.com or use the report form on ielts.org."
+      },
+      {
+        "question": "Will practising with a teacher change my official result?",
+        "answer": "No teacher can promise a band score. Practice shows you what to improve; only the official test produces a result."
+      }
+    ],
+    "hub": {
+      "name": "Philippines",
+      "path": "/ielts-speaking-online/philippines"
+    },
+    "answer": true
+  },
+  {
+    "path": "/insights/ielts-scams-fake-certificates-vietnam",
+    "alternatePath": "/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam",
+    "locale": "en",
+    "title": "IELTS scams and fake certificates in Vietnam: what IDP warned, how to check",
+    "description": "What IDP Vietnam says about fake IELTS certificates, proxy testing and look-alike emails, the official ways to register, and what to do if you are approached.",
+    "h1": "IELTS scams and fake certificates in Vietnam: what IDP has warned about, and how to check",
+    "faq": [
+      {
+        "question": "Is buying an IELTS certificate in Vietnam ever legal or safe?",
+        "answer": "No. IDP Vietnam says all such offers are scams, and serious cheating can mean cancelled results and a five-year ban."
+      },
+      {
+        "question": "Which email addresses does IDP Vietnam use?",
+        "answer": "Its notice lists ielts.hcmc@idp.com, ielts.hanoi@idp.com and ielts.danang@idp.com, and says IDP Vietnam mailboxes use only the @idp.com domain. Check the provider for current details."
+      },
+      {
+        "question": "What are the official ways to register with IDP in Vietnam?",
+        "answer": "In person at an IDP office, on IDP's official registration page, or through an official IDP partner listed on the IDP Vietnam partners page."
+      },
+      {
+        "question": "A stranger approached me outside a test centre. What should I do?",
+        "answer": "Do not pay or give details. IDP says scammers also approach candidates at test locations and prep schools. Report it to the centre or to security.ielts@idp.com."
+      },
+      {
+        "question": "Can I verify a certificate myself?",
+        "answer": "Not publicly. Organisations that accept IELTS use the IELTS Results Service. Candidates see their own result in their account and share it electronically."
+      }
+    ],
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true
+  },
+  {
+    "path": "/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam",
+    "alternatePath": "/insights/ielts-scams-fake-certificates-vietnam",
+    "locale": "vi",
+    "title": "Lừa đảo IELTS và chứng chỉ giả tại Việt Nam: IDP cảnh báo gì, cách kiểm tra",
+    "description": "IDP Việt Nam cảnh báo gì về chứng chỉ IELTS giả, thi hộ và email giả mạo; ba cách đăng ký chính thức; và việc cần làm khi bị tiếp cận.",
+    "h1": "Lừa đảo IELTS và chứng chỉ giả tại Việt Nam: IDP đã cảnh báo gì và cách kiểm tra",
+    "faq": [
+      {
+        "question": "Mua chứng chỉ IELTS ở Việt Nam có hợp pháp hay an toàn không?",
+        "answer": "Không. IDP Việt Nam khẳng định mọi lời mời như vậy đều là lừa đảo, và gian lận nghiêm trọng có thể bị hủy kết quả, cấm thi năm năm."
+      },
+      {
+        "question": "IDP Việt Nam dùng những địa chỉ email nào?",
+        "answer": "Thông báo của IDP nêu ielts.hcmc@idp.com, ielts.hanoi@idp.com và ielts.danang@idp.com, và cho biết hộp thư của IDP Việt Nam chỉ dùng tên miền @idp.com. Hãy kiểm tra lại thông tin hiện hành với IDP."
+      },
+      {
+        "question": "Có những cách đăng ký thi chính thức nào với IDP tại Việt Nam?",
+        "answer": "Trực tiếp tại văn phòng IDP, trên trang đăng ký chính thức của IDP, hoặc qua đối tác chính thức trong danh sách đối tác của IDP Việt Nam."
+      },
+      {
+        "question": "Có người lạ tiếp cận tôi trước điểm thi. Tôi nên làm gì?",
+        "answer": "Không chuyển tiền và không cung cấp thông tin. IDP cho biết đối tượng lừa đảo còn tiếp cận thí sinh tại địa điểm thi và trung tâm luyện thi. Hãy báo cho trung tâm thi hoặc gửi email tới security.ielts@idp.com."
+      },
+      {
+        "question": "Tôi có tự kiểm tra chứng chỉ được không?",
+        "answer": "Không công khai. Các tổ chức chấp nhận IELTS dùng IELTS Results Service. Thí sinh xem kết quả trong tài khoản của mình và chia sẻ bản điện tử."
+      }
+    ],
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true
   }
 ]
