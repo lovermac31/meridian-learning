@@ -88,6 +88,7 @@ const STATIC_ROUTE_SOURCES = {
   '/cefr-alignment': [component('CefrAlignmentPage'), content('cefrAlignment')],
   '/teacher-standards': [component('TeacherStandardsPage'), content('teacherStandards')],
   '/story-club': [component('StoryClubPage'), content('storyClub')],
+  '/live-speaking-check': [component('LiveSpeakingCheckPage'), 'src/config/payment.ts'],
   '/story-club/reserve': [component('StoryClubReservePage'), 'src/lib/storyClubReserve.ts', 'src/config/storyClubReserve.ts'],
   '/en/story-club/reserve': [component('StoryClubReservePage'), 'src/lib/storyClubReserve.ts', 'src/config/storyClubReserve.ts'],
   '/products': [component('ProductsPage'), content('products')],
