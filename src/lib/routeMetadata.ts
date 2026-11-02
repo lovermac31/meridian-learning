@@ -506,6 +506,12 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     canonicalPath: '/plans-pricing-access',
     shouldIndex: false,
   },
+  '/live-speaking-check': {
+    title: '30-minute Live Speaking Check | Jurassic English™',
+    description: 'Unlisted booking page for the 30-minute Live Speaking Check. This page is not intended for search indexing.',
+    canonicalPath: '/live-speaking-check',
+    shouldIndex: false,
+  },
   '/external/pilot': {
     title: 'External Pilot Resource Portal | Jurassic English™',
     description:
@@ -1133,6 +1139,7 @@ export function getPrerenderRoutes(): string[] {
  */
 const CLIENT_ONLY_ROUTES = [
   '/plans-pricing-access',
+  '/live-speaking-check',
   '/external/pilot',
   '/internal/pilot-requests',
 ] as const;

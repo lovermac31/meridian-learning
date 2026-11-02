@@ -43,6 +43,8 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
   'ielts-writing-task1-method': { prefix: 'PR0W', amount: 290000 },
   'ielts-essay-bank-task2': { prefix: 'PR0X', amount: 290000 },
   'ielts-writing-teacher-pack': { prefix: 'PR0Y', amount: 690000 },
+  // Unlisted 30-minute Live Speaking Check (mirrors LIVE_CHECK_OFFER in src/config/payment.ts).
+  'live-speaking-check': { prefix: 'LC', amount: 250000 },
 };
 
 function paidOffer(id: string) {

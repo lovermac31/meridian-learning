@@ -78,6 +78,9 @@ const LegalPage = lazy(() =>
 const PlansPricingAccessPage = lazy(() =>
   import('./components/PlansPricingAccessPage').then(m => ({ default: m.PlansPricingAccessPage }))
 );
+const LiveSpeakingCheckPage = lazy(() =>
+  import('./components/LiveSpeakingCheckPage').then(m => ({ default: m.LiveSpeakingCheckPage }))
+);
 const ExternalPilotPortalPage = lazy(() =>
   import('./components/ExternalPilotPortalPage').then(m => ({ default: m.ExternalPilotPortalPage }))
 );
@@ -198,6 +201,7 @@ function App() {
   const isProductPageView = productPageProduct !== null;
   const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams' || isInternationalMarketPath(routePathname);
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
+  const isLiveSpeakingCheckView = routePathname === '/live-speaking-check';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
   const isInternalPilotRequestsView = routePathname === '/internal/pilot-requests';
   // `/pilot/<id>` — a single non-empty segment after /pilot/. Matches the
@@ -250,6 +254,7 @@ function App() {
     isTeacherStandardsView ||
     isCompaniesView ||
     isPlansPricingAccessView ||
+    isLiveSpeakingCheckView ||
     isExternalPilotPortalView ||
     isInternalPilotRequestsView ||
     isPilotHoldingView ||
@@ -545,6 +550,8 @@ function App() {
         />
       ) : isPlansPricingAccessView ? (
         <PlansPricingAccessPage onBack={() => navigateTo('/')} />
+      ) : isLiveSpeakingCheckView ? (
+        <LiveSpeakingCheckPage />
       ) : isExternalPilotPortalView ? (
         <ExternalPilotPortalPage
           onBack={() => navigateTo('/')}

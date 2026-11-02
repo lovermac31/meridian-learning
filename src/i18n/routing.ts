@@ -43,6 +43,7 @@ const SEO_EN_PATHS = Object.fromEntries(seoPathPairs.map(([en, vi]) => [vi, en])
 
 const NON_LOCALIZED_PATHS = new Set([
   '/plans-pricing-access',
+  '/live-speaking-check',
   '/external/pilot',
   '/internal/pilot-requests',
 ]);
