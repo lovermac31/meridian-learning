@@ -90,6 +90,16 @@ const en = {
       artLabel: 'Illustration',
       rexAlt: 'Illustration of Professor Rex, the Jurassic English storybook guide',
     },
+    // IELTS app feature (Jay + CEO, 2 Nov 2026): one strip directly under the hero for https://ielts.jurassicenglish.com.
+    // Wording as given by Jay; practice only, no score or band promise. The image is the app's own first screen.
+    ieltsApp: {
+      eyebrow: 'Free IELTS Speaking practice',
+      title: 'Practise with an AI examiner. 2 free attempts.',
+      body: 'Your report quotes your own words and shows the one change that matters next. Practice only, not an official score.',
+      primary: 'Try it free',
+      secondary: 'See IELTS Speaking packs',
+      imageAlt: 'The Jurassic English IELTS Speaking app, first screen',
+    },
     // "Find what you need" (master, 27 Oct 2026): one strip under the hero, a tile per /products section with its
     // starting price and the image of the product at that price. Promise lines are the /products section intros.
     find: {
@@ -304,6 +314,15 @@ const vi: OverhaulContent = {
       imageAlt: 'Tranh minh hoạ truyện: Giáo sư Rex và các nhà thám hiểm nhỏ quây quanh tấm bản đồ các thế giới truyện',
       artLabel: 'Tranh minh hoạ',
       rexAlt: 'Tranh minh hoạ Giáo sư Rex, người dẫn đường trong truyện của Jurassic English',
+    },
+    // Machine-drafted VI (2 Nov 2026); needs a native read.
+    ieltsApp: {
+      eyebrow: 'Luyện IELTS Speaking miễn phí',
+      title: 'Luyện nói với giám khảo AI. 2 lượt thử miễn phí.',
+      body: 'Báo cáo trích đúng lời bạn nói và chỉ ra một thay đổi quan trọng nhất cần làm tiếp. Chỉ để luyện tập, không phải điểm thi chính thức.',
+      primary: 'Dùng thử miễn phí',
+      secondary: 'Xem các gói IELTS Speaking',
+      imageAlt: 'Ứng dụng IELTS Speaking của Jurassic English, màn hình đầu tiên',
     },
     find: {
       heading: 'Tìm đúng thứ bạn cần',

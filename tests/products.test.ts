@@ -92,6 +92,8 @@ test('every link carries utm_source=products before any #anchor, in the page lan
       if (/^(\/vi)?\/products\/[a-z0-9-]+(#video|\?checkout=1)?$/.test(href) || /^(\/en)?\/story-club\/reserve$/.test(href)) continue; // #video: the card's "Watch" link to the product's film
       // The sample pack form's privacy notice link is a legal page, not a step in the funnel.
       if (/^(\/vi)?\/legal\/privacy$/.test(href)) continue;
+      // The IELTS app entrance (Jay + CEO, 2 Nov 2026) carries its own utm_source=site & utm_content=products.
+      if (/^https:\/\/ielts\.jurassicenglish\.com\/\?utm_source=site&utm_medium=entrance&utm_content=products$/.test(href)) continue;
       if (href === counterpart || href.startsWith('#') || /^\/samples\/[^/?#]+-sample\.pdf$/.test(href) || href.startsWith('https://www.paypal.com/cgi-bin/webscr?')) continue;
       assert.match(href, /[?&]utm_source=products(#|$)/, `${route}: ${href}`);
       assert.ok(!/#[^?]*\?/.test(href), `${route}: query before the anchor in ${href}`);

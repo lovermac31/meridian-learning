@@ -1,3 +1,5 @@
+import { ieltsAppHref } from '../lib/ieltsApp';
+import { IELTS_HOME } from '../i18n/content/products';
 import { reserveCta, paymentHref, buyCta } from '../config/payment';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
 import { CONTACT_EMAIL, getOverhaulContent, IMG } from '../i18n/content/overhaul';
@@ -57,7 +59,7 @@ const STEP_STYLES = ['bg-sb-sage text-sb-sage-ink', 'bg-amber-100 text-sb-amber-
 export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => void }) {
   const locale = getCurrentLocale();
   const { home } = getOverhaulContent(locale);
-  const { hero, find, paths, lesson, jay, pricing, faq } = home;
+  const { hero, ieltsApp, find, paths, lesson, jay, pricing, faq } = home;
 
   return (
     <div className="bg-sb-cream text-sb-ink">
@@ -101,6 +103,43 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
               className="absolute bottom-3 right-3 h-[72px] w-[72px] rounded-full border-4 border-white bg-sb-cream object-cover shadow-warm sm:h-24 sm:w-24"
             />
           </figure>
+        </div>
+      </section>
+
+      {/* 1a · IELTS Speaking app (Jay + CEO, 2 Nov 2026): one strip directly under the hero, Stitch style as /products. */}
+      <section className="border-t border-sb-border bg-sb-forest px-4 py-8 text-white sm:px-6" aria-labelledby="ielts-app-heading" data-ielts-app-strip="">
+        <div className="mx-auto grid max-w-7xl items-center gap-6 rounded-[1.5rem] border border-sb-border bg-white p-5 text-sb-ink shadow-warm sm:p-7 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+          <div>
+            <p className="inline-block rounded-full bg-sb-sage px-3 py-1 text-xs font-extrabold uppercase tracking-[0.1em] text-sb-sage-ink">{ieltsApp.eyebrow}</p>
+            <h2 id="ielts-app-heading" className="mt-3 text-2xl font-extrabold leading-tight text-sb-forest sm:text-3xl">{ieltsApp.title}</h2>
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-sb-slate">{ieltsApp.body}</p>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                href={ieltsAppHref('home')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={PRIMARY_BTN}
+                data-cta="ielts-app-home"
+                onClick={() => { try { trackCtaClick({ label: 'home_ielts_app', type: 'primary', segment: 'parent_student' }); } catch { /* measurement never blocks navigation */ } }}
+              >
+                {ieltsApp.primary}
+              </a>
+              <a href={`${IELTS_HOME.speaking[locale]}?utm_source=home-ielts-app`} className="inline-flex min-h-11 items-center font-bold text-sb-forest underline underline-offset-4" data-link="ielts-app-packs">
+                {ieltsApp.secondary} →
+              </a>
+            </div>
+          </div>
+          <img
+            src="/images/ielts-app-screen.webp"
+            srcSet="/images/w/ielts-app-screen-640.webp 640w, /images/ielts-app-screen.webp 1280w"
+            sizes="(min-width: 1024px) 480px, calc(100vw - 72px)"
+            alt={ieltsApp.imageAlt}
+            width={1280}
+            height={800}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[16/10] w-full rounded-2xl border border-sb-border object-cover opacity-90 saturate-[.6]"
+          />
         </div>
       </section>
 
