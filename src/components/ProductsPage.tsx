@@ -32,6 +32,7 @@ import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, produc
 import { recordClientEvent } from '../lib/tracker';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
 import { useFirstTouch, withFirstTouch, type FirstTouch } from '../lib/utmFirstTouch';
+import { LEMONSQUEEZY_COPY, isLemonSqueezyEnabled, lemonSqueezyCheckout, lemonSqueezyHref } from '../config/lemonSqueezy';
 
 /** The visit's utm_source, read after hydration so the prerendered page and the first client render match. */
 export function useVisitorSource(): string | null {
@@ -336,6 +337,37 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
   );
 }
 
+/**
+ * Card / Alipay / WeChat in US$ through Lemon Squeezy (Jay + CEO, 2 Nov 2026): digital products only, English pages
+ * only (VietQR stays the Vietnamese path), and only when the product's checkout URL is configured. Not a data-cta:
+ * each card keeps its one order CTA. The first-touch utm_* and the order code ride in the checkout's custom data.
+ */
+export function LemonSqueezyOption({ card, locale, source, touch, compact = false }: { card: ProductCard; locale: Locale; source: string | null; touch: FirstTouch | null; compact?: boolean }) {
+  const base = lemonSqueezyCheckout(card.id);
+  if (locale !== 'en' || !card.paypal || !base) return null;
+  const copy = LEMONSQUEEZY_COPY[locale];
+  const href = lemonSqueezyHref(card.id, base, { source, touch });
+  const link = (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-bold underline underline-offset-4 hover:text-sb-amber-deep"
+      data-lemonsqueezy-link={card.id}
+      onClick={() => recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined })}
+    >
+      {copy.button(productUsd(card.price))}
+    </a>
+  );
+  if (compact) return <p className="mt-2 text-sm" data-lemonsqueezy={card.id}>{link}</p>;
+  return (
+    <div className="mt-3 rounded-xl border border-sb-border p-3" data-lemonsqueezy={card.id}>
+      {link}
+      <p className="mt-1 text-xs">{copy.note}</p>
+    </div>
+  );
+}
+
 const CATEGORY_COPY = {
   en: { label: 'Product sections', names: { families: 'Families', teachers: 'Teachers', centres: 'Centres', ielts: 'IELTS' }, count: 'products', from: 'from' },
   vi: { label: 'Các nhóm sản phẩm', names: { families: 'Gia đình', teachers: 'Giáo viên', centres: 'Trung tâm', ielts: 'IELTS' }, count: 'sản phẩm', from: 'từ' },
@@ -464,6 +496,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
         {card.video ? <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="product-row-watch" data-watch={card.id}><span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}</a> : null}
         {external ? <p className="mt-2 text-xs" data-order-code={card.id}>{code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}</p> : null}
         {card.paypal ? <PayPalOption card={card} locale={locale} source={source} compact /> : null}
+        {isLemonSqueezyEnabled(card.id) ? <LemonSqueezyOption card={card} locale={locale} source={source} touch={touch} compact /> : null}
       </div>
     </li>
   );

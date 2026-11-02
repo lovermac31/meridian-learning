@@ -94,6 +94,8 @@ test('every link carries utm_source=products before any #anchor, in the page lan
       if (/^(\/vi)?\/legal\/privacy$/.test(href)) continue;
       // The IELTS app entrance (Jay + CEO, 2 Nov 2026) carries its own utm_source=site & utm_content=products.
       if (/^https:\/\/ielts\.jurassicenglish\.com\/\?utm_source=site&utm_medium=entrance&utm_content=products(-vi)?$/.test(href)) continue;
+      // Lemon Squeezy hosted checkouts carry the order reference and first-touch utm in checkout[custom][...], not utm_source=products.
+      if (/^https:\/\/[a-z0-9.-]+\.lemonsqueezy\.com\//.test(href)) continue;
       if (href === counterpart || href.startsWith('#') || /^\/samples\/[^/?#]+-sample\.pdf$/.test(href) || href.startsWith('https://www.paypal.com/cgi-bin/webscr?')) continue;
       assert.match(href, /[?&]utm_source=products(#|$)/, `${route}: ${href}`);
       assert.ok(!/#[^?]*\?/.test(href), `${route}: query before the anchor in ${href}`);
