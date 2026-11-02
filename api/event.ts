@@ -41,6 +41,8 @@ export type ValidatedEventData = {
   product_id?: string;
   utm_source?: string;
   utm_content?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
   locale?: string;
 };
 
@@ -83,6 +85,8 @@ export function validateEventPayload(body: unknown):
       product_id: str(raw.product_id, 64),
       utm_source: str(raw.utm_source, 64),
       utm_content: str(raw.utm_content, 64),
+      utm_medium: str(raw.utm_medium, 64),
+      utm_campaign: str(raw.utm_campaign, 64),
       locale: str(raw.locale, 8),
     },
   };

@@ -8,6 +8,7 @@ import {
   zaloFloatCopy,
   zaloFloatHref,
 } from '../lib/zaloFloat';
+import { useFirstTouch, withFirstTouch } from '../lib/utmFirstTouch';
 
 export { zaloFloatCopy };
 
@@ -54,7 +55,8 @@ const OBSTACLES = '[data-privacy-controls], .je-botui-shell > button';
  */
 export function ZaloFloat({ locale, hidden = false }: ZaloFloatProps) {
   const t = zaloFloatCopy[locale] ?? zaloFloatCopy.en;
-  const href = zaloFloatHref(locale);
+  // The visit's first utm_* set rides on the link after hydration (SSR keeps the plain float tag).
+  const href = withFirstTouch(zaloFloatHref(locale), useFirstTouch());
   const [open, setOpen] = useState(false);
   // SSR and the first client render use desktop semantics; the effect below corrects it after hydration.
   const [direct, setDirect] = useState(false);

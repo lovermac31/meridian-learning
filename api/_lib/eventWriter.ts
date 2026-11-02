@@ -16,6 +16,8 @@ export type ServerEventInput = {
   product_id?: string;
   utm_source?: string;
   utm_content?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
   locale?: string;
 };
 
@@ -98,7 +100,7 @@ export async function recordServerEvent(input: ServerEventInput): Promise<EventW
     return { ok: false, reason: 'not_configured' };
   }
 
-  const payload = {
+  const payload: Record<string, string | null> = {
     p_event: input.event,
     p_path: input.path ?? null,
     p_product_id: input.product_id ?? null,
@@ -106,13 +108,20 @@ export async function recordServerEvent(input: ServerEventInput): Promise<EventW
     p_utm_content: input.utm_content ?? null,
     p_locale: input.locale ?? null,
   };
+  // Migration 20261102000001 adds these two parameters; they are sent only when set. Until it has run, PostgREST
+  // answers 404 (no function with these arguments) and the write is retried with the six it knows, so no click is lost.
+  const extra: Record<string, string> = {};
+  if (input.utm_medium) extra.p_utm_medium = input.utm_medium;
+  if (input.utm_campaign) extra.p_utm_campaign = input.utm_campaign;
+  const post = (body: Record<string, string | null>) => fetch(`${config.url}/rest/v1/rpc/record_je_event`, {
+    method: 'POST',
+    headers: supabaseHeaders(config.writeKey),
+    body: JSON.stringify(body),
+  });
 
   try {
-    const res = await fetch(`${config.url}/rest/v1/rpc/record_je_event`, {
-      method: 'POST',
-      headers: supabaseHeaders(config.writeKey),
-      body: JSON.stringify(payload),
-    });
+    let res = await post({ ...payload, ...extra });
+    if (res.status === 404 && Object.keys(extra).length) res = await post(payload);
 
     if (!res.ok) {
       const errText = await res.text().catch(() => '');

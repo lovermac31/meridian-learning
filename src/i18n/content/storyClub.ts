@@ -24,7 +24,7 @@ type StoryClubCopy = {
   eyebrow: string;
   title: string;
   lead: string;
-  price: { amount: string; unit: string; note: string; seats: string; tryFree: string };
+  price: { amount: string; unit: string; note: string; seats: string; schedule: string; tryFree: string };
   week: { heading: string; steps: Step[] };
   parents: { heading: string; items: string[] };
   forWho: { heading: string; yes: string[]; no: string[]; yesLabel: string; noLabel: string; link: string };
@@ -44,6 +44,8 @@ const en: StoryClubCopy = {
     unit: 'for 4 weeks',
     note: 'Founding price for the first group. Paid by bank transfer (VietQR) after you receive a written summary on Zalo.',
     seats: 'Up to 6 children per group',
+    // Funnel audit fix 6 (2 Nov 2026): the day, time, length, place and the no-recording rule, from the product data.
+    schedule: 'Saturday mornings, 9:00 · 30 minutes on Google Meet · never recorded',
     tryFree: 'Try a free story first',
   },
   week: {
@@ -121,6 +123,7 @@ const vi: StoryClubCopy = {
     unit: 'cho 4 tuần',
     note: 'Giá ưu đãi cho nhóm đầu tiên. Thanh toán bằng chuyển khoản (VietQR) sau khi bạn nhận bản tóm tắt bằng văn bản qua Zalo.',
     seats: 'Tối đa 6 bạn nhỏ mỗi nhóm',
+    schedule: 'Sáng thứ Bảy, 9:00 · 30 phút qua Google Meet · không bao giờ được ghi âm, ghi hình',
     tryFree: 'Đọc thử một truyện miễn phí trước',
   },
   week: {
