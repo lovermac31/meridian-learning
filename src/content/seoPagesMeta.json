@@ -1647,5 +1647,71 @@
         "answer": "ielts.org cho biết điểm có thể so sánh được giữa các hình thức thi."
       }
     ]
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/ielts-test-centres-booking-vietnam",
+    "alternatePath": "/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam",
+    "locale": "en",
+    "title": "IELTS test centres and booking in Vietnam: what IDP says, and what is not offered",
+    "description": "IELTS test centres in Vietnam from official pages: IDP's three centre numbers, the British Council centre, how to book, fees and caveats, and what is not offered.",
+    "h1": "IELTS test centres and booking in Vietnam: who runs them, where, and what is not offered",
+    "faq": [
+      {
+        "question": "How many IDP test centres are there in Vietnam?",
+        "answer": "IDP says there are only three official IELTS test centres of IDP and IELTS Australia in Vietnam: VN104 (Hanoi), VN501 (Da Nang) and VN101 (Ho Chi Minh City)."
+      },
+      {
+        "question": "Can I take IELTS at home in Vietnam?",
+        "answer": "IDP says that, apart from computer-delivered IELTS at its test centres, it and the IELTS partners are not offering the IELTS Indicator or any home-based IELTS in Vietnam."
+      },
+      {
+        "question": "Where else can I book?",
+        "answer": "The British Council: ielts.org lists a British Council centre in Hung Yen (British University Vietnam) with computer-delivered Academic and General Training at VND 4,664,000. Check the British Council directly."
+      },
+      {
+        "question": "How can I tell a result is genuine?",
+        "answer": "IDP says Test Report Forms it issues for tests taken in or from Vietnam should come only from its three test centre numbers: VN104, VN501 or VN101."
+      },
+      {
+        "question": "What should I bring to register in person?",
+        "answer": "IDP asks you to bring your original identification document or passport when registering at its offices."
+      }
+    ]
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam",
+    "alternatePath": "/insights/ielts-test-centres-booking-vietnam",
+    "locale": "vi",
+    "title": "Địa điểm thi và đăng ký IELTS tại Việt Nam: IDP nói gì, những gì không có",
+    "description": "Địa điểm thi IELTS tại Việt Nam từ các trang chính thức: ba mã điểm thi của IDP, điểm thi British Council, cách đăng ký, lệ phí và lưu ý, và những gì không có.",
+    "h1": "Địa điểm thi và đăng ký IELTS tại Việt Nam: ai tổ chức, ở đâu, và những gì không có",
+    "faq": [
+      {
+        "question": "IDP có bao nhiêu điểm thi IELTS tại Việt Nam?",
+        "answer": "IDP cho biết chỉ có ba điểm thi IELTS chính thức của IDP và IELTS Australia tại Việt Nam: VN104 (Hà Nội), VN501 (Đà Nẵng) và VN101 (TP. Hồ Chí Minh)."
+      },
+      {
+        "question": "Có thi IELTS tại nhà ở Việt Nam không?",
+        "answer": "IDP cho biết ngoài IELTS thi trên máy tính tại các điểm thi của IDP, IDP và các đối tác IELTS không cung cấp IELTS Indicator hay bất kỳ hình thức IELTS thi tại nhà nào ở Việt Nam."
+      },
+      {
+        "question": "Còn đăng ký ở đâu nữa?",
+        "answer": "British Council: ielts.org liệt kê một điểm thi của British Council tại Hưng Yên (Đại học Anh Quốc Việt Nam) với bài thi máy tính Academic và General Training, 4.664.000 VND. Hãy kiểm tra trực tiếp với British Council."
+      },
+      {
+        "question": "Làm sao biết kết quả là thật?",
+        "answer": "IDP cho biết Test Report Form do IDP cấp cho thí sinh thi tại hoặc từ Việt Nam chỉ đến từ ba mã điểm thi: VN104, VN501 hoặc VN101."
+      },
+      {
+        "question": "Đăng ký trực tiếp cần mang gì?",
+        "answer": "IDP yêu cầu mang bản gốc giấy tờ tùy thân hoặc hộ chiếu khi đăng ký tại văn phòng."
+      }
+    ]
   }
 ]
