@@ -126,6 +126,14 @@
 | `/insights/ielts-for-ukvi-philippines` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-philippines` | Browse IELTS Speaking practice materials |
 | `/insights/ielts-for-ukvi-malaysia` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-malaysia` | See the live Speaking Baseline with Mr. Jay |
 | `/insights/ielts-for-ukvi-malaysia` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-malaysia` | Browse IELTS Speaking practice materials |
+| `/insights/computer-delivered-ielts-philippines` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-philippines` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/computer-delivered-ielts-philippines` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-philippines` | Browse IELTS Speaking practice materials |
+| `/insights/computer-delivered-ielts-malaysia` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-malaysia` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/computer-delivered-ielts-malaysia` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-malaysia` | Browse IELTS Speaking practice materials |
+| `/insights/computer-delivered-ielts-vietnam` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-vietnam` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/computer-delivered-ielts-vietnam` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-vietnam` | Browse IELTS Speaking practice materials |
+| `/vi/insights/ielts-tren-may-tinh-viet-nam` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-ielts-tren-may-tinh-viet-nam` | Xem buổi đánh giá Speaking trực tiếp |
+| `/vi/insights/ielts-tren-may-tinh-viet-nam` | `/vi/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-ielts-tren-may-tinh-viet-nam` | Xem tài liệu luyện IELTS Speaking |
 
 ## Scope and verification
 
