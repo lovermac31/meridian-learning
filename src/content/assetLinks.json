@@ -883,5 +883,35 @@
         "text": "Xem tài liệu luyện IELTS Speaking"
       }
     ]
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-philippines",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-philippines",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-philippines",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-malaysia",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-malaysia",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-malaysia",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
   }
 ]

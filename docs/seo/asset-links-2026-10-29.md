@@ -122,6 +122,10 @@
 | `/insights/ielts-scams-fake-certificates-vietnam` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-vietnam` | Browse IELTS Speaking practice materials |
 | `/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-lua-dao-ielts-chung-chi-gia-viet-nam` | Xem buổi đánh giá Speaking trực tiếp |
 | `/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam` | `/vi/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-lua-dao-ielts-chung-chi-gia-viet-nam` | Xem tài liệu luyện IELTS Speaking |
+| `/insights/ielts-for-ukvi-philippines` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-philippines` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/ielts-for-ukvi-philippines` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-philippines` | Browse IELTS Speaking practice materials |
+| `/insights/ielts-for-ukvi-malaysia` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-malaysia` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/ielts-for-ukvi-malaysia` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-malaysia` | Browse IELTS Speaking practice materials |
 
 ## Scope and verification
 

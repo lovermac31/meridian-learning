@@ -1433,5 +1433,79 @@
     "datePublished": "2026-11-02",
     "dateModified": "2026-11-02",
     "answer": true
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-philippines",
+    "alternatePath": "/insights/ielts-for-ukvi-philippines",
+    "locale": "en",
+    "title": "IELTS for UKVI in the Philippines: who needs it and how to book",
+    "description": "What IELTS for UKVI is, how it differs from standard IELTS, which UK visa routes need a secure English test, and how to book with IDP in the Philippines.",
+    "h1": "IELTS for UKVI in the Philippines: what it is, who needs it, how to book",
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "faq": [
+      {
+        "question": "Is IELTS for UKVI harder than standard IELTS?",
+        "answer": "IDP says it is exactly the same in format, content, scoring and difficulty. The difference is the security and the Test Report Form."
+      },
+      {
+        "question": "Can I take IELTS for UKVI online at home?",
+        "answer": "No. ielts.org says UKVI only accepts tests taken in person at an official IELTS for UKVI test centre."
+      },
+      {
+        "question": "What does IELTS for UKVI cost in the Philippines?",
+        "answer": "IDP Philippines listed PHP 16,230 for the Academic test on 2 November 2026. Fees change: check the provider."
+      },
+      {
+        "question": "Do all UK student visas need a SELT?",
+        "answer": "No. GOV.UK says degree-level applicants may have English assessed by their provider at CEFR B2. Check your route and your university."
+      },
+      {
+        "question": "Which ID should I bring?",
+        "answer": "The same one you registered with. IDP lists a valid passport, the Philippine National ID and certain government cards; GOV.UK requires an original, valid document with a photo."
+      }
+    ],
+    "hub": {
+      "name": "Philippines",
+      "path": "/ielts-speaking-online/philippines"
+    },
+    "answer": true
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-malaysia",
+    "alternatePath": "/insights/ielts-for-ukvi-malaysia",
+    "locale": "en",
+    "title": "IELTS for UKVI in Malaysia: checklist, fee and booking with IDP",
+    "description": "A practical checklist for booking IELTS for UKVI in Malaysia with IDP: formats, MyKad or passport, the RM935 Academic fee shown on 2 Nov 2026, and how to check your visa route first.",
+    "h1": "IELTS for UKVI in Malaysia: a booking checklist, and how to tell if you need it",
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "faq": [
+      {
+        "question": "Is the speaking test different for UKVI?",
+        "answer": "IDP Malaysia says the test is exactly the same in format, content, scoring and level of difficulty. The extra is security."
+      },
+      {
+        "question": "What does IELTS for UKVI Academic cost in Malaysia?",
+        "answer": "IDP Malaysia showed RM935 on 2 November 2026. Fees change: confirm in the booking system."
+      },
+      {
+        "question": "Which ID can I use?",
+        "answer": "IDP Malaysia asks for a scanned valid passport or MyKad at registration and the same ID on test day. GOV.UK requires an original, valid document with a photo."
+      },
+      {
+        "question": "Can I choose computer or paper?",
+        "answer": "IDP Malaysia says you decide between paper-based and computer-delivered formats when you book."
+      },
+      {
+        "question": "Do I always need a UKVI test for a UK student visa?",
+        "answer": "No. GOV.UK says degree-level applicants may have their English assessed by their provider at CEFR B2. Check with your university."
+      }
+    ],
+    "hub": {
+      "name": "Malaysia",
+      "path": "/ielts-speaking-online/malaysia"
+    },
+    "answer": true
   }
 ]
