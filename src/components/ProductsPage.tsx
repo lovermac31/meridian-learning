@@ -594,6 +594,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
                   <a className="insights-button-primary" href={ieltsAppHref('products', locale)} target="_blank" rel="noopener noreferrer" data-ielts-app-try="">{ieltsApp.primary}</a>
                   <a className="insights-button-secondary" href={ieltsHomeHref('speaking', locale)}>{ieltsApp.secondary}</a>
                 </div>
+                <p className="product-row-text" data-live-check-link="">{locale === 'vi' ? 'Muốn có người nghe bạn nói? Bước đầu thấp hơn Đánh giá Nói trực tiếp: ' : 'Want a person to listen? A lower first step than the Baseline: '}<a href={locale === 'vi' ? '/live-speaking-check?lang=vi&utm_source=products' : '/live-speaking-check?utm_source=products'}>{locale === 'vi' ? 'Kiểm tra Nói trực tiếp 30 phút · 250.000₫ (từ 18 tuổi)' : '30-minute Live Speaking Check · 250.000₫ (adults 18+)'}</a></p>
               </div>
             ) : null}
             {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }]).filter((list) => list.cards.length > 0).map(({ group, cards }) => (

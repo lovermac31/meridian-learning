@@ -348,15 +348,6 @@
       ]
     },
     {
-      "source": "/live-speaking-check(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
       "source": "/plans-pricing-access(.*)",
       "headers": [
         {

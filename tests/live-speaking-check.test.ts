@@ -25,9 +25,9 @@ test('Live Speaking Check: server memo, QR amount/memo and bank-stripped reconci
   assert.equal(usdFromVnd(250_000), 10);
 });
 
-test('Live Speaking Check: unlisted route is noindex, client-only, absent from the sitemap list', () => {
-  assert.match(resolveRouteMetadata('/live-speaking-check').robots ?? '', /noindex/);
-  assert.ok(getClientOnlyRoutes().includes('/live-speaking-check'));
-  assert.ok(getPrivateOrNonIndexableRoutes().includes('/live-speaking-check'));
-  assert.ok(!getExpectedPublicIndexableRoutes().includes('/live-speaking-check'));
+test('Live Speaking Check: public route is indexable, server-rendered and in the sitemap list', () => {
+  assert.doesNotMatch(resolveRouteMetadata('/live-speaking-check').robots ?? '', /noindex/);
+  assert.ok(!getClientOnlyRoutes().includes('/live-speaking-check'));
+  assert.ok(!getPrivateOrNonIndexableRoutes().includes('/live-speaking-check'));
+  assert.ok(getExpectedPublicIndexableRoutes().includes('/live-speaking-check'));
 });

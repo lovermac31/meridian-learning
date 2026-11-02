@@ -507,10 +507,9 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     shouldIndex: false,
   },
   '/live-speaking-check': {
-    title: '30-minute Live Speaking Check | Jurassic English™',
-    description: 'Unlisted booking page for the 30-minute Live Speaking Check. This page is not intended for search indexing.',
+    title: '30-minute Live Speaking Check: 250.000₫, adults 18+ | Jurassic English™',
+    description: 'A 30-minute one-to-one IELTS Speaking check on Google Meet with Mr. Jay Adams, plus a short written summary. 250.000₫; the fee counts toward the Baseline or an 8-lesson pack if you book within 14 days. Adults 18+.',
     canonicalPath: '/live-speaking-check',
-    shouldIndex: false,
   },
   '/external/pilot': {
     title: 'External Pilot Resource Portal | Jurassic English™',
@@ -1146,7 +1145,6 @@ export function getPrerenderRoutes(): string[] {
  */
 const CLIENT_ONLY_ROUTES = [
   '/plans-pricing-access',
-  '/live-speaking-check',
   '/external/pilot',
   '/internal/pilot-requests',
 ] as const;
@@ -1182,6 +1180,7 @@ export function getExpectedPublicIndexableRoutes(): string[] {
         '/teacher-standards',
         '/story-club',
         '/story-club/reserve',
+        '/live-speaking-check',
         '/products',
         ...PRODUCT_PAGE_PATHS,
         '/series/compare',
