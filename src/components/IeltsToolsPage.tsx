@@ -1,3 +1,4 @@
+import { IeltsAppEntrance } from './IeltsAppEntrance';
 import { AssetNextStep } from './AssetNextStep';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Locale } from '../i18n/locales';
@@ -178,6 +179,7 @@ export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
   const skills = ['Listening', 'Reading', 'Writing', 'Speaking'];
   return <main id="main-content" tabIndex={-1} className={pageClass}>
     <ToolHero locale={locale} title={c.calculator} lead={c.intro} eyebrow={locale === 'vi' ? 'Công cụ luyện IELTS' : 'IELTS practice tool'} counterpart={locale === 'vi' ? calculatorEn : calculatorVi} />
+    <IeltsAppEntrance placement="tool" locale={locale} />
     <div className="ielts-tool-content mx-auto max-w-3xl space-y-8 px-5 py-14">
       <section className={cardClass} aria-label={c.keyFacts}><h2 className="mb-3 text-xl font-semibold">{c.keyFacts}</h2><p className="font-semibold">{c.notOfficial}</p></section>
       <section className={cardClass} aria-label={c.calculator}>
@@ -270,7 +272,7 @@ export function IeltsSpeakingTimerPage({ locale }: { locale: Locale }) {
       discard(); active.start(); setRecording(true);
     } catch { stream.current?.getTracks().forEach((track) => track.stop()); stream.current = null; setMicError(true); }
   };
-  return <main id="main-content" tabIndex={-1} className={pageClass}><ToolHero locale={locale} title={c.timer} lead={c.timerIntro} eyebrow={locale === 'vi' ? 'Công cụ luyện IELTS' : 'IELTS practice tool'} counterpart={locale === 'vi' ? timerEn : timerVi} /><div className="ielts-tool-content mx-auto max-w-3xl space-y-7 px-5 py-14">
+  return <main id="main-content" tabIndex={-1} className={pageClass}><ToolHero locale={locale} title={c.timer} lead={c.timerIntro} eyebrow={locale === 'vi' ? 'Công cụ luyện IELTS' : 'IELTS practice tool'} counterpart={locale === 'vi' ? timerEn : timerVi} /><IeltsAppEntrance placement="tool" locale={locale} /><div className="ielts-tool-content mx-auto max-w-3xl space-y-7 px-5 py-14">
     <section className={cardClass}><label className="font-semibold" htmlFor="timer-topic">{c.chooseTopic}</label><select id="timer-topic" className={inputClass} value={topic} onChange={(event) => { reset(); setTopic(Number(event.target.value)); }}>{topics.map((pair, index) => <option key={pair[0]} value={index}>{pair[locale === 'vi' ? 1 : 0]}</option>)}</select>
       <p className="mt-5 text-xl font-semibold">{locale === 'vi' ? `Hãy kể về ${topics[topic][1]}. Bạn nên nói đó là gì, vì sao bạn nhớ và điều bạn học được.` : `Describe ${topics[topic][0]}. Say what it is, why you remember it, and what you learned.`}</p>
       <p role="timer" aria-live="off" className="mt-6 text-center text-5xl font-bold tabular-nums">{Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, '0')}</p><p role="status" aria-live="polite" className="mt-2 text-center font-semibold">{c[phase]}</p>

@@ -99,6 +99,8 @@ const en = {
       primary: 'Try it free',
       secondary: 'See IELTS Speaking packs',
       imageAlt: 'Practice screen of the IELTS Speaking app',
+      banner: 'Free IELTS Speaking practice: 2 attempts',
+      adults: 'Adults 18+',
     },
     // "Find what you need" (master, 27 Oct 2026): one strip under the hero, a tile per /products section with its
     // starting price and the image of the product at that price. Promise lines are the /products section intros.
@@ -323,6 +325,8 @@ const vi: OverhaulContent = {
       primary: 'Dùng thử miễn phí',
       secondary: 'Xem các gói IELTS Speaking',
       imageAlt: 'Màn hình luyện tập của ứng dụng IELTS Speaking',
+      banner: 'Luyện IELTS Speaking miễn phí: 2 lượt thử',
+      adults: 'Người lớn 18+',
     },
     find: {
       heading: 'Tìm đúng thứ bạn cần',

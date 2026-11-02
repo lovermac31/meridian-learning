@@ -22,7 +22,7 @@ test('home: the IELTS app strip sits directly under the hero, EN + VI, with the 
     assert.ok(strip > hero && strip < html.indexOf('data-home-tile'), `${path}: between the hero and the Find strip`);
     const block = html.slice(strip, html.indexOf('</section>', strip));
     assert.ok(block.includes(`>${title}<`), `${path}: headline`);
-    assert.match(block, new RegExp(`href="${ieltsAppHref('home').replace(/[?&.]/g, '\\$&')}" target="_blank" rel="noopener noreferrer"[^>]*data-cta="ielts-app-home"`), `${path}: entrance link`);
+    assert.match(block, new RegExp(`href="${ieltsAppHref('home', path === '/vi' ? 'vi' : 'en').replace(/[?&.]/g, '\\$&')}" target="_blank" rel="noopener noreferrer"[^>]*data-cta="ielts-app-home"`), `${path}: entrance link`);
     assert.ok(block.includes(`href="${packs}"`), `${path}: packs link`);
     assert.match(block, /<img src="\/images\/ielts-app-screen\.webp"[^>]*alt="[^"]+"/, `${path}: labelled screenshot`);
     assert.doesNotMatch(block, /band \d|guarantee|score of/i);
@@ -39,7 +39,7 @@ test('/products: the free IELTS app card tops the IELTS group with utm_content=p
     const card = section.indexOf('data-ielts-app-card');
     assert.ok(card > 0 && card < section.indexOf('data-ielts-group="speaking"'), `${locale}: above the Speaking group`);
     assert.ok(section.includes(`>${title}<`), `${locale}: title`);
-    assert.ok(section.includes(`href="${ieltsAppHref('products')}"`), `${locale}: entrance link`);
+    assert.ok(section.includes(`href="${ieltsAppHref('products', locale)}"`), `${locale}: entrance link`);
     assert.doesNotMatch(section.slice(card, section.indexOf('data-ielts-group="speaking"')), /<li |data-price=/, `${locale}: not a priced product card`);
     assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 35, `${locale}: 35 product cards as before`);
   }
