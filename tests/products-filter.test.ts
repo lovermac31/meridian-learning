@@ -4,28 +4,36 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ProductsPage, productAnchor } from '../src/components/ProductsPage';
 import { PRODUCTS, PRODUCT_SECTIONS, PRODUCT_FORMER_IDS, productsPage } from '../src/i18n/content/products';
+import { FEATURED_PRODUCTS } from '../src/components/ProductsPage';
 
-// Stitch layout (Jay's mock, 2 Nov 2026): a segment filter row over one wide card per product. SSR shows every section
-// unfiltered (no tile pressed, nothing hidden) so search engines, deep links and the no-JS page see all 35 cards.
+// Stitch layout (Jay's mock, 2 Nov 2026) with featured-first (Jay, "tighten"): a segment filter row over one wide card
+// per product. SSR renders all 35 cards (search engines and deep links see them) but only the six featured cards show;
+// the rest sit behind the segment tiles and "Show all 35 products".
 for (const locale of ['en', 'vi'] as const) {
-  test(`filter ${locale}: four segment tiles with real counts and lowest prices; nothing pressed or hidden in SSR`, () => {
+  test(`filter ${locale}: four segment tiles with real counts and lowest prices; six featured cards show, the rest wait behind the filters`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     const tiles = [...html.matchAll(/aria-pressed="(true|false)" aria-controls="([^"]+)" data-category-tile="([^"]+)"/g)];
     assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SECTIONS.map((id) => [id, 'false', id]));
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
     assert.equal(total, 35);
     for (const section of productsPage(locale).sections) {
-      assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*" data-category-panel="${section.id}">`), `${section.id}: visible, not hidden`);
+      const featuredHere = section.cards.some((card) => (FEATURED_PRODUCTS as readonly string[]).includes(card.id));
+      assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*"${featuredHere ? '' : ' hidden=""'} data-category-panel="${section.id}">`), `${section.id}: ${featuredHere ? 'shown' : 'hidden'} until its tile is pressed`);
       const count = section.cards.length;
       const price = Math.min(...section.cards.map((card) => Number(card.price.replace(/\D/g, '')))).toLocaleString('de-DE');
       const tile = html.match(new RegExp(`data-category-tile="${section.id}"[\\s\\S]*?</button>`))![0];
       assert.ok(tile.includes(`${count} ${locale === 'vi' ? 'sản phẩm' : 'products'}`));
       assert.ok(tile.includes(`${price}₫`));
     }
-    assert.ok(html.includes(`data-products-count="${total}"`), 'the count line shows every product');
-    assert.ok(html.includes(locale === 'vi' ? `Hiển thị tất cả ${total} sản phẩm` : `Showing all ${total} products`));
-    assert.doesNotMatch(html, /data-products-show-all/, 'no "show all" control until a segment is pressed');
-    assert.doesNotMatch(html, /<section[^>]* hidden/, 'no section hidden in SSR');
+    assert.equal(FEATURED_PRODUCTS.length, 6);
+    assert.deepEqual(FEATURED_PRODUCTS.slice(0, 3), ['story-club', 'baseline', 'one-to-one'], 'the three live services lead');
+    for (const id of FEATURED_PRODUCTS) assert.ok(PRODUCTS.find((p) => p.id === id)?.live, `${id} is a live product`);
+    assert.ok(html.includes('data-products-count="6"'), 'the count line shows the six featured cards');
+    assert.ok(html.includes(locale === 'vi' ? `Hiển thị 6/${total} sản phẩm` : `Showing 6 of ${total} products`));
+    assert.ok(html.includes(locale === 'vi' ? `>Xem tất cả ${total} sản phẩm<` : `>Show all ${total} products<`), 'the "show all" control');
+    const visible = [...html.matchAll(/<li class="product-row[^"]*" id="([^"]+)"(?: hidden="")?>/g)].filter((m) => !m[0].includes('hidden')).map((m) => m[1]);
+    assert.deepEqual(visible, [...FEATURED_PRODUCTS].sort((a, b) => PRODUCTS.findIndex((p) => p.id === a) - PRODUCTS.findIndex((p) => p.id === b)), 'only the featured cards show, in catalogue order');
+    assert.equal((html.match(/<li class="product-row[^"]*" id="[^"]+" hidden="">/g) ?? []).length, 35 - 6, 'the other cards are in the DOM, hidden');
   });
 
   test(`cards ${locale}: every product in SSR with its copy, badge, lazy icon, sample above the price, and payment links`, () => {
@@ -44,6 +52,9 @@ for (const locale of ['en', 'vi'] as const) {
       assert.match(card, /loading="lazy"/);
       const at = (marker: string) => card.indexOf(marker);
       assert.ok(at('</dl>') < at(`data-sample="${product.id}"`) && at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → sample → price → buttons`);
+      // One payment line under the price (the delivery line); the long PayPal note stays in the FAQ, not on every card.
+      if (product.delivery) assert.ok(at(`data-price="${product.id}"`) < at(`data-delivery="${product.id}"`) && at(`data-delivery="${product.id}"`) < at('data-buy-now='), `${product.id}: payment line between price and buttons`);
+      assert.doesNotMatch(card, /paypal\.com to Jurassic English|paypal\.com cho Jurassic English/, `${product.id}: no PayPal paragraph on the card`);
       if (product.paypal) assert.ok(card.includes(`data-paypal-link="${product.id}"`));
       if (product.video) assert.ok(card.includes(`data-watch="${product.id}"`));
       assert.doesNotMatch(card, /aria-expanded|data-open=|inert=/, `${product.id}: no fold, the card is open`);

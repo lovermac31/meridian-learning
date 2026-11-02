@@ -64,7 +64,7 @@
 .product-row {
   display: grid;
   grid-template-columns: 56px minmax(0, 1fr);
-  grid-template-areas: "icon head" "side side" "text text" "notes notes" "actions actions";
+  grid-template-areas: "icon head" "price price" "pay pay" "sample sample" "text text" "notes notes" "actions actions";
   gap: .6rem .75rem;
   padding: 1rem;
   background: #fff;
@@ -89,13 +89,14 @@
 .product-row-tick::before { content: '✓'; position: absolute; left: 0; top: 0; font-weight: 900; color: var(--color-sb-sage-ink); }
 .product-row-notes { grid-area: notes; display: grid; gap: .3rem; font-size: .85rem; line-height: 1.5; }
 .product-row-notes > * { margin: 0; }
-.product-row-side { grid-area: side; display: grid; gap: .45rem; align-content: start; }
-.product-row-sample { padding: 0; }
+.product-row[hidden], .products-category[hidden], .products-ielts-heading[hidden], .products-also[hidden] { display: none; }
+.product-row-sample { grid-area: sample; padding: 0; }
+.product-row-pay { grid-area: pay; margin: 0; font-size: .8rem; line-height: 1.45; color: var(--color-sb-slate); }
 .product-row-sample > p { font-size: .75rem; font-weight: 800; color: var(--color-sb-slate); }
 .product-row-sample button { margin-top: .25rem; max-width: 260px; }
 .product-row-sample button .grid { gap: .35rem; }
 .product-row-sample button > span:last-child { font-size: .8rem; }
-.product-row-price { margin: 0; font-size: 1.7rem; font-weight: 900; line-height: 1.1; color: var(--color-sb-forest); }
+.product-row-price { grid-area: price; margin: 0; font-size: 1.7rem; font-weight: 900; line-height: 1.1; color: var(--color-sb-forest); }
 .product-row-price > span { display: block; margin-top: .2rem; font-size: .8rem; font-weight: 600; line-height: 1.35; color: var(--color-sb-slate); }
 .products-page .product-row-actions { grid-area: actions; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: 0; padding-top: .75rem; border-top: 1px solid var(--color-sb-border); }
 .products-page .product-row-actions .insights-button-primary, .products-page .product-row-actions .insights-button-secondary { min-height: 48px; margin: 0; padding: .55rem 1rem; border-radius: .6rem; font-size: .875rem; }
@@ -110,13 +111,14 @@
 @media (min-width: 768px) {
   .product-row {
     grid-template-columns: 72px minmax(0, 1fr) 232px;
-    grid-template-areas: "icon head side" "icon text side" "icon notes side" "actions actions actions";
+    grid-template-areas: "icon head sample" "icon text sample" "icon text price" "icon notes pay" "actions actions actions";
+    align-items: start;
     column-gap: 1.25rem;
     padding: 1.25rem 1.5rem;
   }
   .product-row-icon { width: 72px; height: 72px; }
-  .product-row-side { justify-items: end; text-align: right; }
-  .product-row-sample button { max-width: 232px; }
+  .product-row-sample { justify-self: end; width: 100%; max-width: 232px; }
+  .product-row-price, .product-row-pay { text-align: right; align-self: start; }
   .product-row-price { font-size: 2rem; }
   .products-page .product-row-watch { margin-left: auto; }
 }

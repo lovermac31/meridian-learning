@@ -3,28 +3,28 @@
     "locale": "en",
     "width": 390,
     "cards": 35,
-    "axeScans": 3,
+    "axeScans": 4,
     "errors": []
   },
   {
     "locale": "vi",
     "width": 390,
     "cards": 35,
-    "axeScans": 3,
+    "axeScans": 4,
     "errors": []
   },
   {
     "locale": "en",
     "width": 1280,
     "cards": 35,
-    "axeScans": 3,
+    "axeScans": 4,
     "errors": []
   },
   {
     "locale": "vi",
     "width": 1280,
     "cards": 35,
-    "axeScans": 3,
+    "axeScans": 4,
     "errors": []
   }
 ]

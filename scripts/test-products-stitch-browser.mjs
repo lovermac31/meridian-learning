@@ -28,7 +28,8 @@ try {
     assert.equal(ids.length, 35, `${locale} ${width}: 35 cards`);
     assert.equal(await page.locator('h1').count(), 1);
     for (const id of ['families', 'teachers', 'centres', 'ielts']) assert.equal(await tile(id).getAttribute('aria-pressed'), 'false');
-    assert.equal(await count(), '35');
+    assert.equal(await count(), '6', 'featured-first: six cards open the page');
+    assert.equal(await page.locator('.products-page li[id]:visible').count(), 6);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `${locale} ${width}: no horizontal overflow`);
     const undersized = await page.locator('[data-category-tile], [data-sample-open], [data-watch], [data-buy-now], [data-cta^="product-"], [data-product-page], [data-products-show-all], .products-faq summary').evaluateAll((es) => es.filter((e) => e.offsetParent !== null).filter((e) => e.getBoundingClientRect().height < 44 || e.getBoundingClientRect().width < 44).map((e) => e.outerHTML.slice(0, 120)));
     assert.deepEqual(undersized, [], `${locale} ${width}: every control at least 44 px`);
@@ -38,7 +39,7 @@ try {
       scans.push({ state, violations: axe.violations.map((v) => ({ id: v.id, nodes: v.nodes.map((n) => n.target) })) });
       assert.equal(axe.violations.length, 0, `${locale} ${width} ${state}: ${JSON.stringify(scans.at(-1))}`);
     };
-    await capture('all');
+    await capture('featured');
     // Filter: one segment at a time, the count follows, and "show all" restores the page.
     await tile('teachers').click();
     assert.equal(await tile('teachers').getAttribute('aria-pressed'), 'true');
@@ -51,6 +52,8 @@ try {
     assert.equal(await count(), '8');
     await page.locator('[data-products-show-all]').click();
     assert.equal(await count(), '35');
+    assert.equal(await page.locator('.products-page li[id]:visible').count(), 35);
+    await capture('all');
     // Sample viewer: opens from the card button, Escape closes it and returns focus.
     await page.locator('[data-sample-open="story-club"]').click();
     await page.locator('[data-sample-viewer="story-club"]').waitFor();

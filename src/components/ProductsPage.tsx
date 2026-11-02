@@ -342,7 +342,15 @@ const CATEGORY_COPY = {
 // from the product data or copy already on the site (Story Club, the Baseline, 1-to-1, the sample and payment lines),
 // never from the mock's placeholder text. The announcement bar is omitted: the data holds no dated line to put in it.
 type TrustItem = { icon: typeof Users; title: string; body: string };
-const HUB_COPY: Record<Locale, { trustLabel: string; trust: TrustItem[]; showing: (shown: number, total: number) => string; showAll: string; faq: string }> = {
+
+/**
+ * Featured-first (Jay, 2 Nov 2026, "tighten"): the page opens on six full cards; the other 29 sit behind the segment
+ * filters and "Show all". The three live services lead; then the Level 1 Printable Storybook Pack (the families tile
+ * on the home page), the Level 1 Parent Home Reading Pack (the first parent pack) and the IELTS Speaking Ladder (the
+ * first IELTS card). No sales data is in the repo, so the order is the site's own: home tile, then catalogue order.
+ */
+export const FEATURED_PRODUCTS = ['story-club', 'baseline', 'one-to-one', 'printable-pack', 'parent-pack-l1', 'ielts-speaking-ladder'] as const;
+const HUB_COPY: Record<Locale, { trustLabel: string; trust: TrustItem[]; showing: (shown: number, total: number) => string; showAll: (total: number) => string; faq: string }> = {
   en: {
     trustLabel: 'What to expect',
     trust: [
@@ -352,7 +360,7 @@ const HUB_COPY: Record<Locale, { trustLabel: string; trust: TrustItem[]; showing
       { icon: QrCode, title: 'Pay by VietQR', body: 'Nothing is charged until you accept a written order summary.' },
     ],
     showing: (shown, total) => (shown === total ? `Showing all ${total} products` : `Showing ${shown} of ${total} products`),
-    showAll: 'Show all products',
+    showAll: (total) => `Show all ${total} products`,
     faq: 'Questions',
   },
   vi: {
@@ -364,7 +372,7 @@ const HUB_COPY: Record<Locale, { trustLabel: string; trust: TrustItem[]; showing
       { icon: QrCode, title: 'Thanh toán qua VietQR', body: 'Không thu tiền cho đến khi bạn đồng ý bản tóm tắt đơn hàng bằng văn bản.' },
     ],
     showing: (shown, total) => (shown === total ? `Hiển thị tất cả ${total} sản phẩm` : `Hiển thị ${shown}/${total} sản phẩm`),
-    showAll: 'Xem tất cả sản phẩm',
+    showAll: (total) => `Xem tất cả ${total} sản phẩm`,
     faq: 'Câu hỏi thường gặp',
   },
 };
@@ -394,15 +402,15 @@ export function productAnchor(hash: string, locale: Locale) {
 // One wide card per product (the mock's row): icon tile, badge pill and audience line, the title, "The problem" and two
 // tick lines from the card's own copy, the sample thumbnails above the price, then the order buttons. DOM order is the
 // one the tests and Jay's rule pin: text → sample → price → buttons; the grid places the sample and price on the right.
-function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome }: {
+function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome, visible }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
-  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>;
+  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>; visible: boolean;
 }) {
   const external = card.href === 'zalo';
   const href = external ? zaloHref(source) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
   return (
-    <li className="product-row scroll-mt-24 max-md:scroll-mt-36" id={card.id}>
+    <li className="product-row scroll-mt-24 max-md:scroll-mt-36" id={card.id} hidden={!visible}>
       {card.image ? (
         <div className="product-row-icon">
           <img {...productImageSources(card.image)} sizes="72px" alt="" width={480} height={480} loading="lazy" decoding="async" className="product-row-image aspect-square" data-product-image={card.id} />
@@ -422,14 +430,12 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
       </dl>
       <div className="product-row-notes">
         <CardLink card={card} locale={locale} />
-        {card.delivery ? <p className="product-row-tick" data-delivery={card.id}>{delivery}</p> : null}
-        {card.paypal ? <p data-paypal-note={card.id}>{PAYPAL_CARD_COPY[locale].note}</p> : null}
         {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={ieltsHome[card.group]} id={card.id} /> : null}
       </div>
-      <div className="product-row-side">
-        <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} compact />
-        <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
-      </div>
+      <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} compact />
+      <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
+      {/* One payment line under the price (the delivery line's own wording); the PayPal link stays in the footer row. */}
+      {card.delivery ? <p className="product-row-pay" data-delivery={card.id}>{delivery}</p> : null}
       <div className="product-row-actions story-cta">
         {paidOffer(card.id) ? <a className="insights-button-primary" href={paymentHref(card.id, locale)} data-buy-now={card.id}>{buyCta(card.id, locale)}</a> : null}
         {card.sample ? <button type="button" className="insights-button-secondary" onClick={() => { onOpenSample(card); recordClientEvent({ event: 'sample_open', product_id: card.id }); }} data-sample-open={card.id}>{sample.heading}</button> : null}
@@ -461,9 +467,12 @@ export function ProductsPage({ locale }: { locale: Locale }) {
   const [viewer, setViewer] = useState<ProductCard | null>(null);
   // The segment filter. SSR and the first client render show every section; a segment narrows the page to its cards.
   const [filter, setFilter] = useState<ProductSectionId | null>(null);
+  // Featured-first: until a segment is pressed or "Show all" is used, only FEATURED_PRODUCTS show as cards.
+  const [showAll, setShowAll] = useState(false);
+  const isVisible = (id: string, section: ProductSectionId) => (filter ? filter === section : showAll || (FEATURED_PRODUCTS as readonly string[]).includes(id));
   const categoryCopy = CATEGORY_COPY[locale];
   const total = c.sections.reduce((sum, section) => sum + section.cards.length, 0);
-  const shown = filter ? (c.sections.find((section) => section.id === filter)?.cards.length ?? total) : total;
+  const shown = c.sections.reduce((sum, section) => sum + section.cards.filter((card) => isVisible(card.id, section.id)).length, 0);
   const faq = [
     { question: FAQ_QUESTIONS[locale].sample, answer: `${c.sample.note} ${c.viewer.viewOnly}` },
     { question: FAQ_QUESTIONS[locale].pay, answer: c.delivery },
@@ -477,7 +486,11 @@ export function ProductsPage({ locale }: { locale: Locale }) {
       if (!anchor) return;
       // A section anchor (#teachers, #ielts-speaking) selects that segment; a card anchor keeps the current segment
       // unless it would hide the card, in which case the whole catalogue shows again.
-      setFilter((current) => (anchor.product ? (current && current !== anchor.section ? null : current) : anchor.section));
+      setFilter((current) => {
+        if (!anchor.product) return anchor.section;
+        if (current) return current === anchor.section ? current : anchor.section;
+        return showAll || (FEATURED_PRODUCTS as readonly string[]).includes(anchor.product) ? current : anchor.section;
+      });
       if (anchor.sample) {
         const card = productsPage(locale).sections.flatMap((section) => section.cards).find((card) => card.id === anchor.product);
         if (card) setViewer(card);
@@ -498,7 +511,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
     window.addEventListener('popstate', openFromHash);
     document.addEventListener('click', onAnchorClick);
     return () => { clearTimeout(scrollTimer); window.removeEventListener('hashchange', openFromHash); window.removeEventListener('popstate', openFromHash); document.removeEventListener('click', onAnchorClick); };
-  }, [locale]);
+  }, [locale, showAll]);
   const closeViewer = () => {
     const id = viewer?.id;
     setViewer(null);
@@ -547,24 +560,24 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           <a href={productHref('/', locale)} className="products-home inline-flex items-center gap-2 font-bold underline underline-offset-4"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> {c.back}</a>
           <p className="products-count" aria-live="polite" data-products-count={shown}>
             <span>{hub.showing(shown, total)}</span>
-            {filter ? <button type="button" onClick={() => setFilter(null)} data-products-show-all="">{hub.showAll}</button> : null}
+            {shown < total ? <button type="button" onClick={() => { setFilter(null); setShowAll(true); }} data-products-show-all="">{hub.showAll(total)}</button> : null}
           </p>
         </div>
         {c.sections.map((section) => (
-          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="products-category scroll-mt-24 max-md:scroll-mt-36" hidden={filter !== null && filter !== section.id} data-category-panel={section.id}>
+          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="products-category scroll-mt-24 max-md:scroll-mt-36" hidden={!section.cards.some((card) => isVisible(card.id, section.id))} data-category-panel={section.id}>
             <div className="products-category-head">
               <h2 id={`${section.id}-h`}>{section.heading}</h2>
               <p className="products-category-intro">{section.intro}</p>
             </div>
             {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }]).filter((list) => list.cards.length > 0).map(({ group, cards }) => (
               <div key={group ?? 'all'} data-ielts-group={group ?? undefined}>
-                {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24">{c.ielts.groups[group]}</h3> : null}
+                {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card.id, section.id))}>{c.ielts.groups[group]}</h3> : null}
                 <ul className="products-rows">
-                  {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} />)}
+                  {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} visible={isVisible(card.id, section.id)} />)}
                 </ul>
               </div>
             ))}
-            {section.also.map((line) => <p key={line.id} className="products-also" data-also={line.id}>{line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}</p>)}
+            {section.also.map((line) => <p key={line.id} className="products-also" data-also={line.id} hidden={!showAll && filter !== section.id}>{line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}</p>)}
           </section>
         ))}
       </div>
