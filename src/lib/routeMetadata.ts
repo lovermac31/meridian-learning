@@ -111,7 +111,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     title: 'IELTS Score Calculator: Free Overall Band Calculator',
     description: 'Free IELTS band calculator: enter your Listening, Reading, Writing and Speaking bands to get the overall score. See how .25 rounds up to .5 and .75 up to 1.0.',
     canonicalPath: '/tools/ielts-band-score-calculator',
-    localized: { vi: { title: 'Cách làm tròn điểm IELTS Overall: công cụ tính điểm 4 kỹ năng', description: 'Điểm IELTS làm tròn thế nào? Trung bình ,25 làm tròn lên 0,5 và ,75 lên 1,0 (6,25 → 6,5; 6,75 → 7,0). Nhập 4 điểm kỹ năng để tính overall ngay.' } },
+    localized: { vi: { title: 'Cách làm tròn điểm IELTS Overall: công cụ tính điểm', description: 'Điểm IELTS làm tròn thế nào? Trung bình ,25 làm tròn lên 0,5 và ,75 lên 1,0 (6,25 → 6,5; 6,75 → 7,0). Nhập 4 điểm kỹ năng để tính overall ngay.' } },
   },
   '/tools/ielts-speaking-part-2-timer': {
     title: 'IELTS Speaking Part 2 Timer: 1 Min Prep, 2 Min Speaking | Jurassic English™',

@@ -31,12 +31,12 @@
 - PayPal USD: not listed
 - Sample: view-only pages on the product page
 
-### 1-to-1 lessons with Mr. Jay’s team
+### 1-to-1 lessons with Mr. Jay
 - ID: `one-to-one`
 - English: https://jurassicenglish.com/products/one-to-one
 - Vietnamese: https://jurassicenglish.com/vi/products/one-to-one
-- English description: Private 60-minute online lessons with Mr. Jay’s team of professional teachers, built on a speaking diagnosis. 800.000₫ a lesson, 8 lessons 5.600.000₫.
-- Vietnamese title: Học tiếng Anh 1 kèm 1 online với đội ngũ thầy Jay
+- English description: Private 60-minute online lessons with Mr. Jay Adams (CELTA, 120-hour TEFL), built on a speaking diagnosis. 800.000₫ a lesson, 8 lessons 5.600.000₫.
+- Vietnamese title: Học tiếng Anh 1 kèm 1 online với thầy Jay
 - VND price: 800.000 VND
 - PayPal USD: not listed
 - Sample: view-only pages on the product page
