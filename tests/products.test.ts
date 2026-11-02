@@ -126,7 +126,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const credited = cards.filter((card) => /credited|trừ vào/i.test(JSON.stringify(card))).map((card) => card.id);
     assert.deepEqual(credited, ['curriculum-overview']);
     assert.match(cards.find((card) => card.id === 'curriculum-overview')!.unit, /Centre Licence|Giấy phép Trung tâm/);
-    assert.match(cards.find((card) => card.id === 'one-to-one')!.title, /Mr\. Jay’s team|đội ngũ của thầy Jay/);
+    assert.match(cards.find((card) => card.id === 'one-to-one')!.title, /with Mr\. Jay$|với thầy Jay$/);
   }
 });
 
