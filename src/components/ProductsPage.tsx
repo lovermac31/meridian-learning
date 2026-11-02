@@ -26,6 +26,7 @@ import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
 import { FAQ_QUESTIONS, productPath } from '../i18n/content/productSeo';
 import { getOverhaulContent } from '../i18n/content/overhaul';
 import { ieltsAppHref } from '../lib/ieltsApp';
+import { IeltsAppEntrance } from './IeltsAppEntrance';
 import { PRODUCT_VIDEO_ANCHOR, VIDEO_COPY } from '../i18n/content/productVideos';
 import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
@@ -547,6 +548,8 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           </ul>
         </div>
       </header>
+      {/* IELTS app, one row at the top of the catalogue (coverage audit, 2 Nov 2026: the card below sat 31,500 px down). */}
+      <IeltsAppEntrance placement="products" locale={locale} variant="banner" />
       <nav aria-label={categoryCopy.label} className="products-overview" data-products-mini-nav="">
         <ul>
           {PRODUCT_SECTIONS.map((id) => {
@@ -581,12 +584,12 @@ export function ProductsPage({ locale }: { locale: Locale }) {
               <div className="product-row product-row-free" data-ielts-app-card="">
                 <div className="product-row-icon"><img src="/images/w/ielts-app-screen-640.webp" alt="" width={640} height={400} loading="lazy" decoding="async" className="product-row-image" /></div>
                 <div className="product-row-head">
-                  <p className="product-row-meta"><span className="product-row-pill">{IELTS_APP_CARD[locale].label}</span><span>{ieltsApp.eyebrow}</span></p>
-                  <h3><a href={ieltsAppHref('products')} target="_blank" rel="noopener noreferrer" data-cta="ielts-app-products">{IELTS_APP_CARD[locale].title}</a></h3>
+                  <p className="product-row-meta"><span className="product-row-pill">{IELTS_APP_CARD[locale].label}</span><span className="product-row-pill" data-ielts-app-adults="">{ieltsApp.adults}</span><span>{ieltsApp.eyebrow}</span></p>
+                  <h3><a href={ieltsAppHref('products', locale)} target="_blank" rel="noopener noreferrer" data-cta="ielts-app-products">{IELTS_APP_CARD[locale].title}</a></h3>
                 </div>
                 <p className="product-row-text">{ieltsApp.body}</p>
                 <div className="product-row-actions story-cta">
-                  <a className="insights-button-primary" href={ieltsAppHref('products')} target="_blank" rel="noopener noreferrer" data-ielts-app-try="">{ieltsApp.primary}</a>
+                  <a className="insights-button-primary" href={ieltsAppHref('products', locale)} target="_blank" rel="noopener noreferrer" data-ielts-app-try="">{ieltsApp.primary}</a>
                   <a className="insights-button-secondary" href={ieltsHomeHref('speaking', locale)}>{ieltsApp.secondary}</a>
                 </div>
               </div>

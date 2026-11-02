@@ -22,7 +22,7 @@ const render = (path: string) => {
 test('home: "See all products" beside the main hero button, tagged home-hero (EN + VI)', () => {
   for (const [path, href, label] of [['/', '/products?utm_source=home-hero', 'See all products'], ['/vi', '/vi/products?utm_source=home-hero', 'Xem tất cả sản phẩm']]) {
     const html = render(path);
-    const hero = html.slice(0, html.indexOf('</section>'));
+    const hero = html.slice(html.indexOf('<section'), html.indexOf('</section>'));
     assert.match(hero, new RegExp(`<a href="${href.replace('?', '\\?')}"[^>]*>${label}<`), path);
     assert.equal([...hero.matchAll(/<a href=/g)].length, 2, `${path}: one main and one secondary button`);
   }
