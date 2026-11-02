@@ -33,6 +33,7 @@ jobs:
     timeout-minutes: 5
     env:
       GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
       SIMULATE_FAILURE: ${{ inputs.simulate_failure && '1' || '0' }}
     steps:
       - name: Probe endpoints
