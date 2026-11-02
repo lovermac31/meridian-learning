@@ -1003,5 +1003,50 @@
         "text": "Xem tài liệu luyện IELTS Speaking"
       }
     ]
+  },
+  {
+    "path": "/insights/ielts-scams-fake-certificates-uae",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-uae",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-uae",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-uae",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-uae",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-uae",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/insights/computer-delivered-ielts-uae",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-uae",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-uae",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
   }
 ]

@@ -1749,5 +1749,116 @@
         "answer": "IDP yêu cầu mang bản gốc giấy tờ tùy thân hoặc hộ chiếu khi đăng ký tại văn phòng."
       }
     ]
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/ielts-scams-fake-certificates-uae",
+    "locale": "en",
+    "title": "Fake IELTS Certificate and Scams in the UAE",
+    "description": "What the British Council UAE says about a fake IELTS certificate, score promises and fake messages, how to book safely, and how to report fraud.",
+    "h1": "Fake IELTS certificates and IELTS scams in the UAE: what the British Council warns about",
+    "faq": [
+      {
+        "question": "Is a fake IELTS certificate ever legal or safe in the UAE?",
+        "answer": "No. The British Council UAE warns candidates to be cautious of scammers offering fake certificates, and says anyone who promises a higher score is probably trying to defraud you."
+      },
+      {
+        "question": "Does the British Council ever ask for my personal details by phone or email?",
+        "answer": "Its UAE fraud page says it will never contact you to request your personal information and will never say it has lost your information."
+      },
+      {
+        "question": "How do I report a suspected IELTS fraud?",
+        "answer": "The British Council UAE page asks you to report suspected fraud carried out in its name, with details, to IELTS.Security@britishcouncil.org. IDP's guidance also lists security.ielts@idp.com."
+      },
+      {
+        "question": "How long do computer-delivered results take in the UAE?",
+        "answer": "The British Council UAE's own pages differ: its results page says within 1 to 5 days, its fraud page says 5-7 days. Confirm in your booking."
+      },
+      {
+        "question": "Can I check someone else's certificate?",
+        "answer": "Not as a member of the public. Organisations that accept IELTS use the IELTS Results Service."
+      }
+    ],
+    "hub": {
+      "name": "UAE",
+      "path": "/ielts-speaking-online/uae"
+    },
+    "alternatePath": "/insights/ielts-scams-fake-certificates-uae"
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/ielts-for-ukvi-uae",
+    "locale": "en",
+    "title": "IELTS for UKVI UAE: Fee, ID and How to Book",
+    "description": "IELTS for UKVI in the UAE: what it is, who needs a UK secure English test, the British Council UAE fee and ID rule, and how to book.",
+    "h1": "IELTS for UKVI in the UAE: what it is, who needs it, how to book",
+    "faq": [
+      {
+        "question": "What does IELTS for UKVI cost at the British Council in the UAE?",
+        "answer": "Its booking page showed AED 1,680 for IELTS for UK Visas and Immigration on computer (Academic and General Training) on 2 November 2026, and AED 810 for UKVI Life Skills. Check the provider."
+      },
+      {
+        "question": "Can I take IELTS for UKVI with Writing on Paper?",
+        "answer": "No. The British Council UAE says Writing on Paper is not available for UKVI tests."
+      },
+      {
+        "question": "Which ID is accepted?",
+        "answer": "The booking page says a valid ID such as a passport or Emirates ID, shown on test day. GOV.UK requires an original, valid document with a photo for secure tests."
+      },
+      {
+        "question": "Do all UK student visas need a secure English test?",
+        "answer": "No. GOV.UK says degree-level applicants may have English assessed by their education provider at CEFR B2. Check your route and your university."
+      },
+      {
+        "question": "How soon are results?",
+        "answer": "The British Council UAE results page says within 1 to 5 days after the test for IELTS on computer, including UKVI."
+      }
+    ],
+    "hub": {
+      "name": "UAE",
+      "path": "/ielts-speaking-online/uae"
+    },
+    "alternatePath": "/insights/ielts-for-ukvi-uae"
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/computer-delivered-ielts-uae",
+    "locale": "en",
+    "title": "Computer-Delivered IELTS UAE: Fees, Results, Formats",
+    "description": "Computer-delivered IELTS in the UAE: British Council UAE fees, formats including Writing on Paper, results times, ID and what changes on screen.",
+    "h1": "Computer-delivered IELTS in the UAE: formats, fees, results and what changes",
+    "faq": [
+      {
+        "question": "What formats does the British Council UAE offer?",
+        "answer": "Its locations page says you can take IELTS on computer or IELTS on computer with Writing on Paper (not available for UKVI). Its booking page also says paper or computer, so confirm the format of your session."
+      },
+      {
+        "question": "How much is IELTS on computer in the UAE?",
+        "answer": "The British Council UAE listed AED 1,590 for Academic and General Training on computer on 2 November 2026. Check the provider."
+      },
+      {
+        "question": "When do results arrive?",
+        "answer": "The results page says within 1 to 5 days after the test and typically within two days; the fraud page says 5-7 days. Confirm in your booking."
+      },
+      {
+        "question": "Is Speaking on a computer?",
+        "answer": "ielts.org says Speaking is a face-to-face session with a trained examiner. IDP says it happens on the test day or up to 7 days before or after."
+      },
+      {
+        "question": "What is the Premium test?",
+        "answer": "The British Council UAE lists a Premium version on computer at AED 2,000, described as including preparation support, a luxury venue, food and beverages and a dedicated customer service representative."
+      }
+    ],
+    "hub": {
+      "name": "UAE",
+      "path": "/ielts-speaking-online/uae"
+    },
+    "alternatePath": "/insights/computer-delivered-ielts-uae"
   }
 ]

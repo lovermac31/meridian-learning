@@ -138,6 +138,12 @@
 | `/insights/ielts-test-centres-booking-vietnam` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-test-centres-booking-vietnam` | Browse IELTS Speaking practice materials |
 | `/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-dia-diem-thi-ielts-dang-ky-viet-nam` | Xem buổi đánh giá Speaking trực tiếp |
 | `/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam` | `/vi/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-dia-diem-thi-ielts-dang-ky-viet-nam` | Xem tài liệu luyện IELTS Speaking |
+| `/insights/ielts-scams-fake-certificates-uae` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-uae` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/ielts-scams-fake-certificates-uae` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-scams-fake-certificates-uae` | Browse IELTS Speaking practice materials |
+| `/insights/ielts-for-ukvi-uae` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-uae` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/ielts-for-ukvi-uae` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-uae` | Browse IELTS Speaking practice materials |
+| `/insights/computer-delivered-ielts-uae` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-uae` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/computer-delivered-ielts-uae` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-uae` | Browse IELTS Speaking practice materials |
 
 ## Scope and verification
 
