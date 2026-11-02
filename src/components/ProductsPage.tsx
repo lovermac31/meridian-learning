@@ -25,6 +25,7 @@ import { SamplePackForm } from './SamplePackForm';
 import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
 import { FAQ_QUESTIONS, productPath } from '../i18n/content/productSeo';
 import { getOverhaulContent } from '../i18n/content/overhaul';
+import { ieltsAppHref } from '../lib/ieltsApp';
 import { PRODUCT_VIDEO_ANCHOR, VIDEO_COPY } from '../i18n/content/productVideos';
 import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
@@ -343,6 +344,13 @@ const CATEGORY_COPY = {
 // never from the mock's placeholder text. The announcement bar is omitted: the data holds no dated line to put in it.
 type TrustItem = { icon: typeof Users; title: string; body: string };
 
+// The free IELTS Speaking app on top of the IELTS group (Jay + CEO, 2 Nov 2026). Not a PRODUCTS entry: no price, no
+// order flow, so it is a plain card (not an <li id>) and the catalogue, JSON-LD and prices stay as they are.
+const IELTS_APP_CARD: Record<Locale, { label: string; title: string }> = {
+  en: { label: 'Free · web app', title: 'Free: IELTS Speaking practice, 2 attempts' },
+  vi: { label: 'Miễn phí · ứng dụng web', title: 'Miễn phí: luyện IELTS Speaking, 2 lượt thử' },
+};
+
 /**
  * Featured-first (Jay, 2 Nov 2026, "tighten"): the page opens on six full cards; the other 29 sit behind the segment
  * filters and "Show all". The three live services lead; then the Level 1 Printable Storybook Pack (the families tile
@@ -462,7 +470,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
 export function ProductsPage({ locale }: { locale: Locale }) {
   const c = productsPage(locale);
   const hub = HUB_COPY[locale];
-  const why = getOverhaulContent(locale).home.jay;
+  const { jay: why, ieltsApp } = getOverhaulContent(locale).home;
   const source = useVisitorSource();
   const [viewer, setViewer] = useState<ProductCard | null>(null);
   // The segment filter. SSR and the first client render show every section; a segment narrows the page to its cards.
@@ -569,6 +577,20 @@ export function ProductsPage({ locale }: { locale: Locale }) {
               <h2 id={`${section.id}-h`}>{section.heading}</h2>
               <p className="products-category-intro">{section.intro}</p>
             </div>
+            {section.id === 'ielts' ? (
+              <div className="product-row product-row-free" data-ielts-app-card="">
+                <div className="product-row-icon"><img src="/images/w/ielts-app-screen-640.webp" alt="" width={640} height={400} loading="lazy" decoding="async" className="product-row-image" /></div>
+                <div className="product-row-head">
+                  <p className="product-row-meta"><span className="product-row-pill">{IELTS_APP_CARD[locale].label}</span><span>{ieltsApp.eyebrow}</span></p>
+                  <h3><a href={ieltsAppHref('products')} target="_blank" rel="noopener noreferrer" data-cta="ielts-app-products">{IELTS_APP_CARD[locale].title}</a></h3>
+                </div>
+                <p className="product-row-text">{ieltsApp.body}</p>
+                <div className="product-row-actions story-cta">
+                  <a className="insights-button-primary" href={ieltsAppHref('products')} target="_blank" rel="noopener noreferrer" data-ielts-app-try="">{ieltsApp.primary}</a>
+                  <a className="insights-button-secondary" href={ieltsHomeHref('speaking', locale)}>{ieltsApp.secondary}</a>
+                </div>
+              </div>
+            ) : null}
             {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }]).filter((list) => list.cards.length > 0).map(({ group, cards }) => (
               <div key={group ?? 'all'} data-ielts-group={group ?? undefined}>
                 {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card.id, section.id))}>{c.ielts.groups[group]}</h3> : null}
