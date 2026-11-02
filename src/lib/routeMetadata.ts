@@ -1028,7 +1028,13 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
       dateModified: toProfileDateTime(seoPage.dateModified), isPartOf: { '@id': `${SITE_URL}/#website` },
     }];
     jsonLd.push(createFaqJsonLd(seoPage.faq.map(item => ({ question: item.question, answer: item.answer }))));
-    jsonLd.push(createBreadcrumbJsonLd(seoPage.path.includes('/insights/') ? [
+    const answerHub = (seoPage as { hub?: { name: string; path: string } }).hub;
+    jsonLd.push(createBreadcrumbJsonLd(answerHub ? [
+      { name: 'Home', path: '/' },
+      { name: 'IELTS Speaking online', path: '/ielts-speaking-online' },
+      { name: answerHub.name, path: answerHub.path },
+      { name: seoPage.h1, path: seoPage.path },
+    ] : seoPage.path.includes('/insights/') ? [
       { name: seoPage.locale === 'vi' ? 'Trang chủ' : 'Home', path: seoPage.locale === 'vi' ? '/vi' : '/' },
       { name: 'Insights', path: seoPage.locale === 'vi' ? '/vi/insights' : '/insights' },
       { name: seoPage.h1, path: seoPage.path },
@@ -1038,7 +1044,8 @@ export function resolveRouteMetadata(pathname: string): RouteMetadata {
     ]));
     return createMetadata({ title: seoPage.title, description: seoPage.description, canonical,
       robots: 'index, follow', locale: seoPage.locale as Locale, jsonLd, ogUrl: canonical,
-      alternates: [
+      // hreflang only where a real translation exists: an English-only page (alternatePath === path) declares none.
+      alternates: seoPage.alternatePath === seoPage.path ? undefined : [
         { hrefLang: 'vi', href: toAbsoluteUrl(viPath) },
         { hrefLang: 'en', href: toAbsoluteUrl(enPath) },
         { hrefLang: 'x-default', href: toAbsoluteUrl(enPath) },
