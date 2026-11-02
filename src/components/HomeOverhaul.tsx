@@ -131,11 +131,11 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
           </div>
           <img
             src="/images/ielts-app-screen.webp"
-            srcSet="/images/w/ielts-app-screen-640.webp 640w, /images/ielts-app-screen.webp 1280w"
+            srcSet="/images/w/ielts-app-screen-640.webp 640w, /images/ielts-app-screen.webp 980w"
             sizes="(min-width: 1024px) 480px, calc(100vw - 72px)"
             alt={ieltsApp.imageAlt}
-            width={1280}
-            height={800}
+            width={980}
+            height={612}
             loading="lazy"
             decoding="async"
             className="aspect-[16/10] w-full rounded-2xl border border-sb-border object-cover opacity-90 saturate-[.6]"

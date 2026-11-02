@@ -91,14 +91,14 @@ const en = {
       rexAlt: 'Illustration of Professor Rex, the Jurassic English storybook guide',
     },
     // IELTS app feature (Jay + CEO, 2 Nov 2026): one strip directly under the hero for https://ielts.jurassicenglish.com.
-    // Wording as given by Jay; practice only, no score or band promise. The image is the app's own first screen.
+    // Wording as given by Jay; practice only, no score or band promise. The image is the app's Practice screen (QA capture, 2 Nov).
     ieltsApp: {
       eyebrow: 'Free IELTS Speaking practice',
       title: 'Practise with an AI examiner. 2 free attempts.',
       body: 'Your report quotes your own words and shows the one change that matters next. Practice only, not an official score.',
       primary: 'Try it free',
       secondary: 'See IELTS Speaking packs',
-      imageAlt: 'The Jurassic English IELTS Speaking app, first screen',
+      imageAlt: 'Practice screen of the IELTS Speaking app',
     },
     // "Find what you need" (master, 27 Oct 2026): one strip under the hero, a tile per /products section with its
     // starting price and the image of the product at that price. Promise lines are the /products section intros.
@@ -322,7 +322,7 @@ const vi: OverhaulContent = {
       body: 'Báo cáo trích đúng lời bạn nói và chỉ ra một thay đổi quan trọng nhất cần làm tiếp. Chỉ để luyện tập, không phải điểm thi chính thức.',
       primary: 'Dùng thử miễn phí',
       secondary: 'Xem các gói IELTS Speaking',
-      imageAlt: 'Ứng dụng IELTS Speaking của Jurassic English, màn hình đầu tiên',
+      imageAlt: 'Màn hình luyện tập của ứng dụng IELTS Speaking',
     },
     find: {
       heading: 'Tìm đúng thứ bạn cần',
