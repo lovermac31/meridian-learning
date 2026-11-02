@@ -6,6 +6,7 @@ import type { Locale } from '../i18n/locales';
  */
 export const ieltsCalculatorFaqs: Record<Locale, ReadonlyArray<readonly [string, string]>> = {
   en: [
+    ['What is an IELTS band score calculator?', 'An IELTS band calculator (also called an IELTS score calculator or IELTS calculator) averages your Listening, Reading, Writing and Speaking bands and rounds the result the way IELTS does. This one gives an estimate, not an official score.'],
     ['How is my IELTS overall band calculated?', 'Add Listening, Reading, Writing and Speaking bands, divide by four, then round to the nearest half or whole band using IELTS rules.'],
     ['Does 6.25 round to 6.5?', 'Yes. IELTS rounds an average ending in .25 to the next half band. An average ending in .75 rounds to the next whole band.'],
     ['Does 6.125 round down to 6.0?', 'Yes. An average below .25 rounds down to the whole band, so 6.125 becomes 6.0. An average from .5 up to .625 stays at the half band, so 6.625 becomes 6.5.'],
@@ -14,6 +15,7 @@ export const ieltsCalculatorFaqs: Record<Locale, ReadonlyArray<readonly [string,
     ['Is this an official IELTS result?', 'No. Only an authorised IELTS test can issue an official score. This tool calculates an estimate from the bands you enter.'],
   ],
   vi: [
+    ['Điểm IELTS được làm tròn thế nào? Lên hay xuống?', 'Theo ielts.org, điểm overall là trung bình bốn điểm kỹ năng, làm tròn đến nửa band gần nhất. Trung bình kết thúc bằng ,25 làm tròn lên nửa band tiếp theo; kết thúc bằng ,75 làm tròn lên band nguyên tiếp theo (6,25 → 6,5; 6,75 → 7,0). Trung bình dưới ,25 làm tròn xuống: ví dụ của ielts.org là 6,125 → 6,0, và 3,875 → 4,0. Nguồn: ielts.org/take-a-test/your-results/ielts-scoring-in-detail, kiểm tra ngày 2/11/2026.'],
     ['Điểm IELTS overall được tính thế nào?', 'Cộng điểm Listening, Reading, Writing và Speaking, chia cho bốn, rồi làm tròn theo quy tắc IELTS.'],
     ['6,25 có được làm tròn thành 6,5 không?', 'Có. IELTS làm tròn trung bình kết thúc bằng ,25 lên nửa band tiếp theo; ,75 lên band nguyên tiếp theo.'],
     ['6,125 có bị làm tròn xuống 6,0 không?', 'Có. Trung bình có phần thập phân nhỏ hơn ,25 được làm tròn xuống band nguyên, nên 6,125 thành 6,0. Trung bình từ ,5 đến ,625 giữ ở nửa band, nên 6,625 thành 6,5.'],

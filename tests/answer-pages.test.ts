@@ -49,3 +49,31 @@ for (const country of ['philippines', 'malaysia', 'india']) {
     assert.doesNotMatch(page.html, /guarantee/i);
   });
 }
+
+// Keyword pass (Nov 2026): titles <= 60, meta <= 155, "fake IELTS certificate" on the scam guides, reciprocal links from the country pages.
+test('keyword pass: title and meta limits on answer pages, hub and country pages', () => {
+  const target = seoPages.filter(p => p.answer || /^\/ielts-speaking-online(\/|$)/.test(p.path) && p.locale === 'en');
+  for (const p of target) {
+    assert.ok(p.title.length <= 60, `${p.path} title ${p.title.length}: ${p.title}`);
+    assert.ok(p.description.length <= 155, `${p.path} meta ${p.description.length}`);
+  }
+});
+test('keyword pass: scam guides carry "fake IELTS certificate" in title and H1', () => {
+  for (const slug of ['ielts-scams-fake-certificates-philippines', 'ielts-scams-fake-certificates-vietnam']) {
+    const p = seoPages.find(x => x.path === `/insights/${slug}`)!;
+    assert.match(p.title, /Fake IELTS Certificate/);
+    assert.match(p.h1, /fake IELTS certificates/i);
+  }
+});
+test('keyword pass: country pages link to their matching answer pages', () => {
+  const need: Record<string, string[]> = {
+    philippines: ['ielts-scams-fake-certificates-philippines', 'ielts-for-ukvi-philippines', 'computer-delivered-ielts-philippines'],
+    malaysia: ['ielts-for-ukvi-malaysia', 'computer-delivered-ielts-malaysia'],
+    india: ['ielts-scams-fake-certificates-philippines'],
+  };
+  for (const [country, slugs] of Object.entries(need)) {
+    const page = seoPages.find(p => p.path === `/ielts-speaking-online/${country}`)!;
+    for (const slug of slugs) assert.ok(page.html.includes(`/insights/${slug}`), `${country} -> ${slug}`);
+    assert.match(page.title, /Online IELTS Speaking Tutor/);
+  }
+});

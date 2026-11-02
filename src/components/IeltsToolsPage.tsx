@@ -13,13 +13,13 @@ const timerVi = '/vi/cong-cu/dong-ho-ielts-speaking-part-2';
 
 const copy = {
   en: {
-    calculator: 'IELTS Score Calculator: Overall Band and Rounding', timer: 'IELTS Speaking Part 2 Timer',
+    calculator: 'IELTS Score Calculator: Work Out Your Overall Band', timer: 'IELTS Speaking Part 2 Timer',
     keyFacts: 'Key facts', overall: 'Overall band', calculate: 'Calculate overall band',
     invalid: 'Enter a band from 0 to 9 in steps of 0.5 for every skill.',
     notOfficial: 'This is an estimate, not an official IELTS score.',
     independent: 'Jurassic English is independent of IELTS, the British Council, IDP and Cambridge.',
     source: 'IELTS scoring rules (official source)',
-    intro: 'Enter your four reported skill bands. The calculator adds them, divides by four and applies the published IELTS rounding rule. Your entries stay in this browser session and are not sent to us.',
+    intro: 'Use this IELTS band calculator to work out your overall score: enter your four reported skill bands. The calculator adds them, divides by four and applies the published IELTS rounding rule. Your entries stay in this browser session and are not sent to us.',
     how: 'How the IELTS overall band is worked out',
     paragraphs: [
       'An IELTS Test Report Form shows a band for each of four skills: Listening, Reading, Writing and Speaking. The overall band is the arithmetic mean of those four bands, rounded to the nearest half or whole band. Each skill has equal weight in this calculation. The overall band is therefore a summary of the reported skill bands, not a fifth assessment with separate marking criteria.',
