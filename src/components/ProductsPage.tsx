@@ -1,7 +1,7 @@
 import { buyCta, paymentHref, paidOffer } from '../config/payment';
 import { CrawlResources } from './CrawlResources';
 import { useEffect, useId, useRef, useState, type SyntheticEvent } from 'react';
-import { ArrowLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Eye, QrCode, Users, Video, X } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import {
@@ -21,10 +21,10 @@ import {
   type ProductSectionId,
 } from '../i18n/content/products';
 import { fetchSampleText, type SampleTextDocument } from '../lib/sampleText';
-import { ToolHero } from './IeltsToolsPage';
 import { SamplePackForm } from './SamplePackForm';
 import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
-import { productPath } from '../i18n/content/productSeo';
+import { FAQ_QUESTIONS, productPath } from '../i18n/content/productSeo';
+import { getOverhaulContent } from '../i18n/content/overhaul';
 import { PRODUCT_VIDEO_ANCHOR, VIDEO_COPY } from '../i18n/content/productVideos';
 import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
@@ -81,18 +81,18 @@ export type SampleCopy = { heading: string; note: string; open: string };
 // Renders only for a card whose sample files are in public/samples (the entry's `sample` stem), so nothing is broken.
 // One button per card: three page thumbnails (decorative) and the visible "See the sample pages" text. It opens the
 // view-only sample viewer; no sample PDF is linked or published (Jay, 27 Oct 2026).
-export function Sample({ card, copy, onOpen }: { card: ProductCard; copy: SampleCopy; onOpen: () => void }) {
+export function Sample({ card, copy, onOpen, compact = false }: { card: ProductCard; copy: SampleCopy; onOpen: () => void; compact?: boolean }) {
   if (!card.sample) return null;
   const files = productSampleFiles(card.sample);
   return (
     <div
       id={productSampleAnchor(card.id)}
-      className="mt-4 scroll-mt-24 select-none rounded-xl border border-sb-border bg-sb-cream p-3"
+      className={compact ? 'product-row-sample scroll-mt-24 select-none' : 'mt-4 scroll-mt-24 select-none rounded-xl border border-sb-border bg-sb-cream p-3'}
       onContextMenu={blockSave}
       data-sample={card.id}
     >
       <p className="text-sm font-bold">{copy.heading}</p>
-      <p className="text-sm">{copy.note}</p>
+      {compact ? null : <p className="text-sm">{copy.note}</p>}
       <button
         type="button"
         onClick={onOpen}
@@ -106,7 +106,7 @@ export function Sample({ card, copy, onOpen }: { card: ProductCard; copy: Sample
               key={src}
               src={src}
               srcSet={files.thumbSrcSets[i]}
-              sizes="(min-width: 768px) 135px, calc((100vw - 120px) / 3)"
+              sizes={compact ? '(min-width: 768px) 72px, calc((100vw - 120px) / 3)' : '(min-width: 768px) 135px, calc((100vw - 120px) / 3)'}
               alt=""
               width={600}
               height={849}
@@ -333,10 +333,40 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
   );
 }
 
-const DETAILS_LABEL: Record<Locale, string> = { en: 'Details', vi: 'Chi tiết' };
 const CATEGORY_COPY = {
   en: { label: 'Product sections', names: { families: 'Families', teachers: 'Teachers', centres: 'Centres', ielts: 'IELTS' }, count: 'products', from: 'from' },
   vi: { label: 'Các nhóm sản phẩm', names: { families: 'Gia đình', teachers: 'Giáo viên', centres: 'Trung tâm', ielts: 'IELTS' }, count: 'sản phẩm', from: 'từ' },
+};
+
+// Hub-only labels for the Stitch layout (Jay's mock, 2 Nov 2026). The layout comes from the mock; every line of copy comes
+// from the product data or copy already on the site (Story Club, the Baseline, 1-to-1, the sample and payment lines),
+// never from the mock's placeholder text. The announcement bar is omitted: the data holds no dated line to put in it.
+type TrustItem = { icon: typeof Users; title: string; body: string };
+const HUB_COPY: Record<Locale, { trustLabel: string; trust: TrustItem[]; showing: (shown: number, total: number) => string; showAll: string; faq: string }> = {
+  en: {
+    trustLabel: 'What to expect',
+    trust: [
+      { icon: Users, title: 'Small groups', body: 'Story Club: up to 6 children a group.' },
+      { icon: Video, title: 'Live on Google Meet', body: 'Story Club and the Baseline with Mr. Jay; 1-to-1 lessons with Mr. Jay’s team.' },
+      { icon: Eye, title: 'See a sample', body: 'See exactly what you get before you pay.' },
+      { icon: QrCode, title: 'Pay by VietQR', body: 'Nothing is charged until you accept a written order summary.' },
+    ],
+    showing: (shown, total) => (shown === total ? `Showing all ${total} products` : `Showing ${shown} of ${total} products`),
+    showAll: 'Show all products',
+    faq: 'Questions',
+  },
+  vi: {
+    trustLabel: 'Bạn có thể yên tâm',
+    trust: [
+      { icon: Users, title: 'Nhóm nhỏ', body: 'Câu lạc bộ Truyện: tối đa 6 bé một nhóm.' },
+      { icon: Video, title: 'Học trực tiếp qua Google Meet', body: 'Câu lạc bộ Truyện và buổi Đánh giá cùng thầy Jay; học 1 kèm 1 với đội ngũ của thầy Jay.' },
+      { icon: Eye, title: 'Xem mẫu', body: 'Xem đúng những gì bạn nhận được trước khi thanh toán.' },
+      { icon: QrCode, title: 'Thanh toán qua VietQR', body: 'Không thu tiền cho đến khi bạn đồng ý bản tóm tắt đơn hàng bằng văn bản.' },
+    ],
+    showing: (shown, total) => (shown === total ? `Hiển thị tất cả ${total} sản phẩm` : `Hiển thị ${shown}/${total} sản phẩm`),
+    showAll: 'Xem tất cả sản phẩm',
+    faq: 'Câu hỏi thường gặp',
+  },
 };
 
 /** The first sentence; titles such as Mr. Jay and decimals are not sentence endings. */
@@ -361,45 +391,45 @@ export function productAnchor(hash: string, locale: Locale) {
   return null;
 }
 
-function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome, expanded, onToggle }: {
+// One wide card per product (the mock's row): icon tile, badge pill and audience line, the title, "The problem" and two
+// tick lines from the card's own copy, the sample thumbnails above the price, then the order buttons. DOM order is the
+// one the tests and Jay's rule pin: text → sample → price → buttons; the grid places the sample and price on the right.
+function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
-  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>; expanded: boolean; onToggle: () => void;
+  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>;
 }) {
   const external = card.href === 'zalo';
   const href = external ? zaloHref(source) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
   return (
-    <li className="product-row ielts-tool-card scroll-mt-24 max-md:scroll-mt-36" id={card.id}
-      onClick={(event) => { if (!(event.target as HTMLElement).closest('a, button, input, select, textarea, [data-product-panel]')) onToggle(); }}>
-      {(PRODUCT_FORMER_IDS[card.id] ?? []).map((former) => (
-        <span key={former} id={former} className="block scroll-mt-24" aria-hidden="true" />
-      ))}
-      <div className="product-row-heading">
-        {card.image ? <img {...productImageSources(card.image)} sizes="80px" alt="" width={480} height={480} loading="lazy" decoding="async" className="product-row-image aspect-square" data-product-image={card.id} /> : null}
-        <div className="product-row-title">
-          <h3><a href={getLocalizedHref(productPath(card.id), locale)} data-product-page={card.id}>{card.title}</a></h3>
-          <p className="product-row-problem">{card.problem}</p>
+    <li className="product-row scroll-mt-24 max-md:scroll-mt-36" id={card.id}>
+      {card.image ? (
+        <div className="product-row-icon">
+          <img {...productImageSources(card.image)} sizes="72px" alt="" width={480} height={480} loading="lazy" decoding="async" className="product-row-image aspect-square" data-product-image={card.id} />
         </div>
-        <button type="button" className="product-row-toggle" aria-label={`${DETAILS_LABEL[locale]}: ${card.title}`} aria-expanded={expanded} aria-controls={`${card.id}-details`} data-product-toggle={card.id} onClick={onToggle}>
-          <span>{DETAILS_LABEL[locale]}</span><span aria-hidden="true">{expanded ? '−' : '+'}</span>
-        </button>
+      ) : null}
+      <div className="product-row-head">
+        {(PRODUCT_FORMER_IDS[card.id] ?? []).map((former) => (
+          <span key={former} id={former} className="block scroll-mt-24" aria-hidden="true" />
+        ))}
+        <p className="product-row-meta"><span className="product-row-pill">{card.label}</span><span>{firstSentence(card.forWho)}</span></p>
+        <h3><a href={getLocalizedHref(productPath(card.id), locale)} data-product-page={card.id}>{card.title}</a></h3>
       </div>
-      <div id={`${card.id}-details`} className="products-fold" data-open={expanded} data-details={card.id} data-product-panel={card.id} inert={!expanded}>
-        <div className="products-fold-inner">
-          <div className="product-row-description">
-            <p className="text-xs font-bold uppercase tracking-wider">{card.label}</p>
-            <dl className="mt-2 space-y-2">
-              {(['problem', 'inside', 'forWho'] as const).map((key) => <div key={key}><dt className="text-sm font-bold">{leadIns[key]}</dt><dd>{card[key]}</dd></div>)}
-            </dl>
-            <CardLink card={card} locale={locale} />
-            <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} />
-            {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{delivery}</p> : null}
-            {card.paypal ? <p className="mt-2 text-sm" data-paypal-note={card.id}>{PAYPAL_CARD_COPY[locale].note}</p> : null}
-            {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={ieltsHome[card.group]} id={card.id} /> : null}
-          </div>
-        </div>
+      <dl className="product-row-text">
+        <div className="product-row-problem"><dt>{leadIns.problem}</dt><dd>{card.problem}</dd></div>
+        <div className="product-row-tick"><dt>{leadIns.inside}</dt><dd>{card.inside}</dd></div>
+        <div className="product-row-tick"><dt>{leadIns.forWho}</dt><dd>{card.forWho}</dd></div>
+      </dl>
+      <div className="product-row-notes">
+        <CardLink card={card} locale={locale} />
+        {card.delivery ? <p className="product-row-tick" data-delivery={card.id}>{delivery}</p> : null}
+        {card.paypal ? <p data-paypal-note={card.id}>{PAYPAL_CARD_COPY[locale].note}</p> : null}
+        {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={ieltsHome[card.group]} id={card.id} /> : null}
       </div>
-      <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
+      <div className="product-row-side">
+        <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} compact />
+        <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
+      </div>
       <div className="product-row-actions story-cta">
         {paidOffer(card.id) ? <a className="insights-button-primary" href={paymentHref(card.id, locale)} data-buy-now={card.id}>{buyCta(card.id, locale)}</a> : null}
         {card.sample ? <button type="button" className="insights-button-secondary" onClick={() => { onOpenSample(card); recordClientEvent({ event: 'sample_open', product_id: card.id }); }} data-sample-open={card.id}>{sample.heading}</button> : null}
@@ -415,8 +445,8 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
           </a>
         ) : null}
         <a className="insights-button-secondary" href={href} data-cta={`product-${card.id}`} onClick={() => { if (external) recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined }); }} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{card.cta}</a>
-        {external ? <p className="mt-2 text-xs" data-order-code={card.id}>{code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}</p> : null}
         {card.video ? <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="product-row-watch" data-watch={card.id}><span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}</a> : null}
+        {external ? <p className="mt-2 text-xs" data-order-code={card.id}>{code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}</p> : null}
         {card.paypal ? <PayPalOption card={card} locale={locale} source={source} compact /> : null}
       </div>
     </li>
@@ -425,27 +455,36 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
 
 export function ProductsPage({ locale }: { locale: Locale }) {
   const c = productsPage(locale);
+  const hub = HUB_COPY[locale];
+  const why = getOverhaulContent(locale).home.jay;
   const source = useVisitorSource();
   const [viewer, setViewer] = useState<ProductCard | null>(null);
-  const [openSections, setOpenSections] = useState<Set<ProductSectionId>>(() => new Set(['families']));
-  const [openProducts, setOpenProducts] = useState<Set<string>>(() => new Set());
+  // The segment filter. SSR and the first client render show every section; a segment narrows the page to its cards.
+  const [filter, setFilter] = useState<ProductSectionId | null>(null);
   const categoryCopy = CATEGORY_COPY[locale];
-  const toggleSection = (id: ProductSectionId) => setOpenSections((previous) => { const next = new Set(previous); if (next.has(id)) next.delete(id); else next.add(id); return next; });
-  const toggleProduct = (id: string) => setOpenProducts((previous) => { const next = new Set(previous); if (next.has(id)) next.delete(id); else next.add(id); return next; });
+  const total = c.sections.reduce((sum, section) => sum + section.cards.length, 0);
+  const shown = filter ? (c.sections.find((section) => section.id === filter)?.cards.length ?? total) : total;
+  const faq = [
+    { question: FAQ_QUESTIONS[locale].sample, answer: `${c.sample.note} ${c.viewer.viewOnly}` },
+    { question: FAQ_QUESTIONS[locale].pay, answer: c.delivery },
+    { question: FAQ_QUESTIONS[locale].abroad, answer: PAYPAL_CARD_COPY[locale].note },
+    { question: FAQ_QUESTIONS[locale].unsure, answer: c.closing.body },
+  ];
   useEffect(() => {
     let scrollTimer: ReturnType<typeof setTimeout>;
     const openFromHash = () => {
       const anchor = productAnchor(window.location.hash, locale);
       if (!anchor) return;
-      setOpenSections((previous) => new Set(previous).add(anchor.section));
-      if (anchor.product) setOpenProducts((previous) => new Set(previous).add(anchor.product!));
+      // A section anchor (#teachers, #ielts-speaking) selects that segment; a card anchor keeps the current segment
+      // unless it would hide the card, in which case the whole catalogue shows again.
+      setFilter((current) => (anchor.product ? (current && current !== anchor.section ? null : current) : anchor.section));
       if (anchor.sample) {
         const card = productsPage(locale).sections.flatMap((section) => section.cards).find((card) => card.id === anchor.product);
         if (card) setViewer(card);
       }
       clearTimeout(scrollTimer);
-      // Wait for the panel's height to settle before scrolling to a previously hidden target.
-      scrollTimer = setTimeout(() => document.getElementById(anchor.target)?.scrollIntoView({ block: 'start', behavior: 'auto' }), window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 260);
+      // Let a hidden section render before scrolling to a target inside it.
+      scrollTimer = setTimeout(() => document.getElementById(anchor.target)?.scrollIntoView({ block: 'start', behavior: 'auto' }), 50);
     };
     const onAnchorClick = (event: MouseEvent) => {
       const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('.products-page a[href^="#"]');
@@ -466,17 +505,27 @@ export function ProductsPage({ locale }: { locale: Locale }) {
     // Closing leaves the page on the card, and a reload does not reopen the viewer.
     if (id && window.location.hash === `#${id}-sample`) window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${id}`);
   };
+  const counterpart = locale === 'vi' ? PRODUCTS_PATH : PRODUCTS_VI_PATH;
   return (
     <main id="main-content" tabIndex={-1} className="insights-page ielts-tools-page story-club-page products-page min-h-screen" lang={locale}>
       {/* Deterrent: printing /products gives a blank page (Jay, 27 Oct 2026). */}
       <style>{'@media print { body { display: none !important; } }'}</style>
-      <ToolHero
-        locale={locale}
-        title={c.title}
-        lead={c.lead}
-        eyebrow={c.eyebrow}
-        counterpart={locale === 'vi' ? PRODUCTS_PATH : PRODUCTS_VI_PATH}
-      />
+      <header className="products-hero">
+        <div className="products-hero-inner">
+          <p className="products-eyebrow"><span>{c.eyebrow}</span></p>
+          <h1 className={`products-title ${locale === 'vi' ? 'insights-title-native' : 'font-display'}`}>{c.title}</h1>
+          <p className="products-lead">{c.lead}</p>
+          <div className="insights-language" role="group" aria-label={locale === 'vi' ? 'Ngôn ngữ' : 'Language'}>
+            <a className={locale === 'en' ? 'current' : ''} aria-current={locale === 'en' ? 'page' : undefined} href={locale === 'en' ? undefined : counterpart} lang="en">English</a>
+            <a className={locale === 'vi' ? 'current' : ''} aria-current={locale === 'vi' ? 'page' : undefined} href={locale === 'vi' ? undefined : counterpart} lang="vi">Tiếng Việt</a>
+          </div>
+          <ul className="products-trust" aria-label={hub.trustLabel} data-products-trust="">
+            {hub.trust.map(({ icon: Icon, title, body }) => (
+              <li key={title}><Icon aria-hidden="true" /><span><strong>{title}</strong><small>{body}</small></span></li>
+            ))}
+          </ul>
+        </div>
+      </header>
       <nav aria-label={categoryCopy.label} className="products-overview" data-products-mini-nav="">
         <ul>
           {PRODUCT_SECTIONS.map((id) => {
@@ -484,37 +533,71 @@ export function ProductsPage({ locale }: { locale: Locale }) {
             if (!section) return null;
             const lowest = Math.min(...section.cards.map((card) => Number(card.price.replace(/[^\d]/g, ''))));
             return <li key={id}>
-              <button type="button" aria-expanded={openSections.has(id)} aria-controls={`${id}-products`} data-category-tile={id} onClick={() => toggleSection(id)}>
-                <span className="products-overview-name">{categoryCopy.names[id]} <span aria-hidden="true">{openSections.has(id) ? '−' : '+'}</span></span>
-                <span>{section.cards.length} {categoryCopy.count} · {categoryCopy.from} {lowest.toLocaleString('de-DE')}₫</span>
-                {id === 'ielts' ? <span>{c.ielts.groups.speaking} · {c.ielts.groups.writing}</span> : null}
+              <button type="button" aria-pressed={filter === id} aria-controls={id} data-category-tile={id} onClick={() => setFilter((current) => (current === id ? null : id))}>
+                <span className="products-overview-name">{categoryCopy.names[id]}</span>
+                <span className="products-overview-sub">{section.cards.length} {categoryCopy.count} · {categoryCopy.from} {lowest.toLocaleString('de-DE')}₫</span>
+                {id === 'ielts' ? <span className="products-overview-sub">{c.ielts.groups.speaking} · {c.ielts.groups.writing}</span> : null}
               </button>
             </li>;
           })}
         </ul>
       </nav>
-      <div className="ielts-tool-content products-catalogue mx-auto max-w-5xl px-5">
-        <a href={productHref('/', locale)} className="products-home inline-flex items-center gap-2 text-sm font-bold underline underline-offset-4"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> {c.back}</a>
+      <div className="ielts-tool-content products-catalogue">
+        <div className="products-toolbar">
+          <a href={productHref('/', locale)} className="products-home inline-flex items-center gap-2 font-bold underline underline-offset-4"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> {c.back}</a>
+          <p className="products-count" aria-live="polite" data-products-count={shown}>
+            <span>{hub.showing(shown, total)}</span>
+            {filter ? <button type="button" onClick={() => setFilter(null)} data-products-show-all="">{hub.showAll}</button> : null}
+          </p>
+        </div>
         {c.sections.map((section) => (
-          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="products-category scroll-mt-24 max-md:scroll-mt-36">
-            <h2 id={`${section.id}-h`}><button type="button" aria-expanded={openSections.has(section.id)} aria-controls={`${section.id}-products`} data-category-toggle={section.id} onClick={() => toggleSection(section.id)}>{section.heading}<span aria-hidden="true">{openSections.has(section.id) ? '−' : '+'}</span></button></h2>
-            <div id={`${section.id}-products`} className="products-fold" data-category-panel={section.id} data-open={openSections.has(section.id)} inert={!openSections.has(section.id)}>
-              <div className="products-fold-inner">
-                <p className="products-category-intro">{section.intro}</p>
-                {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }]).filter((list) => list.cards.length > 0).map(({ group, cards }) => (
-                  <div key={group ?? 'all'} data-ielts-group={group ?? undefined}>
-                    {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24">{c.ielts.groups[group]}</h3> : null}
-                    <ul className="products-rows">
-                      {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} expanded={openProducts.has(card.id)} onToggle={() => toggleProduct(card.id)} />)}
-                    </ul>
-                  </div>
-                ))}
-                {section.also.map((line) => <p key={line.id} className="mt-4 text-sm" data-also={line.id}>{line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}</p>)}
-              </div>
+          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="products-category scroll-mt-24 max-md:scroll-mt-36" hidden={filter !== null && filter !== section.id} data-category-panel={section.id}>
+            <div className="products-category-head">
+              <h2 id={`${section.id}-h`}>{section.heading}</h2>
+              <p className="products-category-intro">{section.intro}</p>
             </div>
+            {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }]).filter((list) => list.cards.length > 0).map(({ group, cards }) => (
+              <div key={group ?? 'all'} data-ielts-group={group ?? undefined}>
+                {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24">{c.ielts.groups[group]}</h3> : null}
+                <ul className="products-rows">
+                  {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} />)}
+                </ul>
+              </div>
+            ))}
+            {section.also.map((line) => <p key={line.id} className="products-also" data-also={line.id}>{line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}</p>)}
           </section>
         ))}
       </div>
+      {/* Why Jurassic English: the three "what you can expect" lines from Mr. Jay's section of the home page. */}
+      <section className="products-why" aria-labelledby="products-why-h" data-products-why="">
+        <div className="products-why-inner">
+          <p>{why.eyebrow}</p>
+          <h2 id="products-why-h">{why.title}</h2>
+          <p className="products-why-lead">{why.expectTitle}</p>
+          <ol>
+            {why.expect.map((item, index) => (
+              <li key={item.title}>
+                <span className="products-why-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+      <section className="products-faq" aria-labelledby="products-faq-h" data-products-faq="">
+        <div className="products-faq-inner">
+          <h2 id="products-faq-h">{hub.faq}</h2>
+          <div className="products-faq-list">
+            {faq.map((item, index) => (
+              <details key={item.question} open={index === 0}>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* The free sample pack at the end of /products (website assessment, 27 Oct 2026, lead-capture spec). */}
       <SamplePackForm placement="products" />
       <div className="insights-closing">
@@ -536,7 +619,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
         </div>
       </div>
       {viewer ? <SampleViewer card={viewer} locale={locale} source={source} copy={c.viewer} onClose={closeViewer} /> : null}
-    <CrawlResources context="products" />
+      <CrawlResources context="products" />
     </main>
   );
 }
