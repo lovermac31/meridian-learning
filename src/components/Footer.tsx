@@ -1,6 +1,7 @@
 import { getOverhaulContent } from '../i18n/content/overhaul';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
+import { LEMONSQUEEZY_COPY, anyLemonSqueezy } from '../config/lemonSqueezy';
 import { getUiString } from '../i18n/ui';
 import { handleRouteClick, routeHref } from './RouteLink';
 import { LinkifyWorldWise, WorldWiseLink } from './WorldWiseLink';
@@ -120,6 +121,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
         <p className="mt-4 max-w-4xl border-t border-sb-border pt-4 text-xs leading-relaxed text-sb-slate">
           {footer.notice}
         </p>
+        {anyLemonSqueezy() ? <p className="mt-2 text-xs text-sb-slate" data-lemonsqueezy-footer="">{LEMONSQUEEZY_COPY[locale === 'vi' ? 'vi' : 'en'].footer}</p> : null}
         <p className="mt-3 text-xs text-sb-slate">
           {footer.legalLabel}{' '}
           <a href="mailto:info@jurassicenglish.com" className="font-semibold text-sb-forest underline underline-offset-4">

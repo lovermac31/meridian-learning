@@ -9,7 +9,7 @@ import { PRODUCT_SEO, productFaq, productPath, relatedProducts } from '../i18n/c
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
-import { CardLink, IeltsHomeLink, PayPalOption, Sample, SampleViewer, productHref, useVisitorSource } from './ProductsPage';
+import { CardLink, IeltsHomeLink, LemonSqueezyOption, PayPalOption, Sample, SampleViewer, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
@@ -95,6 +95,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             ) : null}
             {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{c.delivery}</p> : null}
             {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
+            <LemonSqueezyOption card={card} locale={locale} source={source} touch={touch} />
             {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={c.ielts.home[card.group]} id={card.id} /> : null}
           </div>
   </>;

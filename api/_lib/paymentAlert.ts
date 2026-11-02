@@ -15,7 +15,8 @@
  * GET_STARTED_NOTIFY_EMAIL.
  */
 export type PaymentAlertEvent = {
-  txn: string;        // SePay transaction id (body.id)
+  provider?: 'sepay' | 'lemonsqueezy'; // default sepay
+  txn: string;        // SePay transaction id (body.id) or the Lemon Squeezy order id
   memo: string;       // canonical memo, or 'unknown'
   amount: string | null; // display only, e.g. "590.000₫"
   outcome: string;    // paid | needs_review | ...
@@ -45,16 +46,17 @@ export function sepayAlertEvent(httpStatus: number, outcome: string, memo: strin
   return { txn, memo: memo || 'unknown', amount: Number.isFinite(raw) ? formatVnd(Math.round(raw)) : null, outcome, httpStatus };
 }
 
-const subjectOf = (e: PaymentAlertEvent) => `[Payments] SePay ${e.outcome === 'paid' ? 'paid' : 'needs review'}: ${e.memo}${e.amount ? ` (${e.amount})` : ''}`;
+const providerName = (e: PaymentAlertEvent) => (e.provider === 'lemonsqueezy' ? 'Lemon Squeezy (card / Alipay / WeChat)' : 'SePay (bank transfer, main site)');
+const subjectOf = (e: PaymentAlertEvent) => `[Payments] ${e.provider === 'lemonsqueezy' ? 'Lemon Squeezy' : 'SePay'} ${e.outcome === 'paid' ? 'paid' : 'needs review'}: ${e.memo}${e.amount ? ` (${e.amount})` : ''}`;
 
 /** Email the owner once per transaction + outcome. Never throws. */
 export async function alertPaymentEvent(e: PaymentAlertEvent | null, deps: AlertDeps = {}): Promise<PaymentAlertResult | null> {
   if (!e) return null;
   const env = deps.env ?? process.env;
   const now = deps.now ?? Date.now();
-  const key = `sepay:${e.txn}:${e.outcome}`;
+  const key = `${e.provider ?? 'sepay'}:${e.txn}:${e.outcome}`;
   try {
-    console.info('sepay_payment_alert', { txn: e.txn, memo: e.memo, outcome: e.outcome, status: e.httpStatus });
+    console.info(`${e.provider === 'lemonsqueezy' ? 'lemonsqueezy' : 'sepay'}_payment_alert`, { txn: e.txn, memo: e.memo, outcome: e.outcome, status: e.httpStatus });
     const apiKey = env.RESEND_API_KEY?.trim();
     const to = env.ORDER_NOTIFY_EMAIL?.trim() || env.GET_STARTED_NOTIFY_EMAIL?.trim();
     const from = env.GET_STARTED_FROM_EMAIL?.trim() || 'onboarding@resend.dev';
@@ -64,7 +66,7 @@ export async function alertPaymentEvent(e: PaymentAlertEvent | null, deps: Alert
     seen.set(key, now);
     if (seen.size > SEEN_MAX) for (const k of seen.keys()) { seen.delete(k); if (seen.size <= SEEN_MAX) break; }
     const lines = [
-      'Provider: SePay (bank transfer, main site)',
+      `Provider: ${providerName(e)}`,
       `Transaction: ${e.txn}`,
       `Memo: ${e.memo}`,
       `Amount: ${e.amount ?? 'unknown'}`,
@@ -73,7 +75,7 @@ export async function alertPaymentEvent(e: PaymentAlertEvent | null, deps: Alert
       `Time (UTC): ${new Date(now).toISOString()}`,
       '',
       e.outcome === 'paid'
-        ? 'A Story Club seat was confirmed automatically. Nothing to do unless the bank app disagrees.'
+        ? (e.provider === 'lemonsqueezy' ? 'Lemon Squeezy took the payment and delivers the files itself. Nothing to do unless the LS dashboard disagrees.' : 'A Story Club seat was confirmed automatically. Nothing to do unless the bank app disagrees.')
         : 'This transfer was not confirmed automatically. Match it by hand in the bank app and the reservations list.',
     ];
     // Capped two ways: the request is aborted, and the race resolves "timeout" even if a transport ignores the signal.
