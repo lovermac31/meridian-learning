@@ -1048,5 +1048,35 @@
         "text": "Browse IELTS Speaking practice materials"
       }
     ]
+  },
+  {
+    "path": "/insights/ielts-for-ukvi-thailand",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-thailand",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-thailand",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
+  },
+  {
+    "path": "/insights/computer-delivered-ielts-thailand",
+    "locale": "en",
+    "heading": "Next step",
+    "links": [
+      {
+        "href": "/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-thailand",
+        "text": "See the live Speaking Baseline with Mr. Jay"
+      },
+      {
+        "href": "/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-thailand",
+        "text": "Browse IELTS Speaking practice materials"
+      }
+    ]
   }
 ]

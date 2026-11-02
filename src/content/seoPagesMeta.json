@@ -1860,5 +1860,79 @@
       "path": "/ielts-speaking-online/uae"
     },
     "alternatePath": "/insights/computer-delivered-ielts-uae"
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/ielts-for-ukvi-thailand",
+    "alternatePath": "/insights/ielts-for-ukvi-thailand",
+    "locale": "en",
+    "title": "IELTS for UKVI Thailand: Fee, Venue and How to Book",
+    "description": "IELTS for UKVI in Thailand: who needs a UK secure English test, the British Council Thailand fee and Bangkok - Siam venue, and how to book.",
+    "h1": "IELTS for UKVI in Thailand: what it is, who needs it, how to book",
+    "faq": [
+      {
+        "question": "What does IELTS for UKVI cost with the British Council in Thailand?",
+        "answer": "Its page showed 9750 THB for IELTS for UKVI Academic and General Training on computer (Bangkok - Siam) and 7520 THB for UKVI Life Skills A1 on 2 November 2026. Check the provider."
+      },
+      {
+        "question": "Is IELTS for UKVI on paper in Thailand?",
+        "answer": "The British Council Thailand page says all IELTS tests are delivered on computer from 22 March 2026."
+      },
+      {
+        "question": "Do all UK student visas need a secure English test?",
+        "answer": "No. GOV.UK says degree-level applicants may have English assessed by their education provider at CEFR B2. Check your route and university."
+      },
+      {
+        "question": "Is the UKVI Speaking test different?",
+        "answer": "IDP says IELTS for UKVI has the same format, content, scoring and difficulty as standard IELTS; ielts.org describes an extra layer of security."
+      },
+      {
+        "question": "Which ID do I need?",
+        "answer": "This page does not give the Thai ID rule because we did not find it on the page we read: check the booking page. GOV.UK says the document for secure tests must be original, current and valid, with a photo."
+      }
+    ],
+    "hub": {
+      "name": "Thailand",
+      "path": "/ielts-speaking-online/thailand"
+    }
+  },
+  {
+    "datePublished": "2026-11-02",
+    "dateModified": "2026-11-02",
+    "answer": true,
+    "path": "/insights/computer-delivered-ielts-thailand",
+    "alternatePath": "/insights/computer-delivered-ielts-thailand",
+    "locale": "en",
+    "title": "Computer-Delivered IELTS Thailand: Fee and Results",
+    "description": "Computer-delivered IELTS in Thailand: the British Council Thailand fee, 22 March 2026 switch, results time, locations and what changes on screen.",
+    "h1": "Computer-delivered IELTS in Thailand: what changed on 22 March 2026",
+    "faq": [
+      {
+        "question": "Is IELTS still available on paper in Thailand?",
+        "answer": "The British Council Thailand page says that from 22 March 2026 all IELTS tests are delivered on computer. Check IDP Thailand for its own formats."
+      },
+      {
+        "question": "How much is IELTS on computer with the British Council in Thailand?",
+        "answer": "Its page showed 8860 THB for Academic and General Training on computer on 2 November 2026. Check the provider; ignore promotions when planning."
+      },
+      {
+        "question": "How fast are results?",
+        "answer": "The page says typically 1-2 days. ielts.org says computer results are available 1-5 days after the test. Plan with a margin."
+      },
+      {
+        "question": "Is the score different from paper?",
+        "answer": "The British Council page says IELTS on computer offers the same test format, questions and scoring as IELTS on paper; ielts.org says scores are comparable across formats."
+      },
+      {
+        "question": "Is Speaking on a computer?",
+        "answer": "No. ielts.org says Speaking is a face-to-face session with a trained examiner; IDP says it happens on the test day or up to 7 days before or after."
+      }
+    ],
+    "hub": {
+      "name": "Thailand",
+      "path": "/ielts-speaking-online/thailand"
+    }
   }
 ]

@@ -144,6 +144,10 @@
 | `/insights/ielts-for-ukvi-uae` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-uae` | Browse IELTS Speaking practice materials |
 | `/insights/computer-delivered-ielts-uae` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-uae` | See the live Speaking Baseline with Mr. Jay |
 | `/insights/computer-delivered-ielts-uae` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-uae` | Browse IELTS Speaking practice materials |
+| `/insights/ielts-for-ukvi-thailand` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-thailand` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/ielts-for-ukvi-thailand` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-for-ukvi-thailand` | Browse IELTS Speaking practice materials |
+| `/insights/computer-delivered-ielts-thailand` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-thailand` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/computer-delivered-ielts-thailand` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-thailand` | Browse IELTS Speaking practice materials |
 
 ## Scope and verification
 
