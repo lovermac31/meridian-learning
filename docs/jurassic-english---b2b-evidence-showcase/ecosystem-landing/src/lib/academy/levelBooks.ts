@@ -14,11 +14,21 @@
 // `${BOOKS_BASE_URL}/book.html#<id>` with its cover image.
 export const BOOKS_BASE_URL = "https://books.jurassicenglish.com";
 
-export type Book = { id: string; title: string };
+/** `theme` is the book's own theme line from the book app's catalogue (books.jurassicenglish.com/data/original-stories.js,
+ * read 2 Nov 2026); the story cards show it as their one feature tag. */
+export type Book = { id: string; title: string; theme: string };
 
+/**
+ * `name`, `cefr`: the pathway card on /student-academy (StudentAcademyOverhaul LEVELS, studentAcademyData.studentLevels).
+ * `ages`: the age band of the level's Teacher Pack on the main site's /products (src/i18n/content/products.ts `forWho`,
+ * repeated in src/lib/routeMetadata.ts). Display strings, never parsed.
+ */
 export type AcademyLevel = {
   level: 1 | 2 | 3 | 4 | 5;
   world: string;
+  name: string;
+  ages: string;
+  cefr: string;
   accepted: boolean;
   stories: [Book, Book];
   extras: Book[];
@@ -28,50 +38,65 @@ export const LEVEL_BOOKS: AcademyLevel[] = [
   {
     level: 1,
     world: "Mistwood Harbor",
+    name: "Foundation",
+    ages: "4–8",
+    cefr: "Pre-A1 / A1",
     accepted: true,
     stories: [
-      { id: "mina-and-the-midnight-drum", title: "Mina and the Midnight Drum" },
-      { id: "the-lantern-with-two-handles", title: "The Lantern With Two Handles" },
+      { id: "mina-and-the-midnight-drum", title: "Mina and the Midnight Drum", theme: "Feelings, needs and thoughtful choices" },
+      { id: "the-lantern-with-two-handles", title: "The Lantern With Two Handles", theme: "Care, sharing and asking for help" },
     ],
-    extras: [{ id: "lina-and-the-orchard-map", title: "Lina and the Orchard Map" }],
+    extras: [{ id: "lina-and-the-orchard-map", title: "Lina and the Orchard Map", theme: "Curiosity, care and helping things grow" }],
   },
   {
     level: 2,
     world: "Whispering Woods",
+    name: "Early Reasoner",
+    ages: "8–10",
+    cefr: "A1 / A2",
     accepted: true,
     stories: [
-      { id: "the-bell-that-rang-too-early", title: "The Bell That Rang Too Early" },
-      { id: "the-rain-on-platform-seven", title: "The Rain on Platform Seven" },
+      { id: "the-bell-that-rang-too-early", title: "The Bell That Rang Too Early", theme: "Evidence, usefulness and belonging" },
+      { id: "the-rain-on-platform-seven", title: "The Rain on Platform Seven", theme: "Causal chains, shared resources and unintended effects" },
     ],
     extras: [],
   },
   {
     level: 3,
     world: "The Grand Archive",
+    name: "Developing Analyst",
+    ages: "10–12",
+    cefr: "A2 / B1",
     accepted: true,
     stories: [
-      { id: "the-unsent-weather-report", title: "The Unsent Weather Report" },
-      { id: "the-last-seat-on-the-night-ferry", title: "The Last Seat on the Night Ferry" },
+      { id: "the-unsent-weather-report", title: "The Unsent Weather Report", theme: "Observation, vulnerability, hope and practical judgement" },
+      { id: "the-last-seat-on-the-night-ferry", title: "The Last Seat on the Night Ferry", theme: "Change, memory and the cost of keeping things unchanged" },
     ],
     extras: [],
   },
   {
     level: 4,
     world: "Cloudpeak Observatory",
+    name: "Academic Builder",
+    ages: "12–14",
+    cefr: "B1 / B2",
     accepted: true,
     stories: [
-      { id: "the-missing-column", title: "The Missing Column" },
-      { id: "the-bridge-committee", title: "The Bridge Committee" },
+      { id: "the-missing-column", title: "The Missing Column", theme: "Attention, omission and shared responsibility" },
+      { id: "the-bridge-committee", title: "The Bridge Committee", theme: "Rules, legitimacy and structural exclusion" },
     ],
     extras: [],
   },
   {
     level: 5,
     world: "University & Exam Bridge",
+    name: "Advanced Thinker",
+    ages: "14+",
+    cefr: "B2 / C1",
     accepted: true,
     stories: [
-      { id: "a-box-called-other", title: "A Box Called Other" },
-      { id: "the-map-beneath-the-map", title: "The Map Beneath the Map" },
+      { id: "a-box-called-other", title: "A Box Called Other", theme: "Classification, public language and the limits of a record" },
+      { id: "the-map-beneath-the-map", title: "The Map Beneath the Map", theme: "Narrative authority, land records and negotiated representation" },
     ],
     extras: [],
   },
