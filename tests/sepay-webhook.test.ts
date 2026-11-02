@@ -6,7 +6,8 @@ type Reply = { status: number; body?: Record<string, unknown> };
 type Options = { auth?: string; enabled?: boolean; transferType?: string; content?: string; amount?: unknown; rpc?: 'paid' | 'already_paid' | 'not_found' | 'down' };
 
 async function request(options: Options = {}): Promise<{ reply: Reply; calls: string[]; logs: string[] }> {
-  const envNames = ['SEPAY_WEBHOOK_KEY', 'SEPAY_AUTOCONFIRM', 'SUPABASE_URL', 'SUPABASE_WRITE_KEY'] as const;
+  // The owner alert (api/_lib/paymentAlert.ts) stays off here: no Resend key or owner address, so `calls` lists RPCs only.
+  const envNames = ['SEPAY_WEBHOOK_KEY', 'SEPAY_AUTOCONFIRM', 'SUPABASE_URL', 'SUPABASE_WRITE_KEY', 'RESEND_API_KEY', 'ORDER_NOTIFY_EMAIL', 'GET_STARTED_NOTIFY_EMAIL'] as const;
   const oldEnv = Object.fromEntries(envNames.map(name => [name, process.env[name]]));
   const originalFetch = globalThis.fetch;
   const originalInfo = console.info;
@@ -16,6 +17,9 @@ async function request(options: Options = {}): Promise<{ reply: Reply; calls: st
   process.env.SEPAY_AUTOCONFIRM = options.enabled === false ? '0' : '1';
   process.env.SUPABASE_URL = 'http://127.0.0.1:55421';
   process.env.SUPABASE_WRITE_KEY = 'sb_secret_synthetic-write-key';
+  delete process.env.RESEND_API_KEY;
+  delete process.env.ORDER_NOTIFY_EMAIL;
+  delete process.env.GET_STARTED_NOTIFY_EMAIL;
   globalThis.fetch = (async (input) => {
     calls.push(String(input));
     if (options.rpc === 'down') throw new Error('synthetic database unavailable');
