@@ -134,6 +134,10 @@
 | `/insights/computer-delivered-ielts-vietnam` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-computer-delivered-ielts-vietnam` | Browse IELTS Speaking practice materials |
 | `/vi/insights/ielts-tren-may-tinh-viet-nam` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-ielts-tren-may-tinh-viet-nam` | Xem buổi đánh giá Speaking trực tiếp |
 | `/vi/insights/ielts-tren-may-tinh-viet-nam` | `/vi/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-ielts-tren-may-tinh-viet-nam` | Xem tài liệu luyện IELTS Speaking |
+| `/insights/ielts-test-centres-booking-vietnam` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-test-centres-booking-vietnam` | See the live Speaking Baseline with Mr. Jay |
+| `/insights/ielts-test-centres-booking-vietnam` | `/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=insights-ielts-test-centres-booking-vietnam` | Browse IELTS Speaking practice materials |
+| `/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam` | `/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-dia-diem-thi-ielts-dang-ky-viet-nam` | Xem buổi đánh giá Speaking trực tiếp |
+| `/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam` | `/vi/products/ielts-speaking-ladder?utm_source=jurassicenglish&utm_medium=internal&utm_content=vi-insights-dia-diem-thi-ielts-dang-ky-viet-nam` | Xem tài liệu luyện IELTS Speaking |
 
 ## Scope and verification
 
