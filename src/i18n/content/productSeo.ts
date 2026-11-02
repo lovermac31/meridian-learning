@@ -44,12 +44,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'online 1-to-1 english lessons',
       title: 'Online 1-to-1 English & IELTS Speaking Lessons',
-      description: 'Private 60-minute online lessons with Mr. Jay’s team of professional teachers, built on a speaking diagnosis. 800.000₫ a lesson, 8 lessons 5.600.000₫.',
+      description: 'Private 60-minute online lessons with Mr. Jay Adams (CELTA, 120-hour TEFL), built on a speaking diagnosis. 800.000₫ a lesson, 8 lessons 5.600.000₫.',
     },
     vi: {
       keyword: 'học tiếng anh 1 kèm 1 online',
-      title: 'Học tiếng Anh 1 kèm 1 online với đội ngũ thầy Jay',
-      description: 'Buổi học riêng 60 phút trực tuyến với đội ngũ giáo viên chuyên nghiệp của thầy Jay, dựa trên đánh giá nói. 800.000₫/buổi, gói 8 buổi 5.600.000₫.',
+      title: 'Học tiếng Anh 1 kèm 1 online với thầy Jay',
+      description: 'Buổi học riêng 60 phút trực tuyến với thầy Jay Adams (CELTA, TEFL 120 giờ), dựa trên đánh giá nói. 800.000₫/buổi, gói 8 buổi 5.600.000₫.',
     },
   },
   'printable-pack': {

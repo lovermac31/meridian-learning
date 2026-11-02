@@ -16,7 +16,7 @@
  * Teacher Pack (690.000₫); the 11 factory packs' prices were approved the same day (relayed by the master session),
  * with the Curriculum Overview credited against a Centre Licence. Card copy (problem → what's inside → who it's for) is the Kids Academy session's P-3 copy
  * (Drive doc "08 /products page copy" v2, 27 Oct); the later teacher and centre packs follow the Selling Assets index, with two lines aligned to the live pages: the Baseline report as the
- * Baseline page describes it (no fee-credit promise), and 1-to-1 lessons "with Mr. Jay's team" as the checkout says.
+ * Baseline page describes it (no fee-credit promise), and 1-to-1 lessons "with Mr. Jay" as the checkout says.
  * The IELTS Speaking Ladder, Teacher Training Course and Curriculum Overview cards follow their cleared Drive 00 READ MEs
  * (27 Oct): the Ladder is 18 self-study lessons plus a separate 1-lesson One-to-One Starter, not a one-to-one course.
  * The Vietnamese copy is machine-drafted and needs a native read. Only Jurassic English's own storybooks are named;
@@ -173,7 +173,7 @@ export const PRODUCTS: Product[] = [
     sample: 'one-to-one',
     en: {
       label: 'Live online · private',
-      title: '1-to-1 lessons with Mr. Jay’s team',
+      title: '1-to-1 lessons with Mr. Jay',
       problem: 'Your child is shy in big classes, or needs one specific skill fixed, and group lessons move at someone else’s pace.',
       inside: '60-minute private lessons on Google Meet, planned around your child’s own goals.',
       forWho: 'Any age. Best after a Baseline, or for families who need their own times.',
@@ -182,7 +182,7 @@ export const PRODUCTS: Product[] = [
     },
     vi: {
       label: 'Trực tuyến · học riêng',
-      title: 'Học 1 kèm 1 với đội ngũ của thầy Jay',
+      title: 'Học 1 kèm 1 với thầy Jay',
       problem: 'Con nhút nhát trong lớp đông, hoặc cần cải thiện đúng một kỹ năng, mà lớp nhóm lại đi theo tốc độ của người khác.',
       inside: 'Buổi học riêng 60 phút qua Google Meet, xây dựng theo mục tiêu của chính con.',
       forWho: 'Mọi độ tuổi. Phù hợp nhất sau buổi đánh giá, hoặc với gia đình cần lịch học riêng.',
@@ -1032,7 +1032,7 @@ export const PRODUCTS: Product[] = [
       title: 'IELTS Writing Baseline',
       problem: 'You keep writing Task 2 essays without knowing which problem to fix first.',
       inside: 'Send one Task 2 essay. Mr. Jay or his team reads it by hand and sends back, by Zalo or email, one strength to keep and three priorities in the order to fix them. Each priority quotes your own sentence, shows an example of the fix and names the lesson that trains it.',
-      forWho: 'Teens and adults preparing for IELTS Writing. Basic 79.000₫ · Intermediate 199.000₫ (your revision and a new essay, read again) · Advanced 449.000₫ (Intermediate plus a written review by Mr. Jay’s team). Practice feedback, not an official IELTS score; no band number is given.',
+      forWho: 'Teens and adults preparing for IELTS Writing. Basic 79.000₫ · Intermediate 199.000₫ (your revision and a new essay, read again) · Advanced 449.000₫ (Intermediate plus a written review by Mr. Jay). Practice feedback, not an official IELTS score; no band number is given.',
       unit: 'Basic · one essay',
       cta: 'Order on Zalo',
     },
