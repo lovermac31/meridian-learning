@@ -26,7 +26,7 @@ test('products keep named controls, labelled sample forms and a contained mobile
     await page.setViewportSize({ width, height: 900 });
     await page.goto(locale === 'vi' ? '/vi/products' : '/products');
     await expect(page.locator('[data-category-tile="families"]')).toHaveAttribute('aria-pressed', 'false');
-    await expect(page.locator('.products-page li[id]')).toHaveCount(35);
+    await expect(page.locator('.products-page li[id]')).toHaveCount(40); // 35 plus the five Story Workbooks (3 Nov 2026)
     await checkAccessibility(page);
     if (width === 375) {
       await mkdir(resolve('docs/qa/site-quality'), { recursive: true });
