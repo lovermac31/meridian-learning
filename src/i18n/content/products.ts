@@ -52,6 +52,12 @@ export function productImageSources(image: string) {
 export const PRODUCT_SECTIONS = ['families', 'teachers', 'centres', 'ielts'] as const;
 export type ProductSectionId = (typeof PRODUCT_SECTIONS)[number];
 
+// Story Workbooks get their own tile on /products and the home page (Jay, 3 Nov 2026: "I can't find them"). The five cards
+// stay in Families (data, prices, JSON-LD and product pages are unchanged); the tile is a cross-section view of them.
+export const WORKBOOKS_SEGMENT = 'story-workbooks';
+export const PRODUCT_SEGMENTS = ['families', WORKBOOKS_SEGMENT, 'teachers', 'centres', 'ielts'] as const;
+export type ProductSegmentId = (typeof PRODUCT_SEGMENTS)[number];
+
 export const IELTS_GROUPS = ['speaking', 'writing'] as const;
 export type IeltsGroup = (typeof IELTS_GROUPS)[number];
 /** Each IELTS group's home page (the AI Speaking app, EN + VI). */
@@ -131,6 +137,11 @@ const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e
   en: { label: 'Digital download · story workbooks', unit: `one-time · ${count} workbooks`, cta: 'Order on Zalo', ...e },
   vi: { label: 'Tài liệu số · sách truyện bài tập', unit: `mua một lần · ${count} cuốn`, cta: 'Đặt mua qua Zalo', ...v },
 });
+
+/** The age range each level's card states in "Who it's for" (a test keeps the two in step); shown on the level picker. */
+export const WORKBOOK_AGES: Record<string, string> = {
+  'story-workbooks-l1': '4–8', 'story-workbooks-l2': '8–10', 'story-workbooks-l3': '10–12', 'story-workbooks-l4': '12–14', 'story-workbooks-l5': '14+',
+};
 
 const STORY_WORKBOOKS: Product[] = [
   storyWorkbook(1, '290.000₫', 11, {
@@ -1270,6 +1281,7 @@ type PageCopy = {
   viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string; textVersion: string; hideText: string; pageText: string; textLoading: string; textError: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   workbooks: string;
+  workbooksBand: { heading: string; intro: string; levels: string; ages: string; agesFrom: string; count: string };
   ielts: { groups: Record<IeltsGroup, string>; home: Record<IeltsGroup, string>; crumb: string };
   closing: { heading: string; body: string; cta: string };
 };
@@ -1284,7 +1296,15 @@ const PAGE: Record<Locale, PageCopy> = {
     leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for' },
     sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'See the sample pages' },
     viewer: { title: 'Sample pages', prev: 'Previous page', next: 'Next page', close: 'Close', counter: 'Page {n} of {total}', end: 'That’s the sample. Ready to order?', viewOnly: 'Sample pages are for viewing only.', textVersion: 'Text version', hideText: 'Hide text version', pageText: 'Sample page text', textLoading: 'Loading the sample page text…', textError: 'The text version could not load. Close the sample and try again.' },
-    workbooks: 'Workbooks',
+    workbooks: 'Story Workbooks',
+    workbooksBand: {
+      heading: 'Story Workbooks',
+      intro: 'Original Jurassic English storybooks as print-ready A4 workbooks, with a teacher guide and an answer key. Pick a level, see the sample pages, then order.',
+      levels: 'Story Workbooks by level',
+      ages: 'Ages {ages}',
+      agesFrom: 'Ages {ages}+',
+      count: '{n} workbooks',
+    },
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
@@ -1308,7 +1328,15 @@ const PAGE: Record<Locale, PageCopy> = {
     leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho' },
     sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Xem các trang mẫu' },
     viewer: { title: 'Trang mẫu', prev: 'Trang trước', next: 'Trang sau', close: 'Đóng', counter: 'Trang {n}/{total}', end: 'Đó là bản mẫu. Sẵn sàng đặt mua?', viewOnly: 'Trang mẫu chỉ để xem.', textVersion: 'Bản văn bản', hideText: 'Ẩn bản văn bản', pageText: 'Nội dung trang mẫu', textLoading: 'Đang tải nội dung trang mẫu…', textError: 'Không tải được bản văn bản. Hãy đóng bản mẫu và thử lại.' },
-    workbooks: 'Sách bài tập',
+    workbooks: 'Sách truyện bài tập',
+    workbooksBand: {
+      heading: 'Sách truyện bài tập',
+      intro: 'Truyện gốc của Jurassic English thành sách bài tập in sẵn khổ A4, có hướng dẫn cho giáo viên và đáp án. Chọn cấp độ, xem các trang mẫu, rồi đặt mua.',
+      levels: 'Sách truyện bài tập theo cấp độ',
+      ages: '{ages} tuổi',
+      agesFrom: 'Từ {ages} tuổi',
+      count: '{n} cuốn',
+    },
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },

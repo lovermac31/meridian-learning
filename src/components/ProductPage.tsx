@@ -129,6 +129,12 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
                 <li aria-hidden="true">›</li>
               </>
             ) : null}
+            {card.category === 'workbooks' ? (
+              <>
+                <li><a href={`${getLocalizedHref(PRODUCTS_PATH, locale)}#story-workbooks`} className="underline underline-offset-4" data-crumb-workbooks="">{c.workbooks}</a></li>
+                <li aria-hidden="true">›</li>
+              </>
+            ) : null}
             <li aria-current="page" className="font-bold">{card.title}</li>
           </ol>
         </nav>

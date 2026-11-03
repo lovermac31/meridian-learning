@@ -70,7 +70,7 @@ test('PayPal link: the chosen market sets the amount and is named in the item an
 
 test('the page: a Workbooks heading in Families and Teachers, the country picker on each product page, regional range note (EN + VI)', async () => {
   const { renderRoute } = await import('../src/entry-server');
-  for (const [route, heading, note] of [['/products', 'Workbooks', /Regional price: it follows each country’s price range, from US\$5 to US\$10/], ['/vi/products', 'Sách bài tập', /Giá theo khu vực/]] as const) {
+  for (const [route, heading, note] of [['/products', 'Story Workbooks', /Regional price: it follows each country’s price range, from US\$5 to US\$10/], ['/vi/products', 'Sách truyện bài tập', /Giá theo khu vực/]] as const) {
     const html = mainOf(await renderRoute(route)).replaceAll('<!-- -->', '');
     const fam = html.slice(html.indexOf('<section id="families"'), html.indexOf('</section>', html.indexOf('<section id="families"')));
     const tea = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));

@@ -3,17 +3,18 @@ import assert from 'node:assert/strict';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ProductsPage, productAnchor } from '../src/components/ProductsPage';
-import { PRODUCTS, PRODUCT_SECTIONS, PRODUCT_FORMER_IDS, productsPage } from '../src/i18n/content/products';
+import { PRODUCTS, PRODUCT_SECTIONS, PRODUCT_SEGMENTS, PRODUCT_FORMER_IDS, WORKBOOKS_SEGMENT, WORKBOOK_AGES, productsPage } from '../src/i18n/content/products';
 import { FEATURED_PRODUCTS } from '../src/components/ProductsPage';
 
 // Stitch layout (Jay's mock, 2 Nov 2026) with featured-first (Jay, "tighten"): a segment filter row over one wide card
 // per product. SSR renders all 40 cards (search engines and deep links see them) but only the six featured cards show;
 // the rest sit behind the segment tiles and "Show all 40 products".
 for (const locale of ['en', 'vi'] as const) {
-  test(`filter ${locale}: four segment tiles with real counts and lowest prices; six featured cards show, the rest wait behind the filters`, () => {
+  test(`filter ${locale}: five segment tiles (Story Workbooks included) with real counts and lowest prices; six featured cards show, the rest wait behind the filters`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     const tiles = [...html.matchAll(/aria-pressed="(true|false)" aria-controls="([^"]+)" data-category-tile="([^"]+)"/g)];
-    assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SECTIONS.map((id) => [id, 'false', id]));
+    assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.map((id) => [id, 'false', id]));
+    assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Story Workbooks sits right after Families');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
     assert.equal(total, 40);
     for (const section of productsPage(locale).sections) {
@@ -25,6 +26,9 @@ for (const locale of ['en', 'vi'] as const) {
       assert.ok(tile.includes(`${count} ${locale === 'vi' ? 'sản phẩm' : 'products'}`));
       assert.ok(tile.includes(`${price}₫`));
     }
+    // The Story Workbooks tile counts the five level cards (they stay in the Families data) and starts at the L2-L5 price.
+    const workbookTile = html.match(/data-category-tile="story-workbooks"[\s\S]*?<\/button>/)![0];
+    assert.ok(workbookTile.includes(`5 ${locale === 'vi' ? 'sản phẩm' : 'products'}`) && workbookTile.includes('190.000₫'), 'workbooks tile: 5 products from 190.000₫');
     assert.equal(FEATURED_PRODUCTS.length, 6);
     assert.deepEqual(FEATURED_PRODUCTS.slice(0, 3), ['story-club', 'baseline', 'one-to-one'], 'the three live services lead');
     for (const id of FEATURED_PRODUCTS) assert.ok(PRODUCTS.find((p) => p.id === id)?.live, `${id} is a live product`);
@@ -63,11 +67,13 @@ for (const locale of ['en', 'vi'] as const) {
 
   test(`anchors ${locale}: every canonical, former, sample and IELTS subgroup anchor resolves to its category`, () => {
     for (const product of PRODUCTS.filter((p) => p.live)) {
-      assert.deepEqual(productAnchor(`#${product.id}`, locale), { section: product.section, product: product.id, sample: false, target: product.id });
+      // A Story Workbooks card opens the Story Workbooks segment (five cards), not the whole Families list.
+      assert.deepEqual(productAnchor(`#${product.id}`, locale), { section: product.category === 'workbooks' ? 'story-workbooks' : product.section, product: product.id, sample: false, target: product.id });
       assert.equal(productAnchor(`#${product.id}-sample`, locale)?.sample, !!product.sample);
       for (const alias of PRODUCT_FORMER_IDS[product.id] ?? []) assert.equal(productAnchor(`#${alias}`, locale)?.product, product.id);
     }
     for (const id of PRODUCT_SECTIONS) assert.equal(productAnchor(`#${id}`, locale)?.section, id);
+    assert.deepEqual(productAnchor('#story-workbooks', locale), { section: 'story-workbooks', product: null, sample: false, target: 'story-workbooks' });
     assert.equal(productAnchor('#ielts-speaking', locale)?.section, 'ielts');
     assert.equal(productAnchor('#ielts-writing', locale)?.section, 'ielts');
     assert.equal(productAnchor('#not-a-product', locale), null);
@@ -86,5 +92,26 @@ for (const locale of ['en', 'vi'] as const) {
     assert.doesNotMatch(block('data-products-faq'), /<a /, 'no links in the FAQ');
     // Nothing from the mock's placeholder text: no student counts, guarantees or invented cities.
     assert.doesNotMatch(html, /2,400\+ Students|30-Day Guarantee|No-quibble|Ho Chi Minh|Mass Gimmicks/i);
+  });
+
+  test(`story workbooks ${locale}: a level picker under the tiles links to all five cards; the cards still sit once, in Families`, () => {
+    const html = renderToStaticMarkup(createElement(ProductsPage, { locale })).replaceAll('<!-- -->', '');
+    const band = html.match(/<section id="story-workbooks"[^>]*data-story-workbooks-band="">[\s\S]*?<\/section>/)?.[0] ?? '';
+    assert.ok(band, 'the band renders (visible by default: no hidden attribute)');
+    assert.doesNotMatch(band.slice(0, band.indexOf('>')), /hidden/, 'visible before any tile is pressed');
+    assert.ok(html.indexOf('data-products-mini-nav') < html.indexOf('data-story-workbooks-band') && html.indexOf('data-story-workbooks-band') < html.indexOf('data-category-panel="families"'), 'tiles, then the level picker, then the catalogue');
+    const ids = [1, 2, 3, 4, 5].map((n) => `story-workbooks-l${n}`);
+    assert.deepEqual([...band.matchAll(/href="#([^"]+)" data-workbooks-level/g)].map((m) => m[1]), ids, 'one link per level, in order');
+    for (const id of ids) {
+      const card = productsPage(locale).sections.flatMap((s) => s.cards).find((c) => c.id === id)!;
+      const link = band.match(new RegExp(`data-workbooks-level="${id}"[^>]*>[\\s\\S]*?</a>`))![0];
+      assert.ok(link.includes(card.price), `${id}: price on the level link`);
+      assert.ok(link.includes(WORKBOOK_AGES[id].replace('+', '')), `${id}: age range on the level link`);
+      assert.ok(card.forWho.includes(WORKBOOK_AGES[id].replace('+', '')), `${id}: the picker's age range matches the card's Who it's for`);
+      assert.equal((html.match(new RegExp(`<li class="product-row[^"]*" id="${id}"`, 'g')) ?? []).length, 1, `${id}: one card`);
+      assert.equal(productAnchor(`#${id}`, locale)?.section, WORKBOOKS_SEGMENT);
+    }
+    assert.ok(band.includes(productsPage(locale).workbooksBand.intro), 'the intro line');
+    assert.doesNotMatch(band, /<img|\.pdf|<form/i, 'no image, PDF or form in the picker');
   });
 }
