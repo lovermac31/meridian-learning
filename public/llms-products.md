@@ -365,7 +365,7 @@
 - ID: `writing-baseline`
 - English: https://jurassicenglish.com/products/writing-baseline
 - Vietnamese: https://jurassicenglish.com/vi/products/writing-baseline
-- English description: Send one IELTS Task 2 essay. Mr. Jay or his team reads it by hand and returns one strength and three ranked priorities by Zalo or email. From 79.000₫.
+- English description: Send one IELTS Task 2 essay. Mr. Jay reads it by hand and returns one strength and three ranked priorities by Zalo or email. From 79.000₫.
 - Vietnamese title: Chấm bài IELTS Writing Task 2: một bài, ba ưu tiên sửa
 - VND price: 79.000 VND
 - PayPal USD: not listed
