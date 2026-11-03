@@ -47,6 +47,8 @@ export const PORTAL_BUY_FLAGS: Record<string, boolean> = {
   'ielts-writing-task1-method': false,
   'ielts-essay-bank-task2': false,
   'ielts-writing-teacher-pack': false,
+  'ielts-reading-ladder': false,
+  'ielts-listening-profiler': false,
 };
 
 export function isPortalBuyEnabled(productId: string): boolean {

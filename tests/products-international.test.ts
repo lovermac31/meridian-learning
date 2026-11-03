@@ -88,6 +88,8 @@ const USD: Record<string, number> = {
   // #ielts, last on the page (27 Oct 2026).
   'ielts-speaking-ladder': 16, 'ielts-one-to-one-starter': 6, 'ielts-cue-card-bank': 12, 'ielts-writing-ladder-task2': 16,
   'ielts-writing-task1-method': 12, 'ielts-essay-bank-task2': 12, 'ielts-writing-teacher-pack': 27,
+  // IELTS Reading and Listening (3 Nov 2026): 390.000₫ → US$16.
+  'ielts-reading-ladder': 16, 'ielts-listening-profiler': 16,
 };
 // The page shows PayPal only on live cards; hidden ones (35-today plan) are priced and ready for when they flip.
 const LIVE_USD = Object.keys(USD).filter((id) => PRODUCTS.find((p) => p.id === id)!.live);

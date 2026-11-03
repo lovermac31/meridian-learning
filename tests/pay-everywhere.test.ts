@@ -22,6 +22,7 @@ const amounts: Record<string, number> = {
   'curriculum-overview': 290000, 'ielts-speaking-ladder': 390000, 'ielts-one-to-one-starter': 149000,
   'ielts-cue-card-bank': 290000, 'writing-baseline': 79000, 'ielts-writing-ladder-task2': 390000,
   'ielts-writing-task1-method': 290000, 'ielts-essay-bank-task2': 290000, 'ielts-writing-teacher-pack': 690000,
+  'ielts-reading-ladder': 390000, 'ielts-listening-profiler': 390000,
 };
 
 test('every priced offer has an approved price and a unique stable memo namespace', () => {

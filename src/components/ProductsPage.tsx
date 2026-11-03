@@ -61,13 +61,15 @@ export function productHref(href: string, locale: Locale): string {
 }
 
 /** An IELTS card's home page on /ai-speaking (Speaking or Writing), in the page language, tagged utm_source=products. */
-export const ieltsHomeHref = (group: IeltsGroup, locale: Locale) => `${IELTS_HOME[group][locale]}?${PRODUCTS_UTM}`;
+export const ieltsHomeHref = (group: 'speaking' | 'writing', locale: Locale) => `${IELTS_HOME[group][locale]}?${PRODUCTS_UTM}`;
 
 /** One line under an IELTS card or on its product page: back to its IELTS home page. */
-export function IeltsHomeLink({ group, locale, label, id }: { group: IeltsGroup; locale: Locale; label: string; id: string }) {
+export function IeltsHomeLink({ group, locale, label, id }: { group: IeltsGroup; locale: Locale; label?: string; id: string }) {
+  const home = IELTS_HOME[group];
+  if (!home || !label) return null;
   return (
     <p className="mt-2 text-sm" data-ielts-home={id}>
-      <a href={ieltsHomeHref(group, locale)} className="font-bold underline underline-offset-4 hover:text-sb-amber-deep">{label} →</a>
+      <a href={`${home[locale]}?${PRODUCTS_UTM}`} className="font-bold underline underline-offset-4 hover:text-sb-amber-deep">{label} →</a>
     </p>
   );
 }
@@ -477,7 +479,7 @@ export function productAnchor(hash: string, locale: Locale) {
 // one the tests and Jay's rule pin: text → sample → price → buttons; the grid places the sample and price on the right.
 function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome, visible, touch }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
-  onOpenSample: (card: ProductCard) => void; ieltsHome: Record<IeltsGroup, string>; visible: boolean; touch: FirstTouch | null;
+  onOpenSample: (card: ProductCard) => void; ieltsHome: Partial<Record<IeltsGroup, string>>; visible: boolean; touch: FirstTouch | null;
 }) {
   const external = card.href === 'zalo';
   const href = external ? withFirstTouch(zaloHref(source), touch) : productHref(card.href, locale);
@@ -631,7 +633,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
               <button type="button" aria-pressed={filter === id} aria-controls={id} data-category-tile={id} onClick={() => setFilter((current) => (current === id ? null : id))}>
                 <span className="products-overview-name">{categoryCopy.names[id]}</span>
                 <span className="products-overview-sub">{cards.length} {categoryCopy.count} · {categoryCopy.from} {lowest.toLocaleString('de-DE')}₫</span>
-                {id === 'ielts' ? <span className="products-overview-sub">{c.ielts.groups.speaking} · {c.ielts.groups.writing}</span> : null}
+                {id === 'ielts' ? <span className="products-overview-sub">{IELTS_GROUPS.filter((group) => cards.some((card) => card.group === group)).map((group) => c.ielts.groups[group]).join(' · ')}</span> : null}
                 {id === WORKBOOKS_SEGMENT ? <span className="products-overview-sub">{categoryCopy.workbooksSub}</span> : null}
               </button>
             </li>;
