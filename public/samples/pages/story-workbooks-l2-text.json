@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "productId": "story-workbooks-l2",
+  "sampleStem": "story-workbooks-l2",
+  "pageCount": 3,
+  "source": {
+    "file": "story-workbooks-l2-sample.pdf",
+    "sha256": "023ba1fa7032b0fc57f816e900310020988563664b0df98eda3f0a2b16b3131c"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "story-workbooks-l2-pg01.webp",
+      "imageSha256": "b3c89ecf7847c7c8798e80cf3a297c0da93ba808eaacf118e562561ddd6c3984",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nThe Bell That Rang Too Early\n\nLevel 2 · Development\n\nAges 8–10\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "239afa11fbd258e842c41c26f2cb6d039d73a84ac32b689ccc5dd84c56935049",
+      "method": "pdf-text"
+    },
+    {
+      "page": 2,
+      "image": "story-workbooks-l2-pg02.webp",
+      "imageSha256": "d061cae7ba72c4f022779c995dc8f4f5c8d22f97d0fa05cc6d3a8f613e63c39e",
+      "text": "Chapter 1\n\nMarket morning\n\n1\n\nEvery Saturday, Pavi helped her uncle at the small town market.\nHer job was to ring a brass bell when the stalls were ready.\nRen, the new boy, liked to draw. He drew a fish stall, a flower stall\nand Uncle’s mountain of hats.\n‘You need a real job,’ said Pavi. ‘We all have to be useful.’\nRen closed his sketchbook. He sat behind the hats.\nRead and circle\nWhat does Ren do after Pavi says, ‘We all have to be useful’?\nA. He keeps drawing Uncle’s mountain of hats at the stall.\nB. He closes his sketchbook and sits behind the hats.\nC. He rings the brass bell.\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "e04a6aa79021a9e93603bddb8652dddbfcebda4f2dd5b21d4c71668972b09445",
+      "method": "pdf-text"
+    },
+    {
+      "page": 3,
+      "image": "story-workbooks-l2-pg03.webp",
+      "imageSha256": "3461df23ba6664b6328d0aba3568d18143a830ae389951c2fced729a3c8acae5",
+      "text": "Chapter 1 workbook\n\n1\n\nMarket morning: my workbook page\n\n1 · Fill the gaps\nhelped\n\nliked\n\nstalls\n\nuncle\n\nEvery Saturday, Pavi\n\nher uncle at the small town market.\n\nHer job was to ring a brass bell when the\nRen, the new boy,\n\nwere ready.\n\nto draw.\n\n2 · Think about it\nHow might Ren feel after Pavi’s words?\nA. Proud of his new job\nB. Left out and unwanted\nC. Angry with Uncle\n\n3 · Write it\nHow might Ren feel? Identify a clue; the story does not directly name his\nfeeling.\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "cd161943f9f9c172290719763c26f604befb03c5a51309832e28aef5d5958152",
+      "method": "pdf-text"
+    }
+  ]
+}

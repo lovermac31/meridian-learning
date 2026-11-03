@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "productId": "story-workbooks-l3",
+  "sampleStem": "story-workbooks-l3",
+  "pageCount": 3,
+  "source": {
+    "file": "story-workbooks-l3-sample.pdf",
+    "sha256": "6b94fd398cd1fccfe18fe4403e31de2dcc7f6bc4aa85b5ad5bbe20372267ad50"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "story-workbooks-l3-pg01.webp",
+      "imageSha256": "20bc9f68fc1f11293658df36bb3a65da0f04221ef1d18ee7be93dd304f506158",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nThe Last Seat on the Night Ferry\n\nLevel 3 · Expansion\n\nAges 10–12\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "bde1eb9d13b42537d2966de878a9e19d6f571e0debbe2d303f47a2f949e8e8ef",
+      "method": "pdf-text"
+    },
+    {
+      "page": 2,
+      "image": "story-workbooks-l3-pg02.webp",
+      "imageSha256": "85252ae7c5bb93351c1c5edb7ae1c54e1e80f7173af47d4a1862212db18404fb",
+      "text": "Chapter 1\n\nA ticket for a seat\n\n1\n\nSela’s grandfather had worked on the night ferry for thirty-one years. On\nits final evening, he gave her a ticket with a round hole punched through\nthe corner.\n‘Window seat,’ he said.\nSela had made a sign: KEEP OUR FERRY. She folded it small enough to fit\nin her coat.\nA new daytime service would begin the next week, with a different\nlanding and easier boarding. The old boat needed repairs the town could\nnot fund.\nSela knew these facts. Knowing them did not make her want to climb\naboard for the last time.\nRead and circle\nWhich reason for ending the old night ferry is given in this scene?\nA. Grandfather was retiring after thirty-one years of work\nB. The town had no money for the repairs it needed\nC. Hardly anyone travelled on it after dark\n\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "d28ef1c5bc97f3403052c0c39732091a8a71039c214405f7a749515e8b3a9e1c",
+      "method": "pdf-text"
+    },
+    {
+      "page": 3,
+      "image": "story-workbooks-l3-pg03.webp",
+      "imageSha256": "d388cbaaf8451c53e32fdacf6c374a36063a7ab1524b0e1af600ba44c92b9aae",
+      "text": "Chapter 1 workbook\n\n1\n\nA ticket for a seat: my workbook page\n\n1 · Fill the gaps\nevening\n\ngrandfather\n\nSela’s\n\nseat\n\nworked\n\nhad worked on the night ferry for thirty-one years.\n\nOn its final\n\n, he gave her a ticket with a round hole punched\n\nthrough the corner.\n‘Window\n\n,’ he said.\n\n2 · Think about it\nWhat does the last sentence suggest about Sela?\nA. She doubts the boat really needs any repairs\nB. She is nervous about crossing at night\nC. The facts have not changed how she feels\n\n3 · Write it\nWhat might the folded sign suggest? Give more than one plausible interpretation.\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "f28bc2b766af8816e762236414d5925ee446673074afef37953fbbd49ad30773",
+      "method": "pdf-text"
+    }
+  ]
+}

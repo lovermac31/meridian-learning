@@ -28,7 +28,8 @@ import { getOverhaulContent } from '../i18n/content/overhaul';
 import { ieltsAppHref } from '../lib/ieltsApp';
 import { IeltsAppEntrance } from './IeltsAppEntrance';
 import { PRODUCT_VIDEO_ANCHOR, VIDEO_COPY } from '../i18n/content/productVideos';
-import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
+import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, REGIONAL_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
+import { MARKET_IDS, MARKET_LABELS, OTHER_MARKET, hasRegionalPrice, regionalUsdRange } from '../lib/regionalPrice';
 import { recordClientEvent } from '../lib/tracker';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
 import { useFirstTouch, withFirstTouch, type FirstTouch } from '../lib/utmFirstTouch';
@@ -301,6 +302,19 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
 // S1: the US$ price by PayPal for international buyers, after the VND order button (VND and VietQR stay first).
 export function PayPalOption({ card, locale, source, compact = false }: { card: ProductCard; locale: Locale; source: string | null; compact?: boolean }) {
   const copy = PAYPAL_CARD_COPY[locale];
+  const regional = hasRegionalPrice(card.id);
+  const [market, setMarket] = useState<string>(OTHER_MARKET);
+  const chosen = regional && market !== OTHER_MARKET ? market : null;
+  // Regional price (Jay, 3 Nov 2026): the hub shows one line that leads to the product page, where the buyer picks a country.
+  if (regional && compact) {
+    return (
+      <p className="mt-2 text-sm" data-paypal={card.id} data-regional-price={card.id}>
+        <a href={productHref(`${productPath(card.id)}#regional-price`, locale)} className="font-bold underline underline-offset-4 hover:text-sb-amber-deep" data-paypal-link={card.id}>
+          {REGIONAL_COPY[locale].compact(regionalUsdRange(card.id).low)}
+        </a>
+      </p>
+    );
+  }
   // On the /products hub the option is one line after the order button; its note folds into the card's Details.
   if (compact) {
     return (
@@ -319,19 +333,31 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
       </p>
     );
   }
+  const regionalCopy = REGIONAL_COPY[locale];
+  const range = regional ? regionalUsdRange(card.id) : null;
   return (
-    <div className="mt-3 rounded-xl border border-sb-border p-3" data-paypal={card.id}>
+    <div className="mt-3 rounded-xl border border-sb-border p-3" data-paypal={card.id} id={regional ? 'regional-price' : undefined} data-regional-price={regional ? card.id : undefined}>
       <p className="text-sm font-bold">{copy.lead}</p>
+      {regional ? (
+        <label className="mt-1 block text-sm">
+          <span className="block">{regionalCopy.label}</span>
+          <select className="mt-1 w-full rounded-lg border border-sb-border bg-white p-2" value={market} onChange={(event) => setMarket(event.target.value)} data-regional-select={card.id}>
+            <option value={OTHER_MARKET}>{regionalCopy.other}</option>
+            {MARKET_IDS.map((id) => <option key={id} value={id}>{MARKET_LABELS[id][locale]}</option>)}
+          </select>
+        </label>
+      ) : null}
       <a
-        href={productPaypalHref(card.id, source, locale)}
+        href={productPaypalHref(card.id, source, locale, chosen)}
         target="_blank"
         rel="noopener noreferrer"
         className="mt-1 inline-block text-sm font-bold underline underline-offset-4 hover:text-sb-amber-deep"
         data-paypal-link={card.id}
         onClick={() => recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined })}
       >
-        {copy.pay(productUsd(card.price))}
+        {copy.pay(productUsd(card.price, card.id, chosen))}
       </a>
+      {range ? <p className="mt-1 text-xs" data-regional-note={card.id}>{regionalCopy.note.replace('%LOW%', String(range.low)).replace('%HIGH%', String(range.high))}</p> : null}
       <p className="mt-1 text-xs">{copy.note}</p>
     </div>
   );
@@ -630,14 +656,22 @@ export function ProductsPage({ locale }: { locale: Locale }) {
                 <p className="product-row-text" data-live-check-link="">{locale === 'vi' ? 'Muốn có người nghe bạn nói? Bước đầu thấp hơn Đánh giá Nói trực tiếp: ' : 'Want a person to listen? A lower first step than the Baseline: '}<a href={locale === 'vi' ? '/live-speaking-check?lang=vi&utm_source=products' : '/live-speaking-check?utm_source=products'}>{locale === 'vi' ? 'Kiểm tra Nói trực tiếp 30 phút · 250.000₫ (từ 18 tuổi)' : '30-minute Live Speaking Check · 250.000₫ (adults 18+)'}</a></p>
               </div>
             ) : null}
-            {(section.id === 'ielts' ? IELTS_GROUPS.map((group) => ({ group, cards: section.cards.filter((card) => card.group === group) })) : [{ group: null, cards: section.cards }]).filter((list) => list.cards.length > 0).map(({ group, cards }) => (
-              <div key={group ?? 'all'} data-ielts-group={group ?? undefined}>
+            {(section.id === 'ielts'
+              ? IELTS_GROUPS.map((group) => ({ group, workbooks: false, cards: section.cards.filter((card) => card.group === group) }))
+              : [{ group: null, workbooks: false, cards: section.cards.filter((card) => card.category !== 'workbooks') }, { group: null, workbooks: true, cards: section.cards.filter((card) => card.category === 'workbooks') }]
+            ).filter((list) => list.cards.length > 0).map(({ group, workbooks, cards }) => (
+              <div key={group ?? (workbooks ? 'workbooks' : 'all')} data-ielts-group={group ?? undefined} data-workbooks-group={workbooks ? section.id : undefined}>
                 {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card.id, section.id))}>{c.ielts.groups[group]}</h3> : null}
+                {workbooks ? <h3 id={`${section.id}-workbooks`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card.id, section.id))}>{c.workbooks}</h3> : null}
                 <ul className="products-rows">
                   {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} visible={isVisible(card.id, section.id)} touch={touch} />)}
                 </ul>
               </div>
             ))}
+            {/* Teachers keeps no workbook cards of its own: the "Workbooks" heading leads its pointers to the Story Workbooks (3 Nov 2026). */}
+            {!section.cards.some((card) => card.category === 'workbooks') && section.also.some((line) => line.category === 'workbooks')
+              ? <h3 id={`${section.id}-workbooks`} className="products-ielts-heading scroll-mt-24" data-workbooks-pointers={section.id} hidden={!showAll && filter !== section.id}>{c.workbooks}</h3>
+              : null}
             {section.also.map((line) => <p key={line.id} className="products-also" data-also={line.id} hidden={!showAll && filter !== section.id}>{line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}</p>)}
           </section>
         ))}

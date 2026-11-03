@@ -99,11 +99,96 @@ export type Product = {
   video?: string;
   // The #ielts sub-group (Speaking or Writing); set on every 'ielts' product.
   group?: IeltsGroup;
+  // 'workbooks': listed under a "Workbooks" heading at the end of its section (Families and Teachers). Jay, 3 Nov 2026.
+  category?: 'workbooks';
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
   vi: CardText;
 };
+
+// Story Workbooks, Levels 1 to 5 (Jay, 3 Nov 2026): the original Jurassic English storybooks as print-ready A4 workbooks
+// (30 pages each: cover, six chapters with a write-in page each, activities, teacher guide, answer key). Level 1 is 11
+// workbooks, Levels 2 to 5 are 3 each. One card per level, in Families under "Workbooks", with a pointer from Teachers.
+// The sample is 3 watermarked pages of one lead book per level, view-only (no PDF is published). Each full PDF carries
+// the licence line and file properties (security Tier 1) and is delivered only after payment.
+const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e: Omit<CardText, 'label' | 'cta' | 'unit'>, v: Omit<CardText, 'label' | 'cta' | 'unit'>): Product => ({
+  id: `story-workbooks-l${level}`,
+  live: true,
+  section: 'families',
+  category: 'workbooks',
+  price,
+  href: 'zalo',
+  image: `story-workbooks-l${level}`,
+  sample: `story-workbooks-l${level}`,
+  delivery: true,
+  paypal: true,
+  alsoIn: {
+    section: 'teachers',
+    en: `Teaching Level ${level} stories? The {link} are print-ready with an answer key and a teacher guide: {price} for ${count} workbooks.`,
+    vi: `Dạy truyện Level ${level}? {link} in sẵn, có đáp án và hướng dẫn cho giáo viên: {price} cho ${count} cuốn.`,
+  },
+  en: { label: 'Digital download · story workbooks', unit: `one-time · ${count} workbooks`, cta: 'Order on Zalo', ...e },
+  vi: { label: 'Tài liệu số · sách truyện bài tập', unit: `mua một lần · ${count} cuốn`, cta: 'Đặt mua qua Zalo', ...v },
+});
+
+const STORY_WORKBOOKS: Product[] = [
+  storyWorkbook(1, '290.000₫', 11, {
+    title: 'Level 1 Story Workbooks',
+    problem: 'Your child enjoys stories, but you want pages to write on, questions that check they understood, and a reason to talk about the story together.',
+    inside: '11 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in six short chapters, a fill-in, circle and draw page for every chapter, a word search, a reading log, a teacher guide and an answer key.',
+    forWho: 'Children aged 4–8 (CEFR Pre-A1 → A1), read with a parent or teacher. One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 1',
+    problem: 'Con thích nghe truyện, nhưng bố mẹ muốn có trang để con viết, câu hỏi kiểm tra con hiểu truyện chưa, và lý do để hai bố con cùng trò chuyện về câu chuyện.',
+    inside: '11 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
+    forWho: 'Trẻ 4–8 tuổi (CEFR Pre-A1 → A1), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+  storyWorkbook(2, '190.000₫', 3, {
+    title: 'Level 2 Story Workbooks',
+    problem: 'Your child reads short texts, but you can’t tell whether they understand the story or only decode the words.',
+    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, a fill-in, circle and write page for every chapter, a Thinking Cycle page, a word search, a reading log, a teacher guide and an answer key.',
+    forWho: 'Children aged 8–10 (CEFR A1 → A2). One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 2',
+    problem: 'Con đọc được các đoạn ngắn, nhưng bố mẹ chưa chắc con hiểu câu chuyện hay chỉ đọc đúng từng chữ.',
+    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, mỗi chương một trang điền từ, khoanh đáp án và viết, thêm trang Chu trình Tư duy, trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
+    forWho: 'Trẻ 8–10 tuổi (CEFR A1 → A2). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+  storyWorkbook(3, '190.000₫', 3, {
+    title: 'Level 3 Story Workbooks',
+    problem: 'Your child reads longer stories but rarely explains why a character did something, or what in the text proves it.',
+    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, questions that ask for the clue, a Thinking Cycle page (analyse, evaluate, justify, reflect), a word search, a teacher guide, a rubric and an answer key.',
+    forWho: 'Children aged 10–12 (CEFR A2 → B1). One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 3',
+    problem: 'Con đọc được truyện dài hơn nhưng ít khi giải thích được vì sao nhân vật làm vậy, hay chi tiết nào trong truyện chứng minh điều đó.',
+    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, câu hỏi yêu cầu chỉ ra chi tiết, trang Chu trình Tư duy (phân tích, đánh giá, lập luận, suy ngẫm), trò tìm từ, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
+    forWho: 'Trẻ 10–12 tuổi (CEFR A2 → B1). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+  storyWorkbook(4, '190.000₫', 3, {
+    title: 'Level 4 Story Workbooks',
+    problem: 'Your teenager reads fluently, but their answers about a text stay vague: no evidence, no weighing of two readings.',
+    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: longer chapters, questions that ask for a quoted clue, a Thinking Cycle page that asks for a claim with evidence, a teacher guide, a rubric and an answer key.',
+    forWho: 'Learners aged 12–14 (CEFR B1 → B2). One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 4',
+    problem: 'Con đọc trôi chảy, nhưng câu trả lời về văn bản vẫn chung chung: thiếu dẫn chứng, chưa biết cân nhắc hai cách hiểu.',
+    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: chương dài hơn, câu hỏi yêu cầu trích dẫn chi tiết, trang Chu trình Tư duy yêu cầu nêu nhận định kèm dẫn chứng, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
+    forWho: 'Học sinh 12–14 tuổi (CEFR B1 → B2). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+  storyWorkbook(5, '190.000₫', 3, {
+    title: 'Level 5 Story Workbooks',
+    problem: 'Your older learner can summarise a text, but not yet argue a position from it, answer a counterargument or weigh a consequence.',
+    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: chapter stories on real-world decisions, evidence questions, a Thinking Cycle page with claim, evidence, interpretation and counterargument, a teacher guide, a rubric and an answer key.',
+    forWho: 'Learners aged 14+ (CEFR B2 → C1). One-learner licence: print for your own use. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 5',
+    problem: 'Học sinh lớn đã tóm tắt được văn bản, nhưng chưa biết bảo vệ một quan điểm từ văn bản, đáp lại phản biện hay cân nhắc hệ quả.',
+    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương về những quyết định thực tế, câu hỏi dẫn chứng, trang Chu trình Tư duy với nhận định, dẫn chứng, diễn giải và phản biện, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
+    forWho: 'Học sinh từ 14 tuổi (CEFR B2 → C1). Bản quyền cho một học viên: in cho riêng bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+];
 
 export const PRODUCTS: Product[] = [
   {
@@ -342,6 +427,7 @@ export const PRODUCTS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
+  ...STORY_WORKBOOKS,
   {
     id: 'teacher-pack-l1',
     live: true,
@@ -1183,6 +1269,7 @@ type PageCopy = {
   sample: { heading: string; note: string; open: string };
   viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string; textVersion: string; hideText: string; pageText: string; textLoading: string; textError: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
+  workbooks: string;
   ielts: { groups: Record<IeltsGroup, string>; home: Record<IeltsGroup, string>; crumb: string };
   closing: { heading: string; body: string; cta: string };
 };
@@ -1197,6 +1284,7 @@ const PAGE: Record<Locale, PageCopy> = {
     leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for' },
     sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'See the sample pages' },
     viewer: { title: 'Sample pages', prev: 'Previous page', next: 'Next page', close: 'Close', counter: 'Page {n} of {total}', end: 'That’s the sample. Ready to order?', viewOnly: 'Sample pages are for viewing only.', textVersion: 'Text version', hideText: 'Hide text version', pageText: 'Sample page text', textLoading: 'Loading the sample page text…', textError: 'The text version could not load. Close the sample and try again.' },
+    workbooks: 'Workbooks',
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
@@ -1220,6 +1308,7 @@ const PAGE: Record<Locale, PageCopy> = {
     leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho' },
     sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Xem các trang mẫu' },
     viewer: { title: 'Trang mẫu', prev: 'Trang trước', next: 'Trang sau', close: 'Đóng', counter: 'Trang {n}/{total}', end: 'Đó là bản mẫu. Sẵn sàng đặt mua?', viewOnly: 'Trang mẫu chỉ để xem.', textVersion: 'Bản văn bản', hideText: 'Ẩn bản văn bản', pageText: 'Nội dung trang mẫu', textLoading: 'Đang tải nội dung trang mẫu…', textError: 'Không tải được bản văn bản. Hãy đóng bản mẫu và thử lại.' },
+    workbooks: 'Sách bài tập',
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
@@ -1235,7 +1324,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group'> & {
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category'> & {
   link?: { href: string; label: string };
 };
 
@@ -1252,14 +1341,14 @@ export function productsPage(locale: Locale) {
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal, video, group, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).
       also: PRODUCTS.filter((p) => p.live && p.alsoIn?.section === id).map((p) => {
         const [before, after] = p.alsoIn![locale].replace('{price}', p.price).split('{link}');
-        return { id: p.id, title: p[locale].title, before, after };
+        return { id: p.id, title: p[locale].title, before, after, category: p.category };
       }),
     })).filter((section) => section.cards.length > 0),
   };

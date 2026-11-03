@@ -8,11 +8,11 @@ import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from '../src/i18n/content/s
 import { fetchSampleText, SAMPLE_TEXT_MAX_BYTES, validateSampleText } from '../src/lib/sampleText';
 const fixture = () => JSON.parse(readFileSync('public/samples/pages/story-club-text.json', 'utf8'));
 
-test('all 35 products expose exactly their 361 approved public sample pages, with bound image and text hashes', () => {
+test('all 40 products expose exactly their 376 approved public sample pages, with bound image and text hashes', () => {
   const sha = (value: string | Buffer) => createHash('sha256').update(value).digest('hex');
   const products = PRODUCTS.filter(p => p.live);
-  assert.equal(products.length, 35);
-  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json')).length, 35);
+  assert.equal(products.length, 40);
+  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json')).length, 40);
   let pages = 0, ocr = 0;
   for (const product of products) {
     const count = SAMPLE_PAGE_COUNTS[product.sample!];
@@ -26,7 +26,7 @@ test('all 35 products expose exactly their 361 approved public sample pages, wit
     }
     pages += doc.pageCount;
   }
-  assert.equal(pages, 361);
+  assert.equal(pages, 376);
   assert.equal(ocr, 14);
   assert.equal(readdirSync('public/samples').filter(p => p.endsWith('.pdf')).length, 0, 'no sample PDF is published');
 });

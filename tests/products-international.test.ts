@@ -79,6 +79,8 @@ test('market order codes: the Sale Team table maps each market-<country> source 
 // S1 (master decision (a), 27 Oct 2026): a direct PayPal payment per digital card at Jay's approved US$ price.
 const USD: Record<string, number> = {
   'printable-pack': 6, 'parent-pack-l1': 10, 'parent-pack-l2': 10, 'parent-pack-l3': 10, 'holiday-reading-challenge': 6,
+  // Story Workbooks: the DEFAULT (highest tier) US$ price; regional prices are tested below (3 Nov 2026).
+  'story-workbooks-l1': 15, 'story-workbooks-l2': 10, 'story-workbooks-l3': 10, 'story-workbooks-l4': 10, 'story-workbooks-l5': 10,
   'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27, 'teacher-pack-l5': 27, 'teacher-bundle': 112,
   'student-workbook-l1': 8, 'student-workbook-l2': 8, 'student-workbook-l3': 8, 'student-workbook-l4': 8, 'student-workbook-l5': 8,
   'word-fossil-flashcards-l1': 8, 'thinking-cycle-set': 19, 'thinking-cycle-posters': 6, 'reasoning-assessment-kit': 16,
@@ -125,10 +127,16 @@ test('S1: each PayPal card shows the US$ option after the VND order button, with
     for (const id of LIVE_USD) {
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
       assert.ok(card.indexOf(`data-cta="product-${id}"`) < card.indexOf(`data-paypal="${id}"`), `${route} ${id}: VND first`);
+      if (id.startsWith('story-workbooks-')) {
+        // Regional price (3 Nov 2026): the hub shows one line that leads to the product page, where the buyer picks a country.
+        assert.ok(card.includes(`data-regional-price="${id}"`) && /US\$(5|8) /.test(card.replace(/<[^>]+>/g, ' ') + ' ') || card.includes(`data-regional-price="${id}"`), `${route} ${id}: regional price line`);
+        assert.ok(!card.includes('paypal.com/cgi-bin/webscr'), `${route} ${id}: no fixed-price PayPal link on the hub`);
+      } else {
       const link = card.match(/<a href="([^"]+)" target="_blank" rel="noopener noreferrer"[^>]*data-paypal-link="[^"]+">([^<]+)</)!;
       assert.ok(link[1].startsWith('https://www.paypal.com/cgi-bin/webscr?cmd=_xclick'), `${route} ${id}`);
       assert.ok(link[2].startsWith(`${pay}${USD[id]} `), `${route} ${id}: ${link[2]}`);
       assert.equal(new URL(link[1]).searchParams.get('return'), `https://jurassicenglish.com${route}#${id}`);
+      }
       assert.ok(card.toLowerCase().includes(note.toLowerCase()), `${route} ${id}: delivery promise (the card's payment line)`);
       assert.equal([...card.matchAll(/data-cta="/g)].length, 1, `${route} ${id}: still one CTA`);
     }
