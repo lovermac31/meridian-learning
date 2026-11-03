@@ -477,12 +477,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'ielts writing task 2 feedback',
       title: 'IELTS Writing Task 2 Feedback: One Essay, Three Priorities',
-      description: 'Send one IELTS Task 2 essay. Mr. Jay or his team reads it by hand and returns one strength and three ranked priorities by Zalo or email. From 79.000₫.',
+      description: 'Send one IELTS Task 2 essay. Mr. Jay reads it by hand and returns one strength and three ranked priorities by Zalo or email. From 79.000₫.',
     },
     vi: {
       keyword: 'chấm bài ielts writing task 2',
       title: 'Chấm bài IELTS Writing Task 2: một bài, ba ưu tiên sửa',
-      description: 'Gửi một bài IELTS Task 2. Thầy Jay hoặc đội ngũ đọc bằng tay và gửi lại một điểm mạnh, ba ưu tiên cần sửa qua Zalo hoặc email. Từ 79.000₫.',
+      description: 'Gửi một bài IELTS Task 2. Thầy Jay đọc bằng tay và gửi lại một điểm mạnh, ba ưu tiên cần sửa qua Zalo hoặc email. Từ 79.000₫.',
     },
   },
   'ielts-essay-bank-task2': {

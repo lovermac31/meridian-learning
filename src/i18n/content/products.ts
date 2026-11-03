@@ -1101,7 +1101,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     // 35-today plan (Jay, 27 Oct 2026; master's decision): sold now on Zalo as a manual service at the three approved
-    // prices (pdf-studio writing-baseline.json). Mr. Jay or his team reads each essay by hand; the Writing app is not
+    // prices (pdf-studio writing-baseline.json). Mr. Jay reads each essay by hand; the Writing app is not
     // open, so the card links only to its sample reports. No PayPal.
     id: 'writing-baseline',
     video: 'writing-baseline',
@@ -1117,7 +1117,7 @@ export const PRODUCTS: Product[] = [
       label: 'Practice feedback · teens and adults',
       title: 'IELTS Writing Baseline',
       problem: 'You keep writing Task 2 essays without knowing which problem to fix first.',
-      inside: 'Send one Task 2 essay. Mr. Jay or his team reads it by hand and sends back, by Zalo or email, one strength to keep and three priorities in the order to fix them. Each priority quotes your own sentence, shows an example of the fix and names the lesson that trains it.',
+      inside: 'Send one Task 2 essay. Mr. Jay reads it by hand and sends back, by Zalo or email, one strength to keep and three priorities in the order to fix them. Each priority quotes your own sentence, shows an example of the fix and names the lesson that trains it.',
       forWho: 'Teens and adults preparing for IELTS Writing. Basic 79.000₫ · Intermediate 199.000₫ (your revision and a new essay, read again) · Advanced 449.000₫ (Intermediate plus a written review by Mr. Jay). Practice feedback, not an official IELTS score; no band number is given.',
       unit: 'Basic · one essay',
       cta: 'Order on Zalo',
@@ -1126,8 +1126,8 @@ export const PRODUCTS: Product[] = [
       label: 'Phản hồi luyện tập · thanh thiếu niên và người lớn',
       title: 'IELTS Writing Baseline',
       problem: 'Bạn viết bài Task 2 liên tục mà không biết nên sửa điều gì trước.',
-      inside: 'Gửi một bài luận Task 2. Thầy Jay hoặc đội ngũ của thầy đọc bằng tay và gửi lại qua Zalo hoặc email một điểm mạnh cần giữ và ba ưu tiên cần sửa theo thứ tự. Mỗi ưu tiên trích câu của chính bạn, có ví dụ cách sửa và bài học luyện kỹ năng đó.',
-      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing. Cơ bản 79.000₫ · Trung cấp 199.000₫ (bài sửa và một bài mới, được đọc lại) · Nâng cao 449.000₫ (Trung cấp kèm nhận xét bằng văn bản của đội ngũ thầy Jay). Phản hồi luyện tập, không phải điểm IELTS chính thức; không đưa ra điểm band.',
+      inside: 'Gửi một bài luận Task 2. Thầy Jay đọc bằng tay và gửi lại qua Zalo hoặc email một điểm mạnh cần giữ và ba ưu tiên cần sửa theo thứ tự. Mỗi ưu tiên trích câu của chính bạn, có ví dụ cách sửa và bài học luyện kỹ năng đó.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Writing. Cơ bản 79.000₫ · Trung cấp 199.000₫ (bài sửa và một bài mới, được đọc lại) · Nâng cao 449.000₫ (Trung cấp kèm nhận xét bằng văn bản của thầy Jay). Phản hồi luyện tập, không phải điểm IELTS chính thức; không đưa ra điểm band.',
       unit: 'Cơ bản · một bài luận',
       cta: 'Đặt mua qua Zalo',
     },
