@@ -21,10 +21,8 @@ const EXPECTED: Record<string, [string, string][]> = {
   families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['story-workbooks-l1', '290.000₫'], ['story-workbooks-l2', '190.000₫'], ['story-workbooks-l3', '190.000₫'], ['story-workbooks-l4', '190.000₫'], ['story-workbooks-l5', '190.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
-    ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
+    ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
     ['reasoning-assessment-kit', '390.000₫'],
-    // "Workbooks" (Jay, 3 Nov 2026): the Student Workbooks sit under their own heading at the end of Teachers.
-    ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'],
   ],
   centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
   // #ielts (Jay, 27 Oct 2026): moved out of Teachers; Speaking group, then Writing.
@@ -192,7 +190,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     setServerLocation(EN);
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' }));
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
-    assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...SHOWN.teachers.map(([id]) => id).filter((id) => !id.startsWith('student-workbook-')), 'test-extra', ...SHOWN.teachers.map(([id]) => id).filter((id) => id.startsWith('student-workbook-'))]);
+    assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...SHOWN.teachers.map(([id]) => id), 'test-extra']);
     assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" srcSet="[^"]*\/images\/products\/w\/teacher-bundle-400\.webp 400w[^"]*" sizes="[^"]+" alt="" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
     assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.live && p.image).length);
   } finally {

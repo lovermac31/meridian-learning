@@ -201,46 +201,6 @@
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
-### Word Fossil Flashcards, Level 1
-- ID: `word-fossil-flashcards-l1`
-- English: https://jurassicenglish.com/products/word-fossil-flashcards-l1
-- Vietnamese: https://jurassicenglish.com/vi/products/word-fossil-flashcards-l1
-- English description: 120 printable picture flashcards in English and Vietnamese for Level 1 learners aged 4–8, for teachers and parents. 190.000₫.
-- Vietnamese title: Thẻ từ vựng tiếng Anh có hình để in, Level 1 (120 thẻ)
-- VND price: 190.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### Jurassic Thinking Cycle Manual Set
-- ID: `thinking-cycle-set`
-- English: https://jurassicenglish.com/products/thinking-cycle-set
-- Vietnamese: https://jurassicenglish.com/vi/products/thinking-cycle-set
-- English description: Teacher and student manuals for the Jurassic Thinking Cycle (Analyze, Evaluate, Justify, Reflect), the CEIW writing framework, a lesson template. 490.000₫.
-- Vietnamese title: Dạy tư duy phản biện trong lớp tiếng Anh | Sổ tay
-- VND price: 490.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### Thinking Cycle Classroom Posters
-- ID: `thinking-cycle-posters`
-- English: https://jurassicenglish.com/products/thinking-cycle-posters
-- Vietnamese: https://jurassicenglish.com/vi/products/thinking-cycle-posters
-- English description: 8 A3 classroom posters of the Jurassic Thinking Cycle in English and Vietnamese, ready to print, for teachers and centres. 149.000₫.
-- Vietnamese title: Bộ poster lớp học Thinking Cycle: 8 tờ A3 song ngữ
-- VND price: 149.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### Reasoning Assessment Kit, Levels 1–5
-- ID: `reasoning-assessment-kit`
-- English: https://jurassicenglish.com/products/reasoning-assessment-kit
-- Vietnamese: https://jurassicenglish.com/vi/products/reasoning-assessment-kit
-- English description: Reasoning worksheets for Levels 1–5, scoring sheets with feedback codes, a placement guide and a parent report template. For teachers and centres. 390.000₫.
-- Vietnamese title: Bộ đánh giá lập luận và xếp lớp tiếng Anh Level 1–5
-- VND price: 390.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
 ### Level 1 Student Workbook
 - ID: `student-workbook-l1`
 - English: https://jurassicenglish.com/products/student-workbook-l1
@@ -288,6 +248,46 @@
 - English description: 62 printable A4 pages for learners aged 14+ (CEFR B2 → C1), in the order of the Level 5 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh nâng cao cho học sinh 14+ | Level 5
 - VND price: 190.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Word Fossil Flashcards, Level 1
+- ID: `word-fossil-flashcards-l1`
+- English: https://jurassicenglish.com/products/word-fossil-flashcards-l1
+- Vietnamese: https://jurassicenglish.com/vi/products/word-fossil-flashcards-l1
+- English description: 120 printable picture flashcards in English and Vietnamese for Level 1 learners aged 4–8, for teachers and parents. 190.000₫.
+- Vietnamese title: Thẻ từ vựng tiếng Anh có hình để in, Level 1 (120 thẻ)
+- VND price: 190.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Jurassic Thinking Cycle Manual Set
+- ID: `thinking-cycle-set`
+- English: https://jurassicenglish.com/products/thinking-cycle-set
+- Vietnamese: https://jurassicenglish.com/vi/products/thinking-cycle-set
+- English description: Teacher and student manuals for the Jurassic Thinking Cycle (Analyze, Evaluate, Justify, Reflect), the CEIW writing framework, a lesson template. 490.000₫.
+- Vietnamese title: Dạy tư duy phản biện trong lớp tiếng Anh | Sổ tay
+- VND price: 490.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Thinking Cycle Classroom Posters
+- ID: `thinking-cycle-posters`
+- English: https://jurassicenglish.com/products/thinking-cycle-posters
+- Vietnamese: https://jurassicenglish.com/vi/products/thinking-cycle-posters
+- English description: 8 A3 classroom posters of the Jurassic Thinking Cycle in English and Vietnamese, ready to print, for teachers and centres. 149.000₫.
+- Vietnamese title: Bộ poster lớp học Thinking Cycle: 8 tờ A3 song ngữ
+- VND price: 149.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Reasoning Assessment Kit, Levels 1–5
+- ID: `reasoning-assessment-kit`
+- English: https://jurassicenglish.com/products/reasoning-assessment-kit
+- Vietnamese: https://jurassicenglish.com/vi/products/reasoning-assessment-kit
+- English description: Reasoning worksheets for Levels 1–5, scoring sheets with feedback codes, a placement guide and a parent report template. For teachers and centres. 390.000₫.
+- Vietnamese title: Bộ đánh giá lập luận và xếp lớp tiếng Anh Level 1–5
+- VND price: 390.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 

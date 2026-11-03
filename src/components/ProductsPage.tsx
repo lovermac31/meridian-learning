@@ -668,6 +668,10 @@ export function ProductsPage({ locale }: { locale: Locale }) {
                 </ul>
               </div>
             ))}
+            {/* Teachers keeps no workbook cards of its own: the "Workbooks" heading leads its pointers to the Story Workbooks (3 Nov 2026). */}
+            {!section.cards.some((card) => card.category === 'workbooks') && section.also.some((line) => line.category === 'workbooks')
+              ? <h3 id={`${section.id}-workbooks`} className="products-ielts-heading scroll-mt-24" data-workbooks-pointers={section.id} hidden={!showAll && filter !== section.id}>{c.workbooks}</h3>
+              : null}
             {section.also.map((line) => <p key={line.id} className="products-also" data-also={line.id} hidden={!showAll && filter !== section.id}>{line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}</p>)}
           </section>
         ))}

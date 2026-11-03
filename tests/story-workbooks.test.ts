@@ -77,9 +77,12 @@ test('the page: a Workbooks heading in Families and Teachers, the country picker
     for (const [name, section] of [['families', fam], ['teachers', tea]] as const) {
       assert.ok(section.includes(`id="${name}-workbooks"`) && section.includes(`>${heading}</h3>`), `${route}: Workbooks heading in ${name}`);
       assert.ok(section.indexOf(`id="${name}-workbooks"`) > section.indexOf('class="product-row'), `${route}: Workbooks come after the other cards in ${name}`);
+      // The existing Student Workbooks are NOT regrouped (CEO review, 3 Nov 2026): Teachers' Workbooks heading leads only to the pointers.
+      assert.ok(!section.includes('data-workbooks-group="teachers"'), `${route}: no workbook card group in teachers`);
     }
     for (const id of IDS) assert.ok(fam.includes(`id="${id}"`) && !tea.includes(`id="${id}"`), `${route}: ${id} listed once, in Families`);
-    for (const id of IDS) assert.ok(tea.includes(`data-also="${id}"`), `${route}: pointer to ${id} in Teachers`);
+    for (const id of IDS) assert.ok(tea.includes(`data-also="${id}"`) && tea.indexOf('id="teachers-workbooks"') < tea.indexOf(`data-also="${id}"`), `${route}: pointer to ${id} sits under the Teachers Workbooks heading`);
+    assert.ok(tea.includes('id="student-workbook-l1"') && !fam.includes('id="student-workbook-l1"'), `${route}: Student Workbooks stay in Teachers, ungrouped`);
     const page = mainOf(await renderRoute(`${route}/story-workbooks-l2`)).replaceAll('<!-- -->', '');
     assert.ok(page.includes('data-regional-select="story-workbooks-l2"'), `${route}: country picker`);
     assert.equal([...page.matchAll(/<option value="[a-z-]+"/g)].length, MARKET_IDS.length + 1, `${route}: every approved market plus another country`);

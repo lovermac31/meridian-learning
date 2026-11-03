@@ -82,9 +82,8 @@ const USD: Record<string, number> = {
   // Story Workbooks: the DEFAULT (highest tier) US$ price; regional prices are tested below (3 Nov 2026).
   'story-workbooks-l1': 15, 'story-workbooks-l2': 10, 'story-workbooks-l3': 10, 'story-workbooks-l4': 10, 'story-workbooks-l5': 10,
   'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27, 'teacher-pack-l5': 27, 'teacher-bundle': 112,
-  'word-fossil-flashcards-l1': 8, 'thinking-cycle-set': 19, 'thinking-cycle-posters': 6, 'reasoning-assessment-kit': 16,
-  // The Student Workbooks sit under "Workbooks", last in Teachers (3 Nov 2026).
   'student-workbook-l1': 8, 'student-workbook-l2': 8, 'student-workbook-l3': 8, 'student-workbook-l4': 8, 'student-workbook-l5': 8,
+  'word-fossil-flashcards-l1': 8, 'thinking-cycle-set': 19, 'thinking-cycle-posters': 6, 'reasoning-assessment-kit': 16,
   'teacher-training-course': 58, 'pilot-class-kit': 27, 'curriculum-overview': 12,
   // #ielts, last on the page (27 Oct 2026).
   'ielts-speaking-ladder': 16, 'ielts-one-to-one-starter': 6, 'ielts-cue-card-bank': 12, 'ielts-writing-ladder-task2': 16,
