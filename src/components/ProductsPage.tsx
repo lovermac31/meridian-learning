@@ -72,7 +72,7 @@ export function IeltsHomeLink({ group, locale, label, id }: { group: IeltsGroup;
   );
 }
 
-export type LeadIns = { problem: string; inside: string; forWho: string };
+export type LeadIns = { problem: string; inside: string; forWho: string; books: string };
 
 /** A card's extra link (e.g. the Writing Baseline's sample reports), in the page language and tagged like the hub. */
 export function CardLink({ card, locale }: { card: ProductCard; locale: Locale }) {
@@ -500,6 +500,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
         <div className="product-row-problem"><dt>{leadIns.problem}</dt><dd>{card.problem}</dd></div>
         <div className="product-row-tick"><dt>{leadIns.inside}</dt><dd>{card.inside}</dd></div>
         <div className="product-row-tick"><dt>{leadIns.forWho}</dt><dd>{card.forWho}</dd></div>
+        {card.books ? <div className="product-row-tick" data-workbook-books={card.id}><dt>{leadIns.books}</dt><dd>{card.books.join(' · ')}</dd></div> : null}
       </dl>
       <div className="product-row-notes">
         <CardLink card={card} locale={locale} />

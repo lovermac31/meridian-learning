@@ -107,6 +107,8 @@ export type Product = {
   group?: IeltsGroup;
   // 'workbooks': listed under a "Workbooks" heading at the end of its section (Families and Teachers). Jay, 3 Nov 2026.
   category?: 'workbooks';
+  // Story Workbooks: the titles of the books in the level, listed on the card and the product page (Jay, 3 Nov 2026: "multiple books for level one").
+  books?: string[];
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
@@ -118,11 +120,21 @@ export type Product = {
 // workbooks, Levels 2 to 5 are 3 each. One card per level, in Families under "Workbooks", with a pointer from Teachers.
 // The sample is 3 watermarked pages of one lead book per level, view-only (no PDF is published). Each full PDF carries
 // the licence line and file properties (security Tier 1) and is delivered only after payment.
+/** The books in each level: the original Jurassic English storybooks, in the order of the print PDFs. */
+export const WORKBOOK_BOOKS: Record<1 | 2 | 3 | 4 | 5, string[]> = {
+  1: ['Mina and the Midnight Drum', 'The Lantern With Two Handles', 'Lina and the Orchard Map', 'Kim and the Thunder Inside', 'The Song Across the Lake', 'Not Now, Rosa!', 'Ivy and the Big Umbrella', 'Tess Tells Tales', 'Skip and the Red Roof', 'The Wind, the Sun and the Yellow Coat', 'Grandpa’s Sunflowers'],
+  2: ['The Bell That Rang Too Early', 'The Rain on Platform Seven', 'Mango, the Market Cat'],
+  3: ['The Unsent Weather Report', 'The Last Seat on the Night Ferry', 'The Voice in Maya’s Tablet'],
+  4: ['The Missing Column', 'The Bridge Committee', 'The Night Rota'],
+  5: ['A Box Called Other', 'The Map Beneath the Map', 'The Heron Stamp'],
+};
+
 const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e: Omit<CardText, 'label' | 'cta' | 'unit'>, v: Omit<CardText, 'label' | 'cta' | 'unit'>): Product => ({
   id: `story-workbooks-l${level}`,
   live: true,
   section: 'families',
   category: 'workbooks',
+  books: WORKBOOK_BOOKS[level],
   price,
   href: 'zalo',
   image: `story-workbooks-l${level}`,
@@ -1276,7 +1288,7 @@ type PageCopy = {
   lead: string;
   back: string;
   delivery: string;
-  leadIns: { problem: string; inside: string; forWho: string };
+  leadIns: { problem: string; inside: string; forWho: string; books: string };
   sample: { heading: string; note: string; open: string };
   viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string; textVersion: string; hideText: string; pageText: string; textLoading: string; textError: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
@@ -1293,7 +1305,7 @@ const PAGE: Record<Locale, PageCopy> = {
     lead: 'Small, personal English for children who need to think, explain and speak, not just memorise. Pick the problem you want solved.',
     back: 'Jurassic English home',
     delivery: 'Pay by VietQR after a written order summary; your files arrive by Google Drive within 24 hours.',
-    leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for' },
+    leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for', books: 'The books' },
     sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'See the sample pages' },
     viewer: { title: 'Sample pages', prev: 'Previous page', next: 'Next page', close: 'Close', counter: 'Page {n} of {total}', end: 'That’s the sample. Ready to order?', viewOnly: 'Sample pages are for viewing only.', textVersion: 'Text version', hideText: 'Hide text version', pageText: 'Sample page text', textLoading: 'Loading the sample page text…', textError: 'The text version could not load. Close the sample and try again.' },
     workbooks: 'Story Workbooks',
@@ -1325,7 +1337,7 @@ const PAGE: Record<Locale, PageCopy> = {
     lead: 'Tiếng Anh nhóm nhỏ, kèm riêng, dành cho các con cần biết suy nghĩ, giải thích và nói, không chỉ học thuộc. Chọn đúng vấn đề nhà mình đang cần giải quyết.',
     back: 'Trang chủ Jurassic English',
     delivery: 'Thanh toán qua VietQR sau khi nhận bản tóm tắt đơn hàng; tài liệu được gửi qua Google Drive trong vòng 24 giờ.',
-    leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho' },
+    leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho', books: 'Các cuốn' },
     sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Xem các trang mẫu' },
     viewer: { title: 'Trang mẫu', prev: 'Trang trước', next: 'Trang sau', close: 'Đóng', counter: 'Trang {n}/{total}', end: 'Đó là bản mẫu. Sẵn sàng đặt mua?', viewOnly: 'Trang mẫu chỉ để xem.', textVersion: 'Bản văn bản', hideText: 'Ẩn bản văn bản', pageText: 'Nội dung trang mẫu', textLoading: 'Đang tải nội dung trang mẫu…', textError: 'Không tải được bản văn bản. Hãy đóng bản mẫu và thử lại.' },
     workbooks: 'Sách truyện bài tập',
@@ -1352,7 +1364,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category'> & {
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books'> & {
   link?: { href: string; label: string };
 };
 
@@ -1369,8 +1381,8 @@ export function productsPage(locale: Locale) {
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).
