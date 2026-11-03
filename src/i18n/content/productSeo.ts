@@ -163,12 +163,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
   'story-workbooks-l1': {
     en: {
       keyword: 'english story workbook for kids',
-      title: 'Printable English Story Workbooks for Kids 4–8 | L1',
+      title: 'Printable English Story Workbooks for Kids 4–8 | Level 1',
       description: '11 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.',
     },
     vi: {
-      keyword: 'sách truyện tiếng anh có bài tập cho bé',
-      title: 'Sách truyện tiếng Anh có bài tập cho bé 4–8 tuổi | Level 1',
+      keyword: 'sách truyện tiếng anh cho bé',
+      title: 'Sách truyện tiếng Anh cho bé 4–8 tuổi, có bài tập | Level 1',
       description: '11 truyện gốc thành sách bài tập A4 in sẵn cho bé 4–8 tuổi (CEFR Pre-A1 → A1), có đáp án và hướng dẫn cho giáo viên. 290.000₫ mua một lần.',
     },
   },
@@ -179,8 +179,8 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       description: '3 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 190.000₫ one-time.',
     },
     vi: {
-      keyword: 'sách truyện tiếng anh có bài tập cho trẻ 8-10 tuổi',
-      title: 'Sách truyện tiếng Anh có bài tập cho trẻ 8–10 tuổi | Level 2',
+      keyword: 'sách truyện tiếng anh cho bé 8-10 tuổi',
+      title: 'Sách truyện tiếng Anh cho bé 8–10 tuổi, có bài tập | Level 2',
       description: '3 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 8–10 tuổi (CEFR A1 → A2), có trang Chu trình Tư duy và đáp án. 190.000₫ mua một lần.',
     },
   },
