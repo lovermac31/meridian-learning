@@ -141,6 +141,11 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
               </li>
             ))}
           </ul>
+          <p className="mt-4 text-sm text-sb-slate" data-home-free-tools>
+            <a className="font-bold text-sb-forest underline" href={getLocalizedHref('/tools/ielts-band-score-calculator', locale)}>
+              {locale === 'vi' ? 'Tính điểm IELTS miễn phí (làm tròn overall)' : 'Free IELTS band score calculator (overall rounding)'}
+            </a>
+          </p>
         </div>
       </section>
 

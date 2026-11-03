@@ -96,9 +96,9 @@ type StaticRouteDefinition = {
 // (parents arriving from social, schools, and IELTS-Speaking families).
 // The widened title + description and the FAQ/Service JSON-LD below give
 // search engines and the FB crawler clearer audience signals.
-const homeTitle = 'Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking';
+const homeTitle = 'Jurassic English™ | IELTS Speaking & Academic English';
 const homeDescription =
-  'Jurassic English™ helps students, parents, schools, and learning centers build academic English, critical thinking, literature-based reasoning, and IELTS-aligned speaking confidence.';
+  '1-on-1 online IELTS Speaking with Mr. Jay, plus academic English, critical thinking and literature courses for students, parents and schools.';
 
 // FAQPage must mirror the FAQ visible on the page (human-centered overhaul,
 // Oct 2026): the homepage's six-section layout ends with three questions in
