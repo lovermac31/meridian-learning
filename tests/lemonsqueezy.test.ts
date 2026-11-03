@@ -31,7 +31,7 @@ test('config: only https lemonsqueezy.com URLs for digital products survive; ser
   assert.deepEqual(parseLemonSqueezyCheckouts(undefined), {});
   // Every eligible product is a digital download with PayPal already; the five services are excluded by data.
   const eligible = PRODUCTS.filter((p) => p.paypal).map((p) => p.id);
-  assert.equal(eligible.length, 35); // 30 plus the five Story Workbooks (3 Nov 2026)
+  assert.equal(eligible.length, 37); // 30, the five Story Workbooks and the IELTS Reading and Listening packs (3 Nov 2026)
   for (const id of ['story-club', 'baseline', 'one-to-one', 'writing-baseline', 'centre-licence']) assert.ok(!eligible.includes(id), id);
 });
 

@@ -29,6 +29,7 @@ const EXPECTED: Record<string, [string, string][]> = {
   ielts: [
     ['ielts-speaking-ladder', '390.000₫'], ['ielts-one-to-one-starter', '149.000₫'], ['ielts-cue-card-bank', '290.000₫'],
     ['writing-baseline', '79.000₫'], ['ielts-writing-ladder-task2', '390.000₫'], ['ielts-writing-task1-method', '290.000₫'], ['ielts-essay-bank-task2', '290.000₫'], ['ielts-writing-teacher-pack', '690.000₫'],
+    ['ielts-reading-ladder', '390.000₫'], ['ielts-listening-profiler', '390.000₫'],
   ],
 };
 // Cards render only while their entry is live. The factory-built packs stay off the page until their 00 READ ME
@@ -210,6 +211,8 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'ielts-cue-card-bank': 'ielts-cue-card-bank', 'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3',
     'holiday-reading-challenge': 'holiday-reading-challenge', 'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
     'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5',
+    // IELTS Reading and Listening (3 Nov 2026): stem = id.
+    'ielts-reading-ladder': 'ielts-reading-ladder', 'ielts-listening-profiler': 'ielts-listening-profiler',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
   };
@@ -270,6 +273,8 @@ const SAMPLE_STEMS: Record<string, string> = {
   'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
   // Story Workbooks L1-L5 (Jay, 3 Nov 2026): stem = id; 3 sample pages each.
   'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5',
+  // IELTS Reading and Listening (3 Nov 2026): stem = id.
+  'ielts-reading-ladder': 'ielts-reading-ladder', 'ielts-listening-profiler': 'ielts-listening-profiler',
 };
 const SAMPLE_FILE = /^(.+)-p[123]\.webp$/;
 const PAGE_FILE = /^(.+)-pg(\d\d)\.webp$/;

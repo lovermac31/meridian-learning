@@ -39,6 +39,8 @@ const PRODUCT_MEMO_CODES: Record<string, string> = {
   'ielts-writing-task1-method': 'PR0W',
   'ielts-essay-bank-task2': 'PR0X',
   'ielts-writing-teacher-pack': 'PR0Y',
+  'ielts-reading-ladder': 'PR14',
+  'ielts-listening-profiler': 'PR15',
 };
 
 // The pack total is already published in the catalogue; keep it tied to that copy.

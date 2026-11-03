@@ -352,6 +352,30 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       description: '10 giáo án IELTS Writing 60 phút dạy ngay: 6 buổi Task 2 và 4 buổi Task 1 (báo cáo và thư). Dành cho giáo viên và trung tâm. 690.000₫.',
     },
   },
+  'ielts-reading-ladder': {
+    en: {
+      keyword: 'ielts reading practice',
+      title: 'IELTS Reading Practice: 7 Lessons, 96 Questions',
+      description: 'Find the trap that costs you IELTS Reading marks, then fix it: 7 lessons, 8 original passages and 96 questions with proved answers. 390.000₫.',
+    },
+    vi: {
+      keyword: 'luyện ielts reading',
+      title: 'Luyện IELTS Reading: 7 bài học, 96 câu hỏi',
+      description: 'Tìm lỗi bẫy làm bạn mất điểm IELTS Reading rồi sửa: 7 bài học, 8 bài đọc gốc và 96 câu hỏi, mỗi đáp án có bằng chứng trong bài. 390.000₫.',
+    },
+  },
+  'ielts-listening-profiler': {
+    en: {
+      keyword: 'ielts listening practice with a tutor',
+      title: 'IELTS Listening Practice With a Tutor: 7 Lessons',
+      description: 'Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 60 drills, 8 case files. 390.000₫.',
+    },
+    vi: {
+      keyword: 'luyện ielts listening',
+      title: 'Luyện IELTS Listening cùng gia sư: 7 bài học',
+      description: 'Nhận diện và sửa những cái bẫy làm mất điểm IELTS Listening: gia sư hoặc bạn học đọc kịch bản, bạn trả lời thành tiếng. 60 bài luyện, 8 bộ đề. 390.000₫.',
+    },
+  },
   'centre-licence': {
     en: {
       keyword: 'english curriculum licence for language centres',

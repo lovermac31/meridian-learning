@@ -58,10 +58,10 @@ export const WORKBOOKS_SEGMENT = 'story-workbooks';
 export const PRODUCT_SEGMENTS = ['families', WORKBOOKS_SEGMENT, 'teachers', 'centres', 'ielts'] as const;
 export type ProductSegmentId = (typeof PRODUCT_SEGMENTS)[number];
 
-export const IELTS_GROUPS = ['speaking', 'writing'] as const;
+export const IELTS_GROUPS = ['speaking', 'writing', 'reading', 'listening'] as const;
 export type IeltsGroup = (typeof IELTS_GROUPS)[number];
-/** Each IELTS group's home page (the AI Speaking app, EN + VI). */
-export const IELTS_HOME: Record<IeltsGroup, Record<Locale, string>> = {
+/** Each IELTS group's home page (the AI Speaking app, EN + VI). Reading and Listening have none yet, so no link. */
+export const IELTS_HOME: Partial<Record<IeltsGroup, Record<Locale, string>>> & Record<'speaking' | 'writing', Record<Locale, string>> = {
   speaking: { en: '/ai-speaking', vi: '/ai-speaking/vi' },
   writing: { en: '/ai-speaking/writing', vi: '/ai-speaking/vi/writing' },
 };
@@ -1280,6 +1280,71 @@ export const PRODUCTS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
+  {
+    // IELTS Writing factory, 3 Nov 2026: 7 lessons, 8 original passages, 96 questions (Sale Team/ielts-reading-reader); 50-page
+    // PDF, 10-page view-only sample. Price 390.000₫ / US$16 confirmed by the master. Jay's go relayed by the factory, 3 Nov.
+    id: 'ielts-reading-ladder',
+    live: true,
+    section: 'ielts',
+    group: 'reading',
+    price: '390.000₫',
+    href: 'zalo',
+    delivery: true,
+    paypal: true,
+    image: 'ielts-reading-ladder',
+    sample: 'ielts-reading-ladder',
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Reading Ladder',
+      problem: 'Your Reading score is stuck because you keep falling into the same trap.',
+      inside: 'Seven lessons: a short diagnostic finds your trap, then each lesson fixes one (locating fast, TRUE/FALSE/NOT GIVEN, paraphrase, headings, the writer’s view) and the last runs two passages at exam pace. 8 original passages and 96 questions, and every answer is proved with the passage’s own words: 50 printable pages.',
+      forWho: 'Teens and adults preparing for IELTS Academic Reading (Band 5.0 to 8.0+), and tutors who teach them. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'IELTS Reading Ladder',
+      problem: 'Điểm Reading của bạn mãi không tăng vì bạn cứ mắc cùng một lỗi bẫy.',
+      inside: 'Bảy bài học: bài chẩn đoán ngắn tìm ra lỗi bẫy của bạn, rồi mỗi bài sửa một lỗi (định vị nhanh, TRUE/FALSE/NOT GIVEN, diễn đạt lại, tiêu đề đoạn, quan điểm tác giả) và bài cuối luyện hai bài đọc đúng tốc độ thi. Gồm 8 bài đọc gốc và 96 câu hỏi, mỗi đáp án đều được chứng minh bằng chính câu chữ trong bài: 50 trang in được.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Academic Reading (Band 5.0 đến 8.0+), và gia sư dạy họ. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // IELTS Writing factory, 3 Nov 2026: 7 lessons on the "Listening Through Speaking" model, 60 spoken drills, 8 case files
+    // (Sale Team/ielts-listening-reader); a reader reads each script live, no audio plays. 58-page PDF, 11-page view-only
+    // sample. Price 390.000₫ / US$16 confirmed by the master. Jay's go relayed by the factory, 3 Nov.
+    id: 'ielts-listening-profiler',
+    live: true,
+    section: 'ielts',
+    group: 'listening',
+    price: '390.000₫',
+    href: 'zalo',
+    delivery: true,
+    paypal: true,
+    image: 'ielts-listening-profiler',
+    sample: 'ielts-listening-profiler',
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Listening Profiler Pack',
+      problem: 'You lose Listening marks to the same traps: a detail said and then corrected, the answer in other words, a polite “I suppose” that means no, or the wrong speaker.',
+      inside: 'Seven lessons in which a tutor or a partner reads each script once; you answer aloud before you write, and every miss is named by its trap. 60 spoken drills and 8 case files, each with a key and its trap code: 58 printable pages. No audio file is needed.',
+      forWho: 'Teens and adults preparing for IELTS Listening (Band 5.0 to 8.0+) with a tutor or a study partner to read the scripts. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'IELTS Listening Profiler Pack',
+      problem: 'Bạn mất điểm Listening vì cùng những cái bẫy: chi tiết được nói rồi sửa lại, đáp án được diễn đạt bằng từ khác, câu “I suppose” lịch sự nhưng nghĩa là không, hoặc nhầm người nói.',
+      inside: 'Bảy bài học, trong đó gia sư hoặc bạn học đọc mỗi đoạn một lần; bạn trả lời thành tiếng trước khi viết, và mỗi lỗi được gọi đúng tên bẫy. Gồm 60 bài luyện nói và 8 bộ đề, mỗi câu có đáp án và mã bẫy: 58 trang in được. Không cần file nghe.',
+      forWho: 'Thanh thiếu niên và người lớn luyện IELTS Listening (Band 5.0 đến 8.0+), có gia sư hoặc bạn học đọc kịch bản. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
 ];
 
 type PageCopy = {
@@ -1294,7 +1359,7 @@ type PageCopy = {
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   workbooks: string;
   workbooksBand: { heading: string; intro: string; levels: string; ages: string; agesFrom: string; count: string };
-  ielts: { groups: Record<IeltsGroup, string>; home: Record<IeltsGroup, string>; crumb: string };
+  ielts: { groups: Record<IeltsGroup, string>; home: Partial<Record<IeltsGroup, string>>; crumb: string };
   closing: { heading: string; body: string; cta: string };
 };
 
@@ -1321,10 +1386,10 @@ const PAGE: Record<Locale, PageCopy> = {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
       centres: { heading: 'For centres', intro: 'Programmes and materials for schools and centres.' },
-      ielts: { heading: 'IELTS: teens and adults', intro: 'Self-study packs and teaching materials for IELTS Speaking and Writing.' },
+      ielts: { heading: 'IELTS: teens and adults', intro: 'Self-study packs and teaching materials for IELTS Speaking, Writing, Reading and Listening.' },
     },
     ielts: {
-      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing' },
+      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing', reading: 'IELTS Reading', listening: 'IELTS Listening' },
       home: { speaking: 'More IELTS Speaking help', writing: 'More IELTS Writing help' },
       crumb: 'IELTS',
     },
@@ -1353,10 +1418,10 @@ const PAGE: Record<Locale, PageCopy> = {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
       centres: { heading: 'Dành cho trung tâm', intro: 'Chương trình và tài liệu cho trường học và trung tâm.' },
-      ielts: { heading: 'IELTS: thanh thiếu niên và người lớn', intro: 'Bộ tự học và tài liệu giảng dạy IELTS Speaking và Writing.' },
+      ielts: { heading: 'IELTS: thanh thiếu niên và người lớn', intro: 'Bộ tự học và tài liệu giảng dạy IELTS Speaking, Writing, Reading và Listening.' },
     },
     ielts: {
-      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing' },
+      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing', reading: 'IELTS Reading', listening: 'IELTS Listening' },
       home: { speaking: 'Thêm về luyện IELTS Speaking', writing: 'Thêm về luyện IELTS Writing' },
       crumb: 'IELTS',
     },

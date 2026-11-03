@@ -7,8 +7,8 @@ import { PRODUCTS, PRODUCT_SECTIONS, PRODUCT_SEGMENTS, PRODUCT_FORMER_IDS, WORKB
 import { FEATURED_PRODUCTS } from '../src/components/ProductsPage';
 
 // Stitch layout (Jay's mock, 2 Nov 2026) with featured-first (Jay, "tighten"): a segment filter row over one wide card
-// per product. SSR renders all 40 cards (search engines and deep links see them) but only the six featured cards show;
-// the rest sit behind the segment tiles and "Show all 40 products".
+// per product. SSR renders all 42 cards (search engines and deep links see them) but only the six featured cards show;
+// the rest sit behind the segment tiles and "Show all 42 products".
 for (const locale of ['en', 'vi'] as const) {
   test(`filter ${locale}: five segment tiles (Story Workbooks included) with real counts and lowest prices; six featured cards show, the rest wait behind the filters`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
@@ -16,7 +16,7 @@ for (const locale of ['en', 'vi'] as const) {
     assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.map((id) => [id, 'false', id]));
     assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Story Workbooks sits right after Families');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
-    assert.equal(total, 40);
+    assert.equal(total, 42);
     for (const section of productsPage(locale).sections) {
       const featuredHere = section.cards.some((card) => (FEATURED_PRODUCTS as readonly string[]).includes(card.id));
       assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*"${featuredHere ? '' : ' hidden=""'} data-category-panel="${section.id}">`), `${section.id}: ${featuredHere ? 'shown' : 'hidden'} until its tile is pressed`);
@@ -37,12 +37,12 @@ for (const locale of ['en', 'vi'] as const) {
     assert.ok(html.includes(locale === 'vi' ? `>Xem tất cả ${total} sản phẩm<` : `>Show all ${total} products<`), 'the "show all" control');
     const visible = [...html.matchAll(/<li class="product-row[^"]*" id="([^"]+)"(?: hidden="")?>/g)].filter((m) => !m[0].includes('hidden')).map((m) => m[1]);
     assert.deepEqual(visible, [...FEATURED_PRODUCTS].sort((a, b) => PRODUCTS.findIndex((p) => p.id === a) - PRODUCTS.findIndex((p) => p.id === b)), 'only the featured cards show, in catalogue order');
-    assert.equal((html.match(/<li class="product-row[^"]*" id="[^"]+" hidden="">/g) ?? []).length, 40 - 6, 'the other cards are in the DOM, hidden');
+    assert.equal((html.match(/<li class="product-row[^"]*" id="[^"]+" hidden="">/g) ?? []).length, 42 - 6, 'the other cards are in the DOM, hidden');
   });
 
   test(`cards ${locale}: every product in SSR with its copy, badge, lazy icon, sample above the price, and payment links`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale })).replaceAll('&#x27;', "'").replaceAll('&amp;', '&').replaceAll('&quot;', '"');
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 40);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 42);
     for (const product of PRODUCTS.filter((p) => p.live)) {
       const start = html.indexOf(`id="${product.id}"`);
       const card = html.slice(start, html.indexOf('</li>', start));
