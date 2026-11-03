@@ -70,7 +70,7 @@ test('PayPal link: the chosen market sets the amount and is named in the item an
 
 test('the page: a Workbooks heading in Families and Teachers, the country picker on each product page, regional range note (EN + VI)', async () => {
   const { renderRoute } = await import('../src/entry-server');
-  for (const [route, heading, note] of [['/products', 'Workbooks', /Regional price: it follows each country’s price range, from US\$5 to US\$10/], ['/vi/products', 'Sách bài tập', /Giá theo khu vực/]] as const) {
+  for (const [route, heading, note] of [['/products', 'Story Workbooks', /Regional price: it follows each country’s price range, from US\$5 to US\$10/], ['/vi/products', 'Sách truyện bài tập', /Giá theo khu vực/]] as const) {
     const html = mainOf(await renderRoute(route)).replaceAll('<!-- -->', '');
     const fam = html.slice(html.indexOf('<section id="families"'), html.indexOf('</section>', html.indexOf('<section id="families"')));
     const tea = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
@@ -104,4 +104,22 @@ test('samples: three watermarked pages per level, thumbnails, text file; no PDF 
   }
   const pdfs = (dir: string): string[] => readdirSync(dir, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? pdfs(`${dir}/${e.name}`) : /\.pdf$/i.test(e.name) ? [`${dir}/${e.name}`] : []);
   assert.deepEqual(pdfs('public'), [], 'no PDF is published');
+});
+
+test('each level names its books: 11, 3, 3, 3, 3 titles on the hub card and the product page (EN + VI), matching the unit line', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  const counts = [11, 3, 3, 3, 3];
+  for (const [i, id] of IDS.entries()) {
+    const p = PRODUCTS.find((entry) => entry.id === id)!;
+    assert.equal(p.books?.length, counts[i], `${id}: book count`);
+    assert.ok(p.en.unit.includes(`${counts[i]} workbooks`), `${id}: unit line states the same count`);
+    assert.equal(new Set(p.books).size, counts[i], `${id}: no duplicate titles`);
+  }
+  for (const route of ['/products', '/vi/products']) {
+    const html = mainOf(await renderRoute(route)).replaceAll('<!-- -->', '');
+    for (const id of IDS) assert.ok(html.includes(`data-workbook-books="${id}"`), `${route}: ${id} lists its books`);
+    assert.ok(html.includes('Mina and the Midnight Drum') && html.includes('Grandpa’s Sunflowers'), `${route}: Level 1 titles`);
+    const page = mainOf(await renderRoute(`${route}/story-workbooks-l1`)).replaceAll('<!-- -->', '');
+    assert.ok(page.includes('data-workbook-books="story-workbooks-l1"') && page.includes('Tess Tells Tales'), `${route}: product page lists the 11 books`);
+  }
 });

@@ -22,6 +22,7 @@ async function checkAccessibility(page: import('@playwright/test').Page) {
 
 
 test('products keep named controls, labelled sample forms and a contained mobile sample dialog', async ({ page }) => {
+  test.setTimeout(90_000); // four viewport/locale passes with accessibility scans; the 30 s default is too tight on the CI runner (3 Nov 2026)
   for (const locale of ['en', 'vi']) for (const width of [375, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(locale === 'vi' ? '/vi/products' : '/products');

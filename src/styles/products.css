@@ -37,15 +37,35 @@
 .products-overview { position: relative; z-index: 1; max-width: 1100px; margin: 1rem auto 0; padding: 0 1rem; }
 .products-page > .ielts-app-banner { margin-top: 0; }
 .products-overview ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem; padding: .4rem; background: #fff; border: 1px solid var(--color-sb-border); border-radius: 1rem; box-shadow: var(--shadow-warm); }
-.products-overview button { display: flex; flex-direction: column; justify-content: center; gap: .15rem; width: 100%; min-height: 60px; text-align: left; border-radius: .75rem; padding: .5rem .7rem; color: var(--color-sb-forest); background: transparent; font-size: .75rem; line-height: 1.35; }
+.products-overview button { display: flex; flex-direction: column; justify-content: flex-start; gap: .15rem; width: 100%; min-height: 60px; text-align: left; border-radius: .75rem; padding: .5rem .7rem; color: var(--color-sb-forest); background: transparent; font-size: .75rem; line-height: 1.35; }
 .products-overview button:hover { background: var(--color-sb-cream); }
 .products-overview button[aria-pressed=true] { background: var(--color-sb-sage); box-shadow: inset 0 0 0 2px var(--color-sb-forest); }
 .products-overview-name { display: flex; align-items: center; gap: .45rem; font-size: .95rem; font-weight: 800; }
 .products-overview-name::before { content: ''; flex: none; width: .5rem; height: .5rem; border-radius: 999px; background: var(--color-sb-border); }
 .products-overview button[aria-pressed=true] .products-overview-name::before { background: var(--color-sb-sage-ink); }
 .products-overview-sub { color: var(--color-sb-slate); }
+/* Five tiles: the odd one out spans the phone's two columns. */
+.products-overview li:last-child:nth-child(odd) { grid-column: 1 / -1; }
 @media (min-width: 768px) {
-  .products-overview ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .products-overview ul { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .products-overview li:last-child:nth-child(odd) { grid-column: auto; }
+}
+
+/* Story Workbooks level picker, under the tiles (Jay, 3 Nov 2026). */
+.products-workbooks { max-width: 1100px; margin: .9rem auto 0; padding: 0 1rem; scroll-margin-top: 6rem; }
+.products-workbooks-inner { padding: 1rem; background: var(--color-sb-sage); border: 1px solid var(--color-sb-border); border-radius: 1rem; }
+.products-workbooks h2 { font-size: 1.1rem; font-weight: 800; color: var(--color-sb-forest); }
+.products-workbooks p { margin-top: .25rem; font-size: .875rem; line-height: 1.5; color: var(--color-sb-ink); }
+.products-workbooks ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; margin-top: .75rem; }
+.products-workbooks li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.products-workbooks a { display: flex; flex-direction: column; gap: .1rem; min-height: 44px; height: 100%; padding: .6rem .75rem; background: #fff; border: 1px solid var(--color-sb-border); border-radius: .75rem; font-size: .8rem; line-height: 1.4; color: var(--color-sb-slate); text-decoration: none; }
+.products-workbooks a:hover { border-color: var(--color-sb-forest); }
+.products-workbooks a:focus-visible { outline: 2px solid var(--color-sb-amber); outline-offset: 2px; }
+.products-workbooks strong { font-size: 1rem; font-weight: 800; color: var(--color-sb-forest); }
+.products-workbooks b { font-weight: 800; color: var(--color-sb-forest); }
+@media (min-width: 768px) {
+  .products-workbooks ul { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .products-workbooks li:last-child:nth-child(odd) { grid-column: auto; }
 }
 
 /* Catalogue: toolbar, section headers and one card per row. */
@@ -93,7 +113,7 @@
 .product-row-tick::before { content: '✓'; position: absolute; left: 0; top: 0; font-weight: 900; color: var(--color-sb-sage-ink); }
 .product-row-notes { grid-area: notes; display: grid; gap: .3rem; font-size: .85rem; line-height: 1.5; }
 .product-row-notes > * { margin: 0; }
-.product-row[hidden], .products-category[hidden], .products-ielts-heading[hidden], .products-also[hidden] { display: none; }
+.product-row[hidden], .products-category[hidden], .products-category-head[hidden], .products-ielts-heading[hidden], .products-also[hidden], .products-workbooks[hidden] { display: none; }
 .product-row-sample { grid-area: sample; padding: 0; }
 .product-row-pay { grid-area: pay; margin: 0; font-size: .8rem; line-height: 1.45; color: var(--color-sb-slate); }
 .product-row-sample > p { font-size: .75rem; font-weight: 800; color: var(--color-sb-slate); }

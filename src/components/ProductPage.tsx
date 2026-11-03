@@ -21,8 +21,8 @@ const COPY: Record<Locale, { home: string; products: string; faq: string; relate
 };
 
 const toCard = (product: Product, locale: Locale): ProductCard => {
-  const { id, price, href, delivery, image, sample, paypal, video, group } = product;
-  return { id, price, href, delivery, image, sample, paypal, video, group, link: cardLink(product, locale), ...product[locale] };
+  const { id, price, href, delivery, image, sample, paypal, video, group, category, books } = product;
+  return { id, price, href, delivery, image, sample, paypal, video, group, category, books, link: cardLink(product, locale), ...product[locale] };
 };
 
 // One product's own page (Jay, 27 Oct 2026: every product findable on Google and Bing). Same copy, sample viewer,
@@ -129,6 +129,12 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
                 <li aria-hidden="true">›</li>
               </>
             ) : null}
+            {card.category === 'workbooks' ? (
+              <>
+                <li><a href={`${getLocalizedHref(PRODUCTS_PATH, locale)}#story-workbooks`} className="underline underline-offset-4" data-crumb-workbooks="">{c.workbooks}</a></li>
+                <li aria-hidden="true">›</li>
+              </>
+            ) : null}
             <li aria-current="page" className="font-bold">{card.title}</li>
           </ol>
         </nav>
@@ -152,6 +158,12 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
                 <dd>{card[key]}</dd>
               </div>
             ))}
+            {card.books ? (
+              <div data-workbook-books={card.id}>
+                <dt className="text-sm font-bold">{c.leadIns.books}</dt>
+                <dd>{card.books.join(' · ')}</dd>
+              </div>
+            ) : null}
           </dl>
           <CardLink card={card} locale={locale} />
           {card.video ? <ProductVideo slug={card.video} locale={locale} id={PRODUCT_VIDEO_ANCHOR} fallbackTitle={card.title} /> : null}

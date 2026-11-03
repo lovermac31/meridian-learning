@@ -115,7 +115,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
       <section className="border-t border-sb-border bg-white px-4 py-8 sm:px-6" aria-labelledby="find-heading">
         <div className="mx-auto max-w-7xl">
           <h2 id="find-heading" className="text-xl font-extrabold text-sb-forest">{find.heading}</h2>
-          <ul className="mt-4 grid gap-3 md:grid-cols-3">
+          <ul className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
             {find.tiles.map((tile) => (
               <li key={tile.anchor}>
                 <a

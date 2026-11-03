@@ -7,7 +7,7 @@ import { getLocalizedHref } from '../i18n/localizedHref';
 import {
   IELTS_GROUPS,
   IELTS_HOME,
-  PRODUCT_SECTIONS,
+  PRODUCT_SEGMENTS,
   PRODUCTS_PATH,
   PRODUCTS_UTM,
   PRODUCTS_VI_PATH,
@@ -16,9 +16,12 @@ import {
   productSampleAnchor,
   productSampleFiles,
   productsPage,
+  WORKBOOKS_SEGMENT,
+  WORKBOOK_AGES,
   type IeltsGroup,
   type ProductCard,
   type ProductSectionId,
+  type ProductSegmentId,
 } from '../i18n/content/products';
 import { fetchSampleText, type SampleTextDocument } from '../lib/sampleText';
 import { SamplePackForm } from './SamplePackForm';
@@ -69,7 +72,7 @@ export function IeltsHomeLink({ group, locale, label, id }: { group: IeltsGroup;
   );
 }
 
-export type LeadIns = { problem: string; inside: string; forWho: string };
+export type LeadIns = { problem: string; inside: string; forWho: string; books: string };
 
 /** A card's extra link (e.g. the Writing Baseline's sample reports), in the page language and tagged like the hub. */
 export function CardLink({ card, locale }: { card: ProductCard; locale: Locale }) {
@@ -395,9 +398,9 @@ export function LemonSqueezyOption({ card, locale, source, touch, compact = fals
 }
 
 const CATEGORY_COPY = {
-  en: { label: 'Product sections', names: { families: 'Families', teachers: 'Teachers', centres: 'Centres', ielts: 'IELTS' }, count: 'products', from: 'from' },
-  vi: { label: 'Các nhóm sản phẩm', names: { families: 'Gia đình', teachers: 'Giáo viên', centres: 'Trung tâm', ielts: 'IELTS' }, count: 'sản phẩm', from: 'từ' },
-};
+  en: { label: 'Product sections', names: { families: 'Families', 'story-workbooks': 'Story Workbooks', teachers: 'Teachers', centres: 'Centres', ielts: 'IELTS' }, count: 'products', from: 'from', workbooksSub: 'Levels 1–5 · print-ready A4' },
+  vi: { label: 'Các nhóm sản phẩm', names: { families: 'Gia đình', 'story-workbooks': 'Sách truyện bài tập', teachers: 'Giáo viên', centres: 'Trung tâm', ielts: 'IELTS' }, count: 'sản phẩm', from: 'từ', workbooksSub: 'Level 1–5 · in sẵn khổ A4' },
+} satisfies Record<Locale, { label: string; names: Record<ProductSegmentId, string>; count: string; from: string; workbooksSub: string }>;
 
 // Hub-only labels for the Stitch layout (Jay's mock, 2 Nov 2026). The layout comes from the mock; every line of copy comes
 // from the product data or copy already on the site (Story Club, the Baseline, 1-to-1, the sample and payment lines),
@@ -456,13 +459,15 @@ export function productAnchor(hash: string, locale: Locale) {
   let anchor: string;
   try { anchor = decodeURIComponent(hash.replace(/^#/, '')); } catch { return null; }
   const sections = productsPage(locale).sections;
+  // #story-workbooks is the Story Workbooks tile and level picker; its five cards (Families data) belong to that segment.
+  if (anchor === WORKBOOKS_SEGMENT) return { section: WORKBOOKS_SEGMENT as ProductSegmentId, product: null, sample: false, target: anchor };
   const section = sections.find((entry) => entry.id === anchor || (entry.id === 'ielts' && IELTS_GROUPS.some((group) => anchor === `ielts-${group}`)));
-  if (section) return { section: section.id, product: null, sample: false, target: anchor };
+  if (section) return { section: section.id as ProductSegmentId, product: null, sample: false, target: anchor };
   const sample = anchor.endsWith('-sample');
   const id = sample ? anchor.slice(0, -7) : anchor;
   for (const entry of sections) {
     const card = entry.cards.find((card) => card.id === id || PRODUCT_FORMER_IDS[card.id]?.includes(id));
-    if (card) return { section: entry.id, product: card.id, sample: sample && !!card.sample, target: card.id };
+    if (card) return { section: (card.category === 'workbooks' ? WORKBOOKS_SEGMENT : entry.id) as ProductSegmentId, product: card.id, sample: sample && !!card.sample, target: card.id };
   }
   return null;
 }
@@ -495,6 +500,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
         <div className="product-row-problem"><dt>{leadIns.problem}</dt><dd>{card.problem}</dd></div>
         <div className="product-row-tick"><dt>{leadIns.inside}</dt><dd>{card.inside}</dd></div>
         <div className="product-row-tick"><dt>{leadIns.forWho}</dt><dd>{card.forWho}</dd></div>
+        {card.books ? <div className="product-row-tick" data-workbook-books={card.id}><dt>{leadIns.books}</dt><dd>{card.books.join(' · ')}</dd></div> : null}
       </dl>
       <div className="product-row-notes">
         <CardLink card={card} locale={locale} />
@@ -536,13 +542,16 @@ export function ProductsPage({ locale }: { locale: Locale }) {
   const touch = useFirstTouch();
   const [viewer, setViewer] = useState<ProductCard | null>(null);
   // The segment filter. SSR and the first client render show every section; a segment narrows the page to its cards.
-  const [filter, setFilter] = useState<ProductSectionId | null>(null);
+  const [filter, setFilter] = useState<ProductSegmentId | null>(null);
   // Featured-first: until a segment is pressed or "Show all" is used, only FEATURED_PRODUCTS show as cards.
   const [showAll, setShowAll] = useState(false);
-  const isVisible = (id: string, section: ProductSectionId) => (filter ? filter === section : showAll || (FEATURED_PRODUCTS as readonly string[]).includes(id));
+  const isVisible = (card: { id: string; category?: string }, section: ProductSectionId) =>
+    filter === WORKBOOKS_SEGMENT ? card.category === 'workbooks' : filter ? filter === section : showAll || (FEATURED_PRODUCTS as readonly string[]).includes(card.id);
   const categoryCopy = CATEGORY_COPY[locale];
   const total = c.sections.reduce((sum, section) => sum + section.cards.length, 0);
-  const shown = c.sections.reduce((sum, section) => sum + section.cards.filter((card) => isVisible(card.id, section.id)).length, 0);
+  const shown = c.sections.reduce((sum, section) => sum + section.cards.filter((card) => isVisible(card, section.id)).length, 0);
+  const workbookCards = c.sections.flatMap((section) => section.cards).filter((card) => card.category === 'workbooks');
+  const workbooksOnly = filter === WORKBOOKS_SEGMENT;
   const faq = [
     { question: FAQ_QUESTIONS[locale].sample, answer: `${c.sample.note} ${c.viewer.viewOnly}` },
     { question: FAQ_QUESTIONS[locale].pay, answer: c.delivery },
@@ -613,20 +622,48 @@ export function ProductsPage({ locale }: { locale: Locale }) {
       <IeltsAppEntrance placement="products" locale={locale} variant="banner" />
       <nav aria-label={categoryCopy.label} className="products-overview" data-products-mini-nav="">
         <ul>
-          {PRODUCT_SECTIONS.map((id) => {
-            const section = c.sections.find((section) => section.id === id);
-            if (!section) return null;
-            const lowest = Math.min(...section.cards.map((card) => Number(card.price.replace(/[^\d]/g, ''))));
+          {PRODUCT_SEGMENTS.map((id) => {
+            // Story Workbooks is a cross-section tile: its cards are the Families "Workbooks" group (Jay, 3 Nov 2026).
+            const cards = id === WORKBOOKS_SEGMENT ? workbookCards : c.sections.find((section) => section.id === id)?.cards;
+            if (!cards?.length) return null;
+            const lowest = Math.min(...cards.map((card) => Number(card.price.replace(/[^\d]/g, ''))));
             return <li key={id}>
               <button type="button" aria-pressed={filter === id} aria-controls={id} data-category-tile={id} onClick={() => setFilter((current) => (current === id ? null : id))}>
                 <span className="products-overview-name">{categoryCopy.names[id]}</span>
-                <span className="products-overview-sub">{section.cards.length} {categoryCopy.count} · {categoryCopy.from} {lowest.toLocaleString('de-DE')}₫</span>
+                <span className="products-overview-sub">{cards.length} {categoryCopy.count} · {categoryCopy.from} {lowest.toLocaleString('de-DE')}₫</span>
                 {id === 'ielts' ? <span className="products-overview-sub">{c.ielts.groups.speaking} · {c.ielts.groups.writing}</span> : null}
+                {id === WORKBOOKS_SEGMENT ? <span className="products-overview-sub">{categoryCopy.workbooksSub}</span> : null}
               </button>
             </li>;
           })}
         </ul>
       </nav>
+      {/* Story Workbooks level picker (Jay, 3 Nov 2026: "I can't find the Story Workbooks"): always visible under the tiles, so the five
+          levels are one tap from the first screen. A level link opens that card (and only the five workbook cards). */}
+      {workbookCards.length ? (
+        <section id={WORKBOOKS_SEGMENT} aria-labelledby={`${WORKBOOKS_SEGMENT}-h`} className="products-workbooks scroll-mt-24 max-md:scroll-mt-36" hidden={filter !== null && !workbooksOnly} data-story-workbooks-band="">
+          <div className="products-workbooks-inner">
+            <h2 id={`${WORKBOOKS_SEGMENT}-h`}>{c.workbooksBand.heading}</h2>
+            <p>{c.workbooksBand.intro}</p>
+            <ul aria-label={c.workbooksBand.levels}>
+              {workbookCards.map((card) => {
+                const level = card.title.match(/\d/)?.[0];
+                const count = card.unit.match(/\d+/)?.[0];
+                const ages = WORKBOOK_AGES[card.id] ?? '';
+                return (
+                  <li key={card.id}>
+                    <a href={`#${card.id}`} data-workbooks-level={card.id}>
+                      <strong>Level {level}</strong>
+                      <span>{(ages.endsWith('+') ? c.workbooksBand.agesFrom : c.workbooksBand.ages).replace('{ages}', ages.replace('+', ''))}</span>
+                      <span>{c.workbooksBand.count.replace('{n}', count ?? '')} · <b>{card.price}</b></span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+      ) : null}
       <div className="ielts-tool-content products-catalogue">
         <div className="products-toolbar">
           <a href={productHref('/', locale)} className="products-home inline-flex items-center gap-2 font-bold underline underline-offset-4"><ArrowLeft aria-hidden="true" className="h-4 w-4" /> {c.back}</a>
@@ -636,8 +673,8 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           </p>
         </div>
         {c.sections.map((section) => (
-          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="products-category scroll-mt-24 max-md:scroll-mt-36" hidden={!section.cards.some((card) => isVisible(card.id, section.id))} data-category-panel={section.id}>
-            <div className="products-category-head">
+          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-h`} className="products-category scroll-mt-24 max-md:scroll-mt-36" hidden={!section.cards.some((card) => isVisible(card, section.id))} data-category-panel={section.id}>
+            <div className="products-category-head" hidden={workbooksOnly}>
               <h2 id={`${section.id}-h`}>{section.heading}</h2>
               <p className="products-category-intro">{section.intro}</p>
             </div>
@@ -661,10 +698,10 @@ export function ProductsPage({ locale }: { locale: Locale }) {
               : [{ group: null, workbooks: false, cards: section.cards.filter((card) => card.category !== 'workbooks') }, { group: null, workbooks: true, cards: section.cards.filter((card) => card.category === 'workbooks') }]
             ).filter((list) => list.cards.length > 0).map(({ group, workbooks, cards }) => (
               <div key={group ?? (workbooks ? 'workbooks' : 'all')} data-ielts-group={group ?? undefined} data-workbooks-group={workbooks ? section.id : undefined}>
-                {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card.id, section.id))}>{c.ielts.groups[group]}</h3> : null}
-                {workbooks ? <h3 id={`${section.id}-workbooks`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card.id, section.id))}>{c.workbooks}</h3> : null}
+                {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card, section.id))}>{c.ielts.groups[group]}</h3> : null}
+                {workbooks ? <h3 id={`${section.id}-workbooks`} className="products-ielts-heading scroll-mt-24" hidden={workbooksOnly || !cards.some((card) => isVisible(card, section.id))}>{c.workbooks}</h3> : null}
                 <ul className="products-rows">
-                  {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} visible={isVisible(card.id, section.id)} touch={touch} />)}
+                  {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} visible={isVisible(card, section.id)} touch={touch} />)}
                 </ul>
               </div>
             ))}
