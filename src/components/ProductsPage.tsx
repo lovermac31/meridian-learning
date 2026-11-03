@@ -423,7 +423,7 @@ const HUB_COPY: Record<Locale, { trustLabel: string; trust: TrustItem[]; showing
     trustLabel: 'What to expect',
     trust: [
       { icon: Users, title: 'Small groups', body: 'Story Club: up to 6 children a group.' },
-      { icon: Video, title: 'Live on Google Meet', body: 'Story Club and the Baseline with Mr. Jay; 1-to-1 lessons with Mr. Jay’s team.' },
+      { icon: Video, title: 'Live on Google Meet', body: 'Story Club, the Baseline and 1-to-1 lessons with Mr. Jay.' },
       { icon: Eye, title: 'See a sample', body: 'See exactly what you get before you pay.' },
       { icon: QrCode, title: 'Pay by VietQR', body: 'Nothing is charged until you accept a written order summary.' },
     ],
@@ -435,7 +435,7 @@ const HUB_COPY: Record<Locale, { trustLabel: string; trust: TrustItem[]; showing
     trustLabel: 'Bạn có thể yên tâm',
     trust: [
       { icon: Users, title: 'Nhóm nhỏ', body: 'Câu lạc bộ Truyện: tối đa 6 bé một nhóm.' },
-      { icon: Video, title: 'Học trực tiếp qua Google Meet', body: 'Câu lạc bộ Truyện và buổi Đánh giá cùng thầy Jay; học 1 kèm 1 với đội ngũ của thầy Jay.' },
+      { icon: Video, title: 'Học trực tiếp qua Google Meet', body: 'Câu lạc bộ Truyện, buổi Đánh giá và học 1 kèm 1 đều cùng thầy Jay.' },
       { icon: Eye, title: 'Xem mẫu', body: 'Xem đúng những gì bạn nhận được trước khi thanh toán.' },
       { icon: QrCode, title: 'Thanh toán qua VietQR', body: 'Không thu tiền cho đến khi bạn đồng ý bản tóm tắt đơn hàng bằng văn bản.' },
     ],
