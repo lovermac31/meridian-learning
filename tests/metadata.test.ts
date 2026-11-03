@@ -128,7 +128,7 @@ test('resolver returns route-specific public metadata', () => {
   const stage = resolveRouteMetadata('/thinking-cycle/justify');
   const legal = resolveRouteMetadata('/legal/privacy');
 
-  assert.equal(home.title, 'Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking');
+  assert.equal(home.title, 'Jurassic English™ | IELTS Speaking & Academic English');
   assert.equal(home.canonical, 'https://jurassicenglish.com');
   assert.equal(home.robots, 'index, follow');
   // P1 — homepage JSON-LD = EducationalOrganization + WebSite + Service
