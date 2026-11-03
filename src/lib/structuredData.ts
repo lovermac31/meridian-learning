@@ -2,6 +2,7 @@ import type { Locale } from '../i18n/locales';
 import { PRODUCT_IMAGE_DIR, PRODUCTS, PRODUCTS_PATH } from '../i18n/content/products';
 import { WORLDWISE_SITE_URL } from './contactConfig';
 import { usdFromVnd } from './paypal';
+import { hasRegionalPrice, regionalUsd } from './regionalPrice';
 import type { Product } from '../i18n/content/products';
 
 const SITE_URL = 'https://jurassicenglish.com';
@@ -310,7 +311,8 @@ export function createProductJsonLd(product: Product, locale: Locale, videoId?: 
     sku: product.id,
     ...(product.image ? { image: `${SITE_URL}${PRODUCT_IMAGE_DIR}/${product.image}.webp` } : {}),
     brand: { '@type': 'Brand', name: 'Jurassic English' },
-    offers: [offer(vnd, 'VND'), ...(product.paypal ? [offer(String(usdFromVnd(Number(vnd))), 'USD')] : [])],
+    // A regional-price product lists its default (highest) tier in US$; the page's picker shows the buyer's own.
+    offers: [offer(vnd, 'VND'), ...(product.paypal ? [offer(String(hasRegionalPrice(product.id) ? regionalUsd(product.id) : usdFromVnd(Number(vnd))), 'USD')] : [])],
     // The product's film on the same page (video SEO, 27 Oct 2026).
     ...(videoId ? { subjectOf: { '@id': videoId } } : {}),
   };

@@ -26,7 +26,8 @@ test('films: each sales film sits on its own product', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
   const mapped = Object.fromEntries(PRODUCTS.filter((p) => p.video).map((p) => [p.id, p.video]));
   // Every product has its own film, in public/videos/<product id>/.
-  assert.deepEqual(mapped, Object.fromEntries(PRODUCTS.map((p) => [p.id, p.id])));
+  // Except the five Story Workbooks (3 Nov 2026), whose film comes later: the card and page show the sample without one.
+  assert.deepEqual(mapped, Object.fromEntries(PRODUCTS.filter((p) => !p.id.startsWith('story-workbooks-')).map((p) => [p.id, p.id])));
 
 });
 

@@ -1,6 +1,7 @@
 import type { Locale } from '../i18n/locales';
 import { PRODUCTS } from '../i18n/content/products';
 import { paypalHref, paypalItemName, usdFromVnd } from './paypal';
+import { hasRegionalPrice, regionalUsd } from './regionalPrice';
 
 // Where a /products buyer came from (master, 27 Oct 2026): the Order on Zalo buttons used to say
 // utm_source=products for everyone. The page now reads utm_source on arrival, keeps it for the visit, passes it in
@@ -84,13 +85,17 @@ export const ORDER_CODE_COPY: Record<Locale, { before: string; after: string }> 
 // S1 (master, 27 Oct 2026): international buyers pay a digital card's US$ price by PayPal. The item name and the
 // custom field carry the card id and the order code, so Jay matches each payment by hand and sends the files by
 // Google Drive within 24 hours (until the portal automates it, ADR-008).
-export const productUsd = (price: string) => usdFromVnd(Number(price.replace(/\D/g, '')));
+// Products with a regional price (regionalPrice.ts) charge the buyer's market tier; every other card keeps ceil(VND ÷ 25,897).
+export const productUsd = (price: string, id?: string, market?: string | null) =>
+  id && hasRegionalPrice(id) ? regionalUsd(id, market) : usdFromVnd(Number(price.replace(/\D/g, '')));
 
-export function productPaypalHref(id: string, source: string | null, locale: Locale = 'en'): string {
+export function productPaypalHref(id: string, source: string | null, locale: Locale = 'en', market?: string | null): string {
   const product = PRODUCTS.find((entry) => entry.id === id);
   if (!product?.paypal) throw new Error(`No PayPal option for ${id}`);
   const code = orderCode(source, id);
-  const href = new URL(paypalHref(paypalItemName(product.en.title, `/products ${id} code ${code}`), productUsd(product.price), `${id}|${code}`));
+  // A regional price also names the market the buyer chose, so Jay can match the amount to the country.
+  const region = hasRegionalPrice(id) && market ? market : null;
+  const href = new URL(paypalHref(paypalItemName(product.en.title, `/products ${id} code ${code}${region ? ` region ${region}` : ''}`), productUsd(product.price, id, market), `${id}|${code}${region ? `|${region}` : ''}`));
   // Navigation only: returning does not confirm a payment or unlock an edition.
   const back = `https://jurassicenglish.com/${locale === 'vi' ? 'vi/' : ''}products#${id}`;
   href.searchParams.set('return', back);
@@ -98,6 +103,21 @@ export function productPaypalHref(id: string, source: string | null, locale: Loc
   href.searchParams.set('rm', '1'); // GET without payment variables in the return URL.
   return href.toString();
 }
+
+export const REGIONAL_COPY: Record<Locale, { label: string; other: string; note: string; compact: (low: number) => string }> = {
+  en: {
+    label: 'Where are you paying from?',
+    other: 'Another country',
+    note: 'Regional price: it follows each country’s price range, from US$%LOW% to US$%HIGH%. Please choose the country you live in.',
+    compact: (low) => `Outside Vietnam? Regional price from US$${low}: choose your country`,
+  },
+  vi: {
+    label: 'Bạn thanh toán từ nước nào?',
+    other: 'Nước khác',
+    note: 'Giá theo khu vực: thay đổi theo mức giá của từng quốc gia, từ US$%LOW% đến US$%HIGH%. Vui lòng chọn nước bạn đang sống.',
+    compact: (low) => `Ở ngoài Việt Nam? Giá khu vực từ US$${low}: chọn nước của bạn`,
+  },
+};
 
 export const PAYPAL_CARD_COPY: Record<Locale, { lead: string; pay: (usd: number) => string; note: string }> = {
   en: {

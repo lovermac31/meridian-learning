@@ -12,7 +12,8 @@ import { resolveLocalizedRoute } from '../src/i18n/routing';
 const amounts: Record<string, number> = {
   'story-club': 590000, baseline: 690000, 'one-to-one': 5600000, 'printable-pack': 149000,
   'parent-pack-l1': 249000, 'parent-pack-l2': 249000, 'parent-pack-l3': 249000,
-  'holiday-reading-challenge': 149000, 'teacher-pack-l1': 690000, 'teacher-pack-l2': 690000,
+  'holiday-reading-challenge': 149000, 'story-workbooks-l1': 290000, 'story-workbooks-l2': 190000, 'story-workbooks-l3': 190000,
+  'story-workbooks-l4': 190000, 'story-workbooks-l5': 190000, 'teacher-pack-l1': 690000, 'teacher-pack-l2': 690000,
   'teacher-pack-l3': 690000, 'teacher-pack-l4': 690000, 'teacher-pack-l5': 690000, 'teacher-bundle': 2900000,
   'student-workbook-l1': 190000, 'student-workbook-l2': 190000, 'student-workbook-l3': 190000,
   'student-workbook-l4': 190000, 'student-workbook-l5': 190000, 'word-fossil-flashcards-l1': 190000,

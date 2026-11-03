@@ -18,11 +18,13 @@ const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf(
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
-  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫']],
+  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['story-workbooks-l1', '290.000₫'], ['story-workbooks-l2', '190.000₫'], ['story-workbooks-l3', '190.000₫'], ['story-workbooks-l4', '190.000₫'], ['story-workbooks-l5', '190.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
-    ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
+    ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
     ['reasoning-assessment-kit', '390.000₫'],
+    // "Workbooks" (Jay, 3 Nov 2026): the Student Workbooks sit under their own heading at the end of Teachers.
+    ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'],
   ],
   centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
   // #ielts (Jay, 27 Oct 2026): moved out of Teachers; Speaking group, then Writing.
@@ -113,7 +115,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'story-workbooks-l1', 'story-workbooks-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -190,7 +192,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     setServerLocation(EN);
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' }));
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
-    assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...SHOWN.teachers.map(([id]) => id), 'test-extra']);
+    assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...SHOWN.teachers.map(([id]) => id).filter((id) => !id.startsWith('student-workbook-')), 'test-extra', ...SHOWN.teachers.map(([id]) => id).filter((id) => id.startsWith('student-workbook-'))]);
     assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" srcSet="[^"]*\/images\/products\/w\/teacher-bundle-400\.webp 400w[^"]*" sizes="[^"]+" alt="" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
     assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.live && p.image).length);
   } finally {
@@ -209,6 +211,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'ielts-one-to-one-starter': 'ielts-one-to-one-starter', 'writing-baseline': 'writing-baseline',
     'ielts-cue-card-bank': 'ielts-cue-card-bank', 'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3',
     'holiday-reading-challenge': 'holiday-reading-challenge', 'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
+    'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
   };
@@ -267,6 +270,8 @@ const SAMPLE_STEMS: Record<string, string> = {
   'writing-baseline': 'writing-baseline', 'ielts-one-to-one-starter': 'ielts-one-to-one-starter', 'ielts-cue-card-bank': 'ielts-cue-card-bank',
   'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3', 'holiday-reading-challenge': 'holiday-challenge',
   'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
+  // Story Workbooks L1-L5 (Jay, 3 Nov 2026): stem = id; 3 sample pages each.
+  'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5',
 };
 const SAMPLE_FILE = /^(.+)-p[123]\.webp$/;
 const PAGE_FILE = /^(.+)-pg(\d\d)\.webp$/;
@@ -429,7 +434,8 @@ test('wave 2: two new cards with their samples, US$ by PayPal, and the workbook 
     assert.ok(families.includes('id="parent-pack-l1"') && families.includes('id="parent-pack-l2"') && !families.includes('id="student-workbook-l1"'), `${route}: parent packs in families`);
     assert.ok(teachers.includes('id="student-workbook-l1"'), `${route}: workbook in teachers`);
     assert.match(families, line, `${route}: workbook line in families`);
-    assert.equal([...html.matchAll(/data-also="/g)].length, 1, `${route}: one pointer line`);
+    // One pointer from Families to the Level 1 Student Workbook, plus five from Teachers to the Story Workbooks (3 Nov 2026).
+    assert.equal([...html.matchAll(/data-also="/g)].length, 6, `${route}: pointer lines`);
     for (const [id, price, usd] of [['parent-pack-l1', '249.000₫', 10], ['parent-pack-l2', '249.000₫', 10], ['student-workbook-l1', '190.000₫', 8]] as const) {
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
       assert.ok(card.includes(`data-sample="${id}"`) && card.includes(`data-sample-link="${id}"`) && card.includes(`/samples/${id}-p1.webp`), `${route} ${id}: sample`);

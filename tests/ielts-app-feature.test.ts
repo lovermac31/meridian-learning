@@ -41,6 +41,6 @@ test('/products: the free IELTS app card tops the IELTS group with utm_content=p
     assert.ok(section.includes(`>${title}<`), `${locale}: title`);
     assert.ok(section.includes(`href="${ieltsAppHref('products', locale)}"`), `${locale}: entrance link`);
     assert.doesNotMatch(section.slice(card, section.indexOf('data-ielts-group="speaking"')), /<li |data-price=/, `${locale}: not a priced product card`);
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 35, `${locale}: 35 product cards as before`);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 40, `${locale}: 40 product cards (35 plus the five Story Workbooks)`);
   }
 });

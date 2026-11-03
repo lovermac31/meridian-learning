@@ -91,6 +91,56 @@
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
+### Level 1 Story Workbooks
+- ID: `story-workbooks-l1`
+- English: https://jurassicenglish.com/products/story-workbooks-l1
+- Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l1
+- English description: 11 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.
+- Vietnamese title: Sách truyện tiếng Anh có bài tập cho bé 4–8 tuổi | Level 1
+- VND price: 290.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Level 2 Story Workbooks
+- ID: `story-workbooks-l2`
+- English: https://jurassicenglish.com/products/story-workbooks-l2
+- Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l2
+- English description: 3 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 190.000₫ one-time.
+- Vietnamese title: Sách truyện tiếng Anh có bài tập cho trẻ 8–10 tuổi | Level 2
+- VND price: 190.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Level 3 Story Workbooks
+- ID: `story-workbooks-l3`
+- English: https://jurassicenglish.com/products/story-workbooks-l3
+- Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l3
+- English description: 3 original storybooks as printable A4 workbooks for ages 10–12 (CEFR A2 → B1): evidence questions, a Thinking Cycle page and an answer key. 190.000₫ one-time.
+- Vietnamese title: Sách bài tập đọc hiểu tiếng Anh cho trẻ 10–12 tuổi | Level 3
+- VND price: 190.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Level 4 Story Workbooks
+- ID: `story-workbooks-l4`
+- English: https://jurassicenglish.com/products/story-workbooks-l4
+- Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l4
+- English description: 3 original storybooks as printable A4 workbooks for ages 12–14 (CEFR B1 → B2): quoted-evidence questions, a Thinking Cycle page, a rubric. 190.000₫ one-time.
+- Vietnamese title: Sách bài tập đọc hiểu tiếng Anh 12–14 tuổi | Level 4
+- VND price: 190.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Level 5 Story Workbooks
+- ID: `story-workbooks-l5`
+- English: https://jurassicenglish.com/products/story-workbooks-l5
+- Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l5
+- English description: 3 original storybooks as printable A4 workbooks for learners 14+ (CEFR B2 → C1): claim and counterargument practice, a rubric, an answer key. 190.000₫ one-time.
+- Vietnamese title: Sách bài tập đọc hiểu tiếng Anh nâng cao 14+ | Level 5
+- VND price: 190.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
 ### Level 1 Teacher Pack
 - ID: `teacher-pack-l1`
 - English: https://jurassicenglish.com/products/teacher-pack-l1
@@ -151,6 +201,46 @@
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
+### Word Fossil Flashcards, Level 1
+- ID: `word-fossil-flashcards-l1`
+- English: https://jurassicenglish.com/products/word-fossil-flashcards-l1
+- Vietnamese: https://jurassicenglish.com/vi/products/word-fossil-flashcards-l1
+- English description: 120 printable picture flashcards in English and Vietnamese for Level 1 learners aged 4–8, for teachers and parents. 190.000₫.
+- Vietnamese title: Thẻ từ vựng tiếng Anh có hình để in, Level 1 (120 thẻ)
+- VND price: 190.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Jurassic Thinking Cycle Manual Set
+- ID: `thinking-cycle-set`
+- English: https://jurassicenglish.com/products/thinking-cycle-set
+- Vietnamese: https://jurassicenglish.com/vi/products/thinking-cycle-set
+- English description: Teacher and student manuals for the Jurassic Thinking Cycle (Analyze, Evaluate, Justify, Reflect), the CEIW writing framework, a lesson template. 490.000₫.
+- Vietnamese title: Dạy tư duy phản biện trong lớp tiếng Anh | Sổ tay
+- VND price: 490.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Thinking Cycle Classroom Posters
+- ID: `thinking-cycle-posters`
+- English: https://jurassicenglish.com/products/thinking-cycle-posters
+- Vietnamese: https://jurassicenglish.com/vi/products/thinking-cycle-posters
+- English description: 8 A3 classroom posters of the Jurassic Thinking Cycle in English and Vietnamese, ready to print, for teachers and centres. 149.000₫.
+- Vietnamese title: Bộ poster lớp học Thinking Cycle: 8 tờ A3 song ngữ
+- VND price: 149.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Reasoning Assessment Kit, Levels 1–5
+- ID: `reasoning-assessment-kit`
+- English: https://jurassicenglish.com/products/reasoning-assessment-kit
+- Vietnamese: https://jurassicenglish.com/vi/products/reasoning-assessment-kit
+- English description: Reasoning worksheets for Levels 1–5, scoring sheets with feedback codes, a placement guide and a parent report template. For teachers and centres. 390.000₫.
+- Vietnamese title: Bộ đánh giá lập luận và xếp lớp tiếng Anh Level 1–5
+- VND price: 390.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
 ### Level 1 Student Workbook
 - ID: `student-workbook-l1`
 - English: https://jurassicenglish.com/products/student-workbook-l1
@@ -198,46 +288,6 @@
 - English description: 62 printable A4 pages for learners aged 14+ (CEFR B2 → C1), in the order of the Level 5 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh nâng cao cho học sinh 14+ | Level 5
 - VND price: 190.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### Word Fossil Flashcards, Level 1
-- ID: `word-fossil-flashcards-l1`
-- English: https://jurassicenglish.com/products/word-fossil-flashcards-l1
-- Vietnamese: https://jurassicenglish.com/vi/products/word-fossil-flashcards-l1
-- English description: 120 printable picture flashcards in English and Vietnamese for Level 1 learners aged 4–8, for teachers and parents. 190.000₫.
-- Vietnamese title: Thẻ từ vựng tiếng Anh có hình để in, Level 1 (120 thẻ)
-- VND price: 190.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### Jurassic Thinking Cycle Manual Set
-- ID: `thinking-cycle-set`
-- English: https://jurassicenglish.com/products/thinking-cycle-set
-- Vietnamese: https://jurassicenglish.com/vi/products/thinking-cycle-set
-- English description: Teacher and student manuals for the Jurassic Thinking Cycle (Analyze, Evaluate, Justify, Reflect), the CEIW writing framework, a lesson template. 490.000₫.
-- Vietnamese title: Dạy tư duy phản biện trong lớp tiếng Anh | Sổ tay
-- VND price: 490.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### Thinking Cycle Classroom Posters
-- ID: `thinking-cycle-posters`
-- English: https://jurassicenglish.com/products/thinking-cycle-posters
-- Vietnamese: https://jurassicenglish.com/vi/products/thinking-cycle-posters
-- English description: 8 A3 classroom posters of the Jurassic Thinking Cycle in English and Vietnamese, ready to print, for teachers and centres. 149.000₫.
-- Vietnamese title: Bộ poster lớp học Thinking Cycle: 8 tờ A3 song ngữ
-- VND price: 149.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### Reasoning Assessment Kit, Levels 1–5
-- ID: `reasoning-assessment-kit`
-- English: https://jurassicenglish.com/products/reasoning-assessment-kit
-- Vietnamese: https://jurassicenglish.com/vi/products/reasoning-assessment-kit
-- English description: Reasoning worksheets for Levels 1–5, scoring sheets with feedback codes, a placement guide and a parent report template. For teachers and centres. 390.000₫.
-- Vietnamese title: Bộ đánh giá lập luận và xếp lớp tiếng Anh Level 1–5
-- VND price: 390.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 

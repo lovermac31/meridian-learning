@@ -9,6 +9,7 @@ import { PAGE_PRODUCTS, PRODUCT_SEO, getProductByPath, relatedProducts } from '.
 import { ProductPage } from '../src/components/ProductPage';
 import { ProductsPage } from '../src/components/ProductsPage';
 import { usdFromVnd } from '../src/lib/paypal';
+import { hasRegionalPrice, regionalUsd } from '../src/lib/regionalPrice';
 
 // One indexable page per product (Jay, 27 Oct 2026): /products/<id> and /vi/products/<id> for every live card.
 const SITE = 'https://jurassicenglish.com';
@@ -54,7 +55,8 @@ test('JSON-LD: Product with a VND Offer, a USD Offer only where PayPal is offere
     const vnd = p.price.replace(/\D/g, '');
     assert.deepEqual(product.offers.map((o: any) => [o.priceCurrency, o.price]), [
       ['VND', vnd],
-      ...(p.paypal ? [['USD', String(usdFromVnd(Number(vnd)))]] : []),
+      // Story Workbooks list their default (highest regional tier) US$ price.
+      ...(p.paypal ? [['USD', String(hasRegionalPrice(p.id) ? regionalUsd(p.id) : usdFromVnd(Number(vnd)))]] : []),
     ], path);
     const faq = blocks.find((b) => b['@type'] === 'FAQPage')!;
     assert.ok(faq.mainEntity.length >= 1, path);
@@ -101,9 +103,9 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
 });
 
 // 35-today plan (Jay, 27 Oct 2026): the eight new products are live, each with its page, JSON-LD and sitemap entry.
-test('35-today: all 35 products are live, and the eight new ones have EN + VI pages with search copy and a sample', async () => {
+test('35-today: all 40 products are live (35 plus the five Story Workbooks), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
-  assert.equal(PRODUCTS.length, 35);
+  assert.equal(PRODUCTS.length, 40);
   assert.equal(PRODUCTS.filter((p) => !p.live).length, 0);
   const fresh = ['writing-baseline', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'ielts-essay-bank-task2', 'parent-pack-l3',
     'holiday-reading-challenge', 'thinking-cycle-posters', 'word-fossil-flashcards-l1'];

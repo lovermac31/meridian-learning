@@ -99,11 +99,96 @@ export type Product = {
   video?: string;
   // The #ielts sub-group (Speaking or Writing); set on every 'ielts' product.
   group?: IeltsGroup;
+  // 'workbooks': listed under a "Workbooks" heading at the end of its section (Families and Teachers). Jay, 3 Nov 2026.
+  category?: 'workbooks';
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
   en: CardText;
   vi: CardText;
 };
+
+// Story Workbooks, Levels 1 to 5 (Jay, 3 Nov 2026): the original Jurassic English storybooks as print-ready A4 workbooks
+// (30 pages each: cover, six chapters with a write-in page each, activities, teacher guide, answer key). Level 1 is 11
+// workbooks, Levels 2 to 5 are 3 each. One card per level, in Families under "Workbooks", with a pointer from Teachers.
+// The sample is 3 watermarked pages of one lead book per level, view-only (no PDF is published). Each full PDF carries
+// the licence line and file properties (security Tier 1) and is delivered only after payment.
+const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e: Omit<CardText, 'label' | 'cta' | 'unit'>, v: Omit<CardText, 'label' | 'cta' | 'unit'>): Product => ({
+  id: `story-workbooks-l${level}`,
+  live: true,
+  section: 'families',
+  category: 'workbooks',
+  price,
+  href: 'zalo',
+  image: `story-workbooks-l${level}`,
+  sample: `story-workbooks-l${level}`,
+  delivery: true,
+  paypal: true,
+  alsoIn: {
+    section: 'teachers',
+    en: `Teaching Level ${level} stories? The {link} are print-ready with an answer key and a teacher guide: {price} for ${count} workbooks.`,
+    vi: `Dạy truyện Level ${level}? {link} in sẵn, có đáp án và hướng dẫn cho giáo viên: {price} cho ${count} cuốn.`,
+  },
+  en: { label: 'Digital download · story workbooks', unit: `one-time · ${count} workbooks`, cta: 'Order on Zalo', ...e },
+  vi: { label: 'Tài liệu số · sách truyện bài tập', unit: `mua một lần · ${count} cuốn`, cta: 'Đặt mua qua Zalo', ...v },
+});
+
+const STORY_WORKBOOKS: Product[] = [
+  storyWorkbook(1, '290.000₫', 11, {
+    title: 'Level 1 Story Workbooks',
+    problem: 'Your child enjoys stories, but you want pages to write on, questions that check they understood, and a reason to talk about the story together.',
+    inside: '11 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in six short chapters, a fill-in, circle and draw page for every chapter, a word search, a reading log, a teacher guide and an answer key.',
+    forWho: 'Children aged 4–8 (CEFR Pre-A1 → A1), read with a parent or teacher. One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 1',
+    problem: 'Con thích nghe truyện, nhưng bố mẹ muốn có trang để con viết, câu hỏi kiểm tra con hiểu truyện chưa, và lý do để hai bố con cùng trò chuyện về câu chuyện.',
+    inside: '11 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
+    forWho: 'Trẻ 4–8 tuổi (CEFR Pre-A1 → A1), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+  storyWorkbook(2, '190.000₫', 3, {
+    title: 'Level 2 Story Workbooks',
+    problem: 'Your child reads short texts, but you can’t tell whether they understand the story or only decode the words.',
+    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, a fill-in, circle and write page for every chapter, a Thinking Cycle page, a word search, a reading log, a teacher guide and an answer key.',
+    forWho: 'Children aged 8–10 (CEFR A1 → A2). One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 2',
+    problem: 'Con đọc được các đoạn ngắn, nhưng bố mẹ chưa chắc con hiểu câu chuyện hay chỉ đọc đúng từng chữ.',
+    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, mỗi chương một trang điền từ, khoanh đáp án và viết, thêm trang Chu trình Tư duy, trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
+    forWho: 'Trẻ 8–10 tuổi (CEFR A1 → A2). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+  storyWorkbook(3, '190.000₫', 3, {
+    title: 'Level 3 Story Workbooks',
+    problem: 'Your child reads longer stories but rarely explains why a character did something, or what in the text proves it.',
+    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, questions that ask for the clue, a Thinking Cycle page (analyse, evaluate, justify, reflect), a word search, a teacher guide, a rubric and an answer key.',
+    forWho: 'Children aged 10–12 (CEFR A2 → B1). One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 3',
+    problem: 'Con đọc được truyện dài hơn nhưng ít khi giải thích được vì sao nhân vật làm vậy, hay chi tiết nào trong truyện chứng minh điều đó.',
+    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, câu hỏi yêu cầu chỉ ra chi tiết, trang Chu trình Tư duy (phân tích, đánh giá, lập luận, suy ngẫm), trò tìm từ, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
+    forWho: 'Trẻ 10–12 tuổi (CEFR A2 → B1). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+  storyWorkbook(4, '190.000₫', 3, {
+    title: 'Level 4 Story Workbooks',
+    problem: 'Your teenager reads fluently, but their answers about a text stay vague: no evidence, no weighing of two readings.',
+    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: longer chapters, questions that ask for a quoted clue, a Thinking Cycle page that asks for a claim with evidence, a teacher guide, a rubric and an answer key.',
+    forWho: 'Learners aged 12–14 (CEFR B1 → B2). One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 4',
+    problem: 'Con đọc trôi chảy, nhưng câu trả lời về văn bản vẫn chung chung: thiếu dẫn chứng, chưa biết cân nhắc hai cách hiểu.',
+    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: chương dài hơn, câu hỏi yêu cầu trích dẫn chi tiết, trang Chu trình Tư duy yêu cầu nêu nhận định kèm dẫn chứng, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
+    forWho: 'Học sinh 12–14 tuổi (CEFR B1 → B2). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+  storyWorkbook(5, '190.000₫', 3, {
+    title: 'Level 5 Story Workbooks',
+    problem: 'Your older learner can summarise a text, but not yet argue a position from it, answer a counterargument or weigh a consequence.',
+    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: chapter stories on real-world decisions, evidence questions, a Thinking Cycle page with claim, evidence, interpretation and counterargument, a teacher guide, a rubric and an answer key.',
+    forWho: 'Learners aged 14+ (CEFR B2 → C1). One-learner licence: print for your own use. Teachers and tutors can ask on Zalo about using them with a class.',
+  }, {
+    title: 'Sách truyện bài tập Level 5',
+    problem: 'Học sinh lớn đã tóm tắt được văn bản, nhưng chưa biết bảo vệ một quan điểm từ văn bản, đáp lại phản biện hay cân nhắc hệ quả.',
+    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương về những quyết định thực tế, câu hỏi dẫn chứng, trang Chu trình Tư duy với nhận định, dẫn chứng, diễn giải và phản biện, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
+    forWho: 'Học sinh từ 14 tuổi (CEFR B2 → C1). Bản quyền cho một học viên: in cho riêng bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+  }),
+];
 
 export const PRODUCTS: Product[] = [
   {
@@ -342,6 +427,7 @@ export const PRODUCTS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
+  ...STORY_WORKBOOKS,
   {
     id: 'teacher-pack-l1',
     live: true,
@@ -523,161 +609,6 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    id: 'student-workbook-l1',
-    video: 'student-workbook-l1',
-    live: true,
-    section: 'teachers',
-    price: '190.000₫',
-    href: 'zalo',
-    image: 'student-workbook-l1',
-    sample: 'student-workbook-l1',
-    delivery: true,
-    paypal: true,
-    alsoIn: {
-      section: 'families',
-      en: 'Doing Level 1 at home? The {link} has a page for every lesson: {price} a learner, using 10 picture books you provide.',
-      vi: 'Học Level 1 ở nhà? {link} có một trang cho mỗi bài học: {price} mỗi học viên, dùng 10 cuốn sách tranh bạn tự chuẩn bị.',
-    },
-    en: {
-      label: 'Digital download · per learner · class sets',
-      title: 'Level 1 Student Workbook',
-      problem: 'Your Level 1 learners need their own page for every lesson, and copying worksheets together each week takes hours.',
-      inside: '63 printable A4 pages: 40 lesson pages (Dig, Weigh, Because, Show) in the order of the Level 1 Teacher Pack, 10 story openers, a Thinking Passport, a word wall and a certificate. You receive the PDF and editable Google Docs.',
-      forWho: 'Children aged 4–8 doing Level 1 with a teacher, tutor or parent. The lessons use 10 widely available picture books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
-      unit: 'per learner · class set of 10: 1.490.000₫',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
-      title: 'Sách bài tập học viên Level 1',
-      problem: 'Học viên Level 1 cần trang riêng cho mỗi bài học, còn tự photo phiếu bài tập mỗi tuần thì tốn hàng giờ.',
-      inside: '63 trang A4 in được: 40 trang theo từng bài (Dig, Weigh, Because, Show) đúng thứ tự Bộ tài liệu Giáo viên Level 1, 10 trang mở đầu truyện, Hộ chiếu tư duy, bức tường từ vựng và giấy khen. Bạn nhận file PDF và Google Docs chỉnh sửa được.',
-      forWho: 'Trẻ 4–8 tuổi học Level 1 cùng giáo viên, gia sư hoặc phụ huynh. Bài học dùng 10 cuốn sách tranh phổ biến, bạn tự chuẩn bị. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
-      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    id: 'student-workbook-l2',
-    video: 'student-workbook-l2',
-    live: true,
-    section: 'teachers',
-    price: '190.000₫',
-    href: 'zalo',
-    image: 'student-workbook-l2',
-    sample: 'student-workbook-l2',
-    delivery: true,
-    paypal: true,
-    en: {
-      label: 'Digital download · per learner · class sets',
-      title: 'Level 2 Student Workbook',
-      problem: 'Your Level 2 learners need their own organiser for every lesson, and building those pages each week takes hours.',
-      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 2 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
-      forWho: 'Learners aged 8–10 (CEFR A1 → A2) following Level 2 Development with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
-      unit: 'per learner · class set of 10: 1.490.000₫',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
-      title: 'Sách bài tập học viên Level 2',
-      problem: 'Học viên Level 2 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
-      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 2, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
-      forWho: 'Học viên 8–10 tuổi (CEFR A1 → A2) học Level 2 Development cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
-      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    id: 'student-workbook-l3',
-    video: 'student-workbook-l3',
-    live: true,
-    section: 'teachers',
-    price: '190.000₫',
-    href: 'zalo',
-    image: 'student-workbook-l3',
-    sample: 'student-workbook-l3',
-    delivery: true,
-    paypal: true,
-    en: {
-      label: 'Digital download · per learner · class sets',
-      title: 'Level 3 Student Workbook',
-      problem: 'Your Level 3 learners need their own organiser for every lesson, and building those pages each week takes hours.',
-      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 3 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
-      forWho: 'Learners aged 10–12 (CEFR A2 → B1) following Level 3 Expansion with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
-      unit: 'per learner · class set of 10: 1.490.000₫',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
-      title: 'Sách bài tập học viên Level 3',
-      problem: 'Học viên Level 3 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
-      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 3, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
-      forWho: 'Học viên 10–12 tuổi (CEFR A2 → B1) học Level 3 Expansion cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
-      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    id: 'student-workbook-l4',
-    video: 'student-workbook-l4',
-    live: true,
-    section: 'teachers',
-    price: '190.000₫',
-    href: 'zalo',
-    image: 'student-workbook-l4',
-    sample: 'student-workbook-l4',
-    delivery: true,
-    paypal: true,
-    en: {
-      label: 'Digital download · per learner · class sets',
-      title: 'Level 4 Student Workbook',
-      problem: 'Your Level 4 learners need their own organiser for every lesson, and building those pages each week takes hours.',
-      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 4 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
-      forWho: 'Learners aged 12–14 (CEFR B1 → B2) following Level 4 Mastery with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
-      unit: 'per learner · class set of 10: 1.490.000₫',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
-      title: 'Sách bài tập học viên Level 4',
-      problem: 'Học viên Level 4 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
-      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 4, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
-      forWho: 'Học viên 12–14 tuổi (CEFR B1 → B2) học Level 4 Mastery cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
-      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
-    id: 'student-workbook-l5',
-    video: 'student-workbook-l5',
-    live: true,
-    section: 'teachers',
-    price: '190.000₫',
-    href: 'zalo',
-    image: 'student-workbook-l5',
-    sample: 'student-workbook-l5',
-    delivery: true,
-    paypal: true,
-    en: {
-      label: 'Digital download · per learner · class sets',
-      title: 'Level 5 Student Workbook',
-      problem: 'Your Level 5 learners need their own organiser for every lesson, and building those pages each week takes hours.',
-      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 5 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
-      forWho: 'Learners aged 14+ (CEFR B2 → C1) following Level 5 Advanced with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
-      unit: 'per learner · class set of 10: 1.490.000₫',
-      cta: 'Order on Zalo',
-    },
-    vi: {
-      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
-      title: 'Sách bài tập học viên Level 5',
-      problem: 'Học viên Level 5 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
-      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 5, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
-      forWho: 'Học viên từ 14 tuổi (CEFR B2 → C1) học Level 5 Advanced cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
-      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
-      cta: 'Đặt mua qua Zalo',
-    },
-  },
-  {
     // 35-today plan (Jay, 27 Oct 2026): sample approved by the master; copy from the factory’s product definition (pdf-studio/products/word-fossil-flashcards-l1.json).
     id: 'word-fossil-flashcards-l1',
     video: 'word-fossil-flashcards-l1',
@@ -796,6 +727,166 @@ export const PRODUCTS: Product[] = [
       inside: 'Phiếu bài tập lập luận CEIW cho Level 1–5, phiếu chấm điểm kèm mã nhận xét, hướng dẫn kiểm tra xếp lớp và mẫu báo cáo cho phụ huynh.',
       forWho: 'Giáo viên và trung tâm muốn xếp lớp học sinh và báo cáo năng lực lập luận cho phụ huynh bằng văn bản.',
       unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l1',
+    video: 'student-workbook-l1',
+    live: true,
+    section: 'teachers',
+    category: 'workbooks',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l1',
+    sample: 'student-workbook-l1',
+    delivery: true,
+    paypal: true,
+    alsoIn: {
+      section: 'families',
+      en: 'Doing Level 1 at home? The {link} has a page for every lesson: {price} a learner, using 10 picture books you provide.',
+      vi: 'Học Level 1 ở nhà? {link} có một trang cho mỗi bài học: {price} mỗi học viên, dùng 10 cuốn sách tranh bạn tự chuẩn bị.',
+    },
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 1 Student Workbook',
+      problem: 'Your Level 1 learners need their own page for every lesson, and copying worksheets together each week takes hours.',
+      inside: '63 printable A4 pages: 40 lesson pages (Dig, Weigh, Because, Show) in the order of the Level 1 Teacher Pack, 10 story openers, a Thinking Passport, a word wall and a certificate. You receive the PDF and editable Google Docs.',
+      forWho: 'Children aged 4–8 doing Level 1 with a teacher, tutor or parent. The lessons use 10 widely available picture books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 1',
+      problem: 'Học viên Level 1 cần trang riêng cho mỗi bài học, còn tự photo phiếu bài tập mỗi tuần thì tốn hàng giờ.',
+      inside: '63 trang A4 in được: 40 trang theo từng bài (Dig, Weigh, Because, Show) đúng thứ tự Bộ tài liệu Giáo viên Level 1, 10 trang mở đầu truyện, Hộ chiếu tư duy, bức tường từ vựng và giấy khen. Bạn nhận file PDF và Google Docs chỉnh sửa được.',
+      forWho: 'Trẻ 4–8 tuổi học Level 1 cùng giáo viên, gia sư hoặc phụ huynh. Bài học dùng 10 cuốn sách tranh phổ biến, bạn tự chuẩn bị. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l2',
+    video: 'student-workbook-l2',
+    live: true,
+    section: 'teachers',
+    category: 'workbooks',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l2',
+    sample: 'student-workbook-l2',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 2 Student Workbook',
+      problem: 'Your Level 2 learners need their own organiser for every lesson, and building those pages each week takes hours.',
+      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 2 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
+      forWho: 'Learners aged 8–10 (CEFR A1 → A2) following Level 2 Development with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 2',
+      problem: 'Học viên Level 2 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 2, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
+      forWho: 'Học viên 8–10 tuổi (CEFR A1 → A2) học Level 2 Development cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l3',
+    video: 'student-workbook-l3',
+    live: true,
+    section: 'teachers',
+    category: 'workbooks',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l3',
+    sample: 'student-workbook-l3',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 3 Student Workbook',
+      problem: 'Your Level 3 learners need their own organiser for every lesson, and building those pages each week takes hours.',
+      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 3 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
+      forWho: 'Learners aged 10–12 (CEFR A2 → B1) following Level 3 Expansion with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 3',
+      problem: 'Học viên Level 3 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 3, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
+      forWho: 'Học viên 10–12 tuổi (CEFR A2 → B1) học Level 3 Expansion cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l4',
+    video: 'student-workbook-l4',
+    live: true,
+    section: 'teachers',
+    category: 'workbooks',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l4',
+    sample: 'student-workbook-l4',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 4 Student Workbook',
+      problem: 'Your Level 4 learners need their own organiser for every lesson, and building those pages each week takes hours.',
+      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 4 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
+      forWho: 'Learners aged 12–14 (CEFR B1 → B2) following Level 4 Mastery with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 4',
+      problem: 'Học viên Level 4 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 4, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
+      forWho: 'Học viên 12–14 tuổi (CEFR B1 → B2) học Level 4 Mastery cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'student-workbook-l5',
+    video: 'student-workbook-l5',
+    live: true,
+    section: 'teachers',
+    category: 'workbooks',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'student-workbook-l5',
+    sample: 'student-workbook-l5',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · per learner · class sets',
+      title: 'Level 5 Student Workbook',
+      problem: 'Your Level 5 learners need their own organiser for every lesson, and building those pages each week takes hours.',
+      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 5 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
+      forWho: 'Learners aged 14+ (CEFR B2 → C1) following Level 5 Advanced with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      unit: 'per learner · class set of 10: 1.490.000₫',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
+      title: 'Sách bài tập học viên Level 5',
+      problem: 'Học viên Level 5 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 5, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
+      forWho: 'Học viên từ 14 tuổi (CEFR B2 → C1) học Level 5 Advanced cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
   },
@@ -1183,6 +1274,7 @@ type PageCopy = {
   sample: { heading: string; note: string; open: string };
   viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string; textVersion: string; hideText: string; pageText: string; textLoading: string; textError: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
+  workbooks: string;
   ielts: { groups: Record<IeltsGroup, string>; home: Record<IeltsGroup, string>; crumb: string };
   closing: { heading: string; body: string; cta: string };
 };
@@ -1197,6 +1289,7 @@ const PAGE: Record<Locale, PageCopy> = {
     leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for' },
     sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'See the sample pages' },
     viewer: { title: 'Sample pages', prev: 'Previous page', next: 'Next page', close: 'Close', counter: 'Page {n} of {total}', end: 'That’s the sample. Ready to order?', viewOnly: 'Sample pages are for viewing only.', textVersion: 'Text version', hideText: 'Hide text version', pageText: 'Sample page text', textLoading: 'Loading the sample page text…', textError: 'The text version could not load. Close the sample and try again.' },
+    workbooks: 'Workbooks',
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
@@ -1220,6 +1313,7 @@ const PAGE: Record<Locale, PageCopy> = {
     leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho' },
     sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Xem các trang mẫu' },
     viewer: { title: 'Trang mẫu', prev: 'Trang trước', next: 'Trang sau', close: 'Đóng', counter: 'Trang {n}/{total}', end: 'Đó là bản mẫu. Sẵn sàng đặt mua?', viewOnly: 'Trang mẫu chỉ để xem.', textVersion: 'Bản văn bản', hideText: 'Ẩn bản văn bản', pageText: 'Nội dung trang mẫu', textLoading: 'Đang tải nội dung trang mẫu…', textError: 'Không tải được bản văn bản. Hãy đóng bản mẫu và thử lại.' },
+    workbooks: 'Sách bài tập',
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
@@ -1235,7 +1329,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group'> & {
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category'> & {
   link?: { href: string; label: string };
 };
 
@@ -1252,8 +1346,8 @@ export function productsPage(locale: Locale) {
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal, video, group, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).
