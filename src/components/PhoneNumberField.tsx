@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
-import { getCountries, getCountryCallingCode, parsePhoneNumberFromString, type CountryCode } from 'libphonenumber-js';
+import { useState } from 'react';
+import { getCountryCallingCode, parsePhoneNumberFromString, type CountryCode } from 'libphonenumber-js';
+import { useRegionOptions } from '../lib/regionOptions';
 
 type Props = {
   id: string;
@@ -27,11 +28,7 @@ export function PhoneNumberField({ id, label, locale, name, value, onChange, req
   const currentValue = controlled ? value : internalValue;
   const parsed = currentValue ? parsePhoneNumberFromString(currentValue) : undefined;
   const [selectedCountry, setSelectedCountry] = useState<CountryCode>(parsed?.country ?? DEFAULT_COUNTRY);
-  const countries = useMemo(() => {
-    const names = new Intl.DisplayNames([locale], { type: 'region' });
-    return getCountries().map((country) => ({ country, name: names.of(country) ?? country, callingCode: getCountryCallingCode(country) }))
-      .sort((a, b) => a.name.localeCompare(b.name, locale));
-  }, [locale]);
+  const countries = useRegionOptions(locale, selectedCountry);
   const displayValue = draft || parsed?.nationalNumber || currentValue.replace(/^\+\d+/, '');
   const update = (raw: string, country = selectedCountry) => {
     const trimmed = raw.trim();

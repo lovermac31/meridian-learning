@@ -172,12 +172,20 @@ function applyBaselineLinks(lang: Lang): void {
   });
 }
 
+/** Header Products links (a[data-products-link]) open the Vietnamese catalogue for vi (mirrors prerender-yl-vi.mjs). */
+function applyProductsLinks(lang: Lang): void {
+  document.querySelectorAll<HTMLAnchorElement>('a[data-products-link]').forEach((a) => {
+    a.setAttribute('href', lang === 'vi' ? '/vi/products' : '/products');
+  });
+}
+
 function applyAll(lang: Lang): void {
   applyMeta(lang);
   applyText(lang);
   applyToolLinks(lang);
   applyLessonLinks(lang);
   applyBaselineLinks(lang);
+  applyProductsLinks(lang);
   highlightSelector(lang);
 }
 
