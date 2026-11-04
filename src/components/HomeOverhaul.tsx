@@ -108,7 +108,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
           ))}
         </ul>
       </div>
-      {/* 1 · Promise + illustration */}
+      {/* 1 · Promise + illustration. The hero image is lazy: on phones the product row above pushes it below the first screen (site-quality audit, below-fold images must not be eager). */}
       <section className="px-4 pb-14 pt-6 sm:px-6 sm:pt-10">
         <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
@@ -128,8 +128,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
               alt={hero.imageAlt}
               width={1400}
               height={788}
-              fetchPriority="high"
-              loading="eager"
+              loading="lazy"
               decoding="async"
               className="aspect-[16/9] w-full rounded-[1.75rem] border border-sb-border object-cover shadow-warm"
             />
