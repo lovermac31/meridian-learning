@@ -116,7 +116,9 @@ function localiseToolLinks(html) {
   return html.replaceAll('href="/tools/ielts-band-score-calculator"', 'href="/vi/cong-cu/tinh-diem-ielts"')
     .replaceAll('href="/tools/ielts-speaking-part-2-timer"', 'href="/vi/cong-cu/dong-ho-ielts-speaking-part-2"')
     // IELTS Writing intro (header door + footer): the VI page is live and self-canonical (mirrors LOCALIZED_STATIC_HREFS).
-    .replaceAll('href="/ai-speaking/writing"', 'href="/ai-speaking/vi/writing"');
+    .replaceAll('href="/ai-speaking/writing"', 'href="/ai-speaking/vi/writing"')
+    // Header Products links (door beside the CTA, link row, menu panel) open the Vietnamese catalogue.
+    .replaceAll('href="/products"', 'href="/vi/products"');
 }
 
 function localiseLessonLinks(html) {
