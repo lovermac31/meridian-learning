@@ -1,3 +1,4 @@
+import { installConversionEvents } from './lib/conversionEvents';
 import { CrawlResources } from './components/CrawlResources';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { OptionalAnalytics } from './components/PrivacyControls';
@@ -281,6 +282,9 @@ function App() {
   const hideSiteChrome = isInternalPilotRequestsView || isCentreLicenceView;
   const isUnknownRouteView = !isSubpageView && routePathname !== '/';
   const isHomeView = !isSubpageView && !isUnknownRouteView;
+
+  // Money-path analytics (reserve, Zalo, buy clicks), consent permitting.
+  useEffect(() => installConversionEvents(), []);
 
   // Phase 0 — Redirect malformed paths containing the Unicode replacement character (U+FFFD)
   // These appear in server logs from mangled links (e.g. /%EF%BF%BDContact) and should
