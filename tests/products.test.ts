@@ -122,7 +122,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     }
   }
   assert.match(productsContent.en.sections[1].cards[0].forWho, /10 widely available picture books the teacher provides/);
-  // Lines aligned to the live pages: no Baseline fee-credit promise, and 1-to-1 lessons are with Mr. Jay's team.
+  // Lines aligned to the live pages: no Baseline fee-credit promise, and 1-to-1 lessons are with Mr. Jay.
   // The only credit on the page is the one Jay approved (27 Oct): the Curriculum Overview against a Centre Licence.
   for (const c of Object.values(productsContent)) {
     const cards = c.sections.flatMap((s) => s.cards);
