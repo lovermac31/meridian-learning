@@ -1,0 +1,2 @@
+# Local authoring only. Ordinary CI/build validates generated assets using Node.
+pypdf==6.11.0

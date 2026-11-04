@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "codex/monday-site-quality-20261029": false
+    }
+  },
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
@@ -10,6 +15,26 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/tools",
+      "destination": "/tools/ielts-band-score-calculator",
+      "permanent": false
+    },
+    {
+      "source": "/vi/cong-cu",
+      "destination": "/vi/cong-cu/tinh-diem-ielts",
+      "permanent": false
+    },
+    {
+      "source": "/ai-speaking/samples/basic",
+      "destination": "/ai-speaking/samples",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking/vi/samples/basic",
+      "destination": "/ai-speaking/vi/samples",
+      "permanent": true
+    },
     {
       "source": "/challenges/one-change/",
       "destination": "/challenges/one-change",
@@ -139,6 +164,14 @@
   ],
   "rewrites": [
     {
+      "source": "/go/zalo",
+      "destination": "/api/go/zalo"
+    },
+    {
+      "source": "/go/zalo/:product",
+      "destination": "/api/go/zalo?product=:product"
+    },
+    {
       "source": "/challenges/one-change",
       "destination": "/challenges/one-change/index.html"
     },
@@ -149,6 +182,10 @@
     {
       "source": "/student-academy/:path*",
       "destination": "https://je-ecosystem-landing-preview.vercel.app/student-academy/:path*"
+    },
+    {
+      "source": "/vi/student-academy/stories",
+      "destination": "https://je-ecosystem-landing-preview.vercel.app/vi/student-academy/stories"
     },
     {
       "source": "/school-framework",
@@ -291,7 +328,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://db.onlinewebfonts.com https://fonts.googleapis.com; font-src 'self' https://db.onlinewebfonts.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co https://api.resend.com https://vitals.vercel-insights.com https://va.vercel-scripts.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://db.onlinewebfonts.com https://fonts.googleapis.com; font-src 'self' https://db.onlinewebfonts.com https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co https://api.resend.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
         }
       ]
     },
@@ -419,7 +456,7 @@
       ]
     },
     {
-      "source": "/((?!assets|api|images|ai-speaking|student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework).*)",
+      "source": "/((?!assets|api|images|samples|ai-speaking|student-academy|interactive-demo|book-diagnostic|digital-reasoning-engine|evidence|school-framework).*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -437,11 +474,51 @@
       ]
     },
     {
+      "source": "/centres/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/vi/centres/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/film/(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
+      "source": "/videos/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/samples/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, noimageindex"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
         }
       ]
     },

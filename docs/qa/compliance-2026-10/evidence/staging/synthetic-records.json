@@ -1,0 +1,20 @@
+{
+  "databaseHost": "riwybxamvmtuqovsupee.supabase.co",
+  "users": [
+    "27a8b7aa-be96-49e3-b7c7-7b728466ee26",
+    "7184d0af-fec3-4140-8b03-30767de004ff",
+    "7f998ac1-c9ca-45e7-97af-c3648487a3f2",
+    "d6022155-f854-4e79-bb26-4ec6bd123a4b",
+    "d9e043c0-2845-40e1-8a70-82b38a339df8",
+    "f6c49493-810d-4a15-83df-80e4c19a3fb2"
+  ],
+  "orders": [
+    "JEPD1C375E",
+    "JEPD28AE1F",
+    "JEPDB58820",
+    "JEPDDAF8E4"
+  ],
+  "totalUsers": 6,
+  "totalOrders": 4,
+  "cleanup": "Retained synthetic staging fixtures and associated auth/payment/entitlement/copy/review/audit records; no destructive cleanup or master uploads."
+}

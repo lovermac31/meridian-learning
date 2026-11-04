@@ -1,0 +1,20 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: webkit/en/390: forward 0
+
+false !== true
+
+    at file:///Users/jayadams/Downloads/JE_site_live/.claude/worktrees/compliance-accessibility/scripts/test-sample-viewer-keyboard-browser.mjs:34:16
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processImmediate (node:internal/timers:453:9)
+    at process.callbackTrampoline (node:internal/async_hooks:130:17) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual'
+}
+
+Node.js v22.17.0

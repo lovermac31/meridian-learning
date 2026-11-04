@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { IeltsAppEntrance } from './IeltsAppEntrance';
+import { AssetNextStep } from './AssetNextStep';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Locale } from '../i18n/locales';
 import { AVERAGE_FRACTIONS, calculateOverallBand, isValidBand, minimumBandForTarget, roundAverage } from '../lib/ieltsBand';
 import { ieltsCalculatorFaqs } from '../lib/ieltsToolsFaq';
@@ -11,13 +13,13 @@ const timerVi = '/vi/cong-cu/dong-ho-ielts-speaking-part-2';
 
 const copy = {
   en: {
-    calculator: 'IELTS Band Score Calculator', timer: 'IELTS Speaking Part 2 Timer',
+    calculator: 'IELTS Score Calculator: Work Out Your Overall Band', timer: 'IELTS Speaking Part 2 Timer',
     keyFacts: 'Key facts', overall: 'Overall band', calculate: 'Calculate overall band',
     invalid: 'Enter a band from 0 to 9 in steps of 0.5 for every skill.',
     notOfficial: 'This is an estimate, not an official IELTS score.',
     independent: 'Jurassic English is independent of IELTS, the British Council, IDP and Cambridge.',
     source: 'IELTS scoring rules (official source)',
-    intro: 'Enter your four reported skill bands. The calculator adds them, divides by four and applies the published IELTS rounding rule. Your entries stay in this browser session and are not sent to us.',
+    intro: 'Use this IELTS band calculator to work out your overall score: enter your four reported skill bands. The calculator adds them, divides by four and applies the published IELTS rounding rule. Your entries stay in this browser session and are not sent to us.',
     how: 'How the IELTS overall band is worked out',
     paragraphs: [
       'An IELTS Test Report Form shows a band for each of four skills: Listening, Reading, Writing and Speaking. The overall band is the arithmetic mean of those four bands, rounded to the nearest half or whole band. Each skill has equal weight in this calculation. The overall band is therefore a summary of the reported skill bands, not a fifth assessment with separate marking criteria.',
@@ -54,7 +56,7 @@ const copy = {
     timerNotOfficial: 'Practice only: this timer does not score your answer and is not an official IELTS score.',
   },
   vi: {
-    calculator: 'Tính điểm IELTS Overall và cách làm tròn', timer: 'Đồng hồ IELTS Speaking Part 2',
+    calculator: 'Cách làm tròn điểm IELTS Overall và công cụ tính điểm', timer: 'Đồng hồ IELTS Speaking Part 2',
     keyFacts: 'Thông tin chính', overall: 'Điểm overall', calculate: 'Tính điểm overall',
     invalid: 'Nhập điểm từ 0 đến 9, theo bước 0,5 cho cả bốn kỹ năng.',
     notOfficial: 'Đây là kết quả ước tính, không phải điểm IELTS chính thức.',
@@ -117,11 +119,12 @@ const buttonClass = 'ielts-tool-button-primary inline-flex min-h-12 items-center
 const secondaryButtonClass = 'ielts-tool-button-secondary inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 font-bold';
 const inputClass = 'ielts-tool-input mt-2 block min-h-12 w-full rounded-xl border p-3';
 
-export function ToolHero({ locale, title, lead, eyebrow, counterpart }: { locale: Locale; title: string; lead: string; eyebrow: string; counterpart: string }) {
+export function ToolHero({ locale, title, lead, eyebrow, counterpart, children }: { locale: Locale; title: string; lead: string; eyebrow: string; counterpart: string; children?: ReactNode }) {
   return <header className="insights-hero">
-    <picture className="insights-compass" aria-hidden="true"><source media="(max-width: 640px)" srcSet="/images/hero-compass-640.webp" /><img src="/images/hero-compass-960.webp" width="960" height="960" alt="" /></picture>
+    <picture className="insights-compass" aria-hidden="true"><source media="(max-width: 640px)" srcSet="/images/hero-compass-bg-640.webp" /><img src="/images/hero-compass-bg-960.webp" width="960" height="960" alt="" fetchPriority="high" /></picture>
     <div className="insights-hero-inner"><div>
       <p className="insights-eyebrow">{eyebrow}</p><h1 className={`insights-title ${locale === 'vi' ? 'insights-title-native' : 'font-display'}`}>{title}</h1><p className="insights-lead">{lead}</p>
+      {children}
       <div className="insights-language" role="group" aria-label={locale === 'vi' ? 'Ngôn ngữ' : 'Language'}>
         <a className={locale === 'en' ? 'current' : ''} aria-current={locale === 'en' ? 'page' : undefined} href={locale === 'en' ? undefined : counterpart} lang="en">English</a>
         <a className={locale === 'vi' ? 'current' : ''} aria-current={locale === 'vi' ? 'page' : undefined} href={locale === 'vi' ? undefined : counterpart} lang="vi">Tiếng Việt</a>
@@ -176,6 +179,7 @@ export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
   const skills = ['Listening', 'Reading', 'Writing', 'Speaking'];
   return <main id="main-content" tabIndex={-1} className={pageClass}>
     <ToolHero locale={locale} title={c.calculator} lead={c.intro} eyebrow={locale === 'vi' ? 'Công cụ luyện IELTS' : 'IELTS practice tool'} counterpart={locale === 'vi' ? calculatorEn : calculatorVi} />
+    <IeltsAppEntrance placement="tool" locale={locale} />
     <div className="ielts-tool-content mx-auto max-w-3xl space-y-8 px-5 py-14">
       <section className={cardClass} aria-label={c.keyFacts}><h2 className="mb-3 text-xl font-semibold">{c.keyFacts}</h2><p className="font-semibold">{c.notOfficial}</p></section>
       <section className={cardClass} aria-label={c.calculator}>
@@ -197,7 +201,7 @@ export function IeltsBandCalculatorPage({ locale }: { locale: Locale }) {
       <p className="text-sm">{c.independent}</p>
     </div>
     <div className="insights-closing"><div><p>{c.baseline}</p><div className="insights-closing-actions"><a className="insights-button-primary" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.baseline}</a></div></div></div>
-  </main>;
+  <AssetNextStep pathname={locale === 'vi' ? '/vi/cong-cu/tinh-diem-ielts' : '/tools/ielts-band-score-calculator'} /></main>;
 }
 
 export function IeltsSpeakingTimerPage({ locale }: { locale: Locale }) {
@@ -268,7 +272,7 @@ export function IeltsSpeakingTimerPage({ locale }: { locale: Locale }) {
       discard(); active.start(); setRecording(true);
     } catch { stream.current?.getTracks().forEach((track) => track.stop()); stream.current = null; setMicError(true); }
   };
-  return <main id="main-content" tabIndex={-1} className={pageClass}><ToolHero locale={locale} title={c.timer} lead={c.timerIntro} eyebrow={locale === 'vi' ? 'Công cụ luyện IELTS' : 'IELTS practice tool'} counterpart={locale === 'vi' ? timerEn : timerVi} /><div className="ielts-tool-content mx-auto max-w-3xl space-y-7 px-5 py-14">
+  return <main id="main-content" tabIndex={-1} className={pageClass}><ToolHero locale={locale} title={c.timer} lead={c.timerIntro} eyebrow={locale === 'vi' ? 'Công cụ luyện IELTS' : 'IELTS practice tool'} counterpart={locale === 'vi' ? timerEn : timerVi} /><IeltsAppEntrance placement="tool" locale={locale} /><div className="ielts-tool-content mx-auto max-w-3xl space-y-7 px-5 py-14">
     <section className={cardClass}><label className="font-semibold" htmlFor="timer-topic">{c.chooseTopic}</label><select id="timer-topic" className={inputClass} value={topic} onChange={(event) => { reset(); setTopic(Number(event.target.value)); }}>{topics.map((pair, index) => <option key={pair[0]} value={index}>{pair[locale === 'vi' ? 1 : 0]}</option>)}</select>
       <p className="mt-5 text-xl font-semibold">{locale === 'vi' ? `Hãy kể về ${topics[topic][1]}. Bạn nên nói đó là gì, vì sao bạn nhớ và điều bạn học được.` : `Describe ${topics[topic][0]}. Say what it is, why you remember it, and what you learned.`}</p>
       <p role="timer" aria-live="off" className="mt-6 text-center text-5xl font-bold tabular-nums">{Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, '0')}</p><p role="status" aria-live="polite" className="mt-2 text-center font-semibold">{c[phase]}</p>
@@ -278,7 +282,7 @@ export function IeltsSpeakingTimerPage({ locale }: { locale: Locale }) {
     <section className={cardClass}><h2 className="text-xl font-bold">{c.record}</h2><p className="my-3">{c.privacy}</p><button type="button" className={buttonClass} onClick={recording ? stopRecording : () => void startRecording()}>{recording ? c.stop : c.record}</button>{recording && <p role="status" className="mt-3">{c.recording}</p>}{micError && <p role="alert" className="mt-3 text-red-800">{c.micError}</p>}{playback && <div className="mt-4"><label className="block" htmlFor="timer-playback">{c.playback}</label><audio id="timer-playback" controls src={playback} /></div>}</section>
     <div className="flex flex-wrap gap-6"><a className="font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi' : '/ai-speaking'}>{c.practice}</a><a className="font-semibold underline" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.measured}</a></div>
     <p className="text-sm">{c.timerNotOfficial} {c.independent}</p>
-  </div><div className="insights-closing"><div><p>{c.measured}</p><div className="insights-closing-actions"><a className="insights-button-primary" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.measured}</a></div></div></div></main>;
+  </div><div className="insights-closing"><div><p>{c.measured}</p><div className="insights-closing-actions"><a className="insights-button-primary" href={locale === 'vi' ? '/ai-speaking/vi/baseline' : '/ai-speaking/baseline'}>{c.measured}</a></div></div></div><AssetNextStep pathname={locale === 'vi' ? '/vi/cong-cu/dong-ho-ielts-speaking-part-2' : '/tools/ielts-speaking-part-2-timer'} /></main>;
 }
 
 export { copy as ieltsToolsCopy, calculatorEn, calculatorVi, timerEn, timerVi };

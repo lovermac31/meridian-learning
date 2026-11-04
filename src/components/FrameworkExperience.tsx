@@ -1,3 +1,4 @@
+import { CrawlResources } from './CrawlResources';
 import { motion } from 'motion/react';
 import {
   ArrowLeft,
@@ -12,6 +13,7 @@ import {
 import { getFrameworkContent, getFrameworkPageContent } from '../i18n/content/framework';
 import { getCurrentLocale } from '../i18n/routing';
 import { WorldWiseLink } from './WorldWiseLink';
+import { ProductCardLink } from './ProductCardLink';
 
 type FrameworkExperienceProps = {
   onBack: () => void;
@@ -347,7 +349,7 @@ export const FrameworkExperience = ({
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <button
                 onClick={onGetStarted}
-                className="inline-flex items-center justify-center gap-2 bg-jurassic-accent text-white px-6 py-3 rounded-full font-bold shadow-premium"
+                className="inline-flex items-center justify-center gap-2 bg-jurassic-accent text-jurassic-dark px-6 py-3 rounded-full font-bold shadow-premium"
               >
                 {frameworkPageContent.sections.nextStep.primaryCta}
                 <ArrowRight className="w-4 h-4" />
@@ -359,9 +361,11 @@ export const FrameworkExperience = ({
                 {frameworkPageContent.sections.nextStep.secondaryCta}
               </button>
             </div>
+            <ProductCardLink id="curriculum-overview" source="framework" locale={locale} tone="dark" className="mt-8" />
           </div>
         </div>
       </section>
+    <CrawlResources context="framework" />
     </main>
   );
 };

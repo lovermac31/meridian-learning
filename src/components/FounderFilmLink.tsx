@@ -62,7 +62,7 @@ export function FounderFilmLink({ locale, variant }: { locale: Locale; variant: 
             </span>
           </span>
           <span className="block p-5">
-            <span className="block text-xs font-bold uppercase tracking-widest text-jurassic-accent">{copy.label}</span>
+            <span className="block text-xs font-bold uppercase tracking-widest text-jurassic-accent-ink">{copy.label}</span>
             <span className="mt-1 block text-lg font-bold text-jurassic-dark">{copy.title}</span>
             <span className="mt-1 block text-sm text-slate-600">{copy.body}</span>
             <span className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-jurassic-blue underline decoration-jurassic-accent underline-offset-4">

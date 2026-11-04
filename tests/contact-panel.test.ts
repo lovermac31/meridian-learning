@@ -20,7 +20,7 @@ for (const [locale, copy] of Object.entries(contactCopy)) {
     const whatsapp = copy.channels.whatsapp.actions[0];
     assert.equal(whatsapp.href, 'https://wa.me/qr/GGEQLLXJBTWEK1');
     assert.ok(copy.channels.wechat.actions.every((action) => isImage(action.href)), 'WeChat offers QR image actions only');
-    assert.match(copy.channels.zalo.actions[0].href, /^https:\/\/zalo\.me\//);
+    assert.match(copy.channels.zalo.actions[0].href, /^(\/go\/zalo|https:\/\/zalo\.me\/)/);
   });
 }
 

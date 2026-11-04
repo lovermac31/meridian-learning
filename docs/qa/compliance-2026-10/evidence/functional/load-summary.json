@@ -1,0 +1,38 @@
+{
+  "target": "localhost isolated real sample-pack handler; invalid synthetic body only",
+  "connections": 10,
+  "durationSeconds": 5.01,
+  "statuses": {
+    "400": 5,
+    "429": 495
+  },
+  "requests": 500,
+  "latencyMs": {
+    "average": 2.2,
+    "mean": 2.2,
+    "stddev": 2.77,
+    "min": 1,
+    "max": 15,
+    "p0_001": 0,
+    "p0_01": 0,
+    "p0_1": 0,
+    "p1": 0,
+    "p2_5": 0,
+    "p10": 0,
+    "p25": 1,
+    "p50": 1,
+    "p75": 2,
+    "p90": 6,
+    "p97_5": 11,
+    "p99": 13,
+    "p99_9": 15,
+    "p99_99": 15,
+    "p99_999": 15,
+    "totalCount": 836
+  },
+  "errors": 0,
+  "timeouts": 0,
+  "outboundAttempts": 0,
+  "structuredEvents": 996,
+  "scope": "Not Vercel transport or distributed production capacity; portal catalog NOT load-tested without isolated database/staging."
+}

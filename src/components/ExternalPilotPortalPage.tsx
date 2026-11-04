@@ -185,7 +185,7 @@ function DeniedPortal({
         <button
           type="button"
           onClick={onRequestAccess}
-          className="inline-flex items-center justify-center rounded-full bg-jurassic-accent px-7 py-3 text-sm font-bold text-white shadow-premium transition hover:opacity-95"
+          className="inline-flex items-center justify-center rounded-full bg-jurassic-accent px-7 py-3 text-sm font-bold text-jurassic-dark shadow-premium transition hover:opacity-95"
         >
           Request Access Through Get Started
         </button>

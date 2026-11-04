@@ -97,3 +97,16 @@ test('published discovery resources have stable routes and no placeholder articl
   assert.equal(resolveRouteMetadata('/vi/insights').robots, 'index, follow');
   assert.equal(resolveRouteMetadata('/vi/about/nathaniel-jay-adams').robots, 'noindex, nofollow');
 });
+
+test('profile pages emit ProfilePage.dateModified as an ISO-8601 DateTime', () => {
+  const metadata = resolveRouteMetadata('/vi/ve-thay-jay-adams');
+  const profile = (metadata.jsonLd ?? []).find(
+    (block) => block['@type'] === 'ProfilePage',
+  );
+
+  assert.ok(profile, 'Vietnamese founder page emits ProfilePage JSON-LD');
+  assert.match(
+    String(profile?.dateModified),
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/,
+  );
+});

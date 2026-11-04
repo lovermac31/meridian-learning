@@ -6,8 +6,10 @@
  *
  * Since 21 Oct 2026 the site's PayPal options no longer link to PayPal directly: the Young Learners page
  * (PR #176) and the country pages (src/components/SearchInsightsPage.tsx, ?market=) open the order-first
- * checkout in the AI Speaking app, where PayPal is automated (Orders v2) and confirmed automatically. The
- * _xclick helpers below are kept for reference and tests; no page renders them.
+ * checkout in the AI Speaking app, where PayPal is automated (Orders v2) and confirmed automatically. That checkout
+ * has no digital packs, so the /products digital cards (S1, master decision 27 Oct 2026) use the _xclick helpers
+ * below: a direct PayPal payment whose item name and custom field carry the card id and order code, matched by hand
+ * and delivered by Google Drive within 24 hours, until the portal automates it (ADR-008).
  *
  * Link shape, logo and item-name pattern match the market-page panel shipped in
  * PR #128 (src/components/SearchInsightsPage.tsx), so every PayPal payment Jay
@@ -42,8 +44,8 @@ export function paypalItemName(offer: string, where: string): string {
   return `${offer} - ${where} (Jurassic English)`;
 }
 
-/** PayPal _xclick checkout for one item at a fixed USD amount. */
-export function paypalHref(itemName: string, amountUsd: number): string {
+/** PayPal _xclick checkout for one item at a fixed USD amount; `custom` is passed through to the payment record. */
+export function paypalHref(itemName: string, amountUsd: number, custom?: string): string {
   const params = new URLSearchParams({
     cmd: '_xclick',
     business: PAYPAL_BUSINESS_ID,
@@ -51,6 +53,7 @@ export function paypalHref(itemName: string, amountUsd: number): string {
     amount: amountUsd.toFixed(2),
     currency_code: 'USD',
     no_shipping: '1',
+    ...(custom ? { custom } : {}),
   });
   return `${PAYPAL_CHECKOUT}?${params.toString()}`;
 }

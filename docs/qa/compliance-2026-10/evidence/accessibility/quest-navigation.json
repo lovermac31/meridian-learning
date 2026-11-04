@@ -1,0 +1,656 @@
+[
+  {
+    "engine": "chromium",
+    "width": 390,
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "selectedButtons": [
+      {
+        "text": "Sound off",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "EN",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Tiếng Việt",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 6–7",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Age 8",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 9–10",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 11–12",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Start the story",
+        "ariaLabel": "Start the first story: The Lighthouse Mystery, Mistwood Harbor",
+        "disabled": false,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Explore stories",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "For parents",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      }
+    ],
+    "violations": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".min-h-12"
+            ],
+            "html": "<button type=\"button\" aria-label=\"Start the first stor...\" class=\"inline-flex min-h-12...\">",
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.01 (foreground color: #ffffff, background color: #fffdf7, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#reader",
+      "h": [
+        "Who made the locked lighthouse flash?"
+      ]
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "selectedButtons": [
+      {
+        "text": "Sound off",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "EN",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Tiếng Việt",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 6–7",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Age 8",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 9–10",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 11–12",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Start the story",
+        "ariaLabel": "Start the first story: The Lighthouse Mystery, Mistwood Harbor",
+        "disabled": false,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Explore stories",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "For parents",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      }
+    ],
+    "violations": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".min-h-12"
+            ],
+            "html": "<button type=\"button\" aria-label=\"Start the first stor...\" class=\"inline-flex min-h-12...\">",
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.01 (foreground color: #ffffff, background color: #fffdf7, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#reader",
+      "h": [
+        "Who made the locked lighthouse flash?"
+      ]
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "selectedButtons": [
+      {
+        "text": "Sound off",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "EN",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Tiếng Việt",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.557999)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 6–7",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Age 8",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 9–10",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 11–12",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Start the story",
+        "ariaLabel": "Start the first story: The Lighthouse Mystery, Mistwood Harbor",
+        "disabled": false,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Explore stories",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.557999)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "For parents",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.557999)",
+        "background": "rgb(255, 253, 247)"
+      }
+    ],
+    "violations": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".min-h-12"
+            ],
+            "html": "<button type=\"button\" aria-label=\"Start the first stor...\" class=\"inline-flex min-h-12...\">",
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.01 (foreground color: #ffffff, background color: #fffdf7, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#reader",
+      "h": [
+        "Who made the locked lighthouse flash?"
+      ]
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "selectedButtons": [
+      {
+        "text": "Sound off",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "EN",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Tiếng Việt",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.557999)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 6–7",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Age 8",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 9–10",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 11–12",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Start the story",
+        "ariaLabel": "Start the first story: The Lighthouse Mystery, Mistwood Harbor",
+        "disabled": false,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Explore stories",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.557999)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "For parents",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.557999)",
+        "background": "rgb(255, 253, 247)"
+      }
+    ],
+    "violations": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".min-h-12"
+            ],
+            "html": "<button type=\"button\" aria-label=\"Start the first stor...\" class=\"inline-flex min-h-12...\">",
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.01 (foreground color: #ffffff, background color: #fffdf7, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#reader",
+      "h": [
+        "Who made the locked lighthouse flash?"
+      ]
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "selectedButtons": [
+      {
+        "text": "Sound off",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "EN",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Tiếng Việt",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 6–7",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Age 8",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 9–10",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 11–12",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Start the story",
+        "ariaLabel": "Start the first story: The Lighthouse Mystery, Mistwood Harbor",
+        "disabled": false,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Explore stories",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "For parents",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      }
+    ],
+    "violations": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".min-h-12"
+            ],
+            "html": "<button type=\"button\" aria-label=\"Start the first stor...\" class=\"inline-flex min-h-12...\">",
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.01 (foreground color: #ffffff, background color: #fffdf7, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#reader",
+      "h": [
+        "Who made the locked lighthouse flash?"
+      ]
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "selectedButtons": [
+      {
+        "text": "Sound off",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "EN",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Tiếng Việt",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 6–7",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "rgb(43, 38, 32)",
+        "background": "rgb(228, 241, 230)"
+      },
+      {
+        "text": "Age 8",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 9–10",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Ages 11–12",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.268 0.007 34.298)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Start the story",
+        "ariaLabel": "Start the first story: The Lighthouse Mystery, Mistwood Harbor",
+        "disabled": false,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "Explore stories",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      },
+      {
+        "text": "For parents",
+        "ariaLabel": null,
+        "disabled": false,
+        "color": "oklch(0.374 0.01 67.558)",
+        "background": "rgb(255, 253, 247)"
+      }
+    ],
+    "violations": [
+      {
+        "id": "color-contrast",
+        "nodes": [
+          {
+            "target": [
+              ".min-h-12"
+            ],
+            "html": "<button type=\"button\" aria-label=\"Start the first stor...\" class=\"inline-flex min-h-12...\">",
+            "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.01 (foreground color: #ffffff, background color: #fffdf7, font size: 13.5pt (18px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#reader",
+      "h": [
+        "Who made the locked lighthouse flash?"
+      ]
+    }
+  }
+]

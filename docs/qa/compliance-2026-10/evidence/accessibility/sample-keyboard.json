@@ -1,0 +1,122 @@
+[
+  {
+    "engine": "chromium",
+    "version": "153.0.8010.12",
+    "width": 390,
+    "locale": "en",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "chromium",
+    "version": "153.0.8010.12",
+    "width": 390,
+    "locale": "vi",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "chromium",
+    "version": "153.0.8010.12",
+    "width": 1440,
+    "locale": "en",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "chromium",
+    "version": "153.0.8010.12",
+    "width": 1440,
+    "locale": "vi",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "webkit",
+    "version": "26.6",
+    "width": 390,
+    "locale": "en",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "webkit",
+    "version": "26.6",
+    "width": 390,
+    "locale": "vi",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "webkit",
+    "version": "26.6",
+    "width": 1440,
+    "locale": "en",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "webkit",
+    "version": "26.6",
+    "width": 1440,
+    "locale": "vi",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "firefox",
+    "version": "155.0",
+    "width": 390,
+    "locale": "en",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "firefox",
+    "version": "155.0",
+    "width": 390,
+    "locale": "vi",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "firefox",
+    "version": "155.0",
+    "width": 1440,
+    "locale": "en",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  },
+  {
+    "engine": "firefox",
+    "version": "155.0",
+    "width": 1440,
+    "locale": "vi",
+    "controls": 2,
+    "forwardCycle": true,
+    "reverseEntry": true,
+    "escapeAndKeyboardOpenerRestored": true
+  }
+]

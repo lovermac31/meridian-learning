@@ -4,6 +4,7 @@ import { syllabusData } from '../lib/syllabusContent';
 import { thinkingCycleStages } from '../lib/thinkingCycleContent';
 import { getCurrentPathname } from '../lib/ssrLocation';
 import { seoEnglishPaths, seoPathPairs } from '../lib/seoPageMeta';
+import { PRODUCT_PAGE_PATHS } from './content/productSeo';
 import {
   DEFAULT_LOCALE,
   SECONDARY_LOCALE,
@@ -24,6 +25,9 @@ const STATIC_PUBLIC_PATHS = [
   '/cefr-alignment',
   '/teacher-standards',
   '/story-club',
+  '/centres/level-1',
+  '/story-club/reserve',
+  '/products',
   '/series/compare',
   '/thinking-cycle/compare',
   '/tools/ielts-band-score-calculator',
@@ -40,6 +44,7 @@ const SEO_EN_PATHS = Object.fromEntries(seoPathPairs.map(([en, vi]) => [vi, en])
 
 const NON_LOCALIZED_PATHS = new Set([
   '/plans-pricing-access',
+  '/live-speaking-check',
   '/external/pilot',
   '/internal/pilot-requests',
 ]);
@@ -50,6 +55,7 @@ const LOCALIZABLE_PUBLIC_PATHS = new Set([
   ...syllabusData.map((syllabus) => syllabus.syllabusRoutePath),
   ...thinkingCycleStages.map((stage) => stage.path),
   ...Object.keys(legalDocuments),
+  ...PRODUCT_PAGE_PATHS,
   '/insights',
   ...seoEnglishPaths,
 ]);
@@ -103,6 +109,10 @@ export function getLocalizablePublicPaths() {
 export function getLocalizedPathname(pathname: string, locale: Locale) {
   const normalizedPathname = normalizePathname(pathname);
 
+  if (normalizedPathname === '/story-club/reserve') {
+    return locale === 'vi' ? normalizedPathname : `/en${normalizedPathname}`;
+  }
+
   if (!isLocalizablePublicPath(normalizedPathname) || isPrivateOrNonLocalizedPath(normalizedPathname)) {
     return normalizedPathname;
   }
@@ -127,6 +137,15 @@ export function isPrivateOrNonLocalizedPath(pathname: string) {
 
 export function resolveLocalizedRoute(pathname: string): LocalizedRoute {
   const normalizedPathname = normalizePathname(pathname);
+  if (normalizedPathname === '/en') return { locale: 'en', pathname: '/', localizedPathname: '/', isLocalizedVariant: false, isLocalizable: true, isPrivateOrNonLocalized: false };
+  // Story Club reserve page uses the approved campaign URLs: Vietnamese at
+  // /story-club/reserve and English at /en/story-club/reserve.
+  if (normalizedPathname === '/story-club/reserve' || normalizedPathname === '/vi/story-club/reserve') {
+    return { locale: 'vi', pathname: '/story-club/reserve', localizedPathname: '/story-club/reserve', isLocalizedVariant: true, isLocalizable: true, isPrivateOrNonLocalized: false };
+  }
+  if (normalizedPathname === '/en/story-club/reserve') {
+    return { locale: 'en', pathname: '/story-club/reserve', localizedPathname: normalizedPathname, isLocalizedVariant: false, isLocalizable: true, isPrivateOrNonLocalized: false };
+  }
   const isVietnameseRoute =
     normalizedPathname === `/${SECONDARY_LOCALE}` ||
     normalizedPathname.startsWith(`/${SECONDARY_LOCALE}/`);

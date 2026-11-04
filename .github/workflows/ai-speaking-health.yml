@@ -34,6 +34,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
+      - name: Main-site payment webhooks answer GET with 405 (never 5xx), GET only
+        run: |
+          set -u
+          fail=0
+          for url in https://jurassicenglish.com/api/sepay-webhook https://jurassicenglish.com/api/lemonsqueezy-webhook; do
+            code="$(curl --silent --output /dev/null --write-out '%{http_code}' --max-time 15 --retry 1 --retry-delay 10 "$url")"
+            [ -n "$code" ] || code="000"
+            echo "$url -> $code"
+            if [ "$code" != "405" ]; then fail=1; fi
+          done
+          exit $fail
       - name: Check public page, app health, worker healthz and readyz
         env:
           SIMULATE_FAILURE: ${{ inputs.simulate_failure && '1' || '0' }}

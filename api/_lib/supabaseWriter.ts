@@ -36,6 +36,18 @@ export type SupabaseWriteResult =
   | { ok: true;  id: string; reason: 'created' | 'duplicate_skipped' }
   | { ok: false; reason: string };
 
+export type StoryClubReservationResult =
+  | { ok: true; memo: string; reason: 'created' | 'duplicate' }
+  | { ok: false; reason: string };
+
+export type StoryClubPaidResult =
+  | { ok: true; status: 'paid' | 'already_paid'; paidAt: string }
+  | { ok: false; reason: 'not_configured' | 'network_error' | 'api_error' | 'invalid_response' | 'not_found' };
+
+export type StoryClubPaymentStatusResult =
+  | { ok: true; paid: boolean }
+  | { ok: false; reason: 'not_configured' | 'network_error' | 'api_error' | 'invalid_response' };
+
 // ─── Internal helpers ─────────────────────────────────────────────────────────
 
 type SupabaseWriteKey =
@@ -100,6 +112,76 @@ function supabaseHeaders(writeKey: SupabaseWriteKey): Record<string, string> {
   }
 
   return headers;
+}
+
+async function callStoryClubRpc<T>(name: string, body: Record<string, unknown>): Promise<{ ok: true; data: T } | { ok: false; reason: string }> {
+  const config = resolveConfig();
+  if (!config) return { ok: false, reason: 'not_configured' };
+  try {
+    const response = await fetch(`${config.url}/rest/v1/rpc/${name}`, {
+      method: 'POST', headers: supabaseHeaders(config.writeKey), body: JSON.stringify(body),
+      signal: AbortSignal.timeout(5_000),
+    });
+    if (!response.ok) {
+      console.error('[supabase] Story Club RPC failed', { rpc: name, status: response.status });
+      return { ok: false, reason: `api_${response.status}` };
+    }
+    return { ok: true, data: await response.json() as T };
+  } catch (error) {
+    const reason = error instanceof Error && error.name === 'TimeoutError' ? 'timeout' : 'network_error';
+    console.error('[supabase] Story Club RPC request failed', { rpc: name, reason });
+    return { ok: false, reason };
+  }
+}
+
+/** Persist a privacy-minimal Story Club reservation and return its canonical memo. */
+export async function createStoryClubReservation(submissionId: string, group: 'sat-0900' | 'flexible'): Promise<StoryClubReservationResult> {
+  const result = await callStoryClubRpc<{ memo?: unknown; created?: unknown }>('create_story_club_reservation', {
+    p_submission_id: submissionId, p_group: group,
+  });
+  if (result.ok === false) return { ok: false, reason: result.reason };
+  const memo = result.data?.memo;
+  if (typeof memo !== 'string' || !/^SC-[A-Z0-9]{6}$/.test(memo)) return { ok: false, reason: 'invalid_response' };
+  return { ok: true, memo, reason: result.data.created === false ? 'duplicate' : 'created' };
+}
+
+/** Mark a matching synthetic or real memo paid; database RPC is atomic and idempotent. */
+export async function markStoryClubReservationPaid(memo: string): Promise<StoryClubPaidResult> {
+  const result = await callStoryClubRpc<{ status?: unknown; paid_at?: unknown }>('mark_story_club_paid', { p_memo: memo });
+  if (result.ok === false) return { ok: false, reason: result.reason === 'not_configured' ? 'not_configured' : result.reason === 'network_error' || result.reason === 'timeout' ? 'network_error' : 'api_error' };
+  const status = result.data?.status;
+  const paidAt = result.data?.paid_at;
+  if (status === 'not_found') return { ok: false, reason: 'not_found' };
+  if ((status !== 'paid' && status !== 'already_paid') || typeof paidAt !== 'string' || Number.isNaN(Date.parse(paidAt))) {
+    return { ok: false, reason: 'invalid_response' };
+  }
+  return { ok: true, status, paidAt };
+}
+
+/** Read only the payment boolean for a single canonical memo using the server-only key. */
+export async function getStoryClubPaymentStatus(memo: string): Promise<StoryClubPaymentStatusResult> {
+  const config = resolveConfig();
+  if (!config) return { ok: false, reason: 'not_configured' };
+  const query = new URLSearchParams({ select: 'paid_at', memo: `eq.${memo}`, limit: '1' });
+  try {
+    const response = await fetch(`${config.url}/rest/v1/story_club_reservations?${query}`, {
+      method: 'GET', headers: supabaseHeaders(config.writeKey), signal: AbortSignal.timeout(5_000),
+    });
+    if (!response.ok) {
+      console.error('[supabase] Story Club payment status read failed', { status: response.status });
+      return { ok: false, reason: 'api_error' };
+    }
+    const rows = await response.json() as unknown;
+    if (!Array.isArray(rows) || rows.length > 1 || (rows.length === 1 && (typeof rows[0] !== 'object' || rows[0] === null || !('paid_at' in rows[0])))) {
+      console.error('[supabase] Story Club payment status response invalid');
+      return { ok: false, reason: 'invalid_response' };
+    }
+    return { ok: true, paid: rows.length === 1 && rows[0].paid_at !== null };
+  } catch (error) {
+    const reason = error instanceof Error && error.name === 'TimeoutError' ? 'timeout' : 'network_error';
+    console.error('[supabase] Story Club payment status read failed', { reason });
+    return { ok: false, reason: 'network_error' };
+  }
 }
 
 function resolveConfig(): SupabaseConfig | null {

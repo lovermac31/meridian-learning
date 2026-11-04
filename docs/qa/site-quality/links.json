@@ -1,0 +1,8 @@
+{
+  "pages": 232,
+  "links": 9303,
+  "assets": 3711,
+  "failures": [],
+  "delegatedReferences": 1219,
+  "delegationNote": "Separate AI app routes are checked against the sitemap and public read-only HTTP checks; private Academy routes against its build manifest. No API or private route is requested."
+}

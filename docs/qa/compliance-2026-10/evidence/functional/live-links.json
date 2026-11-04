@@ -1,0 +1,1346 @@
+{
+  "checkedAt": "2026-10-27T12:42:25.659Z",
+  "products": [
+    {
+      "locale": "/products",
+      "id": "story-club",
+      "vnd": "590.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "baseline",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "one-to-one",
+      "vnd": "800.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "printable-pack",
+      "vnd": "149.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "6.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "parent-pack-l1",
+      "vnd": "249.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "10.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "parent-pack-l2",
+      "vnd": "249.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "10.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "parent-pack-l3",
+      "vnd": "249.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "10.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "holiday-reading-challenge",
+      "vnd": "149.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "6.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "teacher-pack-l1",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "teacher-pack-l2",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "teacher-pack-l3",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "teacher-pack-l4",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "teacher-pack-l5",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "teacher-bundle",
+      "vnd": "2.900.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "112.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "student-workbook-l1",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "student-workbook-l2",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "student-workbook-l3",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "student-workbook-l4",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "student-workbook-l5",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "word-fossil-flashcards-l1",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "thinking-cycle-set",
+      "vnd": "490.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "19.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "thinking-cycle-posters",
+      "vnd": "149.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "6.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "reasoning-assessment-kit",
+      "vnd": "390.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "16.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "centre-licence",
+      "vnd": "4.900.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "teacher-training-course",
+      "vnd": "1.490.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "58.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "pilot-class-kit",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "curriculum-overview",
+      "vnd": "290.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "12.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "ielts-speaking-ladder",
+      "vnd": "390.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "16.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "ielts-one-to-one-starter",
+      "vnd": "149.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "6.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "ielts-cue-card-bank",
+      "vnd": "290.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "12.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "writing-baseline",
+      "vnd": "79.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "ielts-writing-ladder-task2",
+      "vnd": "390.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "16.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "ielts-writing-task1-method",
+      "vnd": "290.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "12.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "ielts-essay-bank-task2",
+      "vnd": "290.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "12.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/products",
+      "id": "ielts-writing-teacher-pack",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "story-club",
+      "vnd": "590.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "baseline",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "one-to-one",
+      "vnd": "800.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "printable-pack",
+      "vnd": "149.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "6.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "parent-pack-l1",
+      "vnd": "249.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "10.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "parent-pack-l2",
+      "vnd": "249.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "10.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "parent-pack-l3",
+      "vnd": "249.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "10.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "holiday-reading-challenge",
+      "vnd": "149.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "6.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "teacher-pack-l1",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "teacher-pack-l2",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "teacher-pack-l3",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "teacher-pack-l4",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "teacher-pack-l5",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "teacher-bundle",
+      "vnd": "2.900.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "112.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "student-workbook-l1",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "student-workbook-l2",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "student-workbook-l3",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "student-workbook-l4",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "student-workbook-l5",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "word-fossil-flashcards-l1",
+      "vnd": "190.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "8.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "thinking-cycle-set",
+      "vnd": "490.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "19.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "thinking-cycle-posters",
+      "vnd": "149.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "6.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "reasoning-assessment-kit",
+      "vnd": "390.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "16.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "centre-licence",
+      "vnd": "4.900.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "teacher-training-course",
+      "vnd": "1.490.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "58.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "pilot-class-kit",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "curriculum-overview",
+      "vnd": "290.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "12.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "ielts-speaking-ladder",
+      "vnd": "390.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "16.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "ielts-one-to-one-starter",
+      "vnd": "149.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "6.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "ielts-cue-card-bank",
+      "vnd": "290.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "12.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "writing-baseline",
+      "vnd": "79.000₫",
+      "vndFound": true,
+      "paypal": false,
+      "amount": null,
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "ielts-writing-ladder-task2",
+      "vnd": "390.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "16.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "ielts-writing-task1-method",
+      "vnd": "290.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "12.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "ielts-essay-bank-task2",
+      "vnd": "290.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "12.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    },
+    {
+      "locale": "/vi/products",
+      "id": "ielts-writing-teacher-pack",
+      "vnd": "690.000₫",
+      "vndFound": true,
+      "paypal": true,
+      "amount": "27.00",
+      "amountMatches": true,
+      "return": null,
+      "cancelReturn": null
+    }
+  ],
+  "links": [
+    {
+      "url": "https://jurassicenglish.com/",
+      "status": 200
+    },
+    {
+      "url": "https://jurassicenglish.com/products",
+      "status": 200
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products",
+      "status": 200
+    },
+    {
+      "url": "https://jurassicenglish.com/story-club",
+      "status": 200
+    },
+    {
+      "url": "https://jurassicenglish.com/products/story-club",
+      "status": 200
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking",
+      "status": 200
+    },
+    {
+      "url": "https://jurassicenglish.com/student-academy",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/student-academy"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi"
+    },
+    {
+      "url": "https://jurassicenglish.com/young-learners-speaking/",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/young-learners-speaking/"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/writing",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/writing"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/baseline",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/baseline"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/pricing",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/pricing"
+    },
+    {
+      "url": "https://jurassicenglish.com/film/jay-adams-rgfr11pf7cqk/en/",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/film/jay-adams-rgfr11pf7cqk/en/"
+    },
+    {
+      "url": "https://jurassicenglish.com/legal/privacy",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/legal/privacy"
+    },
+    {
+      "url": "https://jurassicenglish.com/ielts-speaking-online",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ielts-speaking-online"
+    },
+    {
+      "url": "https://jurassicenglish.com/framework",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/framework"
+    },
+    {
+      "url": "https://jurassicenglish.com/legal/terms",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/legal/terms"
+    },
+    {
+      "url": "https://jurassicenglish.com/get-started",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/get-started"
+    },
+    {
+      "url": "https://jurassicenglish.com/knowledge",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/knowledge"
+    },
+    {
+      "url": "https://jurassicenglish.com/thinking-cycle/compare",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/thinking-cycle/compare"
+    },
+    {
+      "url": "https://jurassicenglish.com/series/compare",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/series/compare"
+    },
+    {
+      "url": "https://jurassicenglish.com/school-framework",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/school-framework"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/baseline",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/baseline"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/one-to-one",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/one-to-one"
+    },
+    {
+      "url": "https://jurassicenglish.com/companies",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/companies"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/printable-pack",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/printable-pack"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/lessons",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/lessons"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/parent-pack-l1",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/parent-pack-l1"
+    },
+    {
+      "url": "https://jurassicenglish.com/digital-reasoning-engine",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/digital-reasoning-engine"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/parent-pack-l3",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/parent-pack-l3"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/parent-pack-l2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/parent-pack-l2"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/holiday-reading-challenge",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/holiday-reading-challenge"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/teacher-pack-l1",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/teacher-pack-l1"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/teacher-pack-l2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/teacher-pack-l2"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/teacher-pack-l4",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/teacher-pack-l4"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/teacher-pack-l5",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/teacher-pack-l5"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/teacher-bundle",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/teacher-bundle"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/student-workbook-l1",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/student-workbook-l1"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/student-workbook-l2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/student-workbook-l2"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/teacher-pack-l3",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/teacher-pack-l3"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/student-workbook-l3",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/student-workbook-l3"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/student-workbook-l4",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/student-workbook-l4"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/student-workbook-l5",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/student-workbook-l5"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/thinking-cycle-set",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/thinking-cycle-set"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/word-fossil-flashcards-l1",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/word-fossil-flashcards-l1"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/reasoning-assessment-kit",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/reasoning-assessment-kit"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/thinking-cycle-posters",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/thinking-cycle-posters"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/teacher-training-course",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/teacher-training-course"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/centre-licence",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/centre-licence"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/curriculum-overview",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/curriculum-overview"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/pilot-class-kit",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/pilot-class-kit"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/ielts-speaking-ladder",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/ielts-speaking-ladder"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/ielts-one-to-one-starter",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/ielts-one-to-one-starter"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/ielts-cue-card-bank",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/ielts-cue-card-bank"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/writing-baseline",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/writing-baseline"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/ielts-writing-ladder-task2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/ielts-writing-ladder-task2"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/ielts-writing-task1-method",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/ielts-writing-task1-method"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/writing/demo",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/writing/demo"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/ielts-essay-bank-task2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/ielts-essay-bank-task2"
+    },
+    {
+      "url": "https://jurassicenglish.com/products/ielts-writing-teacher-pack",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/products/ielts-writing-teacher-pack"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/writing",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/vi/writing"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/vi"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/luyen-noi-ielts/",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/luyen-noi-ielts/"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/story-club",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/story-club"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/story-club",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/story-club"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/baseline",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/baseline"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/one-to-one",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/one-to-one"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/lessons",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/vi/lessons"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/parent-pack-l1",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/parent-pack-l1"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/printable-pack",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/printable-pack"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/parent-pack-l2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/parent-pack-l2"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/parent-pack-l3",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/parent-pack-l3"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/holiday-reading-challenge",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/holiday-reading-challenge"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/teacher-pack-l1",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/teacher-pack-l1"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/teacher-pack-l2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/teacher-pack-l2"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/teacher-pack-l3",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/teacher-pack-l3"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/teacher-pack-l5",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/teacher-pack-l5"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/teacher-pack-l4",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/teacher-pack-l4"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/teacher-bundle",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/teacher-bundle"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/student-workbook-l2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/student-workbook-l2"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/student-workbook-l1",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/student-workbook-l1"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/student-workbook-l3",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/student-workbook-l3"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/student-workbook-l4",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/student-workbook-l4"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/student-workbook-l5",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/student-workbook-l5"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/word-fossil-flashcards-l1",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/word-fossil-flashcards-l1"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/thinking-cycle-set",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/thinking-cycle-set"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/reasoning-assessment-kit",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/reasoning-assessment-kit"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/thinking-cycle-posters",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/thinking-cycle-posters"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/centre-licence",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/centre-licence"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/pilot-class-kit",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/pilot-class-kit"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/teacher-training-course",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/teacher-training-course"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/curriculum-overview",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/curriculum-overview"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/ielts-speaking-ladder",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/ielts-speaking-ladder"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/ielts-one-to-one-starter",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/ielts-one-to-one-starter"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/ielts-cue-card-bank",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/ielts-cue-card-bank"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/vi/writing/demo",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/vi/writing/demo"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/writing-baseline",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/writing-baseline"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/ielts-writing-task1-method",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/ielts-writing-task1-method"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/ielts-writing-ladder-task2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/ielts-writing-ladder-task2"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/ielts-essay-bank-task2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/ielts-essay-bank-task2"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/products/ielts-writing-teacher-pack",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/products/ielts-writing-teacher-pack"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/legal/privacy",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/legal/privacy"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/framework",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/framework"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/legal/terms",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/legal/terms"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/get-started",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/get-started"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/series/compare",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/series/compare"
+    },
+    {
+      "url": "https://jurassicenglish.com/vi/thinking-cycle/compare",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/vi/thinking-cycle/compare"
+    },
+    {
+      "url": "https://jurassicenglish.com/student-academy/stories",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/student-academy/stories"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/_next/static/immutable/media/cc014fcb166cf364-s.p.0fzl0-df6mp6z.woff2",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/_next/static/immutable/media/cc014fcb166cf364-s.p.0fzl0-df6mp6z.woff2"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/_next/static/immutable/chunks/1wi034zwkitaq.css",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/_next/static/immutable/chunks/1wi034zwkitaq.css"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/exam",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/exam"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/_next/static/immutable/chunks/25kvgcvbp6c14.js",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/_next/static/immutable/chunks/25kvgcvbp6c14.js"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/privacy",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/privacy"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/solutions",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/solutions"
+    },
+    {
+      "url": "https://jurassicenglish.com/ai-speaking/terms",
+      "status": 200,
+      "finalUrl": "https://jurassicenglish.com/ai-speaking/terms"
+    }
+  ]
+}

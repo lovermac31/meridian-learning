@@ -29,6 +29,9 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
+const ASSET_LINK_SOURCES = ['src/content/assetLinks.json', 'src/components/AssetNextStep.tsx'];
+const ASSET_LINK_PATHS = new Set(JSON.parse(fs.readFileSync(new URL('../../src/content/assetLinks.json', import.meta.url), 'utf8')).map(card => card.path));
+
 const component = (name) => `src/components/${name}.tsx`;
 const content = (name) => `src/i18n/content/${name}.ts`;
 
@@ -85,6 +88,10 @@ const STATIC_ROUTE_SOURCES = {
   '/cefr-alignment': [component('CefrAlignmentPage'), content('cefrAlignment')],
   '/teacher-standards': [component('TeacherStandardsPage'), content('teacherStandards')],
   '/story-club': [component('StoryClubPage'), content('storyClub')],
+  '/live-speaking-check': [component('LiveSpeakingCheckPage'), 'src/config/payment.ts'],
+  '/story-club/reserve': [component('StoryClubReservePage'), 'src/lib/storyClubReserve.ts', 'src/config/storyClubReserve.ts'],
+  '/en/story-club/reserve': [component('StoryClubReservePage'), 'src/lib/storyClubReserve.ts', 'src/config/storyClubReserve.ts'],
+  '/products': [component('ProductsPage'), content('products')],
   '/series/compare': [component('SeriesComparisonExperience'), content('series'), 'src/lib/seriesContent.ts'],
   '/thinking-cycle/compare': [
     component('ThinkingCycleComparisonExperience'),
@@ -95,6 +102,9 @@ const STATIC_ROUTE_SOURCES = {
   '/young-learners-speaking/': YOUNG_LEARNERS_SOURCES,
   '/vi/luyen-noi-ielts/': [...YOUNG_LEARNERS_SOURCES, 'scripts/prerender-yl-vi.mjs'],
 };
+
+// One page per product (/products/<id>, /vi/products/<id>): the page, the hub's shared pieces and both content files.
+const PRODUCT_PAGE_SOURCES = [component('ProductPage'), component('ProductsPage'), content('products'), content('productSeo')];
 
 /**
  * URLs that are public and in the sitemap but deliberately have no lastmod:
@@ -113,13 +123,14 @@ function toCanonicalPath(pathname) {
 }
 
 /** Source files for a sitemap pathname, or null when it has no honest mapping. */
-export function getRouteSourceFiles(pathname) {
+function getBaseRouteSourceFiles(pathname) {
   if (UNMAPPED_URL_PATTERNS.some((pattern) => pattern.test(pathname))) return null;
 
   const canonical = toCanonicalPath(pathname);
   if (/^\/(?:es\/|pt\/|id\/|ms\/|th\/|ar\/|ur\/|bn\/)?ielts-speaking-online(?:\/[^/]+)?$/.test(pathname)) return ['src/content/seoPages.json'];
   if (pathname === '/vi/ve-thay-jay-adams' || pathname.startsWith('/vi/insights/') || ['/about/nathaniel-jay-adams','/insights/ielts-speaking-6-to-7','/insights/ielts-speaking-forecast-september-december-2026','/insights/ielts-online-test','/insights/ai-ielts-speaking-scoring'].includes(pathname)) return ['src/components/SearchInsightsPage.tsx', 'src/content/seoPages.json'];
   if (/^\/insights\/[^/]+$/.test(canonical)) return ['src/components/SearchInsightsPage.tsx', 'src/lib/insightsContent.ts'];
+  if (/^\/products\/[^/]+$/.test(canonical)) return [...PRODUCT_PAGE_SOURCES];
   if (STATIC_ROUTE_SOURCES[canonical]) return [...STATIC_ROUTE_SOURCES[canonical]];
   if (/^\/series\/level-[^/]+\/syllabus$/.test(canonical)) return [...SYLLABUS_SOURCES];
   if (/^\/series\/level-[^/]+$/.test(canonical)) return [...SERIES_SOURCES];
@@ -128,15 +139,23 @@ export function getRouteSourceFiles(pathname) {
   return null;
 }
 
+/** Include contextual content only for pages that actually render the asset card. */
+export function getRouteSourceFiles(pathname) {
+  const files = getBaseRouteSourceFiles(pathname);
+  return files && ASSET_LINK_PATHS.has(pathname) ? [...files, ...ASSET_LINK_SOURCES] : files;
+}
+
 /** Every file path the map references (for the existence test). */
 export function getAllMappedSourceFiles() {
   return [
     ...new Set([
       ...Object.values(STATIC_ROUTE_SOURCES).flat(),
+      ...ASSET_LINK_SOURCES,
       ...SERIES_SOURCES,
       ...SYLLABUS_SOURCES,
       ...THINKING_CYCLE_SOURCES,
       ...LEGAL_SOURCES,
+      ...PRODUCT_PAGE_SOURCES,
     ]),
   ];
 }

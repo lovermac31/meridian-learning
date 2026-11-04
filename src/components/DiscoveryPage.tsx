@@ -1,3 +1,4 @@
+import { GscEditorial } from './GscEditorial';
 import { useState } from 'react';
 import { motion, type Variants } from 'motion/react';
 import {
@@ -35,7 +36,7 @@ const PATH_ICONS = {
   training: Users,
 } as const;
 
-export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPageProps) => {
+export const DiscoveryPage = ({ onBack, onNavigate }: DiscoveryPageProps) => {
   const content = getDiscoveryPageContent();
   const [activePath, setActivePath] = useState<number | null>(null);
 
@@ -88,14 +89,12 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-              <button
-                type="button"
-                onClick={onGetStarted}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+              <a href="/go/zalo?utm_source=discovery&utm_content=book-call"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </a>
               <RouteLink
                 to={'/audit-sprint'}
                 onNavigate={onNavigate}
@@ -118,7 +117,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             variants={staggerContainer}
             className="max-w-3xl mb-14"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.qualify.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -157,7 +156,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
                   <div className="flex items-center justify-between mb-5">
                     <span className={[
                       'text-xs font-bold uppercase tracking-widest',
-                      isActive ? 'text-jurassic-gold' : 'text-jurassic-accent',
+                      isActive ? 'text-jurassic-gold' : 'text-jurassic-accent-ink',
                     ].join(' ')}>
                       {path.role}
                     </span>
@@ -167,7 +166,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
                     ].join(' ')}>
                       <Icon className={[
                         'w-4 h-4',
-                        isActive ? 'text-jurassic-gold' : 'text-jurassic-accent',
+                        isActive ? 'text-jurassic-gold' : 'text-jurassic-accent-ink',
                       ].join(' ')} />
                     </div>
                   </div>
@@ -190,7 +189,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
                   <div className="space-y-2">
                     <p className={[
                       'text-[10px] font-bold uppercase tracking-widest mb-2',
-                      isActive ? 'text-white/40' : 'text-jurassic-dark/40',
+                      isActive ? 'text-white/70' : 'text-jurassic-dark/70',
                     ].join(' ')}>
                       Call agenda
                     </p>
@@ -198,7 +197,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
                       <div key={item} className="flex items-start gap-2.5">
                         <CheckCircle2 className={[
                           'w-3.5 h-3.5 shrink-0 mt-0.5',
-                          isActive ? 'text-jurassic-gold' : 'text-jurassic-accent',
+                          isActive ? 'text-jurassic-gold' : 'text-jurassic-accent-ink',
                         ].join(' ')} />
                         <span className={[
                           'text-xs leading-relaxed',
@@ -217,13 +216,13 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
                   ].join(' ')}>
                     <span className={[
                       'text-xs font-semibold',
-                      isActive ? 'text-jurassic-gold' : 'text-jurassic-accent',
+                      isActive ? 'text-jurassic-gold' : 'text-jurassic-accent-ink',
                     ].join(' ')}>
                       {isActive ? 'Selected' : 'This is my context'}
                     </span>
                     <ArrowRight className={[
                       'w-4 h-4 transition-transform group-hover:translate-x-0.5',
-                      isActive ? 'text-jurassic-gold' : 'text-jurassic-accent',
+                      isActive ? 'text-jurassic-gold' : 'text-jurassic-accent-ink',
                     ].join(' ')} />
                   </div>
                 </motion.button>
@@ -239,14 +238,12 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             variants={fadeUp}
             className="mt-10 flex justify-center"
           >
-            <button
-              type="button"
-              onClick={onGetStarted}
-              className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+            <a href="/go/zalo?utm_source=discovery&utm_content=book-call"
+              className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
             >
               {content.hero.primaryCta}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </button>
+            </a>
           </motion.div>
         </div>
       </section>
@@ -285,7 +282,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
                 variants={fadeUp}
                 className="rounded-2xl border border-white/10 bg-white/5 p-7"
               >
-                <span className="text-3xl font-bold text-jurassic-gold/20 leading-none block mb-5">
+                <span className="text-3xl font-bold text-jurassic-gold leading-none block mb-5">
                   {item.step}
                 </span>
                 <h3 className="text-lg font-bold text-white mb-3">{item.title}</h3>
@@ -306,7 +303,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             variants={staggerContainer}
             className="max-w-2xl"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.outcomes.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-3xl font-bold tracking-tight text-jurassic-dark mb-8">
@@ -334,7 +331,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             variants={staggerContainer}
             className="max-w-2xl"
           >
-            <motion.span variants={fadeUp} className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-3 block">
+            <motion.span variants={fadeUp} className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-3 block">
               {content.cta.eyebrow}
             </motion.span>
             <motion.h2 variants={fadeUp} className="text-4xl font-bold tracking-tight text-jurassic-dark leading-tight mb-5">
@@ -345,21 +342,19 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mb-4">
-              <button
-                type="button"
-                onClick={onGetStarted}
-                className="inline-flex items-center gap-2 bg-jurassic-accent text-white px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
+              <a href="/go/zalo?utm_source=discovery&utm_content=book-call"
+                className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </a>
             </motion.div>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-6">
               <RouteLink
                 to={'/audit-sprint'}
                 onNavigate={onNavigate}
-                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                className="text-sm font-semibold text-jurassic-dark/70 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.auditCta}
               </RouteLink>
@@ -367,7 +362,7 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
               <RouteLink
                 to={'/pilot-programme'}
                 onNavigate={onNavigate}
-                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                className="text-sm font-semibold text-jurassic-dark/70 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.pilotCta}
               </RouteLink>
@@ -375,19 +370,20 @@ export const DiscoveryPage = ({ onBack, onGetStarted, onNavigate }: DiscoveryPag
               <RouteLink
                 to={'/worldwise'}
                 onNavigate={onNavigate}
-                className="text-sm font-semibold text-jurassic-dark/55 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
+                className="text-sm font-semibold text-jurassic-dark/70 hover:text-jurassic-dark transition-colors underline underline-offset-4 decoration-jurassic-dark/20 hover:decoration-jurassic-dark/50"
               >
                 {content.cta.worldwiseCta}
               </RouteLink>
             </motion.div>
 
-            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/45 leading-relaxed">
+            <motion.p variants={fadeUp} className="text-xs text-jurassic-dark/70 leading-relaxed">
               {content.cta.note}
             </motion.p>
           </motion.div>
         </div>
       </section>
 
+    <GscEditorial />
     </main>
   );
 };

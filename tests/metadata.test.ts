@@ -128,7 +128,7 @@ test('resolver returns route-specific public metadata', () => {
   const stage = resolveRouteMetadata('/thinking-cycle/justify');
   const legal = resolveRouteMetadata('/legal/privacy');
 
-  assert.equal(home.title, 'Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking');
+  assert.equal(home.title, 'Jurassic English™ | IELTS Speaking & Academic English');
   assert.equal(home.canonical, 'https://jurassicenglish.com');
   assert.equal(home.robots, 'index, follow');
   // P1 — homepage JSON-LD = EducationalOrganization + WebSite + Service
@@ -388,4 +388,17 @@ test('head manager stays idempotent for controlled tags', () => {
     document.head.querySelectorAll('script[type="application/ld+json"][data-seo-controlled="json-ld"]').length,
     1,
   );
+});
+
+test('fitMetaDescription keeps descriptions within 160 characters and avoids cutting after "Mr."', async () => {
+  const { fitMetaDescription } = await import('../src/lib/routeMetadata');
+  const short = 'A short description under the limit.';
+  assert.equal(fitMetaDescription(short), short);
+  const long = 'A small online story group with Mr. Jay for children aged 5–8, with a live story time each week and one task at home. Up to 6 children per group, and every family gets a personal reply and a written note.';
+  const fitted = fitMetaDescription(long);
+  assert.ok(fitted.length <= 160, `length ${fitted.length}`);
+  assert.ok(!/Mr\.?$/.test(fitted), fitted);
+  const noSentence = 'word '.repeat(60).trim();
+  assert.ok(fitMetaDescription(noSentence).length <= 160);
+  assert.ok(fitMetaDescription(noSentence).endsWith('…'));
 });

@@ -4,6 +4,8 @@ import { ArrowRight, Menu, X } from 'lucide-react';
 import { getOverhaulContent } from '../i18n/content/overhaul';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
+import { headerCta } from '../lib/headerCta';
+import { getCurrentPathname } from '../lib/ssrLocation';
 import { getUiString } from '../i18n/ui';
 import { trackCtaClick } from '../lib/analytics';
 
@@ -11,7 +13,7 @@ const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
 
 // Light storybook header (10/10 overhaul). Two-line door links: age + what it is.
 const NAV_LINK =
-  'whitespace-nowrap rounded-xl px-1 py-1.5 text-[0.95rem] font-semibold text-sb-forest transition hover:text-sb-amber-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
+  'whitespace-nowrap rounded-xl px-0.5 py-1.5 text-[0.95rem] font-semibold text-sb-forest transition hover:text-sb-amber-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
 // White text only on #B45309 (5.0:1) or forest #1E4D3B (9.4:1), never on #D97706.
 const NAV_CTA =
   'inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full bg-sb-amber-deep px-4 py-2 text-[13px] font-bold text-white shadow-warm transition hover:bg-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-forest focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
@@ -19,7 +21,9 @@ const NAV_CTA =
 // The desktop row drops a bracketed suffix ("Kids Academy (5–12)" shows "Kids Academy"): the header
 // is width-capped, and the full label pushes Pricing under the language switch at every width
 // (measured 1280 and 1440, EN and VI). The mobile menu, aria-label and title keep the full label.
-function DesktopNavLabel({ label }: { label: string }) {
+function DesktopNavLabel({ label, short }: { label: string; short?: string }) {
+  // "Products & prices" shows "Products" in the desktop row (website assessment, 27 Oct 2026: six links must fit).
+  if (short && label.startsWith(short)) return <>{short}<span className="sr-only">{label.slice(short.length)}</span></>;
   const match = label.match(/^(.*?)\s(\(.+\))$/);
   if (!match) return <>{label}</>;
   return (
@@ -39,8 +43,6 @@ type NavbarProps = {
   isPortalView?: boolean;
   forceSolidBackground?: boolean;
   languageSwitcher?: ReactNode;
-  // Overrides the site-wide Baseline button (country pages show their own US$ price; src/lib/marketCheckout.ts).
-  bookCta?: { href: string; label: string; mobileLabel: string };
 };
 
 export const Navbar = ({
@@ -52,7 +54,6 @@ export const Navbar = ({
   isPortalView = false,
   forceSolidBackground = false,
   languageSwitcher,
-  bookCta,
 }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -146,10 +147,12 @@ export const Navbar = ({
   // homepage anchors, so they must be real document navigations.
   const overhaul = getOverhaulContent(locale);
   const navItems = overhaul.nav.items;
-  // "Book Baseline · 690k₫" → the Live Speaking Baseline booking page (AI Speaking app, native navigation).
-  const bookHref = bookCta?.href ?? getLocalizedHref(overhaul.nav.ctaHref, locale);
-  const bookLabel = bookCta?.label ?? overhaul.nav.cta;
-  const bookMobileLabel = bookCta?.mobileLabel ?? overhaul.nav.ctaMobile;
+  const productsItem = navItems.find((item) => item.key === 'products');
+  // The header button is the page's own next step (website assessment, 27 Oct 2026): the free sample pack on parent
+  // pages, the Live Speaking Baseline booking page on IELTS pages (US$ on country pages). See lib/headerCta.
+  const cta = headerCta(getCurrentPathname(), locale, overhaul.nav);
+  const bookHref = cta.href;
+  const bookLabel = cta.label;
   // "New" / "Mới" badge on the IELTS Writing link; the accessible name starts with the visible text (WCAG 2.5.3).
   const badgeFor = (key: string) => (key === 'writing' ? overhaul.nav.newBadge : null);
   const NEW_BADGE = 'ml-1.5 inline-block rounded-full bg-sb-amber-deep px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white';
@@ -168,7 +171,7 @@ export const Navbar = ({
     setIsMobileMenuOpen(false);
     try {
       trackCtaClick({
-        label: placement === 'desktop' ? 'header_book_baseline_click' : 'header_book_baseline_mobile_click',
+        label: `header_${cta.kind === 'sample' ? 'sample_pack' : 'book_baseline'}${placement === 'desktop' ? '' : '_mobile'}_click`,
         type: 'primary',
         segment: 'parent_student',
       });
@@ -181,9 +184,9 @@ export const Navbar = ({
 
   return (
     <nav className={`fixed top-0 w-full z-50 border-b transition-shadow duration-300 bg-sb-cream/95 backdrop-blur-md ${isSolidNav ? 'border-sb-border shadow-warm' : 'border-transparent'}`}>
-      {/* Two balanced clusters on one 72px row, never wrapping: [logo + doors] … [EN | Tiếng Việt + Baseline CTA]. */}
-      <div className="max-w-7xl mx-auto h-[72px] px-3 min-[360px]:px-4 sm:px-6 flex flex-nowrap justify-between items-center gap-1.5 min-[360px]:gap-3">
-        <div className="flex min-w-0 flex-nowrap items-center gap-6">
+      {/* Two balanced clusters on one 72px row: [logo + doors] … [language + CTA]. */}
+      <div className="max-w-[1600px] mx-auto h-[72px] px-3 min-[360px]:px-4 sm:px-6 flex flex-nowrap justify-between items-center gap-1.5 sm:gap-3">
+        <div className="flex min-w-0 flex-nowrap items-center gap-4 2xl:gap-4">
         {/* Below 430px the wordmark wraps to two lines (min-content width) so the Baseline CTA never covers it; the row stays one 72px line. */}
         <button
           type="button"
@@ -198,38 +201,51 @@ export const Navbar = ({
           Jurassic English<sup className="text-sb-amber-deep">™</sup>
         </button>
 
-        {/* Desktop (>= xl): the four age doors sit beside the logo. */}
-        <div className="hidden xl:flex flex-nowrap items-center gap-6">
+        {/* Show the full link row only when the logo, links, language control and CTA fit. */}
+        <div className="hidden 2xl:flex flex-nowrap items-center gap-2 2xl:gap-3">
           {navItems.map((item) => (
             <a
               key={item.key}
               href={getLocalizedHref(item.href, locale)}
               onClick={(event) => handleNavItemClick(event, item)}
               className={NAV_LINK}
-              aria-label={`${badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label} · ${item.desc}`}
-              title={`${item.label} · ${item.desc}`}
+              aria-label={[badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label, item.desc].filter(Boolean).join(' · ')}
+              title={[item.label, item.desc].filter(Boolean).join(' · ')}
             >
-              <DesktopNavLabel label={item.label} />
+              <DesktopNavLabel label={item.label} short={'short' in item ? item.short : undefined} />
               {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
             </a>
           ))}
         </div>
         </div>
-        <div className="flex shrink-0 flex-nowrap items-center gap-1.5 min-[360px]:gap-2 sm:gap-3">
-          <div className="hidden xl:block">{languageSwitcher}</div>
+        <div className="flex shrink-0 flex-nowrap items-center gap-1 sm:gap-3">
+          <div className="hidden 2xl:block">{languageSwitcher}</div>
+          {productsItem ? (
+            // Products stays one tap away at every width (4 Nov 2026, owner: "click, click, sales"): beside the
+            // CTA on phones, tablets and laptops; the full link row takes over from 2xl.
+            <a
+              href={getLocalizedHref(productsItem.href, locale)}
+              onClick={(event) => handleNavItemClick(event, productsItem)}
+              className={`${NAV_LINK} inline-flex min-h-11 min-w-11 items-center justify-center px-1 max-[639px]:text-sm sm:px-2 2xl:hidden`}
+              data-testid="header-products-link"
+            >
+              {'short' in productsItem && productsItem.short ? productsItem.short : productsItem.label}
+            </a>
+          ) : null}
           <a
             href={bookHref}
             onClick={() => handleBookClick('desktop')}
-            className={`${NAV_CTA} px-2.5 min-[360px]:px-3 sm:px-5`}
+            className={`${NAV_CTA} px-2.5 min-[360px]:px-3 sm:px-5 max-[639px]:max-w-[6.5rem] max-[639px]:whitespace-normal max-[639px]:text-center max-[639px]:text-xs max-[639px]:leading-[1.15]`}
           >
+            {/* Below 640px the label may wrap to two lines so the Products link keeps its place in the bar. */}
             <span className="hidden sm:inline">{bookLabel}</span>
-            <span className="sm:hidden">{bookMobileLabel}</span>
-            <ArrowRight aria-hidden="true" className="hidden h-4 w-4 min-[360px]:block" />
+            <span className="sm:hidden">{cta.mobileLabel}</span>
+            <ArrowRight aria-hidden="true" className="hidden h-4 w-4 sm:block" />
           </a>
           <button
             ref={triggerRef}
             type="button"
-            className="xl:hidden shrink-0 text-sb-forest inline-flex h-11 w-11 items-center justify-center rounded-full border border-sb-border bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
+            className="2xl:hidden shrink-0 text-sb-forest inline-flex h-11 w-11 items-center justify-center rounded-full border border-sb-border bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={
               isMobileMenuOpen
@@ -257,7 +273,7 @@ export const Navbar = ({
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            className="absolute top-full left-0 w-full max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain bg-sb-cream border-b border-sb-border py-5 px-5 flex flex-col gap-3 xl:hidden shadow-warm"
+            className="absolute top-full left-0 w-full max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain bg-sb-cream border-b border-sb-border py-5 px-5 flex flex-col gap-3 2xl:hidden shadow-warm"
           >
             <a
               href={bookHref}
@@ -278,7 +294,7 @@ export const Navbar = ({
                   {item.label}
                   {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
                 </span>
-                <span className="block text-sm text-sb-ink">{item.desc}</span>
+                {item.desc ? <span className="block text-sm text-sb-ink">{item.desc}</span> : null}
               </a>
             ))}
             {languageSwitcher ? (

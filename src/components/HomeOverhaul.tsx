@@ -1,9 +1,13 @@
+import { IeltsAppEntrance } from './IeltsAppEntrance';
+import { reserveCta, paymentHref, buyCta } from '../config/payment';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
-import { CONTACT_EMAIL, getOverhaulContent, IMG, STORY_QUEST_URL, ZALO_URL } from '../i18n/content/overhaul';
+import { CONTACT_EMAIL, getOverhaulContent, IMG } from '../i18n/content/overhaul';
+import { recordClientEvent } from '../lib/tracker';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
 import { FounderFilmLink } from './FounderFilmLink';
+import { SamplePackForm } from './SamplePackForm';
 
 /**
  * Homepage (human-centered overhaul, revised spec §3 Page A): six sections —
@@ -49,39 +53,107 @@ function CtaLink({ link, className, onNavigate, track }: { link: Link; className
   );
 }
 
+const HERO_SRCSET = `${IMG}/w/hero-story-expedition-480.webp 480w, ${IMG}/w/hero-story-expedition-672.webp 672w, ${IMG}/w/hero-story-expedition-800.webp 800w, ${IMG}/w/hero-story-expedition-1200.webp 1200w, ${IMG}/hero-story-expedition.webp 1400w`;
+const HERO_SIZES = '(min-width: 1280px) 592px, (min-width: 1024px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)';
+const HERO_IMG_CLASS = 'aspect-[16/9] w-full rounded-[1.75rem] border border-sb-border object-cover shadow-warm';
+
 const STEP_STYLES = ['bg-sb-sage text-sb-sage-ink', 'bg-amber-100 text-sb-amber-deep', 'bg-teal-50 text-sb-teal'];
 
 export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => void }) {
   const locale = getCurrentLocale();
   const { home } = getOverhaulContent(locale);
-  const { hero, paths, lesson, jay, pricing, faq } = home;
+  const { hero, find, paths, lesson, jay, pricing, faq } = home;
 
   return (
     <div className="bg-sb-cream text-sb-ink">
-      {/* 1 · Promise + illustration */}
-      <section className="px-4 pb-14 pt-24 sm:px-6 sm:pt-28">
+      {/* 0 · IELTS app, first screen (coverage audit, 2 Nov 2026): one row above the hero; the full strip follows the hero. */}
+      <div className="pt-20 sm:pt-[4.5rem]"><IeltsAppEntrance placement="home" locale={locale} variant="banner" /></div>
+      {/* 0b · Products in one tap on phones (4 Nov 2026, owner: "click, click, sales"): the four existing "Find what you
+          need" tiles as a compact row plus See all products, above the fold and clear of the cookie banner.
+          Phones only; from 768px the header Products link and the strip below do this job. */}
+      <div role="region" className="px-4 pt-4 md:hidden" aria-labelledby="top-products-heading" data-home-top-products>
+        <div className="flex items-center justify-between gap-3">
+          <h2 id="top-products-heading" className="min-w-0 text-sm font-extrabold leading-tight text-sb-forest">{find.heading}</h2>
+          <a
+            href={`${getLocalizedHref('/products', locale)}?utm_source=home-top`}
+            onClick={() => {
+              try {
+                trackCtaClick({ label: 'home_top_all_products', type: 'primary', segment: 'parent_student' });
+              } catch {
+                /* Measurement must not block navigation. */
+              }
+            }}
+            className="inline-flex min-h-11 flex-none items-center gap-1 whitespace-nowrap rounded-full px-2 text-[13px] font-extrabold text-sb-amber-deep underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+            data-home-top-all-products
+          >
+            {hero.secondary}
+            <ArrowRight aria-hidden="true" className="h-4 w-4 flex-none" />
+          </a>
+        </div>
+        <ul className="mt-1 grid grid-cols-2 gap-2">
+          {find.tiles.map((tile) => (
+            <li key={tile.anchor}>
+              <a
+                href={`${getLocalizedHref('/products', locale)}?utm_source=home-top#${tile.anchor}`}
+                onClick={() => {
+                  try {
+                    trackCtaClick({ label: `home_top_tile_${tile.anchor}`, type: 'primary', segment: 'parent_student' });
+                  } catch {
+                    /* Measurement must not block navigation. */
+                  }
+                }}
+                className="flex min-h-11 h-full items-center justify-between gap-1.5 rounded-xl border border-sb-forest/30 bg-white px-3 py-2 text-sm font-bold leading-tight text-sb-forest transition hover:border-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+                data-home-top-tile={tile.anchor}
+              >
+                <span className="min-w-0">{tile.title}</span>
+                <ArrowRight aria-hidden="true" className="h-4 w-4 flex-none" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* 1 · Promise + illustration. */}
+      <section className="px-4 pb-14 pt-6 sm:px-6 sm:pt-10">
         <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-sb-forest">{hero.eyebrow}</p>
             <h1 className="mt-4 font-display text-[2.1rem] leading-[1.06] tracking-tight text-sb-forest sm:text-[2.8rem] lg:text-[3.2rem]">{hero.title}</h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-sb-slate sm:text-lg">{hero.body}</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CtaLink link={{ label: hero.primary, href: '#learning-paths', kind: 'anchor' }} className={PRIMARY_BTN} onNavigate={onNavigate} track="home_hero_paths" />
-              <CtaLink link={{ label: hero.secondary, href: STORY_QUEST_URL, kind: 'external' }} className={SECONDARY_BTN} onNavigate={onNavigate} track="home_hero_story_quest" />
+              <CtaLink link={{ label: reserveCta(locale), href: paymentHref('story-club', locale), kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track="home_hero_story_club" />
+              <CtaLink link={{ label: hero.secondary, href: '/products?utm_source=home-hero', kind: 'page' }} className={SECONDARY_BTN} onNavigate={onNavigate} track="home_hero_products" />
             </div>
           </div>
           <figure className="relative">
+            {/* Two-column layout (lg, 1024px+): the hero image is above the fold and is the LCP element, so it stays eager with
+                fetchPriority high. Below lg it sits under the text (and, on phones, under the product row), so a lazy copy is used.
+                Each copy is display:none at the other width; the tiny <source> keeps the eager copy from downloading on phones
+                (a display:none eager <img> still fetches), and a display:none lazy <img> never fetches on desktop. */}
+            <picture className="hidden lg:block">
+              <source media="(max-width: 1023.98px)" srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+              <img
+                src={`${IMG}/hero-story-expedition.webp`}
+                srcSet={HERO_SRCSET}
+                sizes={HERO_SIZES}
+                alt={hero.imageAlt}
+                width={1400}
+                height={788}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className={HERO_IMG_CLASS}
+              />
+            </picture>
             <img
               src={`${IMG}/hero-story-expedition.webp`}
-              srcSet={`${IMG}/w/hero-story-expedition-480.webp 480w, ${IMG}/w/hero-story-expedition-672.webp 672w, ${IMG}/w/hero-story-expedition-800.webp 800w, ${IMG}/w/hero-story-expedition-1200.webp 1200w, ${IMG}/hero-story-expedition.webp 1400w`}
-              sizes="(min-width: 1280px) 592px, (min-width: 1024px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
+              srcSet={HERO_SRCSET}
+              sizes={HERO_SIZES}
               alt={hero.imageAlt}
               width={1400}
               height={788}
-              fetchPriority="high"
-              loading="eager"
+              loading="lazy"
               decoding="async"
-              className="aspect-[16/9] w-full rounded-[1.75rem] border border-sb-border object-cover shadow-warm"
+              className={`${HERO_IMG_CLASS} lg:hidden`}
             />
             <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-sb-forest">{hero.artLabel}</figcaption>
             {/* Professor Rex medallion (owner, Oct 2026): an illustration, low priority so the hero image stays the LCP. */}
@@ -93,10 +165,53 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
               width={160}
               height={160}
               fetchPriority="low"
+              loading="lazy"
               decoding="async"
               className="absolute bottom-3 right-3 h-[72px] w-[72px] rounded-full border-4 border-white bg-sb-cream object-cover shadow-warm sm:h-24 sm:w-24"
             />
           </figure>
+        </div>
+      </section>
+
+      {/* 1a · IELTS Speaking app (Jay + CEO, 2 Nov 2026): one strip directly under the hero, Stitch style as /products. */}
+      <IeltsAppEntrance placement="home" locale={locale} variant="strip" />
+
+      {/* 1b · Find what you need (master, 27 Oct 2026): one compact strip, a tile per /products section (2 clicks from
+          home to any product: tile → section → the card's order button). Plain links, so #anchor lands on the heading. */}
+      <section className="border-t border-sb-border bg-white px-4 py-8 sm:px-6" aria-labelledby="find-heading">
+        <div className="mx-auto max-w-7xl">
+          <h2 id="find-heading" className="text-xl font-extrabold text-sb-forest">{find.heading}</h2>
+          <ul className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+            {find.tiles.map((tile) => (
+              <li key={tile.anchor}>
+                <a
+                  href={`${getLocalizedHref('/products', locale)}?utm_source=home-tiles#${tile.anchor}`}
+                  onClick={() => {
+                    try {
+                      trackCtaClick({ label: `home_tile_${tile.anchor}`, type: 'primary', segment: 'parent_student' });
+                    } catch {
+                      /* Measurement must not block navigation. */
+                    }
+                  }}
+                  className="flex h-full items-center gap-3 rounded-2xl border border-sb-border bg-sb-cream p-3 transition hover:border-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+                  data-home-tile={tile.anchor}
+                >
+                  <img src={`/images/products/${tile.image}.webp`} alt="" width={480} height={480} loading="lazy" decoding="async" className="h-16 w-16 flex-none rounded-xl object-cover" />
+                  <span className="min-w-0">
+                    <span className="block font-extrabold text-sb-forest">{tile.title}</span>
+                    <span className="block text-sm text-sb-slate">{tile.promise}</span>
+                    <span className="mt-0.5 block text-sm font-bold text-sb-amber-deep">{tile.from}</span>
+                  </span>
+                  <ArrowRight aria-hidden="true" className="ml-auto h-4 w-4 flex-none text-sb-forest" />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-sb-slate" data-home-free-tools>
+            <a className="font-bold text-sb-forest underline" href={getLocalizedHref('/tools/ielts-band-score-calculator', locale)}>
+              {locale === 'vi' ? 'Tính điểm IELTS miễn phí (làm tròn overall)' : 'Free IELTS band score calculator (overall rounding)'}
+            </a>
+          </p>
         </div>
       </section>
 
@@ -147,6 +262,9 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
           </div>
         </div>
       </section>
+
+      {/* The one lead capture: the free sample pack, right after the paths (website assessment, 27 Oct 2026). */}
+      <SamplePackForm placement="home" />
 
       {/* 3 · Illustrative lesson demonstration (HTML/CSS, badged) */}
       <section className="px-4 py-16 sm:px-6" aria-labelledby="lesson-heading">
@@ -263,13 +381,19 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
                   </ul>
                 </details>
                 <div className="mt-4 flex flex-col gap-2">
-                  <CtaLink link={{ ...row.cta, kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track={`home_pricing_${row.key}`} />
+                  <CtaLink link={row.key === 'speaking' ? { label: buyCta('baseline', locale), href: paymentHref('baseline', locale), kind: 'native' } : row.key === 'reading' ? { label: row.cta.label, href: '/go/zalo?utm_source=home&utm_content=reading-consultation', kind: 'native' } : { ...row.cta, kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track={`home_pricing_${row.key}`} />
                   {row.key === 'reading' ? (
                     <div className="flex gap-2">
                       <a href={`mailto:${CONTACT_EMAIL}?subject=Reading%20placement%20consultation`} className={`${SECONDARY_BTN} flex-1`}>
                         <Mail aria-hidden="true" className="h-4 w-4" /> Email
                       </a>
-                      <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className={`${SECONDARY_BTN} flex-1`}>
+                      <a
+                        href="/go/zalo?utm_source=home&utm_content=reading-zalo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${SECONDARY_BTN} flex-1`}
+                        onClick={() => recordClientEvent({ event: 'checkout_start' })}
+                      >
                         <MessageCircle aria-hidden="true" className="h-4 w-4" /> Zalo
                       </a>
                     </div>

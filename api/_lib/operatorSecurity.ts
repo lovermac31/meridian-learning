@@ -8,6 +8,7 @@ type OperatorAuthConfig = {
   action: string;
   scopedKeyEnv: string;
   scopedIpAllowlistEnv?: string;
+  allowLegacyFallback?: boolean;
 };
 
 type OperatorAuthSuccess = {
@@ -51,7 +52,7 @@ function safeEqual(left: string, right: string) {
   );
 }
 
-function getConfiguredSecret(scopedKeyEnv: string) {
+function getConfiguredSecret(scopedKeyEnv: string, allowLegacyFallback = true) {
   const scopedSecret = process.env[scopedKeyEnv]?.trim() || null;
   const legacySecret = process.env[LEGACY_OPERATOR_KEY_ENV]?.trim() || null;
 
@@ -62,7 +63,7 @@ function getConfiguredSecret(scopedKeyEnv: string) {
     };
   }
 
-  if (legacySecret && legacySecret.length >= 24) {
+  if (allowLegacyFallback && legacySecret && legacySecret.length >= 24) {
     return {
       secret: legacySecret,
       authMode: 'legacy_fallback' as const,
@@ -106,7 +107,7 @@ export function requireOperatorAccess(
   config: OperatorAuthConfig,
 ): OperatorAuthSuccess | OperatorAuthFailure {
   const presentedKey = readBearerToken(req);
-  const configuredSecret = getConfiguredSecret(config.scopedKeyEnv);
+  const configuredSecret = getConfiguredSecret(config.scopedKeyEnv, config.allowLegacyFallback);
   const clientIp = getClientIp(req);
   const userAgent = getUserAgent(req);
 

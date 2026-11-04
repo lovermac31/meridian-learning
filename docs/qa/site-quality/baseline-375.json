@@ -1,0 +1,149 @@
+{
+  "source": "read-only upstream SSR HTML, rendered locally with scripts/network disabled; not a local upstream build",
+  "metrics": {
+    "h1": 1,
+    "overflow": false,
+    "images": [],
+    "forms": [
+      {
+        "tag": "INPUT",
+        "type": "range",
+        "name": "",
+        "labels": [
+          "Fluency and Coherence6"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "range",
+        "name": "",
+        "labels": [
+          "Lexical Resource6"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "range",
+        "name": "",
+        "labels": [
+          "Grammatical Range and Accuracy5"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "range",
+        "name": "",
+        "labels": [
+          "Pronunciation6"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "",
+        "labels": [
+          "Headphones with a microphone, to prevent echo"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "",
+        "labels": [
+          "A quiet room with the door closed"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "",
+        "labels": [
+          "Camera on, with the light in front of your face"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "",
+        "labels": [
+          "Photo ID within reach for the identity check (shown on camera, never copied or kept)"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "",
+        "labels": [
+          "Paper and a pen for your Part 2 notes"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "",
+        "labels": [
+          "Other applications closed, for a stable connection"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "radio",
+        "name": "bk-for",
+        "labels": [
+          "Myself (I am 18 or older)"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "radio",
+        "name": "bk-for",
+        "labels": [
+          "My child (under 18)"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "name": "",
+        "labels": [
+          "Full name"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "email",
+        "name": "",
+        "labels": [
+          "Email"
+        ]
+      },
+      {
+        "tag": "SELECT",
+        "type": "select-one",
+        "name": "",
+        "labels": [
+          "Language for your emails"
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "",
+        "labels": [
+          "I am 18 or older."
+        ]
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "",
+        "labels": [
+          "I agree to the assessed part of my session being recorded (optional)."
+        ]
+      }
+    ]
+  },
+  "violations": [],
+  "capturedFrom": "https://jurassic-ai-speaking.vercel.app/ai-speaking/baseline",
+  "htmlSha256": "05c5d5b225854daa512bcc253a9fede015a3b5fb1d8a78b3b37d331ca04401e1"
+}

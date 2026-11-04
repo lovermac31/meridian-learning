@@ -1,0 +1,330 @@
+[
+  {
+    "url": "https://jurassicenglish.com/student-academy/referrals",
+    "template": "external-rewrite",
+    "status": "Keep distinct intent; add concrete practice/preparation example.",
+    "title": "Family Rewards | Jurassic English™ Student Academy",
+    "h1": "Family Rewards",
+    "nearest": {
+      "path": "/student-academy",
+      "title": "Jurassic English™ Student Academy | Literature-Based English Thinking for Students",
+      "h1": "Great stories turn quiet readers into confident thinkers, speakers, and writers.",
+      "bodyTokenJaccard": 0.1254355400696864
+    },
+    "comparisonNote": "Manual nearest-purpose sibling; Same-language comparison where available; different purposes are retained."
+  },
+  {
+    "url": "https://jurassicenglish.com/ai-speaking/vi/solutions",
+    "template": "external-rewrite",
+    "status": "Unchanged: source belongs to separate AI Speaking repository; F2 remains incomplete for this URL.",
+    "title": "Luyện IELTS Speaking online 1 kèm 1 | Jurassic English",
+    "h1": "Luyện IELTS Speaking online 1 kèm 1 cho người luyện mãi nhưng không biết sửa gì trước",
+    "nearest": {
+      "path": "/ai-speaking/vi/lessons",
+      "title": "Học 1 kèm 1 với đội ngũ của thầy Jay | Jurassic English",
+      "h1": "Học 1 kèm 1 với đội ngũ của thầy Jay",
+      "bodyTokenJaccard": 0.19410745233968804
+    },
+    "comparisonNote": "Manual nearest-purpose sibling; Same-language comparison where available; different purposes are retained."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/legal/privacy",
+    "template": "legal",
+    "title": "Chính sách quyền riêng tư | Jurassic English™",
+    "h1": "Chính sách quyền riêng tư",
+    "nearest": {
+      "path": "/vi/legal/terms",
+      "title": "Điều khoản &amp; Điều kiện | Jurassic English™",
+      "h1": "Điều khoản & Điều kiện",
+      "bodyTokenJaccard": 0.5490196078431373
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/legal/terms",
+    "template": "legal",
+    "title": "Terms &amp; Conditions | Jurassic English™",
+    "h1": "Terms & Conditions",
+    "nearest": {
+      "path": "/legal/disclaimer",
+      "title": "Disclaimer | Jurassic English™",
+      "h1": "Disclaimer",
+      "bodyTokenJaccard": 0.33077905491698595
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/thinking-cycle/evaluate",
+    "template": "thinking-cycle",
+    "title": "ĐÁNH GIÁ — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+    "h1": "ĐÁNH GIÁ",
+    "nearest": {
+      "path": "/vi/thinking-cycle/analyze",
+      "title": "PHÂN TÍCH — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+      "h1": "PHÂN TÍCH",
+      "bodyTokenJaccard": 0.5170603674540682
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/thinking-cycle/analyze",
+    "template": "thinking-cycle",
+    "title": "PHÂN TÍCH — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+    "h1": "PHÂN TÍCH",
+    "nearest": {
+      "path": "/vi/thinking-cycle/evaluate",
+      "title": "ĐÁNH GIÁ — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+      "h1": "ĐÁNH GIÁ",
+      "bodyTokenJaccard": 0.5170603674540682
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/thinking-cycle/compare",
+    "template": "standalone",
+    "title": "Jurassic Thinking Cycle™ — So sánh cả bốn giai đoạn | Jurassic English™",
+    "h1": "So sánh toàn bộ bốn giai đoạn của Thinking Cycle",
+    "nearest": {
+      "path": "/vi/framework",
+      "title": "Khung tư duy phản biện dựa trên văn học | Jurassic English™",
+      "h1": "Kiến trúc sâu hơn phía sau Jurassic English™",
+      "bodyTokenJaccard": 0.36923076923076925
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/get-started",
+    "template": "standalone",
+    "title": "Get Started — Teacher Training, School Licensing &amp; Family Enquiries | Jurassic English™",
+    "h1": "Start the Jurassic English conversation.",
+    "nearest": {
+      "path": "/discovery",
+      "title": "Discovery Call for Schools | Jurassic English™",
+      "h1": "The conversation that shapes everything that follows.",
+      "bodyTokenJaccard": 0.1896551724137931
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-4-mastery/syllabus",
+    "template": "syllabus",
+    "title": "Level 4: Mastery Syllabus — Ages 12–14 years | Jurassic English™",
+    "h1": "Level 4: Mastery — Curriculum syllabus",
+    "nearest": {
+      "path": "/series/level-5-advanced/syllabus",
+      "title": "Level 5: Advanced Syllabus — Ages 14+ years | Jurassic English™",
+      "h1": "Level 5: Advanced — Curriculum syllabus",
+      "bodyTokenJaccard": 0.4931972789115646
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-2-development/syllabus",
+    "template": "syllabus",
+    "title": "Level 2: Development Syllabus — Ages 8–10 years | Jurassic English™",
+    "h1": "Level 2: Development — Curriculum syllabus",
+    "nearest": {
+      "path": "/series/level-1-foundation/syllabus",
+      "title": "Level 1: Foundation Syllabus — Ages 4–8 years | Jurassic English™",
+      "h1": "Level 1: Foundation — Curriculum syllabus",
+      "bodyTokenJaccard": 0.47768595041322315
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/discovery",
+    "template": "standalone",
+    "title": "Discovery Call for Schools | Jurassic English™",
+    "h1": "The conversation that shapes everything that follows.",
+    "nearest": {
+      "path": "/worldwise",
+      "title": "WorldWise Learning — Institutional Curriculum Architecture | Jurassic English™",
+      "h1": "The Curriculum OS for English Education Institutions.",
+      "bodyTokenJaccard": 0.3071593533487298
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/audit-sprint",
+    "template": "standalone",
+    "title": "Curriculum Coherence Audit Sprint | Jurassic English™",
+    "h1": "The Curriculum Coherence Audit Sprint.",
+    "nearest": {
+      "path": "/worldwise",
+      "title": "WorldWise Learning — Institutional Curriculum Architecture | Jurassic English™",
+      "h1": "The Curriculum OS for English Education Institutions.",
+      "bodyTokenJaccard": 0.30740037950664134
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/interactive-demo",
+    "template": "external-rewrite",
+    "status": "Keep distinct intent; add concrete practice/preparation example.",
+    "title": "Interactive Demo | Jurassic English™ Student Academy Pathway Explorer",
+    "h1": "See how Jurassic English™ grows student thinking fromLevel 1 to Level 5.",
+    "nearest": {
+      "path": "/student-academy",
+      "title": "Jurassic English™ Student Academy | Literature-Based English Thinking for Students",
+      "h1": "Great stories turn quiet readers into confident thinkers, speakers, and writers.",
+      "bodyTokenJaccard": 0.2673434856175973
+    },
+    "comparisonNote": "Manual nearest-purpose sibling; Same-language comparison where available; different purposes are retained."
+  },
+  {
+    "url": "https://jurassicenglish.com/teacher-standards",
+    "template": "standalone",
+    "title": "Teacher Quality, iPGCE Standards and Methodology Fidelity | Jurassic English™",
+    "h1": "The curriculum is only as consistent as the teachers who deliver it.",
+    "nearest": {
+      "path": "/methodology",
+      "title": "Jurassic Thinking Cycle™ Methodology | Jurassic English™",
+      "h1": "The methodology that separates structured thinking from surface fluency.",
+      "bodyTokenJaccard": 0.2857142857142857
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/thinking-cycle/reflect",
+    "template": "thinking-cycle",
+    "title": "REFLECT — Jurassic Thinking Cycle™ Stage Guide | Jurassic English™",
+    "h1": "REFLECT",
+    "nearest": {
+      "path": "/thinking-cycle/justify",
+      "title": "JUSTIFY — Jurassic Thinking Cycle™ Stage Guide | Jurassic English™",
+      "h1": "JUSTIFY",
+      "bodyTokenJaccard": 0.34120734908136485
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/legal/terms",
+    "template": "legal",
+    "title": "Điều khoản &amp; Điều kiện | Jurassic English™",
+    "h1": "Điều khoản & Điều kiện",
+    "nearest": {
+      "path": "/vi/legal/disclaimer",
+      "title": "Tuyên bố miễn trừ trách nhiệm | Jurassic English™",
+      "h1": "Tuyên bố miễn trừ trách nhiệm",
+      "bodyTokenJaccard": 0.5977198697068404
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-5-advanced",
+    "template": "series",
+    "title": "Level 5: Advanced — Ages 14+ years | Jurassic English™",
+    "h1": "Level 5: Advanced",
+    "nearest": {
+      "path": "/series/level-4-mastery",
+      "title": "Level 4: Mastery — Ages 12–14 years | Jurassic English™",
+      "h1": "Level 4: Mastery",
+      "bodyTokenJaccard": 0.4752475247524752
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/series/level-3-expansion",
+    "template": "series",
+    "title": "Level 3: Expansion — Ages 10–12 years | Jurassic English™",
+    "h1": "Level 3: Expansion",
+    "nearest": {
+      "path": "/series/level-4-mastery",
+      "title": "Level 4: Mastery — Ages 12–14 years | Jurassic English™",
+      "h1": "Level 4: Mastery",
+      "bodyTokenJaccard": 0.4612903225806452
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-1-foundation/syllabus",
+    "template": "syllabus",
+    "title": "Đề cương Cấp độ 1: Nền tảng — Độ tuổi 4–8 tuổi | Jurassic English™",
+    "h1": "Đề cương chương trình Level 1: Foundation",
+    "nearest": {
+      "path": "/vi/series/level-2-development/syllabus",
+      "title": "Đề cương Cấp độ 2: Phát triển — Độ tuổi 8–10 tuổi | Jurassic English™",
+      "h1": "Đề cương chương trình Level 2: Development",
+      "bodyTokenJaccard": 0.6065573770491803
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-4-mastery/syllabus",
+    "template": "syllabus",
+    "title": "Đề cương Cấp độ 4: Thành thạo — Độ tuổi 12–14 tuổi | Jurassic English™",
+    "h1": "Đề cương chương trình Level 4: Mastery",
+    "nearest": {
+      "path": "/vi/series/level-5-advanced/syllabus",
+      "title": "Đề cương Cấp độ 5: Nâng cao — Độ tuổi 14+ tuổi | Jurassic English™",
+      "h1": "Đề cương chương trình Level 5: Advanced",
+      "bodyTokenJaccard": 0.5977011494252874
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/legal/accessibility",
+    "template": "legal",
+    "title": "Tuyên bố trợ năng | Jurassic English™",
+    "h1": "Tuyên bố trợ năng",
+    "nearest": {
+      "path": "/vi/legal/privacy",
+      "title": "Chính sách quyền riêng tư | Jurassic English™",
+      "h1": "Chính sách quyền riêng tư",
+      "bodyTokenJaccard": 0.41329479768786126
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/thinking-cycle/justify",
+    "template": "thinking-cycle",
+    "title": "LẬP LUẬN — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+    "h1": "LẬP LUẬN",
+    "nearest": {
+      "path": "/vi/thinking-cycle/analyze",
+      "title": "PHÂN TÍCH — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™",
+      "h1": "PHÂN TÍCH",
+      "bodyTokenJaccard": 0.48655913978494625
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-5-advanced/syllabus",
+    "template": "syllabus",
+    "title": "Đề cương Cấp độ 5: Nâng cao — Độ tuổi 14+ tuổi | Jurassic English™",
+    "h1": "Đề cương chương trình Level 5: Advanced",
+    "nearest": {
+      "path": "/vi/series/level-4-mastery/syllabus",
+      "title": "Đề cương Cấp độ 4: Thành thạo — Độ tuổi 12–14 tuổi | Jurassic English™",
+      "h1": "Đề cương chương trình Level 4: Mastery",
+      "bodyTokenJaccard": 0.5977011494252874
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/compare",
+    "template": "standalone",
+    "title": "So sánh các cấp độ chương trình Jurassic English™ | Jurassic English™",
+    "h1": "So sánh cả năm cấp độ Jurassic English™",
+    "nearest": {
+      "path": "/vi/framework",
+      "title": "Khung tư duy phản biện dựa trên văn học | Jurassic English™",
+      "h1": "Kiến trúc sâu hơn phía sau Jurassic English™",
+      "bodyTokenJaccard": 0.29750479846449135
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  },
+  {
+    "url": "https://jurassicenglish.com/vi/series/level-3-expansion/syllabus",
+    "template": "syllabus",
+    "title": "Đề cương Cấp độ 3: Mở rộng — Độ tuổi 10–12 tuổi | Jurassic English™",
+    "h1": "Đề cương chương trình Level 3: Expansion",
+    "nearest": {
+      "path": "/vi/series/level-4-mastery/syllabus",
+      "title": "Đề cương Cấp độ 4: Thành thạo — Độ tuổi 12–14 tuổi | Jurassic English™",
+      "h1": "Đề cương chương trình Level 4: Mastery",
+      "bodyTokenJaccard": 0.5869918699186992
+    },
+    "decision": "Keep: distinct page purpose; add worked example or decision guidance. Token overlap includes shared template and is diagnostic, not a quality score."
+  }
+]
