@@ -185,7 +185,7 @@ export const Navbar = ({
   return (
     <nav className={`fixed top-0 w-full z-50 border-b transition-shadow duration-300 bg-sb-cream/95 backdrop-blur-md ${isSolidNav ? 'border-sb-border shadow-warm' : 'border-transparent'}`}>
       {/* Two balanced clusters on one 72px row: [logo + doors] … [language + CTA]. */}
-      <div className="max-w-[1600px] mx-auto h-[72px] px-3 min-[360px]:px-4 sm:px-6 flex flex-nowrap justify-between items-center gap-1.5 min-[360px]:gap-3">
+      <div className="max-w-[1600px] mx-auto h-[72px] px-3 min-[360px]:px-4 sm:px-6 flex flex-nowrap justify-between items-center gap-1.5 sm:gap-3">
         <div className="flex min-w-0 flex-nowrap items-center gap-4 2xl:gap-4">
         {/* Below 430px the wordmark wraps to two lines (min-content width) so the Baseline CTA never covers it; the row stays one 72px line. */}
         <button
@@ -218,14 +218,15 @@ export const Navbar = ({
           ))}
         </div>
         </div>
-        <div className="flex shrink-0 flex-nowrap items-center gap-1.5 min-[360px]:gap-2 sm:gap-3">
+        <div className="flex shrink-0 flex-nowrap items-center gap-1 sm:gap-3">
           <div className="hidden 2xl:block">{languageSwitcher}</div>
           {productsItem ? (
-            // Products stays one tap away at tablet and laptop widths (md up to 2xl); the full link row takes over from 2xl.
+            // Products stays one tap away at every width (4 Nov 2026, owner: "click, click, sales"): beside the
+            // CTA on phones, tablets and laptops; the full link row takes over from 2xl.
             <a
               href={getLocalizedHref(productsItem.href, locale)}
               onClick={(event) => handleNavItemClick(event, productsItem)}
-              className={`${NAV_LINK} hidden md:inline-flex min-h-11 items-center px-2 2xl:hidden`}
+              className={`${NAV_LINK} inline-flex min-h-11 min-w-11 items-center justify-center px-1 max-[639px]:text-sm sm:px-2 2xl:hidden`}
               data-testid="header-products-link"
             >
               {'short' in productsItem && productsItem.short ? productsItem.short : productsItem.label}
@@ -234,11 +235,12 @@ export const Navbar = ({
           <a
             href={bookHref}
             onClick={() => handleBookClick('desktop')}
-            className={`${NAV_CTA} px-2.5 min-[360px]:px-3 sm:px-5`}
+            className={`${NAV_CTA} px-2.5 min-[360px]:px-3 sm:px-5 max-[639px]:max-w-[6.5rem] max-[639px]:whitespace-normal max-[639px]:text-center max-[639px]:text-xs max-[639px]:leading-[1.15]`}
           >
+            {/* Below 640px the label may wrap to two lines so the Products link keeps its place in the bar. */}
             <span className="hidden sm:inline">{bookLabel}</span>
             <span className="sm:hidden">{cta.mobileLabel}</span>
-            <ArrowRight aria-hidden="true" className="hidden h-4 w-4 min-[360px]:block" />
+            <ArrowRight aria-hidden="true" className="hidden h-4 w-4 sm:block" />
           </a>
           <button
             ref={triggerRef}

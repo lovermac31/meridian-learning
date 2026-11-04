@@ -64,8 +64,52 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
     <div className="bg-sb-cream text-sb-ink">
       {/* 0 · IELTS app, first screen (coverage audit, 2 Nov 2026): one row above the hero; the full strip follows the hero. */}
       <div className="pt-20 sm:pt-[4.5rem]"><IeltsAppEntrance placement="home" locale={locale} variant="banner" /></div>
+      {/* 0b · Products in one tap on phones (4 Nov 2026, owner: "click, click, sales"): the four existing "Find what you
+          need" tiles as a compact row plus See all products, above the fold and clear of the cookie banner.
+          Phones only; from 768px the header Products link and the strip below do this job. */}
+      <div role="region" className="px-4 pt-4 md:hidden" aria-labelledby="top-products-heading" data-home-top-products>
+        <div className="flex items-center justify-between gap-3">
+          <h2 id="top-products-heading" className="min-w-0 text-sm font-extrabold leading-tight text-sb-forest">{find.heading}</h2>
+          <a
+            href={`${getLocalizedHref('/products', locale)}?utm_source=home-top`}
+            onClick={() => {
+              try {
+                trackCtaClick({ label: 'home_top_all_products', type: 'primary', segment: 'parent_student' });
+              } catch {
+                /* Measurement must not block navigation. */
+              }
+            }}
+            className="inline-flex min-h-11 flex-none items-center gap-1 whitespace-nowrap rounded-full px-2 text-[13px] font-extrabold text-sb-amber-deep underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+            data-home-top-all-products
+          >
+            {hero.secondary}
+            <ArrowRight aria-hidden="true" className="h-4 w-4 flex-none" />
+          </a>
+        </div>
+        <ul className="mt-1 grid grid-cols-2 gap-2">
+          {find.tiles.map((tile) => (
+            <li key={tile.anchor}>
+              <a
+                href={`${getLocalizedHref('/products', locale)}?utm_source=home-top#${tile.anchor}`}
+                onClick={() => {
+                  try {
+                    trackCtaClick({ label: `home_top_tile_${tile.anchor}`, type: 'primary', segment: 'parent_student' });
+                  } catch {
+                    /* Measurement must not block navigation. */
+                  }
+                }}
+                className="flex min-h-11 h-full items-center justify-between gap-1.5 rounded-xl border border-sb-forest/30 bg-white px-3 py-2 text-sm font-bold leading-tight text-sb-forest transition hover:border-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+                data-home-top-tile={tile.anchor}
+              >
+                <span className="min-w-0">{tile.title}</span>
+                <ArrowRight aria-hidden="true" className="h-4 w-4 flex-none" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
       {/* 1 · Promise + illustration */}
-      <section className="px-4 pb-14 pt-8 sm:px-6 sm:pt-10">
+      <section className="px-4 pb-14 pt-6 sm:px-6 sm:pt-10">
         <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-sb-forest">{hero.eyebrow}</p>
