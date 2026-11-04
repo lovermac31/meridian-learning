@@ -16,6 +16,11 @@ function track(name: string, params: Record<string, string | number | boolean | 
   ga4Event(name, params);
 }
 
+/** Money-path events (reserve, Zalo, buy): see conversionEvents.ts. */
+export function trackConversion(name: string, params: Record<string, string>) {
+  track(name, params);
+}
+
 export type CtaType       = 'primary' | 'secondary' | 'low_friction';
 export type AudienceSegment = 'institutional' | 'institutional_snapshot' | 'parent_student' | 'unknown';
 
