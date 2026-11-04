@@ -248,7 +248,7 @@ const termsAndConditions: LegalDocument = {
 const privacyPolicy: LegalDocument = {
   title: 'Privacy Policy',
   effectiveDate: 'March 2026',
-  lastUpdated: 'October 14, 2026',
+  lastUpdated: 'October 27, 2026',
   callout: {
     label: 'YOUR PRIVACY MATTERS',
     body: 'World Wise Learning is committed to protecting your personal data. This Privacy Policy explains what data we collect, how we use it, and your rights under applicable data protection law including the UK GDPR, EU GDPR, and equivalent international legislation.',
@@ -375,6 +375,8 @@ const privacyPolicy: LegalDocument = {
             ['Anonymised analytics', 'Indefinitely (no longer constitutes personal data)'],
           ],
         ),
+        // Free sample pack (website assessment, 27 Oct 2026; master's wording, approved by Jay at merge).
+        p('Free sample pack: we keep your email or Zalo number and your request for 12 months, or delete them sooner if you ask: info@jurassicenglish.com.'),
       ],
     },
     {

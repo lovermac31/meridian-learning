@@ -70,6 +70,10 @@ function pathOf(href: string) {
 // footer is its only chrome.
 const ROUTES_WITHOUT_SITE_NAVBAR = new Set(['/centres/level-1', '/vi/centres/level-1']);
 
+// Real Vietnamese pages served outside the SPA: the static YL page and the Student Academy story collections
+// (ecosystem app, vercel.json rewrite).
+const REWRITE_SERVED_VI = new Set(['/vi/luyen-noi-ielts', '/vi/student-academy/stories', '/vi/so-do-trang']);
+
 /** Navbar (the app's first <nav>) + Footer markup of a rendered route. */
 function chromeOf(html: string, route: string) {
   if (ROUTES_WITHOUT_SITE_NAVBAR.has(route)) {
@@ -137,7 +141,7 @@ test('(b) no link on a Vietnamese page points to a noindex placeholder or a miss
       // The unlisted centre-licence page's language switch links its own noindex twin.
       if (ROUTES_WITHOUT_SITE_NAVBAR.has(route) && ROUTES_WITHOUT_SITE_NAVBAR.has(path)) continue;
       const isViPath = path === '/vi' || path.startsWith('/vi/');
-      const isPlaceholder = NOINDEX_PLACEHOLDERS.has(path) || (isViPath && !INDEXABLE.has(path) && path !== '/vi/luyen-noi-ielts');
+      const isPlaceholder = NOINDEX_PLACEHOLDERS.has(path) || (isViPath && !INDEXABLE.has(path) && !REWRITE_SERVED_VI.has(path));
       if (isPlaceholder && (chromeHrefs.has(href) || !KNOWN_CONTENT_PLACEHOLDER_LINK.test(href))) {
         bad.push(`${route}: ${href}`);
       }

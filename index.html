@@ -27,16 +27,9 @@
     <meta name="twitter:image" content="https://jurassicenglish.com/images/hero-compass-960.webp" />
     <meta name="twitter:image:alt" content="Jurassic English™ — Critical Thinking Through Literature" />
 
-    <!-- LCP hero image — preload the same responsive WebP candidates used by the hero. -->
-    <link
-      rel="preload"
-      as="image"
-      href="/images/hero-compass-960.webp"
-      type="image/webp"
-      imagesrcset="/images/hero-compass-640.webp 640w, /images/hero-compass-960.webp 960w"
-      imagesizes="100vw"
-      fetchpriority="high"
-    />
+    <!-- LCP hero image preloads are per route: scripts/prerender-route-metadata.mjs
+         adds the homepage hero's preload on / and /vi, and the compass backdrop's
+         two media-matched preloads on routes whose body shows it. -->
 
     <!-- Display font (Neuland-Inline) for the hero h1 — the page's LCP element.
          The previous async-CSS pattern cost two SEQUENTIAL third-party round trips

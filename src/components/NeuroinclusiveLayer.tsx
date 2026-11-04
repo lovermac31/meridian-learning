@@ -24,6 +24,9 @@ export const NeuroinclusiveLayer = () => {
               <img
                 src="/images/about-institutional-800.jpg"
                 alt=""
+                width={800}
+                height={533}
+                loading="lazy"
                 aria-hidden="true"
                 className="w-full h-full object-cover object-center opacity-30"
                 onError={() => setImageAvailable(false)}
@@ -44,6 +47,9 @@ export const NeuroinclusiveLayer = () => {
             <img
               src="/images/about-institutional-800.jpg"
               alt=""
+              width={800}
+              height={533}
+              loading="lazy"
               aria-hidden="true"
               className="w-full h-full object-cover object-center opacity-15"
               onError={() => setImageAvailable(false)}

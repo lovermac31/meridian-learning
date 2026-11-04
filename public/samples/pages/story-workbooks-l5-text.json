@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "productId": "story-workbooks-l5",
+  "sampleStem": "story-workbooks-l5",
+  "pageCount": 3,
+  "source": {
+    "file": "story-workbooks-l5-sample.pdf",
+    "sha256": "c56e99f88467f3f5c304ad73aee4096b139db00672b9c92b437e2e031d2002e6"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "story-workbooks-l5-pg01.webp",
+      "imageSha256": "8e8418d3b84964493a0d7cec2fdda800db7c662f6ff3bdb989bfc43509e54a9e",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nA Box Called Other\nLevel 5 · Advanced\n\nAges 14+\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "66ab91b45b84deb6a657120a0bbeb0c14ea1ef41ffec2818045f2f58357c7383",
+      "method": "pdf-text"
+    },
+    {
+      "page": 2,
+      "image": "story-workbooks-l5-pg02.webp",
+      "imageSha256": "e8fdbad7f7a104b6c6daa06becfe8dc27349fadf8e04e3f0841bf8c8ddae8213",
+      "text": "Chapter 1\n\nA tidy first assignment\n\n1\n\nNoor’s first assignment at the town office was to sort responses to a summerspace survey. The form offered three reasons for using the riverside square:\nSHOPPING, RECREATION and OTHER. A neat chart would help councillors\ndecide where to spend a small improvement budget.\nNoor liked the assignment. Unlike the arguments outside the meeting room,\na spreadsheet seemed to promise that every answer could find a place.\nBy midday, SHOPPING had a tall blue bar, RECREATION a shorter green one,\nand OTHER an untidy collection of comments. The chart showed only the first\ntwo. Its caption explained that miscellaneous responses had been excluded\nfor clarity.\nNoor copied the caption without changing a word.\nRead and circle\nWhat reason does the caption give for leaving out the OTHER comments?\nA. To protect the privacy of the people who replied\nB. To keep the chart clear\nC. Because the improvement budget was too small\n\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "61351829af36f2f8fbecf1b6e6413ae610fe47f5314f8077244a8657c731f8e2",
+      "method": "pdf-text"
+    },
+    {
+      "page": 3,
+      "image": "story-workbooks-l5-pg03.webp",
+      "imageSha256": "ce6c16daab082347b1e5045ae70a35b82182c64ce45a4e6533c8e4830c0fd3ce",
+      "text": "Chapter 1 workbook\n\n1\n\nA tidy first assignment: my workbook page\n\n1 · Fill the gaps\ncouncillors\n\nfirst\n\noffice\n\nriverside\n\nNoor’s first assignment at the town\n\nwas to sort responses to a\n\nsummer-space survey.\nThe form offered three reasons for using the\n\nsquare: SHOPPING,\n\nRECREATION and OTHER.\nA neat chart would help\n\ndecide where to spend a small\n\nimprovement budget.\n2 · Think about it\nWhat does the author signal by having Noor copy the caption without changing a\nword?\nA. She has not yet questioned the choice the caption hides\nB. She has decided that every one of the OTHER comments is worthless\nC. She has been ordered never to edit any caption\n\n3 · Write it\nAnalyse the passive construction in the caption. Which decision-maker disappears,\nand what reason is made to sound self-evident?\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "26fea4da5f6a93ca2ebf764e3d50fd7ef9c07e435dc9365d7ce7165a9bd78896",
+      "method": "pdf-text"
+    }
+  ]
+}

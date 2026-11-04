@@ -45,12 +45,19 @@ test('every market CTA uses its approved tier and localized chrome', async () =>
     const tier = market ? pricing.markets[market as keyof typeof pricing.markets] : 1;
     const prices = pricing.tiers[String(tier) as keyof typeof pricing.tiers];
     const html = await renderRoute(page.path);
-    // The booking pages charge VND by VietQR, so a USD-priced CTA must open an email request, not a checkout.
+    // Website assessment, 27 Oct 2026, fix 7: on a PayPal market the buttons are the live checkout at the country's US$
+    // price; Pakistan, Bangladesh (no PayPal for residents) and the hubs (no single price) keep the email request.
     const hero = html.match(/<div class="insights-teacher">[\s\S]*?<\/header>/)?.[0] ?? '';
-    const ctaHrefs = [...hero.matchAll(/class="insights-button-(?:primary|secondary)" href="([^"]+)"/g)].map(match => match[1]);
+    const ctaHrefs = [...hero.matchAll(/class="insights-button-(?:primary|secondary)" href="([^"]+)"/g)].map(match => match[1].replaceAll('&amp;', '&'));
     assert.equal(ctaHrefs.length, 2, page.path);
-    for (const href of ctaHrefs) assert.match(href, /^mailto:info@jurassicenglish\.com\?subject=/, page.path);
-    assert.match(hero, /class="insights-cta-note"[^>]*>[\s\S]*info@jurassicenglish\.com/, page.path);
+    if (market && market !== 'pakistan' && market !== 'bangladesh') {
+      assert.deepEqual(ctaHrefs, [`/ai-speaking/baseline?market=${market}`, `/ai-speaking/lessons?pack=lesson_single&market=${market}`], page.path);
+      assert.doesNotMatch(hero, /mailto:/, page.path);
+      if (page.locale === 'en') assert.match(hero, new RegExp(`>Book a Speaking Baseline · US\\$${prices.baseline_usd}<`), page.path);
+    } else {
+      for (const href of ctaHrefs) assert.match(href, /^mailto:info@jurassicenglish\.com\?subject=/, page.path);
+      assert.match(hero, /class="insights-cta-note"[^>]*>[\s\S]*info@jurassicenglish\.com/, page.path);
+    }
     assert.ok(html.includes(`US$${prices.baseline_usd}`), page.path);
     assert.ok(html.includes(`US$${prices.lesson_usd}`), page.path);
     if (!market) assert.ok(html.includes(`from US$${prices.baseline_usd}`) || !['en'].includes(page.locale), page.path);
@@ -92,7 +99,10 @@ test('market closing band offers the booking request, AI Speaking and a free too
     const closing = html.match(/<div class="insights-closing"[\s\S]*?<\/main>/)?.[0] ?? '';
     const hrefs = [...closing.matchAll(/class="insights-button-(?:primary|secondary)" href="([^"]+)"/g)].map(match => match[1]);
     assert.equal(hrefs.length, 3, page.path);
-    assert.match(hrefs[0], /^mailto:info@jurassicenglish\.com\?subject=Speaking%20Baseline/, page.path);
+    const slug = page.path.split('/').at(-1)!;
+    const market = slug === 'ielts-speaking-online' ? undefined : slug === 'brasil' ? 'brazil' : slug;
+    if (market && market !== 'pakistan' && market !== 'bangladesh') assert.equal(hrefs[0], `/ai-speaking/baseline?market=${market}`, page.path);
+    else assert.match(hrefs[0], /^mailto:info@jurassicenglish\.com\?subject=Speaking%20Baseline/, page.path);
     assert.equal(hrefs[1], '/ai-speaking', page.path);
     assert.equal(hrefs[2], '/tools/ielts-band-score-calculator', page.path);
     if (page.locale !== 'en') assert.doesNotMatch(closing, /See how AI Speaking|Free IELTS band/, page.path);
@@ -124,7 +134,8 @@ test('PayPal panel shows the approved tier and opens the order-first checkout wi
     assert.doesNotMatch(panel, /cgi-bin\/webscr|_xclick/, page.path);
     assert.match(panel, /confirm|confirma|dikonfirmasi|disahkan|ยืนยัน|تأكيد/i, page.path);
     assert.match(panel, /<img src="https:\/\/www\.paypalobjects\.com\/[^"]+" width="101" height="32" alt="PayPal"/, page.path);
-    assert.match(html, /<a class="insights-paypal-link" href="#pay">/, page.path);
+    // The hero buttons are the checkout itself (fix 7), so the hero note is the checkout note, not a jump to #pay.
+    assert.doesNotMatch(html, /insights-paypal-link/, page.path);
     // The panel follows the key-facts box.
     assert.ok(html.indexOf('</aside>') < html.indexOf('id="pay"'), page.path);
   }

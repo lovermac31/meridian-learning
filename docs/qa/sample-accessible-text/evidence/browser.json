@@ -1,0 +1,639 @@
+{
+  "note": "ARIA tree and Chromium accessibility description smoke only; NOT VoiceOver/native screen-reader output.",
+  "results": [
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "width": 390,
+      "locale": "en",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 2,
+      "pageErrors": []
+    },
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "width": 390,
+      "locale": "vi",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 2,
+      "pageErrors": []
+    },
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "width": 1440,
+      "locale": "en",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 2,
+      "pageErrors": []
+    },
+    {
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "width": 1440,
+      "locale": "vi",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": true
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 2,
+      "pageErrors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "product": "printable-pack",
+      "page": 5,
+      "reviewedOCR": true,
+      "described": {
+        "ariaDescriptionLinked": true,
+        "accessibilityRegionPresent": true,
+        "chromiumImageDescriptionVerified": true
+      },
+      "states": [
+        {
+          "state": "reviewed illustrated text",
+          "violations": 0
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "product": "centre-licence",
+      "page": 14,
+      "reviewedOCR": true,
+      "described": {
+        "ariaDescriptionLinked": true,
+        "accessibilityRegionPresent": true,
+        "chromiumImageDescriptionVerified": true
+      },
+      "states": [
+        {
+          "state": "reviewed illustrated text",
+          "violations": 0
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "product": "parent-pack-l3",
+      "page": 4,
+      "longTextKeyboardScrollable": true,
+      "readingKeysDoNotFlipPage": true
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "product": "parent-pack-l2",
+      "revisedImageCacheKey": true,
+      "fetchedImageMatchesTextProvenance": true
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "product": "ielts-writing-teacher-pack",
+      "revisedImageCacheKey": true,
+      "fetchedImageMatchesTextProvenance": true
+    },
+    {
+      "engine": "chromium",
+      "mode": "missing",
+      "safeLocalizedError": true,
+      "closeWorks": true
+    },
+    {
+      "engine": "chromium",
+      "mode": "malformed",
+      "safeLocalizedError": true,
+      "closeWorks": true
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "width": 390,
+      "locale": "en",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 16,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "width": 390,
+      "locale": "vi",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 16,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "width": 1440,
+      "locale": "en",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 16,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "version": "26.6",
+      "width": 1440,
+      "locale": "vi",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 16,
+      "pageErrors": []
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "width": 390,
+      "locale": "en",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 2,
+      "pageErrors": []
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "width": 390,
+      "locale": "vi",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 2,
+      "pageErrors": []
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "width": 1440,
+      "locale": "en",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 2,
+      "pageErrors": []
+    },
+    {
+      "engine": "firefox",
+      "version": "155.0",
+      "width": 1440,
+      "locale": "vi",
+      "textRequests": 1,
+      "states": [
+        {
+          "state": "open image",
+          "violations": 0
+        },
+        {
+          "state": "paged image",
+          "violations": 0
+        },
+        {
+          "state": "visible text",
+          "violations": 0
+        },
+        {
+          "state": "last page text and CTA",
+          "violations": 0
+        }
+      ],
+      "described": [
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        },
+        {
+          "ariaDescriptionLinked": true,
+          "accessibilityRegionPresent": true,
+          "chromiumImageDescriptionVerified": false
+        }
+      ],
+      "keyboardToggle": true,
+      "focusContained": true,
+      "escapeAndOpenerRestored": true,
+      "blockedExternalRequests": 2,
+      "pageErrors": []
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+[
+  {
+    "input": "https://www.jurassicenglish.com/",
+    "chain": [
+      {
+        "url": "https://www.jurassicenglish.com/",
+        "status": 308,
+        "location": "https://jurassicenglish.com/",
+        "canonical": null
+      },
+      {
+        "url": "https://jurassicenglish.com/",
+        "status": 200,
+        "location": null,
+        "canonical": "https://jurassicenglish.com"
+      }
+    ]
+  },
+  {
+    "input": "http://www.jurassicenglish.com/",
+    "chain": [
+      {
+        "url": "http://www.jurassicenglish.com/",
+        "status": 308,
+        "location": "https://www.jurassicenglish.com/",
+        "canonical": null
+      },
+      {
+        "url": "https://www.jurassicenglish.com/",
+        "status": 308,
+        "location": "https://jurassicenglish.com/",
+        "canonical": null
+      },
+      {
+        "url": "https://jurassicenglish.com/",
+        "status": 200,
+        "location": null,
+        "canonical": "https://jurassicenglish.com"
+      }
+    ]
+  },
+  {
+    "input": "http://jurassicenglish.com/",
+    "chain": [
+      {
+        "url": "http://jurassicenglish.com/",
+        "status": 308,
+        "location": "https://jurassicenglish.com/",
+        "canonical": null
+      },
+      {
+        "url": "https://jurassicenglish.com/",
+        "status": 200,
+        "location": null,
+        "canonical": "https://jurassicenglish.com"
+      }
+    ]
+  },
+  {
+    "input": "https://jurassicenglish.com/index.html",
+    "chain": [
+      {
+        "url": "https://jurassicenglish.com/index.html",
+        "status": 308,
+        "location": "/",
+        "canonical": null
+      },
+      {
+        "url": "https://jurassicenglish.com/",
+        "status": 200,
+        "location": null,
+        "canonical": "https://jurassicenglish.com"
+      }
+    ]
+  },
+  {
+    "input": "https://jurassicenglish.com/vi/get-started",
+    "chain": [
+      {
+        "url": "https://jurassicenglish.com/vi/get-started",
+        "status": 200,
+        "location": null,
+        "canonical": "https://jurassicenglish.com/vi/get-started"
+      }
+    ]
+  }
+]

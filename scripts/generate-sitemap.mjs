@@ -17,6 +17,25 @@ import { fileURLToPath } from 'node:url';
 import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.ts';
 import { createLastmodResolver } from './lib/sitemap-lastmod.mjs';
 import { getSeoPage, isInternationalMarketPath, getInternationalAlternates } from '../src/lib/seoPages.ts';
+import { videosForPath } from '../src/lib/videoSeo.ts';
+
+const xml = (value) => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+// Video sitemap (27 Oct 2026): one <video:video> per film shown on the page, from the same manifest as its VideoObject.
+// Google's limits: title ≤ 100 characters, description ≤ 2048, duration in whole seconds.
+function videoLines(pathname) {
+  return videosForPath(pathname).flatMap((video) => [
+    '    <video:video>',
+    `      <video:thumbnail_loc>${xml(video.thumbnailUrl)}</video:thumbnail_loc>`,
+    `      <video:title>${xml(video.name.slice(0, 100))}</video:title>`,
+    `      <video:description>${xml(video.description.slice(0, 2048))}</video:description>`,
+    `      <video:content_loc>${xml(video.contentUrl)}</video:content_loc>`,
+    `      <video:duration>${Math.max(1, Math.round(video.seconds))}</video:duration>`,
+    `      <video:publication_date>2026-10-27</video:publication_date>`,
+    `      <video:family_friendly>yes</video:family_friendly>`,
+    '    </video:video>',
+  ]);
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir   = path.resolve(__dirname, '..', 'dist');
@@ -59,6 +78,7 @@ function getChangefreq(pathname) {
 }
 
 const toolPairs = [
+  ['/en/story-club/reserve', '/story-club/reserve'],
   ['/tools/ielts-band-score-calculator', '/vi/cong-cu/tinh-diem-ielts'],
   ['/tools/ielts-speaking-part-2-timer', '/vi/cong-cu/dong-ho-ielts-speaking-part-2'],
 ];
@@ -96,6 +116,7 @@ function buildUrl(pathname) {
     ...lastmodLine(pathname),
     `    <changefreq>${getChangefreq(pathname)}</changefreq>`,
     `    <priority>${getPriority(pathname)}</priority>`,
+    ...videoLines(pathname),
     '  </url>',
   ].join('\n');
 }
@@ -107,6 +128,32 @@ function buildUrl(pathname) {
  * discovered by search engines without touching routeMetadata.ts.
  */
 const STATIC_EXTRA_URLS = [
+  ...['/site-map', '/vi/so-do-trang'].map(pathname => ({ loc: `${SITE_URL}${pathname}`, changefreq: 'weekly', priority: '0.6' })),
+  // Read-only live audit: final, self-canonical public routes linked by the external apps.
+  ...[
+    '/ai-speaking/exam',
+    '/ai-speaking/lessons',
+    '/ai-speaking/privacy',
+    '/ai-speaking/solutions',
+    '/ai-speaking/terms',
+    '/ai-speaking/vi/baseline',
+    '/ai-speaking/vi/lessons',
+    '/ai-speaking/vi/pricing',
+    '/ai-speaking/vi/samples',
+    '/ai-speaking/vi/samples/advanced',
+    '/ai-speaking/vi/samples/intermediate',
+    '/ai-speaking/vi/solutions',
+    '/ai-speaking/vi/writing',
+    '/ai-speaking/writing',
+    '/student-academy/stories',
+    '/ai-speaking/vi/writing/demo',
+    '/ai-speaking/vi/writing/sample',
+    '/ai-speaking/writing/demo',
+    '/ai-speaking/writing/sample',
+    '/vi/student-academy/stories',
+  ].map((pathname) => ({
+    loc: `${SITE_URL}${pathname}`, changefreq: 'monthly', priority: '0.6',
+  })),
   {
     loc: `${SITE_URL}/challenges/one-change`,
     changefreq: 'monthly',
@@ -138,7 +185,7 @@ const STATIC_EXTRA_URLS = [
     changefreq: 'monthly',
     priority: '0.6',
   },
-  ...['basic', 'intermediate', 'advanced'].map((tier) => ({
+  ...['intermediate', 'advanced'].map((tier) => ({
     loc: `${SITE_URL}/ai-speaking/samples/${tier}`,
     changefreq: 'monthly',
     priority: '0.5',
@@ -174,7 +221,7 @@ async function main() {
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">',
     urlTags,
     extraTags,
     '</urlset>',

@@ -31,7 +31,7 @@ export const Services = () => {
     <section id="training" className="py-28 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <span className="text-jurassic-accent font-bold uppercase tracking-widest text-xs mb-4 block">
+          <span className="text-jurassic-accent-ink font-bold uppercase tracking-widest text-xs mb-4 block">
             {homeContent.services.eyebrow}
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-jurassic-dark">

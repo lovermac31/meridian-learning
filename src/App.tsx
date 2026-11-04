@@ -1,6 +1,10 @@
+import { CrawlResources } from './components/CrawlResources';
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+import { OptionalAnalytics } from './components/PrivacyControls';
 import { GlobalContactPanel } from './components/GlobalContactPanel';
+import { ZaloFloat } from './components/ZaloFloat';
+import { isZaloFloatHidden } from './lib/zaloFloat';
+import { captureFirstTouchFromLocation } from './lib/utmFirstTouch';
 import { Navbar } from './components/Navbar';
 import { HomeOverhaul } from './components/HomeOverhaul';
 import { AiSpeakingLaunch } from './components/AiSpeakingLaunch';
@@ -31,6 +35,10 @@ import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { StoryClubPage } from './components/StoryClubPage';
 import { CentreLicencePage } from './components/CentreLicencePage';
+import { StoryClubReservePage } from './components/StoryClubReservePage';
+import { ProductsPage } from './components/ProductsPage';
+import { ProductPage } from './components/ProductPage';
+import { getProductByPath } from './i18n/content/productSeo';
 import { isInternationalMarketPath } from './lib/seoPageMeta';
 import { getCurrentLocation } from './lib/ssrLocation';
 
@@ -70,6 +78,9 @@ const LegalPage = lazy(() =>
 );
 const PlansPricingAccessPage = lazy(() =>
   import('./components/PlansPricingAccessPage').then(m => ({ default: m.PlansPricingAccessPage }))
+);
+const LiveSpeakingCheckPage = lazy(() =>
+  import('./components/LiveSpeakingCheckPage').then(m => ({ default: m.LiveSpeakingCheckPage }))
 );
 const ExternalPilotPortalPage = lazy(() =>
   import('./components/ExternalPilotPortalPage').then(m => ({ default: m.ExternalPilotPortalPage }))
@@ -185,8 +196,14 @@ function App() {
   const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
   const isStoryClubView = routePathname === '/story-club';
   const isCentreLicenceView = routePathname === '/centres/level-1';
+  const isStoryClubReserveView = routePathname === '/story-club/reserve';
+  const isProductsView = routePathname === '/products';
+  // /products/<id> for a live product; any other id falls through to the 404 view.
+  const productPageProduct = getProductByPath(routePathname);
+  const isProductPageView = productPageProduct !== null;
   const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams' || isInternationalMarketPath(routePathname);
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
+  const isLiveSpeakingCheckView = routePathname === '/live-speaking-check';
   const isExternalPilotPortalView = routePathname === '/external/pilot';
   const isInternalPilotRequestsView = routePathname === '/internal/pilot-requests';
   // `/pilot/<id>` — a single non-empty segment after /pilot/. Matches the
@@ -222,7 +239,10 @@ function App() {
     isInsightsView ||
     isBandToolView ||
     isTimerToolView ||
-    isStoryClubView;
+    isStoryClubView ||
+    isStoryClubReserveView ||
+    isProductsView ||
+    isProductPageView;
   const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
   const isSubpageView =
     isGetStartedView ||
@@ -236,6 +256,7 @@ function App() {
     isTeacherStandardsView ||
     isCompaniesView ||
     isPlansPricingAccessView ||
+    isLiveSpeakingCheckView ||
     isExternalPilotPortalView ||
     isInternalPilotRequestsView ||
     isPilotHoldingView ||
@@ -246,6 +267,9 @@ function App() {
     isTimerToolView ||
     isStoryClubView ||
     isCentreLicenceView ||
+    isStoryClubReserveView ||
+    isProductsView ||
+    isProductPageView ||
     isSeriesView ||
     isSyllabusView ||
     isSeriesComparisonView ||
@@ -267,6 +291,11 @@ function App() {
       setRoute('/');
     }
   }, [pathname]);
+
+  // First-touch utm_* for the visit (funnel audit fix 2): kept once per page load, before any link is clicked.
+  useEffect(() => {
+    captureFirstTouchFromLocation();
+  }, []);
 
   useEffect(() => {
     const handlePopState = () => setRoute(getCurrentRoute());
@@ -447,6 +476,12 @@ function App() {
         <StoryClubPage locale={locale} />
       ) : isCentreLicenceView ? (
         <CentreLicencePage locale={locale} />
+      ) : isStoryClubReserveView ? (
+        <StoryClubReservePage locale={locale} />
+      ) : isProductsView ? (
+        <ProductsPage locale={locale} />
+      ) : productPageProduct ? (
+        <ProductPage product={productPageProduct} locale={locale} />
       ) : isInsightsView ? (
         <SearchInsightsPage pathname={pathname} onNavigate={navigateTo} />
       ) : isUnknownRouteView ? (
@@ -523,6 +558,8 @@ function App() {
         />
       ) : isPlansPricingAccessView ? (
         <PlansPricingAccessPage onBack={() => navigateTo('/')} />
+      ) : isLiveSpeakingCheckView ? (
+        <LiveSpeakingCheckPage />
       ) : isExternalPilotPortalView ? (
         <ExternalPilotPortalPage
           onBack={() => navigateTo('/')}
@@ -591,6 +628,7 @@ function App() {
         <main id="main-content" tabIndex={-1} className="focus:outline-none">
           {/* 10/10 overhaul homepage: hero + 3 age doors, Before/After, Meet Mr. Jay. */}
           <HomeOverhaul onNavigate={navigateTo} />
+          <CrawlResources context="home" />
         </main>
       )}
       </Suspense>
@@ -606,6 +644,9 @@ function App() {
           runs; the Contact button only where the assistant does not (Vietnamese pages and routes outside its allowlist). */}
       {/* Contact button on every page (owner, 14 Oct 2026); the assistant keeps its own direct-channels row too. */}
       {!hideSiteChrome ? <GlobalContactPanel /> : null}
+      {/* Floating Zalo button, bottom-right on every public page (owner, 1 Nov 2026). Off on checkout pay steps, where it
+          would cover the VietQR, and on the private portals; it keeps clear of the assistant launcher and the privacy banner. */}
+      <ZaloFloat locale={locale} hidden={isZaloFloatHidden(routePathname, getCurrentLocation().search)} />
       {isBotUIPilotVisible ? (
         <Suspense fallback={null}>
           <BotUIChat currentPathname={pathname} onNavigate={navigateTo} />
@@ -624,7 +665,7 @@ function App() {
           onNavigate={navigateTo}
         />
       </Suspense>
-      <SpeedInsights route={speedInsightsRoute} />
+      <OptionalAnalytics route={speedInsightsRoute} />
     </div>
   );
 }

@@ -1,0 +1,152 @@
+[
+  {
+    "engine": "chromium",
+    "width": 390,
+    "subtitle": "true",
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#home",
+      "h": [
+        "Free English reading game for children 6⁠–⁠12",
+        "A story, three simple steps"
+      ]
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "subtitle": "true",
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#home",
+      "h": [
+        "Free English reading game for children 6⁠–⁠12",
+        "A story, three simple steps"
+      ]
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "subtitle": "true",
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#home",
+      "h": [
+        "Free English reading game for children 6⁠–⁠12",
+        "A story, three simple steps"
+      ]
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "subtitle": "true",
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#home",
+      "h": [
+        "Free English reading game for children 6⁠–⁠12",
+        "A story, three simple steps"
+      ]
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "subtitle": "true",
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#home",
+      "h": [
+        "Free English reading game for children 6⁠–⁠12",
+        "A story, three simple steps"
+      ]
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "subtitle": "true",
+    "questEn": "Free English reading game for children 6⁠–⁠12",
+    "questButtons": [
+      "Sound off",
+      "EN",
+      "Tiếng Việt",
+      "Ages 6–7",
+      "Age 8",
+      "Ages 9–10",
+      "Ages 11–12",
+      "Start the story",
+      "Explore stories",
+      "For parents"
+    ],
+    "questStarted": {
+      "url": "https://worldwise-story-quest.vercel.app/#home",
+      "h": [
+        "Free English reading game for children 6⁠–⁠12",
+        "A story, three simple steps"
+      ]
+    }
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "browser": "Chromium, muted",
+  "network": "All requests fulfilled locally or aborted; vendor scripts mocked",
+  "result": [
+    {
+      "path": "/products",
+      "keyboardAccept": true,
+      "sampleOverlay": "unobscured; focus contained; Escape closes",
+      "defaultOptionalLoads": 0,
+      "rejectedOptionalLoads": 0,
+      "acceptedOptionalLoads": 3,
+      "withdrawnMiddleware": "null/null",
+      "withdrawnReloadAdditionalLoads": 0,
+      "pageErrors": []
+    },
+    {
+      "path": "/vi/products",
+      "keyboardAccept": true,
+      "sampleOverlay": "not applicable",
+      "defaultOptionalLoads": 0,
+      "rejectedOptionalLoads": 0,
+      "acceptedOptionalLoads": 3,
+      "withdrawnMiddleware": "null/null",
+      "withdrawnReloadAdditionalLoads": 0,
+      "pageErrors": []
+    },
+    {
+      "path": "/young-learners-speaking/",
+      "keyboardAccept": true,
+      "sampleOverlay": "not applicable",
+      "defaultOptionalLoads": 0,
+      "rejectedOptionalLoads": 0,
+      "acceptedOptionalLoads": 3,
+      "withdrawnMiddleware": "null/null",
+      "withdrawnReloadAdditionalLoads": 0,
+      "pageErrors": []
+    }
+  ]
+}

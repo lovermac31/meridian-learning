@@ -16,10 +16,11 @@
  */
 import type { Locale } from '../locales';
 
-export const STORY_QUEST_URL = 'https://worldwise-story-quest.vercel.app/#home';
+// Served from Jay's own server (Oct 2026), never a vercel.app address: tests/no-vercel-app-links.test.ts.
+export const STORY_QUEST_URL = 'https://story-quest.jurassicenglish.com/#home';
 export const WORLDWISE_URL = 'https://www.worldwiselearning.app/';
 export const CONTACT_EMAIL = 'info@jurassicenglish.com';
-export const ZALO_URL = 'https://zalo.me/84396085076';
+export const ZALO_URL = '/go/zalo';
 export const IMG = '/images/overhaul';
 export const UNDER_18_POLICY_EN = 'Sessions with learners under 18 are never recorded.';
 
@@ -32,12 +33,16 @@ const en = {
       { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: introduction & demo', href: '/ai-speaking/writing', kind: 'native' },
       { key: 'adults', label: 'AI Speaking Mocks', desc: 'Adult IELTS Speaking practice (18+)', href: '/ai-speaking', kind: 'native' },
       { key: 'jay', label: 'Pricing', desc: 'Mr. Jay, plans and pricing', href: '/#pricing-options', kind: 'native' },
+      // Products in the main menu (website assessment, 27 Oct 2026, fix 3: Jay wants easy access; supersedes footer-only).
+      { key: 'products', label: 'Products & prices', short: 'Products', desc: '', href: '/products', kind: 'route' },
     ],
     // Small badge after the IELTS Writing link (owner, Oct 2026).
     newBadge: 'New',
     cta: 'Book Baseline · 690k₫',
     ctaMobile: 'Baseline · 690k₫',
     ctaHref: '/ai-speaking/baseline',
+    // Parent pages: the header offers the free sample pack (fix 2).
+    sampleCta: 'Free sample pack',
   },
   footer: {
     navLabel: 'Footer',
@@ -50,6 +55,7 @@ const en = {
       { label: 'IELTS Writing Task 2 (Coming Soon)', href: '/ai-speaking/writing' },
       { label: 'Live Speaking Baseline', href: '/ai-speaking/baseline' },
       { label: 'Academic Framework', href: '/framework' },
+      { label: 'Products & prices', href: '/products' },
       { label: 'Privacy', href: '/legal/privacy' },
       { label: 'Terms', href: '/legal/terms' },
       { label: 'Contact', href: '/get-started' },
@@ -78,15 +84,39 @@ const en = {
       title: 'English your child can use—not just memorise.',
       body: 'Story-led lessons that help children and teens explain ideas using details from real books, speak confidently out loud, and write clearly—plus evidence-based IELTS practice for older teens and adults.',
       primary: 'Explore Learning Paths',
-      secondary: 'Try the Free 2-Min Story Quest Activity (Ages 6–12)',
+      // One clear secondary button to the products (master, 27 Oct 2026: a clean path from home to /products).
+      secondary: 'See all products',
       imageAlt: 'Storybook illustration: Professor Rex and young explorers gathered around an illustrated map of story worlds',
       artLabel: 'Illustration',
       rexAlt: 'Illustration of Professor Rex, the Jurassic English storybook guide',
     },
+    // IELTS app feature (Jay + CEO, 2 Nov 2026): one strip directly under the hero for https://ielts.jurassicenglish.com.
+    // Wording as given by Jay; practice only, no score or band promise. The image is the app's Practice screen (QA capture, 2 Nov).
+    ieltsApp: {
+      eyebrow: 'Free IELTS Speaking practice',
+      title: 'Practise with an AI examiner. 2 free attempts.',
+      body: 'Your report quotes your own words and shows the one change that matters next. Practice only, not an official score.',
+      primary: 'Try it free',
+      secondary: 'See IELTS Speaking packs',
+      imageAlt: 'Practice screen of the IELTS Speaking app',
+      banner: 'Free IELTS Speaking practice: 2 attempts',
+      adults: 'Adults 18+',
+    },
+    // "Find what you need" (master, 27 Oct 2026): one strip under the hero, a tile per /products section with its
+    // starting price and the image of the product at that price. Promise lines are the /products section intros.
+    find: {
+      heading: 'Find what you need',
+      tiles: [
+        { anchor: 'families', title: 'For families', promise: 'Live classes with Mr. Jay, and printables for home.', from: 'from 149.000₫', image: 'printable-pack-l1' },
+        { anchor: 'story-workbooks', title: 'Story Workbooks', promise: 'Print-ready storybook workbooks for Levels 1–5, with an answer key and a teacher guide.', from: 'from 190.000₫', image: 'story-workbooks-l1' },
+        { anchor: 'teachers', title: 'For teachers', promise: 'Ready-to-use materials for teachers and tutors.', from: 'from 149.000₫', image: 'student-workbook-l1' },
+        { anchor: 'centres', title: 'For centres', promise: 'Programmes and materials for schools and centres.', from: 'from 290.000₫', image: 'curriculum-overview' },
+      ],
+    },
     paths: {
       heading: "Choose the path that fits your learner's goal",
       helper:
-        'Not sure whether to start with Reading or Speaking for a 9–14 year old? Choose Path 1 (Reading & Story Adventures) if your child needs richer vocabulary, reading comprehension and structured paragraph writing. Choose Path 2 (Speaking Confidence & Teen IELTS) if your child already reads well on paper but hesitates to speak out loud.',
+        'Ages 6–14: start with stories. Ages 9–18: start with speaking.',
       bestFor: 'Best for',
       purpose: 'Clear purpose',
       cards: [
@@ -166,7 +196,7 @@ const en = {
     pricing: {
       heading: 'Clear starting options & transparent pricing',
       disclosure:
-        'All VietQR and online-checkout payments are billed in Vietnamese Đồng (VND ₫). Approximate US Dollar (~$) figures use 1 USD ≈ 25.897₫ for international reference; families outside Vietnam can also pay set US$ amounts by PayPal on the Speaking page. Live online sessions run across GMT+3 to GMT+8 (Hanoi is GMT+7).',
+        'Prices in VND. USD is approximate.',
       entryLabel: 'Start here',
       ongoingLabel: 'Ongoing options & full commitment totals',
       rows: [
@@ -236,11 +266,13 @@ const vi: OverhaulContent = {
       { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: giới thiệu & bản demo', href: '/ai-speaking/writing', kind: 'native' },
       { key: 'adults', label: 'Thi thử Nói AI', desc: 'Luyện Nói IELTS cho người lớn (18+)', href: '/ai-speaking', kind: 'native' },
       { key: 'jay', label: 'Học phí', desc: 'Thầy Jay, gói học và học phí', href: '/#pricing-options', kind: 'native' },
+      { key: 'products', label: 'Sản phẩm & học phí', short: 'Sản phẩm', desc: '', href: '/products', kind: 'route' },
     ],
     newBadge: 'Mới',
     cta: 'Đặt Đánh giá · 690k₫',
     ctaMobile: 'Đánh giá · 690k₫',
     ctaHref: '/ai-speaking/baseline',
+    sampleCta: 'Nhận bộ mẫu miễn phí',
   },
   footer: {
     navLabel: 'Chân trang',
@@ -253,6 +285,7 @@ const vi: OverhaulContent = {
       { label: 'IELTS Writing Task 2 (Sắp ra mắt)', href: '/ai-speaking/writing' },
       { label: 'Đánh giá Nói trực tiếp', href: '/ai-speaking/baseline' },
       { label: 'Khung học thuật', href: '/framework' },
+      { label: 'Sản phẩm & bảng giá', href: '/products' },
       { label: 'Quyền riêng tư', href: '/legal/privacy' },
       { label: 'Điều khoản', href: '/legal/terms' },
       { label: 'Liên hệ', href: '/get-started' },
@@ -280,15 +313,35 @@ const vi: OverhaulContent = {
       title: 'Tiếng Anh con dùng được—không chỉ học thuộc.',
       body: 'Những bài học xoay quanh câu chuyện giúp trẻ em và tuổi teen giải thích ý tưởng bằng chi tiết từ sách thật, tự tin nói thành lời và viết mạch lạc—cùng phần luyện IELTS dựa trên bằng chứng cho học sinh lớn và người lớn.',
       primary: 'Xem các lộ trình học',
-      secondary: 'Chơi thử Story Quest 2 phút miễn phí (6–12 tuổi)',
+      secondary: 'Xem tất cả sản phẩm',
       imageAlt: 'Tranh minh hoạ truyện: Giáo sư Rex và các nhà thám hiểm nhỏ quây quanh tấm bản đồ các thế giới truyện',
       artLabel: 'Tranh minh hoạ',
       rexAlt: 'Tranh minh hoạ Giáo sư Rex, người dẫn đường trong truyện của Jurassic English',
     },
+    // Machine-drafted VI (2 Nov 2026); needs a native read.
+    ieltsApp: {
+      eyebrow: 'Luyện IELTS Speaking miễn phí',
+      title: 'Luyện nói với giám khảo AI. 2 lượt thử miễn phí.',
+      body: 'Báo cáo trích đúng lời bạn nói và chỉ ra một thay đổi quan trọng nhất cần làm tiếp. Chỉ để luyện tập, không phải điểm thi chính thức.',
+      primary: 'Dùng thử miễn phí',
+      secondary: 'Xem các gói IELTS Speaking',
+      imageAlt: 'Màn hình luyện tập của ứng dụng IELTS Speaking',
+      banner: 'Luyện IELTS Speaking miễn phí: 2 lượt thử',
+      adults: 'Người lớn 18+',
+    },
+    find: {
+      heading: 'Tìm đúng thứ bạn cần',
+      tiles: [
+        { anchor: 'families', title: 'Dành cho gia đình', promise: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.', from: 'từ 149.000₫', image: 'printable-pack-l1' },
+        { anchor: 'story-workbooks', title: 'Sách truyện bài tập', promise: 'Sách truyện bài tập in sẵn cho Level 1–5, có đáp án và hướng dẫn cho giáo viên.', from: 'từ 190.000₫', image: 'story-workbooks-l1' },
+        { anchor: 'teachers', title: 'Dành cho giáo viên', promise: 'Tài liệu dùng ngay cho giáo viên và gia sư.', from: 'từ 149.000₫', image: 'student-workbook-l1' },
+        { anchor: 'centres', title: 'Dành cho trung tâm', promise: 'Chương trình và tài liệu cho trường học và trung tâm.', from: 'từ 290.000₫', image: 'curriculum-overview' },
+      ],
+    },
     paths: {
       heading: 'Chọn lộ trình phù hợp với mục tiêu của người học',
       helper:
-        'Chưa biết nên cho con 9–14 tuổi bắt đầu với Đọc hay Nói? Hãy chọn Lộ trình 1 (Đọc sách & Phiêu lưu truyện) nếu con cần vốn từ phong phú hơn, đọc hiểu tốt hơn và viết đoạn văn có cấu trúc. Hãy chọn Lộ trình 2 (Tự tin nói & IELTS cho teen) nếu con đã đọc tốt trên giấy nhưng còn ngại nói thành lời.',
+        '6–14 tuổi: bắt đầu với truyện. 9–18 tuổi: bắt đầu với nói.',
       bestFor: 'Phù hợp nhất',
       purpose: 'Mục tiêu rõ ràng',
       cards: [
@@ -368,7 +421,7 @@ const vi: OverhaulContent = {
     pricing: {
       heading: 'Lựa chọn bắt đầu rõ ràng & học phí minh bạch',
       disclosure:
-        'Mọi khoản thanh toán qua VietQR và thanh toán trực tuyến đều tính bằng Việt Nam Đồng (VND ₫). Giá USD (~$) chỉ để tham khảo, quy đổi theo 1 USD ≈ 25.897₫; gia đình ở nước ngoài cũng có thể trả các khoản USD cố định qua PayPal trên trang Luyện nói. Các buổi học trực tuyến diễn ra trong khung GMT+3 đến GMT+8 (Hà Nội là GMT+7).',
+        'Giá tính bằng VND. USD chỉ tham khảo.',
       entryLabel: 'Bắt đầu tại đây',
       ongoingLabel: 'Lựa chọn tiếp theo & tổng chi phí cam kết',
       rows: [

@@ -40,7 +40,9 @@ test('adult buyer guide has an explicit SSR body and an honest ordered acquisiti
 });
 
 test('CTAs are crawlable, untracked and do not fabricate commercial terms', () => {
-  const html = body(render());
+  // The article's own CTAs stay untracked. The IELTS app entrance card above the article (2 Nov 2026) is site
+  // chrome with its own entrance tag, so it is set aside here.
+  const html = body(render()).replace(/<section class="ielts-app-entrance"[\s\S]*?<\/section>/, '');
   for (const [href, label] of [
     ['/challenges/one-change', 'Try the free One Change practice challenge'],
     ['/ai-speaking/baseline', 'Review the paid live Speaking Baseline and booking details'],

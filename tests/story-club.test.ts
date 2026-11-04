@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { getLocalizedPathname, resolveLocalizedRoute } from '../src/i18n/routing';
 import { isPublicContentReleased } from '../src/i18n/content';
 import { resolveRouteMetadata, getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata';
-import { storyClubContent, STORY_CLUB_ZALO } from '../src/i18n/content/storyClub';
+import { storyClubContent, STORY_CLUB_FREE_STORIES, STORY_CLUB_ZALO } from '../src/i18n/content/storyClub';
 
 const EN = '/story-club';
 const VI = '/vi/story-club';
@@ -30,7 +30,7 @@ test('both locales state the same price, seat cap and payment method', () => {
   assert.equal(storyClubContent.vi.faq.items.length, storyClubContent.en.faq.items.length);
 });
 
-test('every booking button goes to Jay\'s Zalo; pages state the no-recording policy', async () => {
+test('talk buttons use attributed Zalo links; pages state the no-recording policy', async () => {
   const { renderRoute } = await import('../src/entry-server');
   for (const [route, counterpart, policy] of [
     [EN, VI, 'never recorded'],
@@ -39,7 +39,7 @@ test('every booking button goes to Jay\'s Zalo; pages state the no-recording pol
     const html = await renderRoute(route);
     const ctas = [...html.matchAll(/data-cta="story-club-zalo"/g)].length;
     assert.ok(ctas >= 3, `${route}: ${ctas} Zalo buttons`);
-    assert.ok(html.includes(`href="${STORY_CLUB_ZALO}"`), route);
+    assert.ok(html.includes('href="/go/zalo?utm_source=story-club&amp;utm_content=talk-to-jay"'), route);
     assert.ok(html.includes(`href="${counterpart}"`), `${route} links its counterpart`);
     assert.ok(html.includes(policy), route);
   }
@@ -53,5 +53,24 @@ test('every booking button goes to Jay\'s Zalo; pages state the no-recording pol
     const body = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
     assert.ok(body.length > 0, 'main rendered');
     assert.ok(!body.includes('href="/young-learners-speaking/"') && !body.includes('href="/vi/luyen-noi-ielts/"'), 'no IELTS 9–18 link in the Story Club body');
+  }
+});
+
+// W-1 (Jay, 27 Oct 2026): one quiet link under the price to the Level 1 story collection, in both languages.
+test('under the price, one quiet link lets parents try a free story first (the Level 1 collection)', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  assert.deepEqual(STORY_CLUB_FREE_STORIES, {
+    en: '/student-academy/stories?utm_source=storyclub#level-1',
+    vi: '/vi/student-academy/stories?utm_source=storyclub#level-1',
+  });
+  for (const [route, href, label] of [
+    [EN, '/student-academy/stories?utm_source=storyclub#level-1', 'Try a free story first'],
+    [VI, '/vi/student-academy/stories?utm_source=storyclub#level-1', 'Đọc thử một truyện miễn phí trước'],
+  ]) {
+    const html = await renderRoute(route);
+    const links = [...html.matchAll(/href="([^"]+)"[^>]*data-link="story-club-free-stories"[^>]*>([^<]+)</g)].map((m) => [m[1], m[2]]);
+    assert.deepEqual(links, [[href, label]], route);
+    const start = html.indexOf('class="story-price');
+    assert.ok(html.slice(start, html.indexOf('</section>', start)).includes(`href="${href}"`), `${route}: the link sits in the price block`);
   }
 });

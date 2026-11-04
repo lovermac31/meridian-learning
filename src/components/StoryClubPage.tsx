@@ -1,15 +1,30 @@
+import { reserveCta, paymentHref } from '../config/payment';
+import { AssetNextStep } from './AssetNextStep';
 import { Check, Minus } from 'lucide-react';
 import type { Locale } from '../i18n/locales';
 import { getLocalizedHref } from '../i18n/localizedHref';
-import { STORY_CLUB_ZALO, storyClubContent } from '../i18n/content/storyClub';
+import { STORY_CLUB_FREE_STORIES, storyClubContent } from '../i18n/content/storyClub';
+import { recordClientEvent } from '../lib/tracker';
 import { ToolHero } from './IeltsToolsPage';
+import { ProductVideo } from './ProductVideo';
+import { STORY_CLUB_VIDEOS, VIDEO_COPY } from '../i18n/content/productVideos';
+import { useFirstTouch, withFirstTouch, type FirstTouch } from '../lib/utmFirstTouch';
 
 export const STORY_CLUB_PATH = '/story-club';
 const STORY_CLUB_VI_PATH = '/vi/story-club';
 
-function ZaloButton({ label, className = 'insights-button-primary' }: { label: string; className?: string }) {
+const STORY_CLUB_ZALO_HREF = '/go/zalo?utm_source=story-club&utm_content=talk-to-jay';
+
+function ZaloButton({ label, className = 'insights-button-secondary', touch }: { label: string; className?: string; touch: FirstTouch | null }) {
   return (
-    <a className={className} href={STORY_CLUB_ZALO} target="_blank" rel="noopener noreferrer" data-cta="story-club-zalo">
+    <a
+      className={className}
+      href={withFirstTouch(STORY_CLUB_ZALO_HREF, touch)}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-cta="story-club-zalo"
+      onClick={() => recordClientEvent({ event: 'checkout_start', product_id: 'story-club' })}
+    >
       {label}
     </a>
   );
@@ -19,6 +34,9 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
   const c = storyClubContent[locale];
   // 1-to-1 with Mr. Jay: the live lesson checkout (60 min, adults and young learners).
   const oneToOne = getLocalizedHref('/ai-speaking/lessons', locale);
+  // First-touch utm_* (funnel audit fix 2): the reserve and Zalo links carry the visit's campaign after hydration.
+  const touch = useFirstTouch();
+  const reserveHref = withFirstTouch(paymentHref('story-club', locale), touch);
 
   return (
     <main id="main-content" tabIndex={-1} className="insights-page ielts-tools-page story-club-page min-h-screen" lang={locale}>
@@ -28,16 +46,29 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
         lead={c.lead}
         eyebrow={c.eyebrow}
         counterpart={locale === 'vi' ? STORY_CLUB_PATH : STORY_CLUB_VI_PATH}
-      />
+      ><a className="insights-button-primary mt-4" href={reserveHref} data-cta="story-club-reserve">{reserveCta(locale)}</a>
+        <p className="mt-3 text-sm" data-story-club-schedule>{c.price.schedule}</p></ToolHero>
       <div className="ielts-tool-content mx-auto max-w-4xl space-y-12 px-5 py-14">
         <section aria-label={c.price.amount} className="story-price ielts-tool-card rounded-2xl bg-white p-6 shadow-sm">
           <p className="text-4xl font-bold">
             {c.price.amount} <span className="text-xl font-semibold">{c.price.unit}</span>
           </p>
           <p className="mt-1 font-semibold">{c.price.seats}</p>
+          <p className="mt-1 font-semibold" data-story-club-schedule>{c.price.schedule}</p>
           <p className="mt-3">{c.price.note}</p>
           <div className="story-cta mt-5 max-w-sm">
-            <ZaloButton label={c.join.cta} />
+            <ZaloButton label={c.join.cta} touch={touch} />
+            <a className="insights-button-primary mt-3" href={reserveHref} data-cta="story-club-reserve">{reserveCta(locale)}</a>
+          </div>
+          <p className="mt-3 text-sm">
+            <a className="font-semibold underline underline-offset-4" href={STORY_CLUB_FREE_STORIES[locale]} data-link="story-club-free-stories">{c.price.tryFree}</a>
+          </p>
+        </section>
+
+        <section aria-labelledby="story-videos" data-story-videos>
+          <h2 id="story-videos" className="text-3xl font-bold">{VIDEO_COPY[locale].storyClubHeading}</h2>
+          <div className="mt-2 grid gap-6 md:grid-cols-2">
+            {STORY_CLUB_VIDEOS.map((slug) => <ProductVideo key={slug} slug={slug} locale={locale} />)}
           </div>
         </section>
 
@@ -91,7 +122,16 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <p className="mt-2 text-lg">{c.older.body}</p>
           <div className="mt-4 flex flex-wrap gap-4">
             <a className="font-semibold" href={oneToOne}>{c.older.oneToOne}</a>
-            <a className="font-semibold" href={STORY_CLUB_ZALO} target="_blank" rel="noopener noreferrer" data-cta="story-club-zalo-older">{c.older.ask}</a>
+            <a
+              className="font-semibold"
+              href={withFirstTouch(STORY_CLUB_ZALO_HREF, touch)}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cta="story-club-zalo-older"
+              onClick={() => recordClientEvent({ event: 'checkout_start', product_id: 'story-club' })}
+            >
+              {c.older.ask}
+            </a>
           </div>
         </section>
 
@@ -106,7 +146,8 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
             ))}
           </ol>
           <div className="story-cta mt-6 max-w-sm">
-            <ZaloButton label={c.join.cta} />
+            <ZaloButton label={c.join.cta} touch={touch} />
+            <a className="insights-button-primary mt-3" href={reserveHref} data-cta="story-club-reserve">{reserveCta(locale)}</a>
             <p className="mt-2 text-sm">{c.join.ctaNote}</p>
           </div>
         </section>
@@ -129,10 +170,10 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <p>{c.closing.heading}</p>
           <p className="insights-cta-note">{c.closing.body}</p>
           <div className="insights-closing-actions mt-5">
-            <ZaloButton label={c.closing.cta} />
+            <ZaloButton label={c.closing.cta} touch={touch} />
           </div>
         </div>
       </div>
-    </main>
+    <AssetNextStep pathname={locale === 'vi' ? '/vi/story-club' : '/story-club'} /></main>
   );
 }

@@ -112,7 +112,7 @@ export function KnowledgeHubPage({ onBack, onNavigate }: KnowledgeHubPageProps) 
             <span className="text-lg font-semibold text-jurassic-dark">{entry.question}</span>
             <ChevronDown
               aria-hidden="true"
-              className={`h-5 w-5 shrink-0 text-jurassic-accent transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+              className={`h-5 w-5 shrink-0 text-jurassic-accent-ink transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
             />
           </button>
         </h3>
@@ -126,7 +126,7 @@ export function KnowledgeHubPage({ onBack, onNavigate }: KnowledgeHubPageProps) 
             <RouteLink
               to={entry.readMorePath as string}
               onNavigate={onNavigate}
-              className={`mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-jurassic-accent underline underline-offset-2 hover:opacity-80 ${FOCUS_RING} rounded-md`}
+              className={`mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-jurassic-accent-ink underline underline-offset-2 hover:opacity-80 ${FOCUS_RING} rounded-md`}
             >
               {content.readMoreLabel}
             </RouteLink>
@@ -138,7 +138,7 @@ export function KnowledgeHubPage({ onBack, onNavigate }: KnowledgeHubPageProps) 
 
   const renderGroup = (group: KnowledgeGroup) => (
     <section className="mb-14">
-      <p className="mb-4 text-xs font-bold uppercase tracking-widest text-jurassic-accent">
+      <p className="mb-4 text-xs font-bold uppercase tracking-widest text-jurassic-accent-ink">
         {group.eyebrow}
       </p>
       <div className="rounded-2xl border border-jurassic-dark/10 bg-white px-6 shadow-sm">
@@ -153,13 +153,13 @@ export function KnowledgeHubPage({ onBack, onNavigate }: KnowledgeHubPageProps) 
         <button
           type="button"
           onClick={onBack}
-          className={`mb-10 inline-flex items-center gap-2 text-sm font-semibold text-jurassic-dark/55 transition hover:text-jurassic-dark ${FOCUS_RING} rounded-md`}
+          className={`mb-10 inline-flex items-center gap-2 text-sm font-semibold text-jurassic-dark/70 transition hover:text-jurassic-dark ${FOCUS_RING} rounded-md`}
         >
           <ArrowLeft aria-hidden="true" className="h-4 w-4" />
           Back to homepage
         </button>
 
-        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-jurassic-accent">
+        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-jurassic-accent-ink">
           {content.eyebrow}
         </p>
         <h1 className="font-display text-4xl font-bold tracking-tight text-jurassic-dark sm:text-5xl">
@@ -170,7 +170,7 @@ export function KnowledgeHubPage({ onBack, onNavigate }: KnowledgeHubPageProps) 
         </p>
 
         <div className="mb-12 mt-6 inline-flex items-center gap-2 rounded-full border border-jurassic-accent/25 bg-jurassic-accent/5 px-4 py-2 text-sm font-medium text-jurassic-dark/75">
-          <MessageCircle aria-hidden="true" className="h-4 w-4 text-jurassic-accent" />
+          <MessageCircle aria-hidden="true" className="h-4 w-4 text-jurassic-accent-ink" />
           {content.askPrompt} — use the chat assistant in the corner.
         </div>
 

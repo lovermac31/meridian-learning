@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-10-27T13:39:58.073Z",
+  "endedAt": "2026-10-27T13:40:28.167Z",
+  "target": "je-portal-staging Supabase jec_catalog RPC, anon role, direct HTTPS, staging anon credential held in process memory",
+  "databaseHost": "riwybxamvmtuqovsupee.supabase.co",
+  "publicPortal": "https://staging.jurassicenglish.com/portal",
+  "tool": "autocannon8.0.0",
+  "connections": 10,
+  "overallRateLimit": 20,
+  "durationSeconds": 30.07,
+  "requests": 600,
+  "errors": 0,
+  "timeouts": 0,
+  "non2xx": 0,
+  "latencyMs": {
+    "average": 107.47,
+    "p50": 79,
+    "p97_5": 599,
+    "p99": 741,
+    "max": 851
+  },
+  "throughputBytes": 712664,
+  "scope": "Real isolated staging database reads; Client-to-staging-Supabase network latency included. Does NOT measure public Basic Auth ingress or authenticated Next rendering. No order/webhook load, no production traffic."
+}

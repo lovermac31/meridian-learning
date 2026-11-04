@@ -1,0 +1,2335 @@
+
+> jurassic-english@0.1.0 test
+> node --import tsx --test tests/*.test.ts
+
+TAP version 13
+# Subtest: every Student Academy level maps to exactly two distinct original stories
+ok 1 - every Student Academy level maps to exactly two distinct original stories
+  ---
+  duration_ms: 0.876083
+  type: 'test'
+  ...
+# Subtest: book links never point at localhost or a preview domain, and unaccepted levels never link
+ok 2 - book links never point at localhost or a preview domain, and unaccepted levels never link
+  ---
+  duration_ms: 0.19925
+  type: 'test'
+  ...
+# Subtest: card → level collection → next step, carrying only non-personal context
+ok 3 - card → level collection → next step, carrying only non-personal context
+  ---
+  duration_ms: 3.419
+  type: 'test'
+  ...
+# Subtest: Story Club tells older families Mr. Jay confirms a suitable option first (EN + VI)
+ok 4 - Story Club tells older families Mr. Jay confirms a suitable option first (EN + VI)
+  ---
+  duration_ms: 2026.327791
+  type: 'test'
+  ...
+# Subtest: the story collections exist in English and Vietnamese with the same structure
+ok 5 - the story collections exist in English and Vietnamese with the same structure
+  ---
+  duration_ms: 1.574125
+  type: 'test'
+  ...
+# Subtest: every page declares its own language: an English and a Vietnamese root layout share one shell
+ok 6 - every page declares its own language: an English and a Vietnamese root layout share one shell
+  ---
+  duration_ms: 0.848833
+  type: 'test'
+  ...
+# Subtest: the contact panel takes its language from the route, never from window during render (React \#418)
+ok 7 - the contact panel takes its language from the route, never from window during render (React \#418)
+  ---
+  duration_ms: 0.499291
+  type: 'test'
+  ...
+# Subtest: story covers are resized WebPs on a proxied path, with a srcset
+ok 8 - story covers are resized WebPs on a proxied path, with a srcset
+  ---
+  duration_ms: 11.767208
+  type: 'test'
+  ...
+# Subtest: adult buyer guide has an explicit SSR body and an honest ordered acquisition path
+ok 9 - adult buyer guide has an explicit SSR body and an honest ordered acquisition path
+  ---
+  duration_ms: 7.231625
+  type: 'test'
+  ...
+# Subtest: CTAs are crawlable, untracked and do not fabricate commercial terms
+ok 10 - CTAs are crawlable, untracked and do not fabricate commercial terms
+  ---
+  duration_ms: 1.33675
+  type: 'test'
+  ...
+# Subtest: every released article renders its own nonempty body, not a fallback
+ok 11 - every released article renders its own nonempty body, not a fallback
+  ---
+  duration_ms: 26.637208
+  type: 'test'
+  ...
+# Subtest: a future article without an explicit body cannot inherit another article body
+ok 12 - a future article without an explicit body cannot inherit another article body
+  ---
+  duration_ms: 0.779833
+  type: 'test'
+  ...
+# Subtest: adult route inherits English canonical, description, Article schema and prerender discovery
+ok 13 - adult route inherits English canonical, description, Article schema and prerender discovery
+  ---
+  duration_ms: 2.350584
+  type: 'test'
+  ...
+# Subtest: insights index discovers adult guide with bounded repeated-card styling
+ok 14 - insights index discovers adult guide with bounded repeated-card styling
+  ---
+  duration_ms: 2.530125
+  type: 'test'
+  ...
+# Subtest: YL header wordmark (.brand strong) uses Neuland-Inline first
+ok 15 - YL header wordmark (.brand strong) uses Neuland-Inline first
+  ---
+  duration_ms: 0.622166
+  type: 'test'
+  ...
+# Subtest: every font in the YL wordmark stack is loaded or web-safe
+ok 16 - every font in the YL wordmark stack is loaded or web-safe
+  ---
+  duration_ms: 0.25475
+  type: 'test'
+  ...
+# Subtest: YL page declares the Neuland-Inline @font-face
+ok 17 - YL page declares the Neuland-Inline @font-face
+  ---
+  duration_ms: 0.197125
+  type: 'test'
+  ...
+# Subtest: YL hero display font (Lilita One) is @font-face-loaded
+ok 18 - YL hero display font (Lilita One) is @font-face-loaded
+  ---
+  duration_ms: 0.116209
+  type: 'test'
+  ...
+# Subtest: homepage declares the Neuland-Inline @font-face
+ok 19 - homepage declares the Neuland-Inline @font-face
+  ---
+  duration_ms: 0.107209
+  type: 'test'
+  ...
+# Subtest: homepage static fallback hero references Neuland-Inline
+ok 20 - homepage static fallback hero references Neuland-Inline
+  ---
+  duration_ms: 0.09925
+  type: 'test'
+  ...
+# Subtest: no Cache-Control rule targets /ai-speaking paths directly
+ok 21 - no Cache-Control rule targets /ai-speaking paths directly
+  ---
+  duration_ms: 0.451458
+  type: 'test'
+  ...
+# Subtest: negative-lookahead Cache-Control catch-alls exclude ai-speaking
+ok 22 - negative-lookahead Cache-Control catch-alls exclude ai-speaking
+  ---
+  duration_ms: 0.107792
+  type: 'test'
+  ...
+# Subtest: /api/health has no Cache-Control rule (the function sends no-store)
+ok 23 - /api/health has no Cache-Control rule (the function sends no-store)
+  ---
+  duration_ms: 0.063792
+  type: 'test'
+  ...
+# Subtest: customer-facing copy contains no guarantee / credential / endorsement / outcome-promise claims
+ok 24 - customer-facing copy contains no guarantee / credential / endorsement / outcome-promise claims
+  ---
+  duration_ms: 155.887708
+  type: 'test'
+  ...
+# Subtest: the guard catches known-bad phrasing and allows disclaimers (self-test)
+ok 25 - the guard catches known-bad phrasing and allows disclaimers (self-test)
+  ---
+  duration_ms: 0.580542
+  type: 'test'
+  ...
+# Subtest: contact panel (en): image actions are never labelled as opening an app
+ok 26 - contact panel (en): image actions are never labelled as opening an app
+  ---
+  duration_ms: 0.72125
+  type: 'test'
+  ...
+# Subtest: contact panel (en): app actions use platform destinations
+ok 27 - contact panel (en): app actions use platform destinations
+  ---
+  duration_ms: 0.128541
+  type: 'test'
+  ...
+# Subtest: contact panel (vi): image actions are never labelled as opening an app
+ok 28 - contact panel (vi): image actions are never labelled as opening an app
+  ---
+  duration_ms: 0.178875
+  type: 'test'
+  ...
+# Subtest: contact panel (vi): app actions use platform destinations
+ok 29 - contact panel (vi): app actions use platform destinations
+  ---
+  duration_ms: 0.051958
+  type: 'test'
+  ...
+# Subtest: contact panel: Vietnamese and English expose the same channels and action counts
+ok 30 - contact panel: Vietnamese and English expose the same channels and action counts
+  ---
+  duration_ms: 0.108375
+  type: 'test'
+  ...
+# Subtest: contact chooser has localized modal instructions for English and Vietnamese
+ok 31 - contact chooser has localized modal instructions for English and Vietnamese
+  ---
+  duration_ms: 0.057292
+  type: 'test'
+  ...
+# [obs] cors_origin_denied {
+#   event: 'cors_origin_denied',
+#   severity: 'warn',
+#   origin: 'https://evil.example.com',
+#   method: 'POST'
+# }
+# [obs] cors_origin_denied {
+#   event: 'cors_origin_denied',
+#   severity: 'warn',
+#   origin: 'https://evil.example.com',
+#   method: 'OPTIONS'
+# }
+# Subtest: same-origin (no Origin header) is allowed, no ACAO emitted
+ok 32 - same-origin (no Origin header) is allowed, no ACAO emitted
+  ---
+  duration_ms: 0.654959
+  type: 'test'
+  ...
+# Subtest: default allowlist accepts production apex and www
+ok 33 - default allowlist accepts production apex and www
+  ---
+  duration_ms: 0.079084
+  type: 'test'
+  ...
+# Subtest: default allowlist denies arbitrary origins
+ok 34 - default allowlist denies arbitrary origins
+  ---
+  duration_ms: 0.118625
+  type: 'test'
+  ...
+# Subtest: allowed origin sets ACAO and Vary: Origin
+ok 35 - allowed origin sets ACAO and Vary: Origin
+  ---
+  duration_ms: 0.070541
+  type: 'test'
+  ...
+# Subtest: disallowed origin: no ACAO, no Vary, request still continues (returns allowed=false)
+ok 36 - disallowed origin: no ACAO, no Vary, request still continues (returns allowed=false)
+  ---
+  duration_ms: 0.6375
+  type: 'test'
+  ...
+# Subtest: env-driven extension: additional origins from API_CORS_ALLOWED_ORIGINS
+ok 37 - env-driven extension: additional origins from API_CORS_ALLOWED_ORIGINS
+  ---
+  duration_ms: 0.098291
+  type: 'test'
+  ...
+# Subtest: Vercel preview pattern: opt-in only
+ok 38 - Vercel preview pattern: opt-in only
+  ---
+  duration_ms: 0.168542
+  type: 'test'
+  ...
+# Subtest: preflight: allowed origin returns 204 with method/header/max-age
+ok 39 - preflight: allowed origin returns 204 with method/header/max-age
+  ---
+  duration_ms: 0.124333
+  type: 'test'
+  ...
+# Subtest: preflight: disallowed origin returns 204 but NO ACAO (browser will block follow-up)
+ok 40 - preflight: disallowed origin returns 204 but NO ACAO (browser will block follow-up)
+  ---
+  duration_ms: 0.272625
+  type: 'test'
+  ...
+# Subtest: preflight: non-OPTIONS returns false (caller continues normally)
+ok 41 - preflight: non-OPTIONS returns false (caller continues normally)
+  ---
+  duration_ms: 0.313167
+  type: 'test'
+  ...
+# Subtest: classifyOrigin reasons map cleanly across the 4 input cases
+ok 42 - classifyOrigin reasons map cleanly across the 4 input cases
+  ---
+  duration_ms: 0.075917
+  type: 'test'
+  ...
+# Subtest: readCorsConfig: defaults shape is what callers expect
+ok 43 - readCorsConfig: defaults shape is what callers expect
+  ---
+  duration_ms: 0.049083
+  type: 'test'
+  ...
+# Subtest: each language links to its own film page, and that page exists
+ok 44 - each language links to its own film page, and that page exists
+  ---
+  duration_ms: 0.486208
+  type: 'test'
+  ...
+# Subtest: every variant carries the AI label and the illustrative-scenes note beside the link
+ok 45 - every variant carries the AI label and the illustrative-scenes note beside the link
+  ---
+  duration_ms: 9.035375
+  type: 'test'
+  ...
+# Subtest: the film is linked from the founder page, homepage teacher section and the three institutional pages
+ok 46 - the film is linked from the founder page, homepage teacher section and the three institutional pages
+  ---
+  duration_ms: 3.0445
+  type: 'test'
+  ...
+# Subtest: the film token appears in source only through FounderFilmLink, and never on children’s pages
+ok 47 - the film token appears in source only through FounderFilmLink, and never on children’s pages
+  ---
+  duration_ms: 28.906041
+  type: 'test'
+  ...
+# Subtest: the film section exists with the Vietnamese page first, 9 more languages, and the deck in all 10
+ok 48 - the film section exists with the Vietnamese page first, 9 more languages, and the deck in all 10
+  ---
+  duration_ms: 2.524625
+  type: 'test'
+  ...
+# Subtest: every film page is noindex, canonical to its own unlisted URL, with share previews and no inline JS
+ok 49 - every film page is noindex, canonical to its own unlisted URL, with share previews and no inline JS
+  ---
+  duration_ms: 16.962416
+  type: 'test'
+  ...
+# Subtest: every local asset a film page references exists
+ok 50 - every local asset a film page references exists
+  ---
+  duration_ms: 8.896917
+  type: 'test'
+  ...
+# Subtest: the film stays out of search: X-Robots-Tag header, not in the sitemap, not named in robots.txt
+ok 51 - the film stays out of search: X-Robots-Tag header, not in the sitemap, not named in robots.txt
+  ---
+  duration_ms: 2.094792
+  type: 'test'
+  ...
+# Subtest: the deck plays the film with subtitles in all 10 languages, and RTL decks are marked rtl
+ok 52 - the deck plays the film with subtitles in all 10 languages, and RTL decks are marked rtl
+  ---
+  duration_ms: 2.094041
+  type: 'test'
+  ...
+# Subtest: every film and deck page carries the AI-production disclosure in its own language
+ok 53 - every film and deck page carries the AI-production disclosure in its own language
+  ---
+  duration_ms: 2.4885
+  type: 'test'
+  ...
+# Subtest: GA4 loads on the production hosts only
+ok 54 - GA4 loads on the production hosts only
+  ---
+  duration_ms: 0.40325
+  type: 'test'
+  ...
+# Subtest: Global Privacy Control and Do Not Track switch GA4 off
+ok 55 - Global Privacy Control and Do Not Track switch GA4 off
+  ---
+  duration_ms: 0.061791
+  type: 'test'
+  ...
+# Subtest: the measurement ID is the jurassicenglish.com stream
+ok 56 - the measurement ID is the jurassicenglish.com stream
+  ---
+  duration_ms: 0.09725
+  type: 'test'
+  ...
+# Subtest: the site CSP allows gtag.js and the GA4 collection endpoints (not the AI Speaking CSP)
+ok 57 - the site CSP allows gtag.js and the GA4 collection endpoints (not the AI Speaking CSP)
+  ---
+  duration_ms: 0.417667
+  type: 'test'
+  ...
+# Subtest: GA4 starts after hydration and on the static YL page; CTA events are mirrored
+ok 58 - GA4 starts after hydration and on the static YL page; CTA events are mirrored
+  ---
+  duration_ms: 0.215958
+  type: 'test'
+  ...
+# Subtest: rejects a publishable Supabase key for backend keepalive
+ok 59 - rejects a publishable Supabase key for backend keepalive
+  ---
+  duration_ms: 0.411459
+  type: 'test'
+  ...
+# Subtest: accepts an opaque Supabase secret key
+ok 60 - accepts an opaque Supabase secret key
+  ---
+  duration_ms: 0.354875
+  type: 'test'
+  ...
+# Subtest: accepts only service-role legacy JWT keys
+ok 61 - accepts only service-role legacy JWT keys
+  ---
+  duration_ms: 0.227125
+  type: 'test'
+  ...
+# Subtest: reports a missing key without exposing key material
+ok 62 - reports a missing key without exposing key material
+  ---
+  duration_ms: 0.097667
+  type: 'test'
+  ...
+# Subtest: the offers band server-renders all six revenue paths, in the visitor language
+ok 63 - the offers band server-renders all six revenue paths, in the visitor language
+  ---
+  duration_ms: 11.916542
+  type: 'test'
+  ...
+# Subtest: the band markup does not depend on the query string or hash (hydration parity)
+ok 64 - the band markup does not depend on the query string or hash (hydration parity)
+  ---
+  duration_ms: 4.51425
+  type: 'test'
+  ...
+# Subtest: every band CTA has its own analytics label; the folded social card keeps its label
+ok 65 - every band CTA has its own analytics label; the folded social card keeps its label
+  ---
+  duration_ms: 0.302958
+  type: 'test'
+  ...
+# Subtest: band prices that live in this repo match the Young Learners checkout page
+ok 66 - band prices that live in this repo match the Young Learners checkout page
+  ---
+  duration_ms: 0.235375
+  type: 'test'
+  ...
+# Subtest: header: five need-first links (incl. IELTS Writing) and the Baseline CTA, in the visitor language
+ok 67 - header: five need-first links (incl. IELTS Writing) and the Baseline CTA, in the visitor language
+  ---
+  duration_ms: 3.903625
+  type: 'test'
+  ...
+# Subtest: AiSpeakingLaunch Writing card links the live demo and promises no launch date
+ok 68 - AiSpeakingLaunch Writing card links the live demo and promises no launch date
+  ---
+  duration_ms: 0.270417
+  type: 'test'
+  ...
+# Subtest: offers band payment note names VietQR and PayPal (owner, 14 Oct 2026)
+ok 69 - offers band payment note names VietQR and PayPal (owner, 14 Oct 2026)
+  ---
+  duration_ms: 0.112375
+  type: 'test'
+  ...
+# Subtest: home: "See all products" beside the main hero button, tagged home-hero (EN + VI)
+ok 70 - home: "See all products" beside the main hero button, tagged home-hero (EN + VI)
+  ---
+  duration_ms: 20.4465
+  type: 'test'
+  ...
+# Subtest: home: one "Find what you need" strip right under the hero, a tile per /products section at its lowest live price
+ok 71 - home: one "Find what you need" strip right under the hero, a tile per /products section at its lowest live price
+  ---
+  duration_ms: 25.301125
+  type: 'test'
+  ...
+# Subtest: /products: category overview (Families · Teachers · Centres · IELTS) controls persistent panels; reduced-motion-safe scrolling
+ok 72 - /products: category overview (Families · Teachers · Centres · IELTS) controls persistent panels; reduced-motion-safe scrolling
+  ---
+  duration_ms: 1801.404167
+  type: 'test'
+  ...
+# Subtest: home sources keep the product's own order code (the home page is the site itself)
+ok 73 - home sources keep the product's own order code (the home page is the site itself)
+  ---
+  duration_ms: 0.184583
+  type: 'test'
+  ...
+# Subtest: language model keeps English as default released locale and Vietnamese as scaffold locale
+ok 74 - language model keeps English as default released locale and Vietnamese as scaffold locale
+  ---
+  duration_ms: 0.660792
+  type: 'test'
+  ...
+# Subtest: localized route helpers preserve route context and protect private paths
+ok 75 - localized route helpers preserve route context and protect private paths
+  ---
+  duration_ms: 0.232625
+  type: 'test'
+  ...
+# Subtest: released and scaffolded Vietnamese routes are separated correctly in metadata and prerender coverage
+ok 76 - released and scaffolded Vietnamese routes are separated correctly in metadata and prerender coverage
+  ---
+  duration_ms: 6.921542
+  type: 'test'
+  ...
+# Subtest: IELTS rounding follows quarter and three-quarter boundaries
+ok 77 - IELTS rounding follows quarter and three-quarter boundaries
+  ---
+  duration_ms: 0.912416
+  type: 'test'
+  ...
+# Subtest: all four tool routes are indexable with reciprocal alternates
+ok 78 - all four tool routes are indexable with reciprocal alternates
+  ---
+  duration_ms: 1.235708
+  type: 'test'
+  ...
+# Subtest: Part 2 timer pages state they are not an official IELTS score
+ok 79 - Part 2 timer pages state they are not an official IELTS score
+  ---
+  duration_ms: 169.459833
+  type: 'test'
+  ...
+# Subtest: tool pages render the shared hero, language counterpart, and closing CTA
+ok 80 - tool pages render the shared hero, language counterpart, and closing CTA
+  ---
+  duration_ms: 1855.101208
+  type: 'test'
+  ...
+# Subtest: rounding table and target planner agree with calculateOverallBand
+ok 81 - rounding table and target planner agree with calculateOverallBand
+  ---
+  duration_ms: 78.2735
+  type: 'test'
+  ...
+# Subtest: key is 32 lowercase hex and the public key file contains exactly it
+ok 82 - key is 32 lowercase hex and the public key file contains exactly it
+  ---
+  duration_ms: 0.914875
+  type: 'test'
+  ...
+# Subtest: URL normalisation: paths become absolute, duplicates and hashes collapse, other hosts are refused
+ok 83 - URL normalisation: paths become absolute, duplicates and hashes collapse, other hosts are refused
+  ---
+  duration_ms: 0.685083
+  type: 'test'
+  ...
+# Subtest: sitemap parsing, payload shape and the 10,000-URL batch limit
+ok 84 - sitemap parsing, payload shape and the 10,000-URL batch limit
+  ---
+  duration_ms: 0.679208
+  type: 'test'
+  ...
+# Subtest: dry run (default) makes no network request
+ok 85 - dry run (default) makes no network request
+  ---
+  duration_ms: 3.67025
+  type: 'test'
+  ...
+# Subtest: --submit refuses to POST when the live key file is not deployed
+ok 86 - --submit refuses to POST when the live key file is not deployed
+  ---
+  duration_ms: 24.695458
+  type: 'test'
+  ...
+# Subtest: --submit verifies the key file, then POSTs the JSON payload to api.indexnow.org
+ok 87 - --submit verifies the key file, then POSTs the JSON payload to api.indexnow.org
+  ---
+  duration_ms: 6.381584
+  type: 'test'
+  ...
+# Subtest: --submit reports a rejected submission as a failure
+ok 88 - --submit reports a rejected submission as a failure
+  ---
+  duration_ms: 25.591
+  type: 'test'
+  ...
+# Subtest: createArticleJsonLd emits a valid Article graph tied to the canonical org
+ok 89 - createArticleJsonLd emits a valid Article graph tied to the canonical org
+  ---
+  duration_ms: 0.818417
+  type: 'test'
+  ...
+# Subtest: createArticleJsonLd honours subtype + explicit dateModified + author url
+ok 90 - createArticleJsonLd honours subtype + explicit dateModified + author url
+  ---
+  duration_ms: 0.09225
+  type: 'test'
+  ...
+# Subtest: createPersonJsonLd ties the author to the org and omits unset optionals
+ok 91 - createPersonJsonLd ties the author to the org and omits unset optionals
+  ---
+  duration_ms: 0.080833
+  type: 'test'
+  ...
+# Subtest: published discovery resources have stable routes and no placeholder articles
+ok 92 - published discovery resources have stable routes and no placeholder articles
+  ---
+  duration_ms: 12.887125
+  type: 'test'
+  ...
+# Subtest: three hubs and thirty country routes enter the sitemap inventory
+ok 93 - three hubs and thirty country routes enter the sitemap inventory
+  ---
+  duration_ms: 1.350625
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/india renders localized SSR, USD prices, payment, and FAQ schema
+ok 94 - /ielts-speaking-online/india renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 220.869
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/philippines renders localized SSR, USD prices, payment, and FAQ schema
+ok 95 - /ielts-speaking-online/philippines renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 6.016333
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/indonesia renders localized SSR, USD prices, payment, and FAQ schema
+ok 96 - /ielts-speaking-online/indonesia renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 5.389916
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/malaysia renders localized SSR, USD prices, payment, and FAQ schema
+ok 97 - /ielts-speaking-online/malaysia renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 5.013875
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/singapore renders localized SSR, USD prices, payment, and FAQ schema
+ok 98 - /ielts-speaking-online/singapore renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 16.450875
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/thailand renders localized SSR, USD prices, payment, and FAQ schema
+ok 99 - /ielts-speaking-online/thailand renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 4.79025
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/uae renders localized SSR, USD prices, payment, and FAQ schema
+ok 100 - /ielts-speaking-online/uae renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 4.643708
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/saudi-arabia renders localized SSR, USD prices, payment, and FAQ schema
+ok 101 - /ielts-speaking-online/saudi-arabia renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 4.853334
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online renders localized SSR, USD prices, payment, and FAQ schema
+ok 102 - /ielts-speaking-online renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 50.156583
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/pakistan renders localized SSR, USD prices, payment, and FAQ schema
+ok 103 - /ielts-speaking-online/pakistan renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 4.873209
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/bangladesh renders localized SSR, USD prices, payment, and FAQ schema
+ok 104 - /ielts-speaking-online/bangladesh renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 4.651875
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/nigeria renders localized SSR, USD prices, payment, and FAQ schema
+ok 105 - /ielts-speaking-online/nigeria renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 4.593625
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/egypt renders localized SSR, USD prices, payment, and FAQ schema
+ok 106 - /ielts-speaking-online/egypt renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 10.331084
+  type: 'test'
+  ...
+# Subtest: /es/ielts-speaking-online/colombia renders localized SSR, USD prices, payment, and FAQ schema
+ok 107 - /es/ielts-speaking-online/colombia renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 12.367166
+  type: 'test'
+  ...
+# Subtest: /es/ielts-speaking-online/peru renders localized SSR, USD prices, payment, and FAQ schema
+ok 108 - /es/ielts-speaking-online/peru renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 4.681208
+  type: 'test'
+  ...
+# Subtest: /es/ielts-speaking-online/chile renders localized SSR, USD prices, payment, and FAQ schema
+ok 109 - /es/ielts-speaking-online/chile renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 4.690125
+  type: 'test'
+  ...
+# Subtest: /es/ielts-speaking-online/argentina renders localized SSR, USD prices, payment, and FAQ schema
+ok 110 - /es/ielts-speaking-online/argentina renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 4.766625
+  type: 'test'
+  ...
+# Subtest: /pt/ielts-speaking-online/brasil renders localized SSR, USD prices, payment, and FAQ schema
+ok 111 - /pt/ielts-speaking-online/brasil renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.694042
+  type: 'test'
+  ...
+# Subtest: /es/ielts-speaking-online renders localized SSR, USD prices, payment, and FAQ schema
+ok 112 - /es/ielts-speaking-online renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.163417
+  type: 'test'
+  ...
+# Subtest: /pt/ielts-speaking-online renders localized SSR, USD prices, payment, and FAQ schema
+ok 113 - /pt/ielts-speaking-online renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.210416
+  type: 'test'
+  ...
+# Subtest: /id/ielts-speaking-online/indonesia renders localized SSR, USD prices, payment, and FAQ schema
+ok 114 - /id/ielts-speaking-online/indonesia renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 14.334667
+  type: 'test'
+  ...
+# Subtest: /ms/ielts-speaking-online/malaysia renders localized SSR, USD prices, payment, and FAQ schema
+ok 115 - /ms/ielts-speaking-online/malaysia renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.719833
+  type: 'test'
+  ...
+# Subtest: /th/ielts-speaking-online/thailand renders localized SSR, USD prices, payment, and FAQ schema
+ok 116 - /th/ielts-speaking-online/thailand renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.528791
+  type: 'test'
+  ...
+# Subtest: /ar/ielts-speaking-online/uae renders localized SSR, USD prices, payment, and FAQ schema
+ok 117 - /ar/ielts-speaking-online/uae renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.939084
+  type: 'test'
+  ...
+# Subtest: /ar/ielts-speaking-online/saudi-arabia renders localized SSR, USD prices, payment, and FAQ schema
+ok 118 - /ar/ielts-speaking-online/saudi-arabia renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.7745
+  type: 'test'
+  ...
+# Subtest: /ar/ielts-speaking-online/egypt renders localized SSR, USD prices, payment, and FAQ schema
+ok 119 - /ar/ielts-speaking-online/egypt renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.845834
+  type: 'test'
+  ...
+# Subtest: /ur/ielts-speaking-online/pakistan renders localized SSR, USD prices, payment, and FAQ schema
+ok 120 - /ur/ielts-speaking-online/pakistan renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.541
+  type: 'test'
+  ...
+# Subtest: /bn/ielts-speaking-online/bangladesh renders localized SSR, USD prices, payment, and FAQ schema
+ok 121 - /bn/ielts-speaking-online/bangladesh renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.226333
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/colombia renders localized SSR, USD prices, payment, and FAQ schema
+ok 122 - /ielts-speaking-online/colombia renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.387125
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/peru renders localized SSR, USD prices, payment, and FAQ schema
+ok 123 - /ielts-speaking-online/peru renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.47125
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/chile renders localized SSR, USD prices, payment, and FAQ schema
+ok 124 - /ielts-speaking-online/chile renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 8.981416
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/argentina renders localized SSR, USD prices, payment, and FAQ schema
+ok 125 - /ielts-speaking-online/argentina renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 7.759458
+  type: 'test'
+  ...
+# Subtest: /ielts-speaking-online/brazil renders localized SSR, USD prices, payment, and FAQ schema
+ok 126 - /ielts-speaking-online/brazil renders localized SSR, USD prices, payment, and FAQ schema
+  ---
+  duration_ms: 3.361792
+  type: 'test'
+  ...
+# Subtest: country pairs are reciprocal and unpaired countries have no hreflang
+ok 127 - country pairs are reciprocal and unpaired countries have no hreflang
+  ---
+  duration_ms: 1.242
+  type: 'test'
+  ...
+# Subtest: the English hub links all five English Latin American pages
+ok 128 - the English hub links all five English Latin American pages
+  ---
+  duration_ms: 0.056667
+  type: 'test'
+  ...
+# Subtest: prerendered routes carry html lang, rtl direction, and sitemap alternates
+ok 129 - prerendered routes carry html lang, rtl direction, and sitemap alternates
+  ---
+  duration_ms: 10.445375
+  type: 'test'
+  ...
+# Subtest: country copy within each language shares fewer than 40% of five-word phrases
+ok 130 - country copy within each language shares fewer than 40% of five-word phrases
+  ---
+  duration_ms: 308.644333
+  type: 'test'
+  ...
+# Subtest: Nigeria focuses on purpose-specific thresholds without a weak-Speaking claim
+ok 131 - Nigeria focuses on purpose-specific thresholds without a weak-Speaking claim
+  ---
+  duration_ms: 0.171167
+  type: 'test'
+  ...
+# Subtest: Spanish and Portuguese country search intent retains source labels
+ok 132 - Spanish and Portuguese country search intent retains source labels
+  ---
+  duration_ms: 0.116875
+  type: 'test'
+  ...
+# Subtest: Colombia test-format claim is attributed to the source it links to
+ok 133 - Colombia test-format claim is attributed to the source it links to
+  ---
+  duration_ms: 0.115625
+  type: 'test'
+  ...
+# Subtest: market search listings: titles fit, descriptions sell the real tier price, no card-checkout claim
+ok 134 - market search listings: titles fit, descriptions sell the real tier price, no card-checkout claim
+  ---
+  duration_ms: 0.54175
+  type: 'test'
+  ...
+# Subtest: market Service JSON-LD names the country and offers the approved USD prices
+ok 135 - market Service JSON-LD names the country and offers the approved USD prices
+  ---
+  duration_ms: 0.459792
+  type: 'test'
+  ...
+# Subtest: hubs never say USD payment is unavailable while their country pages take PayPal
+ok 136 - hubs never say USD payment is unavailable while their country pages take PayPal
+  ---
+  duration_ms: 8.495125
+  type: 'test'
+  ...
+# Subtest: llms.txt follows the llmstxt.org shape and stays under 60 lines
+ok 137 - llms.txt follows the llmstxt.org shape and stays under 60 lines
+  ---
+  duration_ms: 0.557333
+  type: 'test'
+  ...
+# Subtest: every link points at a live public jurassicenglish.com page
+ok 138 - every link points at a live public jurassicenglish.com page
+  ---
+  duration_ms: 3.036
+  type: 'test'
+  ...
+# Subtest: keeps the site’s own scoring and independence disclaimers, and no prices
+ok 139 - keeps the site’s own scoring and independence disclaimers, and no prices
+  ---
+  duration_ms: 0.16075
+  type: 'test'
+  ...
+# Subtest: surfaces the public IELTS Speaking discovery cluster
+ok 140 - surfaces the public IELTS Speaking discovery cluster
+  ---
+  duration_ms: 0.265583
+  type: 'test'
+  ...
+# Subtest: English and Vietnamese footers expose a crawlable entry to the international IELTS hub
+ok 141 - English and Vietnamese footers expose a crawlable entry to the international IELTS hub
+  ---
+  duration_ms: 10.485708
+  type: 'test'
+  ...
+# Subtest: the international hub links the priority country pages
+ok 142 - the international hub links the priority country pages
+  ---
+  duration_ms: 0.109375
+  type: 'test'
+  ...
+# Subtest: English market pages link to their available Malay and Arabic counterparts
+ok 143 - English market pages link to their available Malay and Arabic counterparts
+  ---
+  duration_ms: 207.232667
+  type: 'test'
+  ...
+# Subtest: resolver returns route-specific public metadata
+ok 144 - resolver returns route-specific public metadata
+  ---
+  duration_ms: 1.761792
+  type: 'test'
+  ...
+# Subtest: resolver makes /knowledge a public, indexable hub route (EN, P0)
+ok 145 - resolver makes /knowledge a public, indexable hub route (EN, P0)
+  ---
+  duration_ms: 0.104209
+  type: 'test'
+  ...
+# Subtest: resolver returns localized metadata for released Vietnamese home and framework routes
+ok 146 - resolver returns localized metadata for released Vietnamese home and framework routes
+  ---
+  duration_ms: 0.324375
+  type: 'test'
+  ...
+# Subtest: resolver returns localized metadata for released Vietnamese series detail routes
+ok 147 - resolver returns localized metadata for released Vietnamese series detail routes
+  ---
+  duration_ms: 0.167
+  type: 'test'
+  ...
+# Subtest: resolver returns localized metadata for released Vietnamese syllabus routes
+ok 148 - resolver returns localized metadata for released Vietnamese syllabus routes
+  ---
+  duration_ms: 0.274042
+  type: 'test'
+  ...
+# Subtest: resolver returns localized metadata for released Vietnamese Thinking Cycle routes
+ok 149 - resolver returns localized metadata for released Vietnamese Thinking Cycle routes
+  ---
+  duration_ms: 0.164458
+  type: 'test'
+  ...
+# Subtest: resolver returns localized metadata for released Vietnamese legal routes
+ok 150 - resolver returns localized metadata for released Vietnamese legal routes
+  ---
+  duration_ms: 0.12425
+  type: 'test'
+  ...
+# Subtest: resolver keeps the available-soon route non-indexable in both locales
+ok 151 - resolver keeps the available-soon route non-indexable in both locales
+  ---
+  duration_ms: 0.175125
+  type: 'test'
+  ...
+# Subtest: resolver returns available-soon metadata for unreleased Vietnamese institutional routes
+ok 152 - resolver returns available-soon metadata for unreleased Vietnamese institutional routes
+  ---
+  duration_ms: 0.248708
+  type: 'test'
+  ...
+# Subtest: resolver keeps the private route non-indexable and non-canonical
+ok 153 - resolver keeps the private route non-indexable and non-canonical
+  ---
+  duration_ms: 0.37
+  type: 'test'
+  ...
+# Subtest: resolver returns a noindex holding page for /pilot/:id and never the not-found title
+ok 154 - resolver returns a noindex holding page for /pilot/:id and never the not-found title
+  ---
+  duration_ms: 0.173375
+  type: 'test'
+  ...
+# Subtest: resolver keeps unknown routes non-indexable and non-canonical
+ok 155 - resolver keeps unknown routes non-indexable and non-canonical
+  ---
+  duration_ms: 0.063417
+  type: 'test'
+  ...
+# Subtest: head manager replaces stale public metadata when navigating to a private route
+ok 156 - head manager replaces stale public metadata when navigating to a private route
+  ---
+  duration_ms: 0.51925
+  type: 'test'
+  ...
+# Subtest: head manager stays idempotent for controlled tags
+ok 157 - head manager stays idempotent for controlled tags
+  ---
+  duration_ms: 0.228167
+  type: 'test'
+  ...
+# Subtest: the matcher itself: real routes pass, made-up ones fail
+ok 158 - the matcher itself: real routes pass, made-up ones fail
+  ---
+  duration_ms: 1.480167
+  type: 'test'
+  ...
+# Subtest: no server-rendered page links to a path the deployment cannot serve
+ok 159 - no server-rendered page links to a path the deployment cannot serve
+  ---
+  duration_ms: 2436.317417
+  type: 'test'
+  ...
+# Subtest: logEvent emits canonical envelope with [obs] tag
+ok 160 - logEvent emits canonical envelope with [obs] tag
+  ---
+  duration_ms: 0.593291
+  type: 'test'
+  ...
+# Subtest: default severity by event maps to correct console method
+ok 161 - default severity by event maps to correct console method
+  ---
+  duration_ms: 0.33425
+  type: 'test'
+  ...
+# Subtest: explicit severity override beats default
+ok 162 - explicit severity override beats default
+  ---
+  duration_ms: 0.05925
+  type: 'test'
+  ...
+# Subtest: unknown event name defaults to info severity (forward-compat)
+ok 163 - unknown event name defaults to info severity (forward-compat)
+  ---
+  duration_ms: 0.050792
+  type: 'test'
+  ...
+# Subtest: PII denylist strips raw email / phone / name and tags piiStripped
+ok 164 - PII denylist strips raw email / phone / name and tags piiStripped
+  ---
+  duration_ms: 0.125875
+  type: 'test'
+  ...
+# Subtest: emailDomain is allowed (not PII per project policy)
+ok 165 - emailDomain is allowed (not PII per project policy)
+  ---
+  duration_ms: 0.124292
+  type: 'test'
+  ...
+# Subtest: CANONICAL_EVENTS list covers all 14 documented events
+ok 166 - CANONICAL_EVENTS list covers all 14 documented events
+  ---
+  duration_ms: 0.058833
+  type: 'test'
+  ...
+# Subtest: withTiming reports ok=true and a non-negative durationMs on success
+ok 167 - withTiming reports ok=true and a non-negative durationMs on success
+  ---
+  duration_ms: 0.083417
+  type: 'test'
+  ...
+# Subtest: withTiming reports ok=false and rethrows on error
+ok 168 - withTiming reports ok=false and rethrows on error
+  ---
+  duration_ms: 0.245209
+  type: 'test'
+  ...
+# Subtest: extra fields beyond the documented shape are preserved (open-ended whitelist)
+ok 169 - extra fields beyond the documented shape are preserved (open-ended whitelist)
+  ---
+  duration_ms: 0.3235
+  type: 'test'
+  ...
+# Subtest: brand is self-contained, transparent and never stretched or placed on a white panel
+ok 170 - brand is self-contained, transparent and never stretched or placed on a white panel
+  ---
+  duration_ms: 0.545459
+  type: 'test'
+  ...
+# Subtest: brand link name contains its visible text (WCAG 2.5.3 label in name)
+ok 171 - brand link name contains its visible text (WCAG 2.5.3 label in name)
+  ---
+  duration_ms: 0.116208
+  type: 'test'
+  ...
+# Subtest: all 18 challenge/language/choice paths reveal evidence, allow independent practice, and reset safely
+ok 172 - all 18 challenge/language/choice paths reveal evidence, allow independent practice, and reset safely
+  ---
+  duration_ms: 26.531417
+  type: 'test'
+  ...
+# Subtest: campaign attribution survives URL state, shared links contain no arbitrary parameters
+ok 173 - campaign attribution survives URL state, shared links contain no arbitrary parameters
+  ---
+  duration_ms: 2.764875
+  type: 'test'
+  ...
+# Subtest: allowlisted privacy-safe events are deduplicated, analytics failure cannot block the exercise
+ok 174 - allowlisted privacy-safe events are deduplicated, analytics failure cannot block the exercise
+  ---
+  duration_ms: 1.588042
+  type: 'test'
+  ...
+# Subtest: public route, metadata, website placement, enquiry links and safety boundaries are wired
+ok 175 - public route, metadata, website placement, enquiry links and safety boundaries are wired
+  ---
+  duration_ms: 0.732292
+  type: 'test'
+  ...
+# Subtest: no instalment promise ("monthly or biweekly") for plans that have no instalment mechanism
+ok 176 - no instalment promise ("monthly or biweekly") for plans that have no instalment mechanism
+  ---
+  duration_ms: 3.004542
+  type: 'test'
+  ...
+# Subtest: the old flexible-payment block (unrendered pricing.flex* strings) stays removed in every locale
+ok 177 - the old flexible-payment block (unrendered pricing.flex* strings) stays removed in every locale
+  ---
+  duration_ms: 6.451208
+  type: 'test'
+  ...
+# Subtest: the single lesson is not called a trial; the 8-lesson pack is not called a monthly plan
+ok 178 - the single lesson is not called a trial; the 8-lesson pack is not called a monthly plan
+  ---
+  duration_ms: 2.512
+  type: 'test'
+  ...
+# Subtest: long plans say their schedule and terms are agreed in writing before payment
+ok 179 - long plans say their schedule and terms are agreed in writing before payment
+  ---
+  duration_ms: 0.4915
+  type: 'test'
+  ...
+# Subtest: lessons are with Mr. Jay's team, not a promise of one named teacher
+ok 180 - lessons are with Mr. Jay's team, not a promise of one named teacher
+  ---
+  duration_ms: 0.423541
+  type: 'test'
+  ...
+# Subtest: /legal/terms points lesson buyers to the lesson terms and keeps statutory rights (EN/VI)
+ok 181 - /legal/terms points lesson buyers to the lesson terms and keeps statutory rights (EN/VI)
+  ---
+  duration_ms: 1.10625
+  type: 'test'
+  ...
+# Subtest: FX is the one recorded with the approved prices
+ok 182 - FX is the one recorded with the approved prices
+  ---
+  duration_ms: 0.60975
+  type: 'test'
+  ...
+# Subtest: VND prices convert to whole US dollars, rounded up
+ok 183 - VND prices convert to whole US dollars, rounded up
+  ---
+  duration_ms: 0.072209
+  type: 'test'
+  ...
+# Subtest: checkout link is a fully encoded _xclick to the Jurassic English account
+ok 184 - checkout link is a fully encoded _xclick to the Jurassic English account
+  ---
+  duration_ms: 0.251292
+  type: 'test'
+  ...
+# Subtest: payments go to the business account by merchant ID, never to an email
+ok 185 - payments go to the business account by merchant ID, never to an email
+  ---
+  duration_ms: 0.606041
+  type: 'test'
+  ...
+# Subtest: the market-page panel uses the shared logo and payee name, and opens the automated checkout (no fixed PayPal link)
+ok 186 - the market-page panel uses the shared logo and payee name, and opens the automated checkout (no fixed PayPal link)
+  ---
+  duration_ms: 0.305459
+  type: 'test'
+  ...
+# Subtest: marketPricing.json is pinned: the AI Speaking checkout charges these prices from its own copy
+ok 187 - marketPricing.json is pinned: the AI Speaking checkout charges these prices from its own copy
+  ---
+  duration_ms: 3.5605
+  type: 'test'
+  ...
+# Subtest: YL EN: PayPal panel shows ceil(VND / 25,897) and opens the order-first checkout for Baseline, 1 lesson and a month
+ok 188 - YL EN: PayPal panel shows ceil(VND / 25,897) and opens the order-first checkout for Baseline, 1 lesson and a month
+  ---
+  duration_ms: 0.801334
+  type: 'test'
+  ...
+# Subtest: YL EN: PayPal sits under VietQR, with automatic confirmation and a jump link from booking
+ok 189 - YL EN: PayPal sits under VietQR, with automatic confirmation and a jump link from booking
+  ---
+  duration_ms: 0.304125
+  type: 'test'
+  ...
+# Subtest: YL VI: PayPal panel shows ceil(VND / 25,897) and opens the order-first checkout for Baseline, 1 lesson and a month
+ok 190 - YL VI: PayPal panel shows ceil(VND / 25,897) and opens the order-first checkout for Baseline, 1 lesson and a month
+  ---
+  duration_ms: 0.301666
+  type: 'test'
+  ...
+# Subtest: YL VI: PayPal sits under VietQR, with automatic confirmation and a jump link from booking
+ok 191 - YL VI: PayPal sits under VietQR, with automatic confirmation and a jump link from booking
+  ---
+  duration_ms: 0.429959
+  type: 'test'
+  ...
+# Subtest: YL copy: card line replaced in EN, VI and zh-CN; VietQR stays first; PayPal confirmation is automatic
+ok 192 - YL copy: card line replaced in EN, VI and zh-CN; VietQR stays first; PayPal confirmation is automatic
+  ---
+  duration_ms: 4.166417
+  type: 'test'
+  ...
+# Subtest: YL: every PayPal link reports a unique click label
+ok 193 - YL: every PayPal link reports a unique click label
+  ---
+  duration_ms: 0.549125
+  type: 'test'
+  ...
+# Subtest: privacy policy names PayPal as a payment processor in EN and VI
+ok 194 - privacy policy names PayPal as a payment processor in EN and VI
+  ---
+  duration_ms: 62.03275
+  type: 'test'
+  ...
+# Subtest: deeplink targets Google's documented Preferred Sources endpoint for the apex domain
+ok 195 - deeplink targets Google's documented Preferred Sources endpoint for the apex domain
+  ---
+  duration_ms: 0.396833
+  type: 'test'
+  ...
+# Subtest: client-only routes are private, prerendered and never public/indexable
+ok 196 - client-only routes are private, prerendered and never public/indexable
+  ---
+  duration_ms: 1.605208
+  type: 'test'
+  ...
+# Subtest: ssrLocation drives render-time locale during the build-time prerender
+ok 197 - ssrLocation drives render-time locale during the build-time prerender
+  ---
+  duration_ms: 0.14925
+  type: 'test'
+  ...
+# Subtest: LanguageSwitcher markup ignores query strings and hashes (server/client parity)
+ok 198 - LanguageSwitcher markup ignores query strings and hashes (server/client parity)
+  ---
+  duration_ms: 6.746
+  type: 'test'
+  ...
+# Subtest: AudienceFork first render ignores browser-only traffic signals (hydration parity)
+ok 199 - AudienceFork first render ignores browser-only traffic signals (hydration parity)
+  ---
+  duration_ms: 2.276959
+  type: 'test'
+  ...
+# Subtest: page components render their full body on the server (no window at render time)
+ok 200 - page components render their full body on the server (no window at render time)
+  ---
+  duration_ms: 41.001833
+  type: 'test'
+  ...
+# Subtest: visible-text extraction counts body copy only
+ok 201 - visible-text extraction counts body copy only
+  ---
+  duration_ms: 0.148417
+  type: 'test'
+  ...
+# Subtest: a `hidden` class name is not the hidden attribute
+ok 202 - a `hidden` class name is not the hidden attribute
+  ---
+  duration_ms: 0.267125
+  type: 'test'
+  ...
+# Subtest: <main> word count excludes chrome and includes collapsed panels
+ok 203 - <main> word count excludes chrome and includes collapsed panels
+  ---
+  duration_ms: 0.581083
+  type: 'test'
+  ...
+# Subtest: Leads: every property written exists in the database and uses an existing option
+ok 204 - Leads: every property written exists in the database and uses an existing option
+  ---
+  duration_ms: 6.550167
+  type: 'test'
+  ...
+# Subtest: Leads: field by field, with nothing from the registration lost
+ok 205 - Leads: field by field, with nothing from the registration lost
+  ---
+  duration_ms: 0.388084
+  type: 'test'
+  ...
+# Subtest: Leads: the writer reads NOTION_LEADS_DB_ID (default Leads), dedupes on the registration id, and never the retired id
+ok 206 - Leads: the writer reads NOTION_LEADS_DB_ID (default Leads), dedupes on the registration id, and never the retired id
+  ---
+  duration_ms: 0.213042
+  type: 'test'
+  ...
+# Subtest: every product page (EN + VI) shares its own product image, 800×800, as a summary card
+ok 207 - every product page (EN + VI) shares its own product image, 800×800, as a summary card
+  ---
+  duration_ms: 27.431875
+  type: 'test'
+  ...
+# Subtest: pages without their own image keep the default share image
+ok 208 - pages without their own image keep the default share image
+  ---
+  duration_ms: 0.447416
+  type: 'test'
+  ...
+# Subtest: films: every mapped film has its video, poster and one subtitle file per listed language, and nothing else
+ok 209 - films: every mapped film has its video, poster and one subtitle file per listed language, and nothing else
+  ---
+  duration_ms: 83.439916
+  type: 'test'
+  ...
+# Subtest: films: each sales film sits on its own product
+ok 210 - films: each sales film sits on its own product
+  ---
+  duration_ms: 5.492208
+  type: 'test'
+  ...
+# Subtest: films: the picker starts on the page language, and falls back when a film lacks it
+ok 211 - films: the picker starts on the page language, and falls back when a film lacks it
+  ---
+  duration_ms: 3.241959
+  type: 'test'
+  ...
+# Subtest: films: the product page plays the film muted, on demand, above the sample, with the picker on the page language
+ok 212 - films: the product page plays the film muted, on demand, above the sample, with the picker on the page language
+  ---
+  duration_ms: 1791.091834
+  type: 'test'
+  ...
+# Subtest: films: /products shows a Watch link to the product page, never a player; /story-club shows films 01–03
+ok 213 - films: /products shows a Watch link to the product page, never a player; /story-club shows films 01–03
+  ---
+  duration_ms: 147.422166
+  type: 'test'
+  ...
+# Subtest: accordion en: Families alone starts open; all category tiles show real counts and lowest prices
+ok 214 - accordion en: Families alone starts open; all category tiles show real counts and lowest prices
+  ---
+  duration_ms: 49.1545
+  type: 'test'
+  ...
+# Subtest: accordion en: every product remains in SSR with copy, lazy image, sample action and payment links
+ok 215 - accordion en: every product remains in SSR with copy, lazy image, sample action and payment links
+  ---
+  duration_ms: 97.419958
+  type: 'test'
+  ...
+# Subtest: accordion en: every canonical, former, sample and IELTS subgroup anchor resolves to its category
+ok 216 - accordion en: every canonical, former, sample and IELTS subgroup anchor resolves to its category
+  ---
+  duration_ms: 2.209542
+  type: 'test'
+  ...
+# Subtest: accordion vi: Families alone starts open; all category tiles show real counts and lowest prices
+ok 217 - accordion vi: Families alone starts open; all category tiles show real counts and lowest prices
+  ---
+  duration_ms: 58.466375
+  type: 'test'
+  ...
+# Subtest: accordion vi: every product remains in SSR with copy, lazy image, sample action and payment links
+ok 218 - accordion vi: every product remains in SSR with copy, lazy image, sample action and payment links
+  ---
+  duration_ms: 23.219834
+  type: 'test'
+  ...
+# Subtest: accordion vi: every canonical, former, sample and IELTS subgroup anchor resolves to its category
+ok 219 - accordion vi: every canonical, former, sample and IELTS subgroup anchor resolves to its category
+  ---
+  duration_ms: 1.489333
+  type: 'test'
+  ...
+# Subtest: metadata: the description covers the whole range in EN and VI, OG matches it, and the hreflang pair stays
+ok 220 - metadata: the description covers the whole range in EN and VI, OG matches it, and the hreflang pair stays
+  ---
+  duration_ms: 1.879041
+  type: 'test'
+  ...
+# Subtest: JSON-LD: one Product with a VND Offer for every live card, in the page language, plus the breadcrumbs
+ok 221 - JSON-LD: one Product with a VND Offer for every live card, in the page language, plus the breadcrumbs
+  ---
+  duration_ms: 0.583708
+  type: 'test'
+  ...
+# Subtest: anchors: the Level 1 Teacher Pack is \#teacher-pack-l1 like Levels 2–5, and \#teacher-pack still lands on it
+ok 222 - anchors: the Level 1 Teacher Pack is \#teacher-pack-l1 like Levels 2–5, and \#teacher-pack still lands on it
+  ---
+  duration_ms: 1823.221542
+  type: 'test'
+  ...
+# Subtest: contextual links: teacher, centre and level pages link their product card, tagged with the source page (EN + VI)
+ok 223 - contextual links: teacher, centre and level pages link their product card, tagged with the source page (EN + VI)
+  ---
+  duration_ms: 1208.179084
+  type: 'test'
+  ...
+# Subtest: story hub: each level (EN + VI) has "For teachers: Level N Teacher Pack" to its card, tagged academy (code AC)
+ok 224 - story hub: each level (EN + VI) has "For teachers: Level N Teacher Pack" to its card, tagged academy (code AC)
+  ---
+  duration_ms: 10.506833
+  type: 'test'
+  ...
+# Subtest: order codes: the visit source is read from the URL, kept for the visit, and safe when storage is blocked
+ok 225 - order codes: the visit source is read from the URL, kept for the visit, and safe when storage is blocked
+  ---
+  duration_ms: 1.166083
+  type: 'test'
+  ...
+# Subtest: order codes: the channel code from the table, else the source, else the card id; Zalo links carry the source
+ok 226 - order codes: the channel code from the table, else the source, else the card id; Zalo links carry the source
+  ---
+  duration_ms: 6.099667
+  type: 'test'
+  ...
+# Subtest: order codes: every Order on Zalo button shows its code line (EN + VI); other buttons do not
+ok 227 - order codes: every Order on Zalo button shows its code line (EN + VI); other buttons do not
+  ---
+  duration_ms: 96.324959
+  type: 'test'
+  ...
+# Subtest: S2 + S3: every country page links the Baseline sample once, tagged market-<country> before the \#; hubs do not
+ok 228 - S2 + S3: every country page links the Baseline sample once, tagged market-<country> before the \#; hubs do not
+  ---
+  duration_ms: 308.516958
+  type: 'test'
+  ...
+# Subtest: S3: the link text is in the page language and says when /products is in English
+ok 229 - S3: the link text is in the page language and says when /products is in English
+  ---
+  duration_ms: 33.1585
+  type: 'test'
+  ...
+# Subtest: market order codes: the Sale Team table maps each market-<country> source to its code
+ok 230 - market order codes: the Sale Team table maps each market-<country> source to its code
+  ---
+  duration_ms: 0.1465
+  type: 'test'
+  ...
+# Subtest: S1: the 13 digital cards take PayPal at the approved US$ prices; the Centre Licence and live services do not
+ok 231 - S1: the 13 digital cards take PayPal at the approved US$ prices; the Centre Licence and live services do not
+  ---
+  duration_ms: 1.533042
+  type: 'test'
+  ...
+# Subtest: S1: each PayPal card shows the US$ option after the VND order button, with Drive delivery within 24 hours (EN + VI)
+ok 232 - S1: each PayPal card shows the US$ option after the VND order button, with Drive delivery within 24 hours (EN + VI)
+  ---
+  duration_ms: 52.905958
+  type: 'test'
+  ...
+# Subtest: every live product has search copy and two indexable, prerendered routes
+ok 233 - every live product has search copy and two indexable, prerendered routes
+  ---
+  duration_ms: 1.585375
+  type: 'test'
+  ...
+# Subtest: metadata: unique title ≤ 60 and description 80–160, self canonical, EN/VI hreflang
+ok 234 - metadata: unique title ≤ 60 and description 80–160, self canonical, EN/VI hreflang
+  ---
+  duration_ms: 4.963375
+  type: 'test'
+  ...
+# Subtest: JSON-LD: Product with a VND Offer, a USD Offer only where PayPal is offered, FAQPage and 3-step breadcrumbs
+ok 235 - JSON-LD: Product with a VND Offer, a USD Offer only where PayPal is offered, FAQPage and 3-step breadcrumbs
+  ---
+  duration_ms: 16.686709
+  type: 'test'
+  ...
+# Subtest: an unknown product id is not a product page and is not indexed
+ok 236 - an unknown product id is not a product page and is not indexed
+  ---
+  duration_ms: 0.388084
+  type: 'test'
+  ...
+# Subtest: page: H1 is the product name, with the copy, sample viewer button (no PDF), price, order, FAQ and 3 related
+ok 237 - page: H1 is the product name, with the copy, sample viewer button (no PDF), price, order, FAQ and 3 related
+  ---
+  duration_ms: 178.417458
+  type: 'test'
+  ...
+# Subtest: the /products hub links every card title to its own page
+ok 238 - the /products hub links every card title to its own page
+  ---
+  duration_ms: 81.058625
+  type: 'test'
+  ...
+# Subtest: Bing site verification survives: meta tag in index.html and BingSiteAuth.xml
+ok 239 - Bing site verification survives: meta tag in index.html and BingSiteAuth.xml
+  ---
+  duration_ms: 0.160459
+  type: 'test'
+  ...
+# Subtest: 35-today: all 35 products are live, and the eight new ones have EN + VI pages with search copy and a sample
+ok 240 - 35-today: all 35 products are live, and the eight new ones have EN + VI pages with search copy and a sample
+  ---
+  duration_ms: 11.972084
+  type: 'test'
+  ...
+# Subtest: \#ielts: Speaking and Writing groups, no IELTS card under Teachers, each card links its IELTS home page
+ok 241 - \#ielts: Speaking and Writing groups, no IELTS card under Teachers, each card links its IELTS home page
+  ---
+  duration_ms: 145.851709
+  type: 'test'
+  ...
+# Subtest: IELTS product pages: Products › IELTS › product breadcrumb and the IELTS home link
+ok 242 - IELTS product pages: Products › IELTS › product breadcrumb and the IELTS home link
+  ---
+  duration_ms: 37.395209
+  type: 'test'
+  ...
+# Subtest: the products hub is released, indexable and paired EN/VI
+ok 243 - the products hub is released, indexable and paired EN/VI
+  ---
+  duration_ms: 10.51175
+  type: 'test'
+  ...
+# Subtest: sections in order, each card with its price and exactly one CTA
+ok 244 - sections in order, each card with its price and exactly one CTA
+  ---
+  duration_ms: 1683.110917
+  type: 'test'
+  ...
+# Subtest: every link carries utm_source=products before any \#anchor, in the page language
+ok 245 - every link carries utm_source=products before any \#anchor, in the page language
+  ---
+  duration_ms: 108.975667
+  type: 'test'
+  ...
+# Subtest: digital products state payment and delivery; the Teacher Pack names no published book
+ok 246 - digital products state payment and delivery; the Teacher Pack names no published book
+  ---
+  duration_ms: 127.246167
+  type: 'test'
+  ...
+# Subtest: cleared packs match their 00 READ MEs: Ladder is 18 lessons + a 1-lesson Starter, no deck, all five curriculum models
+ok 247 - cleared packs match their 00 READ MEs: Ladder is 18 lessons + a 1-lesson Starter, no deck, all five curriculum models
+  ---
+  duration_ms: 2.739792
+  type: 'test'
+  ...
+# Subtest: reachable: one footer link (EN + VI), one Kids Academy card link, and Products & prices in the main menu
+ok 248 - reachable: one footer link (EN + VI), one Kids Academy card link, and Products & prices in the main menu
+  ---
+  duration_ms: 11.574709
+  type: 'test'
+  ...
+# Subtest: cards are data-driven from PRODUCTS; a product image shows as a square when the entry has one
+ok 249 - cards are data-driven from PRODUCTS; a product image shows as a square when the entry has one
+  ---
+  duration_ms: 40.616209
+  type: 'test'
+  ...
+# Subtest: the ChatGPT product images are on their cards, square and light
+ok 250 - the ChatGPT product images are on their cards, square and light
+  ---
+  duration_ms: 33.80725
+  type: 'test'
+  ...
+# Subtest: packs marked live: false stay in the data, off the page and without a product page; all 35 are live (35-today)
+ok 251 - packs marked live: false stay in the data, off the page and without a product page; all 35 are live (35-today)
+  ---
+  duration_ms: 81.897542
+  type: 'test'
+  ...
+# Subtest: samples: no PDF is published; every card has three thumbnails and every page set matches the manifest
+ok 252 - samples: no PDF is published; every card has three thumbnails and every page set matches the manifest
+  ---
+  duration_ms: 156.670041
+  type: 'test'
+  ...
+# Subtest: samples: the block sits above the price; one button opens the viewer; no link to any PDF
+ok 253 - samples: the block sits above the price; one button opens the viewer; no link to any PDF
+  ---
+  duration_ms: 220.387625
+  type: 'test'
+  ...
+# Subtest: samples: the viewer shows one watermarked page at a time, a counter, and the order button on the last page
+ok 254 - samples: the viewer shows one watermarked page at a time, a counter, and the order button on the last page
+  ---
+  duration_ms: 36.231583
+  type: 'test'
+  ...
+# Subtest: samples: no page links a PDF sample (products and country pages)
+ok 255 - samples: no page links a PDF sample (products and country pages)
+  ---
+  duration_ms: 171.268375
+  type: 'test'
+  ...
+# Subtest: header button: free sample pack on parent pages, the Baseline booking page on IELTS pages, US$ on country pages
+ok 256 - header button: free sample pack on parent pages, the Baseline booking page on IELTS pages, US$ on country pages
+  ---
+  duration_ms: 28.414125
+  type: 'test'
+  ...
+# Subtest: wave 2: two new cards with their samples, US$ by PayPal, and the workbook pointer in the families section (EN + VI)
+ok 257 - wave 2: two new cards with their samples, US$ by PayPal, and the workbook pointer in the families section (EN + VI)
+  ---
+  duration_ms: 102.108208
+  type: 'test'
+  ...
+# [rate-limit] store selected { kind: 'in-memory' }
+# [rate-limit] store selected { kind: 'in-memory' }
+# [rate-limit] store selected { kind: 'in-memory' }
+# [rate-limit] store selected { kind: 'in-memory' }
+# [rate-limit] ENABLE_DURABLE_RATE_LIMIT=true but UPSTASH_REDIS_REST_URL/TOKEN missing; falling back to in-memory store
+# Subtest: checkRateLimit returns a Promise and resolves to the result shape
+ok 258 - checkRateLimit returns a Promise and resolves to the result shape
+  ---
+  duration_ms: 1.022417
+  type: 'test'
+  ...
+# Subtest: in-memory adapter allows up to max then denies
+ok 259 - in-memory adapter allows up to max then denies
+  ---
+  duration_ms: 0.213458
+  type: 'test'
+  ...
+# Subtest: different IPs are isolated buckets
+ok 260 - different IPs are isolated buckets
+  ---
+  duration_ms: 0.25775
+  type: 'test'
+  ...
+# Subtest: feature flag OFF selects in-memory store source
+ok 261 - feature flag OFF selects in-memory store source
+  ---
+  duration_ms: 0.102958
+  type: 'test'
+  ...
+# Subtest: feature flag ON but no Upstash creds falls back to in-memory (with warning)
+ok 262 - feature flag ON but no Upstash creds falls back to in-memory (with warning)
+  ---
+  duration_ms: 0.169917
+  type: 'test'
+  ...
+# Subtest: in-memory adapter consume() shape matches contract
+ok 263 - in-memory adapter consume() shape matches contract
+  ---
+  duration_ms: 0.056458
+  type: 'test'
+  ...
+# Subtest: failMode "closed" denies on store error
+ok 264 - failMode "closed" denies on store error
+  ---
+  duration_ms: 0.093416
+  type: 'test'
+  ...
+# Subtest: robots.txt advertises both public sitemap surfaces
+ok 265 - robots.txt advertises both public sitemap surfaces
+  ---
+  duration_ms: 0.6805
+  type: 'test'
+  ...
+# Subtest: robots.txt keeps private application surfaces out of search
+ok 266 - robots.txt keeps private application surfaces out of search
+  ---
+  duration_ms: 0.169417
+  type: 'test'
+  ...
+# Subtest: sample pack: a Zalo number or an email is the one required contact, and consent is required
+ok 267 - sample pack: a Zalo number or an email is the one required contact, and consent is required
+  ---
+  duration_ms: 0.88
+  type: 'test'
+  ...
+# Subtest: sample pack: a Zalo-only parent lead has no email; a teacher tick, the page and the utm are carried
+ok 268 - sample pack: a Zalo-only parent lead has no email; a teacher tick, the page and the utm are carried
+  ---
+  duration_ms: 1.994625
+  type: 'test'
+  ...
+# Subtest: sample pack: success needs Notion or the email; contact details are never logged; no Supabase write
+ok 269 - sample pack: success needs Notion or the email; contact details are never logged; no Supabase write
+  ---
+  duration_ms: 0.337917
+  type: 'test'
+  ...
+# Subtest: privacy notice: the sample pack retention line, EN + VI (master, 27 Oct 2026)
+ok 270 - privacy notice: the sample pack retention line, EN + VI (master, 27 Oct 2026)
+  ---
+  duration_ms: 52.098333
+  type: 'test'
+  ...
+# Subtest: sample pack: the lead goes to the live "Leads" database by its own property names and existing options
+ok 271 - sample pack: the lead goes to the live "Leads" database by its own property names and existing options
+  ---
+  duration_ms: 0.950833
+  type: 'test'
+  ...
+# Subtest: sample pack: before hydration the form cannot submit natively, and never by GET (QA, 27 Oct 2026)
+ok 272 - sample pack: before hydration the form cannot submit natively, and never by GET (QA, 27 Oct 2026)
+  ---
+  duration_ms: 356.642083
+  type: 'test'
+  ...
+# Subtest: market, editorial, and profile routes use a solid navbar and dark hero
+ok 273 - market, editorial, and profile routes use a solid navbar and dark hero
+  ---
+  duration_ms: 565.862083
+  type: 'test'
+  ...
+# Subtest: paired SEO pages render a two-option accessible hero switcher
+ok 274 - paired SEO pages render a two-option accessible hero switcher
+  ---
+  duration_ms: 99.870083
+  type: 'test'
+  ...
+# Subtest: RTL markets set direction and isolate price and range runs
+ok 275 - RTL markets set direction and isolate price and range runs
+  ---
+  duration_ms: 11.597833
+  type: 'test'
+  ...
+# Subtest: every market CTA uses its approved tier and localized chrome
+ok 276 - every market CTA uses its approved tier and localized chrome
+  ---
+  duration_ms: 90.816125
+  type: 'test'
+  ...
+# Subtest: market key facts have one space after labels and one time comparison
+ok 277 - market key facts have one space after labels and one time comparison
+  ---
+  duration_ms: 0.393375
+  type: 'test'
+  ...
+# Subtest: market fact asides have no emerald source classes
+ok 278 - market fact asides have no emerald source classes
+  ---
+  duration_ms: 1.228041
+  type: 'test'
+  ...
+# Subtest: non-Latin market pages render without Google Fonts requests
+ok 279 - non-Latin market pages render without Google Fonts requests
+  ---
+  duration_ms: 8.291625
+  type: 'test'
+  ...
+# Subtest: market closing band offers the booking request, AI Speaking and a free tool
+ok 280 - market closing band offers the booking request, AI Speaking and a free tool
+  ---
+  duration_ms: 50.711708
+  type: 'test'
+  ...
+# Subtest: PayPal panel shows the approved tier and opens the order-first checkout with ?market= on every PayPal market; off Pakistan, Bangladesh and hubs
+ok 281 - PayPal panel shows the approved tier and opens the order-first checkout with ?market= on every PayPal market; off Pakistan, Bangladesh and hubs
+  ---
+  duration_ms: 80.403958
+  type: 'test'
+  ...
+# Subtest: /index.html permanently redirects to the canonical homepage
+ok 282 - /index.html permanently redirects to the canonical homepage
+  ---
+  duration_ms: 0.847917
+  type: 'test'
+  ...
+# Subtest: AI Speaking addresses with a trailing slash redirect to the slash-less page instead of 404
+ok 283 - AI Speaking addresses with a trailing slash redirect to the slash-less page instead of 404
+  ---
+  duration_ms: 0.180875
+  type: 'test'
+  ...
+# Subtest: every forwarded section redirects its trailing-slash addresses to the slash-less page
+ok 284 - every forwarded section redirects its trailing-slash addresses to the slash-less page
+  ---
+  duration_ms: 4.299916
+  type: 'test'
+  ...
+# Subtest: pilot holding routes keep an internal app-shell rewrite after the index redirect
+ok 285 - pilot holding routes keep an internal app-shell rewrite after the index redirect
+  ---
+  duration_ms: 0.217208
+  type: 'test'
+  ...
+# Subtest: Search Console crawled-not-indexed examples retain strong indexability signals
+ok 286 - Search Console crawled-not-indexed examples retain strong indexability signals
+  ---
+  duration_ms: 1.25225
+  type: 'test'
+  ...
+# Subtest: seoPagesMeta.json matches seoPages.json without html
+ok 287 - seoPagesMeta.json matches seoPages.json without html
+  ---
+  duration_ms: 6.978292
+  type: 'test'
+  ...
+# Subtest: app shell, router and head metadata use the light SEO metadata
+ok 288 - app shell, router and head metadata use the light SEO metadata
+  ---
+  duration_ms: 0.653416
+  type: 'test'
+  ...
+# Subtest: /vi/ve-thay-jay-adams renders its full SEO page on the server
+ok 289 - /vi/ve-thay-jay-adams renders its full SEO page on the server
+  ---
+  duration_ms: 113.462208
+  type: 'test'
+  ...
+# Subtest: /about/nathaniel-jay-adams renders its full SEO page on the server
+ok 290 - /about/nathaniel-jay-adams renders its full SEO page on the server
+  ---
+  duration_ms: 5.789583
+  type: 'test'
+  ...
+# Subtest: /vi/insights/tang-ielts-speaking-tu-6-len-7 renders its full SEO page on the server
+ok 291 - /vi/insights/tang-ielts-speaking-tu-6-len-7 renders its full SEO page on the server
+  ---
+  duration_ms: 11.017625
+  type: 'test'
+  ...
+# Subtest: /insights/ielts-speaking-6-to-7 renders its full SEO page on the server
+ok 292 - /insights/ielts-speaking-6-to-7 renders its full SEO page on the server
+  ---
+  duration_ms: 6.22375
+  type: 'test'
+  ...
+# Subtest: /vi/insights/ielts-speaking-forecast-quy-3-2026 renders its full SEO page on the server
+ok 293 - /vi/insights/ielts-speaking-forecast-quy-3-2026 renders its full SEO page on the server
+  ---
+  duration_ms: 7.444916
+  type: 'test'
+  ...
+# Subtest: /insights/ielts-speaking-forecast-september-december-2026 renders its full SEO page on the server
+ok 294 - /insights/ielts-speaking-forecast-september-december-2026 renders its full SEO page on the server
+  ---
+  duration_ms: 4.06525
+  type: 'test'
+  ...
+# Subtest: /vi/insights/ielts-online-test renders its full SEO page on the server
+ok 295 - /vi/insights/ielts-online-test renders its full SEO page on the server
+  ---
+  duration_ms: 4.670833
+  type: 'test'
+  ...
+# Subtest: /insights/ielts-online-test renders its full SEO page on the server
+ok 296 - /insights/ielts-online-test renders its full SEO page on the server
+  ---
+  duration_ms: 4.156083
+  type: 'test'
+  ...
+# Subtest: /vi/insights/ai-cham-ielts-speaking renders its full SEO page on the server
+ok 297 - /vi/insights/ai-cham-ielts-speaking renders its full SEO page on the server
+  ---
+  duration_ms: 9.724167
+  type: 'test'
+  ...
+# Subtest: /insights/ai-ielts-speaking-scoring renders its full SEO page on the server
+ok 298 - /insights/ai-ielts-speaking-scoring renders its full SEO page on the server
+  ---
+  duration_ms: 5.28125
+  type: 'test'
+  ...
+# Subtest: every mapped source file exists (a rename must update the map)
+ok 299 - every mapped source file exists (a rename must update the map)
+  ---
+  duration_ms: 1.043417
+  type: 'test'
+  ...
+# Subtest: every native sitemap route has a source mapping; rewrite-served routes have none
+ok 300 - every native sitemap route has a source mapping; rewrite-served routes have none
+  ---
+  duration_ms: 1.178416
+  type: 'test'
+  ...
+# Subtest: shared layout files never date a page
+ok 301 - shared layout files never date a page
+  ---
+  duration_ms: 0.078708
+  type: 'test'
+  ...
+# Subtest: VI routes use the same page sources as their EN counterpart
+ok 302 - VI routes use the same page sources as their EN counterpart
+  ---
+  duration_ms: 0.100792
+  type: 'test'
+  ...
+# Subtest: shallow or missing git history omits lastmod everywhere (never guesses)
+ok 303 - shallow or missing git history omits lastmod everywhere (never guesses)
+  ---
+  duration_ms: 0.162041
+  type: 'test'
+  ...
+# Subtest: full history: per-page dates from each page’s own files; unknown → omitted
+ok 304 - full history: per-page dates from each page’s own files; unknown → omitted
+  ---
+  duration_ms: 0.16025
+  type: 'test'
+  ...
+# Subtest: normalizes static routes and strips query strings and hashes
+ok 305 - normalizes static routes and strips query strings and hashes
+  ---
+  duration_ms: 0.551459
+  type: 'test'
+  ...
+# Subtest: normalizes dynamic curriculum and thinking-cycle routes to stable buckets
+ok 306 - normalizes dynamic curriculum and thinking-cycle routes to stable buckets
+  ---
+  duration_ms: 0.161834
+  type: 'test'
+  ...
+# Subtest: preserves Vietnamese route context for localized public routes
+ok 307 - preserves Vietnamese route context for localized public routes
+  ---
+  duration_ms: 0.142709
+  type: 'test'
+  ...
+# Subtest: collapses private pricing variants and unknown routes safely
+ok 308 - collapses private pricing variants and unknown routes safely
+  ---
+  duration_ms: 0.167083
+  type: 'test'
+  ...
+# Subtest: story-club is released, indexable and paired EN/VI
+ok 309 - story-club is released, indexable and paired EN/VI
+  ---
+  duration_ms: 1.627209
+  type: 'test'
+  ...
+# Subtest: both locales state the same price, seat cap and payment method
+ok 310 - both locales state the same price, seat cap and payment method
+  ---
+  duration_ms: 0.119667
+  type: 'test'
+  ...
+# Subtest: every booking button goes to Jay's Zalo; pages state the no-recording policy
+ok 311 - every booking button goes to Jay's Zalo; pages state the no-recording policy
+  ---
+  duration_ms: 1493.046375
+  type: 'test'
+  ...
+# Subtest: under the price, one quiet link lets parents try a free story first (the Level 1 collection)
+ok 312 - under the price, one quiet link lets parents try a free story first (the Level 1 collection)
+  ---
+  duration_ms: 19.669875
+  type: 'test'
+  ...
+# Subtest: §2.1/2.9 — flag OFF (default) renders no testimonial surface
+ok 313 - §2.1/2.9 — flag OFF (default) renders no testimonial surface
+  ---
+  duration_ms: 2.351625
+  type: 'test'
+  ...
+# Subtest: §2.2/2.3 — flag ON with no publishable → honest empty state, no fabricated/draft content
+ok 314 - §2.2/2.3 — flag ON with no publishable → honest empty state, no fabricated/draft content
+  ---
+  duration_ms: 2.799
+  type: 'test'
+  ...
+# Subtest: §2.4/2.5 — section emits NO review schema; buildReviewSchema is null on seed
+ok 315 - §2.4/2.5 — section emits NO review schema; buildReviewSchema is null on seed
+  ---
+  duration_ms: 1.2135
+  type: 'test'
+  ...
+# Subtest: §2.6 — empty state is accessible (heading, aria-label, labelled external CTA)
+ok 316 - §2.6 — empty state is accessible (heading, aria-label, labelled external CTA)
+  ---
+  duration_ms: 0.369459
+  type: 'test'
+  ...
+# Subtest: §2 — empty-state copy is localized en/vi/zh-CN
+ok 317 - §2 — empty-state copy is localized en/vi/zh-CN
+  ---
+  duration_ms: 1.048125
+  type: 'test'
+  ...
+# Subtest: §10.1 — seeded source examples are NEVER publishable (drafts/no-consent)
+ok 318 - §10.1 — seeded source examples are NEVER publishable (drafts/no-consent)
+  ---
+  duration_ms: 0.487375
+  type: 'test'
+  ...
+# Subtest: §10.1 — isPublishable requires published + consent.granted + a consent record
+ok 319 - §10.1 — isPublishable requires published + consent.granted + a consent record
+  ---
+  duration_ms: 0.095375
+  type: 'test'
+  ...
+# Subtest: §10.4 — claim-discipline flags guarantee / score-promise language (en/vi/zh)
+ok 320 - §10.4 — claim-discipline flags guarantee / score-promise language (en/vi/zh)
+  ---
+  duration_ms: 0.992
+  type: 'test'
+  ...
+# Subtest: §10.2 — minor-safety flags school/grade, email, phone, and media beyond scope
+ok 321 - §10.2 — minor-safety flags school/grade, email, phone, and media beyond scope
+  ---
+  duration_ms: 0.781541
+  type: 'test'
+  ...
+# Subtest: §10.3 — Review/AggregateRating emits ONLY with ≥ 3 verified ratings
+ok 322 - §10.3 — Review/AggregateRating emits ONLY with ≥ 3 verified ratings
+  ---
+  duration_ms: 0.744083
+  type: 'test'
+  ...
+# Subtest: §10.3 — assertSchemaHonesty passes for the live source (no schema emitted)
+ok 323 - §10.3 — assertSchemaHonesty passes for the live source (no schema emitted)
+  ---
+  duration_ms: 0.088459
+  type: 'test'
+  ...
+# Subtest: §10.7 / §10.8 — locale/program filters narrow; archived never publishes
+ok 324 - §10.7 / §10.8 — locale/program filters narrow; archived never publishes
+  ---
+  duration_ms: 0.061708
+  type: 'test'
+  ...
+# Subtest: detects explicit social campaign intent
+ok 325 - detects explicit social campaign intent
+  ---
+  duration_ms: 0.4995
+  type: 'test'
+  ...
+# Subtest: detects supported social referrers including subdomains
+ok 326 - detects supported social referrers including subdomains
+  ---
+  duration_ms: 0.138292
+  type: 'test'
+  ...
+# Subtest: does not classify ordinary or malformed traffic as social
+ok 327 - does not classify ordinary or malformed traffic as social
+  ---
+  duration_ms: 0.157708
+  type: 'test'
+  ...
+# Subtest: USD estimates next to VND prices match the PayPal amount
+ok 328 - USD estimates next to VND prices match the PayPal amount
+  ---
+  duration_ms: 1.255792
+  type: 'test'
+  ...
+# Subtest: the stated reference rate is the checkout rate
+ok 329 - the stated reference rate is the checkout rate
+  ---
+  duration_ms: 17.793917
+  type: 'test'
+  ...
+# Subtest: (a) Vietnamese pages: navbar/footer links use the indexable Vietnamese URL
+ok 330 - (a) Vietnamese pages: navbar/footer links use the indexable Vietnamese URL
+  ---
+  duration_ms: 438.101666
+  type: 'test'
+  ...
+# Subtest: (a) query strings and hashes survive localization
+ok 331 - (a) query strings and hashes survive localization
+  ---
+  duration_ms: 1.23875
+  type: 'test'
+  ...
+# Subtest: (b) no link on a Vietnamese page points to a noindex placeholder or a missing /vi URL (pre-existing series demo links excepted)
+ok 332 - (b) no link on a Vietnamese page points to a noindex placeholder or a missing /vi URL (pre-existing series demo links excepted)
+  ---
+  duration_ms: 10.441625
+  type: 'test'
+  ...
+# Subtest: English pages keep their English hrefs
+ok 333 - English pages keep their English hrefs
+  ---
+  duration_ms: 148.535
+  type: 'test'
+  ...
+# Subtest: ProofStrip links the Vietnamese young-learners page on /vi only
+ok 334 - ProofStrip links the Vietnamese young-learners page on /vi only
+  ---
+  duration_ms: 0.227125
+  type: 'test'
+  ...
+# Subtest: getLocalizedHref never produces a placeholder and only ever returns the href or the click target
+ok 335 - getLocalizedHref never produces a placeholder and only ever returns the href or the click target
+  ---
+  duration_ms: 1.089958
+  type: 'test'
+  ...
+# Subtest: Footer hrefs are identical on the server and in the hydrating browser
+ok 336 - Footer hrefs are identical on the server and in the hydrating browser
+  ---
+  duration_ms: 0.49325
+  type: 'test'
+  ...
+# Subtest: every film page is covered: all products with a film, plus the three Story Club films
+ok 337 - every film page is covered: all products with a film, plus the three Story Club films
+  ---
+  duration_ms: 0.417875
+  type: 'test'
+  ...
+# Subtest: videoMeta.json and videoTranscripts.json match the files in public/videos (re-run generate-video-meta.mjs)
+ok 338 - videoMeta.json and videoTranscripts.json match the files in public/videos (re-run generate-video-meta.mjs)
+  ---
+  duration_ms: 96.320875
+  type: 'test'
+  ...
+# Subtest: JSON-LD: a VideoObject per film with name, description, absolute poster + mp4, upload date, real duration
+ok 339 - JSON-LD: a VideoObject per film with name, description, absolute poster + mp4, upload date, real duration
+  ---
+  duration_ms: 8.418792
+  type: 'test'
+  ...
+# Subtest: sitemap: the same films, one <video:video> per film, on the page URL
+ok 340 - sitemap: the same films, one <video:video> per film, on the page URL
+  ---
+  duration_ms: 0.406958
+  type: 'test'
+  ...
+# Subtest: isoDuration
+ok 341 - isoDuration
+  ---
+  duration_ms: 0.062084
+  type: 'test'
+  ...
+# Subtest: the generator script and the sitemap builder are wired
+ok 342 - the generator script and the sitemap builder are wired
+  ---
+  duration_ms: 0.763208
+  type: 'test'
+  ...
+# Subtest: the WorldWise Learning site URL is the canonical www host over https
+ok 343 - the WorldWise Learning site URL is the canonical www host over https
+  ---
+  duration_ms: 0.550583
+  type: 'test'
+  ...
+# Subtest: splitOnWorldWise recognises both spellings in use on the site
+ok 344 - splitOnWorldWise recognises both spellings in use on the site
+  ---
+  duration_ms: 0.5915
+  type: 'test'
+  ...
+# Subtest: splitOnWorldWise keeps the written spelling and leaves suffixes outside the link
+ok 345 - splitOnWorldWise keeps the written spelling and leaves suffixes outside the link
+  ---
+  duration_ms: 0.134666
+  type: 'test'
+  ...
+# Subtest: splitOnWorldWise links only the first mention in a string
+ok 346 - splitOnWorldWise links only the first mention in a string
+  ---
+  duration_ms: 0.050416
+  type: 'test'
+  ...
+# Subtest: splitOnWorldWise ignores the e-mail domain and unrelated text
+ok 347 - splitOnWorldWise ignores the e-mail domain and unrelated text
+  ---
+  duration_ms: 0.073625
+  type: 'test'
+  ...
+# Subtest: organisation JSON-LD links the parent organisation to its website
+ok 348 - organisation JSON-LD links the parent organisation to its website
+  ---
+  duration_ms: 0.062125
+  type: 'test'
+  ...
+# Subtest: no shipped source links to a retired or non-canonical WorldWise host
+ok 349 - no shipped source links to a retired or non-canonical WorldWise host
+  ---
+  duration_ms: 34.25575
+  type: 'test'
+  ...
+# Subtest: LinkifyWorldWise renders the mention as a safe, announced external link
+ok 350 - LinkifyWorldWise renders the mention as a safe, announced external link
+  ---
+  duration_ms: 6.731708
+  type: 'test'
+  ...
+# Subtest: LinkifyWorldWise leaves strings without the organisation name untouched
+ok 351 - LinkifyWorldWise leaves strings without the organisation name untouched
+  ---
+  duration_ms: 1.809167
+  type: 'test'
+  ...
+# Subtest: the site footer links both organisation mentions
+ok 352 - the site footer links both organisation mentions
+  ---
+  duration_ms: 3.221791
+  type: 'test'
+  ...
+# Subtest: the homepage hero publisher lockup links the WorldWise mark and name as one target
+ok 353 - the homepage hero publisher lockup links the WorldWise mark and name as one target
+  ---
+  duration_ms: 273.199541
+  type: 'test'
+  ...
+# Subtest: EN page links both lesson packs to the AI Speaking checkout (VietQR buttons and PayPal options)
+ok 354 - EN page links both lesson packs to the AI Speaking checkout (VietQR buttons and PayPal options)
+  ---
+  duration_ms: 0.925083
+  type: 'test'
+  ...
+# Subtest: VI edition links to the Vietnamese checkout (VietQR buttons and PayPal options)
+ok 355 - VI edition links to the Vietnamese checkout (VietQR buttons and PayPal options)
+  ---
+  duration_ms: 0.311583
+  type: 'test'
+  ...
+# Subtest: runtime language switch rewrites the links the same way
+ok 356 - runtime language switch rewrites the links the same way
+  ---
+  duration_ms: 0.0975
+  type: 'test'
+  ...
+# Subtest: no card-payment promise remains in any language
+ok 357 - no card-payment promise remains in any language
+  ---
+  duration_ms: 2.733625
+  type: 'test'
+  ...
+# Subtest: one VND price format: 800.000₫, never 800,000d
+ok 358 - one VND price format: 800.000₫, never 800,000d
+  ---
+  duration_ms: 1.893583
+  type: 'test'
+  ...
+# Subtest: no free-evaluation offer remains on the EN page, the VI page or in any YL dictionary
+ok 359 - no free-evaluation offer remains on the EN page, the VI page or in any YL dictionary
+  ---
+  duration_ms: 1.897292
+  type: 'test'
+  ...
+# Subtest: the page no longer offers the Apps Script form or its QR code
+ok 360 - the page no longer offers the Apps Script form or its QR code
+  ---
+  duration_ms: 0.259916
+  type: 'test'
+  ...
+# Subtest: no free-evaluation offer remains on the SPA surfaces that linked to it
+ok 361 - no free-evaluation offer remains on the SPA surfaces that linked to it
+  ---
+  duration_ms: 1.808625
+  type: 'test'
+  ...
+# Subtest: EN page: every Baseline CTA opens the English booking page
+ok 362 - EN page: every Baseline CTA opens the English booking page
+  ---
+  duration_ms: 0.224458
+  type: 'test'
+  ...
+# Subtest: VI page: every Baseline CTA opens the Vietnamese booking page
+ok 363 - VI page: every Baseline CTA opens the Vietnamese booking page
+  ---
+  duration_ms: 0.178083
+  type: 'test'
+  ...
+# Subtest: runtime language switch: vi gets ?lang=vi, zh-CN falls back to the English page
+ok 364 - runtime language switch: vi gets ?lang=vi, zh-CN falls back to the English page
+  ---
+  duration_ms: 0.138833
+  type: 'test'
+  ...
+# Subtest: SPA Baseline CTAs link to the booking page in the visitor language
+ok 365 - SPA Baseline CTAs link to the booking page in the visitor language
+  ---
+  duration_ms: 0.15225
+  type: 'test'
+  ...
+# Subtest: the Baseline is named, priced and described in all three languages
+ok 366 - the Baseline is named, priced and described in all three languages
+  ---
+  duration_ms: 0.1945
+  type: 'test'
+  ...
+# Subtest: no promise that the Baseline fee is credited against lessons
+ok 367 - no promise that the Baseline fee is credited against lessons
+  ---
+  duration_ms: 1.581834
+  type: 'test'
+  ...
+# Subtest: /book-evaluation (printed on flyers) redirects to the Baseline booking page
+ok 368 - /book-evaluation (printed on flyers) redirects to the Baseline booking page
+  ---
+  duration_ms: 0.994916
+  type: 'test'
+  ...
+# Subtest: young-learners-speaking/index.html: no remedy is triggered by an exam score
+ok 369 - young-learners-speaking/index.html: no remedy is triggered by an exam score
+  ---
+  duration_ms: 0.586583
+  type: 'test'
+  ...
+# Subtest: en: no remedy is triggered by an exam score
+ok 370 - en: no remedy is triggered by an exam score
+  ---
+  duration_ms: 0.08
+  type: 'test'
+  ...
+# Subtest: vi: no remedy is triggered by an exam score
+ok 371 - vi: no remedy is triggered by an exam score
+  ---
+  duration_ms: 0.086416
+  type: 'test'
+  ...
+# Subtest: zh-CN: no remedy is triggered by an exam score
+ok 372 - zh-CN: no remedy is triggered by an exam score
+  ---
+  duration_ms: 0.0465
+  type: 'test'
+  ...
+# Subtest: the effort-based progress review is stated in every language
+ok 373 - the effort-based progress review is stated in every language
+  ---
+  duration_ms: 0.074375
+  type: 'test'
+  ...
+# Subtest: every translatable element is localised — no partial page
+ok 374 - every translatable element is localised — no partial page
+  ---
+  duration_ms: 0.535292
+  type: 'test'
+  ...
+# Subtest: every page key has a Vietnamese string
+ok 375 - every page key has a Vietnamese string
+  ---
+  duration_ms: 0.422791
+  type: 'test'
+  ...
+# Subtest: text elements carry exactly the dictionary value
+ok 376 - text elements carry exactly the dictionary value
+  ---
+  duration_ms: 0.308292
+  type: 'test'
+  ...
+# Subtest: head is Vietnamese and self-canonical
+ok 377 - head is Vietnamese and self-canonical
+  ---
+  duration_ms: 0.166875
+  type: 'test'
+  ...
+# Subtest: language alternates are reciprocal between EN and VI, with no ?lang= targets
+ok 378 - language alternates are reciprocal between EN and VI, with no ?lang= targets
+  ---
+  duration_ms: 0.222875
+  type: 'test'
+  ...
+# Subtest: no relative asset paths survive the move to /vi/
+ok 379 - no relative asset paths survive the move to /vi/
+  ---
+  duration_ms: 0.24
+  type: 'test'
+  ...
+# Subtest: English page is not declared as a language page
+ok 380 - English page is not declared as a language page
+  ---
+  duration_ms: 0.115166
+  type: 'test'
+  ...
+# Subtest: alt / aria-label attributes are localised (no English residue in attributes)
+ok 381 - alt / aria-label attributes are localised (no English residue in attributes)
+  ---
+  duration_ms: 0.188833
+  type: 'test'
+  ...
+# Subtest: Young Learners books the Live Speaking Baseline and keeps relevant internal paths
+ok 382 - Young Learners books the Live Speaking Baseline and keeps relevant internal paths
+  ---
+  duration_ms: 2.9135
+  type: 'test'
+  ...
+# Subtest: promo video requires an explicit visitor action and does not eager-load
+ok 383 - promo video requires an explicit visitor action and does not eager-load
+  ---
+  duration_ms: 1.088125
+  type: 'test'
+  ...
+# Subtest: new continuation and video controls are localized
+ok 384 - new continuation and video controls are localized
+  ---
+  duration_ms: 3.468417
+  type: 'test'
+  ...
+1..384
+# tests 384
+# suites 0
+# pass 384
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8282.245958

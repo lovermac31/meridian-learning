@@ -186,7 +186,7 @@ const termsVi: LegalDocument = {
 const privacyVi: LegalDocument = {
   title: 'Chính sách quyền riêng tư',
   effectiveDate: 'Tháng 3 năm 2026',
-  lastUpdated: '14 tháng 10 năm 2026',
+  lastUpdated: '27 tháng 10 năm 2026',
   callout: {
     label: 'QUYỀN RIÊNG TƯ CỦA BẠN RẤT QUAN TRỌNG',
     body: 'World Wise Learning cam kết bảo vệ dữ liệu cá nhân của bạn. Chính sách quyền riêng tư này giải thích chúng tôi thu thập những dữ liệu nào, sử dụng chúng ra sao, và các quyền của bạn theo pháp luật bảo vệ dữ liệu hiện hành, bao gồm UK GDPR, EU GDPR và các quy định quốc tế tương đương.',
@@ -286,6 +286,7 @@ const privacyVi: LegalDocument = {
           ['Dữ liệu phân tích đã ẩn danh', 'Vô thời hạn (không còn là dữ liệu cá nhân)'],
         ],
       ),
+      p('Bộ mẫu miễn phí: chúng tôi lưu email hoặc số Zalo và yêu cầu của bạn trong 12 tháng, hoặc xóa sớm hơn nếu bạn yêu cầu: info@jurassicenglish.com.'),
     ]),
     section('8', 'Quyền bảo vệ dữ liệu của bạn', [
       p('Tùy theo pháp luật bảo vệ dữ liệu hiện hành, bạn có các quyền sau đối với dữ liệu cá nhân của mình:'),

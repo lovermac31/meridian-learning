@@ -1,0 +1,1758 @@
+[
+  {
+    "engine": "chromium",
+    "version": "153.0.8010.12"
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "home",
+    "url": "https://jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/",
+    "title": "Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking",
+    "h1": [
+      "English your child can use—not just memorise."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(0, 95, 204) none 1px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "products",
+    "url": "https://jurassicenglish.com/products",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products",
+    "title": "Products and Prices | Jurassic English™",
+    "h1": [
+      "Jurassic English products"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) none 3px"
+    },
+    "accordion": "true",
+    "sample": 1,
+    "sampleFocusInside": true,
+    "sampleClosed": true,
+    "sampleFocusRestored": true
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "product",
+    "url": "https://jurassicenglish.com/products/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products/story-club",
+    "title": "Online English Story Club for Kids 5–8 | Mr. Jay",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 6
+      },
+      {
+        "id": "video-caption",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) none 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "club",
+    "url": "https://jurassicenglish.com/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/story-club",
+    "title": "Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 6
+      },
+      {
+        "id": "video-caption",
+        "nodes": 3
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) none 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "speaking",
+    "url": "https://jurassicenglish.com/ai-speaking",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/ai-speaking",
+    "title": "AI IELTS Speaking Practice: Online Mock Test with Feedback | Jurassic English",
+    "h1": [
+      "You can’t memorize the IELTS test. Learn how to answer it."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": false
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "aria-prohibited-attr",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Jurassic English™",
+      "outline": "rgb(180, 83, 9) solid 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "books",
+    "url": "https://books.jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/",
+    "title": "Jurassic English Academy — Original Stories",
+    "h1": [
+      "Stories to read.Ideas to explore."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 161
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to content",
+      "outline": "rgb(63, 125, 78) solid 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "reader",
+    "url": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "title": "Mina and the Midnight Drum — Jurassic English Academy",
+    "h1": [
+      "Mina and the Midnight Drum"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 14
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to content",
+      "outline": "rgb(63, 125, 78) solid 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "portal",
+    "url": "https://my.jurassicenglish.com/buy/printable-pack",
+    "status": 200,
+    "finalUrl": "https://my.jurassicenglish.com/login?next=%2Fbuy%2Fprintable-pack",
+    "title": "My products · Jurassic English",
+    "h1": [
+      "Đăng nhập"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [],
+    "firstTab": {
+      "tag": "A",
+      "text": "Jurassic English · Sản phẩm của tôi",
+      "outline": "rgb(201, 162, 39) solid 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "name": "quest",
+    "url": "https://worldwise-story-quest.vercel.app/#home",
+    "status": 200,
+    "finalUrl": "https://worldwise-story-quest.vercel.app/#home",
+    "title": "WorldWise Story Quest | Free English Reading Game for Children 6–12",
+    "h1": [
+      "Trò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổi"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 4
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Story Quest",
+      "outline": "rgb(217, 119, 6) solid 2px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "name": "home",
+    "url": "https://jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/",
+    "title": "Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking",
+    "h1": [
+      "English your child can use—not just memorise."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) none 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "name": "products",
+    "url": "https://jurassicenglish.com/products",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products",
+    "title": "Products and Prices | Jurassic English™",
+    "h1": [
+      "Jurassic English products"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) none 3px"
+    },
+    "accordion": "true",
+    "sample": 1,
+    "sampleFocusInside": true,
+    "sampleClosed": true,
+    "sampleFocusRestored": true
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "name": "product",
+    "url": "https://jurassicenglish.com/products/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products/story-club",
+    "title": "Online English Story Club for Kids 5–8 | Mr. Jay",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 12
+      },
+      {
+        "id": "video-caption",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(0, 95, 204) none 1px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "name": "club",
+    "url": "https://jurassicenglish.com/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/story-club",
+    "title": "Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 12
+      },
+      {
+        "id": "video-caption",
+        "nodes": 3
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) none 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "name": "speaking",
+    "url": "https://jurassicenglish.com/ai-speaking",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/ai-speaking",
+    "title": "AI IELTS Speaking Practice: Online Mock Test with Feedback | Jurassic English",
+    "h1": [
+      "You can’t memorize the IELTS test. Learn how to answer it."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": false
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "aria-prohibited-attr",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Jurassic English™",
+      "outline": "rgb(180, 83, 9) solid 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "name": "books",
+    "url": "https://books.jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/",
+    "title": "Jurassic English Academy — Original Stories",
+    "h1": [
+      "Stories to read.Ideas to explore."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 162
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to content",
+      "outline": "rgb(63, 125, 78) solid 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "name": "reader",
+    "url": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "title": "Mina and the Midnight Drum — Jurassic English Academy",
+    "h1": [
+      "Mina and the Midnight Drum"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 15
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to content",
+      "outline": "rgb(63, 125, 78) solid 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "name": "portal",
+    "url": "https://my.jurassicenglish.com/buy/printable-pack",
+    "status": 200,
+    "finalUrl": "https://my.jurassicenglish.com/login?next=%2Fbuy%2Fprintable-pack",
+    "title": "My products · Jurassic English",
+    "h1": [
+      "Đăng nhập"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [],
+    "firstTab": {
+      "tag": "A",
+      "text": "Jurassic English · Sản phẩm của tôi",
+      "outline": "rgb(201, 162, 39) solid 3px"
+    }
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "name": "quest",
+    "url": "https://worldwise-story-quest.vercel.app/#home",
+    "status": 200,
+    "finalUrl": "https://worldwise-story-quest.vercel.app/#home",
+    "title": "WorldWise Story Quest | Free English Reading Game for Children 6–12",
+    "h1": [
+      "Trò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổi"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 4
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Story Quest",
+      "outline": "rgb(217, 119, 6) solid 2px"
+    }
+  },
+  {
+    "engine": "webkit",
+    "version": "26.6"
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "home",
+    "url": "https://jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/",
+    "title": "Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking",
+    "h1": [
+      "English your child can use—not just memorise."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "INPUT",
+      "text": "",
+      "outline": "3px none rgb(28, 37, 38)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "products",
+    "url": "https://jurassicenglish.com/products",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products",
+    "title": "Products and Prices | Jurassic English™",
+    "h1": [
+      "Jurassic English products"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 8
+      }
+    ],
+    "firstTab": {
+      "tag": "INPUT",
+      "text": "",
+      "outline": "3px solid rgb(173, 66, 8)"
+    },
+    "accordion": "true",
+    "sample": 1,
+    "sampleFocusInside": false,
+    "sampleClosed": true,
+    "sampleFocusRestored": false
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "product",
+    "url": "https://jurassicenglish.com/products/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products/story-club",
+    "title": "Online English Story Club for Kids 5–8 | Mr. Jay",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 6
+      },
+      {
+        "id": "video-caption",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "VIDEO",
+      "text": "",
+      "outline": "3px auto rgb(16, 24, 32)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "club",
+    "url": "https://jurassicenglish.com/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/story-club",
+    "title": "Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 6
+      },
+      {
+        "id": "video-caption",
+        "nodes": 3
+      }
+    ],
+    "firstTab": {
+      "tag": "VIDEO",
+      "text": "",
+      "outline": "3px auto rgb(16, 24, 32)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "speaking",
+    "url": "https://jurassicenglish.com/ai-speaking",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/ai-speaking",
+    "title": "AI IELTS Speaking Practice: Online Mock Test with Feedback | Jurassic English",
+    "h1": [
+      "You can’t memorize the IELTS test. Learn how to answer it."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": false
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "aria-prohibited-attr",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "SELECT",
+      "text": "1×2×",
+      "outline": "3px solid rgb(180, 83, 9)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "books",
+    "url": "https://books.jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/",
+    "title": "Jurassic English Academy — Original Stories",
+    "h1": [
+      "Stories to read.Ideas to explore."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 161
+      }
+    ],
+    "firstTab": {
+      "tag": "BODY",
+      "text": "Skip to content\n\n  \n    \n    Jurassic English AcademyOriginal Stories · Levels 1–5\n    \n    ← Kids A",
+      "outline": "3px none rgb(43, 38, 32)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "reader",
+    "url": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "title": "Mina and the Midnight Drum — Jurassic English Academy",
+    "h1": [
+      "Mina and the Midnight Drum"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 14
+      }
+    ],
+    "firstTab": {
+      "tag": "SELECT",
+      "text": "Mina and the Midnight DrumThe Lantern With Two HandlesLina and the Orchard MapKim and the Thunder In",
+      "outline": "3px solid rgb(63, 125, 78)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "portal",
+    "url": "https://my.jurassicenglish.com/buy/printable-pack",
+    "status": 200,
+    "finalUrl": "https://my.jurassicenglish.com/login?next=%2Fbuy%2Fprintable-pack",
+    "title": "My products · Jurassic English",
+    "h1": [
+      "Đăng nhập"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [],
+    "firstTab": {
+      "tag": "INPUT",
+      "text": "",
+      "outline": "3px solid rgb(201, 162, 39)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "name": "quest",
+    "url": "https://worldwise-story-quest.vercel.app/#home",
+    "status": 200,
+    "finalUrl": "https://worldwise-story-quest.vercel.app/#home",
+    "title": "WorldWise Story Quest | Free English Reading Game for Children 6–12",
+    "h1": [
+      "Trò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổi"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 4
+      }
+    ],
+    "firstTab": {
+      "tag": "BODY",
+      "text": "Story QuestTắt âmENTiếng ViệtTrò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổiMột câu chuyện bí ẩn ",
+      "outline": "3px none oklch(0.216 0.006 56.042999)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "name": "home",
+    "url": "https://jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/",
+    "title": "Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking",
+    "h1": [
+      "English your child can use—not just memorise."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "INPUT",
+      "text": "",
+      "outline": "3px none rgb(28, 37, 38)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "name": "products",
+    "url": "https://jurassicenglish.com/products",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products",
+    "title": "Products and Prices | Jurassic English™",
+    "h1": [
+      "Jurassic English products"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 14
+      }
+    ],
+    "firstTab": {
+      "tag": "INPUT",
+      "text": "",
+      "outline": "3px solid rgb(173, 66, 8)"
+    },
+    "accordion": "true",
+    "sample": 1,
+    "sampleFocusInside": false,
+    "sampleClosed": true,
+    "sampleFocusRestored": false
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "name": "product",
+    "url": "https://jurassicenglish.com/products/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products/story-club",
+    "title": "Online English Story Club for Kids 5–8 | Mr. Jay",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 12
+      },
+      {
+        "id": "video-caption",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "VIDEO",
+      "text": "",
+      "outline": "3px auto rgb(16, 24, 32)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "name": "club",
+    "url": "https://jurassicenglish.com/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/story-club",
+    "title": "Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 12
+      },
+      {
+        "id": "video-caption",
+        "nodes": 3
+      }
+    ],
+    "firstTab": {
+      "tag": "VIDEO",
+      "text": "",
+      "outline": "3px auto rgb(16, 24, 32)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "name": "speaking",
+    "url": "https://jurassicenglish.com/ai-speaking",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/ai-speaking",
+    "title": "AI IELTS Speaking Practice: Online Mock Test with Feedback | Jurassic English",
+    "h1": [
+      "You can’t memorize the IELTS test. Learn how to answer it."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": false
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "aria-prohibited-attr",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "SELECT",
+      "text": "1×2×",
+      "outline": "3px solid rgb(180, 83, 9)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "name": "books",
+    "url": "https://books.jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/",
+    "title": "Jurassic English Academy — Original Stories",
+    "h1": [
+      "Stories to read.Ideas to explore."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 162
+      }
+    ],
+    "firstTab": {
+      "tag": "BODY",
+      "text": "Skip to content\n\n  \n    \n    Jurassic English AcademyOriginal Stories · Levels 1–5\n    \n    ← Kids A",
+      "outline": "3px none rgb(43, 38, 32)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "name": "reader",
+    "url": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "title": "Mina and the Midnight Drum — Jurassic English Academy",
+    "h1": [
+      "Mina and the Midnight Drum"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 15
+      }
+    ],
+    "firstTab": {
+      "tag": "SELECT",
+      "text": "Mina and the Midnight DrumThe Lantern With Two HandlesLina and the Orchard MapKim and the Thunder In",
+      "outline": "3px solid rgb(63, 125, 78)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "name": "portal",
+    "url": "https://my.jurassicenglish.com/buy/printable-pack",
+    "status": 200,
+    "finalUrl": "https://my.jurassicenglish.com/login?next=%2Fbuy%2Fprintable-pack",
+    "title": "My products · Jurassic English",
+    "h1": [
+      "Đăng nhập"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [],
+    "firstTab": {
+      "tag": "INPUT",
+      "text": "",
+      "outline": "3px solid rgb(201, 162, 39)"
+    }
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "name": "quest",
+    "url": "https://worldwise-story-quest.vercel.app/#home",
+    "status": 200,
+    "finalUrl": "https://worldwise-story-quest.vercel.app/#home",
+    "title": "WorldWise Story Quest | Free English Reading Game for Children 6–12",
+    "h1": [
+      "Trò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổi"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 4
+      }
+    ],
+    "firstTab": {
+      "tag": "BODY",
+      "text": "Story QuestTắt âmENTiếng ViệtTrò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổiMột câu chuyện bí ẩn ",
+      "outline": "3px none oklch(0.216 0.006 56.042999)"
+    }
+  },
+  {
+    "engine": "firefox",
+    "version": "155.0"
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "name": "home",
+    "url": "https://jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/",
+    "title": "Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking",
+    "h1": [
+      "English your child can use—not just memorise."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(255, 255, 255) 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "name": "products",
+    "url": "https://jurassicenglish.com/products",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products",
+    "title": "Products and Prices | Jurassic English™",
+    "h1": [
+      "Jurassic English products"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 8
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) 3px"
+    },
+    "accordion": "true",
+    "sample": 1,
+    "sampleFocusInside": true,
+    "sampleClosed": true,
+    "sampleFocusRestored": true
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "name": "product",
+    "url": "https://jurassicenglish.com/products/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products/story-club",
+    "title": "Online English Story Club for Kids 5–8 | Mr. Jay",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 6
+      },
+      {
+        "id": "video-caption",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "name": "club",
+    "url": "https://jurassicenglish.com/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/story-club",
+    "title": "Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 6
+      },
+      {
+        "id": "video-caption",
+        "nodes": 3
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "name": "speaking",
+    "url": "https://jurassicenglish.com/ai-speaking",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/ai-speaking",
+    "title": "AI IELTS Speaking Practice: Online Mock Test with Feedback | Jurassic English",
+    "h1": [
+      "You can’t memorize the IELTS test. Learn how to answer it."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": false
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "aria-prohibited-attr",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Jurassic English™",
+      "outline": "rgb(180, 83, 9) solid 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "name": "books",
+    "url": "https://books.jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/",
+    "title": "Jurassic English Academy — Original Stories",
+    "h1": [
+      "Stories to read.Ideas to explore."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 161
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to content",
+      "outline": "rgb(63, 125, 78) solid 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "name": "reader",
+    "url": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "errors": [
+      "Acquiring an exclusive Navigator LockManager lock \"lock:sb-hvuohtenmsqlsqrbgveg-auth-token\" immediately failed"
+    ],
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "title": "Mina and the Midnight Drum — Jurassic English Academy",
+    "h1": [
+      "Mina and the Midnight Drum"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 14
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to content",
+      "outline": "rgb(63, 125, 78) solid 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "name": "portal",
+    "url": "https://my.jurassicenglish.com/buy/printable-pack",
+    "status": 200,
+    "finalUrl": "https://my.jurassicenglish.com/login?next=%2Fbuy%2Fprintable-pack",
+    "title": "My products · Jurassic English",
+    "h1": [
+      "Đăng nhập"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [],
+    "firstTab": {
+      "tag": "A",
+      "text": "Jurassic English · Sản phẩm của tôi",
+      "outline": "rgb(201, 162, 39) solid 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 390,
+    "name": "quest",
+    "url": "https://worldwise-story-quest.vercel.app/#home",
+    "status": 200,
+    "finalUrl": "https://worldwise-story-quest.vercel.app/#home",
+    "title": "WorldWise Story Quest | Free English Reading Game for Children 6–12",
+    "h1": [
+      "Trò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổi"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 4
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Story Quest",
+      "outline": "rgb(217, 119, 6) solid 2px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "name": "home",
+    "url": "https://jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/",
+    "title": "Jurassic English™ | Critical Thinking, Academic English & IELTS Speaking",
+    "h1": [
+      "English your child can use—not just memorise."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "name": "products",
+    "url": "https://jurassicenglish.com/products",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products",
+    "title": "Products and Prices | Jurassic English™",
+    "h1": [
+      "Jurassic English products"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 14
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) 3px"
+    },
+    "accordion": "true",
+    "sample": 1,
+    "sampleFocusInside": true,
+    "sampleClosed": true,
+    "sampleFocusRestored": true
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "name": "product",
+    "url": "https://jurassicenglish.com/products/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/products/story-club",
+    "title": "Online English Story Club for Kids 5–8 | Mr. Jay",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 12
+      },
+      {
+        "id": "video-caption",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "name": "club",
+    "url": "https://jurassicenglish.com/story-club",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/story-club",
+    "title": "Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™",
+    "h1": [
+      "Story Club with Mr. Jay"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        },
+        {
+          "muted": true,
+          "controls": true
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 12
+      },
+      {
+        "id": "video-caption",
+        "nodes": 3
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to main content",
+      "outline": "rgb(28, 37, 38) 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "name": "speaking",
+    "url": "https://jurassicenglish.com/ai-speaking",
+    "status": 200,
+    "finalUrl": "https://jurassicenglish.com/ai-speaking",
+    "title": "AI IELTS Speaking Practice: Online Mock Test with Feedback | Jurassic English",
+    "h1": [
+      "You can’t memorize the IELTS test. Learn how to answer it."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": [
+        {
+          "muted": true,
+          "controls": false
+        }
+      ]
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "aria-prohibited-attr",
+        "nodes": 1
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Jurassic English™",
+      "outline": "rgb(180, 83, 9) solid 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "name": "books",
+    "url": "https://books.jurassicenglish.com/",
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/",
+    "title": "Jurassic English Academy — Original Stories",
+    "h1": [
+      "Stories to read.Ideas to explore."
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 162
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to content",
+      "outline": "rgb(63, 125, 78) solid 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "name": "reader",
+    "url": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "errors": [
+      "Acquiring an exclusive Navigator LockManager lock \"lock:sb-hvuohtenmsqlsqrbgveg-auth-token\" immediately failed"
+    ],
+    "status": 200,
+    "finalUrl": "https://books.jurassicenglish.com/book.html#mina-and-the-midnight-drum",
+    "title": "Mina and the Midnight Drum — Jurassic English Academy",
+    "h1": [
+      "Mina and the Midnight Drum"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 15
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Skip to content",
+      "outline": "rgb(63, 125, 78) solid 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "name": "portal",
+    "url": "https://my.jurassicenglish.com/buy/printable-pack",
+    "status": 200,
+    "finalUrl": "https://my.jurassicenglish.com/login?next=%2Fbuy%2Fprintable-pack",
+    "title": "My products · Jurassic English",
+    "h1": [
+      "Đăng nhập"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [],
+    "firstTab": {
+      "tag": "A",
+      "text": "Jurassic English · Sản phẩm của tôi",
+      "outline": "rgb(201, 162, 39) solid 3px"
+    }
+  },
+  {
+    "engine": "firefox",
+    "width": 1440,
+    "name": "quest",
+    "url": "https://worldwise-story-quest.vercel.app/#home",
+    "status": 200,
+    "finalUrl": "https://worldwise-story-quest.vercel.app/#home",
+    "title": "WorldWise Story Quest | Free English Reading Game for Children 6–12",
+    "h1": [
+      "Trò chơi đọc tiếng Anh miễn phí cho bé 6⁠–⁠12 tuổi"
+    ],
+    "layout": {
+      "overflow": false,
+      "imagesMissingAlt": [],
+      "media": []
+    },
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "nodes": 4
+      }
+    ],
+    "firstTab": {
+      "tag": "A",
+      "text": "Story Quest",
+      "outline": "rgb(217, 119, 6) solid 2px"
+    }
+  }
+]

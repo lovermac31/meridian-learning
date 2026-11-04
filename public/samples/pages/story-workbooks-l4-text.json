@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "productId": "story-workbooks-l4",
+  "sampleStem": "story-workbooks-l4",
+  "pageCount": 3,
+  "source": {
+    "file": "story-workbooks-l4-sample.pdf",
+    "sha256": "73ae1ecc40c424d53428bb0d24e343567d5b0aa385a9eaccd8bbc9fe2177099a"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "story-workbooks-l4-pg01.webp",
+      "imageSha256": "71657a9361f41ee6ec7d8a1396af6795a03424872c86a4832efd04cd9305b4ed",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nThe Missing Column\nLevel 4 · Mastery\n\nAges 12–14\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "015c13fdefed973dbafc9be30487e29de46ae51696a078eb492cbadd18ce3792",
+      "method": "pdf-text"
+    },
+    {
+      "page": 2,
+      "image": "story-workbooks-l4-pg02.webp",
+      "imageSha256": "189db8311b8c7a780ff1ee99579873b127342b9970925012c30a3f89c11913ac",
+      "text": "Chapter 1\n\nThe number above the desk\n\n1\n\nThe first thing Anwen saw each morning was the number above the\nnewspaper desk. It counted how often students opened the latest edition.\nThis week it glowed green: 4,812.\n‘People are reading us,’ said Dev, the editor.\nAnwen wanted that to be true. She had spent three afternoons reporting on\nthe courtyard’s missing shade. A strip of benches had been removed for a\npromotional display, leaving lunchtime queues in the sun.\nHer article included photographs, interviews and the school’s explanation. It\nalso included a question about the building plan. At the bottom of the\nedition, it attracted fourteen opens.\nRead and circle\nWhy had the strip of courtyard benches been removed?\nA. To make room for a promotional display\nB. Because the old benches had become unsafe\nC. To give the lunchtime queues more space\n\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "069274a7579990944ce616f953deac905374fa95893023139fc9abf1216f496a",
+      "method": "pdf-text"
+    },
+    {
+      "page": 3,
+      "image": "story-workbooks-l4-pg03.webp",
+      "imageSha256": "b91276064a00ade9fc85b236881d3b5107ee583f33ae6569a09be9a93aab129c",
+      "text": "Chapter 1 workbook\n\n1\n\nThe number above the desk: my workbook page\n\n1 · Fill the gaps\nfirst\n\nglowed\n\nnewspaper\n\nstudents\n\nThe first thing Anwen saw each morning was the number above the\ndesk.\nIt counted how often\nThis week it\n\nopened the latest edition.\ngreen: 4,812.\n\n2 · Think about it\nWhat does the gap between 4,812 and fourteen suggest about the counter?\nA. Most students read every article in the edition\nB. Students had no interest in the courtyard shade\nC. A big total can hide how little one story is seen\n\n3 · Write it\nWhat assumption hides inside Dev’s statement? Explain the difference between an\nobservable event and an interpretation of it.\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "aa66c1336f3c6b641c1f2406c7486d765357b85edaf77e04c00d5bda83608c5e",
+      "method": "pdf-text"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 /* Phase 1B: core text uses local stacks; decorative display font loads asynchronously from index.html. */
 @import "tailwindcss";
 @import "./components/search-insights.css";
+@import "./styles/products.css";
 
 @theme {
   --font-sans: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -8,7 +9,8 @@
   --font-serif: Georgia, "Times New Roman", serif;
 
   --color-jurassic-dark: #101820;   /* Sleeker Dark */
-  --color-jurassic-accent: #F26419; /* Richer Orange */
+  --color-jurassic-accent: #F26419;
+  --color-jurassic-accent-ink: #9A3B08; /* AA small text on light and orange-tinted surfaces. */ /* Richer Orange */
   --color-jurassic-gold: #D4AF37;   /* Added Gold */
   --color-jurassic-soft: #F4F1EA;   /* Warm Ivory */
   --color-jurassic-blue: #1C3F60;   /* Slate Blue */
@@ -142,6 +144,11 @@
 
 html[lang='vi'] {
   --font-display: Georgia, "Times New Roman", serif;
+}
+
+/* Smooth in-page anchors (master, 27 Oct 2026: a smooth path from home to /products); off for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
 }
 
 /*

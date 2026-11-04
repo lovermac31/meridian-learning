@@ -1,11 +1,20 @@
 /**
  * analytics.ts — JE CTA event schema
  *
- * Wraps Vercel Analytics `track()` with typed, consistent event shapes.
+ * Wraps Vercel Analytics `track()` (mirrored to GA4, src/lib/ga4.ts) with typed, consistent event shapes.
  * Import from this module rather than calling `track()` directly so the
  * full event catalogue stays in one place.
  */
-import { track } from '@vercel/analytics';
+import { track as vercelTrack } from '@vercel/analytics';
+import { ga4Event } from './ga4';
+import { analyticsAllowed } from './analyticsConsent';
+
+/** Every event goes to Vercel Web Analytics and, when loaded, to GA4 (same name and fields). */
+function track(name: string, params: Record<string, string | number | boolean | undefined>) {
+  if (!analyticsAllowed()) return;
+  vercelTrack(name, params as Record<string, string | number | boolean>);
+  ga4Event(name, params);
+}
 
 export type CtaType       = 'primary' | 'secondary' | 'low_friction';
 export type AudienceSegment = 'institutional' | 'institutional_snapshot' | 'parent_student' | 'unknown';

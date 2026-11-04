@@ -61,7 +61,7 @@ const VERCEL_MATCHERS = [...(vercel.rewrites ?? []), ...(vercel.redirects ?? [])
 
 // Vite multi-page inputs and their build-time VI copy (vite.config.ts input,
 // scripts/prerender-yl-vi.mjs). They live outside the SPA router and public/.
-const STATIC_PAGES = new Set(['/young-learners-speaking', '/vi/luyen-noi-ielts']);
+const STATIC_PAGES = new Set(['/young-learners-speaking', '/vi/luyen-noi-ielts', '/site-map', '/vi/so-do-trang']);
 
 function servedByPublic(pathname: string) {
   const file = join(ROOT, 'public', decodeURIComponent(pathname));

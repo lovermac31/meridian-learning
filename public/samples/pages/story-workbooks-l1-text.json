@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "productId": "story-workbooks-l1",
+  "sampleStem": "story-workbooks-l1",
+  "pageCount": 3,
+  "source": {
+    "file": "story-workbooks-l1-sample.pdf",
+    "sha256": "6961841c6ff19ee16d739d92014da81f5065c624d5ebe3d28d32f9c64741f19b"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "story-workbooks-l1-pg01.webp",
+      "imageSha256": "95eca955bb82e5acba5eb0f36b6a745546da41e0ad0507fe81ebe760879dce66",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nMina and the Midnight Drum\n\nLevel 1 · Foundation\n\nAges 4–8\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "beafec45581a9cde508ea84261b1f0e8f785d80e1a876feaf33b85d63f964e47",
+      "method": "pdf-text"
+    },
+    {
+      "page": 2,
+      "image": "story-workbooks-l1-pg02.webp",
+      "imageSha256": "e00eeb06d77b296cbc6a768bc6d7e44c7f334072e8e6a4b7acbb1973e5ad4cae",
+      "text": "Chapter 1\n\nThe big drum\n\n1\n\nMina has a small drum.\nBOOM! Her aunt plays the big drum.\nIt is the Midnight Drum. It will play at the town party.\nMina smiles. ‘Can I play?’\nRead and circle\n\nWho plays the big drum first?\nA. Mina\nB. Her aunt\nC. Sami\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "5f35576e8574befcc975f38277bd49c81b677b9626353c95c71e85fee641b413",
+      "method": "pdf-text"
+    },
+    {
+      "page": 3,
+      "image": "story-workbooks-l1-pg03.webp",
+      "imageSha256": "2165d3b94729832f482e3957c7515eb6e8ac7e3d65d4ad98f32cb1d851148566",
+      "text": "Chapter 1 workbook\n\n1\n\nThe big drum: my workbook page\n\n1 · Fill the gaps\ndrum\n\nparty\n\nsmall\n\nMina has a small\n\n.\n\nIt will play at the town\n\n.\n\n2 · Think about it\n\nHow does Mina feel about the big drum?\nA. Happy. She wants to play.\nB. Scared of the sound\nC. Tired\n\n3 · Write it\n\nHow does Mina feel? Show a face or point to a clue.\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
+      "textSha256": "6bc7d7f2f759ae307ca19eba1541bc76d21c5e7e07643fbf7c10efecddf97f3a",
+      "method": "pdf-text"
+    }
+  ]
+}

@@ -8,7 +8,14 @@
  */
 import type { Locale } from '../locales';
 
-export const STORY_CLUB_ZALO = 'https://zalo.me/84396085076';
+export const STORY_CLUB_ZALO = '/go/zalo/story-club';
+// The Student Academy story collections (W-1, Jay 27 Oct 2026): a quiet link under the price for parents who
+// want to try a free story first. It opens the Level 1 collection, not the book app directly. The tag sits before the
+// #anchor so it reaches analytics.
+export const STORY_CLUB_FREE_STORIES: Record<Locale, string> = {
+  en: '/student-academy/stories?utm_source=storyclub#level-1',
+  vi: '/vi/student-academy/stories?utm_source=storyclub#level-1',
+};
 
 type Step = { title: string; body: string };
 type Faq = { q: string; a: string };
@@ -17,7 +24,7 @@ type StoryClubCopy = {
   eyebrow: string;
   title: string;
   lead: string;
-  price: { amount: string; unit: string; note: string; seats: string };
+  price: { amount: string; unit: string; note: string; seats: string; schedule: string; tryFree: string };
   week: { heading: string; steps: Step[] };
   parents: { heading: string; items: string[] };
   forWho: { heading: string; yes: string[]; no: string[]; yesLabel: string; noLabel: string; link: string };
@@ -37,6 +44,9 @@ const en: StoryClubCopy = {
     unit: 'for 4 weeks',
     note: 'Founding price for the first group. Paid by bank transfer (VietQR) after you receive a written summary on Zalo.',
     seats: 'Up to 6 children per group',
+    // Funnel audit fix 6 (2 Nov 2026): the day, time, length, place and the no-recording rule, from the product data.
+    schedule: 'Saturday mornings, 9:00 · 30 minutes on Google Meet · never recorded',
+    tryFree: 'Try a free story first',
   },
   week: {
     heading: 'How one week works',
@@ -113,6 +123,8 @@ const vi: StoryClubCopy = {
     unit: 'cho 4 tuần',
     note: 'Giá ưu đãi cho nhóm đầu tiên. Thanh toán bằng chuyển khoản (VietQR) sau khi bạn nhận bản tóm tắt bằng văn bản qua Zalo.',
     seats: 'Tối đa 6 bạn nhỏ mỗi nhóm',
+    schedule: 'Sáng thứ Bảy, 9:00 · 30 phút qua Google Meet · không bao giờ được ghi âm, ghi hình',
+    tryFree: 'Đọc thử một truyện miễn phí trước',
   },
   week: {
     heading: 'Một tuần diễn ra như thế nào',

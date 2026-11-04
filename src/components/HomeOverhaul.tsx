@@ -1,9 +1,13 @@
+import { IeltsAppEntrance } from './IeltsAppEntrance';
+import { reserveCta, paymentHref, buyCta } from '../config/payment';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
-import { CONTACT_EMAIL, getOverhaulContent, IMG, STORY_QUEST_URL, ZALO_URL } from '../i18n/content/overhaul';
+import { CONTACT_EMAIL, getOverhaulContent, IMG } from '../i18n/content/overhaul';
+import { recordClientEvent } from '../lib/tracker';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
 import { FounderFilmLink } from './FounderFilmLink';
+import { SamplePackForm } from './SamplePackForm';
 
 /**
  * Homepage (human-centered overhaul, revised spec §3 Page A): six sections —
@@ -54,20 +58,22 @@ const STEP_STYLES = ['bg-sb-sage text-sb-sage-ink', 'bg-amber-100 text-sb-amber-
 export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => void }) {
   const locale = getCurrentLocale();
   const { home } = getOverhaulContent(locale);
-  const { hero, paths, lesson, jay, pricing, faq } = home;
+  const { hero, find, paths, lesson, jay, pricing, faq } = home;
 
   return (
     <div className="bg-sb-cream text-sb-ink">
+      {/* 0 · IELTS app, first screen (coverage audit, 2 Nov 2026): one row above the hero; the full strip follows the hero. */}
+      <div className="pt-20 sm:pt-[4.5rem]"><IeltsAppEntrance placement="home" locale={locale} variant="banner" /></div>
       {/* 1 · Promise + illustration */}
-      <section className="px-4 pb-14 pt-24 sm:px-6 sm:pt-28">
+      <section className="px-4 pb-14 pt-8 sm:px-6 sm:pt-10">
         <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-sb-forest">{hero.eyebrow}</p>
             <h1 className="mt-4 font-display text-[2.1rem] leading-[1.06] tracking-tight text-sb-forest sm:text-[2.8rem] lg:text-[3.2rem]">{hero.title}</h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-sb-slate sm:text-lg">{hero.body}</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CtaLink link={{ label: hero.primary, href: '#learning-paths', kind: 'anchor' }} className={PRIMARY_BTN} onNavigate={onNavigate} track="home_hero_paths" />
-              <CtaLink link={{ label: hero.secondary, href: STORY_QUEST_URL, kind: 'external' }} className={SECONDARY_BTN} onNavigate={onNavigate} track="home_hero_story_quest" />
+              <CtaLink link={{ label: reserveCta(locale), href: paymentHref('story-club', locale), kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track="home_hero_story_club" />
+              <CtaLink link={{ label: hero.secondary, href: '/products?utm_source=home-hero', kind: 'page' }} className={SECONDARY_BTN} onNavigate={onNavigate} track="home_hero_products" />
             </div>
           </div>
           <figure className="relative">
@@ -93,10 +99,53 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
               width={160}
               height={160}
               fetchPriority="low"
+              loading="lazy"
               decoding="async"
               className="absolute bottom-3 right-3 h-[72px] w-[72px] rounded-full border-4 border-white bg-sb-cream object-cover shadow-warm sm:h-24 sm:w-24"
             />
           </figure>
+        </div>
+      </section>
+
+      {/* 1a · IELTS Speaking app (Jay + CEO, 2 Nov 2026): one strip directly under the hero, Stitch style as /products. */}
+      <IeltsAppEntrance placement="home" locale={locale} variant="strip" />
+
+      {/* 1b · Find what you need (master, 27 Oct 2026): one compact strip, a tile per /products section (2 clicks from
+          home to any product: tile → section → the card's order button). Plain links, so #anchor lands on the heading. */}
+      <section className="border-t border-sb-border bg-white px-4 py-8 sm:px-6" aria-labelledby="find-heading">
+        <div className="mx-auto max-w-7xl">
+          <h2 id="find-heading" className="text-xl font-extrabold text-sb-forest">{find.heading}</h2>
+          <ul className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+            {find.tiles.map((tile) => (
+              <li key={tile.anchor}>
+                <a
+                  href={`${getLocalizedHref('/products', locale)}?utm_source=home-tiles#${tile.anchor}`}
+                  onClick={() => {
+                    try {
+                      trackCtaClick({ label: `home_tile_${tile.anchor}`, type: 'primary', segment: 'parent_student' });
+                    } catch {
+                      /* Measurement must not block navigation. */
+                    }
+                  }}
+                  className="flex h-full items-center gap-3 rounded-2xl border border-sb-border bg-sb-cream p-3 transition hover:border-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+                  data-home-tile={tile.anchor}
+                >
+                  <img src={`/images/products/${tile.image}.webp`} alt="" width={480} height={480} loading="lazy" decoding="async" className="h-16 w-16 flex-none rounded-xl object-cover" />
+                  <span className="min-w-0">
+                    <span className="block font-extrabold text-sb-forest">{tile.title}</span>
+                    <span className="block text-sm text-sb-slate">{tile.promise}</span>
+                    <span className="mt-0.5 block text-sm font-bold text-sb-amber-deep">{tile.from}</span>
+                  </span>
+                  <ArrowRight aria-hidden="true" className="ml-auto h-4 w-4 flex-none text-sb-forest" />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-sb-slate" data-home-free-tools>
+            <a className="font-bold text-sb-forest underline" href={getLocalizedHref('/tools/ielts-band-score-calculator', locale)}>
+              {locale === 'vi' ? 'Tính điểm IELTS miễn phí (làm tròn overall)' : 'Free IELTS band score calculator (overall rounding)'}
+            </a>
+          </p>
         </div>
       </section>
 
@@ -147,6 +196,9 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
           </div>
         </div>
       </section>
+
+      {/* The one lead capture: the free sample pack, right after the paths (website assessment, 27 Oct 2026). */}
+      <SamplePackForm placement="home" />
 
       {/* 3 · Illustrative lesson demonstration (HTML/CSS, badged) */}
       <section className="px-4 py-16 sm:px-6" aria-labelledby="lesson-heading">
@@ -256,13 +308,19 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
                   ))}
                 </ul>
                 <div className="mt-4 flex flex-col gap-2">
-                  <CtaLink link={{ ...row.cta, kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track={`home_pricing_${row.key}`} />
+                  <CtaLink link={row.key === 'speaking' ? { label: buyCta('baseline', locale), href: paymentHref('baseline', locale), kind: 'native' } : row.key === 'reading' ? { label: row.cta.label, href: '/go/zalo?utm_source=home&utm_content=reading-consultation', kind: 'native' } : { ...row.cta, kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track={`home_pricing_${row.key}`} />
                   {row.key === 'reading' ? (
                     <div className="flex gap-2">
                       <a href={`mailto:${CONTACT_EMAIL}?subject=Reading%20placement%20consultation`} className={`${SECONDARY_BTN} flex-1`}>
                         <Mail aria-hidden="true" className="h-4 w-4" /> Email
                       </a>
-                      <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className={`${SECONDARY_BTN} flex-1`}>
+                      <a
+                        href="/go/zalo?utm_source=home&utm_content=reading-zalo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${SECONDARY_BTN} flex-1`}
+                        onClick={() => recordClientEvent({ event: 'checkout_start' })}
+                      >
                         <MessageCircle aria-hidden="true" className="h-4 w-4" /> Zalo
                       </a>
                     </div>

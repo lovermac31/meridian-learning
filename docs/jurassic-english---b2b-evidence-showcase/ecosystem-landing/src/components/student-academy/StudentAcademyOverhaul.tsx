@@ -1,3 +1,4 @@
+import { AssetNextStep } from './AssetNextStep';
 import { ArrowRight, ArrowUpRight, Gift, Mail, MessageCircle, ShieldCheck } from "lucide-react";
 import { REWARD, ROUTE as FAMILY_REWARDS_ROUTE } from "@/lib/familyRewards/terms";
 import { levelHref } from "@/lib/academy/levelBooks";
@@ -10,9 +11,11 @@ import { levelHref } from "@/lib/academy/levelBooks";
 // White text only on #1E4D3B or #B45309; #D97706 is decorative.
 
 const IMG = "/images/overhaul";
-const STORY_QUEST = "https://worldwise-story-quest.vercel.app/#home";
+const STORY_QUEST = "https://story-quest.jurassicenglish.com/#home";
 const EMAIL = "mailto:info@jurassicenglish.com?subject=Reading%20%26%20Thinking%20Placement%20Consultation";
 const ZALO = "https://zalo.me/84396085076";
+// Products and prices hub on the main site (P-1, Jay 27 Oct 2026): one compact card link, nothing else added.
+const PRODUCTS = "/products?utm_source=academy";
 
 const PRIMARY =
   "inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#B45309] px-5 py-2.5 text-center text-sm font-extrabold text-white transition hover:bg-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E4D3B] focus-visible:ring-offset-2";
@@ -190,6 +193,8 @@ export function StudentAcademyOverhaul({ familyRewards = false }: { familyReward
         </div>
       </section>
 
+      <AssetNextStep pathname="/student-academy" />
+
       {/* Placement consultation */}
       <section id="diagnostic" className="scroll-mt-24 px-4 py-14 sm:px-6" aria-labelledby="diagnostic-heading">
         <div className="mx-auto max-w-3xl text-center">
@@ -216,6 +221,9 @@ export function StudentAcademyOverhaul({ familyRewards = false }: { familyReward
             (ages 6–12). Is your child already a confident reader who is quiet out loud?{" "}
             <a href="/young-learners-speaking/" className="font-bold text-[#1E4D3B] underline underline-offset-4">See Speaking Confidence &amp; Teen IELTS</a>.
           </p>
+          <a href={PRODUCTS} className={`${SECONDARY} mt-5`} data-link="academy-products">
+            See all products and prices <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </a>
         </div>
       </section>
 
