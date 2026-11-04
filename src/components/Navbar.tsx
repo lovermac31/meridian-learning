@@ -147,6 +147,7 @@ export const Navbar = ({
   // homepage anchors, so they must be real document navigations.
   const overhaul = getOverhaulContent(locale);
   const navItems = overhaul.nav.items;
+  const productsItem = navItems.find((item) => item.key === 'products');
   // The header button is the page's own next step (website assessment, 27 Oct 2026): the free sample pack on parent
   // pages, the Live Speaking Baseline booking page on IELTS pages (US$ on country pages). See lib/headerCta.
   const cta = headerCta(getCurrentPathname(), locale, overhaul.nav);
@@ -219,6 +220,17 @@ export const Navbar = ({
         </div>
         <div className="flex shrink-0 flex-nowrap items-center gap-1.5 min-[360px]:gap-2 sm:gap-3">
           <div className="hidden 2xl:block">{languageSwitcher}</div>
+          {productsItem ? (
+            // Products stays one tap away at tablet and laptop widths (md up to 2xl); the full link row takes over from 2xl.
+            <a
+              href={getLocalizedHref(productsItem.href, locale)}
+              onClick={(event) => handleNavItemClick(event, productsItem)}
+              className={`${NAV_LINK} hidden md:inline-flex min-h-11 items-center px-2 2xl:hidden`}
+              data-testid="header-products-link"
+            >
+              {'short' in productsItem && productsItem.short ? productsItem.short : productsItem.label}
+            </a>
+          ) : null}
           <a
             href={bookHref}
             onClick={() => handleBookClick('desktop')}
