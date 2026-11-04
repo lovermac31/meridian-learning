@@ -1,8 +1,0 @@
-
-Running 3 tests using 1 worker
-
-  ✓  1 tests/browser/story-club-reserve.spec.ts:24:1 › products keep named controls, labelled sample forms and a contained mobile sample dialog (20.3s)
-  ✓  2 tests/browser/story-club-reserve.spec.ts:62:3 › reserve page en: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000 (8.3s)
-  ✓  3 tests/browser/story-club-reserve.spec.ts:62:3 › reserve page vi: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000 (8.2s)
-
-  3 passed (38.5s)

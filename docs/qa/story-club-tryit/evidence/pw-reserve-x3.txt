@@ -1,0 +1,30 @@
+=== run 1
+
+Running 3 tests using 1 worker
+
+  ✓  1 tests/browser/story-club-reserve.spec.ts:24:1 › products keep named controls, labelled sample forms and a contained mobile sample dialog (21.8s)
+  ✓  2 tests/browser/story-club-reserve.spec.ts:64:3 › reserve page en: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000 (8.3s)
+  ✓  3 tests/browser/story-club-reserve.spec.ts:64:3 › reserve page vi: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000 (8.3s)
+
+  3 passed (40.1s)
+exit 0
+=== run 2
+
+Running 3 tests using 1 worker
+
+  ✓  1 tests/browser/story-club-reserve.spec.ts:24:1 › products keep named controls, labelled sample forms and a contained mobile sample dialog (20.9s)
+  ✓  2 tests/browser/story-club-reserve.spec.ts:64:3 › reserve page en: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000 (8.2s)
+  ✓  3 tests/browser/story-club-reserve.spec.ts:64:3 › reserve page vi: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000 (8.3s)
+
+  3 passed (38.4s)
+exit 0
+=== run 3
+
+Running 3 tests using 1 worker
+
+  ✓  1 tests/browser/story-club-reserve.spec.ts:24:1 › products keep named controls, labelled sample forms and a contained mobile sample dialog (21.0s)
+  ✓  2 tests/browser/story-club-reserve.spec.ts:64:3 › reserve page en: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000 (8.2s)
+  ✓  3 tests/browser/story-club-reserve.spec.ts:64:3 › reserve page vi: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000 (8.3s)
+
+  3 passed (38.6s)
+exit 0
