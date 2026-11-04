@@ -121,10 +121,10 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   },
   '/insights': {
     title: 'IELTS Speaking and English Learning Resources | Jurassic English™',
-    description: 'Evidence-led guidance on IELTS Speaking practice, typed feedback and one-to-one learning from Jurassic English™.',
+    description: 'Evidence-led guidance on IELTS Speaking practice, typed feedback and one-to-one learning from Mr. Jay at Jurassic English™: what to fix first and how to choose your next step.',
     canonicalPath: '/insights',
     breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Learning resources', path: '/insights' }],
-    localized: { vi: { title: 'Tài liệu luyện IELTS Speaking | Jurassic English™', description: 'Hướng dẫn luyện IELTS Speaking, hiểu phản hồi và chọn bước tiếp theo từ Jurassic English™.', breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Tài liệu học tập', path: '/insights' }] } },
+    localized: { vi: { title: 'Tài liệu luyện IELTS Speaking | Jurassic English™', description: 'Hướng dẫn luyện IELTS Speaking dựa trên bằng chứng từ thầy Jay tại Jurassic English™: hiểu phản hồi, biết nên sửa gì trước và chọn bước học tiếp theo.', breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Tài liệu học tập', path: '/insights' }] } },
   },
   '/about/nathaniel-jay-adams': {
     title: 'Nathaniel Jay Adams | Jurassic English & WorldWise Learning',
@@ -203,7 +203,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     localized: {
       vi: {
         title:
-          'Jurassic English™ | Tư duy phản biện, tiếng Anh học thuật & luyện nói IELTS',
+          'Jurassic English™ | Tư duy phản biện & luyện nói IELTS',
         description:
           'Jurassic English™ giúp học sinh, phụ huynh, nhà trường và trung tâm đào tạo phát triển tiếng Anh học thuật, tư duy phản biện, lập luận dựa trên văn học và sự tự tin khi nói theo chuẩn IELTS.',
         faqJsonLd: createFaqJsonLd(homeFaqEntries('vi')),
@@ -234,7 +234,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     },
   },
   '/story-club': {
-    title: 'Story Club with Mr. Jay — Weekly English Stories for Ages 5–8 | Jurassic English™',
+    title: 'Story Club with Mr. Jay, Ages 5–8 | Jurassic English™',
     description:
       'A small online story group for children aged 5–8: a 30-minute live story time each week, one small task at home and a personal reply from Mr. Jay. Up to 6 children per group.',
     canonicalPath: '/story-club',
@@ -246,7 +246,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
     localized: {
       vi: {
-        title: 'Câu lạc bộ Truyện cùng thầy Jay — tiếng Anh qua truyện cho bé 5–8 tuổi | Jurassic English™',
+        title: 'Câu lạc bộ Truyện thầy Jay, bé 5–8 tuổi | Jurassic English™',
         description:
           'Nhóm nhỏ trực tuyến cho bé 5–8 tuổi: mỗi tuần 30 phút kể chuyện trực tiếp, một bài nhỏ ở nhà và phản hồi riêng từ thầy Jay. Tối đa 6 bạn mỗi nhóm.',
         breadcrumbs: [
@@ -291,7 +291,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     },
   },
   '/get-started': {
-    title: 'Get Started — Teacher Training, School Licensing & Family Enquiries | Jurassic English™',
+    title: 'Get Started: Schools, Teachers, Families | Jurassic English™',
     description:
       'Get started with Jurassic English™: teacher training, school licensing, curriculum review, academic consulting, and family enquiries about academic English and IELTS-aligned speaking coaching for ages 9-18.',
     canonicalPath: '/get-started',
@@ -301,7 +301,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
     localized: {
       vi: {
-        title: 'Liên hệ về đào tạo giáo viên và cấp phép cho trường | Jurassic English™',
+        title: 'Đào tạo giáo viên và cấp phép trường | Jurassic English™',
         description:
           'Liên hệ Jurassic English™ để trao đổi về đào tạo giáo viên, cấp phép cho trường, rà soát chương trình hoặc tư vấn học thuật phù hợp với bối cảnh của bạn.',
         breadcrumbs: [
@@ -312,7 +312,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     },
   },
   '/knowledge': {
-    title: 'Ask / Knowledge Hub — Framework, Methodology, CEFR & IELTS Speaking | Jurassic English™',
+    title: 'Knowledge Hub: CEFR and IELTS Speaking | Jurassic English™',
     description:
       'One place for the depth on demand: the Jurassic English™ framework, methodology, CEFR alignment, teacher standards, the Jurassic Thinking Cycle™, and parent answers on reading, diagnostics, progress, and IELTS-aligned speaking for ages 9-18.',
     canonicalPath: '/knowledge',
@@ -381,7 +381,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     },
   },
   '/teacher-standards': {
-    title: 'Teacher Quality, iPGCE Standards and Methodology Fidelity | Jurassic English™',
+    title: 'Teacher Quality and iPGCE Standards | Jurassic English™',
     description:
       'Why teacher quality must be structural, not personality-dependent. iPGCE and PGCE qualification standards, Jurassic Thinking Cycle™ methodology preparation, and the delivery governance architecture that makes classroom consistency possible at scale.',
     canonicalPath: '/teacher-standards',
@@ -392,7 +392,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
   },
   '/cefr-alignment': {
-    title: 'CEFR Alignment, CEFR-V and MOET 2030 — Curriculum Standards Architecture | Jurassic English™',
+    title: 'CEFR, CEFR-V and MOET 2030 Alignment | Jurassic English™',
     description:
       'How Jurassic English™ and WorldWise Learning map to CEFR, CEFR-V, and MOET 2030 national standards. A standards-facing companion to the methodology page — for institutional procurement, accreditation, and compliance review.',
     canonicalPath: '/cefr-alignment',
@@ -458,7 +458,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
   },
   '/companies': {
-    title: 'Business & Technical English for Tech Teams | Jurassic English™',
+    title: 'Business and Technical English for Teams | Jurassic English™',
     description:
       "AI-assisted business and technical English for Vietnam's tech and export teams (Ho Chi Minh City & Hanoi). Client-ready communication for engineers, measured in CEFR/IELTS gains and built on the public assessment criteria. Book a scoping call.",
     canonicalPath: '/companies',
@@ -479,7 +479,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
   },
   '/pilot-programme': {
-    title: 'Jurassic English™ Pilot Programme — 6-8 Week Institutional Evaluation',
+    title: 'Pilot Programme: 6–8 Week Evaluation | Jurassic English™',
     description:
       'A structured 6-8 week Jurassic English™ pilot pathway for schools, academies, and training centres. Measure student reasoning evidence, teacher fidelity, progression fit, and implementation readiness before wider rollout.',
     canonicalPath: '/pilot-programme',
@@ -490,7 +490,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
   },
   '/worldwise': {
-    title: 'WorldWise Learning — Institutional Curriculum Architecture | Jurassic English™',
+    title: 'WorldWise Learning Curriculum | Jurassic English™',
     description:
       'WorldWise Learning provides the structural foundation for high-quality English instruction — standards alignment, methodology governance, and implementation architecture for schools, training centres, and institutional partners.',
     canonicalPath: '/worldwise',
@@ -575,6 +575,26 @@ function normalizeDescription(text: string) {
   return text.replace(/\s+/g, ' ').trim();
 }
 
+/** Search results show about 160 characters; longer descriptions are cut mid-word. Keep whole sentences where possible (audit 4 Nov 2026). */
+const META_DESCRIPTION_MAX = 160;
+const META_DESCRIPTION_MIN_SENTENCE = 90;
+
+export function fitMetaDescription(text: string): string {
+  if (text.length <= META_DESCRIPTION_MAX) {
+    return text;
+  }
+  const window = text.slice(0, META_DESCRIPTION_MAX + 1);
+  let cut = -1;
+  for (const match of window.matchAll(/(?<!\bMr)(?<!\bMrs)(?<!\bDr)(?<!\bNo)[.!?](?=\s|$)/g)) {
+    cut = (match.index ?? -1) + 1;
+  }
+  if (cut >= META_DESCRIPTION_MIN_SENTENCE && cut <= META_DESCRIPTION_MAX) {
+    return text.slice(0, cut);
+  }
+  const lastSpace = text.lastIndexOf(' ', META_DESCRIPTION_MAX - 2);
+  return `${text.slice(0, lastSpace).replace(/[\s,;:—–-]+$/, '')}…`;
+}
+
 function localizeAgeBand(ageBand: string, locale: Locale) {
   if (locale !== 'vi') {
     return ageBand;
@@ -602,7 +622,7 @@ function createMetadata({
   ogImage?: OgImage;
   locale?: Locale | 'es' | 'pt-BR' | 'id' | 'ms' | 'th' | 'ar' | 'ur' | 'bn';
 }): RouteMetadata {
-  const normalizedDescription = normalizeDescription(description);
+  const normalizedDescription = fitMetaDescription(normalizeDescription(description));
   const socialTitle = ogTitle ?? title;
   const socialDescription = normalizeDescription(ogDescription ?? normalizedDescription);
   const socialUrl = ogUrl ?? canonical ?? SITE_URL;
@@ -723,15 +743,15 @@ const seriesLevelSeoDescriptions: Record<string, string> = {
 
 const viSeriesLevelSeoDescriptions: Record<string, string> = {
   'level-1-foundation':
-    'Jurassic English™ Cấp độ 1 phát triển tư duy phản biện cho độ tuổi 4–8 thông qua sách tranh, lập luận có hướng dẫn và những bài viết học thuật đầu tiên. Hỗ trợ tiến trình CEFR từ Pre-A1 đến A1.',
+    'Jurassic English™ Cấp độ 1 phát triển tư duy phản biện cho 4–8 qua sách tranh, lập luận có hướng dẫn và những bài viết học thuật đầu tiên. CEFR từ Pre-A1 đến A1.',
   'level-2-development':
-    'Jurassic English™ Cấp độ 2 xây dựng lập luận có cấu trúc cho độ tuổi 8–10 thông qua truyện chương hồi đầu cấp, viết dựa trên bằng chứng và đối thoại Socratic. Hỗ trợ tiến trình CEFR từ A1 đến A2.',
+    'Jurassic English™ Cấp độ 2 xây dựng lập luận có cấu trúc cho 8–10 qua truyện chương hồi đầu cấp, viết dựa trên bằng chứng và đối thoại Socratic. CEFR từ A1 đến A2.',
   'level-3-expansion':
-    'Jurassic English™ Cấp độ 3 phát triển Literacy Pivot cho độ tuổi 10–12, dùng văn bản phức hợp để xây dựng lập luận học thuật và viết CEIW. Hỗ trợ tiến trình CEFR từ A2 đến B1.',
+    'Jurassic English™ Cấp độ 3 phát triển Literacy Pivot cho 10–12, dùng văn bản phức hợp để xây dựng lập luận học thuật và viết CEIW. CEFR từ A2 đến B1.',
   'level-4-mastery':
-    'Jurassic English™ Cấp độ 4 phát triển phân tích tiểu thuyết và lập luận học thuật cho độ tuổi 12–14 thông qua văn bản đa nghĩa và bài luận nhiều đoạn. Hỗ trợ tiến trình CEFR từ B1 đến B2.',
+    'Jurassic English™ Cấp độ 4 phát triển phân tích tiểu thuyết và lập luận học thuật cho 12–14 qua văn bản đa nghĩa và bài luận nhiều đoạn. CEFR từ B1 đến B2.',
   'level-5-advanced':
-    'Jurassic English™ Cấp độ 5 phát triển năng lực ngôn ngữ học thuật đầy đủ cho độ tuổi 14+ thông qua phân tích liên văn bản và bài luận nghiên cứu. Hỗ trợ CEFR từ B2 đến C1 và chuẩn bị cho IB/Cambridge.',
+    'Jurassic English™ Cấp độ 5 phát triển năng lực ngôn ngữ học thuật đầy đủ cho 14+ qua phân tích liên văn bản và bài luận nghiên cứu. Hỗ trợ CEFR từ B2 đến C1 và chuẩn bị cho IB/Cambridge.',
 };
 
 function resolveSeriesRoute(pathname: string, locale: Locale): RouteMetadata | null {
@@ -794,12 +814,12 @@ function resolveThinkingCycleRoute(pathname: string, locale: Locale): RouteMetad
 
   const title =
     locale === 'vi'
-      ? `${stage.title} — Hướng dẫn giai đoạn của Jurassic Thinking Cycle™ | Jurassic English™`
-      : `${stage.title} — Jurassic Thinking Cycle™ Stage Guide | Jurassic English™`;
+      ? `${stage.title}: Giai đoạn Thinking Cycle™ | Jurassic English™`
+      : `${stage.title}: Jurassic Thinking Cycle™ Stage | Jurassic English™`;
   const description =
     locale === 'vi'
-      ? `Giai đoạn ${stage.title} của Jurassic Thinking Cycle™: ${stage.line} Một khung lập luận có cấu trúc để định hướng giáo viên và học sinh làm việc với văn học ở mọi cấp độ.`
-      : `The ${stage.title} stage of the Jurassic Thinking Cycle™: ${stage.line} A structured reasoning framework to guide teachers and students through literature at every level.`;
+      ? `Giai đoạn ${stage.title} của Jurassic Thinking Cycle™, khung lập luận có cấu trúc. ${stage.line}`
+      : `${stage.title}: a structured reasoning framework stage of the Jurassic Thinking Cycle™. ${stage.line}`;
 
   const isReleasedLocale = isPublicContentReleased(pathname, locale);
 
@@ -840,8 +860,8 @@ function resolveSyllabusRoute(pathname: string, locale: Locale): RouteMetadata |
       : `${localizedLevel.title} Syllabus — Ages ${localizedLevel.ageBand} | Jurassic English™`;
   const description =
     locale === 'vi'
-      ? `Đề cương đầy đủ của ${localizedLevel.title} trong chương trình Jurassic English™ cho độ tuổi ${localizeAgeBand(localizedLevel.ageBand, locale)}. Bao gồm văn bản cốt lõi, phân bổ học kỳ, phương pháp đánh giá, mạch tư duy sinh thái và tiến trình CEFR (${localizedLevel.cefrRange}).`
-      : `The full Jurassic English™ ${localizedLevel.title} curriculum syllabus for ages ${localizedLevel.ageBand}. Core texts, term breakdown, assessment methods, eco-reasoning strand, and CEFR progression (${localizedLevel.cefrRange}).`;
+      ? `Đề cương ${localizedLevel.title} cho ${localizeAgeBand(localizedLevel.ageBand, locale)}: văn bản cốt lõi, học kỳ, đánh giá, tư duy sinh thái và CEFR ${localizedLevel.cefrRange}.`
+      : `Full ${localizedLevel.title} syllabus for ages ${localizedLevel.ageBand}: core texts, terms, assessment, eco-reasoning and CEFR ${localizedLevel.cefrRange}.`;
   const isReleasedLocale = isPublicContentReleased(pathname, locale);
   const canonicalUrl = isReleasedLocale
     ? toAbsoluteUrl(getCanonicalPath(pathname, locale))

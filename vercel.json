@@ -16,6 +16,16 @@
   ],
   "redirects": [
     {
+      "source": "/tools",
+      "destination": "/tools/ielts-band-score-calculator",
+      "permanent": false
+    },
+    {
+      "source": "/vi/cong-cu",
+      "destination": "/vi/cong-cu/tinh-diem-ielts",
+      "permanent": false
+    },
+    {
       "source": "/ai-speaking/samples/basic",
       "destination": "/ai-speaking/samples",
       "permanent": true
