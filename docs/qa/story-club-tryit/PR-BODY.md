@@ -30,6 +30,11 @@ Unchanged: header, payment amounts, memo format, endpoints, webhook code, route 
 
 All local runs used muted headless Chromium against a local preview. `/api/*` was mocked or aborted; nothing reached production and nothing was submitted.
 
+### CI fix included: stale `/products` assertions in the reserve spec (master's request)
+`tests/browser/story-club-reserve.spec.ts` (the `Story Club reserve browser acceptance` CI step) failed on main at e510e99 (run 41868549565) at the step that filtered `/products` to Teachers, expected 15, clicked `[data-products-show-all]` and then expected `#families` visible (it stayed `hidden`). `/products` now shows every product by default (`showAll` defaults to true; the Show-all button only exists after a segment filter). I replaced those steps with: 42 visible product rows, `#families` visible, no `[data-products-show-all]`, plus the existing accessibility scans and the Story Club sample dialog checks; the reserve-page tests are kept. `git fetch` showed main still at e510e99, so no rebase was needed (the branch already sits on it).
+UNKNOWN: on a local build of e510e99 the OLD assertions passed for me (before my change), so the exact cause of the CI-only failure (timing on the runner, or the live behaviour the master saw) is not proven. The filter-narrowing behaviour is therefore no longer covered by this spec; say if you want it back as a separate, non-flaky test.
+After the change: `playwright.reserve.config.ts` 3/3 pass locally (`evidence/pw-reserve.txt`). GitHub CI on this PR was still pending when I wrote this.
+
 ### Risks and UNKNOWN items
 - **Dates are time-bound** (7, 14 Nov; 6 Nov 20:00). After the first paid round starts, update `src/i18n/content/storyClubTryIt.ts` and `src/i18n/content/storyClub.ts` or remove the try-it blocks.
 - **Refund wording** is taken literally from the decision: "full refund on request before the first paid session, within 24 hours of paying". I show it as one rule (request before the first paid session, within 24 hours of paying). Jay: confirm both conditions are meant to apply together.

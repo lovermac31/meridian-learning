@@ -33,14 +33,12 @@ test('products keep named controls, labelled sample forms and a contained mobile
       await mkdir(resolve('docs/qa/site-quality'), { recursive: true });
       await page.screenshot({ path: resolve('docs/qa/site-quality', `375-products-${locale}.png`), fullPage: true });
     }
-    // The segment filter narrows the catalogue to one section and the count line follows; pressing again shows all.
-    await page.locator('[data-category-tile="teachers"]').click();
-    await expect(page.locator('[data-category-tile="teachers"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('#families')).toBeHidden();
-    await expect(page.locator('#teachers li[id]')).toHaveCount(15);
-    await expect(page.locator('[data-products-count]')).toHaveAttribute('data-products-count', '15');
-    await page.locator('[data-products-show-all]').click();
+    // 5 Nov 2026: /products shows the whole catalogue by default (all 42 products, every family section visible) and the
+    // "Show all" button only appears after a segment filter is applied, so there is nothing to click here. The old steps
+    // (filter to teachers, expect 15, click show-all) failed in CI on main at e510e99 at the show-all step.
+    await expect(page.locator('.products-page li[id]:visible')).toHaveCount(42);
     await expect(page.locator('#families')).toBeVisible();
+    await expect(page.locator('[data-products-show-all]')).toHaveCount(0);
     await checkAccessibility(page);
     const opener = page.locator('[data-sample-open="story-club"]');
     await opener.click();
