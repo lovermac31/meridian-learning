@@ -52,6 +52,7 @@ test('every market CTA uses its approved tier and localized chrome', async () =>
     assert.equal(ctaHrefs.length, 2, page.path);
     if (market && market !== 'pakistan' && market !== 'bangladesh') {
       assert.deepEqual(ctaHrefs, [`/ai-speaking/baseline?market=${market}`, `/ai-speaking/lessons?pack=lesson_single&market=${market}`], page.path);
+      assert.match(hero, /class="insights-cta-note"/, page.path);
       assert.doesNotMatch(hero, /mailto:/, page.path);
       if (page.locale === 'en') assert.match(hero, new RegExp(`>Book a Speaking Baseline · US\\$${prices.baseline_usd}<`), page.path);
     } else {
