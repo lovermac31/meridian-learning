@@ -1,0 +1,9 @@
+
+Running 4 tests using 4 workers
+
+  ✓  2 tests/browser/pay-everywhere.spec.ts:19:3 › teacher-pack-l2 en 1440: checkout QR first → contact details → exact payment instructions (3.6s)
+  ✓  4 tests/browser/pay-everywhere.spec.ts:19:3 › ielts-writing-task1-method vi 1440: checkout QR first → contact details → exact payment instructions (3.6s)
+  ✓  3 tests/browser/pay-everywhere.spec.ts:19:3 › story-workbooks-l2 en 375: checkout QR first → contact details → exact payment instructions (4.3s)
+  ✓  1 tests/browser/pay-everywhere.spec.ts:19:3 › story-workbooks-l5 vi 375: checkout QR first → contact details → exact payment instructions (4.9s)
+
+  4 passed (6.1s)

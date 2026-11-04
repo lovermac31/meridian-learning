@@ -9,6 +9,7 @@ import { validateEventPayload } from '../api/event';
 import zaloHandler from '../api/go/zalo.js';
 import { ZaloFloat } from '../src/components/ZaloFloat';
 import { storyClubContent } from '../src/i18n/content/storyClub';
+import { storyClubTryItContent } from '../src/i18n/content/storyClubTryIt';
 
 // Funnel audit, 2 Nov 2026: fix 2 (first-touch utm_* carried to reserve and Zalo links; utm_medium and utm_campaign
 // stored) and fix 6 (Story Club day, time, place, no recording). Fix 1 (the webhook crash) is PR #256.
@@ -99,6 +100,8 @@ test('fix 6: /story-club and /vi/story-club state the day, time, length, Google 
     const html = (await renderRoute(route)).replaceAll('&#x27;', '’');
     assert.equal((html.match(/data-story-club-schedule/g) ?? []).length, 2, `${route}: hero and price card`);
     assert.ok(html.includes(line), `${route}: ${line}`);
+    // 4 Nov 2026: the hero line now states the free try-it; the price card keeps the paid-round schedule line above.
+    assert.ok(html.includes(storyClubTryItContent[route === '/vi/story-club' ? 'vi' : 'en'].heroLine), `${route}: hero states the free try-it`);
   }
   // The facts come from the Story Club product entry: Saturdays 9:00, 30 minutes, Google Meet, up to 6, ages 5–8.
   const storyClub = PRODUCTS.find((p) => p.id === 'story-club')!;
