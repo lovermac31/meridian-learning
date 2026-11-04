@@ -53,6 +53,10 @@ function CtaLink({ link, className, onNavigate, track }: { link: Link; className
   );
 }
 
+const HERO_SRCSET = `${IMG}/w/hero-story-expedition-480.webp 480w, ${IMG}/w/hero-story-expedition-672.webp 672w, ${IMG}/w/hero-story-expedition-800.webp 800w, ${IMG}/w/hero-story-expedition-1200.webp 1200w, ${IMG}/hero-story-expedition.webp 1400w`;
+const HERO_SIZES = '(min-width: 1280px) 592px, (min-width: 1024px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)';
+const HERO_IMG_CLASS = 'aspect-[16/9] w-full rounded-[1.75rem] border border-sb-border object-cover shadow-warm';
+
 const STEP_STYLES = ['bg-sb-sage text-sb-sage-ink', 'bg-amber-100 text-sb-amber-deep', 'bg-teal-50 text-sb-teal'];
 
 export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => void }) {
@@ -64,8 +68,52 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
     <div className="bg-sb-cream text-sb-ink">
       {/* 0 · IELTS app, first screen (coverage audit, 2 Nov 2026): one row above the hero; the full strip follows the hero. */}
       <div className="pt-20 sm:pt-[4.5rem]"><IeltsAppEntrance placement="home" locale={locale} variant="banner" /></div>
-      {/* 1 · Promise + illustration */}
-      <section className="px-4 pb-14 pt-8 sm:px-6 sm:pt-10">
+      {/* 0b · Products in one tap on phones (4 Nov 2026, owner: "click, click, sales"): the four existing "Find what you
+          need" tiles as a compact row plus See all products, above the fold and clear of the cookie banner.
+          Phones only; from 768px the header Products link and the strip below do this job. */}
+      <div role="region" className="px-4 pt-4 md:hidden" aria-labelledby="top-products-heading" data-home-top-products>
+        <div className="flex items-center justify-between gap-3">
+          <h2 id="top-products-heading" className="min-w-0 text-sm font-extrabold leading-tight text-sb-forest">{find.heading}</h2>
+          <a
+            href={`${getLocalizedHref('/products', locale)}?utm_source=home-top`}
+            onClick={() => {
+              try {
+                trackCtaClick({ label: 'home_top_all_products', type: 'primary', segment: 'parent_student' });
+              } catch {
+                /* Measurement must not block navigation. */
+              }
+            }}
+            className="inline-flex min-h-11 flex-none items-center gap-1 whitespace-nowrap rounded-full px-2 text-[13px] font-extrabold text-sb-amber-deep underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+            data-home-top-all-products
+          >
+            {hero.secondary}
+            <ArrowRight aria-hidden="true" className="h-4 w-4 flex-none" />
+          </a>
+        </div>
+        <ul className="mt-1 grid grid-cols-2 gap-2">
+          {find.tiles.map((tile) => (
+            <li key={tile.anchor}>
+              <a
+                href={`${getLocalizedHref('/products', locale)}?utm_source=home-top#${tile.anchor}`}
+                onClick={() => {
+                  try {
+                    trackCtaClick({ label: `home_top_tile_${tile.anchor}`, type: 'primary', segment: 'parent_student' });
+                  } catch {
+                    /* Measurement must not block navigation. */
+                  }
+                }}
+                className="flex min-h-11 h-full items-center justify-between gap-1.5 rounded-xl border border-sb-forest/30 bg-white px-3 py-2 text-sm font-bold leading-tight text-sb-forest transition hover:border-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+                data-home-top-tile={tile.anchor}
+              >
+                <span className="min-w-0">{tile.title}</span>
+                <ArrowRight aria-hidden="true" className="h-4 w-4 flex-none" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* 1 · Promise + illustration. */}
+      <section className="px-4 pb-14 pt-6 sm:px-6 sm:pt-10">
         <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-sb-forest">{hero.eyebrow}</p>
@@ -77,17 +125,35 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
             </div>
           </div>
           <figure className="relative">
+            {/* Two-column layout (lg, 1024px+): the hero image is above the fold and is the LCP element, so it stays eager with
+                fetchPriority high. Below lg it sits under the text (and, on phones, under the product row), so a lazy copy is used.
+                Each copy is display:none at the other width; the tiny <source> keeps the eager copy from downloading on phones
+                (a display:none eager <img> still fetches), and a display:none lazy <img> never fetches on desktop. */}
+            <picture className="hidden lg:block">
+              <source media="(max-width: 1023.98px)" srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+              <img
+                src={`${IMG}/hero-story-expedition.webp`}
+                srcSet={HERO_SRCSET}
+                sizes={HERO_SIZES}
+                alt={hero.imageAlt}
+                width={1400}
+                height={788}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className={HERO_IMG_CLASS}
+              />
+            </picture>
             <img
               src={`${IMG}/hero-story-expedition.webp`}
-              srcSet={`${IMG}/w/hero-story-expedition-480.webp 480w, ${IMG}/w/hero-story-expedition-672.webp 672w, ${IMG}/w/hero-story-expedition-800.webp 800w, ${IMG}/w/hero-story-expedition-1200.webp 1200w, ${IMG}/hero-story-expedition.webp 1400w`}
-              sizes="(min-width: 1280px) 592px, (min-width: 1024px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
+              srcSet={HERO_SRCSET}
+              sizes={HERO_SIZES}
               alt={hero.imageAlt}
               width={1400}
               height={788}
-              fetchPriority="high"
-              loading="eager"
+              loading="lazy"
               decoding="async"
-              className="aspect-[16/9] w-full rounded-[1.75rem] border border-sb-border object-cover shadow-warm"
+              className={`${HERO_IMG_CLASS} lg:hidden`}
             />
             <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-sb-forest">{hero.artLabel}</figcaption>
             {/* Professor Rex medallion (owner, Oct 2026): an illustration, low priority so the hero image stays the LCP. */}
