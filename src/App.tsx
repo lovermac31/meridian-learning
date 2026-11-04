@@ -36,6 +36,8 @@ import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { StoryClubPage } from './components/StoryClubPage';
 import { CentreLicencePage } from './components/CentreLicencePage';
+import { ZhPreviewPage } from './components/ZhPreviewPage';
+import { getZhPreviewPage } from './i18n/content/zhPreview';
 import { StoryClubReservePage } from './components/StoryClubReservePage';
 import { ProductsPage } from './components/ProductsPage';
 import { ProductPage } from './components/ProductPage';
@@ -197,6 +199,8 @@ function App() {
   const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
   const isStoryClubView = routePathname === '/story-club';
   const isCentreLicenceView = routePathname === '/centres/level-1';
+  // Unlisted Chinese preview pages (noindex): see src/i18n/content/zhPreview.ts.
+  const isZhPreviewView = getZhPreviewPage(pathname) !== undefined;
   const isStoryClubReserveView = routePathname === '/story-club/reserve';
   const isProductsView = routePathname === '/products';
   // /products/<id> for a live product; any other id falls through to the 404 view.
@@ -268,6 +272,7 @@ function App() {
     isTimerToolView ||
     isStoryClubView ||
     isCentreLicenceView ||
+    isZhPreviewView ||
     isStoryClubReserveView ||
     isProductsView ||
     isProductPageView ||
@@ -279,7 +284,7 @@ function App() {
     isLegalView;
   // The unlisted centre-licence page (shared in Zalo) has one call to action, so it renders without the site
   // header, footer and contact launcher, like the internal operator page.
-  const hideSiteChrome = isInternalPilotRequestsView || isCentreLicenceView;
+  const hideSiteChrome = isInternalPilotRequestsView || isCentreLicenceView || isZhPreviewView;
   const isUnknownRouteView = !isSubpageView && routePathname !== '/';
   const isHomeView = !isSubpageView && !isUnknownRouteView;
 
@@ -480,6 +485,8 @@ function App() {
         <StoryClubPage locale={locale} />
       ) : isCentreLicenceView ? (
         <CentreLicencePage locale={locale} />
+      ) : isZhPreviewView ? (
+        <ZhPreviewPage pathname={pathname} />
       ) : isStoryClubReserveView ? (
         <StoryClubReservePage locale={locale} />
       ) : isProductsView ? (

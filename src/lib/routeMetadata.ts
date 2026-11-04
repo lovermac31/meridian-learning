@@ -18,6 +18,7 @@ import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsConte
 import marketPricing from '../content/marketPricing.json';
 import { PAGE_PRODUCTS, PRODUCT_PAGE_PATHS, PRODUCT_SEO, productFaq, productPath } from '../i18n/content/productSeo';
 import { createVideoJsonLd, productPageVideo, storyClubVideos, videoId } from './videoSeo';
+import { getZhPreviewPage, zhPreviewPaths } from '../i18n/content/zhPreview';
 import { getSeoPageMeta as getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath, getInternationalAlternates } from './seoPageMeta';
 import {
   createBreadcrumbJsonLd,
@@ -636,7 +637,7 @@ function createMetadata({
   ogDescription?: string;
   ogUrl?: string;
   ogImage?: OgImage;
-  locale?: Locale | 'es' | 'pt-BR' | 'id' | 'ms' | 'th' | 'ar' | 'ur' | 'bn';
+  locale?: Locale | 'es' | 'pt-BR' | 'id' | 'ms' | 'th' | 'ar' | 'ur' | 'bn' | 'zh-Hans' | 'zh-Hant';
 }): RouteMetadata {
   const normalizedDescription = fitMetaDescription(normalizeDescription(description));
   const socialTitle = ogTitle ?? title;
@@ -660,7 +661,7 @@ function createMetadata({
       imageHeight: ogImage?.height ?? DEFAULT_OG_IMAGE_HEIGHT,
       type: 'website',
       siteName: SITE_NAME,
-      locale: ({ es: 'es_ES', 'pt-BR': 'pt_BR', id: 'id_ID', ms: 'ms_MY', th: 'th_TH', ar: 'ar_AR', ur: 'ur_PK', bn: 'bn_BD' } as Record<string, string>)[locale] ?? getLocaleDefinition(locale as Locale).ogLocale,
+      locale: ({ es: 'es_ES', 'pt-BR': 'pt_BR', id: 'id_ID', ms: 'ms_MY', th: 'th_TH', ar: 'ar_AR', ur: 'ur_PK', bn: 'bn_BD', 'zh-Hans': 'zh_CN', 'zh-Hant': 'zh_TW' } as Record<string, string>)[locale] ?? getLocaleDefinition(locale as Locale).ogLocale,
     },
     twitter: {
       // A square share image is a "summary" card; the wide default stays "summary_large_image".
@@ -1009,6 +1010,11 @@ function resolveFallbackRoute(locale: Locale): RouteMetadata {
 }
 
 export function resolveRouteMetadata(pathname: string): RouteMetadata {
+  // Unlisted Chinese previews: noindex, no canonical or alternates, out of the sitemap (no native review yet).
+  const zhPreview = getZhPreviewPage(pathname);
+  if (zhPreview) {
+    return createMetadata({ title: zhPreview.title, description: zhPreview.description, robots: 'noindex, nofollow', locale: zhPreview.script, ogUrl: toAbsoluteUrl(zhPreview.path) });
+  }
   if (pathname.startsWith('/vi/') && seoEnglishPaths.some(path => `/vi${path}` === pathname) && !getSeoPage(pathname)) {
     return resolveFallbackRoute('vi');
   }
@@ -1244,6 +1250,10 @@ export function getExpectedPublicIndexableRoutes(): string[] {
 }
 
 export function getPrivateOrNonIndexableRoutes(): string[] {
+  return [...zhPreviewPaths, ...getStaticNonIndexableRoutes()];
+}
+
+function getStaticNonIndexableRoutes(): string[] {
   return Object.entries(staticRoutes).flatMap(([pathname, route]) => {
     if (route.shouldIndex !== false) {
       return [];
