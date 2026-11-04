@@ -53,6 +53,10 @@ function CtaLink({ link, className, onNavigate, track }: { link: Link; className
   );
 }
 
+const HERO_SRCSET = `${IMG}/w/hero-story-expedition-480.webp 480w, ${IMG}/w/hero-story-expedition-672.webp 672w, ${IMG}/w/hero-story-expedition-800.webp 800w, ${IMG}/w/hero-story-expedition-1200.webp 1200w, ${IMG}/hero-story-expedition.webp 1400w`;
+const HERO_SIZES = '(min-width: 1280px) 592px, (min-width: 1024px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)';
+const HERO_IMG_CLASS = 'aspect-[16/9] w-full rounded-[1.75rem] border border-sb-border object-cover shadow-warm';
+
 const STEP_STYLES = ['bg-sb-sage text-sb-sage-ink', 'bg-amber-100 text-sb-amber-deep', 'bg-teal-50 text-sb-teal'];
 
 export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => void }) {
@@ -108,7 +112,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
           ))}
         </ul>
       </div>
-      {/* 1 · Promise + illustration. The hero image is lazy: on phones the product row above pushes it below the first screen (site-quality audit, below-fold images must not be eager). */}
+      {/* 1 · Promise + illustration. */}
       <section className="px-4 pb-14 pt-6 sm:px-6 sm:pt-10">
         <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
@@ -121,16 +125,35 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
             </div>
           </div>
           <figure className="relative">
+            {/* Two-column layout (lg, 1024px+): the hero image is above the fold and is the LCP element, so it stays eager with
+                fetchPriority high. Below lg it sits under the text (and, on phones, under the product row), so a lazy copy is used.
+                Each copy is display:none at the other width; the tiny <source> keeps the eager copy from downloading on phones
+                (a display:none eager <img> still fetches), and a display:none lazy <img> never fetches on desktop. */}
+            <picture className="hidden lg:block">
+              <source media="(max-width: 1023.98px)" srcSet="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+              <img
+                src={`${IMG}/hero-story-expedition.webp`}
+                srcSet={HERO_SRCSET}
+                sizes={HERO_SIZES}
+                alt={hero.imageAlt}
+                width={1400}
+                height={788}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className={HERO_IMG_CLASS}
+              />
+            </picture>
             <img
               src={`${IMG}/hero-story-expedition.webp`}
-              srcSet={`${IMG}/w/hero-story-expedition-480.webp 480w, ${IMG}/w/hero-story-expedition-672.webp 672w, ${IMG}/w/hero-story-expedition-800.webp 800w, ${IMG}/w/hero-story-expedition-1200.webp 1200w, ${IMG}/hero-story-expedition.webp 1400w`}
-              sizes="(min-width: 1280px) 592px, (min-width: 1024px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
+              srcSet={HERO_SRCSET}
+              sizes={HERO_SIZES}
               alt={hero.imageAlt}
               width={1400}
               height={788}
               loading="lazy"
               decoding="async"
-              className="aspect-[16/9] w-full rounded-[1.75rem] border border-sb-border object-cover shadow-warm"
+              className={`${HERO_IMG_CLASS} lg:hidden`}
             />
             <figcaption className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-sb-forest">{hero.artLabel}</figcaption>
             {/* Professor Rex medallion (owner, Oct 2026): an illustration, low priority so the hero image stays the LCP. */}
