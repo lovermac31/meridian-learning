@@ -21,6 +21,7 @@ export type PublicContentGroup =
   | 'teacherStandards'
   | 'companies'
   | 'storyClub'
+  | 'centreLicence'
   | 'products'
   | 'seriesCompare'
   | 'thinkingCycleCompare'
@@ -52,6 +53,8 @@ const publicContentReleaseMap: Record<PublicContentGroup, Record<Locale, boolean
   companies: { en: true, vi: false },
   // Story Club with Mr. Jay (Oct 2026): EN + VI written together; price is a proposal until Jay merges.
   storyClub: { en: true, vi: true },
+  // Unlisted Level 1 Centre Licence page (noindex, Zalo only); VI is machine-drafted, native read before use.
+  centreLicence: { en: true, vi: true },
   // Products and prices hub (P-1, Oct 2026): EN + VI written together; VI machine-drafted, native read before merge.
   products: { en: true, vi: true },
   seriesCompare: { en: true, vi: true },
@@ -84,6 +87,7 @@ export function getPublicContentGroup(pathname: string): PublicContentGroup | nu
   if (pathname === '/teacher-standards') return 'teacherStandards';
   if (pathname === '/companies') return 'companies';
   if (pathname === '/story-club' || pathname === '/story-club/reserve') return 'storyClub';
+  if (pathname === '/centres/level-1') return 'centreLicence';
   if (pathname === '/products' || pathname === '/live-speaking-check' || getProductByPath(pathname)) return 'products';
   if (pathname === '/series/compare') return 'seriesCompare';
   if (pathname === '/thinking-cycle/compare') return 'thinkingCycleCompare';

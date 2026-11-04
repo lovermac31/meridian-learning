@@ -25,6 +25,7 @@ const STATIC_PUBLIC_PATHS = [
   '/cefr-alignment',
   '/teacher-standards',
   '/story-club',
+  '/centres/level-1',
   '/story-club/reserve',
   '/products',
   '/series/compare',
