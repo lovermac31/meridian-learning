@@ -19,7 +19,7 @@ for (const locale of ['en', 'vi'] as const) {
     assert.equal(total, 42);
     for (const section of productsPage(locale).sections) {
       const featuredHere = section.cards.some((card) => (FEATURED_PRODUCTS as readonly string[]).includes(card.id));
-      assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*"${featuredHere ? '' : ' hidden=""'} data-category-panel="${section.id}">`), `${section.id}: ${featuredHere ? 'shown' : 'hidden'} until its tile is pressed`);
+      assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*"${''} data-category-panel="${section.id}">`), `${section.id}: ${featuredHere ? 'shown' : 'hidden'} until its tile is pressed`);
       const count = section.cards.length;
       const price = Math.min(...section.cards.map((card) => Number(card.price.replace(/\D/g, '')))).toLocaleString('de-DE');
       const tile = html.match(new RegExp(`data-category-tile="${section.id}"[\\s\\S]*?</button>`))![0];
@@ -32,12 +32,11 @@ for (const locale of ['en', 'vi'] as const) {
     assert.equal(FEATURED_PRODUCTS.length, 6);
     assert.deepEqual(FEATURED_PRODUCTS.slice(0, 3), ['story-club', 'baseline', 'one-to-one'], 'the three live services lead');
     for (const id of FEATURED_PRODUCTS) assert.ok(PRODUCTS.find((p) => p.id === id)?.live, `${id} is a live product`);
-    assert.ok(html.includes('data-products-count="6"'), 'the count line shows the six featured cards');
-    assert.ok(html.includes(locale === 'vi' ? `Hiển thị 6/${total} sản phẩm` : `Showing 6 of ${total} products`));
-    assert.ok(html.includes(locale === 'vi' ? `>Xem tất cả ${total} sản phẩm<` : `>Show all ${total} products<`), 'the "show all" control');
-    const visible = [...html.matchAll(/<li class="product-row[^"]*" id="([^"]+)"(?: hidden="")?>/g)].filter((m) => !m[0].includes('hidden')).map((m) => m[1]);
-    assert.deepEqual(visible, [...FEATURED_PRODUCTS].sort((a, b) => PRODUCTS.findIndex((p) => p.id === a) - PRODUCTS.findIndex((p) => p.id === b)), 'only the featured cards show, in catalogue order');
-    assert.equal((html.match(/<li class="product-row[^"]*" id="[^"]+" hidden="">/g) ?? []).length, 42 - 6, 'the other cards are in the DOM, hidden');
+    assert.ok(html.includes(`data-products-count="${total}"`), 'the count line shows every product by default');
+    assert.ok(html.includes(locale === 'vi' ? `Hiển thị tất cả ${total} sản phẩm` : `Showing all ${total} products`));
+    assert.ok(!html.includes(locale === 'vi' ? `>Xem tất cả ${total} sản phẩm<` : `>Show all ${total} products<`), 'no "show all" control while everything is already shown');
+    assert.equal((html.match(/<li class="product-row[^"]*" id="[^"]+" hidden="">/g) ?? []).length, 0, 'no card is hidden by default, so the Story Workbooks and IELTS books are visible');
+    assert.ok(html.includes('id="story-workbooks-l2"') || /story-workbooks/.test(html), 'Story Workbooks cards are in the page');
   });
 
   test(`cards ${locale}: every product in SSR with its copy, badge, lazy icon, sample above the price, and payment links`, () => {

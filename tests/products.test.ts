@@ -164,7 +164,9 @@ test('reachable: one footer link (EN + VI), one Kids Academy card link, and Prod
     setServerLocation(path);
     const header = renderToStaticMarkup(createElement(Navbar, { onGetStarted: noop, onNavigateHome: noop, onNavigate: noop, onPricingClick: noop, onEducationAffiliateClick: noop }));
     setServerLocation('/');
-    assert.equal([...header.matchAll(new RegExp(`href="${href}"`, 'g'))].length, 1, path);
+    // Two links: the full link row (2xl and up) and the always-visible bar link (md up to 2xl, 4 Nov 2026).
+    assert.equal([...header.matchAll(new RegExp(`href="${href}"`, 'g'))].length, 2, path);
+    assert.match(header, new RegExp(`href="${href}"[^>]*data-testid="header-products-link"`), path);
     assert.match(header, new RegExp(`href="${href}"[^>]*aria-label="${label}"`), path);
   }
 });

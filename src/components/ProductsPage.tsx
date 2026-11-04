@@ -545,8 +545,9 @@ export function ProductsPage({ locale }: { locale: Locale }) {
   const [viewer, setViewer] = useState<ProductCard | null>(null);
   // The segment filter. SSR and the first client render show every section; a segment narrows the page to its cards.
   const [filter, setFilter] = useState<ProductSegmentId | null>(null);
-  // Featured-first: until a segment is pressed or "Show all" is used, only FEATURED_PRODUCTS show as cards.
-  const [showAll, setShowAll] = useState(false);
+  // Every product shows by default (Jay, 4 Nov 2026: the books must be visible without a click). The segment tiles still
+  // narrow the page to one section, and "Show all" brings the full catalogue back after a filter.
+  const [showAll, setShowAll] = useState(true);
   const isVisible = (card: { id: string; category?: string }, section: ProductSectionId) =>
     filter === WORKBOOKS_SEGMENT ? card.category === 'workbooks' : filter ? filter === section : showAll || (FEATURED_PRODUCTS as readonly string[]).includes(card.id);
   const categoryCopy = CATEGORY_COPY[locale];
