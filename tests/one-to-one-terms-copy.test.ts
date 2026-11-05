@@ -42,10 +42,11 @@ test('long plans say their schedule and terms are agreed in writing before payme
   assert.match(read('src/yl/i18n.vi.json'), /thống nhất trong bản tóm tắt bằng văn bản trước khi bạn trả tiền/);
 });
 
-test('lessons are with Mr. Jay\'s team, not a promise of one named teacher', () => {
+test('lessons are with Mr. Jay himself: no "team" wording on the home page (Jay\'s sole-teacher ruling, 2 Nov 2026)', () => {
   const home = read('src/i18n/content/home.ts');
-  assert.doesNotMatch(home, /lessons with Mr\. Jay'|coaching with Mr\. Jay'|với thầy Jay'/);
-  assert.match(home, /60-minute lessons with Mr\. Jay\\'s team/);
+  assert.doesNotMatch(home, /Mr\. Jay\\?'s team|đội ngũ của thầy Jay|đội ngũ giáo viên/);
+  assert.match(home, /60-minute lessons with Mr\. Jay · 800\.000₫ each/);
+  assert.match(home, /Buổi học 60 phút với thầy Jay/);
 });
 
 test('/legal/terms points lesson buyers to the lesson terms and keeps statutory rights (EN/VI)', () => {
