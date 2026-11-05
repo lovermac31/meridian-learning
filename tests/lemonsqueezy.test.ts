@@ -31,7 +31,7 @@ test('config: only https lemonsqueezy.com URLs for digital products survive; ser
   assert.deepEqual(parseLemonSqueezyCheckouts(undefined), {});
   // Every eligible product is a digital download with PayPal already; the five services are excluded by data.
   const eligible = PRODUCTS.filter((p) => p.paypal).map((p) => p.id);
-  assert.equal(eligible.length, 37); // 30, the five Story Workbooks and the IELTS Reading and Listening packs (3 Nov 2026)
+  assert.equal(eligible.length, 40); // 30, the five Story Workbooks, the IELTS Reading and Listening packs (3 Nov 2026) and the three IELTS bundles (5 Nov 2026)
   for (const id of ['story-club', 'baseline', 'one-to-one', 'writing-baseline', 'centre-licence']) assert.ok(!eligible.includes(id), id);
 });
 
@@ -65,7 +65,7 @@ test('pages: no button and no footer line until a URL is configured; then EN pag
     const en = amp(renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' })));
     const card = en.slice(en.indexOf('id="ielts-cue-card-bank"'), en.indexOf('</li>', en.indexOf('id="ielts-cue-card-bank"')));
     assert.match(card, /data-lemonsqueezy="ielts-cue-card-bank"/);
-    assert.match(card, new RegExp(`<a href="${CUE.replace(/[.]/g, '\\.')}\\?checkout%5Bcustom%5D%5Border_ref%5D=ielts-cue-card-bank%7CIELTS-CUE-CARD-BANK[^"]*" target="_blank" rel="noopener noreferrer"[^>]*data-lemonsqueezy-link="ielts-cue-card-bank">Pay US\\$12 by card, Alipay or WeChat</a>`));
+    assert.match(card, new RegExp(`<a href="${CUE.replace(/[.]/g, '\\.')}\\?checkout%5Bcustom%5D%5Border_ref%5D=ielts-cue-card-bank%7CIELTS-CUE-CARD-BANK[^"]*" target="_blank" rel="noopener noreferrer"[^>]*data-lemonsqueezy-link="ielts-cue-card-bank">Pay US\\$8 by card, Alipay or WeChat</a>`));
     assert.equal([...card.matchAll(/data-cta="/g)].length, 1, 'still one order CTA');
     assert.ok(card.indexOf('data-paypal="ielts-cue-card-bank"') < card.indexOf('data-lemonsqueezy="ielts-cue-card-bank"'), 'VietQR first, PayPal, then card');
     assert.doesNotMatch(en.slice(en.indexOf('id="ielts-speaking-ladder"'), en.indexOf('</li>', en.indexOf('id="ielts-speaking-ladder"'))), /lemonsqueezy/, 'a product without a URL shows nothing');

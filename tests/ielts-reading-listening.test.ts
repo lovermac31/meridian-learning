@@ -10,27 +10,27 @@ import { productUsd } from '../src/lib/productsSource';
 import { ProductsPage } from '../src/components/ProductsPage';
 
 // IELTS Reading Ladder and Listening Profiler Pack (IELTS Writing factory, 3 Nov 2026; Jay's go relayed by the factory):
-// two 390.000₫ / US$16 packs in #ielts under their own Reading and Listening groups, after Speaking and Writing. Neither
+// two 299.000₫ / US$12 packs (390.000₫ / US$16 before the 5 Nov 2026 price ladder) in #ielts under their own Reading and Listening groups, after Speaking and Writing. Neither
 // has an IELTS home page or a film yet, so their cards carry no home link and no "Watch" link.
 const NEW = { 'ielts-reading-ladder': { group: 'reading', pages: 10, memo: 'PR14' }, 'ielts-listening-profiler': { group: 'listening', pages: 11, memo: 'PR15' } } as const;
 
-test('Reading and Listening: live #ielts cards at 390.000₫ / US$16, sample, SEO copy and their own VietQR memo prefix', () => {
-  assert.deepEqual(IELTS_GROUPS, ['speaking', 'writing', 'reading', 'listening']);
+test('Reading and Listening: live #ielts cards at 299.000₫ / US$12, sample, SEO copy and their own VietQR memo prefix', () => {
+  assert.deepEqual([...IELTS_GROUPS], ['speaking', 'writing', 'reading', 'listening', 'bundles']);
   for (const [id, spec] of Object.entries(NEW)) {
     const p = PRODUCTS.find((entry) => entry.id === id)!;
     assert.ok(p.live && p.section === 'ielts' && p.group === spec.group, id);
-    assert.equal(p.price, '390.000₫');
-    assert.equal(productUsd(p.price), 16);
+    assert.equal(p.price, '299.000₫');
+    assert.equal(productUsd(p.price), 12);
     assert.ok(p.delivery && p.paypal && p.href === 'zalo', `${id}: a digital download ordered on Zalo or PayPal`);
     assert.equal(p.image, id);
     assert.equal(p.sample, id);
     assert.equal(SAMPLE_PAGE_COUNTS[id], spec.pages);
     assert.equal(p.video, undefined, `${id}: no film yet`);
-    assert.deepEqual(PAID_OFFERS.find((o) => o.id === id), { ...PAID_OFFERS.find((o) => o.id === id)!, amount: 390000, prefix: spec.memo });
+    assert.deepEqual(PAID_OFFERS.find((o) => o.id === id), { ...PAID_OFFERS.find((o) => o.id === id)!, amount: 299000, prefix: spec.memo });
     for (const locale of ['en', 'vi'] as const) {
       assert.match(p[locale].forWho, locale === 'en' ? /One learner, or one tutor with their own students\. Practice material, not an official score\.$/ : /Một học viên, hoặc một gia sư dùng với học viên của mình\. Tài liệu luyện tập, không phải điểm chính thức\.$/);
       const seo = PRODUCT_SEO[id][locale];
-      assert.ok(seo.title.length <= 60 && seo.description.length >= 80 && seo.description.length <= 160 && seo.description.includes('390.000'), `${id} ${locale}`);
+      assert.ok(seo.title.length <= 60 && seo.description.length >= 80 && seo.description.length <= 160 && seo.description.includes('299.000'), `${id} ${locale}`);
     }
   }
 });
@@ -40,7 +40,7 @@ test('/products: Reading and Listening headings follow Writing, each card in its
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     const ielts = html.slice(html.indexOf('<section id="ielts"'), html.indexOf('</section>', html.indexOf('<section id="ielts"')));
     const at = IELTS_GROUPS.map((group) => ielts.indexOf(`data-ielts-group="${group}"`));
-    assert.ok(at.every((index, i) => index > 0 && (i === 0 || index > at[i - 1])), `${locale}: Speaking, Writing, Reading, Listening`);
+    assert.ok(at.every((index, i) => index > 0 && (i === 0 || index > at[i - 1])), `${locale}: Speaking, Writing, Reading, Listening, Bundles`);
     assert.match(ielts, /<h3 id="ielts-reading"[^>]*>IELTS Reading<\/h3>/);
     assert.match(ielts, /<h3 id="ielts-listening"[^>]*>IELTS Listening<\/h3>/);
     for (const [id, spec] of Object.entries(NEW)) {

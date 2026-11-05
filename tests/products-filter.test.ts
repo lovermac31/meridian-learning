@@ -7,8 +7,8 @@ import { PRODUCTS, PRODUCT_SECTIONS, PRODUCT_SEGMENTS, PRODUCT_FORMER_IDS, WORKB
 import { FEATURED_PRODUCTS } from '../src/components/ProductsPage';
 
 // Stitch layout (Jay's mock, 2 Nov 2026) with featured-first (Jay, "tighten"): a segment filter row over one wide card
-// per product. SSR renders all 42 cards (search engines and deep links see them) but only the six featured cards show;
-// the rest sit behind the segment tiles and "Show all 42 products".
+// per product. SSR renders all 45 cards (search engines and deep links see them) but only the six featured cards show;
+// the rest sit behind the segment tiles and "Show all 45 products".
 for (const locale of ['en', 'vi'] as const) {
   test(`filter ${locale}: five segment tiles (Story Workbooks included) with real counts and lowest prices; six featured cards show, the rest wait behind the filters`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
@@ -16,7 +16,7 @@ for (const locale of ['en', 'vi'] as const) {
     assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.map((id) => [id, 'false', id]));
     assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Story Workbooks sits right after Families');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
-    assert.equal(total, 42);
+    assert.equal(total, 45);
     for (const section of productsPage(locale).sections) {
       const featuredHere = section.cards.some((card) => (FEATURED_PRODUCTS as readonly string[]).includes(card.id));
       assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*"${''} data-category-panel="${section.id}">`), `${section.id}: ${featuredHere ? 'shown' : 'hidden'} until its tile is pressed`);
@@ -41,7 +41,7 @@ for (const locale of ['en', 'vi'] as const) {
 
   test(`cards ${locale}: every product in SSR with its copy, badge, lazy icon, sample above the price, and payment links`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale })).replaceAll('&#x27;', "'").replaceAll('&amp;', '&').replaceAll('&quot;', '"');
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 42);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 45);
     for (const product of PRODUCTS.filter((p) => p.live)) {
       const start = html.indexOf(`id="${product.id}"`);
       const card = html.slice(start, html.indexOf('</li>', start));
@@ -50,11 +50,13 @@ for (const locale of ['en', 'vi'] as const) {
         assert.ok(card.includes(escape(product[locale][key])), `${product.id}: SSR ${key}`);
       }
       assert.ok(card.includes(`<span class="product-row-pill">${escape(product[locale].label)}</span>`), `${product.id}: badge pill is the card label`);
-      assert.ok(card.includes(`data-sample-open="${product.id}"`));
+      // The three IELTS bundles (5 Nov 2026) show no sample of their own: each pack inside has its sample on its own page.
+      if (product.sample) assert.ok(card.includes(`data-sample-open="${product.id}"`)); else assert.ok(!card.includes('data-sample-open='), `${product.id}: no sample button without a sample`);
       assert.ok(card.includes(`data-cta="product-${product.id}"`));
       assert.match(card, /loading="lazy"/);
       const at = (marker: string) => card.indexOf(marker);
-      assert.ok(at('</dl>') < at(`data-sample="${product.id}"`) && at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → sample → price → buttons`);
+      if (product.sample) assert.ok(at('</dl>') < at(`data-sample="${product.id}"`) && at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → sample → price → buttons`);
+      else assert.ok(at('</dl>') < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → price → buttons`);
       // One payment line under the price (the delivery line); the long PayPal note stays in the FAQ, not on every card.
       if (product.delivery) assert.ok(at(`data-price="${product.id}"`) < at(`data-delivery="${product.id}"`) && at(`data-delivery="${product.id}"`) < at('data-buy-now='), `${product.id}: payment line between price and buttons`);
       assert.doesNotMatch(card, /paypal\.com to Jurassic English|paypal\.com cho Jurassic English/, `${product.id}: no PayPal paragraph on the card`);

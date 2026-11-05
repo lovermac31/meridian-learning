@@ -9,7 +9,8 @@ import { validateSampleText, SAMPLE_TEXT_MAX_BYTES } from '../src/lib/sampleText
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicPages = path.join(root, 'public/samples/pages');
 const hash = (value) => createHash('sha256').update(value).digest('hex');
-const config = PRODUCTS.filter(p => p.live).map(p => ({ id: p.id, stem: p.sample, count: SAMPLE_PAGE_COUNTS[p.sample] }));
+// The three IELTS bundles (5 Nov 2026) carry no sample of their own: each pack inside has its approved sample on its own page.
+const config = PRODUCTS.filter(p => p.live && p.sample).map(p => ({ id: p.id, stem: p.sample, count: SAMPLE_PAGE_COUNTS[p.sample] }));
 const args = process.argv.slice(2);
 let sourceRoot = process.env.JE_SAMPLE_SOURCE_ROOT;
 let explicitGenerate = false; let verifySource = false; let sourceProvided = false;

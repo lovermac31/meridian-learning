@@ -86,10 +86,11 @@ const USD: Record<string, number> = {
   'word-fossil-flashcards-l1': 8, 'thinking-cycle-set': 19, 'thinking-cycle-posters': 6, 'reasoning-assessment-kit': 16,
   'teacher-training-course': 58, 'pilot-class-kit': 27, 'curriculum-overview': 12,
   // #ielts, last on the page (27 Oct 2026).
-  'ielts-speaking-ladder': 16, 'ielts-one-to-one-starter': 6, 'ielts-cue-card-bank': 12, 'ielts-writing-ladder-task2': 16,
-  'ielts-writing-task1-method': 12, 'ielts-essay-bank-task2': 12, 'ielts-writing-teacher-pack': 27,
-  // IELTS Reading and Listening (3 Nov 2026): 390.000₫ → US$16.
-  'ielts-reading-ladder': 16, 'ielts-listening-profiler': 16,
+  'ielts-speaking-ladder': 12, 'ielts-one-to-one-starter': 6, 'ielts-cue-card-bank': 8, 'ielts-writing-ladder-task2': 12,
+  'ielts-writing-task1-method': 8, 'ielts-essay-bank-task2': 8, 'ielts-writing-teacher-pack': 27,
+  // IELTS Reading and Listening: 299.000₫ → US$12 (price ladder, 5 Nov 2026). Bundles: US$20 / US$18 / US$39.
+  'ielts-reading-ladder': 12, 'ielts-listening-profiler': 12,
+  'ielts-writing-band-up': 20, 'ielts-speaking-band-up': 18, 'ielts-four-skill-kit': 39,
 };
 // The page shows PayPal only on live cards; hidden ones (35-today plan) are priced and ready for when they flip.
 const LIVE_USD = Object.keys(USD).filter((id) => PRODUCTS.find((p) => p.id === id)!.live);
