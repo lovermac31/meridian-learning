@@ -19,10 +19,11 @@ const amounts: Record<string, number> = {
   'student-workbook-l4': 190000, 'student-workbook-l5': 190000, 'word-fossil-flashcards-l1': 190000,
   'thinking-cycle-set': 490000, 'thinking-cycle-posters': 149000, 'reasoning-assessment-kit': 390000,
   'centre-licence': 4900000, 'teacher-training-course': 1490000, 'pilot-class-kit': 690000,
-  'curriculum-overview': 290000, 'ielts-speaking-ladder': 390000, 'ielts-one-to-one-starter': 149000,
-  'ielts-cue-card-bank': 290000, 'writing-baseline': 79000, 'ielts-writing-ladder-task2': 390000,
-  'ielts-writing-task1-method': 290000, 'ielts-essay-bank-task2': 290000, 'ielts-writing-teacher-pack': 690000,
-  'ielts-reading-ladder': 390000, 'ielts-listening-profiler': 390000,
+  'curriculum-overview': 290000, 'ielts-speaking-ladder': 299000, 'ielts-one-to-one-starter': 149000,
+  'ielts-cue-card-bank': 199000, 'writing-baseline': 79000, 'ielts-writing-ladder-task2': 299000,
+  'ielts-writing-task1-method': 199000, 'ielts-essay-bank-task2': 199000, 'ielts-writing-teacher-pack': 690000,
+  'ielts-reading-ladder': 299000, 'ielts-listening-profiler': 299000,
+  'ielts-writing-band-up': 499000, 'ielts-speaking-band-up': 449000, 'ielts-four-skill-kit': 999000,
 };
 
 test('every priced offer has an approved price and a unique stable memo namespace', () => {

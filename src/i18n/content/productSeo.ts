@@ -308,36 +308,36 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'ielts speaking self-study band 5 to 7',
       title: 'IELTS Speaking Self-Study: Band 5.0 to 6.5–7.0',
-      description: '18 self-study IELTS Speaking lessons from Band 5.0 to 6.5–7.0, one habit per lesson, timed Part 1–3 tasks. Not an official IELTS score. 390.000₫.',
+      description: '18 self-study IELTS Speaking lessons from Band 5.0 to 6.5–7.0, one habit per lesson, timed Part 1–3 tasks. Not an official IELTS score. 299.000₫.',
     },
     vi: {
       keyword: 'tự học ielts speaking',
       title: 'Tự học IELTS Speaking từ 5.0 lên 6.5–7.0',
-      description: '18 bài tự học IELTS Speaking từ Band 5.0 lên 6.5–7.0, mỗi bài sửa một thói quen, bài nói Part 1–3 bấm giờ. Không phải điểm IELTS chính thức. 390.000₫.',
+      description: '18 bài tự học IELTS Speaking từ Band 5.0 lên 6.5–7.0, mỗi bài sửa một thói quen, bài nói Part 1–3 bấm giờ. Không phải điểm IELTS chính thức. 299.000₫.',
     },
   },
   'ielts-writing-ladder-task2': {
     en: {
       keyword: 'ielts writing task 2 self-study',
       title: 'IELTS Writing Task 2 Self-Study: 7 Lessons from 5.5',
-      description: 'Seven IELTS Writing Task 2 lessons: take a position, give reasons that hold, answer the other side, finish in 40 minutes. Not an official IELTS score. 390.000₫.',
+      description: 'Seven IELTS Writing Task 2 lessons: take a position, give reasons that hold, answer the other side, finish in 40 minutes. Not an official IELTS score. 299.000₫.',
     },
     vi: {
       keyword: 'ielts writing task 2',
       title: 'Tự học IELTS Writing Task 2: 7 bài từ 5.5 trở lên',
-      description: '7 bài IELTS Writing Task 2: chọn quan điểm, đưa lý do vững, phản biện ý ngược lại, xong bài trong 40 phút. Không phải điểm IELTS chính thức. 390.000₫.',
+      description: '7 bài IELTS Writing Task 2: chọn quan điểm, đưa lý do vững, phản biện ý ngược lại, xong bài trong 40 phút. Không phải điểm IELTS chính thức. 299.000₫.',
     },
   },
   'ielts-writing-task1-method': {
     en: {
       keyword: 'ielts writing task 1 method',
       title: 'IELTS Writing Task 1: the 20-Minute Method (4 Lessons)',
-      description: 'Four IELTS Writing Task 1 lessons for Academic and General Training: overview first, compare figures, maps, processes, letters. Not an official score. 290.000₫.',
+      description: 'Four IELTS Writing Task 1 lessons for Academic and General Training: overview first, compare figures, maps, processes, letters. Not an official score. 199.000₫.',
     },
     vi: {
       keyword: 'ielts writing task 1',
       title: 'IELTS Writing Task 1: phương pháp 20 phút (4 bài)',
-      description: '4 bài IELTS Writing Task 1 cho Academic và General Training: overview trước, so sánh số liệu, bản đồ, quy trình, thư. Không phải điểm chính thức. 290.000₫.',
+      description: '4 bài IELTS Writing Task 1 cho Academic và General Training: overview trước, so sánh số liệu, bản đồ, quy trình, thư. Không phải điểm chính thức. 199.000₫.',
     },
   },
   'ielts-writing-teacher-pack': {
@@ -356,24 +356,24 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'ielts reading practice',
       title: 'IELTS Reading Practice: 7 Lessons, 96 Questions',
-      description: 'Find the trap that costs you IELTS Reading marks, then fix it: 7 lessons, 8 original passages and 96 questions with proved answers. 390.000₫.',
+      description: 'Find the trap that costs you IELTS Reading marks, then fix it: 7 lessons, 8 original passages and 96 questions with proved answers. 299.000₫.',
     },
     vi: {
       keyword: 'luyện ielts reading',
       title: 'Luyện IELTS Reading: 7 bài học, 96 câu hỏi',
-      description: 'Tìm lỗi bẫy làm bạn mất điểm IELTS Reading rồi sửa: 7 bài học, 8 bài đọc gốc và 96 câu hỏi, mỗi đáp án có bằng chứng trong bài. 390.000₫.',
+      description: 'Tìm lỗi bẫy làm bạn mất điểm IELTS Reading rồi sửa: 7 bài học, 8 bài đọc gốc và 96 câu hỏi, mỗi đáp án có bằng chứng trong bài. 299.000₫.',
     },
   },
   'ielts-listening-profiler': {
     en: {
       keyword: 'ielts listening practice with a tutor',
       title: 'IELTS Listening Practice With a Tutor: 7 Lessons',
-      description: 'Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 60 drills, 8 case files. 390.000₫.',
+      description: 'Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 60 drills, 8 case files. 299.000₫.',
     },
     vi: {
       keyword: 'luyện ielts listening',
       title: 'Luyện IELTS Listening cùng gia sư: 7 bài học',
-      description: 'Nhận diện và sửa những cái bẫy làm mất điểm IELTS Listening: gia sư hoặc bạn học đọc kịch bản, bạn trả lời thành tiếng. 60 bài luyện, 8 bộ đề. 390.000₫.',
+      description: 'Nhận diện và sửa những cái bẫy làm mất điểm IELTS Listening: gia sư hoặc bạn học đọc kịch bản, bạn trả lời thành tiếng. 60 bài luyện, 8 bộ đề. 299.000₫.',
     },
   },
   'centre-licence': {
@@ -489,12 +489,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'ielts speaking part 2 cue cards',
       title: 'IELTS Speaking Part 2 Cue Cards with Model Answers',
-      description: '60 original IELTS Speaking Part 2 cue cards, each with a 1-minute plan, a Band 7-style answer and Band 6 and 8-style moments. Practice material. 290.000₫.',
+      description: '60 original IELTS Speaking Part 2 cue cards, each with a 1-minute plan, a Band 7-style answer and Band 6 and 8-style moments. Practice material. 199.000₫.',
     },
     vi: {
       keyword: 'đề ielts speaking part 2 có bài mẫu',
       title: 'Bộ thẻ đề IELTS Speaking Part 2 kèm bài mẫu',
-      description: '60 thẻ đề IELTS Speaking Part 2 gốc, mỗi thẻ có dàn ý 1 phút, bài trả lời mức Band 7 và đoạn mẫu mức Band 6, 8. Tài liệu luyện tập. 290.000₫.',
+      description: '60 thẻ đề IELTS Speaking Part 2 gốc, mỗi thẻ có dàn ý 1 phút, bài trả lời mức Band 7 và đoạn mẫu mức Band 6, 8. Tài liệu luyện tập. 199.000₫.',
     },
   },
   'writing-baseline': {
@@ -513,12 +513,49 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'ielts writing task 2 sample essays',
       title: 'IELTS Writing Task 2 Essay Bank: 40 Prompts and Models',
-      description: '40 original IELTS Writing Task 2 prompts, each with a Thinking Cycle plan and a Band 7-style model essay. Practice material. 290.000₫.',
+      description: '40 original IELTS Writing Task 2 prompts, each with a Thinking Cycle plan and a Band 7-style model essay. Practice material. 199.000₫.',
     },
     vi: {
       keyword: 'bài mẫu ielts writing task 2',
       title: 'Ngân hàng bài luận IELTS Writing Task 2: 40 đề và bài mẫu',
-      description: '40 đề IELTS Writing Task 2 gốc, mỗi đề có dàn ý theo Thinking Cycle và một bài mẫu mức Band 7. Tài liệu luyện tập. 290.000₫.',
+      description: '40 đề IELTS Writing Task 2 gốc, mỗi đề có dàn ý theo Thinking Cycle và một bài mẫu mức Band 7. Tài liệu luyện tập. 199.000₫.',
+    },
+  },
+  // Price-ladder bundles (5 Nov 2026).
+  'ielts-writing-band-up': {
+    en: {
+      keyword: 'ielts writing bundle task 1 and task 2',
+      title: 'IELTS Writing Bundle: Task 1, Task 2 and Essay Bank',
+      description: 'Three IELTS Writing packs in one: the Task 1 method, the Task 2 ladder and the 40-essay bank. 499.000₫, 28% less than buying them separately.',
+    },
+    vi: {
+      keyword: 'combo ielts writing task 1 task 2',
+      title: 'Combo IELTS Writing: Task 1, Task 2 và ngân hàng bài luận',
+      description: 'Ba bộ IELTS Writing trong một: phương pháp Task 1, Task 2 Ladder và ngân hàng 40 bài luận. 499.000₫, rẻ hơn 28% so với mua lẻ.',
+    },
+  },
+  'ielts-speaking-band-up': {
+    en: {
+      keyword: 'ielts speaking bundle',
+      title: 'IELTS Speaking Bundle: Ladder, Cue Cards and Lesson Plan',
+      description: 'Three IELTS Speaking packs in one: the 18-lesson ladder, 60 Part 2 cue cards and a full one-to-one lesson plan. 449.000₫, 31% less than separately.',
+    },
+    vi: {
+      keyword: 'combo ielts speaking',
+      title: 'Combo IELTS Speaking: Ladder, thẻ đề và giáo án 1 kèm 1',
+      description: 'Ba bộ IELTS Speaking trong một: 18 bài Ladder, 60 thẻ đề Part 2 và một giáo án 1 kèm 1 trọn vẹn. 449.000₫, rẻ hơn 31% so với mua lẻ.',
+    },
+  },
+  'ielts-four-skill-kit': {
+    en: {
+      keyword: 'ielts four skills self-study kit',
+      title: 'IELTS Four-Skill Kit: Speaking, Writing, Reading, Listening',
+      description: 'Seven IELTS packs for all four skills: the four ladders, the Task 1 method, the Essay Bank and the Cue Card Bank. 999.000₫, 44% less than separately.',
+    },
+    vi: {
+      keyword: 'bộ tự học ielts 4 kỹ năng',
+      title: 'Bộ IELTS 4 kỹ năng: Speaking, Writing, Reading, Listening',
+      description: 'Bảy bộ IELTS cho cả bốn kỹ năng: bốn bộ Ladder, phương pháp Task 1, ngân hàng bài luận và thẻ đề. 999.000₫, rẻ hơn 44% so với mua lẻ.',
     },
   },
 };

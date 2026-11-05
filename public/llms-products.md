@@ -335,9 +335,9 @@
 - ID: `ielts-speaking-ladder`
 - English: https://jurassicenglish.com/products/ielts-speaking-ladder
 - Vietnamese: https://jurassicenglish.com/vi/products/ielts-speaking-ladder
-- English description: 18 self-study IELTS Speaking lessons from Band 5.0 to 6.5–7.0, one habit per lesson, timed Part 1–3 tasks. Not an official IELTS score. 390.000₫.
+- English description: 18 self-study IELTS Speaking lessons from Band 5.0 to 6.5–7.0, one habit per lesson, timed Part 1–3 tasks. Not an official IELTS score. 299.000₫.
 - Vietnamese title: Tự học IELTS Speaking từ 5.0 lên 6.5–7.0
-- VND price: 390.000 VND
+- VND price: 299.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -355,9 +355,9 @@
 - ID: `ielts-cue-card-bank`
 - English: https://jurassicenglish.com/products/ielts-cue-card-bank
 - Vietnamese: https://jurassicenglish.com/vi/products/ielts-cue-card-bank
-- English description: 60 original IELTS Speaking Part 2 cue cards, each with a 1-minute plan, a Band 7-style answer and Band 6 and 8-style moments. Practice material. 290.000₫.
+- English description: 60 original IELTS Speaking Part 2 cue cards, each with a 1-minute plan, a Band 7-style answer and Band 6 and 8-style moments. Practice material. 199.000₫.
 - Vietnamese title: Bộ thẻ đề IELTS Speaking Part 2 kèm bài mẫu
-- VND price: 290.000 VND
+- VND price: 199.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -375,9 +375,9 @@
 - ID: `ielts-writing-ladder-task2`
 - English: https://jurassicenglish.com/products/ielts-writing-ladder-task2
 - Vietnamese: https://jurassicenglish.com/vi/products/ielts-writing-ladder-task2
-- English description: Seven IELTS Writing Task 2 lessons: take a position, give reasons that hold, answer the other side, finish in 40 minutes. Not an official IELTS score. 390.000₫.
+- English description: Seven IELTS Writing Task 2 lessons: take a position, give reasons that hold, answer the other side, finish in 40 minutes. Not an official IELTS score. 299.000₫.
 - Vietnamese title: Tự học IELTS Writing Task 2: 7 bài từ 5.5 trở lên
-- VND price: 390.000 VND
+- VND price: 299.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -385,9 +385,9 @@
 - ID: `ielts-writing-task1-method`
 - English: https://jurassicenglish.com/products/ielts-writing-task1-method
 - Vietnamese: https://jurassicenglish.com/vi/products/ielts-writing-task1-method
-- English description: Four IELTS Writing Task 1 lessons for Academic and General Training: overview first, compare figures, maps, processes, letters. Not an official score. 290.000₫.
+- English description: Four IELTS Writing Task 1 lessons for Academic and General Training: overview first, compare figures, maps, processes, letters. Not an official score. 199.000₫.
 - Vietnamese title: IELTS Writing Task 1: phương pháp 20 phút (4 bài)
-- VND price: 290.000 VND
+- VND price: 199.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -395,9 +395,9 @@
 - ID: `ielts-essay-bank-task2`
 - English: https://jurassicenglish.com/products/ielts-essay-bank-task2
 - Vietnamese: https://jurassicenglish.com/vi/products/ielts-essay-bank-task2
-- English description: 40 original IELTS Writing Task 2 prompts, each with a Thinking Cycle plan and a Band 7-style model essay. Practice material. 290.000₫.
+- English description: 40 original IELTS Writing Task 2 prompts, each with a Thinking Cycle plan and a Band 7-style model essay. Practice material. 199.000₫.
 - Vietnamese title: Ngân hàng bài luận IELTS Writing Task 2: 40 đề và bài mẫu
-- VND price: 290.000 VND
+- VND price: 199.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -415,9 +415,9 @@
 - ID: `ielts-reading-ladder`
 - English: https://jurassicenglish.com/products/ielts-reading-ladder
 - Vietnamese: https://jurassicenglish.com/vi/products/ielts-reading-ladder
-- English description: Find the trap that costs you IELTS Reading marks, then fix it: 7 lessons, 8 original passages and 96 questions with proved answers. 390.000₫.
+- English description: Find the trap that costs you IELTS Reading marks, then fix it: 7 lessons, 8 original passages and 96 questions with proved answers. 299.000₫.
 - Vietnamese title: Luyện IELTS Reading: 7 bài học, 96 câu hỏi
-- VND price: 390.000 VND
+- VND price: 299.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -425,9 +425,39 @@
 - ID: `ielts-listening-profiler`
 - English: https://jurassicenglish.com/products/ielts-listening-profiler
 - Vietnamese: https://jurassicenglish.com/vi/products/ielts-listening-profiler
-- English description: Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 60 drills, 8 case files. 390.000₫.
+- English description: Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 60 drills, 8 case files. 299.000₫.
 - Vietnamese title: Luyện IELTS Listening cùng gia sư: 7 bài học
-- VND price: 390.000 VND
+- VND price: 299.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
+
+### IELTS Writing Band-Up Bundle
+- ID: `ielts-writing-band-up`
+- English: https://jurassicenglish.com/products/ielts-writing-band-up
+- Vietnamese: https://jurassicenglish.com/vi/products/ielts-writing-band-up
+- English description: Three IELTS Writing packs in one: the Task 1 method, the Task 2 ladder and the 40-essay bank. 499.000₫, 28% less than buying them separately.
+- Vietnamese title: Combo IELTS Writing: Task 1, Task 2 và ngân hàng bài luận
+- VND price: 499.000 VND
+- PayPal USD: available on the product page
+- Sample: none listed
+
+### IELTS Speaking Band-Up Bundle
+- ID: `ielts-speaking-band-up`
+- English: https://jurassicenglish.com/products/ielts-speaking-band-up
+- Vietnamese: https://jurassicenglish.com/vi/products/ielts-speaking-band-up
+- English description: Three IELTS Speaking packs in one: the 18-lesson ladder, 60 Part 2 cue cards and a full one-to-one lesson plan. 449.000₫, 31% less than separately.
+- Vietnamese title: Combo IELTS Speaking: Ladder, thẻ đề và giáo án 1 kèm 1
+- VND price: 449.000 VND
+- PayPal USD: available on the product page
+- Sample: none listed
+
+### IELTS Four-Skill Kit
+- ID: `ielts-four-skill-kit`
+- English: https://jurassicenglish.com/products/ielts-four-skill-kit
+- Vietnamese: https://jurassicenglish.com/vi/products/ielts-four-skill-kit
+- English description: Seven IELTS packs for all four skills: the four ladders, the Task 1 method, the Essay Bank and the Cue Card Bank. 999.000₫, 44% less than separately.
+- Vietnamese title: Bộ IELTS 4 kỹ năng: Speaking, Writing, Reading, Listening
+- VND price: 999.000 VND
+- PayPal USD: available on the product page
+- Sample: none listed
 

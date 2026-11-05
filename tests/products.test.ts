@@ -27,9 +27,11 @@ const EXPECTED: Record<string, [string, string][]> = {
   centres: [['centre-licence', '4.900.000₫'], ['teacher-training-course', '1.490.000₫'], ['pilot-class-kit', '690.000₫'], ['curriculum-overview', '290.000₫']],
   // #ielts (Jay, 27 Oct 2026): moved out of Teachers; Speaking group, then Writing.
   ielts: [
-    ['ielts-speaking-ladder', '390.000₫'], ['ielts-one-to-one-starter', '149.000₫'], ['ielts-cue-card-bank', '290.000₫'],
-    ['writing-baseline', '79.000₫'], ['ielts-writing-ladder-task2', '390.000₫'], ['ielts-writing-task1-method', '290.000₫'], ['ielts-essay-bank-task2', '290.000₫'], ['ielts-writing-teacher-pack', '690.000₫'],
-    ['ielts-reading-ladder', '390.000₫'], ['ielts-listening-profiler', '390.000₫'],
+    ['ielts-speaking-ladder', '299.000₫'], ['ielts-one-to-one-starter', '149.000₫'], ['ielts-cue-card-bank', '199.000₫'],
+    ['writing-baseline', '79.000₫'], ['ielts-writing-ladder-task2', '299.000₫'], ['ielts-writing-task1-method', '199.000₫'], ['ielts-essay-bank-task2', '199.000₫'], ['ielts-writing-teacher-pack', '690.000₫'],
+    ['ielts-reading-ladder', '299.000₫'], ['ielts-listening-profiler', '299.000₫'],
+    // IELTS bundles (price ladder, 5 Nov 2026): last group.
+    ['ielts-writing-band-up', '499.000₫'], ['ielts-speaking-band-up', '449.000₫'], ['ielts-four-skill-kit', '999.000₫'],
   ],
 };
 // Cards render only while their entry is live. The factory-built packs stay off the page until their 00 READ ME
@@ -140,11 +142,13 @@ test('cleared packs match their 00 READ MEs: Ladder is 18 lessons + a 1-lesson S
     const ladder = entry('ielts-speaking-ladder')[locale];
     assert.match(ladder.inside, /^18 /, locale);
     assert.match(ladder.inside, /One-to-One Starter.*149\.000₫/, locale);
-    assert.match(ladder.unit, /One-to-One Starter 490\.000₫/, locale);
+    // Price ladder (5 Nov 2026): the old 'Ladder + Starter 490.000₫' line would now cost more than buying both (299.000 + 149.000), so it points to the Speaking Band-Up bundle instead.
+    assert.match(ladder.unit, /Speaking Band-Up.*449\.000₫/, locale);
+    assert.doesNotMatch(ladder.unit, /490\.000/, locale);
     assert.doesNotMatch(entry('teacher-training-course')[locale].inside, /deck|slide|trình chiếu|30/i, locale);
     assert.doesNotMatch(entry('curriculum-overview')[locale].inside, /1–4/, locale);
   }
-  assert.equal(entry('ielts-speaking-ladder').price, '390.000₫');
+  assert.equal(entry('ielts-speaking-ladder').price, '299.000₫');
 });
 
 test('reachable: one footer link (EN + VI), one Kids Academy card link, and Products & prices in the main menu', async () => {
@@ -215,6 +219,8 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5',
     // IELTS Reading and Listening (3 Nov 2026): stem = id.
     'ielts-reading-ladder': 'ielts-reading-ladder', 'ielts-listening-profiler': 'ielts-listening-profiler',
+    // IELTS bundles (5 Nov 2026): stem = id.
+    'ielts-writing-band-up': 'ielts-writing-band-up', 'ielts-speaking-band-up': 'ielts-speaking-band-up', 'ielts-four-skill-kit': 'ielts-four-skill-kit',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
   };
@@ -288,7 +294,9 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
   const { SAMPLE_PAGE_COUNTS } = await import('../src/i18n/content/samplePages');
   // Jay, 27 Oct 2026: no PDF download. Nothing under public/samples may be a PDF.
   assert.deepEqual(filesUnder('public/samples').filter((file) => /\.pdf$/i.test(file)), [], 'no PDF under public/samples');
-  assert.deepEqual(Object.keys(SAMPLE_STEMS).sort(), PRODUCTS.map((p) => p.id).sort(), 'one stem per product');
+  // The three IELTS bundles (5 Nov 2026) have no sample of their own: each pack inside has its sample on its own page.
+  const withSample = PRODUCTS.filter((p) => p.group !== 'bundles');
+  assert.deepEqual(Object.keys(SAMPLE_STEMS).sort(), withSample.map((p) => p.id).sort(), 'one stem per product');
   for (const p of PRODUCTS.filter((entry) => entry.sample)) assert.equal(p.sample, SAMPLE_STEMS[p.id], `${p.id}: stem from the spec`);
   const stems = PRODUCTS.filter((p) => p.sample).map((p) => p.sample!).sort();
   const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages' && f !== 'small');
@@ -303,7 +311,7 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
   }
   // Viewer page sets: public/samples/pages/<stem>-pgNN.webp, 01…N, exactly as samplePages.ts lists them.
   const allPageAssets = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.'));
-  assert.deepEqual(allPageAssets.filter(f => f.endsWith('-text.json')).sort(), PRODUCTS.map(p => `${p.id}-text.json`).sort(), 'one approved text asset per product');
+  assert.deepEqual(allPageAssets.filter(f => f.endsWith('-text.json')).sort(), withSample.map(p => `${p.id}-text.json`).sort(), 'one approved text asset per product');
   const pages = allPageAssets.filter(f => !f.endsWith('-text.json'));
   for (const file of pages) assert.match(file, PAGE_FILE, `pages/${file}`);
   const found: Record<string, number> = {};

@@ -103,9 +103,9 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
 });
 
 // 35-today plan (Jay, 27 Oct 2026): the eight new products are live, each with its page, JSON-LD and sitemap entry.
-test('35-today: all 42 products are live (35, the five Story Workbooks and the IELTS Reading and Listening packs), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
+test('35-today: all 45 products are live (35, the five Story Workbooks, the IELTS Reading and Listening packs and the three IELTS bundles), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
-  assert.equal(PRODUCTS.length, 42);
+  assert.equal(PRODUCTS.length, 45);
   assert.equal(PRODUCTS.filter((p) => !p.live).length, 0);
   const fresh = ['writing-baseline', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'ielts-essay-bank-task2', 'parent-pack-l3',
     'holiday-reading-challenge', 'thinking-cycle-posters', 'word-fossil-flashcards-l1'];
@@ -153,7 +153,8 @@ test('IELTS product pages: Products › IELTS › product breadcrumb and the IEL
       const html = renderToStaticMarkup(createElement(ProductPage, { product: p, locale }));
       assert.match(html, new RegExp(`/products#ielts"[^>]*>IELTS</a>`), `${p.id} ${locale}`);
       // Reading and Listening have no IELTS home page yet (3 Nov 2026), so no link rather than a wrong one.
-      if (p.group === 'reading' || p.group === 'listening') assert.doesNotMatch(html, /data-ielts-home=/, `${p.id} ${locale}`);
+      // The three IELTS bundles (5 Nov 2026) have no single skill home either.
+      if (p.group === 'reading' || p.group === 'listening' || p.group === 'bundles') assert.doesNotMatch(html, /data-ielts-home=/, `${p.id} ${locale}`);
       else assert.match(html, new RegExp(`data-ielts-home="${p.id}"`), `${p.id} ${locale}`);
     }
   }

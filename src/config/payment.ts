@@ -41,6 +41,9 @@ const PRODUCT_MEMO_CODES: Record<string, string> = {
   'ielts-writing-teacher-pack': 'PR0Y',
   'ielts-reading-ladder': 'PR14',
   'ielts-listening-profiler': 'PR15',
+  'ielts-writing-band-up': 'PR16',
+  'ielts-speaking-band-up': 'PR17',
+  'ielts-four-skill-kit': 'PR18',
 };
 
 // The pack total is already published in the catalogue; keep it tied to that copy.

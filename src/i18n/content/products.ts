@@ -58,7 +58,7 @@ export const WORKBOOKS_SEGMENT = 'story-workbooks';
 export const PRODUCT_SEGMENTS = ['families', WORKBOOKS_SEGMENT, 'teachers', 'centres', 'ielts'] as const;
 export type ProductSegmentId = (typeof PRODUCT_SEGMENTS)[number];
 
-export const IELTS_GROUPS = ['speaking', 'writing', 'reading', 'listening'] as const;
+export const IELTS_GROUPS = ['speaking', 'writing', 'reading', 'listening', 'bundles'] as const;
 export type IeltsGroup = (typeof IELTS_GROUPS)[number];
 /** Each IELTS group's home page (the AI Speaking app, EN + VI). Reading and Listening have none yet, so no link. */
 export const IELTS_HOME: Partial<Record<IeltsGroup, Record<Locale, string>>> & Record<'speaking' | 'writing', Record<Locale, string>> = {
@@ -256,7 +256,7 @@ export const PRODUCTS: Product[] = [
       title: 'Live Speaking Baseline',
       problem: 'You pay for courses without knowing your child’s real speaking level or what to fix first.',
       inside: 'One live 15–20 minute speaking session with Mr. Jay, then a written plan: four criterion bands, an overall band and what to work on next.',
-      forWho: 'Learners aged 9–18 with a school or exam target, and parents who want a diagnosis before they buy a course.',
+      forWho: 'Learners aged 9–18 with a school or exam target, and parents who want a diagnosis before they buy a course. Bought an IELTS pack or bundle in the last 30 days? Message Mr. Jay on Zalo with your order code and the Baseline is 100.000₫ off.',
       unit: 'one session',
       cta: 'Book a Baseline',
     },
@@ -265,7 +265,7 @@ export const PRODUCTS: Product[] = [
       title: 'Đánh giá Nói trực tiếp',
       problem: 'Bố mẹ đóng tiền khóa học mà chưa biết con thực sự nói tiếng Anh ở mức nào, và cần ưu tiên cải thiện điều gì trước.',
       inside: 'Một buổi nói trực tiếp 15–20 phút với thầy Jay, sau đó là kế hoạch bằng văn bản: điểm bốn tiêu chí, điểm tổng và điều cần luyện tiếp theo.',
-      forWho: 'Học sinh 9–18 tuổi có mục tiêu ở trường hoặc kỳ thi, và phụ huynh muốn biết rõ trình độ trước khi đăng ký khóa học.',
+      forWho: 'Học sinh 9–18 tuổi có mục tiêu ở trường hoặc kỳ thi, và phụ huynh muốn biết rõ trình độ trước khi đăng ký khóa học. Đã mua một bộ hoặc combo IELTS trong 30 ngày qua? Nhắn Zalo cho thầy Jay kèm mã đơn hàng, Đánh giá Nói trực tiếp được giảm 100.000₫.',
       unit: 'một buổi',
       cta: 'Đặt lịch đánh giá',
     },
@@ -1032,7 +1032,7 @@ export const PRODUCTS: Product[] = [
     live: true,
     section: 'ielts',
     group: 'speaking',
-    price: '390.000₫',
+    price: '299.000₫',
     href: 'zalo',
     delivery: true,
     paypal: true,
@@ -1045,7 +1045,7 @@ export const PRODUCTS: Product[] = [
       problem: 'You lose marks on the same small habits, like articles, -s and -ed endings and tense, and your Part 2 answer stops after less than a minute.',
       inside: '18 self-study lessons in three levels, from Band 5.0 to 6.5–7.0. Each lesson fixes one habit, with model answers, timed Part 1, 2 and 3 speaking tasks, a self-check and an answer key. Tutors can add the One-to-One Starter: one 90-minute lesson plan with a student handout, 149.000₫ on its own.',
       forWho: 'Learners at IELTS Speaking Band 5.0–6.5, and tutors who teach them one-to-one. Practice material, not an official score.',
-      unit: 'self-study pack · with the One-to-One Starter 490.000₫',
+      unit: 'self-study pack · also in the Speaking Band-Up bundle, 449.000₫',
       cta: 'Order on Zalo',
     },
     vi: {
@@ -1054,7 +1054,7 @@ export const PRODUCTS: Product[] = [
       problem: 'Bạn liên tục mất điểm ở cùng những lỗi nhỏ như mạo từ, đuôi -s và -ed, thì của động từ, và câu trả lời Part 2 dừng lại chưa đến một phút.',
       inside: '18 bài tự học chia ba cấp độ, từ Band 5.0 đến 6.5–7.0. Mỗi bài sửa một thói quen, có câu trả lời mẫu, bài nói Part 1, 2 và 3 có bấm giờ, phần tự kiểm tra và đáp án. Gia sư có thể mua thêm One-to-One Starter: một giáo án 1 kèm 1 dài 90 phút kèm phiếu cho học viên, 149.000₫ nếu mua riêng.',
       forWho: 'Người học đang ở IELTS Speaking Band 5.0–6.5, và gia sư dạy 1 kèm 1. Tài liệu luyện tập, không phải điểm thi chính thức.',
-      unit: 'bộ tự học · kèm One-to-One Starter 490.000₫',
+      unit: 'bộ tự học · có trong combo Speaking Band-Up, 449.000₫',
       cta: 'Đặt mua qua Zalo',
     },
   },
@@ -1097,7 +1097,7 @@ export const PRODUCTS: Product[] = [
     live: true,
     section: 'ielts',
     group: 'speaking',
-    price: '290.000₫',
+    price: '199.000₫',
     href: 'zalo',
     image: 'ielts-cue-card-bank',
     sample: 'ielts-cue-card-bank',
@@ -1161,7 +1161,7 @@ export const PRODUCTS: Product[] = [
     live: true,
     section: 'ielts',
     group: 'writing',
-    price: '390.000₫',
+    price: '299.000₫',
     href: 'zalo',
     delivery: true,
     paypal: true,
@@ -1192,7 +1192,7 @@ export const PRODUCTS: Product[] = [
     live: true,
     section: 'ielts',
     group: 'writing',
-    price: '290.000₫',
+    price: '199.000₫',
     href: 'zalo',
     delivery: true,
     paypal: true,
@@ -1224,7 +1224,7 @@ export const PRODUCTS: Product[] = [
     live: true,
     section: 'ielts',
     group: 'writing',
-    price: '290.000₫',
+    price: '199.000₫',
     href: 'zalo',
     image: 'ielts-essay-bank-task2',
     sample: 'ielts-essay-bank-task2',
@@ -1282,12 +1282,12 @@ export const PRODUCTS: Product[] = [
   },
   {
     // IELTS Writing factory, 3 Nov 2026: 7 lessons, 8 original passages, 96 questions (Sale Team/ielts-reading-reader); 50-page
-    // PDF, 10-page view-only sample. Price 390.000₫ / US$16 confirmed by the master. Jay's go relayed by the factory, 3 Nov.
+    // PDF, 10-page view-only sample. Price 299.000₫ / US$12 (price ladder, Jay's go 5 Nov 2026; was 390.000₫ / US$16 on 3 Nov).
     id: 'ielts-reading-ladder',
     live: true,
     section: 'ielts',
     group: 'reading',
-    price: '390.000₫',
+    price: '299.000₫',
     href: 'zalo',
     delivery: true,
     paypal: true,
@@ -1315,12 +1315,12 @@ export const PRODUCTS: Product[] = [
   {
     // IELTS Writing factory, 3 Nov 2026: 7 lessons on the "Listening Through Speaking" model, 60 spoken drills, 8 case files
     // (Sale Team/ielts-listening-reader); a reader reads each script live, no audio plays. 58-page PDF, 11-page view-only
-    // sample. Price 390.000₫ / US$16 confirmed by the master. Jay's go relayed by the factory, 3 Nov.
+    // sample. Price 299.000₫ / US$12 (price ladder, Jay's go 5 Nov 2026; was 390.000₫ / US$16 on 3 Nov).
     id: 'ielts-listening-profiler',
     live: true,
     section: 'ielts',
     group: 'listening',
-    price: '390.000₫',
+    price: '299.000₫',
     href: 'zalo',
     delivery: true,
     paypal: true,
@@ -1342,6 +1342,97 @@ export const PRODUCTS: Product[] = [
       inside: 'Bảy bài học, trong đó gia sư hoặc bạn học đọc mỗi đoạn một lần; bạn trả lời thành tiếng trước khi viết, và mỗi lỗi được gọi đúng tên bẫy. Gồm 60 bài luyện nói và 8 bộ đề, mỗi câu có đáp án và mã bẫy: 58 trang in được. Không cần file nghe.',
       forWho: 'Thanh thiếu niên và người lớn luyện IELTS Listening (Band 5.0 đến 8.0+), có gia sư hoặc bạn học đọc kịch bản. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
       unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  // Price ladder (Jay's go, 5 Nov 2026; brief: .regen/command/JURASSICIELTS/PRICING-LADDER-DECISION-2026-11-05.md section 4).
+  // Three bundles of existing packs. The list price is the sum of the packs' own prices on this page, the percentage is
+  // computed from it (tests/price-ladder.test.ts re-derives both), no "was" price is ever shown struck through, and there is
+  // no countdown, scarcity or guarantee. The Vietnamese copy is machine-drafted and needs a native read.
+  {
+    id: 'ielts-writing-band-up',
+    live: true,
+    section: 'ielts',
+    group: 'bundles',
+    price: '499.000₫',
+    href: 'zalo',
+    image: 'ielts-writing-band-up',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · 3 packs · learners and tutors',
+      title: 'IELTS Writing Band-Up Bundle',
+      problem: 'You want one steady Writing routine for Task 1 and Task 2, not three separate buying decisions.',
+      inside: 'Three packs: IELTS Writing Task 1: the 20-minute method (199.000₫), IELTS Writing Ladder: Task 2 (299.000₫) and IELTS Writing Task 2 Essay Bank (199.000₫). Each is the full pack you can see, with its sample, on its own page.',
+      forWho: 'Bought separately the three packs cost 697.000₫; the bundle is 499.000₫, 28% less. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time · 3 packs',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · 3 bộ · học viên và gia sư',
+      title: 'Combo IELTS Writing Band-Up',
+      problem: 'Bạn muốn một lộ trình Writing đều đặn cho Task 1 và Task 2, thay vì phải quyết định mua từng bộ riêng.',
+      inside: 'Ba bộ: IELTS Writing Task 1: Phương pháp 20 phút (199.000₫), IELTS Writing Ladder: Task 2 (299.000₫) và Ngân hàng bài luận IELTS Writing Task 2 (199.000₫). Mỗi bộ là bản đầy đủ, có trang mẫu riêng trên trang của nó.',
+      forWho: 'Mua lẻ ba bộ có giá 697.000₫; mua combo là 499.000₫, rẻ hơn 28%. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần · 3 bộ',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'ielts-speaking-band-up',
+    live: true,
+    section: 'ielts',
+    group: 'bundles',
+    price: '449.000₫',
+    href: 'zalo',
+    image: 'ielts-speaking-band-up',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · 3 packs · learners and tutors',
+      title: 'IELTS Speaking Band-Up Bundle',
+      problem: 'You want a full Speaking routine: lessons to follow, cue cards to practise on, and a complete lesson plan to run it with a tutor.',
+      inside: 'Three packs: IELTS Speaking Ladder Pack (299.000₫), IELTS Speaking Part 2 Cue Card Bank (199.000₫) and IELTS Speaking One-to-One Starter (149.000₫). Each is the full pack you can see, with its sample, on its own page.',
+      forWho: 'Bought separately the three packs cost 647.000₫; the bundle is 449.000₫, 31% less. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time · 3 packs',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · 3 bộ · học viên và gia sư',
+      title: 'Combo IELTS Speaking Band-Up',
+      problem: 'Bạn muốn một lộ trình Speaking đầy đủ: bài học để theo, thẻ đề để luyện, và một giáo án hoàn chỉnh để học cùng gia sư.',
+      inside: 'Ba bộ: Bộ IELTS Speaking Ladder (299.000₫), Bộ thẻ đề IELTS Speaking Part 2 (199.000₫) và IELTS Speaking One-to-One Starter (149.000₫). Mỗi bộ là bản đầy đủ, có trang mẫu riêng trên trang của nó.',
+      forWho: 'Mua lẻ ba bộ có giá 647.000₫; mua combo là 449.000₫, rẻ hơn 31%. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần · 3 bộ',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    id: 'ielts-four-skill-kit',
+    live: true,
+    section: 'ielts',
+    group: 'bundles',
+    price: '999.000₫',
+    href: 'zalo',
+    image: 'ielts-four-skill-kit',
+    delivery: true,
+    paypal: true,
+    en: {
+      label: 'Digital download · 7 packs · learners and tutors',
+      title: 'IELTS Four-Skill Kit',
+      problem: 'You are preparing for all four IELTS skills and want one kit instead of choosing pack by pack.',
+      inside: 'Seven packs: the four ladders, IELTS Speaking Ladder Pack, IELTS Writing Ladder: Task 2, IELTS Reading Ladder and IELTS Listening Profiler Pack (299.000₫ each), plus IELTS Writing Task 1: the 20-minute method (199.000₫), IELTS Writing Task 2 Essay Bank (199.000₫) and IELTS Speaking Part 2 Cue Card Bank (199.000₫).',
+      forWho: 'Bought separately the seven packs cost 1.793.000₫; the kit is 999.000₫, 44% less. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time · 7 packs',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · 7 bộ · học viên và gia sư',
+      title: 'Bộ IELTS Four-Skill Kit',
+      problem: 'Bạn đang ôn cả bốn kỹ năng IELTS và muốn một bộ trọn vẹn thay vì chọn từng gói.',
+      inside: 'Bảy bộ: bốn bộ Ladder gồm Bộ IELTS Speaking Ladder, IELTS Writing Ladder: Task 2, IELTS Reading Ladder và IELTS Listening Profiler Pack (299.000₫ mỗi bộ), cùng IELTS Writing Task 1: Phương pháp 20 phút (199.000₫), Ngân hàng bài luận IELTS Writing Task 2 (199.000₫) và Bộ thẻ đề IELTS Speaking Part 2 (199.000₫).',
+      forWho: 'Mua lẻ bảy bộ có giá 1.793.000₫; mua trọn bộ là 999.000₫, rẻ hơn 44%. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần · 7 bộ',
       cta: 'Đặt mua qua Zalo',
     },
   },
@@ -1389,7 +1480,7 @@ const PAGE: Record<Locale, PageCopy> = {
       ielts: { heading: 'IELTS: teens and adults', intro: 'Self-study packs and teaching materials for IELTS Speaking, Writing, Reading and Listening.' },
     },
     ielts: {
-      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing', reading: 'IELTS Reading', listening: 'IELTS Listening' },
+      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing', reading: 'IELTS Reading', listening: 'IELTS Listening', bundles: 'IELTS bundles' },
       home: { speaking: 'More IELTS Speaking help', writing: 'More IELTS Writing help' },
       crumb: 'IELTS',
     },
@@ -1421,7 +1512,7 @@ const PAGE: Record<Locale, PageCopy> = {
       ielts: { heading: 'IELTS: thanh thiếu niên và người lớn', intro: 'Bộ tự học và tài liệu giảng dạy IELTS Speaking, Writing, Reading và Listening.' },
     },
     ielts: {
-      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing', reading: 'IELTS Reading', listening: 'IELTS Listening' },
+      groups: { speaking: 'IELTS Speaking', writing: 'IELTS Writing', reading: 'IELTS Reading', listening: 'IELTS Listening', bundles: 'Gói combo IELTS' },
       home: { speaking: 'Thêm về luyện IELTS Speaking', writing: 'Thêm về luyện IELTS Writing' },
       crumb: 'IELTS',
     },
