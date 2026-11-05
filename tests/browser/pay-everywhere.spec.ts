@@ -58,6 +58,8 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     if (await reject.isVisible()) await reject.click();
     await page.locator(`[data-buy-now="${offer.id}"]`).click();
     await expect(page).toHaveURL(new RegExp(paymentHref(offer.id, locale).replace(/[?]/g, '\\?') + '$'));
+    // Story Club prepares the payment only after an explicit click (5 Nov 2026); other products still prepare it automatically.
+    if (offer.id === 'story-club') await page.locator('[data-get-payment-code]').click();
     await expect(page.locator('[data-payment-qr]')).toBeVisible();
     const form = page.locator('[data-reserve-form]');
     await expect(form).toHaveCount(0);
@@ -115,6 +117,7 @@ test('reserve checkout accepts a selected non-Vietnam country and submits E.164'
   await page.goto('/story-club/reserve');
   const reject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });
   if (await reject.isVisible()) await reject.click();
+  await page.locator('[data-get-payment-code]').click();
   await expect(page.locator('[data-payment-qr]')).toBeVisible();
   await expect(page.locator('[data-reserve-form]')).toHaveCount(0);
   await page.locator('[data-open-contact-form]').click();

@@ -137,7 +137,7 @@ export function RootShell({
           Replaces the previous parchment chrome + utility-strip pattern.
           See: src/components/ProductionStyleHeader.tsx
         */}
-        <ProductionStyleHeader />
+        <ProductionStyleHeader lang={lang} />
         {/*
           Phase 8 — `tabIndex={-1}` allows the skip-link
           (`<a href="#main-content">`) to programmatically move keyboard focus

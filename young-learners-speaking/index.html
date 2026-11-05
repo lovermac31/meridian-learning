@@ -479,6 +479,10 @@ nav.yl2-hdr{position:relative;z-index:40}
 .yl2-nb{display:inline-block;margin-left:2px;padding:0 6px;border-radius:999px;background:#B45309;color:#fff;font-size:11px;font-weight:700;line-height:16px;vertical-align:1px;text-decoration:none}
 .yl2-hdr-links a[aria-current="page"]{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
 .yl2-hdr-right .lang-select{display:none}
+/* Products stays one tap away at every width (4 Nov 2026): beside the CTA below 1280px, in the link row from 1280px. */
+.yl2-hdr-products{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 6px;color:#1E4D3B;font-weight:600;font-size:.95rem;text-decoration:none;border-radius:6px;white-space:nowrap}
+.yl2-hdr-products:hover{color:#B45309}
+.yl2-hdr-products:focus-visible{outline:3px solid #1E4D3B;outline-offset:3px}
 .yl2-hdr-cta{display:none;align-items:center;white-space:nowrap;min-height:44px;padding:.5rem 1.25rem;font-weight:700;font-size:.9rem;background:#B45309;color:#fff;border-radius:999px;text-decoration:none}
 .yl2-hdr-cta:hover{background:#1E4D3B;color:#fff}
 .yl2-hdr-menu{position:relative}
@@ -495,7 +499,7 @@ nav.yl2-hdr{position:relative;z-index:40}
 .yl2-hdr-menu:not([open]) .yl2-hdr-panel{display:none}
 @media(min-width:480px){.yl2-hdr-right>.yl2-hdr-cta{display:inline-flex}}
 /* Five links need the SPA header's width: inline from 1280px in a 1280px row (matches max-w-7xl + px-6), menu below. */
-@media(min-width:1280px){.yl2-hdr-in{max-width:1280px;padding:0 24px}.yl2-hdr-links{display:flex}.yl2-hdr-right .lang-select{display:inline-flex}.yl2-hdr-menu{display:none}}
+@media(min-width:1280px){.yl2-hdr-in{max-width:1280px;padding:0 24px}.yl2-hdr-links{display:flex}.yl2-hdr-right .lang-select{display:inline-flex}.yl2-hdr-menu{display:none}.yl2-hdr-right>.yl2-hdr-products{display:none}}
 .yl2-foot-lang{margin-top:10px;border-color:#E6DEC8;background:#fff}
 .yl2-foot-lang button{color:#1C2526}
 .yl2-foot-lang button.is-active{background:#1E4D3B;color:#fff}
@@ -511,17 +515,18 @@ nav.yl2-hdr{position:relative;z-index:40}
       <a class="brand" href="/" aria-label="Jurassic English™ home" data-i18n-attr="aria-label:attr.brandHome">
         <div><strong>Jurassic English<sup>™</sup></strong></div>
       </a>
-      <div class="yl2-hdr-links"><a href="/student-academy" data-i18n="yl2.nav.kidsShort" aria-label="Kids Academy (5–12) · Reading & Story Adventures" data-i18n-attr="aria-label:yl2.nav.kidsAria">Kids Academy</a><a href="#top" aria-current="page" data-i18n="yl2.nav.teens" aria-label="Ages 9–18 · Speaking Confidence & Teen IELTS" data-i18n-attr="aria-label:yl2.nav.teensAria">Ages 9–18</a><a href="/ai-speaking/writing" aria-label="IELTS Writing New · IELTS Writing Task 2: introduction &amp; demo" data-i18n-attr="aria-label:yl2.nav.writingAria"><span data-i18n="yl2.nav.writing">IELTS Writing</span> <span class="yl2-nb" data-i18n="yl2.nav.new">New</span></a><a href="/ai-speaking" data-i18n="yl2.nav.adults" aria-label="AI Speaking Mocks · Adult IELTS Speaking practice (18+)" data-i18n-attr="aria-label:yl2.nav.adultsAria">AI Speaking Mocks</a><a href="/#pricing-options" data-i18n="yl2.nav.jay" aria-label="Pricing · Mr. Jay, plans and pricing" data-i18n-attr="aria-label:yl2.nav.jayAria">Pricing</a></div>
+      <div class="yl2-hdr-links"><a href="/student-academy" data-i18n="yl2.nav.kidsShort" aria-label="Kids Academy (5–12) · Reading & Story Adventures" data-i18n-attr="aria-label:yl2.nav.kidsAria">Kids Academy</a><a href="#top" aria-current="page" data-i18n="yl2.nav.teens" aria-label="Ages 9–18 · Speaking Confidence & Teen IELTS" data-i18n-attr="aria-label:yl2.nav.teensAria">Ages 9–18</a><a href="/ai-speaking/writing" aria-label="IELTS Writing New · IELTS Writing Task 2: introduction &amp; demo" data-i18n-attr="aria-label:yl2.nav.writingAria"><span data-i18n="yl2.nav.writing">IELTS Writing</span> <span class="yl2-nb" data-i18n="yl2.nav.new">New</span></a><a href="/ai-speaking" data-i18n="yl2.nav.adults" aria-label="AI Speaking Mocks · Adult IELTS Speaking practice (18+)" data-i18n-attr="aria-label:yl2.nav.adultsAria">AI Speaking Mocks</a><a href="/#pricing-options" data-i18n="yl2.nav.jay" aria-label="Pricing · Mr. Jay, plans and pricing" data-i18n-attr="aria-label:yl2.nav.jayAria">Pricing</a><a href="/products" data-products-link data-i18n="yl2.nav.products" aria-label="Products &amp; prices" data-i18n-attr="aria-label:yl2.nav.productsAria">Products</a></div>
     </div>
     <div class="yl2-hdr-right">
       <div class="lang-select" data-lang-selector role="group" aria-label="Language">
         <button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">EN</button>
         <button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button>
       </div>
+      <a class="yl2-hdr-products" href="/products" data-products-link data-i18n="yl2.nav.products" aria-label="Products &amp; prices" data-i18n-attr="aria-label:yl2.nav.productsAria">Products</a>
       <a class="yl2-hdr-cta" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book Baseline · 690k₫ →</a>
       <details class="yl2-hdr-menu">
         <summary aria-label="Menu" data-i18n-attr="aria-label:yl2.nav.menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
-        <div class="yl2-hdr-panel"><a href="/student-academy"><strong data-i18n="yl2.nav.kids">Kids Academy (5–12)</strong><span data-i18n="yl2.nav.kidsDesc">Reading & Story Adventures</span></a><a href="#top" aria-current="page"><strong data-i18n="yl2.nav.teens">Ages 9–18</strong><span data-i18n="yl2.nav.teensDesc">Speaking Confidence & Teen IELTS</span></a><a href="/ai-speaking/writing"><strong><span data-i18n="yl2.nav.writing">IELTS Writing</span> <span class="yl2-nb" data-i18n="yl2.nav.new">New</span></strong><span data-i18n="yl2.nav.writingDesc">IELTS Writing Task 2: introduction &amp; demo</span></a><a href="/ai-speaking"><strong data-i18n="yl2.nav.adults">AI Speaking Mocks</strong><span data-i18n="yl2.nav.adultsDesc">Adult IELTS Speaking practice (18+)</span></a><a href="/#pricing-options"><strong data-i18n="yl2.nav.jay">Pricing</strong><span data-i18n="yl2.nav.jayDesc">Mr. Jay, plans and pricing</span></a>
+        <div class="yl2-hdr-panel"><a href="/student-academy"><strong data-i18n="yl2.nav.kids">Kids Academy (5–12)</strong><span data-i18n="yl2.nav.kidsDesc">Reading & Story Adventures</span></a><a href="#top" aria-current="page"><strong data-i18n="yl2.nav.teens">Ages 9–18</strong><span data-i18n="yl2.nav.teensDesc">Speaking Confidence & Teen IELTS</span></a><a href="/ai-speaking/writing"><strong><span data-i18n="yl2.nav.writing">IELTS Writing</span> <span class="yl2-nb" data-i18n="yl2.nav.new">New</span></strong><span data-i18n="yl2.nav.writingDesc">IELTS Writing Task 2: introduction &amp; demo</span></a><a href="/ai-speaking"><strong data-i18n="yl2.nav.adults">AI Speaking Mocks</strong><span data-i18n="yl2.nav.adultsDesc">Adult IELTS Speaking practice (18+)</span></a><a href="/#pricing-options"><strong data-i18n="yl2.nav.jay">Pricing</strong><span data-i18n="yl2.nav.jayDesc">Mr. Jay, plans and pricing</span></a><a href="/products" data-products-link><strong data-i18n="yl2.nav.productsFull">Products &amp; prices</strong></a>
           <a class="yl2-hdr-cta yl2-hdr-cta-panel" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book Baseline · 690k₫ →</a>
           <div class="lang-select" role="group" aria-label="Language"><button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">EN</button><button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button></div>
         </div>

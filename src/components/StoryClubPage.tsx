@@ -9,17 +9,19 @@ import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
 import { STORY_CLUB_VIDEOS, VIDEO_COPY } from '../i18n/content/productVideos';
 import { useFirstTouch, withFirstTouch, type FirstTouch } from '../lib/utmFirstTouch';
+import { storyClubTryItContent, STORY_CLUB_TRY_IT_ZALO_HREF } from '../i18n/content/storyClubTryIt';
+import { StoryClubRefund, StoryClubTryIt } from './StoryClubSummary';
 
 export const STORY_CLUB_PATH = '/story-club';
 const STORY_CLUB_VI_PATH = '/vi/story-club';
 
 const STORY_CLUB_ZALO_HREF = '/go/zalo?utm_source=story-club&utm_content=talk-to-jay';
 
-function ZaloButton({ label, className = 'insights-button-secondary', touch }: { label: string; className?: string; touch: FirstTouch | null }) {
+function ZaloButton({ label, className = 'insights-button-secondary', touch, href = STORY_CLUB_ZALO_HREF }: { label: string; className?: string; touch: FirstTouch | null; href?: string }) {
   return (
     <a
       className={className}
-      href={withFirstTouch(STORY_CLUB_ZALO_HREF, touch)}
+      href={withFirstTouch(href, touch)}
       target="_blank"
       rel="noopener noreferrer"
       data-cta="story-club-zalo"
@@ -37,6 +39,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
   // First-touch utm_* (funnel audit fix 2): the reserve and Zalo links carry the visit's campaign after hydration.
   const touch = useFirstTouch();
   const reserveHref = withFirstTouch(paymentHref('story-club', locale), touch);
+  const tryIt = storyClubTryItContent[locale];
 
   return (
     <main id="main-content" tabIndex={-1} className="insights-page ielts-tools-page story-club-page min-h-screen" lang={locale}>
@@ -46,15 +49,28 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
         lead={c.lead}
         eyebrow={c.eyebrow}
         counterpart={locale === 'vi' ? STORY_CLUB_PATH : STORY_CLUB_VI_PATH}
-      ><a className="insights-button-primary mt-4" href={reserveHref} data-cta="story-club-reserve">{reserveCta(locale)}</a>
-        <p className="mt-3 text-sm" data-story-club-schedule>{c.price.schedule}</p></ToolHero>
+      >
+        {/* The free try-it and its Zalo registration lead; the paid round stays one tap away (white on dark green). */}
+        <ZaloButton label={c.join.registerCta} className="insights-button-primary mt-4 max-w-md" touch={touch} href={STORY_CLUB_TRY_IT_ZALO_HREF} />
+        <p className="mt-3 text-sm" data-story-club-schedule>{tryIt.heroLine}</p>
+        <a className="insights-button-secondary story-hero-secondary max-w-md" href={reserveHref} data-cta="story-club-reserve">{reserveCta(locale)}</a>
+      </ToolHero>
       <div className="ielts-tool-content mx-auto max-w-4xl space-y-12 px-5 py-14">
-        <section aria-label={c.price.amount} className="story-price ielts-tool-card rounded-2xl bg-white p-6 shadow-sm">
-          <p className="text-4xl font-bold">
+        <div className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" data-story-club-try-it-card>
+          <StoryClubTryIt locale={locale} id="story-try-it">
+            <ZaloButton label={c.join.registerCta} className="insights-button-primary mt-5 max-w-sm" touch={touch} href={STORY_CLUB_TRY_IT_ZALO_HREF} />
+            <p className="mt-3 text-sm">{tryIt.tryIt.note}</p>
+          </StoryClubTryIt>
+        </div>
+
+        <section aria-labelledby="story-paid-round" className="story-price ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" id="paid-round">
+          <h2 id="story-paid-round" className="text-2xl font-bold">{c.price.heading}</h2>
+          <p className="mt-2 text-4xl font-bold">
             {c.price.amount} <span className="text-xl font-semibold">{c.price.unit}</span>
           </p>
           <p className="mt-1 font-semibold">{c.price.seats}</p>
           <p className="mt-1 font-semibold" data-story-club-schedule>{c.price.schedule}</p>
+          <p className="mt-1 font-semibold">{c.price.starts}</p>
           <p className="mt-3">{c.price.note}</p>
           <div className="story-cta mt-5 max-w-sm">
             <ZaloButton label={c.join.cta} touch={touch} />
@@ -64,6 +80,10 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
             <a className="font-semibold underline underline-offset-4" href={STORY_CLUB_FREE_STORIES[locale]} data-link="story-club-free-stories">{c.price.tryFree}</a>
           </p>
         </section>
+
+        <div className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm">
+          <StoryClubRefund locale={locale} id="story-refund" />
+        </div>
 
         <section aria-labelledby="story-videos" data-story-videos>
           <h2 id="story-videos" className="text-3xl font-bold">{VIDEO_COPY[locale].storyClubHeading}</h2>
@@ -146,8 +166,8 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
             ))}
           </ol>
           <div className="story-cta mt-6 max-w-sm">
-            <ZaloButton label={c.join.cta} touch={touch} />
-            <a className="insights-button-primary mt-3" href={reserveHref} data-cta="story-club-reserve">{reserveCta(locale)}</a>
+            <ZaloButton label={c.join.registerCta} className="insights-button-primary" touch={touch} href={STORY_CLUB_TRY_IT_ZALO_HREF} />
+            <a className="insights-button-secondary mt-3" href={reserveHref} data-cta="story-club-reserve">{reserveCta(locale)}</a>
             <p className="mt-2 text-sm">{c.join.ctaNote}</p>
           </div>
         </section>
@@ -170,7 +190,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <p>{c.closing.heading}</p>
           <p className="insights-cta-note">{c.closing.body}</p>
           <div className="insights-closing-actions mt-5">
-            <ZaloButton label={c.closing.cta} touch={touch} />
+            <ZaloButton label={c.closing.cta} touch={touch} href={STORY_CLUB_TRY_IT_ZALO_HREF} />
           </div>
         </div>
       </div>

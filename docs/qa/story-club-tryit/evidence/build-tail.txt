@@ -1,0 +1,5 @@
+[prerender-route-metadata] generated 235 route HTML files (232 server-rendered, 3 client-only)
+[generate-sitemap] wrote 226 URLs (+32 static) to dist/sitemap.xml
+[generate-sitemap] lastmod from per-page git history on 222/258 URLs (others omitted: no honest source mapping)
+{"event":"html_sitemap_built","pages":2,"entries":258}
+BUILD_EXIT=0
