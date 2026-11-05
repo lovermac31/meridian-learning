@@ -13,7 +13,7 @@
  */
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { OptionalAnalytics, PrivacyControls } from '../components/PrivacyControls';
+import { OptionalAnalytics } from '../components/PrivacyControls';
 import { YlBotUI } from './YlBotUI';
 import { PromoVideoModal } from './PromoVideoModal';
 import { initPageI18n } from './pageI18n';
@@ -68,7 +68,6 @@ if (mount) {
     <StrictMode>
       <YlBotUI />
       <OptionalAnalytics route={YL_SPEED_INSIGHTS_ROUTE} />
-      <PrivacyControls />
       <PromoVideoModal />
     </StrictMode>,
   );

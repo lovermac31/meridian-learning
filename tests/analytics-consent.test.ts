@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { analyticsAllowed, CONSENT_KEY, readAnalyticsConsent, saveAnalyticsConsent, consentBeforeSend } from '../src/lib/analyticsConsent.ts';
+import { analyticsAllowed, countingAllowed, CONSENT_KEY, readAnalyticsConsent, saveAnalyticsConsent, consentBeforeSend } from '../src/lib/analyticsConsent.ts';
 import { loadGa4, stopGa4, ga4Event, shouldLoadGa4 } from '../src/lib/ga4.ts';
 
 // A deterministic browser boundary: script insertions represent external loads;
@@ -68,11 +68,37 @@ test('consent defaults off, validates persisted input, cancels delayed loads and
 
 test('all React entrypoints share consent controls; optional SDKs have send-time withdrawal guards', () => {
   const read = (path: string) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
-  assert.match(read('src/AppRoot.tsx'), /<PrivacyControls/);
+  assert.doesNotMatch(read('src/AppRoot.tsx'), /<PrivacyControls/, 'no consent banner (5 Nov 2026 decision)');
   assert.match(read('src/App.tsx'), /<OptionalAnalytics/);
-  assert.match(read('src/yl/main.tsx'), /<OptionalAnalytics[\s\S]*<PrivacyControls/);
+  assert.match(read('src/yl/main.tsx'), /<OptionalAnalytics/);
+  assert.doesNotMatch(read('src/yl/main.tsx'), /<PrivacyControls/, 'no consent banner on the young-learners entry either');
   assert.match(read('src/components/PrivacyControls.tsx'), /Analytics beforeSend={consentBeforeSend}/);
   assert.match(read('src/components/PrivacyControls.tsx'), /SpeedInsights route={route} beforeSend={consentBeforeSend}/);
   assert.doesNotMatch(read('public/challenges/one-change/index.html'), /insights\/script\.js/);
   assert.match(read('src/components/LegalPage.tsx'), /mailto:info@jurassicenglish.com\?subject=/);
+});
+
+// Cookie-free counting (Vercel Analytics, Speed Insights, click events) runs without a banner; cookie-based GA4 still needs an opt-in.
+test('counting is on by default and off for Do Not Track, Global Privacy Control and an earlier rejection; GA4 stays opt-in', () => {
+  const previous = Object.fromEntries(['window', 'navigator'].map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)]));
+  const store = new Map<string, string>();
+  const browser = Object.assign(new EventTarget(), { localStorage: { getItem: (key: string) => store.get(key) ?? null, setItem: (key: string, value: string) => store.set(key, value) } });
+  const nav = { doNotTrack: '0', globalPrivacyControl: false };
+  Object.defineProperty(globalThis, 'window', { value: browser, configurable: true });
+  Object.defineProperty(globalThis, 'navigator', { value: nav, configurable: true });
+  try {
+    saveAnalyticsConsent('accepted'); store.clear(); // a successful write also clears any in-memory choice left by an earlier test
+    assert.equal(readAnalyticsConsent(), null);
+    assert.equal(countingAllowed(), true, 'no choice yet: cookie-free counting is on');
+    assert.equal(analyticsAllowed(), false, 'GA4 (cookies) is still off without an explicit accept');
+    assert.deepEqual(consentBeforeSend({ type: 'pageview' }), { type: 'pageview' });
+    nav.globalPrivacyControl = true; assert.equal(countingAllowed(), false); assert.equal(consentBeforeSend({ type: 'pageview' }), null);
+    nav.globalPrivacyControl = false; nav.doNotTrack = '1'; assert.equal(countingAllowed(), false);
+    nav.doNotTrack = '0'; saveAnalyticsConsent('rejected'); assert.equal(countingAllowed(), false, 'an earlier rejection is still honoured');
+    saveAnalyticsConsent('accepted'); assert.equal(countingAllowed(), true); assert.equal(analyticsAllowed(), true);
+  } finally {
+    for (const [key, descriptor] of Object.entries(previous)) {
+      if (descriptor) Object.defineProperty(globalThis, key, descriptor); else Reflect.deleteProperty(globalThis, key);
+    }
+  }
 });

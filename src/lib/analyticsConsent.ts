@@ -28,7 +28,18 @@ export function saveAnalyticsConsent(choice: Exclude<AnalyticsConsent, null>): v
   catch { /* Explicit choice applies to this page only if storage is unavailable. */ }
   window.dispatchEvent(new Event(CONSENT_EVENT));
 }
-/** SDK middleware is evaluated at send time, including after consent withdrawal. */
+/**
+ * Cookie-free, anonymous counting (Vercel Analytics, Speed Insights and the click events sent through them): on by default,
+ * with no banner. It sets no cookies, stores no identifier and sends no personal data. It stays off for Do Not Track, Global
+ * Privacy Control and for anyone who already chose "Reject analytics" in the earlier banner. Cookie-based Google Analytics
+ * still needs the explicit opt-in above (analyticsAllowed) and is no longer offered, so it stays off.
+ */
+export function countingAllowed(): boolean {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
+  return readAnalyticsConsent() !== 'rejected' && navigator.doNotTrack !== '1' &&
+    (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl !== true;
+}
+/** SDK middleware is evaluated at send time, including after a withdrawal. */
 export function consentBeforeSend<T>(event: T): T | null {
-  return analyticsAllowed() ? event : null;
+  return countingAllowed() ? event : null;
 }
