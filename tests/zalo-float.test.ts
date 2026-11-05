@@ -106,6 +106,5 @@ test('App mounts the float once, driven by the shared hidden predicate', () => {
   const app = readFileSync(new URL('../src/App.tsx', import.meta.url), 'utf8');
   assert.equal(app.match(/<ZaloFloat/g)?.length, 1);
   assert.match(app, /hidden=\{isZaloFloatHidden\(routePathname, getCurrentLocation\(\)\.search\)\}/);
-  assert.match(readFileSync(new URL('../src/components/PrivacyControls.tsx', import.meta.url), 'utf8'), /data-privacy-controls/);
   assert.match(readFileSync(new URL('../src/components/BotUIChat.tsx', import.meta.url), 'utf8'), /toggleAttribute\('data-je-assistant-open', isOpen\)/);
 });

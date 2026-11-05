@@ -141,14 +141,13 @@ for (const locale of ['en', 'vi'] as const) {
     expect(zaloHits).toHaveLength(1);
   });
 
-  test(`${locale} 375: the tap opens Zalo directly through the tracked redirect, no card; clear of the privacy banner before and after consent`, async ({ page, context }) => {
+  test(`${locale} 375: the tap opens Zalo directly through the tracked redirect, no card; clear of the other bottom controls (no consent banner)`, async ({ page, context }) => {
     await open(page, entry(locale), 375);
     const launcher = page.locator('[data-zalo-float-launcher]');
     await expect(launcher).toBeVisible();
     await expect(launcher).toHaveAttribute('aria-label', t.launcher);
     await expect(launcher).not.toHaveAttribute('aria-haspopup', /.+/);
-    const banner = page.locator('[data-privacy-controls]');
-    await expect(banner.getByRole('button', { name: t.reject })).toBeVisible();
+    await expect(page.locator('[data-privacy-controls]')).toHaveCount(0); // no consent banner (5 Nov 2026)
     await expectClearOfBottomUi(page);
     await page.screenshot({ path: resolve(shots, `375-${locale}-consent-prompt.png`) });
 
@@ -160,8 +159,6 @@ for (const locale of ['en', 'vi'] as const) {
     await writeFile(resolve(shots, `375-${locale}-tap.json`), JSON.stringify({ viewport: 375, locale, openedInNewTab: new URL(popup.url()).pathname + new URL(popup.url()).search, cardRendered: false }, null, 2) + '\n');
     await popup.close();
 
-    await banner.getByRole('button', { name: t.reject }).click();
-    await expect(banner.getByRole('button', { name: t.settings })).toBeVisible();
     await expectClearOfBottomUi(page);
     await page.screenshot({ path: resolve(shots, `375-${locale}.png`) });
   });

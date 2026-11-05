@@ -1,5 +1,4 @@
 import { StrictMode, useEffect } from 'react';
-import { PrivacyControls } from './components/PrivacyControls';
 import App from './App';
 
 /**
@@ -18,7 +17,6 @@ export function AppRoot() {
   return (
     <StrictMode>
       <App />
-      <PrivacyControls />
     </StrictMode>
   );
 }
