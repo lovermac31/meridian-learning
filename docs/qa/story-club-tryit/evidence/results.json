@@ -1,0 +1,270 @@
+{
+  "base": "http://127.0.0.1:4176",
+  "capturedAt": "2026-11-04T17:06:46.059Z",
+  "results": [
+    {
+      "file": "landing-en-375.jpg",
+      "path": "/story-club",
+      "width": 375,
+      "overflow": {
+        "scrollWidth": 375,
+        "innerWidth": 375,
+        "overflowing": false
+      },
+      "order": null,
+      "beforeClick": null,
+      "axeViolations": []
+    },
+    {
+      "file": "landing-en-768.jpg",
+      "path": "/story-club",
+      "width": 768,
+      "overflow": {
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "overflowing": false
+      },
+      "order": null,
+      "beforeClick": null,
+      "axeViolations": []
+    },
+    {
+      "file": "landing-en-1024.jpg",
+      "path": "/story-club",
+      "width": 1024,
+      "overflow": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "overflowing": false
+      },
+      "order": null,
+      "beforeClick": null,
+      "axeViolations": []
+    },
+    {
+      "file": "landing-en-1440.jpg",
+      "path": "/story-club",
+      "width": 1440,
+      "overflow": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "overflowing": false
+      },
+      "order": null,
+      "beforeClick": null,
+      "axeViolations": []
+    },
+    {
+      "file": "landing-vi-375.jpg",
+      "path": "/vi/story-club",
+      "width": 375,
+      "overflow": {
+        "scrollWidth": 375,
+        "innerWidth": 375,
+        "overflowing": false
+      },
+      "order": null,
+      "beforeClick": null,
+      "axeViolations": []
+    },
+    {
+      "file": "landing-vi-768.jpg",
+      "path": "/vi/story-club",
+      "width": 768,
+      "overflow": {
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "overflowing": false
+      },
+      "order": null,
+      "beforeClick": null,
+      "axeViolations": []
+    },
+    {
+      "file": "landing-vi-1024.jpg",
+      "path": "/vi/story-club",
+      "width": 1024,
+      "overflow": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "overflowing": false
+      },
+      "order": null,
+      "beforeClick": null,
+      "axeViolations": []
+    },
+    {
+      "file": "landing-vi-1440.jpg",
+      "path": "/vi/story-club",
+      "width": 1440,
+      "overflow": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "overflowing": false
+      },
+      "order": null,
+      "beforeClick": null,
+      "axeViolations": []
+    },
+    {
+      "file": "reserve-en-375.jpg",
+      "path": "/en/story-club/reserve",
+      "width": 375,
+      "overflow": {
+        "scrollWidth": 375,
+        "innerWidth": 375,
+        "overflowing": false
+      },
+      "order": {
+        "summaryBeforePay": true,
+        "summaryBottom": 2918,
+        "payTop": 2950
+      },
+      "beforeClick": {
+        "nonGetRequestsOnLoad": [],
+        "buttonVisible": true
+      },
+      "axeViolations": []
+    },
+    {
+      "file": "reserve-en-768.jpg",
+      "path": "/en/story-club/reserve",
+      "width": 768,
+      "overflow": {
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "overflowing": false
+      },
+      "order": {
+        "summaryBeforePay": true,
+        "summaryBottom": 1824,
+        "payTop": 1856
+      },
+      "beforeClick": {
+        "nonGetRequestsOnLoad": [],
+        "buttonVisible": true
+      },
+      "axeViolations": []
+    },
+    {
+      "file": "reserve-en-1024.jpg",
+      "path": "/en/story-club/reserve",
+      "width": 1024,
+      "overflow": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "overflowing": false
+      },
+      "order": {
+        "summaryBeforePay": true,
+        "summaryBottom": 1835,
+        "payTop": 1867
+      },
+      "beforeClick": {
+        "nonGetRequestsOnLoad": [],
+        "buttonVisible": true
+      },
+      "axeViolations": []
+    },
+    {
+      "file": "reserve-en-1440.jpg",
+      "path": "/en/story-club/reserve",
+      "width": 1440,
+      "overflow": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "overflowing": false
+      },
+      "order": {
+        "summaryBeforePay": true,
+        "summaryBottom": 1859,
+        "payTop": 1891
+      },
+      "beforeClick": {
+        "nonGetRequestsOnLoad": [],
+        "buttonVisible": true
+      },
+      "axeViolations": []
+    },
+    {
+      "file": "reserve-vi-375.jpg",
+      "path": "/story-club/reserve",
+      "width": 375,
+      "overflow": {
+        "scrollWidth": 375,
+        "innerWidth": 375,
+        "overflowing": false
+      },
+      "order": {
+        "summaryBeforePay": true,
+        "summaryBottom": 2976,
+        "payTop": 3008
+      },
+      "beforeClick": {
+        "nonGetRequestsOnLoad": [],
+        "buttonVisible": true
+      },
+      "axeViolations": []
+    },
+    {
+      "file": "reserve-vi-768.jpg",
+      "path": "/story-club/reserve",
+      "width": 768,
+      "overflow": {
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "overflowing": false
+      },
+      "order": {
+        "summaryBeforePay": true,
+        "summaryBottom": 1851,
+        "payTop": 1883
+      },
+      "beforeClick": {
+        "nonGetRequestsOnLoad": [],
+        "buttonVisible": true
+      },
+      "axeViolations": []
+    },
+    {
+      "file": "reserve-vi-1024.jpg",
+      "path": "/story-club/reserve",
+      "width": 1024,
+      "overflow": {
+        "scrollWidth": 1024,
+        "innerWidth": 1024,
+        "overflowing": false
+      },
+      "order": {
+        "summaryBeforePay": true,
+        "summaryBottom": 1862,
+        "payTop": 1894
+      },
+      "beforeClick": {
+        "nonGetRequestsOnLoad": [],
+        "buttonVisible": true
+      },
+      "axeViolations": []
+    },
+    {
+      "file": "reserve-vi-1440.jpg",
+      "path": "/story-club/reserve",
+      "width": 1440,
+      "overflow": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "overflowing": false
+      },
+      "order": {
+        "summaryBeforePay": true,
+        "summaryBottom": 1887,
+        "payTop": 1919
+      },
+      "beforeClick": {
+        "nonGetRequestsOnLoad": [],
+        "buttonVisible": true
+      },
+      "axeViolations": []
+    }
+  ]
+}

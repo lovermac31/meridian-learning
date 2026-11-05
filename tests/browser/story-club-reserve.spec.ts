@@ -51,3 +51,60 @@ test('products keep named controls, labelled sample forms and a contained mobile
     await expect(opener).toBeFocused();
   }
 });
+
+// 5 Nov 2026: the reserve page shows the written summary (what, when, who, rules, refund) before "Pay now", in both
+// languages, and the amount stays 590000. The payment is prepared ONLY after a click on "Get my payment code", which sits
+// after the summary: a page load alone sends no non-GET request. Every network call is a synthetic fixture; nothing is
+// sent to production.
+const TINY_PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
+for (const [locale, path, payNow, refundWord, getCode] of [
+  ['en', '/en/story-club/reserve', 'Pay now', 'within 24 hours of paying', 'Get my payment code'],
+  ['vi', '/story-club/reserve', 'Thanh toán ngay', 'trong vòng 24 giờ', 'Lấy mã thanh toán của tôi'],
+] as const) {
+  test(`reserve page ${locale}: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000`, async ({ page }) => {
+    let qrAmount = '';
+    const nonGet: string[] = [];
+    const prepareBodies: Array<Record<string, unknown>> = [];
+    // POST /api/event is the existing anonymous reserve_view analytics beacon, unchanged by this PR; it is the only allowed non-GET on load.
+    page.on('request', request => { const call = `${request.method()} ${new URL(request.url()).pathname}`; if (request.method() !== 'GET' && call !== 'POST /api/event') nonGet.push(call); });
+    await page.route('**/api/sample-pack', route => { prepareBodies.push(route.request().postDataJSON()); return route.fulfill({ json: { ok: true, memo: 'SC-AB12CD' } }); });
+    await page.route('**/api/event', route => route.fulfill({ status: 204 }));
+    await page.route('https://qr.sepay.vn/img?**', route => { qrAmount = new URL(route.request().url()).searchParams.get('amount') ?? ''; return route.fulfill({ body: TINY_PNG, contentType: 'image/png' }); });
+    for (const width of [375, 1440]) {
+      nonGet.length = 0; prepareBodies.length = 0; qrAmount = '';
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      const button = page.getByRole('button', { name: getCode });
+      await expect(button).toBeVisible();
+      // The old page POSTed prepare_payment about 2 s after load. Wait past that: nothing may be sent without a click.
+      await page.waitForTimeout(3_500);
+      expect(nonGet, `${locale} ${width}: no non-GET request on page load (other than the analytics beacon)`).toEqual([]);
+      expect(prepareBodies).toEqual([]);
+      await expect(page.locator('[data-payment-instructions]')).toHaveCount(0);
+      // Order: summary, then the button, then (after the click) Pay now.
+      const gate = await page.evaluate(() => {
+        const summaryEl = document.querySelector('[data-reserve-summary]')!;
+        const buttonEl = document.querySelector('[data-get-payment-code]')!;
+        return !!(summaryEl.compareDocumentPosition(buttonEl) & Node.DOCUMENT_POSITION_FOLLOWING);
+      });
+      expect(gate, `${locale} ${width}: the button comes after the written summary`).toBe(true);
+      await expect(page.locator('[data-reserve-summary]')).toContainText(refundWord);
+      await button.click();
+      await expect(page.locator('[data-payment-instructions]')).toBeVisible({ timeout: 15_000 });
+      expect(prepareBodies.length, `${locale} ${width}: exactly one request after the click`).toBe(1);
+      expect(prepareBodies[0]).toMatchObject({ intent: 'prepare_payment', product: 'story-club', website: '' });
+      expect(prepareBodies[0].submissionKey).toMatch(/^[a-f0-9-]{36}$/);
+      expect(nonGet).toEqual(['POST /api/sample-pack']);
+      const order = await page.evaluate((label) => {
+        const summaryEl = document.querySelector('[data-reserve-summary]')!;
+        const payHeading = [...document.querySelectorAll('h2')].find(h => h.textContent?.trim() === label)!;
+        return { before: !!(summaryEl.compareDocumentPosition(payHeading) & Node.DOCUMENT_POSITION_FOLLOWING), summaryBottom: summaryEl.getBoundingClientRect().bottom + scrollY, payTop: payHeading.getBoundingClientRect().top + scrollY };
+      }, payNow);
+      expect(order.before, `${locale} ${width}: summary is before the Pay now heading in the DOM`).toBe(true);
+      expect(order.summaryBottom, `${locale} ${width}: and above it on the page`).toBeLessThanOrEqual(order.payTop);
+      await expect(page.locator('[data-payment-amount]')).toHaveText(locale === 'vi' ? '590.000₫' : '590,000₫');
+      await expect.poll(() => qrAmount).toBe('590000');
+      await checkAccessibility(page);
+    }
+  });
+}

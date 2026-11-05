@@ -24,6 +24,7 @@ for (const item of [
     await page.goto(item.path);
     const reject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });
     if (await reject.isVisible().catch(() => false)) await reject.click();
+    await page.locator('[data-get-payment-code]').click(); // the payment is prepared only after this click
     const paymentStatus = page.locator('[data-payment-status]');
     await expect(paymentStatus).toHaveText(item.pending);
     await expect.poll(() => statusRequests, { timeout: 3_000, intervals: [50, 100, 250] }).toBeGreaterThan(0);

@@ -64,8 +64,8 @@ test('under the price, one quiet link lets parents try a free story first (the L
     vi: '/vi/student-academy/stories?utm_source=storyclub#level-1',
   });
   for (const [route, href, label] of [
-    [EN, '/student-academy/stories?utm_source=storyclub#level-1', 'Try a free story first'],
-    [VI, '/vi/student-academy/stories?utm_source=storyclub#level-1', 'Đọc thử một truyện miễn phí trước'],
+    [EN, '/student-academy/stories?utm_source=storyclub#level-1', 'Or read a free story at home first'],
+    [VI, '/vi/student-academy/stories?utm_source=storyclub#level-1', 'Hoặc đọc thử một truyện miễn phí ở nhà trước'],
   ]) {
     const html = await renderRoute(route);
     const links = [...html.matchAll(/href="([^"]+)"[^>]*data-link="story-club-free-stories"[^>]*>([^<]+)</g)].map((m) => [m[1], m[2]]);
