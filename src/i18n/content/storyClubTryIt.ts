@@ -6,6 +6,9 @@
  * moves to Saturday 14 Nov. The paid round is 4 weekly sessions at 590.000 VND from Saturday 14 Nov; parents decide after
  * trying. No promised scores or results.
  *
+ * UPDATE 8 Nov 2026 (Jay unwell): the try-it was postponed; no new date is set. Copy says "postponed, new date soon" until Jay
+ * names a date, then restore a dated When/Register/If-few set (see git history for the 7 Nov wording).
+ *
  * THE DATES BELOW ARE TIME-BOUND. After the first paid round starts, replace them with the next cohort's dates
  * (or remove the try-it block). The Vietnamese is AI-written and waits for Jay's read.
  */
@@ -39,26 +42,26 @@ const priceVnd = (locale: Locale) => paymentAmount(STORY_CLUB_PRICE_VND, locale)
 
 export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
   en: {
-    heroLine: 'Free try-it: Saturday 7 November, 9:00 Hanoi time · 30 minutes · Google Meet · never recorded',
+    heroLine: 'Free try-it postponed, new date coming soon · 30 minutes · Google Meet · never recorded',
     tryIt: {
       heading: 'Try it first: a free Story Time for new families',
       facts: [
-        { label: 'When', value: 'Saturday 7 November, 9:00 Hanoi time (GMT+7)' },
+        { label: 'When', value: 'Postponed because Mr. Jay is unwell. The new date will be announced soon.' },
         { label: 'How long', value: '30 minutes. Free.' },
-        { label: 'Where', value: 'Google Meet. We send the link to registered parents at 8:00 that morning.' },
+        { label: 'Where', value: 'Google Meet. We send the link to registered parents on the morning of the session.' },
         { label: 'Who', value: `Children aged 5–8, at most ${STORY_CLUB_MAX_CHILDREN} children. A parent sits beside the child.` },
         { label: 'Rules', value: 'The session is not recorded.' },
-        { label: 'Register', value: 'Message Mr. Jay on Zalo before Friday 6 November, 20:00.' },
-        { label: 'If few register', value: `If fewer than ${STORY_CLUB_MIN_CHILDREN_FOR_TRY_IT} children register, the try-it moves to Saturday 14 November.` },
+        { label: 'Register', value: 'Message Mr. Jay on Zalo and you will hear the new date first.' },
+        { label: 'If few register', value: `The try-it runs once at least ${STORY_CLUB_MIN_CHILDREN_FOR_TRY_IT} children have registered.` },
       ],
-      cta: 'Register for the free Story Time on Zalo',
+      cta: 'Message Mr. Jay on Zalo to hear the new date first',
       note: 'Registering on Zalo is free and you do not pay anything for the try-it.',
     },
     paid: {
       heading: 'The paid round: 4 weeks',
       facts: [
         { label: 'Price', value: `${priceVnd('en')} for ${STORY_CLUB_SESSIONS} weekly sessions (${sessionVnd('en')} a session).` },
-        { label: 'When', value: 'Saturdays at 9:00 Hanoi time, 30 minutes on Google Meet, starting Saturday 14 November.' },
+        { label: 'When', value: 'Saturdays at 9:00 Hanoi time, 30 minutes on Google Meet. The start date will be announced after the free try-it.' },
         { label: 'Who', value: `Children aged 5–8, up to ${STORY_CLUB_MAX_CHILDREN} children per group.` },
         { label: 'You decide after trying', value: 'Parents choose whether to join the paid round after the try-it. There is no pressure to pay.' },
         { label: 'What it is', value: 'Story time, speaking practice and a personal reply from Mr. Jay. We do not promise exam scores or results.' },
@@ -79,26 +82,26 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
     },
   },
   vi: {
-    heroLine: 'Học thử miễn phí: thứ Bảy 7/11, 9:00 giờ Hà Nội · 30 phút · Google Meet · không bao giờ ghi âm, ghi hình',
+    heroLine: 'Học thử miễn phí tạm hoãn, sẽ báo ngày mới sớm · 30 phút · Google Meet · không bao giờ ghi âm, ghi hình',
     tryIt: {
       heading: 'Học thử trước: giờ kể chuyện miễn phí cho gia đình mới',
       facts: [
-        { label: 'Khi nào', value: 'Thứ Bảy 7/11, 9:00 giờ Hà Nội (GMT+7)' },
+        { label: 'Khi nào', value: 'Tạm hoãn vì thầy Jay đang không khỏe. Ngày mới sẽ được thông báo sớm.' },
         { label: 'Thời lượng', value: '30 phút. Miễn phí.' },
-        { label: 'Ở đâu', value: 'Google Meet. Chúng tôi gửi đường dẫn cho phụ huynh đã đăng ký lúc 8:00 sáng hôm đó.' },
+        { label: 'Ở đâu', value: 'Google Meet. Chúng tôi gửi đường dẫn cho phụ huynh đã đăng ký vào sáng ngày học.' },
         { label: 'Dành cho ai', value: `Bé 5–8 tuổi, tối đa ${STORY_CLUB_MAX_CHILDREN} bé. Phụ huynh ngồi cạnh bé.` },
         { label: 'Quy định', value: 'Buổi học không được ghi âm, ghi hình.' },
-        { label: 'Đăng ký', value: 'Nhắn thầy Jay qua Zalo trước 20:00 thứ Sáu 6/11.' },
-        { label: 'Nếu ít bé đăng ký', value: `Nếu có ít hơn ${STORY_CLUB_MIN_CHILDREN_FOR_TRY_IT} bé đăng ký, buổi học thử sẽ dời sang thứ Bảy 14/11.` },
+        { label: 'Đăng ký', value: 'Nhắn thầy Jay qua Zalo để được báo ngày mới đầu tiên.' },
+        { label: 'Nếu ít bé đăng ký', value: `Buổi học thử diễn ra khi có ít nhất ${STORY_CLUB_MIN_CHILDREN_FOR_TRY_IT} bé đã đăng ký.` },
       ],
-      cta: 'Đăng ký giờ kể chuyện miễn phí qua Zalo',
+      cta: 'Nhắn thầy Jay qua Zalo để được báo ngày mới',
       note: 'Đăng ký qua Zalo là miễn phí và bạn không phải trả gì cho buổi học thử.',
     },
     paid: {
       heading: 'Vòng học có phí: 4 tuần',
       facts: [
         { label: 'Học phí', value: `${priceVnd('vi')} cho ${STORY_CLUB_SESSIONS} buổi hằng tuần (${sessionVnd('vi')} mỗi buổi).` },
-        { label: 'Khi nào', value: 'Sáng thứ Bảy 9:00 giờ Hà Nội, 30 phút qua Google Meet, bắt đầu từ thứ Bảy 14/11.' },
+        { label: 'Khi nào', value: 'Sáng thứ Bảy 9:00 giờ Hà Nội, 30 phút qua Google Meet. Ngày bắt đầu sẽ được thông báo sau buổi học thử miễn phí.' },
         { label: 'Dành cho ai', value: `Bé 5–8 tuổi, tối đa ${STORY_CLUB_MAX_CHILDREN} bé mỗi nhóm.` },
         { label: 'Quyết định sau khi học thử', value: 'Phụ huynh chọn có tham gia vòng học có phí hay không sau buổi học thử. Không có áp lực phải thanh toán.' },
         { label: 'Nội dung', value: 'Nghe kể chuyện, thực hành nói và phản hồi riêng từ thầy Jay. Chúng tôi không hứa trước điểm thi hay kết quả.' },
