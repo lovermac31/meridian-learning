@@ -1,7 +1,7 @@
 /**
  * /story-club — "Story Club with Mr. Jay": a small weekly story group for ages 5–8.
  *
- * 4 Nov 2026 (Jay, final): the page leads with a FREE 30-minute Story Time for new families (Sat 7 Nov, 9:00 Hanoi) and
+ * 4 Nov 2026 (Jay, final): the page leads with a FREE 30-minute Story Time for new families (postponed, new date to be announced) and
  * registration on Zalo; the paid round (4 weeks, 590.000₫, from Sat 14 Nov) comes after, with the refund rule stated.
  * The try-it and refund facts are shared with /story-club/reserve in storyClubTryIt.ts. Payment is by bank transfer
  * (VietQR) on the reserve page, after its written summary. Policies restate the site's existing rules (under-18 sessions
@@ -39,7 +39,7 @@ const en: StoryClubCopy = {
   eyebrow: 'Ages 5–8 · Small group · Online',
   title: 'Story Club with Mr. Jay',
   lead:
-    'Try a free 30-minute Story Time first: Saturday 7 November, 9:00, on Google Meet, for new families. Then, if you like it, a small group of children meets Mr. Jay once a week for an original Jurassic English story, and Mr. Jay replies personally to one small piece of work from your child. Parents decide after trying.',
+    'Try a free 30-minute Story Time first, on Google Meet, for new families. The date is postponed and will be announced soon. Then, if you like it, a small group of children meets Mr. Jay once a week for an original Jurassic English story, and Mr. Jay replies personally to one small piece of work from your child. Parents decide after trying.',
   price: {
     heading: 'The paid round',
     amount: '590.000₫',
@@ -48,7 +48,7 @@ const en: StoryClubCopy = {
     seats: 'Up to 6 children per group',
     // Funnel audit fix 6 (2 Nov 2026): the day, time, length, place and the no-recording rule, from the product data.
     schedule: 'Saturday mornings, 9:00 · 30 minutes on Google Meet · never recorded',
-    starts: 'Starts Saturday 14 November. You decide after the free try-it.',
+    starts: 'The start date will be announced after the free try-it. You decide after trying.',
     tryFree: 'Or read a free story at home first',
   },
   week: {
@@ -93,7 +93,7 @@ const en: StoryClubCopy = {
   join: {
     heading: 'How to join',
     steps: [
-      { title: '1. Register for the free Story Time on Zalo', body: 'Message Mr. Jay before Friday 6 November, 20:00, with your child’s age. The try-it is Saturday 7 November, 9:00, and we send the Google Meet link to registered parents at 8:00.' },
+      { title: '1. Register for the free Story Time on Zalo', body: 'Message Mr. Jay on Zalo with your child’s age and you will hear the new date first. The free try-it is postponed because Mr. Jay is unwell, and we send the Google Meet link to registered parents on the morning of the session.' },
       { title: '2. Try it with your child', body: 'A parent sits beside the child for 30 minutes. Nothing is recorded and nothing is paid.' },
       { title: '3. Decide, then reserve', body: 'If you want the paid 4-week round, the reserve page shows the written summary first, then the VietQR code. Full refund on request before the first paid session, within 24 hours of paying.' },
     ],
@@ -107,15 +107,15 @@ const en: StoryClubCopy = {
       { q: 'What if my child misses a session?', a: 'The story and the task are sent on Zalo the same day, so your child can still do the task and get a reply.' },
       { q: 'Does my child need to speak English well?', a: 'No. Some words and simple sentences are enough. Mr. Jay keeps the language simple and uses pictures.' },
       { q: 'Is this the same as a 1-to-1 lesson?', a: 'No. Story Club is a small group with a personal reply each week. For a full lesson with only your child, see the 1-to-1 options.' },
-      { q: 'Is the first session really free?', a: 'Yes. The Story Time on Saturday 7 November is free for new families: 30 minutes on Google Meet, with a parent beside the child. You pay nothing to try it.' },
-      { q: 'What if fewer than 2 children register?', a: 'Then the try-it moves to Saturday 14 November. We message every registered parent on Zalo.' },
+      { q: 'Is the first session really free?', a: 'Yes. The free Story Time (new date coming soon) is free for new families: 30 minutes on Google Meet, with a parent beside the child. You pay nothing to try it.' },
+      { q: 'What if fewer than 2 children register?', a: 'Then the try-it waits until enough children have registered. We message every registered parent on Zalo.' },
       { q: 'Can I get my money back?', a: 'Yes. You can ask for a full refund before the first paid session, within 24 hours of paying. If Mr. Jay cancels a session, we make it up or return 147.500₫ for that session.' },
       { q: 'How do I pay?', a: 'By bank transfer with VietQR on the reserve page, after the written summary there. There is no card payment for Story Club.' },
     ],
   },
   closing: {
     heading: 'Places are limited to 6 children per group.',
-    body: 'Register for the free Story Time on Zalo before Friday 6 November, 20:00. We do not promise exam scores or results.',
+    body: 'Message Mr. Jay on Zalo to hear the new date of the free Story Time first. We do not promise exam scores or results.',
     cta: 'Register for the free Story Time on Zalo',
   },
 };
@@ -124,7 +124,7 @@ const vi: StoryClubCopy = {
   eyebrow: '5–8 tuổi · Nhóm nhỏ · Trực tuyến',
   title: 'Câu lạc bộ Truyện cùng thầy Jay',
   lead:
-    'Hãy cho bé học thử giờ kể chuyện miễn phí 30 phút trước: thứ Bảy 7/11, 9:00, qua Google Meet, dành cho gia đình mới. Sau đó, nếu bé thích, một nhóm nhỏ gặp thầy Jay mỗi tuần để cùng đọc một câu chuyện do Jurassic English sáng tác, và thầy Jay phản hồi riêng cho một bài nhỏ của bé. Phụ huynh quyết định sau khi học thử.',
+    'Hãy cho bé học thử giờ kể chuyện miễn phí 30 phút trước, qua Google Meet, dành cho gia đình mới. Buổi học thử tạm hoãn và sẽ báo ngày mới sớm. Sau đó, nếu bé thích, một nhóm nhỏ gặp thầy Jay mỗi tuần để cùng đọc một câu chuyện do Jurassic English sáng tác, và thầy Jay phản hồi riêng cho một bài nhỏ của bé. Phụ huynh quyết định sau khi học thử.',
   price: {
     heading: 'Vòng học có phí',
     amount: '590.000₫',
@@ -132,7 +132,7 @@ const vi: StoryClubCopy = {
     note: 'Giá ưu đãi cho nhóm đầu tiên. Thanh toán bằng chuyển khoản (VietQR) trên trang đặt chỗ, sau khi bạn đọc bản tóm tắt bằng văn bản ở đó.',
     seats: 'Tối đa 6 bạn nhỏ mỗi nhóm',
     schedule: 'Sáng thứ Bảy, 9:00 · 30 phút qua Google Meet · không bao giờ được ghi âm, ghi hình',
-    starts: 'Bắt đầu từ thứ Bảy 14/11. Bạn quyết định sau buổi học thử miễn phí.',
+    starts: 'Ngày bắt đầu sẽ được thông báo sau buổi học thử miễn phí. Bạn quyết định sau khi học thử.',
     tryFree: 'Hoặc đọc thử một truyện miễn phí ở nhà trước',
   },
   week: {
@@ -177,7 +177,7 @@ const vi: StoryClubCopy = {
   join: {
     heading: 'Cách đăng ký',
     steps: [
-      { title: '1. Đăng ký giờ kể chuyện miễn phí qua Zalo', body: 'Nhắn thầy Jay trước 20:00 thứ Sáu 6/11 kèm tuổi của bé. Buổi học thử diễn ra 9:00 thứ Bảy 7/11, và chúng tôi gửi đường dẫn Google Meet cho phụ huynh đã đăng ký lúc 8:00.' },
+      { title: '1. Đăng ký giờ kể chuyện miễn phí qua Zalo', body: 'Nhắn thầy Jay qua Zalo kèm tuổi của bé để được báo ngày mới đầu tiên. Buổi học thử miễn phí tạm hoãn vì thầy Jay đang không khỏe, và chúng tôi gửi đường dẫn Google Meet cho phụ huynh đã đăng ký vào sáng ngày học.' },
       { title: '2. Cho bé học thử', body: 'Phụ huynh ngồi cạnh bé trong 30 phút. Không ghi âm, ghi hình và không mất phí.' },
       { title: '3. Quyết định, rồi đặt chỗ', body: 'Nếu muốn tham gia vòng học có phí 4 tuần, trang đặt chỗ hiển thị bản tóm tắt bằng văn bản trước, sau đó mới đến mã VietQR. Hoàn tiền đầy đủ nếu bạn yêu cầu trước buổi học có phí đầu tiên, trong vòng 24 giờ kể từ khi thanh toán.' },
     ],
@@ -191,15 +191,15 @@ const vi: StoryClubCopy = {
       { q: 'Nếu con vắng một buổi thì sao?', a: 'Câu chuyện và bài nhỏ được gửi qua Zalo ngay trong ngày, nên con vẫn làm bài và nhận phản hồi.' },
       { q: 'Con có cần nói tiếng Anh giỏi không?', a: 'Không. Biết một số từ và câu đơn giản là đủ. Thầy Jay dùng ngôn ngữ đơn giản và nhiều tranh minh hoạ.' },
       { q: 'Câu lạc bộ có giống học 1 kèm 1 không?', a: 'Không. Câu lạc bộ là nhóm nhỏ, mỗi tuần con có phản hồi riêng. Nếu muốn buổi học chỉ riêng con, hãy xem các lựa chọn học 1 kèm 1.' },
-      { q: 'Buổi đầu tiên có thật sự miễn phí không?', a: 'Có. Giờ kể chuyện thứ Bảy 7/11 miễn phí cho gia đình mới: 30 phút qua Google Meet, có phụ huynh ngồi cạnh bé. Bạn không phải trả gì để học thử.' },
-      { q: 'Nếu có ít hơn 2 bé đăng ký thì sao?', a: 'Khi đó buổi học thử dời sang thứ Bảy 14/11. Chúng tôi sẽ nhắn từng phụ huynh đã đăng ký qua Zalo.' },
+      { q: 'Buổi đầu tiên có thật sự miễn phí không?', a: 'Có. Giờ kể chuyện miễn phí (ngày mới sẽ báo sớm) dành cho gia đình mới: 30 phút qua Google Meet, có phụ huynh ngồi cạnh bé. Bạn không phải trả gì để học thử.' },
+      { q: 'Nếu có ít hơn 2 bé đăng ký thì sao?', a: 'Khi đó buổi học thử sẽ chờ đến khi đủ bé đăng ký. Chúng tôi sẽ nhắn từng phụ huynh đã đăng ký qua Zalo.' },
       { q: 'Tôi có được hoàn tiền không?', a: 'Có. Bạn có thể yêu cầu hoàn tiền đầy đủ trước buổi học có phí đầu tiên, trong vòng 24 giờ kể từ khi thanh toán. Nếu thầy Jay hủy một buổi, buổi đó sẽ được học bù hoặc hoàn lại 147.500₫ cho buổi đó.' },
       { q: 'Thanh toán như thế nào?', a: 'Chuyển khoản bằng VietQR trên trang đặt chỗ, sau bản tóm tắt bằng văn bản ở đó. Câu lạc bộ không nhận thanh toán bằng thẻ.' },
     ],
   },
   closing: {
     heading: 'Mỗi nhóm chỉ có tối đa 6 bạn nhỏ.',
-    body: 'Đăng ký giờ kể chuyện miễn phí qua Zalo trước 20:00 thứ Sáu 6/11. Chúng tôi không hứa trước điểm thi hay kết quả.',
+    body: 'Nhắn thầy Jay qua Zalo để được báo ngày mới của giờ kể chuyện miễn phí. Chúng tôi không hứa trước điểm thi hay kết quả.',
     cta: 'Đăng ký giờ kể chuyện miễn phí qua Zalo',
   },
 };

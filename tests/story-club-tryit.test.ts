@@ -77,14 +77,14 @@ test('reserve page before payment is prepared: summary visible, no Pay now yet, 
 test('the summary states the decided facts: dates, free try-it, 4 weeks, cap 6, refund and make-up rule, no promised results', () => {
   const en = storyClubTryItContent.en;
   const enText = JSON.stringify(en);
-  for (const needle of ['Saturday 7 November, 9:00', 'free', '30 minutes', 'Google Meet', '8:00', 'Friday 6 November, 20:00', 'fewer than 2', 'Saturday 14 November', '590,000₫', '147,500₫', 'within 24 hours of paying', 'We do not promise exam scores or results', 'not recorded']) {
+  for (const needle of ['Postponed because Mr. Jay is unwell', 'free', '30 minutes', 'Google Meet', 'morning of the session', 'hear the new date first', 'at least 2', 'start date will be announced', '590,000₫', '147,500₫', 'within 24 hours of paying', 'We do not promise exam scores or results', 'not recorded']) {
     assert.ok(enText.toLowerCase().includes(needle.toLowerCase()), `EN: ${needle}`);
   }
   assert.match(enText, /up to 6 children/i);
   assert.match(enText, /A parent sits beside the child/);
   assert.match(enText, /we make it up or return 147,500₫/);
   const vi = JSON.stringify(storyClubTryItContent.vi);
-  for (const needle of ['7/11', '9:00', '8:00', '20:00 thứ Sáu 6/11', 'ít hơn 2', '14/11', '590.000₫', '147.500₫', '24 giờ', 'không hứa trước', 'không được ghi âm', 'ngồi cạnh bé']) {
+  for (const needle of ['Tạm hoãn', '9:00', 'sáng ngày học', 'báo ngày mới', 'ít nhất 2', 'Ngày bắt đầu', '590.000₫', '147.500₫', '24 giờ', 'không hứa trước', 'không được ghi âm', 'ngồi cạnh bé']) {
     assert.ok(vi.includes(needle), `VI: ${needle}`);
   }
   assert.equal(STORY_CLUB_MAX_CHILDREN, 6);
