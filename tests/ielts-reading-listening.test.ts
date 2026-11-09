@@ -14,19 +14,20 @@ import { ProductsPage } from '../src/components/ProductsPage';
 // has an IELTS home page or a film yet, so their cards carry no home link and no "Watch" link.
 const NEW = { 'ielts-reading-ladder': { group: 'reading', pages: 10, memo: 'PR14' }, 'ielts-listening-profiler': { group: 'listening', pages: 11, memo: 'PR15' } } as const;
 
-test('Reading and Listening: live #ielts cards at 299.000₫ / US$12, sample, SEO copy and their own VietQR memo prefix', () => {
+test('Reading and Listening: live #ielts cards (Reading 250.000₫ / US$10 from 9 Nov 2026, Listening 299.000₫ / US$12), sample, SEO copy and their own VietQR memo prefix', () => {
   assert.deepEqual([...IELTS_GROUPS], ['speaking', 'writing', 'reading', 'listening', 'bundles']);
   for (const [id, spec] of Object.entries(NEW)) {
     const p = PRODUCTS.find((entry) => entry.id === id)!;
     assert.ok(p.live && p.section === 'ielts' && p.group === spec.group, id);
-    assert.equal(p.price, '299.000₫');
-    assert.equal(productUsd(p.price), 12);
+    const [vnd, usd, amount] = id === 'ielts-reading-ladder' ? ['250.000₫', 10, 250000] : ['299.000₫', 12, 299000];
+    assert.equal(p.price, vnd);
+    assert.equal(productUsd(p.price), usd);
     assert.ok(p.delivery && p.paypal && p.href === 'zalo', `${id}: a digital download ordered on Zalo or PayPal`);
     assert.equal(p.image, id);
     assert.equal(p.sample, id);
     assert.equal(SAMPLE_PAGE_COUNTS[id], spec.pages);
     assert.equal(p.video, undefined, `${id}: no film yet`);
-    assert.deepEqual(PAID_OFFERS.find((o) => o.id === id), { ...PAID_OFFERS.find((o) => o.id === id)!, amount: 299000, prefix: spec.memo });
+    assert.deepEqual(PAID_OFFERS.find((o) => o.id === id), { ...PAID_OFFERS.find((o) => o.id === id)!, amount, prefix: spec.memo });
     for (const locale of ['en', 'vi'] as const) {
       assert.match(p[locale].forWho, locale === 'en' ? /One learner, or one tutor with their own students\. Practice material, not an official score\.$/ : /Một học viên, hoặc một gia sư dùng với học viên của mình\. Tài liệu luyện tập, không phải điểm chính thức\.$/);
       const seo = PRODUCT_SEO[id][locale];

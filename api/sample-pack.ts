@@ -48,7 +48,7 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
   'ielts-writing-task1-method': { prefix: 'PR0W', amount: 199000 },
   'ielts-essay-bank-task2': { prefix: 'PR0X', amount: 199000 },
   'ielts-writing-teacher-pack': { prefix: 'PR0Y', amount: 690000 },
-  'ielts-reading-ladder': { prefix: 'PR14', amount: 299000 },
+  'ielts-reading-ladder': { prefix: 'PR14', amount: 250000 },
   'ielts-listening-profiler': { prefix: 'PR15', amount: 299000 },
   // Price-ladder bundles (5 Nov 2026): keep in step with the PRODUCTS prices (scripts/probe-price-consistency.mts checks it).
   'ielts-writing-band-up': { prefix: 'PR16', amount: 499000 },

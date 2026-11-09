@@ -1282,12 +1282,12 @@ export const PRODUCTS: Product[] = [
   },
   {
     // IELTS Writing factory, 3 Nov 2026; v2 9 Nov 2026: 11 lessons, 14 original passages, 175 questions (Sale Team/ielts-reading-reader); 50-page
-    // PDF, 10-page view-only sample. Price 299.000₫ / US$12 (price ladder, Jay's go 5 Nov 2026; was 390.000₫ / US$16 on 3 Nov).
+    // PDF, 10-page view-only sample. Price 250.000₫ / US$10 (Jay, 9 Nov 2026: "10$"; was 299.000₫ / US$12 from 5 Nov, 390.000₫ / US$16 on 3 Nov).
     id: 'ielts-reading-ladder',
     live: true,
     section: 'ielts',
     group: 'reading',
-    price: '299.000₫',
+    price: '250.000₫',
     href: 'zalo',
     delivery: true,
     paypal: true,
@@ -1421,8 +1421,8 @@ export const PRODUCTS: Product[] = [
       label: 'Digital download · 7 packs · learners and tutors',
       title: 'IELTS Four-Skill Kit',
       problem: 'You are preparing for all four IELTS skills and want one kit instead of choosing pack by pack.',
-      inside: 'Seven packs: the four ladders, IELTS Speaking Ladder Pack, IELTS Writing Ladder: Task 2, IELTS Reading Ladder and IELTS Listening Profiler Pack (299.000₫ each), plus IELTS Writing Task 1: the 20-minute method (199.000₫), IELTS Writing Task 2 Essay Bank (199.000₫) and IELTS Speaking Part 2 Cue Card Bank (199.000₫).',
-      forWho: 'Bought separately the seven packs cost 1.793.000₫; the kit is 999.000₫, 44% less. One learner, or one tutor with their own students. Practice material, not an official score.',
+      inside: 'Seven packs: the four ladders, IELTS Speaking Ladder Pack, IELTS Writing Ladder: Task 2 and IELTS Listening Profiler Pack (299.000₫ each) and IELTS Reading Ladder (250.000₫), plus IELTS Writing Task 1: the 20-minute method (199.000₫), IELTS Writing Task 2 Essay Bank (199.000₫) and IELTS Speaking Part 2 Cue Card Bank (199.000₫).',
+      forWho: 'Bought separately the seven packs cost 1.744.000₫; the kit is 999.000₫, 43% less. One learner, or one tutor with their own students. Practice material, not an official score.',
       unit: 'one-time · 7 packs',
       cta: 'Order on Zalo',
     },
@@ -1430,8 +1430,8 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · 7 bộ · học viên và gia sư',
       title: 'Bộ IELTS Four-Skill Kit',
       problem: 'Bạn đang ôn cả bốn kỹ năng IELTS và muốn một bộ trọn vẹn thay vì chọn từng gói.',
-      inside: 'Bảy bộ: bốn bộ Ladder gồm Bộ IELTS Speaking Ladder, IELTS Writing Ladder: Task 2, IELTS Reading Ladder và IELTS Listening Profiler Pack (299.000₫ mỗi bộ), cùng IELTS Writing Task 1: Phương pháp 20 phút (199.000₫), Ngân hàng bài luận IELTS Writing Task 2 (199.000₫) và Bộ thẻ đề IELTS Speaking Part 2 (199.000₫).',
-      forWho: 'Mua lẻ bảy bộ có giá 1.793.000₫; mua trọn bộ là 999.000₫, rẻ hơn 44%. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      inside: 'Bảy bộ: bốn bộ Ladder gồm Bộ IELTS Speaking Ladder, IELTS Writing Ladder: Task 2 và IELTS Listening Profiler Pack (299.000₫ mỗi bộ), IELTS Reading Ladder (250.000₫), cùng IELTS Writing Task 1: Phương pháp 20 phút (199.000₫), Ngân hàng bài luận IELTS Writing Task 2 (199.000₫) và Bộ thẻ đề IELTS Speaking Part 2 (199.000₫).',
+      forWho: 'Mua lẻ bảy bộ có giá 1.744.000₫; mua trọn bộ là 999.000₫, rẻ hơn 43%. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
       unit: 'mua một lần · 7 bộ',
       cta: 'Đặt mua qua Zalo',
     },

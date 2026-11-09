@@ -22,7 +22,7 @@ const amounts: Record<string, number> = {
   'curriculum-overview': 290000, 'ielts-speaking-ladder': 299000, 'ielts-one-to-one-starter': 149000,
   'ielts-cue-card-bank': 199000, 'writing-baseline': 79000, 'ielts-writing-ladder-task2': 299000,
   'ielts-writing-task1-method': 199000, 'ielts-essay-bank-task2': 199000, 'ielts-writing-teacher-pack': 690000,
-  'ielts-reading-ladder': 299000, 'ielts-listening-profiler': 299000,
+  'ielts-reading-ladder': 250000, 'ielts-listening-profiler': 299000,
   'ielts-writing-band-up': 499000, 'ielts-speaking-band-up': 449000, 'ielts-four-skill-kit': 999000,
 };
 
