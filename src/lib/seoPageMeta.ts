@@ -4,6 +4,7 @@
  * router and head metadata need; the full pages (with `html`) live in ./seoPages.
  */
 import pages from '../content/seoPagesMeta.json';
+import { isMovedToJurassicielts } from '../config/movedToJurassicielts';
 
 export type SeoPageMeta = (typeof pages)[number];
 export const seoPageMetas: SeoPageMeta[] = pages;
@@ -19,7 +20,8 @@ export function getInternationalAlternates(path: string) {
   const counterpart = getSeoPageMeta(page.alternatePath);
   if (!counterpart || counterpart.path === page.path || counterpart.alternatePath !== page.path) return undefined;
   const english = page.locale === 'en' ? page : counterpart.locale === 'en' ? counterpart : undefined;
-  if (!english) return undefined;
+  // The English twin moved to jurassicielts.com (9 Nov 2026): no cross-domain pair, so no alternates.
+  if (!english || isMovedToJurassicielts(english.path)) return undefined;
   return [
     { hrefLang: english.locale, href: `https://jurassicenglish.com${english.path}` },
     { hrefLang: page.locale === 'en' ? counterpart.locale : page.locale, href: `https://jurassicenglish.com${page.locale === 'en' ? counterpart.path : page.path}` },
