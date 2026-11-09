@@ -18,6 +18,7 @@ import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.ts';
 import { createLastmodResolver } from './lib/sitemap-lastmod.mjs';
 import { getSeoPage, isInternationalMarketPath, getInternationalAlternates } from '../src/lib/seoPages.ts';
 import { videosForPath } from '../src/lib/videoSeo.ts';
+import { isMovedToJurassicielts } from '../src/config/movedToJurassicielts.ts';
 
 const xml = (value) => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -215,7 +216,8 @@ function buildStaticUrl({ loc, changefreq, priority }) {
 }
 
 async function main() {
-  const routes  = getExpectedPublicIndexableRoutes();
+  // Pages moved to jurassicielts.com (redirected in vercel.json) leave the sitemap.
+  const routes  = getExpectedPublicIndexableRoutes().filter((route) => !isMovedToJurassicielts(typeof route === 'string' ? route : route.path ?? route));
   const urlTags = routes.map(buildUrl).join('\n');
   const extraTags = STATIC_EXTRA_URLS.map(buildStaticUrl).join('\n');
 
