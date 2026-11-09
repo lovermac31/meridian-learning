@@ -57,7 +57,8 @@ async function main() {
  for (const pathname of paths) if (!depths.has(pathname) || depths.get(pathname) > 3) failures.push({ path: pathname, error: 'click-depth', depth: depths.get(pathname) ?? null });
  const inbound = p => [...graph].filter(([from, links]) => indexed.has(from) && links.has(p)).map(([from]) => from).sort();
  const contextual = p => [...htmls].filter(([from, html]) => indexed.has(from) && [...html.matchAll(/<section\b[^>]*data-crawl-resources=[\s\S]*?<\/section>/g)].some(m => anchors(m[0], ORIGIN+from).some(u => u.pathname === p))).map(([from]) => from).sort();
- const report = rows.map(row => {
+ const movedToIelts = new Set(config.redirects.filter(r => String(r.destination).startsWith('https://jurassicielts.com/')).map(r => r.source.replace(/\/$/, '') || '/'));
+ const report = rows.filter(row => !movedToIelts.has(normalizeTarget(row.path).replace(/\/$/, '') || '/')).map(row => {
    const target = normalizeTarget(row.path), sources = inbound(target), contextSources = contextual(target);
    if (row.reason.startsWith('Discovered') && contextSources.length < 3) failures.push({ path: row.path, target, error: 'fewer-than-three-indexed-contextual-sources', sources: contextSources });
    return { ...row, target, indexedInboundCount: sources.length, indexedSources: sources, contextualSources: contextSources, clickDepth: depths.get(target) ?? null };

@@ -1,4 +1,5 @@
 import { getOverhaulContent } from '../i18n/content/overhaul';
+import { isMovedToJurassicielts, movedHref } from '../config/movedToJurassicielts';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { LEMONSQUEEZY_COPY, anyLemonSqueezy } from '../config/lemonSqueezy';
@@ -105,7 +106,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 ['/tools/ielts-band-score-calculator', 'IELTS band calculator', 'Tính điểm IELTS'],
                 ['/tools/ielts-speaking-part-2-timer', 'IELTS Speaking Part 2 timer', 'Đồng hồ IELTS Speaking Part 2'],
                 ['/about/nathaniel-jay-adams', 'About Mr. Jay Adams', 'Về thầy Jay Adams'],
-              ].map(([href, en, vi]) => <li key={href}><a href={getLocalizedHref(href, locale)} className="underline underline-offset-4">{locale === 'vi' ? vi : en}</a></li>)}
+              ].map(([href, en, vi]) => <li key={href}><a href={isMovedToJurassicielts(href) ? movedHref(href).replace('https://jurassicielts.com/', locale === 'vi' ? 'https://jurassicielts.com/vi/' : 'https://jurassicielts.com/') : getLocalizedHref(href, locale)} className="underline underline-offset-4">{locale === 'vi' ? vi : en}</a></li>)}
             </ul>
           </nav>
         </details>
