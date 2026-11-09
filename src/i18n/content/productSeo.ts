@@ -367,13 +367,13 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
   'ielts-listening-profiler': {
     en: {
       keyword: 'ielts listening practice with a tutor',
-      title: 'IELTS Listening Practice With a Tutor: 7 Lessons',
-      description: 'Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 60 drills, 8 case files. 299.000₫.',
+      title: 'IELTS Listening Practice With a Tutor: 8 Lessons',
+      description: 'Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 70 drills, 9 case files. 299.000₫.',
     },
     vi: {
       keyword: 'luyện ielts listening',
-      title: 'Luyện IELTS Listening cùng gia sư: 7 bài học',
-      description: 'Nhận diện và sửa những cái bẫy làm mất điểm IELTS Listening: gia sư hoặc bạn học đọc kịch bản, bạn trả lời thành tiếng. 60 bài luyện, 8 bộ đề. 299.000₫.',
+      title: 'Luyện IELTS Listening cùng gia sư: 8 bài học',
+      description: 'Nhận diện và sửa những cái bẫy làm mất điểm IELTS Listening: gia sư hoặc bạn học đọc kịch bản, bạn trả lời thành tiếng. 70 bài luyện, 9 bộ đề. 299.000₫.',
     },
   },
   'centre-licence': {

@@ -1313,7 +1313,7 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    // IELTS Writing factory, 3 Nov 2026: 7 lessons on the "Listening Through Speaking" model, 60 spoken drills, 8 case files
+    // IELTS Writing factory, 3 Nov 2026: 7 lessons on the "Listening Through Speaking" model, 60 spoken drills, 8 case files Edition 1.1 (9 Nov 2026): + Lesson 8 "The Back-to-Back Target" (40 scored items, Target Card, L1–L6 report, tier map): 8 lessons, 70 drills, 9 case files, 73-page PDF.
     // (Sale Team/ielts-listening-reader); a reader reads each script live, no audio plays. 58-page PDF, 11-page view-only
     // sample. Price 299.000₫ / US$12 (price ladder, Jay's go 5 Nov 2026; was 390.000₫ / US$16 on 3 Nov).
     id: 'ielts-listening-profiler',
@@ -1330,7 +1330,7 @@ export const PRODUCTS: Product[] = [
       label: 'Digital download · learners and tutors',
       title: 'IELTS Listening Profiler Pack',
       problem: 'You lose Listening marks to the same traps: a detail said and then corrected, the answer in other words, a polite “I suppose” that means no, or the wrong speaker.',
-      inside: 'Seven lessons in which a tutor or a partner reads each script once; you answer aloud before you write, and every miss is named by its trap. 60 spoken drills and 8 case files, each with a key and its trap code: 58 printable pages. No audio file is needed.',
+      inside: 'Eight lessons in which a tutor or a partner reads each script once; you answer aloud before you write, and every miss is named by its trap. The last lesson is a back-to-back test with a Target Card to score your hits and a one-page report that names your next step. 70 spoken drills and 9 case files, each with a key and its trap code: 73 printable pages. No audio file is needed.',
       forWho: 'Teens and adults preparing for IELTS Listening (Band 5.0 to 8.0+) with a tutor or a study partner to read the scripts. One learner, or one tutor with their own students. Practice material, not an official score.',
       unit: 'one-time',
       cta: 'Order on Zalo',
@@ -1339,7 +1339,7 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · học viên và gia sư',
       title: 'IELTS Listening Profiler Pack',
       problem: 'Bạn mất điểm Listening vì cùng những cái bẫy: chi tiết được nói rồi sửa lại, đáp án được diễn đạt bằng từ khác, câu “I suppose” lịch sự nhưng nghĩa là không, hoặc nhầm người nói.',
-      inside: 'Bảy bài học, trong đó gia sư hoặc bạn học đọc mỗi đoạn một lần; bạn trả lời thành tiếng trước khi viết, và mỗi lỗi được gọi đúng tên bẫy. Gồm 60 bài luyện nói và 8 bộ đề, mỗi câu có đáp án và mã bẫy: 58 trang in được. Không cần file nghe.',
+      inside: 'Tám bài học, trong đó gia sư hoặc bạn học đọc mỗi đoạn một lần; bạn trả lời thành tiếng trước khi viết, và mỗi lỗi được gọi đúng tên bẫy. Bài cuối là bài luyện ngồi quay lưng với Phiếu mục tiêu để chấm số câu đúng và một trang báo cáo chỉ ra bước tiếp theo. Gồm 70 bài luyện nói và 9 bộ đề, mỗi câu có đáp án và mã bẫy: 73 trang in được. Không cần file nghe.',
       forWho: 'Thanh thiếu niên và người lớn luyện IELTS Listening (Band 5.0 đến 8.0+), có gia sư hoặc bạn học đọc kịch bản. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
