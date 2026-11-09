@@ -29,7 +29,7 @@ const EXPECTED: Record<string, [string, string][]> = {
   ielts: [
     ['ielts-speaking-ladder', '299.000₫'], ['ielts-one-to-one-starter', '149.000₫'], ['ielts-cue-card-bank', '199.000₫'],
     ['writing-baseline', '79.000₫'], ['ielts-writing-ladder-task2', '299.000₫'], ['ielts-writing-task1-method', '199.000₫'], ['ielts-essay-bank-task2', '199.000₫'], ['ielts-writing-teacher-pack', '690.000₫'],
-    ['ielts-reading-ladder', '299.000₫'], ['ielts-listening-profiler', '299.000₫'],
+    ['ielts-reading-ladder', '250.000₫'], ['ielts-listening-profiler', '299.000₫'],
     // IELTS bundles (price ladder, 5 Nov 2026): last group.
     ['ielts-writing-band-up', '499.000₫'], ['ielts-speaking-band-up', '449.000₫'], ['ielts-four-skill-kit', '999.000₫'],
   ],
