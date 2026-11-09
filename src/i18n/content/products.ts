@@ -1281,7 +1281,7 @@ export const PRODUCTS: Product[] = [
     },
   },
   {
-    // IELTS Writing factory, 3 Nov 2026: 7 lessons, 8 original passages, 96 questions (Sale Team/ielts-reading-reader); 50-page
+    // IELTS Writing factory, 3 Nov 2026; v2 9 Nov 2026: 11 lessons, 14 original passages, 175 questions (Sale Team/ielts-reading-reader); 50-page
     // PDF, 10-page view-only sample. Price 299.000₫ / US$12 (price ladder, Jay's go 5 Nov 2026; was 390.000₫ / US$16 on 3 Nov).
     id: 'ielts-reading-ladder',
     live: true,
@@ -1297,7 +1297,7 @@ export const PRODUCTS: Product[] = [
       label: 'Digital download · learners and tutors',
       title: 'IELTS Reading Ladder',
       problem: 'Your Reading score is stuck because you keep falling into the same trap.',
-      inside: 'Seven lessons: a short diagnostic finds your trap, then each lesson fixes one (locating fast, TRUE/FALSE/NOT GIVEN, paraphrase, headings, the writer’s view) and the last runs two passages at exam pace. 8 original passages and 96 questions, and every answer is proved with the passage’s own words: 50 printable pages.',
+      inside: 'Eleven lessons: a short diagnostic finds your trap, then each lesson fixes one (locating fast, TRUE/FALSE/NOT GIVEN, paraphrase, headings, the writer’s view, and the completion and matching tasks), two passages at exam pace, a full 60-minute test, a 60-pair paraphrase bank, and a retest with an error log. 14 original passages and 175 questions covering 13 of the 14 Reading task types, and every answer is proved with the passage’s own words: 88 printable pages.',
       forWho: 'Teens and adults preparing for IELTS Academic Reading (Band 5.0 to 8.0+), and tutors who teach them. One learner, or one tutor with their own students. Practice material, not an official score.',
       unit: 'one-time',
       cta: 'Order on Zalo',
@@ -1306,7 +1306,7 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · học viên và gia sư',
       title: 'IELTS Reading Ladder',
       problem: 'Điểm Reading của bạn mãi không tăng vì bạn cứ mắc cùng một lỗi bẫy.',
-      inside: 'Bảy bài học: bài chẩn đoán ngắn tìm ra lỗi bẫy của bạn, rồi mỗi bài sửa một lỗi (định vị nhanh, TRUE/FALSE/NOT GIVEN, diễn đạt lại, tiêu đề đoạn, quan điểm tác giả) và bài cuối luyện hai bài đọc đúng tốc độ thi. Gồm 8 bài đọc gốc và 96 câu hỏi, mỗi đáp án đều được chứng minh bằng chính câu chữ trong bài: 50 trang in được.',
+      inside: 'Mười một bài học: bài chẩn đoán ngắn tìm ra lỗi bẫy của bạn, rồi mỗi bài sửa một lỗi (định vị nhanh, TRUE/FALSE/NOT GIVEN, diễn đạt lại, tiêu đề đoạn, quan điểm tác giả, các dạng điền và nối), hai bài đọc đúng tốc độ thi, một bài thi đầy đủ 60 phút, ngân hàng 60 cặp diễn đạt lại, và bài kiểm tra lại kèm nhật ký lỗi. Gồm 14 bài đọc gốc và 175 câu hỏi, bao quát 13 trong 14 dạng câu hỏi Reading, mỗi đáp án đều được chứng minh bằng chính câu chữ trong bài: 88 trang in được.',
       forWho: 'Thanh thiếu niên và người lớn luyện IELTS Academic Reading (Band 5.0 đến 8.0+), và gia sư dạy họ. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
