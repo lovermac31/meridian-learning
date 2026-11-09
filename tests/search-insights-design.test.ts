@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { renderRoute } from '../src/entry-server';
 import { seoPages, isInternationalMarketPath } from '../src/lib/seoPages';
+import { isMovedToJurassicielts } from '../src/config/movedToJurassicielts';
 import pricing from '../src/content/marketPricing.json';
 
 const representative = [...seoPages.map(page => page.path), '/vi/insights', '/insights', '/insights/online-ielts-speaking-coaching'];
@@ -19,6 +20,12 @@ test('paired SEO pages render a two-option accessible hero switcher', async () =
   for (const page of seoPages.filter(item => item.alternatePath !== item.path)) {
     const counterpart = seoPages.find(item => item.path === page.alternatePath);
     if (!counterpart) continue;
+    // Moved EN twins redirect to jurassicielts.com, so their pairing is dropped and no switcher is rendered.
+    if (isMovedToJurassicielts(counterpart.path)) {
+      const moved = await renderRoute(page.path);
+      assert.ok(!moved.includes(`href="${counterpart.path}"`), `${page.path} must not link its moved twin`);
+      continue;
+    }
     const html = await renderRoute(page.path);
     assert.match(html, /role="group" aria-label="[^"]+"/, page.path);
     assert.match(html, /aria-current="true" lang="[^"]+"/, page.path);

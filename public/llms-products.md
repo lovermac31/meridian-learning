@@ -415,9 +415,9 @@
 - ID: `ielts-reading-ladder`
 - English: https://jurassicenglish.com/products/ielts-reading-ladder
 - Vietnamese: https://jurassicenglish.com/vi/products/ielts-reading-ladder
-- English description: Find the trap that costs you IELTS Reading marks, then fix it: 7 lessons, 8 original passages and 96 questions with proved answers. 299.000₫.
-- Vietnamese title: Luyện IELTS Reading: 7 bài học, 96 câu hỏi
-- VND price: 299.000 VND
+- English description: Find the trap that costs you IELTS Reading marks, then fix it: 11 lessons, 175 questions with proved answers and a full 60-minute test. 299.000₫.
+- Vietnamese title: Luyện IELTS Reading: 11 bài học, 175 câu hỏi
+- VND price: 250.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -425,8 +425,8 @@
 - ID: `ielts-listening-profiler`
 - English: https://jurassicenglish.com/products/ielts-listening-profiler
 - Vietnamese: https://jurassicenglish.com/vi/products/ielts-listening-profiler
-- English description: Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 60 drills, 8 case files. 299.000₫.
-- Vietnamese title: Luyện IELTS Listening cùng gia sư: 7 bài học
+- English description: Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 70 drills, 9 case files. 299.000₫.
+- Vietnamese title: Luyện IELTS Listening cùng gia sư: 8 bài học
 - VND price: 299.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page

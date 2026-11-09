@@ -11,7 +11,10 @@ test('English and Vietnamese footers expose a crawlable entry to the internation
   for (const [path, label] of [['/', 'IELTS Coaching by Country'], ['/vi', 'Hướng dẫn IELTS theo quốc gia']]) {
     setServerLocation(path);
     const html = renderToStaticMarkup(createElement(Footer));
-    assert.match(html, /<a\b[^>]*href="\/ielts-speaking-online"[^>]*>/, `${path} links to the market hub`);
+    // The international hub now lives on jurassicielts.com; the footer links there directly (no redirect hop, no internal redirecting link).
+    const hubHref = path === '/' ? 'https://jurassicielts.com/speaking/online/' : 'https://jurassicielts.com/vi/speaking/online/';
+    assert.ok(html.includes(`href="${hubHref}"`), `${path} links to the market hub on jurassicielts.com`);
+    assert.doesNotMatch(html, /href="\/ielts-speaking-online"/, `${path} has no redirecting internal hub link`);
     assert.ok(html.includes(label), `${path} renders the localized navigation label`);
   }
 });

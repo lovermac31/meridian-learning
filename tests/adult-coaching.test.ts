@@ -104,7 +104,9 @@ test('adult route inherits English canonical, description, Article schema and pr
 
 test('insights index discovers adult guide with bounded repeated-card styling', () => {
   const html = render('/insights');
-  assert.match(html, /href="\/insights\/online-ielts-speaking-coaching"/);
+  // The adult guide moved to jurassicielts.com (PR #295): the index links straight to it, with no redirect hop.
+  assert.match(html, /href="https:\/\/jurassicielts\.com\/speaking\/articles\/online-ielts-speaking-coaching\/"/);
+  assert.doesNotMatch(html, /href="\/insights\/online-ielts-speaking-coaching"/);
   assert.match(html, /rounded-lg/);
   assert.doesNotMatch(html, /rounded-2xl/);
   assert.match(render(), /class="insights-title font-display"/);
