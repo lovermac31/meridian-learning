@@ -16,6 +16,286 @@
   ],
   "redirects": [
     {
+      "source": "/ielts-speaking-online",
+      "destination": "https://jurassicielts.com/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/",
+      "destination": "https://jurassicielts.com/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/india/",
+      "destination": "https://jurassicielts.com/speaking/online/india/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/india",
+      "destination": "https://jurassicielts.com/speaking/online/india/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/philippines",
+      "destination": "https://jurassicielts.com/speaking/online/philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/philippines/",
+      "destination": "https://jurassicielts.com/speaking/online/philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/indonesia",
+      "destination": "https://jurassicielts.com/speaking/online/indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/indonesia/",
+      "destination": "https://jurassicielts.com/speaking/online/indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/malaysia/",
+      "destination": "https://jurassicielts.com/speaking/online/malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/malaysia",
+      "destination": "https://jurassicielts.com/speaking/online/malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/singapore/",
+      "destination": "https://jurassicielts.com/speaking/online/singapore/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/singapore",
+      "destination": "https://jurassicielts.com/speaking/online/singapore/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/thailand",
+      "destination": "https://jurassicielts.com/speaking/online/thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/thailand/",
+      "destination": "https://jurassicielts.com/speaking/online/thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/uae",
+      "destination": "https://jurassicielts.com/speaking/online/uae/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/uae/",
+      "destination": "https://jurassicielts.com/speaking/online/uae/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/saudi-arabia/",
+      "destination": "https://jurassicielts.com/speaking/online/saudi-arabia/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/saudi-arabia",
+      "destination": "https://jurassicielts.com/speaking/online/saudi-arabia/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/pakistan",
+      "destination": "https://jurassicielts.com/speaking/online/pakistan/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/pakistan/",
+      "destination": "https://jurassicielts.com/speaking/online/pakistan/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/bangladesh",
+      "destination": "https://jurassicielts.com/speaking/online/bangladesh/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/bangladesh/",
+      "destination": "https://jurassicielts.com/speaking/online/bangladesh/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/nigeria",
+      "destination": "https://jurassicielts.com/speaking/online/nigeria/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/nigeria/",
+      "destination": "https://jurassicielts.com/speaking/online/nigeria/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/egypt/",
+      "destination": "https://jurassicielts.com/speaking/online/egypt/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/egypt",
+      "destination": "https://jurassicielts.com/speaking/online/egypt/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/colombia",
+      "destination": "https://jurassicielts.com/speaking/online/colombia/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/colombia/",
+      "destination": "https://jurassicielts.com/speaking/online/colombia/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/peru/",
+      "destination": "https://jurassicielts.com/speaking/online/peru/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/peru",
+      "destination": "https://jurassicielts.com/speaking/online/peru/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/chile/",
+      "destination": "https://jurassicielts.com/speaking/online/chile/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/chile",
+      "destination": "https://jurassicielts.com/speaking/online/chile/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/argentina/",
+      "destination": "https://jurassicielts.com/speaking/online/argentina/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/argentina",
+      "destination": "https://jurassicielts.com/speaking/online/argentina/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/brazil/",
+      "destination": "https://jurassicielts.com/speaking/online/brazil/",
+      "permanent": true
+    },
+    {
+      "source": "/ielts-speaking-online/brazil",
+      "destination": "https://jurassicielts.com/speaking/online/brazil/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-speaking-6-to-7/",
+      "destination": "https://jurassicielts.com/speaking/articles/ielts-speaking-6-to-7/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-speaking-6-to-7",
+      "destination": "https://jurassicielts.com/speaking/articles/ielts-speaking-6-to-7/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/tang-ielts-speaking-tu-6-len-7",
+      "destination": "https://jurassicielts.com/vi/speaking/articles/ielts-speaking-6-to-7/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/tang-ielts-speaking-tu-6-len-7/",
+      "destination": "https://jurassicielts.com/vi/speaking/articles/ielts-speaking-6-to-7/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-speaking-forecast-september-december-2026/",
+      "destination": "https://jurassicielts.com/speaking/articles/ielts-speaking-forecast-september-december-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-speaking-forecast-september-december-2026",
+      "destination": "https://jurassicielts.com/speaking/articles/ielts-speaking-forecast-september-december-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-speaking-forecast-quy-3-2026",
+      "destination": "https://jurassicielts.com/vi/speaking/articles/ielts-speaking-forecast-september-december-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-speaking-forecast-quy-3-2026/",
+      "destination": "https://jurassicielts.com/vi/speaking/articles/ielts-speaking-forecast-september-december-2026/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ai-ielts-speaking-scoring",
+      "destination": "https://jurassicielts.com/speaking/articles/ai-ielts-speaking-scoring/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ai-ielts-speaking-scoring/",
+      "destination": "https://jurassicielts.com/speaking/articles/ai-ielts-speaking-scoring/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ai-cham-ielts-speaking/",
+      "destination": "https://jurassicielts.com/vi/speaking/articles/ai-ielts-speaking-scoring/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ai-cham-ielts-speaking",
+      "destination": "https://jurassicielts.com/vi/speaking/articles/ai-ielts-speaking-scoring/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/online-ielts-speaking-coaching",
+      "destination": "https://jurassicielts.com/speaking/articles/online-ielts-speaking-coaching/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/online-ielts-speaking-coaching/",
+      "destination": "https://jurassicielts.com/speaking/articles/online-ielts-speaking-coaching/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/what-to-fix-first-in-ielts-speaking/",
+      "destination": "https://jurassicielts.com/speaking/articles/choose-one-speaking-priority/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/what-to-fix-first-in-ielts-speaking",
+      "destination": "https://jurassicielts.com/speaking/articles/choose-one-speaking-priority/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/what-typed-speaking-practice-can-assess/",
+      "destination": "https://jurassicielts.com/speaking/articles/what-typed-speaking-practice-can-assess/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/what-typed-speaking-practice-can-assess",
+      "destination": "https://jurassicielts.com/speaking/articles/what-typed-speaking-practice-can-assess/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/from-speaking-diagnostic-to-one-to-one-lesson/",
+      "destination": "https://jurassicielts.com/speaking/articles/from-speaking-diagnostic-to-one-to-one-lesson/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/from-speaking-diagnostic-to-one-to-one-lesson",
+      "destination": "https://jurassicielts.com/speaking/articles/from-speaking-diagnostic-to-one-to-one-lesson/",
+      "permanent": true
+    },
+    {
       "source": "/tools",
       "destination": "/tools/ielts-band-score-calculator",
       "permanent": false
