@@ -1345,6 +1345,40 @@ export const PRODUCTS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
+  {
+    // IELTS Diagnostic Mock, 9 Nov 2026 (Sale Team/ielts-diagnostic-mock): Form A, 4 original Listening scripts (40 questions, read aloud
+    // once by a live reader) + 3 original Reading passages (40 questions, 60 minutes); marking sheet turns every miss into one of
+    // eleven trap codes and names ONE priority. 42-page PDF, 10-page view-only sample. Raw scores only: no band conversion or prediction.
+    // Price 199.000₫ / US$8. Product image: a crop of the Reading Ladder scene (clock, cards, notebook) until a mock-specific image exists.
+    id: 'ielts-diagnostic-mock',
+    live: true,
+    section: 'ielts',
+    group: 'listening',
+    price: '199.000₫',
+    href: 'zalo',
+    delivery: true,
+    paypal: true,
+    image: 'ielts-diagnostic-mock',
+    sample: 'ielts-diagnostic-mock',
+    en: {
+      label: 'Digital download · learners and tutors',
+      title: 'IELTS Diagnostic Mock: Listening + Reading',
+      problem: 'Most mock tests give you a number and stop. A number tells you where you are, not what to do next, so you take another mock and get the same number.',
+      inside: 'A full-length Listening paper (four original scripts, 40 questions, read aloud once by a tutor or partner) and a full-length Reading paper (three original passages, 40 questions, 60 minutes). The marking sheet turns every wrong answer into one of eleven trap codes, such as a missed “but”, an answer said in other words, or the wrong speaker. It ranks the codes and names one priority, then points you to the exact lesson in the Listening Profiler Pack or the Reading Ladder that fixes it. Every key line shows the answer, the deciding words and the trap: 42 printable pages.',
+      forWho: 'Adults preparing for IELTS Academic who keep getting the same Listening or Reading score, and tutors who want a first-lesson diagnostic with a written priority. Listening needs a live reader; there are no recordings. You get raw scores out of 40 only, with no band conversion and no predicted result. It is one form, so re-measure progress with the packs’ retests. One learner, or one tutor with their own students. Practice material, not an official score.',
+      unit: 'one-time',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · học viên và gia sư',
+      title: 'IELTS Diagnostic Mock: Listening + Reading',
+      problem: 'Phần lớn đề thi thử chỉ cho bạn một con số rồi dừng lại. Con số cho biết bạn đang ở đâu, nhưng không cho biết cần làm gì tiếp theo, nên bạn làm thêm một đề nữa và lại nhận cùng một con số.',
+      inside: 'Một bài Listening đầy đủ (bốn đoạn hội thoại và bài nói gốc, 40 câu hỏi, do gia sư hoặc bạn học đọc to một lần) và một bài Reading đầy đủ (ba bài đọc gốc, 40 câu hỏi, 60 phút). Phiếu chấm biến mỗi câu sai thành một trong mười một mã bẫy, ví dụ bỏ lỡ chữ “but”, đáp án được nói bằng từ khác, hoặc nhầm người nói. Phiếu xếp hạng các mã và gọi tên một ưu tiên duy nhất, rồi chỉ đúng bài học trong Listening Profiler Pack hoặc Reading Ladder giúp sửa lỗi đó. Mỗi dòng đáp án đều có đáp án, câu chữ quyết định và tên bẫy: 42 trang in được.',
+      forWho: 'Người lớn ôn IELTS Academic mà điểm Listening hoặc Reading mãi không đổi, và gia sư cần một bài chẩn đoán cho buổi học đầu tiên với một ưu tiên được viết rõ. Phần Listening cần một người đọc trực tiếp; không có file ghi âm. Bạn chỉ nhận điểm thô trên 40, không quy đổi sang band và không dự đoán kết quả. Đây là một đề duy nhất, vì vậy hãy đo lại tiến bộ bằng các bài kiểm tra lại trong bộ tài liệu. Một học viên, hoặc một gia sư dùng với học viên của mình. Tài liệu luyện tập, không phải điểm chính thức.',
+      unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
   // Price ladder (Jay's go, 5 Nov 2026; brief: .regen/command/JURASSICIELTS/PRICING-LADDER-DECISION-2026-11-05.md section 4).
   // Three bundles of existing packs. The list price is the sum of the packs' own prices on this page, the percentage is
   // computed from it (tests/price-ladder.test.ts re-derives both), no "was" price is ever shown struck through, and there is

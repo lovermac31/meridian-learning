@@ -376,6 +376,18 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       description: 'Nhận diện và sửa những cái bẫy làm mất điểm IELTS Listening: gia sư hoặc bạn học đọc kịch bản, bạn trả lời thành tiếng. 70 bài luyện, 9 bộ đề. 299.000₫.',
     },
   },
+  'ielts-diagnostic-mock': {
+    en: {
+      keyword: 'ielts listening and reading mock test',
+      title: 'IELTS Listening and Reading Mock Test With Diagnosis',
+      description: 'A full Listening and Reading mock, 80 questions. Every wrong answer gets a trap code and you get one named priority. Practice, not an official score. 199.000₫.',
+    },
+    vi: {
+      keyword: 'đề thi thử ielts listening reading',
+      title: 'Đề thi thử IELTS Listening và Reading có chẩn đoán',
+      description: 'Đề thi thử Listening và Reading đầy đủ, 80 câu. Mỗi câu sai có mã bẫy và bạn nhận một ưu tiên được gọi tên. Tài liệu luyện tập. 199.000₫.',
+    },
+  },
   'centre-licence': {
     en: {
       keyword: 'english curriculum licence for language centres',

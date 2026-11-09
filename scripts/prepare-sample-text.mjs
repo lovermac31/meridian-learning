@@ -23,7 +23,7 @@ for (let index = 0; index < args.length; index++) {
 }
 if (explicitGenerate && verifySource) throw new Error('Choose generation or source verification');
 const generate = explicitGenerate || Boolean(sourceRoot);
-if (config.length !== 42 || new Set(config.map(p => p.stem)).size !== 42 || config.some(p => !p.count)) throw new Error('Expected 42 approved sample sets');
+if (config.length !== 43 || new Set(config.map(p => p.stem)).size !== 43 || config.some(p => !p.count)) throw new Error('Expected 42 approved sample sets');
 if ((generate || verifySource) && !sourceRoot) throw new Error('Use --source-root or JE_SAMPLE_SOURCE_ROOT for approved local samples');
 if (generate || verifySource) {
   const result = spawnSync('python3', [path.join(root, 'scripts/extract-sample-text.py'), '--source-root', path.resolve(sourceRoot), '--public-pages', publicPages, '--ocr', path.join(root, 'scripts/sample-text-ocr.json')], { input: JSON.stringify(config), encoding: 'utf8', maxBuffer: 16_000_000, timeout: 120_000 });

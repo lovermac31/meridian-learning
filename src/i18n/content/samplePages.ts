@@ -8,6 +8,7 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'curriculum-overview': 11,
   'holiday-challenge': 11,
   'ielts-cue-card-bank': 11,
+  'ielts-diagnostic-mock': 10,
   'ielts-essay-bank-task2': 10,
   'ielts-listening-profiler': 11,
   'ielts-one-to-one-starter': 8,

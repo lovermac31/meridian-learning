@@ -14,7 +14,7 @@ const fmt = (n: number) => n.toLocaleString('de-DE');
 
 const SINGLES: Record<string, [number, number]> = {
   'ielts-cue-card-bank': [199000, 8], 'ielts-writing-task1-method': [199000, 8], 'ielts-essay-bank-task2': [199000, 8],
-  'ielts-speaking-ladder': [299000, 12], 'ielts-writing-ladder-task2': [299000, 12], 'ielts-reading-ladder': [250000, 10], 'ielts-listening-profiler': [299000, 12],
+  'ielts-speaking-ladder': [299000, 12], 'ielts-writing-ladder-task2': [299000, 12], 'ielts-reading-ladder': [250000, 10], 'ielts-listening-profiler': [299000, 12], 'ielts-diagnostic-mock': [199000, 8],
   // Unchanged by the ladder.
   'writing-baseline': [79000, 4], 'ielts-one-to-one-starter': [149000, 6], 'ielts-writing-teacher-pack': [690000, 27],
 };
