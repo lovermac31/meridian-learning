@@ -31,7 +31,7 @@ test('Reading and Listening: live #ielts cards (Reading 250.000₫ / US$10 from 
     for (const locale of ['en', 'vi'] as const) {
       assert.match(p[locale].forWho, locale === 'en' ? /One learner, or one tutor with their own students\. Practice material, not an official score\.$/ : /Một học viên, hoặc một gia sư dùng với học viên của mình\. Tài liệu luyện tập, không phải điểm chính thức\.$/);
       const seo = PRODUCT_SEO[id][locale];
-      assert.ok(seo.title.length <= 60 && seo.description.length >= 80 && seo.description.length <= 160 && seo.description.includes('299.000'), `${id} ${locale}`);
+      assert.ok(seo.title.length <= 60 && seo.description.length >= 80 && seo.description.length <= 160 && seo.description.includes(vnd.replace('₫', '')), `${id} ${locale}`);
     }
   }
 });

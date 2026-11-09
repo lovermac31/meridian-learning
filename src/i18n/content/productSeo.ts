@@ -356,12 +356,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'ielts reading practice',
       title: 'IELTS Reading Practice: 11 Lessons, 175 Questions',
-      description: 'Find the trap that costs you IELTS Reading marks, then fix it: 11 lessons, 175 questions with proved answers and a full 60-minute test. 299.000₫.',
+      description: 'Find the trap that costs you IELTS Reading marks, then fix it: 11 lessons, 175 questions with proved answers and a full 60-minute test. 250.000₫.',
     },
     vi: {
       keyword: 'luyện ielts reading',
       title: 'Luyện IELTS Reading: 11 bài học, 175 câu hỏi',
-      description: 'Tìm lỗi bẫy làm bạn mất điểm IELTS Reading rồi sửa: 11 bài học, 175 câu hỏi có bằng chứng trong bài và một bài thi đầy đủ 60 phút. 299.000₫.',
+      description: 'Tìm lỗi bẫy làm bạn mất điểm IELTS Reading rồi sửa: 11 bài học, 175 câu hỏi có bằng chứng trong bài và một bài thi đầy đủ 60 phút. 250.000₫.',
     },
   },
   'ielts-listening-profiler': {
