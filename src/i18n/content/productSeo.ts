@@ -356,12 +356,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'ielts reading practice',
       title: 'IELTS Reading Practice: 11 Lessons, 175 Questions',
-      description: 'Find the trap that costs you IELTS Reading marks, then fix it: 11 lessons, 175 questions with proved answers and a full 60-minute test. 299.000₫.',
+      description: 'Find the trap that costs you IELTS Reading marks, then fix it: 11 lessons, 175 questions with proved answers and a full 60-minute test. 250.000₫.',
     },
     vi: {
       keyword: 'luyện ielts reading',
       title: 'Luyện IELTS Reading: 11 bài học, 175 câu hỏi',
-      description: 'Tìm lỗi bẫy làm bạn mất điểm IELTS Reading rồi sửa: 11 bài học, 175 câu hỏi có bằng chứng trong bài và một bài thi đầy đủ 60 phút. 299.000₫.',
+      description: 'Tìm lỗi bẫy làm bạn mất điểm IELTS Reading rồi sửa: 11 bài học, 175 câu hỏi có bằng chứng trong bài và một bài thi đầy đủ 60 phút. 250.000₫.',
     },
   },
   'ielts-listening-profiler': {
@@ -374,6 +374,18 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       keyword: 'luyện ielts listening',
       title: 'Luyện IELTS Listening cùng gia sư: 8 bài học',
       description: 'Nhận diện và sửa những cái bẫy làm mất điểm IELTS Listening: gia sư hoặc bạn học đọc kịch bản, bạn trả lời thành tiếng. 70 bài luyện, 9 bộ đề. 299.000₫.',
+    },
+  },
+  'ielts-diagnostic-mock': {
+    en: {
+      keyword: 'ielts listening and reading mock test',
+      title: 'IELTS Listening and Reading Mock Test With Diagnosis',
+      description: 'A full Listening and Reading mock, 80 questions. Every wrong answer gets a trap code and you get one named priority. Practice, not an official score. 199.000₫.',
+    },
+    vi: {
+      keyword: 'đề thi thử ielts listening reading',
+      title: 'Đề thi thử IELTS Listening và Reading có chẩn đoán',
+      description: 'Đề thi thử Listening và Reading đầy đủ, 80 câu. Mỗi câu sai có mã bẫy và bạn nhận một ưu tiên được gọi tên. Tài liệu luyện tập. 199.000₫.',
     },
   },
   'centre-licence': {

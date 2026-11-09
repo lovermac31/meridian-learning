@@ -89,7 +89,7 @@ const USD: Record<string, number> = {
   'ielts-speaking-ladder': 12, 'ielts-one-to-one-starter': 6, 'ielts-cue-card-bank': 8, 'ielts-writing-ladder-task2': 12,
   'ielts-writing-task1-method': 8, 'ielts-essay-bank-task2': 8, 'ielts-writing-teacher-pack': 27,
   // IELTS Reading and Listening: 299.000₫ → US$12 (price ladder, 5 Nov 2026). Bundles: US$20 / US$18 / US$39.
-  'ielts-reading-ladder': 10, 'ielts-listening-profiler': 12,
+  'ielts-reading-ladder': 10, 'ielts-listening-profiler': 12, 'ielts-diagnostic-mock': 8,
   'ielts-writing-band-up': 20, 'ielts-speaking-band-up': 18, 'ielts-four-skill-kit': 39,
 };
 // The page shows PayPal only on live cards; hidden ones (35-today plan) are priced and ready for when they flip.

@@ -49,6 +49,7 @@ export const PORTAL_BUY_FLAGS: Record<string, boolean> = {
   'ielts-writing-teacher-pack': false,
   'ielts-reading-ladder': false,
   'ielts-listening-profiler': false,
+  'ielts-diagnostic-mock': false,
 };
 
 export function isPortalBuyEnabled(productId: string): boolean {

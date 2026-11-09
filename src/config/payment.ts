@@ -44,6 +44,7 @@ const PRODUCT_MEMO_CODES: Record<string, string> = {
   'ielts-writing-band-up': 'PR16',
   'ielts-speaking-band-up': 'PR17',
   'ielts-four-skill-kit': 'PR18',
+  'ielts-diagnostic-mock': 'PR19',
 };
 
 // The pack total is already published in the catalogue; keep it tied to that copy.

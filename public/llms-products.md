@@ -431,6 +431,16 @@
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
+### IELTS Diagnostic Mock: Listening + Reading
+- ID: `ielts-diagnostic-mock`
+- English: https://jurassicenglish.com/products/ielts-diagnostic-mock
+- Vietnamese: https://jurassicenglish.com/vi/products/ielts-diagnostic-mock
+- English description: A full Listening and Reading mock, 80 questions. Every wrong answer gets a trap code and you get one named priority. Practice, not an official score. 199.000₫.
+- Vietnamese title: Đề thi thử IELTS Listening và Reading có chẩn đoán
+- VND price: 199.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
 ### IELTS Writing Band-Up Bundle
 - ID: `ielts-writing-band-up`
 - English: https://jurassicenglish.com/products/ielts-writing-band-up

@@ -54,6 +54,7 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
   'ielts-writing-band-up': { prefix: 'PR16', amount: 499000 },
   'ielts-speaking-band-up': { prefix: 'PR17', amount: 449000 },
   'ielts-four-skill-kit': { prefix: 'PR18', amount: 999000 },
+  'ielts-diagnostic-mock': { prefix: 'PR19', amount: 199000 },
   // Unlisted 30-minute Live Speaking Check (mirrors LIVE_CHECK_OFFER in src/config/payment.ts).
   'live-speaking-check': { prefix: 'LC', amount: 250000 },
 };

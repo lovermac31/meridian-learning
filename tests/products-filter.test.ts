@@ -16,7 +16,7 @@ for (const locale of ['en', 'vi'] as const) {
     assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.map((id) => [id, 'false', id]));
     assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Story Workbooks sits right after Families');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
-    assert.equal(total, 45);
+    assert.equal(total, 46);
     for (const section of productsPage(locale).sections) {
       const featuredHere = section.cards.some((card) => (FEATURED_PRODUCTS as readonly string[]).includes(card.id));
       assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*"${''} data-category-panel="${section.id}">`), `${section.id}: ${featuredHere ? 'shown' : 'hidden'} until its tile is pressed`);
@@ -41,7 +41,7 @@ for (const locale of ['en', 'vi'] as const) {
 
   test(`cards ${locale}: every product in SSR with its copy, badge, lazy icon, sample above the price, and payment links`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale })).replaceAll('&#x27;', "'").replaceAll('&amp;', '&').replaceAll('&quot;', '"');
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 45);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 46);
     for (const product of PRODUCTS.filter((p) => p.live)) {
       const start = html.indexOf(`id="${product.id}"`);
       const card = html.slice(start, html.indexOf('</li>', start));
