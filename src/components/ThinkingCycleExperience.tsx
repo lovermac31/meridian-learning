@@ -1,6 +1,6 @@
 import { GscEditorial } from './GscEditorial';
 import { motion } from 'motion/react';
-import { ArrowLeft, ChevronRight, ClipboardList, Download, Leaf, LibraryBig, MessagesSquare } from 'lucide-react';
+import { ArrowLeft, ChevronRight, ClipboardList, Leaf, LibraryBig, MessagesSquare } from 'lucide-react';
 import { type ThinkingCycleStageDetail } from '../lib/thinkingCycleContent';
 import { getCurrentLocale } from '../i18n/routing';
 import {
@@ -75,22 +75,6 @@ export const ThinkingCycleExperience = ({
                 {item.title}
               </RouteLink>
             ))}
-            <a
-              href={stage.studentManualPath}
-              download={stage.studentManualFileName}
-              className="inline-flex items-center gap-2 rounded-full border border-jurassic-gold/30 bg-jurassic-gold/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-jurassic-gold/20"
-            >
-              <Download className="w-4 h-4" />
-              {pageContent.hero.studentManual}
-            </a>
-            <a
-              href={stage.teacherManualPath}
-              download={stage.teacherManualFileName}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              <Download className="w-4 h-4" />
-              {pageContent.hero.teacherManual}
-            </a>
             <RouteLink
               to="/thinking-cycle/compare"
               onNavigate={() => onCompareStages()}
