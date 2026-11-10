@@ -198,7 +198,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' }));
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
     assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...SHOWN.teachers.map(([id]) => id), 'test-extra']);
-    assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" srcSet="[^"]*\/images\/products\/w\/teacher-bundle-400\.webp 400w[^"]*" sizes="[^"]+" alt="" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
+    assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" srcSet="[^"]*\/images\/products\/w\/teacher-bundle-400\.webp 400w[^"]*" sizes="[^"]+" alt="[^"]+ cover" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
     assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.live && p.image).length);
   } finally {
     PRODUCTS.pop();
@@ -349,7 +349,7 @@ test('samples: the block sits above the price; one button opens the viewer; no l
       const button = block.match(/<button type="button" aria-label="([^"]+)"[^>]*data-sample-link="[^"]+">/)!;
       assert.ok(button[1].startsWith(`${open}: `) && button[1].length > open.length + 2, `${locale} ${id}: accessible name starts with the visible text`);
       assert.ok(block.includes(`>${open}</span>`), `${locale} ${id}: visible text`);
-      assert.deepEqual([...block.matchAll(/<img src="([^"]+)" srcSet="[^"]+ 300w, [^"]+ 600w" sizes="[^"]+" alt="" width="600" height="849"[^>]*draggable="false"[^>]*data-sample-page=/g)].map((m) => m[1]),
+      assert.deepEqual([...block.matchAll(/<img src="([^"]+)" srcSet="[^"]+ 300w, [^"]+ 600w" sizes="[^"]+" alt="[^"]+, (?:sample page|trang mẫu) [123]" width="600" height="849"[^>]*draggable="false"[^>]*data-sample-page=/g)].map((m) => m[1]),
         [1, 2, 3].map((n) => `/samples/${stem}-p${n}.webp`), `${locale} ${id}: three thumbnails, not draggable`);
       assert.equal([...card.matchAll(/data-cta="/g)].length, 1, `${locale} ${id}: still one CTA`);
     }

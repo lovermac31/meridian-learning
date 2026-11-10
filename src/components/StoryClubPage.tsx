@@ -23,7 +23,7 @@ function ZaloButton({ label, className = 'insights-button-secondary', touch, hre
       className={className}
       href={withFirstTouch(href, touch)}
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener noreferrer nofollow"
       data-cta="story-club-zalo"
       onClick={() => recordClientEvent({ event: 'checkout_start', product_id: 'story-club' })}
     >
@@ -146,7 +146,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
               className="font-semibold"
               href={withFirstTouch(STORY_CLUB_ZALO_HREF, touch)}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               data-cta="story-club-zalo-older"
               onClick={() => recordClientEvent({ event: 'checkout_start', product_id: 'story-club' })}
             >

@@ -193,7 +193,7 @@ export function ZaloFloat({ locale, hidden = false }: ZaloFloatProps) {
           <p id={descriptionId} className="zf-s">
             {t.scan} · <b>{ZALO_DISPLAY_NUMBER}</b>
           </p>
-          <a href={href} target="_blank" rel="noopener noreferrer" data-zalo-float-open="" className="zf-o">
+          <a href={href} target="_blank" rel="noopener noreferrer nofollow" data-zalo-float-open="" className="zf-o">
             {t.open}
           </a>
         </div>
@@ -202,7 +202,7 @@ export function ZaloFloat({ locale, hidden = false }: ZaloFloatProps) {
         ref={launcherRef}
         href={href}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener noreferrer nofollow"
         data-zalo-float-launcher=""
         aria-label={t.launcher}
         {...(direct ? {} : { 'aria-haspopup': 'dialog' as const, 'aria-expanded': open })}

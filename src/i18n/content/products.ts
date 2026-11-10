@@ -1479,7 +1479,7 @@ type PageCopy = {
   back: string;
   delivery: string;
   leadIns: { problem: string; inside: string; forWho: string; books: string };
-  sample: { heading: string; note: string; open: string };
+  sample: { heading: string; note: string; open: string; cover: string; page: string };
   viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string; textVersion: string; hideText: string; pageText: string; textLoading: string; textError: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   workbooks: string;
@@ -1496,7 +1496,7 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Jurassic English home',
     delivery: 'Pay by VietQR after a written order summary; your files arrive by Google Drive within 24 hours.',
     leadIns: { problem: 'The problem', inside: 'What’s inside', forWho: 'Who it’s for', books: 'The books' },
-    sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'See the sample pages' },
+    sample: { heading: 'See a sample', note: 'See exactly what you get before you pay.', open: 'See the sample pages', cover: '{title} cover', page: '{title}, sample page {n}' },
     viewer: { title: 'Sample pages', prev: 'Previous page', next: 'Next page', close: 'Close', counter: 'Page {n} of {total}', end: 'That’s the sample. Ready to order?', viewOnly: 'Sample pages are for viewing only.', textVersion: 'Text version', hideText: 'Hide text version', pageText: 'Sample page text', textLoading: 'Loading the sample page text…', textError: 'The text version could not load. Close the sample and try again.' },
     workbooks: 'Story Workbooks',
     workbooksBand: {
@@ -1528,7 +1528,7 @@ const PAGE: Record<Locale, PageCopy> = {
     back: 'Trang chủ Jurassic English',
     delivery: 'Thanh toán qua VietQR sau khi nhận bản tóm tắt đơn hàng; tài liệu được gửi qua Google Drive trong vòng 24 giờ.',
     leadIns: { problem: 'Vấn đề', inside: 'Gồm có', forWho: 'Dành cho', books: 'Các cuốn' },
-    sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Xem các trang mẫu' },
+    sample: { heading: 'Xem mẫu', note: 'Xem đúng những gì bạn nhận được trước khi thanh toán.', open: 'Xem các trang mẫu', cover: 'Bìa {title}', page: '{title}, trang mẫu {n}' },
     viewer: { title: 'Trang mẫu', prev: 'Trang trước', next: 'Trang sau', close: 'Đóng', counter: 'Trang {n}/{total}', end: 'Đó là bản mẫu. Sẵn sàng đặt mua?', viewOnly: 'Trang mẫu chỉ để xem.', textVersion: 'Bản văn bản', hideText: 'Ẩn bản văn bản', pageText: 'Nội dung trang mẫu', textLoading: 'Đang tải nội dung trang mẫu…', textError: 'Không tải được bản văn bản. Hãy đóng bản mẫu và thử lại.' },
     workbooks: 'Sách truyện bài tập',
     workbooksBand: {

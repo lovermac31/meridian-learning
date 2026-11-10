@@ -195,7 +195,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
             <p className="mt-2">{t.groupDetails}</p>
             <div className="mt-6 space-y-6">
               <StoryClubTryIt locale={locale} as="h3" id="reserve-try-it">
-                <a className="insights-button-primary mt-4 max-w-md" href={withFirstTouch(STORY_CLUB_TRY_IT_ZALO_HREF_RESERVE, firstTouch)} target="_blank" rel="noopener noreferrer" data-cta="story-club-try-it-zalo">{tryIt.cta}</a>
+                <a className="insights-button-primary mt-4 max-w-md" href={withFirstTouch(STORY_CLUB_TRY_IT_ZALO_HREF_RESERVE, firstTouch)} target="_blank" rel="noopener noreferrer nofollow" data-cta="story-club-try-it-zalo">{tryIt.cta}</a>
                 <p className="mt-2 text-sm">{tryIt.note}</p>
               </StoryClubTryIt>
               <StoryClubPaidRound locale={locale} as="h3" id="reserve-paid-round" />
@@ -211,7 +211,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
             <PayStep key={confirmation.memo} locale={locale} amount={offer!.amount} memo={confirmation.memo} productId={productId} />
             {isStory && <p className="mt-3 font-semibold" data-payment-status>{paymentReceived ? t.paymentReceived : t.paymentPending}</p>}
             <p className="mt-4">{locale === 'vi' ? 'Quét mã bằng ứng dụng ngân hàng và kiểm tra đúng số tiền trước khi xác nhận. Thông tin cá nhân chỉ cần nhập sau khi thanh toán.' : 'Scan with your banking app and verify the exact amount before confirming. You only need to enter personal details after paying.'}</p>
-            <a className="mt-3 inline-block underline" href={withFirstTouch(`/go/zalo?utm_source=checkout&utm_content=${encodeURIComponent(productId)}-prepayment-question`, firstTouch)}>{t.question}</a>
+            <a rel="nofollow" className="mt-3 inline-block underline" href={withFirstTouch(`/go/zalo?utm_source=checkout&utm_content=${encodeURIComponent(productId)}-prepayment-question`, firstTouch)}>{t.question}</a>
             {!contactFormOpen && <button type="button" className="insights-button-primary mt-5 block" onClick={() => setContactFormOpen(true)} data-open-contact-form>{t.ivePaid}</button>}
           </section>
         ) : (

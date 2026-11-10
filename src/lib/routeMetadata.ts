@@ -26,6 +26,7 @@ import {
   createFaqJsonLd,
   createOrganizationJsonLd,
   createServiceJsonLd,
+  createWebPageJsonLd,
   createWebsiteJsonLd,
   createArticleJsonLd,
   createProductListJsonLd,
@@ -115,13 +116,13 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     localized: { vi: { title: 'Cách làm tròn điểm IELTS Overall: công cụ tính điểm', description: 'Điểm IELTS làm tròn thế nào? Trung bình ,25 làm tròn lên 0,5 và ,75 lên 1,0 (6,25 → 6,5; 6,75 → 7,0). Nhập 4 điểm kỹ năng để tính overall ngay.' } },
   },
   '/tools/ielts-speaking-part-2-timer': {
-    title: 'IELTS Speaking Part 2 Timer: 1 Min Prep, 2 Min Speaking | Jurassic English™',
+    title: 'IELTS Speaking Part 2 Timer, 1 + 2 Min | Jurassic English™',
     description: 'Free IELTS Speaking Part 2 timer: one minute to prepare, two minutes to speak, original practice cue cards and optional private, on-device recording.',
     canonicalPath: '/tools/ielts-speaking-part-2-timer',
-    localized: { vi: { title: 'Đồng hồ IELTS Speaking Part 2: 1 phút chuẩn bị, 2 phút nói | Jurassic English™', description: 'Đồng hồ miễn phí cho IELTS Speaking Part 2: 1 phút chuẩn bị, 2 phút nói, thẻ chủ đề luyện tập tự soạn và ghi âm tùy chọn chỉ trên thiết bị.' } },
+    localized: { vi: { title: 'Đồng hồ IELTS Speaking Part 2 | Jurassic English™', description: 'Đồng hồ miễn phí cho IELTS Speaking Part 2: 1 phút chuẩn bị, 2 phút nói, thẻ chủ đề luyện tập tự soạn và ghi âm tùy chọn chỉ trên thiết bị.' } },
   },
   '/insights': {
-    title: 'IELTS Speaking and English Learning Resources | Jurassic English™',
+    title: 'IELTS Speaking & English Resources | Jurassic English™',
     description: 'Evidence-led guidance on IELTS Speaking practice, typed feedback and one-to-one learning from Mr. Jay at Jurassic English™: what to fix first and how to choose your next step.',
     canonicalPath: '/insights',
     breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Learning resources', path: '/insights' }],
@@ -144,7 +145,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     }],
   },
   ...Object.fromEntries(getPublishedInsightArticles().map((article) => [`${INSIGHTS_BASE_PATH}/${article.slug}`, {
-    title: `${article.title} | Jurassic English™`,
+    title: `${article.seoTitle ?? article.title} | Jurassic English™`,
     description: article.description ?? article.deck,
     canonicalPath: `${INSIGHTS_BASE_PATH}/${article.slug}`,
     jsonLd: [createArticleJsonLd({ headline: article.title, description: article.description ?? article.deck, slug: article.slug, datePublished: article.datePublished, dateModified: article.dateModified, image: article.heroImage, authorName: article.authorName, authorType: 'Organization', section: article.section })],
@@ -271,7 +272,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     },
   },
   '/framework': {
-    title: 'Literature-Based Critical Thinking Framework | Jurassic English™',
+    title: 'Critical Thinking Framework | Jurassic English™',
     description:
       'The Jurassic English™ framework integrates the Jurassic Thinking Cycle, CEFR progression, and ecocentric pedagogy into a structured school curriculum from Pre-A1 to C1.',
     canonicalPath: '/framework',
@@ -340,7 +341,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     shouldIndex: false,
   },
   '/series/compare': {
-    title: 'Compare Jurassic English™ Curriculum Levels | Jurassic English™',
+    title: 'Compare Curriculum Levels | Jurassic English™',
     description:
       'Compare all five Jurassic English™ curriculum levels — ages 4–14+, Pre-A1 to C1 — by age band, CEFR range, text complexity, and reasoning expectations.',
     canonicalPath: '/series/compare',
@@ -350,7 +351,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
     localized: {
       vi: {
-        title: 'So sánh các cấp độ chương trình Jurassic English™ | Jurassic English™',
+        title: 'So sánh các cấp độ chương trình | Jurassic English™',
         description:
           'So sánh toàn bộ năm cấp độ chương trình Jurassic English™ theo độ tuổi, dải CEFR, độ phức tạp văn bản và kỳ vọng về tư duy học thuật.',
         breadcrumbs: [
@@ -361,7 +362,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     },
   },
   '/thinking-cycle/compare': {
-    title: 'The Jurassic Thinking Cycle™ — All Four Stages | Jurassic English™',
+    title: 'Thinking Cycle: All Four Stages | Jurassic English™',
     description:
       'Compare the Analyze, Evaluate, Justify, and Reflect stages of the Jurassic Thinking Cycle™ and see how structured reasoning develops across every lesson.',
     canonicalPath: '/thinking-cycle/compare',
@@ -371,7 +372,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
     localized: {
       vi: {
-        title: 'Jurassic Thinking Cycle™ — So sánh cả bốn giai đoạn | Jurassic English™',
+        title: 'Thinking Cycle: so sánh bốn giai đoạn | Jurassic English™',
         description:
           'So sánh bốn giai đoạn Analyze, Evaluate, Justify và Reflect của Jurassic Thinking Cycle™ để thấy cách lập luận có cấu trúc phát triển qua từng bài học.',
         breadcrumbs: [
@@ -510,7 +511,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     shouldIndex: false,
     localized: {
       vi: {
-        title: 'Giấy phép Trung tâm Level 1 cho bé 4–8 tuổi | Jurassic English™',
+        title: 'Giấy phép trung tâm Level 1, bé 4–8 tuổi | Jurassic English™',
         description:
           'Trọn một năm “tiếng Anh tư duy” cho bé 4–8 tuổi: 40 giáo án soạn sẵn từng phút, đào tạo giáo viên và ba truyện tranh gốc của Jurassic English, cấp phép theo từng cơ sở.',
       },
@@ -524,7 +525,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     shouldIndex: false,
   },
   '/live-speaking-check': {
-    title: '30-minute Live Speaking Check: 250.000₫, adults 18+ | Jurassic English™',
+    title: 'Live Speaking Check, 30 Min, 250.000₫ | Jurassic English™',
     description: 'A 30-minute one-to-one IELTS Speaking check on Google Meet with Mr. Jay Adams, plus a short written summary. 250.000₫; the fee counts toward the Baseline or an 8-lesson pack if you book within 14 days. Adults 18+.',
     canonicalPath: '/live-speaking-check',
   },
@@ -781,7 +782,7 @@ function resolveSeriesRoute(pathname: string, locale: Locale): RouteMetadata | n
 
   const title =
     locale === 'vi'
-      ? `${localizedLevel.title} — Độ tuổi ${localizeAgeBand(localizedLevel.ageBand, locale)} | Jurassic English™`
+      ? `${localizedLevel.title}, ${localizeAgeBand(localizedLevel.ageBand, locale)} | Jurassic English™`
       : `${localizedLevel.title} — Ages ${localizedLevel.ageBand} | Jurassic English™`;
   const description =
     locale === 'vi'
@@ -873,8 +874,8 @@ function resolveSyllabusRoute(pathname: string, locale: Locale): RouteMetadata |
 
   const title =
     locale === 'vi'
-      ? `Đề cương ${localizedLevel.title} — Độ tuổi ${localizeAgeBand(localizedLevel.ageBand, locale)} | Jurassic English™`
-      : `${localizedLevel.title} Syllabus — Ages ${localizedLevel.ageBand} | Jurassic English™`;
+      ? `Đề cương ${localizedLevel.title}, ${localizeAgeBand(localizedLevel.ageBand, locale).replace(/\s*tuổi$/, '')} | Jurassic English™`
+      : `${localizedLevel.title} Syllabus, Ages ${localizedLevel.ageBand.replace(/\s*years?$/i, '')} | Jurassic English™`;
   const description =
     locale === 'vi'
       ? `Đề cương ${localizedLevel.title} cho ${localizeAgeBand(localizedLevel.ageBand, locale)}: văn bản cốt lõi, học kỳ, đánh giá, tư duy sinh thái và CEFR ${localizedLevel.cefrRange}.`
@@ -1009,7 +1010,30 @@ function resolveFallbackRoute(locale: Locale): RouteMetadata {
   });
 }
 
+/**
+ * Every indexable route carries structured data (audit 10 Nov 2026, finding 16): a route that resolved with no
+ * JSON-LD of its own gets a plain WebPage node (name, description, canonical URL, share image) so crawlers see
+ * the same entity graph everywhere. Noindex routes and routes with their own markup are left unchanged.
+ */
 export function resolveRouteMetadata(pathname: string): RouteMetadata {
+  const metadata = resolveRouteMetadataBase(pathname);
+  const indexable = Boolean(metadata.canonical) && (metadata.robots ?? '').startsWith('index');
+  if (!indexable || (metadata.jsonLd && metadata.jsonLd.length > 0)) {
+    return metadata;
+  }
+  return {
+    ...metadata,
+    jsonLd: [createWebPageJsonLd({
+      name: metadata.title,
+      description: metadata.description,
+      url: metadata.canonical as string,
+      image: metadata.og.image,
+      locale: metadata.htmlLang,
+    })],
+  };
+}
+
+function resolveRouteMetadataBase(pathname: string): RouteMetadata {
   // Unlisted Chinese previews: noindex, no canonical or alternates, out of the sitemap (no native review yet).
   const zhPreview = getZhPreviewPage(pathname);
   if (zhPreview) {

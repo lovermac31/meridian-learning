@@ -27,7 +27,7 @@ import {
 // homepage placement. Every amount and condition comes from terms.ts.
 // Gated by familyRewardsMode(): production 404s until funding is approved.
 
-const DESCRIPTION = `Student Academy families earn ${REWARD} tuition credit for each new family they introduce who completes ${RULES.qualifyingLessons} paid individual lessons. Two qualifying families earn ${TWO_FAMILY_REWARD}. Terms, steps and how to join.`;
+const DESCRIPTION = `Student Academy families earn ${REWARD} tuition credit per new family completing ${RULES.qualifyingLessons} paid lessons; two families earn ${TWO_FAMILY_REWARD}. Terms and how to join.`;
 
 // generateMetadata, not a static export: static metadata is still sent in
 // the RSC payload of the gated 404, which would publish the amounts.
@@ -46,6 +46,20 @@ const METADATA: Metadata = {
     type: "website",
     siteName: "Jurassic English™",
     url: ROUTE,
+    images: [
+      {
+        url: "/images/student-academy-page/student-academy-hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Jurassic English™ Student Academy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Family Rewards | Jurassic English™ Student Academy",
+    description: DESCRIPTION,
+    images: ["/images/student-academy-page/student-academy-hero.webp"],
   },
 };
 

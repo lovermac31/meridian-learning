@@ -13,9 +13,9 @@ const BOOK_DIAGNOSTIC_LD = {
   "@type": "ContactPage",
   "@id": "https://jurassicenglish.com/book-diagnostic#webpage",
   url: "https://jurassicenglish.com/book-diagnostic",
-  name: "Book a Student Thinking Diagnostic | Jurassic English™ Student Academy",
+  name: "Book a Student Thinking Diagnostic | Jurassic English™",
   description:
-    "Find the right starting point for your child. Tell us about your child's English level, learning goals, and current needs. We will review the information and follow up with the next step.",
+    "Find the right starting point for your child. Tell us about their English level, goals and needs, and we will follow up with the next step.",
   isPartOf: { "@id": "https://jurassicenglish.com/#website" },
   about: { "@id": "https://jurassicenglish.com/#student-academy-course" },
   inLanguage: "en",
@@ -23,15 +23,15 @@ const BOOK_DIAGNOSTIC_LD = {
 
 export const metadata: Metadata = {
   title:
-    "Book a Student Thinking Diagnostic | Jurassic English™ Student Academy",
+    "Book a Student Thinking Diagnostic | Jurassic English™",
   description:
-    "Find the right starting point for your child. Tell us about your child's English level, learning goals, and current needs. We will review the information and follow up with the next step.",
+    "Find the right starting point for your child. Tell us about their English level, goals and needs, and we will follow up with the next step.",
   alternates: {
     canonical: "/book-diagnostic",
   },
   openGraph: {
     title:
-      "Book a Student Thinking Diagnostic | Jurassic English™ Student Academy",
+      "Book a Student Thinking Diagnostic | Jurassic English™",
     description:
       "Find the right starting point for your child. A clear, parent-friendly next step after the Interactive Demo.",
     type: "website",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Book a Student Thinking Diagnostic | Jurassic English™ Student Academy",
+      "Book a Student Thinking Diagnostic | Jurassic English™",
     description:
       "Find the right starting point for your child. A clear, parent-friendly next step.",
     images: ["/images/student-academy-page/student-academy-hero.webp"],

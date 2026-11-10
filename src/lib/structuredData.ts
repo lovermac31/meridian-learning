@@ -93,6 +93,34 @@ export function createBreadcrumbJsonLd(items: BreadcrumbItem[]): JsonLd {
   };
 }
 
+export type WebPageParams = {
+  name: string;
+  description: string;
+  /** Absolute canonical URL of the page. */
+  url: string;
+  /** Absolute URL of the share image. */
+  image: string;
+  locale?: string;
+};
+
+// Plain WebPage schema for indexable pages that have no richer type (tools, samples, utility pages).
+// Claims nothing beyond the page's own title, description and share image; isPartOf/publisher point at the
+// canonical WebSite and EducationalOrganization nodes.
+export function createWebPageJsonLd(params: WebPageParams): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${params.url}#webpage`,
+    url: params.url,
+    name: params.name,
+    description: params.description,
+    inLanguage: params.locale ?? 'en',
+    isPartOf: { '@id': websiteId },
+    publisher: { '@id': organizationId },
+    primaryImageOfPage: { '@type': 'ImageObject', url: params.image },
+  };
+}
+
 export type ServiceParams = {
   name: string;
   description: string;

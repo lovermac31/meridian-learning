@@ -9,7 +9,7 @@ import { PRODUCT_SEO, productFaq, productPath, relatedProducts } from '../i18n/c
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
-import { CardLink, IeltsHomeLink, LemonSqueezyOption, PayPalOption, Sample, SampleViewer, productHref, useVisitorSource } from './ProductsPage';
+import { CardLink, IeltsHomeLink, LemonSqueezyOption, PayPalOption, Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
@@ -84,7 +84,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
                   recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined });
                 }
               }}
-              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer nofollow' } : {})}
             >
               {card.cta}
             </a>
@@ -143,7 +143,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             <img
               {...productImageSources(card.image)}
               sizes="(min-width: 480px) 384px, calc(100vw - 88px)"
-              alt=""
+              alt={coverAlt(c.sample, card.title)}
               width={480}
               height={480}
               loading="lazy"

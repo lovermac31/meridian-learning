@@ -94,7 +94,7 @@ test('server markup: a real tracked link with an accessible name, no card and no
     assert.match(html, /<a [^>]*href="\/go\/zalo\?utm_source=float&amp;utm_content=zalo-float&amp;locale=/);
     assert.match(html, new RegExp(`aria-label="${zaloFloatCopy[locale].launcher}"`));
     assert.match(html, /aria-haspopup="dialog"/);
-    assert.match(html, /rel="noopener noreferrer"/);
+    assert.match(html, /rel="noopener noreferrer nofollow"/, 'the redirect link is nofollow');
     assert.doesNotMatch(html, /role="dialog"/, 'the card renders only after a desktop click');
     assert.doesNotMatch(html, /<script/);
     assert.doesNotMatch(html, /zalo\.me\//, 'the page never links zalo.me directly; the redirect logs the click');

@@ -33,7 +33,7 @@ function CtaLink({ link, className, onNavigate, track }: { link: Link; className
   return (
     <a
       href={external || anchor ? link.href : getLocalizedHref(link.href, locale)}
-      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      {...(external ? { target: '_blank', rel: link.href.startsWith('/go/') ? 'noopener noreferrer nofollow' : 'noopener noreferrer' } : link.href.startsWith('/go/') ? { rel: 'nofollow' } : {})}
       onClick={(event) => {
         try {
           trackCtaClick({ label: track, type: 'primary', segment: 'parent_student' });
@@ -196,7 +196,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
                   className="flex h-full items-center gap-3 rounded-2xl border border-sb-border bg-sb-cream p-3 transition hover:border-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
                   data-home-tile={tile.anchor}
                 >
-                  <img src={`/images/products/${tile.image}.webp`} alt="" width={480} height={480} loading="lazy" decoding="async" className="h-16 w-16 flex-none rounded-xl object-cover" />
+                  <img src={`/images/products/${tile.image}.webp`} alt={locale === 'vi' ? `${tile.title}, bìa sản phẩm` : `${tile.title}, product cover`} width={480} height={480} loading="lazy" decoding="async" className="h-16 w-16 flex-none rounded-xl object-cover" />
                   <span className="min-w-0">
                     <span className="block font-extrabold text-sb-forest">{tile.title}</span>
                     <span className="block text-sm text-sb-slate">{tile.promise}</span>
@@ -390,7 +390,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
                       <a
                         href="/go/zalo?utm_source=home&utm_content=reading-zalo"
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         className={`${SECONDARY_BTN} flex-1`}
                         onClick={() => recordClientEvent({ event: 'checkout_start' })}
                       >

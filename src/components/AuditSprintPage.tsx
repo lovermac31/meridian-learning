@@ -95,7 +95,7 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
                 {content.hero.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
-              <a href="/go/zalo?utm_source=audit-sprint&utm_content=discovery-call"
+              <a rel="nofollow" href="/go/zalo?utm_source=audit-sprint&utm_content=discovery-call"
                 className="backdrop-blur-md bg-white/5 border border-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all"
               >
                 {content.hero.secondaryCta}
@@ -380,7 +380,7 @@ export const AuditSprintPage = ({ locale, onBack, onGetStarted, onNavigate }: Au
                 {content.cta.primaryCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
-              <a href="/go/zalo?utm_source=audit-sprint&utm_content=discovery-call"
+              <a rel="nofollow" href="/go/zalo?utm_source=audit-sprint&utm_content=discovery-call"
                 className="border border-jurassic-dark/15 text-jurassic-dark px-8 py-4 rounded-full font-bold hover:border-jurassic-dark/30 hover:bg-jurassic-dark/4 transition-all"
               >
                 {content.cta.secondaryCta}

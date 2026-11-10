@@ -85,7 +85,11 @@ export function CardLink({ card, locale }: { card: ProductCard; locale: Locale }
     </p>
   );
 }
-export type SampleCopy = { heading: string; note: string; open: string };
+export type SampleCopy = { heading: string; note: string; open: string; cover: string; page: string };
+
+/** Short factual alt text for a product cover or a sample page (templates live in the product copy, one per language). */
+export const coverAlt = (copy: SampleCopy, title: string) => copy.cover.replace('{title}', title);
+export const samplePageAlt = (copy: SampleCopy, title: string, n: number) => copy.page.replace('{title}', title).replace('{n}', String(n));
 
 // "See a sample" (Jay, 27 Oct 2026): real pages from the product, shown above the price and the order button.
 // Renders only for a card whose sample files are in public/samples (the entry's `sample` stem), so nothing is broken.
@@ -117,7 +121,7 @@ export function Sample({ card, copy, onOpen, compact = false }: { card: ProductC
               src={src}
               srcSet={files.thumbSrcSets[i]}
               sizes={compact ? '(min-width: 768px) 72px, calc((100vw - 120px) / 3)' : '(min-width: 768px) 135px, calc((100vw - 120px) / 3)'}
-              alt=""
+              alt={samplePageAlt(copy, card.title, i + 1)}
               width={600}
               height={849}
               loading="lazy"
@@ -292,7 +296,7 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
             <p className="text-sm font-bold">{copy.end}</p>
             <p className="mt-1 text-lg font-bold">{card.price} <span className="text-sm font-semibold">{card.unit}</span></p>
             <div className="story-cta mt-2">
-              <a className="insights-button-primary" href={href} data-viewer-order={card.id} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+              <a className="insights-button-primary" href={href} data-viewer-order={card.id} {...(external ? { target: '_blank', rel: 'noopener noreferrer nofollow' } : {})}>
                 {card.cta}
               </a>
             </div>
@@ -488,7 +492,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
     <li className="product-row scroll-mt-24 max-md:scroll-mt-36" id={card.id} hidden={!visible}>
       {card.image ? (
         <div className="product-row-icon">
-          <img {...productImageSources(card.image)} sizes="72px" alt="" width={480} height={480} loading="lazy" decoding="async" className="product-row-image aspect-square" data-product-image={card.id} />
+          <img {...productImageSources(card.image)} sizes="72px" alt={coverAlt(sample, card.title)} width={480} height={480} loading="lazy" decoding="async" className="product-row-image aspect-square" data-product-image={card.id} />
         </div>
       ) : null}
       <div className="product-row-head">
@@ -526,7 +530,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
             {locale === 'vi' ? 'Mua ngay' : 'Buy'}
           </a>
         ) : null}
-        <a className="insights-button-secondary" href={href} data-cta={`product-${card.id}`} onClick={() => { if (external) recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined }); }} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{card.cta}</a>
+        <a className="insights-button-secondary" href={href} data-cta={`product-${card.id}`} onClick={() => { if (external) recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined }); }} {...(external ? { target: '_blank', rel: 'noopener noreferrer nofollow' } : {})}>{card.cta}</a>
         {card.video ? <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="product-row-watch" data-watch={card.id}><span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}</a> : null}
         {external ? <p className="mt-2 text-xs" data-order-code={card.id}>{code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}</p> : null}
         {card.paypal ? <PayPalOption card={card} locale={locale} source={source} compact /> : null}
@@ -683,7 +687,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
             </div>
             {section.id === 'ielts' ? (
               <div className="product-row product-row-free" data-ielts-app-card="">
-                <div className="product-row-icon"><img src="/images/w/ielts-app-screen-640.webp" alt="" width={640} height={400} loading="lazy" decoding="async" className="product-row-image" /></div>
+                <div className="product-row-icon"><img src="/images/w/ielts-app-screen-640.webp" alt={locale === 'vi' ? `Màn hình ứng dụng: ${IELTS_APP_CARD[locale].title}` : `App screen: ${IELTS_APP_CARD[locale].title}`} width={640} height={400} loading="lazy" decoding="async" className="product-row-image" /></div>
                 <div className="product-row-head">
                   <p className="product-row-meta"><span className="product-row-pill">{IELTS_APP_CARD[locale].label}</span><span className="product-row-pill" data-ielts-app-adults="">{ieltsApp.adults}</span><span>{ieltsApp.eyebrow}</span></p>
                   <h3><a href={ieltsAppHref('products', locale)} target="_blank" rel="noopener noreferrer" data-cta="ielts-app-products">{IELTS_APP_CARD[locale].title}</a></h3>
@@ -757,7 +761,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
               className="insights-button-primary"
               href={withFirstTouch(zaloHref(source), touch)}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               data-cta="products-closing"
               onClick={() => recordClientEvent({ event: 'checkout_start', utm_source: source ?? undefined })}
             >

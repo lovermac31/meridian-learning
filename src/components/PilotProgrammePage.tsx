@@ -158,7 +158,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
                 >
                   {content.hero.consultationCta}
                 </button>
-                <a href="/go/zalo?utm_source=pilot-programme&utm_content=discovery-call"
+                <a rel="nofollow" href="/go/zalo?utm_source=pilot-programme&utm_content=discovery-call"
                   className="text-white/75 px-4 py-4 font-bold hover:text-white transition-colors"
                 >
                   {content.hero.secondaryCta}
@@ -901,7 +901,7 @@ export const PilotProgrammePage = ({ locale, onBack, onGetStarted, onNavigate }:
               >
                 {content.cta.consultationCta}
               </button>
-              <a href="/go/zalo?utm_source=pilot-programme&utm_content=discovery-call"
+              <a rel="nofollow" href="/go/zalo?utm_source=pilot-programme&utm_content=discovery-call"
                 className="text-white/75 px-4 py-4 font-bold hover:text-white transition-colors"
               >
                 {content.cta.secondaryCta}

@@ -27,7 +27,7 @@ const EVIDENCE_WEBPAGE_LD = {
   "@type": "WebPage",
   "@id": "https://jurassicenglish.com/evidence#webpage",
   url: "https://jurassicenglish.com/evidence",
-  name: "Evidence, Student Progress, and Responsible Claims | Jurassic English™",
+  name: "Evidence and Responsible Claims | Jurassic English™",
   description:
     "How Jurassic English™ tracks learning through visible student work, diagnostic evidence, portfolio artifacts, and teacher-reviewed progress.",
   isPartOf: { "@id": "https://jurassicenglish.com/#website" },
@@ -38,7 +38,7 @@ const EVIDENCE_WEBPAGE_LD = {
 // Page-specific metadata (Sprint 1 — preserved unchanged in Sprint 2).
 export const metadata: Metadata = {
   title:
-    "Evidence, Student Progress, and Responsible Claims | Jurassic English™",
+    "Evidence and Responsible Claims | Jurassic English™",
   description:
     "How Jurassic English™ tracks learning through visible student work, diagnostic evidence, portfolio artifacts, and teacher-reviewed progress.",
   alternates: {
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "Evidence, Student Progress, and Responsible Claims | Jurassic English™",
+      "Evidence and Responsible Claims | Jurassic English™",
     description:
       "Visible student work, diagnostic evidence, portfolio artifacts, and teacher-reviewed progress — the Jurassic English™ Claims and Evidence Policy.",
     type: "website",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Evidence, Student Progress, and Responsible Claims | Jurassic English™",
+      "Evidence and Responsible Claims | Jurassic English™",
     description:
       "How Jurassic English™ tracks learning through visible student work, diagnostic evidence, portfolio artifacts, and teacher-reviewed progress.",
     images: ["/images/student-academy-page/student-academy-hero.webp"],

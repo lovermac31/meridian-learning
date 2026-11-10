@@ -28,9 +28,9 @@ const STUDENT_ACADEMY_WEBPAGE_LD = {
   "@type": "WebPage",
   "@id": "https://jurassicenglish.com/student-academy#webpage",
   url: "https://jurassicenglish.com/student-academy",
-  name: "Jurassic English™ Student Academy | Literature-Based English Thinking for Students",
+  name: "Student Academy: Literature-Based English | Jurassic English",
   description:
-    "Literature-based English for ages 6–14: real storybooks, confident speaking, evidence-backed writing and a written monthly Growth Portfolio. Start with a 45-minute Reading & Thinking Placement Consultation.",
+    "Literature-based English for ages 6–14: real storybooks, speaking, evidence-backed writing and a Growth Portfolio. Start with a 45-minute consultation.",
   isPartOf: { "@id": "https://jurassicenglish.com/#website" },
   about: { "@id": "https://jurassicenglish.com/#student-academy-course" },
   inLanguage: "en",
@@ -61,9 +61,9 @@ const STUDENT_ACADEMY_BREADCRUMB_LD = {
 
 export const metadata: Metadata = {
   title:
-    "Jurassic English™ Student Academy | Literature-Based English Thinking for Students",
+    "Student Academy: Literature-Based English | Jurassic English",
   description:
-    "Literature-based English for ages 6–14: real storybooks, confident speaking, evidence-backed writing and a written monthly Growth Portfolio. Start with a 45-minute Reading & Thinking Placement Consultation.",
+    "Literature-based English for ages 6–14: real storybooks, speaking, evidence-backed writing and a Growth Portfolio. Start with a 45-minute consultation.",
   alternates: {
     canonical: "/student-academy",
   },
