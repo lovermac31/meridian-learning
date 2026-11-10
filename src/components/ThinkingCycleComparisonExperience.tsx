@@ -138,20 +138,6 @@ export const ThinkingCycleComparisonExperience = ({
                       {pageContent.actions.viewStageDetails}
                       <ChevronRight className="w-4 h-4" />
                     </RouteLink>
-                    <a
-                      href={stage.studentManualPath}
-                      download={stage.studentManualFileName}
-                      className="inline-flex items-center gap-2 rounded-full border border-jurassic-soft bg-white px-5 py-3 text-sm font-semibold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent"
-                    >
-                      {pageContent.actions.studentManual}
-                    </a>
-                    <a
-                      href={stage.teacherManualPath}
-                      download={stage.teacherManualFileName}
-                      className="inline-flex items-center gap-2 rounded-full border border-jurassic-soft bg-white px-5 py-3 text-sm font-semibold text-jurassic-dark transition hover:border-jurassic-accent hover:text-jurassic-accent"
-                    >
-                      {pageContent.actions.teacherManual}
-                    </a>
                   </div>
                 </div>
               </div>
