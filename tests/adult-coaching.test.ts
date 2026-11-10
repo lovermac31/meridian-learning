@@ -86,7 +86,8 @@ test('adult route inherits English canonical, description, Article schema and pr
   assert.ok(getExpectedPublicIndexableRoutes().includes(route));
   assert.ok(getPrerenderRoutes().includes(route));
   const metadata = resolveRouteMetadata(route);
-  assert.equal(metadata.title, `${article.title} | Jurassic English™`);
+  assert.equal(metadata.title, `${article.seoTitle} | Jurassic English™`);
+  assert.ok(metadata.title.length <= 60, 'title fits in a search result');
   assert.equal(metadata.description, article.description);
   assert.equal(metadata.canonical, `https://jurassicenglish.com${route}`);
   assert.equal(metadata.robots, 'index, follow');

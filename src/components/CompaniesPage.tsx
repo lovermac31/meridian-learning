@@ -53,7 +53,7 @@ export const CompaniesPage = ({ locale, onBack, onNavigate }: CompaniesPageProps
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-white/75">{content.hero.body}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a href="/go/zalo?utm_source=companies&utm_content=book-call"
+              <a rel="nofollow" href="/go/zalo?utm_source=companies&utm_content=book-call"
                 className="inline-flex items-center gap-2 rounded-xl bg-jurassic-accent px-6 py-3 text-sm font-bold text-jurassic-dark transition hover:brightness-110"
               >
                 {content.hero.primaryCta}
@@ -173,7 +173,7 @@ export const CompaniesPage = ({ locale, onBack, onNavigate }: CompaniesPageProps
         <h2 className="mt-3 text-3xl font-extrabold text-jurassic-dark">{content.cta.title}</h2>
         <p className="mt-4 text-base leading-relaxed text-jurassic-dark/70">{content.cta.body}</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <a href="/go/zalo?utm_source=companies&utm_content=book-call"
+          <a rel="nofollow" href="/go/zalo?utm_source=companies&utm_content=book-call"
             className="inline-flex items-center gap-2 rounded-xl bg-jurassic-accent px-6 py-3 text-sm font-bold text-jurassic-dark transition hover:brightness-110"
           >
             {content.cta.primaryCta}

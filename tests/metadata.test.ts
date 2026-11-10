@@ -347,7 +347,7 @@ test('head manager replaces stale public metadata when navigating to a private r
   applyHeadMetadata(resolveRouteMetadata('/framework'));
 
   assert.equal(document.documentElement.lang, 'en');
-  assert.equal(document.title, 'Literature-Based Critical Thinking Framework | Jurassic English™');
+  assert.equal(document.title, 'Critical Thinking Framework | Jurassic English™');
   assert.equal(
     document.head.querySelector<FakeElement>('link[rel="canonical"]')?.href,
     'https://jurassicenglish.com/framework',

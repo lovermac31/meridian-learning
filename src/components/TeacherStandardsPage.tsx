@@ -100,7 +100,7 @@ export const TeacherStandardsPage = ({ onBack, onNavigate }: TeacherStandardsPag
             </motion.p>
 
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-              <a href="/go/zalo?utm_source=teacher-standards&utm_content=book-call"
+              <a rel="nofollow" href="/go/zalo?utm_source=teacher-standards&utm_content=book-call"
                 className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.hero.primaryCta}
@@ -400,7 +400,7 @@ export const TeacherStandardsPage = ({ onBack, onNavigate }: TeacherStandardsPag
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mb-4">
-              <a href="/go/zalo?utm_source=teacher-standards&utm_content=book-call"
+              <a rel="nofollow" href="/go/zalo?utm_source=teacher-standards&utm_content=book-call"
                 className="inline-flex items-center gap-2 bg-jurassic-accent text-jurassic-dark px-8 py-4 rounded-full font-bold glow-hover shadow-premium group"
               >
                 {content.cta.primaryCta}

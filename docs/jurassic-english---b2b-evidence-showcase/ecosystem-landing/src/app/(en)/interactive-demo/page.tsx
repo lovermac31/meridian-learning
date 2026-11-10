@@ -26,7 +26,7 @@ const INTERACTIVE_DEMO_WEBPAGE_LD = {
   "@type": "WebPage",
   "@id": "https://jurassicenglish.com/interactive-demo#webpage",
   url: "https://jurassicenglish.com/interactive-demo",
-  name: "Interactive Demo | Jurassic English™ Student Academy Pathway Explorer",
+  name: "Interactive Demo: Academy Pathway | Jurassic English™",
   description:
     "Preview how a Jurassic English™ student moves from first story claims at Level 1 to advanced exam-transfer reasoning at Level 5.",
   isPartOf: { "@id": "https://jurassicenglish.com/#website" },
@@ -36,9 +36,9 @@ const INTERACTIVE_DEMO_WEBPAGE_LD = {
 
 export const metadata: Metadata = {
   title:
-    "Interactive Demo | Jurassic English™ Student Academy Pathway Explorer",
+    "Interactive Demo: Academy Pathway | Jurassic English™",
   description:
-    "Preview how a Jurassic English™ student moves from first story claims at Level 1 to advanced exam-transfer reasoning at Level 5. A guided, parent-friendly look at the five-level pathway.",
+    "Preview how a Jurassic English™ student moves from first story claims at Level 1 to advanced exam-transfer reasoning at Level 5, in a guided demo.",
   alternates: {
     canonical: "/interactive-demo",
   },

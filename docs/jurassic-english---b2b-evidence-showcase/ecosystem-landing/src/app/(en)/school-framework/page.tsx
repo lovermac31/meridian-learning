@@ -37,7 +37,7 @@ const SCHOOL_FRAMEWORK_WEBPAGE_LD = {
   url: "https://jurassicenglish.com/school-framework",
   name: "School Framework | Jurassic English™",
   description:
-    "A coherent literature-based English curriculum for schools and centers — curriculum alignment, teacher consistency, visible portfolio evidence, and a premium academic English pathway.",
+    "A coherent literature-based English curriculum for schools and centers: curriculum alignment, teacher consistency and visible portfolio evidence.",
   isPartOf: { "@id": "https://jurassicenglish.com/#website" },
   about: { "@id": "https://jurassicenglish.com/#organization" },
   audience: {
@@ -51,7 +51,7 @@ const SCHOOL_FRAMEWORK_WEBPAGE_LD = {
 export const metadata: Metadata = {
   title: "School Framework | Jurassic English™",
   description:
-    "A coherent literature-based English curriculum for schools and centers — curriculum alignment, teacher consistency, visible portfolio evidence, and a premium academic English pathway.",
+    "A coherent literature-based English curriculum for schools and centers: curriculum alignment, teacher consistency and visible portfolio evidence.",
   alternates: {
     canonical: "/school-framework",
   },

@@ -36,6 +36,6 @@ export function PayStep({ locale, amount, memo, productId }: { locale: Locale; a
           : 'The automatic payment QR could not be loaded. Please reload or contact Mr. Jay on Zalo. Do not use a different QR or enter the amount manually.'}
       </p>
     )}
-    <a className="insights-button-primary mt-5" href={`/go/zalo?utm_source=reserve&utm_content=${encodeURIComponent(productId)}-after-submit`} data-after-submit-zalo>{vi ? 'Hỏi thầy Jay qua Zalo' : 'Ask Mr. Jay on Zalo'}</a>
+    <a rel="nofollow" className="insights-button-primary mt-5" href={`/go/zalo?utm_source=reserve&utm_content=${encodeURIComponent(productId)}-after-submit`} data-after-submit-zalo>{vi ? 'Hỏi thầy Jay qua Zalo' : 'Ask Mr. Jay on Zalo'}</a>
   </div>;
 }
