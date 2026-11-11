@@ -25,7 +25,7 @@ import {
 } from '../i18n/content/products';
 import { fetchSampleText, type SampleTextDocument } from '../lib/sampleText';
 import { SamplePackForm } from './SamplePackForm';
-import { PRODUCT_FORMER_IDS, pausedCopy, pausedWaitlistHref } from '../i18n/content/products';
+import { PAUSED_COPY, PRODUCT_FORMER_IDS, pausedWaitlistHref } from '../i18n/content/products';
 import { FAQ_QUESTIONS, productPath } from '../i18n/content/productSeo';
 import { getOverhaulContent } from '../i18n/content/overhaul';
 import { ieltsAppHref } from '../lib/ieltsApp';
@@ -93,9 +93,9 @@ export function CreditLine({ card }: { card: ProductCard }) {
 
 /** Audit fix 4 (11 Nov 2026): a paused product shows this instead of every buy, VietQR, PayPal and Zalo order button. */
 export function PausedNote({ card, locale }: { card: ProductCard; locale: Locale }) {
-  const t = pausedCopy(card.paused, locale);
+  const t = PAUSED_COPY[locale];
   return (
-    <div className="mt-3 rounded-xl border-l-4 border-[#9B1C31] bg-[#F3E8CF] p-4 text-[#13294B]" data-paused-waitlist={card.id} data-paused-kind={card.paused === 'hold' ? 'hold' : 'rewrite'}>
+    <div className="mt-3 rounded-xl border-l-4 border-[#9B1C31] bg-[#F3E8CF] p-4 text-[#13294B]" data-paused-waitlist={card.id}>
       <p className="font-semibold">{t.note}</p>
       <a className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[#13294B] px-5 py-2 text-sm font-bold underline-offset-4 hover:underline" style={{ color: '#F3E8CF' }} href={pausedWaitlistHref(card.id)} target="_blank" rel="noopener noreferrer nofollow" data-paused-zalo={card.id}>{t.cta}</a>
     </div>
@@ -453,7 +453,7 @@ function AudienceHeroes({ locale, sections, sampleOpen, categoryNames, countLabe
   countLabel: string;
 }) {
   const cards = sections.flatMap((section) => section.cards);
-  const live = (id?: string) => (id ? cards.find((card) => card.id === id && !(card as { paused?: boolean | 'hold' }).paused) : undefined);
+  const live = (id?: string) => (id ? cards.find((card) => card.id === id && !(card as { paused?: boolean }).paused) : undefined);
   return (
     <section className="mx-auto max-w-6xl px-5 pt-8" aria-label={AUDIENCE_HEROES.map((hero) => sections.find((entry) => entry.id === hero.section)?.heading).filter(Boolean).join(' · ')} data-audience-heroes="">
       {/* Rows are shared across the three cards (products.css, .products-audience): heading, title, text, price, extra link and button

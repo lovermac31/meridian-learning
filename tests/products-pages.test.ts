@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { getExpectedPublicIndexableRoutes, getPrerenderRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata';
-import { pausedCopy, PRODUCTS } from '../src/i18n/content/products';
+import { PAUSED_COPY, PRODUCTS } from '../src/i18n/content/products';
 import { PAGE_PRODUCTS, PRODUCT_SEO, getProductByPath, relatedProducts } from '../src/i18n/content/productSeo';
 import { ProductPage } from '../src/components/ProductPage';
 import { ProductsPage } from '../src/components/ProductsPage';
@@ -81,7 +81,7 @@ test('page: H1 distinguishes the localized offer, with the copy, sample viewer b
     if (p.paused) {
       assert.doesNotMatch(html, /data-cta="product-page-|data-buy-now=|data-paypal-link=|data-order-code=/, `${p.id}: no buy button`);
       assert.match(html, new RegExp(`data-paused-waitlist="${p.id}"`));
-      assert.ok(html.includes(pausedCopy(p.paused, locale).note), `${p.id}: waitlist text`);
+      assert.ok(html.includes(PAUSED_COPY[locale].note), `${p.id}: waitlist text`);
     } else assert.match(html, new RegExp(`data-cta="product-page-${p.id}"`));
     assert.match(html, /aria-label="Breadcrumb"/);
     assert.equal(html.match(/data-related="/g)?.length, 3, `${p.id}: 3 related`);
