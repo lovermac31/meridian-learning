@@ -113,7 +113,9 @@ export type Product = {
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
   // Paused for sale (audit 11 Nov 2026, Jay: "Approve all four"): the page and URL stay, but there is no buy, VietQR,
   // PayPal or Zalo order button; the card and page show PAUSED_COPY with a Zalo waitlist link instead.
-  paused?: boolean;
+  // 'hold' (Jay, 11 Nov 2026, P1 directive): a temporary hold, shown with the neutral HOLD_COPY notice. It behaves
+  // exactly like `true` everywhere else: no checkout, no payment code, OutOfStock, page, price and SEO text kept.
+  paused?: boolean | 'hold';
   // The pre-purchase credit line (audit fix 7, 11 Nov 2026): how the book was made, shown above the price, matching
   // the line printed in the PDF.
   credit?: { en: string; vi: string };
@@ -150,6 +152,13 @@ export const PAUSED_COPY: Record<Locale, { note: string; cta: string }> = {
   en: { note: 'Being rewritten onto original Jurassic English stories: ask about the waitlist on Zalo.', cta: 'Ask about the waitlist' },
   vi: { note: 'Đang được viết lại trên các truyện gốc của Jurassic English: hỏi về danh sách chờ qua Zalo.', cta: 'Hỏi về danh sách chờ' },
 };
+/** Temporary hold (Jay, 11 Nov 2026: "Display a neutral temporary-unavailability notice in English and Vietnamese"). */
+export const HOLD_COPY: Record<Locale, { note: string; cta: string }> = {
+  en: { note: 'Temporarily unavailable while we update this pack. Message us on Zalo and we will tell you when it is back.', cta: 'Ask when it is back' },
+  vi: { note: 'Tạm thời chưa bán trong lúc chúng tôi cập nhật bộ tài liệu này. Nhắn Zalo để được báo khi mở bán lại.', cta: 'Hỏi khi nào mở bán lại' },
+};
+/** The notice a paused product shows: the neutral hold notice, or the rewrite waitlist note. */
+export const pausedCopy = (paused: boolean | 'hold' | undefined, locale: Locale) => (paused === 'hold' ? HOLD_COPY : PAUSED_COPY)[locale];
 // utm_source=products comes last, as on every /products link (tests/products.test.ts).
 export const pausedWaitlistHref = (id: string) => `/go/zalo/${id}?utm_content=${id}-waitlist&utm_source=products`;
 
@@ -360,6 +369,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'printable-pack',
+    // On hold from 11 Nov 2026 (Jay, P1 directive): it contains Lina and the Orchard Map, whose art is being replaced.
+    paused: 'hold',
     video: 'printable-pack',
     live: true,
     section: 'families',
@@ -390,6 +401,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'parent-pack-l1',
+    // On hold from 11 Nov 2026 (Jay, P1 directive): it contains Lina and the Orchard Map, whose art is being replaced.
+    paused: 'hold',
     video: 'parent-pack-l1',
     live: true,
     section: 'families',
@@ -1638,7 +1651,7 @@ const PAGE: Record<Locale, PageCopy> = {
 
 export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books'> & {
   link?: { href: string; label: string };
-  paused?: boolean;
+  paused?: boolean | 'hold';
   credit?: string;
 };
 

@@ -101,7 +101,9 @@ test('meeting CTAs use attributed Zalo links and never render payment instructio
 
 test('paused products: the server list matches products.ts, and no paused product takes a new order (audit fix 4)', () => {
   assert.deepEqual([...PAUSED_PRODUCTS].sort(), PRODUCTS.filter(p => p.paused).map(p => p.id).sort());
-  assert.deepEqual([...PAUSED_PRODUCTS].sort(), ['student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5', 'teacher-bundle', 'teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5']);
+  assert.deepEqual([...PAUSED_PRODUCTS].sort(), ['parent-pack-l1', 'printable-pack', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5', 'teacher-bundle', 'teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5']);
+  // 11 Nov 2026 (Jay, P1 directive): the two packs that contain Lina are on a temporary hold, with the neutral notice.
+  assert.deepEqual(PRODUCTS.filter(p => p.paused === 'hold').map(p => p.id).sort(), ['parent-pack-l1', 'printable-pack']);
 });
 
 test('Mango pilot: 49000₫ with order code MANGO-L2 and its own memo namespace (audit fix 1)', async () => {

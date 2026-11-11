@@ -265,7 +265,7 @@ test('sample-pack server logs never contain the submitted or normalized phone nu
 
 // Full handler coverage uses only the synthetic Notion/RPC transport above. The nine paused products (audit fix 4,
 // 11 Nov 2026) are covered by the rejection test below instead.
-for (const [i, product] of ['baseline', 'one-to-one', 'printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'teacher-pack-l1', 'student-workbook-l1', 'mango-l2', 'word-fossil-flashcards-l1', 'thinking-cycle-set', 'thinking-cycle-posters', 'reasoning-assessment-kit', 'centre-licence', 'teacher-training-course', 'pilot-class-kit', 'curriculum-overview', 'ielts-speaking-ladder', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'writing-baseline', 'ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-essay-bank-task2', 'ielts-writing-teacher-pack'].entries()) {
+for (const [i, product] of ['baseline', 'one-to-one', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'teacher-pack-l1', 'student-workbook-l1', 'mango-l2', 'word-fossil-flashcards-l1', 'thinking-cycle-set', 'thinking-cycle-posters', 'reasoning-assessment-kit', 'centre-licence', 'teacher-training-course', 'pilot-class-kit', 'curriculum-overview', 'ielts-speaking-ladder', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'writing-baseline', 'ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-essay-bank-task2', 'ielts-writing-teacher-pack'].entries()) {
   test(`${product}: only name and Zalo, server memo persisted to CRM, stable retries`, async () => {
     const database = { ids: new Set<string>() };
     const body = {

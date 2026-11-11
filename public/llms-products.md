@@ -48,7 +48,8 @@
 - English description: Print-ready PDFs of 3 original Jurassic English Level 1 storybooks for ages 4–8. One-family licence, print as many copies as you like. 149.000₫.
 - Vietnamese title: Truyện tiếng Anh cho bé 4–8 tuổi bản in PDF
 - VND price: 149.000 VND
-- PayPal USD: available on the product page
+- Availability: temporarily unavailable, not for sale while the pack is updated (ask on Zalo)
+- PayPal USD: not listed
 - Sample: view-only pages on the product page
 
 ### Level 1 Parent Home Reading Pack
@@ -58,7 +59,8 @@
 - English description: A ten-minute daily English reading routine for parents of children aged 4–8: bilingual guide, three storybooks, 12 activity pages, progress chart. 249.000₫.
 - Vietnamese title: Dạy con đọc tiếng Anh tại nhà (4–8 tuổi) | Level 1
 - VND price: 249.000 VND
-- PayPal USD: available on the product page
+- Availability: temporarily unavailable, not for sale while the pack is updated (ask on Zalo)
+- PayPal USD: not listed
 - Sample: view-only pages on the product page
 
 ### Level 2 Parent Home Reading Pack
