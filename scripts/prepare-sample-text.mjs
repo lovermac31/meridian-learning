@@ -45,8 +45,7 @@ if (generate || verifySource) {
 }
 const expected = new Set(config.map(p => `${p.id}-text.json`));
 for (const file of fs.readdirSync(publicPages).filter(p => p.endsWith('-text.json'))) if (!expected.has(file)) throw new Error(`Unexpected text asset ${file}`);
-// Eight since 11 Nov 2026: the Printable Pack's page 15, where the Lina illustration is covered (owner directive, P1 Lina hold).
-if (Object.keys(SAMPLE_PAGE_REVISIONS).length !== 8) throw new Error('Expected only the eight approved image cache revisions');
+if (Object.keys(SAMPLE_PAGE_REVISIONS).length !== 16) throw new Error('Expected only the sixteen approved image cache revisions');
 for (const [file, revision] of Object.entries(SAMPLE_PAGE_REVISIONS)) {
   if (!/^[a-z0-9-]+-pg[0-9]{2}\.webp$/.test(file) || !/^[a-f0-9]{12}$/.test(revision) || hash(fs.readFileSync(path.join(publicPages, file))).slice(0, 12) !== revision) throw new Error('Approved image cache revision does not match public content');
 }

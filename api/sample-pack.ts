@@ -62,8 +62,7 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
 };
 
 // Paused for sale (audit fix 4, 11 Nov 2026): no new payment code or order. Mirrors `paused: true` in products.ts (a test checks).
-// 11 Nov 2026 (Jay, P1 directive): printable-pack and parent-pack-l1 are on a temporary hold while Lina's art is replaced.
-export const PAUSED_PRODUCTS = new Set(['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5', 'printable-pack', 'parent-pack-l1']);
+export const PAUSED_PRODUCTS = new Set(['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5']);
 
 // Audit fix 6 (11 Nov 2026): payment codes are made only when a buyer presses "Get my payment code", and that click has
 // its own rate-limit key with a higher ceiling, because Vietnamese mobile carriers put many buyers behind one IP. The

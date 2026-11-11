@@ -265,7 +265,7 @@ test('sample-pack server logs never contain the submitted or normalized phone nu
 
 // Full handler coverage uses only the synthetic Notion/RPC transport above. The nine paused products (audit fix 4,
 // 11 Nov 2026) are covered by the rejection test below instead.
-for (const [i, product] of ['baseline', 'one-to-one', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'teacher-pack-l1', 'student-workbook-l1', 'mango-l2', 'word-fossil-flashcards-l1', 'thinking-cycle-set', 'thinking-cycle-posters', 'reasoning-assessment-kit', 'centre-licence', 'teacher-training-course', 'pilot-class-kit', 'curriculum-overview', 'ielts-speaking-ladder', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'writing-baseline', 'ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-essay-bank-task2', 'ielts-writing-teacher-pack'].entries()) {
+for (const [i, product] of ['baseline', 'one-to-one', 'printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'teacher-pack-l1', 'student-workbook-l1', 'mango-l2', 'word-fossil-flashcards-l1', 'thinking-cycle-set', 'thinking-cycle-posters', 'reasoning-assessment-kit', 'centre-licence', 'teacher-training-course', 'pilot-class-kit', 'curriculum-overview', 'ielts-speaking-ladder', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'writing-baseline', 'ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-essay-bank-task2', 'ielts-writing-teacher-pack'].entries()) {
   test(`${product}: only name and Zalo, server memo persisted to CRM, stable retries`, async () => {
     const database = { ids: new Set<string>() };
     const body = {
@@ -307,8 +307,7 @@ test('non-SC checkout fails closed without a stored memo even when email works',
   assert.equal(result.reservationCalls, 0);
 });
 
-// The last two are the packs held on 11 Nov 2026 (owner directive, P1 Lina hold): the same full-handler refusal applies.
-const PAUSED = ['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5', 'printable-pack', 'parent-pack-l1'];
+const PAUSED = ['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5'];
 for (const [i, product] of PAUSED.entries()) {
   test(`${product}: paused, so neither a payment code nor an order is created (audit fix 4)`, async () => {
     const prepare = await submit({ intent: 'prepare_payment', product, submissionKey: '44444444-4444-4444-8444-444444444444', website: '' }, `198.51.100.${200 + i}`);

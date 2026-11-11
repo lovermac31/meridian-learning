@@ -80,9 +80,10 @@ test('build-time preparation rejects unknown/incomplete CLI arguments instead of
 });
 
 
-// Eight since 11 Nov 2026 (Jay, P1 Lina hold): printable-pack-l1-pg15 has its Lina illustration covered until the new art is approved.
-test('only the eight approved changed viewer images receive content-bound browser cache revisions', () => {
-  const expected = ['ielts-writing-teacher-pack-pg01.webp', 'parent-pack-l2-pg01.webp', 'parent-pack-l2-pg02.webp', 'parent-pack-l2-pg03.webp', 'parent-pack-l2-pg04.webp', 'parent-pack-l2-pg09.webp', 'parent-pack-l2-pg10.webp', 'printable-pack-l1-pg15.webp'];
+test('only the sixteen approved changed viewer images receive content-bound browser cache revisions', () => {
+  const expected = ['ielts-writing-teacher-pack-pg01.webp', 'parent-pack-l2-pg01.webp', 'parent-pack-l2-pg02.webp', 'parent-pack-l2-pg03.webp', 'parent-pack-l2-pg04.webp', 'parent-pack-l2-pg09.webp', 'parent-pack-l2-pg10.webp',
+    // 11 Nov 2026: Printable Pack v2 (new Lina art; v2.1 footer on the picture pages).
+    ...[5, 6, 7, 8, 9, 10, 11, 13, 15].map(n => `printable-pack-l1-pg${String(n).padStart(2, '0')}.webp`)];
   assert.deepEqual(Object.keys(SAMPLE_PAGE_REVISIONS).sort(), expected.sort());
   let revised = 0;
   for (const product of PRODUCTS.filter(p => p.group !== 'bundles')) for (const url of productSampleFiles(product.sample!).pages) {
@@ -94,5 +95,5 @@ test('only the eight approved changed viewer images receive content-bound browse
       assert.equal(parsed.searchParams.get('v'), prefix); revised++;
     } else assert.equal(parsed.search, '', `${file}: unchanged browser URL`);
   }
-  assert.equal(revised, 8);
+  assert.equal(revised, 16);
 });
