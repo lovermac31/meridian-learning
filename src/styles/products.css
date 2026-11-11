@@ -40,8 +40,9 @@
 .products-overview button { display: flex; flex-direction: column; justify-content: flex-start; gap: .15rem; width: 100%; min-height: 60px; text-align: left; border-radius: .75rem; padding: .5rem .7rem; color: var(--color-sb-forest); background: transparent; font-size: .75rem; line-height: 1.35; }
 .products-overview button:hover { background: var(--color-sb-cream); }
 .products-overview button[aria-pressed=true] { background: var(--color-sb-sage); box-shadow: inset 0 0 0 2px var(--color-sb-forest); }
-.products-overview-name { display: flex; align-items: center; gap: .45rem; font-size: .95rem; font-weight: 800; }
-.products-overview-name::before { content: ''; flex: none; width: .5rem; height: .5rem; border-radius: 999px; background: var(--color-sb-border); }
+/* The dot sits on the first line of the name, so it stays level with the other tiles' dots when a name wraps. */
+.products-overview-name { display: flex; align-items: flex-start; gap: .45rem; font-size: .95rem; font-weight: 800; }
+.products-overview-name::before { content: ''; flex: none; width: .5rem; height: .5rem; margin-top: calc((1.35em - .5rem) / 2); border-radius: 999px; background: var(--color-sb-border); }
 .products-overview button[aria-pressed=true] .products-overview-name::before { background: var(--color-sb-sage-ink); }
 .products-overview-sub { color: var(--color-sb-slate); }
 /* Five tiles: the odd one out spans the phone's two columns. */
@@ -70,6 +71,25 @@
 }
 @media (min-width: 1024px) {
   .products-workbooks ul { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+}
+/* Level picker: the last line (count and price) sits on the card's bottom edge, so the prices line up when a title wraps. */
+.products-workbooks a > span:last-child { margin-top: auto; }
+
+/* Audience cards (For families, For teachers, IELTS). Without this the cards are plain columns and the button sits wherever
+   the text ends. Three across: every card uses the same six row tracks, so the titles, prices and buttons line up exactly. */
+.products-audience-card > p { margin-bottom: 0; }
+@media (min-width: 768px) {
+  @supports (grid-template-rows: subgrid) {
+    .products-audience { grid-template-rows: repeat(6, auto); row-gap: 0; }
+    .products-audience-card { display: grid; grid-row: span 6; grid-template-rows: subgrid; align-content: start; }
+    .products-audience-card > .pa-head { grid-row: 1; }
+    .products-audience-card > .pa-title { grid-row: 2; }
+    .products-audience-card > .pa-text { grid-row: 3; }
+    .products-audience-card > .pa-intro { grid-row: 2 / span 2; }
+    .products-audience-card > .pa-price { grid-row: 4; }
+    .products-audience-card > .pa-also { grid-row: 5; }
+    .products-audience-card > .pa-cta { grid-row: 6; align-self: end; }
+  }
 }
 
 /* Catalogue: toolbar, section headers and one card per row. */
