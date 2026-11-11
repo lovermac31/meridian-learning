@@ -433,6 +433,61 @@ type TrustItem = { icon: typeof Users; title: string; body: string };
 
 // The free IELTS Speaking app on top of the IELTS group (Jay + CEO, 2 Nov 2026). Not a PRODUCTS entry: no price, no
 // order flow, so it is a plain card (not an <li id>) and the catalogue, JSON-LD and prices stay as they are.
+/**
+ * One hero per audience (audit fix 9, 11 Nov 2026; SELL-STRATEGY 11 Nov: "families = Level 1 Story Workbooks; teachers =
+ * Level 1 Teacher Pack; IELTS stays separate"). A short band right under the page hero, so a phone visitor picks a
+ * door before the 47-card catalogue. Approved copy only: section headings, card titles, problem lines and prices.
+ * Families also name the Mango single book when it is live. Paused products are never a hero.
+ */
+export const AUDIENCE_HEROES = [
+  { section: 'families', lead: 'story-workbooks-l1', also: 'mango-l2' },
+  { section: 'teachers', lead: 'teacher-pack-l1' },
+  { section: 'ielts' },
+] as const;
+
+function AudienceHeroes({ locale, sections, sampleOpen, categoryNames, countLabel }: {
+  locale: Locale;
+  sections: ReturnType<typeof productsPage>['sections'];
+  sampleOpen: string;
+  categoryNames: Record<string, string>;
+  countLabel: string;
+}) {
+  const cards = sections.flatMap((section) => section.cards);
+  const live = (id?: string) => (id ? cards.find((card) => card.id === id && !(card as { paused?: boolean }).paused) : undefined);
+  return (
+    <section className="mx-auto max-w-6xl px-5 pt-8" aria-label={AUDIENCE_HEROES.map((hero) => sections.find((entry) => entry.id === hero.section)?.heading).filter(Boolean).join(' · ')} data-audience-heroes="">
+      <ul className="grid gap-4 md:grid-cols-3">
+        {AUDIENCE_HEROES.map((hero) => {
+          const section = sections.find((entry) => entry.id === hero.section);
+          if (!section) return null;
+          const lead = 'lead' in hero ? live(hero.lead) : undefined;
+          const also = 'also' in hero ? live(hero.also) : undefined;
+          return (
+            <li key={hero.section} className="flex flex-col rounded-2xl border-t-4 border-[#9B1C31] bg-[#F3E8CF] p-5 text-[#13294B] shadow-sm" data-audience-hero={hero.section}>
+              <h2 className="text-lg font-extrabold">{section.heading}</h2>
+              {lead ? (
+                <>
+                  <p className="mt-2 font-bold"><a href={getLocalizedHref(productPath(lead.id), locale)} className="underline underline-offset-4" data-audience-lead={lead.id}>{lead.title}</a></p>
+                  <p className="mt-1 text-sm">{lead.problem}</p>
+                  <p className="mt-2 font-extrabold" data-audience-price={lead.id}>{lead.price} <span className="text-sm font-semibold">{lead.unit}</span></p>
+                  {also ? <p className="mt-1 text-sm"><a href={getLocalizedHref(productPath(also.id), locale)} className="font-bold underline underline-offset-4" data-audience-also={also.id}>{also.title} · {also.price}</a></p> : null}
+                  <a href={`#${lead.id}-sample`} className="mt-auto inline-flex min-h-11 items-center justify-center rounded-full bg-[#13294B] px-5 py-2 text-sm font-bold no-underline" style={{ color: '#F3E8CF', marginTop: '1rem' }} data-audience-sample={lead.id}>{sampleOpen}</a>
+                </>
+              ) : (
+                <>
+                  <p className="mt-2 text-sm">{section.intro}</p>
+                  <p className="mt-2 text-sm"><a href={ieltsAppHref('products', locale)} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4" data-audience-ielts-app="">{IELTS_APP_CARD[locale].title}</a></p>
+                  <a href={`#${section.id}`} className="mt-auto inline-flex min-h-11 items-center justify-center rounded-full bg-[#13294B] px-5 py-2 text-sm font-bold no-underline" style={{ color: '#F3E8CF', marginTop: '1rem' }} data-audience-section={section.id}>{categoryNames[section.id]} · {section.cards.length} {countLabel}</a>
+                </>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
 const IELTS_APP_CARD: Record<Locale, { label: string; title: string }> = {
   en: { label: 'Free · web app', title: 'Free: IELTS Speaking practice, 2 attempts' },
   vi: { label: 'Miễn phí · ứng dụng web', title: 'Miễn phí: luyện IELTS Speaking, 2 lượt thử' },
@@ -652,6 +707,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           </ul>
         </div>
       </header>
+      <AudienceHeroes locale={locale} sections={c.sections} sampleOpen={c.sample.open} categoryNames={categoryCopy.names} countLabel={categoryCopy.count} />
       {/* IELTS app, one row at the top of the catalogue (coverage audit, 2 Nov 2026: the card below sat 31,500 px down). */}
       <IeltsAppEntrance placement="products" locale={locale} variant="banner" />
       <nav aria-label={categoryCopy.label} className="products-overview" data-products-mini-nav="">

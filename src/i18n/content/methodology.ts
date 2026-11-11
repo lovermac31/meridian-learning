@@ -76,7 +76,9 @@ export const methodologyPageContent = {
   literature: {
     eyebrow: 'Authentic Literature',
     title: 'The text is not the vehicle. The text is the methodology.',
-    body: 'Jurassic English™ uses authentic literature — real books, not controlled readers — because the complexity that drives reasoning cannot be manufactured. Simplified texts produce simplified thinking.',
+    // Audit fix 8 (11 Nov 2026): factual wording. The current curriculum is built on published books; it is being
+    // rewritten onto original Jurassic English stories (the Story Workbooks are original graded stories).
+    body: 'The current Jurassic English™ curriculum is built on published literature, because the complexity that drives reasoning cannot be manufactured. It is being rewritten onto original Jurassic English stories, level by level.',
     principles: [
       {
         title: 'Complexity That Earns Its Place',
