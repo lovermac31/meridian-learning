@@ -52,7 +52,7 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
 export const SAMPLE_PAGE_WIDTH = 1200;
 export const SAMPLE_PAGE_HEIGHT = 1699;
 
-// Only the seven approved replacement images need new browser cache keys.
+// Only the eight approved replacement images need new browser cache keys.
 export const SAMPLE_PAGE_REVISIONS: Record<string, string> = {
   'ielts-writing-teacher-pack-pg01.webp': 'a75be50f744a',
   'parent-pack-l2-pg01.webp': 'e22b3db246a4',
@@ -61,4 +61,7 @@ export const SAMPLE_PAGE_REVISIONS: Record<string, string> = {
   'parent-pack-l2-pg04.webp': '5dccb5eadaca',
   'parent-pack-l2-pg09.webp': '9c0ecd3eefa6',
   'parent-pack-l2-pg10.webp': 'ab39bf2332a0',
+  // 11 Nov 2026 (Jay, P1 Lina hold follow-up): the Lina cover illustration on this page is covered by a neutral panel
+  // until the replacement artwork is approved. The original page image is kept privately, outside this repository.
+  'printable-pack-l1-pg15.webp': 'd1396ccc2d0f',
 };
