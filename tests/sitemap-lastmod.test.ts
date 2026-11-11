@@ -10,10 +10,12 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  SWEEP_MIN_MAPPED_FILES,
   createLastmodResolver,
   findMissingSourceFiles,
   getAllMappedSourceFiles,
   getRouteSourceFiles,
+  isSharedPoolRoute,
 } from '../scripts/lib/sitemap-lastmod.mjs';
 import { getExpectedPublicIndexableRoutes, getRewriteServedRoutes } from '../src/lib/routeMetadata';
 
@@ -86,9 +88,10 @@ test('full history: per-page dates from each page’s own files; unknown → omi
     runGit: (args: string[]) => {
       calls.push(args);
       if (args[0] === 'rev-parse') return 'false';
+      if (args[0] === 'diff-tree') return 'src/components/MethodologyPage.tsx';
       const files = args.slice(args.indexOf('--') + 1);
       const hit = files.map((file) => datesByFile[file]).find(Boolean);
-      return hit ?? '';
+      return hit ? `abc123 ${hit}` : '';
     },
   });
 
@@ -104,4 +107,67 @@ test('full history: per-page dates from each page’s own files; unknown → omi
     logCallsBefore,
     'unmapped URLs do not consult git',
   );
+});
+
+test('a sitewide sweep commit never dates a page; the last real edit does', () => {
+  const sweepFiles = getAllMappedSourceFiles().slice(0, SWEEP_MIN_MAPPED_FILES).join('\n');
+  const resolver = createLastmodResolver({
+    runGit: (args: string[]) => {
+      if (args[0] === 'rev-parse') return 'false';
+      if (args[0] === 'diff-tree') return args.at(-1) === 'sweep1' ? sweepFiles : 'src/components/MethodologyPage.tsx';
+      return 'sweep1 2026-11-10\nreal22 2026-10-01';
+    },
+  });
+  assert.equal(resolver.lastmodFor('/methodology'), '2026-10-01', 'skips the sweep, keeps the real edit');
+
+  const onlySweeps = createLastmodResolver({
+    runGit: (args: string[]) => {
+      if (args[0] === 'rev-parse') return 'false';
+      if (args[0] === 'diff-tree') return sweepFiles;
+      return 'sweep1 2026-11-10';
+    },
+  });
+  assert.equal(onlySweeps.lastmodFor('/methodology'), null, 'only sweeps in history → omitted, never guessed');
+});
+
+test('pages that live in a shared pool carry no lastmod; the shared card never dates a page', () => {
+  const seen: string[][] = [];
+  const resolver = createLastmodResolver({
+    runGit: (args: string[]) => {
+      if (args[0] === 'rev-parse') return 'false';
+      if (args[0] === 'diff-tree') return 'src/components/StoryClubPage.tsx';
+      seen.push(args.slice(args.indexOf('--') + 1));
+      return 'one111 2026-11-09';
+    },
+  });
+  for (const route of [
+    '/products/story-club',
+    '/vi/products/story-club',
+    '/ielts-speaking-online/india',
+    '/insights',
+    '/insights/online-ielts-speaking-coaching',
+    '/vi/insights',
+    '/about/nathaniel-jay-adams',
+  ]) {
+    assert.equal(isSharedPoolRoute(route), true, route);
+    assert.equal(resolver.lastmodFor(route), null, `${route} must not be stamped with a shared pool date`);
+  }
+  assert.equal(seen.length, 0, 'pooled pages never consult git');
+
+  assert.equal(isSharedPoolRoute('/products'), false, 'the hub has its own files');
+  assert.equal(resolver.lastmodFor('/story-club'), '2026-11-09');
+  assert.ok(seen[0] && !seen[0].includes('src/content/assetLinks.json'), 'assetLinks.json must not date /story-club');
+});
+
+test('on the real history no single date is stamped on a large share of the sitemap', () => {
+  const resolver = createLastmodResolver({ cwd: ROOT });
+  if (resolver.status !== 'ok') return; // shallow CI clone: lastmod is omitted everywhere, nothing to stamp
+  const routes = getExpectedPublicIndexableRoutes();
+  const byDate = new Map<string, number>();
+  for (const route of routes) {
+    const date = resolver.lastmodFor(route);
+    if (date) byDate.set(date, (byDate.get(date) ?? 0) + 1);
+  }
+  const worst = Math.max(0, ...byDate.values());
+  assert.ok(worst / routes.length <= 0.2, `one date covers ${worst}/${routes.length} URLs`);
 });
