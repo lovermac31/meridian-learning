@@ -64,8 +64,12 @@
 .products-workbooks strong { font-size: 1rem; font-weight: 800; color: var(--color-sb-forest); }
 .products-workbooks b { font-weight: 800; color: var(--color-sb-forest); }
 @media (min-width: 768px) {
-  .products-workbooks ul { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  /* Three across on tablets; one row on desktop however many cards there are (6 with the Mango pilot), so none is left alone on a second row. */
+  .products-workbooks ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .products-workbooks li:last-child:nth-child(odd) { grid-column: auto; }
+}
+@media (min-width: 1024px) {
+  .products-workbooks ul { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
 }
 
 /* Catalogue: toolbar, section headers and one card per row. */
