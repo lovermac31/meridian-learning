@@ -17,10 +17,12 @@ const copy = {
   en: {
     title: 'Reserve a Story Club seat', intro: 'A small, friendly English story group with Mr. Jay. Try the free Story Time first (postponed, new date coming soon). The paid 4-week round starts after the free try-it, and you decide after trying.', sample: 'Read a free Story 1 first', sampleTitle: 'Mina and the Midnight Drum · Level 1', price: 'Story Club with Mr. Jay', amount: '590,000₫ · 4 weeks', details: 'Online on Google Meet · Ages 5–8 · Up to 6 children', groupDetails: 'The group meets weekly for four weeks. Mr. Jay reads an original Jurassic English story, leads a short discussion, and gives children one small follow-up task.', next: 'Next group:', form: 'Ask for a place', formDetails: 'Pay with the QR first. Then enter your contact details so we can confirm and deliver your order.', name: 'Your name', email: 'Email address for your order', location: 'Country or location', phone: 'Phone / Zalo number', phoneHint: 'Choose your country, then enter your phone number.', age: "Child's age", group: 'Preferred group', consent: 'I agree Jurassic English may use these details to confirm and deliver this purchase. See the privacy notice.', submit: 'Send my details', invalid: 'Please check your name, email address, location and phone number. Age and group are optional.', failed: 'We could not send your request. Please try again or message Mr. Jay on Zalo.', thanks: 'Thank you. Your request has been received.', pay: 'Pay now', transfer: 'Transfer memo', qrFallback: 'Mr. Jay will send the payment QR on Zalo within the day', zalo: 'Ask Mr. Jay on Zalo', privacy: 'Privacy notice', required: 'Please agree before sending your request.', paymentPending: 'We’re checking your payment. This can take a moment.', paymentReceived: 'Payment received. Please send your contact details below to confirm your place.', ivePaid: 'I’ve paid — enter my details', question: 'Have a question before paying? Ask on Zalo',
     getCodeHeading: 'Get your payment code', getCodeText: 'When you have read the summary above and want to join the paid round, press the button. We then create your payment QR with the exact amount and a unique transfer memo. Pressing it does not charge you, and this page never asks for card details.', getCode: 'Get my payment code', getCodePreparing: 'Preparing your code…',
+    getCodeTextProduct: 'Press the button when you are ready to buy. We then create your payment QR with the exact amount and a unique transfer memo. Pressing it does not charge you, and this page never asks for card details.',
   },
   vi: {
     title: 'Đặt chỗ Câu lạc bộ Truyện', intro: 'Nhóm tiếng Anh qua truyện nhỏ, thân thiện cùng thầy Jay. Hãy cho bé học thử giờ kể chuyện miễn phí trước (tạm hoãn, sẽ báo ngày mới sớm). Vòng học có phí 4 tuần bắt đầu sau buổi học thử, và bạn quyết định sau khi học thử.', sample: 'Đọc thử Truyện 1 miễn phí trước', sampleTitle: 'Mina và chiếc trống lúc nửa đêm · Cấp độ 1', price: 'Câu lạc bộ Truyện cùng thầy Jay', amount: '590.000₫ · 4 tuần', details: 'Học trực tuyến qua Google Meet · Bé 5–8 tuổi · Tối đa 6 bé', groupDetails: 'Nhóm gặp nhau mỗi tuần trong bốn tuần. Thầy Jay đọc truyện gốc của Jurassic English, cùng các bé trò chuyện và giao một hoạt động nhỏ sau buổi học.', next: 'Nhóm tiếp theo:', form: 'Đăng ký chỗ', formDetails: 'Quét mã QR để thanh toán trước. Sau đó nhập thông tin liên hệ để chúng tôi xác nhận và giao sản phẩm.', name: 'Họ tên', email: 'Địa chỉ email nhận đơn hàng', location: 'Quốc gia hoặc khu vực', phone: 'Số điện thoại / Zalo', phoneHint: 'Chọn quốc gia, sau đó nhập số điện thoại.', age: 'Tuổi của bé', group: 'Nhóm mong muốn', consent: 'Tôi đồng ý để Jurassic English sử dụng thông tin này để xác nhận và giao đơn hàng. Xem thông báo quyền riêng tư.', submit: 'Gửi thông tin của tôi', invalid: 'Vui lòng kiểm tra họ tên, email, khu vực và số điện thoại. Tuổi và nhóm không bắt buộc.', failed: 'Chưa gửi được yêu cầu. Vui lòng thử lại hoặc nhắn thầy Jay qua Zalo.', thanks: 'Cảm ơn bạn. Chúng tôi đã nhận được yêu cầu.', pay: 'Thanh toán ngay', transfer: 'Nội dung chuyển khoản', qrFallback: 'Thầy Jay sẽ gửi mã QR thanh toán qua Zalo trong ngày hôm nay', zalo: 'Hỏi thầy Jay qua Zalo', privacy: 'Thông báo quyền riêng tư', required: 'Vui lòng đồng ý trước khi gửi yêu cầu.', paymentPending: 'Đang kiểm tra thanh toán. Vui lòng chờ trong giây lát.', paymentReceived: 'Đã nhận thanh toán. Vui lòng gửi thông tin liên hệ bên dưới để xác nhận chỗ.', ivePaid: 'Tôi đã thanh toán — nhập thông tin', question: 'Có câu hỏi trước khi thanh toán? Hỏi qua Zalo',
     getCodeHeading: 'Lấy mã thanh toán', getCodeText: 'Khi bạn đã đọc bản tóm tắt ở trên và muốn tham gia vòng học có phí, hãy bấm nút bên dưới. Chúng tôi sẽ tạo mã QR thanh toán với đúng số tiền và nội dung chuyển khoản riêng. Bấm nút không bị trừ tiền, và trang này không bao giờ yêu cầu thông tin thẻ.', getCode: 'Lấy mã thanh toán của tôi', getCodePreparing: 'Đang chuẩn bị mã…',
+    getCodeTextProduct: 'Bấm nút khi bạn sẵn sàng mua. Chúng tôi sẽ tạo mã QR thanh toán với đúng số tiền và nội dung chuyển khoản riêng. Bấm nút không bị trừ tiền, và trang này không bao giờ yêu cầu thông tin thẻ.',
   },
 } as const;
 
@@ -74,13 +76,8 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
     }
   };
 
-  useEffect(() => {
-    // Story Club prepares the payment only after an explicit click (the "Get my payment code" button below the written
-    // summary), so page loads by bots, crawlers and audits create no payment memo. Other products keep the 2 s preparation.
-    if (!offer || isStory) return;
-    const timer = window.setTimeout(() => { void preparePayment(); }, 2_000);
-    return () => window.clearTimeout(timer);
-  }, [productId]);
+  // Every product prepares its payment only after an explicit click on "Get my payment code" (audit fix 6, 11 Nov 2026;
+  // Story Club since 4 Nov), so page loads by bots, crawlers and audits create no payment memo and no Notion lead.
 
   useEffect(() => {
     if (trackedView.current) return;
@@ -215,21 +212,12 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
             {!contactFormOpen && <button type="button" className="insights-button-primary mt-5 block" onClick={() => setContactFormOpen(true)} data-open-contact-form>{t.ivePaid}</button>}
           </section>
         ) : (
-          isStory ? (
           <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-live="polite" data-payment-preparing data-payment-gate>
             <h2 className="text-2xl font-bold">{t.getCodeHeading}</h2>
-            <p className="mt-2">{t.getCodeText}</p>
+            <p className="mt-2">{isStory ? t.getCodeText : t.getCodeTextProduct}</p>
             <button type="button" className="insights-button-primary mt-4 w-full max-w-md" onClick={() => void preparePayment()} disabled={preparing} aria-busy={preparing} data-get-payment-code>{preparing ? t.getCodePreparing : t.getCode}</button>
             {prepareError ? <><p role="alert" className="mt-3 font-semibold text-red-700">{prepareError}</p><p className="mt-3" data-prepare-fallback>{t.qrFallback}: <a rel="nofollow" className="underline" href={withFirstTouch(`/go/zalo?utm_source=checkout&utm_content=${encodeURIComponent(productId)}-prepare-failed`, firstTouch)}>{t.zalo}</a></p></> : null}
           </section>
-          ) : (
-          <section className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm" aria-live="polite" data-payment-preparing>
-            <h2 className="text-2xl font-bold">{locale === 'vi' ? 'Đang chuẩn bị mã thanh toán' : 'Preparing your payment QR'}</h2>
-            {preparing ? <p className="mt-2">{locale === 'vi' ? 'Vui lòng chờ trong giây lát…' : 'Please wait a moment…'}</p> : null}
-            <p className="mt-2">{locale === 'vi' ? 'Mã QR sẽ điền sẵn đúng số tiền và nội dung chuyển khoản riêng cho sản phẩm này. Hãy quét bằng ứng dụng ngân hàng, kiểm tra số tiền và thông tin tài khoản trước khi xác nhận. Sau khi thanh toán, gửi thông tin liên hệ bên dưới để chúng tôi xác nhận đơn hàng. Trang này không yêu cầu thông tin thẻ.' : 'The QR will contain the exact price and a unique transfer memo for this product. Scan it with your banking app and check the amount and account details before confirming. After paying, send your contact details below so we can identify and fulfil your order. This page never asks for card details.'}</p>
-            {prepareError ? <><p role="alert" className="mt-2 text-red-700">{prepareError}</p><button className="insights-button-primary mt-4" type="button" onClick={() => void preparePayment()}>{locale === 'vi' ? 'Thử lại' : 'Try again'}</button><p className="mt-3" data-prepare-fallback>{t.qrFallback}: <a rel="nofollow" className="underline" href={withFirstTouch(`/go/zalo?utm_source=checkout&utm_content=${encodeURIComponent(productId)}-prepare-failed`, firstTouch)}>{t.zalo}</a></p></> : null}
-          </section>
-          )
         )}
 
         {confirmation && contactFormOpen && !contactSent ? (

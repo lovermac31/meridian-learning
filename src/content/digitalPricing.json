@@ -1,5 +1,5 @@
 {
-  "_note": "PROPOSED 3 Nov 2026 for the Story Workbooks, pending Jay's go. US$ per product by the SAME four market tiers Jay approved on 14 Oct 2026 in marketPricing.json (1 = lowest price: India, Pakistan, Bangladesh, Nigeria, Egypt, Philippines; 4 = highest: Singapore, UAE, Saudi Arabia). The tier ratio is the approved 35:45:55:69 (lesson prices), rounded to whole dollars. A country not in marketPricing.json 'markets' pays the 'default' tier. Vietnam keeps VND + VietQR. Level 1 is 11 workbooks; Levels 2-5 are 3 each. This file is separate because marketPricing.json is pinned to the AI Speaking checkout's copy.",
+  "_note": "PROPOSED 3 Nov 2026 for the Story Workbooks, pending Jay's go. US$ per product by the SAME four market tiers Jay approved on 14 Oct 2026 in marketPricing.json (1 = lowest price: India, Pakistan, Bangladesh, Nigeria, Egypt, Philippines; 4 = highest: Singapore, UAE, Saudi Arabia). The tier ratio is the approved 35:45:55:69 (lesson prices), rounded to whole dollars. A country not in marketPricing.json 'markets' pays the 'default' tier. Vietnam keeps VND + VietQR. Level 1 is 10 workbooks (Lina held, 11 Nov 2026); Levels 2-5 are 3 each. This file is separate because marketPricing.json is pinned to the AI Speaking checkout's copy.",
   "default": "4",
   "products": {
     "story-workbooks-l1": {

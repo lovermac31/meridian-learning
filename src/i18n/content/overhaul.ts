@@ -22,6 +22,8 @@ export const WORLDWISE_URL = 'https://www.worldwiselearning.app/';
 export const CONTACT_EMAIL = 'info@jurassicenglish.com';
 export const ZALO_URL = '/go/zalo';
 export const IMG = '/images/overhaul';
+/** Which home main-button option is live (audit fix 2, 11 Nov 2026). Jay picks; swapping to 'B' is this one line. */
+export const HOME_PRIMARY_OPTION: 'A' | 'B' = 'A';
 export const UNDER_18_POLICY_EN = 'Sessions with learners under 18 are never recorded.';
 
 const en = {
@@ -85,6 +87,12 @@ const en = {
       title: 'English your child can use—not just memorise.',
       body: 'Story-led lessons that help children and teens explain ideas using details from real books, speak confidently out loud, and write clearly—plus evidence-based IELTS practice for older teens and adults.',
       primary: 'Explore Learning Paths',
+      // The main button (audit fix 2, 11 Nov 2026): lead with what can be bought today, not the postponed Story Club
+      // try-out. Two options under 8 words go to Jay; HOME_PRIMARY_OPTION picks the live one (one-line swap).
+      primaryOptions: {
+        A: { label: 'Try Mango, a story workbook · 49,000₫', href: '/products/mango-l2?utm_source=home-hero', track: 'home_hero_mango' },
+        B: { label: 'See Level 1 Story Workbooks · 290,000₫', href: '/products/story-workbooks-l1?utm_source=home-hero', track: 'home_hero_workbooks_l1' },
+      },
       // One clear secondary button to the products (master, 27 Oct 2026: a clean path from home to /products).
       secondary: 'See all products',
       imageAlt: 'Storybook illustration: Professor Rex and young explorers gathered around an illustrated map of story worlds',
@@ -108,8 +116,8 @@ const en = {
     find: {
       heading: 'Find what you need',
       tiles: [
-        { anchor: 'families', title: 'For families', promise: 'Live classes with Mr. Jay, and printables for home.', from: 'from 149.000₫', image: 'printable-pack-l1' },
-        { anchor: 'story-workbooks', title: 'Story Workbooks', promise: 'Print-ready storybook workbooks for Levels 1–5, with an answer key and a teacher guide.', from: 'from 190.000₫', image: 'story-workbooks-l1' },
+        { anchor: 'families', title: 'For families', promise: 'Live classes with Mr. Jay, and printables for home.', from: 'from 49.000₫', image: 'printable-pack-l1' },
+        { anchor: 'story-workbooks', title: 'Story Workbooks', promise: 'Print-ready storybook workbooks for Levels 1–5, with an answer key and a teacher guide.', from: 'from 49.000₫', image: 'story-workbooks-l1' },
         { anchor: 'teachers', title: 'For teachers', promise: 'Ready-to-use materials for teachers and tutors.', from: 'from 149.000₫', image: 'student-workbook-l1' },
         { anchor: 'centres', title: 'For centres', promise: 'Programmes and materials for schools and centres.', from: 'from 290.000₫', image: 'curriculum-overview' },
       ],
@@ -315,6 +323,10 @@ const vi: OverhaulContent = {
       title: 'Tiếng Anh con dùng được—không chỉ học thuộc.',
       body: 'Những bài học xoay quanh câu chuyện giúp trẻ em và tuổi teen giải thích ý tưởng bằng chi tiết từ sách thật, tự tin nói thành lời và viết mạch lạc—cùng phần luyện IELTS dựa trên bằng chứng cho học sinh lớn và người lớn.',
       primary: 'Xem các lộ trình học',
+      primaryOptions: {
+        A: { label: 'Thử sách truyện Mango · 49.000₫', href: '/products/mango-l2?utm_source=home-hero', track: 'home_hero_mango' },
+        B: { label: 'Sách truyện Level 1 · 290.000₫', href: '/products/story-workbooks-l1?utm_source=home-hero', track: 'home_hero_workbooks_l1' },
+      },
       secondary: 'Xem tất cả sản phẩm',
       imageAlt: 'Tranh minh hoạ truyện: Giáo sư Rex và các nhà thám hiểm nhỏ quây quanh tấm bản đồ các thế giới truyện',
       artLabel: 'Tranh minh hoạ',
@@ -334,8 +346,8 @@ const vi: OverhaulContent = {
     find: {
       heading: 'Tìm đúng thứ bạn cần',
       tiles: [
-        { anchor: 'families', title: 'Dành cho gia đình', promise: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.', from: 'từ 149.000₫', image: 'printable-pack-l1' },
-        { anchor: 'story-workbooks', title: 'Sách truyện bài tập', promise: 'Sách truyện bài tập in sẵn cho Level 1–5, có đáp án và hướng dẫn cho giáo viên.', from: 'từ 190.000₫', image: 'story-workbooks-l1' },
+        { anchor: 'families', title: 'Dành cho gia đình', promise: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.', from: 'từ 49.000₫', image: 'printable-pack-l1' },
+        { anchor: 'story-workbooks', title: 'Sách truyện bài tập', promise: 'Sách truyện bài tập in sẵn cho Level 1–5, có đáp án và hướng dẫn cho giáo viên.', from: 'từ 49.000₫', image: 'story-workbooks-l1' },
         { anchor: 'teachers', title: 'Dành cho giáo viên', promise: 'Tài liệu dùng ngay cho giáo viên và gia sư.', from: 'từ 149.000₫', image: 'student-workbook-l1' },
         { anchor: 'centres', title: 'Dành cho trung tâm', promise: 'Chương trình và tài liệu cho trường học và trung tâm.', from: 'từ 290.000₫', image: 'curriculum-overview' },
       ],

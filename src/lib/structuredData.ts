@@ -307,7 +307,7 @@ export function createProductListJsonLd(locale: Locale): JsonLd {
           '@type': 'Offer',
           price: vndPriceValue(product.price),
           priceCurrency: 'VND',
-          availability: 'https://schema.org/InStock',
+          availability: product.paused ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
           url: `${pageUrl}#${product.id}`,
           seller: { '@id': organizationId },
         },
@@ -325,7 +325,8 @@ export function createProductJsonLd(product: Product, locale: Locale, videoId?: 
     '@type': 'Offer',
     price,
     priceCurrency,
-    availability: 'https://schema.org/InStock',
+    // Paused products (audit fix 4, 11 Nov 2026) keep their page but cannot be bought.
+    availability: product.paused ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
     url: pageUrl,
     seller: { '@id': organizationId },
   });

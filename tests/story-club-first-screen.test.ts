@@ -24,6 +24,8 @@ test('other products retain the purchase block within their image/content card',
     const html = renderToStaticMarkup(createElement(ProductPage, { product, locale }));
     assert.ok(!html.includes('data-story-club-first-screen'));
     assert.ok(html.indexOf(`data-price="${product.id}"`) > html.indexOf(`data-product="${product.id}"`));
-    assert.equal(html.split(`data-cta="product-page-${product.id}"`).length - 1, 1);
+    // Paused products (audit fix 4, 11 Nov 2026) have no order button, only the waitlist note.
+    assert.equal(html.split(`data-cta="product-page-${product.id}"`).length - 1, product.paused ? 0 : 1);
+    if (product.paused) assert.ok(html.indexOf(`data-paused-waitlist="${product.id}"`) > html.indexOf(`data-price="${product.id}"`));
   }
 });

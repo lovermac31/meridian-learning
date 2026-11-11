@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { PAID_OFFERS, BANK_CONFIG, canonicalPaymentMemo, paymentQrUrl, paymentHref } from '../src/config/payment';
-import { createPaidMemo, coerceSampleInput, toSampleLead } from '../api/sample-pack';
+import { PAUSED_PRODUCTS, createPaidMemo, coerceSampleInput, toSampleLead } from '../api/sample-pack';
+import { PRODUCTS } from '../src/i18n/content/products';
 import { sampleLeadNotes } from '../api/_lib/notionCrmWriter';
 import { PayStep } from '../src/components/PayStep';
 import { validateStoryClubReserve } from '../src/lib/storyClubReserve';
@@ -24,6 +25,8 @@ const amounts: Record<string, number> = {
   'ielts-writing-task1-method': 199000, 'ielts-essay-bank-task2': 199000, 'ielts-writing-teacher-pack': 690000,
   'ielts-reading-ladder': 250000, 'ielts-listening-profiler': 299000, 'ielts-diagnostic-mock': 199000,
   'ielts-writing-band-up': 499000, 'ielts-speaking-band-up': 449000, 'ielts-four-skill-kit': 999000,
+  // Mango pilot single workbook (Jay, 11 Nov 2026: "Yes, 49k").
+  'mango-l2': 49000,
 };
 
 test('every priced offer has an approved price and a unique stable memo namespace', () => {
@@ -49,6 +52,8 @@ for (const offer of PAID_OFFERS) test(`${offer.id}: server memo, exact QR amount
   for (const value of [memo, memo.replace('-', ''), memo.replace('-', ' '), `PAY ${memo.toLowerCase()} thanks`]) assert.equal(canonicalPaymentMemo(value), memo);
   assert.equal(canonicalPaymentMemo(memo + 'X'), null);
   const lead = toSampleLead(coerceSampleInput({ product: offer.id, name: 'Synthetic Parent', phone: '0396085076', email: 'parent@example.test', location: 'VN', consent: true, submissionKey: key, amount: 1, memo: 'SC-HACKED' }));
+  // Paused products (audit fix 4, 11 Nov 2026) keep their memo namespace for bank reconciliation but take no new order.
+  if (PAUSED_PRODUCTS.has(offer.id)) return assert.deepEqual(lead, { error: 'product' });
   if ('error' in lead) return assert.fail(lead.error);
   assert.equal(lead.product, offer.id);
   assert.equal(lead.childAge, undefined);
@@ -92,4 +97,18 @@ test('meeting CTAs use attributed Zalo links and never render payment instructio
     assert.match(source, /href="\/go\/zalo\?utm_source=[a-z-]+&utm_content=(discovery-call|book-call)"/);
     assert.doesNotMatch(source, /<PayStep|data-payment-qr|to=\{'\/discovery'\}/);
   }
+});
+
+test('paused products: the server list matches products.ts, and no paused product takes a new order (audit fix 4)', () => {
+  assert.deepEqual([...PAUSED_PRODUCTS].sort(), PRODUCTS.filter(p => p.paused).map(p => p.id).sort());
+  assert.deepEqual([...PAUSED_PRODUCTS].sort(), ['student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5', 'teacher-bundle', 'teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5']);
+});
+
+test('Mango pilot: 49000₫ with order code MANGO-L2 and its own memo namespace (audit fix 1)', async () => {
+  const { orderCode } = await import('../src/lib/productsSource');
+  const mango = PAID_OFFERS.find(o => o.id === 'mango-l2')!;
+  assert.equal(mango.amount, 49000);
+  assert.equal(mango.prefix, 'PR1A');
+  for (const source of [null, 'products', 'fb-teachers', 'facebook']) assert.equal(orderCode(source, 'mango-l2'), 'MANGO-L2');
+  assert.equal(PRODUCTS.find(p => p.id === 'mango-l2')!.price, '49.000₫');
 });

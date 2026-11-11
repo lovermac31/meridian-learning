@@ -263,8 +263,9 @@ test('sample-pack server logs never contain the submitted or normalized phone nu
   assert.equal(output.includes('+84396085076'), false);
 });
 
-// Full handler coverage uses only the synthetic Notion/RPC transport above.
-for (const [i, product] of ['baseline', 'one-to-one', 'printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'teacher-pack-l1', 'teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l1', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5', 'word-fossil-flashcards-l1', 'thinking-cycle-set', 'thinking-cycle-posters', 'reasoning-assessment-kit', 'centre-licence', 'teacher-training-course', 'pilot-class-kit', 'curriculum-overview', 'ielts-speaking-ladder', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'writing-baseline', 'ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-essay-bank-task2', 'ielts-writing-teacher-pack'].entries()) {
+// Full handler coverage uses only the synthetic Notion/RPC transport above. The nine paused products (audit fix 4,
+// 11 Nov 2026) are covered by the rejection test below instead.
+for (const [i, product] of ['baseline', 'one-to-one', 'printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'teacher-pack-l1', 'student-workbook-l1', 'mango-l2', 'word-fossil-flashcards-l1', 'thinking-cycle-set', 'thinking-cycle-posters', 'reasoning-assessment-kit', 'centre-licence', 'teacher-training-course', 'pilot-class-kit', 'curriculum-overview', 'ielts-speaking-ladder', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'writing-baseline', 'ielts-writing-ladder-task2', 'ielts-writing-task1-method', 'ielts-essay-bank-task2', 'ielts-writing-teacher-pack'].entries()) {
   test(`${product}: only name and Zalo, server memo persisted to CRM, stable retries`, async () => {
     const database = { ids: new Set<string>() };
     const body = {
@@ -304,4 +305,35 @@ test('non-SC checkout fails closed without a stored memo even when email works',
   assert.equal(result.statusCode, 502);
   assert.equal(result.responseBody?.memo, undefined);
   assert.equal(result.reservationCalls, 0);
+});
+
+const PAUSED = ['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5'];
+for (const [i, product] of PAUSED.entries()) {
+  test(`${product}: paused, so neither a payment code nor an order is created (audit fix 4)`, async () => {
+    const prepare = await submit({ intent: 'prepare_payment', product, submissionKey: '44444444-4444-4444-8444-444444444444', website: '' }, `198.51.100.${200 + i}`);
+    assert.equal(prepare.statusCode, 400);
+    assert.equal(prepare.responseBody?.memo, undefined);
+    const order = await submit({ product, name: 'Synthetic Parent', phone: '0396085076', submissionKey: '44444444-4444-4444-8444-444444444444', startedAt: new Date(Date.now() - 2000).toISOString() }, `198.51.100.${210 + i}`);
+    assert.equal(order.statusCode, 400);
+    assert.equal(order.writes.length + prepare.writes.length, 0, 'nothing written to the CRM');
+  });
+}
+
+test('audit fix 6: prepare_payment has its own rate-limit key with a higher ceiling; the forms keep 5 per 10 minutes', async () => {
+  const { RATE_LIMITS, rateLimitFor } = await import('../api/sample-pack');
+  assert.equal(rateLimitFor({ intent: 'prepare_payment' }).key, 'prepare-payment');
+  assert.equal(rateLimitFor({ name: 'x' }).key, 'sample-pack');
+  assert.equal(rateLimitFor(undefined).key, 'sample-pack');
+  assert.ok(RATE_LIMITS.preparePayment.max > RATE_LIMITS.form.max);
+  assert.equal(RATE_LIMITS.form.max, 5);
+  // One IP: six payment codes in a row still work (the old shared key stopped at five), and they do not use up the
+  // free-sample form's allowance.
+  const ip = '198.51.100.230';
+  for (let n = 0; n < 6; n++) {
+    const result = await submit({ intent: 'prepare_payment', product: 'mango-l2', submissionKey: `55555555-5555-4555-8555-55555555555${n}`, website: '' }, ip);
+    assert.equal(result.statusCode, 200, `payment code ${n + 1}`);
+    assert.match(String(result.responseBody?.memo), /^PR1A-[A-Z0-9]{6}$/);
+  }
+  const form = await submit({ phone: '0396085076' }, ip);
+  assert.equal(form.statusCode, 200, 'the free-sample form still has its own allowance');
 });

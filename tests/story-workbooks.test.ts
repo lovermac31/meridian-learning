@@ -106,9 +106,10 @@ test('samples: three watermarked pages per level, thumbnails, text file; no PDF 
   assert.deepEqual(pdfs('public'), [], 'no PDF is published');
 });
 
-test('each level names its books: 11, 3, 3, 3, 3 titles on the hub card and the product page (EN + VI), matching the unit line', async () => {
+test('each level names its books: 10, 3, 3, 3, 3 titles on the hub card and the product page (EN + VI), matching the unit line', async () => {
   const { renderRoute } = await import('../src/entry-server');
-  const counts = [11, 3, 3, 3, 3];
+  // Level 1 is 10 books (11 Nov 2026): Lina and the Orchard Map is held over art provenance and is not sold.
+  const counts = [10, 3, 3, 3, 3];
   for (const [i, id] of IDS.entries()) {
     const p = PRODUCTS.find((entry) => entry.id === id)!;
     assert.equal(p.books?.length, counts[i], `${id}: book count`);
@@ -120,6 +121,52 @@ test('each level names its books: 11, 3, 3, 3, 3 titles on the hub card and the 
     for (const id of IDS) assert.ok(html.includes(`data-workbook-books="${id}"`), `${route}: ${id} lists its books`);
     assert.ok(html.includes('Mina and the Midnight Drum') && html.includes('Grandpa’s Sunflowers'), `${route}: Level 1 titles`);
     const page = mainOf(await renderRoute(`${route}/story-workbooks-l1`)).replaceAll('<!-- -->', '');
-    assert.ok(page.includes('data-workbook-books="story-workbooks-l1"') && page.includes('Tess Tells Tales'), `${route}: product page lists the 11 books`);
+    assert.ok(page.includes('data-workbook-books="story-workbooks-l1"') && page.includes('Tess Tells Tales'), `${route}: product page lists the 10 books`);
+  }
+});
+
+test('audit fix 3: Level 1 is 10 workbooks everywhere and Lina is not listed; the price stays 290.000₫', async () => {
+  const { readFileSync } = await import('node:fs');
+  const l1 = PRODUCTS.find((p) => p.id === 'story-workbooks-l1')!;
+  assert.equal(l1.price, '290.000₫');
+  assert.ok(!l1.books!.some((b) => /Lina/.test(b)), 'Lina is not in the Level 1 list');
+  for (const locale of ['en', 'vi'] as const) assert.match(l1[locale].inside, /^10 /);
+  assert.match(l1.en.unit, /10 workbooks/);
+  assert.match(l1.vi.unit, /10 cuốn/);
+  const llms = readFileSync('public/llms-products.md', 'utf8');
+  const entry = llms.slice(llms.indexOf('`story-workbooks-l1`'), llms.indexOf('###', llms.indexOf('`story-workbooks-l1`')));
+  assert.match(entry, /10 original storybooks/);
+  assert.doesNotMatch(entry, /\b11\b/);
+});
+
+test('audit fix 7: every Story Workbooks page (EN + VI) shows the AI credit line before the price; Mango shows its own', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  const { WORKBOOK_CREDIT, MANGO_CREDIT } = await import('../src/i18n/content/products');
+  for (const id of [...IDS, 'mango-l2']) for (const locale of ['en', 'vi'] as const) {
+    const page = mainOf(await renderRoute(`${locale === 'vi' ? '/vi' : ''}/products/${id}`)).replaceAll('<!-- -->', '').replaceAll('&#x27;', "'");
+    const line = (id === 'mango-l2' ? MANGO_CREDIT : WORKBOOK_CREDIT)[locale];
+    assert.ok(page.includes(`data-ai-credit="${id}">${line}<`), `${id} ${locale}: credit line`);
+    assert.ok(page.indexOf(`data-ai-credit="${id}"`) < page.indexOf(`data-price="${id}"`), `${id} ${locale}: before the price`);
+  }
+  assert.equal(MANGO_CREDIT.en, 'Original story by Jurassic English; activities AI-assisted and human-edited; illustrations AI-generated.');
+  assert.equal(WORKBOOK_CREDIT.en, 'Original stories by Jurassic English; text AI-assisted and human-edited; illustrations AI-generated.');
+});
+
+test('audit fix 1: Mango has its page with real samples and a checkout, reachable from Level 2 and /products (EN + VI)', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  const mango = PRODUCTS.find((p) => p.id === 'mango-l2')!;
+  assert.equal(mango.price, '49.000₫');
+  assert.equal(mango.sample, 'mango-l2');
+  for (const route of ['/products', '/vi/products']) {
+    const page = mainOf(await renderRoute(`${route}/mango-l2`)).replaceAll('<!-- -->', '');
+    assert.ok(page.includes('data-price="mango-l2">49.000₫'), `${route}: price`);
+    assert.ok(page.includes('data-sample-link="mango-l2"'), `${route}: sample viewer button`);
+    assert.ok(page.includes(`href="${route === '/vi/products' ? '/vi' : ''}/products/mango-l2?checkout=1" data-buy-now="mango-l2"`), `${route}: VietQR checkout`);
+    assert.match(page, /data-order-code="mango-l2">[^<]*<strong>MANGO-L2<\/strong>/, `${route}: order code`);
+    assert.ok(page.includes('href="/go/zalo/mango-l2?utm_source=products"'), `${route}: Zalo fallback`);
+    const l2 = mainOf(await renderRoute(`${route}/story-workbooks-l2`)).replaceAll('<!-- -->', '');
+    assert.match(l2, /data-card-link="story-workbooks-l2"><a href="[^"]*\/products\/mango-l2/, `${route}: linked from Level 2`);
+    const hub = mainOf(await renderRoute(route)).replaceAll('<!-- -->', '');
+    assert.ok(hub.includes('id="mango-l2"') && hub.includes('data-workbooks-level="mango-l2"'), `${route}: on /products`);
   }
 });

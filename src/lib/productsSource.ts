@@ -62,8 +62,13 @@ export function readVisitorSource(search: string, storage: SourceStorage | null)
   }
 }
 
-/** The code to mention: the channel's code, else the source itself, else (no source) the card id. */
+// A product whose code is fixed in its campaign posts (Mango pilot, 11 Nov 2026: "Nhắn Zalo, ghi mã MANGO-L2"): the
+// page always shows that code, whatever the source; the utm still reaches analytics and the Zalo link.
+export const FIXED_ORDER_CODES: Record<string, string> = { 'mango-l2': 'MANGO-L2' };
+
+/** The code to mention: a fixed product code, else the channel's code, else the source itself, else (no source) the card id. */
 export function orderCode(source: string | null, cardId: string): string {
+  if (FIXED_ORDER_CODES[cardId]) return FIXED_ORDER_CODES[cardId];
   if (source && ORDER_CODES[source]) return ORDER_CODES[source];
   // The home page's own links (home-hero, home-tiles) are the site itself: the code stays the card id, so Jay sees the
   // product; the utm still reaches analytics and the Zalo link.

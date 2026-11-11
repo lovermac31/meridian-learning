@@ -55,9 +55,24 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
   'ielts-speaking-band-up': { prefix: 'PR17', amount: 449000 },
   'ielts-four-skill-kit': { prefix: 'PR18', amount: 999000 },
   'ielts-diagnostic-mock': { prefix: 'PR19', amount: 199000 },
+  // Mango pilot single workbook (11 Nov 2026).
+  'mango-l2': { prefix: 'PR1A', amount: 49000 },
   // Unlisted 30-minute Live Speaking Check (mirrors LIVE_CHECK_OFFER in src/config/payment.ts).
   'live-speaking-check': { prefix: 'LC', amount: 250000 },
 };
+
+// Paused for sale (audit fix 4, 11 Nov 2026): no new payment code or order. Mirrors `paused: true` in products.ts (a test checks).
+export const PAUSED_PRODUCTS = new Set(['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5']);
+
+// Audit fix 6 (11 Nov 2026): payment codes are made only when a buyer presses "Get my payment code", and that click has
+// its own rate-limit key with a higher ceiling, because Vietnamese mobile carriers put many buyers behind one IP. The
+// free-sample and contact forms keep the strict 5-per-10-minutes key.
+export const RATE_LIMITS = {
+  form: { key: 'sample-pack', windowMs: 10 * 60 * 1000, max: 5 },
+  preparePayment: { key: 'prepare-payment', windowMs: 10 * 60 * 1000, max: 30 },
+} as const;
+export const rateLimitFor = (body: unknown) =>
+  body && typeof body === 'object' && (body as { intent?: unknown }).intent === 'prepare_payment' ? RATE_LIMITS.preparePayment : RATE_LIMITS.form;
 
 function paidOffer(id: string) {
   const entry = PRODUCT_MAP[id];
@@ -151,7 +166,7 @@ function isSpam(startedAt: string, website: string, product: string, intent?: st
 }
 
 export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' | 'name' | 'age' | 'group' | 'product' | 'submission' } {
-  if (input.product && !paidOffer(input.product)) return { error: 'product' };
+  if (input.product && (!paidOffer(input.product) || PAUSED_PRODUCTS.has(input.product))) return { error: 'product' };
   if (input.product) {
     if (!looksLikePhone(input.phone)) return { error: 'phone' };
     if (!input.name.trim()) return { error: 'name' };
@@ -255,7 +270,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'Method not allowed.' });
   applyCors(req, res);
 
-  const rateLimit = await checkRateLimit(req, { key: 'sample-pack', windowMs: 10 * 60 * 1000, max: 5, failMode: 'closed' });
+  const rateLimit = await checkRateLimit(req, { ...rateLimitFor(req.body), failMode: 'closed' });
   if (!rateLimit.allowed) {
     console.warn('[sample-pack] request throttled', createThrottleLogContext(req, '/api/sample-pack', rateLimit.retryAfterSeconds));
     logRateLimited(req, '/api/sample-pack', rateLimit);
@@ -270,7 +285,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (input.intent === 'prepare_payment') {
-    const offer = paidOffer(input.product ?? '');
+    const offer = PAUSED_PRODUCTS.has(input.product ?? '') ? undefined : paidOffer(input.product ?? '');
     if (!offer || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.submissionKey ?? '')) {
       return res.status(400).json({ ok: false, error: 'invalid_order' });
     }

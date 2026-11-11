@@ -9,7 +9,7 @@ import { PRODUCT_SEO, productFaq, productPath, relatedProducts } from '../i18n/c
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
-import { CardLink, IeltsHomeLink, LemonSqueezyOption, PayPalOption, Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
+import { CardLink, CreditLine, IeltsHomeLink, PausedNote, LemonSqueezyOption, PayPalOption, Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
@@ -21,8 +21,8 @@ const COPY: Record<Locale, { home: string; products: string; faq: string; relate
 };
 
 const toCard = (product: Product, locale: Locale): ProductCard => {
-  const { id, price, href, delivery, image, sample, paypal, video, group, category, books } = product;
-  return { id, price, href, delivery, image, sample, paypal, video, group, category, books, link: cardLink(product, locale), ...product[locale] };
+  const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit } = product;
+  return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], link: cardLink(product, locale), ...product[locale] };
 };
 
 // One product's own page (Jay, 27 Oct 2026: every product findable on Google and Bing). Same copy, sample viewer,
@@ -58,7 +58,14 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
     ? 'Sáng thứ Bảy 9:00 · Google Meet · Tối đa 6 bé'
     : 'Saturdays 9:00 · Google Meet · Up to 6 children';
   // One existing purchase block, promoted only for Story Club. Other product DOM order stays unchanged.
-  const purchase = <>
+  const purchase = card.paused ? <>
+          <CreditLine card={card} />
+          <p className="mt-4 text-2xl font-bold" data-price={card.id}>
+            {card.price} <span className="text-base font-semibold">{card.unit}</span>
+          </p>
+          <PausedNote card={card} locale={locale} />
+  </> : <>
+          <CreditLine card={card} />
           <p className="mt-4 text-2xl font-bold" data-price={card.id}>
             {card.price} <span className="text-base font-semibold">{card.unit}</span>
           </p>
@@ -99,7 +106,8 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={c.ielts.home[card.group]} id={card.id} /> : null}
           </div>
   </>;
-  if (checkout) return <StoryClubReservePage locale={locale} productId={product.id} />;
+  // A paused product never opens a checkout, even from an old ?checkout=1 link (audit fix 4, 11 Nov 2026).
+  if (checkout && !product.paused) return <StoryClubReservePage locale={locale} productId={product.id} />;
   return (
     <main id="main-content" tabIndex={-1} className="insights-page ielts-tools-page story-club-page products-page min-h-screen" lang={locale} data-product-page-main={product.id}>
       {/* Deterrent: printing a product page gives a blank page, as on /products (Jay, 27 Oct 2026). */}

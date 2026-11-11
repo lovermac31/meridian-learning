@@ -1,7 +1,7 @@
 import { IeltsAppEntrance } from './IeltsAppEntrance';
-import { reserveCta, paymentHref, buyCta } from '../config/payment';
+import { buyCta, paymentHref } from '../config/payment';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
-import { CONTACT_EMAIL, getOverhaulContent, IMG } from '../i18n/content/overhaul';
+import { CONTACT_EMAIL, getOverhaulContent, HOME_PRIMARY_OPTION, IMG } from '../i18n/content/overhaul';
 import { recordClientEvent } from '../lib/tracker';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
@@ -120,7 +120,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
             <h1 className="mt-4 font-display text-[2.1rem] leading-[1.06] tracking-tight text-sb-forest sm:text-[2.8rem] lg:text-[3.2rem]">{hero.title}</h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-sb-slate sm:text-lg">{hero.body}</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CtaLink link={{ label: reserveCta(locale), href: paymentHref('story-club', locale), kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track="home_hero_story_club" />
+              <CtaLink link={{ label: hero.primaryOptions[HOME_PRIMARY_OPTION].label, href: hero.primaryOptions[HOME_PRIMARY_OPTION].href, kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track={hero.primaryOptions[HOME_PRIMARY_OPTION].track} />
               <CtaLink link={{ label: hero.secondary, href: '/products?utm_source=home-hero', kind: 'page' }} className={SECONDARY_BTN} onNavigate={onNavigate} track="home_hero_products" />
             </div>
           </div>

@@ -23,6 +23,7 @@ export const PORTAL_BUY_FLAGS: Record<string, boolean> = {
   'teacher-bundle': false,
   'story-workbooks-l1': false,
   'story-workbooks-l2': false,
+  'mango-l2': false,
   'story-workbooks-l3': false,
   'story-workbooks-l4': false,
   'story-workbooks-l5': false,
