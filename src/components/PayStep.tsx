@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Locale } from '../i18n/locales';
 import { BANK_CONFIG, paymentAmount, paymentQrUrl } from '../config/payment';
+import { FIXED_ORDER_CODES, ORDER_CODE_COPY, checkoutZaloHref } from '../lib/productsSource';
 
 export function PayStep({ locale, amount, memo, productId }: { locale: Locale; amount: number; memo: string; productId: string }) {
   const dynamic = paymentQrUrl(amount, memo);
@@ -36,6 +37,7 @@ export function PayStep({ locale, amount, memo, productId }: { locale: Locale; a
           : 'The automatic payment QR could not be loaded. Please reload or contact Mr. Jay on Zalo. Do not use a different QR or enter the amount manually.'}
       </p>
     )}
-    <a rel="nofollow" className="insights-button-primary mt-5" href={`/go/zalo?utm_source=reserve&utm_content=${encodeURIComponent(productId)}-after-submit`} data-after-submit-zalo>{vi ? 'Hỏi thầy Jay qua Zalo' : 'Ask Mr. Jay on Zalo'}</a>
+    <a rel="nofollow" className="insights-button-primary mt-5" href={checkoutZaloHref(productId, 'reserve', 'after-submit')} data-after-submit-zalo>{vi ? 'Hỏi thầy Jay qua Zalo' : 'Ask Mr. Jay on Zalo'}</a>
+    {FIXED_ORDER_CODES[productId] ? <p className="mt-2 text-sm" data-checkout-order-code={productId}>{ORDER_CODE_COPY[locale].before} <strong>{FIXED_ORDER_CODES[productId]}</strong>{ORDER_CODE_COPY[locale].after}</p> : null}
   </div>;
 }

@@ -66,6 +66,19 @@ export function readVisitorSource(search: string, storage: SourceStorage | null)
 // page always shows that code, whatever the source; the utm still reaches analytics and the Zalo link.
 export const FIXED_ORDER_CODES: Record<string, string> = { 'mango-l2': 'MANGO-L2' };
 
+/**
+ * A Zalo link from the checkout page (Mango pilot, 11 Nov 2026). A product with a fixed order code goes to its own Zalo
+ * route and carries the code in utm_content, so a buyer who falls back to Zalo from the checkout is still identifiable,
+ * as on the product page. Every other product keeps its existing link unchanged.
+ */
+export function checkoutZaloHref(productId: string, source: string, content: string): string {
+  const code = FIXED_ORDER_CODES[productId];
+  return code
+    // `code` survives withFirstTouch, which replaces utm_content with the visit's first-touch value.
+    ? `/go/zalo/${encodeURIComponent(productId)}?utm_source=${source}&utm_content=${encodeURIComponent(`${code}-${content}`)}&code=${encodeURIComponent(code)}`
+    : `/go/zalo?utm_source=${source}&utm_content=${encodeURIComponent(productId)}-${content}`;
+}
+
 /** The code to mention: a fixed product code, else the channel's code, else the source itself, else (no source) the card id. */
 export function orderCode(source: string | null, cardId: string): string {
   if (FIXED_ORDER_CODES[cardId]) return FIXED_ORDER_CODES[cardId];

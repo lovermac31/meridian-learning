@@ -10,6 +10,7 @@ import { StoryClubPaidRound, StoryClubRefund, StoryClubTryIt } from './StoryClub
 import { PayStep } from './PayStep';
 import { paidOffer, paymentAmount, paymentHref } from '../config/payment';
 import { ToolHero } from './IeltsToolsPage';
+import { FIXED_ORDER_CODES, ORDER_CODE_COPY, checkoutZaloHref } from '../lib/productsSource';
 import { PhoneNumberField } from './PhoneNumberField';
 import { CountryLocationField } from './CountryLocationField';
 
@@ -208,7 +209,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
             <PayStep key={confirmation.memo} locale={locale} amount={offer!.amount} memo={confirmation.memo} productId={productId} />
             {isStory && <p className="mt-3 font-semibold" data-payment-status>{paymentReceived ? t.paymentReceived : t.paymentPending}</p>}
             <p className="mt-4">{locale === 'vi' ? 'Quét mã bằng ứng dụng ngân hàng và kiểm tra đúng số tiền trước khi xác nhận. Thông tin cá nhân chỉ cần nhập sau khi thanh toán.' : 'Scan with your banking app and verify the exact amount before confirming. You only need to enter personal details after paying.'}</p>
-            <a rel="nofollow" className="mt-3 inline-block underline" href={withFirstTouch(`/go/zalo?utm_source=checkout&utm_content=${encodeURIComponent(productId)}-prepayment-question`, firstTouch)}>{t.question}</a>
+            <a rel="nofollow" className="mt-3 inline-block underline" href={withFirstTouch(checkoutZaloHref(productId, 'checkout', 'prepayment-question'), firstTouch)}>{t.question}</a>
             {!contactFormOpen && <button type="button" className="insights-button-primary mt-5 block" onClick={() => setContactFormOpen(true)} data-open-contact-form>{t.ivePaid}</button>}
           </section>
         ) : (
@@ -216,7 +217,8 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
             <h2 className="text-2xl font-bold">{t.getCodeHeading}</h2>
             <p className="mt-2">{isStory ? t.getCodeText : t.getCodeTextProduct}</p>
             <button type="button" className="insights-button-primary mt-4 w-full max-w-md" onClick={() => void preparePayment()} disabled={preparing} aria-busy={preparing} data-get-payment-code>{preparing ? t.getCodePreparing : t.getCode}</button>
-            {prepareError ? <><p role="alert" className="mt-3 font-semibold text-red-700">{prepareError}</p><p className="mt-3" data-prepare-fallback>{t.qrFallback}: <a rel="nofollow" className="underline" href={withFirstTouch(`/go/zalo?utm_source=checkout&utm_content=${encodeURIComponent(productId)}-prepare-failed`, firstTouch)}>{t.zalo}</a></p></> : null}
+            {prepareError ? <><p role="alert" className="mt-3 font-semibold text-red-700">{prepareError}</p><p className="mt-3" data-prepare-fallback>{t.qrFallback}: <a rel="nofollow" className="underline" href={withFirstTouch(checkoutZaloHref(productId, 'checkout', 'prepare-failed'), firstTouch)}>{t.zalo}</a></p></> : null}
+            {FIXED_ORDER_CODES[productId] ? <p className="mt-3 text-sm" data-checkout-order-code={productId}>{ORDER_CODE_COPY[locale].before} <strong>{FIXED_ORDER_CODES[productId]}</strong>{ORDER_CODE_COPY[locale].after}</p> : null}
           </section>
         )}
 

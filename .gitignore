@@ -35,6 +35,5 @@ scripts/summarize_alignment_report.py
 dist-ssr/
 
 # Local Playwright failure output (reviewable screenshots live in docs/qa/).
-test-results/*
-!test-results/.last-run.json
+test-results/
 .vercel-emulate/
