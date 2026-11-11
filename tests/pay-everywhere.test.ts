@@ -112,3 +112,25 @@ test('Mango pilot: 49000₫ with order code MANGO-L2 and its own memo namespace 
   for (const source of [null, 'products', 'fb-teachers', 'facebook']) assert.equal(orderCode(source, 'mango-l2'), 'MANGO-L2');
   assert.equal(PRODUCTS.find(p => p.id === 'mango-l2')!.price, '49.000₫');
 });
+
+test('Mango checkout: every Zalo link carries MANGO-L2, even after first-touch utm is applied; other products unchanged', async () => {
+  const { checkoutZaloHref } = await import('../src/lib/productsSource');
+  const { withFirstTouch } = await import('../src/lib/utmFirstTouch');
+  const { StoryClubReservePage } = await import('../src/components/StoryClubReservePage');
+  const touch = { utm_source: 'facebook', utm_content: 'post-12', utm_medium: 'social', utm_campaign: 'mango' } as never;
+  for (const content of ['prepayment-question', 'prepare-failed', 'after-submit']) {
+    const href = checkoutZaloHref('mango-l2', 'checkout', content);
+    assert.match(href, /^\/go\/zalo\/mango-l2\?/);
+    assert.match(withFirstTouch(href, touch), /[?&]code=MANGO-L2(&|$)/, `${content}: code survives first-touch`);
+  }
+  assert.equal(checkoutZaloHref('baseline', 'checkout', 'prepayment-question'), '/go/zalo?utm_source=checkout&utm_content=baseline-prepayment-question');
+  for (const locale of ['en', 'vi'] as const) {
+    const mango = renderToStaticMarkup(createElement(StoryClubReservePage, { locale, productId: 'mango-l2', initialMemo: 'PR1A-AB12CD' }));
+    const links = [...mango.matchAll(/href="([^"]*\/go\/zalo[^"]*)"/g)].map((m) => m[1].replaceAll('&amp;', '&'));
+    assert.ok(links.length >= 2, `${locale}: checkout Zalo links rendered`);
+    for (const href of links) assert.match(href, /MANGO-L2/, `${locale}: ${href}`);
+    assert.match(mango, /data-checkout-order-code="mango-l2"[^>]*>[^<]*<strong>MANGO-L2<\/strong>/);
+    const other = renderToStaticMarkup(createElement(StoryClubReservePage, { locale, productId: 'story-workbooks-l1', initialMemo: 'PR0Z-AB12CD' }));
+    assert.doesNotMatch(other, /MANGO-L2|data-checkout-order-code/, `${locale}: other products unchanged`);
+  }
+});
