@@ -13,6 +13,20 @@
  * component also re-dates it. Both over-report freshness slightly; neither
  * invents a date.
  *
+ * Sitewide sweeps do not count. A commit that touches SWEEP_MIN_MAPPED_FILES
+ * or more mapped page files at once (alt-text pass, title/meta length pass,
+ * wording sweep) is a maintenance sweep, not an edit of any one page, and
+ * dating every page with it is the bulk stamping search engines learn to
+ * ignore. Such commits are skipped and the page keeps the date of its last
+ * real edit (11 Nov 2026 audit: 66% of URLs shared one sweep date).
+ *
+ * Shared pools do not date a page either. One file that holds many pages'
+ * content (products.ts for ~90 product pages, seoPages.json for the country and
+ * Insights pages) or a card that many pages render (assetLinks.json) changes when
+ * ONE entry changes, so using its date would stamp every sibling. Pages whose only
+ * sources are shared pools therefore get no lastmod; pages with their own files
+ * are dated by those files alone.
+ *
  * When lastmod cannot be known honestly it is OMITTED (allowed by the sitemap
  * protocol), never guessed:
  *   - git is unavailable or this is not a git checkout;
@@ -160,6 +174,33 @@ export function getAllMappedSourceFiles() {
   ];
 }
 
+/** Shared-card files: they may sit in a page's source list but never date it. */
+const SHARED_CARD_SOURCES = new Set(ASSET_LINK_SOURCES);
+
+/**
+ * Page families whose content lives in one shared pool (one file, many pages).
+ * Their pages carry no lastmod rather than the pool's last-edit date.
+ */
+const SHARED_POOL_ROUTE_PATTERNS = [
+  /^\/(?:vi\/)?products\/[^/]+$/,
+  /^\/(?:es\/|pt\/|id\/|ms\/|th\/|ar\/|ur\/|bn\/)?ielts-speaking-online(?:\/[^/]+)?$/,
+  /^\/(?:vi\/)?insights(?:\/[^/]+)?$/,
+  /^\/about\/nathaniel-jay-adams$/,
+  /^\/vi\/ve-thay-jay-adams$/,
+];
+
+/** True when the page's content sits in a pool shared with many sibling pages. */
+export function isSharedPoolRoute(pathname) {
+  return SHARED_POOL_ROUTE_PATTERNS.some((pattern) => pattern.test(pathname));
+}
+
+/** A commit touching this many mapped page files at once is a sweep, not a page edit. */
+export const SWEEP_MIN_MAPPED_FILES = 10;
+/** How many recent commits per page to look through for a non-sweep edit. */
+const HISTORY_WINDOW = 25;
+
+const touchesMapped = (changed, mapped) => mapped.some((entry) => changed === entry || changed.startsWith(`${entry}/`));
+
 function defaultRunGit(args, cwd) {
   return execFileSync('git', args, { cwd, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
 }
@@ -189,17 +230,41 @@ export function createLastmodResolver({ cwd = process.cwd(), runGit = defaultRun
   }
 
   const cache = new Map();
+  const breadthCache = new Map();
+  const mapped = getAllMappedSourceFiles();
+
+  /** Number of changed files in a commit that are mapped page sources. */
+  const breadthOf = (hash) => {
+    if (breadthCache.has(hash)) return breadthCache.get(hash);
+    let count = 0;
+    try {
+      const out = runGit(['diff-tree', '--no-commit-id', '--name-only', '-r', hash], cwd);
+      count = out.split('\n').filter((file) => file && touchesMapped(file, mapped)).length;
+    } catch {
+      count = 0;
+    }
+    breadthCache.set(hash, count);
+    return count;
+  };
+
   const lastmodFor = (pathname) => {
-    const files = getRouteSourceFiles(pathname);
-    if (!files) return null;
+    if (isSharedPoolRoute(pathname)) return null;
+    const files = getRouteSourceFiles(pathname)?.filter((file) => !SHARED_CARD_SOURCES.has(file));
+    if (!files || files.length === 0) return null;
 
     const key = files.join('\0');
     if (cache.has(key)) return cache.get(key);
 
     let date = null;
     try {
-      const out = runGit(['log', '-1', '--format=%cs', '--', ...files], cwd);
-      date = /^\d{4}-\d{2}-\d{2}$/.test(out) ? out : null;
+      const out = runGit(['log', `-n${HISTORY_WINDOW}`, '--format=%H %cs', '--', ...files], cwd);
+      for (const line of out.split('\n')) {
+        const [hash, day] = line.trim().split(' ');
+        if (!hash || !/^\d{4}-\d{2}-\d{2}$/.test(day ?? '')) continue;
+        if (breadthOf(hash) >= SWEEP_MIN_MAPPED_FILES) continue; // sitewide sweep: not this page's edit
+        date = day;
+        break;
+      }
     } catch {
       date = null;
     }

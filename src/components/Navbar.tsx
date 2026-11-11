@@ -18,7 +18,7 @@ const NAV_LINK =
 const NAV_CTA =
   'inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full bg-sb-amber-deep px-4 py-2 text-[13px] font-bold text-white shadow-warm transition hover:bg-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-forest focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream';
 
-// The desktop row drops a bracketed suffix ("Kids Academy (5–12)" shows "Kids Academy"): the header
+// The desktop row drops a bracketed suffix (e.g. "Products & prices" shows "Products"): the header
 // is width-capped, and the full label pushes Pricing under the language switch at every width
 // (measured 1280 and 1440, EN and VI). The mobile menu, aria-label and title keep the full label.
 function DesktopNavLabel({ label, short }: { label: string; short?: string }) {
