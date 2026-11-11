@@ -164,12 +164,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'english story workbook for kids',
       title: 'Printable English Story Workbooks for Kids 4–8 | Level 1',
-      description: '11 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.',
+      description: '10 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách truyện tiếng anh cho bé',
       title: 'Sách truyện tiếng Anh cho bé 4–8 tuổi, có bài tập | Level 1',
-      description: '11 truyện gốc thành sách bài tập A4 in sẵn cho bé 4–8 tuổi (CEFR Pre-A1 → A1), có đáp án và hướng dẫn cho giáo viên. 290.000₫ mua một lần.',
+      description: '10 truyện gốc thành sách bài tập A4 in sẵn cho bé 4–8 tuổi (CEFR Pre-A1 → A1), có đáp án và hướng dẫn cho giáo viên. 290.000₫ mua một lần.',
     },
   },
   'story-workbooks-l2': {
@@ -182,6 +182,18 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       keyword: 'sách truyện tiếng anh cho bé 8-10 tuổi',
       title: 'Sách truyện tiếng Anh cho bé 8–10 tuổi, có bài tập | Level 2',
       description: '3 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 8–10 tuổi (CEFR A1 → A2), có trang Chu trình Tư duy và đáp án. 190.000₫ mua một lần.',
+    },
+  },
+  'mango-l2': {
+    en: {
+      keyword: 'english story workbook for kids 8-10',
+      title: 'Mango, the Market Cat: English Story Workbook 8–10',
+      description: 'One original storybook as a printable A4 workbook for ages 8–10 (CEFR A1 → A2): six chapters, activities and an answer key. 49.000₫ one-time.',
+    },
+    vi: {
+      keyword: 'sách truyện tiếng anh có bài tập cho bé 8-10 tuổi',
+      title: 'Mango, the Market Cat: sách truyện bài tập 8–10 tuổi',
+      description: 'Một truyện gốc thành sách bài tập A4 in sẵn cho trẻ 8–10 tuổi (CEFR A1 → A2): sáu chương, hoạt động và đáp án. 49.000₫ mua một lần.',
     },
   },
   'story-workbooks-l3': {

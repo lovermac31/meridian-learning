@@ -93,7 +93,8 @@ const USD: Record<string, number> = {
   'ielts-writing-band-up': 20, 'ielts-speaking-band-up': 18, 'ielts-four-skill-kit': 39,
 };
 // The page shows PayPal only on live cards; hidden ones (35-today plan) are priced and ready for when they flip.
-const LIVE_USD = Object.keys(USD).filter((id) => PRODUCTS.find((p) => p.id === id)!.live);
+// Paused products (audit fix 4, 11 Nov 2026) keep their US$ price in the data but show no PayPal option.
+const LIVE_USD = Object.keys(USD).filter((id) => { const p = PRODUCTS.find((entry) => entry.id === id)!; return p.live && !p.paused; });
 
 test('S1: the 13 digital cards take PayPal at the approved US$ prices; the Centre Licence and live services do not', () => {
   assert.deepEqual(PRODUCTS.filter((p) => p.paypal).map((p) => p.id), Object.keys(USD));

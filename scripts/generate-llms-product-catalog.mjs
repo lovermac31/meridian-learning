@@ -28,7 +28,9 @@ for (const product of products) {
   lines.push(`- English description: ${seo.description}`);
   lines.push(`- Vietnamese title: ${vi.title}`);
   lines.push(`- VND price: ${product.price.replace(/₫/g, ' VND')}`);
-  lines.push(`- PayPal USD: ${product.paypal ? 'available on the product page' : 'not listed'}`);
+  // Paused products (audit fix 4, 11 Nov 2026) keep their page but are not for sale.
+  if (product.paused) lines.push('- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)');
+  lines.push(`- PayPal USD: ${product.paypal && !product.paused ? 'available on the product page' : 'not listed'}`);
   lines.push(`- Sample: ${product.sample ? 'view-only pages on the product page' : 'none listed'}`, '');
 }
 await fs.writeFile(path.join(root, 'public/llms-products.md'), `${lines.join('\n')}\n`, 'utf8');

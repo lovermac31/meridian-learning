@@ -17,6 +17,7 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'ielts-writing-ladder-task2': 9,
   'ielts-writing-task1-method': 9,
   'ielts-writing-teacher-pack': 10,
+  'mango-l2': 3,
   'one-to-one': 7,
   'parent-pack-l1': 10,
   'parent-pack-l2': 10,

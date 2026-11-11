@@ -3,6 +3,11 @@ import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { PAID_OFFERS, paymentAmount, paymentHref, reserveCta } from '../../src/config/payment';
+import { PAUSED_COPY, PRODUCTS } from '../../src/i18n/content/products';
+import { HOME_PRIMARY_OPTION, getOverhaulContent } from '../../src/i18n/content/overhaul';
+
+// Paused for sale (audit fix 4, 11 Nov 2026): no checkout at all; covered by their own test below.
+const PAUSED = new Set(PRODUCTS.filter(p => p.paused).map(p => p.id));
 
 const shots = resolve('docs/qa/pay-everywhere');
 test.beforeEach(async ({ page, baseURL }) => {
@@ -15,7 +20,7 @@ test.beforeEach(async ({ page, baseURL }) => {
   });
 });
 
-for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for (const offer of PAID_OFFERS) {
+for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for (const offer of PAID_OFFERS.filter(o => !PAUSED.has(o.id))) {
   test(`${offer.id} ${locale} ${width}: checkout QR first → contact details → exact payment instructions`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     const events: string[] = [];
@@ -58,8 +63,10 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     if (await reject.isVisible()) await reject.click();
     await page.locator(`[data-buy-now="${offer.id}"]`).click();
     await expect(page).toHaveURL(new RegExp(paymentHref(offer.id, locale).replace(/[?]/g, '\\?') + '$'));
-    // Story Club prepares the payment only after an explicit click (5 Nov 2026); other products still prepare it automatically.
-    if (offer.id === 'story-club') await page.locator('[data-get-payment-code]').click();
+    // Every product prepares the payment only after an explicit click (audit fix 6, 11 Nov 2026; Story Club since 5 Nov).
+    await expect(page.locator('[data-get-payment-code]')).toBeVisible();
+    expect(submissions, 'no payment code before the click').toBe(0);
+    await page.locator('[data-get-payment-code]').click();
     await expect(page.locator('[data-payment-qr]')).toBeVisible();
     const form = page.locator('[data-reserve-form]');
     await expect(form).toHaveCount(0);
@@ -135,7 +142,19 @@ test('reserve checkout accepts a selected non-Vietnam country and submits E.164'
 for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
   test(`hero CTA ${locale} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of locale === 'vi' ? ['/vi', '/vi/story-club', '/vi/products/story-club'] : ['/', '/en/', '/story-club', '/products/story-club']) {
+    // Home (audit fix 2, 11 Nov 2026): the main button leads with what can be bought today, not the Story Club reserve.
+    const option = getOverhaulContent(locale).home.hero.primaryOptions[HOME_PRIMARY_OPTION];
+    for (const path of locale === 'vi' ? ['/vi'] : ['/', '/en/']) {
+      await page.goto(path);
+      const main = page.getByRole('link', { name: option.label, exact: true }).filter({ visible: true }).first();
+      await expect(main, `home main button on ${path}`).toBeVisible();
+      await expect(main).toHaveAttribute('href', locale === 'vi' ? `/vi${option.href}` : option.href);
+      const box = (await main.boundingBox())!;
+      expect(box.y + box.height).toBeLessThanOrEqual(900);
+      await expect(page.locator('main').getByRole('link', { name: reserveCta(locale), exact: true })).toHaveCount(0);
+      await page.screenshot({ path: resolve(shots, `hero-${path.replace(/\//g, '_') || 'root'}-${width}.png`), fullPage: false });
+    }
+    for (const path of locale === 'vi' ? ['/vi/story-club', '/vi/products/story-club'] : ['/story-club', '/products/story-club']) {
       await page.goto(path);
       const cta = page.getByRole('link', { name: reserveCta(locale), exact: true }).filter({ visible: true }).first();
       await expect(cta).toHaveAttribute('href', paymentHref('story-club', locale));
@@ -162,6 +181,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     await page.waitForFunction(() => document.documentElement.dataset.qaHydrated === 'true');
     const reject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });
     if (await reject.isVisible()) await reject.click();
+    await page.locator('[data-get-payment-code]').click();
     await expect(page.locator('[data-payment-qr-error]')).toBeVisible();
     await expect(page.locator('[data-reserve-form]')).toHaveCount(0);
     await page.locator('[data-open-contact-form]').click();
@@ -199,3 +219,29 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     await expect(page.locator('[data-after-submit-zalo]')).toBeVisible();
   });
 }
+
+// Audit fix 6 (11 Nov 2026): loading a checkout creates no payment code and no CRM lead; only the click does.
+for (const id of ['mango-l2', 'story-workbooks-l1', 'baseline']) test(`${id}: no prepare_payment call before "Get my payment code" is pressed`, async ({ page }) => {
+  const calls: string[] = [];
+  await page.route('**/api/sample-pack', route => { calls.push(route.request().postDataJSON().intent ?? 'form'); return route.fulfill({ json: { ok: true, memo: `${PAID_OFFERS.find(o => o.id === id)!.prefix}-AB12CD` } }); });
+  await page.route('https://qr.sepay.vn/img?**', route => route.fulfill({ path: resolve(shots, 'qr-fixtures', `${id}.png`), contentType: 'image/png' }));
+  await page.goto(paymentHref(id, 'en'));
+  await page.waitForFunction(() => document.documentElement.dataset.qaHydrated === 'true');
+  await page.waitForTimeout(3_000);
+  expect(calls, 'no call on load (the old flow fired after 2 s)').toEqual([]);
+  await expect(page.locator('[data-payment-qr]')).toHaveCount(0);
+  await page.locator('[data-get-payment-code]').click();
+  await expect(page.locator('[data-payment-qr]')).toBeVisible();
+  expect(calls).toEqual(['prepare_payment']);
+});
+
+// Audit fix 4 (11 Nov 2026): a paused product's page stays, but even an old ?checkout=1 link opens no checkout.
+for (const id of PAUSED) for (const locale of ['en', 'vi'] as const) test(`${id} ${locale}: paused, waitlist instead of any checkout`, async ({ page }) => {
+  let calls = 0;
+  await page.route('**/api/sample-pack', route => { calls++; return route.fulfill({ status: 400, json: { ok: false } }); });
+  await page.goto(`${locale === 'vi' ? '/vi' : ''}/products/${id}?checkout=1`);
+  await page.waitForFunction(() => document.documentElement.dataset.qaHydrated === 'true');
+  await expect(page.locator(`[data-paused-waitlist="${id}"]`)).toContainText(PAUSED_COPY[locale].note);
+  await expect(page.locator(`[data-buy-now="${id}"], [data-get-payment-code], [data-payment-qr], [data-paypal-link="${id}"]`)).toHaveCount(0);
+  expect(calls).toBe(0);
+});

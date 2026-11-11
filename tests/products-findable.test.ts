@@ -38,7 +38,7 @@ test('metadata: the description covers the whole range in EN and VI, OG matches 
 });
 
 test('JSON-LD: one Product with a VND Offer for every live card, in the page language, plus the breadcrumbs', () => {
-  assert.equal(LIVE.length, 46);
+  assert.equal(LIVE.length, 47);
   for (const [path, locale] of [['/products', 'en'], ['/vi/products', 'vi']] as const) {
     const blocks = resolveRouteMetadata(path).jsonLd as Array<Record<string, any>>;
     assert.ok(blocks.some((b) => b['@type'] === 'BreadcrumbList'), `${path}: breadcrumbs kept`);
@@ -59,7 +59,8 @@ test('JSON-LD: one Product with a VND Offer for every live card, in the page lan
       assert.equal(product.offers.price, p.price.replace(/\D/g, ''), `${path} ${p.id}: ${p.price}`);
       // Whole đồng, not thousands: the cheapest card is the Writing Baseline's Basic tier, 79.000₫.
       assert.ok(Number(product.offers.price) >= 10_000, `${path} ${p.id}: whole VND`);
-      assert.equal(product.offers.availability, 'https://schema.org/InStock');
+      // Paused products (audit fix 4, 11 Nov 2026) keep a page but are not for sale.
+      assert.equal(product.offers.availability, p.paused ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock');
     });
   }
   const prices = Object.fromEntries((resolveRouteMetadata('/products').jsonLd as Array<Record<string, any>>)
@@ -185,7 +186,7 @@ test('order codes: the channel code from the table, else the source, else the ca
 
 test('order codes: every Order on Zalo button shows its code line (EN + VI); other buttons do not', async () => {
   const { renderRoute } = await import('../src/entry-server');
-  const zalo = PRODUCTS.filter((p) => p.live && p.href === 'zalo').map((p) => p.id);
+  const zalo = PRODUCTS.filter((p) => p.live && p.href === 'zalo' && !p.paused).map((p) => p.id);
   assert.ok(zalo.length >= 10);
   for (const [route, before] of [['/products', 'When you message, mention code'], ['/vi/products', 'Khi nhắn tin, hãy nhắc mã']] as const) {
     const html = await renderRoute(route);

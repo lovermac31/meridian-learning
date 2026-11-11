@@ -111,23 +111,47 @@ export type Product = {
   books?: string[];
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
   alsoIn?: { section: ProductSectionId; en: string; vi: string };
+  // Paused for sale (audit 11 Nov 2026, Jay: "Approve all four"): the page and URL stay, but there is no buy, VietQR,
+  // PayPal or Zalo order button; the card and page show PAUSED_COPY with a Zalo waitlist link instead.
+  paused?: boolean;
+  // The pre-purchase credit line (audit fix 7, 11 Nov 2026): how the book was made, shown above the price, matching
+  // the line printed in the PDF.
+  credit?: { en: string; vi: string };
   en: CardText;
   vi: CardText;
 };
 
 // Story Workbooks, Levels 1 to 5 (Jay, 3 Nov 2026): the original Jurassic English storybooks as print-ready A4 workbooks
-// (30 pages each: cover, six chapters with a write-in page each, activities, teacher guide, answer key). Level 1 is 11
-// workbooks, Levels 2 to 5 are 3 each. One card per level, in Families under "Workbooks", with a pointer from Teachers.
+// (30 pages each: cover, six chapters with a write-in page each, activities, teacher guide, answer key). Level 1 is 10
+// workbooks (11 Nov 2026: Lina and the Orchard Map is held over art provenance and is not sold), Levels 2 to 5 are 3 each. One card per level, in Families under "Workbooks", with a pointer from Teachers.
 // The sample is 3 watermarked pages of one lead book per level, view-only (no PDF is published). Each full PDF carries
 // the licence line and file properties (security Tier 1) and is delivered only after payment.
 /** The books in each level: the original Jurassic English storybooks, in the order of the print PDFs. */
 export const WORKBOOK_BOOKS: Record<1 | 2 | 3 | 4 | 5, string[]> = {
-  1: ['Mina and the Midnight Drum', 'The Lantern With Two Handles', 'Lina and the Orchard Map', 'Kim and the Thunder Inside', 'The Song Across the Lake', 'Not Now, Rosa!', 'Ivy and the Big Umbrella', 'Tess Tells Tales', 'Skip and the Red Roof', 'The Wind, the Sun and the Yellow Coat', 'Grandpa’s Sunflowers'],
+  1: ['Mina and the Midnight Drum', 'The Lantern With Two Handles', 'Kim and the Thunder Inside', 'The Song Across the Lake', 'Not Now, Rosa!', 'Ivy and the Big Umbrella', 'Tess Tells Tales', 'Skip and the Red Roof', 'The Wind, the Sun and the Yellow Coat', 'Grandpa’s Sunflowers'],
   2: ['The Bell That Rang Too Early', 'The Rain on Platform Seven', 'Mango, the Market Cat'],
   3: ['The Unsent Weather Report', 'The Last Seat on the Night Ferry', 'The Voice in Maya’s Tablet'],
   4: ['The Missing Column', 'The Bridge Committee', 'The Night Rota'],
   5: ['A Box Called Other', 'The Map Beneath the Map', 'The Heron Stamp'],
 };
+
+/** Audit fix 7 (11 Nov 2026): the line every Story Workbooks page shows before the price, as printed in the PDFs. */
+export const WORKBOOK_CREDIT = {
+  en: 'Original stories by Jurassic English; text AI-assisted and human-edited; illustrations AI-generated.',
+  vi: 'Truyện gốc của Jurassic English; phần chữ có AI hỗ trợ và được người biên tập; tranh minh họa do AI tạo.',
+};
+/** The Mango single workbook's credit line (Jay's brief, 11 Nov 2026), matching the footer of the v3.1 PDF. */
+export const MANGO_CREDIT = {
+  en: 'Original story by Jurassic English; activities AI-assisted and human-edited; illustrations AI-generated.',
+  vi: 'Truyện gốc của Jurassic English; phần hoạt động có AI hỗ trợ và được người biên tập; tranh minh họa do AI tạo.',
+};
+/** Paused products (audit fix 4, 11 Nov 2026): shown instead of every buy button. */
+export const PAUSED_COPY: Record<Locale, { note: string; cta: string }> = {
+  en: { note: 'Being rewritten onto original Jurassic English stories: ask about the waitlist on Zalo.', cta: 'Ask about the waitlist' },
+  vi: { note: 'Đang được viết lại trên các truyện gốc của Jurassic English: hỏi về danh sách chờ qua Zalo.', cta: 'Hỏi về danh sách chờ' },
+};
+// utm_source=products comes last, as on every /products link (tests/products.test.ts).
+export const pausedWaitlistHref = (id: string) => `/go/zalo/${id}?utm_content=${id}-waitlist&utm_source=products`;
 
 const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e: Omit<CardText, 'label' | 'cta' | 'unit'>, v: Omit<CardText, 'label' | 'cta' | 'unit'>): Product => ({
   id: `story-workbooks-l${level}`,
@@ -141,6 +165,7 @@ const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e
   sample: `story-workbooks-l${level}`,
   delivery: true,
   paypal: true,
+  credit: WORKBOOK_CREDIT,
   alsoIn: {
     section: 'teachers',
     en: `Teaching Level ${level} stories? The {link} are print-ready with an answer key and a teacher guide: {price} for ${count} workbooks.`,
@@ -152,22 +177,23 @@ const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e
 
 /** The age range each level's card states in "Who it's for" (a test keeps the two in step); shown on the level picker. */
 export const WORKBOOK_AGES: Record<string, string> = {
-  'story-workbooks-l1': '4–8', 'story-workbooks-l2': '8–10', 'story-workbooks-l3': '10–12', 'story-workbooks-l4': '12–14', 'story-workbooks-l5': '14+',
+  'story-workbooks-l1': '4–8', 'story-workbooks-l2': '8–10', 'mango-l2': '8–10', 'story-workbooks-l3': '10–12', 'story-workbooks-l4': '12–14', 'story-workbooks-l5': '14+',
 };
 
+export const MANGO_ID = 'mango-l2';
 const STORY_WORKBOOKS: Product[] = [
-  storyWorkbook(1, '290.000₫', 11, {
+  storyWorkbook(1, '290.000₫', 10, {
     title: 'Level 1 Story Workbooks',
     problem: 'Your child enjoys stories, but you want pages to write on, questions that check they understood, and a reason to talk about the story together.',
-    inside: '11 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in six short chapters, a fill-in, circle and draw page for every chapter, a word search, a reading log, a teacher guide and an answer key.',
+    inside: '10 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in six short chapters, a fill-in, circle and draw page for every chapter, a word search, a reading log, a teacher guide and an answer key.',
     forWho: 'Children aged 4–8 (CEFR Pre-A1 → A1), read with a parent or teacher. One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
   }, {
     title: 'Sách truyện bài tập Level 1',
     problem: 'Con thích nghe truyện, nhưng bố mẹ muốn có trang để con viết, câu hỏi kiểm tra con hiểu truyện chưa, và lý do để hai bố con cùng trò chuyện về câu chuyện.',
-    inside: '11 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
+    inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
     forWho: 'Trẻ 4–8 tuổi (CEFR Pre-A1 → A1), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
-  storyWorkbook(2, '190.000₫', 3, {
+  { ...storyWorkbook(2, '190.000₫', 3, {
     title: 'Level 2 Story Workbooks',
     problem: 'Your child reads short texts, but you can’t tell whether they understand the story or only decode the words.',
     inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, a fill-in, circle and write page for every chapter, a Thinking Cycle page, a word search, a reading log, a teacher guide and an answer key.',
@@ -177,7 +203,41 @@ const STORY_WORKBOOKS: Product[] = [
     problem: 'Con đọc được các đoạn ngắn, nhưng bố mẹ chưa chắc con hiểu câu chuyện hay chỉ đọc đúng từng chữ.',
     inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, mỗi chương một trang điền từ, khoanh đáp án và viết, thêm trang Chu trình Tư duy, trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
     forWho: 'Trẻ 8–10 tuổi (CEFR A1 → A2). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
-  }),
+  }), link: { href: `/products/${MANGO_ID}`, en: 'Try one book first: Mango, the Market Cat, 49.000₫', vi: 'Muốn thử một cuốn trước: Mango, the Market Cat, 49.000₫' } },
+  // Mango pilot (Jay, 11 Nov 2026: "Yes, 49k"; pilot 11–25 Nov): one Level 2 book on its own, 49.000₫, order code MANGO-L2
+  // (productsSource.ts FIXED_ORDER_CODES). Samples are 3 watermarked pages of the canonical v3.1 PDF (cover, chapter 1,
+  // its workbook page). VND only: no US$ price was approved, so no PayPal.
+  {
+    id: MANGO_ID,
+    live: true,
+    section: 'families',
+    category: 'workbooks',
+    books: ['Mango, the Market Cat'],
+    price: '49.000₫',
+    href: 'zalo',
+    image: MANGO_ID,
+    sample: MANGO_ID,
+    delivery: true,
+    credit: MANGO_CREDIT,
+    en: {
+      label: 'Digital download · one story workbook',
+      title: 'Mango, the Market Cat',
+      problem: 'Your child reads English but struggles to explain why a character did something.',
+      inside: 'One original Jurassic English storybook as a print-ready workbook, 30 A4 pages: three neighbours claim the same orange cat, and a notebook helps one child find the truth. Six short chapters, a fill-in, circle and write page for every chapter, a Thinking Cycle page, word games, parent and teacher pages and an answer key.',
+      forWho: 'Children aged 8–10 (CEFR A1 → A2). One-learner licence: print for your own child. Mango is one of the three books in the Level 2 Story Workbooks.',
+      unit: 'one-time · 1 workbook',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · một sách truyện bài tập',
+      title: 'Mango, the Market Cat',
+      problem: 'Con đọc được tiếng Anh nhưng chưa giải thích được vì sao nhân vật làm vậy.',
+      inside: 'Một truyện gốc của Jurassic English thành sách bài tập in sẵn, 30 trang A4: một chú mèo cam ở chợ, ba người hàng xóm đều nói mèo là của mình, và một cuốn sổ tay giúp bé tìm ra sự thật. Sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và viết, trang Chu trình Tư duy, trò chơi từ vựng, trang cho phụ huynh và giáo viên, và đáp án.',
+      forWho: 'Trẻ 8–10 tuổi (CEFR A1 → A2). Bản quyền cho một học viên: in cho con bạn. Mango là một trong ba cuốn của bộ Sách truyện bài tập Level 2.',
+      unit: 'mua một lần · 1 cuốn',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
   storyWorkbook(3, '190.000₫', 3, {
     title: 'Level 3 Story Workbooks',
     problem: 'Your child reads longer stories but rarely explains why a character did something, or what in the text proves it.',
@@ -483,6 +543,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l2',
+    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
+    paused: true,
     video: 'teacher-pack-l2',
     live: true,
     section: 'teachers',
@@ -513,6 +575,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l3',
+    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
+    paused: true,
     video: 'teacher-pack-l3',
     live: true,
     section: 'teachers',
@@ -543,6 +607,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l4',
+    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
+    paused: true,
     video: 'teacher-pack-l4',
     live: true,
     section: 'teachers',
@@ -573,6 +639,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-pack-l5',
+    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
+    paused: true,
     video: 'teacher-pack-l5',
     live: true,
     section: 'teachers',
@@ -603,6 +671,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'teacher-bundle',
+    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
+    paused: true,
     video: 'teacher-bundle',
     live: true,
     section: 'teachers',
@@ -668,6 +738,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l2',
+    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
+    paused: true,
     video: 'student-workbook-l2',
     live: true,
     section: 'teachers',
@@ -698,6 +770,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l3',
+    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
+    paused: true,
     video: 'student-workbook-l3',
     live: true,
     section: 'teachers',
@@ -728,6 +802,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l4',
+    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
+    paused: true,
     video: 'student-workbook-l4',
     live: true,
     section: 'teachers',
@@ -758,6 +834,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'student-workbook-l5',
+    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
+    paused: true,
     video: 'student-workbook-l5',
     live: true,
     section: 'teachers',
@@ -1483,7 +1561,7 @@ type PageCopy = {
   viewer: { title: string; prev: string; next: string; close: string; counter: string; end: string; viewOnly: string; textVersion: string; hideText: string; pageText: string; textLoading: string; textError: string };
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   workbooks: string;
-  workbooksBand: { heading: string; intro: string; levels: string; ages: string; agesFrom: string; count: string };
+  workbooksBand: { heading: string; intro: string; levels: string; ages: string; agesFrom: string; count: string; single: string; singleLevel: string };
   ielts: { groups: Record<IeltsGroup, string>; home: Partial<Record<IeltsGroup, string>>; crumb: string };
   closing: { heading: string; body: string; cta: string };
 };
@@ -1506,6 +1584,8 @@ const PAGE: Record<Locale, PageCopy> = {
       ages: 'Ages {ages}',
       agesFrom: 'Ages {ages}+',
       count: '{n} workbooks',
+      single: '1 workbook',
+      singleLevel: 'Level {level} · one book',
     },
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
@@ -1538,6 +1618,8 @@ const PAGE: Record<Locale, PageCopy> = {
       ages: '{ages} tuổi',
       agesFrom: 'Từ {ages} tuổi',
       count: '{n} cuốn',
+      single: '1 cuốn',
+      singleLevel: 'Level {level} · một cuốn',
     },
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
@@ -1556,6 +1638,8 @@ const PAGE: Record<Locale, PageCopy> = {
 
 export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books'> & {
   link?: { href: string; label: string };
+  paused?: boolean;
+  credit?: string;
 };
 
 /** A product's extra link in one language. */
@@ -1571,8 +1655,8 @@ export function productsPage(locale: Locale) {
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).

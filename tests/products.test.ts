@@ -18,7 +18,7 @@ const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf(
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
-  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['story-workbooks-l1', '290.000₫'], ['story-workbooks-l2', '190.000₫'], ['story-workbooks-l3', '190.000₫'], ['story-workbooks-l4', '190.000₫'], ['story-workbooks-l5', '190.000₫']],
+  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['story-workbooks-l1', '290.000₫'], ['story-workbooks-l2', '190.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '190.000₫'], ['story-workbooks-l4', '190.000₫'], ['story-workbooks-l5', '190.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
@@ -37,6 +37,8 @@ const EXPECTED: Record<string, [string, string][]> = {
 // Cards render only while their entry is live. The factory-built packs stay off the page until their 00 READ ME
 // says "Cleared" (master, 27 Oct 2026).
 const LIVE = new Set(Object.values(EXPECTED).flat().map(([id]) => id));
+// Paused for sale (audit fix 4, 11 Nov 2026): the card and page stay, with a Zalo waitlist note instead of any buy button.
+const PAUSED = new Set(['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5']);
 const SHOWN: Record<string, [string, string][]> = Object.fromEntries(
   Object.entries(EXPECTED).map(([section, cards]) => [section, cards.filter(([id]) => LIVE.has(id))]),
 );
@@ -67,7 +69,10 @@ test('sections in order, each card with its price and exactly one CTA', async ()
       assert.deepEqual(ids, cards.map(([id]) => id), `${route} ${section}`);
       for (const [id, price] of cards) {
         const card = block.slice(block.indexOf(`id="${id}"`), block.indexOf('</li>', block.indexOf(`id="${id}"`)));
-        assert.equal([...card.matchAll(/data-cta=/g)].length, 1, `${route} ${id}: one CTA`);
+        if (PAUSED.has(id)) {
+          assert.equal([...card.matchAll(/data-cta=/g)].length, 0, `${route} ${id}: paused, no order CTA`);
+          assert.ok(card.includes(`data-paused-waitlist="${id}"`), `${route} ${id}: waitlist note`);
+        } else assert.equal([...card.matchAll(/data-cta=/g)].length, 1, `${route} ${id}: one CTA`);
         assert.ok(card.includes(`data-price="${id}">${price}<`), `${route} ${id}: ${price}`);
       }
     }
@@ -84,7 +89,8 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     const main = amp(mainOf(await renderRoute(route)));
     const ctas = Object.fromEntries([...main.matchAll(/href="([^"]+)"[^>]*data-cta="product-([^"]+)"/g)].map((m) => [m[2], m[1]]));
     for (const [id, href] of Object.entries(expected[route])) assert.equal(ctas[id], href, `${route} ${id}`);
-    for (const id of ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId), ...SHOWN.centres.map(([cardId]) => cardId), ...SHOWN.ielts.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
+    for (const id of ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId).filter((cardId) => !PAUSED.has(cardId)), ...SHOWN.centres.map(([cardId]) => cardId), ...SHOWN.ielts.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
+    for (const id of PAUSED) assert.equal(ctas[id], undefined, `${route} ${id}: paused, no order link`);
     assert.equal(PRODUCTS_ZALO, '/go/zalo?utm_source=products');
     // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch, the sample
     // PDFs (files on this site, not page links) and the PayPal payments (their item name carries the order code).
@@ -116,7 +122,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'story-workbooks-l1', 'story-workbooks-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -216,7 +222,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'ielts-one-to-one-starter': 'ielts-one-to-one-starter', 'writing-baseline': 'writing-baseline',
     'ielts-cue-card-bank': 'ielts-cue-card-bank', 'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3',
     'holiday-reading-challenge': 'holiday-reading-challenge', 'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
-    'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5',
+    'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5', 'mango-l2': 'mango-l2',
     // IELTS Reading and Listening (3 Nov 2026): stem = id.
     'ielts-reading-ladder': 'ielts-reading-ladder', 'ielts-listening-profiler': 'ielts-listening-profiler', 'ielts-diagnostic-mock': 'ielts-diagnostic-mock',
     // IELTS bundles (5 Nov 2026): stem = id.
@@ -280,7 +286,7 @@ const SAMPLE_STEMS: Record<string, string> = {
   'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3', 'holiday-reading-challenge': 'holiday-challenge',
   'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
   // Story Workbooks L1-L5 (Jay, 3 Nov 2026): stem = id; 3 sample pages each.
-  'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5',
+  'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5', 'mango-l2': 'mango-l2',
   // IELTS Reading and Listening (3 Nov 2026): stem = id.
   'ielts-reading-ladder': 'ielts-reading-ladder', 'ielts-listening-profiler': 'ielts-listening-profiler', 'ielts-diagnostic-mock': 'ielts-diagnostic-mock',
 };

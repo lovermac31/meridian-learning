@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ProductsPage, productAnchor } from '../src/components/ProductsPage';
-import { PRODUCTS, PRODUCT_SECTIONS, PRODUCT_SEGMENTS, PRODUCT_FORMER_IDS, WORKBOOKS_SEGMENT, WORKBOOK_AGES, productsPage } from '../src/i18n/content/products';
+import { PAUSED_COPY, PRODUCTS, PRODUCT_SECTIONS, PRODUCT_SEGMENTS, PRODUCT_FORMER_IDS, WORKBOOKS_SEGMENT, WORKBOOK_AGES, productsPage } from '../src/i18n/content/products';
 import { FEATURED_PRODUCTS } from '../src/components/ProductsPage';
 
 // Stitch layout (Jay's mock, 2 Nov 2026) with featured-first (Jay, "tighten"): a segment filter row over one wide card
@@ -16,7 +16,7 @@ for (const locale of ['en', 'vi'] as const) {
     assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.map((id) => [id, 'false', id]));
     assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Story Workbooks sits right after Families');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
-    assert.equal(total, 46);
+    assert.equal(total, 47);
     for (const section of productsPage(locale).sections) {
       const featuredHere = section.cards.some((card) => (FEATURED_PRODUCTS as readonly string[]).includes(card.id));
       assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*"${''} data-category-panel="${section.id}">`), `${section.id}: ${featuredHere ? 'shown' : 'hidden'} until its tile is pressed`);
@@ -26,9 +26,10 @@ for (const locale of ['en', 'vi'] as const) {
       assert.ok(tile.includes(`${count} ${locale === 'vi' ? 'sản phẩm' : 'products'}`));
       assert.ok(tile.includes(`${price}₫`));
     }
-    // The Story Workbooks tile counts the five level cards (they stay in the Families data) and starts at the L2-L5 price.
+    // The Story Workbooks tile counts the five level cards and the Mango single book (they stay in the Families data) and
+    // starts at Mango's price (11 Nov 2026).
     const workbookTile = html.match(/data-category-tile="story-workbooks"[\s\S]*?<\/button>/)![0];
-    assert.ok(workbookTile.includes(`5 ${locale === 'vi' ? 'sản phẩm' : 'products'}`) && workbookTile.includes('190.000₫'), 'workbooks tile: 5 products from 190.000₫');
+    assert.ok(workbookTile.includes(`6 ${locale === 'vi' ? 'sản phẩm' : 'products'}`) && workbookTile.includes('49.000₫'), 'workbooks tile: 6 products from 49.000₫');
     assert.equal(FEATURED_PRODUCTS.length, 6);
     assert.deepEqual(FEATURED_PRODUCTS.slice(0, 3), ['story-club', 'baseline', 'one-to-one'], 'the three live services lead');
     for (const id of FEATURED_PRODUCTS) assert.ok(PRODUCTS.find((p) => p.id === id)?.live, `${id} is a live product`);
@@ -41,7 +42,7 @@ for (const locale of ['en', 'vi'] as const) {
 
   test(`cards ${locale}: every product in SSR with its copy, badge, lazy icon, sample above the price, and payment links`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale })).replaceAll('&#x27;', "'").replaceAll('&amp;', '&').replaceAll('&quot;', '"');
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 46);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 47);
     for (const product of PRODUCTS.filter((p) => p.live)) {
       const start = html.indexOf(`id="${product.id}"`);
       const card = html.slice(start, html.indexOf('</li>', start));
@@ -52,9 +53,17 @@ for (const locale of ['en', 'vi'] as const) {
       assert.ok(card.includes(`<span class="product-row-pill">${escape(product[locale].label)}</span>`), `${product.id}: badge pill is the card label`);
       // The three IELTS bundles (5 Nov 2026) show no sample of their own: each pack inside has its sample on its own page.
       if (product.sample) assert.ok(card.includes(`data-sample-open="${product.id}"`)); else assert.ok(!card.includes('data-sample-open='), `${product.id}: no sample button without a sample`);
-      assert.ok(card.includes(`data-cta="product-${product.id}"`));
       assert.match(card, /loading="lazy"/);
       const at = (marker: string) => card.indexOf(marker);
+      if (product.paused) {
+        // Paused (audit fix 4, 11 Nov 2026): text → sample → price → the waitlist note; no buy, order or PayPal button.
+        assert.ok(!card.includes('data-buy-now=') && !card.includes(`data-cta="product-${product.id}"`) && !card.includes('data-paypal-link=') && !card.includes('data-order-code='), `${product.id}: no buy button`);
+        assert.ok(card.includes(PAUSED_COPY[locale].note), `${product.id}: waitlist text`);
+        assert.ok(at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at(`data-paused-waitlist="${product.id}"`), `${product.id}: text → sample → price → waitlist`);
+        assert.ok(card.includes(`href="/go/zalo/${product.id}?utm_content=${product.id}-waitlist&utm_source=products"`), `${product.id}: Zalo waitlist link`);
+        continue;
+      }
+      assert.ok(card.includes(`data-cta="product-${product.id}"`));
       if (product.sample) assert.ok(at('</dl>') < at(`data-sample="${product.id}"`) && at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → sample → price → buttons`);
       else assert.ok(at('</dl>') < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → price → buttons`);
       // One payment line under the price (the delivery line); the long PayPal note stays in the FAQ, not on every card.
@@ -101,8 +110,9 @@ for (const locale of ['en', 'vi'] as const) {
     assert.ok(band, 'the band renders (visible by default: no hidden attribute)');
     assert.doesNotMatch(band.slice(0, band.indexOf('>')), /hidden/, 'visible before any tile is pressed');
     assert.ok(html.indexOf('data-products-mini-nav') < html.indexOf('data-story-workbooks-band') && html.indexOf('data-story-workbooks-band') < html.indexOf('data-category-panel="families"'), 'tiles, then the level picker, then the catalogue');
-    const ids = [1, 2, 3, 4, 5].map((n) => `story-workbooks-l${n}`);
-    assert.deepEqual([...band.matchAll(/href="#([^"]+)" data-workbooks-level/g)].map((m) => m[1]), ids, 'one link per level, in order');
+    const ids = ['story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5'];
+    assert.deepEqual([...band.matchAll(/href="#([^"]+)" data-workbooks-level/g)].map((m) => m[1]), ids, 'one link per level, and the Mango single book after Level 2');
+    assert.match(band.match(/data-workbooks-level="mango-l2"[^>]*>[\s\S]*?<\/a>/)![0], /<strong>Mango, the Market Cat<\/strong>/, 'the single book is named');
     for (const id of ids) {
       const card = productsPage(locale).sections.flatMap((s) => s.cards).find((c) => c.id === id)!;
       const link = band.match(new RegExp(`data-workbooks-level="${id}"[^>]*>[\\s\\S]*?</a>`))![0];

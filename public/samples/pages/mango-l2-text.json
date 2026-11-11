@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "productId": "mango-l2",
+  "sampleStem": "mango-l2",
+  "pageCount": 3,
+  "source": {
+    "file": "mango-l2-sample.pdf",
+    "sha256": "5baf5e47e4c735cf96314fba14e6b4a1ffbe5dd63888ff47988989aeaa9a68f2"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "mango-l2-pg01.webp",
+      "imageSha256": "88d85432017c98de385e07816ca3f74947848315cd250e2fd181770096cf6d52",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\nMango, the Market Cat\nLevel 2 · Development Ages 8–10 Story + Workbook\nJurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "6c5d6cb52d2cce73660606efc3c6ebe91469b96dedd7e9c5a326813d83f197bd",
+      "method": "pdf-text"
+    },
+    {
+      "page": 2,
+      "image": "mango-l2-pg02.webp",
+      "imageSha256": "cf023a544d88d6786bf331cacf39dffaff45ed8d77cb42ce5d63485bcb0993f3",
+      "text": "Chapter 1\n1 A new street\nDan and his mum moved to the city in the rainy season. Their small\nflat was above a busy street market. Here, he knew nobody.\nOn the third day, he saw an orange cat asleep on the noodle stall.\nHer fur was the colour of a ripe mango.\n‘Hello, Mango,’ Dan whispered. He gave her some fish. ‘You can be\nmy cat.’\nRead and circle\nWhere did Dan first see the cat?\nA. On the noodle stall\nB. In the fruit baskets\nC. On his own step\n4© 2026 WorldWise Learning (Jurassic English). Story by Jurassic English; activities AI-assisted. Illustrations AI-generated. Licensed for one learner.",
+      "textSha256": "6e2043357bd01fd8dd076cf0026810465b60c0d5fc60bea34e818a20c9e4bbb3",
+      "method": "pdf-text"
+    },
+    {
+      "page": 3,
+      "image": "mango-l2-pg03.webp",
+      "imageSha256": "28839c4630e8b34863cbd5005c7464c8febe94f487a44574b9b434f09086bdb2",
+      "text": "Chapter 1 workbook\n1 A new street: my workbook page\n1 ·  Fill the gaps\nmoved nobody season street\nDan and his mum moved to the city in the rainy .\nTheir small flat was above a busy  market.\nHere, he knew .\n2 ·  Think about it\nWhy did Dan want the cat to be his?\nA. His mum asked for a cat.\nB. He knew nobody in the city.\nC. The cat had nowhere to sleep.\n3 ·  Write it\nWhat is hard about being new in a place? What helps?\n4 ·  Draw it\nDraw one thing from this chapter. Add a label.\n5© 2026 WorldWise Learning (Jurassic English). Story by Jurassic English; activities AI-assisted. Illustrations AI-generated. Licensed for one learner.",
+      "textSha256": "abb8f1d8c8ef6a44caa913d597a96b8e6296011bad89379cb539c52f7096c51a",
+      "method": "pdf-text"
+    }
+  ]
+}

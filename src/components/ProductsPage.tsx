@@ -25,7 +25,7 @@ import {
 } from '../i18n/content/products';
 import { fetchSampleText, type SampleTextDocument } from '../lib/sampleText';
 import { SamplePackForm } from './SamplePackForm';
-import { PRODUCT_FORMER_IDS } from '../i18n/content/products';
+import { PAUSED_COPY, PRODUCT_FORMER_IDS, pausedWaitlistHref } from '../i18n/content/products';
 import { FAQ_QUESTIONS, productPath } from '../i18n/content/productSeo';
 import { getOverhaulContent } from '../i18n/content/overhaul';
 import { ieltsAppHref } from '../lib/ieltsApp';
@@ -83,6 +83,22 @@ export function CardLink({ card, locale }: { card: ProductCard; locale: Locale }
     <p className="mt-2 text-sm" data-card-link={card.id}>
       <a href={productHref(card.link.href, locale)} className="font-bold underline underline-offset-4 hover:text-sb-amber-deep">{card.link.label} →</a>
     </p>
+  );
+}
+/** Audit fix 7 (11 Nov 2026): how the book was made, above the price (champagne panel, navy text, crimson rule). */
+export function CreditLine({ card }: { card: ProductCard }) {
+  if (!card.credit) return null;
+  return <p className="mt-3 rounded-lg border-l-4 border-[#9B1C31] bg-[#F3E8CF] px-3 py-2 text-sm font-medium text-[#13294B]" data-ai-credit={card.id}>{card.credit}</p>;
+}
+
+/** Audit fix 4 (11 Nov 2026): a paused product shows this instead of every buy, VietQR, PayPal and Zalo order button. */
+export function PausedNote({ card, locale }: { card: ProductCard; locale: Locale }) {
+  const t = PAUSED_COPY[locale];
+  return (
+    <div className="mt-3 rounded-xl border-l-4 border-[#9B1C31] bg-[#F3E8CF] p-4 text-[#13294B]" data-paused-waitlist={card.id}>
+      <p className="font-semibold">{t.note}</p>
+      <a className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[#13294B] px-5 py-2 text-sm font-bold underline-offset-4 hover:underline" style={{ color: '#F3E8CF' }} href={pausedWaitlistHref(card.id)} target="_blank" rel="noopener noreferrer nofollow" data-paused-zalo={card.id}>{t.cta}</a>
+    </div>
   );
 }
 export type SampleCopy = { heading: string; note: string; open: string; cover: string; page: string };
@@ -295,11 +311,13 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
           <div className="mt-3 text-center" data-viewer-end>
             <p className="text-sm font-bold">{copy.end}</p>
             <p className="mt-1 text-lg font-bold">{card.price} <span className="text-sm font-semibold">{card.unit}</span></p>
-            <div className="story-cta mt-2">
-              <a className="insights-button-primary" href={href} data-viewer-order={card.id} {...(external ? { target: '_blank', rel: 'noopener noreferrer nofollow' } : {})}>
-                {card.cta}
-              </a>
-            </div>
+            {card.paused ? <PausedNote card={card} locale={locale} /> : (
+              <div className="story-cta mt-2">
+                <a className="insights-button-primary" href={href} data-viewer-order={card.id} {...(external ? { target: '_blank', rel: 'noopener noreferrer nofollow' } : {})}>
+                  {card.cta}
+                </a>
+              </div>
+            )}
           </div>
         ) : null}
         <p className="mt-2 text-center text-xs text-sb-slate">{copy.viewOnly}</p>
@@ -513,7 +531,15 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
         {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={ieltsHome[card.group]} id={card.id} /> : null}
       </div>
       <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} compact />
+      <CreditLine card={card} />
       <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
+      {card.paused ? (
+        <div className="product-row-actions story-cta">
+          {card.sample ? <button type="button" className="insights-button-secondary" onClick={() => { onOpenSample(card); recordClientEvent({ event: 'sample_open', product_id: card.id }); }} data-sample-open={card.id}>{sample.heading}</button> : null}
+          {card.video ? <a href={`${getLocalizedHref(productPath(card.id), locale)}#${PRODUCT_VIDEO_ANCHOR}`} className="product-row-watch" data-watch={card.id}><span aria-hidden="true">▶</span> {VIDEO_COPY[locale].watch}</a> : null}
+          <PausedNote card={card} locale={locale} />
+        </div>
+      ) : <>
       {/* One payment line under the price (the delivery line's own wording); the PayPal link stays in the footer row. */}
       {card.delivery ? <p className="product-row-pay" data-delivery={card.id}>{delivery}</p> : null}
       <div className="product-row-actions story-cta">
@@ -536,6 +562,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
         {card.paypal ? <PayPalOption card={card} locale={locale} source={source} compact /> : null}
         {isLemonSqueezyEnabled(card.id) ? <LemonSqueezyOption card={card} locale={locale} source={source} touch={touch} compact /> : null}
       </div>
+      </>}
     </li>
   );
 }
@@ -654,15 +681,17 @@ export function ProductsPage({ locale }: { locale: Locale }) {
             <p>{c.workbooksBand.intro}</p>
             <ul aria-label={c.workbooksBand.levels}>
               {workbookCards.map((card) => {
-                const level = card.title.match(/\d/)?.[0];
+                // A single book (the Mango pilot, 11 Nov 2026) is named, with its level; the bundles stay "Level N".
+                const single = card.books?.length === 1;
+                const level = single ? card.id.match(/-l(\d)$/)?.[1] : card.title.match(/\d/)?.[0];
                 const count = card.unit.match(/\d+/)?.[0];
                 const ages = WORKBOOK_AGES[card.id] ?? '';
                 return (
                   <li key={card.id}>
                     <a href={`#${card.id}`} data-workbooks-level={card.id}>
-                      <strong>Level {level}</strong>
-                      <span>{(ages.endsWith('+') ? c.workbooksBand.agesFrom : c.workbooksBand.ages).replace('{ages}', ages.replace('+', ''))}</span>
-                      <span>{c.workbooksBand.count.replace('{n}', count ?? '')} · <b>{card.price}</b></span>
+                      <strong>{single ? card.title : `Level ${level}`}</strong>
+                      <span>{single ? `${c.workbooksBand.singleLevel.replace('{level}', level ?? '')} · ` : ''}{(ages.endsWith('+') ? c.workbooksBand.agesFrom : c.workbooksBand.ages).replace('{ages}', ages.replace('+', ''))}</span>
+                      <span>{single ? c.workbooksBand.single : c.workbooksBand.count.replace('{n}', count ?? '')} · <b>{card.price}</b></span>
                     </a>
                   </li>
                 );
