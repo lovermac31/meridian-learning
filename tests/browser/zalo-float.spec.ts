@@ -208,7 +208,8 @@ test('hidden on checkout pay steps and private portals; disappears when a produc
     ['/vi/products/one-to-one?checkout=1', 375, null],
   ] as const) {
     await open(page, path, width);
-    if (path.includes('story-club/reserve')) await page.locator('[data-get-payment-code]').click(); // Story Club prepares the payment only after this click
+    // Every checkout prepares the payment only after this click (audit fix 6, 11 Nov 2026; Story Club since 5 Nov).
+    await page.locator('[data-get-payment-code]').click();
     await expect(payStep.first()).toBeVisible();
     await expect(launcher).toHaveCount(0);
     if (shot) await page.screenshot({ path: resolve(shots, shot) });
@@ -223,6 +224,7 @@ test('hidden on checkout pay steps and private portals; disappears when a produc
   await expect(launcher).toBeVisible();
   await page.locator('[data-buy-now="one-to-one"]').click();
   await expect(page).toHaveURL(/\/products\/one-to-one\?checkout=1$/);
+  await page.locator('[data-get-payment-code]').click();
   await expect(payStep.first()).toBeVisible();
   await expect(launcher).toHaveCount(0);
 });
