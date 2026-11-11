@@ -28,7 +28,7 @@ const en = {
   nav: {
     items: [
       // Header symmetry (Oct 2026): short age labels on screen; `desc` names the door (accessible name + mobile drawer).
-      { key: 'reading', label: 'Kids Academy (5–12)', desc: 'Reading & Story Adventures', href: '/student-academy', kind: 'route' },
+      { key: 'reading', label: 'Kids Academy', desc: 'Reading & Story Adventures', href: '/student-academy', kind: 'route' },
       { key: 'speaking', label: 'Ages 9–18', desc: 'Speaking Confidence & Teen IELTS', href: '/young-learners-speaking/', kind: 'native' },
       { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: introduction & demo', href: '/ai-speaking/writing', kind: 'native' },
       { key: 'adults', label: 'AI Speaking Mocks', desc: 'Adult IELTS Speaking practice (18+)', href: '/ai-speaking', kind: 'native' },
@@ -53,7 +53,7 @@ const en = {
       { label: 'Adult IELTS Practice', href: '/ai-speaking' },
       { label: 'IELTS Coaching by Country', href: 'https://jurassicielts.com/speaking/online/' },
       { label: 'IELTS Band Score Calculator', href: '/tools/ielts-band-score-calculator' },
-      { label: 'IELTS Writing Task 2 (Coming Soon)', href: '/ai-speaking/writing' },
+      { label: 'IELTS Writing Task 2', href: '/ai-speaking/writing' },
       { label: 'Live Speaking Baseline', href: '/ai-speaking/baseline' },
       { label: 'Academic Framework', href: '/framework' },
       { label: 'Products & prices', href: '/products' },
@@ -262,7 +262,7 @@ type OverhaulContent = typeof en;
 const vi: OverhaulContent = {
   nav: {
     items: [
-      { key: 'reading', label: 'Học viện Thiếu nhi (5–12 tuổi)', desc: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy', kind: 'route' },
+      { key: 'reading', label: 'Học viện Thiếu nhi', desc: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy', kind: 'route' },
       { key: 'speaking', label: '9–18 tuổi', desc: 'Tự tin nói & IELTS cho teen', href: '/young-learners-speaking/', kind: 'native' },
       { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: giới thiệu & bản demo', href: '/ai-speaking/writing', kind: 'native' },
       { key: 'adults', label: 'Thi thử Nói AI', desc: 'Luyện Nói IELTS cho người lớn (18+)', href: '/ai-speaking', kind: 'native' },
@@ -284,7 +284,7 @@ const vi: OverhaulContent = {
       { label: 'Luyện IELTS cho người lớn', href: '/ai-speaking' },
       { label: 'Hướng dẫn IELTS theo quốc gia', href: 'https://jurassicielts.com/vi/speaking/online/' },
       { label: 'Công cụ tính điểm IELTS', href: '/tools/ielts-band-score-calculator' },
-      { label: 'IELTS Writing Task 2 (Sắp ra mắt)', href: '/ai-speaking/writing' },
+      { label: 'IELTS Writing Task 2', href: '/ai-speaking/writing' },
       { label: 'Đánh giá Nói trực tiếp', href: '/ai-speaking/baseline' },
       { label: 'Khung học thuật', href: '/framework' },
       { label: 'Sản phẩm & bảng giá', href: '/products' },

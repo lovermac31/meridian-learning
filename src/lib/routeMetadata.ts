@@ -260,13 +260,13 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   },
   '/story-club/reserve': {
     title: 'Reserve a Story Club seat — Jurassic English™',
-    description: 'Reserve a place in Story Club with Mr. Jay: a small online English story group for children aged 5–8.',
+    description: 'Reserve a place in Story Club with Mr. Jay: a small online English story group for children aged 5–8. You see the summary and refund rule before you pay.',
     canonicalPath: '/story-club/reserve',
     breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Story Club', path: '/story-club' }, { name: 'Reserve a seat', path: '/story-club/reserve' }],
     localized: {
       vi: {
         title: 'Đặt chỗ Câu lạc bộ Truyện — Jurassic English™',
-        description: 'Đăng ký một chỗ trong Câu lạc bộ Truyện cùng thầy Jay: nhóm tiếng Anh trực tuyến nhỏ cho trẻ 5–8 tuổi.',
+        description: 'Đăng ký một chỗ trong Câu lạc bộ Truyện cùng thầy Jay: nhóm tiếng Anh trực tuyến nhỏ cho trẻ 5–8 tuổi. Xem tóm tắt và quy định hoàn tiền trước khi thanh toán.',
         breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Câu lạc bộ Truyện', path: '/story-club' }, { name: 'Đặt chỗ', path: '/story-club/reserve' }],
       },
     },
@@ -396,7 +396,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/cefr-alignment': {
     title: 'CEFR, CEFR-V and MOET 2030 Alignment | Jurassic English™',
     description:
-      'How Jurassic English™ and WorldWise Learning map to CEFR, CEFR-V, and MOET 2030 national standards. A standards-facing companion to the methodology page — for institutional procurement, accreditation, and compliance review.',
+      'How Jurassic English™ and WorldWise Learning map to CEFR, CEFR-V and MOET 2030 national standards, for procurement, accreditation and compliance review.',
     canonicalPath: '/cefr-alignment',
     breadcrumbs: [
       { name: 'Home', path: '/' },
@@ -462,7 +462,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/companies': {
     title: 'Business and Technical English for Teams | Jurassic English™',
     description:
-      "AI-assisted business and technical English for Vietnam's tech and export teams (Ho Chi Minh City & Hanoi). Client-ready communication for engineers, measured in CEFR/IELTS gains and built on the public assessment criteria. Book a scoping call.",
+      "AI-assisted business and technical English for Vietnam's tech and export teams (Ho Chi Minh City & Hanoi), measured in CEFR/IELTS gains. Book a scoping call.",
     canonicalPath: '/companies',
     jsonLd: [
       createServiceJsonLd({
@@ -483,7 +483,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/pilot-programme': {
     title: 'Pilot Programme: 6–8 Week Evaluation | Jurassic English™',
     description:
-      'A structured 6-8 week Jurassic English™ pilot pathway for schools, academies, and training centres. Measure student reasoning evidence, teacher fidelity, progression fit, and implementation readiness before wider rollout.',
+      'A structured 6-8 week Jurassic English™ pilot for schools, academies and training centres. Measure reasoning evidence and readiness before rollout.',
     canonicalPath: '/pilot-programme',
     breadcrumbs: [
       { name: 'Home', path: '/' },
@@ -526,7 +526,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   },
   '/live-speaking-check': {
     title: 'Live Speaking Check, 30 Min, 250.000₫ | Jurassic English™',
-    description: 'A 30-minute one-to-one IELTS Speaking check on Google Meet with Mr. Jay Adams, plus a short written summary. 250.000₫; the fee counts toward the Baseline or an 8-lesson pack if you book within 14 days. Adults 18+.',
+    description: 'A 30-minute one-to-one IELTS Speaking check with Mr. Jay Adams, plus a short written summary. 250.000₫; counts toward the Baseline if you book within 14 days.',
     canonicalPath: '/live-speaking-check',
   },
   '/external/pilot': {
@@ -595,7 +595,8 @@ function normalizeDescription(text: string) {
 
 /** Search results show about 160 characters; longer descriptions are cut mid-word. Keep whole sentences where possible (audit 4 Nov 2026). */
 const META_DESCRIPTION_MAX = 160;
-const META_DESCRIPTION_MIN_SENTENCE = 90;
+// A sentence cut shorter than this leaves a thin snippet (audit 11 Nov 2026: nine pages came out at 99-108 characters).
+const META_DESCRIPTION_MIN_SENTENCE = 120;
 
 export function fitMetaDescription(text: string): string {
   if (text.length <= META_DESCRIPTION_MAX) {
@@ -878,8 +879,8 @@ function resolveSyllabusRoute(pathname: string, locale: Locale): RouteMetadata |
       : `${localizedLevel.title} Syllabus, Ages ${localizedLevel.ageBand.replace(/\s*years?$/i, '')} | Jurassic English™`;
   const description =
     locale === 'vi'
-      ? `Đề cương ${localizedLevel.title} cho ${localizeAgeBand(localizedLevel.ageBand, locale)}: văn bản cốt lõi, học kỳ, đánh giá, tư duy sinh thái và CEFR ${localizedLevel.cefrRange}.`
-      : `Full ${localizedLevel.title} syllabus for ages ${localizedLevel.ageBand}: core texts, terms, assessment, eco-reasoning and CEFR ${localizedLevel.cefrRange}.`;
+      ? `Đề cương ${localizedLevel.title} cho ${localizeAgeBand(localizedLevel.ageBand, locale)}: văn bản cốt lõi, học kỳ, đánh giá, tư duy sinh thái và CEFR ${localizedLevel.cefrRange}. Xem nội dung từng học kỳ.`
+      : `Full ${localizedLevel.title} syllabus for ages ${localizedLevel.ageBand}: core texts, terms, assessment, eco-reasoning and CEFR ${localizedLevel.cefrRange}. See what each term covers.`;
   const isReleasedLocale = isPublicContentReleased(pathname, locale);
   const canonicalUrl = isReleasedLocale
     ? toAbsoluteUrl(getCanonicalPath(pathname, locale))
@@ -930,7 +931,7 @@ const legalDescriptionsVi: Record<string, string> = {
   '/legal/privacy':
     'Thông tin về quyền riêng tư cho người truy cập website, yêu cầu liên hệ, biểu mẫu, trao đổi và tương tác dịch vụ giáo dục Jurassic English™.',
   '/legal/cookies':
-    'Chính sách cookie của website Jurassic English™, các loại cookie được sử dụng và cách bạn có thể quản lý tùy chọn.',
+    'Chính sách cookie của website Jurassic English™, các loại cookie được sử dụng và cách bạn có thể quản lý tùy chọn trong trình duyệt của mình.',
   '/legal/accessibility':
     'Tuyên bố về khả năng tiếp cận của website Jurassic English™, các tiêu chuẩn được áp dụng và cách yêu cầu hỗ trợ tiếp cận.',
   '/legal/disclaimer':
@@ -1115,8 +1116,13 @@ function resolveRouteMetadataBase(pathname: string): RouteMetadata {
     ]));
     return createMetadata({ title: seoPage.title, description: seoPage.description, canonical,
       robots: 'index, follow', locale: seoPage.locale as Locale, jsonLd, ogUrl: canonical,
-      // hreflang only where a real translation exists: an English-only page (alternatePath === path) declares none.
-      alternates: seoPage.alternatePath === seoPage.path ? undefined : [
+      // A real translation gets the full pair. An English-only page (alternatePath === path) declares only its
+      // own address plus x-default, the same as every other English-only page (e.g. /methodology): a true
+      // self-reference, never a link to a page that does not exist.
+      alternates: seoPage.alternatePath === seoPage.path ? (seoPage.locale === 'en' ? [
+        { hrefLang: 'en', href: toAbsoluteUrl(enPath) },
+        { hrefLang: 'x-default', href: toAbsoluteUrl(enPath) },
+      ] : [{ hrefLang: 'vi', href: toAbsoluteUrl(viPath) }]) : [
         { hrefLang: 'vi', href: toAbsoluteUrl(viPath) },
         { hrefLang: 'en', href: toAbsoluteUrl(enPath) },
         { hrefLang: 'x-default', href: toAbsoluteUrl(enPath) },

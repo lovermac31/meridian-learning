@@ -14,7 +14,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.ts';
+import { getExpectedPublicIndexableRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata.ts';
 import { createLastmodResolver } from './lib/sitemap-lastmod.mjs';
 import { getSeoPage, isInternationalMarketPath, getInternationalAlternates } from '../src/lib/seoPages.ts';
 import { videosForPath } from '../src/lib/videoSeo.ts';
@@ -89,13 +89,11 @@ function toolAlternates(pathname) {
     if (isInternationalMarketPath(seoPage.path)) return (getInternationalAlternates(pathname) ?? []).map(
       ({ hrefLang, href }) => `    <xhtml:link rel="alternate" hreflang="${hrefLang}" href="${href}" />`,
     );
-    const en = seoPage.locale === 'en' ? seoPage.path : seoPage.alternatePath;
-    const vi = seoPage.locale === 'vi' ? seoPage.path : seoPage.alternatePath;
-    return [
-      `    <xhtml:link rel="alternate" hreflang="vi" href="${SITE_URL}${vi}" />`,
-      `    <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}${en}" />`,
-      `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${en}" />`,
-    ];
+    // Same alternates as the page's own <head> (one source): an English-only page lists itself + x-default,
+    // never a `vi` entry pointing at an English URL.
+    return (resolveRouteMetadata(pathname).alternates ?? []).map(
+      ({ hrefLang, href }) => `    <xhtml:link rel="alternate" hreflang="${hrefLang}" href="${href}" />`,
+    );
   }
   const pair = toolPairs.find(([en, vi]) => pathname === en || pathname === vi);
   if (!pair) return [];
@@ -238,7 +236,7 @@ async function main() {
   console.log(`[generate-sitemap] wrote ${routes.length} URLs (+${STATIC_EXTRA_URLS.length} static) to dist/sitemap.xml`);
   console.log(
     lastmodResolver.status === 'ok'
-      ? `[generate-sitemap] lastmod from per-page git history on ${datedCount}/${totalCount} URLs (others omitted: no honest source mapping)`
+      ? `[generate-sitemap] lastmod from per-page git history on ${datedCount}/${totalCount} URLs (others omitted: shared-pool pages, other-project pages and sweep-only history are never stamped)`
       : `[generate-sitemap] lastmod omitted on all URLs: ${lastmodResolver.reason}`,
   );
 }
