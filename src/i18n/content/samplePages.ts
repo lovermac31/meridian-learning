@@ -52,7 +52,7 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
 export const SAMPLE_PAGE_WIDTH = 1200;
 export const SAMPLE_PAGE_HEIGHT = 1699;
 
-// Only the eight approved replacement images need new browser cache keys.
+// Only the seven approved replacement images need new browser cache keys.
 export const SAMPLE_PAGE_REVISIONS: Record<string, string> = {
   'ielts-writing-teacher-pack-pg01.webp': 'a75be50f744a',
   'parent-pack-l2-pg01.webp': 'e22b3db246a4',
@@ -61,7 +61,14 @@ export const SAMPLE_PAGE_REVISIONS: Record<string, string> = {
   'parent-pack-l2-pg04.webp': '5dccb5eadaca',
   'parent-pack-l2-pg09.webp': '9c0ecd3eefa6',
   'parent-pack-l2-pg10.webp': 'ab39bf2332a0',
-  // 11 Nov 2026 (Jay, P1 Lina hold follow-up): the Lina cover illustration on this page is covered by a neutral panel
-  // until the replacement artwork is approved. The original page image is kept privately, outside this repository.
-  'printable-pack-l1-pg15.webp': 'd1396ccc2d0f',
+  // 11 Nov 2026: Printable Pack v2 (new Lina art; v2.1 credit and licence footer on the picture pages).
+  'printable-pack-l1-pg05.webp': 'ceb0cef254cc',
+  'printable-pack-l1-pg06.webp': 'dd04eb50ecd7',
+  'printable-pack-l1-pg07.webp': '8306bb3206f2',
+  'printable-pack-l1-pg08.webp': '1f3bc8d78f23',
+  'printable-pack-l1-pg09.webp': '66bebd032859',
+  'printable-pack-l1-pg10.webp': '2c8cd0a623d4',
+  'printable-pack-l1-pg11.webp': '87998a3a8bac',
+  'printable-pack-l1-pg13.webp': 'f879d611626b',
+  'printable-pack-l1-pg15.webp': '9bd9b2748885',
 };
