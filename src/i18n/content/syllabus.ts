@@ -30,7 +30,8 @@ export function getSyllabusContent(locale: Locale) {
 const enSyllabusPageContent = {
   hero: {
     backCta: 'Back',
-    eyebrow: 'Curriculum Syllabus · Academic Year 2025–26',
+    // Audit fix 8 (11 Nov 2026): no stale academic year; the page says what the curriculum is today.
+    eyebrow: 'Curriculum Syllabus · Being rewritten onto original Jurassic English stories',
     viewLevelDetails: 'View Level Details',
   },
   glance: {
@@ -51,7 +52,7 @@ const enSyllabusPageContent = {
     eyebrow: 'Core Texts',
     title: 'Literature selected to develop real thinking',
     body:
-      'Every text is chosen because it raises questions that do not have easy answers. 10 core texts per year; 4 structured lessons per text.',
+      'Every text is chosen because it raises questions that do not have easy answers. 10 core texts per year; 4 structured lessons per text. These are the published books the current lessons are built on. The lessons are being rewritten onto original Jurassic English stories, level by level.',
     ecoBadge: 'Eco',
     additionalTextsLabel: 'Additional texts:',
   },
@@ -84,7 +85,7 @@ const enSyllabusPageContent = {
     body:
       'Interested in introducing {{levelTitle}} at your school? Contact us to discuss teacher training, school licensing, and curriculum review.',
     published:
-      'Published by World Wise Learning · Jurassic English™ Version 3.0 · Academic Year 2025–2026',
+      'Published by World Wise Learning · Jurassic English™ Version 3.0 · Being rewritten onto original Jurassic English stories',
     viewFullLevel: 'View full Level {{order}} detail page',
   },
 } as const;
@@ -92,7 +93,7 @@ const enSyllabusPageContent = {
 const viSyllabusPageContent = {
   hero: {
     backCta: 'Quay lại',
-    eyebrow: 'Đề cương chương trình · Năm học 2025–26',
+    eyebrow: 'Đề cương chương trình · Đang được viết lại trên các truyện gốc của Jurassic English',
     viewLevelDetails: 'Xem chi tiết cấp độ',
   },
   glance: {
@@ -113,7 +114,7 @@ const viSyllabusPageContent = {
     eyebrow: 'Văn bản cốt lõi',
     title: 'Văn học được tuyển chọn để nuôi dưỡng tư duy thực chất',
     body:
-      'Mỗi văn bản đều được chọn vì nó đặt ra những câu hỏi không có câu trả lời đơn giản. 10 văn bản cốt lõi mỗi năm; 4 bài học có cấu trúc cho mỗi văn bản.',
+      'Mỗi văn bản đều được chọn vì nó đặt ra những câu hỏi không có câu trả lời đơn giản. 10 văn bản cốt lõi mỗi năm; 4 bài học có cấu trúc cho mỗi văn bản. Đây là các cuốn sách đã xuất bản mà giáo án hiện tại dựa trên. Giáo án đang được viết lại trên các truyện gốc của Jurassic English, theo từng cấp độ.',
     ecoBadge: 'Sinh thái',
     additionalTextsLabel: 'Các văn bản bổ sung:',
   },
@@ -145,7 +146,7 @@ const viSyllabusPageContent = {
     title: 'Tìm hiểu về cấp độ này',
     body:
       'Nếu quý trường muốn triển khai {{levelTitle}}, hãy liên hệ với chúng tôi để trao đổi về đào tạo giáo viên, cấp phép cho trường và rà soát chương trình.',
-    published: 'Được phát hành bởi World Wise Learning · Jurassic English™ Phiên bản 3.0 · Năm học 2025–2026',
+    published: 'Được phát hành bởi World Wise Learning · Jurassic English™ Phiên bản 3.0 · Đang được viết lại trên các truyện gốc của Jurassic English',
     viewFullLevel: 'Xem trang chi tiết đầy đủ của Cấp độ {{order}}',
   },
 } as const;

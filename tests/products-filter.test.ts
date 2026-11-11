@@ -116,3 +116,25 @@ for (const locale of ['en', 'vi'] as const) {
     assert.doesNotMatch(band, /<img|\.pdf|<form/i, 'no image, PDF or form in the picker');
   });
 }
+
+// Audit fix 9 (11 Nov 2026): one hero per audience at the top of /products, before the catalogue.
+for (const locale of ['en', 'vi'] as const) test(`audience heroes ${locale}: families → Level 1 Story Workbooks, teachers → Level 1 Teacher Pack, IELTS separate; approved copy only`, async () => {
+  const { AUDIENCE_HEROES } = await import('../src/components/ProductsPage');
+  const html = renderToStaticMarkup(createElement(ProductsPage, { locale })).replaceAll('<!-- -->', '').replaceAll('&#x27;', "'");
+  const band = html.match(/<section[^>]*data-audience-heroes="">[\s\S]*?<\/section>/)?.[0] ?? '';
+  assert.ok(band, 'the band renders');
+  assert.ok(html.indexOf('data-audience-heroes') < html.indexOf('data-products-mini-nav'), 'above the segment tiles and the catalogue');
+  assert.deepEqual([...band.matchAll(/data-audience-hero="([^"]+)"/g)].map((m) => m[1]), ['families', 'teachers', 'ielts']);
+  assert.deepEqual(AUDIENCE_HEROES.map((h) => ('lead' in h ? h.lead : null)), ['story-workbooks-l1', 'teacher-pack-l1', null]);
+  const c = productsPage(locale);
+  for (const id of ['story-workbooks-l1', 'teacher-pack-l1']) {
+    const card = c.sections.flatMap((s) => s.cards).find((entry) => entry.id === id)!;
+    assert.ok(band.includes(`data-audience-lead="${id}">${card.title}<`), `${id}: title`);
+    assert.ok(band.includes(card.problem), `${id}: approved problem line`);
+    assert.ok(band.includes(`data-audience-price="${id}">${card.price}`), `${id}: price`);
+    assert.ok(band.includes(`href="#${id}-sample"`), `${id}: opens the sample viewer`);
+  }
+  assert.ok(band.includes('href="#ielts"'), 'IELTS goes to its own section');
+  for (const p of PRODUCTS.filter((entry) => (entry as { paused?: boolean }).paused)) assert.ok(!band.includes(`"${p.id}"`), `${p.id}: a paused product is never a hero`);
+  assert.doesNotMatch(band, /bg-white/, 'no white surface (brand colours only)');
+});
