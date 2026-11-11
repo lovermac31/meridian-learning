@@ -35,9 +35,9 @@ test('buy button is completely hidden/unrendered by default across products and 
   const viHtml = renderToStaticMarkup(createElement(ProductsPage, { locale: 'vi' }));
   assert.ok(!viHtml.includes('data-portal-buy'), 'No portal buy button in VI ProductsPage by default');
 
-  // Test ProductPage for printable-pack
-  const printablePack = PRODUCTS.find((p) => p.id === 'printable-pack') as Product;
-  assert.ok(printablePack, 'printable-pack product exists');
+  // Test ProductPage for parent-pack-l2 (printable-pack is on hold from 11 Nov 2026, and a held product shows no buy button)
+  const printablePack = PRODUCTS.find((p) => p.id === 'parent-pack-l2') as Product;
+  assert.ok(printablePack, 'parent-pack-l2 product exists');
 
   const enProductHtml = renderToStaticMarkup(
     createElement(ProductPage, { product: printablePack, locale: 'en' })
@@ -51,7 +51,7 @@ test('buy button is completely hidden/unrendered by default across products and 
 });
 
 test('flipping the flag renders the Buy button with the exact portal checkout URL', () => {
-  const targetSku = 'printable-pack';
+  const targetSku = 'parent-pack-l2';
   const printablePack = PRODUCTS.find((p) => p.id === targetSku) as Product;
 
   try {
@@ -59,8 +59,8 @@ test('flipping the flag renders the Buy button with the exact portal checkout UR
     setPortalBuyEnabled(targetSku, true);
     assert.equal(isPortalBuyEnabled(targetSku), true);
 
-    const expectedUrlEn = 'https://my.jurassicenglish.com/buy?sku=printable-pack&lang=en&ref=site';
-    const expectedUrlVi = 'https://my.jurassicenglish.com/buy?sku=printable-pack&lang=vi&ref=site';
+    const expectedUrlEn = 'https://my.jurassicenglish.com/buy?sku=parent-pack-l2&lang=en&ref=site';
+    const expectedUrlVi = 'https://my.jurassicenglish.com/buy?sku=parent-pack-l2&lang=vi&ref=site';
 
     assert.equal(getPortalBuyUrl(targetSku, 'en'), expectedUrlEn);
     assert.equal(getPortalBuyUrl(targetSku, 'vi'), expectedUrlVi);

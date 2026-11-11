@@ -38,7 +38,7 @@ const EXPECTED: Record<string, [string, string][]> = {
 // says "Cleared" (master, 27 Oct 2026).
 const LIVE = new Set(Object.values(EXPECTED).flat().map(([id]) => id));
 // Paused for sale (audit fix 4, 11 Nov 2026): the card and page stay, with a Zalo waitlist note instead of any buy button.
-const PAUSED = new Set(['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5']);
+const PAUSED = new Set(['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5', 'printable-pack', 'parent-pack-l1']);
 const SHOWN: Record<string, [string, string][]> = Object.fromEntries(
   Object.entries(EXPECTED).map(([section, cards]) => [section, cards.filter(([id]) => LIVE.has(id))]),
 );
@@ -89,7 +89,7 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     const main = amp(mainOf(await renderRoute(route)));
     const ctas = Object.fromEntries([...main.matchAll(/href="([^"]+)"[^>]*data-cta="product-([^"]+)"/g)].map((m) => [m[2], m[1]]));
     for (const [id, href] of Object.entries(expected[route])) assert.equal(ctas[id], href, `${route} ${id}`);
-    for (const id of ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId).filter((cardId) => !PAUSED.has(cardId)), ...SHOWN.centres.map(([cardId]) => cardId), ...SHOWN.ielts.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
+    for (const id of ['parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId).filter((cardId) => !PAUSED.has(cardId)), ...SHOWN.centres.map(([cardId]) => cardId), ...SHOWN.ielts.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
     for (const id of PAUSED) assert.equal(ctas[id], undefined, `${route} ${id}: paused, no order link`);
     assert.equal(PRODUCTS_ZALO, '/go/zalo?utm_source=products');
     // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch, the sample
@@ -122,7 +122,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -459,7 +459,9 @@ test('wave 2: two new cards with their samples, US$ by PayPal, and the workbook 
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
       assert.ok(card.includes(`data-sample="${id}"`) && card.includes(`data-sample-link="${id}"`) && card.includes(`/samples/${id}-p1.webp`), `${route} ${id}: sample`);
       assert.ok(card.includes(`data-price="${id}">${price}`), `${route} ${id}: ${price}`);
-      assert.match(card, new RegExp(`data-paypal-link="${id}">[^<]*US\\$${usd} `), `${route} ${id}: US$${usd}`);
+      // A held or paused product keeps its page, sample and price but shows no PayPal link.
+      if (PAUSED.has(id)) assert.ok(!card.includes(`data-paypal-link="${id}"`), `${route} ${id}: on hold, no PayPal link`);
+      else assert.match(card, new RegExp(`data-paypal-link="${id}">[^<]*US\\$${usd} `), `${route} ${id}: US$${usd}`);
       assert.ok(card.indexOf(`data-sample="${id}"`) < card.indexOf(`data-price="${id}"`), `${route} ${id}: sample before price`);
     }
     const workbook = html.slice(html.indexOf('id="student-workbook-l1"'), html.indexOf('</li>', html.indexOf('id="student-workbook-l1"')));
