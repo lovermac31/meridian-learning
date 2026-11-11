@@ -584,9 +584,10 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
       <div className="product-row-notes">
         <CardLink card={card} locale={locale} />
         {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={ieltsHome[card.group]} id={card.id} /> : null}
+        {/* Inside the notes area: a direct child of .product-row with no grid-area is auto-placed into the 72px icon column. */}
+        <CreditLine card={card} />
       </div>
       <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} compact />
-      <CreditLine card={card} />
       <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
       {card.paused ? (
         <div className="product-row-actions story-cta">

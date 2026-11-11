@@ -170,3 +170,25 @@ test('audit fix 1: Mango has its page with real samples and a checkout, reachabl
     assert.ok(hub.includes('id="mango-l2"') && hub.includes('data-workbooks-level="mango-l2"'), `${route}: on /products`);
   }
 });
+
+// 11 Nov 2026: on /products the credit line was a direct child of .product-row with no grid-area, so the grid auto-placed it
+// into the 72px icon column and it rendered one syllable per line. It belongs inside .product-row-notes (grid-area: notes).
+test('products list: the AI credit line sits inside the notes area of its card, never as a bare grid child (EN + VI)', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  for (const locale of ['en', 'vi'] as const) {
+    const html = (await renderRoute(`${locale === 'vi' ? '/vi' : ''}/products`)).replaceAll('<!-- -->', '');
+    for (const id of [...IDS, 'mango-l2']) {
+      const row = html.indexOf(`id="${id}"`, html.indexOf('product-row'));
+      const credit = html.indexOf(`data-ai-credit="${id}"`, row);
+      const notes = html.lastIndexOf('class="product-row-notes"', credit);
+      assert.ok(row > -1 && credit > row, `${id} ${locale}: credit line present in its card`);
+      assert.ok(notes > row, `${id} ${locale}: a notes area opens before the credit line, inside the same card`);
+      const between = html.slice(notes, credit);
+      const depth = (between.match(/<div\b/g) ?? []).length - (between.match(/<\/div>/g) ?? []).length;
+      assert.ok(depth >= 0, `${id} ${locale}: the notes area is still open at the credit line (depth ${depth})`);
+    }
+  }
+  const css = readFileSync('src/styles/products.css', 'utf8');
+  assert.match(css, /@media \(min-width: 1024px\) \{\s*\.products-workbooks ul \{[^}]*grid-auto-flow: column/, 'level picker: one row on desktop for any number of cards');
+  assert.doesNotMatch(css, /\.products-workbooks ul \{ grid-template-columns: repeat\(5,/, 'level picker: no fixed 5 columns (6 cards with Mango left one alone)');
+});
