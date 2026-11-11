@@ -18,7 +18,7 @@ const STATIC_PUBLIC_PATHS = [
   '/vi/luyen-noi-ielts/',
   '/ai-speaking',
   '/ai-speaking/vi',
-  '/ai-speaking/one-to-one',
+  '/ai-speaking/solutions',
   '/sitemap.xml',
   '/llms-products.md',
 ];
@@ -37,6 +37,11 @@ test('every link points at a live public jurassicenglish.com page', () => {
   assert.ok(urls.length >= 15);
   for (const url of urls) {
     const parsed = new URL(url);
+    // The IELTS Speaking articles moved to the sister site in Stage 2 (#295/#296); link their live homes, not the 308s.
+    if (parsed.origin === 'https://jurassicielts.com') {
+      assert.match(parsed.pathname, /^\/speaking\/articles\/[a-z0-9-]+\/$/, url);
+      continue;
+    }
     assert.equal(parsed.origin, 'https://jurassicenglish.com', url);
     assert.ok(allowed.has(parsed.pathname), `${url} is not a public sitemap page`);
   }
@@ -50,13 +55,13 @@ test('keeps the site’s own scoring and independence disclaimers, and no prices
 
 test('surfaces the public IELTS Speaking discovery cluster', () => {
   for (const path of [
-    '/ai-speaking/one-to-one',
+    '/ai-speaking/solutions',
     '/insights',
-    '/insights/what-to-fix-first-in-ielts-speaking',
-    '/insights/what-typed-speaking-practice-can-assess',
-    '/insights/from-speaking-diagnostic-to-one-to-one-lesson',
     '/about/nathaniel-jay-adams',
   ]) {
     assert.match(LLMS, new RegExp(`https://jurassicenglish\\.com${path.replaceAll('/', '\\/')}(?:[)\\s])`));
+  }
+  for (const slug of ['choose-one-speaking-priority', 'what-typed-speaking-practice-can-assess', 'from-speaking-diagnostic-to-one-to-one-lesson']) {
+    assert.ok(LLMS.includes(`https://jurassicielts.com/speaking/articles/${slug}/)`), slug);
   }
 });
