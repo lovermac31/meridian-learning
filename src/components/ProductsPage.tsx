@@ -456,28 +456,30 @@ function AudienceHeroes({ locale, sections, sampleOpen, categoryNames, countLabe
   const live = (id?: string) => (id ? cards.find((card) => card.id === id && !(card as { paused?: boolean }).paused) : undefined);
   return (
     <section className="mx-auto max-w-6xl px-5 pt-8" aria-label={AUDIENCE_HEROES.map((hero) => sections.find((entry) => entry.id === hero.section)?.heading).filter(Boolean).join(' · ')} data-audience-heroes="">
-      <ul className="grid gap-4 md:grid-cols-3">
+      {/* Rows are shared across the three cards (products.css, .products-audience): heading, title, text, price, extra link and button
+          each sit on one line across the row, and the buttons share one baseline whatever the text length (Jay, 11 Nov 2026). */}
+      <ul className="products-audience grid gap-4 md:grid-cols-3">
         {AUDIENCE_HEROES.map((hero) => {
           const section = sections.find((entry) => entry.id === hero.section);
           if (!section) return null;
           const lead = 'lead' in hero ? live(hero.lead) : undefined;
           const also = 'also' in hero ? live(hero.also) : undefined;
           return (
-            <li key={hero.section} className="flex flex-col rounded-2xl border-t-4 border-[#9B1C31] bg-[#F3E8CF] p-5 text-[#13294B] shadow-sm" data-audience-hero={hero.section}>
-              <h2 className="text-lg font-extrabold">{section.heading}</h2>
+            <li key={hero.section} className="products-audience-card flex flex-col rounded-2xl border-t-4 border-[#9B1C31] bg-[#F3E8CF] p-5 text-[#13294B] shadow-sm" data-audience-hero={hero.section}>
+              <h2 className="pa-head text-lg font-extrabold">{section.heading}</h2>
               {lead ? (
                 <>
-                  <p className="mt-2 font-bold"><a href={getLocalizedHref(productPath(lead.id), locale)} className="underline underline-offset-4" data-audience-lead={lead.id}>{lead.title}</a></p>
-                  <p className="mt-1 text-sm">{lead.problem}</p>
-                  <p className="mt-2 font-extrabold" data-audience-price={lead.id}>{lead.price} <span className="text-sm font-semibold">{lead.unit}</span></p>
-                  {also ? <p className="mt-1 text-sm"><a href={getLocalizedHref(productPath(also.id), locale)} className="font-bold underline underline-offset-4" data-audience-also={also.id}>{also.title} · {also.price}</a></p> : null}
-                  <a href={`#${lead.id}-sample`} className="mt-auto inline-flex min-h-11 items-center justify-center rounded-full bg-[#13294B] px-5 py-2 text-sm font-bold no-underline" style={{ color: '#F3E8CF', marginTop: '1rem' }} data-audience-sample={lead.id}>{sampleOpen}</a>
+                  <p className="pa-title mt-2 font-bold"><a href={getLocalizedHref(productPath(lead.id), locale)} className="underline underline-offset-4" data-audience-lead={lead.id}>{lead.title}</a></p>
+                  <p className="pa-text mt-1 text-sm">{lead.problem}</p>
+                  <p className="pa-price mt-2 font-extrabold" data-audience-price={lead.id}>{lead.price} <span className="text-sm font-semibold">{lead.unit}</span></p>
+                  {also ? <p className="pa-also mt-1 text-sm"><a href={getLocalizedHref(productPath(also.id), locale)} className="font-bold underline underline-offset-4" data-audience-also={also.id}>{also.title} · {also.price}</a></p> : null}
+                  <p className="pa-cta mt-auto pt-4"><a href={`#${lead.id}-sample`} className="flex min-h-11 w-full items-center justify-center rounded-full bg-[#13294B] px-5 py-2 text-center text-sm font-bold no-underline" style={{ color: '#F3E8CF' }} data-audience-sample={lead.id}>{sampleOpen}</a></p>
                 </>
               ) : (
                 <>
-                  <p className="mt-2 text-sm">{section.intro}</p>
-                  <p className="mt-2 text-sm"><a href={ieltsAppHref('products', locale)} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4" data-audience-ielts-app="">{IELTS_APP_CARD[locale].title}</a></p>
-                  <a href={`#${section.id}`} className="mt-auto inline-flex min-h-11 items-center justify-center rounded-full bg-[#13294B] px-5 py-2 text-sm font-bold no-underline" style={{ color: '#F3E8CF', marginTop: '1rem' }} data-audience-section={section.id}>{categoryNames[section.id]} · {section.cards.length} {countLabel}</a>
+                  <p className="pa-intro mt-2 text-sm">{section.intro}</p>
+                  <p className="pa-price mt-2 text-sm"><a href={ieltsAppHref('products', locale)} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4" data-audience-ielts-app="">{IELTS_APP_CARD[locale].title}</a></p>
+                  <p className="pa-cta mt-auto pt-4"><a href={`#${section.id}`} className="flex min-h-11 w-full items-center justify-center rounded-full bg-[#13294B] px-5 py-2 text-center text-sm font-bold no-underline" style={{ color: '#F3E8CF' }} data-audience-section={section.id}>{categoryNames[section.id]} · {section.cards.length} {countLabel}</a></p>
                 </>
               )}
             </li>

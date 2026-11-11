@@ -148,3 +148,23 @@ for (const locale of ['en', 'vi'] as const) test(`audience heroes ${locale}: fam
   for (const p of PRODUCTS.filter((entry) => (entry as { paused?: boolean }).paused)) assert.ok(!band.includes(`"${p.id}"`), `${p.id}: a paused product is never a hero`);
   assert.doesNotMatch(band, /bg-white/, 'no white surface (brand colours only)');
 });
+
+// 11 Nov 2026 (Jay: "All of those have to be perfectly aligned"): the three audience cards' buttons sat 56 to 136 px apart because
+// an inline margin-top overrode the auto margin that should push each button to the bottom of its card.
+test('audience cards: buttons are bottom-aligned and the cards share row tracks (EN + VI)', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  const { readFileSync } = await import('node:fs');
+  for (const path of ['/products', '/vi/products']) {
+    const html = await renderRoute(path);
+    const band = html.match(/<section[^>]*data-audience-heroes="">[\s\S]*?<\/section>/)?.[0] ?? '';
+    assert.match(band, /<ul class="products-audience /, `${path}: shared-row list`);
+    assert.equal((band.match(/class="products-audience-card /g) ?? []).length, 3, `${path}: three cards`);
+    assert.equal((band.match(/<p class="pa-cta mt-auto pt-4"><a /g) ?? []).length, 3, `${path}: every button sits in a bottom-aligned wrapper`);
+    assert.doesNotMatch(band, /margin-top/, `${path}: no inline margin that would defeat the bottom alignment`);
+    assert.equal((band.match(/class="pa-price /g) ?? []).length, 3, `${path}: one price-row item per card`);
+  }
+  const css = readFileSync('src/styles/products.css', 'utf8');
+  assert.match(css, /\.products-audience-card \{[^}]*grid-row: span 6;[^}]*grid-template-rows: subgrid/, 'cards share six row tracks');
+  assert.match(css, /\.products-audience-card > \.pa-cta \{ grid-row: 6; align-self: end; \}/, 'button on the last row, bottom edge');
+  assert.match(css, /\.products-workbooks a > span:last-child \{ margin-top: auto; \}/, 'level picker: price line on the bottom edge');
+});
