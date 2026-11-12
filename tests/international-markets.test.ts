@@ -1,5 +1,5 @@
 import test from 'node:test';
-import { isMovedToJurassicielts } from '../src/config/movedToJurassicielts';
+import { isMovedToJurassicielts, movedHref } from '../src/config/movedToJurassicielts';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { renderRoute } from '../src/entry-server';
@@ -109,8 +109,20 @@ test('country pairs are reciprocal and unpaired countries have no hreflang', () 
     assert.equal(counterpart.alternatePath, page.path);
     assert.equal(page.counterpartLanguageLabel, labels[counterpart.locale]);
     const english = page.locale === 'en' ? page : counterpart;
-    // English twin moved to jurassicielts.com (9 Nov 2026): no cross-domain hreflang pair.
-    if (isMovedToJurassicielts(english.path)) { assert.equal(alternates, undefined, page.path); continue; }
+    // English twin moved to jurassicielts.com (9 Nov 2026): the local-language page declares the cross-domain cluster
+    // (jurassicielts en + vi, itself, x-default = the jurassicielts English page); jurassicielts.com declares the same set back.
+    if (isMovedToJurassicielts(english.path)) {
+      if (page.locale === 'en' || ['es', 'pt-BR'].includes(page.locale)) { assert.equal(alternates, undefined, page.path); continue; }
+      const en = movedHref(english.path);
+      assert.match(en, /^https:\/\/jurassicielts\.com\/speaking\/online\/[a-z-]+\/$/, page.path);
+      assert.deepEqual(alternates, [
+        { hrefLang: 'en', href: en },
+        { hrefLang: 'vi', href: en.replace('https://jurassicielts.com/', 'https://jurassicielts.com/vi/') },
+        { hrefLang: page.locale, href: `${origin}${page.path}` },
+        { hrefLang: 'x-default', href: en },
+      ], page.path);
+      continue;
+    }
     assert.deepEqual(alternates?.map(alt => alt.hrefLang), ['en', page.locale === 'en' ? counterpart.locale : page.locale, 'x-default']);
     assert.equal(alternates?.[2].href, `${origin}${english.path}`);
     assert.deepEqual(alternates, getInternationalAlternates(counterpart.path));
