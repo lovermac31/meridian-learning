@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { PAID_OFFERS, paymentAmount, paymentHref, reserveCta } from '../../src/config/payment';
+import { storyClubPriceAt } from '../../src/config/storyClubOffer';
 import { PAUSED_COPY, PRODUCTS } from '../../src/i18n/content/products';
 import { HOME_PRIMARY_OPTION, getOverhaulContent } from '../../src/i18n/content/overhaul';
 
@@ -25,6 +26,8 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await page.setViewportSize({ width, height: 900 });
     const events: string[] = [];
     const memo = `${offer.prefix}-AB12CD`;
+    // Story Club's amount is the dated launch-offer price (src/config/storyClubOffer.ts); every other product is its card price.
+    const expectedAmount = () => offer.id === 'story-club' ? storyClubPriceAt(new Date()).priceVnd : offer.amount;
     await page.route('**/api/event', route => {
       const body = route.request().postDataJSON();
       if (['reserve_view', 'reserve_submit', 'pay_instructions_shown'].includes(body.event)) { expect(body.product_id).toBe(offer.id); events.push(body.event); }
@@ -38,7 +41,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
       if (body.intent === 'prepare_payment') {
         expect(body).not.toHaveProperty('phone');
         expect(body).not.toHaveProperty('name');
-        return route.fulfill({ json: { ok: true, submissionId: `JE-${offer.prefix}-${body.submissionKey}`, memo } });
+        return route.fulfill({ json: { ok: true, submissionId: `JE-${offer.prefix}-${body.submissionKey}`, memo, ...(offer.id === 'story-club' ? { amount: expectedAmount() } : {}) } });
       }
       expect(body.name).toBe('Synthetic Parent');
       expect(body.phone).toBe('+84396085076');
@@ -52,7 +55,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     });
     await page.route('https://qr.sepay.vn/img?**', route => {
       const url = new URL(route.request().url());
-      expect(url.searchParams.get('amount')).toBe(String(offer.amount));
+      expect(url.searchParams.get('amount')).toBe(String(expectedAmount()));
       expect(url.searchParams.get('des')).toBe(memo);
       expect(url.searchParams.get('bank')).toBe('MBBank');
       expect(url.searchParams.get('acc')).toBe('0269494315526');
@@ -91,7 +94,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await form.locator('[name="consent"]').check();
     await form.locator('[type="submit"]').click();
     await expect(page.locator('[data-payment-instructions]')).toBeVisible();
-    await expect(page.locator('[data-payment-amount]')).toHaveText(paymentAmount(offer.amount, locale));
+    await expect(page.locator('[data-payment-amount]')).toHaveText(paymentAmount(expectedAmount(), locale));
     await expect(page.locator('[data-transfer-memo]')).toHaveText(memo);
     const qr = page.locator('[data-payment-qr]');
     await expect(qr).toHaveAttribute('src', /https:\/\/qr.sepay.vn\/img\?/);
