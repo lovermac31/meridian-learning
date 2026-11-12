@@ -86,6 +86,8 @@ async function main() {
         else inventory.set(value, row.url);
       }
       for (const alt of row.alternates || []) {
+        // jurassicielts.com pages are outside this build; their return tags are checked in the jurassicielts-site repo (REGION D2).
+        if (alt.url.startsWith('https://jurassicielts.com/')) continue;
         const target = rows.find((r) => r.url === alt.url);
         if (!target || !target.alternates?.some((a) => a.url === row.url) || target.status !== 200) row.errors.push(`hreflang-not-reciprocal:${alt.url}`);
       }
