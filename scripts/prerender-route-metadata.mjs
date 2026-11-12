@@ -99,7 +99,7 @@ function injectRouteFallback(html, pathname, metadata, locale) {
   );
   // The private operator screen uses the system stack and has no brand header.
   return pathname === '/internal/pilot-requests'
-    ? output.replace(/<link\b(?=[^>]*rel="preload")(?=[^>]*as="font")(?=[^>]*href="https:\/\/db\.onlinewebfonts\.com\/)[^>]*>\s*/g, '')
+    ? output.replace(/<link\b(?=[^>]*rel="preload")(?=[^>]*as="font")(?=[^>]*href="\/fonts\/neuland-inline\.woff2")[^>]*>\s*/g, '')
     : output;
 }
 
