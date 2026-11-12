@@ -5,6 +5,7 @@ import { checkRateLimit, createThrottleLogContext, getClientHash, logRateLimited
 import { logEvent } from './_lib/observability.js';
 import { createStoryClubReservation } from './_lib/supabaseWriter.js';
 import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
+import { storyClubPriceAt } from '../src/config/storyClubOffer.js';
 
 // Server-safe product map. Do not import src/config/payment.ts here — it uses import.meta.env (Vite) and crashes the serverless function.
 const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
@@ -302,6 +303,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       memo = createPaidMemo(input.product!, submissionId);
     }
 
+    // Story Club: the amount for the QR is the dated launch-offer price at this moment (src/config/storyClubOffer.ts).
+    const amount = input.product === 'story-club' ? storyClubPriceAt(new Date()).priceVnd : offer.amount;
     // Store the memo immediately so the order is trackable even if the buyer never fills the contact form.
     const lead: SampleLead = {
       submissionId,
@@ -312,12 +315,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       placement: 'products',
       product: input.product,
       paymentMemo: memo,
-      paymentAmount: offer.amount,
+      paymentAmount: amount,
       source: 'prepare_payment',
     };
     void safeNotion(lead);
 
-    return res.status(200).json({ ok: true, submissionId, memo });
+    return res.status(200).json({ ok: true, submissionId, memo, amount });
   }
 
   const lead = toSampleLead(input);

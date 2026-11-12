@@ -8,6 +8,7 @@ import { PRODUCTS_PATH, cardLink, productImageSources, productsPage, type Produc
 import { PRODUCT_SEO, productFaq, productPath, relatedProducts } from '../i18n/content/productSeo';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
+import { storyClubOfferLine, storyClubScheduleLine } from '../config/storyClubOffer';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
 import { CardLink, CreditLine, IeltsHomeLink, PausedNote, LemonSqueezyOption, PayPalOption, Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
@@ -55,8 +56,8 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
     ? 'Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi.'
     : 'Online story groups for children aged 5–8.';
   const schedule = locale === 'vi'
-    ? 'Sáng thứ Bảy 9:00 · Google Meet · Tối đa 6 bé'
-    : 'Saturdays 9:00 · Google Meet · Up to 6 children';
+    ? 'Thứ Bảy 13:00 · Google Meet · Tối đa 6 bé'
+    : 'Saturdays 13:00 · Google Meet · Up to 6 children';
   // One existing purchase block, promoted only for Story Club. Other product DOM order stays unchanged.
   const purchase = card.paused ? <>
           <CreditLine card={card} />
@@ -121,6 +122,8 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
       >
         {isStoryClub ? <div data-story-club-first-screen>
           <p className="mt-3 text-sm" data-story-club-schedule>{schedule}</p>
+          <p className="mt-2 text-sm font-semibold" data-story-club-first-session>{storyClubScheduleLine(locale)}</p>
+          <p className="mt-1 text-sm" data-story-club-offer>{storyClubOfferLine(locale)}</p>
           {purchase}
         </div> : null}
       </ToolHero>
@@ -175,6 +178,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
           </dl>
           <CardLink card={card} locale={locale} />
           {card.video ? <ProductVideo slug={card.video} locale={locale} id={PRODUCT_VIDEO_ANCHOR} fallbackTitle={card.title} /> : null}
+          {isStoryClub && card.video ? <p className="mt-2 text-sm" data-story-club-video-note>{locale === 'vi' ? 'Video nói “sáng thứ Bảy”. Các buổi học hiện diễn ra vào thứ Bảy lúc 13:00 giờ Việt Nam.' : 'The video says Saturday mornings. Sessions now run on Saturdays at 13:00 Vietnam time.'}</p> : null}
           <Sample card={card} copy={c.sample} onOpen={() => setViewer(true)} />
           {!isStoryClub ? purchase : null}
         </section>

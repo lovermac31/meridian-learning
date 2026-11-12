@@ -2,6 +2,8 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { paymentAmount } from '../../src/config/payment';
+import { storyClubPriceAt } from '../../src/config/storyClubOffer';
 
 // Synthetic form responses below override this guard; every other API or
 // third-party request is blocked, even if a local backend happens to be running.
@@ -61,7 +63,7 @@ for (const [locale, path, payNow, refundWord, getCode] of [
   ['en', '/en/story-club/reserve', 'Pay now', 'within 24 hours of paying', 'Get my payment code'],
   ['vi', '/story-club/reserve', 'Thanh toán ngay', 'trong vòng 24 giờ', 'Lấy mã thanh toán của tôi'],
 ] as const) {
-  test(`reserve page ${locale}: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000`, async ({ page }) => {
+  test(`reserve page ${locale}: no request on load, payment prepared only after the click, summary precedes Pay now, amount follows the dated launch offer`, async ({ page }) => {
     let qrAmount = '';
     const nonGet: string[] = [];
     const prepareBodies: Array<Record<string, unknown>> = [];
@@ -102,8 +104,9 @@ for (const [locale, path, payNow, refundWord, getCode] of [
       }, payNow);
       expect(order.before, `${locale} ${width}: summary is before the Pay now heading in the DOM`).toBe(true);
       expect(order.summaryBottom, `${locale} ${width}: and above it on the page`).toBeLessThanOrEqual(order.payTop);
-      await expect(page.locator('[data-payment-amount]')).toHaveText(locale === 'vi' ? '590.000₫' : '590,000₫');
-      await expect.poll(() => qrAmount).toBe('590000');
+      const expected = storyClubPriceAt(new Date()).priceVnd; // the dated price in src/config/storyClubOffer.ts, not a hard-coded 590000
+      await expect(page.locator('[data-payment-amount]')).toHaveText(paymentAmount(expected, locale));
+      await expect.poll(() => qrAmount).toBe(String(expected));
       await checkAccessibility(page);
     }
   });

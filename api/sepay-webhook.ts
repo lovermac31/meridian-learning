@@ -1,11 +1,13 @@
 import { canonicalPaymentMemo } from '../src/config/payment.js';
+import { sepayTransactionTime, storyClubPriceAt } from '../src/config/storyClubOffer.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { timingSafeEqual } from 'node:crypto';
 import { markStoryClubReservationPaid } from './_lib/supabaseWriter.js';
 import { alertPaymentEvent, sepayAlertEvent } from './_lib/paymentAlert.js';
 
 const MAX_BODY_BYTES = 4_096;
-const MINIMUM_STORY_CLUB_AMOUNT_VND = 590_000;
+// The Story Club minimum is the dated price in src/config/storyClubOffer.ts at the time of the transfer. A short or late payment
+// is never auto-confirmed: it goes to manual review and the owner alert.
 
 function matchesConfiguredKey(header: unknown, configuredKey: string): boolean {
   if (typeof header !== 'string' || !header.startsWith('Apikey ')) return false;
@@ -81,7 +83,8 @@ async function respond(req: VercelRequest, res: VercelResponse, decision: Decisi
   const amount = typeof body.transferAmount === 'number' ? body.transferAmount
     : typeof body.transferAmount === 'string' && /^\d{1,12}(?:\.0+)?$/.test(body.transferAmount) ? Number(body.transferAmount)
     : Number.NaN;
-  if (!Number.isSafeInteger(amount) || amount < MINIMUM_STORY_CLUB_AMOUNT_VND) {
+  const minimum = storyClubPriceAt(sepayTransactionTime(body.transactionDate, new Date())).priceVnd;
+  if (!Number.isSafeInteger(amount) || amount < minimum) {
     note('sepay_story_club_payment', memo, 'needs_review');
     return done(200, true);
   }

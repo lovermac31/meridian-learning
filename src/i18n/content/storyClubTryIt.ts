@@ -14,7 +14,7 @@
  */
 import type { Locale } from '../locales';
 import { STORY_CLUB_PRICE_VND } from '../../config/storyClubReserve';
-import { paymentAmount } from '../../config/payment';
+import { storyClubOfferLine, storyClubScheduleLine } from '../../config/storyClubOffer';
 
 export const STORY_CLUB_SESSIONS = 4;
 export const STORY_CLUB_SESSION_VND = STORY_CLUB_PRICE_VND / STORY_CLUB_SESSIONS; // 147.500 VND, the per-session make-up/return amount
@@ -37,8 +37,6 @@ export type StoryClubTryItCopy = {
   summary: { heading: string; intro: string; readFirst: string; beforePaying: string };
 };
 
-const sessionVnd = (locale: Locale) => paymentAmount(STORY_CLUB_SESSION_VND, locale);
-const priceVnd = (locale: Locale) => paymentAmount(STORY_CLUB_PRICE_VND, locale);
 
 export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
   en: {
@@ -60,10 +58,10 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
     paid: {
       heading: 'The paid round: 4 weeks',
       facts: [
-        { label: 'Price', value: `${priceVnd('en')} for ${STORY_CLUB_SESSIONS} weekly sessions (${sessionVnd('en')} a session).` },
-        { label: 'When', value: 'Saturdays at 9:00 Hanoi time, 30 minutes on Google Meet. The start date will be announced after the free try-it.' },
+        { label: 'Price', value: storyClubOfferLine('en') },
+        { label: 'When', value: `${storyClubScheduleLine('en')} 30 minutes on Google Meet.` },
         { label: 'Who', value: `Children aged 5–8, up to ${STORY_CLUB_MAX_CHILDREN} children per group.` },
-        { label: 'You decide after trying', value: 'Parents choose whether to join the paid round after the try-it. There is no pressure to pay.' },
+        { label: 'The free Story Time', value: 'It is postponed (new date coming soon). You can join the paid round now, or ask Mr. Jay on Zalo first. There is no pressure to pay.' },
         { label: 'What it is', value: 'Story time, speaking practice and a personal reply from Mr. Jay. We do not promise exam scores or results.' },
       ],
     },
@@ -71,7 +69,7 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
       heading: 'Refunds and cancelled sessions',
       points: [
         'Full refund on request before the first paid session, within 24 hours of paying.',
-        `If Mr. Jay cancels a session, we make it up or return ${sessionVnd('en')} for that session.`,
+        'If Mr. Jay cancels a session, we make it up or return a quarter of what you paid for that session.',
       ],
     },
     summary: {
@@ -100,10 +98,10 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
     paid: {
       heading: 'Vòng học có phí: 4 tuần',
       facts: [
-        { label: 'Học phí', value: `${priceVnd('vi')} cho ${STORY_CLUB_SESSIONS} buổi hằng tuần (${sessionVnd('vi')} mỗi buổi).` },
-        { label: 'Khi nào', value: 'Sáng thứ Bảy 9:00 giờ Hà Nội, 30 phút qua Google Meet. Ngày bắt đầu sẽ được thông báo sau buổi học thử miễn phí.' },
+        { label: 'Học phí', value: storyClubOfferLine('vi') },
+        { label: 'Khi nào', value: `${storyClubScheduleLine('vi')} 30 phút qua Google Meet.` },
         { label: 'Dành cho ai', value: `Bé 5–8 tuổi, tối đa ${STORY_CLUB_MAX_CHILDREN} bé mỗi nhóm.` },
-        { label: 'Quyết định sau khi học thử', value: 'Phụ huynh chọn có tham gia vòng học có phí hay không sau buổi học thử. Không có áp lực phải thanh toán.' },
+        { label: 'Giờ kể chuyện miễn phí', value: 'Buổi này tạm hoãn (sẽ báo ngày mới sớm). Bạn có thể tham gia vòng học có phí ngay, hoặc hỏi thầy Jay qua Zalo trước. Không có áp lực phải thanh toán.' },
         { label: 'Nội dung', value: 'Nghe kể chuyện, thực hành nói và phản hồi riêng từ thầy Jay. Chúng tôi không hứa trước điểm thi hay kết quả.' },
       ],
     },
@@ -111,7 +109,7 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
       heading: 'Hoàn tiền và buổi học bị hủy',
       points: [
         'Hoàn tiền đầy đủ nếu bạn yêu cầu trước buổi học có phí đầu tiên, trong vòng 24 giờ kể từ khi thanh toán.',
-        `Nếu thầy Jay hủy một buổi, buổi đó sẽ được học bù hoặc hoàn lại ${sessionVnd('vi')} cho buổi đó.`,
+        'Nếu thầy Jay hủy một buổi, buổi đó sẽ được học bù hoặc hoàn lại một phần tư số tiền bạn đã trả cho buổi đó.',
       ],
     },
     summary: {

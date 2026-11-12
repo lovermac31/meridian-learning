@@ -90,6 +90,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <div className="mt-2 grid gap-6 md:grid-cols-2">
             {STORY_CLUB_VIDEOS.map((slug) => <ProductVideo key={slug} slug={slug} locale={locale} />)}
           </div>
+          <p className="mt-2 text-sm" data-story-club-video-note>{locale === 'vi' ? 'Video nói “sáng thứ Bảy”. Các buổi học hiện diễn ra vào thứ Bảy lúc 13:00 giờ Việt Nam.' : 'The video says Saturday mornings. Sessions now run on Saturdays at 13:00 Vietnam time.'}</p>
         </section>
 
         <section aria-labelledby="story-week">
