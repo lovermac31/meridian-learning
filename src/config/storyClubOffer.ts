@@ -16,6 +16,8 @@ export const STORY_CLUB_SESSIONS = 4;
 
 export const STORY_CLUB_FIRST_SESSION = { isoDate: '2026-11-14', time: '13:00', label: { en: 'Saturday 14 November 2026', vi: 'Thứ Bảy 14/11/2026' } } as const;
 export const STORY_CLUB_WEEKLY_TIME = '13:00';
+/** A transfer that reaches the bank up to this long after a cut-off is still accepted at the price the QR carried (review fix 2, 12 Nov 2026). */
+export const STORY_CLUB_GRACE_MINUTES = 30;
 export const STORY_CLUB_TIME_ZONE_LABEL = { en: 'Vietnam time (GMT+7)', vi: 'giờ Việt Nam (GMT+7)' } as const;
 
 export type StoryClubOfferTier = {
@@ -40,27 +42,53 @@ export function storyClubPriceAt(at: Date): StoryClubQuote {
   return { priceVnd: tier ? tier.priceVnd : STORY_CLUB_LIST_PRICE_VND, tier, listPriceVnd: STORY_CLUB_LIST_PRICE_VND };
 }
 
-/** SePay sends `transactionDate` as "YYYY-MM-DD HH:mm:ss" in Vietnam time. Unreadable input falls back to `fallback`. */
-export function sepayTransactionTime(value: unknown, fallback: Date): Date {
-  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}$/.test(value.trim())) return fallback;
+/** The lowest amount the webhook auto-confirms for a transfer at `at`: the price valid `STORY_CLUB_GRACE_MINUTES` earlier. */
+export function storyClubMinimumAmountAt(at: Date): number {
+  return storyClubPriceAt(new Date(at.getTime() - STORY_CLUB_GRACE_MINUTES * 60_000)).priceVnd;
+}
+
+/** The tier a quoted amount belongs to (for "valid until"), or null for the list price. */
+export function storyClubTierForAmount(priceVnd: number): StoryClubOfferTier | null {
+  return STORY_CLUB_OFFER_TIERS.find((tier) => tier.priceVnd === priceVnd) ?? null;
+}
+
+/**
+ * The transfer time for the tier lookup. SePay sends `transactionDate` as "YYYY-MM-DD HH:mm:ss", read here as Vietnam time.
+ * If it is later than the receipt time, or more than 60 minutes before it (a time-zone or clock mistake), the server
+ * receipt time is used instead, so a wrongly-zoned stamp can never buy a cheaper tier.
+ */
+export function sepayTransactionTime(value: unknown, receivedAt: Date): Date {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}$/.test(value.trim())) return receivedAt;
   const parsed = new Date(`${value.trim().replace(' ', 'T')}+07:00`);
-  return Number.isNaN(parsed.getTime()) ? fallback : parsed;
+  const age = receivedAt.getTime() - parsed.getTime();
+  return Number.isNaN(parsed.getTime()) || age < 0 || age > 60 * 60_000 ? receivedAt : parsed;
 }
 
 const money = (amount: number, locale: 'en' | 'vi') => `${new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US').format(amount)}₫`;
+const firstSessionEnd = () => Date.parse(`${STORY_CLUB_FIRST_SESSION.isoDate}T${STORY_CLUB_FIRST_SESSION.time}:00+07:00`) + 30 * 60_000;
 
-export function storyClubScheduleLine(locale: 'en' | 'vi'): string {
+/**
+ * Both lines take an optional `now`. Without it they state the whole plan (always true when read, safe to prerender).
+ * With it (the browser, after load) they drop what has passed: no deploy is needed when a date goes by.
+ */
+export function storyClubScheduleLine(locale: 'en' | 'vi', now?: Date): string {
   const first = STORY_CLUB_FIRST_SESSION;
-  return locale === 'vi'
-    ? `Buổi đầu tiên: ${first.label.vi}, ${first.time} ${STORY_CLUB_TIME_ZONE_LABEL.vi}. Mỗi thứ Bảy lúc ${STORY_CLUB_WEEKLY_TIME}.`
-    : `First session: ${first.label.en}, ${first.time} ${STORY_CLUB_TIME_ZONE_LABEL.en}. Every Saturday at ${STORY_CLUB_WEEKLY_TIME}.`;
+  const showFirst = !now || now.getTime() <= firstSessionEnd();
+  if (locale === 'vi') return `${showFirst ? `Buổi đầu tiên: ${first.label.vi}, ${first.time} ${STORY_CLUB_TIME_ZONE_LABEL.vi}. ` : ''}Mỗi thứ Bảy lúc ${STORY_CLUB_WEEKLY_TIME} ${showFirst ? '' : STORY_CLUB_TIME_ZONE_LABEL.vi}`.trim().replace(/\s+$/, '') + (showFirst ? '.' : '.');
+  return `${showFirst ? `First session: ${first.label.en}, ${first.time} ${STORY_CLUB_TIME_ZONE_LABEL.en}. ` : ''}Every Saturday at ${STORY_CLUB_WEEKLY_TIME}${showFirst ? '' : ` ${STORY_CLUB_TIME_ZONE_LABEL.en}`}.`;
 }
 
-/** The dated price ladder in words. It states end dates, never "today's price", so it is true whenever it is read. */
-export function storyClubOfferLine(locale: 'en' | 'vi'): string {
+/** The dated price ladder in words; with `now`, only the offers still open (none: just the list price). */
+export function storyClubOfferLine(locale: 'en' | 'vi', now?: Date): string {
   const list = money(STORY_CLUB_LIST_PRICE_VND, locale);
-  const [first, second] = STORY_CLUB_OFFER_TIERS;
-  return locale === 'vi'
-    ? `Giá niêm yết ${list} cho ${STORY_CLUB_SESSIONS} buổi. Ưu đãi ra mắt: ${money(first.priceVnd, 'vi')} nếu tiền về trước ${first.untilLabel.vi}; ${money(second.priceVnd, 'vi')} nếu tiền về trước ${second.untilLabel.vi} (giờ Việt Nam). Sau đó: ${list}.`
-    : `List price ${list} for ${STORY_CLUB_SESSIONS} sessions. Launch offer: ${money(first.priceVnd, 'en')} if your payment arrives by ${first.untilLabel.en}; ${money(second.priceVnd, 'en')} if it arrives by ${second.untilLabel.en} (Vietnam time). After that: ${list}.`;
+  const open = STORY_CLUB_OFFER_TIERS.filter((tier) => !now || now.getTime() <= Date.parse(tier.until));
+  const vi = locale === 'vi';
+  const base = vi ? `Giá niêm yết ${list} cho ${STORY_CLUB_SESSIONS} buổi.` : `List price ${list} for ${STORY_CLUB_SESSIONS} sessions.`;
+  if (!open.length) return base;
+  const parts = open.map((tier) => vi
+    ? `${money(tier.priceVnd, 'vi')} nếu tiền về trước ${tier.untilLabel.vi}`
+    : `${money(tier.priceVnd, 'en')} if your payment arrives by ${tier.untilLabel.en}`);
+  return vi
+    ? `${base} Ưu đãi ra mắt: ${parts.join('; ')} (giờ Việt Nam). Sau đó: ${list}.`
+    : `${base} Launch offer: ${parts.join('; ')} (Vietnam time). After that: ${list}.`;
 }

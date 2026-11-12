@@ -1,5 +1,5 @@
 import { canonicalPaymentMemo } from '../src/config/payment.js';
-import { sepayTransactionTime, storyClubPriceAt } from '../src/config/storyClubOffer.js';
+import { sepayTransactionTime, storyClubMinimumAmountAt } from '../src/config/storyClubOffer.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { timingSafeEqual } from 'node:crypto';
 import { markStoryClubReservationPaid } from './_lib/supabaseWriter.js';
@@ -83,7 +83,7 @@ async function respond(req: VercelRequest, res: VercelResponse, decision: Decisi
   const amount = typeof body.transferAmount === 'number' ? body.transferAmount
     : typeof body.transferAmount === 'string' && /^\d{1,12}(?:\.0+)?$/.test(body.transferAmount) ? Number(body.transferAmount)
     : Number.NaN;
-  const minimum = storyClubPriceAt(sepayTransactionTime(body.transactionDate, new Date())).priceVnd;
+  const minimum = storyClubMinimumAmountAt(sepayTransactionTime(body.transactionDate, new Date()));
   if (!Number.isSafeInteger(amount) || amount < minimum) {
     note('sepay_story_club_payment', memo, 'needs_review');
     return done(200, true);

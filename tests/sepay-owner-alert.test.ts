@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { mock } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import handler from '../api/sepay-webhook.js';
@@ -38,6 +38,7 @@ async function deliver(options: { content?: string; amount?: unknown; transferTy
     const status = options.rpc ?? 'paid';
     return new Response(JSON.stringify({ status, paid_at: status === 'not_found' ? null : '2026-10-29T10:00:00Z' }), { status: 200 });
   }) as typeof fetch;
+  mock.timers.enable({ apis: ['Date'], now: new Date('2026-11-23T10:00:05+07:00') }); // receipt time just after the 2026-11-23 10:00:00 stamp
   console.info = ((...args: unknown[]) => logs.push(JSON.stringify(args))) as typeof console.info;
   console.error = ((...args: unknown[]) => logs.push(JSON.stringify(args))) as typeof console.error;
   let status = 0;
@@ -50,6 +51,7 @@ async function deliver(options: { content?: string; amount?: unknown; transferTy
     } } as never, res as never);
     return { status, body, emails, rpcs, logs };
   } finally {
+    mock.timers.reset();
     globalThis.fetch = originalFetch;
     console.info = originalInfo;
     console.error = originalError;

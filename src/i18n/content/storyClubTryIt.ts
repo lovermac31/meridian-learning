@@ -25,7 +25,8 @@ export const STORY_CLUB_MIN_CHILDREN_FOR_TRY_IT = 2;
 export const STORY_CLUB_TRY_IT_ZALO_HREF = '/go/zalo?utm_source=story-club&utm_content=try-it-register';
 export const STORY_CLUB_TRY_IT_ZALO_HREF_RESERVE = '/go/zalo?utm_source=reserve&utm_content=try-it-register';
 
-type Fact = { label: string; value: string };
+/** `live` facts re-render in the browser without the dates that have passed (StoryClubLiveLine); `suffix` follows the live text. */
+type Fact = { label: string; value: string; live?: 'offer' | 'schedule'; suffix?: string };
 
 export type StoryClubTryItCopy = {
   /** One line for the hero of /story-club. */
@@ -58,8 +59,8 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
     paid: {
       heading: 'The paid round: 4 weeks',
       facts: [
-        { label: 'Price', value: storyClubOfferLine('en') },
-        { label: 'When', value: `${storyClubScheduleLine('en')} 30 minutes on Google Meet.` },
+        { label: 'Price', value: storyClubOfferLine('en'), live: 'offer' },
+        { label: 'When', value: `${storyClubScheduleLine('en')} 30 minutes on Google Meet.`, live: 'schedule', suffix: ' 30 minutes on Google Meet.' },
         { label: 'Who', value: `Children aged 5–8, up to ${STORY_CLUB_MAX_CHILDREN} children per group.` },
         { label: 'The free Story Time', value: 'It is postponed (new date coming soon). You can join the paid round now, or ask Mr. Jay on Zalo first. There is no pressure to pay.' },
         { label: 'What it is', value: 'Story time, speaking practice and a personal reply from Mr. Jay. We do not promise exam scores or results.' },
@@ -98,8 +99,8 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
     paid: {
       heading: 'Vòng học có phí: 4 tuần',
       facts: [
-        { label: 'Học phí', value: storyClubOfferLine('vi') },
-        { label: 'Khi nào', value: `${storyClubScheduleLine('vi')} 30 phút qua Google Meet.` },
+        { label: 'Học phí', value: storyClubOfferLine('vi'), live: 'offer' },
+        { label: 'Khi nào', value: `${storyClubScheduleLine('vi')} 30 phút qua Google Meet.`, live: 'schedule', suffix: ' 30 phút qua Google Meet.' },
         { label: 'Dành cho ai', value: `Bé 5–8 tuổi, tối đa ${STORY_CLUB_MAX_CHILDREN} bé mỗi nhóm.` },
         { label: 'Giờ kể chuyện miễn phí', value: 'Buổi này tạm hoãn (sẽ báo ngày mới sớm). Bạn có thể tham gia vòng học có phí ngay, hoặc hỏi thầy Jay qua Zalo trước. Không có áp lực phải thanh toán.' },
         { label: 'Nội dung', value: 'Nghe kể chuyện, thực hành nói và phản hồi riêng từ thầy Jay. Chúng tôi không hứa trước điểm thi hay kết quả.' },

@@ -107,6 +107,8 @@ for (const [locale, path, payNow, refundWord, getCode] of [
       const expected = storyClubPriceAt(new Date()).priceVnd; // the dated price in src/config/storyClubOffer.ts, not a hard-coded 590000
       await expect(page.locator('[data-payment-amount]')).toHaveText(paymentAmount(expected, locale));
       await expect.poll(() => qrAmount).toBe(String(expected));
+      if (storyClubPriceAt(new Date()).tier) await expect(page.locator('[data-payment-valid-until]')).toContainText(locale === 'vi' ? 'có hiệu lực đến' : 'valid until');
+      await expect(page.locator('[data-reserve-price]')).toContainText(paymentAmount(expected, locale));
       await checkAccessibility(page);
     }
   });

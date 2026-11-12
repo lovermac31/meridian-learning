@@ -8,7 +8,7 @@ import { PRODUCTS_PATH, cardLink, productImageSources, productsPage, type Produc
 import { PRODUCT_SEO, productFaq, productPath, relatedProducts } from '../i18n/content/productSeo';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
-import { storyClubOfferLine, storyClubScheduleLine } from '../config/storyClubOffer';
+import { StoryClubLiveLine } from './StoryClubLiveLine';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
 import { CardLink, CreditLine, IeltsHomeLink, PausedNote, LemonSqueezyOption, PayPalOption, Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
@@ -122,8 +122,8 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
       >
         {isStoryClub ? <div data-story-club-first-screen>
           <p className="mt-3 text-sm" data-story-club-schedule>{schedule}</p>
-          <p className="mt-2 text-sm font-semibold" data-story-club-first-session>{storyClubScheduleLine(locale)}</p>
-          <p className="mt-1 text-sm" data-story-club-offer>{storyClubOfferLine(locale)}</p>
+          <p className="mt-2 text-sm font-semibold" data-story-club-first-session><StoryClubLiveLine locale={locale} kind="schedule" /></p>
+          <p className="mt-1 text-sm" data-story-club-offer><StoryClubLiveLine locale={locale} kind="offer" /></p>
           {purchase}
         </div> : null}
       </ToolHero>
