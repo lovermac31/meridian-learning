@@ -54,6 +54,9 @@ export const SAMPLE_PAGE_HEIGHT = 1699;
 
 // Only the seven approved replacement images need new browser cache keys.
 export const SAMPLE_PAGE_REVISIONS: Record<string, string> = {
+  // 12 Nov 2026: Story Club sample pages 3 and 8, "Founding price for the first group" replaced.
+  'story-club-pg03.webp': '546a202a8a9f',
+  'story-club-pg08.webp': 'b66f62d1bb9e',
   'ielts-writing-teacher-pack-pg01.webp': 'a75be50f744a',
   'parent-pack-l2-pg01.webp': 'e22b3db246a4',
   'parent-pack-l2-pg02.webp': 'ef4fe1b90d5d',
