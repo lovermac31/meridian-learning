@@ -44,7 +44,7 @@ const en: StoryClubCopy = {
     heading: 'The paid round',
     amount: '590.000₫',
     unit: 'for 4 weeks',
-    note: 'Founding price for the first group. Pay by bank transfer (VietQR) on the reserve page, after you have read the written summary there.',
+    note: 'Pay by bank transfer (VietQR) on the reserve page, after you have read the written summary there.',
     seats: 'Up to 6 children per group',
     // Funnel audit fix 6 (2 Nov 2026): the day, time, length, place and the no-recording rule, from the product data.
     schedule: 'Saturday mornings, 9:00 · 30 minutes on Google Meet · never recorded',
@@ -129,7 +129,7 @@ const vi: StoryClubCopy = {
     heading: 'Vòng học có phí',
     amount: '590.000₫',
     unit: 'cho 4 tuần',
-    note: 'Giá ưu đãi cho nhóm đầu tiên. Thanh toán bằng chuyển khoản (VietQR) trên trang đặt chỗ, sau khi bạn đọc bản tóm tắt bằng văn bản ở đó.',
+    note: 'Thanh toán bằng chuyển khoản (VietQR) trên trang đặt chỗ, sau khi bạn đọc bản tóm tắt bằng văn bản ở đó.',
     seats: 'Tối đa 6 bạn nhỏ mỗi nhóm',
     schedule: 'Sáng thứ Bảy, 9:00 · 30 phút qua Google Meet · không bao giờ được ghi âm, ghi hình',
     starts: 'Ngày bắt đầu sẽ được thông báo sau buổi học thử miễn phí. Bạn quyết định sau khi học thử.',

@@ -71,4 +71,7 @@ export const SAMPLE_PAGE_REVISIONS: Record<string, string> = {
   'printable-pack-l1-pg11.webp': '87998a3a8bac',
   'printable-pack-l1-pg13.webp': 'f879d611626b',
   'printable-pack-l1-pg15.webp': '9bd9b2748885',
+  // 12 Nov 2026: Story Club sample: outdated "Founding price for the first group" line removed (pages 3 and 8).
+  'story-club-pg03.webp': '483de8090686',
+  'story-club-pg08.webp': '0e43f0dd640f',
 };
