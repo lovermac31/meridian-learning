@@ -80,10 +80,12 @@ test('build-time preparation rejects unknown/incomplete CLI arguments instead of
 });
 
 
-test('only the sixteen approved changed viewer images receive content-bound browser cache revisions', () => {
+test('only the eighteen approved changed viewer images receive content-bound browser cache revisions', () => {
   const expected = ['ielts-writing-teacher-pack-pg01.webp', 'parent-pack-l2-pg01.webp', 'parent-pack-l2-pg02.webp', 'parent-pack-l2-pg03.webp', 'parent-pack-l2-pg04.webp', 'parent-pack-l2-pg09.webp', 'parent-pack-l2-pg10.webp',
     // 11 Nov 2026: Printable Pack v2 (new Lina art; v2.1 footer on the picture pages).
-    ...[5, 6, 7, 8, 9, 10, 11, 13, 15].map(n => `printable-pack-l1-pg${String(n).padStart(2, '0')}.webp`)];
+    ...[5, 6, 7, 8, 9, 10, 11, 13, 15].map(n => `printable-pack-l1-pg${String(n).padStart(2, '0')}.webp`),
+    // 12 Nov 2026: Story Club sample, founding-price line removed.
+    'story-club-pg03.webp', 'story-club-pg08.webp'];
   assert.deepEqual(Object.keys(SAMPLE_PAGE_REVISIONS).sort(), expected.sort());
   let revised = 0;
   for (const product of PRODUCTS.filter(p => p.group !== 'bundles')) for (const url of productSampleFiles(product.sample!).pages) {
@@ -95,5 +97,5 @@ test('only the sixteen approved changed viewer images receive content-bound brow
       assert.equal(parsed.searchParams.get('v'), prefix); revised++;
     } else assert.equal(parsed.search, '', `${file}: unchanged browser URL`);
   }
-  assert.equal(revised, 16);
+  assert.equal(revised, 18);
 });
