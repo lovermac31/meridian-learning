@@ -10,9 +10,9 @@ const fixture = () => JSON.parse(readFileSync('public/samples/pages/story-club-t
 
 test('all 44 sample-bearing products expose exactly their 410 approved public sample pages, with bound image and text hashes', () => {
   const sha = (value: string | Buffer) => createHash('sha256').update(value).digest('hex');
-  const products = PRODUCTS.filter(p => p.live && p.group !== 'bundles'); // the three IELTS bundles carry no sample of their own
+  const products = PRODUCTS.filter(p => p.live && p.group !== 'bundles'); // the three IELTS bundles are checked in the next test
   assert.equal(products.length, 44);
-  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json')).length, 44);
+  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json')).length, 47, '44 packs + 3 bundles');
   let pages = 0, ocr = 0;
   for (const product of products) {
     const count = SAMPLE_PAGE_COUNTS[product.sample!];
@@ -29,6 +29,30 @@ test('all 44 sample-bearing products expose exactly their 410 approved public sa
   assert.equal(pages, 410);
   assert.equal(ocr, 14);
   assert.equal(readdirSync('public/samples').filter(p => p.endsWith('.pdf')).length, 0, 'no sample PDF is published');
+});
+
+test('the three IELTS bundles show only byte-identical copies of pages from the packs they contain', () => {
+  const sha = (value: string | Buffer) => createHash('sha256').update(value).digest('hex');
+  const packs: Record<string, string[]> = {
+    'ielts-writing-band-up': ['ielts-writing-task1-method', 'ielts-writing-ladder-task2', 'ielts-essay-bank-task2'],
+    'ielts-speaking-band-up': ['ielts-speaking-ladder', 'ielts-cue-card-bank', 'ielts-one-to-one-starter'],
+    'ielts-four-skill-kit': ['ielts-speaking-ladder', 'ielts-writing-ladder-task2', 'ielts-listening-profiler', 'ielts-reading-ladder', 'ielts-writing-task1-method', 'ielts-essay-bank-task2', 'ielts-cue-card-bank'],
+  };
+  for (const [id, members] of Object.entries(packs)) {
+    const product = PRODUCTS.find(p => p.id === id)!;
+    assert.equal(product.sample, id);
+    const doc = validateSampleText(JSON.parse(readFileSync(`public/samples/pages/${id}-text.json`, 'utf8')), id, id, SAMPLE_PAGE_COUNTS[id]);
+    assert.equal(doc.pages.length, members.length * (id === 'ielts-four-skill-kit' ? 2 : 3), `${id}: pages per pack`);
+    const sources = new Set<string>();
+    for (const page of doc.pages) {
+      const image = readFileSync(`public/samples/pages/${page.image}`);
+      // The page must equal one page of one pack inside the bundle (same bytes, same text), and no other pack.
+      const origin = members.flatMap(m => { const pack = JSON.parse(readFileSync(`public/samples/pages/${m}-text.json`, 'utf8')); return pack.pages.filter((q: any) => q.imageSha256 === sha(image) && q.text === page.text).map(() => m); });
+      assert.equal(origin.length >= 1, true, `${page.image}: copied from a pack inside ${id}`);
+      origin.forEach(m => sources.add(m));
+    }
+    assert.deepEqual([...sources].sort(), [...members].sort(), `${id}: every pack inside contributes at least one page`);
+  }
 });
 
 test('sample schema rejects full-edition provenance, extra pages/content fields, wrong order and unknown methods', () => {

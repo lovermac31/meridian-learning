@@ -281,6 +281,8 @@ const SAMPLE_STEMS: Record<string, string> = {
   'thinking-cycle-set': 'thinking-cycle-set', 'reasoning-assessment-kit': 'reasoning-assessment-kit',
   'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2', 'ielts-writing-task1-method': 'ielts-writing-task1-method', 'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack', 'centre-licence': 'centre-licence',
   'teacher-training-course': 'teacher-training-course', 'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
+  // IELTS bundles (12 Nov 2026): stem = id; pages are copies from the packs inside.
+  'ielts-writing-band-up': 'ielts-writing-band-up', 'ielts-speaking-band-up': 'ielts-speaking-band-up', 'ielts-four-skill-kit': 'ielts-four-skill-kit',
   // 35-today plan (27 Oct 2026): the eight new products, stem = id.
   'writing-baseline': 'writing-baseline', 'ielts-one-to-one-starter': 'ielts-one-to-one-starter', 'ielts-cue-card-bank': 'ielts-cue-card-bank',
   'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3', 'holiday-reading-challenge': 'holiday-challenge',
@@ -300,8 +302,8 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
   const { SAMPLE_PAGE_COUNTS } = await import('../src/i18n/content/samplePages');
   // Jay, 27 Oct 2026: no PDF download. Nothing under public/samples may be a PDF.
   assert.deepEqual(filesUnder('public/samples').filter((file) => /\.pdf$/i.test(file)), [], 'no PDF under public/samples');
-  // The three IELTS bundles (5 Nov 2026) have no sample of their own: each pack inside has its sample on its own page.
-  const withSample = PRODUCTS.filter((p) => p.group !== 'bundles');
+  // The three IELTS bundles (12 Nov 2026) show copies of pages from the packs inside, so every product has a sample.
+  const withSample = PRODUCTS;
   assert.deepEqual(Object.keys(SAMPLE_STEMS).sort(), withSample.map((p) => p.id).sort(), 'one stem per product');
   for (const p of PRODUCTS.filter((entry) => entry.sample)) assert.equal(p.sample, SAMPLE_STEMS[p.id], `${p.id}: stem from the spec`);
   const stems = PRODUCTS.filter((p) => p.sample).map((p) => p.sample!).sort();

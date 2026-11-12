@@ -468,7 +468,7 @@
 - Vietnamese title: Combo IELTS Writing: Task 1, Task 2 và ngân hàng bài luận
 - VND price: 499.000 VND
 - PayPal USD: available on the product page
-- Sample: none listed
+- Sample: view-only pages on the product page
 
 ### IELTS Speaking Band-Up Bundle
 - ID: `ielts-speaking-band-up`
@@ -478,7 +478,7 @@
 - Vietnamese title: Combo IELTS Speaking: Ladder, thẻ đề và giáo án 1 kèm 1
 - VND price: 449.000 VND
 - PayPal USD: available on the product page
-- Sample: none listed
+- Sample: view-only pages on the product page
 
 ### IELTS Four-Skill Kit
 - ID: `ielts-four-skill-kit`
@@ -488,5 +488,5 @@
 - Vietnamese title: Bộ IELTS 4 kỹ năng: Speaking, Writing, Reading, Listening
 - VND price: 999.000 VND
 - PayPal USD: available on the product page
-- Sample: none listed
+- Sample: view-only pages on the product page
 

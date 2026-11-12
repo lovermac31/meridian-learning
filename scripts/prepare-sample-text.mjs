@@ -9,8 +9,11 @@ import { validateSampleText, SAMPLE_TEXT_MAX_BYTES } from '../src/lib/sampleText
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const publicPages = path.join(root, 'public/samples/pages');
 const hash = (value) => createHash('sha256').update(value).digest('hex');
-// The three IELTS bundles (5 Nov 2026) carry no sample of their own: each pack inside has its approved sample on its own page.
-const config = PRODUCTS.filter(p => p.live && p.sample).map(p => ({ id: p.id, stem: p.sample, count: SAMPLE_PAGE_COUNTS[p.sample] }));
+// The 44 packs are extracted from their approved sample PDFs. The three IELTS bundles (12 Nov 2026) have no PDF of their own:
+// their pages are byte-identical copies of pages of the packs inside, so they are only validated here (bundleConfig).
+const all = PRODUCTS.filter(p => p.live && p.sample).map(p => ({ id: p.id, stem: p.sample, count: SAMPLE_PAGE_COUNTS[p.sample], bundle: p.group === 'bundles' }));
+const config = all.filter(p => !p.bundle);
+const bundleConfig = all.filter(p => p.bundle);
 const args = process.argv.slice(2);
 let sourceRoot = process.env.JE_SAMPLE_SOURCE_ROOT;
 let explicitGenerate = false; let verifySource = false; let sourceProvided = false;
@@ -25,6 +28,7 @@ if (explicitGenerate && verifySource) throw new Error('Choose generation or sour
 const generate = explicitGenerate || Boolean(sourceRoot);
 // 44 since the Mango single workbook (11 Nov 2026), sampled from the canonical v3.1 PDF.
 if (config.length !== 44 || new Set(config.map(p => p.stem)).size !== 44 || config.some(p => !p.count)) throw new Error('Expected 44 approved sample sets');
+if (bundleConfig.length !== 3 || bundleConfig.some(p => !p.count)) throw new Error('Expected 3 bundle sample sets');
 if ((generate || verifySource) && !sourceRoot) throw new Error('Use --source-root or JE_SAMPLE_SOURCE_ROOT for approved local samples');
 if (generate || verifySource) {
   const result = spawnSync('python3', [path.join(root, 'scripts/extract-sample-text.py'), '--source-root', path.resolve(sourceRoot), '--public-pages', publicPages, '--ocr', path.join(root, 'scripts/sample-text-ocr.json')], { input: JSON.stringify(config), encoding: 'utf8', maxBuffer: 16_000_000, timeout: 120_000 });
@@ -43,14 +47,14 @@ if (generate || verifySource) {
     } else fs.writeFileSync(target, content);
   }
 }
-const expected = new Set(config.map(p => `${p.id}-text.json`));
+const expected = new Set(all.map(p => `${p.id}-text.json`));
 for (const file of fs.readdirSync(publicPages).filter(p => p.endsWith('-text.json'))) if (!expected.has(file)) throw new Error(`Unexpected text asset ${file}`);
 if (Object.keys(SAMPLE_PAGE_REVISIONS).length !== 18) throw new Error('Expected only the eighteen approved image cache revisions');
 for (const [file, revision] of Object.entries(SAMPLE_PAGE_REVISIONS)) {
   if (!/^[a-z0-9-]+-pg[0-9]{2}\.webp$/.test(file) || !/^[a-f0-9]{12}$/.test(revision) || hash(fs.readFileSync(path.join(publicPages, file))).slice(0, 12) !== revision) throw new Error('Approved image cache revision does not match public content');
 }
 let pages = 0;
-for (const item of config) {
+for (const item of all) {
   const text = fs.readFileSync(path.join(publicPages, `${item.id}-text.json`), 'utf8');
   if (Buffer.byteLength(text) > SAMPLE_TEXT_MAX_BYTES) throw new Error(`${item.id}: text asset too large`);
   const doc = validateSampleText(JSON.parse(text), item.id, item.stem, item.count);
@@ -61,4 +65,4 @@ for (const item of config) {
   }
   pages += doc.pageCount;
 }
-console.log(JSON.stringify({ event: 'sample_text_verified', products: config.length, pages, sourceVerified: Boolean(sourceRoot), mode: verifySource ? 'source-check' : generate ? 'generate' : 'checked-in-validation' }));
+console.log(JSON.stringify({ event: 'sample_text_verified', products: all.length, pages, sourceVerified: Boolean(sourceRoot), mode: verifySource ? 'source-check' : generate ? 'generate' : 'checked-in-validation' }));
