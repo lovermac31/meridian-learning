@@ -1,0 +1,5 @@
+Neuland Inline (woff2/woff) — Font from www.OnlineWebFonts.Com, licensed CC BY 4.0.
+Self-hosted copy of https://db.onlinewebfonts.com/t/3000a0539c78d3cf6ab2d94db856f5ef
+(woff2 sha256 f89b28239811ed5c2e9b8101d3ee36303163299c8baed5c4aee2ba14277ed02f, identical to the
+copy already in docs/.../ecosystem-landing/src/fonts/neuland-inline.woff2). Moved on-domain on
+12 Nov 2026 so the display font does not depend on a third-party host that is slow from mainland China.
