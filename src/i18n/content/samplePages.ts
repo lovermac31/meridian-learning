@@ -2,6 +2,9 @@
 // Each stem has public/samples/pages/<stem>-pg01.webp … -pgNN.webp: watermarked 1200×1699 page images from factory B
 // (Sale Team/sellable-products-pdf/<id>/samples/pages/pages.json). A stem not listed here shows its three card
 // thumbnails in the viewer until its page set lands. A test keeps this list and the files in sync.
+// The three IELTS bundles (12 Nov 2026) show byte-identical copies of pages from the packs they contain: Writing and Speaking
+// Band-Up pages 1, 3 and 5 of each of their 3 packs, Four-Skill Kit pages 1 and 3 of each of its 7 packs, in the order the
+// bundle's product text names the packs. No new images.
 export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'baseline': 8,
   'centre-licence': 19,
@@ -9,11 +12,14 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'holiday-challenge': 11,
   'ielts-cue-card-bank': 11,
   'ielts-diagnostic-mock': 10,
+  'ielts-four-skill-kit': 14,
   'ielts-essay-bank-task2': 10,
   'ielts-listening-profiler': 11,
   'ielts-one-to-one-starter': 8,
   'ielts-reading-ladder': 10,
+  'ielts-speaking-band-up': 9,
   'ielts-speaking-ladder': 10,
+  'ielts-writing-band-up': 9,
   'ielts-writing-ladder-task2': 9,
   'ielts-writing-task1-method': 9,
   'ielts-writing-teacher-pack': 10,

@@ -1469,6 +1469,7 @@ export const PRODUCTS: Product[] = [
     price: '499.000₫',
     href: 'zalo',
     image: 'ielts-writing-band-up',
+    sample: 'ielts-writing-band-up',
     delivery: true,
     paypal: true,
     en: {
@@ -1498,6 +1499,7 @@ export const PRODUCTS: Product[] = [
     price: '449.000₫',
     href: 'zalo',
     image: 'ielts-speaking-band-up',
+    sample: 'ielts-speaking-band-up',
     delivery: true,
     paypal: true,
     en: {
@@ -1527,6 +1529,7 @@ export const PRODUCTS: Product[] = [
     price: '999.000₫',
     href: 'zalo',
     image: 'ielts-four-skill-kit',
+    sample: 'ielts-four-skill-kit',
     delivery: true,
     paypal: true,
     en: {
