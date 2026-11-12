@@ -10,7 +10,7 @@ test('Story Club first screen states the approved offer and has one unchanged pu
   for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(ProductPage, { product, locale })).replaceAll('<!-- -->', '');
     const hero = html.slice(html.indexOf('<header class="insights-hero"'), html.indexOf('</header>'));
-    for (const fact of ['5–8', '9:00', 'Google Meet', '6', '590.000₫', locale === 'en' ? 'for 4 weeks' : 'cho 4 tuần']) assert.ok(hero.includes(fact), `${locale}: ${fact} visible in hero`);
+    for (const fact of ['5–8', '13:00', 'Google Meet', '6', '590.000₫', locale === 'en' ? 'for 4 weeks' : 'cho 4 tuần']) assert.ok(hero.includes(fact), `${locale}: ${fact} visible in hero`);
     assert.equal(html.split('data-price="story-club"').length - 1, 1);
     assert.equal(html.split('data-cta="product-page-story-club"').length - 1, 1);
     assert.ok(hero.includes('data-cta="product-page-story-club"'));

@@ -74,7 +74,7 @@ type OfferLike = { id: string; amount: number; prefix: string; title: Record<'en
 export const paidOffer = (id: string): OfferLike | undefined => id === LIVE_CHECK_OFFER.id ? LIVE_CHECK_OFFER : PAID_OFFERS.find(offer => offer.id === id);
 export const paymentHref = (id: string, locale: Locale) => id === LIVE_CHECK_OFFER.id ? `${LIVE_CHECK_PATH}${locale === 'vi' ? '?lang=vi' : ''}` : id === 'story-club' ? `${locale === 'en' ? '/en' : ''}/story-club/reserve` : `${locale === 'vi' ? '/vi' : ''}/products/${encodeURIComponent(id)}?checkout=1`;
 export const paymentAmount = (amount: number, locale: Locale) => `${new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US').format(amount)}₫`;
-export const reserveCta = (locale: Locale) => locale === 'vi' ? 'Đặt chỗ Story Club · 590.000₫' : 'Reserve Story Club · 590,000₫';
+export const reserveCta = (locale: Locale) => locale === 'vi' ? 'Đặt chỗ Story Club' : 'Reserve Story Club';
 export const buyCta = (id: string, locale: Locale) => id === 'story-club' ? reserveCta(locale) : `${locale === 'vi' ? 'Đặt ngay' : 'Buy now'} · ${paymentAmount(paidOffer(id)!.amount, locale)}${id === 'one-to-one' ? (locale === 'vi' ? ' · 8 buổi' : ' · 8 lessons') : ''}`;
 
 // Public receiving details, never credentials. Explicit empty config disables the dynamic QR.

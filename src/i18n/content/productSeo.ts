@@ -25,7 +25,7 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     vi: {
       keyword: 'câu lạc bộ đọc truyện tiếng anh cho bé',
       title: 'Câu lạc bộ đọc truyện tiếng Anh online cho bé 5–8 tuổi',
-      description: 'Nhóm nhỏ đọc truyện tiếng Anh trực tuyến cho bé 5–8 tuổi: 4 buổi sáng thứ Bảy, bài nhỏ ở nhà mỗi tuần và thầy Jay phản hồi riêng từng bé. 590.000₫.',
+      description: 'Nhóm nhỏ đọc truyện tiếng Anh trực tuyến cho bé 5–8 tuổi: 4 buổi thứ Bảy, bài nhỏ ở nhà mỗi tuần và thầy Jay phản hồi riêng từng bé. 590.000₫.',
     },
   },
   baseline: {

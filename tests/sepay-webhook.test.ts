@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import handler from '../api/sepay-webhook.js';
 
 type Reply = { status: number; body?: Record<string, unknown> };
-type Options = { auth?: string; enabled?: boolean; transferType?: string; content?: string; amount?: unknown; rpc?: 'paid' | 'already_paid' | 'not_found' | 'down' };
+type Options = {
+  date?: string; auth?: string; enabled?: boolean; transferType?: string; content?: string; amount?: unknown; rpc?: 'paid' | 'already_paid' | 'not_found' | 'down' };
 
 async function request(options: Options = {}): Promise<{ reply: Reply; calls: string[]; logs: string[] }> {
   // The owner alert (api/_lib/paymentAlert.ts) stays off here: no Resend key or owner address, so `calls` lists RPCs only.
@@ -32,7 +33,7 @@ async function request(options: Options = {}): Promise<{ reply: Reply; calls: st
   const res = { setHeader() { return this; }, status(code: number) { status = code; return this; }, json(value: Record<string, unknown>) { body = value; return this; } };
   try {
     await handler({ method: 'POST', headers: { authorization: options.auth ?? 'Apikey synthetic-sepay-webhook-key-32chars', 'content-type': 'application/json', 'content-length': '100' }, body: {
-      transferType: options.transferType ?? 'in', content: options.content ?? 'Payment SC-ABFD01', transferAmount: options.amount ?? 590000,
+      transferType: options.transferType ?? 'in', content: options.content ?? 'Payment SC-ABFD01', transferAmount: options.amount ?? 590000, transactionDate: options.date ?? '2026-11-23 10:00:00',
       accountNumber: 'SYNTHETIC-MUST-NOT-LOG', description: 'Synthetic payer name must not be logged',
     } } as never, res as never);
     return { reply: { status, body }, calls, logs };
@@ -90,4 +91,24 @@ test('unknown reservation is acknowledged; transient RPC failure is retryable; f
   assert.equal(transient.reply.status, 503);
   assert.equal(transient.reply.body?.success, false);
   assert.equal(disabled.reply.status, 503);
+});
+
+// Story Club launch offer (src/config/storyClubOffer.ts): the minimum is the dated price at the transfer time, Vietnam time.
+test('launch-offer tiers: the amount must reach the price valid at the transfer time, otherwise manual review (never auto-confirm)', async () => {
+  const cases: Array<[string, string, number, boolean]> = [
+    ['first tier, one second before the cut-off', '2026-11-14 12:59:59', 295000, true],
+    ['first tier, short by 1₫', '2026-11-14 12:59:59', 294999, false],
+    ['one second after the first cut-off needs the second price', '2026-11-14 13:00:01', 295000, false],
+    ['second tier at the second price', '2026-11-14 13:00:01', 440000, true],
+    ['second tier, one second before its cut-off', '2026-11-21 12:59:59', 440000, true],
+    ['second tier, short by 1₫', '2026-11-21 12:59:59', 439999, false],
+    ['one second after the second cut-off needs the list price', '2026-11-21 13:00:01', 440000, false],
+    ['list price after the offers', '2026-11-21 13:00:01', 590000, true],
+  ];
+  for (const [label, date, amount, paid] of cases) {
+    const result = await request({ date, amount });
+    assert.equal(result.reply.status, 200, label);
+    assert.equal(result.calls.length, paid ? 1 : 0, label);
+    assert.match(result.logs.join('\n'), paid ? /paid/ : /needs_review/, label);
+  }
 });

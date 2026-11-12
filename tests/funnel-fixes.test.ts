@@ -94,8 +94,8 @@ test('fix 2: /go/zalo stores utm_medium and utm_campaign; /api/event accepts the
 test('fix 6: /story-club and /vi/story-club state the day, time, length, Google Meet and never recorded, in the hero and by the price', async () => {
   const { renderRoute } = await import('../src/entry-server');
   for (const [route, line] of [
-    ['/story-club', 'Saturday mornings, 9:00 · 30 minutes on Google Meet · never recorded'],
-    ['/vi/story-club', 'Sáng thứ Bảy, 9:00 · 30 phút qua Google Meet · không bao giờ được ghi âm, ghi hình'],
+    ['/story-club', 'Saturdays at 13:00 Vietnam time · 30 minutes on Google Meet · never recorded'],
+    ['/vi/story-club', 'Thứ Bảy lúc 13:00 giờ Việt Nam · 30 phút qua Google Meet · không bao giờ được ghi âm, ghi hình'],
   ] as const) {
     const html = (await renderRoute(route)).replaceAll('&#x27;', '’');
     assert.equal((html.match(/data-story-club-schedule/g) ?? []).length, 2, `${route}: hero and price card`);
@@ -103,9 +103,9 @@ test('fix 6: /story-club and /vi/story-club state the day, time, length, Google 
     // 4 Nov 2026: the hero line now states the free try-it; the price card keeps the paid-round schedule line above.
     assert.ok(html.includes(storyClubTryItContent[route === '/vi/story-club' ? 'vi' : 'en'].heroLine), `${route}: hero states the free try-it`);
   }
-  // The facts come from the Story Club product entry: Saturdays 9:00, 30 minutes, Google Meet, up to 6, ages 5–8.
+  // The facts come from the Story Club product entry: Saturdays 13:00 (12 Nov 2026), 30 minutes, Google Meet, up to 6, ages 5–8.
   const storyClub = PRODUCTS.find((p) => p.id === 'story-club')!;
-  assert.match(storyClub.en.forWho, /Saturdays 9:00/);
+  assert.match(storyClub.en.forWho, /Saturdays 13:00/);
   assert.match(storyClub.en.inside, /30 minutes on Google Meet \(not recorded\)/);
-  assert.equal(storyClubContent.en.price.schedule.includes('9:00'), true);
+  assert.equal(storyClubContent.en.price.schedule.includes('13:00'), true);
 });
