@@ -40,7 +40,7 @@ const en: StoryClubCopy = {
   eyebrow: 'Ages 5–8 · Small group · Online',
   title: 'Story Club with Mr. Jay',
   lead:
-    'Try a free 30-minute Story Time first, on Google Meet, for new families. The date is postponed and will be announced soon. Then, if you like it, a small group of children meets Mr. Jay once a week for an original Jurassic English story, and Mr. Jay replies personally to one small piece of work from your child. The first paid session is Saturday 14 November at 13:00 Vietnam time; you can also ask Mr. Jay on Zalo first.',
+    'Try a free 30-minute Story Time first, on Google Meet, for new families. The date is postponed and will be announced soon. Then, if you like it, a small group of children meets Mr. Jay once a week for an original Jurassic English story, and Mr. Jay replies personally to one small piece of work from your child. Paid sessions run on Saturdays at 13:00 Vietnam time (dates and prices below); you can also ask Mr. Jay on Zalo first.',
   price: {
     heading: 'The paid round',
     amount: '590.000₫',
@@ -108,9 +108,9 @@ const en: StoryClubCopy = {
       { q: 'What if my child misses a session?', a: 'The story and the task are sent on Zalo the same day, so your child can still do the task and get a reply.' },
       { q: 'Does my child need to speak English well?', a: 'No. Some words and simple sentences are enough. Mr. Jay keeps the language simple and uses pictures.' },
       { q: 'Is this the same as a 1-to-1 lesson?', a: 'No. Story Club is a small group with a personal reply each week. For a full lesson with only your child, see the 1-to-1 options.' },
-      { q: 'Is Story Club free to try?', a: 'The free Story Time (new date coming soon) is free for new families: 30 minutes on Google Meet, with a parent beside the child. The paid round is separate: its first session is Saturday 14 November at 13:00 Vietnam time.' },
+      { q: 'Is Story Club free to try?', a: 'The free Story Time (new date coming soon) is free for new families: 30 minutes on Google Meet, with a parent beside the child. The paid round is separate: it meets on Saturdays at 13:00 Vietnam time (dates and prices are above).' },
       { q: 'What if fewer than 2 children register?', a: 'Then the try-it waits until enough children have registered. We message every registered parent on Zalo.' },
-      { q: 'Can I get my money back?', a: 'Yes. You can ask for a full refund before the first paid session, within 24 hours of paying. If Mr. Jay cancels a session, we make it up or return 147.500₫ for that session.' },
+      { q: 'Can I get my money back?', a: 'Yes. You can ask for a full refund before the first paid session, within 24 hours of paying. If Mr. Jay cancels a session, we make it up or return a quarter of what you paid for that session.' },
       { q: 'How do I pay?', a: 'By bank transfer with VietQR on the reserve page, after the written summary there. There is no card payment for Story Club.' },
     ],
   },
@@ -125,7 +125,7 @@ const vi: StoryClubCopy = {
   eyebrow: '5–8 tuổi · Nhóm nhỏ · Trực tuyến',
   title: 'Câu lạc bộ Truyện cùng thầy Jay',
   lead:
-    'Hãy cho bé học thử giờ kể chuyện miễn phí 30 phút trước, qua Google Meet, dành cho gia đình mới. Buổi học thử tạm hoãn và sẽ báo ngày mới sớm. Sau đó, nếu bé thích, một nhóm nhỏ gặp thầy Jay mỗi tuần để cùng đọc một câu chuyện do Jurassic English sáng tác, và thầy Jay phản hồi riêng cho một bài nhỏ của bé. Buổi có phí đầu tiên là thứ Bảy 14/11 lúc 13:00 giờ Việt Nam; bạn cũng có thể hỏi thầy Jay qua Zalo trước.',
+    'Hãy cho bé học thử giờ kể chuyện miễn phí 30 phút trước, qua Google Meet, dành cho gia đình mới. Buổi học thử tạm hoãn và sẽ báo ngày mới sớm. Sau đó, nếu bé thích, một nhóm nhỏ gặp thầy Jay mỗi tuần để cùng đọc một câu chuyện do Jurassic English sáng tác, và thầy Jay phản hồi riêng cho một bài nhỏ của bé. Các buổi có phí diễn ra vào thứ Bảy lúc 13:00 giờ Việt Nam (ngày và giá ở bên dưới); bạn cũng có thể hỏi thầy Jay qua Zalo trước.',
   price: {
     heading: 'Vòng học có phí',
     amount: '590.000₫',
@@ -192,9 +192,9 @@ const vi: StoryClubCopy = {
       { q: 'Nếu con vắng một buổi thì sao?', a: 'Câu chuyện và bài nhỏ được gửi qua Zalo ngay trong ngày, nên con vẫn làm bài và nhận phản hồi.' },
       { q: 'Con có cần nói tiếng Anh giỏi không?', a: 'Không. Biết một số từ và câu đơn giản là đủ. Thầy Jay dùng ngôn ngữ đơn giản và nhiều tranh minh hoạ.' },
       { q: 'Câu lạc bộ có giống học 1 kèm 1 không?', a: 'Không. Câu lạc bộ là nhóm nhỏ, mỗi tuần con có phản hồi riêng. Nếu muốn buổi học chỉ riêng con, hãy xem các lựa chọn học 1 kèm 1.' },
-      { q: 'Học thử có miễn phí không?', a: 'Giờ kể chuyện miễn phí (ngày mới sẽ báo sớm) dành cho gia đình mới: 30 phút qua Google Meet, có phụ huynh ngồi cạnh bé. Vòng học có phí là phần riêng: buổi đầu tiên là thứ Bảy 14/11 lúc 13:00 giờ Việt Nam.' },
+      { q: 'Học thử có miễn phí không?', a: 'Giờ kể chuyện miễn phí (ngày mới sẽ báo sớm) dành cho gia đình mới: 30 phút qua Google Meet, có phụ huynh ngồi cạnh bé. Vòng học có phí là phần riêng: học vào thứ Bảy lúc 13:00 giờ Việt Nam (ngày và giá ở phía trên).' },
       { q: 'Nếu có ít hơn 2 bé đăng ký thì sao?', a: 'Khi đó buổi học thử sẽ chờ đến khi đủ bé đăng ký. Chúng tôi sẽ nhắn từng phụ huynh đã đăng ký qua Zalo.' },
-      { q: 'Tôi có được hoàn tiền không?', a: 'Có. Bạn có thể yêu cầu hoàn tiền đầy đủ trước buổi học có phí đầu tiên, trong vòng 24 giờ kể từ khi thanh toán. Nếu thầy Jay hủy một buổi, buổi đó sẽ được học bù hoặc hoàn lại 147.500₫ cho buổi đó.' },
+      { q: 'Tôi có được hoàn tiền không?', a: 'Có. Bạn có thể yêu cầu hoàn tiền đầy đủ trước buổi học có phí đầu tiên, trong vòng 24 giờ kể từ khi thanh toán. Nếu thầy Jay hủy một buổi, buổi đó sẽ được học bù hoặc hoàn lại một phần tư số tiền bạn đã trả cho buổi đó.' },
       { q: 'Thanh toán như thế nào?', a: 'Chuyển khoản bằng VietQR trên trang đặt chỗ, sau bản tóm tắt bằng văn bản ở đó. Câu lạc bộ không nhận thanh toán bằng thẻ.' },
     ],
   },

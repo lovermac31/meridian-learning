@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  STORY_CLUB_LIST_PRICE_VND, STORY_CLUB_OFFER_TIERS, sepayTransactionTime, storyClubOfferLine, storyClubPriceAt, storyClubScheduleLine,
+  STORY_CLUB_LIST_PRICE_VND, STORY_CLUB_OFFER_TIERS, sepayTransactionTime, storyClubMinimumAmountAt, storyClubOfferLine, storyClubPriceAt, storyClubScheduleLine, storyClubTierForAmount,
 } from '../src/config/storyClubOffer';
 
 const at = (iso: string) => new Date(iso);
@@ -32,11 +32,46 @@ test('tier data: list price 590000 stays, half price, then 440000', () => {
   assert.equal(STORY_CLUB_OFFER_TIERS[0].priceVnd * 2, STORY_CLUB_LIST_PRICE_VND);
 });
 
-test('SePay transaction time is read as Vietnam time; unreadable values fall back', () => {
-  const fallback = at('2026-11-30T00:00:00Z');
-  assert.equal(sepayTransactionTime('2026-11-14 12:59:59', fallback).toISOString(), '2026-11-14T05:59:59.000Z');
-  assert.equal(sepayTransactionTime('2026-11-14T13:00:01', fallback).toISOString(), '2026-11-14T06:00:01.000Z');
-  for (const bad of [undefined, null, 42, '', 'tomorrow', '2026-13-45 99:99:99']) assert.equal(sepayTransactionTime(bad, fallback), fallback);
+test('webhook minimum: the price valid 30 minutes earlier (grace), literal boundaries', () => {
+  const cases: Array<[string, number]> = [
+    ['2026-11-14T13:00:01+07:00', 295000],
+    ['2026-11-14T13:30:00+07:00', 295000],
+    ['2026-11-14T13:30:01+07:00', 440000],
+    ['2026-11-21T13:30:00+07:00', 440000],
+    ['2026-11-21T13:30:01+07:00', 590000],
+  ];
+  for (const [iso, minimum] of cases) assert.equal(storyClubMinimumAmountAt(at(iso)), minimum, iso);
+});
+
+test('SePay transaction time: Vietnam time, but only if it is not in the future and not more than 60 minutes old', () => {
+  const received = at('2026-11-14T13:00:05+07:00');
+  assert.equal(sepayTransactionTime('2026-11-14 12:59:59', received).toISOString(), '2026-11-14T05:59:59.000Z');
+  assert.equal(sepayTransactionTime('2026-11-14T12:30:00', received).toISOString(), '2026-11-14T05:30:00.000Z');
+  assert.equal(sepayTransactionTime('2026-11-14 11:59:00', received), received, 'more than 60 minutes old: receipt time');
+  assert.equal(sepayTransactionTime('2026-11-14 06:00:00', received), received, 'a UTC-shaped stamp (7 hours early): receipt time');
+  assert.equal(sepayTransactionTime('2026-11-14 13:10:00', received), received, 'later than receipt: receipt time');
+  for (const bad of [undefined, null, 42, '', 'tomorrow', '2026-13-45 99:99:99']) assert.equal(sepayTransactionTime(bad, received), received);
+});
+
+test('tier for a quoted amount (for the valid-until line)', () => {
+  assert.equal(storyClubTierForAmount(295000)?.untilLabel.en, 'Saturday 14 November, 13:00');
+  assert.equal(storyClubTierForAmount(440000)?.untilLabel.vi, 'Thứ Bảy 21/11, 13:00');
+  assert.equal(storyClubTierForAmount(590000), null);
+});
+
+test('lines drop what has passed, with no deploy: schedule after the first session, offers after each cut-off', () => {
+  for (const locale of ['en', 'vi'] as const) {
+    const whole = `${storyClubScheduleLine(locale)} ${storyClubOfferLine(locale)}`;
+    assert.ok(whole.includes('14') && whole.includes('295') && whole.includes('440'), `${locale} prerendered: the whole plan`);
+    const afterFirstSession = at('2026-11-14T14:00:00+07:00');
+    assert.ok(!storyClubScheduleLine(locale, afterFirstSession).includes('14'), `${locale}: no first-session date after it happened`);
+    assert.ok(storyClubScheduleLine(locale, afterFirstSession).includes('13:00'), `${locale}: the weekly time stays`);
+    const between = storyClubOfferLine(locale, at('2026-11-15T00:00:00+07:00'));
+    assert.ok(!between.includes('295') && between.includes('440') && between.includes('590'), `${locale}: only the second offer is left`);
+    const after = storyClubOfferLine(locale, at('2026-11-21T14:00:00+07:00'));
+    assert.ok(after.includes('590') && !after.includes('440') && !after.includes('295'), `${locale}: only the list price after the last cut-off`);
+    assert.ok(!/launch offer|ưu đãi ra mắt/i.test(after), `${locale}: no offer wording left`);
+  }
 });
 
 test('copy states end dates and amounts, never a percentage or a countdown, never "Founding price"', () => {

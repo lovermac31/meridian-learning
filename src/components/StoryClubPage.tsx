@@ -7,6 +7,7 @@ import { STORY_CLUB_FREE_STORIES, storyClubContent } from '../i18n/content/story
 import { recordClientEvent } from '../lib/tracker';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
+import { StoryClubLiveLine } from './StoryClubLiveLine';
 import { STORY_CLUB_VIDEOS, VIDEO_COPY } from '../i18n/content/productVideos';
 import { useFirstTouch, withFirstTouch, type FirstTouch } from '../lib/utmFirstTouch';
 import { storyClubTryItContent, STORY_CLUB_TRY_IT_ZALO_HREF } from '../i18n/content/storyClubTryIt';
@@ -70,7 +71,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           </p>
           <p className="mt-1 font-semibold">{c.price.seats}</p>
           <p className="mt-1 font-semibold" data-story-club-schedule>{c.price.schedule}</p>
-          <p className="mt-1 font-semibold">{c.price.starts}</p>
+          <p className="mt-1 font-semibold"><StoryClubLiveLine locale={locale} kind="both" /></p>
           <p className="mt-3">{c.price.note}</p>
           <div className="story-cta mt-5 max-w-sm">
             <ZaloButton label={c.join.cta} touch={touch} />

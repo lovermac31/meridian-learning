@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { mock } from 'node:test';
 import assert from 'node:assert/strict';
 import handler from '../api/sample-pack';
 
@@ -336,4 +336,29 @@ test('audit fix 6: prepare_payment has its own rate-limit key with a higher ceil
   }
   const form = await submit({ phone: '0396085076' }, ip);
   assert.equal(form.statusCode, 200, 'the free-sample form still has its own allowance');
+});
+
+// Review fix 4 (12 Nov 2026): the amount the server returns for the Story Club QR, with literal expectations at each tier.
+for (const [label, now, expected] of [
+  ['first tier', '2026-11-14T12:59:59+07:00', 295000],
+  ['second tier', '2026-11-14T13:00:01+07:00', 440000],
+  ['list price', '2026-11-21T13:00:01+07:00', 590000],
+] as const) {
+  test(`prepare_payment returns the Story Club amount for the ${label}: ${expected}`, async () => {
+    mock.timers.enable({ apis: ['Date'], now: new Date(now) });
+    try {
+      const prepare = await submit({ intent: 'prepare_payment', product: 'story-club', submissionKey: '66666666-6666-4666-8666-666666666666', website: '' }, `198.51.100.${expected % 200}`);
+      assert.equal(prepare.statusCode, 200);
+      assert.equal(prepare.responseBody?.amount, expected);
+      assert.match(String(prepare.responseBody?.memo), /^SC-/);
+    } finally {
+      mock.timers.reset();
+    }
+  });
+}
+
+test('prepare_payment for other products still returns no discounted amount change: Baseline stays 690000', async () => {
+  const prepare = await submit({ intent: 'prepare_payment', product: 'baseline', submissionKey: '77777777-7777-4777-8777-777777777777', website: '' }, '198.51.100.77');
+  assert.equal(prepare.statusCode, 200);
+  assert.equal(prepare.responseBody?.amount, 690000);
 });
