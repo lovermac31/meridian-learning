@@ -85,6 +85,7 @@ test('unknown events rejected: only whitelisted events are accepted', () => {
     'reserve_view',
     'reserve_submit',
     'pay_instructions_shown',
+    'page_view',
   ]);
 
   for (const event of ALLOWED_EVENTS) {
@@ -95,7 +96,6 @@ test('unknown events rejected: only whitelisted events are accepted', () => {
   const rejected = [
     'user_login',
     'click',
-    'page_view',
     'purchase_completed',
     'custom_event',
     '',

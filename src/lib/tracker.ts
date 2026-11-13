@@ -9,6 +9,8 @@
  *   - Uses navigator.sendBeacon with a fetch fallback; non-blocking.
  */
 
+import { countingAllowed } from './analyticsConsent';
+
 export type AnonymousEvent =
   | 'pricing_view'
   | 'checkout_start'
@@ -18,7 +20,8 @@ export type AnonymousEvent =
   | 'lead_submit'
   | 'reserve_view'
   | 'reserve_submit'
-  | 'pay_instructions_shown';
+  | 'pay_instructions_shown'
+  | 'page_view';
 
 export type ClientEventParams = {
   event: AnonymousEvent;
@@ -28,6 +31,7 @@ export type ClientEventParams = {
   utm_content?: string;
   utm_medium?: string;
   utm_campaign?: string;
+  referrer_host?: string;
   locale?: string;
 };
 
@@ -54,6 +58,7 @@ export function recordClientEvent(params: ClientEventParams): void {
       utm_content: utm('utm_content'),
       utm_medium: utm('utm_medium'),
       utm_campaign: utm('utm_campaign'),
+      referrer_host: params.referrer_host,
       locale: params.locale ?? (pathname.startsWith('/vi') ? 'vi' : 'en'),
     };
 
@@ -74,5 +79,69 @@ export function recordClientEvent(params: ClientEventParams): void {
     }).catch(() => {});
   } catch {
     // Fail silently in user browser
+  }
+}
+
+/**
+ * Page views (13 Nov 2026): one `page_view` per route view, so "have people been clicking?" has a denominator.
+ * First-party and cookieless like every event here: path (no query string), language, the referrer's host only, and the
+ * visit's utm_* set. Nothing is stored on the device beyond the existing first-touch utm key. Not counted: Do Not Track,
+ * Global Privacy Control, an earlier "Reject analytics" choice (countingAllowed), automated browsers and prerender.
+ * api/event.ts repeats the automated-request check on the server, so a client that lies is still not counted.
+ */
+const BOT_USER_AGENT = /HeadlessChrome|Playwright|Puppeteer|Lighthouse|Page ?Speed|(?<![a-z])bot(?![a-z])|bot[/;-]|crawler|spider|curl|wget|python-requests|node-fetch|undici|Go-http-client|facebookexternalhit|WhatsApp\/|Slackbot|Discordbot|Twitterbot|Selenium|PhantomJS|HeadlessShell/i;
+
+/** Operator and per-client pages are never counted, so no id in a path reaches the events table. */
+const PRIVATE_PATH = /^(\/vi)?\/(internal|pilot|admin|api|go)(\/|$)/i;
+
+export type PageViewEnv = {
+  pathname: string;
+  referrer: string;
+  host: string;
+  userAgent: string;
+  webdriver: boolean;
+  prerendering: boolean;
+  counting: boolean;
+  firstViewOfLoad: boolean;
+};
+
+/** Pure: the event to send for this view, or null when it must not be counted. */
+export function pageViewParams(env: PageViewEnv): ClientEventParams | null {
+  if (!env.counting || env.webdriver || env.prerendering) return null;
+  if (PRIVATE_PATH.test(env.pathname)) return null;
+  if (!env.userAgent.trim() || BOT_USER_AGENT.test(env.userAgent)) return null;
+  let referrerHost: string | undefined;
+  if (env.firstViewOfLoad && env.referrer) {
+    try {
+      const host = new URL(env.referrer).hostname.toLowerCase().replace(/^www\./, '').slice(0, 64);
+      if (host && host !== env.host.toLowerCase().replace(/^www\./, '')) referrerHost = host;
+    } catch { /* A malformed referrer is simply not recorded. */ }
+  }
+  return { event: 'page_view', path: env.pathname.slice(0, 256), referrer_host: referrerHost };
+}
+
+let lastViewedPath: string | null = null;
+
+/** Send one page_view for the current route; the same path twice in a row (React strict-mode re-run) counts once. */
+export function recordPageView(): void {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+  try {
+    const pathname = window.location.pathname;
+    if (pathname === lastViewedPath) return;
+    const firstViewOfLoad = lastViewedPath === null;
+    lastViewedPath = pathname;
+    const params = pageViewParams({
+      pathname,
+      referrer: document.referrer,
+      host: window.location.hostname,
+      userAgent: navigator.userAgent,
+      webdriver: navigator.webdriver === true,
+      prerendering: Boolean((document as Document & { prerendering?: boolean }).prerendering) || (document.visibilityState as string) === 'prerender',
+      counting: countingAllowed(),
+      firstViewOfLoad,
+    });
+    if (params) recordClientEvent(params);
+  } catch {
+    // Measurement never blocks the page.
   }
 }
