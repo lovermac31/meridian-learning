@@ -606,6 +606,156 @@
       "permanent": true
     },
     {
+      "source": "/ar/ielts-speaking-online/egypt",
+      "destination": "https://jurassicielts.com/ar/speaking/online/egypt/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/egypt/",
+      "destination": "https://jurassicielts.com/ar/speaking/online/egypt/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/saudi-arabia",
+      "destination": "https://jurassicielts.com/ar/speaking/online/saudi-arabia/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/saudi-arabia/",
+      "destination": "https://jurassicielts.com/ar/speaking/online/saudi-arabia/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/uae",
+      "destination": "https://jurassicielts.com/ar/speaking/online/uae/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/uae/",
+      "destination": "https://jurassicielts.com/ar/speaking/online/uae/",
+      "permanent": true
+    },
+    {
+      "source": "/bn/ielts-speaking-online/bangladesh",
+      "destination": "https://jurassicielts.com/bn/speaking/online/bangladesh/",
+      "permanent": true
+    },
+    {
+      "source": "/bn/ielts-speaking-online/bangladesh/",
+      "destination": "https://jurassicielts.com/bn/speaking/online/bangladesh/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online",
+      "destination": "https://jurassicielts.com/es/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/",
+      "destination": "https://jurassicielts.com/es/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/argentina",
+      "destination": "https://jurassicielts.com/es/speaking/online/argentina/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/argentina/",
+      "destination": "https://jurassicielts.com/es/speaking/online/argentina/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/chile",
+      "destination": "https://jurassicielts.com/es/speaking/online/chile/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/chile/",
+      "destination": "https://jurassicielts.com/es/speaking/online/chile/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/colombia",
+      "destination": "https://jurassicielts.com/es/speaking/online/colombia/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/colombia/",
+      "destination": "https://jurassicielts.com/es/speaking/online/colombia/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/peru",
+      "destination": "https://jurassicielts.com/es/speaking/online/peru/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/peru/",
+      "destination": "https://jurassicielts.com/es/speaking/online/peru/",
+      "permanent": true
+    },
+    {
+      "source": "/id/ielts-speaking-online/indonesia",
+      "destination": "https://jurassicielts.com/id/speaking/online/indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/id/ielts-speaking-online/indonesia/",
+      "destination": "https://jurassicielts.com/id/speaking/online/indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/ms/ielts-speaking-online/malaysia",
+      "destination": "https://jurassicielts.com/ms/speaking/online/malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/ms/ielts-speaking-online/malaysia/",
+      "destination": "https://jurassicielts.com/ms/speaking/online/malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ielts-speaking-online",
+      "destination": "https://jurassicielts.com/pt/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ielts-speaking-online/",
+      "destination": "https://jurassicielts.com/pt/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ielts-speaking-online/brasil",
+      "destination": "https://jurassicielts.com/pt/speaking/online/brazil/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ielts-speaking-online/brasil/",
+      "destination": "https://jurassicielts.com/pt/speaking/online/brazil/",
+      "permanent": true
+    },
+    {
+      "source": "/th/ielts-speaking-online/thailand",
+      "destination": "https://jurassicielts.com/th/speaking/online/thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/th/ielts-speaking-online/thailand/",
+      "destination": "https://jurassicielts.com/th/speaking/online/thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/ur/ielts-speaking-online/pakistan",
+      "destination": "https://jurassicielts.com/ur/speaking/online/pakistan/",
+      "permanent": true
+    },
+    {
+      "source": "/ur/ielts-speaking-online/pakistan/",
+      "destination": "https://jurassicielts.com/ur/speaking/online/pakistan/",
+      "permanent": true
+    },
+    {
       "source": "/ai-speaking/samples/basic",
       "destination": "/ai-speaking/samples",
       "permanent": true
