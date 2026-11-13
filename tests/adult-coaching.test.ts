@@ -44,7 +44,7 @@ test('CTAs are crawlable, untracked and do not fabricate commercial terms', () =
   // chrome with its own entrance tag, so it is set aside here.
   const html = body(render()).replace(/<section class="ielts-app-entrance"[\s\S]*?<\/section>/, '');
   for (const [href, label] of [
-    ['/challenges/one-change', 'Try the free One Change practice challenge'],
+    ['https://jurassicielts.com/practice/one-change/', 'Try the free One Change practice challenge'],
     ['/ai-speaking/baseline', 'Review the paid live Speaking Baseline and booking details'],
     ['/ai-speaking/solutions', 'Review one-to-one coaching options and booking details'],
   ]) assert.ok(html.includes(`<a href="${href}">${label}</a>`));

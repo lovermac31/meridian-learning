@@ -16,11 +16,11 @@ const render = (path: string, component: ComponentType<{ onNavigate: (path: stri
 };
 
 test('the footer links the IELTS band calculator, in the page language', async () => {
-  assert.match(render('/', Footer), /href="\/tools\/ielts-band-score-calculator"[^>]*>IELTS Band Score Calculator</);
-  assert.match(render('/vi', Footer), /href="\/vi\/cong-cu\/tinh-diem-ielts"[^>]*>Công cụ tính điểm IELTS</);
+  assert.match(render('/', Footer), /href="https:\/\/jurassicielts\.com\/practice\/tools\/band-score-calculator\/"[^>]*>IELTS Band Score Calculator</);
+  assert.match(render('/vi', Footer), /href="https:\/\/jurassicielts\.com\/vi\/practice\/tools\/band-score-calculator\/"[^>]*>Công cụ tính điểm IELTS</);
   // The country pages share the same footer.
   const india = (await renderRoute('/ielts-speaking-online/india')).match(/<footer\b[\s\S]*?<\/footer>/)?.[0] ?? '';
-  assert.match(india, /href="\/tools\/ielts-band-score-calculator"[^>]*>IELTS Band Score Calculator</);
+  assert.match(india, /href="https:\/\/jurassicielts\.com\/practice\/tools\/band-score-calculator\/"[^>]*>IELTS Band Score Calculator</);
 });
 
 test('home pricing shows one starting price per path; the ongoing options are folded, closed, and still in the page', () => {

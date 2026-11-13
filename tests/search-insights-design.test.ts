@@ -112,7 +112,7 @@ test('market closing band offers the booking request, AI Speaking and a free too
     if (market && market !== 'pakistan' && market !== 'bangladesh') assert.equal(hrefs[0], `/ai-speaking/baseline?market=${market}`, page.path);
     else assert.match(hrefs[0], /^mailto:info@jurassicenglish\.com\?subject=Speaking%20Baseline/, page.path);
     assert.equal(hrefs[1], '/ai-speaking', page.path);
-    assert.equal(hrefs[2], '/tools/ielts-band-score-calculator', page.path);
+    assert.equal(hrefs[2], page.locale === 'vi' ? 'https://jurassicielts.com/vi/practice/tools/band-score-calculator/' : 'https://jurassicielts.com/practice/tools/band-score-calculator/', page.path);
     if (page.locale !== 'en') assert.doesNotMatch(closing, /See how AI Speaking|Free IELTS band/, page.path);
   }
 });

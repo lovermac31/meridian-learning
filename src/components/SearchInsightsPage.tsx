@@ -22,7 +22,7 @@ function AdultCoachingGuide() {
     <p>This English-language guide is for adults aged 18+ considering online IELTS Speaking coaching, initially in Vietnam. It is not the young-learner programme or a parent enquiry page. Adults overseas can use the practice guidance, but should confirm adult session eligibility, payment support and timezone compatibility in the booking flow before paying.</p>
     <h2>1. Start with free independent practice</h2>
     <p>Use a small task to see whether you can apply a useful change yourself. The One Change challenge uses an illustrative written answer: choose an improvement, explore why it helps, then try a fresh topic in your own words. Speak your attempt aloud and note one question you would like a coach to review.</p>
-    <p><a href="/challenges/one-change">Try the free One Change practice challenge</a>. This is independent practice, not a free personalised speaking assessment or an IELTS band score. You do not need to buy a session to use the challenge.</p>
+    <p><a href={movedHref('/challenges/one-change')}>Try the free One Change practice challenge</a>. This is independent practice, not a free personalised speaking assessment or an IELTS band score. You do not need to buy a session to use the challenge.</p>
     <h2>2. Consider a paid live speaking baseline</h2>
     <p>If you need feedback on how you actually speak, review the paid live baseline as a possible next step. Bring your exam goal, target date, recent practice difficulties and questions about feedback. Confirm adult suitability and what is included before booking; this guide does not promise a session length, report or available slot.</p>
     <p>A live spoken sample can give a coach evidence of delivery, intelligibility, hesitation, wording and how you respond to follow-up questions. It can help identify a practice priority for the performance observed. Ask which speaking tasks and criteria the session covers, and how the coach will explain the evidence behind any practice estimate.</p>
@@ -242,7 +242,7 @@ function ClosingBand({ locale, ctas, paypal, hub }: { locale: string; ctas: Arra
   const links = [
     { ...ctas[0], className: 'insights-button-primary' },
     { href: '/ai-speaking', label: copy.ai, className: 'insights-button-secondary' },
-    { href: locale === 'vi' ? '/vi/cong-cu/tinh-diem-ielts' : '/tools/ielts-band-score-calculator', label: copy.tools, className: 'insights-button-secondary' },
+    { href: movedHref(locale === 'vi' ? '/vi/cong-cu/tinh-diem-ielts' : '/tools/ielts-band-score-calculator'), label: copy.tools, className: 'insights-button-secondary' },
   ];
   return <div className="insights-closing" dir={rtl ? 'rtl' : 'ltr'}><div>
     <p>{copy.closing}</p>

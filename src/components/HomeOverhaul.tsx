@@ -4,6 +4,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Mail, MessageC
 import { CONTACT_EMAIL, getOverhaulContent, HOME_PRIMARY_OPTION, IMG } from '../i18n/content/overhaul';
 import { recordClientEvent } from '../lib/tracker';
 import { getLocalizedHref } from '../i18n/localizedHref';
+import { movedHref } from '../config/movedToJurassicielts';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
 import { FounderFilmLink } from './FounderFilmLink';
@@ -208,7 +209,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
             ))}
           </ul>
           <p className="mt-4 text-sm text-sb-slate" data-home-free-tools>
-            <a className="font-bold text-sb-forest underline" href={getLocalizedHref('/tools/ielts-band-score-calculator', locale)}>
+            <a className="font-bold text-sb-forest underline" href={movedHref(getLocalizedHref('/tools/ielts-band-score-calculator', locale))}>
               {locale === 'vi' ? 'Tính điểm IELTS miễn phí (làm tròn overall)' : 'Free IELTS band score calculator (overall rounding)'}
             </a>
           </p>

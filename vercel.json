@@ -516,14 +516,94 @@
       "permanent": true
     },
     {
+      "source": "/challenges/one-change",
+      "destination": "https://jurassicielts.com/practice/one-change/",
+      "permanent": true
+    },
+    {
+      "source": "/challenges/one-change/",
+      "destination": "https://jurassicielts.com/practice/one-change/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/ielts-band-score-calculator",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/ielts-band-score-calculator/",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/ielts-speaking-part-2-timer",
+      "destination": "https://jurassicielts.com/practice/tools/speaking-timer/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/ielts-speaking-part-2-timer/",
+      "destination": "https://jurassicielts.com/practice/tools/speaking-timer/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+      "destination": "https://jurassicielts.com/vi/practice/tools/speaking-timer/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/dong-ho-ielts-speaking-part-2/",
+      "destination": "https://jurassicielts.com/vi/practice/tools/speaking-timer/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/tinh-diem-ielts",
+      "destination": "https://jurassicielts.com/vi/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/tinh-diem-ielts/",
+      "destination": "https://jurassicielts.com/vi/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-hans/tools/ielts-band-score-calculator",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-hans/tools/ielts-band-score-calculator/",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-hant/tools/ielts-band-score-calculator",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-hant/tools/ielts-band-score-calculator/",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
       "source": "/tools",
-      "destination": "/tools/ielts-band-score-calculator",
-      "permanent": false
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
     },
     {
       "source": "/vi/cong-cu",
-      "destination": "/vi/cong-cu/tinh-diem-ielts",
-      "permanent": false
+      "destination": "https://jurassicielts.com/vi/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/",
+      "destination": "https://jurassicielts.com/vi/practice/tools/band-score-calculator/",
+      "permanent": true
     },
     {
       "source": "/ai-speaking/samples/basic",
@@ -533,11 +613,6 @@
     {
       "source": "/ai-speaking/vi/samples/basic",
       "destination": "/ai-speaking/vi/samples",
-      "permanent": true
-    },
-    {
-      "source": "/challenges/one-change/",
-      "destination": "/challenges/one-change",
       "permanent": true
     },
     {
