@@ -1,35 +1,59 @@
 {
   "version": 1,
   "productId": "story-workbooks-l5",
-  "sampleStem": "story-workbooks-l5",
-  "pageCount": 3,
+  "sampleStem": "story-workbooks-l5-v2",
+  "pageCount": 6,
   "source": {
-    "file": "story-workbooks-l5-sample.pdf",
-    "sha256": "c56e99f88467f3f5c304ad73aee4096b139db00672b9c92b437e2e031d2002e6"
+    "file": "story-workbooks-l5-v2-sample.pdf",
+    "sha256": "d6df2dad893e7ce598a90ecc2983fad22481f6d5057747270a87f6c5463a907a"
   },
   "pages": [
     {
       "page": 1,
-      "image": "story-workbooks-l5-pg01.webp",
-      "imageSha256": "8e8418d3b84964493a0d7cec2fdda800db7c662f6ff3bdb989bfc43509e54a9e",
-      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nA Box Called Other\nLevel 5 · Advanced\n\nAges 14+\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
-      "textSha256": "66ab91b45b84deb6a657120a0bbeb0c14ea1ef41ffec2818045f2f58357c7383",
+      "image": "story-workbooks-l5-v2-pg01.webp",
+      "imageSha256": "fbdf920d03f3fe4da4d6f232759b61a7a182018d57f4b8f0327bc40039e59c4c",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n          A Box Called Other\n\n\nLevel 5 · Advanced Thinker       Ages 15+         Story + Workbook\n\n\n\n\n          JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "c6e684b5e848eccdf2a2eeea92f3d6c949fe8938269243f44be957599c1705d1",
       "method": "pdf-text"
     },
     {
       "page": 2,
-      "image": "story-workbooks-l5-pg02.webp",
-      "imageSha256": "e8fdbad7f7a104b6c6daa06becfe8dc27349fadf8e04e3f0841bf8c8ddae8213",
-      "text": "Chapter 1\n\nA tidy first assignment\n\n1\n\nNoor’s first assignment at the town office was to sort responses to a summerspace survey. The form offered three reasons for using the riverside square:\nSHOPPING, RECREATION and OTHER. A neat chart would help councillors\ndecide where to spend a small improvement budget.\nNoor liked the assignment. Unlike the arguments outside the meeting room,\na spreadsheet seemed to promise that every answer could find a place.\nBy midday, SHOPPING had a tall blue bar, RECREATION a shorter green one,\nand OTHER an untidy collection of comments. The chart showed only the first\ntwo. Its caption explained that miscellaneous responses had been excluded\nfor clarity.\nNoor copied the caption without changing a word.\nRead and circle\nWhat reason does the caption give for leaving out the OTHER comments?\nA. To protect the privacy of the people who replied\nB. To keep the chart clear\nC. Because the improvement budget was too small\n\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "61351829af36f2f8fbecf1b6e6413ae610fe47f5314f8077244a8657c731f8e2",
+      "image": "story-workbooks-l5-v2-pg02.webp",
+      "imageSha256": "aa26d2ae8d71d0f66c63b5070087c6743d18b77415d71d64379702705fd5b1f2",
+      "text": "Chapter 1\n\n\n1       A tidy first assignment\n\n\n\n\nNoor’s first assignment at the town office was to sort responses to a summer-\nspace survey. The form offered three reasons for using the riverside square:\nSHOPPING, RECREATION and OTHER. A neat chart would help councillors\ndecide where to spend a small improvement budget.\nNoor liked the assignment. Unlike the arguments outside the meeting room,\na spreadsheet seemed to promise that every answer could find a place.\nBy midday, SHOPPING had a tall blue bar, RECREATION a shorter green one,\nand OTHER an untidy collection of comments. The chart showed only the first\ntwo. Its caption explained that miscellaneous responses had been excluded\nfor clarity.\nNoor copied the caption without changing a word.\n\n\nRead and circle\nWhat reason does the caption give for leaving out the OTHER comments?\n\n           A. To make the chart clear for readers\n\n           B. To save space on the printed page\n\n           C. To protect the privacy of the people who replied\n\n        © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated (OpenAI ChatGPT). Licensed for one\n    4   learner.",
+      "textSha256": "49f3257b62477f149b9a14e5a0d74997be10f9b8dacad9e86caa6c37a68db3c8",
       "method": "pdf-text"
     },
     {
       "page": 3,
-      "image": "story-workbooks-l5-pg03.webp",
-      "imageSha256": "ce6c16daab082347b1e5045ae70a35b82182c64ce45a4e6533c8e4830c0fd3ce",
-      "text": "Chapter 1 workbook\n\n1\n\nA tidy first assignment: my workbook page\n\n1 · Fill the gaps\ncouncillors\n\nfirst\n\noffice\n\nriverside\n\nNoor’s first assignment at the town\n\nwas to sort responses to a\n\nsummer-space survey.\nThe form offered three reasons for using the\n\nsquare: SHOPPING,\n\nRECREATION and OTHER.\nA neat chart would help\n\ndecide where to spend a small\n\nimprovement budget.\n2 · Think about it\nWhat does the author signal by having Noor copy the caption without changing a\nword?\nA. She has not yet questioned the choice the caption hides\nB. She has decided that every one of the OTHER comments is worthless\nC. She has been ordered never to edit any caption\n\n3 · Write it\nAnalyse the passive construction in the caption. Which decision-maker disappears,\nand what reason is made to sound self-evident?\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "26fea4da5f6a93ca2ebf764e3d50fd7ef9c07e435dc9365d7ce7165a9bd78896",
+      "image": "story-workbooks-l5-v2-pg03.webp",
+      "imageSha256": "1e40b814c4472b9c90a7ea3057fe175cf0cf1535038e63a7304721cbbe230880",
+      "text": "Chapter 1 workbook\n\n\n1       A tidy first assignment: my workbook page\n\n1 · Fill the gaps\n    councillors             first         office           riverside\n\nNoor’s first assignment at the town                                                     was to sort responses to a\nsummer-space survey.\n\nThe form offered three reasons for using the                                                               square: SHOPPING,\nRECREATION and OTHER.\n\nA neat chart would help                                             decide where to spend a small\nimprovement budget.\n\n\n2 · Think about it\nWhat does the author signal by having Noor copy the caption without changing a\nword?\n\n          A. She has decided the OTHER comments are worthless\n\n          B. She has not yet questioned the choice the caption hides\n\n          C. She has been told never to edit a caption\n\n\n\n3 · Write it\nAnalyse the passive construction in the caption. Which decision-maker disappears,\nand what reason is made to sound self-evident?\n\n\n\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n\n\n\n        © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated (OpenAI ChatGPT). Licensed for one\n    5   learner.",
+      "textSha256": "38a53bf70000e027c1a6b18c405156f510ef15edb6ee8285c1cb01c8f36841c7",
+      "method": "pdf-text"
+    },
+    {
+      "page": 4,
+      "image": "story-workbooks-l5-v2-pg04.webp",
+      "imageSha256": "79dd91290e02375064150b4174586b349e588120580f88bd546e5dacfa86bcdf",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n            The Heron Stamp\n\n\nLevel 5 · Advanced Thinker       Ages 15+         Story + Workbook\n\n\n\n\n          JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "aa18035b8b38286639291faa12545b9354d31cc9330a22c5f3887e11c9c2c5f5",
+      "method": "pdf-text"
+    },
+    {
+      "page": 5,
+      "image": "story-workbooks-l5-v2-pg05.webp",
+      "imageSha256": "9e39fda0c07d22480ec07223a529a49f6a0b0eefd5bb82f6fa545d18867c8f83",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n   The Names on the Tarpaulin\n\n\nLevel 5 · Advanced Thinker       Ages 15+         Story + Workbook\n\n\n\n\n          JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "f6fb2adba4e449884bb447119f2e098bc0346ef598cc20b67211a8bfa83f4005",
+      "method": "pdf-text"
+    },
+    {
+      "page": 6,
+      "image": "story-workbooks-l5-v2-pg06.webp",
+      "imageSha256": "23a69a6983770402ac96bb2fd602a1023a6266febb26be97e5e2507bfce69acd",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nThe Workshop Without Windows\n\n\nLevel 5 · Advanced Thinker       Ages 15+         Story + Workbook\n\n\n\n\n          JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "294fd2d64c14d40bd0290a2b713649d4fd865d8b65879f6880a5e547e848fe6f",
       "method": "pdf-text"
     }
   ]

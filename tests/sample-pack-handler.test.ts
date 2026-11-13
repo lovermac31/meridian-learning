@@ -307,15 +307,16 @@ test('non-SC checkout fails closed without a stored memo even when email works',
   assert.equal(result.reservationCalls, 0);
 });
 
-const PAUSED = ['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5'];
-for (const [i, product] of PAUSED.entries()) {
-  test(`${product}: paused, so neither a payment code nor an order is created (audit fix 4)`, async () => {
-    const prepare = await submit({ intent: 'prepare_payment', product, submissionKey: '44444444-4444-4444-8444-444444444444', website: '' }, `198.51.100.${200 + i}`);
-    assert.equal(prepare.statusCode, 400);
-    assert.equal(prepare.responseBody?.memo, undefined);
-    const order = await submit({ product, name: 'Synthetic Parent', phone: '0396085076', submissionKey: '44444444-4444-4444-8444-444444444444', startedAt: new Date(Date.now() - 2000).toISOString() }, `198.51.100.${210 + i}`);
-    assert.equal(order.statusCode, 400);
-    assert.equal(order.writes.length + prepare.writes.length, 0, 'nothing written to the CRM');
+// Paused 11 Nov 2026 (audit fix 4), back on sale 13 Nov 2026 once rewritten onto original Jurassic English stories:
+// each now gets a payment code again (the pause mechanism itself stays for the next time).
+const RESTORED = ['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5'];
+for (const [i, product] of RESTORED.entries()) {
+  test(`${product}: on sale again, so a payment code is created (no longer paused)`, async () => {
+    const { PAUSED_PRODUCTS } = await import('../api/sample-pack');
+    assert.equal(PAUSED_PRODUCTS.has(product), false);
+    const prepare = await submit({ intent: 'prepare_payment', product, submissionKey: `66666666-6666-4666-8666-66666666666${i}`, website: '' }, `198.51.100.${200 + i}`);
+    assert.equal(prepare.statusCode, 200);
+    assert.match(String(prepare.responseBody?.memo), /^PR[A-Z0-9]{2}-[A-Z0-9]{6}$/);
   });
 }
 

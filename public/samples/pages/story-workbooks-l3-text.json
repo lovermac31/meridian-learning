@@ -1,35 +1,59 @@
 {
   "version": 1,
   "productId": "story-workbooks-l3",
-  "sampleStem": "story-workbooks-l3",
-  "pageCount": 3,
+  "sampleStem": "story-workbooks-l3-v2",
+  "pageCount": 6,
   "source": {
-    "file": "story-workbooks-l3-sample.pdf",
-    "sha256": "6b94fd398cd1fccfe18fe4403e31de2dcc7f6bc4aa85b5ad5bbe20372267ad50"
+    "file": "story-workbooks-l3-v2-sample.pdf",
+    "sha256": "8f620ab42a30a6d217a51fe530d80739ffb5be2013b2aa9676084fa6f1b49a15"
   },
   "pages": [
     {
       "page": 1,
-      "image": "story-workbooks-l3-pg01.webp",
-      "imageSha256": "20bc9f68fc1f11293658df36bb3a65da0f04221ef1d18ee7be93dd304f506158",
-      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nThe Last Seat on the Night Ferry\n\nLevel 3 · Expansion\n\nAges 10–12\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
-      "textSha256": "bde1eb9d13b42537d2966de878a9e19d6f571e0debbe2d303f47a2f949e8e8ef",
+      "image": "story-workbooks-l3-v2-pg01.webp",
+      "imageSha256": "f9a7f638689aaabd88fa8fe9413fe19cc3b9ee3cc634ccd13e14aca157ee98d9",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n  The Song They Took Out\n\n\nLevel 3 · Expansion       Ages 10–12         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "4705398e6449edfabc3720cf5cf3d6a6b63607aa5eeb8db5291ef21ac2f3cbcb",
       "method": "pdf-text"
     },
     {
       "page": 2,
-      "image": "story-workbooks-l3-pg02.webp",
-      "imageSha256": "85252ae7c5bb93351c1c5edb7ae1c54e1e80f7173af47d4a1862212db18404fb",
-      "text": "Chapter 1\n\nA ticket for a seat\n\n1\n\nSela’s grandfather had worked on the night ferry for thirty-one years. On\nits final evening, he gave her a ticket with a round hole punched through\nthe corner.\n‘Window seat,’ he said.\nSela had made a sign: KEEP OUR FERRY. She folded it small enough to fit\nin her coat.\nA new daytime service would begin the next week, with a different\nlanding and easier boarding. The old boat needed repairs the town could\nnot fund.\nSela knew these facts. Knowing them did not make her want to climb\naboard for the last time.\nRead and circle\nWhich reason for ending the old night ferry is given in this scene?\nA. Grandfather was retiring after thirty-one years of work\nB. The town had no money for the repairs it needed\nC. Hardly anyone travelled on it after dark\n\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "d28ef1c5bc97f3403052c0c39732091a8a71039c214405f7a749515e8b3a9e1c",
+      "image": "story-workbooks-l3-v2-pg02.webp",
+      "imageSha256": "f0dbe9a25ca5f8dd671a2f23d8241b89b478013d6d9d59d854535d730e509a63",
+      "text": "Chapter 1\n\n\n1       The tidiest town\n\n\n\n\nIn Fairhollow, nobody ever cried at the cinema, because there was\nnothing sad to see. Every song and story went to the Calm Office first. The\nOffice edited them, taking out storms, goodbyes and angry words.\nEven the river was tidy. Every Monday, workers cut its reeds, so the water\nlay flat and still like glass.\nThat spring, Nora’s school sent her to help at the Calm Office after school.\n‘You will keep people happy,’ said her mother proudly.\nNora felt proud too. She liked things neat. She did not know yet what neat\ncould cost.\n\n\nRead and circle\nWhat did workers do to the river every Monday?\n\n           A. They cut its reeds.\n\n           B. They cleaned its fish.\n\n           C. They built a new bridge.\n\n\n    4   © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated. Licensed for one learner.",
+      "textSha256": "f1a7c10bb5a96127988a6a9859f1a9be1b3b232b219cfdaf58c01d0149b80d53",
       "method": "pdf-text"
     },
     {
       "page": 3,
-      "image": "story-workbooks-l3-pg03.webp",
-      "imageSha256": "d388cbaaf8451c53e32fdacf6c374a36063a7ab1524b0e1af600ba44c92b9aae",
-      "text": "Chapter 1 workbook\n\n1\n\nA ticket for a seat: my workbook page\n\n1 · Fill the gaps\nevening\n\ngrandfather\n\nSela’s\n\nseat\n\nworked\n\nhad worked on the night ferry for thirty-one years.\n\nOn its final\n\n, he gave her a ticket with a round hole punched\n\nthrough the corner.\n‘Window\n\n,’ he said.\n\n2 · Think about it\nWhat does the last sentence suggest about Sela?\nA. She doubts the boat really needs any repairs\nB. She is nervous about crossing at night\nC. The facts have not changed how she feels\n\n3 · Write it\nWhat might the folded sign suggest? Give more than one plausible interpretation.\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "f28bc2b766af8816e762236414d5925ee446673074afef37953fbbd49ad30773",
+      "image": "story-workbooks-l3-v2-pg03.webp",
+      "imageSha256": "8711b32b8fc0bb24dcd486278b83cd65bd502af272334df6309759907d55ddbc",
+      "text": "Chapter 1 workbook\n\n\n1       The tidiest town: my workbook page\n\n1 · Fill the gaps\n    goodbyes                nobody                nothing               story\n\nIn Fairhollow, nobody ever cried at the cinema, because there was\n\n                      sad to see.\nEvery song and                                         went to the Calm Office first.\n\nThe Office edited them, taking out storms,                                                                  and angry words.\n\n\n2 · Think about it\nWhat does ‘She did not know yet what neat could cost’ suggest?\n\n           A. Nora will soon want to leave her job at the Office.\n\n           B. Nora will have to pay to work there.\n\n           C. Keeping things neat has a hidden price.\n\n\n\n3 · Write it\nWould you like to live in a town with nothing sad in it? What might be missing?\n\n\n\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n\n\n\n    5   © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated. Licensed for one learner.",
+      "textSha256": "0453553c3f1c6ad00515f70d8cc08f7fa4a1ac549c48ac7fb9e98c4a656f23a1",
+      "method": "pdf-text"
+    },
+    {
+      "page": 4,
+      "image": "story-workbooks-l3-v2-pg04.webp",
+      "imageSha256": "ddbc42fc33d9c440101f88be8ae7055f98d3a0c71e4f2c1a5749ed6018500a11",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n The Last Clue on Lantern Street\n\n\n\nLevel 3 · Expansion       Ages 10–12         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "fc70e62b1b76c40ba9e8fab7cbb742b9662ffbdaaf7295f2abcfcb48e1d9ba66",
+      "method": "pdf-text"
+    },
+    {
+      "page": 5,
+      "image": "story-workbooks-l3-v2-pg05.webp",
+      "imageSha256": "ed1ae0119f847ec521896e43a6d314f53cbec36cf627b8d7c8b43ff895335c2a",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n The Last Seat on the Night Ferry\n\n\n\nLevel 3 · Expansion       Ages 10–12         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "667cf12ceeafaa38d48ef4f830216d5ac9a782b9d083763189f8b02c11f10ec9",
+      "method": "pdf-text"
+    },
+    {
+      "page": 6,
+      "image": "story-workbooks-l3-v2-pg06.webp",
+      "imageSha256": "24c0c8920561a5c529ca222d1cfc9f0d1bde196ddbc75dbe01e74fca0d0d6e99",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n    Kit and the Invisible Line\n\n\nLevel 3 · Expansion       Ages 10–12         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "b30861cc4afa1da619456fca7632cf38b23e98ba573b3ba58c69456c4c936a5e",
       "method": "pdf-text"
     }
   ]

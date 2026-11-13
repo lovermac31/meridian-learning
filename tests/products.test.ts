@@ -38,7 +38,8 @@ const EXPECTED: Record<string, [string, string][]> = {
 // says "Cleared" (master, 27 Oct 2026).
 const LIVE = new Set(Object.values(EXPECTED).flat().map(([id]) => id));
 // Paused for sale (audit fix 4, 11 Nov 2026): the card and page stay, with a Zalo waitlist note instead of any buy button.
-const PAUSED = new Set(['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5']);
+// Empty since 13 Nov 2026 (the Level 2-5 Teacher Packs, Student Workbooks and the Teacher Bundle were rewritten onto original stories).
+const PAUSED = new Set<string>();
 const SHOWN: Record<string, [string, string][]> = Object.fromEntries(
   Object.entries(EXPECTED).map(([section, cards]) => [section, cards.filter(([id]) => LIVE.has(id))]),
 );
@@ -129,7 +130,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
       assert.ok(!html.includes(name), `${route}: "${name}"`);
     }
   }
-  assert.match(productsContent.en.sections[1].cards[0].forWho, /10 widely available picture books the teacher provides/);
+  assert.match(productsContent.en.sections[1].cards[0].forWho, /Students read the stories in the Level 1 Story Workbooks/);
   // Lines aligned to the live pages: no Baseline fee-credit promise, and 1-to-1 lessons are with Mr. Jay.
   // The only credit on the page is the one Jay approved (27 Oct): the Curriculum Overview against a Centre Licence.
   for (const c of Object.values(productsContent)) {
@@ -273,11 +274,11 @@ test('packs marked live: false stay in the data, off the page and without a prod
 // by these stems (master's SAMPLES-AND-BRANDED-PDF-SPEC): public/samples/<stem>-sample.pdf and <stem>-p1..p3.webp.
 const SAMPLE_STEMS: Record<string, string> = {
   'story-club': 'story-club', baseline: 'baseline', 'one-to-one': 'one-to-one', 'printable-pack': 'printable-pack-l1',
-  'teacher-pack-l1': 'teacher-pack-l1', 'teacher-pack-l2': 'teacher-pack-l2', 'teacher-pack-l3': 'teacher-pack-l3',
-  'teacher-pack-l4': 'teacher-pack-l4', 'teacher-pack-l5': 'teacher-pack-l5', 'teacher-bundle': 'teacher-bundle',
-  'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1',
-  'student-workbook-l2': 'student-workbook-l2', 'student-workbook-l3': 'student-workbook-l3', 'student-workbook-l4': 'student-workbook-l4',
-  'student-workbook-l5': 'student-workbook-l5',
+  'teacher-pack-l1': 'teacher-pack-l1-v2', 'teacher-pack-l2': 'teacher-pack-l2-v2', 'teacher-pack-l3': 'teacher-pack-l3-v2',
+  'teacher-pack-l4': 'teacher-pack-l4-v2', 'teacher-pack-l5': 'teacher-pack-l5-v2', 'teacher-bundle': 'teacher-bundle-v2',
+  'parent-pack-l1': 'parent-pack-l1', 'parent-pack-l2': 'parent-pack-l2', 'student-workbook-l1': 'student-workbook-l1-v2',
+  'student-workbook-l2': 'student-workbook-l2-v2', 'student-workbook-l3': 'student-workbook-l3-v2', 'student-workbook-l4': 'student-workbook-l4-v2',
+  'student-workbook-l5': 'student-workbook-l5-v2',
   'thinking-cycle-set': 'thinking-cycle-set', 'reasoning-assessment-kit': 'reasoning-assessment-kit',
   'ielts-speaking-ladder': 'ielts-speaking-ladder', 'ielts-writing-ladder-task2': 'ielts-writing-ladder-task2', 'ielts-writing-task1-method': 'ielts-writing-task1-method', 'ielts-writing-teacher-pack': 'ielts-writing-teacher-pack', 'centre-licence': 'centre-licence',
   'teacher-training-course': 'teacher-training-course', 'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
@@ -288,7 +289,7 @@ const SAMPLE_STEMS: Record<string, string> = {
   'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3', 'holiday-reading-challenge': 'holiday-challenge',
   'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
   // Story Workbooks L1-L5 (Jay, 3 Nov 2026): stem = id; 3 sample pages each.
-  'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5', 'mango-l2': 'mango-l2',
+  'story-workbooks-l1': 'story-workbooks-l1-v2', 'story-workbooks-l2': 'story-workbooks-l2-v2', 'story-workbooks-l3': 'story-workbooks-l3-v2', 'story-workbooks-l4': 'story-workbooks-l4-v2', 'story-workbooks-l5': 'story-workbooks-l5-v2', 'mango-l2': 'mango-l2',
   // IELTS Reading and Listening (3 Nov 2026): stem = id.
   'ielts-reading-ladder': 'ielts-reading-ladder', 'ielts-listening-profiler': 'ielts-listening-profiler', 'ielts-diagnostic-mock': 'ielts-diagnostic-mock',
 };
@@ -345,7 +346,7 @@ test('samples: the block sits above the price; one button opens the viewer; no l
     assert.doesNotMatch(html, /href="[^"]*\.pdf/i, `${locale}: no PDF link`);
     assert.doesNotMatch(html, /data-sample-viewer=/, `${locale}: the viewer opens only on request`);
     assert.ok(html.includes('@media print { body { display: none !important; } }'), `${locale}: printing gives a blank page`);
-    for (const [id, stem] of [['baseline', 'baseline'], ['teacher-pack-l1', 'teacher-pack-l1']]) {
+    for (const [id, stem] of [['baseline', 'baseline'], ['teacher-pack-l1', 'teacher-pack-l1-v2']]) {
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
       const block = card.slice(card.indexOf(`data-sample="${id}"`), card.indexOf(`data-price="${id}"`));
       const at = (marker: string) => card.indexOf(marker);
@@ -446,8 +447,8 @@ test('header button: free sample pack on parent pages, the Baseline booking page
 test('wave 2: two new cards with their samples, US$ by PayPal, and the workbook pointer in the families section (EN + VI)', async () => {
   const { renderRoute } = await import('../src/entry-server');
   for (const [route, line] of [
-    [EN, /Doing Level 1 at home\? The <a href="#student-workbook-l1"[^>]*>Level 1 Student Workbook<\/a> has a page for every lesson: 190\.000₫ a learner, using 10 picture books you provide\./],
-    [VI, /Học Level 1 ở nhà\? <a href="#student-workbook-l1"[^>]*>Sách bài tập học viên Level 1<\/a> có một trang cho mỗi bài học: 190\.000₫ mỗi học viên, dùng 10 cuốn sách tranh bạn tự chuẩn bị\./],
+    [EN, /Doing Level 1 at home\? The <a href="#student-workbook-l1"[^>]*>Level 1 Student Workbook<\/a> has a page for every lesson: 190\.000₫ a learner, built on the ten Jurassic English stories\./],
+    [VI, /Học Level 1 ở nhà\? <a href="#student-workbook-l1"[^>]*>Sách bài tập học viên Level 1<\/a> có một trang cho mỗi bài học: 190\.000₫ mỗi học viên, dựa trên mười truyện gốc của Jurassic English\./],
   ] as const) {
     const html = amp(mainOf(await renderRoute(route)).replaceAll('<!-- -->', ''));
     const families = html.slice(html.indexOf('<section id="families"'), html.indexOf('</section>', html.indexOf('<section id="families"')));
@@ -459,7 +460,7 @@ test('wave 2: two new cards with their samples, US$ by PayPal, and the workbook 
     assert.equal([...html.matchAll(/data-also="/g)].length, 6, `${route}: pointer lines`);
     for (const [id, price, usd] of [['parent-pack-l1', '249.000₫', 10], ['parent-pack-l2', '249.000₫', 10], ['student-workbook-l1', '190.000₫', 8]] as const) {
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
-      assert.ok(card.includes(`data-sample="${id}"`) && card.includes(`data-sample-link="${id}"`) && card.includes(`/samples/${id}-p1.webp`), `${route} ${id}: sample`);
+      assert.ok(card.includes(`data-sample="${id}"`) && card.includes(`data-sample-link="${id}"`) && card.includes(`/samples/${id}${id === 'student-workbook-l1' ? '-v2' : ''}-p1.webp`), `${route} ${id}: sample`);
       assert.ok(card.includes(`data-price="${id}">${price}`), `${route} ${id}: ${price}`);
       assert.match(card, new RegExp(`data-paypal-link="${id}">[^<]*US\\$${usd} `), `${route} ${id}: US$${usd}`);
       assert.ok(card.indexOf(`data-sample="${id}"`) < card.indexOf(`data-price="${id}"`), `${route} ${id}: sample before price`);

@@ -1,35 +1,59 @@
 {
   "version": 1,
   "productId": "story-workbooks-l1",
-  "sampleStem": "story-workbooks-l1",
-  "pageCount": 3,
+  "sampleStem": "story-workbooks-l1-v2",
+  "pageCount": 6,
   "source": {
-    "file": "story-workbooks-l1-sample.pdf",
-    "sha256": "6961841c6ff19ee16d739d92014da81f5065c624d5ebe3d28d32f9c64741f19b"
+    "file": "story-workbooks-l1-v2-sample.pdf",
+    "sha256": "e9d9ec55475ad096c8af74e21c8f856b4e27f6c47f9775e72440a8aa824708cc"
   },
   "pages": [
     {
       "page": 1,
-      "image": "story-workbooks-l1-pg01.webp",
-      "imageSha256": "95eca955bb82e5acba5eb0f36b6a745546da41e0ad0507fe81ebe760879dce66",
-      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nMina and the Midnight Drum\n\nLevel 1 · Foundation\n\nAges 4–8\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
-      "textSha256": "beafec45581a9cde508ea84261b1f0e8f785d80e1a876feaf33b85d63f964e47",
+      "image": "story-workbooks-l1-v2-pg01.webp",
+      "imageSha256": "71969349d08a0564f365c74da7a1fda1fb5d7f407501cf420ccf5aba58d8d2d9",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nMina and the Midnight Drum\n\n\nLevel 1 · Foundation       Ages 4–8        Story + Workbook\n\n\n\n\n       JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "008d9bbfcb59c34f0b37f53bd78a4281def353df4d6ec0f2c5d94a934edc2161",
       "method": "pdf-text"
     },
     {
       "page": 2,
-      "image": "story-workbooks-l1-pg02.webp",
-      "imageSha256": "e00eeb06d77b296cbc6a768bc6d7e44c7f334072e8e6a4b7acbb1973e5ad4cae",
-      "text": "Chapter 1\n\nThe big drum\n\n1\n\nMina has a small drum.\nBOOM! Her aunt plays the big drum.\nIt is the Midnight Drum. It will play at the town party.\nMina smiles. ‘Can I play?’\nRead and circle\n\nWho plays the big drum first?\nA. Mina\nB. Her aunt\nC. Sami\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "5f35576e8574befcc975f38277bd49c81b677b9626353c95c71e85fee641b413",
+      "image": "story-workbooks-l1-v2-pg02.webp",
+      "imageSha256": "b35e88a6bb4780ba5fcc80946bb6e36771673b10099276f5cfa72c42aa4c403e",
+      "text": "Chapter 1\n\n\n1       The big drum\n\n\n\n\nMina has a small drum.\nBOOM! Her aunt plays the big drum.\nIt is the Midnight Drum. It will play at the town party.\nMina smiles. ‘Can I play?’\n\nRead and circle\nWho plays the big drum first?\n\n           A. Her aunt\n\n           B. Mina and Sami\n\n           C. Mina, all by herself\n\n    4   © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated. Licensed for one learner.",
+      "textSha256": "d148eb847aba966d06b98ea6934f73fd1387ca883e33dee043fa9447b728f843",
       "method": "pdf-text"
     },
     {
       "page": 3,
-      "image": "story-workbooks-l1-pg03.webp",
-      "imageSha256": "2165d3b94729832f482e3957c7515eb6e8ac7e3d65d4ad98f32cb1d851148566",
-      "text": "Chapter 1 workbook\n\n1\n\nThe big drum: my workbook page\n\n1 · Fill the gaps\ndrum\n\nparty\n\nsmall\n\nMina has a small\n\n.\n\nIt will play at the town\n\n.\n\n2 · Think about it\n\nHow does Mina feel about the big drum?\nA. Happy. She wants to play.\nB. Scared of the sound\nC. Tired\n\n3 · Write it\n\nHow does Mina feel? Show a face or point to a clue.\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "6bc7d7f2f759ae307ca19eba1541bc76d21c5e7e07643fbf7c10efecddf97f3a",
+      "image": "story-workbooks-l1-v2-pg03.webp",
+      "imageSha256": "3ec2c97f12229615295340d748ec45b3a6f176025844cc3b79d3406cf75f4eeb",
+      "text": "Chapter 1 workbook\n\n\n1       The big drum: my workbook page\n\n1 · Fill the gaps\n    drum            party            small\n\nMina has a small                                       .\n\nIt will play at the town                                          .\n\n\n2 · Think about it\nHow does Mina feel about the big drum?\n\n           A. Tired\n\n           B. Scared of the sound\n\n           C. Happy. She wants to play.\n\n\n3 · Write it\nHow does Mina feel? Show a face or point to a clue.\n\n\n\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n\n\n\n    5   © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated. Licensed for one learner.",
+      "textSha256": "3d5fdba60d0686ddae0df47da95b5f31e6f44b28cbed16324a069e81507ed204",
+      "method": "pdf-text"
+    },
+    {
+      "page": 4,
+      "image": "story-workbooks-l1-v2-pg04.webp",
+      "imageSha256": "b47a4f6864ac2051c00f1a403f4b4a930782e51696943f3ef82c140631b3f002",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nThe Lantern With Two Handles\n\n\n Level 1 · Foundation       Ages 4–8        Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "4e5b97fd19f24b187d8b5c0483a0faea106e2d05aa16475a7a1b368f72faff07",
+      "method": "pdf-text"
+    },
+    {
+      "page": 5,
+      "image": "story-workbooks-l1-v2-pg05.webp",
+      "imageSha256": "a6913ac5aa810203c5210144ce7cd6baa799ee01b69ebd3ba5d4afe975873112",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nKim and the Thunder Inside\n\n\nLevel 1 · Foundation       Ages 4–8        Story + Workbook\n\n\n\n\n       JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "fafa6273dd2df994c6c399771573819070c11877380a26d9de69b37536b656aa",
+      "method": "pdf-text"
+    },
+    {
+      "page": 6,
+      "image": "story-workbooks-l1-v2-pg06.webp",
+      "imageSha256": "30ba8a752bdabcaa14b2ce5b5ef0b4e67f759d505a4a9687c1c8c7e2fe0a6903",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n  The Song Across the Lake\n\n\nLevel 1 · Foundation       Ages 4–8        Story + Workbook\n\n\n\n\n       JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "4873b47b8919eab114818b998f780d14d5c8248d47d162a88021a9dd75211298",
       "method": "pdf-text"
     }
   ]

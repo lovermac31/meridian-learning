@@ -63,7 +63,9 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
 };
 
 // Paused for sale (audit fix 4, 11 Nov 2026): no new payment code or order. Mirrors `paused: true` in products.ts (a test checks).
-export const PAUSED_PRODUCTS = new Set(['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5']);
+// Empty since 13 Nov 2026: the Level 2-5 Teacher Packs, Student Workbooks and the Teacher Bundle were rewritten onto original
+// Jurassic English stories and are on sale again (task WW-20261113-07). The mechanism stays for the next pause.
+export const PAUSED_PRODUCTS = new Set<string>();
 
 // Audit fix 6 (11 Nov 2026): payment codes are made only when a buyer presses "Get my payment code", and that click has
 // its own rate-limit key with a higher ceiling, because Vietnamese mobile carriers put many buyers behind one IP. The

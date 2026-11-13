@@ -1,35 +1,59 @@
 {
   "version": 1,
   "productId": "story-workbooks-l4",
-  "sampleStem": "story-workbooks-l4",
-  "pageCount": 3,
+  "sampleStem": "story-workbooks-l4-v2",
+  "pageCount": 6,
   "source": {
-    "file": "story-workbooks-l4-sample.pdf",
-    "sha256": "73ae1ecc40c424d53428bb0d24e343567d5b0aa385a9eaccd8bbc9fe2177099a"
+    "file": "story-workbooks-l4-v2-sample.pdf",
+    "sha256": "13136396a328b2131605d7f65a888ebeedafdf38a8e67ef09df33a348f97e6c2"
   },
   "pages": [
     {
       "page": 1,
-      "image": "story-workbooks-l4-pg01.webp",
-      "imageSha256": "71657a9361f41ee6ec7d8a1396af6795a03424872c86a4832efd04cd9305b4ed",
-      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nThe Missing Column\nLevel 4 · Mastery\n\nAges 12–14\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
-      "textSha256": "015c13fdefed973dbafc9be30487e29de46ae51696a078eb492cbadd18ce3792",
+      "image": "story-workbooks-l4-v2-pg01.webp",
+      "imageSha256": "decf54dcdd456cadcf7d715db94f15efa6127f5f7cc6cf220bd45e33c5874986",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n   The Bridge Committee\n\n\nLevel 4 · Mastery       Ages 13–15         Story + Workbook\n\n\n\n\n       JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "f9650d4485e4a683538eb45cc1d14891dbc35d0c31a4976545c04276f5721044",
       "method": "pdf-text"
     },
     {
       "page": 2,
-      "image": "story-workbooks-l4-pg02.webp",
-      "imageSha256": "189db8311b8c7a780ff1ee99579873b127342b9970925012c30a3f89c11913ac",
-      "text": "Chapter 1\n\nThe number above the desk\n\n1\n\nThe first thing Anwen saw each morning was the number above the\nnewspaper desk. It counted how often students opened the latest edition.\nThis week it glowed green: 4,812.\n‘People are reading us,’ said Dev, the editor.\nAnwen wanted that to be true. She had spent three afternoons reporting on\nthe courtyard’s missing shade. A strip of benches had been removed for a\npromotional display, leaving lunchtime queues in the sun.\nHer article included photographs, interviews and the school’s explanation. It\nalso included a question about the building plan. At the bottom of the\nedition, it attracted fourteen opens.\nRead and circle\nWhy had the strip of courtyard benches been removed?\nA. To make room for a promotional display\nB. Because the old benches had become unsafe\nC. To give the lunchtime queues more space\n\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "069274a7579990944ce616f953deac905374fa95893023139fc9abf1216f496a",
+      "image": "story-workbooks-l4-v2-pg02.webp",
+      "imageSha256": "2d96be70ed926118162447d326195b064df3d472b252e18829ecbe4ddc9bf817",
+      "text": "Chapter 1\n\n\n1       Seven chairs\n\n\n\n\nThe committee had seven chairs, seven voting cards and a rule everyone\nadmired: each person could speak for exactly two minutes.\nRafi joined as the school representative. The town wanted a small footbridge\nlinking the library garden to the festival square. His art club had painted the\nfirst model.\nAt the opening meeting, the chair asked whether anyone objected to the\nrules. Nobody did. The minutes recorded unanimous agreement.\nA caretaker named Len arrived after the vote, carrying the keys from his\nevening shift. There was no eighth chair. Rafi moved his own slightly\nsideways, but the meeting had already begun.\n\n\nRead and circle\nWhat did the minutes record after the chair asked whether anyone objected to the\nrules?\n\n           A. That Len had objected to the rule\n\n           B. That the art club would vote on the design\n\n           C. Unanimous agreement from all members\n\n        © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated (OpenAI ChatGPT). Licensed for one\n    4   learner.",
+      "textSha256": "d232b1197fe90d681786f71226079107443fd66b1f902a4b57c53263352322fa",
       "method": "pdf-text"
     },
     {
       "page": 3,
-      "image": "story-workbooks-l4-pg03.webp",
-      "imageSha256": "b91276064a00ade9fc85b236881d3b5107ee583f33ae6569a09be9a93aab129c",
-      "text": "Chapter 1 workbook\n\n1\n\nThe number above the desk: my workbook page\n\n1 · Fill the gaps\nfirst\n\nglowed\n\nnewspaper\n\nstudents\n\nThe first thing Anwen saw each morning was the number above the\ndesk.\nIt counted how often\nThis week it\n\nopened the latest edition.\ngreen: 4,812.\n\n2 · Think about it\nWhat does the gap between 4,812 and fourteen suggest about the counter?\nA. Most students read every article in the edition\nB. Students had no interest in the courtyard shade\nC. A big total can hide how little one story is seen\n\n3 · Write it\nWhat assumption hides inside Dev’s statement? Explain the difference between an\nobservable event and an interpretation of it.\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "aa66c1336f3c6b641c1f2406c7486d765357b85edaf77e04c00d5bda83608c5e",
+      "image": "story-workbooks-l4-v2-pg03.webp",
+      "imageSha256": "bc442131bbdb1936f7193e4f2536436f77ef497da0a611672730e1b200c97786",
+      "text": "Chapter 1 workbook\n\n\n1       Seven chairs: my workbook page\n\n1 · Fill the gaps\n    committee                footbridge                representative                   seven\n\nThe                            had seven chairs, seven voting cards and a rule everyone\n\nadmired: each person could speak for exactly two minutes.\nRafi joined as the school                                             .\n\nThe town wanted a small                                                   linking the library garden to the\n\nfestival square.\n\n\n2 · Think about it\nWhat does the missing eighth chair suggest about how the committee was set up?\n\n           A. Len had already turned down a seat at an earlier meeting\n\n           B. Nobody had planned for a person outside the seven\n\n           C. The room was too small to fit any more furniture\n\n\n\n3 · Write it\nWhat can the recorded unanimity establish, and whose position can it not\nestablish?\n\n\n\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n\n\n\n        © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated (OpenAI ChatGPT). Licensed for one\n    5   learner.",
+      "textSha256": "7684e921381d235d0d1dcaf658791e773e223afe01784e694f0ba0c38a2880b8",
+      "method": "pdf-text"
+    },
+    {
+      "page": 4,
+      "image": "story-workbooks-l4-v2-pg04.webp",
+      "imageSha256": "b326378816fbd22df67aa30ef3360ee6a1ac165b106b8a5fe7b9748b1fc8d0ee",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n            The Night Rota\n\n\nLevel 4 · Mastery       Ages 13–15         Story + Workbook\n\n\n\n\n       JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "3d061ecfdaad5a8a95912d6c012c9924be27493d156866f141963553f324b12c",
+      "method": "pdf-text"
+    },
+    {
+      "page": 5,
+      "image": "story-workbooks-l4-v2-pg05.webp",
+      "imageSha256": "54f52b5ddeb534dddefcd017896796de959cca5081ed38c1d48f1c2c6f69ef86",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n    The Reservoir Tokens\n\n\nLevel 4 · Mastery       Ages 13–15         Story + Workbook\n\n\n\n\n       JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "246bb8edb04344fc92a92a5d9b6d7f1d246f4a10610f4b767274fc3c19e4e1b8",
+      "method": "pdf-text"
+    },
+    {
+      "page": 6,
+      "image": "story-workbooks-l4-v2-pg06.webp",
+      "imageSha256": "625f760aa1272571fe5ce097c5d0039f688184a36ed1cf05f7f0cda1a4378bf2",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n    The Coat Between Us\n\n\nLevel 4 · Mastery       Ages 13–15         Story + Workbook\n\n\n\n\n       JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "f6b725bdc7eecd548358d584dea21fbfc7d0751cb6646d980377346f7c2496b5",
       "method": "pdf-text"
     }
   ]
