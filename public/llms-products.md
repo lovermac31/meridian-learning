@@ -168,8 +168,7 @@
 - English description: Level 2 teacher materials for ages 8–10 (CEFR A1 → A2): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.
 - Vietnamese title: Giáo án tiếng Anh cho học sinh 8–10 tuổi | Level 2
 - VND price: 690.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 3 Teacher Pack
@@ -179,8 +178,7 @@
 - English description: Level 3 teacher materials for ages 10–12 (CEFR A2 → B1): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.
 - Vietnamese title: Giáo án tiếng Anh cho học sinh 10–12 tuổi | Level 3
 - VND price: 690.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 4 Teacher Pack
@@ -190,8 +188,7 @@
 - English description: Level 4 teacher materials for ages 12–14 (CEFR B1 → B2): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.
 - Vietnamese title: Giáo án tiếng Anh cho học sinh 12–14 tuổi | Level 4
 - VND price: 690.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 5 Teacher Pack
@@ -201,8 +198,7 @@
 - English description: Level 5 teacher materials for ages 14+ (CEFR B2 → C1): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.
 - Vietnamese title: Giáo án tiếng Anh nâng cao cho học sinh 14+ | Level 5
 - VND price: 690.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Complete Teacher Bundle, Levels 1–5
@@ -212,8 +208,7 @@
 - English description: All five Jurassic English Teacher Packs: the syllabus, implementation manual and 40 lesson plans for each level, 200 in all. One teacher. 2.900.000₫.
 - Vietnamese title: Trọn bộ 200 giáo án tiếng Anh Level 1–5
 - VND price: 2.900.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 1 Student Workbook
@@ -233,8 +228,7 @@
 - English description: 62 printable A4 pages for learners aged 8–10 (CEFR A1 → A2), in the order of the Level 2 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh cho học sinh 8–10 tuổi | Level 2
 - VND price: 190.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 3 Student Workbook
@@ -244,8 +238,7 @@
 - English description: 62 printable A4 pages for learners aged 10–12 (CEFR A2 → B1), in the order of the Level 3 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh cho học sinh 10–12 tuổi | Level 3
 - VND price: 190.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 4 Student Workbook
@@ -255,8 +248,7 @@
 - English description: 62 printable A4 pages for learners aged 12–14 (CEFR B1 → B2), in the order of the Level 4 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh cho học sinh 12–14 tuổi | Level 4
 - VND price: 190.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 5 Student Workbook
@@ -266,8 +258,7 @@
 - English description: 62 printable A4 pages for learners aged 14+ (CEFR B2 → C1), in the order of the Level 5 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh nâng cao cho học sinh 14+ | Level 5
 - VND price: 190.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Word Fossil Flashcards, Level 1

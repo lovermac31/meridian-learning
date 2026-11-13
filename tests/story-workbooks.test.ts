@@ -16,7 +16,7 @@ test('five Story Workbooks cards: Families, Workbooks category, view-only sample
     const p = PRODUCTS.find((entry) => entry.id === id)!;
     assert.ok(p, id);
     assert.equal(p.section, 'families'); assert.equal(p.category, 'workbooks'); assert.equal(p.href, 'zalo');
-    assert.ok(p.live && p.delivery && p.paypal && p.sample === id && p.image === id, id);
+    assert.ok(p.live && p.delivery && p.paypal && p.sample === `${id}-v2` && p.image === id, id);
     assert.equal(p.alsoIn?.section, 'teachers', `${id}: pointer from Teachers`);
     for (const locale of ['en', 'vi'] as const) {
       const text = JSON.stringify(p[locale]);
@@ -92,13 +92,16 @@ test('the page: a Workbooks heading in Families and Teachers, the country picker
   }
 });
 
-test('samples: three watermarked pages per level, thumbnails, text file; no PDF under public/', () => {
+test('samples: six watermarked pages per level (13 Nov 2026 collections), three thumbnails, text file; no PDF under public/', () => {
   for (const id of IDS) {
+    const stem = `${id}-v2`;
     for (const n of [1, 2, 3]) {
-      assert.ok(existsSync(`public/samples/pages/${id}-pg0${n}.webp`) && existsSync(`public/samples/${id}-p${n}.webp`) && existsSync(`public/samples/small/${id}-p${n}.webp`), `${id} page ${n}`);
+      assert.ok(existsSync(`public/samples/${stem}-p${n}.webp`) && existsSync(`public/samples/small/${stem}-p${n}.webp`), `${id} thumbnail ${n}`);
     }
+    for (const n of [1, 2, 3, 4, 5, 6]) assert.ok(existsSync(`public/samples/pages/${stem}-pg0${n}.webp`), `${id} page ${n}`);
     const doc = JSON.parse(readFileSync(`public/samples/pages/${id}-text.json`, 'utf8'));
-    assert.equal(doc.pageCount, 3);
+    assert.equal(doc.pageCount, 6);
+    assert.equal(doc.sampleStem, stem);
     assert.ok(!/answer key|Answer key|Teacher guide/i.test(JSON.stringify(doc.pages.map((p: { text: string }) => p.text))), `${id}: no answer key or teacher page in the sample`);
     assert.ok(!doc.source.file.includes('Licensed edition'), 'the full edition is never named');
   }
@@ -106,10 +109,10 @@ test('samples: three watermarked pages per level, thumbnails, text file; no PDF 
   assert.deepEqual(pdfs('public'), [], 'no PDF is published');
 });
 
-test('each level names its books: 10, 3, 3, 3, 3 titles on the hub card and the product page (EN + VI), matching the unit line', async () => {
+test('each level names its books: 10, 9 (Mango is its own product), 10, 10, 10 titles on the hub card and the product page (EN + VI), matching the unit line', async () => {
   const { renderRoute } = await import('../src/entry-server');
   // Level 1 is 10 books (11 Nov 2026): Lina and the Orchard Map is held over art provenance and is not sold.
-  const counts = [10, 3, 3, 3, 3];
+  const counts = [10, 9, 10, 10, 10];
   for (const [i, id] of IDS.entries()) {
     const p = PRODUCTS.find((entry) => entry.id === id)!;
     assert.equal(p.books?.length, counts[i], `${id}: book count`);

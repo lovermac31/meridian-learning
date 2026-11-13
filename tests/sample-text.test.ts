@@ -8,7 +8,7 @@ import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from '../src/i18n/content/s
 import { fetchSampleText, SAMPLE_TEXT_MAX_BYTES, validateSampleText } from '../src/lib/sampleText';
 const fixture = () => JSON.parse(readFileSync('public/samples/pages/story-club-text.json', 'utf8'));
 
-test('all 44 sample-bearing products expose exactly their 410 approved public sample pages, with bound image and text hashes', () => {
+test('all 44 sample-bearing products expose exactly their 378 approved public sample pages, with bound image and text hashes', () => {
   const sha = (value: string | Buffer) => createHash('sha256').update(value).digest('hex');
   const products = PRODUCTS.filter(p => p.live && p.group !== 'bundles'); // the three IELTS bundles are checked in the next test
   assert.equal(products.length, 44);
@@ -26,7 +26,7 @@ test('all 44 sample-bearing products expose exactly their 410 approved public sa
     }
     pages += doc.pageCount;
   }
-  assert.equal(pages, 410);
+  assert.equal(pages, 378);
   assert.equal(ocr, 14);
   assert.equal(readdirSync('public/samples').filter(p => p.endsWith('.pdf')).length, 0, 'no sample PDF is published');
 });
