@@ -217,7 +217,7 @@ async function main() {
   // Pages moved to jurassicielts.com (redirected in vercel.json) leave the sitemap.
   const routes  = getExpectedPublicIndexableRoutes().filter((route) => !isMovedToJurassicielts(typeof route === 'string' ? route : route.path ?? route));
   const urlTags = routes.map(buildUrl).join('\n');
-  const extraTags = STATIC_EXTRA_URLS.map(buildStaticUrl).join('\n');
+  const extraTags = STATIC_EXTRA_URLS.filter((entry) => !isMovedToJurassicielts(new URL(entry.loc).pathname)).map(buildStaticUrl).join('\n');
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
