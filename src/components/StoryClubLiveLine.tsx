@@ -11,7 +11,7 @@ export function useNow(): Date | null {
 
 /**
  * The first-session and dated-offer sentences. Prerendered, they state the whole plan (always true when read).
- * In the browser they drop what has already passed, so no deploy is needed after 14 Nov or 21 Nov.
+ * In the browser they drop what has already passed, so no deploy is needed after 21 Nov or 28 Nov.
  */
 export function StoryClubLiveLine({ locale, kind }: { locale: Locale; kind: 'schedule' | 'offer' | 'both' }) {
   const now = useNow() ?? undefined;

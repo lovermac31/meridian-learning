@@ -38,7 +38,7 @@ async function deliver(options: { content?: string; amount?: unknown; transferTy
     const status = options.rpc ?? 'paid';
     return new Response(JSON.stringify({ status, paid_at: status === 'not_found' ? null : '2026-10-29T10:00:00Z' }), { status: 200 });
   }) as typeof fetch;
-  mock.timers.enable({ apis: ['Date'], now: new Date('2026-11-23T10:00:05+07:00') }); // receipt time just after the 2026-11-23 10:00:00 stamp
+  mock.timers.enable({ apis: ['Date'], now: new Date('2026-11-30T10:00:05+07:00') }); // receipt time just after the 2026-11-30 10:00:00 stamp
   console.info = ((...args: unknown[]) => logs.push(JSON.stringify(args))) as typeof console.info;
   console.error = ((...args: unknown[]) => logs.push(JSON.stringify(args))) as typeof console.error;
   let status = 0;
@@ -46,7 +46,7 @@ async function deliver(options: { content?: string; amount?: unknown; transferTy
   const res = { setHeader() { return this; }, status(code: number) { status = code; return this; }, json(value: Record<string, unknown>) { body = value; return this; } };
   try {
     await handler({ method: 'POST', headers: { authorization: options.auth ?? 'Apikey synthetic-sepay-webhook-key-32chars', 'content-type': 'application/json', 'content-length': '100' }, body: {
-      id: options.id ?? 1001, transferType: options.transferType ?? 'in', content: options.content ?? 'Payment SC-ABFD01', transferAmount: options.amount ?? 590000, transactionDate: '2026-11-23 10:00:00',
+      id: options.id ?? 1001, transferType: options.transferType ?? 'in', content: options.content ?? 'Payment SC-ABFD01', transferAmount: options.amount ?? 590000, transactionDate: '2026-11-30 10:00:00',
       accountNumber: PAYER, description: PAYER, referenceCode: PAYER,
     } } as never, res as never);
     return { status, body, emails, rpcs, logs };

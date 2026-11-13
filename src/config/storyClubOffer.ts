@@ -5,8 +5,10 @@
  * payment (api/sample-pack.ts) and the SePay webhook (api/sepay-webhook.ts) all read this file, so the amount a parent is
  * shown, the amount the QR asks for and the minimum the webhook accepts cannot drift apart.
  *
- * Decided by Jay (master chat, 12 Nov 2026): first paid session Saturday 14 Nov 2026, 13:00 Vietnam time, every Saturday
- * at 13:00; 50% off until Sat 14 Nov 13:00, then a second offer until Sat 21 Nov 13:00, then the list price.
+ * Decided by Jay (master chat, 12 Nov 2026): every Saturday at 13:00 Vietnam time; 50% off until the first session, then
+ * a second offer for one more week, then the list price.
+ * Moved one week on 13 Nov 2026 (Jay: "Fix the Story Club page date to 21 Nov"; no child had registered for 14 Nov):
+ * first paid session Saturday 21 Nov 2026; 50% off until Sat 21 Nov 13:00; second offer until Sat 28 Nov 13:00.
  * The second price is 440.000₫ (25% off would be 442.500₫; 440.000₫ is the master's round figure, Jay can change it HERE).
  * 440.000₫ is 25.4% off, so the pages state amounts and end dates, never a percentage. No countdown timers.
  * After the last end date, delete the tiers and the pages return to the list price on their own.
@@ -14,7 +16,7 @@
 export const STORY_CLUB_LIST_PRICE_VND = 590_000;
 export const STORY_CLUB_SESSIONS = 4;
 
-export const STORY_CLUB_FIRST_SESSION = { isoDate: '2026-11-14', time: '13:00', label: { en: 'Saturday 14 November 2026', vi: 'Thứ Bảy 14/11/2026' } } as const;
+export const STORY_CLUB_FIRST_SESSION = { isoDate: '2026-11-21', time: '13:00', label: { en: 'Saturday 21 November 2026', vi: 'Thứ Bảy 21/11/2026' } } as const;
 export const STORY_CLUB_WEEKLY_TIME = '13:00';
 /** A transfer that reaches the bank up to this long after a cut-off is still accepted at the price the QR carried (review fix 2, 12 Nov 2026). */
 export const STORY_CLUB_GRACE_MINUTES = 30;
@@ -29,8 +31,8 @@ export type StoryClubOfferTier = {
 };
 
 export const STORY_CLUB_OFFER_TIERS: readonly StoryClubOfferTier[] = [
-  { id: 'launch-first', until: '2026-11-14T13:00:00+07:00', untilLabel: { en: 'Saturday 14 November, 13:00', vi: 'Thứ Bảy 14/11, 13:00' }, priceVnd: 295_000 },
-  { id: 'launch-second', until: '2026-11-21T13:00:00+07:00', untilLabel: { en: 'Saturday 21 November, 13:00', vi: 'Thứ Bảy 21/11, 13:00' }, priceVnd: 440_000 },
+  { id: 'launch-first', until: '2026-11-21T13:00:00+07:00', untilLabel: { en: 'Saturday 21 November, 13:00', vi: 'Thứ Bảy 21/11, 13:00' }, priceVnd: 295_000 },
+  { id: 'launch-second', until: '2026-11-28T13:00:00+07:00', untilLabel: { en: 'Saturday 28 November, 13:00', vi: 'Thứ Bảy 28/11, 13:00' }, priceVnd: 440_000 },
 ];
 
 export type StoryClubQuote = { priceVnd: number; tier: StoryClubOfferTier | null; listPriceVnd: number };

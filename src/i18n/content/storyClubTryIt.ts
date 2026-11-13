@@ -3,7 +3,7 @@
  *
  * Decided by Jay on 4 Nov 2026 (final): Saturday 7 Nov 2026, 9:00 Hanoi time, is a FREE 30-minute Story Time for new
  * families. Registration is a Zalo message before Friday 6 Nov, 20:00. With fewer than 2 children registered, the try-it
- * moves to Saturday 14 Nov. The paid round is 4 weekly sessions at 590.000 VND from Saturday 14 Nov; parents decide after
+ * moves to Saturday 14 Nov. The paid round is 4 weekly sessions at 590.000 VND from Saturday 21 Nov; parents decide after
  * trying. No promised scores or results.
  *
  * UPDATE 8 Nov 2026 (Jay unwell): the try-it was postponed; no new date is set. Copy says "postponed, new date soon" until Jay

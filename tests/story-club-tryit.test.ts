@@ -77,7 +77,7 @@ test('reserve page before payment is prepared: summary visible, no Pay now yet, 
 test('the summary states the decided facts: dates, free try-it, 4 weeks, cap 6, refund and make-up rule, no promised results', () => {
   const en = storyClubTryItContent.en;
   const enText = JSON.stringify(en);
-  for (const needle of ['Postponed because Mr. Jay is unwell', 'free', '30 minutes', 'Google Meet', 'morning of the session', 'hear the new date first', 'at least 2', 'Saturday 14 November 2026, 13:00', '590,000₫', '295,000₫', '440,000₫', 'within 24 hours of paying', 'We do not promise exam scores or results', 'not recorded']) {
+  for (const needle of ['Postponed because Mr. Jay is unwell', 'free', '30 minutes', 'Google Meet', 'morning of the session', 'hear the new date first', 'at least 2', 'Saturday 21 November 2026, 13:00', '590,000₫', '295,000₫', '440,000₫', 'within 24 hours of paying', 'We do not promise exam scores or results', 'not recorded']) {
     assert.ok(enText.toLowerCase().includes(needle.toLowerCase()), `EN: ${needle}`);
   }
   assert.match(enText, /up to 6 children/i);

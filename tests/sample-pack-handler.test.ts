@@ -340,9 +340,9 @@ test('audit fix 6: prepare_payment has its own rate-limit key with a higher ceil
 
 // Review fix 4 (12 Nov 2026): the amount the server returns for the Story Club QR, with literal expectations at each tier.
 for (const [label, now, expected] of [
-  ['first tier', '2026-11-14T12:59:59+07:00', 295000],
-  ['second tier', '2026-11-14T13:00:01+07:00', 440000],
-  ['list price', '2026-11-21T13:00:01+07:00', 590000],
+  ['first tier', '2026-11-21T12:59:59+07:00', 295000],
+  ['second tier', '2026-11-21T13:00:01+07:00', 440000],
+  ['list price', '2026-11-28T13:00:01+07:00', 590000],
 ] as const) {
   test(`prepare_payment returns the Story Club amount for the ${label}: ${expected}`, async () => {
     mock.timers.enable({ apis: ['Date'], now: new Date(now) });
