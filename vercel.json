@@ -296,6 +296,226 @@
       "permanent": true
     },
     {
+      "source": "/insights",
+      "destination": "https://jurassicielts.com/guides/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/",
+      "destination": "https://jurassicielts.com/guides/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-indonesia",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-indonesia/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-malaysia",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-malaysia/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-philippines",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-philippines/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-thailand",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-thailand/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-uae",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-uae/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-vietnam",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-vietnam/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-indonesia",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-indonesia/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-malaysia",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-malaysia/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-philippines",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-philippines/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-thailand",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-thailand/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-uae",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-uae/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-online-test",
+      "destination": "https://jurassicielts.com/guides/ielts-online-test/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-online-test/",
+      "destination": "https://jurassicielts.com/guides/ielts-online-test/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-philippines",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-philippines/",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-uae",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-uae/",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-vietnam",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-vietnam/",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-test-centres-booking-vietnam",
+      "destination": "https://jurassicielts.com/guides/ielts-test-centres-booking-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-test-centres-booking-vietnam/",
+      "destination": "https://jurassicielts.com/guides/ielts-test-centres-booking-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights",
+      "destination": "https://jurassicielts.com/vi/guides/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/",
+      "destination": "https://jurassicielts.com/vi/guides/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-test-centres-booking-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam/",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-test-centres-booking-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-online-test",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-online-test/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-online-test/",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-online-test/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-tren-may-tinh-viet-nam",
+      "destination": "https://jurassicielts.com/vi/guides/computer-delivered-ielts-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-tren-may-tinh-viet-nam/",
+      "destination": "https://jurassicielts.com/vi/guides/computer-delivered-ielts-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-scams-fake-certificates-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam/",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-scams-fake-certificates-vietnam/",
+      "permanent": true
+    },
+    {
       "source": "/tools",
       "destination": "/tools/ielts-band-score-calculator",
       "permanent": false
