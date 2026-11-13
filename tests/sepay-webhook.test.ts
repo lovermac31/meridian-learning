@@ -11,7 +11,7 @@ async function request(options: Options = {}): Promise<{ reply: Reply; calls: st
   const envNames = ['SEPAY_WEBHOOK_KEY', 'SEPAY_AUTOCONFIRM', 'SUPABASE_URL', 'SUPABASE_WRITE_KEY', 'RESEND_API_KEY', 'ORDER_NOTIFY_EMAIL', 'GET_STARTED_NOTIFY_EMAIL'] as const;
   const oldEnv = Object.fromEntries(envNames.map(name => [name, process.env[name]]));
   // The handler reads the receipt time with `new Date()`: pin it. Default: five seconds after the transfer stamp.
-  const stamp = options.date ?? '2026-11-23 10:00:00';
+  const stamp = options.date ?? '2026-11-30 10:00:00';
   mock.timers.enable({ apis: ['Date'], now: options.receivedAt ? new Date(options.receivedAt) : new Date(Date.parse(`${stamp.replace(' ', 'T')}+07:00`) + 5_000) });
   const originalFetch = globalThis.fetch;
   const originalInfo = console.info;
@@ -36,7 +36,7 @@ async function request(options: Options = {}): Promise<{ reply: Reply; calls: st
   const res = { setHeader() { return this; }, status(code: number) { status = code; return this; }, json(value: Record<string, unknown>) { body = value; return this; } };
   try {
     await handler({ method: 'POST', headers: { authorization: options.auth ?? 'Apikey synthetic-sepay-webhook-key-32chars', 'content-type': 'application/json', 'content-length': '100' }, body: {
-      transferType: options.transferType ?? 'in', content: options.content ?? 'Payment SC-ABFD01', transferAmount: options.amount ?? 590000, transactionDate: options.date ?? '2026-11-23 10:00:00',
+      transferType: options.transferType ?? 'in', content: options.content ?? 'Payment SC-ABFD01', transferAmount: options.amount ?? 590000, transactionDate: options.date ?? '2026-11-30 10:00:00',
       accountNumber: 'SYNTHETIC-MUST-NOT-LOG', description: 'Synthetic payer name must not be logged',
     } } as never, res as never);
     return { reply: { status, body }, calls, logs };
@@ -101,17 +101,17 @@ test('unknown reservation is acknowledged; transient RPC failure is retryable; f
 // with a 30-minute grace after each cut-off. Receipt time is pinned to 5 seconds after the transfer stamp.
 test('launch-offer tiers and grace: short or late money goes to manual review, never auto-confirm', async () => {
   const cases: Array<[string, string, number, boolean]> = [
-    ['first tier, one second before the cut-off', '2026-11-14 12:59:59', 295000, true],
-    ['first tier, short by 1₫', '2026-11-14 12:59:59', 294999, false],
-    ['one second after the first cut-off: grace keeps 295000', '2026-11-14 13:00:01', 295000, true],
-    ['last second of the 30-minute grace', '2026-11-14 13:29:55', 295000, true],
-    ['after the grace the second price is needed', '2026-11-14 13:30:01', 295000, false],
-    ['after the grace the second price is accepted', '2026-11-14 13:30:01', 440000, true],
-    ['second tier, one second before its cut-off', '2026-11-21 12:59:59', 440000, true],
-    ['second tier, short by 1₫', '2026-11-21 12:59:59', 439999, false],
-    ['one second after the second cut-off: grace keeps 440000', '2026-11-21 13:00:01', 440000, true],
-    ['after the second grace the list price is needed', '2026-11-21 13:30:01', 440000, false],
-    ['list price after the offers', '2026-11-21 13:30:01', 590000, true],
+    ['first tier, one second before the cut-off', '2026-11-21 12:59:59', 295000, true],
+    ['first tier, short by 1₫', '2026-11-21 12:59:59', 294999, false],
+    ['one second after the first cut-off: grace keeps 295000', '2026-11-21 13:00:01', 295000, true],
+    ['last second of the 30-minute grace', '2026-11-21 13:29:55', 295000, true],
+    ['after the grace the second price is needed', '2026-11-21 13:30:01', 295000, false],
+    ['after the grace the second price is accepted', '2026-11-21 13:30:01', 440000, true],
+    ['second tier, one second before its cut-off', '2026-11-28 12:59:59', 440000, true],
+    ['second tier, short by 1₫', '2026-11-28 12:59:59', 439999, false],
+    ['one second after the second cut-off: grace keeps 440000', '2026-11-28 13:00:01', 440000, true],
+    ['after the second grace the list price is needed', '2026-11-28 13:30:01', 440000, false],
+    ['list price after the offers', '2026-11-28 13:30:01', 590000, true],
   ];
   for (const [label, date, amount, paid] of cases) {
     const result = await request({ date, amount });
@@ -124,12 +124,12 @@ test('launch-offer tiers and grace: short or late money goes to manual review, n
 test('time-zone guard: a UTC-shaped transfer stamp cannot buy the first tier after its cut-off', async () => {
   // Transfer really arrives Sat 14 Nov 15:00 Vietnam time (08:00 UTC). If SePay stamped it in UTC ("08:00:00"), reading that as
   // Vietnam time would say 08:00 and accept 295000. The stamp is 7 hours before receipt, so the receipt time decides.
-  const utcShaped = await request({ date: '2026-11-14 08:00:00', receivedAt: '2026-11-14T15:00:00+07:00', amount: 295000 });
+  const utcShaped = await request({ date: '2026-11-21 08:00:00', receivedAt: '2026-11-21T15:00:00+07:00', amount: 295000 });
   assert.equal(utcShaped.calls.length, 0, '295000 is not auto-confirmed');
   assert.match(utcShaped.logs.join('\n'), /needs_review/);
-  const paidInFull = await request({ date: '2026-11-14 08:00:00', receivedAt: '2026-11-14T15:00:00+07:00', amount: 440000 });
+  const paidInFull = await request({ date: '2026-11-21 08:00:00', receivedAt: '2026-11-21T15:00:00+07:00', amount: 440000 });
   assert.equal(paidInFull.calls.length, 1, 'the second price is still accepted');
   // A stamp later than the receipt time is not believed either.
-  const future = await request({ date: '2026-11-14 12:00:00', receivedAt: '2026-11-14T15:00:00+07:00', amount: 295000 });
+  const future = await request({ date: '2026-11-21 12:00:00', receivedAt: '2026-11-21T15:00:00+07:00', amount: 295000 });
   assert.equal(future.calls.length, 0);
 });

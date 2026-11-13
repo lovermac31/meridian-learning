@@ -2,7 +2,7 @@
  * /story-club — "Story Club with Mr. Jay": a small weekly story group for ages 5–8.
  *
  * 4 Nov 2026 (Jay, final): the page leads with a FREE 30-minute Story Time for new families (postponed, new date to be announced) and
- * registration on Zalo; the paid round (4 weeks, 590.000₫, from Sat 14 Nov) comes after, with the refund rule stated.
+ * registration on Zalo; the paid round (4 weeks, 590.000₫, from Sat 21 Nov) comes after, with the refund rule stated.
  * The try-it and refund facts are shared with /story-club/reserve in storyClubTryIt.ts. Payment is by bank transfer
  * (VietQR) on the reserve page, after its written summary. Policies restate the site's existing rules (under-18 sessions
  * are never recorded; Google Meet; GMT+7). The Vietnamese is AI-written and awaits Jay's read.
