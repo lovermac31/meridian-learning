@@ -18,7 +18,7 @@ const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf(
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
-  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['story-workbooks-l1', '290.000₫'], ['story-workbooks-l2', '190.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '190.000₫'], ['story-workbooks-l4', '190.000₫'], ['story-workbooks-l5', '190.000₫']],
+  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['story-workbooks-l1', '290.000₫'], ['story-workbooks-l2', '290.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '290.000₫'], ['story-workbooks-l4', '290.000₫'], ['story-workbooks-l5', '290.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],

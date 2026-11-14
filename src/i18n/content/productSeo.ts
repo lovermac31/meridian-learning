@@ -176,12 +176,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'english reading workbook for kids 8-10',
       title: 'Printable English Reading Workbooks for Kids 8–10 | L2',
-      description: '3 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 190.000₫ one-time.',
+      description: '9 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách truyện tiếng anh cho bé 8-10 tuổi',
       title: 'Sách truyện tiếng Anh cho bé 8–10 tuổi, có bài tập | Level 2',
-      description: '3 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 8–10 tuổi (CEFR A1 → A2), có trang Chu trình Tư duy và đáp án. 190.000₫ mua một lần.',
+      description: '9 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 8–10 tuổi (CEFR A1 → A2), có trang Chu trình Tư duy và đáp án. 290.000₫ mua một lần.',
     },
   },
   'mango-l2': {
@@ -200,36 +200,36 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'english reading comprehension workbook 10-12',
       title: 'English Reading Comprehension Workbooks 10–12 | Level 3',
-      description: '3 original storybooks as printable A4 workbooks for ages 10–12 (CEFR A2 → B1): evidence questions, a Thinking Cycle page and an answer key. 190.000₫ one-time.',
+      description: '10 original storybooks as printable A4 workbooks for ages 10–12 (CEFR A2 → B1): evidence questions, a Thinking Cycle page and an answer key. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách bài tập đọc hiểu tiếng anh 10-12 tuổi',
       title: 'Sách bài tập đọc hiểu tiếng Anh cho trẻ 10–12 tuổi | Level 3',
-      description: '3 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 10–12 tuổi (CEFR A2 → B1): câu hỏi dẫn chứng, Chu trình Tư duy và đáp án. 190.000₫ mua một lần.',
+      description: '10 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 10–12 tuổi (CEFR A2 → B1): câu hỏi dẫn chứng, Chu trình Tư duy và đáp án. 290.000₫ mua một lần.',
     },
   },
   'story-workbooks-l4': {
     en: {
       keyword: 'english reading comprehension workbook 12-14',
       title: 'English Reading Comprehension Workbooks 12–14 | Level 4',
-      description: '3 original storybooks as printable A4 workbooks for ages 12–14 (CEFR B1 → B2): quoted-evidence questions, a Thinking Cycle page, a rubric. 190.000₫ one-time.',
+      description: '10 original storybooks as printable A4 workbooks for ages 12–14 (CEFR B1 → B2): quoted-evidence questions, a Thinking Cycle page, a rubric. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách bài tập đọc hiểu tiếng anh 12-14 tuổi',
       title: 'Sách bài tập đọc hiểu tiếng Anh 12–14 tuổi | Level 4',
-      description: '3 truyện gốc thành sách bài tập A4 in sẵn cho học sinh 12–14 tuổi (CEFR B1 → B2): câu hỏi trích dẫn, Chu trình Tư duy, thang đánh giá. 190.000₫ mua một lần.',
+      description: '10 truyện gốc thành sách bài tập A4 in sẵn cho học sinh 12–14 tuổi (CEFR B1 → B2): câu hỏi trích dẫn, Chu trình Tư duy, thang đánh giá. 290.000₫ mua một lần.',
     },
   },
   'story-workbooks-l5': {
     en: {
       keyword: 'advanced english reading workbook for teens',
       title: 'Advanced English Reading Workbooks for Teens 14+ | L5',
-      description: '3 original storybooks as printable A4 workbooks for learners 14+ (CEFR B2 → C1): claim and counterargument practice, a rubric, an answer key. 190.000₫ one-time.',
+      description: '10 original storybooks as printable A4 workbooks for learners 14+ (CEFR B2 → C1): claim and counterargument practice, a rubric, an answer key. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách bài tập đọc hiểu tiếng anh nâng cao',
       title: 'Sách bài tập đọc hiểu tiếng Anh nâng cao 14+ | Level 5',
-      description: '3 truyện gốc thành sách bài tập A4 in sẵn cho học sinh từ 14 tuổi (CEFR B2 → C1): luyện nhận định và phản biện, thang đánh giá, đáp án. 190.000₫ mua một lần.',
+      description: '10 truyện gốc thành sách bài tập A4 in sẵn cho học sinh từ 14 tuổi (CEFR B2 → C1): luyện nhận định và phản biện, thang đánh giá, đáp án. 290.000₫ mua một lần.',
     },
   },
   'student-workbook-l1': {

@@ -105,9 +105,9 @@
 - ID: `story-workbooks-l2`
 - English: https://jurassicenglish.com/products/story-workbooks-l2
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l2
-- English description: 3 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 190.000₫ one-time.
+- English description: 9 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 290.000₫ one-time.
 - Vietnamese title: Sách truyện tiếng Anh cho bé 8–10 tuổi, có bài tập | Level 2
-- VND price: 190.000 VND
+- VND price: 290.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -125,9 +125,9 @@
 - ID: `story-workbooks-l3`
 - English: https://jurassicenglish.com/products/story-workbooks-l3
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l3
-- English description: 3 original storybooks as printable A4 workbooks for ages 10–12 (CEFR A2 → B1): evidence questions, a Thinking Cycle page and an answer key. 190.000₫ one-time.
+- English description: 10 original storybooks as printable A4 workbooks for ages 10–12 (CEFR A2 → B1): evidence questions, a Thinking Cycle page and an answer key. 290.000₫ one-time.
 - Vietnamese title: Sách bài tập đọc hiểu tiếng Anh cho trẻ 10–12 tuổi | Level 3
-- VND price: 190.000 VND
+- VND price: 290.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -135,9 +135,9 @@
 - ID: `story-workbooks-l4`
 - English: https://jurassicenglish.com/products/story-workbooks-l4
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l4
-- English description: 3 original storybooks as printable A4 workbooks for ages 12–14 (CEFR B1 → B2): quoted-evidence questions, a Thinking Cycle page, a rubric. 190.000₫ one-time.
+- English description: 10 original storybooks as printable A4 workbooks for ages 12–14 (CEFR B1 → B2): quoted-evidence questions, a Thinking Cycle page, a rubric. 290.000₫ one-time.
 - Vietnamese title: Sách bài tập đọc hiểu tiếng Anh 12–14 tuổi | Level 4
-- VND price: 190.000 VND
+- VND price: 290.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -145,9 +145,9 @@
 - ID: `story-workbooks-l5`
 - English: https://jurassicenglish.com/products/story-workbooks-l5
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l5
-- English description: 3 original storybooks as printable A4 workbooks for learners 14+ (CEFR B2 → C1): claim and counterargument practice, a rubric, an answer key. 190.000₫ one-time.
+- English description: 10 original storybooks as printable A4 workbooks for learners 14+ (CEFR B2 → C1): claim and counterargument practice, a rubric, an answer key. 290.000₫ one-time.
 - Vietnamese title: Sách bài tập đọc hiểu tiếng Anh nâng cao 14+ | Level 5
-- VND price: 190.000 VND
+- VND price: 290.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
