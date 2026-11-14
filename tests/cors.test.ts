@@ -61,6 +61,14 @@ test('default allowlist accepts production apex and www', () => {
   assert.equal(isAllowedOrigin('https://www.jurassicenglish.com'), true);
 });
 
+test('default allowlist accepts the JurassicIELTS apex for the P5 pay step, nothing wider', () => {
+  assert.equal(isAllowedOrigin('https://jurassicielts.com'), true);
+  assert.equal(isAllowedOrigin('https://www.jurassicielts.com'), false, 'www redirects to the apex; not allowed');
+  assert.equal(isAllowedOrigin('http://jurassicielts.com'), false, 'plain http should be denied');
+  assert.equal(isAllowedOrigin('https://jurassicielts.com.evil.com'), false, 'suffix spoof must fail');
+  assert.equal(isAllowedOrigin('https://app.jurassicielts.com'), false, 'subdomains are not implied');
+});
+
 test('default allowlist denies arbitrary origins', () => {
   clearEnv();
   assert.equal(isAllowedOrigin('https://evil.example.com'), false);

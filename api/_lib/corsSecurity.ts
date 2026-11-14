@@ -50,6 +50,9 @@ export type CorsConfig = {
 export const DEFAULT_STATIC_ALLOWLIST = [
   'https://jurassicenglish.com',
   'https://www.jurassicenglish.com',
+  // JurassicIELTS pay step (IELTS migration P5) prepares its payment memo through
+  // POST /api/sample-pack. Apex only: www.jurassicielts.com redirects to the apex.
+  'https://jurassicielts.com',
 ] as const;
 
 // Vercel preview hostnames look like:
