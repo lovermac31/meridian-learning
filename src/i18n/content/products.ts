@@ -194,7 +194,7 @@ const STORY_WORKBOOKS: Product[] = [
     inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
     forWho: 'Trẻ 4–8 tuổi (CEFR Pre-A1 → A1), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
-  { ...storyWorkbook(2, '190.000₫', 9, {
+  { ...storyWorkbook(2, '290.000₫', 9, {
     title: 'Level 2 Story Workbooks',
     problem: 'Your child reads short texts, but you can’t tell whether they understand the story or only decode the words.',
     inside: '9 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, a fill-in, circle and write page for every chapter, a Thinking Cycle page, a word search, a reading log, a teacher guide and an answer key.',
@@ -239,7 +239,7 @@ const STORY_WORKBOOKS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
-  storyWorkbook(3, '190.000₫', 10, {
+  storyWorkbook(3, '290.000₫', 10, {
     title: 'Level 3 Story Workbooks',
     problem: 'Your child reads longer stories but rarely explains why a character did something, or what in the text proves it.',
     inside: '10 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, questions that ask for the clue, a Thinking Cycle page (analyse, evaluate, justify, reflect), a word search, a teacher guide, a rubric and an answer key.',
@@ -250,7 +250,7 @@ const STORY_WORKBOOKS: Product[] = [
     inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, câu hỏi yêu cầu chỉ ra chi tiết, trang Chu trình Tư duy (phân tích, đánh giá, lập luận, suy ngẫm), trò tìm từ, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
     forWho: 'Trẻ 10–12 tuổi (CEFR A2 → B1). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
-  storyWorkbook(4, '190.000₫', 10, {
+  storyWorkbook(4, '290.000₫', 10, {
     title: 'Level 4 Story Workbooks',
     problem: 'Your teenager reads fluently, but their answers about a text stay vague: no evidence, no weighing of two readings.',
     inside: '10 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: longer chapters, questions that ask for a quoted clue, a Thinking Cycle page that asks for a claim with evidence, a teacher guide, a rubric and an answer key.',
@@ -261,7 +261,7 @@ const STORY_WORKBOOKS: Product[] = [
     inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: chương dài hơn, câu hỏi yêu cầu trích dẫn chi tiết, trang Chu trình Tư duy yêu cầu nêu nhận định kèm dẫn chứng, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
     forWho: 'Học sinh 12–14 tuổi (CEFR B1 → B2). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
-  storyWorkbook(5, '190.000₫', 10, {
+  storyWorkbook(5, '290.000₫', 10, {
     title: 'Level 5 Story Workbooks',
     problem: 'Your older learner can summarise a text, but not yet argue a position from it, answer a counterargument or weigh a consequence.',
     inside: '10 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: chapter stories on real-world decisions, evidence questions, a Thinking Cycle page with claim, evidence, interpretation and counterargument, a teacher guide, a rubric and an answer key.',

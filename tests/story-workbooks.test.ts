@@ -25,7 +25,7 @@ test('five Story Workbooks cards: Families, Workbooks category, view-only sample
     }
   }
   assert.equal(PRODUCTS.find((p) => p.id === IDS[0])!.price, '290.000₫');
-  for (const id of IDS.slice(1)) assert.equal(PRODUCTS.find((p) => p.id === id)!.price, '190.000₫');
+  for (const id of IDS.slice(1)) assert.equal(PRODUCTS.find((p) => p.id === id)!.price, '290.000₫');
 });
 
 test('regional US$ prices: four tiers per product, rising with the approved 35:45:55:69 market tiers, default is the highest tier', () => {
