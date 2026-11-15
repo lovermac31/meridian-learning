@@ -500,7 +500,8 @@ nav.yl2-hdr{position:relative;z-index:40}
 .yl2-hdr-panel .yl2-hdr-cta-panel{display:flex;justify-content:center}
 .yl2-hdr-panel .lang-select{display:inline-flex;align-self:flex-start}
 .yl2-hdr-menu:not([open]) .yl2-hdr-panel{display:none}
-@media(min-width:480px){.yl2-hdr-right>.yl2-hdr-cta{display:inline-flex}}
+/* The Baseline CTA joins the row from 600px; from 480px it overlapped the logo up to ~570px (EN and VI). Below 600px it stays in the menu panel. */
+@media(min-width:600px){.yl2-hdr-right>.yl2-hdr-cta{display:inline-flex}}
 /* Five links need the SPA header's width: inline from 1280px in a 1280px row (matches max-w-7xl + px-6), menu below. */
 @media(min-width:1280px){.yl2-hdr-in{max-width:1280px;padding:0 24px}.yl2-hdr-links{display:flex}.yl2-hdr-right .lang-select{display:inline-flex}.yl2-hdr-menu{display:none}.yl2-hdr-right>.yl2-hdr-products{display:none}}
 .yl2-foot-lang{margin-top:10px;border-color:#E6DEC8;background:#fff}
