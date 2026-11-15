@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { LIBRARY_COPY, LIBRARY_PREVIEW_PARAM, LIBRARY_TITLES, libraryWaitlistHref, type LibraryLocale } from "@/lib/academy/readingLibrary";
+import { LIBRARY_COPY, LIBRARY_PREVIEW_PARAM, LIBRARY_TITLES, libraryIncludedHref, libraryWaitlistHref, type LibraryLocale } from "@/lib/academy/readingLibrary";
 
 // Reading & Reasoning Library preview row inside a level section. Renders nothing unless the URL has ?library-preview=1,
 // read after hydration so the server HTML (and production) is unchanged. No price, no buy button, no structured data.
@@ -29,6 +29,7 @@ export function LibraryRow({ level, locale }: { level: number; locale: LibraryLo
             <p>{t[locale].synopsis}</p>
             <p><strong>{c.includesLabel}:</strong> {[t.includes.reader && c.reader, t.includes.workbook && c.workbook, t.includes.guide && c.guide].filter(Boolean).join(" · ")}</p>
             <p className="text-xs">{c.notForSale} {c.licence}</p>
+            <p className="text-xs" data-library-included={t.id}>{c.included} <a href={libraryIncludedHref(t.level, locale)} data-library-included-link={t.id} className={`inline-flex min-h-11 items-center font-extrabold underline underline-offset-4 ${FOCUS}`}>{c.includedLink(t.level)}</a>.</p>
             <a href={libraryWaitlistHref(t.id)} data-library-waitlist={t.id} className={`mt-auto inline-flex min-h-11 items-center font-extrabold underline underline-offset-4 ${FOCUS}`}>{c.waitlist}</a>
           </li>
         ))}

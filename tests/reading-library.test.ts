@@ -5,6 +5,7 @@ import { PRODUCTS } from '../src/i18n/content/products';
 import { PAID_OFFERS } from '../src/config/payment';
 import { PORTAL_BUY_FLAGS } from '../src/config/portalBuy';
 import { createProductListJsonLd, createProductJsonLd } from '../src/lib/structuredData';
+import * as libMod from '../src/i18n/content/readingLibrary';
 import { LIBRARY_COPY, LIBRARY_TITLES, isLibraryPreview, isSellable, libraryWaitlistHref } from '../src/i18n/content/readingLibrary';
 import * as hubModule from '../docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/lib/academy/readingLibrary';
 
@@ -119,4 +120,19 @@ test('existing cards untouched: the story-workbook, teacher-pack and phonics ent
   assert.equal(price('phonics-b1'), '79.000₫');
   assert.equal(price('phonics-b2'), '129.000₫');
   assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 35);
+});
+
+test('copy says the story is already inside Story Workbooks Level N, with a link to the existing product page and no sale wording', () => {
+  const { libraryIncludedHref } = libMod;
+  for (const t of LIBRARY_TITLES) {
+    assert.ok(PRODUCTS.some((p) => p.id === `story-workbooks-l${t.level}` && p.live), `story-workbooks-l${t.level} is a live page`);
+    assert.equal(libraryIncludedHref(t.level, 'en', 'products'), `/products/story-workbooks-l${t.level}?utm_source=products`);
+    assert.equal(libraryIncludedHref(t.level, 'vi', 'products'), `/vi/products/story-workbooks-l${t.level}?utm_source=products`);
+    assert.equal(hub.libraryIncludedHref(t.level, 'vi'), `/vi/products/story-workbooks-l${t.level}?utm_source=academy`);
+  }
+  assert.match(LIBRARY_COPY.en.notForSale, /new standalone edition.*preview with no price yet/);
+  assert.match(LIBRARY_COPY.en.included, /already included in/);
+  assert.equal(LIBRARY_COPY.en.includedLink(3), 'Story Workbooks Level 3');
+  assert.equal(LIBRARY_COPY.vi.includedLink(5), 'Sách truyện bài tập Level 5');
+  assert.doesNotMatch(JSON.stringify(LIBRARY_COPY), /Not for sale/i);
 });

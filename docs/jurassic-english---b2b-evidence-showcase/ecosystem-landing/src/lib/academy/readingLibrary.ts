@@ -43,23 +43,27 @@ export const LIBRARY_TITLES: LibraryTitle[] = [
 export const LIBRARY_COPY = {
   en: {
     heading: "Reading & Reasoning Library (preview)",
-    intro: "Preview only. These titles are not for sale and have no price yet.",
+    intro: "Preview only. These new standalone editions have no price yet; the stories are already in our Story Workbooks.",
     level: "Level", ages: (a: string) => (a.endsWith("+") ? `Ages ${a.slice(0, -1)} and up` : `Ages ${a}`),
     pill: "Preview only", includesLabel: "Planned parts",
     reader: "Illustrated reader", workbook: "Companion workbook", guide: "Teacher and parent guide",
     cover: (t: string) => `Cover panel for ${t}`,
-    notForSale: "Not for sale yet. No price, no order button.",
+    notForSale: "This new standalone edition (reader + workbook + teacher/parent guide) is a preview with no price yet.",
+    included: "The story itself is already included in",
+    includedLink: (n: number) => `Story Workbooks Level ${n}`,
     waitlist: "Ask Mr. Jay to tell you when it is ready",
     licence: "Licence and delivery details will be published when the title is approved.",
   },
   vi: {
     heading: "Thư viện Đọc & Lập luận (bản xem trước)",
-    intro: "Chỉ xem trước. Các tựa sách này chưa bán và chưa có giá.",
+    intro: "Chỉ xem trước. Các ấn bản độc lập mới này chưa có giá; các truyện đã có trong Sách truyện bài tập của chúng tôi.",
     level: "Cấp độ", ages: (a: string) => (a.endsWith("+") ? `Từ ${a.slice(0, -1)} tuổi` : `${a} tuổi`),
     pill: "Chỉ xem trước", includesLabel: "Các phần dự kiến",
     reader: "Sách đọc có tranh minh họa", workbook: "Sách bài tập đi kèm", guide: "Hướng dẫn cho giáo viên và phụ huynh",
     cover: (t: string) => `Bìa tạm của ${t}`,
-    notForSale: "Chưa bán. Không có giá, không có nút đặt mua.",
+    notForSale: "Ấn bản độc lập mới này (sách đọc + sách bài tập + hướng dẫn giáo viên/phụ huynh) mới chỉ là bản xem trước, chưa có giá.",
+    included: "Bản thân truyện đã có trong",
+    includedLink: (n: number) => `Sách truyện bài tập Level ${n}`,
     waitlist: "Nhờ thầy Jay báo khi sách sẵn sàng",
     licence: "Thông tin giấy phép và cách nhận sách sẽ được công bố khi tựa sách được duyệt.",
   },
@@ -67,3 +71,6 @@ export const LIBRARY_COPY = {
 
 export const libraryWaitlistHref = (id: string) =>
   `/go/zalo/${id}?utm_content=${id}-waitlist&utm_campaign=reading-library&utm_source=academy`;
+
+export const libraryIncludedHref = (level: number, locale: LibraryLocale) =>
+  `${locale === "vi" ? "/vi" : ""}/products/story-workbooks-l${level}?utm_source=academy`;

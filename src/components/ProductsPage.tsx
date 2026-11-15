@@ -25,7 +25,7 @@ import {
   type ProductSectionId,
   type ProductSegmentId,
 } from '../i18n/content/products';
-import { LIBRARY_COPY, LIBRARY_TITLES, isLibraryPreview, libraryAnchorId, libraryWaitlistHref, LIBRARY_ANCHOR } from '../i18n/content/readingLibrary';
+import { LIBRARY_COPY, LIBRARY_TITLES, isLibraryPreview, libraryAnchorId, libraryIncludedHref, libraryWaitlistHref, LIBRARY_ANCHOR } from '../i18n/content/readingLibrary';
 import { fetchSampleText, type SampleTextDocument } from '../lib/sampleText';
 import { SamplePackForm } from './SamplePackForm';
 import { PAUSED_COPY, PRODUCT_FORMER_IDS, pausedWaitlistHref } from '../i18n/content/products';
@@ -874,6 +874,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
                     <p>{t[locale].synopsis}</p>
                     <p className="products-library-includes"><strong>{lc.includesLabel}:</strong> {[t.includes.reader && lc.reader, t.includes.workbook && lc.workbook, t.includes.guide && lc.guide].filter(Boolean).join(' · ')}</p>
                     <p className="products-library-note">{lc.notForSale} {lc.licence}</p>
+                    <p className="products-library-note" data-library-included={t.id}>{lc.included} <a href={libraryIncludedHref(t.level, locale, 'products')} data-library-included-link={t.id}>{lc.includedLink(t.level)}</a>.</p>
                     <a href={libraryWaitlistHref(t.id, 'products')} data-library-waitlist={t.id} target="_blank" rel="noopener noreferrer nofollow">{lc.waitlist}</a>
                   </li>
                 );

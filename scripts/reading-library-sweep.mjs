@@ -45,11 +45,12 @@ for (const page of PAGES) for (const lang of ['en', 'vi']) for (const width of W
       const row = document.querySelector(scope);
       const rowR = row ? rect(row) : null;
       if (rowR) for (const sib of row.parentElement ? [...row.parentElement.children] : []) if (sib !== row && sib.tagName !== 'SCRIPT' && !sib.hidden && sib.getBoundingClientRect().height) if (hit(rowR, rect(sib))) overlap++;
-      const small = [...document.querySelectorAll('[data-library-waitlist]')].filter((a) => a.getBoundingClientRect().height < 44).length;
+      const small = [...document.querySelectorAll('[data-library-waitlist],[data-library-included-link]')].filter((a) => a.getBoundingClientRect().height < 44).length;
       const text = cards.map((c) => c.textContent).join(' ');
       const buy = document.querySelectorAll('[data-library-title] [data-buy-now], [data-library-title] [data-price], [data-library-title] [data-portal-buy], [data-library-title] button').length;
       const hrefs = [...document.querySelectorAll('[data-library-waitlist]')].map((a) => a.getAttribute('href'));
-      return { sw: doc.scrollWidth, iw: window.innerWidth, cards: cards.length, overlap, small, buy, price: /₫|US\$/.test(text), hrefs, lang: document.documentElement.lang };
+      const inc = [...document.querySelectorAll('[data-library-included-link]')].map((a) => a.getAttribute('href'));
+      return { inc, sw: doc.scrollWidth, iw: window.innerWidth, cards: cards.length, overlap, small, buy, price: /₫|US\$/.test(text), hrefs, lang: document.documentElement.lang };
     }, page.scope);
     Object.assign(entry, { scrollWidth: m.sw, innerWidth: m.iw, cards: m.cards, overlap: m.overlap, smallTargets: m.small });
     if (m.sw > m.iw) entry.failures.push(`horizontal scroll ${m.sw} > ${m.iw}`);
@@ -58,6 +59,7 @@ for (const page of PAGES) for (const lang of ['en', 'vi']) for (const width of W
     if (m.small) entry.failures.push(`${m.small} targets < 44px`);
     if (m.buy || m.price) entry.failures.push('price or buy control found');
     if (m.hrefs.some((h) => !/^\/go\/zalo\/rl-je-[a-z0-9-]+\?utm_content=.*&utm_campaign=reading-library&utm_source=(products|academy)$/.test(h))) entry.failures.push('bad waitlist href');
+    if (m.inc.length !== 3 || m.inc.some((h) => !/^(\/vi)?\/products\/story-workbooks-l[135]\?utm_source=(products|academy)$/.test(h))) entry.failures.push('bad included-in link');
     if (errors.length) entry.failures.push(`pageerror: ${errors[0]}`);
     const shot = path.join(outDir, `${page.key}-${lang}-${width}.png`);
     const target = p.locator(page.scope).first();
