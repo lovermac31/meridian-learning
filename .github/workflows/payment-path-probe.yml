@@ -75,7 +75,9 @@ jobs:
           probe "ais-health"              GET  "$J/ai-speaking/api/health"         "200"
           # Entrance pages and the droplet hosts (public routes only; the IELTS app /api/health is auth-gated)
           probe "story-club-reserve"      GET  "$J/story-club/reserve"             "200"
-          probe "ielts-app"               GET  "https://ielts.jurassicenglish.com/" "200"
+          probe "ielts-app"               GET  "https://app.jurassicielts.com/"    "200"
+          # Old IELTS host during the P8 overlap: pages 301 to app.jurassicielts.com, /health keeps answering
+          probe "ielts-app-old-health"    GET  "https://ielts.jurassicenglish.com/health" "200"
           probe "books"                   GET  "https://books.jurassicenglish.com/" "200"
           if [ "$SIMULATE_FAILURE" = "1" ]; then
             probe "simulated-failure"     GET  "$J/api/payment-probe-simulated-failure" "200"
