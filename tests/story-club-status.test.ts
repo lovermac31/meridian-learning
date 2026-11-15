@@ -5,7 +5,7 @@ import { __resetRateLimitStoreForTests } from '../api/_lib/rateLimitStore.js';
 
 type Reply = { status: number; body?: Record<string, unknown>; headers: Record<string, string> };
 
-async function request(options: { method?: string; memo?: string; ip?: string; db?: 'unpaid' | 'paid' | 'unknown' | 'down'; reset?: boolean } = {}): Promise<{ reply: Reply; calls: string[] }> {
+async function request(options: { method?: string; memo?: string; code?: string; ip?: string; db?: 'unpaid' | 'paid' | 'unknown' | 'down'; reset?: boolean } = {}): Promise<{ reply: Reply; calls: string[] }> {
   const envNames = ['SUPABASE_URL', 'SUPABASE_WRITE_KEY', 'ENABLE_DURABLE_RATE_LIMIT', 'UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN'] as const;
   const oldEnv = Object.fromEntries(envNames.map(name => [name, process.env[name]]));
   const originalFetch = globalThis.fetch;
@@ -27,7 +27,7 @@ async function request(options: { method?: string; memo?: string; ip?: string; d
   const headers: Record<string, string> = {};
   const res = { setHeader(name: string, value: string) { headers[name] = value; return this; }, status(code: number) { status = code; return this; }, json(body: Record<string, unknown>) { bodyRef.current = body; return this; } };
   try {
-    await handler({ method: options.method ?? 'GET', query: options.memo === undefined ? {} : { memo: options.memo }, headers: { 'x-forwarded-for': options.ip ?? '198.51.100.11' } } as never, res as never);
+    await handler({ method: options.method ?? 'GET', query: { ...(options.memo === undefined ? {} : { memo: options.memo }), ...(options.code === undefined ? {} : { code: options.code }) }, headers: { 'x-forwarded-for': options.ip ?? '198.51.100.11' } } as never, res as never);
     return { reply: { status, body: bodyRef.current, headers }, calls };
   } finally {
     globalThis.fetch = originalFetch;
@@ -72,4 +72,43 @@ test('status is GET-only and backend failures remain a boolean-only response', a
   assert.deepEqual(method.reply.body, { paid: false });
   assert.equal(failed.reply.status, 503);
   assert.deepEqual(failed.reply.body, { paid: false });
+});
+
+// P5c (15 Nov 2026): the shared pay-step status intent, ?code=SC-XXXXXX -> {status} only.
+test('code intent: waiting or received, nothing else, and only paid_at is read', async () => {
+  for (const [db, status] of [['paid', 'received'], ['unpaid', 'waiting'], ['unknown', 'waiting']] as const) {
+    const result = await request({ code: 'sc-abfd01', db });
+    assert.equal(result.reply.status, 200);
+    assert.deepEqual(result.reply.body, { status });
+    assert.deepEqual(Object.keys(result.reply.body ?? {}), ['status']);
+    assert.equal(result.reply.headers['Cache-Control'], 'no-store, max-age=0');
+    assert.equal(result.reply.headers['Access-Control-Allow-Origin'], undefined, 'same-origin only');
+    assert.equal(result.calls.length, 1);
+    assert.match(result.calls[0]!, /story_club_reservations\?select=paid_at&memo=eq\.SC-ABFD01&limit=1$/);
+  }
+});
+
+test('code intent: a code that is not a Story Club code is 400 unknown_code with no lookup', async () => {
+  for (const code of ['PR0S-AB12CD', '1T-AB12CD', 'LC-AB12CD', 'SC-123', 'SC-AB12CD&x=1', '']) {
+    const result = await request({ code });
+    assert.equal(result.reply.status, 400, code);
+    assert.deepEqual(result.reply.body, { error: 'unknown_code' });
+    assert.deepEqual(result.calls, []);
+  }
+});
+
+test('code intent: rate limit, method and backend failure answer with an error word only', async () => {
+  __resetRateLimitStoreForTests();
+  let last: { reply: Reply; calls: string[] } | undefined;
+  for (let index = 0; index < 31; index += 1) last = await request({ code: 'SC-ABFD01', ip: '198.51.100.24', reset: false });
+  __resetRateLimitStoreForTests();
+  assert.equal(last?.reply.status, 429);
+  assert.deepEqual(last?.reply.body, { error: 'rate_limited' });
+  assert.ok(Number(last?.reply.headers['Retry-After']) > 0);
+  const method = await request({ method: 'POST', code: 'SC-ABFD01' });
+  assert.equal(method.reply.status, 405);
+  assert.deepEqual(method.reply.body, { error: 'method_not_allowed' });
+  const failed = await request({ code: 'SC-ABFD01', db: 'down' });
+  assert.equal(failed.reply.status, 503);
+  assert.deepEqual(failed.reply.body, { error: 'unavailable' });
 });
