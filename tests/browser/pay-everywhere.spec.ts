@@ -16,6 +16,7 @@ test.beforeEach(async ({ page, baseURL }) => {
   await page.addInitScript(() => window.addEventListener('je:hydrated', () => { document.documentElement.dataset.qaHydrated = 'true'; }, { once: true }));
   await page.route('**/*', route => {
     const url = new URL(route.request().url());
+    if (url.pathname.startsWith('/ai-speaking/')) return route.abort(); // P5c: the pay-step status proxy, never real network
     if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/go/')) return route.abort();
     return route.fallback();
   });
@@ -102,7 +103,13 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     expect(submissions).toBe(2);
     await expect.poll(() => events).toEqual(['reserve_view', 'pay_instructions_shown', 'reserve_submit']);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    if (offer.id !== 'story-club') await expect(page.locator('[data-payment-status]')).toHaveCount(0);
+    // P5c (15 Nov 2026): one polite status region per pay step. PR/LC/SC codes show the waiting line (status calls are aborted
+    // here, which keeps it), 1-to-1 shows the by-hand line, Baseline (BL) has no status source and an empty region.
+    await expect(page.locator('[data-payment-instructions] [aria-live="polite"]')).toHaveCount(1);
+    const statusLine = page.locator('[data-pay-status]');
+    if (offer.prefix === '1T') await expect(statusLine).toHaveText(locale === 'vi' ? /xác nhận thanh toán gói 1-1 thủ công/ : /We confirm 1-to-1 payments by hand/);
+    else if (offer.prefix === 'BL') await expect(statusLine).toHaveText('');
+    else await expect(statusLine).toHaveText(locale === 'vi' ? 'Đang chờ bạn chuyển khoản… Trang sẽ tự cập nhật, vui lòng giữ trang mở.' : 'Waiting for your transfer… This page updates by itself. Keep it open.');
     // A fast pre-hydration navigation may leave the optional analytics banner unchosen.
     // Dismiss it through the real control before capturing the payment QR.
     const remainingReject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });
