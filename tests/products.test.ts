@@ -174,7 +174,8 @@ test('reachable: one footer link (EN + VI), one Kids Academy card link, and Prod
   // During the Phonics launch (PRODUCTS_NEW_HIGHLIGHT, 15 Nov 2026) the link goes straight to the Phonics tile.
   const { PRODUCTS_NEW_HIGHLIGHT } = await import('../src/i18n/content/overhaul');
   const tail = PRODUCTS_NEW_HIGHLIGHT ? '\\?utm_source=header-new#phonics' : '';
-  for (const [path, href, label] of [['/', `/products${tail}`, 'Products &amp; prices'], ['/vi', `/vi/products${tail}`, 'Sản phẩm &amp; học phí']]) {
+  // Header wording Option A (Jay, 15 Nov 2026): the door reads Books & Prices / Sách & Bảng giá.
+  for (const [path, href, label] of [['/', `/products${tail}`, 'Books &amp; Prices'], ['/vi', `/vi/products${tail}`, 'Sách &amp; Bảng giá']]) {
     setServerLocation(path);
     const header = renderToStaticMarkup(createElement(Navbar, { onGetStarted: noop, onNavigateHome: noop, onNavigate: noop, onPricingClick: noop, onEducationAffiliateClick: noop }));
     setServerLocation('/');

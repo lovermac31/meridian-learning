@@ -16,7 +16,7 @@ export const viUi = {
       about: 'Giới thiệu',
       framework: 'Khung chương trình',
       series: 'Chuỗi cấp độ',
-      studio: 'Student Academy',
+      studio: 'Học viện Thiếu nhi',
       services: 'Dịch vụ',
       contact: 'Liên hệ',
       worldwise: 'Education Affiliate Program',
@@ -82,14 +82,14 @@ export const viUi = {
     responseTime: 'Chúng tôi thường phản hồi trong vòng 2 ngày làm việc.',
     copyright: '© 2026 World Wise Learning. Bảo lưu mọi quyền.',
     trademark: 'Jurassic English™ là nhãn hiệu của World Wise Learning.',
-    // Student Academy and Digital Reasoning Engine are product names and stay in English, as elsewhere on /vi.
+    // Kids Academy shows as Học viện Thiếu nhi, its Vietnamese header label (Option A, 15 Nov 2026); Digital Reasoning Engine stays in English.
     ecosystem: {
       heading: 'Hệ sinh thái',
       navLabel: 'Các trang trong hệ sinh thái',
       aiSpeaking: 'Luyện nói AI Speaking',
       baseline: 'Đánh giá Nói trực tiếp',
       writing: 'Mới: Luyện viết (sắp ra mắt)',
-      studentAcademy: 'Student Academy',
+      studentAcademy: 'Học viện Thiếu nhi',
       interactiveDemo: 'Bản demo tương tác',
       bookDiagnostic: 'Đặt lịch Đánh giá Tư duy Học sinh',
       schoolFramework: 'Khung Nhà trường',

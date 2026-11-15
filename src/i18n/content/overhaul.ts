@@ -37,16 +37,23 @@ export const UNDER_18_POLICY_EN = 'Sessions with learners under 18 are never rec
 const en = {
   nav: {
     items: [
-      // Header symmetry (Oct 2026): short age labels on screen; `desc` names the door (accessible name + mobile drawer).
+      // Header wording Option A (Jay, 15 Nov 2026, brief WW-20261115-03): Kids Academy · Speaking 9–18 · IELTS · Story Club ·
+      // Books & Prices. `desc` names the door (accessible name suffix + mobile drawer). IELTS is a short list of two links
+      // (`children`). Pricing is gone: /products lists the lessons, the Baseline and Story Club.
       { key: 'reading', label: 'Kids Academy', desc: 'Reading & Story Adventures', href: '/student-academy', kind: 'route' },
-      { key: 'speaking', label: 'Ages 9–18', desc: 'Speaking Confidence & Teen IELTS', href: '/young-learners-speaking/', kind: 'native' },
-      { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: introduction & demo', href: '/ai-speaking/writing', kind: 'native' },
-      { key: 'adults', label: 'AI Speaking Mocks', desc: 'Adult IELTS Speaking practice (18+)', href: '/ai-speaking', kind: 'native' },
-      { key: 'jay', label: 'Pricing', desc: 'Mr. Jay, plans and pricing', href: '/#pricing-options', kind: 'native' },
+      { key: 'speaking', label: 'Speaking 9–18', desc: 'Speaking Confidence & Teen IELTS', href: '/young-learners-speaking/', kind: 'native' },
+      {
+        key: 'ielts', label: 'IELTS', desc: '', href: '/ai-speaking', kind: 'native',
+        children: [
+          { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: introduction & demo', href: '/ai-speaking/writing', kind: 'native' },
+          { key: 'adults', label: 'IELTS Speaking practice (18+)', desc: 'Adult IELTS Speaking practice (18+)', href: '/ai-speaking', kind: 'native' },
+        ],
+      },
+      { key: 'storyclub', label: 'Story Club', desc: 'Online story groups for children aged 5–8', href: '/story-club', kind: 'route' },
       // Products in the main menu (website assessment, 27 Oct 2026, fix 3: Jay wants easy access; supersedes footer-only).
-      { key: 'products', label: 'Products & prices', short: 'Products', desc: '', href: '/products', kind: 'route' },
+      { key: 'products', label: 'Books & Prices', desc: '', href: '/products', kind: 'route' },
     ],
-    // Small badge after the IELTS Writing link (owner, Oct 2026).
+    // Small badge: on Books & Prices while PRODUCTS_NEW_HIGHLIGHT is on, otherwise on IELTS (Navbar badgeFor).
     newBadge: 'New',
     cta: 'Book Baseline · 690k₫',
     ctaMobile: 'Baseline · 690k₫',
@@ -148,7 +155,7 @@ const en = {
           noteTitle: 'Guided by Professor Rex',
           note: 'Four illustrated Story Worlds:',
           worlds: ['Mistwood Harbor', 'Whispering Woods', 'Grand Archive', 'Cloudpeak Observatory'],
-          primary: { label: 'Explore Student Academy', href: '/student-academy', kind: 'route' },
+          primary: { label: 'Explore Kids Academy', href: '/student-academy', kind: 'route' },
           secondary: { label: 'Try Free Story Quest', href: STORY_QUEST_URL, kind: 'external' },
         },
         {
@@ -228,7 +235,7 @@ const en = {
             { name: '45-min Reading & Thinking Placement Consultation', price: '', note: 'Request by email or Zalo: we review a short reading & writing sample and send a written Level 1–5 placement note.' },
           ],
           ongoing: [
-            { name: 'Small-group & 1-to-1 Student Academy tuition', price: '', note: 'Placed by readiness (Levels 1–5) after your placement consultation.' },
+            { name: 'Small-group & 1-to-1 Kids Academy tuition', price: '', note: 'Placed by readiness (Levels 1–5) after your placement consultation.' },
           ],
           cta: { label: 'Request a Reading Placement Consultation', href: '/student-academy#diagnostic' },
         },
@@ -280,12 +287,18 @@ type OverhaulContent = typeof en;
 const vi: OverhaulContent = {
   nav: {
     items: [
+      // Option A, Vietnamese (master's proposal, 15 Nov 2026): needs a native read before merge.
       { key: 'reading', label: 'Học viện Thiếu nhi', desc: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy', kind: 'route' },
-      { key: 'speaking', label: '9–18 tuổi', desc: 'Tự tin nói & IELTS cho teen', href: '/young-learners-speaking/', kind: 'native' },
-      { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: giới thiệu & bản demo', href: '/ai-speaking/writing', kind: 'native' },
-      { key: 'adults', label: 'Thi thử Nói AI', desc: 'Luyện Nói IELTS cho người lớn (18+)', href: '/ai-speaking', kind: 'native' },
-      { key: 'jay', label: 'Học phí', desc: 'Thầy Jay, gói học và học phí', href: '/#pricing-options', kind: 'native' },
-      { key: 'products', label: 'Sản phẩm & học phí', short: 'Sản phẩm', desc: '', href: '/products', kind: 'route' },
+      { key: 'speaking', label: 'Luyện nói 9–18', desc: 'Tự tin nói & IELTS cho teen', href: '/young-learners-speaking/', kind: 'native' },
+      {
+        key: 'ielts', label: 'IELTS', desc: '', href: '/ai-speaking', kind: 'native',
+        children: [
+          { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: giới thiệu & bản demo', href: '/ai-speaking/writing', kind: 'native' },
+          { key: 'adults', label: 'Luyện Nói IELTS 18+', desc: 'Luyện Nói IELTS cho người lớn (18+)', href: '/ai-speaking', kind: 'native' },
+        ],
+      },
+      { key: 'storyclub', label: 'Câu lạc bộ Truyện', desc: 'Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi', href: '/story-club', kind: 'route' },
+      { key: 'products', label: 'Sách & Bảng giá', desc: '', href: '/products', kind: 'route' },
     ],
     newBadge: 'Mới',
     cta: 'Đặt Đánh giá · 690k₫',
@@ -379,7 +392,7 @@ const vi: OverhaulContent = {
           noteTitle: 'Đồng hành cùng Giáo sư Rex',
           note: 'Bốn Thế giới truyện minh hoạ:',
           worlds: ['Mistwood Harbor', 'Whispering Woods', 'Grand Archive', 'Cloudpeak Observatory'],
-          primary: { label: 'Xem Học viện Học sinh', href: '/student-academy', kind: 'route' },
+          primary: { label: 'Xem Học viện Thiếu nhi', href: '/student-academy', kind: 'route' },
           secondary: { label: 'Chơi thử Story Quest miễn phí', href: STORY_QUEST_URL, kind: 'external' },
         },
         {

@@ -45,7 +45,7 @@ export function StudentAcademyMural({ onNavigate }: StudentAcademyMuralProps) {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-jurassic-soft border border-jurassic-dark/10 text-jurassic-dark/70 text-[11px] font-semibold uppercase tracking-[0.12em] mb-5">
               <Sparkles aria-hidden="true" className="w-3.5 h-3.5 text-jurassic-accent" />
-              Student Academy
+              Kids Academy
             </div>
             <h2
               id="student-academy-mural-heading"
@@ -58,7 +58,7 @@ export function StudentAcademyMural({ onNavigate }: StudentAcademyMuralProps) {
             </h2>
             <p className="text-lg text-jurassic-dark/70 font-light leading-relaxed mb-8 max-w-xl">
               Jurassic English<span className="align-super text-xs text-jurassic-accent">™</span>{' '}
-              Student Academy is a five-level academic English program built
+              Kids Academy is a five-level academic English program built
               around authentic literature, regulated thinking, and visible
               reasoning. Your child reads real stories, thinks aloud, writes
               with evidence, and grows through portfolio work that you can see.
@@ -83,7 +83,7 @@ export function StudentAcademyMural({ onNavigate }: StudentAcademyMuralProps) {
                 onClick={handleNavClick('/student-academy')}
                 className="rounded-md font-medium text-jurassic-dark/85 underline underline-offset-2 decoration-jurassic-accent/60 hover:text-jurassic-dark hover:decoration-jurassic-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
-                Explore the Student Academy
+                Explore the Kids Academy
               </a>
               <span className="text-jurassic-dark/30" aria-hidden="true">·</span>
               <a

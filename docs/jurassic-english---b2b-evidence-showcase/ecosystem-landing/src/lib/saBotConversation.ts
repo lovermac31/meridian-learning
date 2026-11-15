@@ -24,7 +24,7 @@ export type SaBotIntentOption = {
 };
 
 export const SA_BOT_WELCOME_MESSAGE =
-  "Welcome to Jurassic English™ Student Academy. I can help you understand the five-level pathway, the Student Thinking Diagnostic, portfolio evidence, and how the program supports different learners.";
+  "Welcome to Jurassic English™ Kids Academy. I can help you understand the five-level pathway, the Student Thinking Diagnostic, portfolio evidence, and how the program supports different learners.";
 
 export const SA_BOT_INTENT_PROMPT =
   "Choose what would help you most right now.";
@@ -80,7 +80,7 @@ export function getSaBotIntentResponse(intent: SaBotIntent): {
   if (intent === "pathway") {
     return {
       message:
-        "The Student Academy is a five-level literature-based pathway. Students move from foundational reading and speaking through structured academic argument and senior-level analysis.",
+        "The Kids Academy is a five-level literature-based pathway. Students move from foundational reading and speaking through structured academic argument and senior-level analysis.",
       subMenu: {
         prompt: "Where would you like to go next?",
         destinations: [

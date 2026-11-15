@@ -177,6 +177,10 @@ function applyProductsLinks(lang: Lang): void {
   document.querySelectorAll<HTMLAnchorElement>('a[data-products-link]').forEach((a) => {
     a.setAttribute('href', lang === 'vi' ? '/vi/products' : '/products');
   });
+  // Header Story Club door (Option A, 15 Nov 2026), mirrored in prerender-yl-vi.mjs.
+  document.querySelectorAll<HTMLAnchorElement>('a[data-story-club-link]').forEach((a) => {
+    a.setAttribute('href', lang === 'vi' ? '/vi/story-club' : '/story-club');
+  });
 }
 
 function applyAll(lang: Lang): void {

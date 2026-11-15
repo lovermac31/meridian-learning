@@ -121,7 +121,7 @@ function HeroVisual() {
     <div
       className="relative w-full overflow-hidden rounded-2xl border border-white/10"
       role="img"
-      aria-label="Jurassic English Student Academy — premium literature-based learning visual"
+      aria-label="Jurassic English Kids Academy — premium literature-based learning visual"
     >
       <div className="aspect-[16/10] w-full relative">
         <Image
@@ -170,7 +170,7 @@ export function StudentAcademyHero() {
             </h1>
             <p className="text-xl font-light leading-relaxed text-primary-foreground/70 mb-8 max-w-xl">
               Jurassic English<span className="align-super text-xs text-accent">™</span>{" "}
-              Student Academy is a five-level academic English program built
+              Kids Academy is a five-level academic English program built
               around authentic literature, regulated thinking, and visible
               reasoning. Your child reads real stories, thinks aloud, writes
               with evidence, and grows through portfolio work that you can see.
@@ -1072,7 +1072,7 @@ export function StudentProgramPathways() {
           <p className="text-lg font-light text-muted-foreground leading-relaxed">
             Placement comes from the Student Thinking Diagnostic, not from age.
             Academic Thinker and IELTS Reasoning Lab are sibling pathways for
-            advanced learners — not Student Academy sub-products.
+            advanced learners — not Kids Academy sub-products.
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -1127,7 +1127,7 @@ export function StudentFitBlock() {
             id="student-fit-heading"
             className="text-3xl md:text-[2.25rem] font-bold text-foreground mb-4 leading-[1.2]"
           >
-            Is the Student Academy the Right Fit?
+            Is the Kids Academy the Right Fit?
           </h2>
           <p className="text-lg font-light text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             A clear picture of who this is for — and who it is not.
@@ -1232,7 +1232,7 @@ export function StudentAcademyFAQ() {
           </h2>
           <p className="text-lg font-light text-muted-foreground leading-relaxed">
             Clear answers about the Jurassic English<span className="align-super text-xs text-accent">™</span>{" "}
-            Student Academy.
+            Kids Academy.
           </p>
         </div>
         <Accordion className="rounded-2xl bg-white border border-foreground/8 px-6">

@@ -67,7 +67,7 @@ export const CONFIRMATION_TEXT =
 export const STEPS = [
   {
     title: "Join and receive your code",
-    body: "Register below. We check that you are a current or former Student Academy family or adult learner, then send you a personal referral code.",
+    body: "Register below. We check that you are a current or former Kids Academy family or adult learner, then send you a personal referral code.",
   },
   {
     title: "Share your code",
@@ -80,7 +80,7 @@ export const STEPS = [
 ] as const;
 
 export const TERMS = [
-  `Open to current and former Student Academy parents or guardians, and adult learners. You must join and receive a code before you refer anyone.`,
+  `Open to current and former Kids Academy parents or guardians, and adult learners. You must join and receive a code before you refer anyone.`,
   `A new household qualifies when it gives your code before its first package payment, then pays for and completes ${RULES.qualifyingLessons} individual lessons, with no unresolved payment or refund dispute at that time.`,
   `It must be a genuinely new paying household. An earlier enquiry does not disqualify it; an existing paid booking does.`,
   `Each new household earns one reward, once. Self-referrals and referrals within your own household do not count. If more than one code is given, the earliest valid code given before payment counts.`,

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react';
 import { getOverhaulContent, PRODUCTS_NEW_HIGHLIGHT, PRODUCTS_NEW_HREF } from '../i18n/content/overhaul';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
@@ -10,6 +10,10 @@ import { getUiString } from '../i18n/ui';
 import { trackCtaClick } from '../lib/analytics';
 
 const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
+const IELTS_MENU_ID = 'header-ielts-menu';
+
+// A header door. Option A (15 Nov 2026): IELTS has `children`, the two links of its short list.
+type NavLink = { key: string; label: string; desc: string; href: string; kind: 'route' | 'native'; short?: string; children?: NavLink[] };
 
 // Light storybook header (10/10 overhaul). Two-line door links: age + what it is.
 const NAV_LINK =
@@ -57,6 +61,10 @@ export const Navbar = ({
 }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // The desktop IELTS list (Option A): a button that opens two links; Escape, a click outside or leaving it closes it.
+  const [isIeltsOpen, setIsIeltsOpen] = useState(false);
+  const ieltsRef = useRef<HTMLDivElement>(null);
+  const ieltsButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const locale = getCurrentLocale();
@@ -140,6 +148,25 @@ export const Navbar = ({
     };
   }, [isMobileMenuOpen]);
 
+  useEffect(() => {
+    if (!isIeltsOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      e.preventDefault();
+      setIsIeltsOpen(false);
+      ieltsButtonRef.current?.focus();
+    };
+    const onDown = (e: MouseEvent) => {
+      if (ieltsRef.current && !ieltsRef.current.contains(e.target as Node)) setIsIeltsOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('mousedown', onDown);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('mousedown', onDown);
+    };
+  }, [isIeltsOpen]);
+
   // Header IA (10/10 overhaul, Oct 2026): four age-based doors, then one
   // primary "Book a Speaking Baseline" CTA that stays visible (sticky header).
   // `route` items go through onNavigate (App.navigateTo); `native` items are
@@ -148,7 +175,7 @@ export const Navbar = ({
   const overhaul = getOverhaulContent(locale);
   // Phonics launch (Jay, 15 Nov 2026, D3/D4): for four weeks Products carries the "New" badge and links straight to the
   // Phonics tile, as a full page load so the #phonics anchor opens the tile. PRODUCTS_NEW_HIGHLIGHT = false undoes it all.
-  const navItems = overhaul.nav.items.map((item) =>
+  const navItems: NavLink[] = (overhaul.nav.items as readonly NavLink[]).map((item) =>
     PRODUCTS_NEW_HIGHLIGHT && item.key === 'products' ? { ...item, href: PRODUCTS_NEW_HREF, kind: 'native' as const } : item);
   const productsItem = navItems.find((item) => item.key === 'products');
   // The header button is the page's own next step (website assessment, 27 Oct 2026): the free sample pack on parent
@@ -156,10 +183,10 @@ export const Navbar = ({
   const cta = headerCta(getCurrentPathname(), locale, overhaul.nav);
   const bookHref = cta.href;
   const bookLabel = cta.label;
-  // "New" / "Mới" badge: on Products during the Phonics launch, otherwise on IELTS Writing (one badge at a time). The
-  // accessible name starts with the visible text (WCAG 2.5.3).
-  const badgeFor = (key: string) => (key === (PRODUCTS_NEW_HIGHLIGHT ? 'products' : 'writing') ? overhaul.nav.newBadge : null);
-  const newInProducts = locale === 'vi' ? 'Mới trong Sản phẩm' : 'New in Products';
+  // "New" / "Mới" badge: on Books & Prices during the Phonics launch, otherwise on IELTS (Option A: one badge at a time,
+  // never on a removed door). The accessible name starts with the visible text (WCAG 2.5.3).
+  const badgeFor = (key: string) => (key === (PRODUCTS_NEW_HIGHLIGHT ? 'products' : 'ielts') ? overhaul.nav.newBadge : null);
+  const newInProducts = `${overhaul.nav.newBadge}: ${productsItem?.label ?? ''}`;
   const trackProductsNew = () => {
     if (!PRODUCTS_NEW_HIGHLIGHT) return;
     try {
@@ -172,9 +199,10 @@ export const Navbar = ({
 
   const handleNavItemClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
-    item: (typeof navItems)[number],
+    item: NavLink,
   ) => {
     setIsMobileMenuOpen(false);
+    setIsIeltsOpen(false);
     if (item.key === 'products') trackProductsNew();
     if (item.kind === 'native') return;
     event.preventDefault();
@@ -217,7 +245,47 @@ export const Navbar = ({
 
         {/* Show the full link row only when the logo, links, language control and CTA fit. */}
         <div className="hidden 2xl:flex flex-nowrap items-center gap-2 2xl:gap-3">
-          {navItems.map((item) => (
+          {navItems.map((item) => item.children ? (
+            // IELTS (Option A): a disclosure button and a short list of its two links, reachable by keyboard.
+            <div
+              key={item.key}
+              ref={ieltsRef}
+              className="relative"
+              onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsIeltsOpen(false); }}
+            >
+              <button
+                ref={ieltsButtonRef}
+                type="button"
+                className={`${NAV_LINK} inline-flex items-center gap-1`}
+                aria-expanded={isIeltsOpen}
+                aria-controls={IELTS_MENU_ID}
+                onClick={() => setIsIeltsOpen((open) => !open)}
+                data-testid="header-ielts-button"
+              >
+                {item.label}
+                {badgeFor(item.key) ? <span className={NEW_BADGE}>{badgeFor(item.key)}</span> : null}
+                <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform ${isIeltsOpen ? 'rotate-180' : ''}`} />
+              </button>
+              <ul
+                id={IELTS_MENU_ID}
+                hidden={!isIeltsOpen}
+                className="absolute left-0 top-full z-10 mt-2 min-w-[17rem] rounded-2xl border border-sb-border bg-sb-cream p-2 shadow-warm"
+              >
+                {item.children.map((child) => (
+                  <li key={child.key}>
+                    <a
+                      href={getLocalizedHref(child.href, locale)}
+                      onClick={(event) => handleNavItemClick(event, child)}
+                      className="block rounded-xl px-3 py-2 text-[0.95rem] font-semibold text-sb-forest hover:bg-white hover:text-sb-amber-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+                      aria-label={[child.label, child.desc].filter(Boolean).join(' · ')}
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
             <a
               key={item.key}
               href={getLocalizedHref(item.href, locale)}
@@ -226,7 +294,7 @@ export const Navbar = ({
               aria-label={[badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label, item.desc].filter(Boolean).join(' · ')}
               title={[item.label, item.desc].filter(Boolean).join(' · ')}
             >
-              <DesktopNavLabel label={item.label} short={'short' in item ? item.short : undefined} />
+              <DesktopNavLabel label={item.label} short={item.short} />
               {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
             </a>
           ))}
@@ -243,7 +311,7 @@ export const Navbar = ({
               className={`${NAV_LINK} inline-flex min-h-11 min-w-11 items-center justify-center px-1 max-[639px]:text-sm sm:px-2 2xl:hidden`}
               data-testid="header-products-link"
             >
-              {'short' in productsItem && productsItem.short ? productsItem.short : productsItem.label}
+              {productsItem.short ?? productsItem.label}
             </a>
           ) : null}
           <a
@@ -301,7 +369,29 @@ export const Navbar = ({
               {bookLabel}
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </a>
-            {navItems.map((item) => (
+            {navItems.map((item) => item.children ? (
+              // IELTS in the drawer (Option A): the heading, then its two links listed under it.
+              <div key={item.key} className="rounded-xl border border-sb-border bg-white px-4 py-3" role="group" aria-labelledby="drawer-ielts-heading">
+                <span id="drawer-ielts-heading" className="block text-base font-bold text-sb-forest">
+                  {item.label}
+                  {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
+                </span>
+                <ul className="mt-2 flex flex-col gap-1 border-l-2 border-sb-border pl-3">
+                  {item.children.map((child) => (
+                    <li key={child.key}>
+                      <a
+                        href={getLocalizedHref(child.href, locale)}
+                        onClick={(event) => handleNavItemClick(event, child)}
+                        className="block rounded-lg py-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+                      >
+                        <span className="block text-base font-semibold text-sb-forest">{child.label}</span>
+                        {child.desc ? <span className="block text-sm text-sb-ink">{child.desc}</span> : null}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
               <a
                 key={item.key}
                 href={getLocalizedHref(item.href, locale)}

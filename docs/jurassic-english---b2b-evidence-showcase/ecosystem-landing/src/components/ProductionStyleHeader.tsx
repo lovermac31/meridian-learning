@@ -3,22 +3,31 @@ import { HeaderMenuDismiss } from "./HeaderMenuDismiss";
 import { getHeaderProducts, type HeaderLang } from "./headerProducts";
 
 // Same header as the main jurassicenglish.com SPA (src/components/Navbar.tsx and
-// src/i18n/content/overhaul.ts nav): five doors, the Baseline CTA, EN | Tiếng Việt. Every link is a
+// src/i18n/content/overhaul.ts nav), header wording Option A (Jay, 15 Nov 2026): Kids Academy · Speaking 9–18 ·
+// IELTS (a short list: IELTS Writing, IELTS Speaking practice (18+)) · Story Club · Books & Prices, the Baseline CTA,
+// EN | Tiếng Việt. Every link is a
 // plain document navigation because each door is served by a different app
 // (SPA, static Young Learners page, AI Speaking app) behind one domain.
 
 const NAV = [
   { label: "Kids Academy (5–12)", desc: "Reading & Story Adventures", href: "/student-academy" },
-  { label: "Ages 9–18", desc: "Speaking Confidence & Teen IELTS", href: "/young-learners-speaking/" },
-  { label: "IELTS Writing", badge: "New", desc: "IELTS Writing Task 2: introduction & demo", href: "/ai-speaking/writing" },
-  { label: "AI Speaking Mocks", desc: "Adult IELTS Speaking practice (18+)", href: "/ai-speaking" },
-  { label: "Pricing", desc: "Mr. Jay, plans and pricing", href: "/#pricing-options" },
+  { label: "Speaking 9–18", desc: "Speaking Confidence & Teen IELTS", href: "/young-learners-speaking/" },
 ];
+// IELTS (Option A): a short list of two links. The New badge sits on Books & Prices during the Phonics launch (main
+// site flag PRODUCTS_NEW_HIGHLIGHT, until 13 Dec 2026), so none here.
+const IELTS = [
+  { label: "IELTS Writing", desc: "IELTS Writing Task 2: introduction & demo", href: "/ai-speaking/writing" },
+  { label: "IELTS Speaking practice (18+)", desc: "Adult IELTS Speaking practice (18+)", href: "/ai-speaking" },
+];
+const STORY_CLUB = { label: "Story Club", desc: "Online story groups for children aged 5–8", href: "/story-club" };
+// Books & Prices goes straight to the Phonics tile while the main site's launch highlight runs (until 13 Dec 2026).
+const PRODUCTS_NEW = true;
 // Products is one tap away on every page at every width (owner, 4 Nov 2026), exactly as in the main header
 // (src/components/Navbar.tsx): a standalone link beside the Baseline CTA, plus a row in the menu. Vietnamese pages
 // (/vi/...) link to the Vietnamese catalogue. With Products in the bar, the full link row needs the main header's
 // width, so it shows from 2xl in a 1600px row (as in Navbar.tsx); below that the menu carries the doors. (Measured:
-// in the old 1280px row, adding Products pushed Pricing under the language switch at 1280-1920.) Labels and hrefs live in ./headerProducts.
+// in the old 1280px row, adding Products pushed Pricing under the language switch at 1280-1920; Pricing is gone since
+// Option A.) Labels and hrefs live in ./headerProducts.
 // The Live Speaking Baseline booking page (AI Speaking app), as on every other page of the site.
 const CTA_HREF = "/ai-speaking/baseline";
 // The desktop row drops a bracketed suffix ("Kids Academy (5–12)" shows "Kids Academy"): the full label
@@ -35,12 +44,15 @@ function DesktopNavLabel({ label }: { label: string }) {
   );
 }
 
+const NAV_LINK = "whitespace-nowrap rounded-xl px-1 py-1.5 text-[0.95rem] font-semibold text-[#1E4D3B] transition hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2";
 const NEW_BADGE = "ml-1.5 inline-block rounded-full bg-[#B45309] px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white";
 const CTA =
   "inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#B45309] px-2.5 py-2 text-[13px] font-extrabold text-white transition hover:bg-[#1E4D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E4D3B] focus-visible:ring-offset-2 min-[360px]:px-3 sm:px-4";
 
 export function ProductionStyleHeader({ lang = "en" }: { lang?: HeaderLang }) {
-  const products = getHeaderProducts(lang);
+  const base = getHeaderProducts(lang);
+  const products = PRODUCTS_NEW ? { ...base, href: `${base.href}?utm_source=header-new#phonics` } : base;
+  const newBadge = lang === "vi" ? "Mới" : "New";
   return (
     <header className="sticky top-0 z-50 border-b border-[#E6DEC8] bg-[#FAF7F2]/95 py-3 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-1.5 px-3 min-[360px]:gap-3 min-[360px]:px-4 sm:px-6">
@@ -61,27 +73,44 @@ export function ProductionStyleHeader({ lang = "en" }: { lang?: HeaderLang }) {
               <a
                 key={item.href}
                 href={item.href}
-                aria-label={`${item.badge ? `${item.label} ${item.badge}` : item.label} · ${item.desc}`}
+                aria-label={`${item.label} · ${item.desc}`}
                 title={`${item.label} · ${item.desc}`}
-                className="whitespace-nowrap rounded-xl px-1 py-1.5 text-[0.95rem] font-semibold text-[#1E4D3B] transition hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2"
+                className={NAV_LINK}
               >
                 <DesktopNavLabel label={item.label} />
-                {item.badge ? <>{" "}<span className={NEW_BADGE}>{item.badge}</span></> : null}
               </a>
             ))}
+            {/* IELTS: a native disclosure (keyboard: Enter or Space opens it; the two links follow in Tab order). */}
+            <details data-ielts-menu="" className="relative">
+              <summary className={`${NAV_LINK} flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden`}>
+                IELTS <span aria-hidden="true">▾</span>
+              </summary>
+              <ul className="absolute left-0 top-full z-10 mt-2 min-w-[17rem] rounded-2xl border border-[#E6DEC8] bg-[#FAF7F2] p-2 shadow-lg">
+                {IELTS.map((item) => (
+                  <li key={item.href}>
+                    <a href={item.href} aria-label={`${item.label} · ${item.desc}`} className="block rounded-xl px-3 py-2 text-[0.95rem] font-semibold text-[#1E4D3B] hover:bg-white hover:text-[#92400E]">{item.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+            <a href={STORY_CLUB.href} aria-label={`${STORY_CLUB.label} · ${STORY_CLUB.desc}`} title={`${STORY_CLUB.label} · ${STORY_CLUB.desc}`} className={NAV_LINK}>{STORY_CLUB.label}</a>
+            <a href={products.href} aria-label={PRODUCTS_NEW ? `${products.full} ${newBadge}` : products.full} className={NAV_LINK}>
+              {products.label}
+              {PRODUCTS_NEW ? <>{" "}<span className={NEW_BADGE}>{newBadge}</span></> : null}
+            </a>
           </nav>
         </div>
         <div className="flex shrink-0 items-center gap-1.5 min-[360px]:gap-2 sm:gap-3">
           <div className="hidden rounded-full border border-[#E6DEC8] bg-white p-1 text-xs font-semibold 2xl:flex" role="group" aria-label="Language">
             <span className="rounded-full bg-[#1E4D3B] px-3 py-1.5 text-white" aria-current="true">EN</span>
-            {/* The Student Academy has no Vietnamese page yet, so Tiếng Việt goes to the Vietnamese home page. */}
+            {/* The Kids Academy has no Vietnamese page yet, so Tiếng Việt goes to the Vietnamese home page. */}
             <a href="/vi" lang="vi" className="rounded-full px-3 py-1.5 text-[#4A5568] hover:text-[#1E4D3B]">Tiếng Việt</a>
           </div>
           <a
             href={products.href}
             aria-label={products.full}
             data-testid="header-products-link"
-            className="inline-flex min-h-11 min-w-11 items-center justify-center whitespace-nowrap rounded-xl px-1 text-sm font-semibold text-[#1E4D3B] transition hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2 sm:px-2 sm:text-[0.95rem]"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center whitespace-nowrap rounded-xl px-1 text-sm font-semibold text-[#1E4D3B] transition hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2 sm:px-2 sm:text-[0.95rem] 2xl:hidden"
           >
             {products.label}
           </a>
@@ -105,15 +134,33 @@ export function ProductionStyleHeader({ lang = "en" }: { lang?: HeaderLang }) {
               </a>
               {NAV.map((item) => (
                 <a key={item.href} href={item.href} className="rounded-xl border border-[#E6DEC8] bg-white px-4 py-3">
-                  <span className="block text-base font-bold text-[#1E4D3B]">
-                    {item.label}
-                    {item.badge ? <>{" "}<span className={NEW_BADGE}>{item.badge}</span></> : null}
-                  </span>
+                  <span className="block text-base font-bold text-[#1E4D3B]">{item.label}</span>
                   <span className="block text-sm text-[#1C2526]">{item.desc}</span>
                 </a>
               ))}
+              {/* IELTS and its two links listed under it (Option A). */}
+              <div className="rounded-xl border border-[#E6DEC8] bg-white px-4 py-3" role="group" aria-label="IELTS">
+                <span className="block text-base font-bold text-[#1E4D3B]">IELTS</span>
+                <ul className="mt-2 flex flex-col gap-1 border-l-2 border-[#E6DEC8] pl-3">
+                  {IELTS.map((item) => (
+                    <li key={item.href}>
+                      <a href={item.href} className="block py-1.5">
+                        <span className="block text-base font-semibold text-[#1E4D3B]">{item.label}</span>
+                        <span className="block text-sm text-[#1C2526]">{item.desc}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <a href={STORY_CLUB.href} className="rounded-xl border border-[#E6DEC8] bg-white px-4 py-3">
+                <span className="block text-base font-bold text-[#1E4D3B]">{STORY_CLUB.label}</span>
+                <span className="block text-sm text-[#1C2526]">{STORY_CLUB.desc}</span>
+              </a>
               <a href={products.href} className="rounded-xl border border-[#E6DEC8] bg-white px-4 py-3">
-                <span className="block text-base font-bold text-[#1E4D3B]">{products.full}</span>
+                <span className="block text-base font-bold text-[#1E4D3B]">
+                  {products.full}
+                  {PRODUCTS_NEW ? <>{" "}<span className={NEW_BADGE}>{newBadge}</span></> : null}
+                </span>
               </a>
               <a href="/vi" lang="vi" className="border-t border-[#E6DEC8] px-1 pt-3 text-sm font-semibold text-[#1E4D3B]">Tiếng Việt</a>
             </div>

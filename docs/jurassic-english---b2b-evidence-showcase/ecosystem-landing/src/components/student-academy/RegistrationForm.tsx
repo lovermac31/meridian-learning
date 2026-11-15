@@ -265,7 +265,7 @@ export function RegistrationForm() {
           </div>
         </div>
         <p className="mt-4 text-sm text-foreground/70">
-          You can revisit the Student Academy here:{" "}
+          You can revisit the Kids Academy here:{" "}
           <a
             href={CANONICAL_URL}
             className="text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary"
@@ -570,7 +570,7 @@ export function RegistrationForm() {
           />
           <span>
             I agree to be contacted about Jurassic English<span className="text-jurassic-accent text-xs align-top">™</span>{" "}
-            Student Academy.
+            Kids Academy.
           </span>
         </label>
         {errors.consentContact ? (

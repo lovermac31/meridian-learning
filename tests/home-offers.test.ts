@@ -95,10 +95,12 @@ test('band prices that live in this repo match the Young Learners checkout page'
 });
 
 // Header (owner, Oct 2026): five links incl. IELTS Writing + the Baseline CTA.
-test('header: five need-first links (incl. IELTS Writing) and the Baseline CTA, in the visitor language', () => {
+// Header wording Option A (Jay, 15 Nov 2026): Kids Academy · Speaking 9–18 · IELTS (IELTS Writing, IELTS Speaking practice)
+// · Story Club · Books & Prices. Pricing (/#pricing-options) is no longer a door.
+test('header: Option A doors (IELTS list with Writing and Speaking practice, Story Club) in the visitor language', () => {
   for (const [path, start, speaking, adults, writing] of [
-    ['/', '/#pricing-options', '/young-learners-speaking/', '/ai-speaking', '/ai-speaking/writing'],
-    ['/vi', '/vi#pricing-options', '/vi/luyen-noi-ielts/', '/ai-speaking/vi', '/ai-speaking/vi/writing'],
+    ['/', '/story-club', '/young-learners-speaking/', '/ai-speaking', '/ai-speaking/writing'],
+    ['/vi', '/vi/story-club', '/vi/luyen-noi-ielts/', '/ai-speaking/vi', '/ai-speaking/vi/writing'],
   ] as const) {
     setServerLocation(path);
     const html = renderToStaticMarkup(createElement(Navbar, {
@@ -108,6 +110,7 @@ test('header: five need-first links (incl. IELTS Writing) and the Baseline CTA, 
     const hrefs = hrefsIn(html);
     for (const href of [start, speaking, adults, writing]) assert.ok(hrefs.includes(href), `${path}: ${href} in ${hrefs.join(' ')}`);
     assert.ok(hrefs.some((href) => href.endsWith('/student-academy')), `${path}: /student-academy`);
+    assert.ok(!hrefs.some((href) => href.includes('#pricing-options')), `${path}: no Pricing door`);
     assert.doesNotMatch(html, /coming soon|sắp ra mắt/i, path);
   }
 });

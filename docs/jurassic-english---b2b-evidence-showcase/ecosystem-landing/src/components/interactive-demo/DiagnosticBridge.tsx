@@ -72,7 +72,7 @@ export function DiagnosticBridge() {
                     Book a Student Thinking Diagnostic
                   </Link>
                   <Link href="/student-academy" className={JE_CTA_OUTLINE_LIGHT}>
-                    Back to Student Academy
+                    Back to Kids Academy
                   </Link>
                 </div>
               </div>

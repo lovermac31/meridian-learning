@@ -475,8 +475,22 @@ nav.yl2-hdr{position:relative;z-index:40}
 .yl2-hdr-links{display:none;align-items:center;gap:1.5rem}
 .yl2-hdr-links a{white-space:nowrap;color:#1E4D3B;font-weight:600;font-size:.95rem;text-decoration:none;padding:6px 2px;border-radius:6px}
 .yl2-hdr-links a:hover{color:#B45309}
-/* "New" badge on the IELTS Writing link: white on amber #B45309 (5.0:1). */
+/* "New" badge (on Books & Prices during the Phonics launch, until 13 Dec 2026): white on amber #B45309 (5.0:1). */
 .yl2-nb{display:inline-block;margin-left:2px;padding:0 6px;border-radius:999px;background:#B45309;color:#fff;font-size:11px;font-weight:700;line-height:16px;vertical-align:1px;text-decoration:none}
+/* Option A (15 Nov 2026): IELTS opens a short list of two links (native disclosure: Enter or Space opens it). */
+.yl2-hdr-ielts{position:relative}
+.yl2-hdr-ielts>summary{list-style:none;cursor:pointer;white-space:nowrap;color:#1E4D3B;font-weight:600;font-size:.95rem;padding:6px 2px;border-radius:6px}
+.yl2-hdr-ielts>summary::-webkit-details-marker{display:none}
+.yl2-hdr-ielts>summary:hover{color:#B45309}
+.yl2-hdr-ielts>summary:focus-visible{outline:3px solid #1E4D3B;outline-offset:3px}
+.yl2-hdr-ielts-list{position:absolute;left:0;top:calc(100% + 8px);z-index:41;display:flex;flex-direction:column;gap:2px;min-width:17rem;padding:8px;background:#FAF7F2;border:1px solid #E6DEC8;border-radius:16px;box-shadow:0 18px 40px -18px rgba(28,37,38,.35)}
+.yl2-hdr-ielts-list a{padding:8px 12px;border-radius:12px}
+.yl2-hdr-ielts:not([open]) .yl2-hdr-ielts-list{display:none}
+.yl2-hdr-panel-group{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border:1px solid #E6DEC8;border-radius:12px;background:#fff}
+.yl2-hdr-panel-group>strong{color:#1E4D3B}
+.yl2-hdr-panel-group>a{display:block;padding:4px 0 4px 10px;border-left:2px solid #E6DEC8;text-decoration:none}
+.yl2-hdr-panel-group>a strong{display:block;color:#1E4D3B}
+.yl2-hdr-panel-group>a span{display:block;color:#1C2526;font-size:.85rem}
 .yl2-hdr-links a[aria-current="page"]{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
 .yl2-hdr-right .lang-select{display:none}
 /* Products stays one tap away at every width (4 Nov 2026): beside the CTA below 1280px, in the link row from 1280px. */
@@ -515,18 +529,18 @@ nav.yl2-hdr{position:relative;z-index:40}
       <a class="brand" href="/" aria-label="Jurassic English™ home" data-i18n-attr="aria-label:attr.brandHome">
         <div><strong>Jurassic English<sup>™</sup></strong></div>
       </a>
-      <div class="yl2-hdr-links"><a href="/student-academy" data-i18n="yl2.nav.kidsShort" aria-label="Kids Academy · Reading & Story Adventures" data-i18n-attr="aria-label:yl2.nav.kidsAria">Kids Academy</a><a href="#top" aria-current="page" data-i18n="yl2.nav.teens" aria-label="Ages 9–18 · Speaking Confidence & Teen IELTS" data-i18n-attr="aria-label:yl2.nav.teensAria">Ages 9–18</a><a href="/ai-speaking/writing" aria-label="IELTS Writing New · IELTS Writing Task 2: introduction &amp; demo" data-i18n-attr="aria-label:yl2.nav.writingAria"><span data-i18n="yl2.nav.writing">IELTS Writing</span> <span class="yl2-nb" data-i18n="yl2.nav.new">New</span></a><a href="/ai-speaking" data-i18n="yl2.nav.adults" aria-label="AI Speaking Mocks · Adult IELTS Speaking practice (18+)" data-i18n-attr="aria-label:yl2.nav.adultsAria">AI Speaking Mocks</a><a href="/#pricing-options" data-i18n="yl2.nav.jay" aria-label="Pricing · Mr. Jay, plans and pricing" data-i18n-attr="aria-label:yl2.nav.jayAria">Pricing</a><a href="/products" data-products-link data-i18n="yl2.nav.products" aria-label="Products &amp; prices" data-i18n-attr="aria-label:yl2.nav.productsAria">Products</a></div>
+      <div class="yl2-hdr-links"><a href="/student-academy" data-i18n="yl2.nav.kidsShort" aria-label="Kids Academy · Reading &amp; Story Adventures" data-i18n-attr="aria-label:yl2.nav.kidsAria">Kids Academy</a><a href="#top" aria-current="page" data-i18n="yl2.nav.teens" aria-label="Speaking 9–18 · Speaking Confidence &amp; Teen IELTS" data-i18n-attr="aria-label:yl2.nav.teensAria">Speaking 9–18</a><details class="yl2-hdr-ielts"><summary>IELTS <span aria-hidden="true">▾</span></summary><div class="yl2-hdr-ielts-list"><a href="/ai-speaking/writing" data-i18n="yl2.nav.writing" aria-label="IELTS Writing · IELTS Writing Task 2: introduction &amp; demo" data-i18n-attr="aria-label:yl2.nav.writingAria">IELTS Writing</a><a href="/ai-speaking" data-i18n="yl2.nav.adults" aria-label="IELTS Speaking practice (18+) · Adult IELTS Speaking practice (18+)" data-i18n-attr="aria-label:yl2.nav.adultsAria">IELTS Speaking practice (18+)</a></div></details><a href="/story-club" data-story-club-link data-i18n="yl2.nav.storyClub" aria-label="Story Club · Online story groups for children aged 5–8" data-i18n-attr="aria-label:yl2.nav.storyClubAria">Story Club</a><a href="/products" data-products-link aria-label="Books &amp; Prices New" data-i18n-attr="aria-label:yl2.nav.productsNewAria"><span data-i18n="yl2.nav.products">Books &amp; Prices</span> <span class="yl2-nb" data-i18n="yl2.nav.new">New</span></a></div>
     </div>
     <div class="yl2-hdr-right">
       <div class="lang-select" data-lang-selector role="group" aria-label="Language">
         <button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">EN</button>
         <button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button>
       </div>
-      <a class="yl2-hdr-products" href="/products" data-products-link data-i18n="yl2.nav.products" aria-label="Products &amp; prices" data-i18n-attr="aria-label:yl2.nav.productsAria">Products</a>
+      <a class="yl2-hdr-products" href="/products" data-products-link data-i18n="yl2.nav.products" aria-label="Books &amp; Prices" data-i18n-attr="aria-label:yl2.nav.productsAria">Books &amp; Prices</a>
       <a class="yl2-hdr-cta" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book Baseline · 690k₫ →</a>
       <details class="yl2-hdr-menu">
         <summary aria-label="Menu" data-i18n-attr="aria-label:yl2.nav.menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
-        <div class="yl2-hdr-panel"><a href="/student-academy"><strong data-i18n="yl2.nav.kids">Kids Academy</strong><span data-i18n="yl2.nav.kidsDesc">Reading & Story Adventures</span></a><a href="#top" aria-current="page"><strong data-i18n="yl2.nav.teens">Ages 9–18</strong><span data-i18n="yl2.nav.teensDesc">Speaking Confidence & Teen IELTS</span></a><a href="/ai-speaking/writing"><strong><span data-i18n="yl2.nav.writing">IELTS Writing</span> <span class="yl2-nb" data-i18n="yl2.nav.new">New</span></strong><span data-i18n="yl2.nav.writingDesc">IELTS Writing Task 2: introduction &amp; demo</span></a><a href="/ai-speaking"><strong data-i18n="yl2.nav.adults">AI Speaking Mocks</strong><span data-i18n="yl2.nav.adultsDesc">Adult IELTS Speaking practice (18+)</span></a><a href="/#pricing-options"><strong data-i18n="yl2.nav.jay">Pricing</strong><span data-i18n="yl2.nav.jayDesc">Mr. Jay, plans and pricing</span></a><a href="/products" data-products-link><strong data-i18n="yl2.nav.productsFull">Products &amp; prices</strong></a>
+        <div class="yl2-hdr-panel"><a href="/student-academy"><strong data-i18n="yl2.nav.kids">Kids Academy</strong><span data-i18n="yl2.nav.kidsDesc">Reading &amp; Story Adventures</span></a><a href="#top" aria-current="page"><strong data-i18n="yl2.nav.teens">Speaking 9–18</strong><span data-i18n="yl2.nav.teensDesc">Speaking Confidence &amp; Teen IELTS</span></a><div class="yl2-hdr-panel-group" role="group" aria-label="IELTS"><strong>IELTS</strong><a href="/ai-speaking/writing"><strong data-i18n="yl2.nav.writing">IELTS Writing</strong><span data-i18n="yl2.nav.writingDesc">IELTS Writing Task 2: introduction &amp; demo</span></a><a href="/ai-speaking"><strong data-i18n="yl2.nav.adults">IELTS Speaking practice (18+)</strong><span data-i18n="yl2.nav.adultsDesc">Adult IELTS Speaking practice (18+)</span></a></div><a href="/story-club" data-story-club-link><strong data-i18n="yl2.nav.storyClub">Story Club</strong><span data-i18n="yl2.nav.storyClubDesc">Online story groups for children aged 5–8</span></a><a href="/products" data-products-link><strong><span data-i18n="yl2.nav.productsFull">Books &amp; Prices</span> <span class="yl2-nb" data-i18n="yl2.nav.new">New</span></strong></a>
           <a class="yl2-hdr-cta yl2-hdr-cta-panel" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book Baseline · 690k₫ →</a>
           <div class="lang-select" role="group" aria-label="Language"><button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">EN</button><button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button></div>
         </div>

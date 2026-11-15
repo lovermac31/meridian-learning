@@ -329,7 +329,7 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
                   id={headingId}
                   className="text-lg font-semibold tracking-tight text-white"
                 >
-                  Student Academy Assistant
+                  Kids Academy Assistant
                 </h2>
                 <p
                   id={subtitleId}
@@ -344,7 +344,7 @@ export function BotUIChat({ currentPathname, onNavigate }: BotUIChatProps) {
                 type="button"
                 onClick={() => closePanel()}
                 className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
-                aria-label="Close the Student Academy assistant"
+                aria-label="Close the Kids Academy assistant"
               >
                 <X className="h-4 w-4" />
               </button>

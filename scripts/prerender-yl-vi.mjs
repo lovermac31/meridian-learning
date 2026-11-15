@@ -118,7 +118,9 @@ function localiseToolLinks(html) {
     // IELTS Writing intro (header door + footer): the VI page is live and self-canonical (mirrors LOCALIZED_STATIC_HREFS).
     .replaceAll('href="/ai-speaking/writing"', 'href="/ai-speaking/vi/writing"')
     // Header Products links (door beside the CTA, link row, menu panel) open the Vietnamese catalogue.
-    .replaceAll('href="/products"', 'href="/vi/products"');
+    .replaceAll('href="/products"', 'href="/vi/products"')
+    // Header Story Club door (Option A, 15 Nov 2026): the Vietnamese Story Club page.
+    .replaceAll('href="/story-club"', 'href="/vi/story-club"');
 }
 
 function localiseLessonLinks(html) {

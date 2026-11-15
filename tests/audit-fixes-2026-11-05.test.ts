@@ -18,27 +18,33 @@ const read = (path: string) => fs.readFileSync(new URL(`../${path}`, import.meta
 const anchors = (html: string, href: string) => [...html.matchAll(new RegExp(`<a\\b[^>]*href="${href}"[^>]*>`, 'g'))].map((match) => match[0]);
 
 test('ecosystem header (/student-academy, /school-framework, /digital-reasoning-engine, /vi/student-academy/stories): Products door, EN and VI', () => {
-  assert.deepEqual(getHeaderProducts('en'), { label: 'Products', full: 'Products & prices', href: '/products' });
-  assert.deepEqual(getHeaderProducts('vi'), { label: 'Sản phẩm', full: 'Sản phẩm & học phí', href: '/vi/products' });
+  // Header wording Option A (Jay, 15 Nov 2026): Books & Prices / Sách & Bảng giá.
+  assert.deepEqual(getHeaderProducts('en'), { label: 'Books & Prices', full: 'Books & Prices', href: '/products' });
+  assert.deepEqual(getHeaderProducts('vi'), { label: 'Sách & Bảng giá', full: 'Sách & Bảng giá', href: '/vi/products' });
   assert.equal(getHeaderProducts().href, '/products', 'default language is English (the (en) root layout)');
 });
 
 test('ecosystem header renders Products in the bar and in the menu, and the Vietnamese layout passes its language', () => {
   const header = read('docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/components/ProductionStyleHeader.tsx');
   const links = header.match(/<a\s[^>]*href=\{products\.href\}[\s\S]*?<\/a>/g) ?? [];
-  assert.equal(links.length, 2, 'standalone link beside the CTA + a menu row');
-  assert.match(links[0], /data-testid="header-products-link"/);
-  assert.match(links[0], /aria-label=\{products\.full\}/);
-  assert.match(links[0], /min-h-11 min-w-11/, '44px touch target');
-  assert.match(links[0], /\{products\.label\}/);
-  assert.match(links[1], /\{products\.full\}/);
+  // Option A: Books & Prices in the desktop row (2xl), the standalone link beside the CTA (below 2xl), and a menu row.
+  assert.equal(links.length, 3, 'desktop row + standalone link beside the CTA + a menu row');
+  const standalone = links.find((link) => link.includes('data-testid="header-products-link"'))!;
+  assert.match(standalone, /aria-label=\{products\.full\}/);
+  assert.match(standalone, /min-h-11 min-w-11/, '44px touch target');
+  assert.match(standalone, /\{products\.label\}/);
+  assert.match(standalone, /2xl:hidden/, 'the desktop row carries it from 2xl');
+  assert.ok(links.some((link) => link.includes('{products.full}')), 'menu row');
   // The standalone link is outside the <details> menu; the second row is inside it.
-  const [bar, menu] = header.split('<details');
+  // Option A added a <details> for the IELTS list, so split at the site menu itself.
+  const [bar, menu] = header.split('<details data-site-menu');
   assert.ok(bar.includes('products.href') && menu.includes('products.href'));
   // The CTA wraps below 640px so Products keeps its place.
   assert.match(header, /max-\[639px\]:max-w-\[6\.5rem\]/);
   // Nothing else changed: the doors, the Baseline CTA and the language switch are still there.
-  for (const href of ['/student-academy', '/young-learners-speaking/', '/ai-speaking/writing', '/ai-speaking', '/#pricing-options', '/vi']) assert.ok(header.includes(`"${href}"`), href);
+  for (const href of ['/student-academy', '/young-learners-speaking/', '/ai-speaking/writing', '/ai-speaking', '/story-club', '/vi']) assert.ok(header.includes(`"${href}"`), href);
+  assert.ok(!header.includes('"/#pricing-options"'), 'Option A: no Pricing door');
+  assert.doesNotMatch(header, /AI Speaking Mocks|Ages 9–18|label: "Pricing"/, 'Option A: old labels gone');
   assert.ok(header.includes('CTA_HREF = "/ai-speaking/baseline"'));
   const shell = read('docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/components/RootShell.tsx');
   assert.match(shell, /<ProductionStyleHeader lang=\{lang\} \/>/);
@@ -49,7 +55,11 @@ test('Young Learners page header: Products beside the CTA, in the link row and i
   const html = read('young-learners-speaking/index.html');
   const nav = html.match(/<nav class="yl2-nav yl2-hdr"[\s\S]*?<\/nav>/)![0];
   assert.equal(anchors(nav, '/products').length, 3, 'right-hand cluster, link row, menu panel');
-  assert.match(nav, /<div class="yl2-hdr-right">[\s\S]*?<a class="yl2-hdr-products" href="\/products" data-products-link[^>]*>Products<\/a>/);
+  assert.match(nav, /<div class="yl2-hdr-right">[\s\S]*?<a class="yl2-hdr-products" href="\/products" data-products-link[^>]*>Books &amp; Prices<\/a>/);
+  // Option A doors: IELTS list (Writing, Speaking practice), Story Club; no Pricing, no old labels.
+  assert.match(nav, /<details class="yl2-hdr-ielts"><summary>IELTS/);
+  assert.equal(anchors(nav, '/story-club').length, 2, 'link row + menu panel');
+  assert.doesNotMatch(nav, /#pricing-options|AI Speaking Mocks|Ages 9–18|>Pricing</);
   assert.match(html, /\.yl2-hdr-products\{display:inline-flex;[^}]*min-height:44px;min-width:44px/);
   // From 1280px the link row carries it and the standalone copy is hidden (no duplicate in the bar).
   assert.match(html, /@media\(min-width:1280px\)\{[^@]*\.yl2-hdr-right>\.yl2-hdr-products\{display:none\}/);
@@ -60,8 +70,11 @@ test('Vietnamese Young Learners page (/vi/luyen-noi-ielts/): Sản phẩm links 
   const nav = vi.match(/<nav class="yl2-nav yl2-hdr"[\s\S]*?<\/nav>/)![0];
   assert.equal(anchors(nav, '/vi/products').length, 3);
   assert.equal(anchors(nav, '/products').length, 0);
-  assert.match(nav, /data-products-link[^>]*>Sản phẩm<\/a>/);
-  assert.match(nav, /aria-label="Sản phẩm &amp; học phí"/);
+  assert.match(nav, /data-products-link[^>]*>Sách &amp; Bảng giá<\/a>/);
+  assert.match(nav, /aria-label="Sách &amp; Bảng giá"/);
+  assert.equal(anchors(nav, '/vi/story-club').length, 2, 'Story Club opens the Vietnamese page');
+  assert.match(nav, />Luyện nói 9–18</);
+  assert.match(nav, />Luyện Nói IELTS 18\+</);
   assert.equal(anchors(vi, '/products').length, 0);
 });
 
@@ -74,8 +87,8 @@ test('Young Learners runtime language switch re-points the Products links', () =
 
 test('One Change challenge: header Products link (EN and VI) and contrast of the three small texts', () => {
   const html = read('public/challenges/one-change/index.html');
-  assert.match(html, /<header>[\s\S]*<a id="products-link" class="hdr-link" href="\/products">Products<\/a>[\s\S]*<\/header>/);
-  assert.match(html, /\$\('products-link'\)\.textContent=l\?'Sản phẩm':'Products';\$\('products-link'\)\.href=l\?'\/vi\/products':'\/products';/);
+  assert.match(html, /<header>[\s\S]*<a id="products-link" class="hdr-link" href="\/products">Books &amp; Prices<\/a>[\s\S]*<\/header>/);
+  assert.match(html, /\$\('products-link'\)\.textContent=l\?'Sách & Bảng giá':'Books & Prices';\$\('products-link'\)\.href=l\?'\/vi\/products':'\/products';/);
   const channel = (hex: string) => { const v = parseInt(hex, 16) / 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
   const luminance = (rgb: string) => 0.2126 * channel(rgb.slice(0, 2)) + 0.7152 * channel(rgb.slice(2, 4)) + 0.0722 * channel(rgb.slice(4, 6));
   const ratio = (a: string, b: string) => { const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x); return (hi + 0.05) / (lo + 0.05); };
@@ -91,7 +104,7 @@ test('One Change challenge: header Products link (EN and VI) and contrast of the
 
 test('HTML site map header: Products link in the header, EN and VI', () => {
   const source = read('scripts/seo/build-html-sitemap.mjs');
-  assert.match(source, /<header><nav aria-label="Main">[\s\S]*?href="\$\{lang === 'vi' \? '\/vi\/products' : '\/products'\}"[^>]*>\$\{lang === 'vi' \? 'Sản phẩm' : 'Products'\}<\/a>[\s\S]*?<\/nav><\/header>/);
+  assert.match(source, /<header><nav aria-label="Main">[\s\S]*?href="\$\{lang === 'vi' \? '\/vi\/products' : '\/products'\}"[^>]*>\$\{lang === 'vi' \? 'Sách & Bảng giá' : 'Books & Prices'\}<\/a>[\s\S]*?<\/nav><\/header>/);
 });
 
 // React error #418: the prerender (Node ICU) and the browser (its own CLDR) disagree on region names, so a country list
