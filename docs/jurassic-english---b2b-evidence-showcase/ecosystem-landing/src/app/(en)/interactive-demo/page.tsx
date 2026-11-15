@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "Jurassic English™ Student Academy — Interactive Pathway Demo",
+      "Jurassic English™ Kids Academy — Interactive Pathway Demo",
     description:
       "Explore how students move from first story claims to evidence-based interpretation, academic writing, and advanced argument across five levels.",
     type: "website",
@@ -55,13 +55,13 @@ export const metadata: Metadata = {
         url: "/images/student-academy-page/student-academy-hero.webp",
         width: 1200,
         height: 630,
-        alt: "Jurassic English™ Student Academy Interactive Demo",
+        alt: "Jurassic English™ Kids Academy Interactive Demo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jurassic English™ Student Academy Interactive Pathway Demo",
+    title: "Jurassic English™ Kids Academy Interactive Pathway Demo",
     description:
       "Preview the five-level student thinking pathway, from claim-making to academic argument.",
     images: ["/images/student-academy-page/student-academy-hero.webp"],
@@ -151,7 +151,7 @@ function InteractiveDemoHero() {
               Book a Student Thinking Diagnostic
             </Link>
             <Link href="/student-academy" className={JE_CTA_GLASS_DARK}>
-              Back to Student Academy
+              Back to Kids Academy
             </Link>
           </div>
           <p className="mt-4 text-xs italic text-primary-foreground/55 max-w-xl mx-auto">
@@ -255,7 +255,7 @@ function FinalConversionSection() {
             Book a Student Thinking Diagnostic
           </Link>
           <Link href="/student-academy" className={JE_CTA_GLASS_DARK}>
-            Return to Student Academy
+            Return to Kids Academy
           </Link>
         </div>
         <p className="mt-4 text-xs italic text-primary-foreground/55">

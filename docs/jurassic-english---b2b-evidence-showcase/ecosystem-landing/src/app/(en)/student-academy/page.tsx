@@ -13,7 +13,7 @@ const STUDENT_ACADEMY_COURSE_LD = {
   "@context": "https://schema.org",
   "@type": "Course",
   "@id": "https://jurassicenglish.com/#student-academy-course",
-  name: "Jurassic English™ Student Academy",
+  name: "Jurassic English™ Kids Academy",
   description:
     "A five-level literature-based English program for ages 6–14. Students read real storybooks, explain their ideas with Point + Proof + Explain, and build a written Growth Portfolio of vocabulary logs and revised paragraphs.",
   url: "https://jurassicenglish.com/student-academy",
@@ -28,7 +28,7 @@ const STUDENT_ACADEMY_WEBPAGE_LD = {
   "@type": "WebPage",
   "@id": "https://jurassicenglish.com/student-academy#webpage",
   url: "https://jurassicenglish.com/student-academy",
-  name: "Student Academy: Literature-Based English | Jurassic English",
+  name: "Kids Academy: Literature-Based English | Jurassic English",
   description:
     "Literature-based English for ages 6–14: real storybooks, speaking, evidence-backed writing and a Growth Portfolio. Start with a 45-minute consultation.",
   isPartOf: { "@id": "https://jurassicenglish.com/#website" },
@@ -53,7 +53,7 @@ const STUDENT_ACADEMY_BREADCRUMB_LD = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "Student Academy",
+      name: "Kids Academy",
       item: "https://jurassicenglish.com/student-academy",
     },
   ],
@@ -61,7 +61,7 @@ const STUDENT_ACADEMY_BREADCRUMB_LD = {
 
 export const metadata: Metadata = {
   title:
-    "Student Academy: Literature-Based English | Jurassic English",
+    "Kids Academy: Literature-Based English | Jurassic English",
   description:
     "Literature-based English for ages 6–14: real storybooks, speaking, evidence-backed writing and a Growth Portfolio. Start with a 45-minute consultation.",
   alternates: {
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "Jurassic English™ Student Academy | Literature-Based English Thinking",
+      "Jurassic English™ Kids Academy | Literature-Based English Thinking",
     description:
       "A literature-based English thinking pathway for students who need more than tutoring: fluency, academic reasoning, structured writing, speaking confidence, and visible progress.",
     type: "website",
@@ -80,13 +80,13 @@ export const metadata: Metadata = {
         url: "/images/overhaul/hero-story-expedition.webp",
         width: 1200,
         height: 630,
-        alt: "Jurassic English™ Student Academy",
+        alt: "Jurassic English™ Kids Academy",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jurassic English™ Student Academy",
+    title: "Jurassic English™ Kids Academy",
     description:
       "Read deeper, speak smarter, write stronger, and defend ideas in English. A five-level literature-based pathway.",
     images: [

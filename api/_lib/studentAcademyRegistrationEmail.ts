@@ -53,21 +53,21 @@ function firstName(fullName: string): string {
 export function buildStudentAcademyRegistrationEmail(
   registration: NormalizedStudentAcademyRegistration,
 ): { subject: string; html: string; text: string } {
-  const subject = 'Your Jurassic English™ Student Academy Registration';
+  const subject = 'Your Jurassic English™ Kids Academy Registration';
   const greetingName = firstName(registration.parentFullName);
   const greeting = greetingName.length > 0 ? `Hello ${escapeHtml(greetingName)},` : 'Hello,';
 
   const text = [
     `${greetingName ? `Hello ${greetingName},` : 'Hello,'}`,
     '',
-    'Thank you for registering your interest in Jurassic English™ Student Academy.',
+    'Thank you for registering your interest in Jurassic English™ Kids Academy.',
     '',
     'We received your registration and will review the learner details you provided. The next step is to confirm the most appropriate pathway and, when suitable, arrange a Student Thinking Diagnostic.',
     '',
-    'You can access the Student Academy page here:',
+    'You can access the Kids Academy page here:',
     CANONICAL_URL,
     '',
-    'The Student Academy is designed to help learners read deeper, speak with more confidence, write with evidence, and build visible academic reasoning through literature-based study.',
+    'The Kids Academy is designed to help learners read deeper, speak with more confidence, write with evidence, and build visible academic reasoning through literature-based study.',
     '',
     'There is no fail in the diagnostic process. We do not promise scores. We build the reasoning the bands reward.',
     '',
@@ -95,7 +95,7 @@ export function buildStudentAcademyRegistrationEmail(
             <tr>
               <td style="background:#0b3b24;padding:28px 32px;color:#f4f1ea;">
                 <div style="font-size:20px;font-weight:600;letter-spacing:-0.3px;">
-                  Jurassic English<span style="color:#f26419;font-size:11px;vertical-align:top;">&#8482;</span> Student Academy
+                  Jurassic English<span style="color:#f26419;font-size:11px;vertical-align:top;">&#8482;</span> Kids Academy
                 </div>
                 <div style="font-size:13px;color:rgba(244,241,234,0.75);margin-top:4px;">
                   Registration confirmation
@@ -108,7 +108,7 @@ export function buildStudentAcademyRegistrationEmail(
               <td style="padding:32px;font-size:15px;line-height:1.65;color:#112a46;">
                 <p style="margin:0 0 16px 0;">${greeting}</p>
                 <p style="margin:0 0 16px 0;">
-                  Thank you for registering your interest in Jurassic English<span style="color:#f26419;font-size:10px;vertical-align:super;">&#8482;</span> Student Academy.
+                  Thank you for registering your interest in Jurassic English<span style="color:#f26419;font-size:10px;vertical-align:super;">&#8482;</span> Kids Academy.
                 </p>
                 <p style="margin:0 0 16px 0;">
                   We received your registration and will review the learner details you provided.
@@ -121,14 +121,14 @@ export function buildStudentAcademyRegistrationEmail(
                     <td bgcolor="#f26419" style="border-radius:8px;">
                       <a href="${escapeHtml(CANONICAL_URL)}"
                          style="display:inline-block;padding:12px 22px;font-size:15px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:8px;">
-                        Open Student Academy
+                        Open Kids Academy
                       </a>
                     </td>
                   </tr>
                 </table>
 
                 <p style="margin:0 0 16px 0;">
-                  The Student Academy is designed to help learners read deeper, speak with more confidence, write with evidence, and build visible academic reasoning through literature-based study.
+                  The Kids Academy is designed to help learners read deeper, speak with more confidence, write with evidence, and build visible academic reasoning through literature-based study.
                 </p>
                 <p style="margin:0 0 20px 0;padding:14px 16px;background:#f4f1ea;border-left:3px solid #c5a059;border-radius:4px;font-size:14px;color:#3a4358;">
                   There is no fail in the diagnostic process. We do not promise scores. We build the reasoning the bands reward.

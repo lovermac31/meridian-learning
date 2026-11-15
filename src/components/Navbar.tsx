@@ -10,6 +10,8 @@ import { getUiString } from '../i18n/ui';
 import { trackCtaClick } from '../lib/analytics';
 
 const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
+// A header door. Option A (15 Nov 2026): `aria` overrides the accessible name (IELTS · JurassicIELTS.com).
+type NavLink = { key: string; label: string; desc: string; href: string; kind: 'route' | 'native'; short?: string; aria?: string };
 
 // Light storybook header (10/10 overhaul). Two-line door links: age + what it is.
 const NAV_LINK =
@@ -148,7 +150,7 @@ export const Navbar = ({
   const overhaul = getOverhaulContent(locale);
   // Phonics launch (Jay, 15 Nov 2026, D3/D4): for four weeks Products carries the "New" badge and links straight to the
   // Phonics tile, as a full page load so the #phonics anchor opens the tile. PRODUCTS_NEW_HIGHLIGHT = false undoes it all.
-  const navItems = overhaul.nav.items.map((item) =>
+  const navItems: NavLink[] = (overhaul.nav.items as readonly NavLink[]).map((item) =>
     PRODUCTS_NEW_HIGHLIGHT && item.key === 'products' ? { ...item, href: PRODUCTS_NEW_HREF, kind: 'native' as const } : item);
   const productsItem = navItems.find((item) => item.key === 'products');
   // The header button is the page's own next step (website assessment, 27 Oct 2026): the free sample pack on parent
@@ -156,10 +158,10 @@ export const Navbar = ({
   const cta = headerCta(getCurrentPathname(), locale, overhaul.nav);
   const bookHref = cta.href;
   const bookLabel = cta.label;
-  // "New" / "Mới" badge: on Products during the Phonics launch, otherwise on IELTS Writing (one badge at a time). The
-  // accessible name starts with the visible text (WCAG 2.5.3).
-  const badgeFor = (key: string) => (key === (PRODUCTS_NEW_HIGHLIGHT ? 'products' : 'writing') ? overhaul.nav.newBadge : null);
-  const newInProducts = locale === 'vi' ? 'Mới trong Sản phẩm' : 'New in Products';
+  // "New" / "Mới" badge: on Books & Prices during the Phonics launch, otherwise on IELTS (Option A: one badge at a time,
+  // never on a removed door). The accessible name starts with the visible text (WCAG 2.5.3).
+  const badgeFor = (key: string) => (key === (PRODUCTS_NEW_HIGHLIGHT ? 'products' : 'ielts') ? overhaul.nav.newBadge : null);
+  const newInProducts = `${overhaul.nav.newBadge}: ${productsItem?.label ?? ''}`;
   const trackProductsNew = () => {
     if (!PRODUCTS_NEW_HIGHLIGHT) return;
     try {
@@ -172,7 +174,7 @@ export const Navbar = ({
 
   const handleNavItemClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
-    item: (typeof navItems)[number],
+    item: NavLink,
   ) => {
     setIsMobileMenuOpen(false);
     if (item.key === 'products') trackProductsNew();
@@ -223,10 +225,12 @@ export const Navbar = ({
               href={getLocalizedHref(item.href, locale)}
               onClick={(event) => handleNavItemClick(event, item)}
               className={NAV_LINK}
-              aria-label={[badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label, item.desc].filter(Boolean).join(' · ')}
-              title={[item.label, item.desc].filter(Boolean).join(' · ')}
+              aria-label={item.aria
+                ? (badgeFor(item.key) ? item.aria.replace(item.label, `${item.label} ${badgeFor(item.key)}`) : item.aria)
+                : [badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label, item.desc].filter(Boolean).join(' · ')}
+              title={item.aria ?? [item.label, item.desc].filter(Boolean).join(' · ')}
             >
-              <DesktopNavLabel label={item.label} short={'short' in item ? item.short : undefined} />
+              <DesktopNavLabel label={item.label} short={item.short} />
               {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
             </a>
           ))}
@@ -243,7 +247,10 @@ export const Navbar = ({
               className={`${NAV_LINK} inline-flex min-h-11 min-w-11 items-center justify-center px-1 max-[639px]:text-sm sm:px-2 2xl:hidden`}
               data-testid="header-products-link"
             >
-              {'short' in productsItem && productsItem.short ? productsItem.short : productsItem.label}
+              {/* Below 768 px the short label (Jay, 15 Nov 2026: "Short label: Products"), so it clears the logo at 360 px.
+                  Only one span is displayed at a time, so the accessible name is always the visible text. */}
+              {productsItem.short ? <span className="md:hidden">{productsItem.short}</span> : null}
+              <span className={productsItem.short ? 'max-md:hidden' : undefined}>{productsItem.label}</span>
             </a>
           ) : null}
           <a

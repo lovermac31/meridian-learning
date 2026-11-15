@@ -27,7 +27,7 @@ import {
 // homepage placement. Every amount and condition comes from terms.ts.
 // Gated by familyRewardsMode(): production 404s until funding is approved.
 
-const DESCRIPTION = `Student Academy families earn ${REWARD} tuition credit per new family completing ${RULES.qualifyingLessons} paid lessons; two families earn ${TWO_FAMILY_REWARD}. Terms and how to join.`;
+const DESCRIPTION = `Kids Academy families earn ${REWARD} tuition credit per new family completing ${RULES.qualifyingLessons} paid lessons; two families earn ${TWO_FAMILY_REWARD}. Terms and how to join.`;
 
 // generateMetadata, not a static export: static metadata is still sent in
 // the RSC payload of the gated 404, which would publish the amounts.
@@ -37,11 +37,11 @@ export function generateMetadata(): Metadata {
 }
 
 const METADATA: Metadata = {
-  title: "Family Rewards | Jurassic English™ Student Academy",
+  title: "Family Rewards | Jurassic English™ Kids Academy",
   description: DESCRIPTION,
   alternates: { canonical: ROUTE },
   openGraph: {
-    title: "Family Rewards | Jurassic English™ Student Academy",
+    title: "Family Rewards | Jurassic English™ Kids Academy",
     description: DESCRIPTION,
     type: "website",
     siteName: "Jurassic English™",
@@ -51,13 +51,13 @@ const METADATA: Metadata = {
         url: "/images/student-academy-page/student-academy-hero.webp",
         width: 1200,
         height: 630,
-        alt: "Jurassic English™ Student Academy",
+        alt: "Jurassic English™ Kids Academy",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Family Rewards | Jurassic English™ Student Academy",
+    title: "Family Rewards | Jurassic English™ Kids Academy",
     description: DESCRIPTION,
     images: ["/images/student-academy-page/student-academy-hero.webp"],
   },
@@ -87,14 +87,14 @@ export default function FamilyRewardsPage() {
 
       <div className="mx-auto max-w-3xl px-4 pb-16 pt-6 sm:px-6">
         <a href="/student-academy" className={BACK}>
-          <ArrowLeft aria-hidden="true" className="h-4 w-4" /> Back to Student Academy
+          <ArrowLeft aria-hidden="true" className="h-4 w-4" /> Back to Kids Academy
         </a>
 
         <header className="mt-4">
-          <p className={EYEBROW}>Student Academy · Pilot programme</p>
+          <p className={EYEBROW}>Kids Academy · Pilot programme</p>
           <h1 className="mt-3 text-[2rem] font-extrabold leading-[1.1] text-[#1E4D3B] sm:text-[2.4rem]">Family Rewards</h1>
           <p className="mt-4 text-base leading-relaxed text-[#4A5568] sm:text-lg">
-            Introduce a new family to the Student Academy. When they complete their first {RULES.qualifyingLessons} paid
+            Introduce a new family to the Kids Academy. When they complete their first {RULES.qualifyingLessons} paid
             individual lessons, you receive {REWARD} of tuition credit.
           </p>
         </header>
@@ -141,7 +141,7 @@ export default function FamilyRewardsPage() {
         <section id="join" aria-labelledby="join-heading" className="mt-10 scroll-mt-24 rounded-[1.25rem] border border-[#E6DEC8] bg-white p-5 sm:p-6">
           <h2 id="join-heading" className={H2}>Join the programme</h2>
           <p className="mt-2 text-[#4A5568]">
-            For current and former Student Academy parents or guardians, and adult learners.
+            For current and former Kids Academy parents or guardians, and adult learners.
           </p>
           <div className="mt-5">
             {formUrl ? (
@@ -223,7 +223,7 @@ export default function FamilyRewardsPage() {
         </section>
 
         <a href="/student-academy" className={`${BACK} mt-10`}>
-          <ArrowLeft aria-hidden="true" className="h-4 w-4" /> Back to Student Academy
+          <ArrowLeft aria-hidden="true" className="h-4 w-4" /> Back to Kids Academy
         </a>
       </div>
     </div>

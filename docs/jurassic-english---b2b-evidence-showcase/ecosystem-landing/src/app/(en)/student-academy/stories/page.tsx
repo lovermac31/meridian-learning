@@ -6,9 +6,9 @@ import { STORIES_PATH, STORIES_VI_PATH } from "@/lib/academy/levelBooks";
 // /vi/student-academy/stories; both render src/components/student-academy/LevelStories.tsx.
 
 export const metadata: Metadata = {
-  title: "Level stories | Jurassic English™ Student Academy",
+  title: "Level stories | Jurassic English™ Kids Academy",
   description:
-    "Two original Jurassic English storybooks for each Student Academy level, and the next step with Mr. Jay.",
+    "Two original Jurassic English storybooks for each Kids Academy level, and the next step with Mr. Jay.",
   alternates: { canonical: STORIES_PATH, languages: { en: STORIES_PATH, vi: STORIES_VI_PATH } },
 };
 

@@ -1,0 +1,686 @@
+{
+  "/@360": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 16,
+      "right": 102.53125,
+      "top": 17.203125,
+      "bottom": 54.796875
+    },
+    "products": {
+      "left": 119.5625,
+      "right": 188,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": {
+      "left": 192,
+      "right": 296,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": {
+      "left": 300,
+      "right": 344,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/@390": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 16,
+      "right": 102.53125,
+      "top": 17.203125,
+      "bottom": 54.796875
+    },
+    "products": {
+      "left": 149.5625,
+      "right": 218,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": {
+      "left": 222,
+      "right": 326,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": {
+      "left": 330,
+      "right": 374,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    },
+    "drawerIelts": {
+      "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+      "text": "IELTSIELTS Writing and Speaking on JurassicIELTS.com"
+    }
+  },
+  "/@1440": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 24,
+      "right": 219.8125,
+      "top": 24.390625,
+      "bottom": 47.59375
+    },
+    "products": {
+      "left": 1047.375,
+      "right": 1174,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": {
+      "left": 1186,
+      "right": 1360,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": {
+      "left": 1372,
+      "right": 1416,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/@1920": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 184,
+      "right": 379.8125,
+      "top": 24.390625,
+      "bottom": 47.59375
+    },
+    "products": null,
+    "cta": {
+      "left": 1562,
+      "right": 1736,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": null,
+    "overflowX": false,
+    "desktop": [
+      "Kids Academy",
+      "Speaking 9–18",
+      "IELTS",
+      "Story Club",
+      "Books & Prices New"
+    ],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/vi@360": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 16,
+      "right": 102.53125,
+      "top": 17.203125,
+      "bottom": 54.796875
+    },
+    "products": {
+      "left": 113.421875,
+      "right": 188,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": {
+      "left": 192,
+      "right": 296,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": {
+      "left": 300,
+      "right": 344,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/vi@390": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 16,
+      "right": 102.53125,
+      "top": 17.203125,
+      "bottom": 54.796875
+    },
+    "products": {
+      "left": 143.421875,
+      "right": 218,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": {
+      "left": 222,
+      "right": 326,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": {
+      "left": 330,
+      "right": 374,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    },
+    "drawerIelts": {
+      "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+      "text": "IELTSIELTS Writing và Speaking trên JurassicIELTS.com"
+    }
+  },
+  "/vi@1440": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 24,
+      "right": 219.8125,
+      "top": 24.390625,
+      "bottom": 47.59375
+    },
+    "products": {
+      "left": 1010.765625,
+      "right": 1145.578125,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": {
+      "left": 1157.578125,
+      "right": 1360,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": {
+      "left": 1372,
+      "right": 1416,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/vi@1920": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 184,
+      "right": 379.8125,
+      "top": 24.390625,
+      "bottom": 47.59375
+    },
+    "products": null,
+    "cta": {
+      "left": 1533.578125,
+      "right": 1736,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": null,
+    "overflowX": false,
+    "desktop": [
+      "Học viện Thiếu nhi",
+      "Luyện nói 9–18",
+      "IELTS",
+      "Câu lạc bộ Truyện",
+      "Sách & Bảng giá Mới"
+    ],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/young-learners-speaking/@360": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 20,
+      "right": 179.796875,
+      "top": 23.515625,
+      "bottom": 48.46875
+    },
+    "products": {
+      "left": 206.390625,
+      "right": 284,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": null,
+    "menu": {
+      "left": 296,
+      "right": 340,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      },
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": null
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/young-learners-speaking/@390": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 20,
+      "right": 179.796875,
+      "top": 23.515625,
+      "bottom": 48.46875
+    },
+    "products": {
+      "left": 236.390625,
+      "right": 314,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": null,
+    "menu": {
+      "left": 326,
+      "right": 370,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      },
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": null
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    },
+    "drawerIelts": {
+      "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+      "text": "IELTSIELTS Writing and Speaking on JurassicIELTS.com"
+    }
+  },
+  "/young-learners-speaking/@1440": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 104,
+      "right": 304.265625,
+      "top": 23.515625,
+      "bottom": 48.46875
+    },
+    "products": null,
+    "cta": {
+      "left": 1125.859375,
+      "right": 1336,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": null,
+    "overflowX": false,
+    "desktop": [
+      "Kids Academy",
+      "Speaking 9–18",
+      "IELTS",
+      "Story Club",
+      "Books & Prices New"
+    ],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      },
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": null
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/young-learners-speaking/@1920": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 344,
+      "right": 544.265625,
+      "top": 23.515625,
+      "bottom": 48.46875
+    },
+    "products": null,
+    "cta": {
+      "left": 1365.859375,
+      "right": 1576,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": null,
+    "overflowX": false,
+    "desktop": [
+      "Kids Academy",
+      "Speaking 9–18",
+      "IELTS",
+      "Story Club",
+      "Books & Prices New"
+    ],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      },
+      {
+        "href": "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": null
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/vi/luyen-noi-ielts/@360": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 20,
+      "right": 179.796875,
+      "top": 23.515625,
+      "bottom": 48.46875
+    },
+    "products": {
+      "left": 199.71875,
+      "right": 284,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": null,
+    "menu": {
+      "left": 296,
+      "right": 340,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      },
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": null
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/vi/luyen-noi-ielts/@390": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 20,
+      "right": 179.796875,
+      "top": 23.515625,
+      "bottom": 48.46875
+    },
+    "products": {
+      "left": 229.71875,
+      "right": 314,
+      "top": 14,
+      "bottom": 58
+    },
+    "cta": null,
+    "menu": {
+      "left": 326,
+      "right": 370,
+      "top": 14,
+      "bottom": 58
+    },
+    "overflowX": false,
+    "desktop": [],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      },
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": null
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    },
+    "drawerIelts": {
+      "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+      "text": "IELTSIELTS Writing và Speaking trên JurassicIELTS.com"
+    }
+  },
+  "/vi/luyen-noi-ielts/@1440": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 104,
+      "right": 304.265625,
+      "top": 23.515625,
+      "bottom": 48.46875
+    },
+    "products": null,
+    "cta": {
+      "left": 1135.953125,
+      "right": 1336,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": null,
+    "overflowX": false,
+    "desktop": [
+      "Học viện Thiếu nhi",
+      "Luyện nói 9–18",
+      "IELTS",
+      "Câu lạc bộ Truyện",
+      "Sách & Bảng giá Mới"
+    ],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      },
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": null
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  },
+  "/vi/luyen-noi-ielts/@1920": {
+    "rowHeight": 72,
+    "logo": {
+      "left": 344,
+      "right": 544.265625,
+      "top": 23.515625,
+      "bottom": 48.46875
+    },
+    "products": null,
+    "cta": {
+      "left": 1375.953125,
+      "right": 1576,
+      "top": 14,
+      "bottom": 58
+    },
+    "menu": null,
+    "overflowX": false,
+    "desktop": [
+      "Học viện Thiếu nhi",
+      "Luyện nói 9–18",
+      "IELTS",
+      "Câu lạc bộ Truyện",
+      "Sách & Bảng giá Mới"
+    ],
+    "ielts": [
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": "IELTS · JurassicIELTS.com"
+      },
+      {
+        "href": "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+        "target": "",
+        "aria": null
+      }
+    ],
+    "overlaps": {
+      "logoProducts": false,
+      "productsCta": false,
+      "ctaMenu": false,
+      "logoCta": false
+    }
+  }
+}

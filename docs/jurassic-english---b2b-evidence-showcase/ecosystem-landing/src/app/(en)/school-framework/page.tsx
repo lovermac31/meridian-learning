@@ -321,7 +321,7 @@ export default function SchoolFramework() {
 
             <PathwayFooterWarning
               text="Looking for individual student support instead?"
-              linkText="Explore Jurassic English™ Student Academy"
+              linkText="Explore Jurassic English™ Kids Academy"
               href="/student-academy"
             />
           </div>

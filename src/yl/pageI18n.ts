@@ -177,6 +177,14 @@ function applyProductsLinks(lang: Lang): void {
   document.querySelectorAll<HTMLAnchorElement>('a[data-products-link]').forEach((a) => {
     a.setAttribute('href', lang === 'vi' ? '/vi/products' : '/products');
   });
+  // Header Story Club door (Option A, 15 Nov 2026), mirrored in prerender-yl-vi.mjs.
+  document.querySelectorAll<HTMLAnchorElement>('a[data-story-club-link]').forEach((a) => {
+    a.setAttribute('href', lang === 'vi' ? '/vi/story-club' : '/story-club');
+  });
+  // Header IELTS door: JurassicIELTS.com in the page language (mirrored in prerender-yl-vi.mjs).
+  document.querySelectorAll<HTMLAnchorElement>('a[data-ielts-link]').forEach((a) => {
+    a.setAttribute('href', lang === 'vi' ? 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move' : 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move');
+  });
 }
 
 function applyAll(lang: Lang): void {

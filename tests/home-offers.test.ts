@@ -95,10 +95,12 @@ test('band prices that live in this repo match the Young Learners checkout page'
 });
 
 // Header (owner, Oct 2026): five links incl. IELTS Writing + the Baseline CTA.
-test('header: five need-first links (incl. IELTS Writing) and the Baseline CTA, in the visitor language', () => {
-  for (const [path, start, speaking, adults, writing] of [
-    ['/', '/#pricing-options', '/young-learners-speaking/', '/ai-speaking', '/ai-speaking/writing'],
-    ['/vi', '/vi#pricing-options', '/vi/luyen-noi-ielts/', '/ai-speaking/vi', '/ai-speaking/vi/writing'],
+// Header wording Option A (Jay, 15 Nov 2026): Kids Academy · Speaking 9–18 · IELTS · Story Club · Books & Prices. IELTS is
+// one link to JurassicIELTS.com ("Move IELTS to jurassicielts.com"); Pricing (/#pricing-options) is no longer a door.
+test('header: Option A doors (IELTS on JurassicIELTS.com, Story Club) in the visitor language', () => {
+  for (const [path, start, speaking, ielts] of [
+    ['/', '/story-club', '/young-learners-speaking/', 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move'],
+    ['/vi', '/vi/story-club', '/vi/luyen-noi-ielts/', 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move'],
   ] as const) {
     setServerLocation(path);
     const html = renderToStaticMarkup(createElement(Navbar, {
@@ -106,8 +108,11 @@ test('header: five need-first links (incl. IELTS Writing) and the Baseline CTA, 
     }));
     setServerLocation('/');
     const hrefs = hrefsIn(html);
-    for (const href of [start, speaking, adults, writing]) assert.ok(hrefs.includes(href), `${path}: ${href} in ${hrefs.join(' ')}`);
+    for (const href of [start, speaking, ielts]) assert.ok(hrefs.includes(href), `${path}: ${href} in ${hrefs.join(' ')}`);
+    assert.match(html, /aria-label="IELTS · JurassicIELTS\.com"/, `${path}: IELTS accessible name`);
+    assert.doesNotMatch(html, /target="_blank"[^>]*jurassicielts|jurassicielts[^>]*target="_blank"/, `${path}: same tab`);
     assert.ok(hrefs.some((href) => href.endsWith('/student-academy')), `${path}: /student-academy`);
+    assert.ok(!hrefs.some((href) => href.includes('#pricing-options')), `${path}: no Pricing door`);
     assert.doesNotMatch(html, /coming soon|sắp ra mắt/i, path);
   }
 });

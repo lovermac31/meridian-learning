@@ -107,8 +107,9 @@ test('header: Products carries the New badge and the header-new link; the menu b
     if (!PRODUCTS_NEW_HIGHLIGHT) continue;
     assert.ok(header.includes(`href="${href}"`), `${path}: header-new link`);
     assert.match(header, /data-testid="menu-new-dot"/, `${path}: dot on the menu button`);
-    const row = header.match(/<a href="[^"]*\/ai-speaking(?:\/vi)?\/writing"[^>]*>[\s\S]*?<\/a>/)?.[0] ?? '';
-    assert.ok(row && !row.includes(`>${badge}<`), `${path}: IELTS Writing has no badge`);
+    // Header Option A (15 Nov 2026): the badge is on Books & Prices, not on IELTS (one link to JurassicIELTS.com).
+    const row = header.match(/<a href="https:\/\/jurassicielts\.com[^"]*"[^>]*>[\s\S]*?<\/a>/)?.[0] ?? '';
+    assert.ok(row && !row.includes(`>${badge}<`), `${path}: IELTS has no badge`);
     assert.match(header, new RegExp(`href="${href.replace(/[?]/g, '\\?')}"[^>]*aria-label="[^"]+ ${badge}"`), `${path}: Products [New] in the row`);
   }
 });

@@ -436,7 +436,7 @@ const en: Dict = {
 
   // ---- Optional continuation paths ----
   'hero.academyPrompt': 'Looking for a broader reading, reasoning, and writing pathway?',
-  'hero.ctaAcademy': 'Explore Student Academy',
+  'hero.ctaAcademy': 'Explore Kids Academy',
   'promo.watch': 'Watch the 60-second overview',
   'promo.title': 'Young Learners Speaking programme overview',
   'promo.play': 'Play the programme overview video',

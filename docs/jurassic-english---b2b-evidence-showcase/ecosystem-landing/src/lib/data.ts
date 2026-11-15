@@ -1,7 +1,7 @@
 export const brandPathways = [
   {
     id: "student-academy",
-    name: "Jurassic English™ Student Academy",
+    name: "Jurassic English™ Kids Academy",
     audience: "Parents & Students",
     headline: "Read Deeper. Speak Smarter. Write Stronger.",
     promise: "A student pathway for fluency, academic reasoning, structured writing, and visible progress.",

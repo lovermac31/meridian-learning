@@ -170,7 +170,7 @@ function LevelCards({
   return (
     <div
       role="tablist"
-      aria-label="Select a Student Academy level"
+      aria-label="Select a Kids Academy level"
       aria-orientation="horizontal"
       className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"
     >
@@ -648,7 +648,7 @@ export function PathwayExplorer() {
             Choose a level to preview the learning experience.
           </h2>
           <p className="text-[15px] md:text-base font-light text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Click a level below to see how the Student Academy grows thinking
+            Click a level below to see how the Kids Academy grows thinking
             step by step. Each level keeps the same Jurassic Thinking Cycle™
             and CEIW architecture, then deepens what the student is asked to do.
           </p>
