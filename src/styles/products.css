@@ -194,3 +194,19 @@
 .products-faq details[open] summary::after { content: '−'; }
 .products-faq details p { margin: 0 0 1rem; line-height: 1.6; color: var(--color-sb-slate); }
 .products-page .insights-closing { background: var(--color-sb-forest); }
+
+/* Reading & Reasoning Library preview (?library-preview=1): champagne, navy and crimson only. */
+.products-library-inner { padding: 1rem; background: #F3E8CF; color: #13294B; border: 1px solid rgb(19 41 75 / .25); border-radius: 1rem; }
+.products-library h2, .products-library h3, .products-library strong { color: #13294B; }
+.products-library-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; margin-top: .75rem; }
+@media (min-width: 640px) { .products-library-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .products-library-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.products-library-card { min-width: 0; display: flex; flex-direction: column; gap: .45rem; padding: .8rem; background: #EADBB5; border: 1px solid rgb(19 41 75 / .3); border-radius: .8rem; font-size: .875rem; line-height: 1.5; overflow-wrap: anywhere; }
+.products-library-cover { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 2; padding: .75rem; background: #13294B; color: #F3E8CF; border-radius: .6rem; font-weight: 800; text-align: center; }
+.products-library-eyebrow { font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #9B1C31; }
+.products-library-pill { align-self: flex-start; padding: .15rem .6rem; border: 1px solid #9B1C31; border-radius: 999px; font-size: .75rem; font-weight: 800; color: #9B1C31; }
+.products-library-note { font-size: .8rem; }
+.products-library-card a { display: inline-flex; align-items: center; min-height: 44px; margin-top: auto; font-weight: 800; color: #13294B; text-decoration: underline; text-underline-offset: 4px; }
+.products-library-card a:focus-visible { outline: 3px solid #9B1C31; outline-offset: 2px; }
+.products-library { max-width: 1100px; margin: .9rem auto 0; padding: 0 1rem; scroll-margin-top: 6rem; }
+.products-library p { margin-top: .25rem; }
