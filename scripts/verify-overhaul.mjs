@@ -48,10 +48,10 @@ const JARGON = [
   'Digital Reasoning Engine? Teacher-led',
 ];
 const NAV_LABELS = {
-  // Header wording Option A (Jay, 15 Nov 2026): the five doors as they appear in the HTML (& is escaped), plus the two
-  // links of the IELTS list. The full door names are the links' accessible names.
-  en: ['Kids Academy', 'Speaking 9–18', 'IELTS', 'IELTS Writing', 'IELTS Speaking practice (18+)', 'Story Club', 'Books &amp; Prices'],
-  vi: ['Học viện Thiếu nhi', 'Luyện nói 9–18', 'IELTS', 'IELTS Writing', 'Luyện Nói IELTS 18+', 'Câu lạc bộ Truyện', 'Sách &amp; Bảng giá'],
+  // Header wording Option A (Jay, 15 Nov 2026): the five doors as they appear in the HTML (& is escaped). IELTS is one
+  // link to JurassicIELTS.com. The full door names are the links' accessible names.
+  en: ['Kids Academy', 'Speaking 9–18', 'IELTS · JurassicIELTS.com', 'Story Club', 'Books &amp; Prices'],
+  vi: ['Học viện Thiếu nhi', 'Luyện nói 9–18', 'IELTS · JurassicIELTS.com', 'Câu lạc bộ Truyện', 'Sách &amp; Bảng giá'],
 };
 // Labels Option A removed from every header.
 const OLD_NAV_LABELS = ['AI Speaking Mocks', 'Ages 9–18', '>Pricing<', 'Thi thử Nói AI', '>Học phí<'];

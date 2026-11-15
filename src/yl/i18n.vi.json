@@ -314,9 +314,7 @@
   "yl2.nav.kids": "Học viện Thiếu nhi",
   "yl2.nav.kidsShort": "Học viện Thiếu nhi",
   "yl2.nav.teens": "Luyện nói 9–18",
-  "yl2.nav.writing": "IELTS Writing",
   "yl2.nav.new": "Mới",
-  "yl2.nav.adults": "Luyện Nói IELTS 18+",
   "yl2.nav.cta": "Đặt Đánh giá · 690k₫ →",
   "yl2.hero.kicker": "Tự tin nói & IELTS cho teen · 9–18 tuổi · Huấn luyện từ Band 5.0 đến 8.5",
   "yl2.hero.h1": "Con học giỏi trên giấy nhưng ngại nói? Cùng thay đổi điều đó.",
@@ -441,12 +439,8 @@
   "yl2.foot.writing": "IELTS Writing Task 2: giới thiệu & bản demo",
   "yl2.nav.kidsDesc": "Đọc sách & Phiêu lưu truyện",
   "yl2.nav.teensDesc": "Tự tin nói & IELTS cho teen",
-  "yl2.nav.writingDesc": "IELTS Writing Task 2: giới thiệu & bản demo",
-  "yl2.nav.adultsDesc": "Luyện Nói IELTS cho người lớn (18+)",
   "yl2.nav.kidsAria": "Học viện Thiếu nhi · Đọc sách & Phiêu lưu truyện",
   "yl2.nav.teensAria": "Luyện nói 9–18 · Tự tin nói & IELTS cho teen",
-  "yl2.nav.writingAria": "IELTS Writing · IELTS Writing Task 2: giới thiệu & bản demo",
-  "yl2.nav.adultsAria": "Luyện Nói IELTS 18+ · Luyện Nói IELTS cho người lớn (18+)",
   "yl2.nav.menu": "Menu",
   "yl2.nav.products": "Sách & Bảng giá",
   "yl2.nav.productsFull": "Sách & Bảng giá",
@@ -454,5 +448,6 @@
   "yl2.nav.productsNewAria": "Sách & Bảng giá Mới",
   "yl2.nav.storyClub": "Câu lạc bộ Truyện",
   "yl2.nav.storyClubDesc": "Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi",
-  "yl2.nav.storyClubAria": "Câu lạc bộ Truyện · Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi"
+  "yl2.nav.storyClubAria": "Câu lạc bộ Truyện · Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi",
+  "yl2.nav.ieltsDesc": "IELTS Writing và Speaking trên JurassicIELTS.com"
 }

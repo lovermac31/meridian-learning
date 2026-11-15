@@ -4,7 +4,7 @@ import { getHeaderProducts, type HeaderLang } from "./headerProducts";
 
 // Same header as the main jurassicenglish.com SPA (src/components/Navbar.tsx and
 // src/i18n/content/overhaul.ts nav), header wording Option A (Jay, 15 Nov 2026): Kids Academy · Speaking 9–18 ·
-// IELTS (a short list: IELTS Writing, IELTS Speaking practice (18+)) · Story Club · Books & Prices, the Baseline CTA,
+// IELTS (one link to JurassicIELTS.com) · Story Club · Books & Prices, the Baseline CTA,
 // EN | Tiếng Việt. Every link is a
 // plain document navigation because each door is served by a different app
 // (SPA, static Young Learners page, AI Speaking app) behind one domain.
@@ -13,12 +13,14 @@ const NAV = [
   { label: "Kids Academy (5–12)", desc: "Reading & Story Adventures", href: "/student-academy" },
   { label: "Speaking 9–18", desc: "Speaking Confidence & Teen IELTS", href: "/young-learners-speaking/" },
 ];
-// IELTS (Option A): a short list of two links. The New badge sits on Books & Prices during the Phonics launch (main
-// site flag PRODUCTS_NEW_HIGHLIGHT, until 13 Dec 2026), so none here.
-const IELTS = [
-  { label: "IELTS Writing", desc: "IELTS Writing Task 2: introduction & demo", href: "/ai-speaking/writing" },
-  { label: "IELTS Speaking practice (18+)", desc: "Adult IELTS Speaking practice (18+)", href: "/ai-speaking" },
-];
+// IELTS (Jay, 15 Nov 2026: "Move IELTS to jurassicielts.com"): one plain link, same tab. The New badge sits on Books &
+// Prices during the Phonics launch (main site flag PRODUCTS_NEW_HIGHLIGHT, until 13 Dec 2026), so none here.
+const IELTS = {
+  label: "IELTS",
+  aria: "IELTS · JurassicIELTS.com",
+  desc: { en: "IELTS Writing and Speaking on JurassicIELTS.com", vi: "IELTS Writing và Speaking trên JurassicIELTS.com" },
+  href: { en: "https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move", vi: "https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move" },
+};
 const STORY_CLUB = { label: "Story Club", desc: "Online story groups for children aged 5–8", href: "/story-club" };
 // Books & Prices goes straight to the Phonics tile while the main site's launch highlight runs (until 13 Dec 2026).
 const PRODUCTS_NEW = true;
@@ -80,19 +82,7 @@ export function ProductionStyleHeader({ lang = "en" }: { lang?: HeaderLang }) {
                 <DesktopNavLabel label={item.label} />
               </a>
             ))}
-            {/* IELTS: a native disclosure (keyboard: Enter or Space opens it; the two links follow in Tab order). */}
-            <details data-ielts-menu="" className="relative">
-              <summary className={`${NAV_LINK} flex cursor-pointer list-none items-center gap-1 [&::-webkit-details-marker]:hidden`}>
-                IELTS <span aria-hidden="true">▾</span>
-              </summary>
-              <ul className="absolute left-0 top-full z-10 mt-2 min-w-[17rem] rounded-2xl border border-[#E6DEC8] bg-[#FAF7F2] p-2 shadow-lg">
-                {IELTS.map((item) => (
-                  <li key={item.href}>
-                    <a href={item.href} aria-label={`${item.label} · ${item.desc}`} className="block rounded-xl px-3 py-2 text-[0.95rem] font-semibold text-[#1E4D3B] hover:bg-white hover:text-[#92400E]">{item.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </details>
+            <a href={IELTS.href[lang]} aria-label={IELTS.aria} title={IELTS.aria} data-ielts-link="" className={NAV_LINK}>{IELTS.label}</a>
             <a href={STORY_CLUB.href} aria-label={`${STORY_CLUB.label} · ${STORY_CLUB.desc}`} title={`${STORY_CLUB.label} · ${STORY_CLUB.desc}`} className={NAV_LINK}>{STORY_CLUB.label}</a>
             <a href={products.href} aria-label={PRODUCTS_NEW ? `${products.full} ${newBadge}` : products.full} className={NAV_LINK}>
               {products.label}
@@ -138,20 +128,10 @@ export function ProductionStyleHeader({ lang = "en" }: { lang?: HeaderLang }) {
                   <span className="block text-sm text-[#1C2526]">{item.desc}</span>
                 </a>
               ))}
-              {/* IELTS and its two links listed under it (Option A). */}
-              <div className="rounded-xl border border-[#E6DEC8] bg-white px-4 py-3" role="group" aria-label="IELTS">
-                <span className="block text-base font-bold text-[#1E4D3B]">IELTS</span>
-                <ul className="mt-2 flex flex-col gap-1 border-l-2 border-[#E6DEC8] pl-3">
-                  {IELTS.map((item) => (
-                    <li key={item.href}>
-                      <a href={item.href} className="block py-1.5">
-                        <span className="block text-base font-semibold text-[#1E4D3B]">{item.label}</span>
-                        <span className="block text-sm text-[#1C2526]">{item.desc}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <a href={IELTS.href[lang]} data-ielts-link="" className="rounded-xl border border-[#E6DEC8] bg-white px-4 py-3">
+                <span className="block text-base font-bold text-[#1E4D3B]">{IELTS.label}</span>
+                <span className="block text-sm text-[#1C2526]">{IELTS.desc[lang]}</span>
+              </a>
               <a href={STORY_CLUB.href} className="rounded-xl border border-[#E6DEC8] bg-white px-4 py-3">
                 <span className="block text-base font-bold text-[#1E4D3B]">{STORY_CLUB.label}</span>
                 <span className="block text-sm text-[#1C2526]">{STORY_CLUB.desc}</span>

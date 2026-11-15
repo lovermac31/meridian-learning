@@ -36,13 +36,13 @@ test('ecosystem header renders Products in the bar and in the menu, and the Viet
   assert.match(standalone, /2xl:hidden/, 'the desktop row carries it from 2xl');
   assert.ok(links.some((link) => link.includes('{products.full}')), 'menu row');
   // The standalone link is outside the <details> menu; the second row is inside it.
-  // Option A added a <details> for the IELTS list, so split at the site menu itself.
   const [bar, menu] = header.split('<details data-site-menu');
   assert.ok(bar.includes('products.href') && menu.includes('products.href'));
   // The CTA wraps below 640px so Products keeps its place.
   assert.match(header, /max-\[639px\]:max-w-\[6\.5rem\]/);
   // Nothing else changed: the doors, the Baseline CTA and the language switch are still there.
-  for (const href of ['/student-academy', '/young-learners-speaking/', '/ai-speaking/writing', '/ai-speaking', '/story-club', '/vi']) assert.ok(header.includes(`"${href}"`), href);
+  for (const href of ['/student-academy', '/young-learners-speaking/', '/story-club', '/vi', 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move', 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move']) assert.ok(header.includes(`"${href}"`), href);
+  assert.match(header, /IELTS · JurassicIELTS\.com/, 'IELTS accessible name');
   assert.ok(!header.includes('"/#pricing-options"'), 'Option A: no Pricing door');
   assert.doesNotMatch(header, /AI Speaking Mocks|Ages 9–18|label: "Pricing"/, 'Option A: old labels gone');
   assert.ok(header.includes('CTA_HREF = "/ai-speaking/baseline"'));
@@ -56,8 +56,8 @@ test('Young Learners page header: Products beside the CTA, in the link row and i
   const nav = html.match(/<nav class="yl2-nav yl2-hdr"[\s\S]*?<\/nav>/)![0];
   assert.equal(anchors(nav, '/products').length, 3, 'right-hand cluster, link row, menu panel');
   assert.match(nav, /<div class="yl2-hdr-right">[\s\S]*?<a class="yl2-hdr-products" href="\/products" data-products-link[^>]*>Books &amp; Prices<\/a>/);
-  // Option A doors: IELTS list (Writing, Speaking practice), Story Club; no Pricing, no old labels.
-  assert.match(nav, /<details class="yl2-hdr-ielts"><summary>IELTS/);
+  // Option A doors: IELTS on JurassicIELTS.com, Story Club; no Pricing, no old labels.
+  assert.equal(anchors(nav, 'https://jurassicielts\\.com/\\?utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move').length, 2, 'IELTS: link row + menu panel');
   assert.equal(anchors(nav, '/story-club').length, 2, 'link row + menu panel');
   assert.doesNotMatch(nav, /#pricing-options|AI Speaking Mocks|Ages 9–18|>Pricing</);
   assert.match(html, /\.yl2-hdr-products\{display:inline-flex;[^}]*min-height:44px;min-width:44px/);
@@ -74,7 +74,8 @@ test('Vietnamese Young Learners page (/vi/luyen-noi-ielts/): Sản phẩm links 
   assert.match(nav, /aria-label="Sách &amp; Bảng giá"/);
   assert.equal(anchors(nav, '/vi/story-club').length, 2, 'Story Club opens the Vietnamese page');
   assert.match(nav, />Luyện nói 9–18</);
-  assert.match(nav, />Luyện Nói IELTS 18\+</);
+  assert.equal(anchors(nav, 'https://jurassicielts\\.com/vi/\\?utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move').length, 2, 'IELTS opens the Vietnamese JurassicIELTS page');
+  assert.match(nav, />IELTS Writing và Speaking trên JurassicIELTS\.com</);
   assert.equal(anchors(vi, '/products').length, 0);
 });
 
