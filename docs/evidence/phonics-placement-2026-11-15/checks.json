@@ -1,0 +1,557 @@
+{
+  "header_en_390": {
+    "dot": true,
+    "visibleBadgeLink": null
+  },
+  "menu_en_390": {
+    "writing": "IELTS WritingIELTS Writing Task 2: introduction & demo",
+    "products": {
+      "text": "Products & prices New",
+      "href": "/products?utm_source=header-new#phonics"
+    }
+  },
+  "header_en_1440": {
+    "dot": true,
+    "visibleBadgeLink": null
+  },
+  "menu_en_1440": {
+    "writing": "IELTS WritingIELTS Writing Task 2: introduction & demo",
+    "products": {
+      "text": "Products & prices New",
+      "href": "/products?utm_source=header-new#phonics"
+    }
+  },
+  "header_en_1536": {
+    "dot": false,
+    "visibleBadgeLink": "Products & prices New"
+  },
+  "products_en_390": {
+    "visibleCards": [
+      "phonics-b1",
+      "phonics-b2"
+    ],
+    "band": [
+      "phonics-b1",
+      "phonics-b2"
+    ],
+    "series": false
+  },
+  "products_en_1440": {
+    "visibleCards": [
+      "phonics-b1",
+      "phonics-b2"
+    ],
+    "band": [
+      "phonics-b1",
+      "phonics-b2"
+    ],
+    "series": false
+  },
+  "page_phonics-b1_en_390": {
+    "h1": "Jurassic English Phonics, Book 1: The Alphabet",
+    "title": "Phonics Book 1 for Kids 4–7: The Alphabet, with Audio",
+    "sampleBeforePrice": true,
+    "clipBeforePrice": true,
+    "audioAutoplay": false,
+    "audioPaused": true,
+    "price": "79.000₫ one-time · 1 book with audio",
+    "paypalAmount": "7.99",
+    "paypalText": "Pay US$7.99 with PayPal",
+    "zaloHref": "/go/zalo/phonics-b1?utm_source=products",
+    "buyNow": false,
+    "offers": [
+      "VND 79000",
+      "USD 7.99"
+    ],
+    "readerHref": "https://books.jurassicenglish.com/book.html?utm_content=phonics-b1&utm_source=products#phonics-b1-sample",
+    "ldTypes": [
+      "Product",
+      "FAQPage",
+      "BreadcrumbList",
+      "Product",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "crumbs": [
+      "Home",
+      "Products",
+      "Phonics",
+      "Jurassic English Phonics, Book 1: The Alphabet"
+    ]
+  },
+  "page_phonics-b1_en_1440": {
+    "h1": "Jurassic English Phonics, Book 1: The Alphabet",
+    "title": "Phonics Book 1 for Kids 4–7: The Alphabet, with Audio",
+    "sampleBeforePrice": true,
+    "clipBeforePrice": true,
+    "audioAutoplay": false,
+    "audioPaused": true,
+    "price": "79.000₫ one-time · 1 book with audio",
+    "paypalAmount": "7.99",
+    "paypalText": "Pay US$7.99 with PayPal",
+    "zaloHref": "/go/zalo/phonics-b1?utm_source=products",
+    "buyNow": false,
+    "offers": [
+      "VND 79000",
+      "USD 7.99"
+    ],
+    "readerHref": "https://books.jurassicenglish.com/book.html?utm_content=phonics-b1&utm_source=products#phonics-b1-sample",
+    "ldTypes": [
+      "Product",
+      "FAQPage",
+      "BreadcrumbList",
+      "Product",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "crumbs": [
+      "Home",
+      "Products",
+      "Phonics",
+      "Jurassic English Phonics, Book 1: The Alphabet"
+    ]
+  },
+  "page_phonics-b2_en_390": {
+    "h1": "Jurassic English Phonics, Book 2: Short Vowels",
+    "title": "Phonics Book 2 for Kids 4–7: Short Vowels, with Audio",
+    "sampleBeforePrice": true,
+    "clipBeforePrice": true,
+    "audioAutoplay": false,
+    "audioPaused": true,
+    "price": "129.000₫ one-time · 1 book with audio",
+    "paypalAmount": "7.99",
+    "paypalText": "Pay US$7.99 with PayPal",
+    "zaloHref": "/go/zalo/phonics-b2?utm_source=products",
+    "buyNow": false,
+    "offers": [
+      "VND 129000",
+      "USD 7.99"
+    ],
+    "readerHref": "https://books.jurassicenglish.com/book.html?utm_content=phonics-b2&utm_source=products#phonics-b2-sample",
+    "ldTypes": [
+      "Product",
+      "FAQPage",
+      "BreadcrumbList",
+      "Product",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "crumbs": [
+      "Home",
+      "Products",
+      "Phonics",
+      "Jurassic English Phonics, Book 2: Short Vowels"
+    ]
+  },
+  "page_phonics-b2_en_1440": {
+    "h1": "Jurassic English Phonics, Book 2: Short Vowels",
+    "title": "Phonics Book 2 for Kids 4–7: Short Vowels, with Audio",
+    "sampleBeforePrice": true,
+    "clipBeforePrice": true,
+    "audioAutoplay": false,
+    "audioPaused": true,
+    "price": "129.000₫ one-time · 1 book with audio",
+    "paypalAmount": "7.99",
+    "paypalText": "Pay US$7.99 with PayPal",
+    "zaloHref": "/go/zalo/phonics-b2?utm_source=products",
+    "buyNow": false,
+    "offers": [
+      "VND 129000",
+      "USD 7.99"
+    ],
+    "readerHref": "https://books.jurassicenglish.com/book.html?utm_content=phonics-b2&utm_source=products#phonics-b2-sample",
+    "ldTypes": [
+      "Product",
+      "FAQPage",
+      "BreadcrumbList",
+      "Product",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "crumbs": [
+      "Home",
+      "Products",
+      "Phonics",
+      "Jurassic English Phonics, Book 2: Short Vowels"
+    ]
+  },
+  "header_vi_390": {
+    "dot": true,
+    "visibleBadgeLink": null
+  },
+  "menu_vi_390": {
+    "writing": "IELTS WritingIELTS Writing Task 2: giới thiệu & bản demo",
+    "products": {
+      "text": "Sản phẩm & học phí Mới",
+      "href": "/vi/products?utm_source=header-new#phonics"
+    }
+  },
+  "header_vi_1440": {
+    "dot": true,
+    "visibleBadgeLink": null
+  },
+  "menu_vi_1440": {
+    "writing": "IELTS WritingIELTS Writing Task 2: giới thiệu & bản demo",
+    "products": {
+      "text": "Sản phẩm & học phí Mới",
+      "href": "/vi/products?utm_source=header-new#phonics"
+    }
+  },
+  "header_vi_1536": {
+    "dot": false,
+    "visibleBadgeLink": "Sản phẩm & học phí Mới"
+  },
+  "products_vi_390": {
+    "visibleCards": [
+      "phonics-b1",
+      "phonics-b2"
+    ],
+    "band": [
+      "phonics-b1",
+      "phonics-b2"
+    ],
+    "series": false
+  },
+  "products_vi_1440": {
+    "visibleCards": [
+      "story-club",
+      "baseline",
+      "one-to-one",
+      "printable-pack",
+      "parent-pack-l1",
+      "parent-pack-l2",
+      "parent-pack-l3",
+      "holiday-reading-challenge",
+      "phonics-b1",
+      "phonics-b2",
+      "story-workbooks-l1",
+      "story-workbooks-l2",
+      "mango-l2",
+      "story-workbooks-l3",
+      "story-workbooks-l4",
+      "story-workbooks-l5",
+      "teacher-pack-l1",
+      "teacher-pack-l2",
+      "teacher-pack-l3",
+      "teacher-pack-l4",
+      "teacher-pack-l5",
+      "teacher-bundle",
+      "student-workbook-l1",
+      "student-workbook-l2",
+      "student-workbook-l3",
+      "student-workbook-l4",
+      "student-workbook-l5",
+      "word-fossil-flashcards-l1",
+      "thinking-cycle-set",
+      "thinking-cycle-posters",
+      "reasoning-assessment-kit",
+      "centre-licence",
+      "teacher-training-course",
+      "pilot-class-kit",
+      "curriculum-overview",
+      "ielts-speaking-ladder",
+      "ielts-one-to-one-starter",
+      "ielts-cue-card-bank",
+      "writing-baseline",
+      "ielts-writing-ladder-task2",
+      "ielts-writing-task1-method",
+      "ielts-essay-bank-task2",
+      "ielts-writing-teacher-pack",
+      "ielts-reading-ladder",
+      "ielts-listening-profiler",
+      "ielts-diagnostic-mock",
+      "ielts-writing-band-up",
+      "ielts-speaking-band-up",
+      "ielts-four-skill-kit"
+    ],
+    "band": [
+      "phonics-b1",
+      "phonics-b2"
+    ],
+    "series": false
+  },
+  "page_phonics-b1_vi_390": {
+    "h1": "Jurassic English Phonics, Quyển 1: Bảng chữ cái",
+    "title": "Sách Phonics Quyển 1 cho bé 4–7 tuổi: Bảng chữ cái",
+    "sampleBeforePrice": true,
+    "clipBeforePrice": true,
+    "audioAutoplay": false,
+    "audioPaused": true,
+    "price": "79.000₫ mua một lần · 1 quyển có âm thanh",
+    "paypalAmount": "7.99",
+    "paypalText": "Thanh toán US$7.99 qua PayPal",
+    "zaloHref": "/go/zalo/phonics-b1?utm_source=products",
+    "buyNow": false,
+    "offers": [
+      "VND 79000",
+      "USD 7.99"
+    ],
+    "readerHref": "https://books.jurassicenglish.com/book.html?utm_content=phonics-b1&utm_source=products#phonics-b1-sample",
+    "ldTypes": [
+      "Product",
+      "FAQPage",
+      "BreadcrumbList",
+      "Product",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "crumbs": [
+      "Trang chủ",
+      "Sản phẩm",
+      "Phonics",
+      "Jurassic English Phonics, Quyển 1: Bảng chữ cái"
+    ]
+  },
+  "page_phonics-b1_vi_1440": {
+    "h1": "Jurassic English Phonics, Quyển 1: Bảng chữ cái",
+    "title": "Sách Phonics Quyển 1 cho bé 4–7 tuổi: Bảng chữ cái",
+    "sampleBeforePrice": true,
+    "clipBeforePrice": true,
+    "audioAutoplay": false,
+    "audioPaused": true,
+    "price": "79.000₫ mua một lần · 1 quyển có âm thanh",
+    "paypalAmount": "7.99",
+    "paypalText": "Thanh toán US$7.99 qua PayPal",
+    "zaloHref": "/go/zalo/phonics-b1?utm_source=products",
+    "buyNow": false,
+    "offers": [
+      "VND 79000",
+      "USD 7.99"
+    ],
+    "readerHref": "https://books.jurassicenglish.com/book.html?utm_content=phonics-b1&utm_source=products#phonics-b1-sample",
+    "ldTypes": [
+      "Product",
+      "FAQPage",
+      "BreadcrumbList",
+      "Product",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "crumbs": [
+      "Trang chủ",
+      "Sản phẩm",
+      "Phonics",
+      "Jurassic English Phonics, Quyển 1: Bảng chữ cái"
+    ]
+  },
+  "page_phonics-b2_vi_390": {
+    "h1": "Jurassic English Phonics, Quyển 2: Nguyên âm ngắn",
+    "title": "Sách Phonics Quyển 2 cho bé 4–7 tuổi: Nguyên âm ngắn",
+    "sampleBeforePrice": true,
+    "clipBeforePrice": true,
+    "audioAutoplay": false,
+    "audioPaused": true,
+    "price": "129.000₫ mua một lần · 1 quyển có âm thanh",
+    "paypalAmount": "7.99",
+    "paypalText": "Thanh toán US$7.99 qua PayPal",
+    "zaloHref": "/go/zalo/phonics-b2?utm_source=products",
+    "buyNow": false,
+    "offers": [
+      "VND 129000",
+      "USD 7.99"
+    ],
+    "readerHref": "https://books.jurassicenglish.com/book.html?utm_content=phonics-b2&utm_source=products#phonics-b2-sample",
+    "ldTypes": [
+      "Product",
+      "FAQPage",
+      "BreadcrumbList",
+      "Product",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "crumbs": [
+      "Trang chủ",
+      "Sản phẩm",
+      "Phonics",
+      "Jurassic English Phonics, Quyển 2: Nguyên âm ngắn"
+    ]
+  },
+  "page_phonics-b2_vi_1440": {
+    "h1": "Jurassic English Phonics, Quyển 2: Nguyên âm ngắn",
+    "title": "Sách Phonics Quyển 2 cho bé 4–7 tuổi: Nguyên âm ngắn",
+    "sampleBeforePrice": true,
+    "clipBeforePrice": true,
+    "audioAutoplay": false,
+    "audioPaused": true,
+    "price": "129.000₫ mua một lần · 1 quyển có âm thanh",
+    "paypalAmount": "7.99",
+    "paypalText": "Thanh toán US$7.99 qua PayPal",
+    "zaloHref": "/go/zalo/phonics-b2?utm_source=products",
+    "buyNow": false,
+    "offers": [
+      "VND 129000",
+      "USD 7.99"
+    ],
+    "readerHref": "https://books.jurassicenglish.com/book.html?utm_content=phonics-b2&utm_source=products#phonics-b2-sample",
+    "ldTypes": [
+      "Product",
+      "FAQPage",
+      "BreadcrumbList",
+      "Product",
+      "FAQPage",
+      "BreadcrumbList"
+    ],
+    "crumbs": [
+      "Trang chủ",
+      "Sản phẩm",
+      "Phonics",
+      "Jurassic English Phonics, Quyển 2: Nguyên âm ngắn"
+    ]
+  },
+  "reader_phonics-b1-sample_390": {
+    "first": {
+      "h1": "Jurassic English Phonics, Book 1: The Alphabet",
+      "counter": "Page 1 of 14",
+      "img": 900,
+      "rightsHidden": true,
+      "teacherHidden": true
+    },
+    "imagesLoaded": 14,
+    "tracks": [
+      "p5: ▶ Listen: Track 01 (0:12) | ■ Stop",
+      "p7: ▶ Listen: Track 02 (0:21) | ■ Stop",
+      "p9: ▶ Listen: Track 03 (0:24) | ▶ Listen: Track 04 (0:19) | ■ Stop",
+      "p11: ▶ Listen: Track 05 (0:12) | ■ Stop"
+    ],
+    "end": {
+      "get": "Get Book 1 · 79.000₫",
+      "getHref": "https://jurassicenglish.com/products/phonics-b1?utm_source=storybook#phonics-b1",
+      "club": "https://jurassicenglish.com/story-club?utm_source=storybook&utm_content=phonics-b1-sample"
+    },
+    "audioHead": [
+      200,
+      200,
+      200,
+      200,
+      200
+    ]
+  },
+  "reader_phonics-b1-sample_1440": {
+    "first": {
+      "h1": "Jurassic English Phonics, Book 1: The Alphabet",
+      "counter": "Page 1 of 14",
+      "img": 900,
+      "rightsHidden": true,
+      "teacherHidden": true
+    },
+    "imagesLoaded": 14,
+    "tracks": [
+      "p5: ▶ Listen: Track 01 (0:12) | ■ Stop",
+      "p7: ▶ Listen: Track 02 (0:21) | ■ Stop",
+      "p9: ▶ Listen: Track 03 (0:24) | ▶ Listen: Track 04 (0:19) | ■ Stop",
+      "p11: ▶ Listen: Track 05 (0:12) | ■ Stop"
+    ],
+    "end": {
+      "get": "Get Book 1 · 79.000₫",
+      "getHref": "https://jurassicenglish.com/products/phonics-b1?utm_source=storybook#phonics-b1",
+      "club": "https://jurassicenglish.com/story-club?utm_source=storybook&utm_content=phonics-b1-sample"
+    },
+    "audioHead": [
+      200,
+      200,
+      200,
+      200,
+      200
+    ]
+  },
+  "reader_phonics-b2-sample_390": {
+    "first": {
+      "h1": "Jurassic English Phonics, Book 2: Short Vowels",
+      "counter": "Page 1 of 14",
+      "img": 900,
+      "rightsHidden": true,
+      "teacherHidden": true
+    },
+    "imagesLoaded": 14,
+    "tracks": [
+      "p5: ▶ Listen: Track 01 (0:39) | ▶ Listen: Track 02 (0:40) | ■ Stop",
+      "p6: ▶ Listen: Track 03 (0:29) | ■ Stop",
+      "p9: ▶ Listen: Track 04 (0:47) | ■ Stop",
+      "p10: ▶ Listen: Track 05 (0:48) | ■ Stop"
+    ],
+    "end": {
+      "get": "Get Book 2 · 129.000₫",
+      "getHref": "https://jurassicenglish.com/products/phonics-b2?utm_source=storybook#phonics-b2",
+      "club": "https://jurassicenglish.com/story-club?utm_source=storybook&utm_content=phonics-b2-sample"
+    },
+    "audioHead": [
+      200,
+      200,
+      200,
+      200,
+      200
+    ]
+  },
+  "reader_phonics-b2-sample_1440": {
+    "first": {
+      "h1": "Jurassic English Phonics, Book 2: Short Vowels",
+      "counter": "Page 1 of 14",
+      "img": 900,
+      "rightsHidden": true,
+      "teacherHidden": true
+    },
+    "imagesLoaded": 14,
+    "tracks": [
+      "p5: ▶ Listen: Track 01 (0:39) | ▶ Listen: Track 02 (0:40) | ■ Stop",
+      "p6: ▶ Listen: Track 03 (0:29) | ■ Stop",
+      "p9: ▶ Listen: Track 04 (0:47) | ■ Stop",
+      "p10: ▶ Listen: Track 05 (0:48) | ■ Stop"
+    ],
+    "end": {
+      "get": "Get Book 2 · 129.000₫",
+      "getHref": "https://jurassicenglish.com/products/phonics-b2?utm_source=storybook#phonics-b2",
+      "club": "https://jurassicenglish.com/story-club?utm_source=storybook&utm_content=phonics-b2-sample"
+    },
+    "audioHead": [
+      200,
+      200,
+      200,
+      200,
+      200
+    ]
+  },
+  "reader_home_390": [
+    "book.html?utm_source=storybook#phonics-b1-sample",
+    "book.html?utm_source=storybook#phonics-b2-sample"
+  ],
+  "reader_home_1440": [
+    "book.html?utm_source=storybook#phonics-b1-sample",
+    "book.html?utm_source=storybook#phonics-b2-sample"
+  ],
+  "consoleErrors": [
+    "http://localhost:4321/products/: Unexpected token '<'",
+    "http://localhost:4321/products/: Unexpected token '<'",
+    "http://localhost:4321/products/: Unexpected token '<'",
+    "http://localhost:4321/products/: Unexpected token '<'",
+    "http://localhost:4321/products/: Unexpected token '<'",
+    "http://localhost:4321/products/: Unexpected token '<'",
+    "http://localhost:4321/products/?utm_source=header-new#phonics: Unexpected token '<'",
+    "http://localhost:4321/products/?utm_source=header-new#phonics: Unexpected token '<'",
+    "http://localhost:4321/products/?utm_source=header-new#phonics: Unexpected token '<'",
+    "http://localhost:4321/products/?utm_source=header-new#phonics: Unexpected token '<'",
+    "http://localhost:4321/products/phonics-b1/: Unexpected token '<'",
+    "http://localhost:4321/products/phonics-b1/: Unexpected token '<'",
+    "http://localhost:4321/products/phonics-b1/: Unexpected token '<'",
+    "http://localhost:4321/products/phonics-b1/: Unexpected token '<'",
+    "http://localhost:4321/products/phonics-b2/: Unexpected token '<'",
+    "http://localhost:4321/products/phonics-b2/: Unexpected token '<'",
+    "http://localhost:4321/products/phonics-b2/: Unexpected token '<'",
+    "http://localhost:4321/products/phonics-b2/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/?utm_source=header-new#phonics: Unexpected token '<'",
+    "http://localhost:4321/vi/products/?utm_source=header-new#phonics: Unexpected token '<'",
+    "http://localhost:4321/vi/products/phonics-b1/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/phonics-b1/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/phonics-b1/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/phonics-b1/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/phonics-b2/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/phonics-b2/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/phonics-b2/: Unexpected token '<'",
+    "http://localhost:4321/vi/products/phonics-b2/: Unexpected token '<'"
+  ]
+}

@@ -127,6 +127,8 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
                 <li key={item} className="flex items-start gap-3"><Check aria-hidden="true" className="story-check mt-1 h-5 w-5 shrink-0" /><span>{item}</span></li>
               ))}
             </ul>
+            {/* Phonics (15 Nov 2026): the step before Story Club for a child who is not reading yet; utm before the anchor. */}
+            <a className="mt-4 inline-block font-semibold" href={`${locale === 'vi' ? '/vi' : ''}/products?utm_source=storyclub#phonics-b1`} data-link="storyclub-phonics">{c.forWho.phonics}</a>
           </div>
           <div className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm">
             <h3 className="text-lg font-bold">{c.forWho.noLabel}</h3>

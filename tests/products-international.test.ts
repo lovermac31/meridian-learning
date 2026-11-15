@@ -79,6 +79,8 @@ test('market order codes: the Sale Team table maps each market-<country> source 
 // S1 (master decision (a), 27 Oct 2026): a direct PayPal payment per digital card at Jay's approved US$ price.
 const USD: Record<string, number> = {
   'printable-pack': 6, 'parent-pack-l1': 10, 'parent-pack-l2': 10, 'parent-pack-l3': 10, 'holiday-reading-challenge': 6,
+  // Phonics Books 1 and 2: Jay's fixed US$7.99 a book (14 Nov 2026), not ceil(VND ÷ 25,897).
+  'phonics-b1': 7.99, 'phonics-b2': 7.99,
   // Story Workbooks: the DEFAULT (highest tier) US$ price; regional prices are tested below (3 Nov 2026).
   'story-workbooks-l1': 15, 'story-workbooks-l2': 10, 'story-workbooks-l3': 10, 'story-workbooks-l4': 10, 'story-workbooks-l5': 10,
   'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27, 'teacher-pack-l5': 27, 'teacher-bundle': 112,
@@ -107,7 +109,7 @@ test('S1: the 13 digital cards take PayPal at the approved US$ prices; the Centr
     assert.equal(q.cmd, '_xclick');
     assert.equal(q.business, 'XW7RP68VVPZP2');
     assert.equal(q.currency_code, 'USD');
-    assert.equal(q.amount, `${USD[p.id]}.00`, `${p.id}: US$${USD[p.id]} = ceil(${p.price} ÷ 25,897)`);
+    assert.equal(q.amount, USD[p.id].toFixed(2), `${p.id}: US$${USD[p.id]} (ceil(${p.price} ÷ 25,897), or a fixed approved price)`);
     assert.equal(q.item_name, `${p.en.title} - /products ${p.id} code ${p.id.toUpperCase()} (Jurassic English)`);
     assert.equal(q.custom, `${p.id}|${p.id.toUpperCase()}`, `${p.id}: card id and code for matching`);
     assert.equal(q.return, `https://jurassicenglish.com/products#${p.id}`);

@@ -341,7 +341,8 @@ export function createProductJsonLd(product: Product, locale: Locale, videoId?: 
     ...(product.image ? { image: `${SITE_URL}${PRODUCT_IMAGE_DIR}/${product.image}.webp` } : {}),
     brand: { '@type': 'Brand', name: 'Jurassic English' },
     // A regional-price product lists its default (highest) tier in US$; the page's picker shows the buyer's own.
-    offers: [offer(vnd, 'VND'), ...(product.paypal ? [offer(String(hasRegionalPrice(product.id) ? regionalUsd(product.id) : usdFromVnd(Number(vnd))), 'USD')] : [])],
+    // A fixed US$ price (Phonics, US$7.99) is listed as it is charged.
+    offers: [offer(vnd, 'VND'), ...(product.paypal ? [offer(String(product.usd ?? (hasRegionalPrice(product.id) ? regionalUsd(product.id) : usdFromVnd(Number(vnd)))), 'USD')] : [])],
     // The product's film on the same page (video SEO, 27 Oct 2026).
     ...(videoId ? { subjectOf: { '@id': videoId } } : {}),
   };

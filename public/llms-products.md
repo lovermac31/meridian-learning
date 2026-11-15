@@ -91,6 +91,26 @@
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
+### Jurassic English Phonics, Book 1: The Alphabet
+- ID: `phonics-b1`
+- English: https://jurassicenglish.com/products/phonics-b1
+- Vietnamese: https://jurassicenglish.com/vi/products/phonics-b1
+- English description: Listen, read, write, play: phonics for ages 4 to 7, with audio and a teacher guide. Book 1 teaches the 26 letters, their names and sounds. 79.000₫.
+- Vietnamese title: Sách Phonics Quyển 1 cho bé 4–7 tuổi: Bảng chữ cái
+- VND price: 79.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Jurassic English Phonics, Book 2: Short Vowels
+- ID: `phonics-b2`
+- English: https://jurassicenglish.com/products/phonics-b2
+- Vietnamese: https://jurassicenglish.com/vi/products/phonics-b2
+- English description: Listen, read, write, play: phonics for ages 4 to 7, with audio and a teacher guide. Book 2 teaches the short vowels a, e, i, o and u. 129.000₫.
+- Vietnamese title: Sách Phonics Quyển 2 cho bé 4–7 tuổi: Nguyên âm ngắn
+- VND price: 129.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
 ### Level 1 Story Workbooks
 - ID: `story-workbooks-l1`
 - English: https://jurassicenglish.com/products/story-workbooks-l1

@@ -10,7 +10,7 @@ import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
 import { StoryClubLiveLine } from './StoryClubLiveLine';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
-import { CardLink, CreditLine, IeltsHomeLink, PausedNote, LemonSqueezyOption, PayPalOption, Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
+import { CardLink, CreditLine, IeltsHomeLink, PausedNote, LemonSqueezyOption, PayPalOption, PhonicsSample, Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
@@ -22,8 +22,8 @@ const COPY: Record<Locale, { home: string; products: string; faq: string; relate
 };
 
 const toCard = (product: Product, locale: Locale): ProductCard => {
-  const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit } = product;
-  return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], link: cardLink(product, locale), ...product[locale] };
+  const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, usd, orderOnly, reader, clip } = product;
+  return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...product[locale] };
 };
 
 // One product's own page (Jay, 27 Oct 2026: every product findable on Google and Bing). Same copy, sample viewer,
@@ -71,7 +71,8 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             {card.price} <span className="text-base font-semibold">{card.unit}</span>
           </p>
           <div className="story-cta mt-3 flex flex-wrap items-center gap-3">
-            <a className="insights-button-primary" href={paymentHref(card.id, locale)} data-buy-now={card.id}>{buyCta(card.id, locale)}</a>
+            {/* Order-only products (Phonics) have no automatic checkout: Zalo or PayPal only. */}
+            {card.orderOnly ? null : <a className="insights-button-primary" href={paymentHref(card.id, locale)} data-buy-now={card.id}>{buyCta(card.id, locale)}</a>}
             {isPortalBuyEnabled(card.id) ? (
               <a
                 className="insights-button-primary portal-buy-btn"
@@ -108,14 +109,15 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
           </div>
   </>;
   // A paused product never opens a checkout, even from an old ?checkout=1 link (audit fix 4, 11 Nov 2026).
-  if (checkout && !product.paused) return <StoryClubReservePage locale={locale} productId={product.id} />;
+  if (checkout && !product.paused && !product.orderOnly) return <StoryClubReservePage locale={locale} productId={product.id} />;
   return (
     <main id="main-content" tabIndex={-1} className="insights-page ielts-tools-page story-club-page products-page min-h-screen" lang={locale} data-product-page-main={product.id}>
       {/* Deterrent: printing a product page gives a blank page, as on /products (Jay, 27 Oct 2026). */}
       <style>{'@media print { body { display: none !important; } }'}</style>
       <ToolHero
         locale={locale}
-        title={PRODUCT_SEO[product.id][locale].title.split(' | ')[0]}
+        // Phonics (blueprint 6.1): the H1 is the book title, as on the cover.
+        title={card.category === 'phonics' ? card.title : PRODUCT_SEO[product.id][locale].title.split(' | ')[0]}
         lead={isStoryClub ? shortLead : card.problem}
         eyebrow={card.label}
         counterpart={getLocalizedHref(path, locale === 'vi' ? 'en' : 'vi')}
@@ -137,6 +139,12 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             {product.group ? (
               <>
                 <li><a href={`${getLocalizedHref(PRODUCTS_PATH, locale)}#ielts`} className="underline underline-offset-4">{c.ielts.crumb}</a></li>
+                <li aria-hidden="true">›</li>
+              </>
+            ) : null}
+            {card.category === 'phonics' ? (
+              <>
+                <li><a href={`${getLocalizedHref(PRODUCTS_PATH, locale)}#phonics`} className="underline underline-offset-4" data-crumb-phonics="">{c.phonicsBand.heading}</a></li>
                 <li aria-hidden="true">›</li>
               </>
             ) : null}
@@ -180,6 +188,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
           {card.video ? <ProductVideo slug={card.video} locale={locale} id={PRODUCT_VIDEO_ANCHOR} fallbackTitle={card.title} /> : null}
           {isStoryClub && card.video ? <p className="mt-2 text-sm" data-story-club-video-note>{locale === 'vi' ? 'Video nói “sáng thứ Bảy”. Các buổi học hiện diễn ra vào thứ Bảy lúc 13:00 giờ Việt Nam.' : 'The video says Saturday mornings. Sessions now run on Saturdays at 13:00 Vietnam time.'}</p> : null}
           <Sample card={card} copy={c.sample} onOpen={() => setViewer(true)} />
+          <PhonicsSample card={card} copy={c.phonicsBand} />
           {!isStoryClub ? purchase : null}
         </section>
         <section aria-labelledby="product-faq-h">
@@ -198,7 +207,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
           <ul className="mt-4 grid gap-4 sm:grid-cols-3">
             {relatedProducts(product.id).map((related) => (
               <li key={related.id} className="rounded-2xl bg-white p-4 shadow-sm" data-related={related.id}>
-                <a href={getLocalizedHref(productPath(related.id), locale)} className="font-bold underline underline-offset-4">
+                <a href={related.category === 'phonics' ? productHref(productPath(related.id), locale) : getLocalizedHref(productPath(related.id), locale)} className="font-bold underline underline-offset-4">
                   {related[locale].title}
                 </a>
                 <p className="mt-1 text-sm">{related.price} · {related[locale].unit}</p>

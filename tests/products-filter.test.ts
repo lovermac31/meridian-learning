@@ -14,9 +14,9 @@ for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     const tiles = [...html.matchAll(/aria-pressed="(true|false)" aria-controls="([^"]+)" data-category-tile="([^"]+)"/g)];
     assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.map((id) => [id, 'false', id]));
-    assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Story Workbooks sits right after Families');
+    assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'phonics', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Phonics, then Story Workbooks, right after Families (15 Nov 2026)');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
-    assert.equal(total, 47);
+    assert.equal(total, 49);
     for (const section of productsPage(locale).sections) {
       const featuredHere = section.cards.some((card) => (FEATURED_PRODUCTS as readonly string[]).includes(card.id));
       assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*"${''} data-category-panel="${section.id}">`), `${section.id}: ${featuredHere ? 'shown' : 'hidden'} until its tile is pressed`);
@@ -42,7 +42,7 @@ for (const locale of ['en', 'vi'] as const) {
 
   test(`cards ${locale}: every product in SSR with its copy, badge, lazy icon, sample above the price, and payment links`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale })).replaceAll('&#x27;', "'").replaceAll('&amp;', '&').replaceAll('&quot;', '"');
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 47);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 49);
     for (const product of PRODUCTS.filter((p) => p.live)) {
       const start = html.indexOf(`id="${product.id}"`);
       const card = html.slice(start, html.indexOf('</li>', start));
@@ -64,10 +64,13 @@ for (const locale of ['en', 'vi'] as const) {
         continue;
       }
       assert.ok(card.includes(`data-cta="product-${product.id}"`));
-      if (product.sample) assert.ok(at('</dl>') < at(`data-sample="${product.id}"`) && at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → sample → price → buttons`);
-      else assert.ok(at('</dl>') < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → price → buttons`);
+      // Order-only products (Phonics) have no Buy now: the Zalo order button is their first button.
+      const firstButton = product.orderOnly ? `data-cta="product-${product.id}"` : 'data-buy-now=';
+      if (product.orderOnly) assert.ok(!card.includes('data-buy-now='), `${product.id}: no Buy now`);
+      if (product.sample) assert.ok(at('</dl>') < at(`data-sample="${product.id}"`) && at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at(firstButton), `${product.id}: text → sample → price → buttons`);
+      else assert.ok(at('</dl>') < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at(firstButton), `${product.id}: text → price → buttons`);
       // One payment line under the price (the delivery line); the long PayPal note stays in the FAQ, not on every card.
-      if (product.delivery) assert.ok(at(`data-price="${product.id}"`) < at(`data-delivery="${product.id}"`) && at(`data-delivery="${product.id}"`) < at('data-buy-now='), `${product.id}: payment line between price and buttons`);
+      if (product.delivery) assert.ok(at(`data-price="${product.id}"`) < at(`data-delivery="${product.id}"`) && at(`data-delivery="${product.id}"`) < at(firstButton), `${product.id}: payment line between price and buttons`);
       assert.doesNotMatch(card, /paypal\.com to Jurassic English|paypal\.com cho Jurassic English/, `${product.id}: no PayPal paragraph on the card`);
       if (product.paypal) assert.ok(card.includes(`data-paypal-link="${product.id}"`));
       if (product.video) assert.ok(card.includes(`data-watch="${product.id}"`));
@@ -78,12 +81,13 @@ for (const locale of ['en', 'vi'] as const) {
   test(`anchors ${locale}: every canonical, former, sample and IELTS subgroup anchor resolves to its category`, () => {
     for (const product of PRODUCTS.filter((p) => p.live)) {
       // A Story Workbooks card opens the Story Workbooks segment (five cards), not the whole Families list.
-      assert.deepEqual(productAnchor(`#${product.id}`, locale), { section: product.category === 'workbooks' ? 'story-workbooks' : product.section, product: product.id, sample: false, target: product.id });
+      assert.deepEqual(productAnchor(`#${product.id}`, locale), { section: product.category === 'workbooks' ? 'story-workbooks' : product.category === 'phonics' ? 'phonics' : product.section, product: product.id, sample: false, target: product.id });
       assert.equal(productAnchor(`#${product.id}-sample`, locale)?.sample, !!product.sample);
       for (const alias of PRODUCT_FORMER_IDS[product.id] ?? []) assert.equal(productAnchor(`#${alias}`, locale)?.product, product.id);
     }
     for (const id of PRODUCT_SECTIONS) assert.equal(productAnchor(`#${id}`, locale)?.section, id);
     assert.deepEqual(productAnchor('#story-workbooks', locale), { section: 'story-workbooks', product: null, sample: false, target: 'story-workbooks' });
+    assert.deepEqual(productAnchor('#phonics', locale), { section: 'phonics', product: null, sample: false, target: 'phonics' });
     assert.equal(productAnchor('#ielts-speaking', locale)?.section, 'ielts');
     assert.equal(productAnchor('#ielts-writing', locale)?.section, 'ielts');
     assert.equal(productAnchor('#not-a-product', locale), null);

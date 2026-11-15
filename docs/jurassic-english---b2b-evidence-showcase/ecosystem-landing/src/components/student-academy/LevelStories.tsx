@@ -14,6 +14,7 @@ import {
   coverSrc,
   coverSrcSet,
   levelAnchor,
+  phonicsHref,
   type AcademyLevel,
   type Book,
   type Locale,
@@ -75,6 +76,10 @@ const COPY = {
     unsureLine: "Start with a 45-minute Reading & Thinking Placement Consultation.",
     consultation: "Request a placement consultation",
     teacherPack: (level: number) => `For teachers: Level ${level} Teacher Pack`,
+    // Phonics (15 Nov 2026): one content card inside Level 1, above Story 1; the Level 1 next step stays Story Club.
+    phonicsKicker: "Before Level 1",
+    phonicsTitle: "Jurassic English Phonics, with audio",
+    phonicsLine: "Learn to read with Dane and Kate: letters and sounds for ages 4–7.",
   },
   vi: {
     back: "Quay lại lộ trình 5 cấp độ",
@@ -112,6 +117,9 @@ const COPY = {
     unsureLine: "",
     consultation: "Gửi yêu cầu tư vấn xếp lớp",
     teacherPack: (level: number) => `Dành cho giáo viên: Bộ tài liệu Giáo viên Level ${level}`,
+    phonicsKicker: "Trước Level 1",
+    phonicsTitle: "Jurassic English Phonics, có âm thanh",
+    phonicsLine: "Học đọc cùng Dane và Kate: chữ cái và âm cho bé 4–7 tuổi.",
   },
 } as const;
 
@@ -290,6 +298,16 @@ export function LevelStories({ locale }: { locale: Locale }) {
               <p className="inline-flex rounded-full bg-[#E6F4EA] px-2.5 py-1 text-xs font-bold text-[#137333]">{level.cefr}</p>
             </div>
             {!level.accepted ? <p className="mt-1 text-sm font-bold text-[#B45309]">{c.inPreparation}</p> : null}
+            {level.level === 1 ? (
+              <a href={phonicsHref(locale)} className={`mt-4 flex items-center justify-between gap-3 rounded-[1.25rem] border border-[#E6DEC8] bg-[#FAF7F2] p-4 hover:border-[#1E4D3B] ${FOCUS}`} data-link="story-hub-phonics">
+                <span className="min-w-0">
+                  <span className={`${EYEBROW} block`}>{c.phonicsKicker}</span>
+                  <span className="mt-1 block text-lg font-extrabold leading-snug text-[#1E4D3B]">{c.phonicsTitle}</span>
+                  <span className="mt-1 block text-sm leading-relaxed text-[#4A5568]">{c.phonicsLine}</span>
+                </span>
+                <ArrowRight aria-hidden="true" className="h-5 w-5 flex-none text-[#1E4D3B]" />
+              </a>
+            ) : null}
             <ol className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.9fr)]">
               <StoryItem level={level} book={level.stories[0]} n={1} c={c} />
               <StoryItem level={level} book={level.stories[1]} n={2} c={c} />

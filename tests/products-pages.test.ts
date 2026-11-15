@@ -56,13 +56,14 @@ test('JSON-LD: Product with a VND Offer, a USD Offer only where PayPal is offere
     assert.deepEqual(product.offers.map((o: any) => [o.priceCurrency, o.price]), [
       ['VND', vnd],
       // Story Workbooks list their default (highest regional tier) US$ price.
-      ...(p.paypal ? [['USD', String(hasRegionalPrice(p.id) ? regionalUsd(p.id) : usdFromVnd(Number(vnd)))]] : []),
+      ...(p.paypal ? [['USD', String(p.usd ?? (hasRegionalPrice(p.id) ? regionalUsd(p.id) : usdFromVnd(Number(vnd))))]] : []),
     ], path);
     const faq = blocks.find((b) => b['@type'] === 'FAQPage')!;
     assert.ok(faq.mainEntity.length >= 1, path);
     const crumbs = blocks.find((b) => b['@type'] === 'BreadcrumbList')!;
-    assert.equal(crumbs.itemListElement.length, 3, path);
-    assert.equal(crumbs.itemListElement[2].item, `${SITE}${path}`);
+    // Phonics adds its tile: Home → Products → Phonics → Book N (blueprint 6.2).
+    assert.equal(crumbs.itemListElement.length, p.category === 'phonics' ? 4 : 3, path);
+    assert.equal(crumbs.itemListElement.at(-1).item, `${SITE}${path}`);
   }
 });
 
@@ -75,7 +76,8 @@ test('page: H1 distinguishes the localized offer, with the copy, sample viewer b
   for (const [, locale, p] of pages) {
     const html = renderToStaticMarkup(createElement(ProductPage, { product: p, locale }));
     const h1 = html.match(/<h1[^>]*>(.*?)<\/h1>/)?.[1];
-    assert.equal(h1?.replaceAll('&#x27;', '’').replaceAll('&amp;', '&'), PRODUCT_SEO[p.id][locale].title.split(' | ')[0], `${p.id} ${locale}`);
+    // Phonics (blueprint 6.1): the H1 is the book title, as on the cover; the search title stays in <title>.
+    assert.equal(h1?.replaceAll('&#x27;', '’').replaceAll('&amp;', '&'), p.category === 'phonics' ? p[locale].title : PRODUCT_SEO[p.id][locale].title.split(' | ')[0], `${p.id} ${locale}`);
     assert.match(html, new RegExp(`data-price="${p.id}"`));
     // Paused products (audit fix 4, 11 Nov 2026): the page stays, with the waitlist note instead of any order button.
     if (p.paused) {
@@ -110,7 +112,7 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
 // 35-today plan (Jay, 27 Oct 2026): the eight new products are live, each with its page, JSON-LD and sitemap entry.
 test('35-today: all 47 products are live (35, the five Story Workbooks, the Mango single workbook, the IELTS Reading and Listening packs and the three IELTS bundles), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
-  assert.equal(PRODUCTS.length, 47);
+  assert.equal(PRODUCTS.length, 49);
   assert.equal(PRODUCTS.filter((p) => !p.live).length, 0);
   const fresh = ['writing-baseline', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'ielts-essay-bank-task2', 'parent-pack-l3',
     'holiday-reading-challenge', 'thinking-cycle-posters', 'word-fossil-flashcards-l1'];

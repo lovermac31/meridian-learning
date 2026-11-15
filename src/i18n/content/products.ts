@@ -55,7 +55,10 @@ export type ProductSectionId = (typeof PRODUCT_SECTIONS)[number];
 // Story Workbooks get their own tile on /products and the home page (Jay, 3 Nov 2026: "I can't find them"). The five cards
 // stay in Families (data, prices, JSON-LD and product pages are unchanged); the tile is a cross-section view of them.
 export const WORKBOOKS_SEGMENT = 'story-workbooks';
-export const PRODUCT_SEGMENTS = ['families', WORKBOOKS_SEGMENT, 'teachers', 'centres', 'ielts'] as const;
+// Jurassic English Phonics (Jay, 15 Nov 2026: "GO, your recommendations D1 to D9"): a tile second in the row, built like
+// Story Workbooks: the book cards stay in Families data, the tile is a view of them, each book has its own page.
+export const PHONICS_SEGMENT = 'phonics';
+export const PRODUCT_SEGMENTS = ['families', PHONICS_SEGMENT, WORKBOOKS_SEGMENT, 'teachers', 'centres', 'ielts'] as const;
 export type ProductSegmentId = (typeof PRODUCT_SEGMENTS)[number];
 
 export const IELTS_GROUPS = ['speaking', 'writing', 'reading', 'listening', 'bundles'] as const;
@@ -106,7 +109,17 @@ export type Product = {
   // The #ielts sub-group (Speaking or Writing); set on every 'ielts' product.
   group?: IeltsGroup;
   // 'workbooks': listed under a "Workbooks" heading at the end of its section (Families and Teachers). Jay, 3 Nov 2026.
-  category?: 'workbooks';
+  // 'phonics': a Jurassic English Phonics book, shown in the Phonics tile (15 Nov 2026).
+  category?: 'workbooks' | 'phonics';
+  // A fixed US$ price approved by Jay (Phonics, 14 Nov 2026: US$7.99 a book); otherwise ceil(VND ÷ 25,897) or the regional tier.
+  usd?: number;
+  // Ordered only through Zalo (written order summary, then VietQR) or PayPal: no Buy now button and no automatic
+  // VietQR checkout (Phonics, 15 Nov 2026: "there is no automatic checkout").
+  orderOnly?: boolean;
+  // The public sample book in the storybook reader (books.jurassicenglish.com/book.html#<reader>).
+  reader?: string;
+  // A short audio clip from the product, above the price (public/audio/...; never autoplays).
+  clip?: { src: string; seconds: number };
   // Story Workbooks: the titles of the books in the level, listed on the card and the product page (Jay, 3 Nov 2026: "multiple books for level one").
   books?: string[];
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
@@ -175,6 +188,68 @@ const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e
   en: { label: 'Digital download · story workbooks', unit: `one-time · ${count} workbooks`, cta: 'Order on Zalo', ...e },
   vi: { label: 'Tài liệu số · sách truyện bài tập', unit: `mua một lần · ${count} cuốn`, cta: 'Đặt mua qua Zalo', ...v },
 });
+
+/** Phonics (15 Nov 2026): the reader host for the public samples, and the intro line Jay chose (D7, wording 2). */
+export const READER_URL = 'https://books.jurassicenglish.com';
+export const PHONICS_INTRO: Record<Locale, string> = { en: 'Learn to read with Dane and Kate', vi: 'Học đọc cùng Dane và Kate' };
+/** The disclosure on every Phonics card and page, as on each book's Audio and Credits page. */
+export const PHONICS_CREDIT = {
+  en: 'Illustrations made with AI tools; the voice is synthetic.',
+  vi: 'Hình minh họa được tạo bằng công cụ AI; giọng đọc là giọng tổng hợp.',
+};
+/** The sample's reader link: query before the #anchor (blueprint section 3), utm_source last as on every /products link. */
+export const phonicsReaderHref = (product: { id: string; reader?: string }, source = 'products') =>
+  `${READER_URL}/book.html?utm_content=${product.id}&utm_source=${source}#${product.reader}`;
+
+// Jurassic English Phonics, Books 1 and 2 (Jay, 14 Nov 2026: "GO, these prices"; 15 Nov: D1 to D9). Books 3 to 5 and the
+// Complete Series join one PR each as their gates clear: a book with no PASS has no card at all. Series name as on the
+// covers, no ™; nothing about who holds the rights (record still open). Copy from PHONICS-LISTING-PACK-2026-11-14 ("what the buyer
+// gets", licence line, disclosure). Order: Zalo (written summary, then VietQR) or PayPal US$7.99; no Buy now.
+const phonicsBook = (n: 1 | 2, title: { en: string; vi: string }, price: string, tracks: number, clipSeconds: number, problem: { en: string; vi: string }): Product => ({
+  id: `phonics-b${n}`,
+  live: true,
+  section: 'families',
+  category: 'phonics',
+  price,
+  usd: 7.99,
+  orderOnly: true,
+  href: 'zalo',
+  image: `phonics-b${n}`,
+  sample: `phonics-b${n}`,
+  reader: `phonics-b${n}-sample`,
+  clip: { src: `/audio/phonics/phonics-b${n}-clip.mp3`, seconds: clipSeconds },
+  delivery: true,
+  paypal: true,
+  credit: PHONICS_CREDIT,
+  en: {
+    label: 'Digital download · Phonics · New',
+    title: `Jurassic English Phonics, Book ${n}: ${title.en}`,
+    problem: problem.en,
+    inside: `Listen, read, write, play: 8 themed units, 2 review units and a challenge, with audio tracks for every listening page (${tracks} MP3s), an answer key, a teacher guide and parent homework sheets in English and Vietnamese. A colour, print-friendly PDF.`,
+    forWho: 'Children aged 4–7 (CEFR Pre-A1 → A1). Start here, before Story Workbooks. Licensed for one family or one teacher/tutor. Please do not copy, resell or share the files.',
+    unit: 'one-time · 1 book with audio',
+    cta: 'Order on Zalo',
+  },
+  vi: {
+    label: 'Tài liệu số · Phonics · Mới',
+    title: `Jurassic English Phonics, Quyển ${n}: ${title.vi}`,
+    problem: problem.vi,
+    inside: `Nghe, đọc, viết, chơi: 8 bài theo chủ đề, 2 bài ôn tập và 1 phần thử thách, có file âm thanh cho mọi bài nghe (${tracks} file MP3), đáp án, hướng dẫn cho giáo viên và phiếu bài tập về nhà cho phụ huynh bằng tiếng Anh và tiếng Việt. File PDF màu, dễ in.`,
+    forWho: 'Bé 4–7 tuổi (CEFR Pre-A1 → A1). Bắt đầu từ đây, trước Sách truyện bài tập. Dùng cho một gia đình hoặc một giáo viên. Vui lòng không sao chép, bán lại hoặc chia sẻ file.',
+    unit: 'mua một lần · 1 quyển có âm thanh',
+    cta: 'Đặt mua qua Zalo',
+  },
+});
+export const PHONICS_BOOKS: Product[] = [
+  phonicsBook(1, { en: 'The Alphabet', vi: 'Bảng chữ cái' }, '79.000₫', 46, 12, {
+    en: 'Your child is starting English and still mixes up the names and the sounds of the letters.',
+    vi: 'Con mới bắt đầu học tiếng Anh và vẫn còn nhầm tên chữ cái với âm của chữ.',
+  }),
+  phonicsBook(2, { en: 'Short Vowels', vi: 'Nguyên âm ngắn' }, '129.000₫', 55, 20, {
+    en: 'Your child knows the letters but cannot yet sound out short words such as cat, hen, pig, dog and sun.',
+    vi: 'Con đã biết các chữ cái nhưng chưa tự đánh vần được những từ ngắn như cat, hen, pig, dog và sun.',
+  }),
+];
 
 /** The age range each level's card states in "Who it's for" (a test keeps the two in step); shown on the level picker. */
 export const WORKBOOK_AGES: Record<string, string> = {
@@ -511,6 +586,7 @@ export const PRODUCTS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
+  ...PHONICS_BOOKS,
   ...STORY_WORKBOOKS,
   {
     id: 'teacher-pack-l1',
@@ -1548,6 +1624,7 @@ type PageCopy = {
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   workbooks: string;
   workbooksBand: { heading: string; intro: string; levels: string; ages: string; agesFrom: string; count: string; single: string; singleLevel: string };
+  phonicsBand: { heading: string; intro: string; books: string; book: string; ages: string; isNew: string; listen: string; listenLabel: string; reader: string; readerNote: string };
   ielts: { groups: Record<IeltsGroup, string>; home: Partial<Record<IeltsGroup, string>>; crumb: string };
   closing: { heading: string; body: string; cta: string };
 };
@@ -1572,6 +1649,18 @@ const PAGE: Record<Locale, PageCopy> = {
       count: '{n} workbooks',
       single: '1 workbook',
       singleLevel: 'Level {level} · one book',
+    },
+    phonicsBand: {
+      heading: 'Jurassic English Phonics',
+      intro: 'Learn to read with Dane and Kate',
+      books: 'Jurassic English Phonics books',
+      book: 'Book {n}',
+      ages: 'Ages 4–7 · with audio',
+      isNew: 'New',
+      listen: 'Listen ({time})',
+      listenLabel: 'Listen to a {time} audio clip from {title}',
+      reader: 'Open the sample in the reader',
+      readerNote: '14 real pages with the audio, free, no sign-up.',
     },
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
@@ -1607,6 +1696,18 @@ const PAGE: Record<Locale, PageCopy> = {
       single: '1 cuốn',
       singleLevel: 'Level {level} · một cuốn',
     },
+    phonicsBand: {
+      heading: 'Jurassic English Phonics',
+      intro: 'Học đọc cùng Dane và Kate',
+      books: 'Các quyển Jurassic English Phonics',
+      book: 'Quyển {n}',
+      ages: 'Bé 4–7 tuổi · có âm thanh',
+      isNew: 'Mới',
+      listen: 'Nghe thử ({time})',
+      listenLabel: 'Nghe đoạn âm thanh {time} của {title}',
+      reader: 'Mở bản mẫu trong trình đọc',
+      readerNote: '14 trang thật kèm âm thanh, miễn phí, không cần đăng ký.',
+    },
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
@@ -1622,7 +1723,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books'> & {
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books' | 'usd' | 'orderOnly' | 'reader' | 'clip'> & {
   link?: { href: string; label: string };
   paused?: boolean;
   credit?: string;
@@ -1641,8 +1742,8 @@ export function productsPage(locale: Locale) {
       ...copy.sections[id],
       cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, usd, orderOnly, reader, clip, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).

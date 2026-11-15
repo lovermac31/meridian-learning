@@ -85,7 +85,8 @@ export function orderCode(source: string | null, cardId: string): string {
   if (source && ORDER_CODES[source]) return ORDER_CODES[source];
   // The home page's own links (home-hero, home-tiles) are the site itself: the code stays the card id, so Jay sees the
   // product; the utm still reaches analytics and the Zalo link.
-  if (source && source !== DEFAULT_SOURCE && !source.startsWith('home-')) return source.toUpperCase();
+  // The header's Phonics launch link (header-new, 15 Nov 2026) is the site's own link too.
+  if (source && source !== DEFAULT_SOURCE && !source.startsWith('home-') && source !== 'header-new') return source.toUpperCase();
   return cardId.toUpperCase();
 }
 
@@ -104,8 +105,12 @@ export const ORDER_CODE_COPY: Record<Locale, { before: string; after: string }> 
 // custom field carry the card id and the order code, so Jay matches each payment by hand and sends the files by
 // Google Drive within 24 hours (until the portal automates it, ADR-008).
 // Products with a regional price (regionalPrice.ts) charge the buyer's market tier; every other card keeps ceil(VND ÷ 25,897).
-export const productUsd = (price: string, id?: string, market?: string | null) =>
-  id && hasRegionalPrice(id) ? regionalUsd(id, market) : usdFromVnd(Number(price.replace(/\D/g, '')));
+// A product with a fixed US$ price (Phonics, US$7.99, Jay 14 Nov 2026) charges exactly that.
+export const productUsd = (price: string, id?: string, market?: string | null) => {
+  const fixed = id ? PRODUCTS.find((entry) => entry.id === id)?.usd : undefined;
+  if (fixed) return fixed;
+  return id && hasRegionalPrice(id) ? regionalUsd(id, market) : usdFromVnd(Number(price.replace(/\D/g, '')));
+};
 
 export function productPaypalHref(id: string, source: string | null, locale: Locale = 'en', market?: string | null): string {
   const product = PRODUCTS.find((entry) => entry.id === id);

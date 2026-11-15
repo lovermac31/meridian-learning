@@ -21,7 +21,10 @@ export type AnonymousEvent =
   | 'reserve_view'
   | 'reserve_submit'
   | 'pay_instructions_shown'
-  | 'page_view';
+  | 'page_view'
+  // Phonics (15 Nov 2026): the card's audio clip was played; the reader sample was opened.
+  | 'phonics_audio_play'
+  | 'reader_open';
 
 export type ClientEventParams = {
   event: AnonymousEvent;
