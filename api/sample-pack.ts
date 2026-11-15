@@ -262,10 +262,25 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
   }
 }
 
+// The AI Speaking app's SePay dispatcher reads BL+hex and JE(AI|BL|WR|LD|PD) as its own code families, so a suffix such as
+// "BL3F2A" or "JEAI12" could send a JE payment the wrong way (P5c, 15 Nov 2026). Such a suffix is never issued.
+export const RESERVED_SUFFIX = /^(BL|JE)/;
+const memoSuffix = (seed: string) =>
+  (createHash('sha256').update(seed).digest().readUIntBE(0, 6) % 36 ** 6).toString(36).toUpperCase().padStart(6, '0');
+
+/**
+ * The order's memo, stable for one submission (the prepare step and the contact form must agree). A reserved suffix is redrawn
+ * deterministically (`:1`, `:2`, …), so a clean suffix is unchanged from before and a redrawn one is still stable on retry.
+ */
 export function createPaidMemo(product: string, submissionId: string): string {
   const offer = paidOffer(product);
   if (!offer || !submissionId) throw new Error('Invalid reservation');
-  return `${offer.prefix}-${(createHash('sha256').update(`${product}:${submissionId}`).digest().readUIntBE(0, 6) % 36 ** 6).toString(36).toUpperCase().padStart(6, '0')}`;
+  for (let draw = 0; draw < 64; draw += 1) {
+    const suffix = memoSuffix(draw === 0 ? `${product}:${submissionId}` : `${product}:${submissionId}:${draw}`);
+    if (!RESERVED_SUFFIX.test(suffix)) return `${offer.prefix}-${suffix}`;
+  }
+  // 64 reserved draws in a row has a probability below 1e-100; fail closed rather than issue a misroutable code.
+  throw new Error('Could not draw a payment memo');
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
