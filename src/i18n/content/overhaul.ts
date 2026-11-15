@@ -46,7 +46,8 @@ const en = {
       { key: 'ielts', label: 'IELTS', aria: 'IELTS · JurassicIELTS.com', desc: 'IELTS Writing and Speaking on JurassicIELTS.com', href: 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move', kind: 'native' },
       { key: 'storyclub', label: 'Story Club', desc: 'Online story groups for children aged 5–8', href: '/story-club', kind: 'route' },
       // Products in the main menu (website assessment, 27 Oct 2026, fix 3: Jay wants easy access; supersedes footer-only).
-      { key: 'products', label: 'Books & Prices', desc: '', href: '/products', kind: 'route' },
+      // `short`: the standalone link beside the header button below 768 px (Jay, 15 Nov 2026: "Short label: Products").
+      { key: 'products', label: 'Books & Prices', short: 'Products', desc: '', href: '/products', kind: 'route' },
     ],
     // Small badge: on Books & Prices while PRODUCTS_NEW_HIGHLIGHT is on, otherwise on IELTS (Navbar badgeFor).
     newBadge: 'New',
@@ -287,7 +288,7 @@ const vi: OverhaulContent = {
       { key: 'speaking', label: 'Luyện nói 9–18', desc: 'Tự tin nói & IELTS cho teen', href: '/young-learners-speaking/', kind: 'native' },
       { key: 'ielts', label: 'IELTS', aria: 'IELTS · JurassicIELTS.com', desc: 'IELTS Writing và Speaking trên JurassicIELTS.com', href: 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move', kind: 'native' },
       { key: 'storyclub', label: 'Câu lạc bộ Truyện', desc: 'Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi', href: '/story-club', kind: 'route' },
-      { key: 'products', label: 'Sách & Bảng giá', desc: '', href: '/products', kind: 'route' },
+      { key: 'products', label: 'Sách & Bảng giá', short: 'Sản phẩm', desc: '', href: '/products', kind: 'route' },
     ],
     newBadge: 'Mới',
     cta: 'Đặt Đánh giá · 690k₫',

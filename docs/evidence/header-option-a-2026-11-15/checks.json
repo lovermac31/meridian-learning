@@ -8,7 +8,7 @@
       "bottom": 54.796875
     },
     "products": {
-      "left": 78.109375,
+      "left": 119.5625,
       "right": 188,
       "top": 14,
       "bottom": 58
@@ -35,7 +35,7 @@
       }
     ],
     "overlaps": {
-      "logoProducts": true,
+      "logoProducts": false,
       "productsCta": false,
       "ctaMenu": false,
       "logoCta": false
@@ -50,7 +50,7 @@
       "bottom": 54.796875
     },
     "products": {
-      "left": 108.109375,
+      "left": 149.5625,
       "right": 218,
       "top": 14,
       "bottom": 58
@@ -176,7 +176,7 @@
       "bottom": 54.796875
     },
     "products": {
-      "left": 70.5625,
+      "left": 113.421875,
       "right": 188,
       "top": 14,
       "bottom": 58
@@ -203,7 +203,7 @@
       }
     ],
     "overlaps": {
-      "logoProducts": true,
+      "logoProducts": false,
       "productsCta": false,
       "ctaMenu": false,
       "logoCta": false
@@ -218,7 +218,7 @@
       "bottom": 54.796875
     },
     "products": {
-      "left": 100.5625,
+      "left": 143.421875,
       "right": 218,
       "top": 14,
       "bottom": 58
@@ -245,7 +245,7 @@
       }
     ],
     "overlaps": {
-      "logoProducts": true,
+      "logoProducts": false,
       "productsCta": false,
       "ctaMenu": false,
       "logoCta": false
@@ -344,7 +344,7 @@
       "bottom": 48.46875
     },
     "products": {
-      "left": 161.375,
+      "left": 206.390625,
       "right": 284,
       "top": 14,
       "bottom": 58
@@ -371,7 +371,7 @@
       }
     ],
     "overlaps": {
-      "logoProducts": true,
+      "logoProducts": false,
       "productsCta": false,
       "ctaMenu": false,
       "logoCta": false
@@ -386,7 +386,7 @@
       "bottom": 48.46875
     },
     "products": {
-      "left": 191.375,
+      "left": 236.390625,
       "right": 314,
       "top": 14,
       "bottom": 58
@@ -518,7 +518,7 @@
       "bottom": 48.46875
     },
     "products": {
-      "left": 153.1875,
+      "left": 199.71875,
       "right": 284,
       "top": 14,
       "bottom": 58
@@ -545,7 +545,7 @@
       }
     ],
     "overlaps": {
-      "logoProducts": true,
+      "logoProducts": false,
       "productsCta": false,
       "ctaMenu": false,
       "logoCta": false
@@ -560,7 +560,7 @@
       "bottom": 48.46875
     },
     "products": {
-      "left": 183.1875,
+      "left": 229.71875,
       "right": 314,
       "top": 14,
       "bottom": 58

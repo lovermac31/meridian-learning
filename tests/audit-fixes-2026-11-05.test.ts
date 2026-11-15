@@ -19,8 +19,9 @@ const anchors = (html: string, href: string) => [...html.matchAll(new RegExp(`<a
 
 test('ecosystem header (/student-academy, /school-framework, /digital-reasoning-engine, /vi/student-academy/stories): Products door, EN and VI', () => {
   // Header wording Option A (Jay, 15 Nov 2026): Books & Prices / Sách & Bảng giá.
-  assert.deepEqual(getHeaderProducts('en'), { label: 'Books & Prices', full: 'Books & Prices', href: '/products' });
-  assert.deepEqual(getHeaderProducts('vi'), { label: 'Sách & Bảng giá', full: 'Sách & Bảng giá', href: '/vi/products' });
+  // Below 768 px the standalone link shows the short label (Jay, 15 Nov 2026: "Short label: Products").
+  assert.deepEqual(getHeaderProducts('en'), { label: 'Books & Prices', short: 'Products', full: 'Books & Prices', href: '/products' });
+  assert.deepEqual(getHeaderProducts('vi'), { label: 'Sách & Bảng giá', short: 'Sản phẩm', full: 'Sách & Bảng giá', href: '/vi/products' });
   assert.equal(getHeaderProducts().href, '/products', 'default language is English (the (en) root layout)');
 });
 
@@ -30,9 +31,10 @@ test('ecosystem header renders Products in the bar and in the menu, and the Viet
   // Option A: Books & Prices in the desktop row (2xl), the standalone link beside the CTA (below 2xl), and a menu row.
   assert.equal(links.length, 3, 'desktop row + standalone link beside the CTA + a menu row');
   const standalone = links.find((link) => link.includes('data-testid="header-products-link"'))!;
-  assert.match(standalone, /aria-label=\{products\.full\}/);
+  assert.doesNotMatch(standalone, /aria-label=/, 'the visible label is the accessible name (WCAG 2.5.3)');
   assert.match(standalone, /min-h-11 min-w-11/, '44px touch target');
-  assert.match(standalone, /\{products\.label\}/);
+  assert.match(standalone, /<span className="md:hidden">\{products\.short\}<\/span>/, 'short label below 768 px');
+  assert.match(standalone, /<span className="max-md:hidden">\{products\.label\}<\/span>/, 'full label from 768 px');
   assert.match(standalone, /2xl:hidden/, 'the desktop row carries it from 2xl');
   assert.ok(links.some((link) => link.includes('{products.full}')), 'menu row');
   // The standalone link is outside the <details> menu; the second row is inside it.
@@ -55,7 +57,10 @@ test('Young Learners page header: Products beside the CTA, in the link row and i
   const html = read('young-learners-speaking/index.html');
   const nav = html.match(/<nav class="yl2-nav yl2-hdr"[\s\S]*?<\/nav>/)![0];
   assert.equal(anchors(nav, '/products').length, 3, 'right-hand cluster, link row, menu panel');
-  assert.match(nav, /<div class="yl2-hdr-right">[\s\S]*?<a class="yl2-hdr-products" href="\/products" data-products-link[^>]*>Books &amp; Prices<\/a>/);
+  // Below 768 px the short label shows (Jay, 15 Nov 2026: "Short label: Products"); from 768 px, Books & Prices.
+  assert.match(nav, /<div class="yl2-hdr-right">[\s\S]*?<a class="yl2-hdr-products" href="\/products" data-products-link><span class="yl2-hdr-short" data-i18n="yl2.nav.productsShort">Products<\/span><span class="yl2-hdr-long" data-i18n="yl2.nav.products">Books &amp; Prices<\/span><\/a>/);
+  assert.match(html, /@media\(max-width:767px\)\{\.yl2-hdr-products \.yl2-hdr-long\{display:none\}\}/);
+  assert.match(html, /@media\(min-width:768px\)\{\.yl2-hdr-products \.yl2-hdr-short\{display:none\}\}/);
   // Option A doors: IELTS on JurassicIELTS.com, Story Club; no Pricing, no old labels.
   assert.equal(anchors(nav, 'https://jurassicielts\\.com/\\?utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move').length, 2, 'IELTS: link row + menu panel');
   assert.equal(anchors(nav, '/story-club').length, 2, 'link row + menu panel');
@@ -70,8 +75,8 @@ test('Vietnamese Young Learners page (/vi/luyen-noi-ielts/): Sản phẩm links 
   const nav = vi.match(/<nav class="yl2-nav yl2-hdr"[\s\S]*?<\/nav>/)![0];
   assert.equal(anchors(nav, '/vi/products').length, 3);
   assert.equal(anchors(nav, '/products').length, 0);
-  assert.match(nav, /data-products-link[^>]*>Sách &amp; Bảng giá<\/a>/);
-  assert.match(nav, /aria-label="Sách &amp; Bảng giá"/);
+  assert.match(nav, /data-products-link><span class="yl2-hdr-short" data-i18n="yl2.nav.productsShort">Sản phẩm<\/span><span class="yl2-hdr-long" data-i18n="yl2.nav.products">Sách &amp; Bảng giá<\/span><\/a>/);
+  assert.match(nav, /aria-label="Sách &amp; Bảng giá Mới"/);
   assert.equal(anchors(nav, '/vi/story-club').length, 2, 'Story Club opens the Vietnamese page');
   assert.match(nav, />Luyện nói 9–18</);
   assert.equal(anchors(nav, 'https://jurassicielts\\.com/vi/\\?utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move').length, 2, 'IELTS opens the Vietnamese JurassicIELTS page');

@@ -3,9 +3,10 @@
 // (the Vietnamese needs a native read before merge).
 export type HeaderLang = "en" | "vi";
 
+// `short`: the standalone link beside the header button below 768 px (Jay, 15 Nov 2026: "Short label: Products").
 export const PRODUCTS = {
-  en: { label: "Books & Prices", full: "Books & Prices", href: "/products" },
-  vi: { label: "Sách & Bảng giá", full: "Sách & Bảng giá", href: "/vi/products" },
+  en: { label: "Books & Prices", short: "Products", full: "Books & Prices", href: "/products" },
+  vi: { label: "Sách & Bảng giá", short: "Sản phẩm", full: "Sách & Bảng giá", href: "/vi/products" },
 } as const;
 
 export function getHeaderProducts(lang: HeaderLang = "en") {

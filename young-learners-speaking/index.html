@@ -482,6 +482,9 @@ nav.yl2-hdr{position:relative;z-index:40}
 /* Products stays one tap away at every width (4 Nov 2026): beside the CTA below 1280px, in the link row from 1280px. */
 .yl2-hdr-products{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 6px;color:#1E4D3B;font-weight:600;font-size:.95rem;text-decoration:none;border-radius:6px;white-space:nowrap}
 .yl2-hdr-products:hover{color:#B45309}
+/* Below 768 px the short label (Jay, 15 Nov 2026: "Short label: Products"), so it clears the logo at 360 px. */
+@media(max-width:767px){.yl2-hdr-products .yl2-hdr-long{display:none}}
+@media(min-width:768px){.yl2-hdr-products .yl2-hdr-short{display:none}}
 .yl2-hdr-products:focus-visible{outline:3px solid #1E4D3B;outline-offset:3px}
 .yl2-hdr-cta{display:none;align-items:center;white-space:nowrap;min-height:44px;padding:.5rem 1.25rem;font-weight:700;font-size:.9rem;background:#B45309;color:#fff;border-radius:999px;text-decoration:none}
 .yl2-hdr-cta:hover{background:#1E4D3B;color:#fff}
@@ -522,7 +525,7 @@ nav.yl2-hdr{position:relative;z-index:40}
         <button type="button" data-lang-btn="en" aria-pressed="true" class="is-active">EN</button>
         <button type="button" data-lang-btn="vi" aria-pressed="false">Tiếng Việt</button>
       </div>
-      <a class="yl2-hdr-products" href="/products" data-products-link data-i18n="yl2.nav.products" aria-label="Books &amp; Prices" data-i18n-attr="aria-label:yl2.nav.productsAria">Books &amp; Prices</a>
+      <a class="yl2-hdr-products" href="/products" data-products-link><span class="yl2-hdr-short" data-i18n="yl2.nav.productsShort">Products</span><span class="yl2-hdr-long" data-i18n="yl2.nav.products">Books &amp; Prices</span></a>
       <a class="yl2-hdr-cta" data-baseline-link href="/ai-speaking/baseline" data-i18n="yl2.nav.cta">Book Baseline · 690k₫ →</a>
       <details class="yl2-hdr-menu">
         <summary aria-label="Menu" data-i18n-attr="aria-label:yl2.nav.menu"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>

@@ -247,7 +247,10 @@ export const Navbar = ({
               className={`${NAV_LINK} inline-flex min-h-11 min-w-11 items-center justify-center px-1 max-[639px]:text-sm sm:px-2 2xl:hidden`}
               data-testid="header-products-link"
             >
-              {productsItem.short ?? productsItem.label}
+              {/* Below 768 px the short label (Jay, 15 Nov 2026: "Short label: Products"), so it clears the logo at 360 px.
+                  Only one span is displayed at a time, so the accessible name is always the visible text. */}
+              {productsItem.short ? <span className="md:hidden">{productsItem.short}</span> : null}
+              <span className={productsItem.short ? 'max-md:hidden' : undefined}>{productsItem.label}</span>
             </a>
           ) : null}
           <a

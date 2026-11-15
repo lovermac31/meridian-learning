@@ -98,11 +98,12 @@ export function ProductionStyleHeader({ lang = "en" }: { lang?: HeaderLang }) {
           </div>
           <a
             href={products.href}
-            aria-label={products.full}
             data-testid="header-products-link"
             className="inline-flex min-h-11 min-w-11 items-center justify-center whitespace-nowrap rounded-xl px-1 text-sm font-semibold text-[#1E4D3B] transition hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2 sm:px-2 sm:text-[0.95rem] 2xl:hidden"
           >
-            {products.label}
+            {/* Below 768 px the short label (Jay, 15 Nov 2026), so it clears the logo at 360 px. */}
+            <span className="md:hidden">{products.short}</span>
+            <span className="max-md:hidden">{products.label}</span>
           </a>
           {/* Below 640px the CTA label may wrap to two lines and drops its arrow so the Products link keeps its place in the bar. */}
           <a href={CTA_HREF} className={`${CTA} max-[639px]:max-w-[6.5rem] max-[639px]:whitespace-normal max-[639px]:text-center max-[639px]:text-xs max-[639px]:leading-[1.15]`}>
