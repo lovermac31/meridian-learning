@@ -756,6 +756,296 @@
       "permanent": true
     },
     {
+      "source": "/live-speaking-check",
+      "destination": "https://jurassicielts.com/solutions/live-speaking-check/",
+      "permanent": true
+    },
+    {
+      "source": "/live-speaking-check/",
+      "destination": "https://jurassicielts.com/solutions/live-speaking-check/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-cue-card-bank",
+      "destination": "https://jurassicielts.com/solutions/cue-card-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-cue-card-bank/",
+      "destination": "https://jurassicielts.com/solutions/cue-card-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-diagnostic-mock",
+      "destination": "https://jurassicielts.com/solutions/diagnostic-mock/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-diagnostic-mock/",
+      "destination": "https://jurassicielts.com/solutions/diagnostic-mock/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-essay-bank-task2",
+      "destination": "https://jurassicielts.com/solutions/essay-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-essay-bank-task2/",
+      "destination": "https://jurassicielts.com/solutions/essay-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-four-skill-kit",
+      "destination": "https://jurassicielts.com/solutions/four-skill-kit/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-four-skill-kit/",
+      "destination": "https://jurassicielts.com/solutions/four-skill-kit/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-listening-profiler",
+      "destination": "https://jurassicielts.com/solutions/listening-profiler/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-listening-profiler/",
+      "destination": "https://jurassicielts.com/solutions/listening-profiler/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-one-to-one-starter",
+      "destination": "https://jurassicielts.com/solutions/speaking-tutor-plan/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-one-to-one-starter/",
+      "destination": "https://jurassicielts.com/solutions/speaking-tutor-plan/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-reading-ladder",
+      "destination": "https://jurassicielts.com/solutions/reading-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-reading-ladder/",
+      "destination": "https://jurassicielts.com/solutions/reading-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-speaking-band-up",
+      "destination": "https://jurassicielts.com/solutions/speaking-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-speaking-band-up/",
+      "destination": "https://jurassicielts.com/solutions/speaking-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-speaking-ladder",
+      "destination": "https://jurassicielts.com/solutions/speaking-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-speaking-ladder/",
+      "destination": "https://jurassicielts.com/solutions/speaking-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-band-up",
+      "destination": "https://jurassicielts.com/solutions/writing-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-band-up/",
+      "destination": "https://jurassicielts.com/solutions/writing-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-ladder-task2",
+      "destination": "https://jurassicielts.com/solutions/writing-task2-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-ladder-task2/",
+      "destination": "https://jurassicielts.com/solutions/writing-task2-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-task1-method",
+      "destination": "https://jurassicielts.com/solutions/writing-task1-method/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-task1-method/",
+      "destination": "https://jurassicielts.com/solutions/writing-task1-method/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-teacher-pack",
+      "destination": "https://jurassicielts.com/solutions/writing-teacher-pack/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-teacher-pack/",
+      "destination": "https://jurassicielts.com/solutions/writing-teacher-pack/",
+      "permanent": true
+    },
+    {
+      "source": "/products/writing-baseline",
+      "destination": "https://jurassicielts.com/solutions/writing-baseline/",
+      "permanent": true
+    },
+    {
+      "source": "/products/writing-baseline/",
+      "destination": "https://jurassicielts.com/solutions/writing-baseline/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-cue-card-bank",
+      "destination": "https://jurassicielts.com/vi/solutions/cue-card-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-cue-card-bank/",
+      "destination": "https://jurassicielts.com/vi/solutions/cue-card-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-diagnostic-mock",
+      "destination": "https://jurassicielts.com/vi/solutions/diagnostic-mock/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-diagnostic-mock/",
+      "destination": "https://jurassicielts.com/vi/solutions/diagnostic-mock/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-essay-bank-task2",
+      "destination": "https://jurassicielts.com/vi/solutions/essay-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-essay-bank-task2/",
+      "destination": "https://jurassicielts.com/vi/solutions/essay-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-four-skill-kit",
+      "destination": "https://jurassicielts.com/vi/solutions/four-skill-kit/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-four-skill-kit/",
+      "destination": "https://jurassicielts.com/vi/solutions/four-skill-kit/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-listening-profiler",
+      "destination": "https://jurassicielts.com/vi/solutions/listening-profiler/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-listening-profiler/",
+      "destination": "https://jurassicielts.com/vi/solutions/listening-profiler/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-one-to-one-starter",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-tutor-plan/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-one-to-one-starter/",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-tutor-plan/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-reading-ladder",
+      "destination": "https://jurassicielts.com/vi/solutions/reading-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-reading-ladder/",
+      "destination": "https://jurassicielts.com/vi/solutions/reading-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-speaking-band-up",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-speaking-band-up/",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-speaking-ladder",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-speaking-ladder/",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-band-up",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-band-up/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-ladder-task2",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-task2-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-ladder-task2/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-task2-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-task1-method",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-task1-method/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-task1-method/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-task1-method/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-teacher-pack",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-teacher-pack/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-teacher-pack/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-teacher-pack/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/writing-baseline",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-baseline/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/writing-baseline/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-baseline/",
+      "permanent": true
+    },
+    {
       "source": "/ai-speaking/samples/basic",
       "destination": "/ai-speaking/samples",
       "permanent": true

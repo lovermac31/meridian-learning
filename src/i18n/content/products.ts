@@ -1626,8 +1626,14 @@ type PageCopy = {
   workbooksBand: { heading: string; intro: string; levels: string; ages: string; agesFrom: string; count: string; single: string; singleLevel: string };
   phonicsBand: { heading: string; intro: string; books: string; book: string; ages: string; isNew: string; listen: string; listenLabel: string; reader: string; readerNote: string };
   ielts: { groups: Record<IeltsGroup, string>; home: Partial<Record<IeltsGroup, string>>; crumb: string };
+  /** IELTS migration P6: the one card that replaces the IELTS product cards on /products. */
+  ieltsMoved: { heading: string; cta: string; href: string };
   closing: { heading: string; body: string; cta: string };
 };
+
+/** IELTS migration P6: IELTS products are sold on jurassicielts.com; their JE pages redirect there (vercel.json). */
+export const IELTS_MOVED_SECTION: ProductSectionId = 'ielts';
+const IELTS_MOVED_UTM = 'utm_source=jurassicenglish&utm_medium=moved';
 
 const PAGE: Record<Locale, PageCopy> = {
   en: {
@@ -1673,6 +1679,7 @@ const PAGE: Record<Locale, PageCopy> = {
       home: { speaking: 'More IELTS Speaking help', writing: 'More IELTS Writing help' },
       crumb: 'IELTS',
     },
+    ieltsMoved: { heading: 'IELTS courses and tools are at JurassicIELTS', cta: 'Go to JurassicIELTS', href: `https://jurassicielts.com/solutions/?${IELTS_MOVED_UTM}` },
     closing: { heading: 'Not sure which fits?', body: 'Message Mr. Jay on Zalo and he will point you to the right option. Nothing is charged until you accept a written order summary.', cta: 'Ask Mr. Jay on Zalo' },
   },
   // Machine-drafted (27 Oct 2026, P-3). Needs a native read before merge.
@@ -1719,6 +1726,7 @@ const PAGE: Record<Locale, PageCopy> = {
       home: { speaking: 'Thêm về luyện IELTS Speaking', writing: 'Thêm về luyện IELTS Writing' },
       crumb: 'IELTS',
     },
+    ieltsMoved: { heading: 'Khóa học và công cụ IELTS hiện có tại JurassicIELTS', cta: 'Đến JurassicIELTS', href: `https://jurassicielts.com/vi/solutions/?${IELTS_MOVED_UTM}` },
     closing: { heading: 'Chưa chắc sản phẩm nào phù hợp?', body: 'Nhắn thầy Jay qua Zalo, thầy sẽ gợi ý lựa chọn phù hợp. Không thu tiền cho đến khi bạn đồng ý bản tóm tắt đơn hàng bằng văn bản.', cta: 'Hỏi thầy Jay qua Zalo' },
   },
 };
@@ -1737,10 +1745,13 @@ export function productsPage(locale: Locale) {
   const copy = PAGE[locale];
   return {
     ...copy,
+    // The moved IELTS section's own heading and intro, for the one card that replaces its product cards (P6).
+    ieltsMovedSection: copy.sections[IELTS_MOVED_SECTION],
     sections: PRODUCT_SECTIONS.map((id) => ({
       id,
       ...copy.sections[id],
-      cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
+      // The IELTS section has no cards on /products after P6; ProductsPage shows the one moved card instead.
+      cards: PRODUCTS.filter((p) => p.live && p.section === id && id !== IELTS_MOVED_SECTION).map(
         (product): ProductCard => {
           const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, usd, orderOnly, reader, clip, [locale]: text } = product;
           return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };

@@ -501,7 +501,7 @@ type TrustItem = { icon: typeof Users; title: string; body: string };
 export const AUDIENCE_HEROES = [
   { section: 'families', lead: 'story-workbooks-l1', also: 'mango-l2' },
   { section: 'teachers', lead: 'teacher-pack-l1' },
-  { section: 'ielts' },
+  // IELTS migration P6: no IELTS hero; IELTS products are on jurassicielts.com (one card at the end of the catalogue).
 ] as const;
 
 function AudienceHeroes({ locale, sections, sampleOpen, categoryNames, countLabel }: {
@@ -517,7 +517,7 @@ function AudienceHeroes({ locale, sections, sampleOpen, categoryNames, countLabe
     <section className="mx-auto max-w-6xl px-5 pt-8" aria-label={AUDIENCE_HEROES.map((hero) => sections.find((entry) => entry.id === hero.section)?.heading).filter(Boolean).join(' · ')} data-audience-heroes="">
       {/* Rows are shared across the three cards (products.css, .products-audience): heading, title, text, price, extra link and button
           each sit on one line across the row, and the buttons share one baseline whatever the text length (Jay, 11 Nov 2026). */}
-      <ul className="products-audience grid gap-4 md:grid-cols-3">
+      <ul className="products-audience grid gap-4 md:grid-cols-2">
         {AUDIENCE_HEROES.map((hero) => {
           const section = sections.find((entry) => entry.id === hero.section);
           if (!section) return null;
@@ -560,7 +560,8 @@ const IELTS_APP_CARD: Record<Locale, { label: string; title: string }> = {
  * on the home page), the Level 1 Parent Home Reading Pack (the first parent pack) and the IELTS Speaking Ladder (the
  * first IELTS card). No sales data is in the repo, so the order is the site's own: home tile, then catalogue order.
  */
-export const FEATURED_PRODUCTS = ['story-club', 'baseline', 'one-to-one', 'printable-pack', 'parent-pack-l1', 'ielts-speaking-ladder'] as const;
+// IELTS migration P6: the IELTS Speaking Ladder moved to jurassicielts.com, so it is no longer featured here.
+export const FEATURED_PRODUCTS = ['story-club', 'baseline', 'one-to-one', 'printable-pack', 'parent-pack-l1'] as const;
 const HUB_COPY: Record<Locale, { trustLabel: string; trust: TrustItem[]; showing: (shown: number, total: number) => string; showAll: (total: number) => string; faq: string }> = {
   en: {
     trustLabel: 'What to expect',
@@ -900,6 +901,22 @@ export function ProductsPage({ locale }: { locale: Locale }) {
             {section.also.map((line) => <p key={line.id} className="products-also" data-also={line.id} hidden={!showAll && filter !== section.id}>{line.before}<a href={`#${line.id}`} className="font-bold underline underline-offset-4">{line.title}</a>{line.after}</p>)}
           </section>
         ))}
+        {/* IELTS migration P6: one card instead of the IELTS product cards; their JE pages redirect to jurassicielts.com.
+            id="ielts" keeps old #ielts links landing here. */}
+        <section id="ielts" aria-labelledby="ielts-h" className="products-category scroll-mt-24 max-md:scroll-mt-36" data-ielts-moved="">
+          <div className="products-category-head">
+            <h2 id="ielts-h">{c.ieltsMovedSection.heading}</h2>
+            <p className="products-category-intro">{c.ieltsMovedSection.intro}</p>
+          </div>
+          <div className="product-row product-row-free">
+            <div className="product-row-head">
+              <h3>{c.ieltsMoved.heading}</h3>
+            </div>
+            <div className="product-row-actions story-cta">
+              <a className="insights-button-primary" href={c.ieltsMoved.href} data-ielts-moved-cta="">{c.ieltsMoved.cta}</a>
+            </div>
+          </div>
+        </section>
       </div>
       {/* Why Jurassic English: the three "what you can expect" lines from Mr. Jay's section of the home page. */}
       <section className="products-why" aria-labelledby="products-why-h" data-products-why="">
