@@ -27,7 +27,7 @@ test('home: the IELTS app strip sits directly under the hero, EN + VI, with the 
     assert.match(block, /<img src="\/images\/ielts-app-screen\.webp"[^>]*alt="[^"]+"/, `${path}: labelled screenshot`);
     assert.doesNotMatch(block, /band \d|guarantee|score of/i);
   }
-  assert.equal(ieltsAppHref('home'), 'https://ielts.jurassicenglish.com/?utm_source=site&utm_medium=entrance&utm_content=home');
+  assert.equal(ieltsAppHref('home'), 'https://app.jurassicielts.com/?utm_source=site&utm_medium=entrance&utm_content=home');
   for (const file of ['public/images/ielts-app-screen.webp', 'public/images/w/ielts-app-screen-640.webp']) assert.equal(readFileSync(file).subarray(8, 12).toString(), 'WEBP', file);
 });
 

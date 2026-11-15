@@ -30,7 +30,7 @@ for (const page of answers) {
     assert.match(page.html, /\/ai-speaking\/baseline/, 'Baseline path');
     assert.match(page.html, /\/go\/zalo\?utm_source=answer-page&utm_content=/, 'Zalo path with utm_content');
     const html = await renderRoute(page.path);
-    assert.match(html, /ielts\.jurassicenglish\.com\/\?utm_source=site&(?:amp;)?utm_medium=entrance&(?:amp;)?utm_content=[a-z0-9-]+/, 'closing app card carries the page slug as utm_content');
+    assert.match(html, /app\.jurassicielts\.com\/\?utm_source=site&(?:amp;)?utm_medium=entrance&(?:amp;)?utm_content=[a-z0-9-]+/, 'closing app card carries the page slug as utm_content');
     if (page.alternatePath === page.path) assert.ok(page.locale === 'en');
   });
 }

@@ -110,7 +110,7 @@ const en = {
       artLabel: 'Illustration',
       rexAlt: 'Illustration of Professor Rex, the Jurassic English storybook guide',
     },
-    // IELTS app feature (Jay + CEO, 2 Nov 2026): one strip directly under the hero for https://ielts.jurassicenglish.com.
+    // IELTS app feature (Jay + CEO, 2 Nov 2026): one strip directly under the hero for https://app.jurassicielts.com.
     // Wording as given by Jay; practice only, no score or band promise. The image is the app's Practice screen (QA capture, 2 Nov).
     ieltsApp: {
       eyebrow: 'Free IELTS Speaking practice',

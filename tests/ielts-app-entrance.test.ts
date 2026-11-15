@@ -33,7 +33,7 @@ test('country pages (all locales), insights pages and the two tools carry one en
     assert.ok(answer || html.indexOf('data-ielts-app-entrance') < html.indexOf('insights-content') || html.indexOf('data-ielts-app-entrance') < html.indexOf('ielts-tool-content'), `${path}: near the top, before the article`);
     assert.match(html, /<img src="\/images\/w\/ielts-app-screen-640\.webp"[^>]*width="640" height="400"/, `${path}: image box reserved`);
   }
-  assert.equal(ieltsAppHref('country'), 'https://ielts.jurassicenglish.com/?utm_source=site&utm_medium=entrance&utm_content=country');
+  assert.equal(ieltsAppHref('country'), 'https://app.jurassicielts.com/?utm_source=site&utm_medium=entrance&utm_content=country');
 });
 
 test('no entrance on kids pages or people pages; the home strip is unchanged', async () => {
