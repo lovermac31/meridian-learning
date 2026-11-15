@@ -26,6 +26,7 @@ const STATIC_PUBLIC_PATHS = [
   '/teacher-standards',
   '/story-club',
   '/centres/level-1',
+  '/free-stories',
   '/story-club/reserve',
   '/products',
   '/series/compare',
