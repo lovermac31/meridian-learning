@@ -266,8 +266,11 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
 // runs past a JE code can win, so "BL" or "JE" anywhere in the code could send a JE payment the wrong way (P5c, 15 Nov 2026;
 // review MEDIUM 1). A draw is rejected when the prefix's last character plus the suffix contains "BL" or "JE" (e.g. LC-W1A7BL,
 // PR03-ABCDBL, PR0B-L3F2A1), or when the suffix ends in "B" or "J" (bank text after the memo could complete BL/JE).
+// LC only: bank text often puts the receiving bank "MB" right before the memo ("CK MB LC-ABC123"), and with dashes and spaces
+// stripped "MBLC…" reads as "BL" + "C" + the suffix, a Baseline code when the next five characters are hex. Such a suffix is
+// redrawn too (about 1.8% of LC draws).
 export function isMisroutableMemo(prefix: string, suffix: string): boolean {
-  return /BL|JE/.test(prefix.slice(-1) + suffix) || /[BJ]$/.test(suffix);
+  return /BL|JE/.test(prefix.slice(-1) + suffix) || /[BJ]$/.test(suffix) || (prefix === 'LC' && /^[0-9A-F]{5}/.test(suffix));
 }
 const memoSuffix = (seed: string) =>
   (createHash('sha256').update(seed).digest().readUIntBE(0, 6) % 36 ** 6).toString(36).toUpperCase().padStart(6, '0');
@@ -283,7 +286,7 @@ export function createPaidMemo(product: string, submissionId: string): string {
     const suffix = memoSuffix(draw === 0 ? `${product}:${submissionId}` : `${product}:${submissionId}:${draw}`);
     if (!isMisroutableMemo(offer.prefix, suffix)) return `${offer.prefix}-${suffix}`;
   }
-  // About 6.5% of draws are rejected, so 64 rejections in a row is below 1e-75; fail closed rather than issue a misroutable code.
+  // At most about 8% of draws are rejected, so 64 rejections in a row is below 1e-70; fail closed rather than issue a misroutable code.
   throw new Error('Could not draw a payment memo');
 }
 

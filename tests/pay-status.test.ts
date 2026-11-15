@@ -223,6 +223,22 @@ test('createPaidMemo: a misroutable first draw is redrawn, stable on retry; a cl
   assert.equal(createPaidMemo('printable-pack', clean), `PR03-${rawSuffix(`printable-pack:${clean}`)}`, 'draw 0 unchanged when clean');
 });
 
+// Offline emulation of the AIS family match on transfer text: dashes and spaces stripped, then BL+6 hex or JE(AI|BL|WR|LD|PD)+6 hex
+// anywhere. AIS PR #161 lets such a family match win, so none may appear in a JE memo with the usual bank lead-ins.
+const aisMisroutes = (text: string) => { const t = text.toUpperCase().replace(/[^A-Z0-9]/g, ''); return /BL[0-9A-F]{6}/.test(t) || /JE(AI|BL|WR|LD|PD)[0-9A-F]{6}/.test(t); };
+
+test('LC: "MB" lead-ins in bank text never turn an issued LC memo into a Baseline code', () => {
+  assert.equal(aisMisroutes('CK MB LC-ABC123'), true, 'the reviewer example misroutes under the AIS rule');
+  assert.equal(isMisroutableMemo('LC', 'ABC123'), true, 'so the guard rejects it');
+  assert.equal(isMisroutableMemo('LC', 'ABCG12'), false);
+  let bad = 0;
+  for (let i = 0; i < 200_000; i += 1) {
+    const memo = createPaidMemo('live-speaking-check', `JE-LC-mb-${i}`);
+    for (const lead of ['MB ', 'CK MB ', 'MBBANK ', '']) if (aisMisroutes(lead + memo)) bad += 1;
+  }
+  assert.equal(bad, 0);
+});
+
 test('sweep: no issued memo contains BL/JE in prefixLast+suffix or ends in B/J (200k draws for the reviewer prefixes, 20k for every other)', () => {
   const heavy = new Set(['printable-pack', 'teacher-pack-l4' /* PR0B */, 'live-speaking-check' /* LC */, 'one-to-one' /* 1T */]);
   for (const offer of [...PAID_OFFERS, LIVE_CHECK_OFFER]) {
