@@ -31,6 +31,8 @@ test('English-only Insights pages declare en + x-default pointing at themselves'
 test('every declared alternate is an indexable page that points back (no noindex twins, no one-way pairs)', () => {
   for (const route of routes) {
     for (const alt of resolveRouteMetadata(route).alternates ?? []) {
+      // The English and Vietnamese pages on jurassicielts.com are checked from that repo (it declares this page back).
+      if (alt.href.startsWith('https://jurassicielts.com/')) continue;
       const target = toPath(alt.href);
       assert.ok(indexable.has(target), `${route} declares ${alt.hrefLang} → ${target}, which is not an indexable sitemap page`);
       if (target === route) continue;

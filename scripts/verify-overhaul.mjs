@@ -48,10 +48,13 @@ const JARGON = [
   'Digital Reasoning Engine? Teacher-led',
 ];
 const NAV_LABELS = {
-  // Header symmetry (Oct 2026): short age-door labels; the full door names are the links' accessible names.
-  en: ['Kids Academy', 'Ages 9–18', 'IELTS Writing', 'AI Speaking Mocks', 'Pricing'],
-  vi: ['Học viện Thiếu nhi', '9–18 tuổi', 'IELTS Writing', 'Thi thử Nói AI', 'Học phí'],
+  // Header wording Option A (Jay, 15 Nov 2026): the five doors as they appear in the HTML (& is escaped). IELTS is one
+  // link to JurassicIELTS.com. The full door names are the links' accessible names.
+  en: ['Kids Academy', 'Speaking 9–18', 'IELTS · JurassicIELTS.com', 'Story Club', 'Books &amp; Prices'],
+  vi: ['Học viện Thiếu nhi', 'Luyện nói 9–18', 'IELTS · JurassicIELTS.com', 'Câu lạc bộ Truyện', 'Sách &amp; Bảng giá'],
 };
+// Labels Option A removed from every header.
+const OLD_NAV_LABELS = ['AI Speaking Mocks', 'Ages 9–18', '>Pricing<', 'Thi thử Nói AI', '>Học phí<'];
 const RECORDING_PROMISES = /recorded speaking (portfolio|clip)s?|recorded portfolio|recorded speaking clips/i;
 const POLICY = { en: /sessions with learners under 18 are never recorded/i, vi: /dưới 18 tuổi không bao giờ được ghi âm/i };
 const SCOPE = [/does not assess pronunciation|không đánh giá phát âm/i, /limited beta|beta giới hạn/i, /synthetic|tổng hợp/i];
@@ -152,7 +155,9 @@ function analyse(page, html) {
   if (page.spa) {
     const labels = NAV_LABELS[page.lang];
     const missing = labels.filter((l) => !header.includes(l));
-    record(missing.length === 0, `nav ${page.route}`, missing.length ? `missing ${missing.join(', ')}` : '4 need-first links present');
+    record(missing.length === 0, `nav ${page.route}`, missing.length ? `missing ${missing.join(', ')}` : 'Option A doors present');
+    const stale = OLD_NAV_LABELS.filter((l) => header.includes(l));
+    record(stale.length === 0, `nav old labels ${page.route}`, stale.length ? `still shows ${stale.join(', ')}` : 'no old door labels');
     record(/href="[^"]*\/ai-speaking(\/vi)?\/baseline(\?lang=vi)?"/.test(header) && /690k₫/.test(header), `nav CTA ${page.route}`, 'Book Baseline · 690k₫ → /ai-speaking/baseline');
   }
   return [...html.matchAll(/\/images\/overhaul\/[a-z0-9-]+\.webp/g)].map((m) => m[0]);

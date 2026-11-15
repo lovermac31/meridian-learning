@@ -3,7 +3,7 @@
  *
  * Decided by Jay on 4 Nov 2026 (final): Saturday 7 Nov 2026, 9:00 Hanoi time, is a FREE 30-minute Story Time for new
  * families. Registration is a Zalo message before Friday 6 Nov, 20:00. With fewer than 2 children registered, the try-it
- * moves to Saturday 14 Nov. The paid round is 4 weekly sessions at 590.000 VND from Saturday 14 Nov; parents decide after
+ * moves to Saturday 14 Nov. The paid round is 4 weekly sessions at 590.000 VND from Saturday 21 Nov; parents decide after
  * trying. No promised scores or results.
  *
  * UPDATE 8 Nov 2026 (Jay unwell): the try-it was postponed; no new date is set. Copy says "postponed, new date soon" until Jay
@@ -14,7 +14,7 @@
  */
 import type { Locale } from '../locales';
 import { STORY_CLUB_PRICE_VND } from '../../config/storyClubReserve';
-import { paymentAmount } from '../../config/payment';
+import { storyClubOfferLine, storyClubScheduleLine } from '../../config/storyClubOffer';
 
 export const STORY_CLUB_SESSIONS = 4;
 export const STORY_CLUB_SESSION_VND = STORY_CLUB_PRICE_VND / STORY_CLUB_SESSIONS; // 147.500 VND, the per-session make-up/return amount
@@ -25,7 +25,8 @@ export const STORY_CLUB_MIN_CHILDREN_FOR_TRY_IT = 2;
 export const STORY_CLUB_TRY_IT_ZALO_HREF = '/go/zalo?utm_source=story-club&utm_content=try-it-register';
 export const STORY_CLUB_TRY_IT_ZALO_HREF_RESERVE = '/go/zalo?utm_source=reserve&utm_content=try-it-register';
 
-type Fact = { label: string; value: string };
+/** `live` facts re-render in the browser without the dates that have passed (StoryClubLiveLine); `suffix` follows the live text. */
+type Fact = { label: string; value: string; live?: 'offer' | 'schedule'; suffix?: string };
 
 export type StoryClubTryItCopy = {
   /** One line for the hero of /story-club. */
@@ -37,8 +38,6 @@ export type StoryClubTryItCopy = {
   summary: { heading: string; intro: string; readFirst: string; beforePaying: string };
 };
 
-const sessionVnd = (locale: Locale) => paymentAmount(STORY_CLUB_SESSION_VND, locale);
-const priceVnd = (locale: Locale) => paymentAmount(STORY_CLUB_PRICE_VND, locale);
 
 export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
   en: {
@@ -60,10 +59,10 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
     paid: {
       heading: 'The paid round: 4 weeks',
       facts: [
-        { label: 'Price', value: `${priceVnd('en')} for ${STORY_CLUB_SESSIONS} weekly sessions (${sessionVnd('en')} a session).` },
-        { label: 'When', value: 'Saturdays at 9:00 Hanoi time, 30 minutes on Google Meet. The start date will be announced after the free try-it.' },
+        { label: 'Price', value: storyClubOfferLine('en'), live: 'offer' },
+        { label: 'When', value: `${storyClubScheduleLine('en')} 30 minutes on Google Meet.`, live: 'schedule', suffix: ' 30 minutes on Google Meet.' },
         { label: 'Who', value: `Children aged 5–8, up to ${STORY_CLUB_MAX_CHILDREN} children per group.` },
-        { label: 'You decide after trying', value: 'Parents choose whether to join the paid round after the try-it. There is no pressure to pay.' },
+        { label: 'The free Story Time', value: 'It is postponed (new date coming soon). You can join the paid round now, or ask Mr. Jay on Zalo first. There is no pressure to pay.' },
         { label: 'What it is', value: 'Story time, speaking practice and a personal reply from Mr. Jay. We do not promise exam scores or results.' },
       ],
     },
@@ -71,7 +70,7 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
       heading: 'Refunds and cancelled sessions',
       points: [
         'Full refund on request before the first paid session, within 24 hours of paying.',
-        `If Mr. Jay cancels a session, we make it up or return ${sessionVnd('en')} for that session.`,
+        'If Mr. Jay cancels a session, we make it up or return a quarter of what you paid for that session.',
       ],
     },
     summary: {
@@ -100,10 +99,10 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
     paid: {
       heading: 'Vòng học có phí: 4 tuần',
       facts: [
-        { label: 'Học phí', value: `${priceVnd('vi')} cho ${STORY_CLUB_SESSIONS} buổi hằng tuần (${sessionVnd('vi')} mỗi buổi).` },
-        { label: 'Khi nào', value: 'Sáng thứ Bảy 9:00 giờ Hà Nội, 30 phút qua Google Meet. Ngày bắt đầu sẽ được thông báo sau buổi học thử miễn phí.' },
+        { label: 'Học phí', value: storyClubOfferLine('vi'), live: 'offer' },
+        { label: 'Khi nào', value: `${storyClubScheduleLine('vi')} 30 phút qua Google Meet.`, live: 'schedule', suffix: ' 30 phút qua Google Meet.' },
         { label: 'Dành cho ai', value: `Bé 5–8 tuổi, tối đa ${STORY_CLUB_MAX_CHILDREN} bé mỗi nhóm.` },
-        { label: 'Quyết định sau khi học thử', value: 'Phụ huynh chọn có tham gia vòng học có phí hay không sau buổi học thử. Không có áp lực phải thanh toán.' },
+        { label: 'Giờ kể chuyện miễn phí', value: 'Buổi này tạm hoãn (sẽ báo ngày mới sớm). Bạn có thể tham gia vòng học có phí ngay, hoặc hỏi thầy Jay qua Zalo trước. Không có áp lực phải thanh toán.' },
         { label: 'Nội dung', value: 'Nghe kể chuyện, thực hành nói và phản hồi riêng từ thầy Jay. Chúng tôi không hứa trước điểm thi hay kết quả.' },
       ],
     },
@@ -111,7 +110,7 @@ export const storyClubTryItContent: Record<Locale, StoryClubTryItCopy> = {
       heading: 'Hoàn tiền và buổi học bị hủy',
       points: [
         'Hoàn tiền đầy đủ nếu bạn yêu cầu trước buổi học có phí đầu tiên, trong vòng 24 giờ kể từ khi thanh toán.',
-        `Nếu thầy Jay hủy một buổi, buổi đó sẽ được học bù hoặc hoàn lại ${sessionVnd('vi')} cho buổi đó.`,
+        'Nếu thầy Jay hủy một buổi, buổi đó sẽ được học bù hoặc hoàn lại một phần tư số tiền bạn đã trả cho buổi đó.',
       ],
     },
     summary: {

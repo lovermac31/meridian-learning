@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "productId": "phonics-b1",
+  "sampleStem": "phonics-b1",
+  "pageCount": 14,
+  "source": {
+    "file": "phonics-b1-sample.pdf",
+    "sha256": "7e9794575ca765fdcc3dc14c9ec5273df81947e3c049aa403607c827d99daa48"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "phonics-b1-pg01.webp",
+      "imageSha256": "bf3931ea9f09b88cb2652de91692d5a578bd0f09d0f96d83d8addca095728253",
+      "text": "Jurassic English Phonics\nBook 1\nThe Alphabet\nListen · Read · Write · Play\nby Matthew Goslee\nWorldWise Learning",
+      "textSha256": "369b8e3389c67fdba2c270f3f22e4b11b8dde52f2c114edb8e2b10eb186775e1",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 2,
+      "image": "phonics-b1-pg02.webp",
+      "imageSha256": "1c8585dd6b89bfb2b7839d600e9d330c4d0e43cf3bdeb7a75684c740bb7d37da",
+      "text": "Jurassic English Phonics\nBook 1 · The Alphabet\nby Matthew Goslee\nAa to Zz: letter names, sounds and handwriting\n8 units · 2 review units · Challenge · Test\nLetters, sounds, words and games\nWorldWise Learning",
+      "textSha256": "445a3a6b4739bec1e6ff9e7d2bf44dfee8be315f53d8c596562f7bed770d011d",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 3,
+      "image": "phonics-b1-pg03.webp",
+      "imageSha256": "f22a2c451ba05ffc546688d0e7873ca15831241be857442b2c8aef6811a90a12",
+      "text": "Contents\nUnit 1 · Letters Aa Bb Cc · Autumn Forest · page 4: apple, alligator, ant, book, bed, bat, cat, cap, cup\nUnit 2 · Letters Dd Ee Ff · Library and Story Time · page 10: dog, desk, duck, elephant, egg, elf, fish, frog, flag\nUnit 3 · Letters Gg Hh Ii · Space Camp · page 16: gorilla, glass, girl, hat, hippo, hand, igloo, insect, ink\nUnit 4 · Letters Jj Kk Ll · Garden Bugs · page 22: jet, jacket, jelly, king, key, kangaroo, lion, lamp, lemon\nReview 1 · Letters Aa to Ll · Snowy Mountain · page 28: chant, game, listening, maze, writing\nUnit 5 · Letters Mm Nn Oo · Pirate Island · page 34: mouse, melon, map, nut, nest, net, octopus, ox, ostrich",
+      "textSha256": "ae460d0386d6b51b8c13f99b47a83447ec8233e33c22d52e037470ecd6081244",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 4,
+      "image": "phonics-b1-pg04.webp",
+      "imageSha256": "7d1bd1f6a06e70766299c9c91fb7654e550afe1945598735196af25cb0d6eeb0",
+      "text": "Contents\nUnit 6 · Letters Pp Qq Rr · Royal Castle · page 40: panda, pen, pig, queen, question mark, quilt, ring, rabbit, robot\nUnit 7 · Letters Ss Tt Uu Vv · Hot Air Balloon Festival · page 46: sock, sun, sand, tiger, truck, tent, umbrella, up, under, violin, vest, vase\nUnit 8 · Letters Ww Xx Yy Zz · Art Studio · page 52: watch, window, watermelon, box, fox, six, yacht, yo-yo, yellow, zebra, zoo, zero\nReview 2 · Letters Mm to Zz · Candy Land · page 58: chant, game, hidden picture, maze, writing\nChallenge · Letters Aa to Zz · Dinosaur Valley · page 64: board game, connect the stars, rope ladder, writing\nTest and Key Vocabulary · Listening, Reading and Writing · page 70 · 30 questions · Key Vocabulary on page 76",
+      "textSha256": "6ef42b1b3e40e284d92f9189c85cd0cd951e368388794db7735c5aaece8f7e44",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 5,
+      "image": "phonics-b1-pg05.webp",
+      "imageSha256": "239034e3e0c012c6e1d7fa6c71e322923cc987329909ee43616c051cae073c1b",
+      "text": "Unit 1 · Letters Aa Bb Cc\n1 Learn (Track 01)\nListen and repeat. Then trace the letters.\nAa, Bb, Cc\nTrace the letters: A a, B b, C c",
+      "textSha256": "6674831f2106423b8191d30ff5d272446ef25bcb76150087de91e65e834d5495",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 6,
+      "image": "phonics-b1-pg06.webp",
+      "imageSha256": "54b5910ff42db7e2965e774047f70a8337435e7423f9c27a499216ea3c117828",
+      "text": "A Color the picture that begins with the letter.\nAa, Bb, Cc. Example: the apple is colored.\nB Circle the right letter.\nSay the word. Circle its first letter.\n1 ant: a b c\n2 cup: a b c\n3 bat: a b c",
+      "textSha256": "f5de8aa24fc99e6c61ef3324e0bd3d73bb1a71d76e81e169ffcb2bbb101813ff",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 7,
+      "image": "phonics-b1-pg07.webp",
+      "imageSha256": "0878de599d503e65170296f1e63d7cd95b5335c5154da9e331f88eb4f24c1bb7",
+      "text": "C Listen and repeat. (Track 02)\nAa: apple, alligator, ant\nBb: book, bed, bat\nCc: cat, cap, cup",
+      "textSha256": "e882e9276ab993117a75add25176393a0a577aa9eadc8aa5a341c7d3ccf88729",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 8,
+      "image": "phonics-b1-pg08.webp",
+      "imageSha256": "53aa63a1ddce2526b056c0eaf0715bb259552feb70a80529466cb004980626b9",
+      "text": "D Match the pictures with the letters.\nbook, apple, cat · Aa, Bb, Cc\nE Write the letter a, b or c.\nLook at the shape. Write its first letter.",
+      "textSha256": "521af940ad36c59ec46792dbf3eeaff30df74b186dc8c57b840ef2c9b438fc5a",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 9,
+      "image": "phonics-b1-pg09.webp",
+      "imageSha256": "a37adc9c1768b503697db551cb799927298b68023dd265d6f6a51248f600ad1a",
+      "text": "F Listen to the word. (Track 03)\nColor its beginning letter: a b c\nG Listen to the beginning sound. (Track 04)\nCircle the right picture.\n1 alligator, book, cap\n2 bat, apple, cup\n3 ant, cat, bed",
+      "textSha256": "c6fceb6801a644eb0d260c2f67584c5409bbab1400b5bea9eaee4317397d1386",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 10,
+      "image": "phonics-b1-pg10.webp",
+      "imageSha256": "d6ce6dace7332db0564b41451383e38adbb7071ea94e890328834d436434c65c",
+      "text": "H Trace and write the letters.\nAa, Bb, Cc\nABC, abc\nI finished Unit 1! Teacher stamp or sticker",
+      "textSha256": "70a7a255a04f7150b19adbc1e7eaf0a803664430d0ece155fb20de0df5e6e8c4",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 11,
+      "image": "phonics-b1-pg11.webp",
+      "imageSha256": "e89c822143e7b968f0ee76c789d07ee2bbcb8af0cd21ed9d3635183a2606232e",
+      "text": "Unit 2 · Letters Dd Ee Ff\n1 Learn (Track 05)\nListen and repeat. Then trace the letters.\nDd, Ee, Ff\nTrace the letters: D d, E e, F f",
+      "textSha256": "fffb1b9c2e170fefd79a19ad5b82c77a34f4f4e00bd0c2c55b6ab9678f2bad2c",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 12,
+      "image": "phonics-b1-pg12.webp",
+      "imageSha256": "1296f10aef69e510c0aa45c83a2926ae1f4477b73e4550284366397d7f6a9704",
+      "text": "A Color the picture that begins with the letter.\nDd, Ee, Ff. Example: the dog is colored.\nB Circle the right letter.\nSay the word. Circle its first letter.\n1 flag: d e f\n2 elf: d e f\n3 duck: d e f",
+      "textSha256": "ace3a95cd713fe0cb66e0b542b1b005cf93d0d81d89d0d6130453ab6d6f43410",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 13,
+      "image": "phonics-b1-pg13.webp",
+      "imageSha256": "96d674e8b32a04c6a92d393a523a649aeb8e187c42fc5b3ac7bf966a645d574a",
+      "text": "Audio and Credits\nListen: this book has 46 audio tracks (MP3). The track number in each headphone tag, for example Track 07, matches the file name Book1_Track07.mp3. Find the files in the Audio folder of your download. Play them on any phone, tablet or computer, as often as you like. Press play, listen, pause, then answer. Most tracks are played twice. No audio yet? Teachers can read the scripts aloud from the Teacher's Guide.\nCredits: Jurassic English Phonics · Book 1 · The Alphabet. Text and activities by Matthew Goslee. Published by WorldWise Learning / Jurassic English. Illustrations are made with AI image tools and edited by the publisher. The audio is synthetic text-to-speech. © 2026 Jurassic English. All rights reserved. For use by the purchasing family, teacher or school. Please do not copy, resell or share the files. Questions: www.jurassicenglish.com",
+      "textSha256": "90280cb6f08eb1e01214002eb0514082a5e6260839e3f93832624ba0827194bb",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 14,
+      "image": "phonics-b1-pg14.webp",
+      "imageSha256": "c88f0c7dbcaa7b314791a331e94ad5f3ed7ca1b77c52e772a4b7bc759da771d4",
+      "text": "Jurassic English Phonics\nBook 1 · The Alphabet\nJurassic English Phonics is a five-book series that helps young learners read and spell English with confidence.\nIn Book 1, children learn the 26 letters: their names, their sounds and how to write them, through themed units, chants, games and puzzles.\n8 themed units, 2 review units and a Challenge · Letter tracing with stroke order on every unit · A test and key vocabulary list at the back\nThe series: Book 1, Book 2, Book 3, Book 4, Book 5\nby Matthew Goslee · WorldWise Learning · www.jurassicenglish.com",
+      "textSha256": "9c26deee1616b99c0909783aad76be42cc2ae94bd0ebfdaa525376872ed61b77",
+      "method": "pdf-text+reviewed-ocr"
+    }
+  ]
+}

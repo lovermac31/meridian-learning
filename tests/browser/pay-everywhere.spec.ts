@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { PAID_OFFERS, paymentAmount, paymentHref, reserveCta } from '../../src/config/payment';
+import { storyClubPriceAt } from '../../src/config/storyClubOffer';
 import { PAUSED_COPY, PRODUCTS } from '../../src/i18n/content/products';
 import { HOME_PRIMARY_OPTION, getOverhaulContent } from '../../src/i18n/content/overhaul';
 
@@ -15,6 +16,7 @@ test.beforeEach(async ({ page, baseURL }) => {
   await page.addInitScript(() => window.addEventListener('je:hydrated', () => { document.documentElement.dataset.qaHydrated = 'true'; }, { once: true }));
   await page.route('**/*', route => {
     const url = new URL(route.request().url());
+    if (url.pathname.startsWith('/ai-speaking/')) return route.abort(); // P5c: the pay-step status proxy, never real network
     if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/go/')) return route.abort();
     return route.fallback();
   });
@@ -25,6 +27,8 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await page.setViewportSize({ width, height: 900 });
     const events: string[] = [];
     const memo = `${offer.prefix}-AB12CD`;
+    // Story Club's amount is the dated launch-offer price (src/config/storyClubOffer.ts); every other product is its card price.
+    const expectedAmount = () => offer.id === 'story-club' ? storyClubPriceAt(new Date()).priceVnd : offer.amount;
     await page.route('**/api/event', route => {
       const body = route.request().postDataJSON();
       if (['reserve_view', 'reserve_submit', 'pay_instructions_shown'].includes(body.event)) { expect(body.product_id).toBe(offer.id); events.push(body.event); }
@@ -38,7 +42,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
       if (body.intent === 'prepare_payment') {
         expect(body).not.toHaveProperty('phone');
         expect(body).not.toHaveProperty('name');
-        return route.fulfill({ json: { ok: true, submissionId: `JE-${offer.prefix}-${body.submissionKey}`, memo } });
+        return route.fulfill({ json: { ok: true, submissionId: `JE-${offer.prefix}-${body.submissionKey}`, memo, ...(offer.id === 'story-club' ? { amount: expectedAmount() } : {}) } });
       }
       expect(body.name).toBe('Synthetic Parent');
       expect(body.phone).toBe('+84396085076');
@@ -52,7 +56,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     });
     await page.route('https://qr.sepay.vn/img?**', route => {
       const url = new URL(route.request().url());
-      expect(url.searchParams.get('amount')).toBe(String(offer.amount));
+      expect(url.searchParams.get('amount')).toBe(String(expectedAmount()));
       expect(url.searchParams.get('des')).toBe(memo);
       expect(url.searchParams.get('bank')).toBe('MBBank');
       expect(url.searchParams.get('acc')).toBe('0269494315526');
@@ -91,7 +95,7 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     await form.locator('[name="consent"]').check();
     await form.locator('[type="submit"]').click();
     await expect(page.locator('[data-payment-instructions]')).toBeVisible();
-    await expect(page.locator('[data-payment-amount]')).toHaveText(paymentAmount(offer.amount, locale));
+    await expect(page.locator('[data-payment-amount]')).toHaveText(paymentAmount(expectedAmount(), locale));
     await expect(page.locator('[data-transfer-memo]')).toHaveText(memo);
     const qr = page.locator('[data-payment-qr]');
     await expect(qr).toHaveAttribute('src', /https:\/\/qr.sepay.vn\/img\?/);
@@ -99,7 +103,13 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) for
     expect(submissions).toBe(2);
     await expect.poll(() => events).toEqual(['reserve_view', 'pay_instructions_shown', 'reserve_submit']);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    if (offer.id !== 'story-club') await expect(page.locator('[data-payment-status]')).toHaveCount(0);
+    // P5c (15 Nov 2026): one polite status region per pay step. PR/LC/SC codes show the waiting line (status calls are aborted
+    // here, which keeps it), 1-to-1 shows the by-hand line, Baseline (BL) has no status source and an empty region.
+    await expect(page.locator('[data-payment-instructions] [aria-live="polite"]')).toHaveCount(1);
+    const statusLine = page.locator('[data-pay-status]');
+    if (offer.prefix === '1T') await expect(statusLine).toHaveText(locale === 'vi' ? /xác nhận thanh toán gói 1-1 thủ công/ : /We confirm 1-to-1 payments by hand/);
+    else if (offer.prefix === 'BL') await expect(statusLine).toHaveText('');
+    else await expect(statusLine).toHaveText(locale === 'vi' ? 'Đang chờ bạn chuyển khoản… Trang sẽ tự cập nhật, vui lòng giữ trang mở.' : 'Waiting for your transfer… This page updates by itself. Keep it open.');
     // A fast pre-hydration navigation may leave the optional analytics banner unchosen.
     // Dismiss it through the real control before capturing the payment QR.
     const remainingReject = page.getByRole('button', { name: /reject analytics|từ chối phân tích/i });

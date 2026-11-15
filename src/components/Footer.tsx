@@ -42,9 +42,9 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 return (
                   <li key={link.href}>
                     <a
-                      href={getLocalizedHref(link.href, locale)}
+                      href={movedHref(getLocalizedHref(link.href, locale))}
                       onClick={(event) => {
-                        if (!isSpa || !onNavigate) return;
+                        if (!isSpa || !onNavigate || isMovedToJurassicielts(link.href)) return;
                         event.preventDefault();
                         onNavigate(link.href);
                       }}

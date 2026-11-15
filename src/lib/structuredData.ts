@@ -1,5 +1,5 @@
 import type { Locale } from '../i18n/locales';
-import { PRODUCT_IMAGE_DIR, PRODUCTS, PRODUCTS_PATH } from '../i18n/content/products';
+import { IELTS_MOVED_SECTION, PRODUCT_IMAGE_DIR, PRODUCTS, PRODUCTS_PATH } from '../i18n/content/products';
 import { WORLDWISE_SITE_URL } from './contactConfig';
 import { usdFromVnd } from './paypal';
 import { hasRegionalPrice, regionalUsd } from './regionalPrice';
@@ -286,7 +286,8 @@ export const vndPriceValue = (price: string) => price.replace(/\D/g, '');
 // offer URL is the card itself; the description is the card's "What's inside" line.
 export function createProductListJsonLd(locale: Locale): JsonLd {
   const pageUrl = `${SITE_URL}${locale === 'vi' ? '/vi' : ''}${PRODUCTS_PATH}`;
-  const live = PRODUCTS.filter((product) => product.live);
+  // IELTS migration P6: IELTS products are sold on jurassicielts.com and are no longer on /products.
+  const live = PRODUCTS.filter((product) => product.live && product.section !== IELTS_MOVED_SECTION);
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -341,7 +342,8 @@ export function createProductJsonLd(product: Product, locale: Locale, videoId?: 
     ...(product.image ? { image: `${SITE_URL}${PRODUCT_IMAGE_DIR}/${product.image}.webp` } : {}),
     brand: { '@type': 'Brand', name: 'Jurassic English' },
     // A regional-price product lists its default (highest) tier in US$; the page's picker shows the buyer's own.
-    offers: [offer(vnd, 'VND'), ...(product.paypal ? [offer(String(hasRegionalPrice(product.id) ? regionalUsd(product.id) : usdFromVnd(Number(vnd))), 'USD')] : [])],
+    // A fixed US$ price (Phonics, US$7.99) is listed as it is charged.
+    offers: [offer(vnd, 'VND'), ...(product.paypal ? [offer(String(product.usd ?? (hasRegionalPrice(product.id) ? regionalUsd(product.id) : usdFromVnd(Number(vnd)))), 'USD')] : [])],
     // The product's film on the same page (video SEO, 27 Oct 2026).
     ...(videoId ? { subjectOf: { '@id': videoId } } : {}),
   };

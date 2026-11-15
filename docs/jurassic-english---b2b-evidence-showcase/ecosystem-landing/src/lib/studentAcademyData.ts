@@ -509,7 +509,7 @@ export const studentAcademyFAQs: FAQItem[] = [
   {
     question: "Is this English tutoring?",
     answer:
-      "No. Tutoring patches gaps. The Student Academy builds a foundation. Children leave able to read, reason, and write at academic standard, not only able to pass tests.",
+      "No. Tutoring patches gaps. The Kids Academy builds a foundation. Children leave able to read, reason, and write at academic standard, not only able to pass tests.",
   },
   {
     question: "What makes it different?",

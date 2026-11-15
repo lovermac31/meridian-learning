@@ -144,6 +144,14 @@ export function teacherPackHref(level: number, locale: Locale = "en"): string {
   return `${locale === "vi" ? "/vi" : ""}/products?utm_source=academy#teacher-pack-l${level}`;
 }
 
+/**
+ * "Before Level 1: Jurassic English Phonics" (Phonics blueprint section 5, Jay 15 Nov 2026): the Phonics tile on the main
+ * site's /products, tagged utm_source=academy before the #anchor like the hub's other links.
+ */
+export function phonicsHref(locale: Locale = "en"): string {
+  return `${locale === "vi" ? "/vi" : ""}/products?utm_source=academy#phonics`;
+}
+
 /** The Level Stories hub's next step: Mr. Jay on Zalo (website assessment, 27 Oct 2026, fix 10). Zalo cannot prefill a
  * message, so the link is tagged utm_source=story-hub for the Sale Team's table. */
 export const STORY_HUB_ZALO = "https://zalo.me/84396085076?utm_source=story-hub";

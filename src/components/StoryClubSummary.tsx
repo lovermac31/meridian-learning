@@ -1,17 +1,18 @@
 import type { ReactNode } from 'react';
 import type { Locale } from '../i18n/locales';
 import { storyClubTryItContent } from '../i18n/content/storyClubTryIt';
+import { StoryClubLiveLine } from './StoryClubLiveLine';
 
 type Heading = 'h2' | 'h3';
 
 /** A short list of labelled facts (what, when, who, rules). Plain text, readable without JavaScript. */
-function Facts({ facts }: { facts: ReadonlyArray<{ label: string; value: string }> }) {
+function Facts({ facts, locale }: { facts: ReadonlyArray<{ label: string; value: string; live?: 'offer' | 'schedule'; suffix?: string }>; locale: Locale }) {
   return (
     <dl className="mt-3 space-y-2">
       {facts.map((fact) => (
         <div key={fact.label} className="sm:grid sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-3">
           <dt className="font-bold">{fact.label}</dt>
-          <dd>{fact.value}</dd>
+          <dd>{fact.live ? <><StoryClubLiveLine locale={locale} kind={fact.live} />{fact.suffix}</> : fact.value}</dd>
         </div>
       ))}
     </dl>
@@ -24,7 +25,7 @@ export function StoryClubTryIt({ locale, as: H = 'h2', id, children }: { locale:
   return (
     <section aria-labelledby={id} data-story-club-try-it>
       <H id={id} className={H === 'h2' ? 'text-2xl font-bold' : 'text-xl font-bold'}>{c.heading}</H>
-      <Facts facts={c.facts} />
+      <Facts facts={c.facts} locale={locale} />
       {children}
     </section>
   );
@@ -36,7 +37,7 @@ export function StoryClubPaidRound({ locale, as: H = 'h2', id }: { locale: Local
   return (
     <section aria-labelledby={id} data-story-club-paid-round>
       <H id={id} className={H === 'h2' ? 'text-2xl font-bold' : 'text-xl font-bold'}>{c.heading}</H>
-      <Facts facts={c.facts} />
+      <Facts facts={c.facts} locale={locale} />
     </section>
   );
 }

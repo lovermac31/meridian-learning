@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { checkRateLimit, createThrottleLogContext, logRateLimited } from './_lib/requestSecurity.js';
 import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 import { recordServerEvent } from './_lib/eventWriter.js';
+import { isAutomatedRequest } from './_lib/automation.js';
 
 export const ALLOWED_EVENTS = [
   'pricing_view',
@@ -13,6 +14,10 @@ export const ALLOWED_EVENTS = [
   'reserve_view',
   'reserve_submit',
   'pay_instructions_shown',
+  'page_view',
+  // Phonics (15 Nov 2026, brief WW-20261115-02). Needs migration 20261115000001 before the rows are stored.
+  'phonics_audio_play',
+  'reader_open',
 ] as const;
 
 export type AllowedEvent = (typeof ALLOWED_EVENTS)[number];
@@ -43,6 +48,7 @@ export type ValidatedEventData = {
   utm_content?: string;
   utm_medium?: string;
   utm_campaign?: string;
+  referrer_host?: string;
   locale?: string;
 };
 
@@ -87,6 +93,7 @@ export function validateEventPayload(body: unknown):
       utm_content: str(raw.utm_content, 64),
       utm_medium: str(raw.utm_medium, 64),
       utm_campaign: str(raw.utm_campaign, 64),
+      referrer_host: str(raw.referrer_host, 64),
       locale: str(raw.locale, 8),
     },
   };
@@ -138,6 +145,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const validation = validateEventPayload(body);
   if (validation.ok === false) {
     return res.status(validation.status).json({ ok: false, error: validation.error });
+  }
+
+  // Page views from crawlers, monitors and test runs are acknowledged but never stored (api/_lib/automation.ts).
+  if (validation.data.event === 'page_view' && isAutomatedRequest(req.headers, req.method)) {
+    return res.status(204).end();
   }
 
   // Record to Supabase (fails open if DB unconfigured or table unmigrated)

@@ -1,91 +1,59 @@
 {
   "version": 1,
   "productId": "student-workbook-l2",
-  "sampleStem": "student-workbook-l2",
-  "pageCount": 10,
+  "sampleStem": "student-workbook-l2-v2",
+  "pageCount": 6,
   "source": {
-    "file": "student-workbook-l2-sample.pdf",
-    "sha256": "78eb80e1c66be6a299e82b572e9b6d12ed45eebc9337d3d18fc00cfffbcca273"
+    "file": "student-workbook-l2-v2-sample.pdf",
+    "sha256": "952902ef196af72e8b61739492a0a8551cde9b7185c4476893f1d6bdb1b80483"
   },
   "pages": [
     {
       "page": 1,
-      "image": "student-workbook-l2-pg01.webp",
-      "imageSha256": "a8feb6dd71eb64666d11da8e9bc51f5795949ffac956a08ad7aee89d9a519436",
-      "text": "JURASSIC ENGLISH\nJE Level 2 Student Workbook\nThe activity book for Level 2 Development (ages 8–10): a page for every lesson. Excavate\nevidence, weigh a Big Question, build the CEIW argument, and link it to the living world.\nLevel\n2\nDevelopment Ages\n8–10 CEFR\nA1\n → \nA2 40\nlesson\npages\nEdition 1.0 · 27 October 2026 Licensed edition · single-buyer licence\n™\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "661e8f2b988b1c237c43a65699f434cc91f7474a19a7de6a434be9aba433c672",
+      "image": "student-workbook-l2-v2-pg01.webp",
+      "imageSha256": "3fa515f4b6f2da238a4d2a257e7f55c1af1c7ebcb2235bd3bf7dee7a1d972df5",
+      "text": "STUDENT           WORKBOOK            ·   JE   ORIGINALS         EDITION\n\n\n\n Level 2 Student Workbook\nA page for every lesson: excavate evidence, weigh a Big Question, build an\n             argument and link the story to the living world.\n\n\n\n\n   Learner              Ages 8–10 · CEFR A1 → A2\n   Pages                One page for each of the 40 lessons\n   Stories              10 Jurassic English originals\n   Also inside          Thinking Tools, Thinking Passport, Word Fossil Log,\n                        certificate\n\n\n\n\n                 Level 2 · Development · JurassicEnglish.com",
+      "textSha256": "855fbb2e354a4e9361e900191c4f71dfa9f838649dfd93616f90a268b61c86e3",
       "method": "pdf-text"
     },
     {
       "page": 2,
-      "image": "student-workbook-l2-pg02.webp",
-      "imageSha256": "f65207b5684e80019769b8e0832364612728b8c4f7f2f428f3f395bbddf60a2c",
-      "text": "JE Level 2 Student Workbook JURASSIC ENGLISH ™\n2Licensed for one learner (class sets: one class). © Jurassic English\n3\n4\n5\n6\n7\n8\n9\n10\n15\n20\n25\n30\n35\n40\n45\n50\n55\n60\n61\n62\nContents\nWhat you get in this pack\nPART\nA\n·\nSTART\nHERE\nWelcome, Thinking Paleontologist\nFor teachers and parents\nYour Thinking Tools\nMy Thinking Passport\nPART\nB\n·\nTHE\nTEXTS\nStory 1: Charlotte's Web\nStory 2: The Lorax\nStory 3: Fantastic Mr. Fox\nStory 4: The Iron Man\nStory 5: The Wild Robot\nStory 6: James and the Giant Peach\nStory 7: The Tale of Despereaux\nStory 8: The Sheep-Pig\nStory 9: The Lorax (revisited)\nStory 10: Pax\nPART\nC\n·\nTHE\nEND\nOF\nTHE\nYEAR\nMy Word Fossil Log\nThinking Paleontologist Certiﬁcate\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "6b6b249476d92717ca914c1343545aff090182a6d21dfdd016ee3392d4ab64c4",
+      "image": "student-workbook-l2-v2-pg02.webp",
+      "imageSha256": "02abf9d13638776c6c161908e0342835e70f7921df143a7d35c3aaaefc5be38b",
+      "text": "Jurassic English · Level 2 Student Workbook\n\n\nContents\nPA RT A · S TA RT H E R E\nWelcome, Thinking Paleontologist                                                                                                                        3\nFor teachers and parents                                                                                                                                4\nYour Thinking Tools                                                                                                                                      5\nMy Thinking Passport                                                                                                                                    6\n\nPA RT B · T H E S TO R I E S\nStory 1: The Bell That Rang Too Early                                                                                                                    7\nStory 2: The Rain on Platform Seven                                                                                                                    12\nStory 3: The River Promise                                                                                                                             17\nStory 4: The New Boy and the Night Sky                                                                                                                22\nStory 5: Mango, the Market Cat                                                                                                                         27\nStory 6: The Kingdom Behind the Bamboo                                                                                                                32\nStory 7: Nia’s New Word                                                                                                                                37\nStory 8: The Paper Bird Shop                                                                                                                          42\nStory 9: The Golden Fig                                                                                                                                47\nStory 10: The Torch on the Harbour Wall                                                                                                                52\n\nPA RT C · T H E E N D O F T H E Y E A R\nMy Word Fossil Log                                                                                                                                     57\nThinking Paleontologist Certificate                                                                                                                   58\n\n\n    Lesson plans, activities and stories: drafted with AI assistance and edited under the editorial oversight of Jurassic English. ©\n    2026 WorldWise Learning. Jurassic English is a brand of WorldWise Learning. Rights are reserved in the original protectable\n    content, including its selection, arrangement, editing and design.\n\n    Licence. One learner. Printable for that learner only; a class set covers ten learners. No resale, sharing, uploading or\n    redistribution. Download links may expire; expiry of a link does not end this licence.\n\n\n\n\n2                                                © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Licensed for one learner.",
+      "textSha256": "f230eb46aa22487e2f54743c999525dc7c67e91cda693941d3f6d2ee8d3ec071",
       "method": "pdf-text"
     },
     {
       "page": 3,
-      "image": "student-workbook-l2-pg03.webp",
-      "imageSha256": "10f2ed42eb39aca8a482885658f1381d8c550f56b5d9fc31cf02e0ce7ed866b1",
-      "text": "JE Level 2 Student Workbook JURASSIC ENGLISH ™\n3Licensed for one learner (class sets: one class). © Jurassic English\nWhat you get in this pack\nThe student-facing book that follows the forty lessons of the Level 2 Teacher Pack: Excavation,\nStrata, Justiﬁcation and Impact organisers, with room to write your own evidence and arguments.\n62 printable\nA4\npages\nThis licensed PDF, with a contents page, ready to print.\n40 lesson\npages\nOne page for each lesson, in the order of the Teacher Pack.\n10 text\nopener\npages\nPredictions, words to track and a reading plan for each text.\n4 keepsake\npages\nThinking Passport, Thinking Tools, Word Fossil Log and a Thinking Paleontologist certiﬁcate.\nThe set books are not included and none is quoted. Use copies your school or library owns.\nLicence. One learner. Class set of 10 learners: 1.490.000₫. Printable. No resale, sharing, uploading or\nredistribution. © 2026–2027 WorldWise Learning and JurassicEnglish.com.\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "9cd3f3055cac0c925006d67a0e143386fc75b8d5fffe3ebc25a5a66d825a46a5",
+      "image": "student-workbook-l2-v2-pg03.webp",
+      "imageSha256": "80087379259bce726bbd47040fefb5db9fb8cb1b68a319eae72c0d28a03cb1e0",
+      "text": "Jurassic English · Level 2 Student Workbook\n\nPA R T A · S TA R T H E R E\n\nWelcome, Thinking Paleontologist\n\nMy name:                                 Date:\nThis is your Level 2 workbook (Development, ages 8–10). A paleontologist digs out evidence, reads the layers\nand argues for what it means. You will do the same with ten stories this year.\nEvery story has four lessons. Every lesson has one page. The pages always go in the same order, and they\nmatch the Level 2 Teacher Pack lesson by lesson:\n    Excavation. Find exactly what the story says and what it suggests.\n    Strata. Weigh two sides of a Big Question and take a position.\n    Justification. Build the CEIW argument: Claim, Evidence, Interpretation, Warrant.\n    Impact. Connect the story to the real world and the living world.\n\nYour rule for evidence. Every quotation you write comes from the story, is short, and has a chapter\nnumber. An opinion without evidence is not enough. The warrant, which explains why the evidence proves\nyour claim, is the most important move.\nWord Fossils. Collect strong words as you read. Record them in the Fossil Log at the end of the book.\n\n\n\n\n3                                        © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Licensed for one learner.",
+      "textSha256": "43f063c6183f678ea8e0bdcf4367495857d292adcba3502d538efed88a444cee",
       "method": "pdf-text"
     },
     {
       "page": 4,
-      "image": "student-workbook-l2-pg04.webp",
-      "imageSha256": "f0514a901516c25375960fab10787159b1bc33ae7010af37fbd8bcbcc895aadc",
-      "text": "JE Level 2 Student Workbook JURASSIC ENGLISH ™\n5Licensed for one learner (class sets: one class). © Jurassic English\nWelcome, Thinking Paleontologist\nMy name Date \nThis is your Level 2 workbook (Development, ages 8–10). A paleontologist digs out\nevidence, reads the layers, and argues for what it means. You will do the same with ten\ntexts this year.\nEvery text has four lessons. Every lesson has one page. The pages always go in the\nsame order, and they match the Level 2 Teacher Pack lesson by lesson:\nExcavation Find exactly what the text says and what it suggests.\nStrata Weigh two sides of a Big Question and take a position.\nJustificationBuild the CEIW argument: Claim, Evidence, Interpretation, Warrant.\nImpact Connect the text to the real world and the living world.\nYour\nrule\nfor\nevidence. Every quote you write comes from your own copy of the book, is\nshort, and has a page number. Opinions without evidence are not enough. The warrant,\nexplaining why the evidence proves your claim, is the most important move.\nWord\nFossils. Collect strong words as you read. Record them in the Fossil Log at the end of\nthe book.\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "342da82897ba67883bea2e9775e09e81d620dd83abe645db7ab36f9891e854ce",
+      "image": "student-workbook-l2-v2-pg04.webp",
+      "imageSha256": "e85efa96900b7c716d7403e4b9abad6ba5239c223a7e5e0e6b8ff9cab638d050",
+      "text": "Jurassic English · Level 2 Student Workbook\n\nPA R T B · T H E S TO R I E S\n\nStory 1: The Bell That Rang Too Early\n\nMy name:                                     Date:\nLessons 1 to 4. Read the story in your printed Storybook Workbook, or have it read aloud to you. It has six\nchapters.\nA bell rings before the market is ready. Pavi thinks she knows who did it—but the clues point somewhere\nelse.\nThe big idea. What is someone worth when they are not useful yet, and how do we find out what really\nhappened before we blame?\nBefore I read: what do I predict?\n\n\nWords I will track (my Word Fossils)\n\n\n    awning (a cloth roof that gives shade)        collected (gathered in one                     prove (show with evidence that\n                                                  place)                                         something is true)\n\n    blamed (said someone caused a problem         visitors (people who come to                   answers (replies to a question)\n    before checking)                              see a place)\n\n\nMy reading plan\nChapters I will read: 1 to 6. I will finish by:\nOne question I hope the story will answer:\n☐ I did my regulation routine before I started.\n\n\n      MORE ROOM FOR MY THINKING\n\n\n\n\n7                                            © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Licensed for one learner.",
+      "textSha256": "2ebcdcf570c1c023f49b3136813fa791594d2adfa5872042bbc840b831bc133e",
       "method": "pdf-text"
     },
     {
       "page": 5,
-      "image": "student-workbook-l2-pg05.webp",
-      "imageSha256": "f474559df8c41d2654e564223fe14a258fd34d2146d06a1ad382814b5c0a9958",
-      "text": "JE Level 2 Student Workbook JURASSIC ENGLISH ™\n25Licensed for one learner (class sets: one class). © Jurassic English\nStory 4: The Iron Man\nMy name Date \nLessons 13 to 16. The book is not in this workbook. Use a copy your school or library owns.\nThe\nbig\nidea. Fear of the unknown, and learning to live alongside what is diﬀerent.\nBefore\nI\nread:\nwhat\ndo\nI\npredict?\nWords\nI\nwill\ntrack\n(my\nWord\nFossils)\nword 1 word 2 word 3\nword 4 word 5 word 6\nMy\nreading\nplan\nChapters or pages I will read: \nI will ﬁnish by: \nOne question I hope the book will answer: \n☐  I did my regulation routine before I started.\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "13d0b6c058ffa80aecbec8eb263e4f4e7660b1267ac5f49e76fd16896df9e9c0",
+      "image": "student-workbook-l2-v2-pg05.webp",
+      "imageSha256": "febbb54e25cbbb666a23a21b95759b790781226487c330e6655b617db219e188",
+      "text": "Jurassic English · Level 2 Student Workbook\n\n\nLesson 3 · The Justification: build the CEIW scaffold\n\nMy name:                               Date:\n☐ Butterfly Hug ☐ Cool Down Pass ☐ Bilateral tapping (tick what you used before you started)\nClaim to build on (from your Lesson 2 Claim Strip):\n\n Box                            What to write\n\n CLAIM                          My position, in one sentence.\n\n\n EVIDENCE                       An exact quotation from the story, with its chapter number.\n\n\n INTERPRETATION                 What the quotation means, in my own words.\n\n\n WARRANT                        Use the stem: This evidence supports my claim because                        .\n\n\n\nMY FINISHED PARAGRAPH\n\n\n\n\nGrown-up: quotations are copied from the story. Mark the claim, evidence, interpretation and warrant in\nfour colours.\n\n     MORE ROOM FOR MY THINKING\n\n\n\n\n10                                     © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Licensed for one learner.",
+      "textSha256": "baaa31b609c89ba23b0f52da05d6f81ed380970105d272859b0393680b17a5e2",
       "method": "pdf-text"
     },
     {
       "page": 6,
-      "image": "student-workbook-l2-pg06.webp",
-      "imageSha256": "3549dfc822a73bf2866818f51cdf9096b284e1dad8f2292bc53c6d1557e1f885",
-      "text": "JE Level 2 Student Workbook JURASSIC ENGLISH ™\n26Licensed for one learner (class sets: one class). © Jurassic English\nLesson\n13\n·\nExcavation:\nThe\nIron\nMan\nMy name Date \n☐  Butterﬂy Hug   ☐  Cool Down Pass   ☐  Bilateral tapping   (tick what you used before you started)\nRead the chapter your teacher gives you. Fill the table with exact\nevidence from your own\ncopy of the book. Explicit means the text says it. Inferred means you work it out.\nWhat\nthe\ntext\nsays\n(explicit) What\nI\ninfer\n(my\nthinking) Where\nI\nfound\nit\n(page,\nparagraph)\nA\nWord\nFossil\nI\nexcavated:  means\nGrown-up: check that every quote is short and copied from the student's own copy of the book, with a page number.\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "693cb9569665fb5303eeda17f8f6f7a6628c8b589f67eae91a06e3279e64eda6",
-      "method": "pdf-text"
-    },
-    {
-      "page": 7,
-      "image": "student-workbook-l2-pg07.webp",
-      "imageSha256": "8a81272c24b7f962bcc026ca5b64fabebea2ef13d99ab70857bb6d8490e28236",
-      "text": "JE Level 2 Student Workbook JURASSIC ENGLISH ™\n27Licensed for one learner (class sets: one class). © Jurassic English\nLesson\n14\n·\nStrata:\nEvaluate\nMy name Date \n☐  Butterﬂy Hug   ☐  Cool Down Pass   ☐  Bilateral tapping   (tick what you used before you started)\nTHE BIG QUESTION\nWas burying the giant a wise choice, or a frightened choice?\nSIDE\nA\nWise\nSIDE\nB\nFrightened\nMy\nposition: ☐  Wise   ☐  Frightened\nI think \nbecause \nAccountable Talk move I will use: ☐  Marking   ☐  Pressing   ☐  Extending\nGrown-up: there is no single correct answer. Credit reasoning that is supported by evidence from the text.\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "aaa0642333f4d195494730989c10bd841b67dda102115a9811e51bd2f19089ea",
-      "method": "pdf-text"
-    },
-    {
-      "page": 8,
-      "image": "student-workbook-l2-pg08.webp",
-      "imageSha256": "39ec65799de1779aca7d8ec6ab4e6a653832b1d082e2a282b4bc6efaac0f3397",
-      "text": "JE Level 2 Student Workbook JURASSIC ENGLISH ™\n28Licensed for one learner (class sets: one class). © Jurassic English\nLesson\n15\n·\nThe\nJustiﬁcation:\nbuild\nthe\nCEIW\nscaﬀold\nMy name Date \n☐  Butterﬂy Hug   ☐  Cool Down Pass   ☐  Bilateral tapping   (tick what you used before you started)\nClaim\nto\nbuild\non: \nCLAIM:\nMy position, in one sentence.\nEVIDENCE:\nAn exact quote from the book, with the page number.\nINTERPRETATION:\nWhat the quote means, in my own words.\nWARRANT:\nUse the stem: This\nproves\nmy\nclaim\nbecause...\nMY\nFINISHED\nPARAGRAPH\nGrown-up: quotes are copied from the student's own copy of the book. Mark the claim, evidence, interpretation and warrant in\nfour colours.\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "32f1c1b78688dfd3ecb4e29aea6e74954b9545ca84f3467e1a626fe0ca757780",
-      "method": "pdf-text"
-    },
-    {
-      "page": 9,
-      "image": "student-workbook-l2-pg09.webp",
-      "imageSha256": "8c863119c399e806f182a8d23f3f39426f6fdab3a06d658856ba07b2823b8b4b",
-      "text": "JE Level 2 Student Workbook JURASSIC ENGLISH ™\n29Licensed for one learner (class sets: one class). © Jurassic English\nLesson\n16\n·\nImpact:\nSystemic\ncausality\nand\nnature\nMy name Date \n☐  Butterﬂy Hug   ☐  Cool Down Pass   ☐  Bilateral tapping   (tick what you used before you started)\nReﬂect. Think of a time people were afraid of a wild animal or a new machine near their home.\nWhat changed for the land and the animals?\nA\nHUMAN\nACTION THE\nFIRST\nEFFECT THE\nSECOND\nEFFECT WHAT\nHAPPENS\nTO\nNATURE\n→  one thing leads to the next →\nMY\nREFLECTION:\n2\nTO\n3\nCOMPLETE\nSENTENCES\nGrown-up: the reﬂection must name a real system or place. Praise precise vocabulary and honest uncertainty.\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "43c586f77b818c9e15f33caa68b034f3c8e4800600ec54c08d38c2a0a6a81aea",
-      "method": "pdf-text"
-    },
-    {
-      "page": 10,
-      "image": "student-workbook-l2-pg10.webp",
-      "imageSha256": "430071ed813934a5334ae06c0bd85ea6b146faec8a37263e95c9da3f0cdac3cb",
-      "text": "JURASSIC ENGLISH™\nJE Level 2 Student Workbook\nThe activity book for Level 2 Development (ages 8–10): a page for every lesson. Excavate evidence,\nweigh a Big Question, build the CEIW argument, and link it to the living world.\n190.000₫ one-off\nOne learner. Class set of 10 learners: 1.490.000₫. Printable.\nOrder\non\nZalo\n→\nZalo:\n0396\n085\n076\n· jurassicenglish.com/products\nMessage us on Zalo, or go to jurassicenglish.com/products and press Order on this pack.\nYou receive the full licensed PDF and the editable Google Docs.\nThis sample shows real pages from the full edition.\nSample of the licensed edition. © 2026–2027 WorldWise Learning and JurassicEnglish.com.\nSAMPLE\n·\njurassicenglish.com/products",
-      "textSha256": "255d7b7fcb9d39a42a98979503d5e22dca954d15842bf66eebcac86ecc90b6c6",
+      "image": "student-workbook-l2-v2-pg06.webp",
+      "imageSha256": "10a83de4bc1a9e595be4b6bc59d0572be15774e25481f78908313f08c53381c0",
+      "text": "Jurassic English · Level 2 Student Workbook\n\n\nLesson 4 · Impact: Systemic causality and nature\n\nMy name:                                Date:\n☐ Butterfly Hug ☐ Cool Down Pass ☐ Bilateral tapping (tick what you used before you started)\nReflect. Think of an animal or a plant that people value only for what it gives them (a hen for eggs, a tree for\nwood). What happens to the land and to other living things when we count only what is useful?\n\n A human action or natural event        The first effect             The second effect                 What happens to nature\n\n                                        →                            →\n\n\n\n(one thing leads to the next)\nWorked starter from the story: Rain falls on the market awning\nMY REFLECTION: 2 TO 3 COMPLETE SENTENCES. Name a real place. For example, a rainwater bucket,\ntank or pond near your own home or school.\n\n\n\n\nGrown-up: the reflection must name a real system or place. Praise precise vocabulary and honest\nuncertainty.\n\n\n     MORE ROOM FOR MY THINKING\n\n\n\n\n11                                      © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Licensed for one learner.",
+      "textSha256": "056e85c19da41990fb5a455c42d3fa4dbeeb4a9aa8511bd4d57ced735ca68cdb",
       "method": "pdf-text"
     }
   ]

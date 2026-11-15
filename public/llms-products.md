@@ -91,6 +91,26 @@
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
+### Jurassic English Phonics, Book 1: The Alphabet
+- ID: `phonics-b1`
+- English: https://jurassicenglish.com/products/phonics-b1
+- Vietnamese: https://jurassicenglish.com/vi/products/phonics-b1
+- English description: Listen, read, write, play: phonics for ages 4 to 7, with audio and a teacher guide. Book 1 teaches the 26 letters, their names and sounds. 79.000₫.
+- Vietnamese title: Sách Phonics Quyển 1 cho bé 4–7 tuổi: Bảng chữ cái
+- VND price: 79.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Jurassic English Phonics, Book 2: Short Vowels
+- ID: `phonics-b2`
+- English: https://jurassicenglish.com/products/phonics-b2
+- Vietnamese: https://jurassicenglish.com/vi/products/phonics-b2
+- English description: Listen, read, write, play: phonics for ages 4 to 7, with audio and a teacher guide. Book 2 teaches the short vowels a, e, i, o and u. 129.000₫.
+- Vietnamese title: Sách Phonics Quyển 2 cho bé 4–7 tuổi: Nguyên âm ngắn
+- VND price: 129.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
 ### Level 1 Story Workbooks
 - ID: `story-workbooks-l1`
 - English: https://jurassicenglish.com/products/story-workbooks-l1
@@ -105,9 +125,9 @@
 - ID: `story-workbooks-l2`
 - English: https://jurassicenglish.com/products/story-workbooks-l2
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l2
-- English description: 3 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 190.000₫ one-time.
+- English description: 9 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 290.000₫ one-time.
 - Vietnamese title: Sách truyện tiếng Anh cho bé 8–10 tuổi, có bài tập | Level 2
-- VND price: 190.000 VND
+- VND price: 290.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -125,9 +145,9 @@
 - ID: `story-workbooks-l3`
 - English: https://jurassicenglish.com/products/story-workbooks-l3
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l3
-- English description: 3 original storybooks as printable A4 workbooks for ages 10–12 (CEFR A2 → B1): evidence questions, a Thinking Cycle page and an answer key. 190.000₫ one-time.
+- English description: 10 original storybooks as printable A4 workbooks for ages 10–12 (CEFR A2 → B1): evidence questions, a Thinking Cycle page and an answer key. 290.000₫ one-time.
 - Vietnamese title: Sách bài tập đọc hiểu tiếng Anh cho trẻ 10–12 tuổi | Level 3
-- VND price: 190.000 VND
+- VND price: 290.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -135,9 +155,9 @@
 - ID: `story-workbooks-l4`
 - English: https://jurassicenglish.com/products/story-workbooks-l4
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l4
-- English description: 3 original storybooks as printable A4 workbooks for ages 12–14 (CEFR B1 → B2): quoted-evidence questions, a Thinking Cycle page, a rubric. 190.000₫ one-time.
+- English description: 10 original storybooks as printable A4 workbooks for ages 12–14 (CEFR B1 → B2): quoted-evidence questions, a Thinking Cycle page, a rubric. 290.000₫ one-time.
 - Vietnamese title: Sách bài tập đọc hiểu tiếng Anh 12–14 tuổi | Level 4
-- VND price: 190.000 VND
+- VND price: 290.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -145,9 +165,9 @@
 - ID: `story-workbooks-l5`
 - English: https://jurassicenglish.com/products/story-workbooks-l5
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l5
-- English description: 3 original storybooks as printable A4 workbooks for learners 14+ (CEFR B2 → C1): claim and counterargument practice, a rubric, an answer key. 190.000₫ one-time.
+- English description: 10 original storybooks as printable A4 workbooks for learners 14+ (CEFR B2 → C1): claim and counterargument practice, a rubric, an answer key. 290.000₫ one-time.
 - Vietnamese title: Sách bài tập đọc hiểu tiếng Anh nâng cao 14+ | Level 5
-- VND price: 190.000 VND
+- VND price: 290.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
@@ -168,8 +188,7 @@
 - English description: Level 2 teacher materials for ages 8–10 (CEFR A1 → A2): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.
 - Vietnamese title: Giáo án tiếng Anh cho học sinh 8–10 tuổi | Level 2
 - VND price: 690.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 3 Teacher Pack
@@ -179,8 +198,7 @@
 - English description: Level 3 teacher materials for ages 10–12 (CEFR A2 → B1): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.
 - Vietnamese title: Giáo án tiếng Anh cho học sinh 10–12 tuổi | Level 3
 - VND price: 690.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 4 Teacher Pack
@@ -190,8 +208,7 @@
 - English description: Level 4 teacher materials for ages 12–14 (CEFR B1 → B2): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.
 - Vietnamese title: Giáo án tiếng Anh cho học sinh 12–14 tuổi | Level 4
 - VND price: 690.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 5 Teacher Pack
@@ -201,8 +218,7 @@
 - English description: Level 5 teacher materials for ages 14+ (CEFR B2 → C1): the syllabus, the Teacher Implementation Manual and 40 lesson plans. One teacher. 690.000₫.
 - Vietnamese title: Giáo án tiếng Anh nâng cao cho học sinh 14+ | Level 5
 - VND price: 690.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Complete Teacher Bundle, Levels 1–5
@@ -212,8 +228,7 @@
 - English description: All five Jurassic English Teacher Packs: the syllabus, implementation manual and 40 lesson plans for each level, 200 in all. One teacher. 2.900.000₫.
 - Vietnamese title: Trọn bộ 200 giáo án tiếng Anh Level 1–5
 - VND price: 2.900.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 1 Student Workbook
@@ -233,8 +248,7 @@
 - English description: 62 printable A4 pages for learners aged 8–10 (CEFR A1 → A2), in the order of the Level 2 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh cho học sinh 8–10 tuổi | Level 2
 - VND price: 190.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 3 Student Workbook
@@ -244,8 +258,7 @@
 - English description: 62 printable A4 pages for learners aged 10–12 (CEFR A2 → B1), in the order of the Level 3 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh cho học sinh 10–12 tuổi | Level 3
 - VND price: 190.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 4 Student Workbook
@@ -255,8 +268,7 @@
 - English description: 62 printable A4 pages for learners aged 12–14 (CEFR B1 → B2), in the order of the Level 4 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh cho học sinh 12–14 tuổi | Level 4
 - VND price: 190.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Level 5 Student Workbook
@@ -266,8 +278,7 @@
 - English description: 62 printable A4 pages for learners aged 14+ (CEFR B2 → C1), in the order of the Level 5 Teacher Pack. 190.000₫ per learner, class set of 10 1.490.000₫.
 - Vietnamese title: Sách bài tập tiếng Anh nâng cao cho học sinh 14+ | Level 5
 - VND price: 190.000 VND
-- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)
-- PayPal USD: not listed
+- PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
 ### Word Fossil Flashcards, Level 1
@@ -349,144 +360,4 @@
 - VND price: 290.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
-
-### IELTS Speaking Ladder Pack
-- ID: `ielts-speaking-ladder`
-- English: https://jurassicenglish.com/products/ielts-speaking-ladder
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-speaking-ladder
-- English description: 18 self-study IELTS Speaking lessons from Band 5.0 to 6.5–7.0, one habit per lesson, timed Part 1–3 tasks. Not an official IELTS score. 299.000₫.
-- Vietnamese title: Tự học IELTS Speaking từ 5.0 lên 6.5–7.0
-- VND price: 299.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Speaking One-to-One Starter
-- ID: `ielts-one-to-one-starter`
-- English: https://jurassicenglish.com/products/ielts-one-to-one-starter
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-one-to-one-starter
-- English description: One complete 90-minute IELTS Speaking one-to-one lesson with tutor notes, keys, scripts and an answer-free student handout. For tutors. 149.000₫.
-- Vietnamese title: Giáo án IELTS Speaking 1 kèm 1 trọn vẹn 90 phút
-- VND price: 149.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Speaking Part 2 Cue Card Bank
-- ID: `ielts-cue-card-bank`
-- English: https://jurassicenglish.com/products/ielts-cue-card-bank
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-cue-card-bank
-- English description: 60 original IELTS Speaking Part 2 cue cards, each with a 1-minute plan, a Band 7-style answer and Band 6 and 8-style moments. Practice material. 199.000₫.
-- Vietnamese title: Bộ thẻ đề IELTS Speaking Part 2 kèm bài mẫu
-- VND price: 199.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Writing Baseline
-- ID: `writing-baseline`
-- English: https://jurassicenglish.com/products/writing-baseline
-- Vietnamese: https://jurassicenglish.com/vi/products/writing-baseline
-- English description: Send one IELTS Task 2 essay. Mr. Jay reads it by hand and returns one strength and three ranked priorities by Zalo or email. From 79.000₫.
-- Vietnamese title: Chấm bài IELTS Writing Task 2: một bài, ba ưu tiên sửa
-- VND price: 79.000 VND
-- PayPal USD: not listed
-- Sample: view-only pages on the product page
-
-### IELTS Writing Ladder: Task 2
-- ID: `ielts-writing-ladder-task2`
-- English: https://jurassicenglish.com/products/ielts-writing-ladder-task2
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-writing-ladder-task2
-- English description: Seven IELTS Writing Task 2 lessons: take a position, give reasons that hold, answer the other side, finish in 40 minutes. Not an official IELTS score. 299.000₫.
-- Vietnamese title: Tự học IELTS Writing Task 2: 7 bài từ 5.5 trở lên
-- VND price: 299.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Writing Task 1: the 20-minute method
-- ID: `ielts-writing-task1-method`
-- English: https://jurassicenglish.com/products/ielts-writing-task1-method
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-writing-task1-method
-- English description: Four IELTS Writing Task 1 lessons for Academic and General Training: overview first, compare figures, maps, processes, letters. Not an official score. 199.000₫.
-- Vietnamese title: IELTS Writing Task 1: phương pháp 20 phút (4 bài)
-- VND price: 199.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Writing Task 2 Essay Bank
-- ID: `ielts-essay-bank-task2`
-- English: https://jurassicenglish.com/products/ielts-essay-bank-task2
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-essay-bank-task2
-- English description: 40 original IELTS Writing Task 2 prompts, each with a Thinking Cycle plan and a Band 7-style model essay. Practice material. 199.000₫.
-- Vietnamese title: Ngân hàng bài luận IELTS Writing Task 2: 40 đề và bài mẫu
-- VND price: 199.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Writing Teacher Pack
-- ID: `ielts-writing-teacher-pack`
-- English: https://jurassicenglish.com/products/ielts-writing-teacher-pack
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-writing-teacher-pack
-- English description: Ten ready-to-teach 60-minute IELTS Writing class lessons: six for Task 2 and four for Task 1 reports and letters. For teachers and centres. 690.000₫.
-- Vietnamese title: Giáo án IELTS Writing cho giáo viên (10 buổi)
-- VND price: 690.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Reading Ladder
-- ID: `ielts-reading-ladder`
-- English: https://jurassicenglish.com/products/ielts-reading-ladder
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-reading-ladder
-- English description: Find the trap that costs you IELTS Reading marks, then fix it: 11 lessons, 175 questions with proved answers and a full 60-minute test. 250.000₫.
-- Vietnamese title: Luyện IELTS Reading: 11 bài học, 175 câu hỏi
-- VND price: 250.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Listening Profiler Pack
-- ID: `ielts-listening-profiler`
-- English: https://jurassicenglish.com/products/ielts-listening-profiler
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-listening-profiler
-- English description: Name and fix the traps that cost IELTS Listening marks: a tutor or partner reads each script and you answer aloud. 70 drills, 9 case files. 299.000₫.
-- Vietnamese title: Luyện IELTS Listening cùng gia sư: 8 bài học
-- VND price: 299.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Diagnostic Mock: Listening + Reading
-- ID: `ielts-diagnostic-mock`
-- English: https://jurassicenglish.com/products/ielts-diagnostic-mock
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-diagnostic-mock
-- English description: A full Listening and Reading mock, 80 questions. Every wrong answer gets a trap code and you get one named priority. Practice, not an official score. 199.000₫.
-- Vietnamese title: Đề thi thử IELTS Listening và Reading có chẩn đoán
-- VND price: 199.000 VND
-- PayPal USD: available on the product page
-- Sample: view-only pages on the product page
-
-### IELTS Writing Band-Up Bundle
-- ID: `ielts-writing-band-up`
-- English: https://jurassicenglish.com/products/ielts-writing-band-up
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-writing-band-up
-- English description: Three IELTS Writing packs in one: the Task 1 method, the Task 2 ladder and the 40-essay bank. 499.000₫, 28% less than buying them separately.
-- Vietnamese title: Combo IELTS Writing: Task 1, Task 2 và ngân hàng bài luận
-- VND price: 499.000 VND
-- PayPal USD: available on the product page
-- Sample: none listed
-
-### IELTS Speaking Band-Up Bundle
-- ID: `ielts-speaking-band-up`
-- English: https://jurassicenglish.com/products/ielts-speaking-band-up
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-speaking-band-up
-- English description: Three IELTS Speaking packs in one: the 18-lesson ladder, 60 Part 2 cue cards and a full one-to-one lesson plan. 449.000₫, 31% less than separately.
-- Vietnamese title: Combo IELTS Speaking: Ladder, thẻ đề và giáo án 1 kèm 1
-- VND price: 449.000 VND
-- PayPal USD: available on the product page
-- Sample: none listed
-
-### IELTS Four-Skill Kit
-- ID: `ielts-four-skill-kit`
-- English: https://jurassicenglish.com/products/ielts-four-skill-kit
-- Vietnamese: https://jurassicenglish.com/vi/products/ielts-four-skill-kit
-- English description: Seven IELTS packs for all four skills: the four ladders, the Task 1 method, the Essay Bank and the Cue Card Bank. 999.000₫, 44% less than separately.
-- Vietnamese title: Bộ IELTS 4 kỹ năng: Speaking, Writing, Reading, Listening
-- VND price: 999.000 VND
-- PayPal USD: available on the product page
-- Sample: none listed
 

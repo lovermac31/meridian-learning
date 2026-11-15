@@ -18,6 +18,7 @@ export type ServerEventInput = {
   utm_content?: string;
   utm_medium?: string;
   utm_campaign?: string;
+  referrer_host?: string;
   locale?: string;
 };
 
@@ -119,8 +120,12 @@ export async function recordServerEvent(input: ServerEventInput): Promise<EventW
     body: JSON.stringify(body),
   });
 
+  // Migration 20261113000001 adds p_referrer_host. Older databases answer 404 to it, so retry in steps: without it, then
+  // without the two utm parameters, so nothing is lost on a database that has not run the newer migrations.
+  const referrer: Record<string, string> = input.referrer_host ? { p_referrer_host: input.referrer_host } : {};
   try {
-    let res = await post({ ...payload, ...extra });
+    let res = await post({ ...payload, ...extra, ...referrer });
+    if (res.status === 404 && Object.keys(referrer).length) res = await post({ ...payload, ...extra });
     if (res.status === 404 && Object.keys(extra).length) res = await post(payload);
 
     if (!res.ok) {

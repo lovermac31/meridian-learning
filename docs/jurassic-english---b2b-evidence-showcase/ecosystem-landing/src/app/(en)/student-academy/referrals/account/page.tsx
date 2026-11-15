@@ -106,7 +106,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
   }
 
   const t = account.totals;
-  const shareText = `Jurassic English Student Academy: my Family Rewards code is ${account.referral_code}. Please give it to the academy before your first package payment. Terms: https://jurassicenglish.com${ROUTE}`;
+  const shareText = `Jurassic English Kids Academy: my Family Rewards code is ${account.referral_code}. Please give it to the academy before your first package payment. Terms: https://jurassicenglish.com${ROUTE}`;
   const cards = [
     { label: "Earned", value: t.earned, note: "Rewards credited to you" },
     { label: "Used", value: t.used, note: "Applied to your invoices" },

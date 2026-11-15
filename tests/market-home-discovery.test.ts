@@ -34,7 +34,9 @@ test('the international hub links the priority country pages', () => {
   }
 });
 
-test('English market pages link to their available Malay and Arabic counterparts', async () => {
+// P4 (13 Nov 2026): the English pages (P0) and their Malay and Arabic counterparts (P4) both live on jurassicielts.com now,
+// so no Jurassic English page may link to the old counterpart path (it would be a redirect hop).
+test('English market pages never link to a counterpart that moved to jurassicielts.com', async () => {
   const counterparts = [
     ['/ielts-speaking-online/malaysia', '/ms/ielts-speaking-online/malaysia'],
     ['/ielts-speaking-online/uae', '/ar/ielts-speaking-online/uae'],
@@ -43,6 +45,6 @@ test('English market pages link to their available Malay and Arabic counterparts
   ] as const;
   for (const [source, target] of counterparts) {
     const html = await renderRoute(source);
-    assert.ok(html.includes(`href="${target}"`), `${source} links to ${target}`);
+    assert.ok(!html.includes(`href="${target}"`), `${source} does not link to moved ${target}`);
   }
 });

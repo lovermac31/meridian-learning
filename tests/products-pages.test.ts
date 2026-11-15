@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { getExpectedPublicIndexableRoutes, getPrerenderRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata';
-import { PAUSED_COPY, PRODUCTS } from '../src/i18n/content/products';
+import { IELTS_MOVED_SECTION, PAUSED_COPY, PRODUCTS } from '../src/i18n/content/products';
 import { PAGE_PRODUCTS, PRODUCT_SEO, getProductByPath, relatedProducts } from '../src/i18n/content/productSeo';
 import { ProductPage } from '../src/components/ProductPage';
 import { ProductsPage } from '../src/components/ProductsPage';
@@ -56,13 +56,14 @@ test('JSON-LD: Product with a VND Offer, a USD Offer only where PayPal is offere
     assert.deepEqual(product.offers.map((o: any) => [o.priceCurrency, o.price]), [
       ['VND', vnd],
       // Story Workbooks list their default (highest regional tier) US$ price.
-      ...(p.paypal ? [['USD', String(hasRegionalPrice(p.id) ? regionalUsd(p.id) : usdFromVnd(Number(vnd)))]] : []),
+      ...(p.paypal ? [['USD', String(p.usd ?? (hasRegionalPrice(p.id) ? regionalUsd(p.id) : usdFromVnd(Number(vnd))))]] : []),
     ], path);
     const faq = blocks.find((b) => b['@type'] === 'FAQPage')!;
     assert.ok(faq.mainEntity.length >= 1, path);
     const crumbs = blocks.find((b) => b['@type'] === 'BreadcrumbList')!;
-    assert.equal(crumbs.itemListElement.length, 3, path);
-    assert.equal(crumbs.itemListElement[2].item, `${SITE}${path}`);
+    // Phonics adds its tile: Home → Products → Phonics → Book N (blueprint 6.2).
+    assert.equal(crumbs.itemListElement.length, p.category === 'phonics' ? 4 : 3, path);
+    assert.equal(crumbs.itemListElement.at(-1).item, `${SITE}${path}`);
   }
 });
 
@@ -75,7 +76,8 @@ test('page: H1 distinguishes the localized offer, with the copy, sample viewer b
   for (const [, locale, p] of pages) {
     const html = renderToStaticMarkup(createElement(ProductPage, { product: p, locale }));
     const h1 = html.match(/<h1[^>]*>(.*?)<\/h1>/)?.[1];
-    assert.equal(h1?.replaceAll('&#x27;', '’').replaceAll('&amp;', '&'), PRODUCT_SEO[p.id][locale].title.split(' | ')[0], `${p.id} ${locale}`);
+    // Phonics (blueprint 6.1): the H1 is the book title, as on the cover; the search title stays in <title>.
+    assert.equal(h1?.replaceAll('&#x27;', '’').replaceAll('&amp;', '&'), p.category === 'phonics' ? p[locale].title : PRODUCT_SEO[p.id][locale].title.split(' | ')[0], `${p.id} ${locale}`);
     assert.match(html, new RegExp(`data-price="${p.id}"`));
     // Paused products (audit fix 4, 11 Nov 2026): the page stays, with the waitlist note instead of any order button.
     if (p.paused) {
@@ -98,7 +100,9 @@ test('page: H1 distinguishes the localized offer, with the copy, sample viewer b
 test('the /products hub links every card title to its own page', () => {
   for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
-    for (const p of LIVE) assert.match(html, new RegExp(`href="${locale === 'vi' ? '/vi' : ''}/products/${p.id}" [^>]*data-product-page="${p.id}"`), `${locale} ${p.id}`);
+    // IELTS migration P6: the IELTS cards left the hub (their pages redirect to jurassicielts.com), so no title link.
+    for (const p of LIVE.filter((entry) => entry.section !== IELTS_MOVED_SECTION)) assert.match(html, new RegExp(`href="${locale === 'vi' ? '/vi' : ''}/products/${p.id}" [^>]*data-product-page="${p.id}"`), `${locale} ${p.id}`);
+    for (const p of LIVE.filter((entry) => entry.section === IELTS_MOVED_SECTION)) assert.ok(!html.includes(`data-product-page="${p.id}"`), `${locale} ${p.id}: no IELTS card title link`);
   }
 });
 
@@ -110,7 +114,7 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
 // 35-today plan (Jay, 27 Oct 2026): the eight new products are live, each with its page, JSON-LD and sitemap entry.
 test('35-today: all 47 products are live (35, the five Story Workbooks, the Mango single workbook, the IELTS Reading and Listening packs and the three IELTS bundles), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
-  assert.equal(PRODUCTS.length, 47);
+  assert.equal(PRODUCTS.length, 49);
   assert.equal(PRODUCTS.filter((p) => !p.live).length, 0);
   const fresh = ['writing-baseline', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'ielts-essay-bank-task2', 'parent-pack-l3',
     'holiday-reading-challenge', 'thinking-cycle-posters', 'word-fossil-flashcards-l1'];
@@ -137,17 +141,23 @@ test('#ielts: Speaking and Writing groups, no IELTS card under Teachers, each ca
     en: { speaking: '/ai-speaking?utm_source=products', writing: '/ai-speaking/writing?utm_source=products' },
     vi: { speaking: '/ai-speaking/vi?utm_source=products', writing: '/ai-speaking/vi/writing?utm_source=products' },
   };
+  // IELTS migration P6 (15 Nov 2026): the Speaking and Writing groups and their cards left /products for jurassicielts.com.
+  // #ielts is now the one moved card, linking JurassicIELTS /solutions/ in the page language.
+  const solutions = { en: 'https://jurassicielts.com/solutions/?utm_source=jurassicenglish&amp;utm_medium=moved', vi: 'https://jurassicielts.com/vi/solutions/?utm_source=jurassicenglish&amp;utm_medium=moved' };
   for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     const section = (id: string) => html.slice(html.indexOf(`<section id="${id}"`), html.indexOf('</section>', html.indexOf(`<section id="${id}"`)));
     assert.doesNotMatch(section('teachers'), /id="ielts-/, `${locale}: Teachers has no IELTS card`);
     const ielts = section('ielts');
+    assert.ok(ielts.includes('data-ielts-moved=""'), `${locale}: #ielts is the moved card`);
+    assert.ok(ielts.includes(`href="${solutions[locale]}"`), `${locale}: the moved card links JurassicIELTS /solutions/`);
     for (const [group, ids] of Object.entries(groups) as Array<['speaking' | 'writing', string[]]>) {
-      const block = ielts.slice(ielts.indexOf(`data-ielts-group="${group}"`));
-      const end = block.indexOf('data-ielts-group=', 1);
-      const list = end > 0 ? block.slice(0, end) : block;
-      assert.deepEqual([...list.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), ids, `${locale} ${group}`);
-      for (const id of ids) assert.match(list, new RegExp(`data-ielts-home="${id}"><a href="${home[locale][group].replace('?', '\\?')}"`), `${locale} ${id}`);
+      assert.ok(!html.includes(`data-ielts-group="${group}"`), `${locale}: no ${group} group`);
+      for (const id of ids) {
+        assert.ok(!html.includes(`id="${id}"`), `${locale} ${id}: no card on /products`);
+        assert.ok(!html.includes(`data-ielts-home="${id}"`), `${locale} ${id}: no IELTS home link`);
+      }
+      assert.ok(!ielts.includes(home[locale][group]), `${locale} ${group}: no IELTS home link in #ielts`);
     }
   }
 });

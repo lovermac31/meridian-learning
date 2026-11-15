@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, { mock } from 'node:test';
 import assert from 'node:assert/strict';
 import handler from '../api/sample-pack';
 
@@ -307,15 +307,16 @@ test('non-SC checkout fails closed without a stored memo even when email works',
   assert.equal(result.reservationCalls, 0);
 });
 
-const PAUSED = ['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5'];
-for (const [i, product] of PAUSED.entries()) {
-  test(`${product}: paused, so neither a payment code nor an order is created (audit fix 4)`, async () => {
-    const prepare = await submit({ intent: 'prepare_payment', product, submissionKey: '44444444-4444-4444-8444-444444444444', website: '' }, `198.51.100.${200 + i}`);
-    assert.equal(prepare.statusCode, 400);
-    assert.equal(prepare.responseBody?.memo, undefined);
-    const order = await submit({ product, name: 'Synthetic Parent', phone: '0396085076', submissionKey: '44444444-4444-4444-8444-444444444444', startedAt: new Date(Date.now() - 2000).toISOString() }, `198.51.100.${210 + i}`);
-    assert.equal(order.statusCode, 400);
-    assert.equal(order.writes.length + prepare.writes.length, 0, 'nothing written to the CRM');
+// Paused 11 Nov 2026 (audit fix 4), back on sale 13 Nov 2026 once rewritten onto original Jurassic English stories:
+// each now gets a payment code again (the pause mechanism itself stays for the next time).
+const RESTORED = ['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5'];
+for (const [i, product] of RESTORED.entries()) {
+  test(`${product}: on sale again, so a payment code is created (no longer paused)`, async () => {
+    const { PAUSED_PRODUCTS } = await import('../api/sample-pack');
+    assert.equal(PAUSED_PRODUCTS.has(product), false);
+    const prepare = await submit({ intent: 'prepare_payment', product, submissionKey: `66666666-6666-4666-8666-66666666666${i}`, website: '' }, `198.51.100.${200 + i}`);
+    assert.equal(prepare.statusCode, 200);
+    assert.match(String(prepare.responseBody?.memo), /^PR[A-Z0-9]{2}-[A-Z0-9]{6}$/);
   });
 }
 
@@ -336,4 +337,29 @@ test('audit fix 6: prepare_payment has its own rate-limit key with a higher ceil
   }
   const form = await submit({ phone: '0396085076' }, ip);
   assert.equal(form.statusCode, 200, 'the free-sample form still has its own allowance');
+});
+
+// Review fix 4 (12 Nov 2026): the amount the server returns for the Story Club QR, with literal expectations at each tier.
+for (const [label, now, expected] of [
+  ['first tier', '2026-11-21T12:59:59+07:00', 295000],
+  ['second tier', '2026-11-21T13:00:01+07:00', 440000],
+  ['list price', '2026-11-28T13:00:01+07:00', 590000],
+] as const) {
+  test(`prepare_payment returns the Story Club amount for the ${label}: ${expected}`, async () => {
+    mock.timers.enable({ apis: ['Date'], now: new Date(now) });
+    try {
+      const prepare = await submit({ intent: 'prepare_payment', product: 'story-club', submissionKey: '66666666-6666-4666-8666-666666666666', website: '' }, `198.51.100.${expected % 200}`);
+      assert.equal(prepare.statusCode, 200);
+      assert.equal(prepare.responseBody?.amount, expected);
+      assert.match(String(prepare.responseBody?.memo), /^SC-/);
+    } finally {
+      mock.timers.reset();
+    }
+  });
+}
+
+test('prepare_payment for other products still returns no discounted amount change: Baseline stays 690000', async () => {
+  const prepare = await submit({ intent: 'prepare_payment', product: 'baseline', submissionKey: '77777777-7777-4777-8777-777777777777', website: '' }, '198.51.100.77');
+  assert.equal(prepare.statusCode, 200);
+  assert.equal(prepare.responseBody?.amount, 690000);
 });

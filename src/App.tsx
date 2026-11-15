@@ -6,6 +6,7 @@ import { GlobalContactPanel } from './components/GlobalContactPanel';
 import { ZaloFloat } from './components/ZaloFloat';
 import { isZaloFloatHidden } from './lib/zaloFloat';
 import { captureFirstTouchFromLocation } from './lib/utmFirstTouch';
+import { recordPageView } from './lib/tracker';
 import { Navbar } from './components/Navbar';
 import { HomeOverhaul } from './components/HomeOverhaul';
 import { AiSpeakingLaunch } from './components/AiSpeakingLaunch';
@@ -305,6 +306,11 @@ function App() {
   useEffect(() => {
     captureFirstTouchFromLocation();
   }, []);
+
+  // Page-view event (13 Nov 2026): one per route view, after the first touch is kept so its utm_* set is attached.
+  useEffect(() => {
+    recordPageView();
+  }, [pathname]);
 
   useEffect(() => {
     const handlePopState = () => setRoute(getCurrentRoute());

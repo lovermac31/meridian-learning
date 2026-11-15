@@ -5,6 +5,7 @@ import { checkRateLimit, createThrottleLogContext, getClientHash, logRateLimited
 import { logEvent } from './_lib/observability.js';
 import { createStoryClubReservation } from './_lib/supabaseWriter.js';
 import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
+import { storyClubPriceAt } from '../src/config/storyClubOffer.js';
 
 // Server-safe product map. Do not import src/config/payment.ts here — it uses import.meta.env (Vite) and crashes the serverless function.
 const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
@@ -36,10 +37,10 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
   'pilot-class-kit': { prefix: 'PR0P', amount: 690000 },
   'curriculum-overview': { prefix: 'PR0Q', amount: 290000 },
   'story-workbooks-l1': { prefix: 'PR0Z', amount: 290000 },
-  'story-workbooks-l2': { prefix: 'PR10', amount: 190000 },
-  'story-workbooks-l3': { prefix: 'PR11', amount: 190000 },
-  'story-workbooks-l4': { prefix: 'PR12', amount: 190000 },
-  'story-workbooks-l5': { prefix: 'PR13', amount: 190000 },
+  'story-workbooks-l2': { prefix: 'PR10', amount: 290000 },
+  'story-workbooks-l3': { prefix: 'PR11', amount: 290000 },
+  'story-workbooks-l4': { prefix: 'PR12', amount: 290000 },
+  'story-workbooks-l5': { prefix: 'PR13', amount: 290000 },
   'ielts-speaking-ladder': { prefix: 'PR0R', amount: 299000 },
   'ielts-one-to-one-starter': { prefix: 'PR0S', amount: 149000 },
   'ielts-cue-card-bank': { prefix: 'PR0T', amount: 199000 },
@@ -62,7 +63,9 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
 };
 
 // Paused for sale (audit fix 4, 11 Nov 2026): no new payment code or order. Mirrors `paused: true` in products.ts (a test checks).
-export const PAUSED_PRODUCTS = new Set(['teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5', 'teacher-bundle', 'student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5']);
+// Empty since 13 Nov 2026: the Level 2-5 Teacher Packs, Student Workbooks and the Teacher Bundle were rewritten onto original
+// Jurassic English stories and are on sale again (task WW-20261113-07). The mechanism stays for the next pause.
+export const PAUSED_PRODUCTS = new Set<string>();
 
 // Audit fix 6 (11 Nov 2026): payment codes are made only when a buyer presses "Get my payment code", and that click has
 // its own rate-limit key with a higher ceiling, because Vietnamese mobile carriers put many buyers behind one IP. The
@@ -259,10 +262,32 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
   }
 }
 
+// The AI Speaking app's SePay dispatcher reads BL+hex and JE(AI|BL|WR|LD|PD) as its own code families, and a family match that
+// runs past a JE code can win, so "BL" or "JE" anywhere in the code could send a JE payment the wrong way (P5c, 15 Nov 2026;
+// review MEDIUM 1). A draw is rejected when the prefix's last character plus the suffix contains "BL" or "JE" (e.g. LC-W1A7BL,
+// PR03-ABCDBL, PR0B-L3F2A1), or when the suffix ends in "B" or "J" (bank text after the memo could complete BL/JE).
+// LC only: bank text often puts the receiving bank "MB" right before the memo ("CK MB LC-ABC123"), and with dashes and spaces
+// stripped "MBLC…" reads as "BL" + "C" + the suffix, a Baseline code when the next five characters are hex. Such a suffix is
+// redrawn too (about 1.8% of LC draws).
+export function isMisroutableMemo(prefix: string, suffix: string): boolean {
+  return /BL|JE/.test(prefix.slice(-1) + suffix) || /[BJ]$/.test(suffix) || (prefix === 'LC' && /^[0-9A-F]{5}/.test(suffix));
+}
+const memoSuffix = (seed: string) =>
+  (createHash('sha256').update(seed).digest().readUIntBE(0, 6) % 36 ** 6).toString(36).toUpperCase().padStart(6, '0');
+
+/**
+ * The order's memo, stable for one submission (the prepare step and the contact form must agree). A reserved suffix is redrawn
+ * deterministically (`:1`, `:2`, …), so a clean suffix is unchanged from before and a redrawn one is still stable on retry.
+ */
 export function createPaidMemo(product: string, submissionId: string): string {
   const offer = paidOffer(product);
   if (!offer || !submissionId) throw new Error('Invalid reservation');
-  return `${offer.prefix}-${(createHash('sha256').update(`${product}:${submissionId}`).digest().readUIntBE(0, 6) % 36 ** 6).toString(36).toUpperCase().padStart(6, '0')}`;
+  for (let draw = 0; draw < 64; draw += 1) {
+    const suffix = memoSuffix(draw === 0 ? `${product}:${submissionId}` : `${product}:${submissionId}:${draw}`);
+    if (!isMisroutableMemo(offer.prefix, suffix)) return `${offer.prefix}-${suffix}`;
+  }
+  // At most about 8% of draws are rejected, so 64 rejections in a row is below 1e-70; fail closed rather than issue a misroutable code.
+  throw new Error('Could not draw a payment memo');
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -302,6 +327,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       memo = createPaidMemo(input.product!, submissionId);
     }
 
+    // Story Club: the amount for the QR is the dated launch-offer price at this moment (src/config/storyClubOffer.ts).
+    const amount = input.product === 'story-club' ? storyClubPriceAt(new Date()).priceVnd : offer.amount;
     // Store the memo immediately so the order is trackable even if the buyer never fills the contact form.
     const lead: SampleLead = {
       submissionId,
@@ -312,12 +339,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       placement: 'products',
       product: input.product,
       paymentMemo: memo,
-      paymentAmount: offer.amount,
+      paymentAmount: amount,
       source: 'prepare_payment',
     };
     void safeNotion(lead);
 
-    return res.status(200).json({ ok: true, submissionId, memo });
+    return res.status(200).json({ ok: true, submissionId, memo, amount });
   }
 
   const lead = toSampleLead(input);

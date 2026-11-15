@@ -2,6 +2,7 @@ import marketPricing from '../content/marketPricing.json';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import type { Locale } from '../i18n/locales';
 import { isInternationalMarketPath } from './seoPageMeta';
+import { NO_PAYPAL_MARKETS } from './marketCheckout';
 
 // The header button is the page's own next step (website assessment, 27 Oct 2026, fix 2): parent pages offer the free
 // sample pack; IELTS pages go to the Live Speaking Baseline booking page itself; country pages book it in US$ through
@@ -40,6 +41,11 @@ export function headerCta(pathname: string, locale: Locale, copy: CtaCopy): Head
     const market = marketOf(pathname);
     if (market) {
       const usd = `US$${marketBaselineUsd(market)}`;
+      // No PayPal route for Pakistan and Bangladesh: the button is the same email request as the rest of the page.
+      if (NO_PAYPAL_MARKETS.has(market)) {
+        const where = market[0].toUpperCase() + market.slice(1);
+        return { kind: 'baseline', label: `Request Baseline · ${usd}`, mobileLabel: `Baseline · ${usd}`, href: `mailto:info@jurassicenglish.com?subject=${encodeURIComponent(`Speaking Baseline request - ${where} (${usd})`)}` };
+      }
       return { kind: 'baseline', label: `Book Baseline · ${usd}`, mobileLabel: `Baseline · ${usd}`, href: `${copy.ctaHref}?market=${market}` };
     }
     return { kind: 'baseline', label: 'Book Baseline', mobileLabel: 'Baseline', href: copy.ctaHref };

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Menu, X } from 'lucide-react';
-import { getOverhaulContent } from '../i18n/content/overhaul';
+import { getOverhaulContent, PRODUCTS_NEW_HIGHLIGHT, PRODUCTS_NEW_HREF } from '../i18n/content/overhaul';
 import { getLocalizedHref } from '../i18n/localizedHref';
 import { getCurrentLocale } from '../i18n/routing';
 import { headerCta } from '../lib/headerCta';
@@ -10,6 +10,8 @@ import { getUiString } from '../i18n/ui';
 import { trackCtaClick } from '../lib/analytics';
 
 const ROOT_MOBILE_NAV_ID = 'root-mobile-nav';
+// A header door. Option A (15 Nov 2026): `aria` overrides the accessible name (IELTS · JurassicIELTS.com).
+type NavLink = { key: string; label: string; desc: string; href: string; kind: 'route' | 'native'; short?: string; aria?: string };
 
 // Light storybook header (10/10 overhaul). Two-line door links: age + what it is.
 const NAV_LINK =
@@ -146,22 +148,36 @@ export const Navbar = ({
   // pages served outside the SPA (static YL page, AI Speaking app rewrite) or
   // homepage anchors, so they must be real document navigations.
   const overhaul = getOverhaulContent(locale);
-  const navItems = overhaul.nav.items;
+  // Phonics launch (Jay, 15 Nov 2026, D3/D4): for four weeks Products carries the "New" badge and links straight to the
+  // Phonics tile, as a full page load so the #phonics anchor opens the tile. PRODUCTS_NEW_HIGHLIGHT = false undoes it all.
+  const navItems: NavLink[] = (overhaul.nav.items as readonly NavLink[]).map((item) =>
+    PRODUCTS_NEW_HIGHLIGHT && item.key === 'products' ? { ...item, href: PRODUCTS_NEW_HREF, kind: 'native' as const } : item);
   const productsItem = navItems.find((item) => item.key === 'products');
   // The header button is the page's own next step (website assessment, 27 Oct 2026): the free sample pack on parent
   // pages, the Live Speaking Baseline booking page on IELTS pages (US$ on country pages). See lib/headerCta.
   const cta = headerCta(getCurrentPathname(), locale, overhaul.nav);
   const bookHref = cta.href;
   const bookLabel = cta.label;
-  // "New" / "Mới" badge on the IELTS Writing link; the accessible name starts with the visible text (WCAG 2.5.3).
-  const badgeFor = (key: string) => (key === 'writing' ? overhaul.nav.newBadge : null);
+  // "New" / "Mới" badge: on Books & Prices during the Phonics launch, otherwise on IELTS (Option A: one badge at a time,
+  // never on a removed door). The accessible name starts with the visible text (WCAG 2.5.3).
+  const badgeFor = (key: string) => (key === (PRODUCTS_NEW_HIGHLIGHT ? 'products' : 'ielts') ? overhaul.nav.newBadge : null);
+  const newInProducts = `${overhaul.nav.newBadge}: ${productsItem?.label ?? ''}`;
+  const trackProductsNew = () => {
+    if (!PRODUCTS_NEW_HIGHLIGHT) return;
+    try {
+      trackCtaClick({ label: 'header_products_new_click', type: 'secondary', segment: 'parent_student' });
+    } catch {
+      /* Measurement must not block navigation. */
+    }
+  };
   const NEW_BADGE = 'ml-1.5 inline-block rounded-full bg-sb-amber-deep px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white';
 
   const handleNavItemClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
-    item: (typeof navItems)[number],
+    item: NavLink,
   ) => {
     setIsMobileMenuOpen(false);
+    if (item.key === 'products') trackProductsNew();
     if (item.kind === 'native') return;
     event.preventDefault();
     onNavigate(item.href);
@@ -209,10 +225,12 @@ export const Navbar = ({
               href={getLocalizedHref(item.href, locale)}
               onClick={(event) => handleNavItemClick(event, item)}
               className={NAV_LINK}
-              aria-label={[badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label, item.desc].filter(Boolean).join(' · ')}
-              title={[item.label, item.desc].filter(Boolean).join(' · ')}
+              aria-label={item.aria
+                ? (badgeFor(item.key) ? item.aria.replace(item.label, `${item.label} ${badgeFor(item.key)}`) : item.aria)
+                : [badgeFor(item.key) ? `${item.label} ${badgeFor(item.key)}` : item.label, item.desc].filter(Boolean).join(' · ')}
+              title={item.aria ?? [item.label, item.desc].filter(Boolean).join(' · ')}
             >
-              <DesktopNavLabel label={item.label} short={'short' in item ? item.short : undefined} />
+              <DesktopNavLabel label={item.label} short={item.short} />
               {badgeFor(item.key) ? <>{' '}<span className={NEW_BADGE}>{badgeFor(item.key)}</span></> : null}
             </a>
           ))}
@@ -229,7 +247,10 @@ export const Navbar = ({
               className={`${NAV_LINK} inline-flex min-h-11 min-w-11 items-center justify-center px-1 max-[639px]:text-sm sm:px-2 2xl:hidden`}
               data-testid="header-products-link"
             >
-              {'short' in productsItem && productsItem.short ? productsItem.short : productsItem.label}
+              {/* Below 768 px the short label (Jay, 15 Nov 2026: "Short label: Products"), so it clears the logo at 360 px.
+                  Only one span is displayed at a time, so the accessible name is always the visible text. */}
+              {productsItem.short ? <span className="md:hidden">{productsItem.short}</span> : null}
+              <span className={productsItem.short ? 'max-md:hidden' : undefined}>{productsItem.label}</span>
             </a>
           ) : null}
           <a
@@ -245,17 +266,21 @@ export const Navbar = ({
           <button
             ref={triggerRef}
             type="button"
-            className="2xl:hidden shrink-0 text-sb-forest inline-flex h-11 w-11 items-center justify-center rounded-full border border-sb-border bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
+            className="relative 2xl:hidden shrink-0 text-sb-forest inline-flex h-11 w-11 items-center justify-center rounded-full border border-sb-border bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber focus-visible:ring-offset-2 focus-visible:ring-offset-sb-cream"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={
               isMobileMenuOpen
                 ? getUiString(locale, 'navbar.closeMenu')
-                : getUiString(locale, 'navbar.openMenu')
+                : PRODUCTS_NEW_HIGHLIGHT
+                  ? `${getUiString(locale, 'navbar.openMenu')} · ${newInProducts}`
+                  : getUiString(locale, 'navbar.openMenu')
             }
             aria-expanded={isMobileMenuOpen}
             aria-controls={ROOT_MOBILE_NAV_ID}
           >
             {isMobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+            {/* Below 2xl the menu row is hidden, so an 8 px amber dot says there is something new inside (Phonics launch). */}
+            {PRODUCTS_NEW_HIGHLIGHT && !isMobileMenuOpen ? <span className="pointer-events-none absolute right-1 top-1 h-2 w-2 rounded-full bg-sb-amber-deep ring-2 ring-white" aria-hidden="true" data-testid="menu-new-dot" /> : null}
           </button>
         </div>
       </div>

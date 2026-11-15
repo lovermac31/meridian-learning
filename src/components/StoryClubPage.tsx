@@ -7,6 +7,7 @@ import { STORY_CLUB_FREE_STORIES, storyClubContent } from '../i18n/content/story
 import { recordClientEvent } from '../lib/tracker';
 import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
+import { StoryClubLiveLine } from './StoryClubLiveLine';
 import { STORY_CLUB_VIDEOS, VIDEO_COPY } from '../i18n/content/productVideos';
 import { useFirstTouch, withFirstTouch, type FirstTouch } from '../lib/utmFirstTouch';
 import { storyClubTryItContent, STORY_CLUB_TRY_IT_ZALO_HREF } from '../i18n/content/storyClubTryIt';
@@ -70,7 +71,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           </p>
           <p className="mt-1 font-semibold">{c.price.seats}</p>
           <p className="mt-1 font-semibold" data-story-club-schedule>{c.price.schedule}</p>
-          <p className="mt-1 font-semibold">{c.price.starts}</p>
+          <p className="mt-1 font-semibold"><StoryClubLiveLine locale={locale} kind="both" /></p>
           <p className="mt-3">{c.price.note}</p>
           <div className="story-cta mt-5 max-w-sm">
             <ZaloButton label={c.join.cta} touch={touch} />
@@ -90,6 +91,7 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
           <div className="mt-2 grid gap-6 md:grid-cols-2">
             {STORY_CLUB_VIDEOS.map((slug) => <ProductVideo key={slug} slug={slug} locale={locale} />)}
           </div>
+          <p className="mt-2 text-sm" data-story-club-video-note>{locale === 'vi' ? 'Video nói “sáng thứ Bảy”. Các buổi học hiện diễn ra vào thứ Bảy lúc 13:00 giờ Việt Nam.' : 'The video says Saturday mornings. Sessions now run on Saturdays at 13:00 Vietnam time.'}</p>
         </section>
 
         <section aria-labelledby="story-week">
@@ -125,6 +127,8 @@ export function StoryClubPage({ locale }: { locale: Locale }) {
                 <li key={item} className="flex items-start gap-3"><Check aria-hidden="true" className="story-check mt-1 h-5 w-5 shrink-0" /><span>{item}</span></li>
               ))}
             </ul>
+            {/* Phonics (15 Nov 2026): the step before Story Club for a child who is not reading yet; utm before the anchor. */}
+            <a className="mt-4 inline-block font-semibold" href={`${locale === 'vi' ? '/vi' : ''}/products?utm_source=storyclub#phonics-b1`} data-link="storyclub-phonics">{c.forWho.phonics}</a>
           </div>
           <div className="ielts-tool-card rounded-2xl bg-white p-6 shadow-sm">
             <h3 className="text-lg font-bold">{c.forWho.noLabel}</h3>

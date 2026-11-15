@@ -1,0 +1,502 @@
+{
+ "story-workbooks-l1-v2": {
+  "id": "story-workbooks-l1",
+  "pages": [
+   {
+    "file": "JE-L1-01-mina-and-the-midnight-drum-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L1-01-mina-and-the-midnight-drum-Storybook-Workbook-v2.1.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L1-01-mina-and-the-midnight-drum-Storybook-Workbook-v2.1.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L1-02-the-lantern-with-two-handles-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L1-12-kim-and-the-thunder-inside-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L1-13-the-song-across-the-lake-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   }
+  ]
+ },
+ "teacher-pack-l1-v2": {
+  "id": "teacher-pack-l1",
+  "pages": [
+   {
+    "file": "JE-L1-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L1-Teacher-Pack-JE-Originals.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L1-Teacher-Pack-JE-Originals.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L1-Teacher-Pack-JE-Originals.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L1-Teacher-Pack-JE-Originals.pdf",
+    "page": 6
+   },
+   {
+    "file": "JE-L1-01-mina-and-the-midnight-drum-Teacher-Book-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L1-01-mina-and-the-midnight-drum-Teacher-Book-v2.1.pdf",
+    "page": 4
+   }
+  ]
+ },
+ "student-workbook-l1-v2": {
+  "id": "student-workbook-l1",
+  "pages": [
+   {
+    "file": "JE-L1-Student-Workbook-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L1-Student-Workbook-JE-Originals.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L1-Student-Workbook-JE-Originals.pdf",
+    "page": 3
+   },
+   {
+    "file": "JE-L1-Student-Workbook-JE-Originals.pdf",
+    "page": 7
+   },
+   {
+    "file": "JE-L1-Student-Workbook-JE-Originals.pdf",
+    "page": 10
+   },
+   {
+    "file": "JE-L1-Student-Workbook-JE-Originals.pdf",
+    "page": 11
+   }
+  ]
+ },
+ "story-workbooks-l2-v2": {
+  "id": "story-workbooks-l2",
+  "pages": [
+   {
+    "file": "JE-L2-03-the-bell-that-rang-too-early-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L2-03-the-bell-that-rang-too-early-Storybook-Workbook-v2.1.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L2-03-the-bell-that-rang-too-early-Storybook-Workbook-v2.1.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L2-04-the-rain-on-platform-seven-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L2-24-the-river-promise-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L2-25-the-new-boy-and-the-night-sky-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   }
+  ]
+ },
+ "teacher-pack-l2-v2": {
+  "id": "teacher-pack-l2",
+  "pages": [
+   {
+    "file": "JE-L2-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L2-Teacher-Pack-JE-Originals.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L2-Teacher-Pack-JE-Originals.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L2-Teacher-Pack-JE-Originals.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L2-Teacher-Pack-JE-Originals.pdf",
+    "page": 6
+   },
+   {
+    "file": "JE-L2-03-the-bell-that-rang-too-early-Teacher-Book.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L2-03-the-bell-that-rang-too-early-Teacher-Book.pdf",
+    "page": 4
+   }
+  ]
+ },
+ "student-workbook-l2-v2": {
+  "id": "student-workbook-l2",
+  "pages": [
+   {
+    "file": "JE-L2-Student-Workbook-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L2-Student-Workbook-JE-Originals.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L2-Student-Workbook-JE-Originals.pdf",
+    "page": 3
+   },
+   {
+    "file": "JE-L2-Student-Workbook-JE-Originals.pdf",
+    "page": 7
+   },
+   {
+    "file": "JE-L2-Student-Workbook-JE-Originals.pdf",
+    "page": 10
+   },
+   {
+    "file": "JE-L2-Student-Workbook-JE-Originals.pdf",
+    "page": 11
+   }
+  ]
+ },
+ "story-workbooks-l3-v2": {
+  "id": "story-workbooks-l3",
+  "pages": [
+   {
+    "file": "JE-L3-C01-the-song-they-took-out-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L3-C01-the-song-they-took-out-Storybook-Workbook-v2.1.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L3-C01-the-song-they-took-out-Storybook-Workbook-v2.1.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L3-C02-the-last-clue-on-lantern-street-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L3-06-the-last-seat-on-the-night-ferry-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L3-C04-kit-and-the-invisible-line-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   }
+  ]
+ },
+ "teacher-pack-l3-v2": {
+  "id": "teacher-pack-l3",
+  "pages": [
+   {
+    "file": "JE-L3-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L3-Teacher-Pack-JE-Originals.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L3-Teacher-Pack-JE-Originals.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L3-Teacher-Pack-JE-Originals.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L3-Teacher-Pack-JE-Originals.pdf",
+    "page": 6
+   },
+   {
+    "file": "JE-L3-C01-the-song-they-took-out-Teacher-Book-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L3-C01-the-song-they-took-out-Teacher-Book-v2.1.pdf",
+    "page": 4
+   }
+  ]
+ },
+ "student-workbook-l3-v2": {
+  "id": "student-workbook-l3",
+  "pages": [
+   {
+    "file": "JE-L3-Student-Workbook-Licensed-edition-2.0.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L3-Student-Workbook-Licensed-edition-2.0.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L3-Student-Workbook-Licensed-edition-2.0.pdf",
+    "page": 3
+   },
+   {
+    "file": "JE-L3-Student-Workbook-Licensed-edition-2.0.pdf",
+    "page": 7
+   },
+   {
+    "file": "JE-L3-Student-Workbook-Licensed-edition-2.0.pdf",
+    "page": 10
+   },
+   {
+    "file": "JE-L3-Student-Workbook-Licensed-edition-2.0.pdf",
+    "page": 11
+   }
+  ]
+ },
+ "story-workbooks-l4-v2": {
+  "id": "story-workbooks-l4",
+  "pages": [
+   {
+    "file": "JE-L4-C01-the-bridge-committee-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L4-C01-the-bridge-committee-Storybook-Workbook-v2.1.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L4-C01-the-bridge-committee-Storybook-Workbook-v2.1.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L4-C02-the-night-rota-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L4-C03-the-reservoir-tokens-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L4-C04-the-coat-between-us-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   }
+  ]
+ },
+ "teacher-pack-l4-v2": {
+  "id": "teacher-pack-l4",
+  "pages": [
+   {
+    "file": "JE-L4-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L4-Teacher-Pack-JE-Originals.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L4-Teacher-Pack-JE-Originals.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L4-Teacher-Pack-JE-Originals.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L4-Teacher-Pack-JE-Originals.pdf",
+    "page": 6
+   },
+   {
+    "file": "JE-L4-C01-the-bridge-committee-Teacher-Book-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L4-C01-the-bridge-committee-Teacher-Book-v2.1.pdf",
+    "page": 4
+   }
+  ]
+ },
+ "student-workbook-l4-v2": {
+  "id": "student-workbook-l4",
+  "pages": [
+   {
+    "file": "JE-L4-Student-Workbook-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L4-Student-Workbook-JE-Originals.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L4-Student-Workbook-JE-Originals.pdf",
+    "page": 3
+   },
+   {
+    "file": "JE-L4-Student-Workbook-JE-Originals.pdf",
+    "page": 7
+   },
+   {
+    "file": "JE-L4-Student-Workbook-JE-Originals.pdf",
+    "page": 10
+   },
+   {
+    "file": "JE-L4-Student-Workbook-JE-Originals.pdf",
+    "page": 11
+   }
+  ]
+ },
+ "story-workbooks-l5-v2": {
+  "id": "story-workbooks-l5",
+  "pages": [
+   {
+    "file": "JE-L5-C01-a-box-called-other-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L5-C01-a-box-called-other-Storybook-Workbook-v2.1.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L5-C01-a-box-called-other-Storybook-Workbook-v2.1.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L5-C02-the-heron-stamp-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L5-C03-the-names-on-the-tarpaulin-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L5-C04-the-workshop-without-windows-Storybook-Workbook-v2.1.pdf",
+    "page": 1
+   }
+  ]
+ },
+ "teacher-pack-l5-v2": {
+  "id": "teacher-pack-l5",
+  "pages": [
+   {
+    "file": "JE-L5-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L5-Teacher-Pack-JE-Originals.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L5-Teacher-Pack-JE-Originals.pdf",
+    "page": 4
+   },
+   {
+    "file": "JE-L5-Teacher-Pack-JE-Originals.pdf",
+    "page": 6
+   },
+   {
+    "file": "JE-L5-Teacher-Pack-JE-Originals.pdf",
+    "page": 6
+   },
+   {
+    "file": "JE-L5-C01-a-box-called-other-Teacher-Book-v2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L5-C01-a-box-called-other-Teacher-Book-v2.1.pdf",
+    "page": 4
+   }
+  ]
+ },
+ "student-workbook-l5-v2": {
+  "id": "student-workbook-l5",
+  "pages": [
+   {
+    "file": "JE-L5-Student-Workbook-Licensed-edition-2.1.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L5-Student-Workbook-Licensed-edition-2.1.pdf",
+    "page": 2
+   },
+   {
+    "file": "JE-L5-Student-Workbook-Licensed-edition-2.1.pdf",
+    "page": 3
+   },
+   {
+    "file": "JE-L5-Student-Workbook-Licensed-edition-2.1.pdf",
+    "page": 7
+   },
+   {
+    "file": "JE-L5-Student-Workbook-Licensed-edition-2.1.pdf",
+    "page": 10
+   },
+   {
+    "file": "JE-L5-Student-Workbook-Licensed-edition-2.1.pdf",
+    "page": 11
+   }
+  ]
+ },
+ "teacher-bundle-v2": {
+  "id": "teacher-bundle",
+  "pages": [
+   {
+    "file": "JE-L1-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L1-Teacher-Pack-JE-Originals.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L2-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L2-Teacher-Pack-JE-Originals.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L3-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L3-Teacher-Pack-JE-Originals.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L4-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L4-Teacher-Pack-JE-Originals.pdf",
+    "page": 5
+   },
+   {
+    "file": "JE-L5-Teacher-Pack-JE-Originals.pdf",
+    "page": 1
+   },
+   {
+    "file": "JE-L5-Teacher-Pack-JE-Originals.pdf",
+    "page": 6
+   }
+  ]
+ }
+}

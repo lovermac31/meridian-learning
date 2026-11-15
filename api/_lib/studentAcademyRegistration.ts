@@ -218,7 +218,7 @@ export async function handleStudentAcademyRegistration(
     submissionId,
     emailQueued: emailResult.ok,
     message: emailResult.ok
-      ? 'Your Student Academy registration has been received. Please check your email for confirmation and next steps.'
-      : 'Your Student Academy registration has been received. We will follow up by email shortly.',
+      ? 'Your Kids Academy registration has been received. Please check your email for confirmation and next steps.'
+      : 'Your Kids Academy registration has been received. We will follow up by email shortly.',
   });
 }

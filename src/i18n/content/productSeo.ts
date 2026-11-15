@@ -25,7 +25,7 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     vi: {
       keyword: 'câu lạc bộ đọc truyện tiếng anh cho bé',
       title: 'Câu lạc bộ đọc truyện tiếng Anh online cho bé 5–8 tuổi',
-      description: 'Nhóm nhỏ đọc truyện tiếng Anh trực tuyến cho bé 5–8 tuổi: 4 buổi sáng thứ Bảy, bài nhỏ ở nhà mỗi tuần và thầy Jay phản hồi riêng từng bé. 590.000₫.',
+      description: 'Nhóm nhỏ đọc truyện tiếng Anh trực tuyến cho bé 5–8 tuổi: 4 buổi thứ Bảy, bài nhỏ ở nhà mỗi tuần và thầy Jay phản hồi riêng từng bé. 590.000₫.',
     },
   },
   baseline: {
@@ -160,6 +160,31 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       description: 'Cả năm bộ tài liệu giáo viên Jurassic English: khung chương trình, sổ tay triển khai và 40 giáo án mỗi level, tổng 200 giáo án. Một giáo viên. 2.900.000₫.',
     },
   },
+  // Jurassic English Phonics (15 Nov 2026, blueprint 6.1): titles from the blueprint; descriptions from the listing pack line.
+  'phonics-b1': {
+    en: {
+      keyword: 'phonics book for kids with audio',
+      title: 'Phonics Book 1 for Kids 4–7: The Alphabet, with Audio',
+      description: 'Listen, read, write, play: phonics for ages 4 to 7, with audio and a teacher guide. Book 1 teaches the 26 letters, their names and sounds. 79.000₫.',
+    },
+    vi: {
+      keyword: 'sách phonics cho bé',
+      title: 'Sách Phonics Quyển 1 cho bé 4–7 tuổi: Bảng chữ cái',
+      description: 'Nghe, đọc, viết, chơi: học phonics cho bé 4 đến 7 tuổi, có âm thanh và hướng dẫn cho giáo viên. Quyển 1: 26 chữ cái, tên và âm của chữ. 79.000₫.',
+    },
+  },
+  'phonics-b2': {
+    en: {
+      keyword: 'short vowels phonics book for kids',
+      title: 'Phonics Book 2 for Kids 4–7: Short Vowels, with Audio',
+      description: 'Listen, read, write, play: phonics for ages 4 to 7, with audio and a teacher guide. Book 2 teaches the short vowels a, e, i, o and u. 129.000₫.',
+    },
+    vi: {
+      keyword: 'sách phonics nguyên âm ngắn',
+      title: 'Sách Phonics Quyển 2 cho bé 4–7 tuổi: Nguyên âm ngắn',
+      description: 'Nghe, đọc, viết, chơi: học phonics cho bé 4 đến 7 tuổi, có âm thanh và hướng dẫn cho giáo viên. Quyển 2: nguyên âm ngắn a, e, i, o, u. 129.000₫.',
+    },
+  },
   'story-workbooks-l1': {
     en: {
       keyword: 'english story workbook for kids',
@@ -176,12 +201,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'english reading workbook for kids 8-10',
       title: 'Printable English Reading Workbooks for Kids 8–10 | L2',
-      description: '3 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 190.000₫ one-time.',
+      description: '9 original storybooks as printable A4 workbooks for children aged 8–10 (CEFR A1 → A2), with a Thinking Cycle page and an answer key. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách truyện tiếng anh cho bé 8-10 tuổi',
       title: 'Sách truyện tiếng Anh cho bé 8–10 tuổi, có bài tập | Level 2',
-      description: '3 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 8–10 tuổi (CEFR A1 → A2), có trang Chu trình Tư duy và đáp án. 190.000₫ mua một lần.',
+      description: '9 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 8–10 tuổi (CEFR A1 → A2), có trang Chu trình Tư duy và đáp án. 290.000₫ mua một lần.',
     },
   },
   'mango-l2': {
@@ -200,36 +225,36 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'english reading comprehension workbook 10-12',
       title: 'English Reading Comprehension Workbooks 10–12 | Level 3',
-      description: '3 original storybooks as printable A4 workbooks for ages 10–12 (CEFR A2 → B1): evidence questions, a Thinking Cycle page and an answer key. 190.000₫ one-time.',
+      description: '10 original storybooks as printable A4 workbooks for ages 10–12 (CEFR A2 → B1): evidence questions, a Thinking Cycle page and an answer key. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách bài tập đọc hiểu tiếng anh 10-12 tuổi',
       title: 'Sách bài tập đọc hiểu tiếng Anh cho trẻ 10–12 tuổi | Level 3',
-      description: '3 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 10–12 tuổi (CEFR A2 → B1): câu hỏi dẫn chứng, Chu trình Tư duy và đáp án. 190.000₫ mua một lần.',
+      description: '10 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 10–12 tuổi (CEFR A2 → B1): câu hỏi dẫn chứng, Chu trình Tư duy và đáp án. 290.000₫ mua một lần.',
     },
   },
   'story-workbooks-l4': {
     en: {
       keyword: 'english reading comprehension workbook 12-14',
       title: 'English Reading Comprehension Workbooks 12–14 | Level 4',
-      description: '3 original storybooks as printable A4 workbooks for ages 12–14 (CEFR B1 → B2): quoted-evidence questions, a Thinking Cycle page, a rubric. 190.000₫ one-time.',
+      description: '10 original storybooks as printable A4 workbooks for ages 12–14 (CEFR B1 → B2): quoted-evidence questions, a Thinking Cycle page, a rubric. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách bài tập đọc hiểu tiếng anh 12-14 tuổi',
       title: 'Sách bài tập đọc hiểu tiếng Anh 12–14 tuổi | Level 4',
-      description: '3 truyện gốc thành sách bài tập A4 in sẵn cho học sinh 12–14 tuổi (CEFR B1 → B2): câu hỏi trích dẫn, Chu trình Tư duy, thang đánh giá. 190.000₫ mua một lần.',
+      description: '10 truyện gốc thành sách bài tập A4 in sẵn cho học sinh 12–14 tuổi (CEFR B1 → B2): câu hỏi trích dẫn, Chu trình Tư duy, thang đánh giá. 290.000₫ mua một lần.',
     },
   },
   'story-workbooks-l5': {
     en: {
       keyword: 'advanced english reading workbook for teens',
       title: 'Advanced English Reading Workbooks for Teens 14+ | L5',
-      description: '3 original storybooks as printable A4 workbooks for learners 14+ (CEFR B2 → C1): claim and counterargument practice, a rubric, an answer key. 190.000₫ one-time.',
+      description: '10 original storybooks as printable A4 workbooks for learners 14+ (CEFR B2 → C1): claim and counterargument practice, a rubric, an answer key. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách bài tập đọc hiểu tiếng anh nâng cao',
       title: 'Sách bài tập đọc hiểu tiếng Anh nâng cao 14+ | Level 5',
-      description: '3 truyện gốc thành sách bài tập A4 in sẵn cho học sinh từ 14 tuổi (CEFR B2 → C1): luyện nhận định và phản biện, thang đánh giá, đáp án. 190.000₫ mua một lần.',
+      description: '10 truyện gốc thành sách bài tập A4 in sẵn cho học sinh từ 14 tuổi (CEFR B2 → C1): luyện nhận định và phản biện, thang đánh giá, đáp án. 290.000₫ mua một lần.',
     },
   },
   'student-workbook-l1': {
@@ -597,17 +622,37 @@ export function getProductByPath(pathname: string): Product | null {
   return (id && PAGE_PRODUCTS.find((product) => product.id === id)) || null;
 }
 
+// "You may also need" picks that lead the list (blueprint section 5, 15 Nov 2026): Level 1 Story Workbooks names Phonics Book 1.
+export const RELATED_FIRST: Record<string, string[]> = { 'story-workbooks-l1': ['phonics-b1'] };
+
 /** Three related products: the next live cards in the same section (wrapping), topped up from the next sections. */
 export function relatedProducts(id: string, count = 3): Product[] {
   const product = PAGE_PRODUCTS.find((entry) => entry.id === id);
   if (!product) return [];
+  const first = (RELATED_FIRST[id] ?? []).map((pick) => PAGE_PRODUCTS.find((entry) => entry.id === pick)).filter((entry): entry is Product => Boolean(entry));
   const sectionOrder = [product.section, ...PRODUCT_SECTIONS.filter((section) => section !== product.section)];
   const sameSection = PAGE_PRODUCTS.filter((entry) => entry.section === product.section);
   const at = sameSection.indexOf(product);
   const wrapped = [...sameSection.slice(at + 1), ...sameSection.slice(0, at)];
   const others = sectionOrder.slice(1).flatMap((section) => PAGE_PRODUCTS.filter((entry) => entry.section === section));
-  return [...wrapped, ...others].slice(0, count);
+  return [...first, ...[...wrapped, ...others].filter((entry) => !first.includes(entry))].slice(0, count);
 }
+
+// Phonics pages add two questions (blueprint 6.2), answered from the listing pack and the card copy.
+export const PHONICS_FAQ: Record<Locale, { audio: string; audioAnswer: (tracks: string) => string; age: string; ageAnswer: string }> = {
+  en: {
+    audio: 'Is the audio included?',
+    audioAnswer: (tracks) => `Yes. You get ${tracks} MP3 tracks, one for every listening page, named BookN_TrackNN.mp3 to match the headphone tags in the book. The free sample has the Unit 1 tracks.`,
+    age: 'What age is it for?',
+    ageAnswer: 'Children aged 4–7 (CEFR Pre-A1 → A1), with a parent or teacher. Start here, before Story Workbooks.',
+  },
+  vi: {
+    audio: 'Có kèm file âm thanh không?',
+    audioAnswer: (tracks) => `Có. Bạn nhận ${tracks} file MP3, mỗi bài nghe một file, đặt tên BookN_TrackNN.mp3 khớp với số track in trong sách. Bản mẫu miễn phí có các track của Bài 1.`,
+    age: 'Sách dành cho bé mấy tuổi?',
+    ageAnswer: 'Bé 4–7 tuổi (CEFR Pre-A1 → A1), học cùng bố mẹ hoặc giáo viên. Bắt đầu từ đây, trước Sách truyện bài tập.',
+  },
+};
 
 export const FAQ_QUESTIONS: Record<Locale, { sample: string; pay: string; abroad: string; unsure: string }> = {
   en: {
@@ -632,6 +677,10 @@ export function productFaq(product: Product, locale: Locale): Array<{ question: 
     ...(product.sample ? [{ question: q.sample, answer: `${page.sample.note} ${page.viewer.viewOnly}` }] : []),
     ...(product.delivery ? [{ question: q.pay, answer: page.delivery }] : []),
     ...(product.paypal ? [{ question: q.abroad, answer: PAYPAL_CARD_COPY[locale].note }] : []),
+    ...(product.category === 'phonics' ? [
+      { question: PHONICS_FAQ[locale].audio, answer: PHONICS_FAQ[locale].audioAnswer(product.en.inside.match(/\((\d+) MP3s\)/)?.[1] ?? '') },
+      { question: PHONICS_FAQ[locale].age, answer: PHONICS_FAQ[locale].ageAnswer },
+    ] : []),
     { question: q.unsure, answer: page.closing.body },
   ];
 }

@@ -42,7 +42,7 @@ export const metadata: Metadata = {
         url: "/images/student-academy-page/student-academy-hero.webp",
         width: 1200,
         height: 630,
-        alt: "Jurassic English™ Student Academy",
+        alt: "Jurassic English™ Kids Academy",
       },
     ],
   },
@@ -65,7 +65,7 @@ const trustPoints = [
   "No pressure to enroll immediately",
   "Parent-friendly follow-up",
   "Clear starting-level recommendation",
-  "Aligned with the Student Academy pathway",
+  "Aligned with the Kids Academy pathway",
 ] as const;
 
 const whatHappensNextSteps = [

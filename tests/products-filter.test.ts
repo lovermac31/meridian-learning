@@ -3,20 +3,28 @@ import assert from 'node:assert/strict';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ProductsPage, productAnchor } from '../src/components/ProductsPage';
-import { PAUSED_COPY, PRODUCTS, PRODUCT_SECTIONS, PRODUCT_SEGMENTS, PRODUCT_FORMER_IDS, WORKBOOKS_SEGMENT, WORKBOOK_AGES, productsPage } from '../src/i18n/content/products';
+import { IELTS_MOVED_SECTION, PAUSED_COPY, PRODUCTS, PRODUCT_SECTIONS, PRODUCT_SEGMENTS, PRODUCT_FORMER_IDS, WORKBOOKS_SEGMENT, WORKBOOK_AGES, productsPage } from '../src/i18n/content/products';
 import { FEATURED_PRODUCTS } from '../src/components/ProductsPage';
 
 // Stitch layout (Jay's mock, 2 Nov 2026) with featured-first (Jay, "tighten"): a segment filter row over one wide card
 // per product. SSR renders all 45 cards (search engines and deep links see them) but only the six featured cards show;
 // the rest sit behind the segment tiles and "Show all 45 products".
+// IELTS migration P6 (15 Nov 2026): the IELTS cards left /products for jurassicielts.com. Their section has no cards, no
+// tile and no hero; one moved card (#ielts, data-ielts-moved) links JurassicIELTS /solutions/ instead.
+const ON_PRODUCTS = PRODUCTS.filter((p) => p.live && p.section !== IELTS_MOVED_SECTION);
+const MOVED = PRODUCTS.filter((p) => p.live && p.section === IELTS_MOVED_SECTION);
 for (const locale of ['en', 'vi'] as const) {
   test(`filter ${locale}: five segment tiles (Story Workbooks included) with real counts and lowest prices; six featured cards show, the rest wait behind the filters`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     const tiles = [...html.matchAll(/aria-pressed="(true|false)" aria-controls="([^"]+)" data-category-tile="([^"]+)"/g)];
-    assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.map((id) => [id, 'false', id]));
-    assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Story Workbooks sits right after Families');
+    assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.filter((id) => id !== IELTS_MOVED_SECTION).map((id) => [id, 'false', id]));
+    assert.doesNotMatch(html, /data-category-tile="ielts"/, 'no IELTS tile (its section has no cards)');
+    assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'phonics', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Phonics, then Story Workbooks, right after Families (15 Nov 2026)');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
-    assert.equal(total, 47);
+    assert.equal(total, ON_PRODUCTS.length);
+    assert.equal(total, 35, '35 cards: the 14 IELTS cards moved to jurassicielts.com');
+    assert.ok(!productsPage(locale).sections.some((section) => section.id === IELTS_MOVED_SECTION), 'no IELTS section in the catalogue data');
+    assert.match(html, /<section id="ielts" aria-labelledby="ielts-h" class="[^"]*products-category[^"]*" data-ielts-moved="">/, 'the one moved IELTS card');
     for (const section of productsPage(locale).sections) {
       const featuredHere = section.cards.some((card) => (FEATURED_PRODUCTS as readonly string[]).includes(card.id));
       assert.match(html, new RegExp(`<section id="${section.id}" aria-labelledby="${section.id}-h" class="[^"]*products-category[^"]*"${''} data-category-panel="${section.id}">`), `${section.id}: ${featuredHere ? 'shown' : 'hidden'} until its tile is pressed`);
@@ -30,7 +38,8 @@ for (const locale of ['en', 'vi'] as const) {
     // starts at Mango's price (11 Nov 2026).
     const workbookTile = html.match(/data-category-tile="story-workbooks"[\s\S]*?<\/button>/)![0];
     assert.ok(workbookTile.includes(`6 ${locale === 'vi' ? 'sản phẩm' : 'products'}`) && workbookTile.includes('49.000₫'), 'workbooks tile: 6 products from 49.000₫');
-    assert.equal(FEATURED_PRODUCTS.length, 6);
+    assert.equal(FEATURED_PRODUCTS.length, 5, 'five featured: the IELTS Speaking Ladder left with the IELTS cards');
+    assert.ok(!(FEATURED_PRODUCTS as readonly string[]).includes('ielts-speaking-ladder'), 'the IELTS Speaking Ladder is not featured');
     assert.deepEqual(FEATURED_PRODUCTS.slice(0, 3), ['story-club', 'baseline', 'one-to-one'], 'the three live services lead');
     for (const id of FEATURED_PRODUCTS) assert.ok(PRODUCTS.find((p) => p.id === id)?.live, `${id} is a live product`);
     assert.ok(html.includes(`data-products-count="${total}"`), 'the count line shows every product by default');
@@ -42,8 +51,9 @@ for (const locale of ['en', 'vi'] as const) {
 
   test(`cards ${locale}: every product in SSR with its copy, badge, lazy icon, sample above the price, and payment links`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale })).replaceAll('&#x27;', "'").replaceAll('&amp;', '&').replaceAll('&quot;', '"');
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 47);
-    for (const product of PRODUCTS.filter((p) => p.live)) {
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, ON_PRODUCTS.length);
+    for (const product of MOVED) assert.ok(!html.includes(`id="${product.id}"`), `${product.id}: no IELTS card on /products`);
+    for (const product of ON_PRODUCTS) {
       const start = html.indexOf(`id="${product.id}"`);
       const card = html.slice(start, html.indexOf('</li>', start));
       const escape = (value: string) => value.replaceAll('>', '&gt;').replaceAll('<', '&lt;');
@@ -64,10 +74,13 @@ for (const locale of ['en', 'vi'] as const) {
         continue;
       }
       assert.ok(card.includes(`data-cta="product-${product.id}"`));
-      if (product.sample) assert.ok(at('</dl>') < at(`data-sample="${product.id}"`) && at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → sample → price → buttons`);
-      else assert.ok(at('</dl>') < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at('data-buy-now='), `${product.id}: text → price → buttons`);
+      // Order-only products (Phonics) have no Buy now: the Zalo order button is their first button.
+      const firstButton = product.orderOnly ? `data-cta="product-${product.id}"` : 'data-buy-now=';
+      if (product.orderOnly) assert.ok(!card.includes('data-buy-now='), `${product.id}: no Buy now`);
+      if (product.sample) assert.ok(at('</dl>') < at(`data-sample="${product.id}"`) && at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at(firstButton), `${product.id}: text → sample → price → buttons`);
+      else assert.ok(at('</dl>') < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at(firstButton), `${product.id}: text → price → buttons`);
       // One payment line under the price (the delivery line); the long PayPal note stays in the FAQ, not on every card.
-      if (product.delivery) assert.ok(at(`data-price="${product.id}"`) < at(`data-delivery="${product.id}"`) && at(`data-delivery="${product.id}"`) < at('data-buy-now='), `${product.id}: payment line between price and buttons`);
+      if (product.delivery) assert.ok(at(`data-price="${product.id}"`) < at(`data-delivery="${product.id}"`) && at(`data-delivery="${product.id}"`) < at(firstButton), `${product.id}: payment line between price and buttons`);
       assert.doesNotMatch(card, /paypal\.com to Jurassic English|paypal\.com cho Jurassic English/, `${product.id}: no PayPal paragraph on the card`);
       if (product.paypal) assert.ok(card.includes(`data-paypal-link="${product.id}"`));
       if (product.video) assert.ok(card.includes(`data-watch="${product.id}"`));
@@ -76,16 +89,24 @@ for (const locale of ['en', 'vi'] as const) {
   });
 
   test(`anchors ${locale}: every canonical, former, sample and IELTS subgroup anchor resolves to its category`, () => {
-    for (const product of PRODUCTS.filter((p) => p.live)) {
+    // A moved IELTS card has no anchor on /products any more (its page redirects to jurassicielts.com).
+    for (const product of MOVED) {
+      assert.equal(productAnchor(`#${product.id}`, locale), null, `${product.id}: no card anchor`);
+      assert.equal(productAnchor(`#${product.id}-sample`, locale), null, `${product.id}: no sample anchor`);
+    }
+    for (const product of ON_PRODUCTS) {
       // A Story Workbooks card opens the Story Workbooks segment (five cards), not the whole Families list.
-      assert.deepEqual(productAnchor(`#${product.id}`, locale), { section: product.category === 'workbooks' ? 'story-workbooks' : product.section, product: product.id, sample: false, target: product.id });
+      assert.deepEqual(productAnchor(`#${product.id}`, locale), { section: product.category === 'workbooks' ? 'story-workbooks' : product.category === 'phonics' ? 'phonics' : product.section, product: product.id, sample: false, target: product.id });
       assert.equal(productAnchor(`#${product.id}-sample`, locale)?.sample, !!product.sample);
       for (const alias of PRODUCT_FORMER_IDS[product.id] ?? []) assert.equal(productAnchor(`#${alias}`, locale)?.product, product.id);
     }
-    for (const id of PRODUCT_SECTIONS) assert.equal(productAnchor(`#${id}`, locale)?.section, id);
+    for (const id of PRODUCT_SECTIONS.filter((section) => section !== IELTS_MOVED_SECTION)) assert.equal(productAnchor(`#${id}`, locale)?.section, id);
+    // #ielts is no filter segment now: the browser lands on the moved card's own id="ielts".
+    assert.equal(productAnchor(`#${IELTS_MOVED_SECTION}`, locale), null);
     assert.deepEqual(productAnchor('#story-workbooks', locale), { section: 'story-workbooks', product: null, sample: false, target: 'story-workbooks' });
-    assert.equal(productAnchor('#ielts-speaking', locale)?.section, 'ielts');
-    assert.equal(productAnchor('#ielts-writing', locale)?.section, 'ielts');
+    assert.deepEqual(productAnchor('#phonics', locale), { section: 'phonics', product: null, sample: false, target: 'phonics' });
+    assert.equal(productAnchor('#ielts-speaking', locale), null, 'the IELTS group headings are gone');
+    assert.equal(productAnchor('#ielts-writing', locale), null, 'the IELTS group headings are gone');
     assert.equal(productAnchor('#not-a-product', locale), null);
     assert.equal(productAnchor('#%E0%A4%A', locale), null);
   });
@@ -134,8 +155,10 @@ for (const locale of ['en', 'vi'] as const) test(`audience heroes ${locale}: fam
   const band = html.match(/<section[^>]*data-audience-heroes="">[\s\S]*?<\/section>/)?.[0] ?? '';
   assert.ok(band, 'the band renders');
   assert.ok(html.indexOf('data-audience-heroes') < html.indexOf('data-products-mini-nav'), 'above the segment tiles and the catalogue');
-  assert.deepEqual([...band.matchAll(/data-audience-hero="([^"]+)"/g)].map((m) => m[1]), ['families', 'teachers', 'ielts']);
-  assert.deepEqual(AUDIENCE_HEROES.map((h) => ('lead' in h ? h.lead : null)), ['story-workbooks-l1', 'teacher-pack-l1', null]);
+  // IELTS migration P6: no IELTS hero; IELTS products are on jurassicielts.com.
+  assert.deepEqual([...band.matchAll(/data-audience-hero="([^"]+)"/g)].map((m) => m[1]), ['families', 'teachers']);
+  assert.deepEqual(AUDIENCE_HEROES.map((h) => ('lead' in h ? h.lead : null)), ['story-workbooks-l1', 'teacher-pack-l1']);
+  assert.match(band, /<ul class="products-audience grid gap-4 md:grid-cols-2">/, 'two columns for the two heroes');
   const c = productsPage(locale);
   for (const id of ['story-workbooks-l1', 'teacher-pack-l1']) {
     const card = c.sections.flatMap((s) => s.cards).find((entry) => entry.id === id)!;
@@ -144,7 +167,7 @@ for (const locale of ['en', 'vi'] as const) test(`audience heroes ${locale}: fam
     assert.ok(band.includes(`data-audience-price="${id}">${card.price}`), `${id}: price`);
     assert.ok(band.includes(`href="#${id}-sample"`), `${id}: opens the sample viewer`);
   }
-  assert.ok(band.includes('href="#ielts"'), 'IELTS goes to its own section');
+  assert.ok(!band.includes('href="#ielts"'), 'no IELTS hero link');
   for (const p of PRODUCTS.filter((entry) => (entry as { paused?: boolean }).paused)) assert.ok(!band.includes(`"${p.id}"`), `${p.id}: a paused product is never a hero`);
   assert.doesNotMatch(band, /bg-white/, 'no white surface (brand colours only)');
 });
@@ -158,10 +181,11 @@ test('audience cards: buttons are bottom-aligned and the cards share row tracks 
     const html = await renderRoute(path);
     const band = html.match(/<section[^>]*data-audience-heroes="">[\s\S]*?<\/section>/)?.[0] ?? '';
     assert.match(band, /<ul class="products-audience /, `${path}: shared-row list`);
-    assert.equal((band.match(/class="products-audience-card /g) ?? []).length, 3, `${path}: three cards`);
-    assert.equal((band.match(/<p class="pa-cta mt-auto pt-4"><a /g) ?? []).length, 3, `${path}: every button sits in a bottom-aligned wrapper`);
+    // IELTS migration P6: two cards (families, teachers); the IELTS hero left with the IELTS cards.
+    assert.equal((band.match(/class="products-audience-card /g) ?? []).length, 2, `${path}: two cards`);
+    assert.equal((band.match(/<p class="pa-cta mt-auto pt-4"><a /g) ?? []).length, 2, `${path}: every button sits in a bottom-aligned wrapper`);
     assert.doesNotMatch(band, /margin-top/, `${path}: no inline margin that would defeat the bottom alignment`);
-    assert.equal((band.match(/class="pa-price /g) ?? []).length, 3, `${path}: one price-row item per card`);
+    assert.equal((band.match(/class="pa-price /g) ?? []).length, 2, `${path}: one price-row item per card`);
   }
   const css = readFileSync('src/styles/products.css', 'utf8');
   assert.match(css, /\.products-audience-card \{[^}]*grid-row: span 6;[^}]*grid-template-rows: subgrid/, 'cards share six row tracks');

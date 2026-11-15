@@ -1,35 +1,59 @@
 {
   "version": 1,
   "productId": "story-workbooks-l2",
-  "sampleStem": "story-workbooks-l2",
-  "pageCount": 3,
+  "sampleStem": "story-workbooks-l2-v2",
+  "pageCount": 6,
   "source": {
-    "file": "story-workbooks-l2-sample.pdf",
-    "sha256": "023ba1fa7032b0fc57f816e900310020988563664b0df98eda3f0a2b16b3131c"
+    "file": "story-workbooks-l2-v2-sample.pdf",
+    "sha256": "181605d78edf88bd705404da2020492e6fe99d41c8365c7fe8fe5e2fc05768d6"
   },
   "pages": [
     {
       "page": 1,
-      "image": "story-workbooks-l2-pg01.webp",
-      "imageSha256": "b3c89ecf7847c7c8798e80cf3a297c0da93ba808eaacf118e562561ddd6c3984",
-      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nThe Bell That Rang Too Early\n\nLevel 2 · Development\n\nAges 8–10\n\nStory + Workbook\n\nJurassicEnglish.com · Storybook workbook edition",
-      "textSha256": "239afa11fbd258e842c41c26f2cb6d039d73a84ac32b689ccc5dd84c56935049",
+      "image": "story-workbooks-l2-v2-pg01.webp",
+      "imageSha256": "d9aa2233fe858e0b04e1dd274b2cec7710519ce734487f5c041d52e6dc1b7a2d",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n The Bell That Rang Too Early\n\n\nLevel 2 · Development       Ages 8–10         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "f8e9bbe4c486cf6c3f77471535235a5b705fa281f0d9d162e809d4659b21f65e",
       "method": "pdf-text"
     },
     {
       "page": 2,
-      "image": "story-workbooks-l2-pg02.webp",
-      "imageSha256": "d061cae7ba72c4f022779c995dc8f4f5c8d22f97d0fa05cc6d3a8f613e63c39e",
-      "text": "Chapter 1\n\nMarket morning\n\n1\n\nEvery Saturday, Pavi helped her uncle at the small town market.\nHer job was to ring a brass bell when the stalls were ready.\nRen, the new boy, liked to draw. He drew a fish stall, a flower stall\nand Uncle’s mountain of hats.\n‘You need a real job,’ said Pavi. ‘We all have to be useful.’\nRen closed his sketchbook. He sat behind the hats.\nRead and circle\nWhat does Ren do after Pavi says, ‘We all have to be useful’?\nA. He keeps drawing Uncle’s mountain of hats at the stall.\nB. He closes his sketchbook and sits behind the hats.\nC. He rings the brass bell.\n4\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "e04a6aa79021a9e93603bddb8652dddbfcebda4f2dd5b21d4c71668972b09445",
+      "image": "story-workbooks-l2-v2-pg02.webp",
+      "imageSha256": "68b00fcbbdbad3a864d6e950c8f4396dc6749881677998087aa8cdb8a3bdacaa",
+      "text": "Chapter 1\n\n\n1       Market morning\n\n\n\n\nEvery Saturday, Pavi helped her uncle at the small town market.\nHer job was to ring a brass bell when the stalls were ready.\nRen, the new boy, liked to draw. He drew a fish stall, a flower stall\nand Uncle’s mountain of hats.\n‘You need a real job,’ said Pavi. ‘We all have to be useful.’\nRen closed his sketchbook. He sat behind the hats.\n\nRead and circle\nWhat does Ren do after Pavi says, ‘We all have to be useful’?\n\n           A. He keeps drawing Uncle’s mountain of hats at the stall.\n\n           B. He closes his sketchbook and sits behind the hats.\n\n           C. He rings the brass bell.\n\n\n    4   © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated. Licensed for one learner.",
+      "textSha256": "24b5af6cf8a43a693be253c95225469d65740458da99c2ee1d0bdacadbeab5c3",
       "method": "pdf-text"
     },
     {
       "page": 3,
-      "image": "story-workbooks-l2-pg03.webp",
-      "imageSha256": "3461df23ba6664b6328d0aba3568d18143a830ae389951c2fced729a3c8acae5",
-      "text": "Chapter 1 workbook\n\n1\n\nMarket morning: my workbook page\n\n1 · Fill the gaps\nhelped\n\nliked\n\nstalls\n\nuncle\n\nEvery Saturday, Pavi\n\nher uncle at the small town market.\n\nHer job was to ring a brass bell when the\nRen, the new boy,\n\nwere ready.\n\nto draw.\n\n2 · Think about it\nHow might Ren feel after Pavi’s words?\nA. Proud of his new job\nB. Left out and unwanted\nC. Angry with Uncle\n\n3 · Write it\nHow might Ren feel? Identify a clue; the story does not directly name his\nfeeling.\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n5\n\n© 2026–2027 WorldWise Learning and JurassicEnglish.com. All rights reserved. These materials are the legal property of WorldWise Learning and\nJurassicEnglish.com.",
-      "textSha256": "cd161943f9f9c172290719763c26f604befb03c5a51309832e28aef5d5958152",
+      "image": "story-workbooks-l2-v2-pg03.webp",
+      "imageSha256": "5ffaf73e5df07470ec238fe4773c1fa3b33a172a6c3b3abdebd4b65e42b22ac3",
+      "text": "Chapter 1 workbook\n\n\n1       Market morning: my workbook page\n\n1 · Fill the gaps\n    helped             liked            stalls           uncle\n\nEvery Saturday, Pavi                                           her uncle at the small town market.\n\nHer job was to ring a brass bell when the                                                                 were ready.\nRen, the new boy,                                          to draw.\n\n\n2 · Think about it\nHow might Ren feel after Pavi’s words?\n\n           A. Proud of his new job\n\n           B. Left out and unwanted\n\n           C. Angry with Uncle\n\n\n\n3 · Write it\nHow might Ren feel? Identify a clue; the story does not directly name his\nfeeling.\n\n\n\n\n4 · Draw it\nDraw one thing from this chapter. Add a label.\n\n\n\n\n    5   © 2026 WorldWise Learning (Jurassic English). Text AI-assisted and human-edited. Illustrations AI-generated. Licensed for one learner.",
+      "textSha256": "fbb06429e09c60b32392fee253a248c79a2981af48e40872ed48332bbfd3e99f",
+      "method": "pdf-text"
+    },
+    {
+      "page": 4,
+      "image": "story-workbooks-l2-v2-pg04.webp",
+      "imageSha256": "d06c79bc434142150c519160382cb9e9e093caffd450602d388e4119e430d301",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n  The Rain on Platform Seven\n\n\nLevel 2 · Development       Ages 8–10         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "ad8348ee88aa74c6c4e067cc34d8fef79cc882b427ab02467de4b70725307564",
+      "method": "pdf-text"
+    },
+    {
+      "page": 5,
+      "image": "story-workbooks-l2-v2-pg05.webp",
+      "imageSha256": "fa84665b208210c5b28728dbdf265512b268c1bc8162435edd908494589ca36e",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n         The River Promise\n\n\nLevel 2 · Development       Ages 8–10         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "10780ed592a8b9f9fa946d62144b6218e69aad837a623e789f415d449018712e",
+      "method": "pdf-text"
+    },
+    {
+      "page": 6,
+      "image": "story-workbooks-l2-v2-pg06.webp",
+      "imageSha256": "74ea7ffe0509d4e341040fbe45a6f9fe9d9fcd91d7c812284d8c88793360687e",
+      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\nThe New Boy and the Night Sky\n\n\nLevel 2 · Development       Ages 8–10         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "25e521285dd747aa15c7f114511b068b8bef396ffbca7e215b18893f2584b95a",
       "method": "pdf-text"
     }
   ]

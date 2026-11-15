@@ -20,7 +20,7 @@
  * The IELTS Speaking Ladder, Teacher Training Course and Curriculum Overview cards follow their cleared Drive 00 READ MEs
  * (27 Oct): the Ladder is 18 self-study lessons plus a separate 1-lesson One-to-One Starter, not a one-to-one course.
  * The Vietnamese copy is machine-drafted and needs a native read. Only Jurassic English's own storybooks are named;
- * the Teacher Pack says the lessons use 10 widely available picture books.
+ * the Teacher Packs are built on the original Jurassic English stories (13 Nov 2026).
  */
 import type { Locale } from '../locales';
 import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from './samplePages.js';
@@ -55,7 +55,10 @@ export type ProductSectionId = (typeof PRODUCT_SECTIONS)[number];
 // Story Workbooks get their own tile on /products and the home page (Jay, 3 Nov 2026: "I can't find them"). The five cards
 // stay in Families (data, prices, JSON-LD and product pages are unchanged); the tile is a cross-section view of them.
 export const WORKBOOKS_SEGMENT = 'story-workbooks';
-export const PRODUCT_SEGMENTS = ['families', WORKBOOKS_SEGMENT, 'teachers', 'centres', 'ielts'] as const;
+// Jurassic English Phonics (Jay, 15 Nov 2026: "GO, your recommendations D1 to D9"): a tile second in the row, built like
+// Story Workbooks: the book cards stay in Families data, the tile is a view of them, each book has its own page.
+export const PHONICS_SEGMENT = 'phonics';
+export const PRODUCT_SEGMENTS = ['families', PHONICS_SEGMENT, WORKBOOKS_SEGMENT, 'teachers', 'centres', 'ielts'] as const;
 export type ProductSegmentId = (typeof PRODUCT_SEGMENTS)[number];
 
 export const IELTS_GROUPS = ['speaking', 'writing', 'reading', 'listening', 'bundles'] as const;
@@ -106,7 +109,17 @@ export type Product = {
   // The #ielts sub-group (Speaking or Writing); set on every 'ielts' product.
   group?: IeltsGroup;
   // 'workbooks': listed under a "Workbooks" heading at the end of its section (Families and Teachers). Jay, 3 Nov 2026.
-  category?: 'workbooks';
+  // 'phonics': a Jurassic English Phonics book, shown in the Phonics tile (15 Nov 2026).
+  category?: 'workbooks' | 'phonics';
+  // A fixed US$ price approved by Jay (Phonics, 14 Nov 2026: US$7.99 a book); otherwise ceil(VND ÷ 25,897) or the regional tier.
+  usd?: number;
+  // Ordered only through Zalo (written order summary, then VietQR) or PayPal: no Buy now button and no automatic
+  // VietQR checkout (Phonics, 15 Nov 2026: "there is no automatic checkout").
+  orderOnly?: boolean;
+  // The public sample book in the storybook reader (books.jurassicenglish.com/book.html#<reader>).
+  reader?: string;
+  // A short audio clip from the product, above the price (public/audio/...; never autoplays).
+  clip?: { src: string; seconds: number };
   // Story Workbooks: the titles of the books in the level, listed on the card and the product page (Jay, 3 Nov 2026: "multiple books for level one").
   books?: string[];
   // A one-line pointer to this card from another section's list ({link} = the card title, {price} = its price).
@@ -129,10 +142,11 @@ export type Product = {
 /** The books in each level: the original Jurassic English storybooks, in the order of the print PDFs. */
 export const WORKBOOK_BOOKS: Record<1 | 2 | 3 | 4 | 5, string[]> = {
   1: ['Mina and the Midnight Drum', 'The Lantern With Two Handles', 'Kim and the Thunder Inside', 'The Song Across the Lake', 'Not Now, Rosa!', 'Ivy and the Big Umbrella', 'Tess Tells Tales', 'Skip and the Red Roof', 'The Wind, the Sun and the Yellow Coat', 'Grandpa’s Sunflowers'],
-  2: ['The Bell That Rang Too Early', 'The Rain on Platform Seven', 'Mango, the Market Cat'],
-  3: ['The Unsent Weather Report', 'The Last Seat on the Night Ferry', 'The Voice in Maya’s Tablet'],
-  4: ['The Missing Column', 'The Bridge Committee', 'The Night Rota'],
-  5: ['A Box Called Other', 'The Map Beneath the Map', 'The Heron Stamp'],
+  // Level 2 is nine books here: the tenth, Mango, the Market Cat, is its own pilot product (mango-l2) and stays untouched.
+  2: ['The Bell That Rang Too Early', 'The Rain on Platform Seven', 'The River Promise', 'The New Boy and the Night Sky', 'The Paper Bird Shop', 'The Torch on the Harbour Wall', 'The Kingdom Behind the Bamboo', 'Nia’s New Word', 'The Golden Fig'],
+  3: ['The Song They Took Out', 'The Last Clue on Lantern Street', 'The Last Seat on the Night Ferry', 'Kit and the Invisible Line', 'The Unsent Weather Report', 'Mai and the Season of Seeds', 'The Voice in Maya’s Tablet', 'The Honest Scale', 'The Captain of the Old Van', 'Leo and the Paper Theatre'],
+  4: ['The Bridge Committee', 'The Night Rota', 'The Reservoir Tokens', 'The Coat Between Us', 'The Missing Column', 'The Glass Orchard', 'A Different Beat', 'Beyond the Blue Markers', 'Where the Reeds Bend', 'The Roof of Small Things'],
+  5: ['A Box Called Other', 'The Heron Stamp', 'The Names on the Tarpaulin', 'The Workshop Without Windows', 'A Proof of Her Own', 'Permission to Repair', 'The Credit We Owed', 'Two Accounts of the Crossing', 'The Jacket With Two Linings', 'The Map Beneath the Map'],
 };
 
 /** Audit fix 7 (11 Nov 2026): the line every Story Workbooks page shows before the price, as printed in the PDFs. */
@@ -162,7 +176,7 @@ const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e
   price,
   href: 'zalo',
   image: `story-workbooks-l${level}`,
-  sample: `story-workbooks-l${level}`,
+  sample: `story-workbooks-l${level}-v2`,
   delivery: true,
   paypal: true,
   credit: WORKBOOK_CREDIT,
@@ -174,6 +188,68 @@ const storyWorkbook = (level: 1 | 2 | 3 | 4 | 5, price: string, count: number, e
   en: { label: 'Digital download · story workbooks', unit: `one-time · ${count} workbooks`, cta: 'Order on Zalo', ...e },
   vi: { label: 'Tài liệu số · sách truyện bài tập', unit: `mua một lần · ${count} cuốn`, cta: 'Đặt mua qua Zalo', ...v },
 });
+
+/** Phonics (15 Nov 2026): the reader host for the public samples, and the intro line Jay chose (D7, wording 2). */
+export const READER_URL = 'https://books.jurassicenglish.com';
+export const PHONICS_INTRO: Record<Locale, string> = { en: 'Learn to read with Dane and Kate', vi: 'Học đọc cùng Dane và Kate' };
+/** The disclosure on every Phonics card and page, as on each book's Audio and Credits page. */
+export const PHONICS_CREDIT = {
+  en: 'Illustrations made with AI tools; the voice is synthetic.',
+  vi: 'Hình minh họa được tạo bằng công cụ AI; giọng đọc là giọng tổng hợp.',
+};
+/** The sample's reader link: query before the #anchor (blueprint section 3), utm_source last as on every /products link. */
+export const phonicsReaderHref = (product: { id: string; reader?: string }, source = 'products') =>
+  `${READER_URL}/book.html?utm_content=${product.id}&utm_source=${source}#${product.reader}`;
+
+// Jurassic English Phonics, Books 1 and 2 (Jay, 14 Nov 2026: "GO, these prices"; 15 Nov: D1 to D9). Books 3 to 5 and the
+// Complete Series join one PR each as their gates clear: a book with no PASS has no card at all. Series name as on the
+// covers, no ™; nothing about who holds the rights (record still open). Copy from PHONICS-LISTING-PACK-2026-11-14 ("what the buyer
+// gets", licence line, disclosure). Order: Zalo (written summary, then VietQR) or PayPal US$7.99; no Buy now.
+const phonicsBook = (n: 1 | 2, title: { en: string; vi: string }, price: string, tracks: number, clipSeconds: number, problem: { en: string; vi: string }): Product => ({
+  id: `phonics-b${n}`,
+  live: true,
+  section: 'families',
+  category: 'phonics',
+  price,
+  usd: 7.99,
+  orderOnly: true,
+  href: 'zalo',
+  image: `phonics-b${n}`,
+  sample: `phonics-b${n}`,
+  reader: `phonics-b${n}-sample`,
+  clip: { src: `/audio/phonics/phonics-b${n}-clip.mp3`, seconds: clipSeconds },
+  delivery: true,
+  paypal: true,
+  credit: PHONICS_CREDIT,
+  en: {
+    label: 'Digital download · Phonics · New',
+    title: `Jurassic English Phonics, Book ${n}: ${title.en}`,
+    problem: problem.en,
+    inside: `Listen, read, write, play: 8 themed units, 2 review units and a challenge, with audio tracks for every listening page (${tracks} MP3s), an answer key, a teacher guide and parent homework sheets in English and Vietnamese. A colour, print-friendly PDF.`,
+    forWho: 'Children aged 4–7 (CEFR Pre-A1 → A1). Start here, before Story Workbooks. Licensed for one family or one teacher/tutor. Please do not copy, resell or share the files.',
+    unit: 'one-time · 1 book with audio',
+    cta: 'Order on Zalo',
+  },
+  vi: {
+    label: 'Tài liệu số · Phonics · Mới',
+    title: `Jurassic English Phonics, Quyển ${n}: ${title.vi}`,
+    problem: problem.vi,
+    inside: `Nghe, đọc, viết, chơi: 8 bài theo chủ đề, 2 bài ôn tập và 1 phần thử thách, có file âm thanh cho mọi bài nghe (${tracks} file MP3), đáp án, hướng dẫn cho giáo viên và phiếu bài tập về nhà cho phụ huynh bằng tiếng Anh và tiếng Việt. File PDF màu, dễ in.`,
+    forWho: 'Bé 4–7 tuổi (CEFR Pre-A1 → A1). Bắt đầu từ đây, trước Sách truyện bài tập. Dùng cho một gia đình hoặc một giáo viên. Vui lòng không sao chép, bán lại hoặc chia sẻ file.',
+    unit: 'mua một lần · 1 quyển có âm thanh',
+    cta: 'Đặt mua qua Zalo',
+  },
+});
+export const PHONICS_BOOKS: Product[] = [
+  phonicsBook(1, { en: 'The Alphabet', vi: 'Bảng chữ cái' }, '79.000₫', 46, 12, {
+    en: 'Your child is starting English and still mixes up the names and the sounds of the letters.',
+    vi: 'Con mới bắt đầu học tiếng Anh và vẫn còn nhầm tên chữ cái với âm của chữ.',
+  }),
+  phonicsBook(2, { en: 'Short Vowels', vi: 'Nguyên âm ngắn' }, '129.000₫', 55, 20, {
+    en: 'Your child knows the letters but cannot yet sound out short words such as cat, hen, pig, dog and sun.',
+    vi: 'Con đã biết các chữ cái nhưng chưa tự đánh vần được những từ ngắn như cat, hen, pig, dog và sun.',
+  }),
+];
 
 /** The age range each level's card states in "Who it's for" (a test keeps the two in step); shown on the level picker. */
 export const WORKBOOK_AGES: Record<string, string> = {
@@ -193,15 +269,15 @@ const STORY_WORKBOOKS: Product[] = [
     inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
     forWho: 'Trẻ 4–8 tuổi (CEFR Pre-A1 → A1), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
-  { ...storyWorkbook(2, '190.000₫', 3, {
+  { ...storyWorkbook(2, '290.000₫', 9, {
     title: 'Level 2 Story Workbooks',
     problem: 'Your child reads short texts, but you can’t tell whether they understand the story or only decode the words.',
-    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, a fill-in, circle and write page for every chapter, a Thinking Cycle page, a word search, a reading log, a teacher guide and an answer key.',
+    inside: '9 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, a fill-in, circle and write page for every chapter, a Thinking Cycle page, a word search, a reading log, a teacher guide and an answer key.',
     forWho: 'Children aged 8–10 (CEFR A1 → A2). One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
   }, {
     title: 'Sách truyện bài tập Level 2',
     problem: 'Con đọc được các đoạn ngắn, nhưng bố mẹ chưa chắc con hiểu câu chuyện hay chỉ đọc đúng từng chữ.',
-    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, mỗi chương một trang điền từ, khoanh đáp án và viết, thêm trang Chu trình Tư duy, trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
+    inside: '9 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, mỗi chương một trang điền từ, khoanh đáp án và viết, thêm trang Chu trình Tư duy, trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
     forWho: 'Trẻ 8–10 tuổi (CEFR A1 → A2). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }), link: { href: `/products/${MANGO_ID}`, en: 'Try one book first: Mango, the Market Cat, 49.000₫', vi: 'Muốn thử một cuốn trước: Mango, the Market Cat, 49.000₫' } },
   // Mango pilot (Jay, 11 Nov 2026: "Yes, 49k"; pilot 11–25 Nov): one Level 2 book on its own, 49.000₫, order code MANGO-L2
@@ -224,7 +300,7 @@ const STORY_WORKBOOKS: Product[] = [
       title: 'Mango, the Market Cat',
       problem: 'Your child reads English but struggles to explain why a character did something.',
       inside: 'One original Jurassic English storybook as a print-ready workbook, 30 A4 pages: three neighbours claim the same orange cat, and a notebook helps one child find the truth. Six short chapters, a fill-in, circle and write page for every chapter, a Thinking Cycle page, word games, parent and teacher pages and an answer key.',
-      forWho: 'Children aged 8–10 (CEFR A1 → A2). One-learner licence: print for your own child. Mango is one of the three books in the Level 2 Story Workbooks.',
+      forWho: 'Children aged 8–10 (CEFR A1 → A2). One-learner licence: print for your own child. Mango is sold on its own; it is not one of the nine books in the Level 2 Story Workbooks.',
       unit: 'one-time · 1 workbook',
       cta: 'Order on Zalo',
     },
@@ -233,42 +309,42 @@ const STORY_WORKBOOKS: Product[] = [
       title: 'Mango, the Market Cat',
       problem: 'Con đọc được tiếng Anh nhưng chưa giải thích được vì sao nhân vật làm vậy.',
       inside: 'Một truyện gốc của Jurassic English thành sách bài tập in sẵn, 30 trang A4: một chú mèo cam ở chợ, ba người hàng xóm đều nói mèo là của mình, và một cuốn sổ tay giúp bé tìm ra sự thật. Sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và viết, trang Chu trình Tư duy, trò chơi từ vựng, trang cho phụ huynh và giáo viên, và đáp án.',
-      forWho: 'Trẻ 8–10 tuổi (CEFR A1 → A2). Bản quyền cho một học viên: in cho con bạn. Mango là một trong ba cuốn của bộ Sách truyện bài tập Level 2.',
+      forWho: 'Trẻ 8–10 tuổi (CEFR A1 → A2). Bản quyền cho một học viên: in cho con bạn. Mango được bán riêng, không nằm trong 9 cuốn của bộ Sách truyện bài tập Level 2.',
       unit: 'mua một lần · 1 cuốn',
       cta: 'Đặt mua qua Zalo',
     },
   },
-  storyWorkbook(3, '190.000₫', 3, {
+  storyWorkbook(3, '290.000₫', 10, {
     title: 'Level 3 Story Workbooks',
     problem: 'Your child reads longer stories but rarely explains why a character did something, or what in the text proves it.',
-    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, questions that ask for the clue, a Thinking Cycle page (analyse, evaluate, justify, reflect), a word search, a teacher guide, a rubric and an answer key.',
+    inside: '10 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in chapters, questions that ask for the clue, a Thinking Cycle page (analyse, evaluate, justify, reflect), a word search, a teacher guide, a rubric and an answer key.',
     forWho: 'Children aged 10–12 (CEFR A2 → B1). One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
   }, {
     title: 'Sách truyện bài tập Level 3',
     problem: 'Con đọc được truyện dài hơn nhưng ít khi giải thích được vì sao nhân vật làm vậy, hay chi tiết nào trong truyện chứng minh điều đó.',
-    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, câu hỏi yêu cầu chỉ ra chi tiết, trang Chu trình Tư duy (phân tích, đánh giá, lập luận, suy ngẫm), trò tìm từ, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
+    inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương, câu hỏi yêu cầu chỉ ra chi tiết, trang Chu trình Tư duy (phân tích, đánh giá, lập luận, suy ngẫm), trò tìm từ, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
     forWho: 'Trẻ 10–12 tuổi (CEFR A2 → B1). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
-  storyWorkbook(4, '190.000₫', 3, {
+  storyWorkbook(4, '290.000₫', 10, {
     title: 'Level 4 Story Workbooks',
     problem: 'Your teenager reads fluently, but their answers about a text stay vague: no evidence, no weighing of two readings.',
-    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: longer chapters, questions that ask for a quoted clue, a Thinking Cycle page that asks for a claim with evidence, a teacher guide, a rubric and an answer key.',
+    inside: '10 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: longer chapters, questions that ask for a quoted clue, a Thinking Cycle page that asks for a claim with evidence, a teacher guide, a rubric and an answer key.',
     forWho: 'Learners aged 12–14 (CEFR B1 → B2). One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
   }, {
     title: 'Sách truyện bài tập Level 4',
     problem: 'Con đọc trôi chảy, nhưng câu trả lời về văn bản vẫn chung chung: thiếu dẫn chứng, chưa biết cân nhắc hai cách hiểu.',
-    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: chương dài hơn, câu hỏi yêu cầu trích dẫn chi tiết, trang Chu trình Tư duy yêu cầu nêu nhận định kèm dẫn chứng, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
+    inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: chương dài hơn, câu hỏi yêu cầu trích dẫn chi tiết, trang Chu trình Tư duy yêu cầu nêu nhận định kèm dẫn chứng, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
     forWho: 'Học sinh 12–14 tuổi (CEFR B1 → B2). Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
-  storyWorkbook(5, '190.000₫', 3, {
+  storyWorkbook(5, '290.000₫', 10, {
     title: 'Level 5 Story Workbooks',
     problem: 'Your older learner can summarise a text, but not yet argue a position from it, answer a counterargument or weigh a consequence.',
-    inside: '3 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: chapter stories on real-world decisions, evidence questions, a Thinking Cycle page with claim, evidence, interpretation and counterargument, a teacher guide, a rubric and an answer key.',
+    inside: '10 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: chapter stories on real-world decisions, evidence questions, a Thinking Cycle page with claim, evidence, interpretation and counterargument, a teacher guide, a rubric and an answer key.',
     forWho: 'Learners aged 14+ (CEFR B2 → C1). One-learner licence: print for your own use. Teachers and tutors can ask on Zalo about using them with a class.',
   }, {
     title: 'Sách truyện bài tập Level 5',
     problem: 'Học sinh lớn đã tóm tắt được văn bản, nhưng chưa biết bảo vệ một quan điểm từ văn bản, đáp lại phản biện hay cân nhắc hệ quả.',
-    inside: '3 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương về những quyết định thực tế, câu hỏi dẫn chứng, trang Chu trình Tư duy với nhận định, dẫn chứng, diễn giải và phản biện, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
+    inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia chương về những quyết định thực tế, câu hỏi dẫn chứng, trang Chu trình Tư duy với nhận định, dẫn chứng, diễn giải và phản biện, hướng dẫn cho giáo viên, thang đánh giá và đáp án.',
     forWho: 'Học sinh từ 14 tuổi (CEFR B2 → C1). Bản quyền cho một học viên: in cho riêng bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
 ];
@@ -288,7 +364,7 @@ export const PRODUCTS: Product[] = [
       title: 'Story Club with Mr. Jay',
       problem: 'Your child reads, but nobody checks they understood, and big classes give no personal feedback.',
       inside: '4 Saturday sessions of 30 minutes on Google Meet (not recorded), one small task at home each week, and Mr. Jay’s personal reply to every child on Zalo.',
-      forWho: 'Ages 5–8. Up to 6 children a group, Saturdays 9:00.',
+      forWho: 'Ages 5–8. Up to 6 children a group, Saturdays 13:00.',
       unit: 'for 4 weeks',
       cta: 'Ask for a place',
     },
@@ -296,8 +372,8 @@ export const PRODUCTS: Product[] = [
       label: 'Nhóm nhỏ trực tuyến',
       title: 'Câu lạc bộ Truyện cùng thầy Jay',
       problem: 'Con có đọc truyện, nhưng không ai kiểm tra con hiểu đến đâu, và lớp đông thì không có nhận xét riêng cho con.',
-      inside: '4 buổi sáng thứ Bảy, mỗi buổi 30 phút qua Google Meet (không ghi hình), mỗi tuần một bài nhỏ ở nhà, và thầy Jay phản hồi riêng cho từng bé qua Zalo.',
-      forWho: 'Bé 5–8 tuổi. Tối đa 6 bé một nhóm, sáng thứ Bảy 9:00.',
+      inside: '4 buổi thứ Bảy, mỗi buổi 30 phút qua Google Meet (không ghi hình), mỗi tuần một bài nhỏ ở nhà, và thầy Jay phản hồi riêng cho từng bé qua Zalo.',
+      forWho: 'Bé 5–8 tuổi. Tối đa 6 bé một nhóm, thứ Bảy 13:00.',
       unit: 'cho 4 tuần',
       cta: 'Hỏi giữ chỗ',
     },
@@ -510,6 +586,7 @@ export const PRODUCTS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
+  ...PHONICS_BOOKS,
   ...STORY_WORKBOOKS,
   {
     id: 'teacher-pack-l1',
@@ -518,7 +595,7 @@ export const PRODUCTS: Product[] = [
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l1',
-    sample: 'teacher-pack-l1',
+    sample: 'teacher-pack-l1-v2',
     video: 'teacher-pack-l1',
     delivery: true,
     paypal: true,
@@ -526,8 +603,8 @@ export const PRODUCTS: Product[] = [
       label: 'Digital download · one teacher',
       title: 'Level 1 Teacher Pack',
       problem: 'You teach young children privately and spend your evenings planning lessons from scratch.',
-      inside: 'The Level 1 Foundation teacher materials: the syllabus, 40 lessons scripted minute by minute with the teacher’s lines and a simple rubric, and the Teacher Implementation Manual.',
-      forWho: 'One named tutor or teacher, for their own classes (ages 4–8). Not for use across a centre; centres need the Centre Licence. The lessons use 10 widely available picture books the teacher provides.',
+      inside: 'The Level 1 course and its method, and 40 ready lesson plans (126 A4 pages), each built on one of ten original Jurassic English stories. Also the ten Teacher Books, one for each story: how to teach it, a unit plan, a rubric and the answer key. 11 PDFs.',
+      forWho: 'One named tutor or teacher, for their own classes (ages 4–8, CEFR Pre-A1 → A1). Not for use across a centre; centres need the Centre Licence. Students read the stories in the Level 1 Story Workbooks (sold separately).',
       unit: 'one-time',
       cta: 'Order on Zalo',
     },
@@ -535,31 +612,29 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · một giáo viên',
       title: 'Bộ tài liệu Giáo viên Level 1',
       problem: 'Thầy cô dạy kèm các bé và mất cả buổi tối để tự soạn bài từ đầu.',
-      inside: 'Bộ tài liệu giáo viên Level 1 Foundation: chương trình học, 40 giáo án soạn sẵn từng phút có lời thoại giáo viên và thang đánh giá đơn giản, và Sổ tay triển khai cho giáo viên.',
-      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (bé 4–8 tuổi). Không dùng cho cả trung tâm; trung tâm cần Giấy phép Trung tâm. Giáo án sử dụng 10 cuốn sách tranh phổ biến, giáo viên tự chuẩn bị.',
+      inside: 'Khóa học Level 1 và phương pháp, cùng 40 giáo án soạn sẵn (126 trang A4), mỗi giáo án dựa trên một trong mười truyện gốc của Jurassic English. Kèm mười Sách giáo viên, mỗi truyện một cuốn: cách dạy, kế hoạch bài học, thang đánh giá và đáp án. 11 tệp PDF.',
+      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (4–8 tuổi, CEFR Pre-A1 → A1). Không dùng cho cả trung tâm; trung tâm cần Giấy phép Trung tâm. Học viên đọc truyện trong bộ Sách truyện bài tập Level 1 (bán riêng).',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
   },
   {
     id: 'teacher-pack-l2',
-    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
-    paused: true,
     video: 'teacher-pack-l2',
     live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l2',
-    sample: 'teacher-pack-l2',
+    sample: 'teacher-pack-l2-v2',
     delivery: true,
     paypal: true,
     en: {
       label: 'Digital download · one teacher',
       title: 'Level 2 Teacher Pack',
       problem: 'Your students have moved past picture books, and planning a year of lessons that make them explain why takes every evening.',
-      inside: 'The Level 2 Development teacher materials: the syllabus, the Teacher Implementation Manual and 40 lesson plans.',
-      forWho: 'One named tutor or teacher, for their own classes (ages 8–10, CEFR A1 → A2). Not for use across a centre. The lessons are built on published books, which you provide.',
+      inside: 'The Level 2 course and its method, and 40 ready lesson plans (128 A4 pages), each built on one of ten original Jurassic English stories. Also the Teacher Books for the nine stories sold as the Level 2 Story Workbooks: how to teach it, a unit plan, a rubric and the answer key. 10 PDFs.',
+      forWho: 'One named tutor or teacher, for their own classes (ages 8–10, CEFR A1 → A2). Not for use across a centre; centres need the Centre Licence. Students read the stories in the Level 2 Story Workbooks and in Mango, the Market Cat (both sold separately).',
       unit: 'one-time',
       cta: 'Order on Zalo',
     },
@@ -567,31 +642,29 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · một giáo viên',
       title: 'Bộ tài liệu Giáo viên Level 2',
       problem: 'Học sinh đã vượt qua truyện tranh, và việc soạn cả năm bài học giúp các em giải thích “vì sao” chiếm hết buổi tối của thầy cô.',
-      inside: 'Tài liệu giáo viên Level 2 Development: chương trình học, Sổ tay triển khai cho giáo viên và 40 giáo án.',
-      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (8–10 tuổi, CEFR A1 → A2). Không dùng cho cả trung tâm. Giáo án được xây dựng trên các cuốn sách đã xuất bản, giáo viên tự chuẩn bị.',
+      inside: 'Khóa học Level 2 và phương pháp, cùng 40 giáo án soạn sẵn (128 trang A4), mỗi giáo án dựa trên một trong mười truyện gốc của Jurassic English. Kèm Sách giáo viên cho chín truyện bán trong bộ Sách truyện bài tập Level 2: cách dạy, kế hoạch bài học, thang đánh giá và đáp án. 10 tệp PDF.',
+      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (8–10 tuổi, CEFR A1 → A2). Không dùng cho cả trung tâm; trung tâm cần Giấy phép Trung tâm. Học viên đọc truyện trong bộ Sách truyện bài tập Level 2 và trong Mango, the Market Cat (bán riêng).',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
   },
   {
     id: 'teacher-pack-l3',
-    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
-    paused: true,
     video: 'teacher-pack-l3',
     live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l3',
-    sample: 'teacher-pack-l3',
+    sample: 'teacher-pack-l3-v2',
     delivery: true,
     paypal: true,
     en: {
       label: 'Digital download · one teacher',
       title: 'Level 3 Teacher Pack',
       problem: 'Your students can read, but explaining and weighing ideas in English is where they stall, and building those lessons from scratch takes weeks.',
-      inside: 'The Level 3 Expansion teacher materials: the syllabus, the Teacher Implementation Manual and 40 lesson plans.',
-      forWho: 'One named tutor or teacher, for their own classes (ages 10–12, CEFR A2 → B1). Not for use across a centre. The lessons are built on published books, which you provide.',
+      inside: 'The Level 3 course and its method, and 40 ready lesson plans (124 A4 pages), each built on one of ten original Jurassic English stories. Also the ten Teacher Books, one for each story: how to teach it, a unit plan, a rubric and the answer key. 11 PDFs.',
+      forWho: 'One named tutor or teacher, for their own classes (ages 10–12, CEFR A2 → B1). Not for use across a centre; centres need the Centre Licence. Students read the stories in the Level 3 Story Workbooks (sold separately).',
       unit: 'one-time',
       cta: 'Order on Zalo',
     },
@@ -599,31 +672,29 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · một giáo viên',
       title: 'Bộ tài liệu Giáo viên Level 3',
       problem: 'Học sinh đọc được, nhưng lại chững lại khi phải giải thích và cân nhắc ý kiến bằng tiếng Anh, còn tự soạn bài từ đầu mất hàng tuần.',
-      inside: 'Tài liệu giáo viên Level 3 Expansion: chương trình học, Sổ tay triển khai cho giáo viên và 40 giáo án.',
-      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (10–12 tuổi, CEFR A2 → B1). Không dùng cho cả trung tâm. Giáo án được xây dựng trên các cuốn sách đã xuất bản, giáo viên tự chuẩn bị.',
+      inside: 'Khóa học Level 3 và phương pháp, cùng 40 giáo án soạn sẵn (124 trang A4), mỗi giáo án dựa trên một trong mười truyện gốc của Jurassic English. Kèm mười Sách giáo viên, mỗi truyện một cuốn: cách dạy, kế hoạch bài học, thang đánh giá và đáp án. 11 tệp PDF.',
+      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (10–12 tuổi, CEFR A2 → B1). Không dùng cho cả trung tâm; trung tâm cần Giấy phép Trung tâm. Học viên đọc truyện trong bộ Sách truyện bài tập Level 3 (bán riêng).',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
   },
   {
     id: 'teacher-pack-l4',
-    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
-    paused: true,
     video: 'teacher-pack-l4',
     live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l4',
-    sample: 'teacher-pack-l4',
+    sample: 'teacher-pack-l4-v2',
     delivery: true,
     paypal: true,
     en: {
       label: 'Digital download · one teacher',
       title: 'Level 4 Teacher Pack',
       problem: 'Your older students need essay-level reasoning and discussion, and you are writing every lesson yourself.',
-      inside: 'The Level 4 Mastery teacher materials: the syllabus, the Teacher Implementation Manual and 40 lesson plans.',
-      forWho: 'One named tutor or teacher, for their own classes (ages 12–14, CEFR B1 → B2). Not for use across a centre. The lessons are built on published books, which you provide.',
+      inside: 'The Level 4 course and its method, and 40 ready lesson plans (145 A4 pages), each built on one of ten original Jurassic English stories. Also the ten Teacher Books, one for each story: how to teach it, a unit plan, a rubric and the answer key. 11 PDFs.',
+      forWho: 'One named tutor or teacher, for their own classes (ages 12–14, CEFR B1 → B2). Not for use across a centre; centres need the Centre Licence. Students read the stories in the Level 4 Story Workbooks (sold separately).',
       unit: 'one-time',
       cta: 'Order on Zalo',
     },
@@ -631,31 +702,29 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · một giáo viên',
       title: 'Bộ tài liệu Giáo viên Level 4',
       problem: 'Học sinh lớn cần lập luận ở mức bài luận và thảo luận, mà thầy cô đang phải tự viết từng bài.',
-      inside: 'Tài liệu giáo viên Level 4 Mastery: chương trình học, Sổ tay triển khai cho giáo viên và 40 giáo án.',
-      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (12–14 tuổi, CEFR B1 → B2). Không dùng cho cả trung tâm. Giáo án được xây dựng trên các cuốn sách đã xuất bản, giáo viên tự chuẩn bị.',
+      inside: 'Khóa học Level 4 và phương pháp, cùng 40 giáo án soạn sẵn (145 trang A4), mỗi giáo án dựa trên một trong mười truyện gốc của Jurassic English. Kèm mười Sách giáo viên, mỗi truyện một cuốn: cách dạy, kế hoạch bài học, thang đánh giá và đáp án. 11 tệp PDF.',
+      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (12–14 tuổi, CEFR B1 → B2). Không dùng cho cả trung tâm; trung tâm cần Giấy phép Trung tâm. Học viên đọc truyện trong bộ Sách truyện bài tập Level 4 (bán riêng).',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
   },
   {
     id: 'teacher-pack-l5',
-    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
-    paused: true,
     video: 'teacher-pack-l5',
     live: true,
     section: 'teachers',
     price: '690.000₫',
     href: 'zalo',
     image: 'teacher-pack-l5',
-    sample: 'teacher-pack-l5',
+    sample: 'teacher-pack-l5-v2',
     delivery: true,
     paypal: true,
     en: {
       label: 'Digital download · one teacher',
       title: 'Level 5 Teacher Pack',
       problem: 'Your advanced students need to argue, answer counter-arguments and write at exam level, and lesson plans for that are hard to find.',
-      inside: 'The Level 5 Advanced teacher materials: the syllabus, the Teacher Implementation Manual and 40 lesson plans.',
-      forWho: 'One named tutor or teacher, for their own classes (ages 14+, CEFR B2 → C1). Not for use across a centre. The lessons are built on published books, which you provide.',
+      inside: 'The Level 5 course and its method, and 40 ready lesson plans (130 A4 pages), each built on one of ten original Jurassic English stories. Also the ten Teacher Books, one for each story: how to teach it, a unit plan, a rubric and the answer key. 11 PDFs.',
+      forWho: 'One named tutor or teacher, for their own classes (ages 14+, CEFR B2 → C1). Not for use across a centre; centres need the Centre Licence. Students read the stories in the Level 5 Story Workbooks (sold separately).',
       unit: 'one-time',
       cta: 'Order on Zalo',
     },
@@ -663,31 +732,29 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · một giáo viên',
       title: 'Bộ tài liệu Giáo viên Level 5',
       problem: 'Học sinh nâng cao cần tranh luận, phản biện và viết ở mức bài thi, nhưng giáo án cho việc này rất khó tìm.',
-      inside: 'Tài liệu giáo viên Level 5 Advanced: chương trình học, Sổ tay triển khai cho giáo viên và 40 giáo án.',
-      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (từ 14 tuổi, CEFR B2 → C1). Không dùng cho cả trung tâm. Giáo án được xây dựng trên các cuốn sách đã xuất bản, giáo viên tự chuẩn bị.',
+      inside: 'Khóa học Level 5 và phương pháp, cùng 40 giáo án soạn sẵn (130 trang A4), mỗi giáo án dựa trên một trong mười truyện gốc của Jurassic English. Kèm mười Sách giáo viên, mỗi truyện một cuốn: cách dạy, kế hoạch bài học, thang đánh giá và đáp án. 11 tệp PDF.',
+      forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (từ 14 tuổi, CEFR B2 → C1). Không dùng cho cả trung tâm; trung tâm cần Giấy phép Trung tâm. Học viên đọc truyện trong bộ Sách truyện bài tập Level 5 (bán riêng).',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
     },
   },
   {
     id: 'teacher-bundle',
-    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
-    paused: true,
     video: 'teacher-bundle',
     live: true,
     section: 'teachers',
     price: '2.900.000₫',
     href: 'zalo',
     image: 'teacher-bundle',
-    sample: 'teacher-bundle',
+    sample: 'teacher-bundle-v2',
     delivery: true,
     paypal: true,
     en: {
       label: 'Digital download · one teacher · Levels 1–5',
       title: 'Complete Teacher Bundle, Levels 1–5',
       problem: 'You teach several age groups and want one consistent programme from age 4 to 14+, not five different sets of notes.',
-      inside: 'All five Teacher Packs: the syllabus, Teacher Implementation Manual and 40 lesson plans for each level, 200 lesson plans in all.',
-      forWho: 'One named tutor or teacher who teaches across levels. Bought separately, the five packs cost 3.450.000₫. The lessons are built on published books, which you provide.',
+      inside: 'All five Teacher Packs: the course and 40 lesson plans for each level (200 lesson plans in all), each built on original Jurassic English stories, and the Teacher Books for every level’s stories (49 in all).',
+      forWho: 'One named tutor or teacher who teaches across levels. Bought separately, the five packs cost 3.450.000₫. Students read the stories in the Story Workbooks for each level (sold separately).',
       unit: 'one-time · all 5 levels',
       cta: 'Order on Zalo',
     },
@@ -695,8 +762,8 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · một giáo viên · Level 1–5',
       title: 'Trọn bộ tài liệu Giáo viên Level 1–5',
       problem: 'Thầy cô dạy nhiều lứa tuổi và muốn một chương trình thống nhất từ 4 đến trên 14 tuổi, thay vì năm bộ ghi chú khác nhau.',
-      inside: 'Cả năm Bộ tài liệu Giáo viên: chương trình học, Sổ tay triển khai và 40 giáo án cho mỗi cấp độ, tổng cộng 200 giáo án.',
-      forWho: 'Một giáo viên đứng tên dạy nhiều cấp độ. Mua lẻ, năm bộ có giá 3.450.000₫. Giáo án được xây dựng trên các cuốn sách đã xuất bản, giáo viên tự chuẩn bị.',
+      inside: 'Cả năm Bộ tài liệu Giáo viên: khóa học và 40 giáo án cho mỗi cấp độ (tổng cộng 200 giáo án), mỗi giáo án dựa trên truyện gốc của Jurassic English, cùng Sách giáo viên cho các truyện của mọi cấp độ (tổng cộng 49 cuốn).',
+      forWho: 'Một giáo viên đứng tên dạy nhiều cấp độ. Mua lẻ, năm bộ có giá 3.450.000₫. Học viên đọc truyện trong các bộ Sách truyện bài tập của từng cấp độ (bán riêng).',
       unit: 'mua một lần · cả 5 cấp độ',
       cta: 'Đặt mua qua Zalo',
     },
@@ -709,20 +776,20 @@ export const PRODUCTS: Product[] = [
     price: '190.000₫',
     href: 'zalo',
     image: 'student-workbook-l1',
-    sample: 'student-workbook-l1',
+    sample: 'student-workbook-l1-v2',
     delivery: true,
     paypal: true,
     alsoIn: {
       section: 'families',
-      en: 'Doing Level 1 at home? The {link} has a page for every lesson: {price} a learner, using 10 picture books you provide.',
-      vi: 'Học Level 1 ở nhà? {link} có một trang cho mỗi bài học: {price} mỗi học viên, dùng 10 cuốn sách tranh bạn tự chuẩn bị.',
+      en: 'Doing Level 1 at home? The {link} has a page for every lesson: {price} a learner, built on the ten Jurassic English stories.',
+      vi: 'Học Level 1 ở nhà? {link} có một trang cho mỗi bài học: {price} mỗi học viên, dựa trên mười truyện gốc của Jurassic English.',
     },
     en: {
       label: 'Digital download · per learner · class sets',
       title: 'Level 1 Student Workbook',
       problem: 'Your Level 1 learners need their own page for every lesson, and copying worksheets together each week takes hours.',
-      inside: '63 printable A4 pages: 40 lesson pages (Dig, Weigh, Because, Show) in the order of the Level 1 Teacher Pack, 10 story openers, a Thinking Passport, a word wall and a certificate. You receive the PDF and editable Google Docs.',
-      forWho: 'Children aged 4–8 doing Level 1 with a teacher, tutor or parent. The lessons use 10 widely available picture books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      inside: '63 printable A4 pages: 40 lesson pages in the order of the Level 1 Teacher Pack, 10 story opener pages and 4 keepsake pages (Thinking Tools, Thinking Passport and a certificate). One PDF.',
+      forWho: 'Learners (ages 4–8, CEFR Pre-A1 → A1) doing Level 1 with a teacher, tutor or parent. The ten stories are original Jurassic English storybooks, sold as the Level 1 Story Workbooks; no published book is needed. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
       unit: 'per learner · class set of 10: 1.490.000₫',
       cta: 'Order on Zalo',
     },
@@ -730,31 +797,29 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
       title: 'Sách bài tập học viên Level 1',
       problem: 'Học viên Level 1 cần trang riêng cho mỗi bài học, còn tự photo phiếu bài tập mỗi tuần thì tốn hàng giờ.',
-      inside: '63 trang A4 in được: 40 trang theo từng bài (Dig, Weigh, Because, Show) đúng thứ tự Bộ tài liệu Giáo viên Level 1, 10 trang mở đầu truyện, Hộ chiếu tư duy, bức tường từ vựng và giấy khen. Bạn nhận file PDF và Google Docs chỉnh sửa được.',
-      forWho: 'Trẻ 4–8 tuổi học Level 1 cùng giáo viên, gia sư hoặc phụ huynh. Bài học dùng 10 cuốn sách tranh phổ biến, bạn tự chuẩn bị. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      inside: '63 trang A4 in được: 40 trang theo từng bài, đúng thứ tự Bộ tài liệu Giáo viên Level 1, 10 trang mở đầu truyện và 4 trang lưu niệm (Công cụ tư duy, Hộ chiếu tư duy và giấy khen). Một tệp PDF.',
+      forWho: 'Học viên (4–8 tuổi, CEFR Pre-A1 → A1) học Level 1 cùng giáo viên, gia sư hoặc phụ huynh. Mười truyện là truyện gốc của Jurassic English, bán trong bộ Sách truyện bài tập Level 1; không cần sách đã xuất bản. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
       unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
   },
   {
     id: 'student-workbook-l2',
-    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
-    paused: true,
     video: 'student-workbook-l2',
     live: true,
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
     image: 'student-workbook-l2',
-    sample: 'student-workbook-l2',
+    sample: 'student-workbook-l2-v2',
     delivery: true,
     paypal: true,
     en: {
       label: 'Digital download · per learner · class sets',
       title: 'Level 2 Student Workbook',
       problem: 'Your Level 2 learners need their own organiser for every lesson, and building those pages each week takes hours.',
-      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 2 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
-      forWho: 'Learners aged 8–10 (CEFR A1 → A2) following Level 2 Development with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      inside: '58 printable A4 pages: 40 lesson pages in the order of the Level 2 Teacher Pack, 10 story opener pages and 4 keepsake pages (Thinking Tools, Thinking Passport and a certificate). One PDF.',
+      forWho: 'Learners (ages 8–10, CEFR A1 → A2) doing Level 2 with a teacher, tutor or parent. The ten stories are original Jurassic English storybooks, sold as the Level 2 Story Workbooks and Mango, the Market Cat; no published book is needed. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
       unit: 'per learner · class set of 10: 1.490.000₫',
       cta: 'Order on Zalo',
     },
@@ -762,31 +827,29 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
       title: 'Sách bài tập học viên Level 2',
       problem: 'Học viên Level 2 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
-      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 2, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
-      forWho: 'Học viên 8–10 tuổi (CEFR A1 → A2) học Level 2 Development cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      inside: '58 trang A4 in được: 40 trang theo từng bài, đúng thứ tự Bộ tài liệu Giáo viên Level 2, 10 trang mở đầu truyện và 4 trang lưu niệm (Công cụ tư duy, Hộ chiếu tư duy và giấy khen). Một tệp PDF.',
+      forWho: 'Học viên (8–10 tuổi, CEFR A1 → A2) học Level 2 cùng giáo viên, gia sư hoặc phụ huynh. Mười truyện là truyện gốc của Jurassic English, bán trong bộ Sách truyện bài tập Level 2 và Mango, the Market Cat; không cần sách đã xuất bản. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
       unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
   },
   {
     id: 'student-workbook-l3',
-    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
-    paused: true,
     video: 'student-workbook-l3',
     live: true,
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
     image: 'student-workbook-l3',
-    sample: 'student-workbook-l3',
+    sample: 'student-workbook-l3-v2',
     delivery: true,
     paypal: true,
     en: {
       label: 'Digital download · per learner · class sets',
       title: 'Level 3 Student Workbook',
       problem: 'Your Level 3 learners need their own organiser for every lesson, and building those pages each week takes hours.',
-      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 3 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
-      forWho: 'Learners aged 10–12 (CEFR A2 → B1) following Level 3 Expansion with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      inside: '62 printable A4 pages: 40 lesson pages in the order of the Level 3 Teacher Pack, 10 story opener pages and 4 keepsake pages (Thinking Tools, Thinking Passport and a certificate). One PDF.',
+      forWho: 'Learners (ages 10–12, CEFR A2 → B1) doing Level 3 with a teacher, tutor or parent. The ten stories are original Jurassic English storybooks, sold as the Level 3 Story Workbooks; no published book is needed. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
       unit: 'per learner · class set of 10: 1.490.000₫',
       cta: 'Order on Zalo',
     },
@@ -794,31 +857,29 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
       title: 'Sách bài tập học viên Level 3',
       problem: 'Học viên Level 3 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
-      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 3, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
-      forWho: 'Học viên 10–12 tuổi (CEFR A2 → B1) học Level 3 Expansion cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài, đúng thứ tự Bộ tài liệu Giáo viên Level 3, 10 trang mở đầu truyện và 4 trang lưu niệm (Công cụ tư duy, Hộ chiếu tư duy và giấy khen). Một tệp PDF.',
+      forWho: 'Học viên (10–12 tuổi, CEFR A2 → B1) học Level 3 cùng giáo viên, gia sư hoặc phụ huynh. Mười truyện là truyện gốc của Jurassic English, bán trong bộ Sách truyện bài tập Level 3; không cần sách đã xuất bản. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
       unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
   },
   {
     id: 'student-workbook-l4',
-    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
-    paused: true,
     video: 'student-workbook-l4',
     live: true,
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
     image: 'student-workbook-l4',
-    sample: 'student-workbook-l4',
+    sample: 'student-workbook-l4-v2',
     delivery: true,
     paypal: true,
     en: {
       label: 'Digital download · per learner · class sets',
       title: 'Level 4 Student Workbook',
       problem: 'Your Level 4 learners need their own organiser for every lesson, and building those pages each week takes hours.',
-      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 4 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
-      forWho: 'Learners aged 12–14 (CEFR B1 → B2) following Level 4 Mastery with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      inside: '58 printable A4 pages: 40 lesson pages in the order of the Level 4 Teacher Pack, 10 story opener pages and 4 keepsake pages (Thinking Tools, Thinking Passport and a certificate). One PDF.',
+      forWho: 'Learners (ages 12–14, CEFR B1 → B2) doing Level 4 with a teacher, tutor or parent. The ten stories are original Jurassic English storybooks, sold as the Level 4 Story Workbooks; no published book is needed. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
       unit: 'per learner · class set of 10: 1.490.000₫',
       cta: 'Order on Zalo',
     },
@@ -826,31 +887,29 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
       title: 'Sách bài tập học viên Level 4',
       problem: 'Học viên Level 4 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
-      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 4, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
-      forWho: 'Học viên 12–14 tuổi (CEFR B1 → B2) học Level 4 Mastery cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      inside: '58 trang A4 in được: 40 trang theo từng bài, đúng thứ tự Bộ tài liệu Giáo viên Level 4, 10 trang mở đầu truyện và 4 trang lưu niệm (Công cụ tư duy, Hộ chiếu tư duy và giấy khen). Một tệp PDF.',
+      forWho: 'Học viên (12–14 tuổi, CEFR B1 → B2) học Level 4 cùng giáo viên, gia sư hoặc phụ huynh. Mười truyện là truyện gốc của Jurassic English, bán trong bộ Sách truyện bài tập Level 4; không cần sách đã xuất bản. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
       unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
   },
   {
     id: 'student-workbook-l5',
-    // Paused 11 Nov 2026 (audit fix 4): built on published books; being rewritten onto original JE stories.
-    paused: true,
     video: 'student-workbook-l5',
     live: true,
     section: 'teachers',
     price: '190.000₫',
     href: 'zalo',
     image: 'student-workbook-l5',
-    sample: 'student-workbook-l5',
+    sample: 'student-workbook-l5-v2',
     delivery: true,
     paypal: true,
     en: {
       label: 'Digital download · per learner · class sets',
       title: 'Level 5 Student Workbook',
       problem: 'Your Level 5 learners need their own organiser for every lesson, and building those pages each week takes hours.',
-      inside: '62 printable A4 pages: 40 lesson pages with Excavation, Strata, Justification and Impact organisers in the order of the Level 5 Teacher Pack, 10 text openers (predictions, words to track, a reading plan), a Thinking Passport, a Word Fossil Log and a certificate.',
-      forWho: 'Learners aged 14+ (CEFR B2 → C1) following Level 5 Advanced with a teacher or tutor. The lessons are built on published books, which you provide. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      inside: '62 printable A4 pages: 40 lesson pages in the order of the Level 5 Teacher Pack, 10 story opener pages and 4 keepsake pages (Thinking Tools, Thinking Passport and a certificate). One PDF.',
+      forWho: 'Learners (ages 14+, CEFR B2 → C1) doing Level 5 with a teacher, tutor or parent. The ten stories are original Jurassic English storybooks, sold as the Level 5 Story Workbooks; no published book is needed. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
       unit: 'per learner · class set of 10: 1.490.000₫',
       cta: 'Order on Zalo',
     },
@@ -858,8 +917,8 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · mỗi học viên · bộ cho lớp',
       title: 'Sách bài tập học viên Level 5',
       problem: 'Học viên Level 5 cần trang tổ chức ý riêng cho mỗi bài học, còn tự soạn những trang đó mỗi tuần thì tốn hàng giờ.',
-      inside: '62 trang A4 in được: 40 trang theo từng bài với khung Excavation, Strata, Justification và Impact đúng thứ tự Bộ tài liệu Giáo viên Level 5, 10 trang mở đầu văn bản (dự đoán, từ cần theo dõi, kế hoạch đọc), Hộ chiếu tư duy, Sổ Word Fossil và giấy khen.',
-      forWho: 'Học viên từ 14 tuổi (CEFR B2 → C1) học Level 5 Advanced cùng giáo viên hoặc gia sư. Bài học dựa trên sách đã xuất bản, bạn tự chuẩn bị sách. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      inside: '62 trang A4 in được: 40 trang theo từng bài, đúng thứ tự Bộ tài liệu Giáo viên Level 5, 10 trang mở đầu truyện và 4 trang lưu niệm (Công cụ tư duy, Hộ chiếu tư duy và giấy khen). Một tệp PDF.',
+      forWho: 'Học viên (từ 14 tuổi, CEFR B2 → C1) học Level 5 cùng giáo viên, gia sư hoặc phụ huynh. Mười truyện là truyện gốc của Jurassic English, bán trong bộ Sách truyện bài tập Level 5; không cần sách đã xuất bản. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
       unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
@@ -1469,6 +1528,7 @@ export const PRODUCTS: Product[] = [
     price: '499.000₫',
     href: 'zalo',
     image: 'ielts-writing-band-up',
+    sample: 'ielts-writing-band-up',
     delivery: true,
     paypal: true,
     en: {
@@ -1498,6 +1558,7 @@ export const PRODUCTS: Product[] = [
     price: '449.000₫',
     href: 'zalo',
     image: 'ielts-speaking-band-up',
+    sample: 'ielts-speaking-band-up',
     delivery: true,
     paypal: true,
     en: {
@@ -1527,6 +1588,7 @@ export const PRODUCTS: Product[] = [
     price: '999.000₫',
     href: 'zalo',
     image: 'ielts-four-skill-kit',
+    sample: 'ielts-four-skill-kit',
     delivery: true,
     paypal: true,
     en: {
@@ -1562,9 +1624,16 @@ type PageCopy = {
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   workbooks: string;
   workbooksBand: { heading: string; intro: string; levels: string; ages: string; agesFrom: string; count: string; single: string; singleLevel: string };
+  phonicsBand: { heading: string; intro: string; books: string; book: string; ages: string; isNew: string; listen: string; listenLabel: string; reader: string; readerNote: string };
   ielts: { groups: Record<IeltsGroup, string>; home: Partial<Record<IeltsGroup, string>>; crumb: string };
+  /** IELTS migration P6: the one card that replaces the IELTS product cards on /products. */
+  ieltsMoved: { heading: string; cta: string; href: string };
   closing: { heading: string; body: string; cta: string };
 };
+
+/** IELTS migration P6: IELTS products are sold on jurassicielts.com; their JE pages redirect there (vercel.json). */
+export const IELTS_MOVED_SECTION: ProductSectionId = 'ielts';
+const IELTS_MOVED_UTM = 'utm_source=jurassicenglish&utm_medium=moved';
 
 const PAGE: Record<Locale, PageCopy> = {
   en: {
@@ -1587,6 +1656,18 @@ const PAGE: Record<Locale, PageCopy> = {
       single: '1 workbook',
       singleLevel: 'Level {level} · one book',
     },
+    phonicsBand: {
+      heading: 'Jurassic English Phonics',
+      intro: 'Learn to read with Dane and Kate',
+      books: 'Jurassic English Phonics books',
+      book: 'Book {n}',
+      ages: 'Ages 4–7 · with audio',
+      isNew: 'New',
+      listen: 'Listen ({time})',
+      listenLabel: 'Listen to a {time} audio clip from {title}',
+      reader: 'Open the sample in the reader',
+      readerNote: '14 real pages with the audio, free, no sign-up.',
+    },
     sections: {
       families: { heading: 'For families', intro: 'Live classes with Mr. Jay, and printables for home.' },
       teachers: { heading: 'For teachers', intro: 'Ready-to-use materials for teachers and tutors.' },
@@ -1598,6 +1679,7 @@ const PAGE: Record<Locale, PageCopy> = {
       home: { speaking: 'More IELTS Speaking help', writing: 'More IELTS Writing help' },
       crumb: 'IELTS',
     },
+    ieltsMoved: { heading: 'IELTS courses and tools are at JurassicIELTS', cta: 'Go to JurassicIELTS', href: `https://jurassicielts.com/solutions/?${IELTS_MOVED_UTM}` },
     closing: { heading: 'Not sure which fits?', body: 'Message Mr. Jay on Zalo and he will point you to the right option. Nothing is charged until you accept a written order summary.', cta: 'Ask Mr. Jay on Zalo' },
   },
   // Machine-drafted (27 Oct 2026, P-3). Needs a native read before merge.
@@ -1621,6 +1703,18 @@ const PAGE: Record<Locale, PageCopy> = {
       single: '1 cuốn',
       singleLevel: 'Level {level} · một cuốn',
     },
+    phonicsBand: {
+      heading: 'Jurassic English Phonics',
+      intro: 'Học đọc cùng Dane và Kate',
+      books: 'Các quyển Jurassic English Phonics',
+      book: 'Quyển {n}',
+      ages: 'Bé 4–7 tuổi · có âm thanh',
+      isNew: 'Mới',
+      listen: 'Nghe thử ({time})',
+      listenLabel: 'Nghe đoạn âm thanh {time} của {title}',
+      reader: 'Mở bản mẫu trong trình đọc',
+      readerNote: '14 trang thật kèm âm thanh, miễn phí, không cần đăng ký.',
+    },
     sections: {
       families: { heading: 'Dành cho gia đình', intro: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.' },
       teachers: { heading: 'Dành cho giáo viên', intro: 'Tài liệu dùng ngay cho giáo viên và gia sư.' },
@@ -1632,11 +1726,12 @@ const PAGE: Record<Locale, PageCopy> = {
       home: { speaking: 'Thêm về luyện IELTS Speaking', writing: 'Thêm về luyện IELTS Writing' },
       crumb: 'IELTS',
     },
+    ieltsMoved: { heading: 'Khóa học và công cụ IELTS hiện có tại JurassicIELTS', cta: 'Xem tại JurassicIELTS', href: `https://jurassicielts.com/vi/solutions/?${IELTS_MOVED_UTM}` },
     closing: { heading: 'Chưa chắc sản phẩm nào phù hợp?', body: 'Nhắn thầy Jay qua Zalo, thầy sẽ gợi ý lựa chọn phù hợp. Không thu tiền cho đến khi bạn đồng ý bản tóm tắt đơn hàng bằng văn bản.', cta: 'Hỏi thầy Jay qua Zalo' },
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books'> & {
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books' | 'usd' | 'orderOnly' | 'reader' | 'clip'> & {
   link?: { href: string; label: string };
   paused?: boolean;
   credit?: string;
@@ -1650,13 +1745,16 @@ export function productsPage(locale: Locale) {
   const copy = PAGE[locale];
   return {
     ...copy,
+    // The moved IELTS section's own heading and intro, for the one card that replaces its product cards (P6).
+    ieltsMovedSection: copy.sections[IELTS_MOVED_SECTION],
     sections: PRODUCT_SECTIONS.map((id) => ({
       id,
       ...copy.sections[id],
-      cards: PRODUCTS.filter((p) => p.live && p.section === id).map(
+      // The IELTS section has no cards on /products after P6; ProductsPage shows the one moved card instead.
+      cards: PRODUCTS.filter((p) => p.live && p.section === id && id !== IELTS_MOVED_SECTION).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, usd, orderOnly, reader, clip, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).

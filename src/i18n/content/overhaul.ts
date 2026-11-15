@@ -22,6 +22,14 @@ export const WORLDWISE_URL = 'https://www.worldwiselearning.app/';
 export const CONTACT_EMAIL = 'info@jurassicenglish.com';
 export const ZALO_URL = '/go/zalo';
 export const IMG = '/images/overhaul';
+/**
+ * The Phonics launch highlight (Jay, 15 Nov 2026, D3/D4: four weeks, 15 Nov to 13 Dec 2026): the "New" badge on Products in
+ * the header (it moves from IELTS Writing), the amber dot on the menu button below 2xl, the "New" chips on the Phonics tiles
+ * and the header Products link to /products?utm_source=header-new#phonics. Setting this to false removes all of them and
+ * puts the badge back on IELTS Writing.
+ */
+export const PRODUCTS_NEW_HIGHLIGHT = true;
+export const PRODUCTS_NEW_HREF = '/products?utm_source=header-new#phonics';
 /** Which home main-button option is live (audit fix 2, 11 Nov 2026). Jay picks; swapping to 'B' is this one line. */
 export const HOME_PRIMARY_OPTION: 'A' | 'B' = 'A';
 export const UNDER_18_POLICY_EN = 'Sessions with learners under 18 are never recorded.';
@@ -29,16 +37,19 @@ export const UNDER_18_POLICY_EN = 'Sessions with learners under 18 are never rec
 const en = {
   nav: {
     items: [
-      // Header symmetry (Oct 2026): short age labels on screen; `desc` names the door (accessible name + mobile drawer).
+      // Header wording Option A (Jay, 15 Nov 2026, brief WW-20261115-03): Kids Academy · Speaking 9–18 · IELTS · Story Club ·
+      // Books & Prices. `desc` names the door (accessible name suffix + mobile drawer). IELTS is one plain link to
+      // JurassicIELTS.com (Jay, 15 Nov 2026: "Move IELTS to jurassicielts.com"), same tab; `aria` is its accessible name.
+      // Pricing is gone: /products lists the lessons, the Baseline and Story Club.
       { key: 'reading', label: 'Kids Academy', desc: 'Reading & Story Adventures', href: '/student-academy', kind: 'route' },
-      { key: 'speaking', label: 'Ages 9–18', desc: 'Speaking Confidence & Teen IELTS', href: '/young-learners-speaking/', kind: 'native' },
-      { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: introduction & demo', href: '/ai-speaking/writing', kind: 'native' },
-      { key: 'adults', label: 'AI Speaking Mocks', desc: 'Adult IELTS Speaking practice (18+)', href: '/ai-speaking', kind: 'native' },
-      { key: 'jay', label: 'Pricing', desc: 'Mr. Jay, plans and pricing', href: '/#pricing-options', kind: 'native' },
+      { key: 'speaking', label: 'Speaking 9–18', desc: 'Speaking Confidence & Teen IELTS', href: '/young-learners-speaking/', kind: 'native' },
+      { key: 'ielts', label: 'IELTS', aria: 'IELTS · JurassicIELTS.com', desc: 'IELTS Writing and Speaking on JurassicIELTS.com', href: 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move', kind: 'native' },
+      { key: 'storyclub', label: 'Story Club', desc: 'Online story groups for children aged 5–8', href: '/story-club', kind: 'route' },
       // Products in the main menu (website assessment, 27 Oct 2026, fix 3: Jay wants easy access; supersedes footer-only).
-      { key: 'products', label: 'Products & prices', short: 'Products', desc: '', href: '/products', kind: 'route' },
+      // `short`: the standalone link beside the header button below 768 px (Jay, 15 Nov 2026: "Short label: Products").
+      { key: 'products', label: 'Books & Prices', short: 'Products', desc: '', href: '/products', kind: 'route' },
     ],
-    // Small badge after the IELTS Writing link (owner, Oct 2026).
+    // Small badge: on Books & Prices while PRODUCTS_NEW_HIGHLIGHT is on, otherwise on IELTS (Navbar badgeFor).
     newBadge: 'New',
     cta: 'Book Baseline · 690k₫',
     ctaMobile: 'Baseline · 690k₫',
@@ -117,6 +128,8 @@ const en = {
       heading: 'Find what you need',
       tiles: [
         { anchor: 'families', title: 'For families', promise: 'Live classes with Mr. Jay, and printables for home.', from: 'from 49.000₫', image: 'printable-pack-l1' },
+        // Phonics (Jay, 15 Nov 2026, D2): second, with a "New" chip while PRODUCTS_NEW_HIGHLIGHT is on.
+        { anchor: 'phonics', title: 'Phonics', promise: 'Learn to read with Dane and Kate: books with audio for ages 4–7.', from: 'from 79.000₫', image: 'phonics-b1', isNew: true },
         { anchor: 'story-workbooks', title: 'Story Workbooks', promise: 'Print-ready storybook workbooks for Levels 1–5, with an answer key and a teacher guide.', from: 'from 49.000₫', image: 'story-workbooks-l1' },
         { anchor: 'teachers', title: 'For teachers', promise: 'Ready-to-use materials for teachers and tutors.', from: 'from 149.000₫', image: 'student-workbook-l1' },
         { anchor: 'centres', title: 'For centres', promise: 'Programmes and materials for schools and centres.', from: 'from 290.000₫', image: 'curriculum-overview' },
@@ -138,7 +151,7 @@ const en = {
           noteTitle: 'Guided by Professor Rex',
           note: 'Four illustrated Story Worlds:',
           worlds: ['Mistwood Harbor', 'Whispering Woods', 'Grand Archive', 'Cloudpeak Observatory'],
-          primary: { label: 'Explore Student Academy', href: '/student-academy', kind: 'route' },
+          primary: { label: 'Explore Kids Academy', href: '/student-academy', kind: 'route' },
           secondary: { label: 'Try Free Story Quest', href: STORY_QUEST_URL, kind: 'external' },
         },
         {
@@ -218,7 +231,7 @@ const en = {
             { name: '45-min Reading & Thinking Placement Consultation', price: '', note: 'Request by email or Zalo: we review a short reading & writing sample and send a written Level 1–5 placement note.' },
           ],
           ongoing: [
-            { name: 'Small-group & 1-to-1 Student Academy tuition', price: '', note: 'Placed by readiness (Levels 1–5) after your placement consultation.' },
+            { name: 'Small-group & 1-to-1 Kids Academy tuition', price: '', note: 'Placed by readiness (Levels 1–5) after your placement consultation.' },
           ],
           cta: { label: 'Request a Reading Placement Consultation', href: '/student-academy#diagnostic' },
         },
@@ -270,12 +283,12 @@ type OverhaulContent = typeof en;
 const vi: OverhaulContent = {
   nav: {
     items: [
+      // Option A, Vietnamese (master's proposal, 15 Nov 2026): needs a native read before merge.
       { key: 'reading', label: 'Học viện Thiếu nhi', desc: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy', kind: 'route' },
-      { key: 'speaking', label: '9–18 tuổi', desc: 'Tự tin nói & IELTS cho teen', href: '/young-learners-speaking/', kind: 'native' },
-      { key: 'writing', label: 'IELTS Writing', desc: 'IELTS Writing Task 2: giới thiệu & bản demo', href: '/ai-speaking/writing', kind: 'native' },
-      { key: 'adults', label: 'Thi thử Nói AI', desc: 'Luyện Nói IELTS cho người lớn (18+)', href: '/ai-speaking', kind: 'native' },
-      { key: 'jay', label: 'Học phí', desc: 'Thầy Jay, gói học và học phí', href: '/#pricing-options', kind: 'native' },
-      { key: 'products', label: 'Sản phẩm & học phí', short: 'Sản phẩm', desc: '', href: '/products', kind: 'route' },
+      { key: 'speaking', label: 'Luyện nói 9–18', desc: 'Tự tin nói & IELTS cho teen', href: '/young-learners-speaking/', kind: 'native' },
+      { key: 'ielts', label: 'IELTS', aria: 'IELTS · JurassicIELTS.com', desc: 'IELTS Writing và Speaking trên JurassicIELTS.com', href: 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move', kind: 'native' },
+      { key: 'storyclub', label: 'Câu lạc bộ Truyện', desc: 'Nhóm học trực tuyến qua truyện cho bé 5–8 tuổi', href: '/story-club', kind: 'route' },
+      { key: 'products', label: 'Sách & Bảng giá', short: 'Sản phẩm', desc: '', href: '/products', kind: 'route' },
     ],
     newBadge: 'Mới',
     cta: 'Đặt Đánh giá · 690k₫',
@@ -347,6 +360,7 @@ const vi: OverhaulContent = {
       heading: 'Tìm đúng thứ bạn cần',
       tiles: [
         { anchor: 'families', title: 'Dành cho gia đình', promise: 'Lớp học trực tiếp cùng thầy Jay, và tài liệu in để học ở nhà.', from: 'từ 49.000₫', image: 'printable-pack-l1' },
+        { anchor: 'phonics', title: 'Phonics', promise: 'Học đọc cùng Dane và Kate: sách có âm thanh cho bé 4–7 tuổi.', from: 'từ 79.000₫', image: 'phonics-b1', isNew: true },
         { anchor: 'story-workbooks', title: 'Sách truyện bài tập', promise: 'Sách truyện bài tập in sẵn cho Level 1–5, có đáp án và hướng dẫn cho giáo viên.', from: 'từ 49.000₫', image: 'story-workbooks-l1' },
         { anchor: 'teachers', title: 'Dành cho giáo viên', promise: 'Tài liệu dùng ngay cho giáo viên và gia sư.', from: 'từ 149.000₫', image: 'student-workbook-l1' },
         { anchor: 'centres', title: 'Dành cho trung tâm', promise: 'Chương trình và tài liệu cho trường học và trung tâm.', from: 'từ 290.000₫', image: 'curriculum-overview' },
@@ -368,7 +382,7 @@ const vi: OverhaulContent = {
           noteTitle: 'Đồng hành cùng Giáo sư Rex',
           note: 'Bốn Thế giới truyện minh hoạ:',
           worlds: ['Mistwood Harbor', 'Whispering Woods', 'Grand Archive', 'Cloudpeak Observatory'],
-          primary: { label: 'Xem Học viện Học sinh', href: '/student-academy', kind: 'route' },
+          primary: { label: 'Xem Học viện Thiếu nhi', href: '/student-academy', kind: 'route' },
           secondary: { label: 'Chơi thử Story Quest miễn phí', href: STORY_QUEST_URL, kind: 'external' },
         },
         {

@@ -2,7 +2,8 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/browser',
-  testMatch: 'story-club-status.spec.ts',
+  // P5c (15 Nov 2026): the shared pay-step status tests run with the Story Club status test (CI already runs this config).
+  testMatch: ['story-club-status.spec.ts', 'pay-status.spec.ts'],
   fullyParallel: false,
   reporter: 'list',
   use: {

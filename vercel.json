@@ -296,14 +296,778 @@
       "permanent": true
     },
     {
+      "source": "/insights",
+      "destination": "https://jurassicielts.com/guides/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/",
+      "destination": "https://jurassicielts.com/guides/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-indonesia",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-indonesia/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-malaysia",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-malaysia/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-philippines",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-philippines/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-thailand",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-thailand/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-uae",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-uae/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-vietnam",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/computer-delivered-ielts-vietnam/",
+      "destination": "https://jurassicielts.com/guides/computer-delivered-ielts-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-indonesia",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-indonesia/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-malaysia",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-malaysia/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-philippines",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-philippines/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-thailand",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-thailand/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-uae",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-for-ukvi-uae/",
+      "destination": "https://jurassicielts.com/guides/ielts-for-ukvi-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-online-test",
+      "destination": "https://jurassicielts.com/guides/ielts-online-test/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-online-test/",
+      "destination": "https://jurassicielts.com/guides/ielts-online-test/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-philippines",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-philippines/",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-philippines/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-uae",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-uae/",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-uae/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-vietnam",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-scams-fake-certificates-vietnam/",
+      "destination": "https://jurassicielts.com/guides/ielts-scams-fake-certificates-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-test-centres-booking-vietnam",
+      "destination": "https://jurassicielts.com/guides/ielts-test-centres-booking-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ielts-test-centres-booking-vietnam/",
+      "destination": "https://jurassicielts.com/guides/ielts-test-centres-booking-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights",
+      "destination": "https://jurassicielts.com/vi/guides/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/",
+      "destination": "https://jurassicielts.com/vi/guides/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-test-centres-booking-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/dia-diem-thi-ielts-dang-ky-viet-nam/",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-test-centres-booking-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-online-test",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-online-test/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-online-test/",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-online-test/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-tren-may-tinh-viet-nam",
+      "destination": "https://jurassicielts.com/vi/guides/computer-delivered-ielts-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/ielts-tren-may-tinh-viet-nam/",
+      "destination": "https://jurassicielts.com/vi/guides/computer-delivered-ielts-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-scams-fake-certificates-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/insights/lua-dao-ielts-chung-chi-gia-viet-nam/",
+      "destination": "https://jurassicielts.com/vi/guides/ielts-scams-fake-certificates-vietnam/",
+      "permanent": true
+    },
+    {
+      "source": "/challenges/one-change",
+      "destination": "https://jurassicielts.com/practice/one-change/",
+      "permanent": true
+    },
+    {
+      "source": "/challenges/one-change/",
+      "destination": "https://jurassicielts.com/practice/one-change/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/ielts-band-score-calculator",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/ielts-band-score-calculator/",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/ielts-speaking-part-2-timer",
+      "destination": "https://jurassicielts.com/practice/tools/speaking-timer/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/ielts-speaking-part-2-timer/",
+      "destination": "https://jurassicielts.com/practice/tools/speaking-timer/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/dong-ho-ielts-speaking-part-2",
+      "destination": "https://jurassicielts.com/vi/practice/tools/speaking-timer/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/dong-ho-ielts-speaking-part-2/",
+      "destination": "https://jurassicielts.com/vi/practice/tools/speaking-timer/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/tinh-diem-ielts",
+      "destination": "https://jurassicielts.com/vi/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/tinh-diem-ielts/",
+      "destination": "https://jurassicielts.com/vi/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-hans/tools/ielts-band-score-calculator",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-hans/tools/ielts-band-score-calculator/",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-hant/tools/ielts-band-score-calculator",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/zh-hant/tools/ielts-band-score-calculator/",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
       "source": "/tools",
-      "destination": "/tools/ielts-band-score-calculator",
-      "permanent": false
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/",
+      "destination": "https://jurassicielts.com/practice/tools/band-score-calculator/",
+      "permanent": true
     },
     {
       "source": "/vi/cong-cu",
-      "destination": "/vi/cong-cu/tinh-diem-ielts",
-      "permanent": false
+      "destination": "https://jurassicielts.com/vi/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/cong-cu/",
+      "destination": "https://jurassicielts.com/vi/practice/tools/band-score-calculator/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/egypt",
+      "destination": "https://jurassicielts.com/ar/speaking/online/egypt/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/egypt/",
+      "destination": "https://jurassicielts.com/ar/speaking/online/egypt/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/saudi-arabia",
+      "destination": "https://jurassicielts.com/ar/speaking/online/saudi-arabia/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/saudi-arabia/",
+      "destination": "https://jurassicielts.com/ar/speaking/online/saudi-arabia/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/uae",
+      "destination": "https://jurassicielts.com/ar/speaking/online/uae/",
+      "permanent": true
+    },
+    {
+      "source": "/ar/ielts-speaking-online/uae/",
+      "destination": "https://jurassicielts.com/ar/speaking/online/uae/",
+      "permanent": true
+    },
+    {
+      "source": "/bn/ielts-speaking-online/bangladesh",
+      "destination": "https://jurassicielts.com/bn/speaking/online/bangladesh/",
+      "permanent": true
+    },
+    {
+      "source": "/bn/ielts-speaking-online/bangladesh/",
+      "destination": "https://jurassicielts.com/bn/speaking/online/bangladesh/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online",
+      "destination": "https://jurassicielts.com/es/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/",
+      "destination": "https://jurassicielts.com/es/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/argentina",
+      "destination": "https://jurassicielts.com/es/speaking/online/argentina/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/argentina/",
+      "destination": "https://jurassicielts.com/es/speaking/online/argentina/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/chile",
+      "destination": "https://jurassicielts.com/es/speaking/online/chile/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/chile/",
+      "destination": "https://jurassicielts.com/es/speaking/online/chile/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/colombia",
+      "destination": "https://jurassicielts.com/es/speaking/online/colombia/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/colombia/",
+      "destination": "https://jurassicielts.com/es/speaking/online/colombia/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/peru",
+      "destination": "https://jurassicielts.com/es/speaking/online/peru/",
+      "permanent": true
+    },
+    {
+      "source": "/es/ielts-speaking-online/peru/",
+      "destination": "https://jurassicielts.com/es/speaking/online/peru/",
+      "permanent": true
+    },
+    {
+      "source": "/id/ielts-speaking-online/indonesia",
+      "destination": "https://jurassicielts.com/id/speaking/online/indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/id/ielts-speaking-online/indonesia/",
+      "destination": "https://jurassicielts.com/id/speaking/online/indonesia/",
+      "permanent": true
+    },
+    {
+      "source": "/ms/ielts-speaking-online/malaysia",
+      "destination": "https://jurassicielts.com/ms/speaking/online/malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/ms/ielts-speaking-online/malaysia/",
+      "destination": "https://jurassicielts.com/ms/speaking/online/malaysia/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ielts-speaking-online",
+      "destination": "https://jurassicielts.com/pt/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ielts-speaking-online/",
+      "destination": "https://jurassicielts.com/pt/speaking/online/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ielts-speaking-online/brasil",
+      "destination": "https://jurassicielts.com/pt/speaking/online/brazil/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/ielts-speaking-online/brasil/",
+      "destination": "https://jurassicielts.com/pt/speaking/online/brazil/",
+      "permanent": true
+    },
+    {
+      "source": "/th/ielts-speaking-online/thailand",
+      "destination": "https://jurassicielts.com/th/speaking/online/thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/th/ielts-speaking-online/thailand/",
+      "destination": "https://jurassicielts.com/th/speaking/online/thailand/",
+      "permanent": true
+    },
+    {
+      "source": "/ur/ielts-speaking-online/pakistan",
+      "destination": "https://jurassicielts.com/ur/speaking/online/pakistan/",
+      "permanent": true
+    },
+    {
+      "source": "/ur/ielts-speaking-online/pakistan/",
+      "destination": "https://jurassicielts.com/ur/speaking/online/pakistan/",
+      "permanent": true
+    },
+    {
+      "source": "/live-speaking-check",
+      "has": [
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "vi"
+        }
+      ],
+      "destination": "https://jurassicielts.com/vi/solutions/live-speaking-check/",
+      "permanent": true
+    },
+    {
+      "source": "/live-speaking-check/",
+      "has": [
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "vi"
+        }
+      ],
+      "destination": "https://jurassicielts.com/vi/solutions/live-speaking-check/",
+      "permanent": true
+    },
+    {
+      "source": "/live-speaking-check",
+      "destination": "https://jurassicielts.com/solutions/live-speaking-check/",
+      "permanent": true
+    },
+    {
+      "source": "/live-speaking-check/",
+      "destination": "https://jurassicielts.com/solutions/live-speaking-check/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-cue-card-bank",
+      "destination": "https://jurassicielts.com/solutions/cue-card-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-cue-card-bank/",
+      "destination": "https://jurassicielts.com/solutions/cue-card-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-diagnostic-mock",
+      "destination": "https://jurassicielts.com/solutions/diagnostic-mock/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-diagnostic-mock/",
+      "destination": "https://jurassicielts.com/solutions/diagnostic-mock/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-essay-bank-task2",
+      "destination": "https://jurassicielts.com/solutions/essay-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-essay-bank-task2/",
+      "destination": "https://jurassicielts.com/solutions/essay-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-four-skill-kit",
+      "destination": "https://jurassicielts.com/solutions/four-skill-kit/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-four-skill-kit/",
+      "destination": "https://jurassicielts.com/solutions/four-skill-kit/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-listening-profiler",
+      "destination": "https://jurassicielts.com/solutions/listening-profiler/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-listening-profiler/",
+      "destination": "https://jurassicielts.com/solutions/listening-profiler/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-one-to-one-starter",
+      "destination": "https://jurassicielts.com/solutions/speaking-tutor-plan/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-one-to-one-starter/",
+      "destination": "https://jurassicielts.com/solutions/speaking-tutor-plan/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-reading-ladder",
+      "destination": "https://jurassicielts.com/solutions/reading-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-reading-ladder/",
+      "destination": "https://jurassicielts.com/solutions/reading-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-speaking-band-up",
+      "destination": "https://jurassicielts.com/solutions/speaking-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-speaking-band-up/",
+      "destination": "https://jurassicielts.com/solutions/speaking-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-speaking-ladder",
+      "destination": "https://jurassicielts.com/solutions/speaking-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-speaking-ladder/",
+      "destination": "https://jurassicielts.com/solutions/speaking-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-band-up",
+      "destination": "https://jurassicielts.com/solutions/writing-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-band-up/",
+      "destination": "https://jurassicielts.com/solutions/writing-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-ladder-task2",
+      "destination": "https://jurassicielts.com/solutions/writing-task2-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-ladder-task2/",
+      "destination": "https://jurassicielts.com/solutions/writing-task2-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-task1-method",
+      "destination": "https://jurassicielts.com/solutions/writing-task1-method/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-task1-method/",
+      "destination": "https://jurassicielts.com/solutions/writing-task1-method/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-teacher-pack",
+      "destination": "https://jurassicielts.com/solutions/writing-teacher-pack/",
+      "permanent": true
+    },
+    {
+      "source": "/products/ielts-writing-teacher-pack/",
+      "destination": "https://jurassicielts.com/solutions/writing-teacher-pack/",
+      "permanent": true
+    },
+    {
+      "source": "/products/writing-baseline",
+      "destination": "https://jurassicielts.com/solutions/writing-baseline/",
+      "permanent": true
+    },
+    {
+      "source": "/products/writing-baseline/",
+      "destination": "https://jurassicielts.com/solutions/writing-baseline/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-cue-card-bank",
+      "destination": "https://jurassicielts.com/vi/solutions/cue-card-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-cue-card-bank/",
+      "destination": "https://jurassicielts.com/vi/solutions/cue-card-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-diagnostic-mock",
+      "destination": "https://jurassicielts.com/vi/solutions/diagnostic-mock/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-diagnostic-mock/",
+      "destination": "https://jurassicielts.com/vi/solutions/diagnostic-mock/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-essay-bank-task2",
+      "destination": "https://jurassicielts.com/vi/solutions/essay-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-essay-bank-task2/",
+      "destination": "https://jurassicielts.com/vi/solutions/essay-bank/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-four-skill-kit",
+      "destination": "https://jurassicielts.com/vi/solutions/four-skill-kit/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-four-skill-kit/",
+      "destination": "https://jurassicielts.com/vi/solutions/four-skill-kit/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-listening-profiler",
+      "destination": "https://jurassicielts.com/vi/solutions/listening-profiler/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-listening-profiler/",
+      "destination": "https://jurassicielts.com/vi/solutions/listening-profiler/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-one-to-one-starter",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-tutor-plan/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-one-to-one-starter/",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-tutor-plan/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-reading-ladder",
+      "destination": "https://jurassicielts.com/vi/solutions/reading-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-reading-ladder/",
+      "destination": "https://jurassicielts.com/vi/solutions/reading-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-speaking-band-up",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-speaking-band-up/",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-speaking-ladder",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-speaking-ladder/",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-band-up",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-band-up/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-band-up/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-ladder-task2",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-task2-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-ladder-task2/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-task2-ladder/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-task1-method",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-task1-method/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-task1-method/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-task1-method/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-teacher-pack",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-teacher-pack/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/ielts-writing-teacher-pack/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-teacher-pack/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/writing-baseline",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-baseline/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/writing-baseline/",
+      "destination": "https://jurassicielts.com/vi/solutions/writing-baseline/",
+      "permanent": true
     },
     {
       "source": "/ai-speaking/samples/basic",
@@ -313,11 +1077,6 @@
     {
       "source": "/ai-speaking/vi/samples/basic",
       "destination": "/ai-speaking/vi/samples",
-      "permanent": true
-    },
-    {
-      "source": "/challenges/one-change/",
-      "destination": "/challenges/one-change",
       "permanent": true
     },
     {

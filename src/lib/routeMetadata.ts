@@ -168,14 +168,15 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
           createFaqJsonLd(productFaq(product, locale)),
         ];
       },
-      breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Products', path: '/products' }, { name: product.en.title, path }],
+      // Phonics (blueprint 6.2): Home → Products → Phonics → Book N.
+      breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Products', path: '/products' }, ...(product.category === 'phonics' ? [{ name: 'Phonics', path: '/products#phonics' }] : []), { name: product.en.title, path }],
       // Shared links show the product (image studio, 27 Oct 2026), not the site's generic compass image.
       ...(product.image ? { ogImage: { url: `${SITE_URL}/images/products/${product.image}.webp`, width: 800, height: 800 } } : {}),
       localized: {
         vi: {
           title: seo.vi.title,
           description: seo.vi.description,
-          breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Sản phẩm', path: '/products' }, { name: product.vi.title, path }],
+          breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Sản phẩm', path: '/products' }, ...(product.category === 'phonics' ? [{ name: 'Phonics', path: '/products#phonics' }] : []), { name: product.vi.title, path }],
         },
       },
     } as StaticRouteDefinition];

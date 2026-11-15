@@ -1,10 +1,12 @@
 import { getCurrentLocale } from '../i18n/routing';
+import { movedHref } from '../config/movedToJurassicielts';
 import { trackCtaClick } from '../lib/analytics';
 
 /** Free written-example practice, not a free personalised speaking assessment. */
 export function OneChangeInvitation({ placement = 'homepage' }: { placement?: 'homepage' | 'insights' }) {
   const vi = getCurrentLocale() === 'vi';
-  const href = `/challenges/one-change?lang=${vi ? 'vi' : 'en'}&utm_source=${placement}&utm_medium=internal&utm_campaign=one_change_pilot`;
+  const oneChange = movedHref('/challenges/one-change');
+  const href = `${vi ? oneChange.replace('https://jurassicielts.com/', 'https://jurassicielts.com/vi/') : oneChange}?lang=${vi ? 'vi' : 'en'}&utm_source=${placement}&utm_medium=internal&utm_campaign=one_change_pilot`;
   return <section aria-label={vi ? 'Bài luyện tập Speaking miễn phí' : 'Free Speaking practice sample'} className="bg-jurassic-soft py-10">
     <div className="mx-auto max-w-7xl px-6"><div className="rounded-2xl border border-jurassic-gold/40 bg-white p-6 sm:p-9">
       <p className="text-xs font-bold uppercase tracking-widest text-[#9b3a0d]">{vi ? 'Bài luyện tập miễn phí · Không cần tài khoản' : 'Free practice sample · No account needed'}</p>

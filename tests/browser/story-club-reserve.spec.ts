@@ -2,6 +2,8 @@ import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { paymentAmount } from '../../src/config/payment';
+import { storyClubPriceAt } from '../../src/config/storyClubOffer';
 
 // Synthetic form responses below override this guard; every other API or
 // third-party request is blocked, even if a local backend happens to be running.
@@ -27,7 +29,7 @@ test('products keep named controls, labelled sample forms and a contained mobile
     await page.setViewportSize({ width, height: 900 });
     await page.goto(locale === 'vi' ? '/vi/products' : '/products');
     await expect(page.locator('[data-category-tile="families"]')).toHaveAttribute('aria-pressed', 'false');
-    await expect(page.locator('.products-page li[id]')).toHaveCount(47); // + Mango single workbook (11 Nov 2026); + IELTS Diagnostic Mock (9 Nov 2026); 35 plus the five Story Workbooks, IELTS Reading and Listening (3 Nov 2026) and the three IELTS bundles (5 Nov 2026)
+    await expect(page.locator('.products-page li[id]')).toHaveCount(35); // IELTS migration P6 (15 Nov 2026): the 14 IELTS cards moved to jurassicielts.com, 49 -> 35; + Phonics Books 1 and 2 (15 Nov 2026); + Mango single workbook (11 Nov 2026); + IELTS Diagnostic Mock (9 Nov 2026); 35 plus the five Story Workbooks, IELTS Reading and Listening (3 Nov 2026) and the three IELTS bundles (5 Nov 2026)
     await checkAccessibility(page);
     if (width === 375) {
       await mkdir(resolve('docs/qa/site-quality'), { recursive: true });
@@ -61,7 +63,7 @@ for (const [locale, path, payNow, refundWord, getCode] of [
   ['en', '/en/story-club/reserve', 'Pay now', 'within 24 hours of paying', 'Get my payment code'],
   ['vi', '/story-club/reserve', 'Thanh toán ngay', 'trong vòng 24 giờ', 'Lấy mã thanh toán của tôi'],
 ] as const) {
-  test(`reserve page ${locale}: no request on load, payment prepared only after the click, summary precedes Pay now, amount stays 590000`, async ({ page }) => {
+  test(`reserve page ${locale}: no request on load, payment prepared only after the click, summary precedes Pay now, amount follows the dated launch offer`, async ({ page }) => {
     let qrAmount = '';
     const nonGet: string[] = [];
     const prepareBodies: Array<Record<string, unknown>> = [];
@@ -102,8 +104,11 @@ for (const [locale, path, payNow, refundWord, getCode] of [
       }, payNow);
       expect(order.before, `${locale} ${width}: summary is before the Pay now heading in the DOM`).toBe(true);
       expect(order.summaryBottom, `${locale} ${width}: and above it on the page`).toBeLessThanOrEqual(order.payTop);
-      await expect(page.locator('[data-payment-amount]')).toHaveText(locale === 'vi' ? '590.000₫' : '590,000₫');
-      await expect.poll(() => qrAmount).toBe('590000');
+      const expected = storyClubPriceAt(new Date()).priceVnd; // the dated price in src/config/storyClubOffer.ts, not a hard-coded 590000
+      await expect(page.locator('[data-payment-amount]')).toHaveText(paymentAmount(expected, locale));
+      await expect.poll(() => qrAmount).toBe(String(expected));
+      if (storyClubPriceAt(new Date()).tier) await expect(page.locator('[data-payment-valid-until]')).toContainText(locale === 'vi' ? 'có hiệu lực đến' : 'valid until');
+      await expect(page.locator('[data-reserve-price]')).toContainText(paymentAmount(expected, locale));
       await checkAccessibility(page);
     }
   });

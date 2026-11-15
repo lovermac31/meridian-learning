@@ -4,7 +4,7 @@ import { renderRoute } from '../src/entry-server';
 import { seoPages, isInternationalMarketPath } from '../src/lib/seoPages';
 import { orderCode, productPaypalHref } from '../src/lib/productsSource';
 import assetCards from '../src/content/assetLinks.json';
-import { PRODUCTS } from '../src/i18n/content/products';
+import { IELTS_MOVED_SECTION, PRODUCTS } from '../src/i18n/content/products';
 
 // Overseas buyers (master, 27 Oct 2026; Sale Team visibility-me-asia/campaign/03): every country page links the
 // Baseline sample report on /products (S3), tagged utm_source=market-<country> before the # (S2).
@@ -30,8 +30,12 @@ test('S2 + S3: every country page links the Baseline sample once, tagged market-
     countries += 1;
     const market = slug(page.path);
     assert.deepEqual(samples, [`/products?utm_source=market-${market}#baseline-sample`], page.path);
-    const assetProductLinks = assetCards.find(card => card.path === page.path)!.links.filter(link => link.href.startsWith('/products/')).map(link => link.href);
+    // IELTS migration P6: a contextual link to an IELTS product page (moved to jurassicielts.com) no longer renders,
+    // because it came from the /products catalogue; only links to products still on /products remain.
+    const movedId = (href: string) => PRODUCTS.find((p) => p.id === href.split('?')[0].replace('/products/', ''))?.section === IELTS_MOVED_SECTION;
+    const assetProductLinks = assetCards.find(card => card.path === page.path)!.links.filter(link => link.href.startsWith('/products/')).map(link => link.href).filter((href) => !movedId(href));
     assert.deepEqual(productLinks, [...samples, ...assetProductLinks], `${page.path}: existing sample plus contextual tracked product link`);
+    assert.ok(!productLinks.some(movedId), `${page.path}: no link to an IELTS product page`);
     // Beside the PayPal options where the page takes PayPal; under the hero buttons where it does not.
     const pay = html.indexOf('<section id="pay"');
     const at = html.indexOf('data-link="market-sample"');
@@ -79,6 +83,8 @@ test('market order codes: the Sale Team table maps each market-<country> source 
 // S1 (master decision (a), 27 Oct 2026): a direct PayPal payment per digital card at Jay's approved US$ price.
 const USD: Record<string, number> = {
   'printable-pack': 6, 'parent-pack-l1': 10, 'parent-pack-l2': 10, 'parent-pack-l3': 10, 'holiday-reading-challenge': 6,
+  // Phonics Books 1 and 2: Jay's fixed US$7.99 a book (14 Nov 2026), not ceil(VND ÷ 25,897).
+  'phonics-b1': 7.99, 'phonics-b2': 7.99,
   // Story Workbooks: the DEFAULT (highest tier) US$ price; regional prices are tested below (3 Nov 2026).
   'story-workbooks-l1': 15, 'story-workbooks-l2': 10, 'story-workbooks-l3': 10, 'story-workbooks-l4': 10, 'story-workbooks-l5': 10,
   'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27, 'teacher-pack-l5': 27, 'teacher-bundle': 112,
@@ -107,7 +113,7 @@ test('S1: the 13 digital cards take PayPal at the approved US$ prices; the Centr
     assert.equal(q.cmd, '_xclick');
     assert.equal(q.business, 'XW7RP68VVPZP2');
     assert.equal(q.currency_code, 'USD');
-    assert.equal(q.amount, `${USD[p.id]}.00`, `${p.id}: US$${USD[p.id]} = ceil(${p.price} ÷ 25,897)`);
+    assert.equal(q.amount, USD[p.id].toFixed(2), `${p.id}: US$${USD[p.id]} (ceil(${p.price} ÷ 25,897), or a fixed approved price)`);
     assert.equal(q.item_name, `${p.en.title} - /products ${p.id} code ${p.id.toUpperCase()} (Jurassic English)`);
     assert.equal(q.custom, `${p.id}|${p.id.toUpperCase()}`, `${p.id}: card id and code for matching`);
     assert.equal(q.return, `https://jurassicenglish.com/products#${p.id}`);
@@ -127,8 +133,11 @@ test('S1: each PayPal card shows the US$ option after the VND order button, with
     ['/vi/products', 'Thanh toán US$', 'Tài liệu được gửi qua Google Drive trong vòng 24 giờ'],
   ] as const) {
     const html = amp((await renderRoute(route)).replaceAll('<!-- -->', ''));
-    assert.deepEqual([...html.matchAll(/data-paypal="([^"]+)"/g)].map((m) => m[1]), LIVE_USD, route);
-    for (const id of LIVE_USD) {
+    // IELTS migration P6: the IELTS PayPal cards left /products (their prices stay in the data above).
+    const onProducts = LIVE_USD.filter((id) => PRODUCTS.find((p) => p.id === id)!.section !== IELTS_MOVED_SECTION);
+    assert.deepEqual([...html.matchAll(/data-paypal="([^"]+)"/g)].map((m) => m[1]), onProducts, route);
+    for (const id of LIVE_USD.filter((entry) => !onProducts.includes(entry))) assert.ok(!html.includes(`data-paypal="${id}"`), `${route} ${id}: no IELTS PayPal card on /products`);
+    for (const id of onProducts) {
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
       assert.ok(card.indexOf(`data-cta="product-${id}"`) < card.indexOf(`data-paypal="${id}"`), `${route} ${id}: VND first`);
       if (id.startsWith('story-workbooks-')) {

@@ -31,9 +31,11 @@ export function LiveSpeakingCheckPage() {
   const [locale] = useState<Locale>(() => (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('lang') === 'vi' ? 'vi' : 'en'));
   const c = COPY[locale];
   const paypal = paypalHref(paypalItemName(LIVE_CHECK_OFFER.title.en.title, 'Jurassic English'), usdFromVnd(LIVE_CHECK_OFFER.amount), LIVE_CHECK_OFFER.id);
-  return <StoryClubReservePage locale={locale} productId={LIVE_CHECK_OFFER.id} intro={<div data-live-check-terms>
+  // PayPal stays available while the bank transfer is waiting; once the transfer is received (or mismatched) it is hidden so
+  // nobody pays twice (P5c, 15 Nov 2026).
+  return <StoryClubReservePage locale={locale} productId={LIVE_CHECK_OFFER.id} intro={(payFinal: boolean) => <div data-live-check-terms>
     <p className="mt-2">{c.lead}</p>
     <ul className="mt-3 list-disc space-y-1 pl-5">{c.points.map((point) => <li key={point}>{point}</li>)}</ul>
-    <p className="mt-3 text-sm"><a href={paypal} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4" data-paypal-link={LIVE_CHECK_OFFER.id}>{c.paypal}</a></p>
+    {payFinal ? null : <p className="mt-3 text-sm"><a href={paypal} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4" data-paypal-link={LIVE_CHECK_OFFER.id}>{c.paypal}</a></p>}
   </div>} />;
 }

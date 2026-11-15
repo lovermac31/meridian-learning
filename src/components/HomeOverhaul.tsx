@@ -1,9 +1,13 @@
 import { IeltsAppEntrance } from './IeltsAppEntrance';
 import { buyCta, paymentHref } from '../config/payment';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
-import { CONTACT_EMAIL, getOverhaulContent, HOME_PRIMARY_OPTION, IMG } from '../i18n/content/overhaul';
+import { CONTACT_EMAIL, getOverhaulContent, HOME_PRIMARY_OPTION, IMG, PRODUCTS_NEW_HIGHLIGHT } from '../i18n/content/overhaul';
+
+// The "New" chip on the Phonics home tiles (15 Nov 2026), the header badge's style.
+const NEW_CHIP = 'ml-1 inline-block rounded-full bg-sb-amber-deep px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white';
 import { recordClientEvent } from '../lib/tracker';
 import { getLocalizedHref } from '../i18n/localizedHref';
+import { movedHref } from '../config/movedToJurassicielts';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
 import { FounderFilmLink } from './FounderFilmLink';
@@ -61,7 +65,7 @@ const STEP_STYLES = ['bg-sb-sage text-sb-sage-ink', 'bg-amber-100 text-sb-amber-
 
 export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => void }) {
   const locale = getCurrentLocale();
-  const { home } = getOverhaulContent(locale);
+  const { home, nav } = getOverhaulContent(locale);
   const { hero, find, paths, lesson, jay, pricing, faq } = home;
 
   return (
@@ -105,7 +109,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
                 className="flex min-h-11 h-full items-center justify-between gap-1.5 rounded-xl border border-sb-forest/30 bg-white px-3 py-2 text-sm font-bold leading-tight text-sb-forest transition hover:border-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
                 data-home-top-tile={tile.anchor}
               >
-                <span className="min-w-0">{tile.title}</span>
+                <span className="min-w-0">{tile.title}{'isNew' in tile && tile.isNew && PRODUCTS_NEW_HIGHLIGHT ? <>{' '}<span className={NEW_CHIP} data-home-new={tile.anchor}>{nav.newBadge}</span></> : null}</span>
                 <ArrowRight aria-hidden="true" className="h-4 w-4 flex-none" />
               </a>
             </li>
@@ -181,7 +185,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
       <section className="border-t border-sb-border bg-white px-4 py-8 sm:px-6" aria-labelledby="find-heading">
         <div className="mx-auto max-w-7xl">
           <h2 id="find-heading" className="text-xl font-extrabold text-sb-forest">{find.heading}</h2>
-          <ul className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {find.tiles.map((tile) => (
               <li key={tile.anchor}>
                 <a
@@ -198,7 +202,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
                 >
                   <img src={`/images/products/${tile.image}.webp`} alt={locale === 'vi' ? `${tile.title}, bìa sản phẩm` : `${tile.title}, product cover`} width={480} height={480} loading="lazy" decoding="async" className="h-16 w-16 flex-none rounded-xl object-cover" />
                   <span className="min-w-0">
-                    <span className="block font-extrabold text-sb-forest">{tile.title}</span>
+                    <span className="block font-extrabold text-sb-forest">{tile.title}{'isNew' in tile && tile.isNew && PRODUCTS_NEW_HIGHLIGHT ? <>{' '}<span className={NEW_CHIP} data-home-new={tile.anchor}>{nav.newBadge}</span></> : null}</span>
                     <span className="block text-sm text-sb-slate">{tile.promise}</span>
                     <span className="mt-0.5 block text-sm font-bold text-sb-amber-deep">{tile.from}</span>
                   </span>
@@ -208,7 +212,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
             ))}
           </ul>
           <p className="mt-4 text-sm text-sb-slate" data-home-free-tools>
-            <a className="font-bold text-sb-forest underline" href={getLocalizedHref('/tools/ielts-band-score-calculator', locale)}>
+            <a className="font-bold text-sb-forest underline" href={movedHref(getLocalizedHref('/tools/ielts-band-score-calculator', locale))}>
               {locale === 'vi' ? 'Tính điểm IELTS miễn phí (làm tròn overall)' : 'Free IELTS band score calculator (overall rounding)'}
             </a>
           </p>

@@ -36,15 +36,15 @@
          (stylesheet, then font file) before the h1 could take its final paint; a
          late font swap re-stamps text LCP, which is what Speed Insights measured
          (Desktop LCP 5.24s P75). The @font-face now lives inline (CC BY 4.0 —
-         font served by and credited to www.OnlineWebFonts.Com) and the woff2 is
-         preloaded, so the fetch starts at HTML parse and normally lands before
+         font credited to www.OnlineWebFonts.Com, self-hosted under /fonts/ since
+         12 Nov 2026 so mainland-China visitors are not waiting on a third-party
+         host) and the woff2 is preloaded, so the fetch starts at HTML parse and normally lands before
          React's first render — the h1 first-paints in its final font. -->
-    <link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin />
     <link
       rel="preload"
       as="font"
       type="font/woff2"
-      href="https://db.onlinewebfonts.com/t/3000a0539c78d3cf6ab2d94db856f5ef.woff2"
+      href="/fonts/neuland-inline.woff2"
       crossorigin
     />
 
@@ -67,8 +67,8 @@
       html,body{background:#101820;margin:0}#root{min-height:100vh}
       @font-face{
         font-family:"Neuland-Inline";
-        src:url("https://db.onlinewebfonts.com/t/3000a0539c78d3cf6ab2d94db856f5ef.woff2")format("woff2"),
-            url("https://db.onlinewebfonts.com/t/3000a0539c78d3cf6ab2d94db856f5ef.woff")format("woff");
+        src:url("/fonts/neuland-inline.woff2")format("woff2"),
+            url("/fonts/neuland-inline.woff")format("woff");
         font-weight:normal;
         font-style:normal;
         font-display:swap;

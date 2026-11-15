@@ -13,8 +13,8 @@ import { resolveLocalizedRoute } from '../src/i18n/routing';
 const amounts: Record<string, number> = {
   'story-club': 590000, baseline: 690000, 'one-to-one': 5600000, 'printable-pack': 149000,
   'parent-pack-l1': 249000, 'parent-pack-l2': 249000, 'parent-pack-l3': 249000,
-  'holiday-reading-challenge': 149000, 'story-workbooks-l1': 290000, 'story-workbooks-l2': 190000, 'story-workbooks-l3': 190000,
-  'story-workbooks-l4': 190000, 'story-workbooks-l5': 190000, 'teacher-pack-l1': 690000, 'teacher-pack-l2': 690000,
+  'holiday-reading-challenge': 149000, 'story-workbooks-l1': 290000, 'story-workbooks-l2': 290000, 'story-workbooks-l3': 290000,
+  'story-workbooks-l4': 290000, 'story-workbooks-l5': 290000, 'teacher-pack-l1': 690000, 'teacher-pack-l2': 690000,
   'teacher-pack-l3': 690000, 'teacher-pack-l4': 690000, 'teacher-pack-l5': 690000, 'teacher-bundle': 2900000,
   'student-workbook-l1': 190000, 'student-workbook-l2': 190000, 'student-workbook-l3': 190000,
   'student-workbook-l4': 190000, 'student-workbook-l5': 190000, 'word-fossil-flashcards-l1': 190000,
@@ -101,7 +101,7 @@ test('meeting CTAs use attributed Zalo links and never render payment instructio
 
 test('paused products: the server list matches products.ts, and no paused product takes a new order (audit fix 4)', () => {
   assert.deepEqual([...PAUSED_PRODUCTS].sort(), PRODUCTS.filter(p => p.paused).map(p => p.id).sort());
-  assert.deepEqual([...PAUSED_PRODUCTS].sort(), ['student-workbook-l2', 'student-workbook-l3', 'student-workbook-l4', 'student-workbook-l5', 'teacher-bundle', 'teacher-pack-l2', 'teacher-pack-l3', 'teacher-pack-l4', 'teacher-pack-l5']);
+  assert.deepEqual([...PAUSED_PRODUCTS].sort(), [], 'nothing is paused since 13 Nov 2026');
 });
 
 test('Mango pilot: 49000₫ with order code MANGO-L2 and its own memo namespace (audit fix 1)', async () => {

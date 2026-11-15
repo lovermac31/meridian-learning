@@ -17,9 +17,9 @@ test('Story Club reserve validates name, Vietnam Zalo, age and configured group'
 });
 
 test('group labels are localized while stored option values remain stable', () => {
-  assert.deepEqual(STORY_CLUB_NEXT_GROUP, { en: 'Sat 9:00', vi: 'Thứ Bảy 9:00' });
+  assert.deepEqual(STORY_CLUB_NEXT_GROUP, { en: 'Sat 13:00', vi: 'Thứ Bảy 13:00' });
   assert.deepEqual(STORY_CLUB_GROUPS, [
-    { id: 'sat-0900', label: { en: 'Sat 9:00', vi: 'Thứ Bảy 9:00' } },
+    { id: 'sat-0900', label: { en: 'Sat 13:00', vi: 'Thứ Bảy 13:00' } },
     { id: 'flexible', label: { en: 'Another time / please ask me', vi: 'Thời gian khác / vui lòng liên hệ' } },
   ]);
   for (const group of STORY_CLUB_GROUPS) {
