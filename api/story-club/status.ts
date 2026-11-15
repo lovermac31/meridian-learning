@@ -10,7 +10,8 @@ const MEMO_PATTERN = /^SC-[A-Z0-9]{6}$/;
 //                    400 {error: "unknown_code"} for anything that is not a Story Club code (format only, no lookup, so it is
 //                    no oracle: an unknown well-formed code answers "waiting" like an unpaid one); 429 {error: "rate_limited"};
 //                    503 {error: "unavailable"}.
-// Both read only story_club_reservations.paid_at for that one memo with the server key. Same-origin only: no CORS headers.
+// Both read only whether that one memo is paid, through the definer RPC story_club_payment_status (20261115000002;
+// service_role has no table privileges). Same-origin only: no CORS headers.
 // Nothing about the payer exists in that table; nothing is logged beyond the rate-limit hash.
 type Body = { paid: boolean } | { status: 'waiting' | 'received' } | { error: 'unknown_code' | 'rate_limited' | 'unavailable' | 'method_not_allowed' };
 

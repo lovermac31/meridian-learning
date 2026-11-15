@@ -20,7 +20,7 @@ async function request(options: { method?: string; memo?: string; code?: string;
   globalThis.fetch = (async (input, init) => {
     calls.push(String(input));
     if (options.db === 'down') throw new Error('synthetic failure');
-    // The definer RPC (20261115000001): POST /rest/v1/rpc/story_club_payment_status {p_memo} -> {status}.
+    // The definer RPC (20261115000002): POST /rest/v1/rpc/story_club_payment_status {p_memo} -> {status}.
     if (!String(input).endsWith('/rest/v1/rpc/story_club_payment_status') || init?.method !== 'POST') return new Response('{}', { status: 403 });
     bodies.push(String(init.body));
     const status = options.db === 'unknown' ? 'not_found' : options.db === 'paid' ? 'paid' : 'unpaid';
@@ -125,13 +125,13 @@ test('the status read never touches the table over REST, and the RPC migration k
   const { readFile } = await import('node:fs/promises');
   const writer = await readFile(new URL('../api/_lib/supabaseWriter.ts', import.meta.url), 'utf8');
   assert.doesNotMatch(writer, /rest\/v1\/story_club_reservations/);
-  const sql = await readFile(new URL('../supabase/migrations/20261115000001_story_club_payment_status.sql', import.meta.url), 'utf8');
+  const sql = await readFile(new URL('../supabase/migrations/20261115000002_story_club_payment_status.sql', import.meta.url), 'utf8');
   assert.match(sql, /security definer/);
   assert.match(sql, /set search_path = ''/);
   assert.match(sql, /\bstable\b/);
   assert.match(sql, /revoke all on function public\.story_club_payment_status\(text\) from public, anon, authenticated;/);
   assert.match(sql, /grant execute on function public\.story_club_payment_status\(text\) to service_role;/);
   assert.doesNotMatch(sql.replace(/--.*$/gm, ''), /\b(update|insert|delete)\b/i);
-  const down = await readFile(new URL('../supabase/migrations/20261115000001_story_club_payment_status_down.sql', import.meta.url), 'utf8');
+  const down = await readFile(new URL('../supabase/migrations/20261115000002_story_club_payment_status_down.sql', import.meta.url), 'utf8');
   assert.match(down, /drop function if exists public\.story_club_payment_status\(text\);/);
 });
