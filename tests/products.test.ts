@@ -59,6 +59,7 @@ test('the products hub is released, indexable and paired EN/VI', () => {
 
 test('sections in order, each card with its price and exactly one CTA', async () => {
   const { renderRoute } = await import('../src/entry-server');
+  const { IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
   for (const route of [EN, VI]) {
     const main = amp(mainOf(await renderRoute(route)));
     const order = [...main.matchAll(/<section id="(families|teachers|centres|ielts)"/g)].map((m) => m[1]);
@@ -67,6 +68,16 @@ test('sections in order, each card with its price and exactly one CTA', async ()
       const start = main.indexOf(`<section id="${section}"`);
       const block = main.slice(start, main.indexOf('</section>', start));
       const ids = [...block.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]);
+      if (section === IELTS_MOVED_SECTION) {
+        // IELTS migration P6: #ielts holds no product card, only the one moved card with its one JurassicIELTS link.
+        assert.deepEqual(ids, [], `${route} ${section}: no IELTS product card`);
+        for (const [id] of cards) assert.ok(!main.includes(`id="${id}"`), `${route} ${id}: not on /products`);
+        assert.ok(block.includes('data-ielts-moved=""'), `${route}: the moved IELTS card`);
+        assert.equal([...block.matchAll(/data-ielts-moved-cta=""/g)].length, 1, `${route}: one button on the moved card`);
+        assert.equal(main.split(route === VI ? 'https://jurassicielts.com/vi/solutions/' : 'https://jurassicielts.com/solutions/').length - 1, 1, `${route}: one JurassicIELTS /solutions/ link`);
+        assert.equal([...block.matchAll(/data-cta=/g)].length, 0, `${route}: no order CTA in #ielts`);
+        continue;
+      }
       assert.deepEqual(ids, cards.map(([id]) => id), `${route} ${section}`);
       for (const [id, price] of cards) {
         const card = block.slice(block.indexOf(`id="${id}"`), block.indexOf('</li>', block.indexOf(`id="${id}"`)));
@@ -82,6 +93,7 @@ test('sections in order, each card with its price and exactly one CTA', async ()
 
 test('every link carries utm_source=products before any #anchor, in the page language', async () => {
   const { renderRoute } = await import('../src/entry-server');
+  const { IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
   const expected = {
     [EN]: { 'story-club': '/story-club?utm_source=products', baseline: '/ai-speaking/baseline?utm_source=products', 'one-to-one': '/ai-speaking/lessons?utm_source=products' },
     [VI]: { 'story-club': '/vi/story-club?utm_source=products', baseline: '/ai-speaking/baseline?lang=vi&utm_source=products', 'one-to-one': '/ai-speaking/vi/lessons?utm_source=products' },
@@ -90,7 +102,9 @@ test('every link carries utm_source=products before any #anchor, in the page lan
     const main = amp(mainOf(await renderRoute(route)));
     const ctas = Object.fromEntries([...main.matchAll(/href="([^"]+)"[^>]*data-cta="product-([^"]+)"/g)].map((m) => [m[2], m[1]]));
     for (const [id, href] of Object.entries(expected[route])) assert.equal(ctas[id], href, `${route} ${id}`);
-    for (const id of ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId).filter((cardId) => !PAUSED.has(cardId)), ...SHOWN.centres.map(([cardId]) => cardId), ...SHOWN.ielts.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
+    for (const id of ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', ...SHOWN.teachers.map(([cardId]) => cardId).filter((cardId) => !PAUSED.has(cardId)), ...SHOWN.centres.map(([cardId]) => cardId)]) assert.equal(ctas[id], PRODUCTS_ZALO, `${route} ${id}`);
+    // IELTS migration P6: the IELTS cards (and their Zalo order links) left /products.
+    for (const [id] of SHOWN[IELTS_MOVED_SECTION]) assert.equal(ctas[id], undefined, `${route} ${id}: no IELTS order link`);
     for (const id of PAUSED) assert.equal(ctas[id], undefined, `${route} ${id}: paused, no order link`);
     assert.equal(PRODUCTS_ZALO, '/go/zalo?utm_source=products');
     // Every link in the page body (back link, cards, closing CTA) is tagged, except the language switch, the sample
@@ -104,6 +118,9 @@ test('every link carries utm_source=products before any #anchor, in the page lan
       if (/^(\/vi)?\/legal\/privacy$/.test(href)) continue;
       // The IELTS app entrance (Jay + CEO, 2 Nov 2026) carries its own utm_source=site & utm_content=products.
       if (/^https:\/\/ielts\.jurassicenglish\.com\/\?utm_source=site&utm_medium=entrance&utm_content=products(-vi)?$/.test(href)) continue;
+      // IELTS migration P6: the one moved IELTS card links JurassicIELTS /solutions/ (in the page language) with its own
+      // utm_source=jurassicenglish&utm_medium=moved; exactly one such link per page.
+      if (href === `https://jurassicielts.com${route === VI ? '/vi' : ''}/solutions/?utm_source=jurassicenglish&utm_medium=moved`) continue;
       // Lemon Squeezy hosted checkouts carry the order reference and first-touch utm in checkout[custom][...], not utm_source=products.
       if (/^https:\/\/[a-z0-9.-]+\.lemonsqueezy\.com\//.test(href)) continue;
       if (href === counterpart || href.startsWith('#') || /^\/samples\/[^/?#]+-sample\.pdf$/.test(href) || href.startsWith('https://www.paypal.com/cgi-bin/webscr?')) continue;
@@ -116,6 +133,7 @@ test('every link carries utm_source=products before any #anchor, in the page lan
 
 test('digital products state payment and delivery; the Teacher Pack names no published book', async () => {
   const { renderRoute } = await import('../src/entry-server');
+  const { IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
   for (const [route, line] of [
     [EN, 'Pay by VietQR after a written order summary; your files arrive by Google Drive within 24 hours.'],
     [VI, 'Thanh toán qua VietQR sau khi nhận bản tóm tắt đơn hàng; tài liệu được gửi qua Google Drive trong vòng 24 giờ.'],
@@ -123,7 +141,9 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
+    // IELTS migration P6: the IELTS cards (and their delivery lines) left /products.
+    for (const [id] of SHOWN[IELTS_MOVED_SECTION]) assert.ok(!main.includes(`data-delivery="${id}"`), `${route} ${id}: no IELTS delivery line`);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -188,11 +208,13 @@ test('reachable: one footer link (EN + VI), one Kids Academy card link, and Prod
 
 // More products are coming (Teacher Packs L2–5, a bundle): the cards come from one list, so a new card is one entry.
 test('cards are data-driven from PRODUCTS; a product image shows as a square when the entry has one', async () => {
-  const { PRODUCTS, productsPage } = await import('../src/i18n/content/products');
+  const { PRODUCTS, productsPage, IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
   const { ProductsPage } = await import('../src/components/ProductsPage');
   for (const locale of ['en', 'vi'] as const) {
     const ids = productsPage(locale).sections.flatMap((s) => s.cards.map((c) => c.id));
-    assert.deepEqual(ids, PRODUCTS.filter((p) => p.live).map((p) => p.id), `${locale}: every live entry is a card, in list order`);
+    // IELTS migration P6: live IELTS entries stay in PRODUCTS (their pages still build) but are no card on /products.
+    assert.deepEqual(ids, PRODUCTS.filter((p) => p.live && p.section !== IELTS_MOVED_SECTION).map((p) => p.id), `${locale}: every live entry is a card, in list order`);
+    for (const p of PRODUCTS.filter((entry) => entry.live && entry.section === IELTS_MOVED_SECTION)) assert.ok(!ids.includes(p.id), `${locale}: ${p.id} is no card`);
   }
   // Each image an entry names exists in public/images/products.
   for (const p of PRODUCTS.filter((entry) => entry.image)) readFileSync(`public/images/products/${p.image}.webp`);
@@ -210,7 +232,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
     assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...SHOWN.teachers.map(([id]) => id), 'test-extra']);
     assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" srcSet="[^"]*\/images\/products\/w\/teacher-bundle-400\.webp 400w[^"]*" sizes="[^"]+" alt="[^"]+ cover" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
-    assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.live && p.image).length);
+    assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.live && p.image && p.section !== IELTS_MOVED_SECTION).length);
   } finally {
     PRODUCTS.pop();
   }
@@ -237,12 +259,16 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     // Phonics Books 1 and 2 (15 Nov 2026): the book cover on a champagne square.
     'phonics-b1': 'phonics-b1', 'phonics-b2': 'phonics-b2',
   };
+  const { PRODUCTS, IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
+  // IELTS migration P6: the IELTS cards left /products; their images stay on their entries (the product pages still build).
+  const moved = new Set(PRODUCTS.filter((p) => p.section === IELTS_MOVED_SECTION).map((p) => p.id));
   for (const locale of ['en', 'vi'] as const) {
     setServerLocation(locale === 'en' ? EN : VI);
     const cards = productsContent[locale].sections.flatMap((s) => s.cards);
-    assert.deepEqual(Object.fromEntries(cards.filter((c) => c.image).map((c) => [c.id, c.image])), expected, locale);
+    assert.deepEqual(Object.fromEntries(cards.filter((c) => c.image).map((c) => [c.id, c.image])), Object.fromEntries(Object.entries(expected).filter(([id]) => !moved.has(id))), locale);
+    assert.ok(!cards.some((c) => moved.has(c.id)), `${locale}: no IELTS card`);
   }
-  const { PRODUCTS } = await import('../src/i18n/content/products');
+  for (const id of moved) assert.equal(PRODUCTS.find((p) => p.id === id)!.image, expected[id], `${id}: image kept on the entry`);
   // Every live product has its own image. A hidden card may wait for the image studio (35-today plan, 27 Oct 2026);
   // it cannot go live without one.
   for (const p of PRODUCTS.filter((entry) => entry.live)) assert.ok(p.image, `${p.id} has an image`);
@@ -345,12 +371,14 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
 });
 
 test('samples: the block sits above the price; one button opens the viewer; no link to any PDF', async () => {
-  const { PRODUCTS } = await import('../src/i18n/content/products');
+  const { PRODUCTS, IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
   const { ProductsPage } = await import('../src/components/ProductsPage');
   for (const [locale, route, heading, open] of [['en', EN, 'See a sample', 'See the sample pages'], ['vi', VI, 'Xem mẫu', 'Xem các trang mẫu']] as const) {
     setServerLocation(route);
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
-    assert.deepEqual([...html.matchAll(/data-sample="([^"]+)"/g)].map((m) => m[1]), PRODUCTS.filter((p) => p.live && p.sample).map((p) => p.id), locale);
+    // IELTS migration P6: the IELTS cards (and their sample blocks) left /products.
+    assert.deepEqual([...html.matchAll(/data-sample="([^"]+)"/g)].map((m) => m[1]), PRODUCTS.filter((p) => p.live && p.sample && p.section !== IELTS_MOVED_SECTION).map((p) => p.id), locale);
+    for (const p of PRODUCTS.filter((entry) => entry.live && entry.section === IELTS_MOVED_SECTION)) assert.ok(!html.includes(`data-sample="${p.id}"`), `${locale} ${p.id}: no IELTS sample block`);
     assert.doesNotMatch(html, /href="[^"]*\.pdf/i, `${locale}: no PDF link`);
     assert.doesNotMatch(html, /data-sample-viewer=/, `${locale}: the viewer opens only on request`);
     assert.ok(html.includes('@media print { body { display: none !important; } }'), `${locale}: printing gives a blank page`);

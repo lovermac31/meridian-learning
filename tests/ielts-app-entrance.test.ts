@@ -60,12 +60,15 @@ test('no entrance on kids pages or people pages; the home strip is unchanged', a
     assert.ok(html.includes(`href="${ieltsAppHref('home', locale)}"`), `${path}: utm_content home${locale === 'vi' ? '-vi' : ''}`);
     assert.equal((html.match(/data-ielts-app-entrance=/g) ?? []).length, 0, `${path}: no compact card on home`);
   }
-  // /products: banner above the segment tiles, the IELTS-group card kept, both with the adults label.
+  // /products: banner above the segment tiles, with the adults label. IELTS migration P6: the in-catalogue IELTS app
+  // card left with the IELTS group; the one moved IELTS card stands in its place.
   for (const route of ['/products', '/vi/products']) {
     const html = amp(await renderRoute(route));
     assert.ok(html.indexOf('data-ielts-app-banner="products"') < html.indexOf('data-products-mini-nav'), `${route}: banner above the tiles`);
-    assert.ok(html.includes('data-ielts-app-card'), `${route}: card kept in the IELTS group`);
-    assert.ok((html.match(/data-ielts-app-adults=""/g) ?? []).length >= 1, `${route}: adults label`);
+    assert.ok(!html.includes('data-ielts-app-card'), `${route}: no in-catalogue IELTS app card (IELTS moved to jurassicielts.com)`);
+    assert.match(html, /<section id="ielts"[^>]*data-ielts-moved="">/, `${route}: the one moved IELTS card`);
+    // The adults label now sits only on the banner (the in-catalogue card that carried data-ielts-app-adults is gone).
+    assert.match(html, new RegExp(`data-ielts-app-banner="products">[\\s\\S]*?<span class="ielts-app-banner-adults">${route.startsWith('/vi') ? 'Người lớn 18\\+' : 'Adults 18\\+'}</span>`), `${route}: adults label`);
     assert.ok(html.includes(`href="${ieltsAppHref('products', route.startsWith('/vi') ? 'vi' : 'en')}"`), route);
   }
 });

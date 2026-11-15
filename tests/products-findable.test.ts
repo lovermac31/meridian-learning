@@ -186,12 +186,16 @@ test('order codes: the channel code from the table, else the source, else the ca
 
 test('order codes: every Order on Zalo button shows its code line (EN + VI); other buttons do not', async () => {
   const { renderRoute } = await import('../src/entry-server');
-  const zalo = PRODUCTS.filter((p) => p.live && p.href === 'zalo' && !p.paused).map((p) => p.id);
+  const { IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
+  // IELTS migration P6: the IELTS cards (and their Zalo buttons) left /products; the moved card has no order code.
+  const zalo = PRODUCTS.filter((p) => p.live && p.href === 'zalo' && !p.paused && p.section !== IELTS_MOVED_SECTION).map((p) => p.id);
+  const moved = PRODUCTS.filter((p) => p.live && p.section === IELTS_MOVED_SECTION).map((p) => p.id);
   assert.ok(zalo.length >= 10);
   for (const [route, before] of [['/products', 'When you message, mention code'], ['/vi/products', 'Khi nhắn tin, hãy nhắc mã']] as const) {
     const html = await renderRoute(route);
     const lines = [...html.replaceAll('<!-- -->', '').matchAll(/<p class="mt-2 text-xs" data-order-code="([^"]+)">([^<]*)<strong>([^<]+)<\/strong>\.<\/p>/g)];
     assert.deepEqual(lines.map((m) => m[1]), zalo, route);
+    for (const id of moved) assert.ok(!html.includes(`data-order-code="${id}"`), `${route} ${id}: no IELTS order code on /products`);
     for (const [, id, text, code] of lines) {
       assert.equal(text.trim(), before, `${route} ${id}`);
       assert.equal(code, id.toUpperCase(), `${route} ${id}: card id until the visit source is read`);
