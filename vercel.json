@@ -757,6 +757,30 @@
     },
     {
       "source": "/live-speaking-check",
+      "has": [
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "vi"
+        }
+      ],
+      "destination": "https://jurassicielts.com/vi/solutions/live-speaking-check/",
+      "permanent": true
+    },
+    {
+      "source": "/live-speaking-check/",
+      "has": [
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "vi"
+        }
+      ],
+      "destination": "https://jurassicielts.com/vi/solutions/live-speaking-check/",
+      "permanent": true
+    },
+    {
+      "source": "/live-speaking-check",
       "destination": "https://jurassicielts.com/solutions/live-speaking-check/",
       "permanent": true
     },

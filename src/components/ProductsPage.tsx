@@ -902,8 +902,9 @@ export function ProductsPage({ locale }: { locale: Locale }) {
           </section>
         ))}
         {/* IELTS migration P6: one card instead of the IELTS product cards; their JE pages redirect to jurassicielts.com.
-            id="ielts" keeps old #ielts links landing here. */}
-        <section id="ielts" aria-labelledby="ielts-h" className="products-category scroll-mt-24 max-md:scroll-mt-36" data-ielts-moved="">
+            id="ielts" keeps old #ielts links landing here. Shown with no filter and under Teachers and Centres (IELTS teaching
+            materials lived there); hidden only under the children's filters. */}
+        <section id="ielts" aria-labelledby="ielts-h" className="products-category scroll-mt-24 max-md:scroll-mt-36" hidden={filter === 'families' || filter === PHONICS_SEGMENT || filter === WORKBOOKS_SEGMENT} data-ielts-moved="">
           <div className="products-category-head">
             <h2 id="ielts-h">{c.ieltsMovedSection.heading}</h2>
             <p className="products-category-intro">{c.ieltsMovedSection.intro}</p>

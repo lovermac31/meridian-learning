@@ -22,11 +22,13 @@ test('asset inventory covers published IELTS SEO pages, with localized anchors a
       assert.equal(url.searchParams.get('utm_medium'), 'internal');
       assert.equal(url.searchParams.get('utm_content'), card.path.slice(1).replaceAll('/', '-'));
       if (link.href.startsWith('/')) assert.ok(publicRoutes.has(url.pathname) || url.pathname === '/ai-speaking/baseline', link.href);
-      else assert.ok(['books.jurassicenglish.com', 'story-quest.jurassicenglish.com'].includes(url.hostname));
+      // IELTS migration P6: IELTS product links point at their jurassicielts.com pages (the JE pages redirect there).
+      else assert.ok(['books.jurassicenglish.com', 'story-quest.jurassicenglish.com', 'jurassicielts.com'].includes(url.hostname));
     }
     if (/ielts|insights|cong-cu/.test(card.path)) {
       assert.ok(card.links.some(link => link.href.startsWith('/ai-speaking/baseline?')));
-      assert.ok(card.links.some(link => /\/products\/ielts-/.test(link.href)));
+      assert.ok(card.links.some(link => /^https:\/\/jurassicielts\.com\/(?:vi\/)?solutions\/[a-z0-9-]+\/\?/.test(link.href)));
+      assert.ok(card.links.every(link => !/\/products\/ielts-|live-speaking-check/.test(link.href) || link.href.startsWith('https://jurassicielts.com/')));
       assert.ok(card.links.every(link => !/books\.|story-quest|story-club/.test(link.href)));
     }
   }

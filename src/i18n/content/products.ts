@@ -1726,7 +1726,7 @@ const PAGE: Record<Locale, PageCopy> = {
       home: { speaking: 'Thêm về luyện IELTS Speaking', writing: 'Thêm về luyện IELTS Writing' },
       crumb: 'IELTS',
     },
-    ieltsMoved: { heading: 'Khóa học và công cụ IELTS hiện có tại JurassicIELTS', cta: 'Đến JurassicIELTS', href: `https://jurassicielts.com/vi/solutions/?${IELTS_MOVED_UTM}` },
+    ieltsMoved: { heading: 'Khóa học và công cụ IELTS hiện có tại JurassicIELTS', cta: 'Xem tại JurassicIELTS', href: `https://jurassicielts.com/vi/solutions/?${IELTS_MOVED_UTM}` },
     closing: { heading: 'Chưa chắc sản phẩm nào phù hợp?', body: 'Nhắn thầy Jay qua Zalo, thầy sẽ gợi ý lựa chọn phù hợp. Không thu tiền cho đến khi bạn đồng ý bản tóm tắt đơn hàng bằng văn bản.', cta: 'Hỏi thầy Jay qua Zalo' },
   },
 };

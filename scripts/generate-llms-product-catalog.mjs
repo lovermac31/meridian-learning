@@ -2,12 +2,13 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { PRODUCTS } from '../src/i18n/content/products.ts';
+import { IELTS_MOVED_SECTION, PRODUCTS } from '../src/i18n/content/products.ts';
 import { PRODUCT_SEO } from '../src/i18n/content/productSeo.ts';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const site = 'https://jurassicenglish.com';
-const products = PRODUCTS.filter((product) => product.live && PRODUCT_SEO[product.id]);
+// IELTS migration P6: IELTS products moved to jurassicielts.com; their JE pages redirect there.
+const products = PRODUCTS.filter((product) => product.live && PRODUCT_SEO[product.id] && product.section !== IELTS_MOVED_SECTION);
 const lines = [
   '# Jurassic English product catalogue', '',
   '> Machine-readable index of live product pages. Names, descriptions, prices and availability are generated from the website source.', '',
