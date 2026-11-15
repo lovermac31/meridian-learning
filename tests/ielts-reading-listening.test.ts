@@ -37,20 +37,18 @@ test('Reading and Listening: live #ielts cards (Reading 250.000₫ / US$10 from 
 });
 
 test('/products: Reading and Listening headings follow Writing, each card in its group, with no IELTS home link', () => {
+  // IELTS migration P6: the IELTS groups and cards left /products (their pages redirect to jurassicielts.com). #ielts is
+  // the one moved card: no group headings, no Reading or Listening card, no IELTS tile.
   for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     const ielts = html.slice(html.indexOf('<section id="ielts"'), html.indexOf('</section>', html.indexOf('<section id="ielts"')));
-    const at = IELTS_GROUPS.map((group) => ielts.indexOf(`data-ielts-group="${group}"`));
-    assert.ok(at.every((index, i) => index > 0 && (i === 0 || index > at[i - 1])), `${locale}: Speaking, Writing, Reading, Listening, Bundles`);
-    assert.match(ielts, /<h3 id="ielts-reading"[^>]*>IELTS Reading<\/h3>/);
-    assert.match(ielts, /<h3 id="ielts-listening"[^>]*>IELTS Listening<\/h3>/);
-    for (const [id, spec] of Object.entries(NEW)) {
-      const block = ielts.slice(ielts.indexOf(`data-ielts-group="${spec.group}"`));
-      const card = block.slice(block.indexOf(`id="${id}"`), block.indexOf('</li>', block.indexOf(`id="${id}"`)));
-      assert.ok(card.length > 0, `${locale}: ${id} under ${spec.group}`);
-      assert.doesNotMatch(card, /data-ielts-home=|data-watch=/, `${locale}: ${id} has no home or film link`);
+    assert.ok(ielts.includes('data-ielts-moved=""'), `${locale}: #ielts is the moved card`);
+    for (const group of IELTS_GROUPS) assert.ok(!html.includes(`data-ielts-group="${group}"`), `${locale}: no ${group} group on /products`);
+    assert.doesNotMatch(html, /<h3 id="ielts-reading"/);
+    assert.doesNotMatch(html, /<h3 id="ielts-listening"/);
+    for (const id of Object.keys(NEW)) {
+      assert.ok(!html.includes(`id="${id}"`), `${locale}: no ${id} card on /products`);
     }
-    const tile = html.match(/data-category-tile="ielts"[\s\S]*?<\/button>/)![0];
-    assert.ok(tile.includes('IELTS Speaking · IELTS Writing · IELTS Reading · IELTS Listening'), `${locale}: the IELTS tile names all four skills`);
+    assert.doesNotMatch(html, /data-category-tile="ielts"/, `${locale}: no IELTS tile`);
   }
 });

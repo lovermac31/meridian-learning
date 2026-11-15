@@ -59,16 +59,22 @@ test('pages: no button and no footer line until a URL is configured; then EN pag
       assert.doesNotMatch(renderToStaticMarkup(createElement(ProductsPage, { locale })), /lemonsqueezy/i, `${locale}: hidden by default`);
       assert.doesNotMatch(renderToStaticMarkup(createElement(Footer, { onNavigate: () => {} })), /Lemon Squeezy/, `${locale}: no footer line by default`);
     }
-    _setLemonSqueezyCheckouts({ 'ielts-cue-card-bank': CUE });
+    // IELTS migration P6: the IELTS cards left /products, so the hub check uses the Printable Pack (a digital card still
+    // on /products); the product page check below keeps the IELTS Cue Card Bank page, which still builds.
+    _setLemonSqueezyCheckouts({ 'ielts-cue-card-bank': CUE, 'printable-pack': CUE });
     assert.equal(isLemonSqueezyEnabled('ielts-cue-card-bank'), true);
+    assert.equal(isLemonSqueezyEnabled('printable-pack'), true);
     setServerLocation('/products');
     const en = amp(renderToStaticMarkup(createElement(ProductsPage, { locale: 'en' })));
-    const card = en.slice(en.indexOf('id="ielts-cue-card-bank"'), en.indexOf('</li>', en.indexOf('id="ielts-cue-card-bank"')));
-    assert.match(card, /data-lemonsqueezy="ielts-cue-card-bank"/);
-    assert.match(card, new RegExp(`<a href="${CUE.replace(/[.]/g, '\\.')}\\?checkout%5Bcustom%5D%5Border_ref%5D=ielts-cue-card-bank%7CIELTS-CUE-CARD-BANK[^"]*" target="_blank" rel="noopener noreferrer"[^>]*data-lemonsqueezy-link="ielts-cue-card-bank">Pay US\\$8 by card, Alipay or WeChat</a>`));
+    assert.ok(en.includes('id="printable-pack"'), 'the Printable Pack card is on /products');
+    const card = en.slice(en.indexOf('id="printable-pack"'), en.indexOf('</li>', en.indexOf('id="printable-pack"')));
+    assert.match(card, /data-lemonsqueezy="printable-pack"/);
+    assert.match(card, new RegExp(`<a href="${CUE.replace(/[.]/g, '\\.')}\\?checkout%5Bcustom%5D%5Border_ref%5D=printable-pack%7CPRINTABLE-PACK[^"]*" target="_blank" rel="noopener noreferrer"[^>]*data-lemonsqueezy-link="printable-pack">Pay US\\$6 by card, Alipay or WeChat</a>`));
     assert.equal([...card.matchAll(/data-cta="/g)].length, 1, 'still one order CTA');
-    assert.ok(card.indexOf('data-paypal="ielts-cue-card-bank"') < card.indexOf('data-lemonsqueezy="ielts-cue-card-bank"'), 'VietQR first, PayPal, then card');
-    assert.doesNotMatch(en.slice(en.indexOf('id="ielts-speaking-ladder"'), en.indexOf('</li>', en.indexOf('id="ielts-speaking-ladder"'))), /lemonsqueezy/, 'a product without a URL shows nothing');
+    assert.ok(card.indexOf('data-paypal="printable-pack"') >= 0 && card.indexOf('data-paypal="printable-pack"') < card.indexOf('data-lemonsqueezy="printable-pack"'), 'VietQR first, PayPal, then card');
+    assert.ok(en.includes('id="parent-pack-l1"'), 'the Parent Pack L1 card is on /products');
+    assert.doesNotMatch(en.slice(en.indexOf('id="parent-pack-l1"'), en.indexOf('</li>', en.indexOf('id="parent-pack-l1"'))), /lemonsqueezy/, 'a product without a URL shows nothing');
+    assert.doesNotMatch(en, /data-lemonsqueezy="ielts-cue-card-bank"/, 'no IELTS card on /products');
     const page = amp(renderToStaticMarkup(createElement(ProductPage, { product: PRODUCTS.find((p) => p.id === 'ielts-cue-card-bank')!, locale: 'en' })));
     assert.match(page, /data-lemonsqueezy="ielts-cue-card-bank"/);
     assert.match(page, /Processed by Lemon Squeezy, which emails your download link\./);

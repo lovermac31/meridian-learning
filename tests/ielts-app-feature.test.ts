@@ -32,15 +32,19 @@ test('home: the IELTS app strip sits directly under the hero, EN + VI, with the 
 });
 
 test('/products: the free IELTS app card tops the IELTS group with utm_content=products; prices and cards unchanged', () => {
-  for (const [locale, title] of [['en', 'Free: IELTS Speaking practice, 2 attempts'], ['vi', 'Miễn phí: luyện IELTS Speaking, 2 lượt thử']] as const) {
+  // IELTS migration P6: the IELTS group (with its free app card) left /products. #ielts is now the one moved card,
+  // with no app card, no IELTS groups and no priced card; the free app stays reachable from the banner.
+  for (const [locale, title, solutions] of [['en', 'Free: IELTS Speaking practice, 2 attempts', 'https://jurassicielts.com/solutions/?utm_source=jurassicenglish&utm_medium=moved'], ['vi', 'Miễn phí: luyện IELTS Speaking, 2 lượt thử', 'https://jurassicielts.com/vi/solutions/?utm_source=jurassicenglish&utm_medium=moved']] as const) {
     setServerLocation(locale === 'vi' ? '/vi/products' : '/products');
     const html = amp(renderToStaticMarkup(createElement(ProductsPage, { locale })));
     const section = html.slice(html.indexOf('<section id="ielts"'), html.indexOf('</section>', html.indexOf('<section id="ielts"')));
-    const card = section.indexOf('data-ielts-app-card');
-    assert.ok(card > 0 && card < section.indexOf('data-ielts-group="speaking"'), `${locale}: above the Speaking group`);
-    assert.ok(section.includes(`>${title}<`), `${locale}: title`);
-    assert.ok(section.includes(`href="${ieltsAppHref('products', locale)}"`), `${locale}: entrance link`);
-    assert.doesNotMatch(section.slice(card, section.indexOf('data-ielts-group="speaking"')), /<li |data-price=/, `${locale}: not a priced product card`);
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 49, `${locale}: 49 product cards (Phonics Books 1 and 2, 35, the five Story Workbooks, the Mango single workbook, IELTS Reading and Listening, the Diagnostic Mock, the three IELTS bundles)`);
+    assert.ok(section.includes('data-ielts-moved=""'), `${locale}: #ielts is the moved card`);
+    assert.ok(!html.includes('data-ielts-app-card'), `${locale}: no in-catalogue IELTS app card`);
+    assert.ok(!html.includes(`>${title}<`), `${locale}: no app card title`);
+    assert.ok(!section.includes('data-ielts-group='), `${locale}: no IELTS groups`);
+    assert.ok(section.includes(`href="${solutions}"`), `${locale}: the moved card links JurassicIELTS /solutions/`);
+    assert.ok(html.includes(`href="${ieltsAppHref('products', locale)}"`), `${locale}: entrance link (banner)`);
+    assert.doesNotMatch(section, /<li |data-price=/, `${locale}: not a priced product card`);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 35, `${locale}: 35 product cards (Phonics Books 1 and 2, the five Story Workbooks, the Mango single workbook and the rest; the 14 IELTS cards moved to jurassicielts.com)`);
   }
 });

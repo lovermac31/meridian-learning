@@ -1,5 +1,5 @@
 import type { Locale } from '../i18n/locales';
-import { PRODUCT_IMAGE_DIR, PRODUCTS, PRODUCTS_PATH } from '../i18n/content/products';
+import { IELTS_MOVED_SECTION, PRODUCT_IMAGE_DIR, PRODUCTS, PRODUCTS_PATH } from '../i18n/content/products';
 import { WORLDWISE_SITE_URL } from './contactConfig';
 import { usdFromVnd } from './paypal';
 import { hasRegionalPrice, regionalUsd } from './regionalPrice';
@@ -286,7 +286,8 @@ export const vndPriceValue = (price: string) => price.replace(/\D/g, '');
 // offer URL is the card itself; the description is the card's "What's inside" line.
 export function createProductListJsonLd(locale: Locale): JsonLd {
   const pageUrl = `${SITE_URL}${locale === 'vi' ? '/vi' : ''}${PRODUCTS_PATH}`;
-  const live = PRODUCTS.filter((product) => product.live);
+  // IELTS migration P6: IELTS products are sold on jurassicielts.com and are no longer on /products.
+  const live = PRODUCTS.filter((product) => product.live && product.section !== IELTS_MOVED_SECTION);
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',

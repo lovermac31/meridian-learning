@@ -72,12 +72,14 @@ test('films: the product page plays the film muted, on demand, above the sample,
 
 test('films: /products shows a Watch link to the product page, never a player; /story-club shows films 01–03', async () => {
   const { renderRoute } = await import('../src/entry-server');
-  const { PRODUCTS } = await import('../src/i18n/content/products');
+  const { PRODUCTS, IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
   for (const [route, label] of [['/products', 'Watch'], ['/vi/products', 'Xem video']] as const) {
     const html = await renderRoute(route);
     assert.doesNotMatch(html, /<video\b/, `${route}: stays light`);
     const watch = [...html.matchAll(/<a href="([^"]+)"[^>]*data-watch="([^"]+)"[^>]*>[\s\S]*?<\/a>/g)];
-    assert.deepEqual(watch.map((m) => m[2]).sort(), PRODUCTS.filter((p) => p.live && p.video).map((p) => p.id).sort(), route);
+    // IELTS migration P6: the IELTS cards (and their Watch links) left /products; their films stay on the IELTS pages.
+    assert.deepEqual(watch.map((m) => m[2]).sort(), PRODUCTS.filter((p) => p.live && p.video && p.section !== IELTS_MOVED_SECTION).map((p) => p.id).sort(), route);
+    assert.ok(!watch.some((m) => PRODUCTS.find((p) => p.id === m[2])?.section === IELTS_MOVED_SECTION), `${route}: no IELTS Watch link`);
     for (const m of watch) {
       assert.equal(m[1], `${route === '/vi/products' ? '/vi' : ''}/products/${m[2]}#video`);
       assert.match(m[0], new RegExp(label));

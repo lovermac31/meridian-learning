@@ -40,17 +40,8 @@ export const PORTAL_BUY_FLAGS: Record<string, boolean> = {
   'teacher-training-course': false,
   'pilot-class-kit': false,
   'curriculum-overview': false,
-  'ielts-speaking-ladder': false,
-  'ielts-one-to-one-starter': false,
-  'ielts-cue-card-bank': false,
-  'writing-baseline': false,
-  'ielts-writing-ladder-task2': false,
-  'ielts-writing-task1-method': false,
-  'ielts-essay-bank-task2': false,
-  'ielts-writing-teacher-pack': false,
-  'ielts-reading-ladder': false,
-  'ielts-listening-profiler': false,
-  'ielts-diagnostic-mock': false,
+  // IELTS migration P6: the 11 IELTS ids (all false) left with their pages; IELTS sells on jurassicielts.com.
+  // The portal SKU ielts-speaking-ladder stays in the database untouched.
 };
 
 export function isPortalBuyEnabled(productId: string): boolean {

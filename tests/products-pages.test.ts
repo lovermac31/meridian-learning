@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { getExpectedPublicIndexableRoutes, getPrerenderRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata';
-import { PAUSED_COPY, PRODUCTS } from '../src/i18n/content/products';
+import { IELTS_MOVED_SECTION, PAUSED_COPY, PRODUCTS } from '../src/i18n/content/products';
 import { PAGE_PRODUCTS, PRODUCT_SEO, getProductByPath, relatedProducts } from '../src/i18n/content/productSeo';
 import { ProductPage } from '../src/components/ProductPage';
 import { ProductsPage } from '../src/components/ProductsPage';
@@ -100,7 +100,9 @@ test('page: H1 distinguishes the localized offer, with the copy, sample viewer b
 test('the /products hub links every card title to its own page', () => {
   for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
-    for (const p of LIVE) assert.match(html, new RegExp(`href="${locale === 'vi' ? '/vi' : ''}/products/${p.id}" [^>]*data-product-page="${p.id}"`), `${locale} ${p.id}`);
+    // IELTS migration P6: the IELTS cards left the hub (their pages redirect to jurassicielts.com), so no title link.
+    for (const p of LIVE.filter((entry) => entry.section !== IELTS_MOVED_SECTION)) assert.match(html, new RegExp(`href="${locale === 'vi' ? '/vi' : ''}/products/${p.id}" [^>]*data-product-page="${p.id}"`), `${locale} ${p.id}`);
+    for (const p of LIVE.filter((entry) => entry.section === IELTS_MOVED_SECTION)) assert.ok(!html.includes(`data-product-page="${p.id}"`), `${locale} ${p.id}: no IELTS card title link`);
   }
 });
 
@@ -139,17 +141,23 @@ test('#ielts: Speaking and Writing groups, no IELTS card under Teachers, each ca
     en: { speaking: '/ai-speaking?utm_source=products', writing: '/ai-speaking/writing?utm_source=products' },
     vi: { speaking: '/ai-speaking/vi?utm_source=products', writing: '/ai-speaking/vi/writing?utm_source=products' },
   };
+  // IELTS migration P6 (15 Nov 2026): the Speaking and Writing groups and their cards left /products for jurassicielts.com.
+  // #ielts is now the one moved card, linking JurassicIELTS /solutions/ in the page language.
+  const solutions = { en: 'https://jurassicielts.com/solutions/?utm_source=jurassicenglish&amp;utm_medium=moved', vi: 'https://jurassicielts.com/vi/solutions/?utm_source=jurassicenglish&amp;utm_medium=moved' };
   for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     const section = (id: string) => html.slice(html.indexOf(`<section id="${id}"`), html.indexOf('</section>', html.indexOf(`<section id="${id}"`)));
     assert.doesNotMatch(section('teachers'), /id="ielts-/, `${locale}: Teachers has no IELTS card`);
     const ielts = section('ielts');
+    assert.ok(ielts.includes('data-ielts-moved=""'), `${locale}: #ielts is the moved card`);
+    assert.ok(ielts.includes(`href="${solutions[locale]}"`), `${locale}: the moved card links JurassicIELTS /solutions/`);
     for (const [group, ids] of Object.entries(groups) as Array<['speaking' | 'writing', string[]]>) {
-      const block = ielts.slice(ielts.indexOf(`data-ielts-group="${group}"`));
-      const end = block.indexOf('data-ielts-group=', 1);
-      const list = end > 0 ? block.slice(0, end) : block;
-      assert.deepEqual([...list.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), ids, `${locale} ${group}`);
-      for (const id of ids) assert.match(list, new RegExp(`data-ielts-home="${id}"><a href="${home[locale][group].replace('?', '\\?')}"`), `${locale} ${id}`);
+      assert.ok(!html.includes(`data-ielts-group="${group}"`), `${locale}: no ${group} group`);
+      for (const id of ids) {
+        assert.ok(!html.includes(`id="${id}"`), `${locale} ${id}: no card on /products`);
+        assert.ok(!html.includes(`data-ielts-home="${id}"`), `${locale} ${id}: no IELTS home link`);
+      }
+      assert.ok(!ielts.includes(home[locale][group]), `${locale} ${group}: no IELTS home link in #ielts`);
     }
   }
 });
