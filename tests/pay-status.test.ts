@@ -5,7 +5,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { POLL, checkPayStatus, isFinalPayState, payStatusSource, pollDelay, watchPayment, type PayCheck, type PayState } from '../src/lib/payStatus';
 import { PayStep, PAY_STATUS_COPY } from '../src/components/PayStep';
-import { RESERVED_SUFFIX, createPaidMemo } from '../api/sample-pack';
+import { createPaidMemo, isMisroutableMemo } from '../api/sample-pack';
 import { PAID_OFFERS, LIVE_CHECK_OFFER } from '../src/config/payment';
 
 // --- status source per code family ---------------------------------------------------------------------------------------
@@ -180,8 +180,8 @@ test('the status copy matches the JurassicIELTS pay step word for word', () => {
   assert.equal(PAY_STATUS_COPY.vi.waiting, 'Đang chờ bạn chuyển khoản… Trang sẽ tự cập nhật, vui lòng giữ trang mở.');
   assert.equal(PAY_STATUS_COPY.en.received, 'Payment received. Thank you!');
   assert.equal(PAY_STATUS_COPY.vi.received, 'Đã nhận thanh toán. Cảm ơn bạn!');
-  assert.deepEqual(PAY_STATUS_COPY.en.next.product.zalo.link, ['Message us on Zalo with your code ', ' to receive your files']);
-  assert.deepEqual(PAY_STATUS_COPY.vi.next.product.zalo.link, ['Nhắn Zalo cho chúng tôi kèm mã ', ' để nhận tài liệu']);
+  assert.deepEqual(PAY_STATUS_COPY.en.next.product.zalo.link, ['Message us on Zalo with your code ', ' to receive your files.']);
+  assert.deepEqual(PAY_STATUS_COPY.vi.next.product.zalo.link, ['Nhắn Zalo cho chúng tôi kèm mã ', ' để nhận tài liệu.']);
   assert.equal(PAY_STATUS_COPY.en.expired.before + PAY_STATUS_COPY.en.expired.link.join('CODE'), 'Already paid? Message us on Zalo with your code CODE.');
 });
 
@@ -189,29 +189,47 @@ test('the status copy matches the JurassicIELTS pay step word for word', () => {
 
 const rawSuffix = (seed: string) => (createHash('sha256').update(seed).digest().readUIntBE(0, 6) % 36 ** 6).toString(36).toUpperCase().padStart(6, '0');
 
-test('createPaidMemo never issues a suffix starting with BL or JE, and a redrawn memo is still stable', () => {
-  // Find real submissions whose first draw is reserved, for both families.
-  const found: Record<'BL' | 'JE', string | undefined> = { BL: undefined, JE: undefined };
-  for (let i = 0; i < 200_000 && !(found.BL && found.JE); i += 1) {
-    const id = `JE-PR03-00000000-0000-4000-8000-${String(i).padStart(12, '0')}`;
-    const first = rawSuffix(`printable-pack:${id}`).slice(0, 2);
-    if ((first === 'BL' || first === 'JE') && !found[first]) found[first] = id;
+const misroutable = (memo: string) => { const [prefix, suffix] = memo.split('-') as [string, string]; return /BL|JE/.test(prefix.slice(-1) + suffix) || /[BJ]$/.test(suffix); };
+
+test('the misroute guard rejects the reviewer examples and every BL/JE or trailing B/J shape', () => {
+  for (const [prefix, suffix] of [['LC', 'W1A7BL'], ['PR03', 'ABCDBL'], ['PR0B', 'L3F2A1'], ['PR03', 'BL3F2A'], ['PR03', 'JEAI12'], ['PR03', 'A1JE2C'], ['PR03', 'A1B2CB'], ['1T', 'A1B2CJ'], ['PR0J', 'E12345'] /* prefix J + E */] as const) {
+    assert.equal(isMisroutableMemo(prefix, suffix), true, `${prefix}-${suffix}`);
   }
-  for (const family of ['BL', 'JE'] as const) {
-    const id = found[family];
-    assert.ok(id, `a ${family} first draw exists in the search space`);
+  for (const [prefix, suffix] of [['PR03', 'AB12CD'], ['PR0B', 'A3F2L1'], ['LC', 'B1A7L2']] as const) {
+    assert.equal(isMisroutableMemo(prefix, suffix), false, `${prefix}-${suffix}`);
+  }
+});
+
+test('createPaidMemo: a misroutable first draw is redrawn, stable on retry; a clean first draw is unchanged', () => {
+  // Real submission ids whose first draw is misroutable, one per kind.
+  const found: Record<'inner' | 'trailing', string | undefined> = { inner: undefined, trailing: undefined };
+  for (let i = 0; i < 200_000 && !(found.inner && found.trailing); i += 1) {
+    const id = `JE-PR03-00000000-0000-4000-8000-${String(i).padStart(12, '0')}`;
+    const suffix = rawSuffix(`printable-pack:${id}`);
+    if (/BL|JE/.test('3' + suffix)) found.inner ??= id;
+    else if (/[BJ]$/.test(suffix)) found.trailing ??= id;
+  }
+  for (const kind of ['inner', 'trailing'] as const) {
+    const id = found[kind];
+    assert.ok(id, `a ${kind} misroutable first draw exists in the search space`);
     const memo = createPaidMemo('printable-pack', id!);
     assert.match(memo, /^PR03-[A-Z0-9]{6}$/);
-    assert.doesNotMatch(memo.slice(5), RESERVED_SUFFIX);
+    assert.equal(misroutable(memo), false);
     assert.notEqual(memo.slice(5), rawSuffix(`printable-pack:${id}`), 'redrawn');
-    assert.equal(createPaidMemo('printable-pack', id!), memo, 'stable on retry');
+    assert.equal(createPaidMemo('printable-pack', id!), memo, 'same key, same memo');
   }
-  // A clean first draw is unchanged from the pre-P5c formula, so memos already shown to buyers stay valid.
   const clean = 'JE-PR03-11111111-1111-4111-8111-111111111111';
-  assert.doesNotMatch(rawSuffix(`printable-pack:${clean}`), RESERVED_SUFFIX);
-  assert.equal(createPaidMemo('printable-pack', clean), `PR03-${rawSuffix(`printable-pack:${clean}`)}`);
-  // Broad sweep across every product prefix.
-  for (const offer of [...PAID_OFFERS, LIVE_CHECK_OFFER]) for (let i = 0; i < 400; i += 1) {
-    assert.doesNotMatch(createPaidMemo(offer.id, `JE-${offer.prefix}-sweep-${i}`).split('-')[1]!, RESERVED_SUFFIX);
+  assert.equal(isMisroutableMemo('PR03', rawSuffix(`printable-pack:${clean}`)), false);
+  assert.equal(createPaidMemo('printable-pack', clean), `PR03-${rawSuffix(`printable-pack:${clean}`)}`, 'draw 0 unchanged when clean');
+});
+
+test('sweep: no issued memo contains BL/JE in prefixLast+suffix or ends in B/J (200k draws for the reviewer prefixes, 20k for every other)', () => {
+  const heavy = new Set(['printable-pack', 'teacher-pack-l4' /* PR0B */, 'live-speaking-check' /* LC */, 'one-to-one' /* 1T */]);
+  for (const offer of [...PAID_OFFERS, LIVE_CHECK_OFFER]) {
+    if (offer.prefix === 'SC' || offer.prefix === 'BL') continue; // SC memos are made in SQL; BL is AIS's own family by design
+    const draws = heavy.has(offer.id) ? 200_000 : 20_000;
+    let bad = 0;
+    for (let i = 0; i < draws; i += 1) if (misroutable(createPaidMemo(offer.id, `JE-${offer.prefix}-sweep-${i}`))) bad += 1;
+    assert.equal(bad, 0, `${offer.id}: ${bad} of ${draws}`);
   }
 });

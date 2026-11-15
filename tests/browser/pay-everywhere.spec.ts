@@ -16,7 +16,8 @@ test.beforeEach(async ({ page, baseURL }) => {
   await page.addInitScript(() => window.addEventListener('je:hydrated', () => { document.documentElement.dataset.qaHydrated = 'true'; }, { once: true }));
   await page.route('**/*', route => {
     const url = new URL(route.request().url());
-    if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/go/') || url.pathname.startsWith('/ai-speaking/')) return route.abort();
+    if (url.pathname.startsWith('/ai-speaking/')) return route.abort(); // P5c: the pay-step status proxy, never real network
+    if (url.origin !== new URL(baseURL!).origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/go/')) return route.abort();
     return route.fallback();
   });
 });

@@ -57,8 +57,8 @@ async function open(page: Page, path: string) {
 
 const politeRegions = (page: Page) => page.locator('[data-payment-instructions] [aria-live="polite"]');
 const COPY = {
-  en: { waiting: 'Waiting for your transfer… This page updates by itself. Keep it open.', thanks: 'Payment received. Thank you!', zalo: (m: string) => `Message us on Zalo with your code ${m} to receive your files` },
-  vi: { waiting: 'Đang chờ bạn chuyển khoản… Trang sẽ tự cập nhật, vui lòng giữ trang mở.', thanks: 'Đã nhận thanh toán. Cảm ơn bạn!', zalo: (m: string) => `Nhắn Zalo cho chúng tôi kèm mã ${m} để nhận tài liệu` },
+  en: { waiting: 'Waiting for your transfer… This page updates by itself. Keep it open.', thanks: 'Payment received. Thank you!', zalo: (m: string) => `Message us on Zalo with your code ${m} to receive your files.` },
+  vi: { waiting: 'Đang chờ bạn chuyển khoản… Trang sẽ tự cập nhật, vui lòng giữ trang mở.', thanks: 'Đã nhận thanh toán. Cảm ơn bạn!', zalo: (m: string) => `Nhắn Zalo cho chúng tôi kèm mã ${m} để nhận tài liệu.` },
 } as const;
 
 test.beforeAll(async () => { await mkdir(SCREENS, { recursive: true }); });

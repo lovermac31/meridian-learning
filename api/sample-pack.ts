@@ -262,9 +262,13 @@ async function sendEmail(lead: SampleLead): Promise<'sent' | 'skipped' | 'failed
   }
 }
 
-// The AI Speaking app's SePay dispatcher reads BL+hex and JE(AI|BL|WR|LD|PD) as its own code families, so a suffix such as
-// "BL3F2A" or "JEAI12" could send a JE payment the wrong way (P5c, 15 Nov 2026). Such a suffix is never issued.
-export const RESERVED_SUFFIX = /^(BL|JE)/;
+// The AI Speaking app's SePay dispatcher reads BL+hex and JE(AI|BL|WR|LD|PD) as its own code families, and a family match that
+// runs past a JE code can win, so "BL" or "JE" anywhere in the code could send a JE payment the wrong way (P5c, 15 Nov 2026;
+// review MEDIUM 1). A draw is rejected when the prefix's last character plus the suffix contains "BL" or "JE" (e.g. LC-W1A7BL,
+// PR03-ABCDBL, PR0B-L3F2A1), or when the suffix ends in "B" or "J" (bank text after the memo could complete BL/JE).
+export function isMisroutableMemo(prefix: string, suffix: string): boolean {
+  return /BL|JE/.test(prefix.slice(-1) + suffix) || /[BJ]$/.test(suffix);
+}
 const memoSuffix = (seed: string) =>
   (createHash('sha256').update(seed).digest().readUIntBE(0, 6) % 36 ** 6).toString(36).toUpperCase().padStart(6, '0');
 
@@ -277,9 +281,9 @@ export function createPaidMemo(product: string, submissionId: string): string {
   if (!offer || !submissionId) throw new Error('Invalid reservation');
   for (let draw = 0; draw < 64; draw += 1) {
     const suffix = memoSuffix(draw === 0 ? `${product}:${submissionId}` : `${product}:${submissionId}:${draw}`);
-    if (!RESERVED_SUFFIX.test(suffix)) return `${offer.prefix}-${suffix}`;
+    if (!isMisroutableMemo(offer.prefix, suffix)) return `${offer.prefix}-${suffix}`;
   }
-  // 64 reserved draws in a row has a probability below 1e-100; fail closed rather than issue a misroutable code.
+  // About 6.5% of draws are rejected, so 64 rejections in a row is below 1e-75; fail closed rather than issue a misroutable code.
   throw new Error('Could not draw a payment memo');
 }
 

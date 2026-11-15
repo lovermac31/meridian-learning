@@ -13,9 +13,9 @@ export const PAY_STATUS_COPY = {
     manual: 'We confirm 1-to-1 payments by hand. We’ll message you on Zalo after we check it.',
     // The delivery step each page already promises. With a contact already sent we deliver there; without one, Zalo with the code.
     next: {
-      product: { sent: 'Next step: we’ll send your order to the email address you gave us.', zalo: { before: '', link: ['Message us on Zalo with your code ', ' to receive your files'] } },
-      'live-check': { sent: 'Next step: Mr. Jay confirms your time on Zalo.', zalo: { before: '', link: ['Message us on Zalo with your code ', ' to book your time.'] } },
-      'story-club': { sent: 'Next step: Mr. Jay will contact you on Zalo to confirm your child’s place.', zalo: null, form: 'Next step: please send your contact details below to confirm your place.' },
+      product: { sent: 'Next step: we’ll send your order to the email address you gave us.', zalo: { before: '', link: ['Message us on Zalo with your code ', ' to receive your files.'] } },
+      'live-check': { sent: 'Next step: we’ll message you on Zalo to confirm your time.', zalo: { before: '', link: ['Message us on Zalo with your code ', ' to book your time.'] } },
+      'story-club': { sent: 'Next step: we’ll message you on Zalo to confirm your child’s place.', zalo: null, form: 'Next step: please send your contact details below to confirm your place.' },
     },
     underpaid: { before: 'We received less than the price. ', link: ['Message us on Zalo with your code ', ' and we’ll sort it out.'] },
     overpaid: { before: 'We received more than the price. ', link: ['Message us on Zalo with your code ', ' for a refund of the difference.'] },
@@ -26,9 +26,9 @@ export const PAY_STATUS_COPY = {
     received: 'Đã nhận thanh toán. Cảm ơn bạn!',
     manual: 'Chúng tôi xác nhận thanh toán gói 1-1 thủ công. Chúng tôi sẽ nhắn bạn qua Zalo sau khi kiểm tra.',
     next: {
-      product: { sent: 'Bước tiếp theo: chúng tôi sẽ gửi đơn hàng đến địa chỉ email bạn đã cung cấp.', zalo: { before: '', link: ['Nhắn Zalo cho chúng tôi kèm mã ', ' để nhận tài liệu'] } },
-      'live-check': { sent: 'Bước tiếp theo: thầy Jay xác nhận giờ học qua Zalo.', zalo: { before: '', link: ['Nhắn Zalo cho chúng tôi kèm mã ', ' để đặt giờ học.'] } },
-      'story-club': { sent: 'Bước tiếp theo: thầy Jay sẽ liên hệ qua Zalo để xác nhận chỗ học của bé.', zalo: null, form: 'Bước tiếp theo: vui lòng gửi thông tin liên hệ bên dưới để xác nhận chỗ.' },
+      product: { sent: 'Bước tiếp theo: chúng tôi sẽ gửi đơn hàng đến địa chỉ email bạn đã cung cấp.', zalo: { before: '', link: ['Nhắn Zalo cho chúng tôi kèm mã ', ' để nhận tài liệu.'] } },
+      'live-check': { sent: 'Bước tiếp theo: chúng tôi sẽ nhắn bạn qua Zalo để xác nhận giờ học.', zalo: { before: '', link: ['Nhắn Zalo cho chúng tôi kèm mã ', ' để đặt giờ học.'] } },
+      'story-club': { sent: 'Bước tiếp theo: chúng tôi sẽ nhắn bạn qua Zalo để xác nhận chỗ học của bé.', zalo: null, form: 'Bước tiếp theo: vui lòng gửi thông tin liên hệ bên dưới để xác nhận chỗ.' },
     },
     underpaid: { before: 'Số tiền chúng tôi nhận được thấp hơn giá sản phẩm. ', link: ['Nhắn Zalo cho chúng tôi kèm mã ', ', chúng tôi sẽ hỗ trợ bạn.'] },
     overpaid: { before: 'Số tiền chúng tôi nhận được cao hơn giá sản phẩm. ', link: ['Nhắn Zalo cho chúng tôi kèm mã ', ' để được hoàn lại phần chênh lệch.'] },
