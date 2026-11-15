@@ -144,7 +144,7 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
             ) : null}
             {card.category === 'phonics' ? (
               <>
-                <li><a href={`${getLocalizedHref(PRODUCTS_PATH, locale)}#phonics`} className="underline underline-offset-4" data-crumb-phonics="">{c.phonicsBand.heading}</a></li>
+                <li><a href={productHref(`${PRODUCTS_PATH}#phonics`, locale)} className="underline underline-offset-4" data-crumb-phonics="">{c.phonicsBand.heading}</a></li>
                 <li aria-hidden="true">›</li>
               </>
             ) : null}

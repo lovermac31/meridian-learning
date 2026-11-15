@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { PRODUCTS, PRODUCT_SEGMENTS, phonicsReaderHref } from '../src/i18n/content/products';
@@ -68,16 +68,32 @@ test('AC5: page amount = PayPal amount = JSON-LD offers (79.000₫ / 129.000₫,
   }
 });
 
-test('AC6: no ownership wording, no ™ after Phonics, and every new link puts utm_source before the #anchor', () => {
-  const diff = execSync('git diff origin/main -- src docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src', { encoding: 'utf8', maxBuffer: 32_000_000 });
-  const added = diff.split('\n').filter((line) => line.startsWith('+') && !line.startsWith('+++')).join('\n');
-  assert.doesNotMatch(added, /co-?owner|ownership|owned by|licen[cs]e split|50\/50|royalt/i, 'no ownership wording');
-  assert.doesNotMatch(added, /Phonics\s*(™|&trade;|\(TM\)|<sup)/, 'no ™ on Phonics');
-  for (const m of added.matchAll(/(\/products[^'"`\s]*#[a-z0-9-]+|book\.html\?[^'"`\s]*)/g)) {
-    if (!m[1].includes('#')) continue;
-    const [query] = m[1].split('#');
-    if (/^\/products\$?\{?/.test(m[1]) && !query.includes('?')) continue; // in-page anchors built from the existing pattern
-    assert.match(query, /utm_source=/, `utm before # in ${m[1]}`);
+test('AC6: no ownership wording, no ™ after Phonics, and every new link puts utm_source before the #anchor', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  const { PRODUCTS_NEW_HREF } = await import('../src/i18n/content/overhaul');
+  const ownership = /co-?owner|ownership|owned by|licen[cs]e split|50\/50|royalt/i;
+  const tm = /Phonics\s*(™|&trade;|\(TM\)|<sup)/;
+  // The Phonics pages and the pages that link to them, as served (EN + VI).
+  for (const route of ['/products', '/vi/products', '/products/phonics-b1', '/vi/products/phonics-b1', '/products/phonics-b2', '/vi/products/phonics-b2', '/story-club', '/vi/story-club']) {
+    const html = amp(await renderRoute(route));
+    const main = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
+    assert.doesNotMatch(main, ownership, `${route}: no ownership wording`);
+    assert.doesNotMatch(html, tm, `${route}: no ™ on Phonics`);
+    for (const m of html.matchAll(/href="([^"]*(?:phonics)[^"]*)"/g)) {
+      if (!m[1].includes('#') || m[1].startsWith('#')) continue;
+      const [query] = m[1].split('#');
+      assert.match(query, /[?&]utm_source=[a-z0-9-]+/, `${route}: utm before # in ${m[1]}`);
+    }
+  }
+  // Link builders outside the rendered pages: header, reader sample, Level Stories card (academy app).
+  const academy = readFileSync('docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/lib/academy/levelBooks.ts', 'utf8');
+  for (const href of [PRODUCTS_NEW_HREF, ...phonics.map((p) => phonicsReaderHref(p)), academy.match(/\/products\?utm_source=academy#phonics/)?.[0] ?? '']) {
+    assert.match(href.split('#')[0], /[?&]utm_source=[a-z0-9-]+/, `utm before # in ${href}`);
+  }
+  for (const p of phonics) for (const locale of ['en', 'vi'] as const) {
+    const text = Object.values(p[locale]).join(' ');
+    assert.doesNotMatch(text, ownership, `${p.id} ${locale}: card copy`);
+    assert.doesNotMatch(text, tm, `${p.id} ${locale}: no ™`);
   }
 });
 
