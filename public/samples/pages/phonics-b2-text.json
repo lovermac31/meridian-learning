@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "productId": "phonics-b2",
+  "sampleStem": "phonics-b2",
+  "pageCount": 14,
+  "source": {
+    "file": "phonics-b2-sample.pdf",
+    "sha256": "c9cc3f29d8df8105f5d8e1d9eacc23a856ba00df4aaa0acb208fc910f28ce2c7"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "phonics-b2-pg01.webp",
+      "imageSha256": "0287963f564321b7006fe2329a8d80fc6def52572337e559be49d19a25367247",
+      "text": "Jurassic English Phonics\nBook 2\nShort Vowels\na e i o u\nListen · Read · Write · Play\nby Matthew Goslee\nWorldWise Learning",
+      "textSha256": "4c6f690a835ed6effebed31a8cda47d7bb4acf42739bda4b3812ba08df36840e",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 2,
+      "image": "phonics-b2-pg02.webp",
+      "imageSha256": "f44c35f05840991d10cf78e771066f52994bc3205ca1f2d118eb9687c98c429f",
+      "text": "Jurassic English Phonics\nBook 2 · Short Vowels\nby Matthew Goslee\nShort vowels a, e, i, o, u\n8 units · 2 review units\nWords, sounds, stories and games\nWorldWise Learning",
+      "textSha256": "dfe7485781b488ffbd0c41bde6c736641a8b30cc2669c3206509badf42b3bd9d",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 3,
+      "image": "phonics-b2-pg03.webp",
+      "imageSha256": "20aad1768d162955b19332191611481986b36f80c2c19516de7941a65184c145",
+      "text": "Contents\nUnit 1 · Short Vowel a · A Sweet Shop · page 4: ham, ram, dam, jam, lap, map, cap, nap\nUnit 2 · Short Vowel a · On the Farm · page 12: can, fan, man, pan, bat, cat, hat, mat\nUnit 3 · Short Vowel e · At the Airport · page 20: bed, red, leg, egg, hen, men, ten, pen, jet, net, wet\nUnit 4 · Short Vowel i · By the Sea · page 28: bib, lid, pig, fin, nib, kid, wig, pin\nUnit 5 · Short Vowel i · The Ice Cream Truck · page 36: lip, rip, hit, sit, six, mix\nReview 1 · Short Vowels a, e, i · Chant, Game, Story · Units 1–5 · page 44",
+      "textSha256": "847049ad9b9392263fe5b855739290a49c60a12540ecac1358efc4009f0bdc84",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 4,
+      "image": "phonics-b2-pg04.webp",
+      "imageSha256": "84f2629eeaafc84a1f332689d467fa5706a49678ab102287b5729ff07506a6ba",
+      "text": "Contents\nUnit 6 · Short Vowel o · At the Library · page 52: dog, jog, log, hop, mop, top, pot, hot, dot, box, fox, ox\nUnit 7 · Short Vowel u · Catching Bugs · page 60: bug, hug, jug, rug, cup, pup, up\nUnit 8 · Short Vowel u · A Sunny Beach Day · page 68: sun, bun, run, fun, nut, hut, cut\nReview 2 · Short Vowels o, u · Chant, Game, Story · Units 6–8 · page 76\nChallenge · Short Vowels a, e, i, o, u · Go for It! · page 84: board game, sound changes, word search, story\nTest · Short Vowels a, e, i, o, u · Listening, Reading and Writing · page 92 · Key Vocabulary on page 100",
+      "textSha256": "ad13d8729cd52e2c6c1b3f8ef7ff28484cdb4fba8c0bcd3643cb4a5d7f8e6b3f",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 5,
+      "image": "phonics-b2-pg05.webp",
+      "imageSha256": "c1cd70c68e26836c6eccacf829526f320265fb964efb4a2b287f2ecfa5ad185d",
+      "text": "Unit 1 · Short Vowel a\n1 Words and Pictures (Tracks 01–02)\nListen, repeat, and say.\nham, ram, dam, jam, lap, map, cap, nap",
+      "textSha256": "8d6aff91abce2f6bb1affaf48506a31df8d15b77e4274bf0851e88798895753a",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 6,
+      "image": "phonics-b2-pg06.webp",
+      "imageSha256": "4fc29d5389cb792b844e9b6d731c8819c61a762c529b0d688731af7490ee7823",
+      "text": "A Listen and repeat. (Track 03)\nh-am, ham. r-am, ram. d-am, dam. j-am, jam.\nc-ap, cap. l-ap, lap. m-ap, map. n-ap, nap.",
+      "textSha256": "f38389efcd0c6b850acdbefde5661c73947d287463058a835c3daee455323d5a",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 7,
+      "image": "phonics-b2-pg07.webp",
+      "imageSha256": "1372e662a2453325eb479c9034ebe590589cfae85d4e7161bf8b1164f24e81db",
+      "text": "B Read the word and circle the right picture.\n1 dam\n2 map\n3 ram\n4 nap\n5 jam\n6 cap",
+      "textSha256": "e2fc2962e5b523e47b701c9f24202bde7b36071094012397c921a4921b5b4450",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 8,
+      "image": "phonics-b2-pg08.webp",
+      "imageSha256": "978fbfdd851d8423fbf12412d668ee718fa336a73d8ec6b4b12b13c8fae1fcae",
+      "text": "C Write the name of the shadow.\nUse the words in the box: lap, map, nap, cap, ham, dam, jam, ram\nExample: ram",
+      "textSha256": "62328853bb61b62641f79514c4607e4af5b9c4c14edae0a3ba549dcd4a3f0c07",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 9,
+      "image": "phonics-b2-pg09.webp",
+      "imageSha256": "576467f82674a3ce451289077f75a2b5d9b75471da27f6f1067baee39b6b33ec",
+      "text": "D Listen and circle the right picture. (Track 04)\nEight rows of three pictures: listen to the word and circle the picture you hear.",
+      "textSha256": "a021e91aee2a7f0cab24a309971d3250d9ca851f8085dabd7582a3a13c22863d",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 10,
+      "image": "phonics-b2-pg10.webp",
+      "imageSha256": "f65c340a1db343c9a401bffdbb0eb43490c736de20c239917c835f7b4c24a74f",
+      "text": "E Listen and fill in the circle. (Track 05)\nChoose the sentence you hear. Sight words: the, has, a, is\n1 A ram has a ham. / A ram has a jam.\n2 A cap is on a ram. / A cap is on a dam.\n3 The dam has a ham. / The dam has a ram.\n4 The map has a cap. / The map has a jam.",
+      "textSha256": "c826ce3576edc5e994d16e0ff41285d887f443b14b6d3357f0c628bf56087d97",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 11,
+      "image": "phonics-b2-pg11.webp",
+      "imageSha256": "b28ef810c030af50984dfdcbd7f595bcde09ac8fea3e0a3bec1d41876f9a500f",
+      "text": "F Find and circle the words.\nThe words go across and down: jam, map, nap, ham, cap, lap, dam, ram\ng r o j g f\nl a p a z n\nh m c m x z\na d a m a p\nm g p n a p",
+      "textSha256": "837b04a40461d39166b1ad35e70b6eff6bf905aac8674744b10147bf97d2ef36",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 12,
+      "image": "phonics-b2-pg12.webp",
+      "imageSha256": "2cc62442869b9338e1caf3c38177daf1bea0246d008c1475ec5f1b368f525561",
+      "text": "G Circle the word that completes the sentence. Then write the word on the line.\n1 The ram is on the ___. (dam, ham, jam)\n2 The ram has a ___. (lap, cap, map)\n3 The ___ is on the map. (ham, cap, jam)\n4 The map is on the ___. (lap, nap, cap)\n5 The cap is on the ___. (map, lap, nap)\nI finished Unit 1! Teacher stamp or sticker",
+      "textSha256": "68b97742784a54d6e297cc9ef246f3dc1822e51b4b2a134fe86ac08b5d8b8ab8",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 13,
+      "image": "phonics-b2-pg13.webp",
+      "imageSha256": "b71e50783e48777909d69861f849d91b5017d47977088923d62cf18d9c13f482",
+      "text": "Audio and Credits\nListen: this book has 55 audio tracks (MP3). The track number in each headphone tag, for example Track 07, matches the file name Book2_Track07.mp3. Find the files in the Audio folder of your download. Play them on any phone, tablet or computer, as often as you like. Press play, listen, pause, then answer. Most tracks are played twice. No audio yet? Teachers can read the scripts aloud from the Teacher's Guide. (Track 18 is not used; the numbering is kept so the other tracks match the book.)\nCredits: Jurassic English Phonics · Book 2 · Short Vowels. Text and activities by Matthew Goslee. Published by WorldWise Learning / Jurassic English. Illustrations are made with AI image tools and edited by the publisher. The audio is synthetic text-to-speech. © 2026 Jurassic English. All rights reserved. For use by the purchasing family, teacher or school. Please do not copy, resell or share the files. Questions: www.jurassicenglish.com",
+      "textSha256": "3f45e25672c03cf2e110abab4247b03906c14cc0c240af5e683df250f91a11ae",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 14,
+      "image": "phonics-b2-pg14.webp",
+      "imageSha256": "6ecfe57366ec115abe26752989d501f55c9df0b5fca779ccd8b074239c3ec41b",
+      "text": "Jurassic English Phonics\nBook 2 · Short Vowels\nJurassic English Phonics is a five-book series that helps young learners read and spell English with confidence.\nIn Book 2, children learn the short vowel sounds a, e, i, o and u through themed units, chants, games and stories.\n8 themed units, 2 review units and a Challenge · Listening tracks, word games and picture stories · A test and key vocabulary list at the back\nThe series: Book 1, Book 2, Book 3, Book 4, Book 5\nby Matthew Goslee · WorldWise Learning · www.jurassicenglish.com",
+      "textSha256": "14f129e65aff987fc3b62aa461c159e6e4ac256ddf9b097f73762a48a1e65d44",
+      "method": "pdf-text+reviewed-ocr"
+    }
+  ]
+}

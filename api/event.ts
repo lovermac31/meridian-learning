@@ -15,6 +15,9 @@ export const ALLOWED_EVENTS = [
   'reserve_submit',
   'pay_instructions_shown',
   'page_view',
+  // Phonics (15 Nov 2026, brief WW-20261115-02). Needs migration 20261115000001 before the rows are stored.
+  'phonics_audio_play',
+  'reader_open',
 ] as const;
 
 export type AllowedEvent = (typeof ALLOWED_EVENTS)[number];

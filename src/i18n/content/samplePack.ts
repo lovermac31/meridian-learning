@@ -49,6 +49,8 @@ const en: SamplePackCopy = {
       { id: 'printable-pack', label: 'Activity page' },
       { id: 'teacher-pack-l1', label: 'Lesson plan' },
       { id: 'baseline', label: 'Sample speaking report' },
+      // Phonics (15 Nov 2026, blueprint section 5): the Book 1 sample, the step before Level 1.
+      { id: 'phonics-b1', label: 'Phonics Book 1 sample (ages 4–7)' },
     ],
     next: 'Book Story Club on Zalo',
   },
@@ -81,6 +83,7 @@ const vi: SamplePackCopy = {
       { id: 'printable-pack', label: 'Trang bài tập' },
       { id: 'teacher-pack-l1', label: 'Giáo án' },
       { id: 'baseline', label: 'Báo cáo Nói mẫu' },
+      { id: 'phonics-b1', label: 'Bản mẫu Phonics Quyển 1 (bé 4–7 tuổi)' },
     ],
     next: 'Đăng ký giữ chỗ qua Zalo',
   },

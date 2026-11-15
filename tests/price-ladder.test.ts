@@ -39,7 +39,8 @@ test('the seven repriced packs and the unchanged ones carry the ladder price and
 test('the displayed price is the charged price: card = VietQR = server table = JSON-LD, for every product', () => {
   const server = new Map<string, number>();
   for (const m of readFileSync('api/sample-pack.ts', 'utf8').matchAll(/'([a-z0-9-]+)': \{ prefix: '([A-Z0-9]+)', amount: (\d+) \}/g)) server.set(m[1], Number(m[3]));
-  for (const p of PRODUCTS.filter((x) => x.live && x.id !== 'one-to-one')) {
+  // Order-only products (Phonics, 15 Nov 2026) have no automatic VietQR checkout: checked in tests/phonics.test.ts.
+  for (const p of PRODUCTS.filter((x) => x.live && x.id !== 'one-to-one' && !x.orderOnly)) {
     const shown = vnd(p.id);
     assert.equal(server.get(p.id), shown, `${p.id}: server table`);
     const offer = PAID_OFFERS.find((o) => o.id === p.id)!;

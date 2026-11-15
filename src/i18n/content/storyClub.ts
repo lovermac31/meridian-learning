@@ -29,7 +29,8 @@ type StoryClubCopy = {
   price: { heading: string; amount: string; unit: string; note: string; seats: string; schedule: string; starts: string; tryFree: string };
   week: { heading: string; steps: Step[] };
   parents: { heading: string; items: string[] };
-  forWho: { heading: string; yes: string[]; no: string[]; yesLabel: string; noLabel: string; link: string };
+  // phonics: one line for children not reading yet (Phonics blueprint section 5, 15 Nov 2026).
+  forWho: { heading: string; yes: string[]; no: string[]; yesLabel: string; noLabel: string; link: string; phonics: string };
   older: { heading: string; body: string; oneToOne: string; ask: string };
   join: { heading: string; steps: Step[]; cta: string; ctaNote: string; registerCta: string };
   faq: { heading: string; items: Faq[] };
@@ -83,6 +84,7 @@ const en: StoryClubCopy = {
       'your child needs one-to-one lessons (see our 1-to-1 options instead)',
       'you need lessons recorded',
     ],
+    phonics: 'Not reading yet? Start with Phonics Book 1',
     link: 'See the 1-to-1 options',
   },
   older: {
@@ -167,6 +169,7 @@ const vi: StoryClubCopy = {
       'con cần học 1 kèm 1 (hãy xem các lựa chọn học 1 kèm 1)',
       'bạn cần bản ghi âm, ghi hình buổi học',
     ],
+    phonics: 'Con chưa biết đọc? Bắt đầu với Phonics Quyển 1',
     link: 'Xem các lựa chọn học 1 kèm 1',
   },
   older: {

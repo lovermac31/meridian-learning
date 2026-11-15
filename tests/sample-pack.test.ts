@@ -53,7 +53,7 @@ test('free sample pack: success needs Notion or the email and does not use the S
   const logged = api.match(/console\.info\('\[sample-pack\] submission', \{[\s\S]*?\}\);/)![0];
   assert.doesNotMatch(logged, /lead\.(email|zalo|name)\b(?!\s*\?)/);
   for (const locale of ['en', 'vi'] as const) {
-    assert.deepEqual(samplePackContent[locale].thanks.items.map((item) => item.id), ['story-club', 'printable-pack', 'teacher-pack-l1', 'baseline']);
+    assert.deepEqual(samplePackContent[locale].thanks.items.map((item) => item.id), ['story-club', 'printable-pack', 'teacher-pack-l1', 'baseline', 'phonics-b1']);
   }
 });
 

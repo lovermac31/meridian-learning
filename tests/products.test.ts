@@ -18,7 +18,7 @@ const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf(
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
-  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['story-workbooks-l1', '290.000₫'], ['story-workbooks-l2', '290.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '290.000₫'], ['story-workbooks-l4', '290.000₫'], ['story-workbooks-l5', '290.000₫']],
+  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['phonics-b1', '79.000₫'], ['phonics-b2', '129.000₫'], ['story-workbooks-l1', '290.000₫'], ['story-workbooks-l2', '290.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '290.000₫'], ['story-workbooks-l4', '290.000₫'], ['story-workbooks-l5', '290.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
@@ -123,7 +123,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id), ...SHOWN.ielts.map(([id]) => id).filter((id) => id !== 'writing-baseline')], route);
     for (const m of delivered) assert.equal(m[2], line, route);
     const html = await renderRoute(route);
     for (const name of ['Wild Things', 'Giving Tree', 'Snowy Day', 'Sylvester', 'Stellaluna', 'Frog and Toad', 'Owl at Home', 'Rumphius', 'Sneetches', 'Frederick', 'Hungry Caterpillar']) {
@@ -171,14 +171,17 @@ test('reachable: one footer link (EN + VI), one Kids Academy card link, and Prod
   // Website assessment, 27 Oct 2026, fix 3: Jay wants easy access, so the main menu links /products (supersedes footer-only).
   const { Navbar } = await import('../src/components/Navbar');
   const noop = () => {};
-  for (const [path, href, label] of [['/', '/products', 'Products &amp; prices'], ['/vi', '/vi/products', 'Sản phẩm &amp; học phí']]) {
+  // During the Phonics launch (PRODUCTS_NEW_HIGHLIGHT, 15 Nov 2026) the link goes straight to the Phonics tile.
+  const { PRODUCTS_NEW_HIGHLIGHT } = await import('../src/i18n/content/overhaul');
+  const tail = PRODUCTS_NEW_HIGHLIGHT ? '\\?utm_source=header-new#phonics' : '';
+  for (const [path, href, label] of [['/', `/products${tail}`, 'Products &amp; prices'], ['/vi', `/vi/products${tail}`, 'Sản phẩm &amp; học phí']]) {
     setServerLocation(path);
     const header = renderToStaticMarkup(createElement(Navbar, { onGetStarted: noop, onNavigateHome: noop, onNavigate: noop, onPricingClick: noop, onEducationAffiliateClick: noop }));
     setServerLocation('/');
     // Two links: the full link row (2xl and up) and the always-visible bar link (md up to 2xl, 4 Nov 2026).
     assert.equal([...header.matchAll(new RegExp(`href="${href}"`, 'g'))].length, 2, path);
     assert.match(header, new RegExp(`href="${href}"[^>]*data-testid="header-products-link"`), path);
-    assert.match(header, new RegExp(`href="${href}"[^>]*aria-label="${label}"`), path);
+    assert.match(header, new RegExp(`href="${href}"[^>]*aria-label="${label}${PRODUCTS_NEW_HIGHLIGHT ? ` ${path === '/vi' ? 'Mới' : 'New'}` : ''}"`), path);
   }
 });
 
@@ -230,6 +233,8 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'ielts-writing-band-up': 'ielts-writing-band-up', 'ielts-speaking-band-up': 'ielts-speaking-band-up', 'ielts-four-skill-kit': 'ielts-four-skill-kit',
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
+    // Phonics Books 1 and 2 (15 Nov 2026): the book cover on a champagne square.
+    'phonics-b1': 'phonics-b1', 'phonics-b2': 'phonics-b2',
   };
   for (const locale of ['en', 'vi'] as const) {
     setServerLocation(locale === 'en' ? EN : VI);
@@ -288,6 +293,8 @@ const SAMPLE_STEMS: Record<string, string> = {
   'writing-baseline': 'writing-baseline', 'ielts-one-to-one-starter': 'ielts-one-to-one-starter', 'ielts-cue-card-bank': 'ielts-cue-card-bank',
   'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3', 'holiday-reading-challenge': 'holiday-challenge',
   'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
+  // Jurassic English Phonics Books 1 and 2 (15 Nov 2026): stem = id; the 14 pages of each approved free sample.
+  'phonics-b1': 'phonics-b1', 'phonics-b2': 'phonics-b2',
   // Story Workbooks L1-L5 (Jay, 3 Nov 2026): stem = id; 3 sample pages each.
   'story-workbooks-l1': 'story-workbooks-l1-v2', 'story-workbooks-l2': 'story-workbooks-l2-v2', 'story-workbooks-l3': 'story-workbooks-l3-v2', 'story-workbooks-l4': 'story-workbooks-l4-v2', 'story-workbooks-l5': 'story-workbooks-l5-v2', 'mango-l2': 'mango-l2',
   // IELTS Reading and Listening (3 Nov 2026): stem = id.

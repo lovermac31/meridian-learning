@@ -7,7 +7,9 @@ import { getLocalizedHref } from '../i18n/localizedHref';
 import {
   IELTS_GROUPS,
   IELTS_HOME,
+  PHONICS_SEGMENT,
   PRODUCT_SEGMENTS,
+  phonicsReaderHref,
   PRODUCTS_PATH,
   PRODUCTS_UTM,
   PRODUCTS_VI_PATH,
@@ -27,13 +29,14 @@ import { fetchSampleText, type SampleTextDocument } from '../lib/sampleText';
 import { SamplePackForm } from './SamplePackForm';
 import { PAUSED_COPY, PRODUCT_FORMER_IDS, pausedWaitlistHref } from '../i18n/content/products';
 import { FAQ_QUESTIONS, productPath } from '../i18n/content/productSeo';
-import { getOverhaulContent } from '../i18n/content/overhaul';
+import { getOverhaulContent, PRODUCTS_NEW_HIGHLIGHT as PHONICS_NEW } from '../i18n/content/overhaul';
 import { ieltsAppHref } from '../lib/ieltsApp';
 import { IeltsAppEntrance } from './IeltsAppEntrance';
 import { PRODUCT_VIDEO_ANCHOR, VIDEO_COPY } from '../i18n/content/productVideos';
 import { ORDER_CODE_COPY, PAYPAL_CARD_COPY, REGIONAL_COPY, orderCode, productPaypalHref, productUsd, readVisitorSource, zaloHref } from '../lib/productsSource';
 import { MARKET_IDS, MARKET_LABELS, OTHER_MARKET, hasRegionalPrice, regionalUsdRange } from '../lib/regionalPrice';
 import { recordClientEvent } from '../lib/tracker';
+import { trackCtaClick } from '../lib/analytics';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
 import { useFirstTouch, withFirstTouch, type FirstTouch } from '../lib/utmFirstTouch';
 import { LEMONSQUEEZY_COPY, isLemonSqueezyEnabled, lemonSqueezyCheckout, lemonSqueezyHref } from '../config/lemonSqueezy';
@@ -154,6 +157,62 @@ export function Sample({ card, copy, onOpen, compact = false }: { card: ProductC
   );
 }
 
+/** "0:12" from 12 seconds. */
+export const clipTime = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.round(seconds % 60)).padStart(2, '0')}`;
+export type PhonicsCopy = ReturnType<typeof productsPage>['phonicsBand'];
+
+// Phonics sample block (blueprint 2.2, 15 Nov 2026), above the price: a short clip from Track 01 that plays only when the
+// visitor presses play (preload none, never autoplay), and the public 14-page sample in the storybook reader.
+export function PhonicsSample({ card, copy, compact = false }: { card: ProductCard; copy: PhonicsCopy; compact?: boolean }) {
+  const played = useRef(false);
+  const audio = useRef<HTMLAudioElement>(null);
+  const [playing, setPlaying] = useState(false);
+  if (!card.reader && !card.clip) return null;
+  const time = card.clip ? clipTime(card.clip.seconds) : '';
+  // One button plays or pauses the clip (fits the narrow sample column); the <audio> has no autoplay and loads nothing first.
+  const toggle = () => {
+    const el = audio.current;
+    if (!el) return;
+    if (el.paused) {
+      const started = el.play();
+      if (started && typeof started.catch === 'function') started.catch(() => setPlaying(false));
+      if (!played.current) { played.current = true; recordClientEvent({ event: 'phonics_audio_play', product_id: card.id }); }
+    } else el.pause();
+  };
+  return (
+    <div className={compact ? 'product-row-phonics mt-2' : 'mt-3 rounded-xl border border-sb-border bg-sb-cream p-3'} data-phonics-sample={card.id}>
+      {card.clip ? (
+        <div className="text-sm" data-phonics-clip={card.id}>
+          <button
+            type="button"
+            onClick={toggle}
+            aria-pressed={playing}
+            aria-label={copy.listenLabel.replace('{time}', time).replace('{title}', card.title)}
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-sb-border bg-white px-4 py-2 text-sm font-bold text-sb-forest hover:border-sb-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
+            data-phonics-listen={card.id}
+          >
+            <span aria-hidden="true">{playing ? '❚❚' : '▶'}</span> {copy.listen.replace('{time}', time)}
+          </button>
+          <audio ref={audio} preload="none" src={card.clip.src} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} data-phonics-audio={card.id} />
+        </div>
+      ) : null}
+      {card.reader ? (
+        <p className="mt-2 text-sm">
+          <a
+            href={phonicsReaderHref(card)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold underline underline-offset-4 hover:text-sb-amber-deep"
+            data-phonics-reader={card.id}
+            onClick={() => recordClientEvent({ event: 'reader_open', product_id: card.id, utm_content: 'products' })}
+          >{copy.reader} →</a>
+          {compact ? null : <span className="block text-xs">{copy.readerNote}</span>}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 const blockSave = (event: SyntheticEvent) => event.preventDefault();
 
 type ViewerCopy = ReturnType<typeof productsPage>['viewer'];
@@ -224,7 +283,7 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
   }, [page, last, pages]);
 
   const external = card.href === 'zalo';
-  const href = external ? withFirstTouch(zaloHref(source), touch) : productHref(card.href, locale);
+  const href = external ? withFirstTouch(zaloHref(source, card.orderOnly ? card.id : undefined), touch) : productHref(card.href, locale);
   const counter = copy.counter.replace('{n}', String(page + 1)).replace('{total}', String(pages.length));
   return (
     <div
@@ -355,7 +414,7 @@ export function PayPalOption({ card, locale, source, compact = false }: { card: 
           data-paypal-link={card.id}
           onClick={() => recordClientEvent({ event: 'checkout_start', product_id: card.id, utm_source: source ?? undefined })}
         >
-          {copy.pay(productUsd(card.price))}
+          {copy.pay(productUsd(card.price, card.id))}
         </a>
       </p>
     );
@@ -422,9 +481,9 @@ export function LemonSqueezyOption({ card, locale, source, touch, compact = fals
 }
 
 const CATEGORY_COPY = {
-  en: { label: 'Product sections', names: { families: 'Families', 'story-workbooks': 'Story Workbooks', teachers: 'Teachers', centres: 'Centres', ielts: 'IELTS' }, count: 'products', from: 'from', workbooksSub: 'Levels 1–5 · print-ready A4' },
-  vi: { label: 'Các nhóm sản phẩm', names: { families: 'Gia đình', 'story-workbooks': 'Sách truyện bài tập', teachers: 'Giáo viên', centres: 'Trung tâm', ielts: 'IELTS' }, count: 'sản phẩm', from: 'từ', workbooksSub: 'Level 1–5 · in sẵn khổ A4' },
-} satisfies Record<Locale, { label: string; names: Record<ProductSegmentId, string>; count: string; from: string; workbooksSub: string }>;
+  en: { label: 'Product sections', names: { families: 'Families', phonics: 'Phonics', 'story-workbooks': 'Story Workbooks', teachers: 'Teachers', centres: 'Centres', ielts: 'IELTS' }, count: 'products', from: 'from', workbooksSub: 'Levels 1–5 · print-ready A4', phonicsCount: 'books', phonicsSub: 'Ages 4–7 · with audio', isNew: 'New' },
+  vi: { label: 'Các nhóm sản phẩm', names: { families: 'Gia đình', phonics: 'Phonics', 'story-workbooks': 'Sách truyện bài tập', teachers: 'Giáo viên', centres: 'Trung tâm', ielts: 'IELTS' }, count: 'sản phẩm', from: 'từ', workbooksSub: 'Level 1–5 · in sẵn khổ A4', phonicsCount: 'quyển', phonicsSub: 'Bé 4–7 tuổi · có âm thanh', isNew: 'Mới' },
+} satisfies Record<Locale, { label: string; names: Record<ProductSegmentId, string>; count: string; from: string; workbooksSub: string; phonicsCount: string; phonicsSub: string; isNew: string }>;
 
 // Hub-only labels for the Stitch layout (Jay's mock, 2 Nov 2026). The layout comes from the mock; every line of copy comes
 // from the product data or copy already on the site (Story Club, the Baseline, 1-to-1, the sample and payment lines),
@@ -542,13 +601,15 @@ export function productAnchor(hash: string, locale: Locale) {
   const sections = productsPage(locale).sections;
   // #story-workbooks is the Story Workbooks tile and level picker; its five cards (Families data) belong to that segment.
   if (anchor === WORKBOOKS_SEGMENT) return { section: WORKBOOKS_SEGMENT as ProductSegmentId, product: null, sample: false, target: anchor };
+  // #phonics is the Phonics tile and book picker (15 Nov 2026); its cards are Families data, like Story Workbooks.
+  if (anchor === PHONICS_SEGMENT) return { section: PHONICS_SEGMENT as ProductSegmentId, product: null, sample: false, target: anchor };
   const section = sections.find((entry) => entry.id === anchor || (entry.id === 'ielts' && IELTS_GROUPS.some((group) => anchor === `ielts-${group}`)));
   if (section) return { section: section.id as ProductSegmentId, product: null, sample: false, target: anchor };
   const sample = anchor.endsWith('-sample');
   const id = sample ? anchor.slice(0, -7) : anchor;
   for (const entry of sections) {
     const card = entry.cards.find((card) => card.id === id || PRODUCT_FORMER_IDS[card.id]?.includes(id));
-    if (card) return { section: (card.category === 'workbooks' ? WORKBOOKS_SEGMENT : entry.id) as ProductSegmentId, product: card.id, sample: sample && !!card.sample, target: card.id };
+    if (card) return { section: (card.category === 'workbooks' ? WORKBOOKS_SEGMENT : card.category === 'phonics' ? PHONICS_SEGMENT : entry.id) as ProductSegmentId, product: card.id, sample: sample && !!card.sample, target: card.id };
   }
   return null;
 }
@@ -556,12 +617,13 @@ export function productAnchor(hash: string, locale: Locale) {
 // One wide card per product (the mock's row): icon tile, badge pill and audience line, the title, "The problem" and two
 // tick lines from the card's own copy, the sample thumbnails above the price, then the order buttons. DOM order is the
 // one the tests and Jay's rule pin: text → sample → price → buttons; the grid places the sample and price on the right.
-function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome, visible, touch }: {
+function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, ieltsHome, visible, touch, phonics }: {
   card: ProductCard; locale: Locale; delivery: string; leadIns: LeadIns; sample: SampleCopy; source: string | null;
-  onOpenSample: (card: ProductCard) => void; ieltsHome: Partial<Record<IeltsGroup, string>>; visible: boolean; touch: FirstTouch | null;
+  onOpenSample: (card: ProductCard) => void; ieltsHome: Partial<Record<IeltsGroup, string>>; visible: boolean; touch: FirstTouch | null; phonics: PhonicsCopy;
 }) {
   const external = card.href === 'zalo';
-  const href = external ? withFirstTouch(zaloHref(source), touch) : productHref(card.href, locale);
+  // An order-only product (Phonics) names itself in the Zalo link: /go/zalo/<id>.
+  const href = external ? withFirstTouch(zaloHref(source, card.orderOnly ? card.id : undefined), touch) : productHref(card.href, locale);
   const code = ORDER_CODE_COPY[locale];
   return (
     <li className="product-row scroll-mt-24 max-md:scroll-mt-36" id={card.id} hidden={!visible}>
@@ -589,7 +651,13 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
         {/* Inside the notes area: a direct child of .product-row with no grid-area is auto-placed into the 72px icon column. */}
         <CreditLine card={card} />
       </div>
-      <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} compact />
+      {/* Phonics: the clip and the reader link sit in the sample column with the thumbnails, above the price on desktop. */}
+      {card.clip || card.reader ? (
+        <div className="product-row-sample">
+          <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} compact />
+          <PhonicsSample card={card} copy={phonics} compact />
+        </div>
+      ) : <Sample card={card} copy={sample} onOpen={() => onOpenSample(card)} compact />}
       <p className="product-row-price" data-price={card.id}>{card.price} <span>{card.unit}</span></p>
       {card.paused ? (
         <div className="product-row-actions story-cta">
@@ -601,7 +669,7 @@ function Card({ card, locale, delivery, leadIns, sample, source, onOpenSample, i
       {/* One payment line under the price (the delivery line's own wording); the PayPal link stays in the footer row. */}
       {card.delivery ? <p className="product-row-pay" data-delivery={card.id}>{delivery}</p> : null}
       <div className="product-row-actions story-cta">
-        {paidOffer(card.id) ? <a className="insights-button-primary" href={paymentHref(card.id, locale)} data-buy-now={card.id}>{buyCta(card.id, locale)}</a> : null}
+        {!card.orderOnly && paidOffer(card.id) ? <a className="insights-button-primary" href={paymentHref(card.id, locale)} data-buy-now={card.id}>{buyCta(card.id, locale)}</a> : null}
         {card.sample ? <button type="button" className="insights-button-secondary" onClick={() => { onOpenSample(card); recordClientEvent({ event: 'sample_open', product_id: card.id }); }} data-sample-open={card.id}>{sample.heading}</button> : null}
         {isPortalBuyEnabled(card.id) ? (
           <a
@@ -638,12 +706,15 @@ export function ProductsPage({ locale }: { locale: Locale }) {
   // narrow the page to one section, and "Show all" brings the full catalogue back after a filter.
   const [showAll, setShowAll] = useState(true);
   const isVisible = (card: { id: string; category?: string }, section: ProductSectionId) =>
-    filter === WORKBOOKS_SEGMENT ? card.category === 'workbooks' : filter ? filter === section : showAll || (FEATURED_PRODUCTS as readonly string[]).includes(card.id);
+    filter === WORKBOOKS_SEGMENT ? card.category === 'workbooks' : filter === PHONICS_SEGMENT ? card.category === 'phonics' : filter ? filter === section : showAll || (FEATURED_PRODUCTS as readonly string[]).includes(card.id);
   const categoryCopy = CATEGORY_COPY[locale];
   const total = c.sections.reduce((sum, section) => sum + section.cards.length, 0);
   const shown = c.sections.reduce((sum, section) => sum + section.cards.filter((card) => isVisible(card, section.id)).length, 0);
   const workbookCards = c.sections.flatMap((section) => section.cards).filter((card) => card.category === 'workbooks');
-  const workbooksOnly = filter === WORKBOOKS_SEGMENT;
+  const phonicsCards = c.sections.flatMap((section) => section.cards).filter((card) => card.category === 'phonics');
+  // A cross-section tile (Story Workbooks, Phonics) shows only its cards, without the section headings.
+  const workbooksOnly = filter === WORKBOOKS_SEGMENT || filter === PHONICS_SEGMENT;
+  const phonicsOnly = filter === PHONICS_SEGMENT;
   const faq = [
     { question: FAQ_QUESTIONS[locale].sample, answer: `${c.sample.note} ${c.viewer.viewOnly}` },
     { question: FAQ_QUESTIONS[locale].pay, answer: c.delivery },
@@ -717,13 +788,14 @@ export function ProductsPage({ locale }: { locale: Locale }) {
         <ul>
           {PRODUCT_SEGMENTS.map((id) => {
             // Story Workbooks is a cross-section tile: its cards are the Families "Workbooks" group (Jay, 3 Nov 2026).
-            const cards = id === WORKBOOKS_SEGMENT ? workbookCards : c.sections.find((section) => section.id === id)?.cards;
+            const cards = id === WORKBOOKS_SEGMENT ? workbookCards : id === PHONICS_SEGMENT ? phonicsCards : c.sections.find((section) => section.id === id)?.cards;
             if (!cards?.length) return null;
             const lowest = Math.min(...cards.map((card) => Number(card.price.replace(/[^\d]/g, ''))));
             return <li key={id}>
-              <button type="button" aria-pressed={filter === id} aria-controls={id} data-category-tile={id} onClick={() => setFilter((current) => (current === id ? null : id))}>
-                <span className="products-overview-name">{categoryCopy.names[id]}</span>
-                <span className="products-overview-sub">{cards.length} {categoryCopy.count} · {categoryCopy.from} {lowest.toLocaleString('de-DE')}₫</span>
+              <button type="button" aria-pressed={filter === id} aria-controls={id} data-category-tile={id} onClick={() => { setFilter((current) => (current === id ? null : id)); try { trackCtaClick({ label: `products_segment_${id.replace(/-/g, '_')}`, type: 'secondary', segment: 'parent_student' }); } catch { /* Measurement must not block the filter. */ } }}>
+                <span className="products-overview-name">{categoryCopy.names[id]}{id === PHONICS_SEGMENT && PHONICS_NEW ? <>{' '}<span className="ml-1 inline-block rounded-full bg-sb-amber-deep px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white" data-phonics-new="">{categoryCopy.isNew}</span></> : null}</span>
+                <span className="products-overview-sub">{cards.length} {id === PHONICS_SEGMENT ? categoryCopy.phonicsCount : categoryCopy.count} · {categoryCopy.from} {lowest.toLocaleString('de-DE')}₫</span>
+                {id === PHONICS_SEGMENT ? <span className="products-overview-sub">{categoryCopy.phonicsSub}</span> : null}
                 {id === 'ielts' ? <span className="products-overview-sub">{IELTS_GROUPS.filter((group) => cards.some((card) => card.group === group)).map((group) => c.ielts.groups[group]).join(' · ')}</span> : null}
                 {id === WORKBOOKS_SEGMENT ? <span className="products-overview-sub">{categoryCopy.workbooksSub}</span> : null}
               </button>
@@ -733,8 +805,28 @@ export function ProductsPage({ locale }: { locale: Locale }) {
       </nav>
       {/* Story Workbooks level picker (Jay, 3 Nov 2026: "I can't find the Story Workbooks"): always visible under the tiles, so the five
           levels are one tap from the first screen. A level link opens that card (and only the five workbook cards). */}
+      {/* Phonics tile (Jay, 15 Nov 2026, D1/D2): intro line, then a book picker; a book opens its card. Only cleared books are listed. */}
+      {phonicsCards.length ? (
+        <section id={PHONICS_SEGMENT} aria-labelledby={`${PHONICS_SEGMENT}-h`} className="products-workbooks products-phonics scroll-mt-24 max-md:scroll-mt-36" hidden={filter !== null && !phonicsOnly} data-phonics-band="">
+          <div className="products-workbooks-inner">
+            <h2 id={`${PHONICS_SEGMENT}-h`}>{c.phonicsBand.heading}{PHONICS_NEW ? <>{' '}<span className="ml-1 inline-block rounded-full bg-sb-amber-deep px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white">{c.phonicsBand.isNew}</span></> : null}</h2>
+            <p data-phonics-intro="">{c.phonicsBand.intro}</p>
+            <ul aria-label={c.phonicsBand.books}>
+              {phonicsCards.map((card) => (
+                <li key={card.id}>
+                  <a href={`#${card.id}`} data-phonics-book={card.id}>
+                    <strong>{c.phonicsBand.book.replace('{n}', card.id.match(/\d+$/)?.[0] ?? '')}</strong>
+                    <span>{card.title.split(': ').slice(1).join(': ')}</span>
+                    <span>{c.phonicsBand.ages} · <b>{card.price}</b></span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
       {workbookCards.length ? (
-        <section id={WORKBOOKS_SEGMENT} aria-labelledby={`${WORKBOOKS_SEGMENT}-h`} className="products-workbooks scroll-mt-24 max-md:scroll-mt-36" hidden={filter !== null && !workbooksOnly} data-story-workbooks-band="">
+        <section id={WORKBOOKS_SEGMENT} aria-labelledby={`${WORKBOOKS_SEGMENT}-h`} className="products-workbooks scroll-mt-24 max-md:scroll-mt-36" hidden={filter !== null && filter !== WORKBOOKS_SEGMENT} data-story-workbooks-band="">
           <div className="products-workbooks-inner">
             <h2 id={`${WORKBOOKS_SEGMENT}-h`}>{c.workbooksBand.heading}</h2>
             <p>{c.workbooksBand.intro}</p>
@@ -789,14 +881,15 @@ export function ProductsPage({ locale }: { locale: Locale }) {
               </div>
             ) : null}
             {(section.id === 'ielts'
-              ? IELTS_GROUPS.map((group) => ({ group, workbooks: false, cards: section.cards.filter((card) => card.group === group) }))
-              : [{ group: null, workbooks: false, cards: section.cards.filter((card) => card.category !== 'workbooks') }, { group: null, workbooks: true, cards: section.cards.filter((card) => card.category === 'workbooks') }]
-            ).filter((list) => list.cards.length > 0).map(({ group, workbooks, cards }) => (
-              <div key={group ?? (workbooks ? 'workbooks' : 'all')} data-ielts-group={group ?? undefined} data-workbooks-group={workbooks ? section.id : undefined}>
+              ? IELTS_GROUPS.map((group) => ({ group, workbooks: false, phonics: false, cards: section.cards.filter((card) => card.group === group) }))
+              : [{ group: null, workbooks: false, phonics: false, cards: section.cards.filter((card) => !card.category) }, { group: null, workbooks: false, phonics: true, cards: section.cards.filter((card) => card.category === 'phonics') }, { group: null, workbooks: true, phonics: false, cards: section.cards.filter((card) => card.category === 'workbooks') }]
+            ).filter((list) => list.cards.length > 0).map(({ group, workbooks, phonics, cards }) => (
+              <div key={group ?? (workbooks ? 'workbooks' : phonics ? 'phonics' : 'all')} data-ielts-group={group ?? undefined} data-workbooks-group={workbooks ? section.id : undefined} data-phonics-group={phonics ? section.id : undefined}>
+                {phonics ? <h3 id={`${section.id}-phonics`} className="products-ielts-heading scroll-mt-24" hidden={workbooksOnly || !cards.some((card) => isVisible(card, section.id))}>{c.phonicsBand.heading}</h3> : null}
                 {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card, section.id))}>{c.ielts.groups[group]}</h3> : null}
                 {workbooks ? <h3 id={`${section.id}-workbooks`} className="products-ielts-heading scroll-mt-24" hidden={workbooksOnly || !cards.some((card) => isVisible(card, section.id))}>{c.workbooks}</h3> : null}
                 <ul className="products-rows">
-                  {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} visible={isVisible(card, section.id)} touch={touch} />)}
+                  {cards.map((card) => <Card key={card.id} card={card} locale={locale} delivery={c.delivery} leadIns={c.leadIns} sample={c.sample} source={source} onOpenSample={setViewer} ieltsHome={c.ielts.home} visible={isVisible(card, section.id)} touch={touch} phonics={c.phonicsBand} />)}
                 </ul>
               </div>
             ))}
