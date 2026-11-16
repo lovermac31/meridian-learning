@@ -104,7 +104,6 @@ Tables covered: `je_leads`, `je_get_started_submissions`,
 
 | Surface | Events emitted |
 |---|---|
-| `/api/generate-image` | `rate_limited`, `rate_limit_store_error` (others n/a — not a submission flow) |
 | `/api/get-started` (institutional) | `rate_limited`, `cors_origin_denied`, `spam_rejected`, `validation_failed`, `email_sent`, `email_failed`, `submission_accepted` |
 | `/api/get-started` (student-academy fork) | All of the above + `email_sent`/`email_failed` from `studentAcademyRegistrationEmail.ts` |
 | `/api/pricing-registration` | `rate_limited`, `cors_origin_denied`, `spam_rejected`, `validation_failed`, `email_sent`, `email_failed`, `submission_accepted` |
@@ -185,13 +184,10 @@ These are intentionally NOT instrumented in Phase 4A:
    — present in source as free-form events (`api/_lib/internalPilotStore.ts`
    region). Migrate to canonical helper in a follow-up packet so the
    issuance audit trail uses the same shape.
-3. **Generate-image success** — `/api/generate-image` is not a submission
-   flow; `submission_accepted` is not the right name. A future
-   `image_generated` event could be added if image generation needs alerts.
-4. **`withTiming()` not yet wired in any caller.** The helper exists but
+3. **`withTiming()` not yet wired in any caller.** The helper exists but
    no production code calls it today. Wire it into Supabase/Notion/email
    writes in a follow-up to start collecting durationMs for p95 alerts.
-5. **Sampling.** All events are emitted unsampled. Once volume is known
+4. **Sampling.** All events are emitted unsampled. Once volume is known
    from real traffic, `submission_accepted` and `supabase_write_succeeded`
    are good candidates to drop to 10% sampling at the Vercel log layer
    (NOT in this helper — leave the canonical event always emitted).
