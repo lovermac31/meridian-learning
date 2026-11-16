@@ -475,11 +475,11 @@ test('header button: free sample pack on parent pages, the Baseline booking page
   assert.deepEqual(header(EN), ['#free-sample-pack', 'Free sample pack']);
   assert.deepEqual(header('/story-club'), ['/#free-sample-pack', 'Free sample pack']);
   assert.deepEqual(header('/vi/story-club'), ['/vi#free-sample-pack', 'Nhận bộ mẫu miễn phí']);
-  assert.deepEqual(header('/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline', 'Book Baseline · 690k₫']);
-  assert.deepEqual(header('/vi/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline?lang=vi', 'Đặt Đánh giá · 690k₫']);
-  assert.deepEqual(header('/ielts-speaking-online/uae'), ['https://jurassicielts.com/ai-speaking/baseline?market=uae', 'Book Baseline · US$59']);
-  assert.deepEqual(header('/pt/ielts-speaking-online/brasil'), ['https://jurassicielts.com/ai-speaking/baseline?market=brazil', 'Book Baseline · US$39']);
-  assert.deepEqual(header('/ielts-speaking-online'), ['https://jurassicielts.com/ai-speaking/baseline', 'Book Baseline']); // IELTS migration P10: straight to jurassicielts.com, no redirect hop
+  assert.deepEqual(header('/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline?utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Book Baseline · 690k₫']);
+  assert.deepEqual(header('/vi/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline?lang=vi&amp;utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Đặt Đánh giá · 690k₫']);
+  assert.deepEqual(header('/ielts-speaking-online/uae'), ['https://jurassicielts.com/ai-speaking/baseline?market=uae&amp;utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Book Baseline · US$59']);
+  assert.deepEqual(header('/pt/ielts-speaking-online/brasil'), ['https://jurassicielts.com/ai-speaking/baseline?market=brazil&amp;utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Book Baseline · US$39']);
+  assert.deepEqual(header('/ielts-speaking-online'), ['https://jurassicielts.com/ai-speaking/baseline?utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Book Baseline']); // IELTS migration P10: straight to jurassicielts.com, no redirect hop
 });
 
 // Wave 2 (master, 27 Oct 2026; Jay gave authority): the Level 1 Parent Home Reading Pack (families) and the Level 1
