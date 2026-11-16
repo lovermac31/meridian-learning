@@ -135,13 +135,13 @@ export type Product = {
 };
 
 // Story Workbooks, Levels 1 to 5 (Jay, 3 Nov 2026): the original Jurassic English storybooks as print-ready A4 workbooks
-// (30 pages each: cover, six chapters with a write-in page each, activities, teacher guide, answer key). Level 1 is 10
-// workbooks (11 Nov 2026: Lina and the Orchard Map is held over art provenance and is not sold), Levels 2 to 5 are 3 each. One card per level, in Families under "Workbooks", with a pointer from Teachers.
+// (30 pages each: cover, six chapters with a write-in page each, activities, teacher guide, answer key). Level 1 is 11
+// workbooks (16 Nov 2026: Lina and the Orchard Map is back, with the art Jay approved on 11 Nov, as book 11), Levels 2 to 5 are 3 each. One card per level, in Families under "Workbooks", with a pointer from Teachers.
 // The sample is 3 watermarked pages of one lead book per level, view-only (no PDF is published). Each full PDF carries
 // the licence line and file properties (security Tier 1) and is delivered only after payment.
 /** The books in each level: the original Jurassic English storybooks, in the order of the print PDFs. */
 export const WORKBOOK_BOOKS: Record<1 | 2 | 3 | 4 | 5, string[]> = {
-  1: ['Mina and the Midnight Drum', 'The Lantern With Two Handles', 'Kim and the Thunder Inside', 'The Song Across the Lake', 'Not Now, Rosa!', 'Ivy and the Big Umbrella', 'Tess Tells Tales', 'Skip and the Red Roof', 'The Wind, the Sun and the Yellow Coat', 'Grandpa’s Sunflowers'],
+  1: ['Mina and the Midnight Drum', 'The Lantern With Two Handles', 'Kim and the Thunder Inside', 'The Song Across the Lake', 'Not Now, Rosa!', 'Ivy and the Big Umbrella', 'Tess Tells Tales', 'Skip and the Red Roof', 'The Wind, the Sun and the Yellow Coat', 'Grandpa’s Sunflowers', 'Lina and the Orchard Map'],
   // Level 2 is nine books here: the tenth, Mango, the Market Cat, is its own pilot product (mango-l2) and stays untouched.
   2: ['The Bell That Rang Too Early', 'The Rain on Platform Seven', 'The River Promise', 'The New Boy and the Night Sky', 'The Paper Bird Shop', 'The Torch on the Harbour Wall', 'The Kingdom Behind the Bamboo', 'Nia’s New Word', 'The Golden Fig'],
   3: ['The Song They Took Out', 'The Last Clue on Lantern Street', 'The Last Seat on the Night Ferry', 'Kit and the Invisible Line', 'The Unsent Weather Report', 'Mai and the Season of Seeds', 'The Voice in Maya’s Tablet', 'The Honest Scale', 'The Captain of the Old Van', 'Leo and the Paper Theatre'],
@@ -267,15 +267,15 @@ export const WORKBOOK_AGES: Record<string, string> = {
 export const MANGO_ID = 'mango-l2';
 export const RR_WIND_SUN_ID = 'rr-l1-wind-sun-yellow-coat';
 const STORY_WORKBOOKS: Product[] = [
-  storyWorkbook(1, '290.000₫', 10, {
+  storyWorkbook(1, '290.000₫', 11, {
     title: 'Level 1 Story Workbooks',
     problem: 'Your child enjoys stories, but you want pages to write on, questions that check they understood, and a reason to talk about the story together.',
-    inside: '10 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in six short chapters, a fill-in, circle and draw page for every chapter, a word search, a reading log, a teacher guide and an answer key.',
+    inside: '11 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in six short chapters, a fill-in, circle and draw page for every chapter, a word search, a reading log, a teacher guide and an answer key.',
     forWho: 'Children aged 4–8 (CEFR Pre-A1 → A1), read with a parent or teacher. One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
   }, {
     title: 'Sách truyện bài tập Level 1',
     problem: 'Con thích nghe truyện, nhưng bố mẹ muốn có trang để con viết, câu hỏi kiểm tra con hiểu truyện chưa, và lý do để hai bố con cùng trò chuyện về câu chuyện.',
-    inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
+    inside: '11 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
     forWho: 'Trẻ 4–8 tuổi (CEFR Pre-A1 → A1), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
   // Reading & Reasoning Library pilot (WW-20261116-RL20; master, 16 Nov 2026: option A, the approved Mango single-story price,
@@ -647,7 +647,7 @@ export const PRODUCTS: Product[] = [
       label: 'Digital download · one teacher',
       title: 'Level 1 Teacher Pack',
       problem: 'You teach young children privately and spend your evenings planning lessons from scratch.',
-      inside: 'The Level 1 course and its method, and 40 ready lesson plans (126 A4 pages), each built on one of ten original Jurassic English stories. Also the ten Teacher Books, one for each story: how to teach it, a unit plan, a rubric and the answer key. 11 PDFs.',
+      inside: 'The Level 1 course and its method, and 40 ready lesson plans (126 A4 pages), each built on one of ten original Jurassic English stories. Also eleven Teacher Books, one for each of those stories and one for Lina and the Orchard Map: how to teach it, a unit plan, a rubric and the answer key. 12 PDFs.',
       forWho: 'One named tutor or teacher, for their own classes (ages 4–8, CEFR Pre-A1 → A1). Not for use across a centre; centres need the Centre Licence. Students read the stories in the Level 1 Story Workbooks (sold separately).',
       unit: 'one-time',
       cta: 'Order on Zalo',
@@ -656,7 +656,7 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · một giáo viên',
       title: 'Bộ tài liệu Giáo viên Level 1',
       problem: 'Thầy cô dạy kèm các bé và mất cả buổi tối để tự soạn bài từ đầu.',
-      inside: 'Khóa học Level 1 và phương pháp, cùng 40 giáo án soạn sẵn (126 trang A4), mỗi giáo án dựa trên một trong mười truyện gốc của Jurassic English. Kèm mười Sách giáo viên, mỗi truyện một cuốn: cách dạy, kế hoạch bài học, thang đánh giá và đáp án. 11 tệp PDF.',
+      inside: 'Khóa học Level 1 và phương pháp, cùng 40 giáo án soạn sẵn (126 trang A4), mỗi giáo án dựa trên một trong mười truyện gốc của Jurassic English. Kèm mười một Sách giáo viên, một cuốn cho mỗi truyện đó và một cuốn cho Lina and the Orchard Map: cách dạy, kế hoạch bài học, thang đánh giá và đáp án. 12 tệp PDF.',
       forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (4–8 tuổi, CEFR Pre-A1 → A1). Không dùng cho cả trung tâm; trung tâm cần Giấy phép Trung tâm. Học viên đọc truyện trong bộ Sách truyện bài tập Level 1 (bán riêng).',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',

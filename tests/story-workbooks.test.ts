@@ -109,10 +109,10 @@ test('samples: six watermarked pages per level (13 Nov 2026 collections), three 
   assert.deepEqual(pdfs('public'), [], 'no PDF is published');
 });
 
-test('each level names its books: 10, 9 (Mango is its own product), 10, 10, 10 titles on the hub card and the product page (EN + VI), matching the unit line', async () => {
+test('each level names its books: 11, 9 (Mango is its own product), 10, 10, 10 titles on the hub card and the product page (EN + VI), matching the unit line', async () => {
   const { renderRoute } = await import('../src/entry-server');
-  // Level 1 is 10 books (11 Nov 2026): Lina and the Orchard Map is held over art provenance and is not sold.
-  const counts = [10, 9, 10, 10, 10];
+  // Level 1 is 11 books (16 Nov 2026): Lina and the Orchard Map is back with the approved art, as book 11.
+  const counts = [11, 9, 10, 10, 10];
   for (const [i, id] of IDS.entries()) {
     const p = PRODUCTS.find((entry) => entry.id === id)!;
     assert.equal(p.books?.length, counts[i], `${id}: book count`);
@@ -124,22 +124,21 @@ test('each level names its books: 10, 9 (Mango is its own product), 10, 10, 10 t
     for (const id of IDS) assert.ok(html.includes(`data-workbook-books="${id}"`), `${route}: ${id} lists its books`);
     assert.ok(html.includes('Mina and the Midnight Drum') && html.includes('Grandpa’s Sunflowers'), `${route}: Level 1 titles`);
     const page = mainOf(await renderRoute(`${route}/story-workbooks-l1`)).replaceAll('<!-- -->', '');
-    assert.ok(page.includes('data-workbook-books="story-workbooks-l1"') && page.includes('Tess Tells Tales'), `${route}: product page lists the 10 books`);
+    assert.ok(page.includes('data-workbook-books="story-workbooks-l1"') && page.includes('Tess Tells Tales'), `${route}: product page lists the 11 books`);
   }
 });
 
-test('audit fix 3: Level 1 is 10 workbooks everywhere and Lina is not listed; the price stays 290.000₫', async () => {
+test('Level 1 is 11 workbooks everywhere and Lina is listed as book 11; the price stays 290.000₫', async () => {
   const { readFileSync } = await import('node:fs');
   const l1 = PRODUCTS.find((p) => p.id === 'story-workbooks-l1')!;
   assert.equal(l1.price, '290.000₫');
-  assert.ok(!l1.books!.some((b) => /Lina/.test(b)), 'Lina is not in the Level 1 list');
-  for (const locale of ['en', 'vi'] as const) assert.match(l1[locale].inside, /^10 /);
-  assert.match(l1.en.unit, /10 workbooks/);
-  assert.match(l1.vi.unit, /10 cuốn/);
+  assert.equal(l1.books!.at(-1), 'Lina and the Orchard Map', 'Lina is book 11 in the Level 1 list');
+  for (const locale of ['en', 'vi'] as const) assert.match(l1[locale].inside, /^11 /);
+  assert.match(l1.en.unit, /11 workbooks/);
+  assert.match(l1.vi.unit, /11 cuốn/);
   const llms = readFileSync('public/llms-products.md', 'utf8');
   const entry = llms.slice(llms.indexOf('`story-workbooks-l1`'), llms.indexOf('###', llms.indexOf('`story-workbooks-l1`')));
-  assert.match(entry, /10 original storybooks/);
-  assert.doesNotMatch(entry, /\b11\b/);
+  assert.match(entry, /11 original storybooks/);
 });
 
 test('audit fix 7: every Story Workbooks page (EN + VI) shows the AI credit line before the price; Mango shows its own', async () => {
