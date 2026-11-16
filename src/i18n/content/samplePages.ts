@@ -54,6 +54,8 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'teacher-pack-l4-v2': 7,
   'teacher-pack-l5-v2': 7,
   'teacher-training-course': 9,
+  // Thinking Expeditions Level 1 (17 Nov 2026): the free Unit 1 sample PDF's cover and its whole ten-page unit (pages 7-16).
+  'thinking-expeditions-l1': 11,
   'thinking-cycle-posters': 8,
   'thinking-cycle-set': 10,
   'word-fossil-flashcards-l1': 7,

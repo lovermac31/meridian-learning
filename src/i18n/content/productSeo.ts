@@ -510,6 +510,18 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       description: 'Kế hoạch đọc tại nhà bốn tuần cho kỳ nghỉ: sổ ghi chép đọc sách, 12 hoạt động theo truyện và giấy khen cho con ở Level 1–2. 149.000₫.',
     },
   },
+  'thinking-expeditions-l1': {
+    en: {
+      keyword: 'critical thinking workbook for kids 6-8',
+      title: 'Thinking Expeditions L1: Critical Thinking Workbook 6–8',
+      description: 'Eight picture-led critical thinking units for ages 6–8: compare, find patterns, sort, read clues and say why. 142 A4 pages. 190.000₫ one-time.',
+    },
+    vi: {
+      keyword: 'sách bài tập tư duy phản biện cho bé 6-8 tuổi',
+      title: 'Sách bài tập tư duy phản biện cho bé 6–8 tuổi | Level 1',
+      description: 'Tám bài học tư duy phản biện bằng tranh cho trẻ 6–8 tuổi: so sánh, tìm quy luật, phân loại, đọc manh mối và nói vì sao. 142 trang A4. 190.000₫ mua một lần.',
+    },
+  },
   'word-fossil-flashcards-l1': {
     en: {
       keyword: 'printable english flashcards for kids',

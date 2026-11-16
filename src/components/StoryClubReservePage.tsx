@@ -12,6 +12,7 @@ import { isFinalPayState, type PayState } from '../lib/payStatus';
 import { storyClubPriceAt, storyClubTierForAmount, STORY_CLUB_GRACE_MINUTES, STORY_CLUB_TIME_ZONE_LABEL } from '../config/storyClubOffer';
 import { StoryClubLiveLine, useNow } from './StoryClubLiveLine';
 import { paidOffer, paymentAmount, paymentHref } from '../config/payment';
+import { PRODUCTS } from '../i18n/content/products';
 import { ToolHero } from './IeltsToolsPage';
 import { FIXED_ORDER_CODES, ORDER_CODE_COPY, checkoutZaloHref } from '../lib/productsSource';
 import { PhoneNumberField } from './PhoneNumberField';
@@ -38,6 +39,7 @@ const FIELD = 'mt-1 block min-h-11 w-full rounded-xl border border-sb-border bg-
 export function StoryClubReservePage({ locale, productId = 'story-club', intro, initialMemo }: { locale: Locale; productId?: string; intro?: ReactNode | ((payFinal: boolean) => ReactNode); initialMemo?: string }) {
   const offer = paidOffer(productId);
   const isStory = productId === 'story-club';
+  const licence = PRODUCTS.find((p) => p.id === productId)?.licence?.[locale];
   const now = useNow();
   // After load, the headline shows the price due now, with the list price as "usually" (review fix 5). Prerendered, it is the list price.
   const due = isStory && now ? storyClubPriceAt(now) : null;
@@ -167,6 +169,8 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
           <h2 id="reserve-offer" className="text-2xl font-bold">{offer?.title[locale].title}</h2>
           <p className="mt-2 text-3xl font-extrabold" data-reserve-price>{paymentAmount(due ? due.priceVnd : offer!.amount, locale)}{due?.tier ? <span className="ms-2 text-base font-semibold" data-reserve-list-price>{locale === 'vi' ? 'thường' : 'usually'} {paymentAmount(due.listPriceVnd, locale)}</span> : null}{productId === 'one-to-one' ? (locale === 'vi' ? ' · 8 buổi' : ' · 8 lessons') : ''}</p>
           {typeof intro === 'function' ? intro(payFinal) : intro}
+          {/* The licence the buyer is paying for, in full, before any payment step (Thinking Expeditions L1, 17 Nov 2026). */}
+          {licence ? <p className="mt-3 rounded-lg border border-[#13294B]/25 bg-[#FBF6EA] px-3 py-2 text-sm text-[#13294B]" data-checkout-licence={productId}>{licence}</p> : null}
           {isStory && <p className="mt-2">{t.details}</p>}
           {isStory && <p className="mt-2 font-semibold" data-reserve-first-session><StoryClubLiveLine locale={locale} kind="schedule" /></p>}
           {isStory && <p className="mt-1" data-reserve-offer><StoryClubLiveLine locale={locale} kind="offer" /></p>}
