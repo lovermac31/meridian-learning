@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { decodeEntities } from '../lib/visible-text.mjs';
+import { movedPathMatcher } from '../lib/moved-patterns.mjs';
 const ORIGIN = 'https://jurassicenglish.com';
 export function anchors(html, base) {
   return [...html.matchAll(/<a\b[^>]*\bhref\s*=\s*(["'])(.*?)\1/gi)].flatMap(m => {
@@ -30,6 +31,7 @@ async function main() {
  const excluded = new Set(rows.map(r => r.url));
  const indexed = new Set(paths.filter(p => !excluded.has(ORIGIN+p) && !['/site-map','/vi/so-do-trang'].includes(p)));
  const inventory = new Set(paths), graph = new Map(), htmls = new Map(), failures = [], upstreamWarnings = [];
+ const movedAi = movedPathMatcher(config.redirects); // P7: /ai-speaking pages that redirect to jurassicielts.com
  const directRedirects = new Set(config.redirects.filter(r => !r.has && !r.source.includes(':')).map(r => r.source));
  const work = [...paths];
  await Promise.all(Array.from({length: 5}, async () => {
@@ -49,7 +51,7 @@ async function main() {
       const links = anchors(html, ORIGIN+pathname);
       graph.set(pathname, new Set(links.map(u => u.pathname).filter(p => inventory.has(p))));
       // Only actual hrefs count. Do not silently resolve redirects or canonicalise broken links.
-      for (const url of links) if (directRedirects.has(url.pathname) || url.hostname === 'www.jurassicenglish.com' || url.protocol === 'http:') (source === 'live-external-rewrite' && url.pathname.endsWith('/samples/basic') ? upstreamWarnings : failures).push({ from: pathname, error: 'redirecting-internal-link', href: url.href, source });
+      for (const url of links) if (directRedirects.has(url.pathname) || url.hostname === 'www.jurassicenglish.com' || url.protocol === 'http:') (source === 'live-external-rewrite' && url.pathname.endsWith('/samples/basic') || source !== 'local-build' && movedAi(url.pathname) ? upstreamWarnings : failures).push({ from: pathname, error: 'redirecting-internal-link', href: url.href, source });
     } catch(error) { failures.push({ from: pathname, error: error.message, source }); }
    }
  }));
@@ -58,7 +60,7 @@ async function main() {
  const inbound = p => [...graph].filter(([from, links]) => indexed.has(from) && links.has(p)).map(([from]) => from).sort();
  const contextual = p => [...htmls].filter(([from, html]) => indexed.has(from) && [...html.matchAll(/<section\b[^>]*data-crawl-resources=[\s\S]*?<\/section>/g)].some(m => anchors(m[0], ORIGIN+from).some(u => u.pathname === p))).map(([from]) => from).sort();
  const movedToIelts = new Set(config.redirects.filter(r => String(r.destination).startsWith('https://jurassicielts.com/')).map(r => r.source.replace(/\/$/, '') || '/'));
- const report = rows.filter(row => !movedToIelts.has(normalizeTarget(row.path).replace(/\/$/, '') || '/')).map(row => {
+ const report = rows.filter(row => !movedToIelts.has(normalizeTarget(row.path).replace(/\/$/, '') || '/') && !movedAi(normalizeTarget(row.path))).map(row => {
    const target = normalizeTarget(row.path), sources = inbound(target), contextSources = contextual(target);
    if (row.reason.startsWith('Discovered') && contextSources.length < 3) failures.push({ path: row.path, target, error: 'fewer-than-three-indexed-contextual-sources', sources: contextSources });
    return { ...row, target, indexedInboundCount: sources.length, indexedSources: sources, contextualSources: contextSources, clickDepth: depths.get(target) ?? null };
