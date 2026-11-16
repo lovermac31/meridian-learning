@@ -5,7 +5,7 @@
   "pageCount": 11,
   "source": {
     "file": "thinking-expeditions-l1-sample.pdf",
-    "sha256": "282d6b86090dbe1aee27f25bd7f87655d20015ce0e8243408a1c1d69a5683f78"
+    "sha256": "380f8840ad653f5ec0332012d27b729ce1807810d31b000651b678fd6196c013"
   },
   "pages": [
     {
@@ -75,9 +75,9 @@
     {
       "page": 9,
       "image": "thinking-expeditions-l1-pg09.webp",
-      "imageSha256": "11a97fcec834b608bf52d553d832f1ffde8456de70c55ef8248ed048102fc83d",
-      "text": "STORY LINK\nTwo rules, two answers\nMai's dig bucket\nMai looks in her dig bucket.\nShe has two red shells.\nShe has one red leaf.\nShe has one blue shell.\nred shell\nred shell\nred leaf\nblue shell\n13 Mai says: the blue shell! Her brother says: the leaf! Can both be\nright?\nYes, they use different rules.\nNo, only one can be right.\n14 Finish Rex's sentences.\nThe blue shell is odd. It is not\n.\nThe leaf is odd. It is not a\n.\nStorybook hunt: open your storybook. Find two characters. Say one\nthing the same. Say one thing different.\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n14",
-      "textSha256": "01e875248c7e4cffb9905e37217ef319324213f9fc1ccd62bd862c70faa119cf",
+      "imageSha256": "61a32086c75f1cc7e2db7d1350a1c8e5df783c031f8aa4983179e0481bdbb7c5",
+      "text": "STORY LINK\nTwo rules, two answers\nMai's dig bucket\nMai looks in her dig bucket.\nShe has two red shells.\nShe has one red leaf.\nShe has one blue shell.\nred shell\nred shell\nred leaf\nblue shell\n13 Mai says: the blue shell! Leo says: the leaf! Can both be right?\nYes, they use different rules.\nNo, only one can be right.\n14 Finish Rex's sentences.\nThe blue shell is odd. It is not\n.\nThe leaf is odd. It is not a\n.\nStorybook hunt: open your storybook. Find two characters. Say one\nthing the same. Say one thing different.\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n14",
+      "textSha256": "bc4567d2c223f9c77eacf5420995cb756f8a55ca72c5c55d055861c8275de6fc",
       "method": "pdf-text"
     },
     {
