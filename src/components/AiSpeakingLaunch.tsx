@@ -39,7 +39,7 @@ export function AiSpeakingLaunch() {
               </p>
               <h3 className="mt-2 font-serif text-xl leading-snug text-jurassic-dark">{content.writingTitle}</h3>
               <p className="mt-2 text-sm leading-relaxed text-jurassic-dark/75">{content.writingBody}</p>
-              <a href={`https://jurassicielts.com${getLocalizedHref('/ai-speaking/writing/demo', locale)}`} onClick={() => trackCtaClick({ label: 'homepage_writing_intro_click', type: 'secondary', segment: 'parent_student' })} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-jurassic-dark underline decoration-jurassic-accent decoration-2 underline-offset-4 hover:text-[#933402] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
+              <a href={getLocalizedHref('/ai-speaking/writing/demo', locale)} onClick={() => trackCtaClick({ label: 'homepage_writing_intro_click', type: 'secondary', segment: 'parent_student' })} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-jurassic-dark underline decoration-jurassic-accent decoration-2 underline-offset-4 hover:text-[#933402] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
                 {content.writingCta}<ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>

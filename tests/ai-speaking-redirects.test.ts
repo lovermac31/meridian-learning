@@ -80,7 +80,6 @@ const REDIRECTED: Array<[string, string]> = [
   ['/ai-speaking/one-to-one', `${JI}/ai-speaking/solutions`],
   ['/ai-speaking/one-to-one/', `${JI}/ai-speaking/solutions`],
   ['/ai-speaking/vi/one-to-one?x=1', `${JI}/ai-speaking/vi/solutions?x=1`],
-  ['/book-evaluation', `${JI}/ai-speaking/baseline`],
 ];
 
 // Page routes of the AI Speaking app (jurassic-ai-speaking mvp/app, checked 16 Nov 2026 against the P7 branch). Every redirect
@@ -154,6 +153,12 @@ for (const from of PROXIED) {
   });
 }
 
+test('/book-evaluation (printed on flyers) stays a temporary 307 to the JI Baseline page', () => {
+  const r = resolve('/book-evaluation');
+  assert.equal(r.kind, 'redirect');
+  if (r.kind === 'redirect') { assert.equal(r.status, 307); assert.equal(r.location, `${JI}/ai-speaking/baseline`); }
+});
+
 test('the 30-day hold is exact: /ai-speaking/laddering and /ai-speaking/exams are not held and still redirect', () => {
   for (const p of ['/ai-speaking/laddering', '/ai-speaking/exams', '/ai-speaking/vi/solutionsx']) {
     const r = resolve(p);
@@ -170,7 +175,7 @@ test('/ai-speaking-notes and other look-alike addresses are untouched', () => {
 });
 
 test('every AI Speaking redirect to JI is permanent and targets the JI host only', () => {
-  const rules = config.redirects.filter((r) => r.source.startsWith('/ai-speaking') || r.source === '/book-evaluation');
+  const rules = config.redirects.filter((r) => r.source.startsWith('/ai-speaking'));
   assert.ok(rules.length >= 8);
   for (const rule of rules) {
     assert.equal(rule.permanent, true, rule.source);

@@ -4,4 +4,3 @@ Disallow: /available-soon
 Disallow: /plans-pricing-access
 
 Sitemap: https://jurassicenglish.com/sitemap.xml
-Sitemap: https://jurassicenglish.com/ai-speaking/sitemap.xml

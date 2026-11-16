@@ -11,6 +11,7 @@ import pricing from '../src/content/marketPricing.json';
 import { buildViPage } from '../scripts/prerender-yl-vi.mjs';
 import { PAYPAL_BUSINESS_ID, PAYPAL_LOGO, VND_PER_USD, paypalHref, paypalItemName, usdFromVnd } from '../src/lib/paypal.ts';
 import { baselineHref } from '../src/lib/baselineLink.ts';
+import { movedHref } from '../src/config/movedToJurassicielts.ts';
 import { lessonsHref } from '../src/yl/pageI18n.ts';
 
 const ROOT = resolve(import.meta.dirname, '..');
@@ -90,7 +91,8 @@ for (const [name, html, lang] of [['EN', YL_EN, 'en'], ['VI', YL_VI, 'vi']] as c
     for (const [i, o] of YL_OFFERS.entries()) {
       const usd = usdFromVnd(o.vnd);
       assert.equal(options[i].shown, usd, o.item);
-      assert.equal(options[i].href, checkoutHref(o.item, lang), o.item);
+      // The raw YL page keeps the JE address; the build step (scripts/rewrite-moved-links.mjs) points it at JI.
+      assert.equal(movedHref(options[i].href), movedHref(checkoutHref(o.item, lang)), o.item);
     }
     assert.doesNotMatch(html, /cgi-bin\/webscr/, 'no fixed PayPal link left on the YL page');
     assert.deepEqual(options.map((o) => o.shown), [27, 31, 217]);

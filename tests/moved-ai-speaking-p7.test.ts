@@ -69,3 +69,26 @@ test('movedPathMatcher (check scripts) agrees with isMovedToJurassicielts on eve
   assert.ok(AIS_PAGE_ROUTE.test('/ai-speaking/vi/writing/report/abc'));
   assert.ok(!AIS_PAGE_ROUTE.test('/ai-speaking/typo'));
 });
+
+// Review fixes (16 Nov): crawl resources keep their AI Speaking links, now pointing at JI.
+import { crawlResourceLinks } from '../src/components/CrawlResources.tsx';
+import resources from '../src/content/crawlResources.json';
+
+test('CrawlResources keeps every AI Speaking resource and points it at jurassicielts.com (held pages stay on JE)', () => {
+  const all = Object.values(resources).flat();
+  const ai = all.filter((l) => l.href.startsWith('/ai-speaking'));
+  assert.ok(ai.length >= 10);
+  const out = Object.values(resources).flatMap((links) => crawlResourceLinks(links)).filter((l) => /\/ai-speaking/.test(l.href));
+  assert.equal(out.length, ai.length, 'no AI Speaking link is dropped');
+  for (const link of out) {
+    if (/\/ai-speaking\/(?:vi\/)?solutions$/.test(link.href)) assert.ok(link.href.startsWith('/ai-speaking'), link.href);
+    else assert.ok(link.href.startsWith(`${JI}/ai-speaking`), link.href);
+  }
+});
+
+test('the JE sitemap leaves out moved and held AI Speaking pages', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const src = await readFile(new URL('../scripts/generate-sitemap.mjs', import.meta.url), 'utf8');
+  assert.match(src, /isHeldAiSpeaking/);
+  assert.match(src, /exam\|solutions\|ladder/);
+});

@@ -104,14 +104,14 @@ test('EN page: every Baseline CTA opens the English booking page', () => {
 test('VI page: every Baseline CTA opens the Vietnamese booking page', () => {
   const links = baselineLinks(VI_HTML);
   assert.equal(links.length, baselineLinks(EN_HTML).length);
-  for (const href of links) assert.equal(href, '/ai-speaking/baseline?lang=vi');
+  for (const href of links) assert.equal(href, 'https://jurassicielts.com/ai-speaking/baseline?lang=vi');
   assert.equal(VI_BASELINE_HREF, baselineHref('vi'));
 });
 
 test('runtime language switch: vi gets ?lang=vi, zh-CN falls back to the English page', () => {
-  assert.equal(baselineHref('en'), '/ai-speaking/baseline');
-  assert.equal(baselineHref('vi'), '/ai-speaking/baseline?lang=vi');
-  assert.equal(baselineHref('zh-CN'), '/ai-speaking/baseline');
+  assert.equal(baselineHref('en'), 'https://jurassicielts.com/ai-speaking/baseline');
+  assert.equal(baselineHref('vi'), 'https://jurassicielts.com/ai-speaking/baseline?lang=vi');
+  assert.equal(baselineHref('zh-CN'), 'https://jurassicielts.com/ai-speaking/baseline');
   const runtime = read('src/yl/pageI18n.ts');
   assert.match(runtime, /querySelectorAll<HTMLAnchorElement>\('a\[data-baseline-link\]'\)/);
   assert.match(runtime, /applyBaselineLinks\(lang\);/);
@@ -152,8 +152,8 @@ test('/book-evaluation (printed on flyers) redirects to the Baseline booking pag
   };
   const r = redirects.filter((x) => x.source === '/book-evaluation');
   assert.equal(r.length, 1);
-  // IELTS migration P7: the Baseline page is served at jurassicielts.com/ai-speaking/baseline (one permanent hop).
+  // IELTS migration P7: the Baseline page is served at jurassicielts.com/ai-speaking/baseline (one temporary hop: the address is printed on flyers and must stay retargetable).
   assert.equal(r[0].destination, 'https://jurassicielts.com/ai-speaking/baseline');
-  assert.equal(r[0].permanent, true);
+  assert.equal(r[0].permanent, false);
   assert.doesNotMatch(read('vercel.json'), /script\.google\.com/);
 });
