@@ -38,14 +38,14 @@ test('metadata: the description covers the whole range in EN and VI, OG matches 
 });
 
 test('JSON-LD: one Product with a VND Offer for every live card, in the page language, plus the breadcrumbs', () => {
-  assert.equal(LIVE.length, 49);
+  assert.equal(LIVE.length, 52); // + Phonics Books 3–5 (16 Nov 2026)
   for (const [path, locale] of [['/products', 'en'], ['/vi/products', 'vi']] as const) {
     const blocks = resolveRouteMetadata(path).jsonLd as Array<Record<string, any>>;
     assert.ok(blocks.some((b) => b['@type'] === 'BreadcrumbList'), `${path}: breadcrumbs kept`);
     const list = blocks.find((b) => b['@type'] === 'ItemList')!;
     // IELTS migration P6: the 14 IELTS products moved to jurassicielts.com and leave the /products JSON-LD; the rest are unchanged.
     const onPage = LIVE.filter((p) => p.section !== IELTS_MOVED_SECTION);
-    assert.equal(onPage.length, 35, path);
+    assert.equal(onPage.length, 38, path); // + Phonics Books 3–5 (16 Nov 2026)
     assert.equal(list.numberOfItems, onPage.length, path);
     assert.ok(list.itemListElement.every((entry: Record<string, any>) => !LIVE.some((p) => p.section === IELTS_MOVED_SECTION && entry.item.url.endsWith(`#${p.id}`))), `${path}: no IELTS product in the JSON-LD`);
     const page = `https://jurassicenglish.com${locale === 'vi' ? '/vi' : ''}/products`;

@@ -22,7 +22,7 @@ for (const locale of ['en', 'vi'] as const) {
     assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'phonics', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Phonics, then Story Workbooks, right after Families (15 Nov 2026)');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
     assert.equal(total, ON_PRODUCTS.length);
-    assert.equal(total, 35, '35 cards: the 14 IELTS cards moved to jurassicielts.com');
+    assert.equal(total, 38, '38 cards (Phonics Books 3–5 added 16 Nov 2026): the 14 IELTS cards moved to jurassicielts.com');
     assert.ok(!productsPage(locale).sections.some((section) => section.id === IELTS_MOVED_SECTION), 'no IELTS section in the catalogue data');
     assert.match(html, /<section id="ielts" aria-labelledby="ielts-h" class="[^"]*products-category[^"]*" data-ielts-moved="">/, 'the one moved IELTS card');
     for (const section of productsPage(locale).sections) {

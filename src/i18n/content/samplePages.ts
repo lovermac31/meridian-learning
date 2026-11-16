@@ -25,9 +25,12 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'ielts-writing-teacher-pack': 10,
   'mango-l2': 3,
   'one-to-one': 7,
-  // Jurassic English Phonics Books 1 and 2 (15 Nov 2026): the 14 pages of each approved free sample PDF.
+  // Jurassic English Phonics Books 1 and 2 (15 Nov 2026), Books 3 to 5 (16 Nov 2026, draft): the 14 pages of each approved free sample PDF.
   'phonics-b1': 14,
   'phonics-b2': 14,
+  'phonics-b3': 14,
+  'phonics-b4': 14,
+  'phonics-b5': 14,
   'parent-pack-l1': 10,
   'parent-pack-l2': 10,
   'parent-pack-l3': 10,

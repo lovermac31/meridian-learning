@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "productId": "phonics-b4",
+  "sampleStem": "phonics-b4",
+  "pageCount": 14,
+  "source": {
+    "file": "phonics-b4-sample.pdf",
+    "sha256": "66f13c1a4c15a5074e016127dddfb46901f631acb377c663e193636646ed9431"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "phonics-b4-pg01.webp",
+      "imageSha256": "9d3a08a23d33cba42efc4d93c733e174ccad5c8d37c13cc65be5e7b8bab83009",
+      "text": "Jurassic English Phonics\nBook 4\nLetter Pairs\nbl cr sh wh\nListen · Read · Write · Play\nby Matthew Goslee\nWorldWise Learning",
+      "textSha256": "0a5e697d9593eab67230d669c0d903b03ac61ea053c844c021d278877e2a3a6e",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 2,
+      "image": "phonics-b4-pg02.webp",
+      "imageSha256": "5a869d03f69554f001369b0811b7ebaf8c9ec03fa91a7415aeb9f0f6ab222403",
+      "text": "Jurassic English Phonics\nBook 4 · Letter Pairs\nby Matthew Goslee\nBlends bl to tr and sm to sw, ng nk, sh ch th wh\n8 units · 2 review units · Challenge · Test\nWords, sounds, stories and games\nWorldWise Learning",
+      "textSha256": "cacba0e0722df1fc98f5fcaa7fcf9decbca770d105c7acf2acd56ac82ff32ae9",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 3,
+      "image": "phonics-b4-pg03.webp",
+      "imageSha256": "7b511b2cc43908e84552fd7738313a160baa09d9d3250b32936772b582100645",
+      "text": "Contents\nUnit 1 · Letter Pairs bl cl fl · Fairy-Tale Castle · page 4: black, blue, blade, blimp, clock, clam, cliff, clap, flag, flame, flute, flap\nUnit 2 · Letter Pairs br cr fr · Rainforest · page 12: bride, brick, brake, brave, crab, crane, crib, cross, frog, frame, frost, front\nUnit 3 · Letter Pairs gl pl sl · Snow Day · page 20: glass, globe, glove, glue, plane, plant, plate, plum, slide, sled, slim, slice\nUnit 4 · Letter Pairs dr pr tr · Birthday Party · page 28: drum, dress, dragon, drive, prize, prince, price, press, truck, trumpet, track, trace\nReview 1 · Letter Pairs bl – tr · Chant, Game, Story · Units 1–4 · page 36\nUnit 5 · Letter Pairs sm sn st sw · Train Ride · page 44: smile, smoke, smell, snake, snack, snore, stone, stove, stop, swim, swan, sweet",
+      "textSha256": "700f590d5e93c7c85cb86d56e436298f75007a9c6eb6b00c7082e8b5eb44614f",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 4,
+      "image": "phonics-b4-pg04.webp",
+      "imageSha256": "76833adeb031f220e401caa40622bb103d76334e2412409030c28857c788cc69",
+      "text": "Contents\nUnit 6 · Letter Pairs ng nk · Flower Garden · page 52: king, ring, sing, swing, wing, string, ink, pink, sink, wink, drink, bank\nUnit 7 · Letter Pairs sh ch · Toy Shop · page 60: ship, shop, shape, fish, brush, wash, chick, chin, cherry, bench, ranch, branch\nUnit 8 · Letter Pairs th wh · Fire Station · page 68: thumb, thick, thin, bath, math, teeth, whale, wheat, wheel, white, whisper\nReview 2 · Letter Pairs sm – wh · Chant, Game, Story · Units 5–8 · page 76\nChallenge · Letter Pairs bl – wh · Market Day · Game, Puzzles, Story · page 84\nTest and Key Vocabulary · Listening, Reading & Writing · 30 questions · Key Vocabulary on page 100 · page 92",
+      "textSha256": "61bd5302924ab0ad2930c3c87f2f9ca358e3c5222de2c7617ba04116afbb8f93",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 5,
+      "image": "phonics-b4-pg05.webp",
+      "imageSha256": "0f84043ef83878ce1d705fa179d67a089bea3b53da2448c18f953130845fb414",
+      "text": "Unit 1 · Letter Pairs bl cl fl\n1 Words and Pictures (Track 01)\nListen, repeat, and say.\nblack, blue, blade, blimp, clock, clam, cliff, clap, flag, flame, flute, flap",
+      "textSha256": "2f8148f6e0b3edb3db4abdd91ea2c71d2bb4a83ec501a3089a1a21d53c5822d2",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 6,
+      "image": "phonics-b4-pg06.webp",
+      "imageSha256": "586fdf2b9cc89d7e2cd6c3b7785181e67fe5aafbdd5ec50d4f068d1de435e389",
+      "text": "A Listen and repeat. (Track 02)\nTwo sounds (blend) and one sound (digraph).\nblack, blue, blade, blimp\nclock, clam, cliff, clap\nflag, flame, flute, flap",
+      "textSha256": "1da10fab0cdf9143809f1afd3530d7297cb50bf04d7cc730595695e9b9bdf127",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 7,
+      "image": "phonics-b4-pg07.webp",
+      "imageSha256": "fab0bb567bf023e67fea4998f5f6f697d098843fc4cc37ca6c258dfa80ce572e",
+      "text": "B Circle the picture with the matching sound.\n1 cl-\n2 bl-\n3 fl-\n4 bl-\n5 fl-\n6 cl-",
+      "textSha256": "3a52a377322cfbd3ca8b2e54603f11e4cadc403f4fe90cf49aaa43223ec0ec0f",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 8,
+      "image": "phonics-b4-pg08.webp",
+      "imageSha256": "77f7aecba0dd28538bafaff62e1eeada832c0c9bae4191fe4c4c079ea82ac302",
+      "text": "C Write the words with the same letter pair sound.\nWords: cliff, blimp, flame, blade, clap, flute, blue, flap, clam\nblack: blimp (example), ___, ___\nflag: ___, ___, ___\nclock: ___, ___, ___",
+      "textSha256": "e238ca9a96e522a78980177ff88756b89fdf544646b17a2c4231fe4bbce405e2",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 9,
+      "image": "phonics-b4-pg09.webp",
+      "imageSha256": "07dc18b7affc93e14b8d5f59ee5c19ce12d5ee56850bbbba7257d20eb16cd73d",
+      "text": "D Listen. Circle the two words that begin with a letter pair sound. (Track 03)\n1 blue, flute, bike (example: blue, flute)\n2 flap, cave, cliff\n3 fuse, flag, clam\n4 fire, blimp, flame\n5 cute, clock, black\n6 blade, bake, clap",
+      "textSha256": "7eb79cd5dfbf3c5d380923ab2322e79216bf00f985fdb6a76edb445ee7a8da9f",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 10,
+      "image": "phonics-b4-pg10.webp",
+      "imageSha256": "905f747f46ed61fe0c920eada0ebf26c7c061052093743fd94b3a7b61c1457dc",
+      "text": "E Listen and match the picture with the right sentence. (Track 04)\nSight words: the, a, with, has\nA prince with a flute stands on a cliff.\nA blue bike has black wheels.\nLook! The fox has a clam.\nTwo hens flap their wings by the hut.",
+      "textSha256": "14a5604355e7e668415df74520c9349c45d87b7b3e1a9e0170a43f66b85320b4",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 11,
+      "image": "phonics-b4-pg11.webp",
+      "imageSha256": "a2efae1cea9e2b100631c932172fdacc36fe65c22a31e6b05d60e4920d72df4c",
+      "text": "F Look at the pictures. Write the words in the puzzle.\nEight picture clues, across and down (example: black, 1 down).",
+      "textSha256": "dd8fde964f9701a4719122934390ef7e575b13df65b2071fc822ab02967b9239",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 12,
+      "image": "phonics-b4-pg12.webp",
+      "imageSha256": "262b25f411ab336ac8515d50e64f3f330a1f2ae1af9f95fda316d4ccd2fd36d2",
+      "text": "G Write the word for each picture. Fill in the circle next to the sentence with the word.\n1 The bear claps his hands. / The cat has a clam on its nose. (example: clap)\n2 The flute is in the black box. / The flag flaps in the wind.\n3 The black bug flies in the sky. / The blimp is up in the sky.\n4 The fox cuts the note with the blade. / The blue paint comes out of the tube.\nI finished Unit 1!",
+      "textSha256": "8af19303241c8fe7291eaadc02ccb6aaa5defb1100b1b8a653a3a4cf12b7ef7a",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 13,
+      "image": "phonics-b4-pg13.webp",
+      "imageSha256": "ec42404b95b6be3cb266eb68fe598daafff69fdbabc3970afe3ed4d2a1cfad0f",
+      "text": "Audio and Credits\nListen: this book has 47 audio tracks (MP3). The track number in each headphone tag, for example Track 07, matches the file name Book4_Track07.mp3. Find the files in the Audio folder of your download. Play them on any phone, tablet or computer, as often as you like. Press play, listen, pause, then answer. Most tracks are played twice. No audio yet? Teachers can read the scripts aloud from the Teacher's Guide.\nCredits: Jurassic English Phonics · Book 4 · Letter Pairs. Text and activities by Matthew Goslee. Published by WorldWise Learning / Jurassic English. Illustrations are made with AI image tools and edited by the publisher. The audio is synthetic text-to-speech. © 2026 Jurassic English. All rights reserved. For use by the purchasing family, teacher or school. Please do not copy, resell or share the files. Questions: www.jurassicenglish.com",
+      "textSha256": "3f7d7087ffed0f02e2069c8e7f1be3ea9286c7455034c211bb27e5b560b25f66",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 14,
+      "image": "phonics-b4-pg14.webp",
+      "imageSha256": "d68698bda58d7fb673a16123c623cb3915e2d6388bdeefbeaa8e3398ac8b706f",
+      "text": "Jurassic English Phonics\nBook 4 · Letter Pairs\nJurassic English Phonics is a five-book series that helps young learners read and spell English with confidence.\nIn Book 4, children learn letter pair sounds like bl, cr, sh, th and wh through themed units, songs, games and stories.\n8 themed units, 2 review units and a Challenge · Listening tracks, word games and picture stories · A test and key vocabulary list at the back\nThe series: Book 1, Book 2, Book 3, Book 4, Book 5\nby Matthew Goslee · WorldWise Learning · www.jurassicenglish.com",
+      "textSha256": "ad4e886de3cd92d0ef6cc3ba197ad6ecb94c441da9c8423b43e3e3c2f432e423",
+      "method": "pdf-text+reviewed-ocr"
+    }
+  ]
+}

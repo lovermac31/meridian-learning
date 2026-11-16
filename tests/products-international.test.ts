@@ -84,7 +84,7 @@ test('market order codes: the Sale Team table maps each market-<country> source 
 const USD: Record<string, number> = {
   'printable-pack': 6, 'parent-pack-l1': 10, 'parent-pack-l2': 10, 'parent-pack-l3': 10, 'holiday-reading-challenge': 6,
   // Phonics Books 1 and 2: Jay's fixed US$7.99 a book (14 Nov 2026), not ceil(VND ÷ 25,897).
-  'phonics-b1': 7.99, 'phonics-b2': 7.99,
+  'phonics-b1': 7.99, 'phonics-b2': 7.99, 'phonics-b3': 7.99, 'phonics-b4': 7.99, 'phonics-b5': 7.99,
   // Story Workbooks: the DEFAULT (highest tier) US$ price; regional prices are tested below (3 Nov 2026).
   'story-workbooks-l1': 15, 'story-workbooks-l2': 10, 'story-workbooks-l3': 10, 'story-workbooks-l4': 10, 'story-workbooks-l5': 10,
   'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27, 'teacher-pack-l5': 27, 'teacher-bundle': 112,

@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "productId": "phonics-b5",
+  "sampleStem": "phonics-b5",
+  "pageCount": 14,
+  "source": {
+    "file": "phonics-b5-sample.pdf",
+    "sha256": "953a237e9f5ee3ea439e2b0d4f449401894aa3f95d843ea74fa602e25128efc2"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "phonics-b5-pg01.webp",
+      "imageSha256": "915cd8b3e0536111abcf15dbea035d063e815333b0b5ff21c9fc580f49692646",
+      "text": "Jurassic English Phonics\nBook 5\nVowel Teams and Bossy R\nee oa ow oo\nListen · Read · Write · Play\nby Matthew Goslee\nWorldWise Learning",
+      "textSha256": "ef24a27125c1d2c94bb58d9cab5f0a78696cfede929b588ae2260aca6f4e282d",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 2,
+      "image": "phonics-b5-pg02.webp",
+      "imageSha256": "7b42401aed93607b15517c746275d99cdcfbce3a5a0a05135d16c040c2e71f4e",
+      "text": "Jurassic English Phonics\nBook 5 · Vowel Teams and Bossy R\nby Matthew Goslee\nee ea, oa ow, ai ay, oi oy, ow ou, ir er ur, ar or, oo\n8 units · 2 review units · Challenge · Test\nWords, sounds, stories and games\nWorldWise Learning",
+      "textSha256": "ed1d7940a246e1b9153da9a529f576406cce340e486f10402e813ec449d7b0b9",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 3,
+      "image": "phonics-b5-pg03.webp",
+      "imageSha256": "f530876d302169c7f278a2fb28e381fbb3419dcc106a2ab34a3cec744a26efdf",
+      "text": "Contents\nUnit 1 · Vowel Teams ee ea · Music Band · page 4: bee, tree, jeep, seed, peel, green, sea, tea, leaf, meat, seal, peanut\nUnit 2 · Vowel Teams oa ow · Rainy Day · page 12: boat, coat, goat, soap, road, toast, bowl, window, yellow, pillow, snow, blow\nUnit 3 · Vowel Teams ai ay · Pet Shop and Vet · page 20: train, rain, mail, nail, tail, rail, gray, tray, hay, clay, play, pray\nUnit 4 · Vowel Teams oi oy · Farm Visit · page 28: coin, coil, soil, boil, toilet, point, boy, toy, joy\nReview 1 · Vowel Teams ee – oy · Chant, Game, Story · Units 1–4 · page 36\nUnit 5 · Vowel Teams ow ou · Beach Day · page 44: cow, owl, gown, brown, crown, clown, house, mouse, blouse, cloud, mouth, count",
+      "textSha256": "995388e7835576bebefebd7529992c586bd72b53857361a41505741c6da34b0b",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 4,
+      "image": "phonics-b5-pg04.webp",
+      "imageSha256": "d11740faac99fb7cb7af653a8addf56e9b981b3dc0ae8795d2240dcb09841a72",
+      "text": "Contents\nUnit 6 · Bossy R ir er ur · Hot-Air Balloon Ride · page 52: bird, girl, skirt, shirt, letter, singer, soccer, teacher, turtle, purple, nurse, purse\nUnit 7 · Bossy R ar or · Robot Workshop · page 60: car, star, arm, card, park, farmer, horse, fork, corn, store, cork, north\nUnit 8 · Vowel Teams oo · Fun Fair · page 68: book, cook, hook, foot, wood, look, moon, pool, goose, spoon, food, zoo\nReview 2 · Vowel Teams and Bossy R ow – oo · Chant, Game, Story · Units 5–8 · page 76\nChallenge · Vowel Teams and Bossy R ee – oo · Sports Day · Game, Letter, Puzzles, Story · page 84\nTest and Key Vocabulary · Listening, Reading & Writing · 30 questions · Key Vocabulary on page 100 · page 92",
+      "textSha256": "e66017b42c6cd5dc3fe7a44bbc3eedcdd0909e747ad4ad6a44627528b5059bfb",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 5,
+      "image": "phonics-b5-pg05.webp",
+      "imageSha256": "64fbf3f4ca0da99a709b6c75655db3fd49b87cec5f4fdddeebb462a2f2773bb8",
+      "text": "Unit 1 · Vowel Teams ee ea\n1 Learn (Track 01)\nListen and repeat. Trace the letters and read the words.\nbee, sea",
+      "textSha256": "2ad43197e84b189ee1cbbe67014c1634c2714bbf844d9fef30b10dc5901bf6e5",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 6,
+      "image": "phonics-b5-pg06.webp",
+      "imageSha256": "b7d6f4c50815006d7bc986f92f2dda784470e52e0b2b219405856d92690abecd",
+      "text": "A Listen and repeat. (Track 02)\nTip: ee and ea make the same long e sound: bee, sea.\nbee, tree, jeep, seed, peel, green, sea, tea, leaf, meat, seal, peanut",
+      "textSha256": "5f3c652bf29a66b67e95dc1ac8ca8b2d88c38aef2417fc7e035fe07aa3146645",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 7,
+      "image": "phonics-b5-pg07.webp",
+      "imageSha256": "170031dd10c7e2529c5787a95c7e34107013d0b30ea6527817c09552e5e2944d",
+      "text": "B Find the words on the record. Then write the words.\nThe words run round the record.\nPictures: leaf (example), bee, peanut, green, tea, jeep, meat, tree, sea",
+      "textSha256": "5a8837cd6a41ceb3ff22c67a479b4079b09aad9f184a358f132c1ea87678df9e",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 8,
+      "image": "phonics-b5-pg08.webp",
+      "imageSha256": "64b46ad1ac9b1f463c26fb3b1cdac3a2410c41da0f097662cb6d625e84e63f97",
+      "text": "C Circle the right word. Then write the picture number.\npeenut / peanut (example: peanut, 3) · tee / tea · seed / sead · seel / seal\ntree / trea · peel / peal · jeep / jeap · leef / leaf",
+      "textSha256": "a5bcee9d6137d6ceea9cb82ebc26bf6f392194beafb55da60db9b619e8db6706",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 9,
+      "image": "phonics-b5-pg09.webp",
+      "imageSha256": "25421bbff8c898ce2cefa0a9a880bd1a5bdf92b75676d7500400836d34f550c5",
+      "text": "D Listen and write the missing letters. Then check the right picture. (Track 03)\n1 _ea___\n2 _ee_\n3 __ee_\n4 _ea_\n5 _ee_\n6 _ea_",
+      "textSha256": "1bb31b6e5046489107c61850efb2cbc130d6cc3b24813e57d76c60c7a96a6231",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 10,
+      "image": "phonics-b5-pg10.webp",
+      "imageSha256": "0b890649cc896c1807cd780ab29f98c5c8f55f5d2260049a31fd8ba340ba3cb7",
+      "text": "E Listen and write the missing word. Then write the picture letter. (Track 04)\nWords: bee, sea, tea, jeep, tree, leaf\n1 Look! A green snake naps under the ___. (example: tree, b)\n2 A big blue whale swims in the ___.\n3 The bear rides in a red ___.\n4 The fox paints a green ___.\n5 A little ___ lands on the red rose.\n6 The old king has a cup of ___.",
+      "textSha256": "59d3e23632e2df37315356622ed6e678a8b16c657f813cb9f823f9c7fb7d48d1",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 11,
+      "image": "phonics-b5-pg11.webp",
+      "imageSha256": "3f1d06ac4d4e6926995c09884238cd51b5095a0c9ef9d7ad99deb4f5a2b692d9",
+      "text": "F Fill in the missing vowel teams. Then write the words on the matching drum.\ngr__n (example: green), s__l, l__f, m__t, s__, tr__, b__, p__l\nDrums: ee, ea",
+      "textSha256": "5de515dfbeecac1d581d7a57b722492412ca3a97f7d9a3d5287fda5f9d829a08",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 12,
+      "image": "phonics-b5-pg12.webp",
+      "imageSha256": "fdb92ca5adf242e8d0c5194f068df33003dccd823a6bf256442e3a5779d5234d",
+      "text": "G Read the sentence. Trace and write the words.\n1 The leaf is green. (example)\n2 The seal has a peanut.\n3 The bee is on the tree.\n4 A (picture) is in the tea cup.\nI finished Unit 1!",
+      "textSha256": "2ccc410f85c7b538b93a72ae37f884f971777592debd571163510fcfc3b88a2c",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 13,
+      "image": "phonics-b5-pg13.webp",
+      "imageSha256": "b940aba7c0a4899bd936bc44d9eb6b10b24f2a9a05ba08caac77f07a98bae34f",
+      "text": "Audio and Credits\nListen: this book has 47 audio tracks (MP3). The track number in each headphone tag, for example Track 07, matches the file name Book5_Track07.mp3. Find the files in the Audio folder of your download. Play them on any phone, tablet or computer, as often as you like. Press play, listen, pause, then answer. Most tracks are played twice. No audio yet? Teachers can read the scripts aloud from the Teacher's Guide.\nCredits: Jurassic English Phonics · Book 5 · Vowel Teams and Bossy R. Text and activities by Matthew Goslee. Published by WorldWise Learning / Jurassic English. Illustrations are made with AI image tools and edited by the publisher. The audio is synthetic text-to-speech. © 2026 Jurassic English. All rights reserved. For use by the purchasing family, teacher or school. Please do not copy, resell or share the files. Questions: www.jurassicenglish.com",
+      "textSha256": "392f5e4ff8bd09b8de3f0aafc3f5f48b85a1f96d48ae8b506e4c478cd58d1c04",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 14,
+      "image": "phonics-b5-pg14.webp",
+      "imageSha256": "a283c80d634a48684f5782964ddc6ca0da032dfa691fefee76c8d3705502622a",
+      "text": "Jurassic English Phonics\nBook 5 · Vowel Teams and Bossy R\nJurassic English Phonics is a five-book series that helps young learners read and spell English with confidence.\nIn Book 5, children learn vowel teams like ee, oa, ai, ow and oo, and Bossy R sounds like ir and ar, through songs, games and stories.\n8 themed units, 2 review units and a Challenge · Listening tracks, word games and picture stories · A test and key vocabulary list at the back\nThe series: Book 1, Book 2, Book 3, Book 4, Book 5\nby Matthew Goslee · WorldWise Learning · www.jurassicenglish.com",
+      "textSha256": "fd2a719ee86c4dc1d945951e8abd57e3b6105f2a442635a21339f906028f8279",
+      "method": "pdf-text+reviewed-ocr"
+    }
+  ]
+}
