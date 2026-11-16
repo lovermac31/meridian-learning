@@ -47,6 +47,6 @@ test('/products: the free IELTS app card tops the IELTS group with utm_content=p
     assert.ok(section.includes(`href="${solutions}"`), `${locale}: the moved card links JurassicIELTS /solutions/`);
     assert.ok(html.includes(`href="${ieltsAppHref('products', locale)}"`), `${locale}: entrance link (banner)`);
     assert.doesNotMatch(section, /<li |data-price=/, `${locale}: not a priced product card`);
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 36, `${locale}: 36 product cards (Phonics Books 1 and 2, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story and the rest; the 14 IELTS cards moved to jurassicielts.com)`);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 37, `${locale}: 37 product cards (Phonics Books 1 and 2, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Level 1 and the rest; the 14 IELTS cards moved to jurassicielts.com)`);
   }
 });

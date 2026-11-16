@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "productId": "thinking-expeditions-l1",
+  "sampleStem": "thinking-expeditions-l1",
+  "pageCount": 11,
+  "source": {
+    "file": "thinking-expeditions-l1-sample.pdf",
+    "sha256": "282d6b86090dbe1aee27f25bd7f87655d20015ce0e8243408a1c1d69a5683f78"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "thinking-expeditions-l1-pg01.webp",
+      "imageSha256": "bc1d1d3de681e70a4dcb3e0dc61822ce5de19cd0308a4a546a211d23d7c74e63",
+      "text": "SA\nJURASSIC ENGLISH CRITICAL THINKING · SAMPLE UNIT\nSame, Different, Odd One Out\nLevel 1 · Foundation\nAges 6-8\nThinking workbook\nJurassicEnglish.com · Thinking Expeditions\nM\nP\nLE",
+      "textSha256": "fb344b5c7500634d410536da4cb4fb3d21d840b30d5a17f2187607bf7ab2cbd8",
+      "method": "pdf-text"
+    },
+    {
+      "page": 2,
+      "image": "thinking-expeditions-l1-pg02.webp",
+      "imageSha256": "07a4e4fd9af26589aefd198b97abf3a3897e5ad69fa2beb7f9c0d083fe0a0ad6",
+      "text": "EXPEDITION MAP\nObserve · Compare · Classify\nWelcome to the dig site!\nHello, explorer! Today we look closely. We find what is\nthe same. We find what is different.\nI can …\nI can say colour, shape and size.\nI can find two the same.\nI can find the odd one out.\nI can say because.\nI can find more than one good answer.\nThinking words: same\ndifferent\nbig\nsmall\nodd one out\nbecause\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n7",
+      "textSha256": "9ca990c25e2cd1bbf9dfcf912468ce900635f18be83e5aea09d03db6c858eb3b",
+      "method": "pdf-text"
+    },
+    {
+      "page": 3,
+      "image": "thinking-expeditions-l1-pg03.webp",
+      "imageSha256": "0ec25abc2332142baf05cdfac14fa63c960feb09725171630cf87ed504f7df57",
+      "text": "WATCH REX THINK\nOdd one out: a worked example\nWatch Rex think\nRex finds three eggs. Which egg is the odd one out?\nA\nB\nC\nI check the colour. All have yellow patterns. I check the\nsize. All are big. I check the pattern. A has spots. B has\nspots. C has stripes! C is odd because it has stripes.\nRex's four steps\n1. Look\n2. Check\n3. Choose\n4. Say\nLook at every\npicture.\nColour? Shape? Size?\nPattern?\nChoose the one that is\ndifferent.\nSay: …\nbecause …\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n8",
+      "textSha256": "39c2c91708cae0469bb65ef40a02798802a8f59d24f7582e5da53299dd6adf7d",
+      "method": "pdf-text"
+    },
+    {
+      "page": 4,
+      "image": "thinking-expeditions-l1-pg04.webp",
+      "imageSha256": "091e2fec26f4e6fb47be7ab86c18cffdc9ccc22162232857a997b480b9ec718a",
+      "text": "DIG\nObserve: colour, shape, size\nLook and say\nLook at Rex's three cards. Answer each question.\nLook at the first card (on the left).\n1 What colour is it?\nred\nblue\nyellow\nstar\nsquare\n2 What shape is it?\ncircle\n3 Look at the middle card. Is it bigger or smaller than the others?\nbigger\nsmaller\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n9",
+      "textSha256": "da5c230291a767d656e5f3a3db99cf56a7e57349faeb4ae811110cb06fd7d274",
+      "method": "pdf-text"
+    },
+    {
+      "page": 5,
+      "image": "thinking-expeditions-l1-pg05.webp",
+      "imageSha256": "0db372809ee1b4b31d107eeae766a37fb95748a98faa4d2a2af5eda0951723ff",
+      "text": "DIG\nCompare: exactly the same\nFind the twins\nTwins are the same in every way. Check colour, shape and\nsize.\n4 Which two leaves are twins?\nA\nB\nA and C\nC\nA and D\nD\nB and D\n5 Which two footprints are twins?\nA\nA and B\nB\nC\nA and D\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\nD\nC and D\n10",
+      "textSha256": "ca0e5ae68e4c0351cd6397f1d8343210e5cb5718880f417154f3f1108e181598",
+      "method": "pdf-text"
+    },
+    {
+      "page": 6,
+      "image": "thinking-expeditions-l1-pg06.webp",
+      "imageSha256": "000ee4ddc2d1da86d1f1fb930337ddf9f1fc7ad87ef6c157ccc67a4a7a2f8f83",
+      "text": "WEIGH\nClassify: find what does not belong\nOdd one out\n6 Circle the odd one out.\nA\nB\nC\nD\nis odd because it is a\n.\n7 Circle the odd one out.\nA\nB\nC\nD\nis odd because it has\n.\n8 Circle the odd one out.\nA\nB\nC\nis odd because it\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\nD\n.\n11",
+      "textSha256": "9558b28e3f1a3af2eb9ef14e9304d73024b315e2c374892ab9347a0a58eca6f3",
+      "method": "pdf-text"
+    },
+    {
+      "page": 7,
+      "image": "thinking-expeditions-l1-pg07.webp",
+      "imageSha256": "451c7679bdf64ee6f5ed4defd71c4d5a3065d4993e83961ee5ce6df93bac20a7",
+      "text": "BECAUSE\nJustify: because\nMore than one good answer\nSometimes there are many good answers. Then your\nbecause matters!\n9 Choose an odd one out. Say why.\nA\nI choose\nB\nC\nbecause\nD\n.\n10 Your turn! Draw three the same. Draw one odd one out.\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n12",
+      "textSha256": "b12def3fcbc1e27ea79d1d1ff19ddbf454259c926abeeceedea84fbb6ae1aa06",
+      "method": "pdf-text"
+    },
+    {
+      "page": 8,
+      "image": "thinking-expeditions-l1-pg08.webp",
+      "imageSha256": "28ce423edc12361bfd85b519454d2404c0bca5e53ff8c3bcfee0303452818dad",
+      "text": "CHALLENGE FOSSIL\nClassify: sort by a rule\nSort the eggs\nChallenge fossil\n1\n2\n3\n4\n5\n6\n11 Write each egg number in the right nest.\n1\n2\n3\n4\n5\n6\nSpots\nNo spots\n12 Sort the eggs a new way.\nMy new rule is\n.\nGroup 1:\nGroup 2:\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n13",
+      "textSha256": "990ff3803a6c641b4e76c59f8d400d66611f1b1025c25ee18b80df9c9b88cb18",
+      "method": "pdf-text"
+    },
+    {
+      "page": 9,
+      "image": "thinking-expeditions-l1-pg09.webp",
+      "imageSha256": "11a97fcec834b608bf52d553d832f1ffde8456de70c55ef8248ed048102fc83d",
+      "text": "STORY LINK\nTwo rules, two answers\nMai's dig bucket\nMai looks in her dig bucket.\nShe has two red shells.\nShe has one red leaf.\nShe has one blue shell.\nred shell\nred shell\nred leaf\nblue shell\n13 Mai says: the blue shell! Her brother says: the leaf! Can both be\nright?\nYes, they use different rules.\nNo, only one can be right.\n14 Finish Rex's sentences.\nThe blue shell is odd. It is not\n.\nThe leaf is odd. It is not a\n.\nStorybook hunt: open your storybook. Find two characters. Say one\nthing the same. Say one thing different.\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n14",
+      "textSha256": "01e875248c7e4cffb9905e37217ef319324213f9fc1ccd62bd862c70faa119cf",
+      "method": "pdf-text"
+    },
+    {
+      "page": 10,
+      "image": "thinking-expeditions-l1-pg10.webp",
+      "imageSha256": "a87611e85acc10008878b593d57c01d21313a881a83c65d3ba65b1b707c07f6f",
+      "text": "SHOW WHAT I KNOW\nUnit check\nShow what I know\n15 Circle the odd one out.\nA\nB\nC\nD\nC\nD\n16 Which two teeth are twins?\nA\nB\nA and C\nA and D\nB and D\n17 What is the same?\nA\nB\nthe colour\nthe size\n18 How are A and B different?\nA is\n. B is\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n.\n15",
+      "textSha256": "45c81377324cfe00c2dbd20bf844ddacb3cce970f1852b4cb5839ba58d48e008",
+      "method": "pdf-text"
+    },
+    {
+      "page": 11,
+      "image": "thinking-expeditions-l1-pg11.webp",
+      "imageSha256": "5353cb3af1391f470ec9ee951cdab737b845b31f0ffc08d739605cbbec6ae1d3",
+      "text": "THINKING MIRROR\nHow did my brain do?\nThinking mirror\nGreat digging, explorer! Now look at your own thinking.\nColour 1, 2 or 3. 1 = not yet, 2 = getting there, 3 = I can do it.\nI can …\nHow sure am I?\nI can say colour, shape, size.\n1\n2\n3\nI can find two the same.\n1\n2\n3\nI can find the odd one out.\n1\n2\n3\nI can say because.\n1\n2\n3\nI can find more than one good answer.\n1\n2\n3\nThe best thing I found today:\nGrown-up's note: ask, 'How do you know?' Listen for because. Praise\nthe reason, not just the answer.\nThinking Expeditions · Level 1 · Same, Different, Odd One Out\n16",
+      "textSha256": "7986231309ab4beb09fd66b74b5b6727cc6064974798cf7389243d26ce6a24ae",
+      "method": "pdf-text"
+    }
+  ]
+}

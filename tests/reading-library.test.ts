@@ -35,7 +35,7 @@ test('AC2: default render has zero library cards (EN + VI /products; the hub row
   for (const route of ['/products', '/vi/products']) {
     const html = amp(await renderRoute(route));
     assert.doesNotMatch(html, /data-library-|reading-library|products-library|rl-je-|Reading &amp; Reasoning Library|Reading & Reasoning Library|Thư viện Đọc/, `${route}: no library markup`);
-    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, 36, `${route}: still 36 cards`);
+    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, 37, `${route}: still 37 cards`); // 36 since #350, 37 with Thinking Expeditions Level 1 (#355)
   }
 });
 
@@ -122,7 +122,7 @@ test('existing cards untouched: the story-workbook, teacher-pack and phonics ent
   assert.equal(price('teacher-pack-l1'), '690.000₫');
   assert.equal(price('phonics-b1'), '79.000₫');
   assert.equal(price('phonics-b2'), '129.000₫');
-  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 36);
+  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 37); // 36 since #350, 37 with Thinking Expeditions Level 1 (#355)
 });
 
 test('copy says the story is already inside Story Workbooks Level N, with a link to the existing product page and no sale wording', () => {

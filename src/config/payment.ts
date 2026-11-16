@@ -49,6 +49,8 @@ const PRODUCT_MEMO_CODES: Record<string, string> = {
   'mango-l2': 'PR1A',
   // Reading & Reasoning single story (16 Nov 2026, 49.000₫).
   'rr-l1-wind-sun-yellow-coat': 'PR1B',
+  // Thinking Expeditions Level 1 (17 Nov 2026, 190.000₫).
+  'thinking-expeditions-l1': 'PR1C',
 };
 
 // The pack total is already published in the catalogue; keep it tied to that copy. Order-only products (Phonics, 15 Nov

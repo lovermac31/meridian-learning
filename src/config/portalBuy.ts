@@ -15,6 +15,7 @@ export const PORTAL_BUY_FLAGS: Record<string, boolean> = {
   'parent-pack-l2': false,
   'parent-pack-l3': false,
   'holiday-reading-challenge': false,
+  'thinking-expeditions-l1': false,
   'teacher-pack-l1': false,
   'teacher-pack-l2': false,
   'teacher-pack-l3': false,

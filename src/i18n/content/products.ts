@@ -167,6 +167,15 @@ export const RR_CREDIT = {
   en: 'Retold by Jurassic English from Aesop’s fable (public domain), with new characters, setting and words. Text drafted with AI assistance; illustrations AI-generated.',
   vi: 'Jurassic English kể lại từ truyện ngụ ngôn của Aesop (phạm vi công cộng), với nhân vật, bối cảnh và lời văn mới. Phần chữ được soạn với sự hỗ trợ của AI; tranh minh họa do AI tạo.',
 };
+/**
+ * Thinking Expeditions Level 1 (WW-20261117-CT60): the credit printed on the copyright page (p3) of the first edition v1.0 PDF
+ * ("Text and puzzles: Jurassic English, written with AI assistance. Illustrations ... painted for this book with AI image
+ * generation (ChatGPT, OpenAI) to Jurassic English art direction. Diagrams, grids and tables: drawn by Jurassic English.").
+ */
+export const CT_CREDIT = {
+  en: 'Text and puzzles by Jurassic English, written with AI assistance; illustrations painted with AI image generation (ChatGPT, OpenAI) to Jurassic English art direction; diagrams, grids and tables drawn by Jurassic English.',
+  vi: 'Phần chữ và câu đố của Jurassic English, được viết với sự hỗ trợ của AI; tranh minh họa vẽ bằng công cụ tạo ảnh AI (ChatGPT, OpenAI) theo chỉ đạo mỹ thuật của Jurassic English; sơ đồ, lưới và bảng do Jurassic English vẽ.',
+};
 /** Paused products (audit fix 4, 11 Nov 2026): shown instead of every buy button. */
 export const PAUSED_COPY: Record<Locale, { note: string; cta: string }> = {
   en: { note: 'Being rewritten onto original Jurassic English stories: ask about the waitlist on Zalo.', cta: 'Ask about the waitlist' },
@@ -627,6 +636,39 @@ export const PRODUCTS: Product[] = [
       inside: 'Bốn tuần, bốn truyện gốc (đọc miễn phí trên trình đọc trực tuyến), mười phút mỗi ngày: kế hoạch từng ngày tại nhà bằng tiếng Anh và tiếng Việt, 12 hoạt động theo truyện, sổ ghi chép đọc sách và giấy khen: 29 trang A4 in được.',
       forWho: 'Gia đình có con 4–10 tuổi ở Level 1–2. Một gia đình, cho con của mình; in tại nhà.',
       unit: 'mua một lần',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // Thinking Expeditions Level 1 (WW-20261117-CT60; Jay's "GO 190k", relayed by the master, 17 Nov 2026): the Level 1 critical
+    // thinking workbook, first edition v1.0, 142 pages, passed its final gate 16 Nov 2026. 190.000₫, VND only (no US$ price was
+    // approved, so no PayPal). Sample = the free Level 1 Unit 1 sample PDF: its cover and the whole ten-page unit (pages 7-16),
+    // no answer key. Portal buy stays off until the portal product is active.
+    id: 'thinking-expeditions-l1',
+    live: true,
+    section: 'families',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'thinking-expeditions-l1',
+    sample: 'thinking-expeditions-l1',
+    delivery: true,
+    credit: CT_CREDIT,
+    en: {
+      label: 'Digital download · Critical thinking · New',
+      title: 'Thinking Expeditions Level 1: Foundation',
+      problem: 'Your child picks an answer but can’t yet say why. You want them to look closely, compare and give a reason with “because”.',
+      inside: 'A full-year critical thinking workbook: 142 print-ready A4 pages. Eight picture-led units with Professor Rex, Mai and Leo (Same, Different, Odd One Out; What Comes Next?; First, Next, Last; Sort the Dig; Clue Hunt; Because Detectives; Kind and Fair; Rex’s Choices), ten pages each in the same nine steps, plus a pre-check, a post-check, a certificate, an answer key with what to accept, notes for teachers and parents, a glossary and an index. The sample shows all of Unit 1.',
+      forWho: 'Children aged about 6–8, Level 1 · Foundation (intended English level Pre-A1 to A1, a design target, not a certificate), with a parent or teacher. The pictures carry the thinking, so reading is never the obstacle. About 16 sessions of 25 minutes. For one family or one classroom: print for your own children or class.',
+      unit: 'one-time · 1 book, 8 units (PDF)',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · Tư duy phản biện · Mới',
+      title: 'Thinking Expeditions Level 1: Foundation',
+      problem: 'Con chọn được đáp án nhưng chưa nói được vì sao. Bố mẹ muốn con quan sát kỹ, so sánh và đưa ra lý do bằng “because”.',
+      inside: 'Sách bài tập tư duy phản biện cho cả năm: 142 trang A4 in sẵn. Tám bài học bằng tranh cùng Giáo sư Rex, Mai và Leo (Same, Different, Odd One Out; What Comes Next?; First, Next, Last; Sort the Dig; Clue Hunt; Because Detectives; Kind and Fair; Rex’s Choices), mỗi bài mười trang theo cùng chín bước, kèm bài kiểm tra đầu vào, bài kiểm tra cuối, giấy khen, đáp án có hướng dẫn chấp nhận câu trả lời, ghi chú cho giáo viên và phụ huynh, bảng từ và mục lục tra cứu. Trang mẫu có trọn Unit 1.',
+      forWho: 'Trẻ khoảng 6–8 tuổi, Level 1 · Foundation (trình độ tiếng Anh dự kiến Pre-A1 đến A1, là mục tiêu thiết kế, không phải chứng chỉ), học cùng bố mẹ hoặc giáo viên. Tranh minh họa mang phần tư duy, nên việc đọc không bao giờ là rào cản. Khoảng 16 buổi, mỗi buổi 25 phút. Dành cho một gia đình hoặc một lớp học: in cho con hoặc lớp của bạn.',
+      unit: 'mua một lần · 1 cuốn, 8 bài (PDF)',
       cta: 'Đặt mua qua Zalo',
     },
   },

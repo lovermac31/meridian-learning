@@ -28,6 +28,8 @@ const amounts: Record<string, number> = {
   // Mango pilot single workbook (Jay, 11 Nov 2026: "Yes, 49k").
   'mango-l2': 49000,
   'rr-l1-wind-sun-yellow-coat': 49000,
+  // Thinking Expeditions Level 1 (Jay's "GO 190k", relayed by the master, 17 Nov 2026).
+  'thinking-expeditions-l1': 190000,
 };
 
 test('every priced offer has an approved price and a unique stable memo namespace', () => {
