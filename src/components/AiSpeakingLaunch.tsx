@@ -25,10 +25,10 @@ export function AiSpeakingLaunch() {
             <p className="mt-6 max-w-lg text-base leading-relaxed text-jurassic-dark/75 sm:text-lg">{content.body}</p>
             <p className="mt-6 border-l-2 border-jurassic-accent pl-4 text-base font-bold text-jurassic-dark">{content.price}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a href="/ai-speaking" onClick={() => trackCtaClick({ label: 'homepage_ai_speaking_primary_click', type: 'primary', segment: 'parent_student' })} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-jurassic-accent px-7 py-3 font-bold text-jurassic-dark shadow-[0_12px_28px_-13px_rgba(147,52,2,0.7)] transition hover:bg-[#f97b38] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
+              <a href="https://jurassicielts.com/ai-speaking" onClick={() => trackCtaClick({ label: 'homepage_ai_speaking_primary_click', type: 'primary', segment: 'parent_student' })} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-jurassic-accent px-7 py-3 font-bold text-jurassic-dark shadow-[0_12px_28px_-13px_rgba(147,52,2,0.7)] transition hover:bg-[#f97b38] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
                 {content.primaryCta}<ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </a>
-              <a href="/ai-speaking/samples" onClick={() => trackCtaClick({ label: 'homepage_ai_speaking_sample_click', type: 'secondary', segment: 'parent_student' })} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-jurassic-dark/25 bg-white px-6 py-3 font-semibold text-jurassic-dark transition hover:border-jurassic-dark/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
+              <a href="https://jurassicielts.com/ai-speaking/samples" onClick={() => trackCtaClick({ label: 'homepage_ai_speaking_sample_click', type: 'secondary', segment: 'parent_student' })} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-jurassic-dark/25 bg-white px-6 py-3 font-semibold text-jurassic-dark transition hover:border-jurassic-dark/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
                 {content.sampleCta}<ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>
@@ -39,7 +39,7 @@ export function AiSpeakingLaunch() {
               </p>
               <h3 className="mt-2 font-serif text-xl leading-snug text-jurassic-dark">{content.writingTitle}</h3>
               <p className="mt-2 text-sm leading-relaxed text-jurassic-dark/75">{content.writingBody}</p>
-              <a href={getLocalizedHref('/ai-speaking/writing/demo', locale)} onClick={() => trackCtaClick({ label: 'homepage_writing_intro_click', type: 'secondary', segment: 'parent_student' })} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-jurassic-dark underline decoration-jurassic-accent decoration-2 underline-offset-4 hover:text-[#933402] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
+              <a href={`https://jurassicielts.com${getLocalizedHref('/ai-speaking/writing/demo', locale)}`} onClick={() => trackCtaClick({ label: 'homepage_writing_intro_click', type: 'secondary', segment: 'parent_student' })} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-jurassic-dark underline decoration-jurassic-accent decoration-2 underline-offset-4 hover:text-[#933402] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2">
                 {content.writingCta}<ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>

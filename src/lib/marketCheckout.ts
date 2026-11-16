@@ -15,9 +15,11 @@ export const marketFromPath = (path: string) => {
 // The options open the order-first checkout in the AI Speaking app (automated PayPal, 21 Oct 2026). ?market= makes the
 // checkout show and charge this country's listed US$ price (jurassic-ai-speaking lib/market-pricing.ts, a checked copy of
 // src/content/marketPricing.json; terms LT-2026-10-24). The server prices from its table, never from this link.
+// IELTS migration P7: the app is served at jurassicielts.com/ai-speaking, so the links go straight there (no redirect hop).
+export const AI_SPEAKING_ORIGIN = 'https://jurassicielts.com';
 export function checkoutHref(item: 'baseline' | 'lesson' | 'pack', market: string) {
   const m = encodeURIComponent(market);
-  return item === 'baseline' ? `/ai-speaking/baseline?market=${m}` : `/ai-speaking/lessons?pack=${item === 'lesson' ? 'lesson_single' : 'lesson_month'}&market=${m}`;
+  return item === 'baseline' ? `${AI_SPEAKING_ORIGIN}/ai-speaking/baseline?market=${m}` : `${AI_SPEAKING_ORIGIN}/ai-speaking/lessons?pack=${item === 'lesson' ? 'lesson_single' : 'lesson_month'}&market=${m}`;
 }
 
 // Header button on the hub and country pages: this page's own Baseline price and destination in US$, instead of the

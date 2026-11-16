@@ -88,7 +88,7 @@ export function AiSpeakingHeroSpotlight() {
           </div>
         </div>
 
-        <a href="/ai-speaking" onClick={() => trackCtaClick({ label: 'homepage_ai_speaking_hero_click', type: 'primary', segment: 'parent_student' })} className="order-1 mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-jurassic-accent px-5 py-3 text-sm font-extrabold text-jurassic-dark transition hover:bg-[#f97b38] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2 sm:order-none sm:mt-5">
+        <a href="https://jurassicielts.com/ai-speaking" onClick={() => trackCtaClick({ label: 'homepage_ai_speaking_hero_click', type: 'primary', segment: 'parent_student' })} className="order-1 mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-jurassic-accent px-5 py-3 text-sm font-extrabold text-jurassic-dark transition hover:bg-[#f97b38] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark focus-visible:ring-offset-2 sm:order-none sm:mt-5">
           {content.primaryCta}<ArrowUpRight aria-hidden="true" className="h-4 w-4" />
         </a>
         <a href="#ai-speaking-launch" className="order-3 mt-1 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-full text-sm font-semibold text-jurassic-dark underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jurassic-dark sm:order-none sm:mt-3">

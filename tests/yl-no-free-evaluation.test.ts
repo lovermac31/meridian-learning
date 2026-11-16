@@ -152,7 +152,8 @@ test('/book-evaluation (printed on flyers) redirects to the Baseline booking pag
   };
   const r = redirects.filter((x) => x.source === '/book-evaluation');
   assert.equal(r.length, 1);
-  assert.equal(r[0].destination, '/ai-speaking/baseline');
-  assert.equal(r[0].permanent, false);
+  // IELTS migration P7: the Baseline page is served at jurassicielts.com/ai-speaking/baseline (one permanent hop).
+  assert.equal(r[0].destination, 'https://jurassicielts.com/ai-speaking/baseline');
+  assert.equal(r[0].permanent, true);
   assert.doesNotMatch(read('vercel.json'), /script\.google\.com/);
 });

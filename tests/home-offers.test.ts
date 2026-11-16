@@ -119,7 +119,7 @@ test('header: Option A doors (IELTS on JurassicIELTS.com, Story Club) in the vis
 
 test('AiSpeakingLaunch Writing card links the live demo and promises no launch date', () => {
   const src = read('src/components/AiSpeakingLaunch.tsx');
-  assert.match(src, /getLocalizedHref\('\/ai-speaking\/writing\/demo', locale\)\} onClick=\{\(\) => trackCtaClick\(\{ label: 'homepage_writing_intro_click'/);
+  assert.match(src, /href=\{`https:\/\/jurassicielts\.com\$\{getLocalizedHref\('\/ai-speaking\/writing\/demo', locale\)\}`\} onClick=\{\(\) => trackCtaClick\(\{ label: 'homepage_writing_intro_click'/);
   for (const locale of ['en', 'vi'] as const) {
     const launch = getHomeContent(locale)?.hero.aiSpeakingLaunch;
     assert.ok(launch, locale);

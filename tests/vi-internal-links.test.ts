@@ -165,9 +165,12 @@ test('English pages keep their English hrefs', () => {
     ].join('');
     const hrefs = hrefsIn(markup).filter(isInternal);
     assert.deepEqual(hrefs.filter((href) => pathOf(href).startsWith('/vi')), [], route);
-    for (const href of ['/young-learners-speaking/', '/ai-speaking', '/ai-speaking/baseline', '/framework', '/get-started']) {
+    for (const href of ['/young-learners-speaking/', '/ai-speaking/baseline', '/framework', '/get-started']) {
       assert.ok(hrefs.includes(href), `${route}: ${href}`);
     }
+    // IELTS migration P7: the AI Speaking home is a moved page (vercel.json redirect), so the footer links it straight
+    // to jurassicielts.com (src/config/movedToJurassicielts.ts) instead of the JE address.
+    assert.ok(hrefsIn(markup).includes('https://jurassicielts.com/ai-speaking'), `${route}: https://jurassicielts.com/ai-speaking`);
   }
   setServerLocation('/');
 });
