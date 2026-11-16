@@ -28,11 +28,14 @@ test('three pilots, all PREVIEW_ONLY, with the inventory titles and the site lev
 });
 
 test('AC2: default render has zero library cards (EN + VI /products; the hub row is client-gated, see the flag test)', async () => {
+  // 17 Nov 2026: #350 made the Level 1 single story (rr-l1-wind-sun-yellow-coat) a live product whose card pill reads
+  // 'Digital download · Reading & Reasoning · New'. That is a live product label, not library markup, so the check names the
+  // library's own heading ('Reading & Reasoning Library') instead of the bare series name. 36 cards since #350.
   const { renderRoute } = await import('../src/entry-server');
   for (const route of ['/products', '/vi/products']) {
     const html = amp(await renderRoute(route));
-    assert.doesNotMatch(html, /data-library-|reading-library|products-library|rl-je-|Reading &amp; Reasoning|Reading & Reasoning|Thư viện Đọc/, `${route}: no library markup`);
-    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, 35, `${route}: still 35 cards`);
+    assert.doesNotMatch(html, /data-library-|reading-library|products-library|rl-je-|Reading &amp; Reasoning Library|Reading & Reasoning Library|Thư viện Đọc/, `${route}: no library markup`);
+    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, 36, `${route}: still 36 cards`);
   }
 });
 
@@ -119,7 +122,7 @@ test('existing cards untouched: the story-workbook, teacher-pack and phonics ent
   assert.equal(price('teacher-pack-l1'), '690.000₫');
   assert.equal(price('phonics-b1'), '79.000₫');
   assert.equal(price('phonics-b2'), '129.000₫');
-  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 35);
+  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 36);
 });
 
 test('copy says the story is already inside Story Workbooks Level N, with a link to the existing product page and no sale wording', () => {
