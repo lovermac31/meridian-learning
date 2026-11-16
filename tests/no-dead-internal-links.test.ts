@@ -50,6 +50,9 @@ const vercel = JSON.parse(readFileSync(join(ROOT, 'vercel.json'), 'utf8')) as {
 const VERCEL_MATCHERS = [...(vercel.rewrites ?? []), ...(vercel.redirects ?? [])]
   // Host-conditioned rules (e.g. www → apex) don't make a path exist.
   .filter((rule) => !rule.has)
+  // IELTS migration P7: the /ai-speaking page redirects use a negative lookahead this simple converter cannot parse.
+  // They only send a path away; the unconditional /ai-speaking/:path* rewrite still proves the JE path is served.
+  .filter((rule) => !rule.source.includes('(?'))
   .map((rule) => {
     const pattern = rule.source
       .replace(/[.]/g, '\\.')

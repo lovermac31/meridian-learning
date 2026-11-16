@@ -52,6 +52,8 @@ jobs:
           set -uo pipefail
           fail=0
           body="$(mktemp)"
+          # IELTS migration P7: the public page lives on jurassicielts.com (JE answers 308); the API health stays on the JE proxy.
+          # The marker is brand-neutral so it passes before and after the origin switch (C4).
           # check NAME URL KIND : one GET (one retry after 10 s for a transient network blip), then a shape check.
           check() {
             local name="$1" url="$2" kind="$3" code reason="ok" ts
@@ -63,7 +65,7 @@ jobs:
               reason="http_${code}"
             else
               case "$kind" in
-                page)    grep -q 'Jurassic AI Speaking' "$body" || reason="page_marker_missing" ;;
+                page)    grep -q 'AI Speaking' "$body" || reason="page_marker_missing" ;;
                 app)     jq -e '.ok == true and (.release | test("^([0-9a-f]{40}|unknown)$"))' "$body" >/dev/null 2>&1 || reason="malformed" ;;
                 healthz) jq -e '.ok == true and (.version | type == "string")' "$body" >/dev/null 2>&1 || reason="malformed" ;;
                 readyz)  jq -e '.ok == true and .checks.config == "ok" and .checks.ffmpeg == "ok"' "$body" >/dev/null 2>&1 || reason="malformed" ;;
@@ -77,7 +79,7 @@ jobs:
               fail=1
             fi
           }
-          check "public-page"    "https://jurassicenglish.com/ai-speaking"            page
+          check "public-page"    "https://jurassicielts.com/ai-speaking"              page
           check "app-health"     "https://jurassicenglish.com/ai-speaking/api/health" app
           check "worker-healthz" "https://je-voice-worker.vercel.app/healthz"         healthz
           check "worker-readyz"  "https://je-voice-worker.vercel.app/readyz"          readyz

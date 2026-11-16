@@ -39,7 +39,8 @@ test('every link points at a live public jurassicenglish.com page', () => {
     const parsed = new URL(url);
     // The IELTS Speaking articles moved to the sister site in Stage 2 (#295/#296); link their live homes, not the 308s.
     if (parsed.origin === 'https://jurassicielts.com') {
-      assert.match(parsed.pathname, /^\/speaking\/articles\/[a-z0-9-]+\/$/, url);
+      // P7: the AI Speaking home pages moved to jurassicielts.com/ai-speaking.
+      assert.match(parsed.pathname, /^\/(?:speaking\/articles\/[a-z0-9-]+\/|ai-speaking(?:\/vi)?)$/, url);
       continue;
     }
     assert.equal(parsed.origin, 'https://jurassicenglish.com', url);

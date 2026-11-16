@@ -26,16 +26,17 @@ test('AI Speaking addresses with a trailing slash redirect to the slash-less pag
   const config = JSON.parse(fs.readFileSync('vercel.json', 'utf8')) as VercelConfig;
   const redirects = config.redirects ?? [];
 
+  // IELTS migration P7: AI Speaking pages now live on jurassicielts.com, so the page redirects leave JE in one hop;
+  // tests/ai-speaking-redirects.test.ts runs every rule through the Vercel matcher.
   assert.deepEqual(redirects.find((entry) => entry.source === '/ai-speaking/'), {
     source: '/ai-speaking/',
-    destination: '/ai-speaking',
+    destination: 'https://jurassicielts.com/ai-speaking',
     permanent: true,
   });
-  assert.deepEqual(redirects.find((entry) => entry.source === '/ai-speaking/:path(.+)/'), {
-    source: '/ai-speaking/:path(.+)/',
-    destination: '/ai-speaking/:path',
-    permanent: true,
-  });
+  const pageRule = redirects.find((entry) => entry.source.startsWith('/ai-speaking/:path((?!') && entry.source.endsWith(')/'));
+  assert.ok(pageRule, 'trailing-slash page rule');
+  assert.equal(pageRule.destination, 'https://jurassicielts.com/ai-speaking/:path');
+  assert.equal(pageRule.permanent, true);
 });
 
 test('every forwarded section redirects its trailing-slash addresses to the slash-less page', () => {
@@ -54,6 +55,8 @@ test('every forwarded section redirects its trailing-slash addresses to the slas
     'interactive-demo', 'pilot', 'school-framework', 'student-academy',
   ]);
   for (const section of sections) {
+    // ai-speaking is covered by the P7 test above (its page addresses now redirect to jurassicielts.com).
+    if (section === 'ai-speaking') continue;
     assert.deepEqual(
       redirects.find((entry) => entry.source === `/${section}/`),
       { source: `/${section}/`, destination: `/${section}`, permanent: true },

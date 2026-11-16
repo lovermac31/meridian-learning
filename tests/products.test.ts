@@ -95,8 +95,8 @@ test('every link carries utm_source=products before any #anchor, in the page lan
   const { renderRoute } = await import('../src/entry-server');
   const { IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
   const expected = {
-    [EN]: { 'story-club': '/story-club?utm_source=products', baseline: '/ai-speaking/baseline?utm_source=products', 'one-to-one': '/ai-speaking/lessons?utm_source=products' },
-    [VI]: { 'story-club': '/vi/story-club?utm_source=products', baseline: '/ai-speaking/baseline?lang=vi&utm_source=products', 'one-to-one': '/ai-speaking/vi/lessons?utm_source=products' },
+    [EN]: { 'story-club': '/story-club?utm_source=products', baseline: 'https://jurassicielts.com/ai-speaking/baseline?utm_source=products', 'one-to-one': 'https://jurassicielts.com/ai-speaking/lessons?utm_source=products' },
+    [VI]: { 'story-club': '/vi/story-club?utm_source=products', baseline: 'https://jurassicielts.com/ai-speaking/baseline?lang=vi&utm_source=products', 'one-to-one': 'https://jurassicielts.com/ai-speaking/vi/lessons?utm_source=products' },
   };
   for (const route of [EN, VI]) {
     const main = amp(mainOf(await renderRoute(route)));
@@ -471,11 +471,11 @@ test('header button: free sample pack on parent pages, the Baseline booking page
   assert.deepEqual(header(EN), ['#free-sample-pack', 'Free sample pack']);
   assert.deepEqual(header('/story-club'), ['/#free-sample-pack', 'Free sample pack']);
   assert.deepEqual(header('/vi/story-club'), ['/vi#free-sample-pack', 'Nhận bộ mẫu miễn phí']);
-  assert.deepEqual(header('/insights/ielts-online-test'), ['/ai-speaking/baseline', 'Book Baseline · 690k₫']);
-  assert.deepEqual(header('/vi/insights/ielts-online-test'), ['/ai-speaking/baseline?lang=vi', 'Đặt Đánh giá · 690k₫']);
+  assert.deepEqual(header('/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline', 'Book Baseline · 690k₫']);
+  assert.deepEqual(header('/vi/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline?lang=vi', 'Đặt Đánh giá · 690k₫']);
   assert.deepEqual(header('/ielts-speaking-online/uae'), ['/ai-speaking/baseline?market=uae', 'Book Baseline · US$59']);
   assert.deepEqual(header('/pt/ielts-speaking-online/brasil'), ['/ai-speaking/baseline?market=brazil', 'Book Baseline · US$39']);
-  assert.deepEqual(header('/ielts-speaking-online'), ['/ai-speaking/baseline', 'Book Baseline']);
+  assert.deepEqual(header('/ielts-speaking-online'), ['/ai-speaking/baseline', 'Book Baseline']); // hub link comes from the Navbar copy (header files out of P7-JE scope); the build step rewrites it
 });
 
 // Wave 2 (master, 27 Oct 2026; Jay gave authority): the Level 1 Parent Home Reading Pack (families) and the Level 1

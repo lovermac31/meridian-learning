@@ -4,11 +4,10 @@ import { readFileSync } from 'node:fs';
 
 const ROBOTS = readFileSync(new URL('../public/robots.txt', import.meta.url), 'utf8');
 
-test('robots.txt advertises both public sitemap surfaces', () => {
+test('robots.txt advertises the JE sitemap (the AI Speaking sitemap moved to jurassicielts.com in P7)', () => {
   const sitemapLines = ROBOTS.split('\n').filter((line) => line.startsWith('Sitemap: '));
   assert.deepEqual(sitemapLines, [
     'Sitemap: https://jurassicenglish.com/sitemap.xml',
-    'Sitemap: https://jurassicenglish.com/ai-speaking/sitemap.xml',
   ]);
 });
 

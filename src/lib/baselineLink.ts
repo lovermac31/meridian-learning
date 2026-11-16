@@ -7,8 +7,14 @@
  * static YL page runtime (src/yl/pageI18n.ts). scripts/prerender-yl-vi.mjs
  * hard-codes the same VI URL because it runs as plain Node without TS.
  */
+import { movedHref } from '../config/movedToJurassicielts';
+
 export const BASELINE_PATH = '/ai-speaking/baseline';
 
+/**
+ * IELTS migration P7: the booking page is served at jurassicielts.com/ai-speaking, so the link goes straight there
+ * (movedHref reads the vercel.json redirect and keeps the query), in the SPA bundle, the static YL runtime and JSON-LD alike.
+ */
 export function baselineHref(lang: string): string {
-  return lang === 'vi' ? `${BASELINE_PATH}?lang=vi` : BASELINE_PATH;
+  return movedHref(lang === 'vi' ? `${BASELINE_PATH}?lang=vi` : BASELINE_PATH);
 }

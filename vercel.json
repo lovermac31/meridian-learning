@@ -1071,12 +1071,12 @@
     },
     {
       "source": "/ai-speaking/samples/basic",
-      "destination": "/ai-speaking/samples",
+      "destination": "https://jurassicielts.com/ai-speaking/samples",
       "permanent": true
     },
     {
       "source": "/ai-speaking/vi/samples/basic",
-      "destination": "/ai-speaking/vi/samples",
+      "destination": "https://jurassicielts.com/ai-speaking/vi/samples",
       "permanent": true
     },
     {
@@ -1112,7 +1112,7 @@
     },
     {
       "source": "/book-evaluation",
-      "destination": "/ai-speaking/baseline",
+      "destination": "https://jurassicielts.com/ai-speaking/baseline",
       "permanent": false
     },
     {
@@ -1146,13 +1146,43 @@
       "permanent": true
     },
     {
-      "source": "/ai-speaking/",
-      "destination": "/ai-speaking",
+      "source": "/ai-speaking/one-to-one{/}?",
+      "destination": "https://jurassicielts.com/ai-speaking/solutions",
       "permanent": true
     },
     {
-      "source": "/ai-speaking/:path(.+)/",
+      "source": "/ai-speaking/vi/one-to-one{/}?",
+      "destination": "https://jurassicielts.com/ai-speaking/vi/solutions",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking/",
+      "destination": "https://jurassicielts.com/ai-speaking",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking/:path((?:api|_next|assets|brand|email|report|sample|social|voice)/.+)/",
       "destination": "/ai-speaking/:path",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking/:path((?:vi/)?(?:exam|solutions|ladder|ladder/.+))/",
+      "destination": "/ai-speaking/:path",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking/:path((?!(?:api|_next|assets|brand|email|report|sample|social|voice)/|(?:vi/)?(?:(?:exam|solutions)/?$|ladder(?:/|$))).+)/",
+      "destination": "https://jurassicielts.com/ai-speaking/:path",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking",
+      "destination": "https://jurassicielts.com/ai-speaking",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking/:path((?!(?:api|_next|assets|brand|email|report|sample|social|voice)/|(?:vi/)?(?:(?:exam|solutions)/?$|ladder(?:/|$))).+)",
+      "destination": "https://jurassicielts.com/ai-speaking/:path",
       "permanent": true
     },
     {

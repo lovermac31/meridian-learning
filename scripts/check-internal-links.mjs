@@ -6,6 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { builtSite } from './lib/built-site.mjs';
 import { decodeEntities } from './lib/visible-text.mjs';
+import { AIS_PAGE_ROUTE } from './lib/moved-patterns.mjs';
 
 export function sourceMatcher(source) {
   return new RegExp('^' + source.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/:[a-zA-Z]+\*/g, '(.*)').replace(/:[a-zA-Z]+/g, '([^/]+)') + '/?$');
@@ -20,6 +21,9 @@ export async function checkBuild(directory = 'dist', configuration = 'vercel.jso
   let sitemap = '';
   try { sitemap = await readFile(path.join(directory, 'sitemap.xml'), 'utf8'); }
   catch (error) { if (error.code !== 'ENOENT') throw error; }
+  // P7: AI Speaking pages that vercel.json redirects to jurassicielts.com leave the sitemap; a link to one is still valid
+  // when it is a real page route of the app (a typo is not). The held exam, solutions and ladder pages also leave the
+  // sitemap (P7) but stay served by the JE proxy for 30 days after C5, so they count as real routes too.
   const publishedAiPaths = new Set([...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => new URL(decodeEntities(m[1])).pathname));
   let links = 0, assets = 0;
   function resolveTarget(pathname, chain = []) {
@@ -33,7 +37,7 @@ export async function checkBuild(directory = 'dist', configuration = 'vercel.jso
       if (!match) continue;
       if (/^https:\/\//.test(rule.destination)) {
         // A broad upstream rewrite must not turn typos into valid internal links.
-        if (/^\/ai-speaking(?:\/|$)/.test(pathname) && !publishedAiPaths.has(pathname)) return false;
+        if (/^\/ai-speaking(?:\/|$)/.test(pathname) && !publishedAiPaths.has(pathname) && !AIS_PAGE_ROUTE.test(pathname.replace(/\/$/, ''))) return false;
         if (inventory.academyBuilt && inventory.mounted(pathname)) return inventory.dynamicPages.has(pathname) ? 'authenticated-app' : false;
         return 'delegated';
       }

@@ -5,6 +5,8 @@ import { seoPages, isInternationalMarketPath } from '../src/lib/seoPages';
 import { isMovedToJurassicielts } from '../src/config/movedToJurassicielts';
 import pricing from '../src/content/marketPricing.json';
 
+// IELTS migration P7: checkout links go straight to the JI host (src/lib/marketCheckout.ts).
+const JI = 'https://jurassicielts.com';
 const representative = [...seoPages.map(page => page.path), '/vi/insights', '/insights', '/insights/online-ielts-speaking-coaching'];
 
 test('market, editorial, and profile routes use a solid navbar and dark hero', async () => {
@@ -58,7 +60,7 @@ test('every market CTA uses its approved tier and localized chrome', async () =>
     const ctaHrefs = [...hero.matchAll(/class="insights-button-(?:primary|secondary)" href="([^"]+)"/g)].map(match => match[1].replaceAll('&amp;', '&'));
     assert.equal(ctaHrefs.length, 2, page.path);
     if (market && market !== 'pakistan' && market !== 'bangladesh') {
-      assert.deepEqual(ctaHrefs, [`/ai-speaking/baseline?market=${market}`, `/ai-speaking/lessons?pack=lesson_single&market=${market}`], page.path);
+      assert.deepEqual(ctaHrefs, [`${JI}/ai-speaking/baseline?market=${market}`, `${JI}/ai-speaking/lessons?pack=lesson_single&market=${market}`], page.path);
       assert.match(hero, /class="insights-cta-note"/, page.path);
       assert.doesNotMatch(hero, /mailto:/, page.path);
       if (page.locale === 'en') assert.match(hero, new RegExp(`>Book a Speaking Baseline · US\\$${prices.baseline_usd}<`), page.path);
@@ -109,9 +111,9 @@ test('market closing band offers the booking request, AI Speaking and a free too
     assert.equal(hrefs.length, 3, page.path);
     const slug = page.path.split('/').at(-1)!;
     const market = slug === 'ielts-speaking-online' ? undefined : slug === 'brasil' ? 'brazil' : slug;
-    if (market && market !== 'pakistan' && market !== 'bangladesh') assert.equal(hrefs[0], `/ai-speaking/baseline?market=${market}`, page.path);
+    if (market && market !== 'pakistan' && market !== 'bangladesh') assert.equal(hrefs[0], `${JI}/ai-speaking/baseline?market=${market}`, page.path);
     else assert.match(hrefs[0], /^mailto:info@jurassicenglish\.com\?subject=Speaking%20Baseline/, page.path);
-    assert.equal(hrefs[1], '/ai-speaking', page.path);
+    assert.equal(hrefs[1], '/ai-speaking', page.path); // SearchInsightsPage.tsx still links the JE address (not a P7-JE owned file; it redirects to JI)
     assert.equal(hrefs[2], page.locale === 'vi' ? 'https://jurassicielts.com/vi/practice/tools/band-score-calculator/' : 'https://jurassicielts.com/practice/tools/band-score-calculator/', page.path);
     if (page.locale !== 'en') assert.doesNotMatch(closing, /See how AI Speaking|Free IELTS band/, page.path);
   }
@@ -133,9 +135,9 @@ test('PayPal panel shows the approved tier and opens the order-first checkout wi
     // 21 Oct 2026: automated PayPal in the AI Speaking checkout; ?market= makes it charge this tier's listed price.
     const hrefs = [...panel.matchAll(/class="insights-paypal-option" href="([^"]+)"/g)].map(match => match[1].replaceAll('&amp;', '&'));
     assert.deepEqual(hrefs, [
-      `/ai-speaking/baseline?market=${market}`,
-      `/ai-speaking/lessons?pack=lesson_single&market=${market}`,
-      `/ai-speaking/lessons?pack=lesson_month&market=${market}`,
+      `${JI}/ai-speaking/baseline?market=${market}`,
+      `${JI}/ai-speaking/lessons?pack=lesson_single&market=${market}`,
+      `${JI}/ai-speaking/lessons?pack=lesson_month&market=${market}`,
     ], page.path);
     const shown = [...panel.matchAll(/<strong><bdi dir="ltr">US\$(?:<!-- -->)?(\d+)<\/bdi><\/strong>/g)].map(match => Number(match[1]));
     assert.deepEqual(shown, [prices.baseline_usd, prices.lesson_usd, prices.pack8_usd], page.path);
