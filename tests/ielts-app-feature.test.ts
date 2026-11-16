@@ -14,8 +14,8 @@ const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 test('home: no IELTS app banner or strip; IELTS is one JurassicIELTS card in the paths section, EN + VI (IELTS migration P10)', () => {
   for (const [path, title, door, appHref] of [
-    ['/', 'IELTS on JurassicIELTS', 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=home&utm_campaign=ielts-move', ieltsAppHref('home', 'en')],
-    ['/vi', 'IELTS tại JurassicIELTS', 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=home&utm_campaign=ielts-move', ieltsAppHref('home', 'vi')],
+    ['/', 'IELTS on JurassicIELTS', 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=home&utm_campaign=ielts-move', 'https://app.jurassicielts.com/?utm_source=jurassicenglish&utm_medium=home&utm_campaign=ielts-move'],
+    ['/vi', 'IELTS tại JurassicIELTS', 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=home&utm_campaign=ielts-move', 'https://app.jurassicielts.com/?utm_source=jurassicenglish&utm_medium=home&utm_campaign=ielts-move&lang=vi'],
   ] as const) {
     setServerLocation(path);
     const html = amp(renderToStaticMarkup(createElement(HomeOverhaul, { onNavigate: () => {} })));
@@ -26,7 +26,7 @@ test('home: no IELTS app banner or strip; IELTS is one JurassicIELTS card in the
     assert.ok(paths.includes(`>${title}<`), `${path}: the JurassicIELTS card`);
     assert.ok(paths.includes(`href="${door}"`), `${path}: the one door, tagged home`);
     assert.ok(paths.includes(`href="${appHref}"`), `${path}: free practice link`);
-    assert.equal((html.match(/jurassicielts\.com\/(?:vi\/)?\?utm_source=jurassicenglish&utm_medium=home/g) ?? []).length, 1, `${path}: exactly one JurassicIELTS card`);
+    assert.equal((html.match(/(?<!app\.)jurassicielts\.com\/(?:vi\/)?\?utm_source=jurassicenglish&utm_medium=home/g) ?? []).length, 1, `${path}: exactly one JurassicIELTS card`);
     assert.doesNotMatch(paths, /band \d|guarantee|score of/i);
   }
   assert.equal(ieltsAppHref('home'), 'https://app.jurassicielts.com/?utm_source=site&utm_medium=entrance&utm_content=home');

@@ -24,6 +24,6 @@ test('header button on Pakistan and Bangladesh pages is an email request, never 
 
 test('other country pages keep the checkout button at their own tier price', () => {
   const uae = headerCta('/ar/ielts-speaking-online/uae', 'en', copy);
-  assert.deepEqual([uae.href, uae.label], ['https://jurassicielts.com/ai-speaking/baseline?market=uae', 'Book Baseline · US$59']);
-  assert.equal(headerCta('/ielts-speaking-online/nigeria', 'en', copy).href, 'https://jurassicielts.com/ai-speaking/baseline?market=nigeria');
+  assert.deepEqual([uae.href, uae.label], ['https://jurassicielts.com/ai-speaking/baseline?market=uae&utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move', 'Book Baseline · US$59']);
+  assert.equal(headerCta('/ielts-speaking-online/nigeria', 'en', copy).href, 'https://jurassicielts.com/ai-speaking/baseline?market=nigeria&utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move');
 });

@@ -11,6 +11,9 @@ import { NO_PAYPAL_MARKETS } from './marketCheckout';
 // IELTS migration P10: the booking page lives on jurassicielts.com, so every Baseline link goes straight there (movedHref), never through a redirect.
 export const SAMPLE_PACK_ANCHOR = 'free-sample-pack';
 
+/** Header Baseline links carry the migration tag so JurassicIELTS can see where the visit came from. */
+const tagged = (href: string) => `${href}${href.includes('?') ? '&' : '?'}utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move`;
+
 export type HeaderCta = { kind: 'sample' | 'baseline'; label: string; mobileLabel: string; href: string };
 
 type CtaCopy = { cta: string; ctaMobile: string; ctaHref: string; sampleCta: string };
@@ -48,12 +51,12 @@ export function headerCta(pathname: string, locale: Locale, copy: CtaCopy): Head
         const where = market[0].toUpperCase() + market.slice(1);
         return { kind: 'baseline', label: `Request Baseline · ${usd}`, mobileLabel: `Baseline · ${usd}`, href: `mailto:info@jurassicenglish.com?subject=${encodeURIComponent(`Speaking Baseline request - ${where} (${usd})`)}` };
       }
-      return { kind: 'baseline', label: `Book Baseline · ${usd}`, mobileLabel: `Baseline · ${usd}`, href: movedHref(`${copy.ctaHref}?market=${market}`) };
+      return { kind: 'baseline', label: `Book Baseline · ${usd}`, mobileLabel: `Baseline · ${usd}`, href: movedHref(tagged(`${copy.ctaHref}?market=${market}`)) };
     }
-    return { kind: 'baseline', label: 'Book Baseline', mobileLabel: 'Baseline', href: movedHref(copy.ctaHref) };
+    return { kind: 'baseline', label: 'Book Baseline', mobileLabel: 'Baseline', href: movedHref(tagged(copy.ctaHref)) };
   }
   if (isIeltsPath(pathname)) {
-    return { kind: 'baseline', label: copy.cta, mobileLabel: copy.ctaMobile, href: movedHref(getLocalizedHref(copy.ctaHref, locale)) };
+    return { kind: 'baseline', label: copy.cta, mobileLabel: copy.ctaMobile, href: movedHref(tagged(getLocalizedHref(copy.ctaHref, locale))) };
   }
   return { kind: 'sample', label: copy.sampleCta, mobileLabel: copy.sampleCta, href: samplePackHref(pathname, locale) };
 }

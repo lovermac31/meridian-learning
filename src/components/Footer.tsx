@@ -48,6 +48,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                         event.preventDefault();
                         onNavigate(link.href);
                       }}
+                      aria-label={'aria' in link ? link.aria : undefined}
                       className="rounded text-sm font-semibold text-sb-forest underline-offset-4 hover:text-sb-amber-deep hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
                     >
                       {link.label}
@@ -83,7 +84,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
         </nav>
 
         <nav aria-label={locale === 'vi' ? 'Luyện tập và bài học' : 'Practice and lessons'} className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-sb-forest">
-          <a href={movedHref(locale === 'vi' ? '/ai-speaking/vi/lessons' : '/ai-speaking/lessons')}>{locale === 'vi' ? 'Bài học 1 kèm 1' : 'One-to-one lessons'}</a>
+          <a href={movedHref(`${locale === 'vi' ? '/ai-speaking/vi/lessons' : '/ai-speaking/lessons'}?utm_source=jurassicenglish&utm_medium=footer&utm_campaign=ielts-move`)}>{locale === 'vi' ? 'Bài học 1 kèm 1' : 'One-to-one lessons'}</a>
           <a href={locale === 'vi' ? '/vi/student-academy/stories' : '/student-academy/stories'}>{locale === 'vi' ? 'Truyện theo cấp độ' : 'Level stories'}</a>
         </nav>
 

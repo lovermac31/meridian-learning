@@ -74,11 +74,11 @@ test('movedPathMatcher (check scripts) agrees with isMovedToJurassicielts on eve
 import { crawlResourceLinks } from '../src/components/CrawlResources.tsx';
 import resources from '../src/content/crawlResources.json';
 
-test('CrawlResources keeps every AI Speaking resource, already pointing at jurassicielts.com in the data (held pages stay on JE)', () => {
+test('CrawlResources keeps no IELTS practice list: only the held AI Speaking solutions link stays on JE', () => {
   // IELTS migration P10: crawlResources.json holds the direct jurassicielts.com address, so no entry hops through a redirect.
   const all = Object.values(resources).flat();
   const ai = all.filter((l) => /\/ai-speaking/.test(l.href));
-  assert.ok(ai.length >= 10);
+  assert.equal(ai.length, 1, 'only the held solutions link remains; the JurassicIELTS card is the IELTS entry');
   assert.ok(!all.some((l) => l.href.startsWith('/ai-speaking') && !/\/ai-speaking\/(?:vi\/)?solutions$/.test(l.href)), 'no JE address of a moved AI Speaking page');
   const out = Object.values(resources).flatMap((links) => crawlResourceLinks(links)).filter((l) => /\/ai-speaking/.test(l.href));
   assert.equal(out.length, ai.length, 'no AI Speaking link is dropped');
@@ -115,4 +115,17 @@ test('the Organization node lists JurassicIELTS as a sister brand of World Wise 
   assert.equal(org.parentOrganization.name, 'World Wise Learning');
   assert.ok(org.parentOrganization.brand.some((b) => b.name === 'JurassicIELTS' && b.url === 'https://jurassicielts.com'));
   assert.doesNotMatch(JSON.stringify(org), /"Offer"|"Product"|"Course"/);
+});
+
+test('the build-time rewrite keeps the ?query and #fragment (founder-film utm tags) and leaves temporary 307 rows alone', () => {
+  const html = [
+    '<a href="https://jurassicenglish.com/ielts-speaking-online/india?utm_source=film&amp;utm_medium=deck#top">a</a>',
+    '<a href="/ielts-speaking-online?utm_source=film">b</a>',
+    '<a href="/book-evaluation?utm_source=flyer">temporary</a>',
+  ].join('');
+  const { html: out, changed } = rewriteAiSpeakingLinks(html);
+  assert.equal(changed, 2);
+  assert.match(out, /href="https:\/\/jurassicielts\.com\/[^"]*\?utm_source=film&amp;utm_medium=deck#top"/);
+  assert.match(out, /href="https:\/\/jurassicielts\.com\/[^"]*\?utm_source=film"/);
+  assert.match(out, /href="\/book-evaluation\?utm_source=flyer"/);
 });

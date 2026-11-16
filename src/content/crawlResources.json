@@ -15,68 +15,8 @@
   ],
   "Speaking and writing practice": [
     {
-      "href": "https://jurassicielts.com/ai-speaking/lessons",
-      "label": "1-to-1 lessons with Mr. Jay"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/samples/advanced",
-      "label": "Advanced sample report"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/samples",
-      "label": "Sample reports: Basic, Intermediate, Advanced"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/samples/intermediate",
-      "label": "Intermediate sample report"
-    },
-    {
       "href": "/ai-speaking/solutions",
       "label": "Online 1-to-1 IELTS Speaking Tutor"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/vi/lessons",
-      "label": "Học 1 kèm 1 với thầy Jay"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/vi/pricing",
-      "label": "Bảng giá"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/vi/samples",
-      "label": "Báo cáo mẫu"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/vi/samples/advanced",
-      "label": "Báo cáo mẫu Nâng cao"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/vi/samples/intermediate",
-      "label": "Báo cáo mẫu Trung cấp"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/vi/writing",
-      "label": "Xem trước IELTS Writing Task 2: Phản hồi dựa trên bằng chứng"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/vi/writing/demo",
-      "label": "Ba báo cáo mẫu IELTS Writing Task 2: dẫn chứng, ưu tiên, kế hoạch"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/vi/writing/sample",
-      "label": "Thử bài mẫu IELTS Writing Task 2: Bằng chứng, Một ưu tiên, Viết lại"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/writing",
-      "label": "IELTS Writing Task 2 Preview: Evidence-First Feedback"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/writing/demo",
-      "label": "Three Sample IELTS Writing Task 2 Reports: Evidence, Priority, Plan"
-    },
-    {
-      "href": "https://jurassicielts.com/ai-speaking/writing/sample",
-      "label": "Try the IELTS Writing Task 2 Sample: Evidence, One Priority, Revision"
     }
   ]
 }
