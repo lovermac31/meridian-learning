@@ -28,10 +28,13 @@ test('three pilots, all PREVIEW_ONLY, with the inventory titles and the site lev
 });
 
 test('AC2: default render has zero library cards (EN + VI /products; the hub row is client-gated, see the flag test)', async () => {
+  // 17 Nov 2026 (master decision a): #350 made the Level 1 single story (rr-l1-wind-sun-yellow-coat) a live product whose card
+  // pill reads 'Digital download · Reading & Reasoning · New'. AC2 keeps draft library cards off the page; it does not ban the
+  // series name, so it checks the library's own markers and its heading ('Reading & Reasoning Library'), not the bare name.
   const { renderRoute } = await import('../src/entry-server');
   for (const route of ['/products', '/vi/products']) {
     const html = amp(await renderRoute(route));
-    assert.doesNotMatch(html, /data-library-|reading-library|products-library|rl-je-|Reading &amp; Reasoning|Reading & Reasoning|Thư viện Đọc/, `${route}: no library markup`);
+    assert.doesNotMatch(html, /data-library-|reading-library|products-library|rl-je-|Reading &amp; Reasoning Library|Reading & Reasoning Library|Thư viện Đọc/, `${route}: no library markup`);
     assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, 36, `${route}: still 36 cards`); // 36 since #350 (The Wind, the Sun and the Yellow Coat)
   }
 });
