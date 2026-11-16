@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, MessageCircle, Mic, Tag, Users } from "lucide-react";
 import links from "@/lib/assetLinks.json";
+import { LibraryRow } from "./LibraryRow";
 import {
   LEVEL_BOOKS,
   bookHref,
@@ -313,6 +314,7 @@ export function LevelStories({ locale }: { locale: Locale }) {
               <StoryItem level={level} book={level.stories[1]} n={2} c={c} />
               <ContinueItem level={level} locale={locale} c={c} />
             </ol>
+            <LibraryRow level={level.level} locale={locale} />
             <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-0 text-sm">
               <a href={teacherPackHref(level.level, locale)} className={TEXT_LINK} data-link={`story-hub-teacher-pack-l${level.level}`}>
                 {c.teacherPack(level.level)}
