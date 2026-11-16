@@ -69,7 +69,8 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
 // Paused for sale (audit fix 4, 11 Nov 2026): no new payment code or order. Mirrors `paused: true` in products.ts (a test checks).
 // Empty since 13 Nov 2026: the Level 2-5 Teacher Packs, Student Workbooks and the Teacher Bundle were rewritten onto original
 // Jurassic English stories and are on sale again (task WW-20261113-07). The mechanism stays for the next pause.
-export const PAUSED_PRODUCTS = new Set<string>();
+// 17 Nov 2026: Thinking Expeditions Level 1, until the re-gated book file is approved (no payment code, no order).
+export const PAUSED_PRODUCTS = new Set<string>(['thinking-expeditions-l1']);
 
 // Audit fix 6 (11 Nov 2026): payment codes are made only when a buyer presses "Get my payment code", and that click has
 // its own rate-limit key with a higher ceiling, because Vietnamese mobile carriers put many buyers behind one IP. The
