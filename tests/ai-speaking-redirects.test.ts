@@ -153,10 +153,13 @@ for (const from of PROXIED) {
   });
 }
 
-test('/book-evaluation (printed on flyers) stays a temporary 307 to the JI Baseline page', () => {
-  const r = resolve('/book-evaluation');
-  assert.equal(r.kind, 'redirect');
-  if (r.kind === 'redirect') { assert.equal(r.status, 307); assert.equal(r.location, `${JI}/ai-speaking/baseline`); }
+test('/book-evaluation (printed on flyers) stays a temporary 307 to the JI Baseline page, with or without a trailing slash', () => {
+  // The trailing-slash form answered 404 before and after P7 (found by the P7 probe, 16 Nov 2026); both forms take one hop.
+  for (const p of ['/book-evaluation', '/book-evaluation/', '/book-evaluation?utm_source=flyer']) {
+    const r = resolve(p);
+    assert.equal(r.kind, 'redirect', p);
+    if (r.kind === 'redirect') { assert.equal(r.status, 307, p); assert.equal(r.location, `${JI}/ai-speaking/baseline${p.includes('?') ? '?utm_source=flyer' : ''}`, p); }
+  }
 });
 
 test('the 30-day hold is exact: /ai-speaking/laddering and /ai-speaking/exams are not held and still redirect', () => {

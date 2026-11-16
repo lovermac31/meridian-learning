@@ -1116,6 +1116,11 @@
       "permanent": false
     },
     {
+      "source": "/book-evaluation/",
+      "destination": "https://jurassicielts.com/ai-speaking/baseline",
+      "permanent": false
+    },
+    {
       "source": "/student-academy/",
       "destination": "/student-academy",
       "permanent": true
