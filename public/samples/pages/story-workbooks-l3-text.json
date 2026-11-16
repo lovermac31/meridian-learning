@@ -5,7 +5,7 @@
   "pageCount": 6,
   "source": {
     "file": "story-workbooks-l3-v2-sample.pdf",
-    "sha256": "8f620ab42a30a6d217a51fe530d80739ffb5be2013b2aa9676084fa6f1b49a15"
+    "sha256": "aeeafa3986bf446cbf9b039d6befd4099aae45c1e40a0b9923acfa7ea5260fd0"
   },
   "pages": [
     {
@@ -35,9 +35,9 @@
     {
       "page": 4,
       "image": "story-workbooks-l3-v2-pg04.webp",
-      "imageSha256": "ddbc42fc33d9c440101f88be8ae7055f98d3a0c71e4f2c1a5749ed6018500a11",
-      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n The Last Clue on Lantern Street\n\n\n\nLevel 3 · Expansion       Ages 10–12         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
-      "textSha256": "fc70e62b1b76c40ba9e8fab7cbb742b9662ffbdaaf7295f2abcfcb48e1d9ba66",
+      "imageSha256": "0b9dbc60538f9814769098fedaa8791a010d802e122a489500dce1fbb350ae69",
+      "text": "A JURASSIC ENGLISH STORY\n\n The Last Clue on Lantern Street\n\n\n\nLevel 3 · Expansion       Ages 10–12         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "1c4e6cc9db768a13d360392c044cf37cba718eccc700516856fd9514d59703dc",
       "method": "pdf-text"
     },
     {

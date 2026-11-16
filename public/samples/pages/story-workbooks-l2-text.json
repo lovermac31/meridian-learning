@@ -5,7 +5,7 @@
   "pageCount": 6,
   "source": {
     "file": "story-workbooks-l2-v2-sample.pdf",
-    "sha256": "181605d78edf88bd705404da2020492e6fe99d41c8365c7fe8fe5e2fc05768d6"
+    "sha256": "5d9af6d01bc2fa2eef1a747ec1a8f5b2d41cdb9b034e54060a331ea6e6f66ce6"
   },
   "pages": [
     {
@@ -43,9 +43,9 @@
     {
       "page": 5,
       "image": "story-workbooks-l2-v2-pg05.webp",
-      "imageSha256": "fa84665b208210c5b28728dbdf265512b268c1bc8162435edd908494589ca36e",
-      "text": "AN ORIGINAL JURASSIC ENGLISH STORY\n\n         The River Promise\n\n\nLevel 2 · Development       Ages 8–10         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
-      "textSha256": "10780ed592a8b9f9fa946d62144b6218e69aad837a623e789f415d449018712e",
+      "imageSha256": "3439fa6cf7b39e7c441edeea30e07bcb145e798aa93c87e58d35cf1d62b96857",
+      "text": "A JURASSIC ENGLISH STORY\n\n         The River Promise\n\n\nLevel 2 · Development       Ages 8–10         Story + Workbook\n\n\n\n\n        JurassicEnglish.com · Storybook workbook edition",
+      "textSha256": "e2c452c77af825cf940edffa44d6070bf59b5f0d3b4a4541570d9d54470f4748",
       "method": "pdf-text"
     },
     {
