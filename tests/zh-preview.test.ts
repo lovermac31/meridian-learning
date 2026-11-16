@@ -63,7 +63,7 @@ test('each page renders its own script, links only the English tool and the prac
     const main = html.slice(html.indexOf('<main'), html.indexOf('</main>') + 7);
     const hrefs = [...main.matchAll(/href="([^"]+)"/g)].map((m) => m[1].replaceAll('&amp;', '&'));
     assert.equal(hrefs.length, 2, `${page.path}: two links in the body`);
-    assert.ok(hrefs[0] === '/tools/ielts-band-score-calculator' && hrefs[1].startsWith('https://ielts.jurassicenglish.com/'), `${page.path}: ${hrefs.join(' ')}`);
+    assert.ok(hrefs[0] === '/tools/ielts-band-score-calculator' && hrefs[1].startsWith('https://app.jurassicielts.com/'), `${page.path}: ${hrefs.join(' ')}`);
     assert.ok(!html.includes('header-products-link'), `${page.path}: no site header`);
   }
 });

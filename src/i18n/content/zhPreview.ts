@@ -32,7 +32,7 @@ export type ZhPreviewPage = {
 };
 
 export const ZH_ENGLISH_TOOL_PATH = '/tools/ielts-band-score-calculator';
-export const ZH_PRACTICE_URL = 'https://ielts.jurassicenglish.com/?utm_source=site&utm_medium=zh-preview&utm_campaign=zh-calculator';
+export const ZH_PRACTICE_URL = 'https://app.jurassicielts.com/?utm_source=site&utm_medium=zh-preview&utm_campaign=zh-calculator';
 export const ZH_HANS_PATH = '/zh-hans/tools/ielts-band-score-calculator';
 export const ZH_HANT_PATH = '/zh-hant/tools/ielts-band-score-calculator';
 

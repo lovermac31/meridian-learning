@@ -117,7 +117,7 @@ test('every link carries utm_source=products before any #anchor, in the page lan
       // The sample pack form's privacy notice link is a legal page, not a step in the funnel.
       if (/^(\/vi)?\/legal\/privacy$/.test(href)) continue;
       // The IELTS app entrance (Jay + CEO, 2 Nov 2026) carries its own utm_source=site & utm_content=products.
-      if (/^https:\/\/ielts\.jurassicenglish\.com\/\?utm_source=site&utm_medium=entrance&utm_content=products(-vi)?$/.test(href)) continue;
+      if (/^https:\/\/app\.jurassicielts\.com\/\?utm_source=site&utm_medium=entrance&utm_content=products(-vi)?$/.test(href)) continue;
       // IELTS migration P6: the one moved IELTS card links JurassicIELTS /solutions/ (in the page language) with its own
       // utm_source=jurassicenglish&utm_medium=moved; exactly one such link per page.
       if (href === `https://jurassicielts.com${route === VI ? '/vi' : ''}/solutions/?utm_source=jurassicenglish&utm_medium=moved`) continue;
