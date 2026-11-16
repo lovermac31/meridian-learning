@@ -116,7 +116,7 @@
 - ID: `story-workbooks-l1`
 - English: https://jurassicenglish.com/products/story-workbooks-l1
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l1
-- English description: 10 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.
+- English description: 11 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.
 - Vietnamese title: Sách truyện tiếng Anh cho bé 4–8 tuổi, có bài tập | Level 1
 - VND price: 290.000 VND
 - PayPal USD: available on the product page
