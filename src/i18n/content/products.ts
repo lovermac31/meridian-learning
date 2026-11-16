@@ -159,6 +159,14 @@ export const MANGO_CREDIT = {
   en: 'Original story by Jurassic English; activities AI-assisted and human-edited; illustrations AI-generated.',
   vi: 'Truyện gốc của Jurassic English; phần hoạt động có AI hỗ trợ và được người biên tập; tranh minh họa do AI tạo.',
 };
+/**
+ * Reading & Reasoning Library pilot (WW-20261116-RL20): the credit line printed in the JE-L1-18 commercial build 16b PDFs.
+ * A retelling of a public-domain fable with no recorded human editor, so it never uses the Story Workbooks or Mango line.
+ */
+export const RR_CREDIT = {
+  en: 'Retold by Jurassic English from Aesop’s fable (public domain), with new characters, setting and words. Text drafted with AI assistance; illustrations AI-generated.',
+  vi: 'Jurassic English kể lại từ truyện ngụ ngôn của Aesop (phạm vi công cộng), với nhân vật, bối cảnh và lời văn mới. Phần chữ được soạn với sự hỗ trợ của AI; tranh minh họa do AI tạo.',
+};
 /** Paused products (audit fix 4, 11 Nov 2026): shown instead of every buy button. */
 export const PAUSED_COPY: Record<Locale, { note: string; cta: string }> = {
   en: { note: 'Being rewritten onto original Jurassic English stories: ask about the waitlist on Zalo.', cta: 'Ask about the waitlist' },
@@ -253,10 +261,11 @@ export const PHONICS_BOOKS: Product[] = [
 
 /** The age range each level's card states in "Who it's for" (a test keeps the two in step); shown on the level picker. */
 export const WORKBOOK_AGES: Record<string, string> = {
-  'story-workbooks-l1': '4–8', 'story-workbooks-l2': '8–10', 'mango-l2': '8–10', 'story-workbooks-l3': '10–12', 'story-workbooks-l4': '12–14', 'story-workbooks-l5': '14+',
+  'story-workbooks-l1': '4–8', 'rr-l1-wind-sun-yellow-coat': '4–8', 'story-workbooks-l2': '8–10', 'mango-l2': '8–10', 'story-workbooks-l3': '10–12', 'story-workbooks-l4': '12–14', 'story-workbooks-l5': '14+',
 };
 
 export const MANGO_ID = 'mango-l2';
+export const RR_WIND_SUN_ID = 'rr-l1-wind-sun-yellow-coat';
 const STORY_WORKBOOKS: Product[] = [
   storyWorkbook(1, '290.000₫', 10, {
     title: 'Level 1 Story Workbooks',
@@ -269,6 +278,41 @@ const STORY_WORKBOOKS: Product[] = [
     inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
     forWho: 'Trẻ 4–8 tuổi (CEFR Pre-A1 → A1), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
+  // Reading & Reasoning Library pilot (WW-20261116-RL20; master, 16 Nov 2026: option A, the approved Mango single-story price,
+  // 49.000₫, VND only, so no PayPal). One Level 1 story, three PDFs (reader, workbook, teacher and parent guide) from the
+  // JE-L1-18 commercial build 16b. Order code WINDSUN-L1 (productsSource.ts FIXED_ORDER_CODES); samples are the 3 pages of
+  // its watermarked preview.pdf (cover, story page 1, its workbook page). Portal buy stays off until the portal product is active.
+  {
+    id: RR_WIND_SUN_ID,
+    live: true,
+    section: 'families',
+    category: 'workbooks',
+    books: ['The Wind, the Sun and the Yellow Coat'],
+    price: '49.000₫',
+    href: 'zalo',
+    image: RR_WIND_SUN_ID,
+    sample: RR_WIND_SUN_ID,
+    delivery: true,
+    credit: RR_CREDIT,
+    en: {
+      label: 'Digital download · Reading & Reasoning · New',
+      title: 'The Wind, the Sun and the Yellow Coat',
+      problem: 'Your child can follow a short story, but you want them to point to the clue in the text and say why, not just guess.',
+      inside: 'A new Jurassic English retelling of Aesop’s fable, with a new girl, Ruby, and her yellow coat. Three print-ready A4 PDFs: a story reader (6 illustrated story pages, glossary and index; 14 pages), a workbook (numbered questions for every story page, four Think pages, Listen and choose, Put the story in order, and an answer key; 21 pages), and a teacher and parent guide (three 25-minute sessions, expected answers, a rubric and ideas for different learners; 18 pages).',
+      forWho: 'Children aged 4–8, Level 1 · Foundation (intended CEFR Pre-A1 → A1, a design target, not a certificate), read with a parent or teacher. One-learner licence: print for your own child. An earlier edition of this story is one of the 10 books in the Level 1 Story Workbooks; this Reading & Reasoning edition is new and is sold on its own.',
+      unit: 'one-time · 1 story: reader, workbook and guide',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · Đọc & Tư duy · Mới',
+      title: 'The Wind, the Sun and the Yellow Coat',
+      problem: 'Con theo được một câu chuyện ngắn, nhưng bố mẹ muốn con chỉ ra chi tiết trong truyện và nói được vì sao, chứ không chỉ đoán.',
+      inside: 'Một bản kể lại mới của Jurassic English từ truyện ngụ ngôn Aesop, với cô bé Ruby và chiếc áo khoác vàng. Ba file PDF khổ A4 in sẵn: sách truyện (6 trang truyện có tranh, bảng từ và mục lục tra cứu; 14 trang), sách bài tập (câu hỏi đánh số cho từng trang truyện, bốn trang Suy nghĩ, Nghe và chọn, Sắp xếp câu chuyện, và đáp án; 21 trang), và hướng dẫn cho giáo viên và phụ huynh (ba buổi 25 phút, đáp án mong đợi, thang đánh giá và gợi ý cho từng nhóm học sinh; 18 trang).',
+      forWho: 'Trẻ 4–8 tuổi, Level 1 · Foundation (CEFR dự kiến Pre-A1 → A1, là mục tiêu thiết kế, không phải chứng chỉ), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Một phiên bản trước của truyện này nằm trong 10 cuốn của bộ Sách truyện bài tập Level 1; phiên bản Đọc & Tư duy này là bản mới và được bán riêng.',
+      unit: 'mua một lần · 1 truyện: sách truyện, sách bài tập và hướng dẫn',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
   { ...storyWorkbook(2, '290.000₫', 9, {
     title: 'Level 2 Story Workbooks',
     problem: 'Your child reads short texts, but you can’t tell whether they understand the story or only decode the words.',

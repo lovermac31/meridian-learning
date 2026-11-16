@@ -121,6 +121,16 @@
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
+### The Wind, the Sun and the Yellow Coat
+- ID: `rr-l1-wind-sun-yellow-coat`
+- English: https://jurassicenglish.com/products/rr-l1-wind-sun-yellow-coat
+- Vietnamese: https://jurassicenglish.com/vi/products/rr-l1-wind-sun-yellow-coat
+- English description: A Level 1 retelling of Aesop’s fable for ages 4–8: story reader, workbook with an answer key and a teacher and parent guide. 49.000₫ one-time.
+- Vietnamese title: The Wind, the Sun and the Yellow Coat: truyện có bài tập 4–8
+- VND price: 49.000 VND
+- PayPal USD: not listed
+- Sample: view-only pages on the product page
+
 ### Level 2 Story Workbooks
 - ID: `story-workbooks-l2`
 - English: https://jurassicenglish.com/products/story-workbooks-l2

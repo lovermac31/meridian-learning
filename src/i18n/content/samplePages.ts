@@ -34,6 +34,8 @@ export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
   'pilot-class-kit': 11,
   'printable-pack-l1': 16,
   'reasoning-assessment-kit': 10,
+  // Reading & Reasoning, The Wind, the Sun and the Yellow Coat (16 Nov 2026): the 3 pages of its watermarked preview.pdf.
+  'rr-l1-wind-sun-yellow-coat': 3,
   'story-club': 8,
   'story-workbooks-l1-v2': 6,
   'story-workbooks-l2-v2': 6,

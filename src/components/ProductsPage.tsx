@@ -834,8 +834,9 @@ export function ProductsPage({ locale }: { locale: Locale }) {
             <ul aria-label={c.workbooksBand.levels}>
               {workbookCards.map((card) => {
                 // A single book (the Mango pilot, 11 Nov 2026) is named, with its level; the bundles stay "Level N".
+                // The level is the id's -lN part, at the end (mango-l2) or inside it (rr-l1-wind-sun-yellow-coat, 16 Nov 2026).
                 const single = card.books?.length === 1;
-                const level = single ? card.id.match(/-l(\d)$/)?.[1] : card.title.match(/\d/)?.[0];
+                const level = single ? card.id.match(/-l(\d)(?:-|$)/)?.[1] : card.title.match(/\d/)?.[0];
                 const count = card.unit.match(/\d+/)?.[0];
                 const ages = WORKBOOK_AGES[card.id] ?? '';
                 return (

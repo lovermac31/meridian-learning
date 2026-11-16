@@ -27,6 +27,7 @@ const amounts: Record<string, number> = {
   'ielts-writing-band-up': 499000, 'ielts-speaking-band-up': 449000, 'ielts-four-skill-kit': 999000,
   // Mango pilot single workbook (Jay, 11 Nov 2026: "Yes, 49k").
   'mango-l2': 49000,
+  'rr-l1-wind-sun-yellow-coat': 49000,
 };
 
 test('every priced offer has an approved price and a unique stable memo namespace', () => {

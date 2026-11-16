@@ -28,7 +28,8 @@ if (explicitGenerate && verifySource) throw new Error('Choose generation or sour
 const generate = explicitGenerate || Boolean(sourceRoot);
 // 44 since the Mango single workbook (11 Nov 2026), sampled from the canonical v3.1 PDF; 46 with Phonics Books 1 and 2
 // (15 Nov 2026), whose sample PDFs have no text layer: their page text is a reviewed transcription checked in as is.
-if (config.length !== 46 || new Set(config.map(p => p.stem)).size !== 46 || config.some(p => !p.count)) throw new Error('Expected 46 approved sample sets');
+// 47 with the Reading & Reasoning single story (16 Nov 2026), sampled from its watermarked preview.pdf.
+if (config.length !== 47 || new Set(config.map(p => p.stem)).size !== 47 || config.some(p => !p.count)) throw new Error('Expected 47 approved sample sets');
 if (bundleConfig.length !== 3 || bundleConfig.some(p => !p.count)) throw new Error('Expected 3 bundle sample sets');
 if ((generate || verifySource) && !sourceRoot) throw new Error('Use --source-root or JE_SAMPLE_SOURCE_ROOT for approved local samples');
 if (generate || verifySource) {

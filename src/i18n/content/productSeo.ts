@@ -209,6 +209,18 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       description: '9 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 8–10 tuổi (CEFR A1 → A2), có trang Chu trình Tư duy và đáp án. 290.000₫ mua một lần.',
     },
   },
+  'rr-l1-wind-sun-yellow-coat': {
+    en: {
+      keyword: 'english reading story workbook for kids 4-8',
+      title: 'The Wind, the Sun and the Yellow Coat: Story + Workbook 4–8',
+      description: 'A Level 1 retelling of Aesop’s fable for ages 4–8: story reader, workbook with an answer key and a teacher and parent guide. 49.000₫ one-time.',
+    },
+    vi: {
+      keyword: 'sách truyện tiếng anh có bài tập cho bé 4-8 tuổi',
+      title: 'The Wind, the Sun and the Yellow Coat: truyện có bài tập 4–8',
+      description: 'Truyện ngụ ngôn Aesop kể lại cho bé 4–8 tuổi, Level 1: sách truyện, sách bài tập có đáp án và hướng dẫn cho giáo viên, phụ huynh. 49.000₫ mua một lần.',
+    },
+  },
   'mango-l2': {
     en: {
       keyword: 'english story workbook for kids 8-10',
