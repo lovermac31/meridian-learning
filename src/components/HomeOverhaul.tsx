@@ -1,4 +1,3 @@
-import { IeltsAppEntrance } from './IeltsAppEntrance';
 import { buyCta, paymentHref } from '../config/payment';
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Mail, MessageCircle, ShieldCheck } from 'lucide-react';
 import { CONTACT_EMAIL, getOverhaulContent, HOME_PRIMARY_OPTION, IMG, PRODUCTS_NEW_HIGHLIGHT } from '../i18n/content/overhaul';
@@ -7,7 +6,6 @@ import { CONTACT_EMAIL, getOverhaulContent, HOME_PRIMARY_OPTION, IMG, PRODUCTS_N
 const NEW_CHIP = 'ml-1 inline-block rounded-full bg-sb-amber-deep px-1.5 align-[1px] text-[11px] font-bold leading-4 text-white';
 import { recordClientEvent } from '../lib/tracker';
 import { getLocalizedHref } from '../i18n/localizedHref';
-import { movedHref } from '../config/movedToJurassicielts';
 import { getCurrentLocale } from '../i18n/routing';
 import { trackCtaClick } from '../lib/analytics';
 import { FounderFilmLink } from './FounderFilmLink';
@@ -70,8 +68,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
 
   return (
     <div className="bg-sb-cream text-sb-ink">
-      {/* 0 · IELTS app, first screen (coverage audit, 2 Nov 2026): one row above the hero; the full strip follows the hero. */}
-      <div className="pt-20 sm:pt-[4.5rem]"><IeltsAppEntrance placement="home" locale={locale} variant="banner" /></div>
+      <div className="pt-20 sm:pt-[4.5rem]" aria-hidden="true" />
       {/* 0b · Products in one tap on phones (4 Nov 2026, owner: "click, click, sales"): the four existing "Find what you
           need" tiles as a compact row plus See all products, above the fold and clear of the cookie banner.
           Phones only; from 768px the header Products link and the strip below do this job. */}
@@ -177,9 +174,6 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
         </div>
       </section>
 
-      {/* 1a · IELTS Speaking app (Jay + CEO, 2 Nov 2026): one strip directly under the hero, Stitch style as /products. */}
-      <IeltsAppEntrance placement="home" locale={locale} variant="strip" />
-
       {/* 1b · Find what you need (master, 27 Oct 2026): one compact strip, a tile per /products section (2 clicks from
           home to any product: tile → section → the card's order button). Plain links, so #anchor lands on the heading. */}
       <section className="border-t border-sb-border bg-white px-4 py-8 sm:px-6" aria-labelledby="find-heading">
@@ -211,11 +205,6 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-sb-slate" data-home-free-tools>
-            <a className="font-bold text-sb-forest underline" href={movedHref(getLocalizedHref('/tools/ielts-band-score-calculator', locale))}>
-              {locale === 'vi' ? 'Tính điểm IELTS miễn phí (làm tròn overall)' : 'Free IELTS band score calculator (overall rounding)'}
-            </a>
-          </p>
         </div>
       </section>
 
@@ -348,7 +337,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
         <div className="mx-auto max-w-7xl">
           <h2 id="pricing-heading" className="text-3xl font-extrabold leading-tight text-sb-forest sm:text-4xl">{pricing.heading}</h2>
           <p className="mt-4 max-w-4xl text-sm leading-relaxed text-sb-slate">{pricing.disclosure}</p>
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+          <div className={`mt-8 grid gap-5 ${pricing.rows.length === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
             {pricing.rows.map((row) => (
               <article key={row.key} className="flex flex-col rounded-[1.5rem] border border-sb-border bg-white p-5 shadow-warm">
                 <h3 className="text-lg font-extrabold text-sb-forest">{row.title}</h3>

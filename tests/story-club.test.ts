@@ -46,8 +46,8 @@ test('talk buttons use attributed Zalo links; pages state the no-recording polic
   // The 1-to-1 link goes to the lesson checkout, not the IELTS page for ages 9–18.
   const en = await renderRoute(EN);
   const vi = await renderRoute(VI);
-  assert.ok(en.includes('href="/ai-speaking/lessons"'), 'EN links the 1-to-1 lesson checkout');
-  assert.ok(vi.includes('href="/ai-speaking/vi/lessons"'), 'VI links the VI 1-to-1 lesson checkout');
+  assert.ok(en.includes('href="https://jurassicielts.com/ai-speaking/lessons"'), 'EN links the 1-to-1 lesson checkout');
+  assert.ok(vi.includes('href="https://jurassicielts.com/ai-speaking/vi/lessons"'), 'VI links the VI 1-to-1 lesson checkout');
   for (const html of [en, vi]) {
     // Page body only: the site navbar links the IELTS page on every route.
     const body = html.slice(html.indexOf('<main'), html.indexOf('</main>'));

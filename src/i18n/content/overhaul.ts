@@ -32,6 +32,11 @@ export const PRODUCTS_NEW_HIGHLIGHT = true;
 export const PRODUCTS_NEW_HREF = '/products?utm_source=header-new#phonics';
 /** Which home main-button option is live (audit fix 2, 11 Nov 2026). Jay picks; swapping to 'B' is this one line. */
 export const HOME_PRIMARY_OPTION: 'A' | 'B' = 'A';
+/** IELTS migration P10: the one door from jurassicenglish.com to JurassicIELTS (a sister brand of World Wise Learning), tagged by placement. */
+const jiDoor = (locale: 'en' | 'vi', medium: string) =>
+  `https://jurassicielts.com/${locale === 'vi' ? 'vi/' : ''}?utm_source=jurassicenglish&utm_medium=${medium}&utm_campaign=ielts-move`;
+export const JI_FOOTER_HREF = { en: jiDoor('en', 'footer'), vi: jiDoor('vi', 'footer') } as const;
+export const JI_HOME_HREF = { en: jiDoor('en', 'home'), vi: jiDoor('vi', 'home') } as const;
 export const UNDER_18_POLICY_EN = 'Sessions with learners under 18 are never recorded.';
 
 const en = {
@@ -63,10 +68,8 @@ const en = {
       { label: 'Reading & Story Adventures', href: '/student-academy' },
       { label: 'Story Club (ages 5–8)', href: '/story-club' },
       { label: 'Speaking & Teen IELTS', href: '/young-learners-speaking/' },
-      { label: 'Adult IELTS Practice', href: '/ai-speaking' },
-      { label: 'IELTS Coaching by Country', href: 'https://jurassicielts.com/speaking/online/' },
-      { label: 'IELTS Band Score Calculator', href: '/tools/ielts-band-score-calculator' },
-      { label: 'IELTS Writing Task 2: intro & demo', href: '/ai-speaking/writing' },
+      // IELTS migration P10: one IELTS door. Every IELTS page lives on JurassicIELTS.com, a sister brand of World Wise Learning.
+      { label: 'IELTS → JurassicIELTS', href: JI_FOOTER_HREF.en },
       { label: 'Live Speaking Baseline', href: '/ai-speaking/baseline' },
       { label: 'Academic Framework', href: '/framework' },
       { label: 'Products & prices', href: '/products' },
@@ -167,16 +170,16 @@ const en = {
           secondary: { label: 'Book 15–20 Min Live Baseline (690.000₫)', href: '/ai-speaking/baseline', kind: 'native' },
         },
         {
-          key: 'adults',
+          key: 'ielts',
           label: 'Path 3',
-          title: 'Adult IELTS Practice & Coaching',
-          bestFor: 'Adults 18+: university applicants, graduates & professionals',
-          purpose: 'Independent IELTS Speaking practice reports and optional 1-to-1 coaching with clear criterion feedback.',
-          noteTitle: 'Product scope notice',
-          note: 'Typed practice mode is live now and does not assess pronunciation; spoken audio mode is in limited beta. The sample audio on the AI Speaking page is a synthetic demonstration. The Live Speaking Baseline (690.000₫) is a separate, human-assessed Google Meet session.',
+          title: 'IELTS on JurassicIELTS',
+          bestFor: 'Adults 18+, and older teens preparing for the IELTS test',
+          purpose: 'IELTS Speaking, Writing, Reading and Listening practice, guides and 1-to-1 coaching now live on JurassicIELTS.com, a sister brand of World Wise Learning.',
+          noteTitle: 'Independent practice',
+          note: 'Practice feedback only, never an official IELTS score. Jurassic English stays focused on children and schools.',
           worlds: [],
-          primary: { label: 'Explore Adult IELTS Practice', href: '/ai-speaking', kind: 'native' },
-          secondary: { label: 'See Credit Packs (from 79.000₫)', href: '/ai-speaking/pricing', kind: 'native' },
+          primary: { label: 'Go to JurassicIELTS', href: JI_HOME_HREF.en, kind: 'native' },
+          secondary: { label: 'Try free Speaking practice', href: 'https://app.jurassicielts.com/?utm_source=site&utm_medium=entrance&utm_content=home', kind: 'external' },
         },
       ],
     },
@@ -252,26 +255,13 @@ const en = {
           ],
           cta: { label: 'Book Live Speaking Baseline (690.000₫)', href: '/ai-speaking/baseline' },
         },
-        {
-          key: 'adults',
-          title: '3. Adult IELTS AI Practice',
-          ages: 'Ages 18+',
-          entry: [
-            { name: '1-credit Starter Practice Report', price: '79.000₫ · US$4 by PayPal', note: '1 Basic Practice Report quoting your response and naming your #1 priority fix. Typed mode is live now (does not assess pronunciation); spoken audio mode is in limited beta.' },
-          ],
-          ongoing: [
-            { name: '3-credit Diagnostic Pack', price: '199.000₫ total · US$8 by PayPal', note: '~66.300₫/credit: 1 Advanced Report with a 4-week study plan, or 3 Basic reports.' },
-            { name: '10-credit Practice Pack', price: '549.000₫ total · US$22 by PayPal', note: '~54.900₫/credit, valid 12 months.' },
-          ],
-          cta: { label: 'Explore Adult AI Speaking & Limitations', href: '/ai-speaking' },
-        },
       ],
     },
     faq: {
       heading: 'Questions families and learners ask',
       items: [
         { q: 'Are live sessions with children recorded?', a: 'No. Sessions with learners under 18 are never recorded. Parents receive written teacher observation notes, spoken examples noted live during the lesson, and annotated writing drafts.' },
-        { q: 'Does the Adult AI Speaking tool score pronunciation right now?', a: 'Typed practice mode is available today and evaluates the flow of ideas, vocabulary and grammar; it does not assess pronunciation. Spoken audio mode is in limited beta, and the audio player on the AI Speaking page is a synthetic demonstration. For a full 4-criterion assessment including pronunciation today, book the human-assessed 15–20 minute Live Speaking Baseline (690.000₫) on Google Meet.' },
+        { q: 'Where do I find IELTS practice?', a: 'On JurassicIELTS.com, a sister brand of World Wise Learning. Jurassic English focuses on children and schools; for a human-assessed 15–20 minute Live Speaking Baseline for ages 9–18, see the Speaking 9–18 page.' },
         { q: 'Which currency do I pay in?', a: 'VietQR and online checkout are billed in Vietnamese Đồng (VND ₫). Approximate USD figures are listed for reference; families outside Vietnam can pay set US$ amounts by PayPal for the Baseline and 1-to-1 lessons.' },
       ],
     },
@@ -302,10 +292,7 @@ const vi: OverhaulContent = {
       { label: 'Đọc sách & Phiêu lưu truyện', href: '/student-academy' },
       { label: 'Câu lạc bộ Truyện (5–8 tuổi)', href: '/story-club' },
       { label: 'Luyện nói & IELTS cho teen', href: '/young-learners-speaking/' },
-      { label: 'Luyện IELTS cho người lớn', href: '/ai-speaking' },
-      { label: 'Hướng dẫn IELTS theo quốc gia', href: 'https://jurassicielts.com/vi/speaking/online/' },
-      { label: 'Công cụ tính điểm IELTS', href: '/tools/ielts-band-score-calculator' },
-      { label: 'IELTS Writing Task 2: giới thiệu & bản demo', href: '/ai-speaking/writing' },
+      { label: 'IELTS → JurassicIELTS', href: JI_FOOTER_HREF.vi },
       { label: 'Đánh giá Nói trực tiếp', href: '/ai-speaking/baseline' },
       { label: 'Khung học thuật', href: '/framework' },
       { label: 'Sản phẩm & bảng giá', href: '/products' },
@@ -398,16 +385,16 @@ const vi: OverhaulContent = {
           secondary: { label: 'Đặt buổi Đánh giá trực tiếp 15–20 phút (690.000₫)', href: '/ai-speaking/baseline', kind: 'native' },
         },
         {
-          key: 'adults',
+          key: 'ielts',
           label: 'Lộ trình 3',
-          title: 'Luyện IELTS & Huấn luyện cho người lớn',
-          bestFor: 'Người lớn 18+: người chuẩn bị vào đại học, sinh viên tốt nghiệp & người đi làm',
-          purpose: 'Báo cáo luyện IELTS Speaking tự học và tuỳ chọn huấn luyện 1 kèm 1 với nhận xét rõ ràng theo từng tiêu chí.',
-          noteTitle: 'Phạm vi sản phẩm',
-          note: 'Chế độ luyện bằng cách đánh máy đã hoạt động và không đánh giá phát âm; chế độ nói bằng giọng đang ở giai đoạn beta giới hạn. Đoạn âm thanh mẫu trên trang AI Speaking là bản minh hoạ bằng giọng tổng hợp. Buổi Đánh giá Nói trực tiếp (690.000₫) là buổi riêng qua Google Meet do giáo viên đánh giá.',
+          title: 'IELTS tại JurassicIELTS',
+          bestFor: 'Người lớn 18+ và teen lớn đang chuẩn bị thi IELTS',
+          purpose: 'Luyện IELTS Speaking, Writing, Reading và Listening, bài hướng dẫn và huấn luyện 1 kèm 1 hiện ở JurassicIELTS.com, một thương hiệu chị em thuộc World Wise Learning.',
+          noteTitle: 'Luyện tập độc lập',
+          note: 'Chỉ là nhận xét để luyện tập, không phải điểm IELTS chính thức. Jurassic English tập trung vào trẻ em và trường học.',
           worlds: [],
-          primary: { label: 'Xem chương trình luyện IELTS cho người lớn', href: '/ai-speaking', kind: 'native' },
-          secondary: { label: 'Xem gói lượt (từ 79.000₫)', href: '/ai-speaking/pricing', kind: 'native' },
+          primary: { label: 'Đến JurassicIELTS', href: JI_HOME_HREF.vi, kind: 'native' },
+          secondary: { label: 'Luyện Speaking miễn phí', href: 'https://app.jurassicielts.com/?utm_source=site&utm_medium=entrance&utm_content=home-vi', kind: 'external' },
         },
       ],
     },
@@ -483,26 +470,13 @@ const vi: OverhaulContent = {
           ],
           cta: { label: 'Đặt buổi Đánh giá Nói (690.000₫)', href: '/ai-speaking/baseline' },
         },
-        {
-          key: 'adults',
-          title: '3. Luyện IELTS với AI cho người lớn',
-          ages: '18+ tuổi',
-          entry: [
-            { name: 'Báo cáo luyện tập khởi đầu (1 lượt)', price: '79.000₫ · US$4 qua PayPal', note: '1 Báo cáo cơ bản trích nguyên văn câu trả lời của bạn và chỉ ra ưu tiên số 1 cần sửa. Chế độ đánh máy đã hoạt động (không đánh giá phát âm); chế độ nói bằng giọng đang ở giai đoạn beta giới hạn.' },
-          ],
-          ongoing: [
-            { name: 'Gói Chẩn đoán 3 lượt', price: 'Tổng 199.000₫ · US$8 qua PayPal', note: '~66.300₫/lượt: 1 Báo cáo nâng cao kèm kế hoạch học 4 tuần, hoặc 3 Báo cáo cơ bản.' },
-            { name: 'Gói Luyện tập 10 lượt', price: 'Tổng 549.000₫ · US$22 qua PayPal', note: '~54.900₫/lượt, dùng trong 12 tháng.' },
-          ],
-          cta: { label: 'Xem AI Speaking & giới hạn của sản phẩm', href: '/ai-speaking' },
-        },
       ],
     },
     faq: {
       heading: 'Câu hỏi phụ huynh và người học thường hỏi',
       items: [
         { q: 'Các buổi học trực tiếp với trẻ có được ghi âm không?', a: 'Không. Các buổi học với học viên dưới 18 tuổi không bao giờ được ghi âm, ghi hình. Phụ huynh nhận nhận xét quan sát bằng văn bản của giáo viên, các câu con nói được ghi lại trực tiếp trong buổi học và bản viết có chú thích.' },
-        { q: 'Công cụ AI Speaking cho người lớn hiện có chấm phát âm không?', a: 'Chế độ đánh máy đã có và đánh giá mạch ý, từ vựng, ngữ pháp; chế độ này không đánh giá phát âm. Chế độ nói bằng giọng đang ở giai đoạn beta giới hạn, và đoạn âm thanh trên trang AI Speaking là bản minh hoạ bằng giọng tổng hợp. Nếu bạn cần đánh giá đủ 4 tiêu chí, kể cả phát âm, ngay hôm nay, hãy đặt buổi Đánh giá Nói trực tiếp 15–20 phút (690.000₫) qua Google Meet.' },
+        { q: 'Tôi tìm phần luyện IELTS ở đâu?', a: 'Tại JurassicIELTS.com, một thương hiệu chị em thuộc World Wise Learning. Jurassic English tập trung vào trẻ em và trường học; nếu cần buổi Đánh giá Nói trực tiếp 15–20 phút do giáo viên đánh giá cho độ tuổi 9–18, hãy xem trang Luyện nói 9–18.' },
         { q: 'Tôi thanh toán bằng loại tiền nào?', a: 'VietQR và thanh toán trực tuyến tính bằng Việt Nam Đồng (VND ₫). Giá USD chỉ để tham khảo; gia đình ở nước ngoài có thể trả các khoản USD cố định qua PayPal cho buổi Đánh giá và các buổi 1 kèm 1.' },
       ],
     },

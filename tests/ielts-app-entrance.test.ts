@@ -36,7 +36,7 @@ test('country pages (all locales), insights pages and the two tools carry one en
   assert.equal(ieltsAppHref('country'), 'https://app.jurassicielts.com/?utm_source=site&utm_medium=entrance&utm_content=country');
 });
 
-test('no entrance on kids pages or people pages; the home strip is unchanged', async () => {
+test('no entrance on kids pages or people pages; the home has no IELTS app strip', async () => {
   const { renderRoute } = await import('../src/entry-server');
   for (const path of ['/story-club', '/vi/story-club', '/student-academy', '/vi/student-academy', '/student-academy/stories', '/about/nathaniel-jay-adams', '/vi/ve-thay-jay-adams', '/products', '/vi/products', '/products/story-club']) {
     const html = await renderRoute(path);
@@ -48,16 +48,13 @@ test('no entrance on kids pages or people pages; the home strip is unchanged', a
   const { setServerLocation } = await import('../src/lib/ssrLocation');
   const { createElement } = await import('react');
   const { renderToStaticMarkup } = await import('react-dom/server');
-  for (const [path, locale] of [['/', 'en'], ['/vi', 'vi']] as const) {
+  for (const [path] of [['/', 'en'], ['/vi', 'vi']] as const) {
     setServerLocation(path);
     const html = amp(renderToStaticMarkup(createElement(HomeOverhaul, { onNavigate: () => {} })));
     setServerLocation('/');
-    assert.ok(html.indexOf('data-ielts-app-banner="home"') < html.indexOf('<section'), `${path}: banner before the hero`);
-    assert.equal((html.match(/data-ielts-app-strip/g) ?? []).length, 1, path);
-    const strip = html.indexOf('data-ielts-app-strip');
-    assert.equal((html.slice(0, strip).match(/<\/section>/g) ?? []).length, 1, `${path}: the strip is directly under the hero`);
-    assert.equal((html.match(/data-ielts-app-adults=""/g) ?? []).length, 1, `${path}: adults label on the strip`);
-    assert.ok(html.includes(`href="${ieltsAppHref('home', locale)}"`), `${path}: utm_content home${locale === 'vi' ? '-vi' : ''}`);
+    // IELTS migration P10: the home banner and strip left; the one JurassicIELTS card replaced them (see ielts-app-feature.test.ts).
+    assert.equal((html.match(/data-ielts-app-banner/g) ?? []).length, 0, `${path}: no banner on home`);
+    assert.equal((html.match(/data-ielts-app-strip/g) ?? []).length, 0, `${path}: no strip on home`);
     assert.equal((html.match(/data-ielts-app-entrance=/g) ?? []).length, 0, `${path}: no compact card on home`);
   }
   // /products: banner above the segment tiles, with the adults label. IELTS migration P6: the in-catalogue IELTS app

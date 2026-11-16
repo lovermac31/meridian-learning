@@ -12,20 +12,22 @@ import { ieltsAppHref } from '../src/lib/ieltsApp';
 // free card on top of the /products IELTS group. Jay's wording only; practice, never a score. Header unchanged.
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
-test('home: the IELTS app strip sits directly under the hero, EN + VI, with the entrance link and the packs link', () => {
-  for (const [path, title, packs] of [['/', 'Practise with an AI examiner. 2 free attempts.', '/ai-speaking?utm_source=home-ielts-app'], ['/vi', 'Luyện nói với giám khảo AI. 2 lượt thử miễn phí.', '/ai-speaking/vi?utm_source=home-ielts-app']] as const) {
+test('home: no IELTS app banner or strip; IELTS is one JurassicIELTS card in the paths section, EN + VI (IELTS migration P10)', () => {
+  for (const [path, title, door, appHref] of [
+    ['/', 'IELTS on JurassicIELTS', 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=home&utm_campaign=ielts-move', ieltsAppHref('home', 'en')],
+    ['/vi', 'IELTS tại JurassicIELTS', 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=home&utm_campaign=ielts-move', ieltsAppHref('home', 'vi')],
+  ] as const) {
     setServerLocation(path);
     const html = amp(renderToStaticMarkup(createElement(HomeOverhaul, { onNavigate: () => {} })));
     setServerLocation('/');
-    const hero = html.indexOf('</section>');
-    const strip = html.indexOf('data-ielts-app-strip');
-    assert.ok(strip > hero && strip < html.indexOf('data-home-tile'), `${path}: between the hero and the Find strip`);
-    const block = html.slice(strip, html.indexOf('</section>', strip));
-    assert.ok(block.includes(`>${title}<`), `${path}: headline`);
-    assert.match(block, new RegExp(`href="${ieltsAppHref('home', path === '/vi' ? 'vi' : 'en').replace(/[?&.]/g, '\\$&')}" target="_blank" rel="noopener noreferrer"[^>]*data-cta="ielts-app-home"`), `${path}: entrance link`);
-    assert.ok(block.includes(`href="${packs}"`), `${path}: packs link`);
-    assert.match(block, /<img src="\/images\/ielts-app-screen\.webp"[^>]*alt="[^"]+"/, `${path}: labelled screenshot`);
-    assert.doesNotMatch(block, /band \d|guarantee|score of/i);
+    assert.doesNotMatch(html, /data-ielts-app-(?:strip|banner|entrance)/, `${path}: no app strip, banner or card`);
+    assert.doesNotMatch(html, /data-home-free-tools|band-score-calculator/, `${path}: no calculator link`);
+    const paths = html.slice(html.indexOf('id="learning-paths"'), html.indexOf('</section>', html.indexOf('id="learning-paths"')));
+    assert.ok(paths.includes(`>${title}<`), `${path}: the JurassicIELTS card`);
+    assert.ok(paths.includes(`href="${door}"`), `${path}: the one door, tagged home`);
+    assert.ok(paths.includes(`href="${appHref}"`), `${path}: free practice link`);
+    assert.equal((html.match(/jurassicielts\.com\/(?:vi\/)?\?utm_source=jurassicenglish&utm_medium=home/g) ?? []).length, 1, `${path}: exactly one JurassicIELTS card`);
+    assert.doesNotMatch(paths, /band \d|guarantee|score of/i);
   }
   assert.equal(ieltsAppHref('home'), 'https://app.jurassicielts.com/?utm_source=site&utm_medium=entrance&utm_content=home');
   for (const file of ['public/images/ielts-app-screen.webp', 'public/images/w/ielts-app-screen-640.webp']) assert.equal(readFileSync(file).subarray(8, 12).toString(), 'WEBP', file);

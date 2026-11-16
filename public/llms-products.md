@@ -7,6 +7,7 @@
 - Vietnam buyers: the page shows the VND price and VietQR/Zalo ordering instructions.
 - International buyers: products marked PayPal can be paid for in USD; digital files are delivered after payment is matched.
 - Services such as Baseline and one-to-one lessons use their own booking or enquiry route.
+- IELTS products, practice, guides and coaching are not sold here: they are on https://jurassicielts.com, a sister brand of World Wise Learning.
 - Jurassic English is independent and is not affiliated with IELTS, Cambridge University Press & Assessment, the British Council or IDP.
 
 ## Products

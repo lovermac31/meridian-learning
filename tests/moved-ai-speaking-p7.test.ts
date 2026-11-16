@@ -74,16 +74,19 @@ test('movedPathMatcher (check scripts) agrees with isMovedToJurassicielts on eve
 import { crawlResourceLinks } from '../src/components/CrawlResources.tsx';
 import resources from '../src/content/crawlResources.json';
 
-test('CrawlResources keeps every AI Speaking resource and points it at jurassicielts.com (held pages stay on JE)', () => {
+test('CrawlResources keeps every AI Speaking resource, already pointing at jurassicielts.com in the data (held pages stay on JE)', () => {
+  // IELTS migration P10: crawlResources.json holds the direct jurassicielts.com address, so no entry hops through a redirect.
   const all = Object.values(resources).flat();
-  const ai = all.filter((l) => l.href.startsWith('/ai-speaking'));
+  const ai = all.filter((l) => /\/ai-speaking/.test(l.href));
   assert.ok(ai.length >= 10);
+  assert.ok(!all.some((l) => l.href.startsWith('/ai-speaking') && !/\/ai-speaking\/(?:vi\/)?solutions$/.test(l.href)), 'no JE address of a moved AI Speaking page');
   const out = Object.values(resources).flatMap((links) => crawlResourceLinks(links)).filter((l) => /\/ai-speaking/.test(l.href));
   assert.equal(out.length, ai.length, 'no AI Speaking link is dropped');
   for (const link of out) {
     if (/\/ai-speaking\/(?:vi\/)?solutions$/.test(link.href)) assert.ok(link.href.startsWith('/ai-speaking'), link.href);
     else assert.ok(link.href.startsWith(`${JI}/ai-speaking`), link.href);
   }
+  for (const l of all) assert.ok(!isMovedToJurassicielts(l.href) || /\/ai-speaking\/(?:vi\/)?solutions$/.test(l.href), `${l.href} is not a moved JE address`);
 });
 
 test('the JE sitemap leaves out moved and held AI Speaking pages', async () => {
@@ -91,4 +94,25 @@ test('the JE sitemap leaves out moved and held AI Speaking pages', async () => {
   const src = await readFile(new URL('../scripts/generate-sitemap.mjs', import.meta.url), 'utf8');
   assert.match(src, /isHeldAiSpeaking/);
   assert.match(src, /exam\|solutions\|ladder/);
+});
+
+// IELTS migration P10: the build-time pass also rewrites every other moved address (the founder film's market links), and the
+// Organization node lists JurassicIELTS as a sister brand of World Wise Learning with no IELTS Product or Offer node.
+import { createOrganizationJsonLd } from '../src/lib/structuredData.ts';
+
+test('rewriteAiSpeakingLinks also points moved country pages at jurassicielts.com; held and unmoved pages stay', () => {
+  const html = '<a href="/ielts-speaking-online/india">a</a><a href="/ielts-speaking-online">b</a><a href="/young-learners-speaking/">c</a><a href="/ai-speaking/exam">d</a>';
+  const { html: out, changed } = rewriteAiSpeakingLinks(html);
+  assert.equal(changed, 2);
+  assert.doesNotMatch(out, /href="\/ielts-speaking-online/);
+  assert.match(out, /href="https:\/\/jurassicielts\.com\//);
+  assert.match(out, /href="\/young-learners-speaking\/"/);
+  assert.match(out, /href="\/ai-speaking\/exam"/);
+});
+
+test('the Organization node lists JurassicIELTS as a sister brand of World Wise Learning', () => {
+  const org = createOrganizationJsonLd() as { parentOrganization: { name: string; brand: { name: string; url: string }[] } };
+  assert.equal(org.parentOrganization.name, 'World Wise Learning');
+  assert.ok(org.parentOrganization.brand.some((b) => b.name === 'JurassicIELTS' && b.url === 'https://jurassicielts.com'));
+  assert.doesNotMatch(JSON.stringify(org), /"Offer"|"Product"|"Course"/);
 });
