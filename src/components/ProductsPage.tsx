@@ -28,7 +28,7 @@ import {
 import { LIBRARY_COPY, LIBRARY_TITLES, isLibraryPreview, libraryAnchorId, libraryIncludedHref, libraryWaitlistHref, LIBRARY_ANCHOR } from '../i18n/content/readingLibrary';
 import { fetchSampleText, type SampleTextDocument } from '../lib/sampleText';
 import { SamplePackForm } from './SamplePackForm';
-import { PAUSED_COPY, PRODUCT_FORMER_IDS, pausedWaitlistHref } from '../i18n/content/products';
+import { PAUSED_COPY, PRODUCT_FORMER_IDS, pausedNoteFor, pausedWaitlistHref } from '../i18n/content/products';
 import { FAQ_QUESTIONS, productPath } from '../i18n/content/productSeo';
 import { getOverhaulContent, PRODUCTS_NEW_HIGHLIGHT as PHONICS_NEW } from '../i18n/content/overhaul';
 import { ieltsAppHref } from '../lib/ieltsApp';
@@ -106,7 +106,7 @@ export function PausedNote({ card, locale }: { card: ProductCard; locale: Locale
   const t = PAUSED_COPY[locale];
   return (
     <div className="mt-3 rounded-xl border-l-4 border-[#9B1C31] bg-[#F3E8CF] p-4 text-[#13294B]" data-paused-waitlist={card.id}>
-      <p className="font-semibold">{t.note}</p>
+      <p className="font-semibold">{pausedNoteFor(card, locale)}</p>
       <a className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[#13294B] px-5 py-2 text-sm font-bold underline-offset-4 hover:underline" style={{ color: '#F3E8CF' }} href={pausedWaitlistHref(card.id)} target="_blank" rel="noopener noreferrer nofollow" data-paused-zalo={card.id}>{t.cta}</a>
     </div>
   );

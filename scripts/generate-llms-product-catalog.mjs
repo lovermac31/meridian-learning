@@ -31,7 +31,8 @@ for (const product of products) {
   lines.push(`- Vietnamese title: ${vi.title}`);
   lines.push(`- VND price: ${product.price.replace(/₫/g, ' VND')}`);
   // Paused products (audit fix 4, 11 Nov 2026) keep their page but are not for sale.
-  if (product.paused) lines.push('- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)');
+  // A paused product with its own reason (pauseNote) states that reason, not the generic "being rewritten" one (17 Nov 2026).
+  if (product.paused) lines.push(`- Availability: paused, not for sale; ${product.pauseNote ? product.pauseNote.en.replace(/\.$/, '') : 'being rewritten onto original Jurassic English stories'} (waitlist on Zalo)`);
   lines.push(`- PayPal USD: ${product.paypal && !product.paused ? 'available on the product page' : 'not listed'}`);
   lines.push(`- Sample: ${product.sample ? 'view-only pages on the product page' : 'none listed'}`, '');
 }

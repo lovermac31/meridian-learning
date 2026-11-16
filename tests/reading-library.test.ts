@@ -90,7 +90,9 @@ test('AC2 guard: library ids are not in PRODUCTS, PAID_OFFERS, portal flags, JSO
   for (const locale of ['en', 'vi'] as const) {
     const list = JSON.stringify(createProductListJsonLd(locale));
     for (const id of ids) assert.ok(!list.includes(id), `${locale}: ${id} not in the ItemList`);
-    assert.equal((list.match(/https:\/\/schema\.org\/InStock/g) ?? []).length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length);
+    // Live, not paused = InStock; a paused product stays listed as OutOfStock (products-findable.test.ts). Together: every live card.
+    assert.equal((list.match(/https:\/\/schema\.org\/InStock/g) ?? []).length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts' && !p.paused).length);
+    assert.equal((list.match(/https:\/\/schema\.org\/OutOfStock/g) ?? []).length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts' && p.paused).length);
     for (const p of PRODUCTS.filter((x) => x.live && x.section !== 'ielts').slice(0, 3)) assert.ok(JSON.stringify(createProductJsonLd(p, locale)).includes(p.id));
   }
   assert.doesNotMatch(read('scripts/generate-sitemap.mjs'), /rl-je-|reading-library/);

@@ -127,6 +127,8 @@ export type Product = {
   // Paused for sale (audit 11 Nov 2026, Jay: "Approve all four"): the page and URL stay, but there is no buy, VietQR,
   // PayPal or Zalo order button; the card and page show PAUSED_COPY with a Zalo waitlist link instead.
   paused?: boolean;
+  // A product-specific paused note, when PAUSED_COPY's "being rewritten" reason is not true for it (the waitlist button stays).
+  pauseNote?: { en: string; vi: string };
   // The pre-purchase credit line (audit fix 7, 11 Nov 2026): how the book was made, shown above the price, matching
   // the line printed in the PDF.
   credit?: { en: string; vi: string };
@@ -192,6 +194,9 @@ export const PAUSED_COPY: Record<Locale, { note: string; cta: string }> = {
   en: { note: 'Being rewritten onto original Jurassic English stories: ask about the waitlist on Zalo.', cta: 'Ask about the waitlist' },
   vi: { note: 'Đang được viết lại trên các truyện gốc của Jurassic English: hỏi về danh sách chờ qua Zalo.', cta: 'Hỏi về danh sách chờ' },
 };
+/** The paused note a product shows: its own reason when it has one, otherwise PAUSED_COPY. */
+export const pausedNoteFor = (product: Pick<Product, 'pauseNote'> | { pauseNote?: string }, locale: Locale) =>
+  (typeof product.pauseNote === 'string' ? product.pauseNote : product.pauseNote?.[locale]) ?? PAUSED_COPY[locale].note;
 // utm_source=products comes last, as on every /products link (tests/products.test.ts).
 export const pausedWaitlistHref = (id: string) => `/go/zalo/${id}?utm_content=${id}-waitlist&utm_source=products`;
 
@@ -654,7 +659,9 @@ export const PRODUCTS: Product[] = [
     // Thinking Expeditions Level 1 (WW-20261117-CT60; Jay's "GO 190k", relayed by the master, 17 Nov 2026): the Level 1 critical
     // thinking workbook, first edition v1.0, 142 pages, passed its final gate 16 Nov 2026. 190.000₫, VND only (no US$ price was
     // approved, so no PayPal). Sample = the free Level 1 Unit 1 sample PDF: its cover and the whole ten-page unit (pages 7-16),
-    // no answer key. Portal buy stays off until the portal product is active. Licence (Jay, 17 Nov 2026): personal, ONE LEARNER
+    // no answer key. Portal buy stays off until the portal product is active.
+    // PAUSED (17 Nov 2026): no checkout until the re-gated book file (licence on p3) is approved. The card, page, sample and
+    // licence stay. To un-pause: remove `paused` and `pauseNote` here and the id from PAUSED_PRODUCTS in api/sample-pack.ts. Licence (Jay, 17 Nov 2026): personal, ONE LEARNER
     // (CT_LICENCE, verbatim); classroom use needs a separate licence and is never included in this price.
     id: 'thinking-expeditions-l1',
     live: true,
@@ -666,6 +673,11 @@ export const PRODUCTS: Product[] = [
     delivery: true,
     credit: CT_CREDIT,
     licence: CT_LICENCE,
+    paused: true,
+    pauseNote: {
+      en: 'Coming soon: the final book file is being checked. Ask on Zalo and we will tell you when you can order.',
+      vi: 'Sắp mở bán: tệp sách bản cuối đang được kiểm tra. Nhắn Zalo để chúng tôi báo khi bạn có thể đặt mua.',
+    },
     en: {
       label: 'Digital download · Critical thinking · New',
       title: 'Thinking Expeditions Level 1: Foundation',
@@ -1833,6 +1845,7 @@ const PAGE: Record<Locale, PageCopy> = {
 export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books' | 'usd' | 'orderOnly' | 'reader' | 'clip'> & {
   link?: { href: string; label: string };
   paused?: boolean;
+  pauseNote?: string;
   credit?: string;
   licence?: string;
 };
@@ -1853,8 +1866,8 @@ export function productsPage(locale: Locale) {
       // The IELTS section has no cards on /products after P6; ProductsPage shows the one moved card instead.
       cards: PRODUCTS.filter((p) => p.live && p.section === id && id !== IELTS_MOVED_SECTION).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, usd, orderOnly, reader, clip, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, pauseNote, credit, licence, usd, orderOnly, reader, clip, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, pauseNote: pauseNote?.[locale], credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).
