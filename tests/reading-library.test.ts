@@ -13,6 +13,8 @@ type Hub = typeof hubModule;
 const hub: Hub = (hubModule as unknown as { default?: Hub }).default ?? hubModule;
 // Reading & Reasoning Library preview (brief WW-20261115-RL6B): PREVIEW_ONLY cards behind ?library-preview=1.
 const ECO = 'docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing';
+// Live non-IELTS product cards on /products. 36 since #350 added rr-l1-wind-sun-yellow-coat (16 Nov); raise it with the next new product.
+const LIVE_CARDS = 36;
 const read = (p: string) => readFileSync(p, 'utf8');
 // Code comments are not customer copy (as in claims-safety.test.ts); strip them before scanning for forbidden wording.
 const code = (p: string) => read(p).replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '').replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
@@ -31,8 +33,10 @@ test('AC2: default render has zero library cards (EN + VI /products; the hub row
   const { renderRoute } = await import('../src/entry-server');
   for (const route of ['/products', '/vi/products']) {
     const html = amp(await renderRoute(route));
-    assert.doesNotMatch(html, /data-library-|reading-library|products-library|rl-je-|Reading &amp; Reasoning|Reading & Reasoning|Thư viện Đọc/, `${route}: no library markup`);
-    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, 35, `${route}: still 35 cards`);
+    // The library preview's own markup must stay out of the default render. The phrase "Reading & Reasoning" alone is no
+    // longer a signal: since #350 the live product rr-l1-wind-sun-yellow-coat is sold as a "Reading & Reasoning" edition.
+    assert.doesNotMatch(html, /data-library-|reading-library|products-library|rl-je-|Thư viện Đọc/, `${route}: no library markup`);
+    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, LIVE_CARDS, `${route}: library adds no cards`);
   }
 });
 
@@ -119,7 +123,7 @@ test('existing cards untouched: the story-workbook, teacher-pack and phonics ent
   assert.equal(price('teacher-pack-l1'), '690.000₫');
   assert.equal(price('phonics-b1'), '79.000₫');
   assert.equal(price('phonics-b2'), '129.000₫');
-  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 35);
+  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, LIVE_CARDS);
 });
 
 test('copy says the story is already inside Story Workbooks Level N, with a link to the existing product page and no sale wording', () => {
