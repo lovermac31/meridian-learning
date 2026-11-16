@@ -47,6 +47,8 @@ const PRODUCT_MEMO_CODES: Record<string, string> = {
   'ielts-diagnostic-mock': 'PR19',
   // Mango pilot single workbook (11 Nov 2026, 49.000₫).
   'mango-l2': 'PR1A',
+  // Reading & Reasoning single story (16 Nov 2026, 49.000₫).
+  'rr-l1-wind-sun-yellow-coat': 'PR1B',
 };
 
 // The pack total is already published in the catalogue; keep it tied to that copy. Order-only products (Phonics, 15 Nov

@@ -58,6 +58,8 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
   'ielts-diagnostic-mock': { prefix: 'PR19', amount: 199000 },
   // Mango pilot single workbook (11 Nov 2026).
   'mango-l2': { prefix: 'PR1A', amount: 49000 },
+  // Reading & Reasoning single story (16 Nov 2026).
+  'rr-l1-wind-sun-yellow-coat': { prefix: 'PR1B', amount: 49000 },
   // Unlisted 30-minute Live Speaking Check (mirrors LIVE_CHECK_OFFER in src/config/payment.ts).
   'live-speaking-check': { prefix: 'LC', amount: 250000 },
 };

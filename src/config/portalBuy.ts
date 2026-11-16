@@ -22,6 +22,7 @@ export const PORTAL_BUY_FLAGS: Record<string, boolean> = {
   'teacher-pack-l5': false,
   'teacher-bundle': false,
   'story-workbooks-l1': false,
+  'rr-l1-wind-sun-yellow-coat': false,
   'story-workbooks-l2': false,
   'mango-l2': false,
   'story-workbooks-l3': false,
