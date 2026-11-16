@@ -9,15 +9,24 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { walkFiles } from './lib/built-site.mjs';
-import { movedHref } from '../src/config/movedToJurassicielts.ts';
+import { isMovedToJurassicielts, movedHref } from '../src/config/movedToJurassicielts.ts';
 
 export const isAiSpeakingHref = (href) => /^(?:https:\/\/(?:www\.)?jurassicenglish\.com)?\/ai-speaking(?:[/?#]|$)/.test(href);
+
+/**
+ * IELTS migration P10: every other moved address (country pages, guides, tools, the founder film's market links) also goes
+ * straight to jurassicielts.com, so a crawl of the built site finds no link that hops through a redirect (acceptance A1).
+ */
+export const isMovedHrefOnJe = (href) => {
+  const m = /^(?:https:\/\/(?:www\.)?jurassicenglish\.com)?(\/[^?#]*)/.exec(href);
+  return Boolean(m) && isMovedToJurassicielts(m[1]);
+};
 
 export function rewriteAiSpeakingLinks(html) {
   let changed = 0;
   const out = html.replace(/(<a\b[^>]*?\shref=)(["'])(.*?)\2/gi, (whole, head, quote, raw) => {
     const href = raw.replace(/&amp;/g, '&');
-    if (!isAiSpeakingHref(href)) return whole;
+    if (!isAiSpeakingHref(href) && !isMovedHrefOnJe(href)) return whole;
     const next = movedHref(href);
     if (next === href) return whole;
     changed++;
