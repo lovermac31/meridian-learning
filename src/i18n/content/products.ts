@@ -643,7 +643,8 @@ export const PRODUCTS: Product[] = [
     // Thinking Expeditions Level 1 (WW-20261117-CT60; Jay's "GO 190k", relayed by the master, 17 Nov 2026): the Level 1 critical
     // thinking workbook, first edition v1.0, 142 pages, passed its final gate 16 Nov 2026. 190.000₫, VND only (no US$ price was
     // approved, so no PayPal). Sample = the free Level 1 Unit 1 sample PDF: its cover and the whole ten-page unit (pages 7-16),
-    // no answer key. Portal buy stays off until the portal product is active.
+    // no answer key. Portal buy stays off until the portal product is active. Licence (Jay, 17 Nov 2026): ONE LEARNER at 190.000₫,
+    // same as the Student and Story Workbooks; class use is a separate offer on Zalo, never included in this price.
     id: 'thinking-expeditions-l1',
     live: true,
     section: 'families',
@@ -658,7 +659,7 @@ export const PRODUCTS: Product[] = [
       title: 'Thinking Expeditions Level 1: Foundation',
       problem: 'Your child picks an answer but can’t yet say why. You want them to look closely, compare and give a reason with “because”.',
       inside: 'A full-year critical thinking workbook: 142 print-ready A4 pages. Eight picture-led units with Professor Rex, Mai and Leo (Same, Different, Odd One Out; What Comes Next?; First, Next, Last; Sort the Dig; Clue Hunt; Because Detectives; Kind and Fair; Rex’s Choices), ten pages each in the same nine steps, plus a pre-check, a post-check, a certificate, an answer key with what to accept, notes for teachers and parents, a glossary and an index. The sample shows all of Unit 1.',
-      forWho: 'Children aged about 6–8, Level 1 · Foundation (intended English level Pre-A1 to A1, a design target, not a certificate), with a parent or teacher. The pictures carry the thinking, so reading is never the obstacle. About 16 sessions of 25 minutes. For one family or one classroom: print for your own children or class.',
+      forWho: 'Children aged about 6–8, Level 1 · Foundation (intended English level Pre-A1 to A1, a design target, not a certificate), with a parent or teacher. The pictures carry the thinking, so reading is never the obstacle. About 16 sessions of 25 minutes. One-learner licence: print for one child only. Teachers and tutors can ask on Zalo about using it with a class.',
       unit: 'one-time · 1 book, 8 units (PDF)',
       cta: 'Order on Zalo',
     },
@@ -667,7 +668,7 @@ export const PRODUCTS: Product[] = [
       title: 'Thinking Expeditions Level 1: Foundation',
       problem: 'Con chọn được đáp án nhưng chưa nói được vì sao. Bố mẹ muốn con quan sát kỹ, so sánh và đưa ra lý do bằng “because”.',
       inside: 'Sách bài tập tư duy phản biện cho cả năm: 142 trang A4 in sẵn. Tám bài học bằng tranh cùng Giáo sư Rex, Mai và Leo (Same, Different, Odd One Out; What Comes Next?; First, Next, Last; Sort the Dig; Clue Hunt; Because Detectives; Kind and Fair; Rex’s Choices), mỗi bài mười trang theo cùng chín bước, kèm bài kiểm tra đầu vào, bài kiểm tra cuối, giấy khen, đáp án có hướng dẫn chấp nhận câu trả lời, ghi chú cho giáo viên và phụ huynh, bảng từ và mục lục tra cứu. Trang mẫu có trọn Unit 1.',
-      forWho: 'Trẻ khoảng 6–8 tuổi, Level 1 · Foundation (trình độ tiếng Anh dự kiến Pre-A1 đến A1, là mục tiêu thiết kế, không phải chứng chỉ), học cùng bố mẹ hoặc giáo viên. Tranh minh họa mang phần tư duy, nên việc đọc không bao giờ là rào cản. Khoảng 16 buổi, mỗi buổi 25 phút. Dành cho một gia đình hoặc một lớp học: in cho con hoặc lớp của bạn.',
+      forWho: 'Trẻ khoảng 6–8 tuổi, Level 1 · Foundation (trình độ tiếng Anh dự kiến Pre-A1 đến A1, là mục tiêu thiết kế, không phải chứng chỉ), học cùng bố mẹ hoặc giáo viên. Tranh minh họa mang phần tư duy, nên việc đọc không bao giờ là rào cản. Khoảng 16 buổi, mỗi buổi 25 phút. Bản quyền cho một học viên: chỉ in cho một bé. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
       unit: 'mua một lần · 1 cuốn, 8 bài (PDF)',
       cta: 'Đặt mua qua Zalo',
     },
