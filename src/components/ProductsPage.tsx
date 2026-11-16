@@ -95,6 +95,12 @@ export function CreditLine({ card }: { card: ProductCard }) {
   return <p className="mt-3 rounded-lg border-l-4 border-[#9B1C31] bg-[#F3E8CF] px-3 py-2 text-sm font-medium text-[#13294B]" data-ai-credit={card.id}>{card.credit}</p>;
 }
 
+/** The buyer's licence in full, above the price (Thinking Expeditions L1, 17 Nov 2026); only for products that set one. */
+export function LicenceLine({ card }: { card: Pick<ProductCard, 'id' | 'licence'> }) {
+  if (!card.licence) return null;
+  return <p className="mt-3 rounded-lg border border-[#13294B]/25 bg-[#FBF6EA] px-3 py-2 text-sm text-[#13294B]" data-licence={card.id}>{card.licence}</p>;
+}
+
 /** Audit fix 4 (11 Nov 2026): a paused product shows this instead of every buy, VietQR, PayPal and Zalo order button. */
 export function PausedNote({ card, locale }: { card: ProductCard; locale: Locale }) {
   const t = PAUSED_COPY[locale];

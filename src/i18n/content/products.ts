@@ -130,6 +130,9 @@ export type Product = {
   // The pre-purchase credit line (audit fix 7, 11 Nov 2026): how the book was made, shown above the price, matching
   // the line printed in the PDF.
   credit?: { en: string; vi: string };
+  // The licence the buyer gets, in full, shown above the price on the product page and in the checkout summary
+  // (Thinking Expeditions L1, 17 Nov 2026). Products without it keep their licence wording in "Who it's for".
+  licence?: { en: string; vi: string };
   en: CardText;
   vi: CardText;
 };
@@ -175,6 +178,14 @@ export const RR_CREDIT = {
 export const CT_CREDIT = {
   en: 'Text and puzzles by Jurassic English, written with AI assistance; illustrations painted with AI image generation (ChatGPT, OpenAI) to Jurassic English art direction; diagrams, grids and tables drawn by Jurassic English.',
   vi: 'Phần chữ và câu đố của Jurassic English, được viết với sự hỗ trợ của AI; tranh minh họa vẽ bằng công cụ tạo ảnh AI (ChatGPT, OpenAI) theo chỉ đạo mỹ thuật của Jurassic English; sơ đồ, lưới và bảng do Jurassic English vẽ.',
+};
+/**
+ * Thinking Expeditions Level 1 licence (Jay, KING MASTER EXECUTION DIRECTIVE, 17 Nov 2026), verbatim. Shown in full on the
+ * product page and at checkout; the card's "Who it's for" carries a shortened form with the same meaning.
+ */
+export const CT_LICENCE = {
+  en: "Personal licence — one learner. This digital workbook is licensed for use by one individual learner. A parent or guardian may assist that learner and print copies for that learner's personal educational use. This licence does not permit sharing, redistribution, resale, or reproduction for multiple learners, families, classrooms, schools or organisations. Separate licences are required for additional learners or classroom use.",
+  vi: 'Giấy phép sử dụng cá nhân — một học viên. Sách bài tập điện tử này được cấp phép sử dụng cho một học viên duy nhất. Cha mẹ hoặc người giám hộ có thể hỗ trợ và in bản phục vụ việc học cá nhân của học viên đó. Giấy phép không cho phép chia sẻ, phân phối lại, bán lại hoặc sao chép để sử dụng cho nhiều học viên, gia đình, lớp học, trường học hoặc tổ chức. Cần có giấy phép riêng cho học viên bổ sung hoặc việc sử dụng trong lớp học.',
 };
 /** Paused products (audit fix 4, 11 Nov 2026): shown instead of every buy button. */
 export const PAUSED_COPY: Record<Locale, { note: string; cta: string }> = {
@@ -643,8 +654,8 @@ export const PRODUCTS: Product[] = [
     // Thinking Expeditions Level 1 (WW-20261117-CT60; Jay's "GO 190k", relayed by the master, 17 Nov 2026): the Level 1 critical
     // thinking workbook, first edition v1.0, 142 pages, passed its final gate 16 Nov 2026. 190.000₫, VND only (no US$ price was
     // approved, so no PayPal). Sample = the free Level 1 Unit 1 sample PDF: its cover and the whole ten-page unit (pages 7-16),
-    // no answer key. Portal buy stays off until the portal product is active. Licence (Jay, 17 Nov 2026): ONE LEARNER at 190.000₫,
-    // same as the Student and Story Workbooks; class use is a separate offer on Zalo, never included in this price.
+    // no answer key. Portal buy stays off until the portal product is active. Licence (Jay, 17 Nov 2026): personal, ONE LEARNER
+    // (CT_LICENCE, verbatim); classroom use needs a separate licence and is never included in this price.
     id: 'thinking-expeditions-l1',
     live: true,
     section: 'families',
@@ -654,12 +665,13 @@ export const PRODUCTS: Product[] = [
     sample: 'thinking-expeditions-l1',
     delivery: true,
     credit: CT_CREDIT,
+    licence: CT_LICENCE,
     en: {
       label: 'Digital download · Critical thinking · New',
       title: 'Thinking Expeditions Level 1: Foundation',
       problem: 'Your child picks an answer but can’t yet say why. You want them to look closely, compare and give a reason with “because”.',
       inside: 'A full-year critical thinking workbook: 142 print-ready A4 pages. Eight picture-led units with Professor Rex, Mai and Leo (Same, Different, Odd One Out; What Comes Next?; First, Next, Last; Sort the Dig; Clue Hunt; Because Detectives; Kind and Fair; Rex’s Choices), ten pages each in the same nine steps, plus a pre-check, a post-check, a certificate, an answer key with what to accept, notes for teachers and parents, a glossary and an index. The sample shows all of Unit 1.',
-      forWho: 'Children aged about 6–8, Level 1 · Foundation (intended English level Pre-A1 to A1, a design target, not a certificate), with a parent or teacher. The pictures carry the thinking, so reading is never the obstacle. About 16 sessions of 25 minutes. One-learner licence: print for one child only. Teachers and tutors can ask on Zalo about using it with a class.',
+      forWho: 'Children aged about 6–8, Level 1 · Foundation (intended English level Pre-A1 to A1, a design target, not a certificate), with a parent or teacher. The pictures carry the thinking, so reading is never the obstacle. About 16 sessions of 25 minutes. Personal licence — one learner: for one learner’s personal use only. Separate licences are required for additional learners or classroom use.',
       unit: 'one-time · 1 book, 8 units (PDF)',
       cta: 'Order on Zalo',
     },
@@ -668,7 +680,7 @@ export const PRODUCTS: Product[] = [
       title: 'Thinking Expeditions Level 1: Foundation',
       problem: 'Con chọn được đáp án nhưng chưa nói được vì sao. Bố mẹ muốn con quan sát kỹ, so sánh và đưa ra lý do bằng “because”.',
       inside: 'Sách bài tập tư duy phản biện cho cả năm: 142 trang A4 in sẵn. Tám bài học bằng tranh cùng Giáo sư Rex, Mai và Leo (Same, Different, Odd One Out; What Comes Next?; First, Next, Last; Sort the Dig; Clue Hunt; Because Detectives; Kind and Fair; Rex’s Choices), mỗi bài mười trang theo cùng chín bước, kèm bài kiểm tra đầu vào, bài kiểm tra cuối, giấy khen, đáp án có hướng dẫn chấp nhận câu trả lời, ghi chú cho giáo viên và phụ huynh, bảng từ và mục lục tra cứu. Trang mẫu có trọn Unit 1.',
-      forWho: 'Trẻ khoảng 6–8 tuổi, Level 1 · Foundation (trình độ tiếng Anh dự kiến Pre-A1 đến A1, là mục tiêu thiết kế, không phải chứng chỉ), học cùng bố mẹ hoặc giáo viên. Tranh minh họa mang phần tư duy, nên việc đọc không bao giờ là rào cản. Khoảng 16 buổi, mỗi buổi 25 phút. Bản quyền cho một học viên: chỉ in cho một bé. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
+      forWho: 'Trẻ khoảng 6–8 tuổi, Level 1 · Foundation (trình độ tiếng Anh dự kiến Pre-A1 đến A1, là mục tiêu thiết kế, không phải chứng chỉ), học cùng bố mẹ hoặc giáo viên. Tranh minh họa mang phần tư duy, nên việc đọc không bao giờ là rào cản. Khoảng 16 buổi, mỗi buổi 25 phút. Giấy phép sử dụng cá nhân — một học viên: chỉ dùng cho việc học cá nhân của một học viên. Cần có giấy phép riêng cho học viên bổ sung hoặc việc sử dụng trong lớp học.',
       unit: 'mua một lần · 1 cuốn, 8 bài (PDF)',
       cta: 'Đặt mua qua Zalo',
     },
@@ -1822,6 +1834,7 @@ export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'de
   link?: { href: string; label: string };
   paused?: boolean;
   credit?: string;
+  licence?: string;
 };
 
 /** A product's extra link in one language. */
@@ -1840,8 +1853,8 @@ export function productsPage(locale: Locale) {
       // The IELTS section has no cards on /products after P6; ProductsPage shows the one moved card instead.
       cards: PRODUCTS.filter((p) => p.live && p.section === id && id !== IELTS_MOVED_SECTION).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, usd, orderOnly, reader, clip, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, usd, orderOnly, reader, clip, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).

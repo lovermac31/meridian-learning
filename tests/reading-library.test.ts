@@ -6,7 +6,7 @@ import { PAID_OFFERS } from '../src/config/payment';
 import { PORTAL_BUY_FLAGS } from '../src/config/portalBuy';
 import { createProductListJsonLd, createProductJsonLd } from '../src/lib/structuredData';
 import * as libMod from '../src/i18n/content/readingLibrary';
-import { LIBRARY_COPY, LIBRARY_TITLES, isLibraryPreview, isSellable, libraryWaitlistHref } from '../src/i18n/content/readingLibrary';
+import { LIBRARY_ANCHOR, LIBRARY_COPY, LIBRARY_TITLES, isLibraryPreview, isSellable, libraryAnchorId, libraryWaitlistHref } from '../src/i18n/content/readingLibrary';
 import * as hubModule from '../docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/lib/academy/readingLibrary';
 
 type Hub = typeof hubModule;
@@ -27,16 +27,43 @@ test('three pilots, all PREVIEW_ONLY, with the inventory titles and the site lev
   assert.ok(LIBRARY_TITLES.every((t) => t.includes.reader && t.includes.workbook && t.includes.guide));
 });
 
+// Real Reading & Reasoning Library markup, and only that: the band and card attributes and classes ProductsPage gives the
+// library (data-library-*, products-library*, #reading-library, rl-je-* card anchors) and the library's own EN/VI heading.
+// A live product that is merely *labelled* "Reading & Reasoning" (rr-l1-wind-sun-yellow-coat, #350) is not library markup.
+// Every marker main's AC2 regex had (#353) is kept, so the check is no weaker; only the bare series name is not a marker.
+const LIBRARY_MARKERS = [/data-library-/, /reading-library/, /products-library/, /rl-je-/,
+  ...(['en', 'vi'] as const).map((l) => new RegExp(LIBRARY_COPY[l].heading.split(' (')[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))];
+const libraryMarkup = (html: string) => LIBRARY_MARKERS.filter((re) => re.test(html)).map(String);
+const LIVE_CARDS = () => PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length;
+
 test('AC2: default render has zero library cards (EN + VI /products; the hub row is client-gated, see the flag test)', async () => {
   // 17 Nov 2026: #350 made the Level 1 single story (rr-l1-wind-sun-yellow-coat) a live product whose card pill reads
-  // 'Digital download · Reading & Reasoning · New'. That is a live product label, not library markup, so the check names the
-  // library's own heading ('Reading & Reasoning Library') instead of the bare series name. 36 cards since #350.
+  // 'Digital download · Reading & Reasoning · New'. The check now looks for real library markup (libraryMarkup above), so that
+  // label passes and any library band, card or heading still fails. The card count is the live non-IELTS product count from the data.
   const { renderRoute } = await import('../src/entry-server');
   for (const route of ['/products', '/vi/products']) {
     const html = amp(await renderRoute(route));
-    assert.doesNotMatch(html, /data-library-|reading-library|products-library|rl-je-|Reading &amp; Reasoning Library|Reading & Reasoning Library|Thư viện Đọc/, `${route}: no library markup`);
-    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, 37, `${route}: still 37 cards`); // 36 since #350, 37 with Thinking Expeditions Level 1 (#355)
+    assert.deepEqual(libraryMarkup(html), [], `${route}: no library markup`);
+    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, LIVE_CARDS(), `${route}: one card per live non-IELTS product`);
   }
+});
+
+test('AC2 regression: a live product labelled "Reading & Reasoning" passes; a real library card, band or heading fails', () => {
+  const legit = amp('<li class="product-row" id="rr-l1-wind-sun-yellow-coat"><p class="product-row-meta"><span class="product-row-pill">Digital download · Reading &amp; Reasoning · New</span></p>'
+    + '<dd>An earlier edition of this story is one of the 10 books in the Level 1 Story Workbooks; this Reading &amp; Reasoning edition is new and is sold on its own.</dd></li>'
+    + '<li class="product-row" id="mango-l2"><span class="product-row-pill">Đọc &amp; Tư duy · Mới</span></li>');
+  assert.deepEqual(libraryMarkup(legit), [], 'a live product label is not library markup');
+  const t = LIBRARY_TITLES[0];
+  const real = {
+    card: `<li id="${libraryAnchorId(t.id)}" data-library-title="${t.id}" data-availability="${t.availability}" class="products-library-card"><h3>${t.title}</h3></li>`,
+    band: `<section id="${LIBRARY_ANCHOR}" aria-labelledby="${LIBRARY_ANCHOR}-h" class="products-library scroll-mt-24" data-library-band="">`,
+    headingEn: `<h2>${LIBRARY_COPY.en.heading}</h2>`,
+    headingVi: `<h2>${LIBRARY_COPY.vi.heading}</h2>`,
+    anchorOnly: `<a href="#${libraryAnchorId(t.id)}">x</a>`,
+  };
+  for (const [name, html] of Object.entries(real)) assert.notDeepEqual(libraryMarkup(amp(html)), [], `${name}: real library markup is caught`);
+  // The same legit label next to a real card still fails as a whole page.
+  assert.notDeepEqual(libraryMarkup(legit + real.card), []);
 });
 
 test('flag: only ?library-preview=1 turns the library on, and only on the client after hydration', () => {
@@ -122,7 +149,8 @@ test('existing cards untouched: the story-workbook, teacher-pack and phonics ent
   assert.equal(price('teacher-pack-l1'), '690.000₫');
   assert.equal(price('phonics-b1'), '79.000₫');
   assert.equal(price('phonics-b2'), '129.000₫');
-  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 37); // 36 since #350, 37 with Thinking Expeditions Level 1 (#355)
+  // Pinned on purpose (a regression guard, not a guess): 36 since #350, 37 with Thinking Expeditions Level 1 (#355). Read from the data on 17 Nov 2026.
+  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 37);
 });
 
 test('copy says the story is already inside Story Workbooks Level N, with a link to the existing product page and no sale wording', () => {
