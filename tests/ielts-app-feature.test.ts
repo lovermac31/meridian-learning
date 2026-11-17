@@ -7,6 +7,7 @@ import { HomeOverhaul } from '../src/components/HomeOverhaul';
 import { ProductsPage } from '../src/components/ProductsPage';
 import { setServerLocation } from '../src/lib/ssrLocation';
 import { ieltsAppHref } from '../src/lib/ieltsApp';
+import { PRODUCTS } from '../src/i18n/content/products';
 
 // The IELTS Speaking app as a main-page feature (Jay + CEO, 2 Nov 2026): one strip directly under the home hero and a
 // free card on top of the /products IELTS group. Jay's wording only; practice, never a score. Header unchanged.
@@ -47,6 +48,6 @@ test('/products: the free IELTS app card tops the IELTS group with utm_content=p
     assert.ok(section.includes(`href="${solutions}"`), `${locale}: the moved card links JurassicIELTS /solutions/`);
     assert.ok(html.includes(`href="${ieltsAppHref('products', locale)}"`), `${locale}: entrance link (banner)`);
     assert.doesNotMatch(section, /<li |data-price=/, `${locale}: not a priced product card`);
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, 37, `${locale}: 37 product cards (Phonics Books 1 and 2, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Level 1 and the rest; the 14 IELTS cards moved to jurassicielts.com)`);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, `${locale}: one card per live non-IELTS product, read from the data (38 on 17 Nov 2026 with Thinking Expeditions Level 2; Phonics Books 1 and 2, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Level 1 and the rest; the 14 IELTS cards moved to jurassicielts.com)`);
   }
 });

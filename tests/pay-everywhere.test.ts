@@ -30,6 +30,8 @@ const amounts: Record<string, number> = {
   'rr-l1-wind-sun-yellow-coat': 49000,
   // Thinking Expeditions Level 1 (Jay's "GO 190k", relayed by the master, 17 Nov 2026).
   'thinking-expeditions-l1': 190000,
+  // Thinking Expeditions Level 2 (17 Nov 2026): the master's proposal, 190.000₫ as Level 1; approved by Jay merging the site PR.
+  'thinking-expeditions-l2': 190000,
 };
 
 test('every priced offer has an approved price and a unique stable memo namespace', () => {

@@ -102,6 +102,16 @@
 - PayPal USD: not listed
 - Sample: view-only pages on the product page
 
+### Thinking Expeditions Level 2: Development
+- ID: `thinking-expeditions-l2`
+- English: https://jurassicenglish.com/products/thinking-expeditions-l2
+- Vietnamese: https://jurassicenglish.com/vi/products/thinking-expeditions-l2
+- English description: Eight picture-led critical thinking units for ages 8–10: analogies, clue or guess, cause, rules, Venn sorting, point of view, evidence and fair tests. 144 A4 pages. 190.000₫ one-time.
+- Vietnamese title: Sách bài tập tư duy phản biện cho bé 8–10 tuổi | Level 2
+- VND price: 190.000 VND
+- PayPal USD: not listed
+- Sample: view-only pages on the product page
+
 ### Jurassic English Phonics, Book 1: The Alphabet
 - ID: `phonics-b1`
 - English: https://jurassicenglish.com/products/phonics-b1

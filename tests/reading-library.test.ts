@@ -149,8 +149,8 @@ test('existing cards untouched: the story-workbook, teacher-pack and phonics ent
   assert.equal(price('teacher-pack-l1'), '690.000₫');
   assert.equal(price('phonics-b1'), '79.000₫');
   assert.equal(price('phonics-b2'), '129.000₫');
-  // Pinned on purpose (a regression guard, not a guess): 36 since #350, 37 with Thinking Expeditions Level 1 (#355). Read from the data on 17 Nov 2026.
-  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 37);
+  // Pinned on purpose (a regression guard, not a guess): 36 since #350, 37 with Thinking Expeditions Level 1 (#355), 38 with Level 2. Read from the data on 17 Nov 2026.
+  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 38);
 });
 
 test('copy says the story is already inside Story Workbooks Level N, with a link to the existing product page and no sale wording', () => {

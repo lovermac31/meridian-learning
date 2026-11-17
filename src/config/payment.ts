@@ -51,6 +51,8 @@ const PRODUCT_MEMO_CODES: Record<string, string> = {
   'rr-l1-wind-sun-yellow-coat': 'PR1B',
   // Thinking Expeditions Level 1 (17 Nov 2026, 190.000₫).
   'thinking-expeditions-l1': 'PR1C',
+  // Thinking Expeditions Level 2 (17 Nov 2026, 190.000₫).
+  'thinking-expeditions-l2': 'PR1D',
 };
 
 // The pack total is already published in the catalogue; keep it tied to that copy. Order-only products (Phonics, 15 Nov
