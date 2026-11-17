@@ -104,7 +104,7 @@ test('meeting CTAs use attributed Zalo links and never render payment instructio
 
 test('paused products: the server list matches products.ts, and no paused product takes a new order (audit fix 4)', () => {
   assert.deepEqual([...PAUSED_PRODUCTS].sort(), PRODUCTS.filter(p => p.paused).map(p => p.id).sort());
-  assert.deepEqual([...PAUSED_PRODUCTS].sort(), ['thinking-expeditions-l1'], 'only Thinking Expeditions Level 1 is paused (17 Nov 2026, until its re-gated book file is approved)');
+  assert.deepEqual([...PAUSED_PRODUCTS].sort(), [], 'nothing is paused since 13 Nov 2026');
 });
 
 test('Mango pilot: 49000₫ with order code MANGO-L2 and its own memo namespace (audit fix 1)', async () => {

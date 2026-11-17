@@ -320,18 +320,6 @@ for (const [i, product] of RESTORED.entries()) {
   });
 }
 
-// 17 Nov 2026: Thinking Expeditions Level 1 is paused until its re-gated book file is approved: the server creates no payment
-// code and takes no order for it, even if a stale page or a direct API call asks.
-test('thinking-expeditions-l1: paused, so no payment code is created and no order is taken', async () => {
-  const { PAUSED_PRODUCTS } = await import('../api/sample-pack');
-  assert.equal(PAUSED_PRODUCTS.has('thinking-expeditions-l1'), true);
-  const prepare = await submit({ intent: 'prepare_payment', product: 'thinking-expeditions-l1', submissionKey: '77777777-7777-4777-8777-777777777777', website: '' }, '198.51.100.230');
-  assert.equal(prepare.statusCode, 400);
-  assert.equal(prepare.responseBody?.memo, undefined, 'no memo');
-  const order = await submit({ product: 'thinking-expeditions-l1', name: 'Synthetic Parent', phone: '0396085076', consent: true, submissionKey: '77777777-7777-4777-8777-777777777778', website: '' }, '198.51.100.231');
-  assert.notEqual(order.statusCode, 200, 'no order accepted');
-});
-
 test('audit fix 6: prepare_payment has its own rate-limit key with a higher ceiling; the forms keep 5 per 10 minutes', async () => {
   const { RATE_LIMITS, rateLimitFor } = await import('../api/sample-pack');
   assert.equal(rateLimitFor({ intent: 'prepare_payment' }).key, 'prepare-payment');

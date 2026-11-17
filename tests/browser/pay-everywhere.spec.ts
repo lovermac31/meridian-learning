@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { PAID_OFFERS, paymentAmount, paymentHref, reserveCta } from '../../src/config/payment';
 import { storyClubPriceAt } from '../../src/config/storyClubOffer';
-import { PRODUCTS, pausedNoteFor } from '../../src/i18n/content/products';
+import { PAUSED_COPY, PRODUCTS } from '../../src/i18n/content/products';
 import { HOME_PRIMARY_OPTION, getOverhaulContent } from '../../src/i18n/content/overhaul';
 
 // Paused for sale (audit fix 4, 11 Nov 2026): no checkout at all; covered by their own test below.
@@ -251,8 +251,7 @@ for (const id of PAUSED) for (const locale of ['en', 'vi'] as const) test(`${id}
   await page.route('**/api/sample-pack', route => { calls++; return route.fulfill({ status: 400, json: { ok: false } }); });
   await page.goto(`${locale === 'vi' ? '/vi' : ''}/products/${id}?checkout=1`);
   await page.waitForFunction(() => document.documentElement.dataset.qaHydrated === 'true');
-  // The product's own paused reason when it has one (Thinking Expeditions L1, 17 Nov 2026), else the shared PAUSED_COPY note.
-  await expect(page.locator(`[data-paused-waitlist="${id}"]`)).toContainText(pausedNoteFor(PRODUCTS.find((p) => p.id === id)!, locale));
+  await expect(page.locator(`[data-paused-waitlist="${id}"]`)).toContainText(PAUSED_COPY[locale].note);
   await expect(page.locator(`[data-buy-now="${id}"], [data-get-payment-code], [data-payment-qr], [data-paypal-link="${id}"]`)).toHaveCount(0);
   expect(calls).toBe(0);
 });

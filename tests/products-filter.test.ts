@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ProductsPage, productAnchor } from '../src/components/ProductsPage';
-import { IELTS_MOVED_SECTION, PAUSED_COPY, PRODUCTS, pausedNoteFor, PRODUCT_SECTIONS, PRODUCT_SEGMENTS, PRODUCT_FORMER_IDS, WORKBOOKS_SEGMENT, WORKBOOK_AGES, productsPage } from '../src/i18n/content/products';
+import { IELTS_MOVED_SECTION, PAUSED_COPY, PRODUCTS, PRODUCT_SECTIONS, PRODUCT_SEGMENTS, PRODUCT_FORMER_IDS, WORKBOOKS_SEGMENT, WORKBOOK_AGES, productsPage } from '../src/i18n/content/products';
 import { FEATURED_PRODUCTS } from '../src/components/ProductsPage';
 
 // Stitch layout (Jay's mock, 2 Nov 2026) with featured-first (Jay, "tighten"): a segment filter row over one wide card
@@ -68,8 +68,7 @@ for (const locale of ['en', 'vi'] as const) {
       if (product.paused) {
         // Paused (audit fix 4, 11 Nov 2026): text → sample → price → the waitlist note; no buy, order or PayPal button.
         assert.ok(!card.includes('data-buy-now=') && !card.includes(`data-cta="product-${product.id}"`) && !card.includes('data-paypal-link=') && !card.includes('data-order-code='), `${product.id}: no buy button`);
-        assert.ok(card.includes(escape(pausedNoteFor(product, locale))), `${product.id}: waitlist text (its own reason, else PAUSED_COPY)`);
-        assert.ok(!product.pauseNote || !card.includes(PAUSED_COPY[locale].note), `${product.id}: no generic "being rewritten" reason when it has its own`);
+        assert.ok(card.includes(PAUSED_COPY[locale].note), `${product.id}: waitlist text`);
         assert.ok(at(`data-sample="${product.id}"`) < at(`data-price="${product.id}"`) && at(`data-price="${product.id}"`) < at(`data-paused-waitlist="${product.id}"`), `${product.id}: text → sample → price → waitlist`);
         assert.ok(card.includes(`href="/go/zalo/${product.id}?utm_content=${product.id}-waitlist&utm_source=products"`), `${product.id}: Zalo waitlist link`);
         continue;
