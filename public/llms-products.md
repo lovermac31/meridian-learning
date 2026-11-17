@@ -99,7 +99,6 @@
 - English description: Eight picture-led critical thinking units for ages 6–8: compare, find patterns, sort, read clues and say why. 142 A4 pages. 190.000₫ one-time.
 - Vietnamese title: Sách bài tập tư duy phản biện cho bé 6–8 tuổi | Level 1
 - VND price: 190.000 VND
-- Availability: paused, not for sale; Coming soon: the final book file is being checked. Ask on Zalo and we will tell you when you can order (waitlist on Zalo)
 - PayPal USD: not listed
 - Sample: view-only pages on the product page
 

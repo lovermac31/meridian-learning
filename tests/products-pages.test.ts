@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { getExpectedPublicIndexableRoutes, getPrerenderRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata';
-import { IELTS_MOVED_SECTION, PAUSED_COPY, PRODUCTS, pausedNoteFor } from '../src/i18n/content/products';
+import { IELTS_MOVED_SECTION, PAUSED_COPY, PRODUCTS } from '../src/i18n/content/products';
 import { PAGE_PRODUCTS, PRODUCT_SEO, getProductByPath, relatedProducts } from '../src/i18n/content/productSeo';
 import { ProductPage } from '../src/components/ProductPage';
 import { ProductsPage } from '../src/components/ProductsPage';
@@ -83,8 +83,7 @@ test('page: H1 distinguishes the localized offer, with the copy, sample viewer b
     if (p.paused) {
       assert.doesNotMatch(html, /data-cta="product-page-|data-buy-now=|data-paypal-link=|data-order-code=/, `${p.id}: no buy button`);
       assert.match(html, new RegExp(`data-paused-waitlist="${p.id}"`));
-      assert.ok(html.includes(pausedNoteFor(p, locale)), `${p.id}: waitlist text (its own reason, else PAUSED_COPY)`);
-      assert.ok(!p.pauseNote || !html.includes(PAUSED_COPY[locale].note), `${p.id}: no generic "being rewritten" reason when it has its own`);
+      assert.ok(html.includes(PAUSED_COPY[locale].note), `${p.id}: waitlist text`);
     } else assert.match(html, new RegExp(`data-cta="product-page-${p.id}"`));
     assert.match(html, /aria-label="Breadcrumb"/);
     assert.equal(html.match(/data-related="/g)?.length, 3, `${p.id}: 3 related`);

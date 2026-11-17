@@ -38,9 +38,8 @@ const EXPECTED: Record<string, [string, string][]> = {
 // says "Cleared" (master, 27 Oct 2026).
 const LIVE = new Set(Object.values(EXPECTED).flat().map(([id]) => id));
 // Paused for sale (audit fix 4, 11 Nov 2026): the card and page stay, with a Zalo waitlist note instead of any buy button.
-// Empty from 13 Nov 2026 (the Level 2-5 Teacher Packs, Student Workbooks and the Teacher Bundle were rewritten onto original stories).
-// 17 Nov 2026: Thinking Expeditions Level 1, until its re-gated book file is approved.
-const PAUSED = new Set<string>(['thinking-expeditions-l1']);
+// Empty since 13 Nov 2026 (the Level 2-5 Teacher Packs, Student Workbooks and the Teacher Bundle were rewritten onto original stories).
+const PAUSED = new Set<string>();
 const SHOWN: Record<string, [string, string][]> = Object.fromEntries(
   Object.entries(EXPECTED).map(([section, cards]) => [section, cards.filter(([id]) => LIVE.has(id))]),
 );
@@ -142,7 +141,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'thinking-expeditions-l1', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
     // IELTS migration P6: the IELTS cards (and their delivery lines) left /products.
     for (const [id] of SHOWN[IELTS_MOVED_SECTION]) assert.ok(!main.includes(`data-delivery="${id}"`), `${route} ${id}: no IELTS delivery line`);
     for (const m of delivered) assert.equal(m[2], line, route);
