@@ -522,6 +522,18 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       description: 'Tám bài học tư duy phản biện bằng tranh cho trẻ 6–8 tuổi: so sánh, tìm quy luật, phân loại, đọc manh mối và nói vì sao. 142 trang A4. 190.000₫ mua một lần.',
     },
   },
+  'thinking-expeditions-l2': {
+    en: {
+      keyword: 'critical thinking workbook for kids 8-10',
+      title: 'Thinking Expeditions L2: Critical Thinking Workbook 8–10',
+      description: 'Eight picture-led critical thinking units for ages 8–10: analogies, clue or guess, cause, rules, Venn sorting, point of view, evidence and fair tests. 144 A4 pages. 190.000₫ one-time.',
+    },
+    vi: {
+      keyword: 'sách bài tập tư duy phản biện cho bé 8-10 tuổi',
+      title: 'Sách bài tập tư duy phản biện cho bé 8–10 tuổi | Level 2',
+      description: 'Tám bài học tư duy phản biện bằng tranh cho trẻ 8–10 tuổi: phép tương tự, manh mối hay đoán, nguyên nhân, quy luật, sơ đồ Venn, góc nhìn, bằng chứng và thử nghiệm công bằng. 144 trang A4. 190.000₫ mua một lần.',
+    },
+  },
   'word-fossil-flashcards-l1': {
     en: {
       keyword: 'printable english flashcards for kids',

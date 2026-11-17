@@ -685,6 +685,42 @@ export const PRODUCTS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
+  {
+    // Thinking Expeditions Level 2 (WW-20261117-CT62; Jay's "Finish Thinking Expeditions Level 2", relayed by the master, 17 Nov 2026):
+    // the Level 2 critical thinking workbook, first edition v1.0, 144 pages, passed its final gate 17 Nov 2026. 190.000₫ is the master's
+    // proposal, the same as Level 1; Jay's merge of the site PR is his approval of the price. VND only (no US$ price, so no PayPal).
+    // Sample = the free Level 2 Unit 2 sample PDF: its cover and the whole ten-page unit (pages 7-16), no answer key. Portal buy stays
+    // off until the portal product is active. Licence (Jay, 17 Nov 2026, D4): personal, ONE LEARNER (CT_LICENCE, verbatim, the same
+    // as Level 1); classroom use needs a separate licence and is never included in this price.
+    id: 'thinking-expeditions-l2',
+    live: true,
+    section: 'families',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'thinking-expeditions-l2',
+    sample: 'thinking-expeditions-l2',
+    delivery: true,
+    credit: CT_CREDIT,
+    licence: CT_LICENCE,
+    en: {
+      label: 'Digital download · Critical thinking · New',
+      title: 'Thinking Expeditions Level 2: Development',
+      problem: 'Your child gives an answer but can’t yet tell a clue from a guess or back a claim with evidence. You want them to test an idea, not just state it.',
+      inside: 'A full-year critical thinking workbook: 144 print-ready A4 pages. Eight picture-led units at River Bend Camp with Professor Rex, Nia and Bao (Fossil Analogies; Clue or Guess?; Chains of Cause; Patterns and Rules; Two-Way Sorting; Whose Point of View?; Claim and Evidence; Plan a Fair Test), ten pages each, plus a pre-check, a post-check, a certificate, an answer key with what to accept, notes for teachers and parents, a glossary and an index. The sample shows all of Unit 2, Clue or Guess?.',
+      forWho: 'Children aged about 8–10, Level 2 · Development (intended English level A1 to A2, a design target, not a certificate), with a parent or teacher. Short sentences and pictures keep the thinking, not the reading, as the challenge. About 16 sessions of 30 minutes. Personal licence — one learner: for one learner’s personal use only. Separate licences are required for additional learners or classroom use.',
+      unit: 'one-time · 1 book, 8 units (PDF)',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · Tư duy phản biện · Mới',
+      title: 'Thinking Expeditions Level 2: Development',
+      problem: 'Con đưa ra được câu trả lời nhưng chưa phân biệt được manh mối với đoán mò, hay nêu bằng chứng cho nhận định của mình. Bố mẹ muốn con thử nghiệm một ý tưởng chứ không chỉ phát biểu.',
+      inside: 'Sách bài tập tư duy phản biện cho cả năm: 144 trang A4 in sẵn. Tám bài học bằng tranh tại River Bend Camp cùng Giáo sư Rex, Nia và Bao (Fossil Analogies; Clue or Guess?; Chains of Cause; Patterns and Rules; Two-Way Sorting; Whose Point of View?; Claim and Evidence; Plan a Fair Test), mỗi bài mười trang, kèm bài kiểm tra đầu vào, bài kiểm tra cuối, giấy khen, đáp án có hướng dẫn chấp nhận câu trả lời, ghi chú cho giáo viên và phụ huynh, bảng từ và mục lục tra cứu. Trang mẫu có trọn Unit 2, Clue or Guess?.',
+      forWho: 'Trẻ khoảng 8–10 tuổi, Level 2 · Development (trình độ tiếng Anh dự kiến A1 đến A2, là mục tiêu thiết kế, không phải chứng chỉ), học cùng bố mẹ hoặc giáo viên. Câu ngắn và tranh minh họa giữ cho thử thách nằm ở tư duy chứ không ở việc đọc. Khoảng 16 buổi, mỗi buổi 30 phút. Giấy phép sử dụng cá nhân — một học viên: chỉ dùng cho việc học cá nhân của một học viên. Cần có giấy phép riêng cho học viên bổ sung hoặc việc sử dụng trong lớp học.',
+      unit: 'mua một lần · 1 cuốn, 8 bài (PDF)',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
   ...PHONICS_BOOKS,
   ...STORY_WORKBOOKS,
   {

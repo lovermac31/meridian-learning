@@ -30,7 +30,8 @@ const generate = explicitGenerate || Boolean(sourceRoot);
 // (15 Nov 2026), whose sample PDFs have no text layer: their page text is a reviewed transcription checked in as is.
 // 47 with the Reading & Reasoning single story (16 Nov 2026), sampled from its watermarked preview.pdf.
 // 48 with Thinking Expeditions Level 1 (17 Nov 2026), sampled from its free Unit 1 sample PDF (cover and pages 7-16).
-if (config.length !== 48 || new Set(config.map(p => p.stem)).size !== 48 || config.some(p => !p.count)) throw new Error('Expected 48 approved sample sets');
+// 49 with Thinking Expeditions Level 2 (17 Nov 2026), sampled from its free Unit 2 sample PDF (cover and pages 7-16).
+if (config.length !== 49 || new Set(config.map(p => p.stem)).size !== 49 || config.some(p => !p.count)) throw new Error('Expected 49 approved sample sets');
 if (bundleConfig.length !== 3 || bundleConfig.some(p => !p.count)) throw new Error('Expected 3 bundle sample sets');
 if ((generate || verifySource) && !sourceRoot) throw new Error('Use --source-root or JE_SAMPLE_SOURCE_ROOT for approved local samples');
 if (generate || verifySource) {

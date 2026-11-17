@@ -62,6 +62,8 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
   'rr-l1-wind-sun-yellow-coat': { prefix: 'PR1B', amount: 49000 },
   // Thinking Expeditions Level 1 (17 Nov 2026).
   'thinking-expeditions-l1': { prefix: 'PR1C', amount: 190000 },
+  // Thinking Expeditions Level 2 (17 Nov 2026).
+  'thinking-expeditions-l2': { prefix: 'PR1D', amount: 190000 },
   // Unlisted 30-minute Live Speaking Check (mirrors LIVE_CHECK_OFFER in src/config/payment.ts).
   'live-speaking-check': { prefix: 'LC', amount: 250000 },
 };

@@ -31,7 +31,7 @@ test('films: each sales film sits on its own product', async () => {
   // IELTS bundles (5 Nov 2026): no film of their own; the packs inside have theirs.
   // Phonics Books 1 and 2 (15 Nov 2026): a 20 s audio clip and the reader sample; no film yet.
   // The Reading & Reasoning single story (16 Nov 2026) and Thinking Expeditions Level 1 (17 Nov 2026): samples only, no film yet.
-  const noFilmYet = (id: string) => id.startsWith('story-workbooks-') || id.startsWith('phonics-') || id === 'mango-l2' || id === 'rr-l1-wind-sun-yellow-coat' || id === 'thinking-expeditions-l1' || id === 'ielts-reading-ladder' || id === 'ielts-listening-profiler' || id === 'ielts-diagnostic-mock' || ['ielts-writing-band-up', 'ielts-speaking-band-up', 'ielts-four-skill-kit'].includes(id);
+  const noFilmYet = (id: string) => id.startsWith('story-workbooks-') || id.startsWith('phonics-') || id === 'mango-l2' || id === 'rr-l1-wind-sun-yellow-coat' || id === 'thinking-expeditions-l1' || id === 'thinking-expeditions-l2' || id === 'ielts-reading-ladder' || id === 'ielts-listening-profiler' || id === 'ielts-diagnostic-mock' || ['ielts-writing-band-up', 'ielts-speaking-band-up', 'ielts-four-skill-kit'].includes(id);
   assert.deepEqual(mapped, Object.fromEntries(PRODUCTS.filter((p) => !noFilmYet(p.id)).map((p) => [p.id, p.id])));
 
 });
