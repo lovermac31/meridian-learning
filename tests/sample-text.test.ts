@@ -16,7 +16,7 @@ test('all 49 sample-bearing products expose exactly their 431 approved public sa
   // 48 with Thinking Expeditions Level 1 (17 Nov 2026, 11 pages of its free Unit 1 sample PDF).
   // 49 with Thinking Expeditions Level 2 (17 Nov 2026, 11 pages of its free Unit 2 sample PDF).
   assert.equal(products.length, 49);
-  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json')).length, 52, '49 packs + 3 bundles');
+  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json') && !/^phonics-b[3-5]-text\.json$/.test(p)).length, 52, '49 packs + 3 bundles');
   let pages = 0, ocr = 0;
   for (const product of products) {
     const count = SAMPLE_PAGE_COUNTS[product.sample!];

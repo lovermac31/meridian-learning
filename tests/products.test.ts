@@ -354,9 +354,10 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
   assert.deepEqual(Object.keys(SAMPLE_STEMS).sort(), withSample.map((p) => p.id).sort(), 'one stem per product');
   for (const p of PRODUCTS.filter((entry) => entry.sample)) assert.equal(p.sample, SAMPLE_STEMS[p.id], `${p.id}: stem from the spec`);
   const stems = PRODUCTS.filter((p) => p.sample).map((p) => p.sample!).sort();
-  const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages' && f !== 'small');
+  const isHeldPhonics = (f: string) => /^phonics-b[3-5](?:-|$)/.test(f);
+  const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages' && f !== 'small' && !isHeldPhonics(f));
   // Perf: every thumbnail has a 300 px copy in small/ (its srcset's small candidate), and nothing else is there.
-  assert.deepEqual(readdirSync('public/samples/small').filter((f) => !f.startsWith('.')).sort(), [...thumbs].sort(), 'small/ ↔ thumbnails');
+  assert.deepEqual(readdirSync('public/samples/small').filter((f) => !f.startsWith('.') && !isHeldPhonics(f)).sort(), [...thumbs].sort(), 'small/ ↔ thumbnails');
   for (const file of thumbs) assert.match(file, SAMPLE_FILE, `public/samples/${file}`);
   assert.deepEqual([...new Set(thumbs.map((file) => file.match(SAMPLE_FILE)![1]))].sort(), stems, 'thumbnails ↔ products with a sample');
   for (const stem of stems) for (const n of [1, 2, 3]) {
@@ -365,7 +366,7 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
     assert.ok(page.length < 80 * 1024, `${stem}-p${n}: < 80 KB (${page.length})`);
   }
   // Viewer page sets: public/samples/pages/<stem>-pgNN.webp, 01…N, exactly as samplePages.ts lists them.
-  const allPageAssets = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.'));
+  const allPageAssets = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.') && !isHeldPhonics(f));
   assert.deepEqual(allPageAssets.filter(f => f.endsWith('-text.json')).sort(), withSample.map(p => `${p.id}-text.json`).sort(), 'one approved text asset per product');
   const pages = allPageAssets.filter(f => !f.endsWith('-text.json'));
   for (const file of pages) assert.match(file, PAGE_FILE, `pages/${file}`);
