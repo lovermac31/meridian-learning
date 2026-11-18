@@ -10,7 +10,7 @@ import { ToolHero } from './IeltsToolsPage';
 import { ProductVideo } from './ProductVideo';
 import { StoryClubLiveLine } from './StoryClubLiveLine';
 import { PRODUCT_VIDEO_ANCHOR } from '../i18n/content/productVideos';
-import { CardLink, CreditLine, IeltsHomeLink, PausedNote, LemonSqueezyOption, PayPalOption, PhonicsSample, Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
+import { CardLink, CreditLine, LicenceLine, IeltsHomeLink, PausedNote, LemonSqueezyOption, PayPalOption, PhonicsSample, Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
 import { ORDER_CODE_COPY, orderCode, zaloHref } from '../lib/productsSource';
 import { recordClientEvent } from '../lib/tracker';
 import { isPortalBuyEnabled, getPortalBuyUrl } from '../config/portalBuy';
@@ -22,8 +22,8 @@ const COPY: Record<Locale, { home: string; products: string; faq: string; relate
 };
 
 const toCard = (product: Product, locale: Locale): ProductCard => {
-  const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, usd, orderOnly, reader, clip } = product;
-  return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...product[locale] };
+  const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, usd, orderOnly, reader, clip } = product;
+  return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...product[locale] };
 };
 
 // One product's own page (Jay, 27 Oct 2026: every product findable on Google and Bing). Same copy, sample viewer,
@@ -61,12 +61,14 @@ export function ProductPage({ product, locale }: { product: Product; locale: Loc
   // One existing purchase block, promoted only for Story Club. Other product DOM order stays unchanged.
   const purchase = card.paused ? <>
           <CreditLine card={card} />
+          <LicenceLine card={card} />
           <p className="mt-4 text-2xl font-bold" data-price={card.id}>
             {card.price} <span className="text-base font-semibold">{card.unit}</span>
           </p>
           <PausedNote card={card} locale={locale} />
   </> : <>
           <CreditLine card={card} />
+          <LicenceLine card={card} />
           <p className="mt-4 text-2xl font-bold" data-price={card.id}>
             {card.price} <span className="text-base font-semibold">{card.unit}</span>
           </p>

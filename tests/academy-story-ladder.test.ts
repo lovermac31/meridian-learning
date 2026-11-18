@@ -79,8 +79,8 @@ test('Story Club tells older families Mr. Jay confirms a suitable option first (
   const vi = (await renderRoute('/vi/story-club')).replace(/&amp;/g, '&');
   assert.ok(en.includes('Mr. Jay will confirm a suitable option before you pay'));
   assert.ok(vi.includes('thầy Jay sẽ xác nhận lựa chọn phù hợp trước khi bạn thanh toán'));
-  assert.ok(en.includes('href="/ai-speaking/lessons"') && en.includes('Ask about a place'));
-  assert.ok(vi.includes('href="/ai-speaking/vi/lessons"') && vi.includes('Hỏi về một chỗ'));
+  assert.ok(en.includes('href="https://jurassicielts.com/ai-speaking/lessons"') && en.includes('Ask about a place'));
+  assert.ok(vi.includes('href="https://jurassicielts.com/ai-speaking/vi/lessons"') && vi.includes('Hỏi về một chỗ'));
   for (const html of [en, vi]) {
     assert.ok(!FORBIDDEN_HOSTS.test(html), 'no localhost or preview host on Story Club');
     assert.ok(!/Pay now|Thanh toán ngay/i.test(html));

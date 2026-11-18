@@ -7,13 +7,13 @@ import { Footer } from '../src/components/Footer';
 import { setServerLocation } from '../src/lib/ssrLocation';
 import { seoPages } from '../src/lib/seoPages';
 
-test('English and Vietnamese footers expose a crawlable entry to the international IELTS hub', async () => {
-  for (const [path, label] of [['/', 'IELTS Coaching by Country'], ['/vi', 'Hướng dẫn IELTS theo quốc gia']]) {
+test('English and Vietnamese footers expose one crawlable IELTS door to JurassicIELTS', async () => {
+  for (const [path, label] of [['/', 'IELTS → JurassicIELTS'], ['/vi', 'IELTS → JurassicIELTS']]) {
     setServerLocation(path);
     const html = renderToStaticMarkup(createElement(Footer));
-    // The international hub now lives on jurassicielts.com; the footer links there directly (no redirect hop, no internal redirecting link).
-    const hubHref = path === '/' ? 'https://jurassicielts.com/speaking/online/' : 'https://jurassicielts.com/vi/speaking/online/';
-    assert.ok(html.includes(`href="${hubHref}"`), `${path} links to the market hub on jurassicielts.com`);
+    // IELTS migration P10: every IELTS page lives on jurassicielts.com; the footer has one door there (tagged footer), no redirect hop and no internal redirecting link.
+    const hubHref = `https://jurassicielts.com/${path === '/' ? '' : 'vi/'}?utm_source=jurassicenglish&amp;utm_medium=footer&amp;utm_campaign=ielts-move`;
+    assert.ok(html.includes(`href="${hubHref}"`), `${path} links to JurassicIELTS`);
     assert.doesNotMatch(html, /href="\/ielts-speaking-online"/, `${path} has no redirecting internal hub link`);
     assert.ok(html.includes(label), `${path} renders the localized navigation label`);
   }

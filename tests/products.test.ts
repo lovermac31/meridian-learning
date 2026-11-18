@@ -18,7 +18,7 @@ const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf(
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
-  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['phonics-b1', '79.000₫'], ['phonics-b2', '129.000₫'], ['phonics-b3', '129.000₫'], ['phonics-b4', '129.000₫'], ['phonics-b5', '129.000₫'], ['story-workbooks-l1', '290.000₫'], ['story-workbooks-l2', '290.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '290.000₫'], ['story-workbooks-l4', '290.000₫'], ['story-workbooks-l5', '290.000₫']],
+  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['thinking-expeditions-l1', '190.000₫'], ['thinking-expeditions-l2', '190.000₫'], ['phonics-b1', '79.000₫'], ['phonics-b2', '129.000₫'], ['phonics-b3', '129.000₫'], ['phonics-b4', '129.000₫'], ['phonics-b5', '129.000₫'], ['story-workbooks-l1', '290.000₫'], ['rr-l1-wind-sun-yellow-coat', '49.000₫'], ['story-workbooks-l2', '290.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '290.000₫'], ['story-workbooks-l4', '290.000₫'], ['story-workbooks-l5', '290.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
@@ -141,7 +141,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'phonics-b1', 'phonics-b2', 'phonics-b3', 'phonics-b4', 'phonics-b5', 'story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'thinking-expeditions-l1', 'thinking-expeditions-l2', 'phonics-b1', 'phonics-b2', 'phonics-b3', 'phonics-b4', 'phonics-b5', 'story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
     // IELTS migration P6: the IELTS cards (and their delivery lines) left /products.
     for (const [id] of SHOWN[IELTS_MOVED_SECTION]) assert.ok(!main.includes(`data-delivery="${id}"`), `${route} ${id}: no IELTS delivery line`);
     for (const m of delivered) assert.equal(m[2], line, route);
@@ -250,6 +250,12 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'ielts-cue-card-bank': 'ielts-cue-card-bank', 'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3',
     'holiday-reading-challenge': 'holiday-reading-challenge', 'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
     'story-workbooks-l1': 'story-workbooks-l1', 'story-workbooks-l2': 'story-workbooks-l2', 'story-workbooks-l3': 'story-workbooks-l3', 'story-workbooks-l4': 'story-workbooks-l4', 'story-workbooks-l5': 'story-workbooks-l5', 'mango-l2': 'mango-l2',
+    // Reading & Reasoning single story (16 Nov 2026): image = id.
+    'rr-l1-wind-sun-yellow-coat': 'rr-l1-wind-sun-yellow-coat',
+    // Thinking Expeditions Level 1 (17 Nov 2026): the book cover on a champagne square, image = id.
+    'thinking-expeditions-l1': 'thinking-expeditions-l1',
+    // Thinking Expeditions Level 2 (17 Nov 2026): the book cover on a champagne square, image = id.
+    'thinking-expeditions-l2': 'thinking-expeditions-l2',
     // IELTS Reading and Listening (3 Nov 2026): stem = id.
     'ielts-reading-ladder': 'ielts-reading-ladder', 'ielts-listening-profiler': 'ielts-listening-profiler', 'ielts-diagnostic-mock': 'ielts-diagnostic-mock',
     // IELTS bundles (5 Nov 2026): stem = id.
@@ -324,6 +330,12 @@ const SAMPLE_STEMS: Record<string, string> = {
   'phonics-b1': 'phonics-b1', 'phonics-b2': 'phonics-b2', 'phonics-b3': 'phonics-b3', 'phonics-b4': 'phonics-b4', 'phonics-b5': 'phonics-b5',
   // Story Workbooks L1-L5 (Jay, 3 Nov 2026): stem = id; 3 sample pages each.
   'story-workbooks-l1': 'story-workbooks-l1-v2', 'story-workbooks-l2': 'story-workbooks-l2-v2', 'story-workbooks-l3': 'story-workbooks-l3-v2', 'story-workbooks-l4': 'story-workbooks-l4-v2', 'story-workbooks-l5': 'story-workbooks-l5-v2', 'mango-l2': 'mango-l2',
+  // Reading & Reasoning single story (16 Nov 2026): stem = id; the 3 pages of its watermarked preview.pdf.
+  'rr-l1-wind-sun-yellow-coat': 'rr-l1-wind-sun-yellow-coat',
+  // Thinking Expeditions Level 1 (17 Nov 2026): stem = id; the free Unit 1 sample's cover and pages 7-16 (11 pages).
+  'thinking-expeditions-l1': 'thinking-expeditions-l1',
+  // Thinking Expeditions Level 2 (17 Nov 2026): stem = id; the free Unit 2 sample's cover and pages 7-16 (11 pages).
+  'thinking-expeditions-l2': 'thinking-expeditions-l2',
   // IELTS Reading and Listening (3 Nov 2026): stem = id.
   'ielts-reading-ladder': 'ielts-reading-ladder', 'ielts-listening-profiler': 'ielts-listening-profiler', 'ielts-diagnostic-mock': 'ielts-diagnostic-mock',
 };
@@ -471,11 +483,11 @@ test('header button: free sample pack on parent pages, the Baseline booking page
   assert.deepEqual(header(EN), ['#free-sample-pack', 'Free sample pack']);
   assert.deepEqual(header('/story-club'), ['/#free-sample-pack', 'Free sample pack']);
   assert.deepEqual(header('/vi/story-club'), ['/vi#free-sample-pack', 'Nhận bộ mẫu miễn phí']);
-  assert.deepEqual(header('/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline', 'Book Baseline · 690k₫']);
-  assert.deepEqual(header('/vi/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline?lang=vi', 'Đặt Đánh giá · 690k₫']);
-  assert.deepEqual(header('/ielts-speaking-online/uae'), ['/ai-speaking/baseline?market=uae', 'Book Baseline · US$59']);
-  assert.deepEqual(header('/pt/ielts-speaking-online/brasil'), ['/ai-speaking/baseline?market=brazil', 'Book Baseline · US$39']);
-  assert.deepEqual(header('/ielts-speaking-online'), ['/ai-speaking/baseline', 'Book Baseline']); // hub link comes from the Navbar copy (header files out of P7-JE scope); the build step rewrites it
+  assert.deepEqual(header('/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline?utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Book Baseline · 690k₫']);
+  assert.deepEqual(header('/vi/insights/ielts-online-test'), ['https://jurassicielts.com/ai-speaking/baseline?lang=vi&amp;utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Đặt Đánh giá · 690k₫']);
+  assert.deepEqual(header('/ielts-speaking-online/uae'), ['https://jurassicielts.com/ai-speaking/baseline?market=uae&amp;utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Book Baseline · US$59']);
+  assert.deepEqual(header('/pt/ielts-speaking-online/brasil'), ['https://jurassicielts.com/ai-speaking/baseline?market=brazil&amp;utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Book Baseline · US$39']);
+  assert.deepEqual(header('/ielts-speaking-online'), ['https://jurassicielts.com/ai-speaking/baseline?utm_source=jurassicenglish&amp;utm_medium=header&amp;utm_campaign=ielts-move', 'Book Baseline']); // IELTS migration P10: straight to jurassicielts.com, no redirect hop
 });
 
 // Wave 2 (master, 27 Oct 2026; Jay gave authority): the Level 1 Parent Home Reading Pack (families) and the Level 1

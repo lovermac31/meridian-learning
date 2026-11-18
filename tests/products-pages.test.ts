@@ -112,9 +112,9 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
 });
 
 // 35-today plan (Jay, 27 Oct 2026): the eight new products are live, each with its page, JSON-LD and sitemap entry.
-test('35-today: all 47 products are live (35, the five Story Workbooks, the Mango single workbook, the IELTS Reading and Listening packs and the three IELTS bundles), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
+test('35-today: all 52 products are live (35, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Levels 1 and 2, the IELTS Reading and Listening packs, the three IELTS bundles and Phonics Books 1 and 2), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
-  assert.equal(PRODUCTS.length, 52); // + Phonics Books 3–5 (16 Nov 2026)
+assert.equal(PRODUCTS.length, 55); // 52 on main + Phonics Books 3-5
   assert.equal(PRODUCTS.filter((p) => !p.live).length, 0);
   const fresh = ['writing-baseline', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'ielts-essay-bank-task2', 'parent-pack-l3',
     'holiday-reading-challenge', 'thinking-cycle-posters', 'word-fossil-flashcards-l1'];

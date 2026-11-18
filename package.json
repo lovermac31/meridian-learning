@@ -32,7 +32,8 @@
     "test:browser:payments": "playwright test -c playwright.pay-everywhere.config.ts",
     "test:browser:zalo-float": "playwright test -c playwright.zalo-float.config.ts",
     "qr:zalo": "node scripts/generate-zalo-qr.mjs",
-    "test:browser:collections": "playwright test -c playwright.collections.config.ts"
+    "test:browser:collections": "playwright test -c playwright.collections.config.ts",
+    "test:sweep:reading-library": "node scripts/reading-library-sweep.mjs"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",
@@ -41,7 +42,6 @@
     "@fontsource/noto-sans-bengali": "^5.3.0",
     "@fontsource/noto-sans-thai": "^5.3.0",
     "@fontsource/tajawal": "^5.3.0",
-    "@google/genai": "^1.29.0",
     "@tailwindcss/vite": "^4.1.14",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",

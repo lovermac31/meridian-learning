@@ -1375,12 +1375,18 @@
     },
     "api/update-notion-je-leads-schema.ts": {
       "maxDuration": 10
-    },
-    "api/generate-image.ts": {
-      "maxDuration": 25
     }
   },
   "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains"
+        }
+      ]
+    },
     {
       "source": "/((?!ai-speaking).*)",
       "headers": [

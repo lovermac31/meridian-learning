@@ -7,6 +7,7 @@
 - Vietnam buyers: the page shows the VND price and VietQR/Zalo ordering instructions.
 - International buyers: products marked PayPal can be paid for in USD; digital files are delivered after payment is matched.
 - Services such as Baseline and one-to-one lessons use their own booking or enquiry route.
+- IELTS products, practice, guides and coaching are not sold here: they are on https://jurassicielts.com, a sister brand of World Wise Learning.
 - Jurassic English is independent and is not affiliated with IELTS, Cambridge University Press & Assessment, the British Council or IDP.
 
 ## Products
@@ -91,6 +92,26 @@
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
+### Thinking Expeditions Level 1: Foundation
+- ID: `thinking-expeditions-l1`
+- English: https://jurassicenglish.com/products/thinking-expeditions-l1
+- Vietnamese: https://jurassicenglish.com/vi/products/thinking-expeditions-l1
+- English description: Eight picture-led critical thinking units for ages 6–8: compare, find patterns, sort, read clues and say why. 142 A4 pages. 190.000₫ one-time.
+- Vietnamese title: Sách bài tập tư duy phản biện cho bé 6–8 tuổi | Level 1
+- VND price: 190.000 VND
+- PayPal USD: not listed
+- Sample: view-only pages on the product page
+
+### Thinking Expeditions Level 2: Development
+- ID: `thinking-expeditions-l2`
+- English: https://jurassicenglish.com/products/thinking-expeditions-l2
+- Vietnamese: https://jurassicenglish.com/vi/products/thinking-expeditions-l2
+- English description: Eight picture-led critical thinking units for ages 8–10: analogies, clue or guess, cause, rules, Venn sorting, point of view, evidence and fair tests. 144 A4 pages. 190.000₫ one-time.
+- Vietnamese title: Sách bài tập tư duy phản biện cho bé 8–10 tuổi | Level 2
+- VND price: 190.000 VND
+- PayPal USD: not listed
+- Sample: view-only pages on the product page
+
 ### Jurassic English Phonics, Book 1: The Alphabet
 - ID: `phonics-b1`
 - English: https://jurassicenglish.com/products/phonics-b1
@@ -145,10 +166,20 @@
 - ID: `story-workbooks-l1`
 - English: https://jurassicenglish.com/products/story-workbooks-l1
 - Vietnamese: https://jurassicenglish.com/vi/products/story-workbooks-l1
-- English description: 10 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.
+- English description: 11 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.
 - Vietnamese title: Sách truyện tiếng Anh cho bé 4–8 tuổi, có bài tập | Level 1
 - VND price: 290.000 VND
 - PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### The Wind, the Sun and the Yellow Coat
+- ID: `rr-l1-wind-sun-yellow-coat`
+- English: https://jurassicenglish.com/products/rr-l1-wind-sun-yellow-coat
+- Vietnamese: https://jurassicenglish.com/vi/products/rr-l1-wind-sun-yellow-coat
+- English description: A Level 1 retelling of Aesop’s fable for ages 4–8: story reader, workbook with an answer key and a teacher and parent guide. 49.000₫ one-time.
+- Vietnamese title: The Wind, the Sun and the Yellow Coat: truyện có bài tập 4–8
+- VND price: 49.000 VND
+- PayPal USD: not listed
 - Sample: view-only pages on the product page
 
 ### Level 2 Story Workbooks

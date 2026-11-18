@@ -226,12 +226,12 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     en: {
       keyword: 'english story workbook for kids',
       title: 'Printable English Story Workbooks for Kids 4–8 | Level 1',
-      description: '10 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.',
+      description: '11 original storybooks as printable A4 workbooks for children aged 4–8 (CEFR Pre-A1 → A1), with an answer key and a teacher guide. 290.000₫ one-time.',
     },
     vi: {
       keyword: 'sách truyện tiếng anh cho bé',
       title: 'Sách truyện tiếng Anh cho bé 4–8 tuổi, có bài tập | Level 1',
-      description: '10 truyện gốc thành sách bài tập A4 in sẵn cho bé 4–8 tuổi (CEFR Pre-A1 → A1), có đáp án và hướng dẫn cho giáo viên. 290.000₫ mua một lần.',
+      description: '11 truyện gốc thành sách bài tập A4 in sẵn cho bé 4–8 tuổi (CEFR Pre-A1 → A1), có đáp án và hướng dẫn cho giáo viên. 290.000₫ mua một lần.',
     },
   },
   'story-workbooks-l2': {
@@ -244,6 +244,18 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       keyword: 'sách truyện tiếng anh cho bé 8-10 tuổi',
       title: 'Sách truyện tiếng Anh cho bé 8–10 tuổi, có bài tập | Level 2',
       description: '9 truyện gốc thành sách bài tập A4 in sẵn cho trẻ 8–10 tuổi (CEFR A1 → A2), có trang Chu trình Tư duy và đáp án. 290.000₫ mua một lần.',
+    },
+  },
+  'rr-l1-wind-sun-yellow-coat': {
+    en: {
+      keyword: 'english reading story workbook for kids 4-8',
+      title: 'The Wind, the Sun and the Yellow Coat: Story + Workbook 4–8',
+      description: 'A Level 1 retelling of Aesop’s fable for ages 4–8: story reader, workbook with an answer key and a teacher and parent guide. 49.000₫ one-time.',
+    },
+    vi: {
+      keyword: 'sách truyện tiếng anh có bài tập cho bé 4-8 tuổi',
+      title: 'The Wind, the Sun and the Yellow Coat: truyện có bài tập 4–8',
+      description: 'Truyện ngụ ngôn Aesop kể lại cho bé 4–8 tuổi, Level 1: sách truyện, sách bài tập có đáp án và hướng dẫn cho giáo viên, phụ huynh. 49.000₫ mua một lần.',
     },
   },
   'mango-l2': {
@@ -533,6 +545,30 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       keyword: 'thử thách đọc sách tiếng anh kỳ nghỉ',
       title: 'Thử thách đọc sách tiếng Anh kỳ nghỉ, Level 1–2',
       description: 'Kế hoạch đọc tại nhà bốn tuần cho kỳ nghỉ: sổ ghi chép đọc sách, 12 hoạt động theo truyện và giấy khen cho con ở Level 1–2. 149.000₫.',
+    },
+  },
+  'thinking-expeditions-l1': {
+    en: {
+      keyword: 'critical thinking workbook for kids 6-8',
+      title: 'Thinking Expeditions L1: Critical Thinking Workbook 6–8',
+      description: 'Eight picture-led critical thinking units for ages 6–8: compare, find patterns, sort, read clues and say why. 142 A4 pages. 190.000₫ one-time.',
+    },
+    vi: {
+      keyword: 'sách bài tập tư duy phản biện cho bé 6-8 tuổi',
+      title: 'Sách bài tập tư duy phản biện cho bé 6–8 tuổi | Level 1',
+      description: 'Tám bài học tư duy phản biện bằng tranh cho trẻ 6–8 tuổi: so sánh, tìm quy luật, phân loại, đọc manh mối và nói vì sao. 142 trang A4. 190.000₫ mua một lần.',
+    },
+  },
+  'thinking-expeditions-l2': {
+    en: {
+      keyword: 'critical thinking workbook for kids 8-10',
+      title: 'Thinking Expeditions L2: Critical Thinking Workbook 8–10',
+      description: 'Eight picture-led critical thinking units for ages 8–10: analogies, clue or guess, cause, rules, Venn sorting, point of view, evidence and fair tests. 144 A4 pages. 190.000₫ one-time.',
+    },
+    vi: {
+      keyword: 'sách bài tập tư duy phản biện cho bé 8-10 tuổi',
+      title: 'Sách bài tập tư duy phản biện cho bé 8–10 tuổi | Level 2',
+      description: 'Tám bài học tư duy phản biện bằng tranh cho trẻ 8–10 tuổi: phép tương tự, manh mối hay đoán, nguyên nhân, quy luật, sơ đồ Venn, góc nhìn, bằng chứng và thử nghiệm công bằng. 144 trang A4. 190.000₫ mua một lần.',
     },
   },
   'word-fossil-flashcards-l1': {
