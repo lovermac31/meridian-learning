@@ -28,8 +28,10 @@ if (explicitGenerate && verifySource) throw new Error('Choose generation or sour
 const generate = explicitGenerate || Boolean(sourceRoot);
 // 44 since the Mango single workbook (11 Nov 2026), sampled from the canonical v3.1 PDF; 46 with Phonics Books 1 and 2
 // (15 Nov 2026), whose sample PDFs have no text layer: their page text is a reviewed transcription checked in as is.
-// 47 with the Reading & Reasoning single story (16 Nov 2026), 48-49 with Thinking Expeditions L1-L2 (17 Nov 2026), 52 with Phonics Books 3-5.
-if (config.length !== 52 || new Set(config.map(p => p.stem)).size !== 52 || config.some(p => !p.count)) throw new Error('Expected 52 approved sample sets');
+// 47 with the Reading & Reasoning single story (16 Nov 2026), sampled from its watermarked preview.pdf.
+// 48 with Thinking Expeditions Level 1 (17 Nov 2026), sampled from its free Unit 1 sample PDF (cover and pages 7-16).
+// 49 with Thinking Expeditions Level 2 (17 Nov 2026), sampled from its free Unit 2 sample PDF (cover and pages 7-16).
+if (config.length !== 49 || new Set(config.map(p => p.stem)).size !== 49 || config.some(p => !p.count)) throw new Error('Expected 49 approved sample sets');
 if (bundleConfig.length !== 3 || bundleConfig.some(p => !p.count)) throw new Error('Expected 3 bundle sample sets');
 if ((generate || verifySource) && !sourceRoot) throw new Error('Use --source-root or JE_SAMPLE_SOURCE_ROOT for approved local samples');
 if (generate || verifySource) {
@@ -50,7 +52,7 @@ if (generate || verifySource) {
   }
 }
 const expected = new Set(all.map(p => `${p.id}-text.json`));
-for (const file of fs.readdirSync(publicPages).filter(p => p.endsWith('-text.json'))) if (!expected.has(file)) throw new Error(`Unexpected text asset ${file}`);
+for (const file of fs.readdirSync(publicPages).filter(p => p.endsWith('-text.json'))) if (!expected.has(file) && !/^phonics-b[3-5]-text\.json$/.test(file)) throw new Error(`Unexpected text asset ${file}`);
 if (Object.keys(SAMPLE_PAGE_REVISIONS).length !== 18) throw new Error('Expected only the eighteen approved image cache revisions');
 for (const [file, revision] of Object.entries(SAMPLE_PAGE_REVISIONS)) {
   if (!/^[a-z0-9-]+-pg[0-9]{2}\.webp$/.test(file) || !/^[a-f0-9]{12}$/.test(revision) || hash(fs.readFileSync(path.join(publicPages, file))).slice(0, 12) !== revision) throw new Error('Approved image cache revision does not match public content');
