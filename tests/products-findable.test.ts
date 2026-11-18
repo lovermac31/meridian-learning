@@ -8,6 +8,7 @@ import { resolveRouteMetadata } from '../src/lib/routeMetadata';
 import { getLocalizedPathname } from '../src/i18n/routing';
 import { isPublicContentReleased } from '../src/i18n/content';
 import { IELTS_MOVED_SECTION, PRODUCTS } from '../src/i18n/content/products';
+import { FIXED_ORDER_CODES } from '../src/lib/productsSource';
 import { seriesLevels } from '../src/lib/seriesContent';
 import { syllabusData } from '../src/lib/syllabusContent';
 import { thinkingCycleStages } from '../src/lib/thinkingCycleContent';
@@ -38,14 +39,14 @@ test('metadata: the description covers the whole range in EN and VI, OG matches 
 });
 
 test('JSON-LD: one Product with a VND Offer for every live card, in the page language, plus the breadcrumbs', () => {
-  assert.equal(LIVE.length, 49);
+assert.equal(LIVE.length, PRODUCTS.filter((p) => p.live).length); // 55 with Phonics B3-B5 + TE L1-L2 + RR L1
   for (const [path, locale] of [['/products', 'en'], ['/vi/products', 'vi']] as const) {
     const blocks = resolveRouteMetadata(path).jsonLd as Array<Record<string, any>>;
     assert.ok(blocks.some((b) => b['@type'] === 'BreadcrumbList'), `${path}: breadcrumbs kept`);
     const list = blocks.find((b) => b['@type'] === 'ItemList')!;
     // IELTS migration P6: the 14 IELTS products moved to jurassicielts.com and leave the /products JSON-LD; the rest are unchanged.
     const onPage = LIVE.filter((p) => p.section !== IELTS_MOVED_SECTION);
-    assert.equal(onPage.length, 35, path);
+assert.equal(onPage.length, PRODUCTS.filter((p) => p.live && p.section !== IELTS_MOVED_SECTION).length, path); // 41
     assert.equal(list.numberOfItems, onPage.length, path);
     assert.ok(list.itemListElement.every((entry: Record<string, any>) => !LIVE.some((p) => p.section === IELTS_MOVED_SECTION && entry.item.url.endsWith(`#${p.id}`))), `${path}: no IELTS product in the JSON-LD`);
     const page = `https://jurassicenglish.com${locale === 'vi' ? '/vi' : ''}/products`;
@@ -202,7 +203,8 @@ test('order codes: every Order on Zalo button shows its code line (EN + VI); oth
     for (const id of moved) assert.ok(!html.includes(`data-order-code="${id}"`), `${route} ${id}: no IELTS order code on /products`);
     for (const [, id, text, code] of lines) {
       assert.equal(text.trim(), before, `${route} ${id}`);
-      assert.equal(code, id.toUpperCase(), `${route} ${id}: card id until the visit source is read`);
+      // A product with a fixed order code (Mango MANGO-L2; the Reading & Reasoning story WINDSUN-L1, 16 Nov 2026) always shows it.
+      assert.equal(code, FIXED_ORDER_CODES[id] ?? id.toUpperCase(), `${route} ${id}: card id until the visit source is read`);
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
       assert.ok(card.indexOf(`data-cta="product-${id}"`) < card.indexOf(`data-order-code="${id}"`), `${route} ${id}: next to the button`);
     }

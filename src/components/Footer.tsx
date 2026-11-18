@@ -48,6 +48,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                         event.preventDefault();
                         onNavigate(link.href);
                       }}
+                      aria-label={'aria' in link ? link.aria : undefined}
                       className="rounded text-sm font-semibold text-sb-forest underline-offset-4 hover:text-sb-amber-deep hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sb-amber"
                     >
                       {link.label}
@@ -83,8 +84,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
         </nav>
 
         <nav aria-label={locale === 'vi' ? 'Luyện tập và bài học' : 'Practice and lessons'} className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-sb-forest">
-          <a href={locale === 'vi' ? '/ai-speaking/vi/lessons' : '/ai-speaking/lessons'}>{locale === 'vi' ? 'Bài học 1 kèm 1' : 'One-to-one lessons'}</a>
-          <a href={locale === 'vi' ? '/ai-speaking/vi/writing' : '/ai-speaking/writing'}>{locale === 'vi' ? 'Luyện viết IELTS' : 'IELTS Writing practice'}</a>
+          <a href={movedHref(`${locale === 'vi' ? '/ai-speaking/vi/lessons' : '/ai-speaking/lessons'}?utm_source=jurassicenglish&utm_medium=footer&utm_campaign=ielts-move`)}>{locale === 'vi' ? 'Bài học 1 kèm 1' : 'One-to-one lessons'}</a>
           <a href={locale === 'vi' ? '/vi/student-academy/stories' : '/student-academy/stories'}>{locale === 'vi' ? 'Truyện theo cấp độ' : 'Level stories'}</a>
         </nav>
 
@@ -96,17 +96,8 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                 ['/cefr-alignment', 'CEFR alignment', 'Đối chiếu CEFR'],
                 ['/teacher-standards', 'Teacher standards', 'Tiêu chuẩn giáo viên'],
                 ['/worldwise', 'WorldWise Learning', 'WorldWise Learning'],
-                ['/challenges/one-change', 'One Change speaking challenge', 'Thử thách luyện nói One Change (EN)'],
-                ['/ielts-speaking-online/india', 'IELTS Speaking in India', 'Luyện IELTS Speaking tại Ấn Độ (EN)'],
-                ['/ielts-speaking-online/nigeria', 'IELTS Speaking in Nigeria', 'Luyện IELTS Speaking tại Nigeria (EN)'],
-                ['/ielts-speaking-online/philippines', 'IELTS Speaking in the Philippines', 'Luyện IELTS Speaking tại Philippines (EN)'],
-                ['/ielts-speaking-online/singapore', 'IELTS Speaking in Singapore', 'Luyện IELTS Speaking tại Singapore (EN)'],
-                ['/insights/ielts-scams-fake-certificates-vietnam', 'IELTS scams and fake certificates (Vietnam)', 'Cảnh báo lừa đảo IELTS (bản tiếng Anh)'],
-                ['/insights/ielts-speaking-forecast-september-december-2026', 'IELTS Speaking: September–December 2026', 'Dự báo chủ đề IELTS Speaking'],
-                ['/tools/ielts-band-score-calculator', 'IELTS band calculator', 'Tính điểm IELTS'],
-                ['/tools/ielts-speaking-part-2-timer', 'IELTS Speaking Part 2 timer', 'Đồng hồ IELTS Speaking Part 2'],
                 ['/about/nathaniel-jay-adams', 'About Mr. Jay Adams', 'Về thầy Jay Adams'],
-              ].map(([href, en, vi]) => <li key={href}><a href={isMovedToJurassicielts(href) ? movedHref(href).replace('https://jurassicielts.com/', locale === 'vi' ? 'https://jurassicielts.com/vi/' : 'https://jurassicielts.com/') : getLocalizedHref(href, locale)} className="underline underline-offset-4">{locale === 'vi' ? vi : en}</a></li>)}
+              ].map(([href, en, vi]) => <li key={href}><a href={getLocalizedHref(href, locale)} className="underline underline-offset-4">{locale === 'vi' ? vi : en}</a></li>)}
             </ul>
           </nav>
         </details>

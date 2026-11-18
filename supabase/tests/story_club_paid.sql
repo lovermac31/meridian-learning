@@ -1,5 +1,5 @@
 -- Local-only synthetic acceptance test. Apply the 20261028 events migration,
--- the 20261029 reserve-event migration, then the C4 migration before running.
+-- the 20261029 reserve-event migration, then the C4 migration and 20261115000002 (payment status RPC) before running.
 begin;
 
 do $$
@@ -11,11 +11,14 @@ declare
   v_memo text;
 begin
   if not has_function_privilege('service_role', 'public.create_story_club_reservation(text,text)', 'EXECUTE')
-     or not has_function_privilege('service_role', 'public.mark_story_club_paid(text)', 'EXECUTE') then
+     or not has_function_privilege('service_role', 'public.mark_story_club_paid(text)', 'EXECUTE')
+     or not has_function_privilege('service_role', 'public.story_club_payment_status(text)', 'EXECUTE') then
     raise exception 'service_role RPC grants missing';
   end if;
   if has_function_privilege('anon', 'public.create_story_club_reservation(text,text)', 'EXECUTE')
-     or has_function_privilege('authenticated', 'public.mark_story_club_paid(text)', 'EXECUTE') then
+     or has_function_privilege('authenticated', 'public.mark_story_club_paid(text)', 'EXECUTE')
+     or has_function_privilege('anon', 'public.story_club_payment_status(text)', 'EXECUTE')
+     or has_function_privilege('authenticated', 'public.story_club_payment_status(text)', 'EXECUTE') then
     raise exception 'untrusted role can execute payment RPC';
   end if;
   if has_table_privilege('service_role', 'public.story_club_reservations', 'SELECT,INSERT,UPDATE,DELETE')
@@ -32,7 +35,19 @@ begin
   if v_duplicate ->> 'memo' <> v_memo or v_duplicate ->> 'created' <> 'false' then
     raise exception 'duplicate reservation was not idempotent: %', v_duplicate;
   end if;
+  if public.story_club_payment_status(v_memo) <> '{"status": "unpaid"}'::jsonb
+     or public.story_club_payment_status('SC-ZZZZZ9') <> '{"status": "not_found"}'::jsonb then
+    raise exception 'payment status before payment incorrect';
+  end if;
+  begin
+    perform public.story_club_payment_status('SC-123');
+    raise exception 'malformed memo accepted by payment status';
+  exception when sqlstate '22023' then null;
+  end;
   v_paid := public.mark_story_club_paid(v_memo);
+  if public.story_club_payment_status(v_memo) <> '{"status": "paid"}'::jsonb then
+    raise exception 'payment status after payment incorrect';
+  end if;
   if v_paid ->> 'status' <> 'paid' or (v_paid ->> 'paid_at')::timestamptz is null then
     raise exception 'first mark-paid result incorrect: %', v_paid;
   end if;

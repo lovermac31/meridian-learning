@@ -11,25 +11,27 @@ import { PRODUCTS_NEW_HIGHLIGHT } from '../src/i18n/content/overhaul';
 import { setServerLocation } from '../src/lib/ssrLocation';
 
 // Jurassic English Phonics on the site (Jay, 15 Nov 2026: "GO, your recommendations D1 to D9"; brief WW-20261115-02).
-const APPROVED: Record<string, { vnd: number; usd: number }> = { 'phonics-b1': { vnd: 79000, usd: 7.99 }, 'phonics-b2': { vnd: 129000, usd: 7.99 } };
+// Books 3 to 5 (16 Nov 2026, draft PR): the same approved prices (Jay, 14 Nov 2026), 129.000₫ / US$7.99 each.
+const APPROVED: Record<string, { vnd: number; usd: number }> = { 'phonics-b1': { vnd: 79000, usd: 7.99 }, 'phonics-b2': { vnd: 129000, usd: 7.99 }, 'phonics-b3': { vnd: 129000, usd: 7.99 }, 'phonics-b4': { vnd: 129000, usd: 7.99 }, 'phonics-b5': { vnd: 129000, usd: 7.99 } };
+const BOOKS = ['phonics-b1', 'phonics-b2', 'phonics-b3', 'phonics-b4', 'phonics-b5'];
 const phonics = PRODUCTS.filter((p) => p.category === 'phonics');
 const amp = (s: string) => s.replaceAll('&amp;', '&').replaceAll('<!-- -->', '');
 
-test('AC2: only the cleared books (1 and 2) are live; no Book 3–5 or Series card; the tile sits second', () => {
-  assert.deepEqual(phonics.map((p) => p.id), ['phonics-b1', 'phonics-b2']);
+test('AC2: Books 1 to 5 are live; no Series card until all five pass; the tile sits second', () => {
+  assert.deepEqual(phonics.map((p) => p.id), BOOKS);
   assert.ok(phonics.every((p) => p.live && p.section === 'families'));
-  assert.ok(!PRODUCTS.some((p) => /^phonics-(b[3-5]|series)$/.test(p.id)), 'no uncleared book or Series');
+  assert.ok(!PRODUCTS.some((p) => p.id === 'phonics-series'), 'no Series');
   assert.equal(PRODUCT_SEGMENTS[1], 'phonics');
 });
 
-test('AC2: /products#phonics and /vi/products#phonics show exactly the two book cards in the Phonics band', async () => {
+test('AC2: /products#phonics and /vi/products#phonics show exactly the five book cards in the Phonics band', async () => {
   const { renderRoute } = await import('../src/entry-server');
   for (const route of ['/products', '/vi/products']) {
     const html = amp(await renderRoute(route));
     const band = html.match(/<section id="phonics"[^>]*data-phonics-band="">[\s\S]*?<\/section>/)?.[0] ?? '';
-    assert.deepEqual([...band.matchAll(/data-phonics-book="([^"]+)"/g)].map((m) => m[1]), ['phonics-b1', 'phonics-b2'], route);
+    assert.deepEqual([...band.matchAll(/data-phonics-book="([^"]+)"/g)].map((m) => m[1]), BOOKS, route);
     assert.ok(band.includes(route.startsWith('/vi') ? 'Học đọc cùng Dane và Kate' : 'Learn to read with Dane and Kate'), `${route}: intro line`);
-    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="phonics-[^"]+"/g)].length, 2, `${route}: two Phonics cards`);
+    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="phonics-[^"]+"/g)].length, BOOKS.length, `${route}: five Phonics cards`);
   }
 });
 
@@ -74,7 +76,7 @@ test('AC6: no ownership wording, no ™ after Phonics, and every new link puts u
   const ownership = /co-?owner|ownership|owned by|licen[cs]e split|50\/50|royalt/i;
   const tm = /Phonics\s*(™|&trade;|\(TM\)|<sup)/;
   // The Phonics pages and the pages that link to them, as served (EN + VI).
-  for (const route of ['/products', '/vi/products', '/products/phonics-b1', '/vi/products/phonics-b1', '/products/phonics-b2', '/vi/products/phonics-b2', '/story-club', '/vi/story-club']) {
+  for (const route of ['/products', '/vi/products', '/products/phonics-b1', '/vi/products/phonics-b1', '/products/phonics-b2', '/vi/products/phonics-b2', ...['b3', 'b4', 'b5'].flatMap((b) => [`/products/phonics-${b}`, `/vi/products/phonics-${b}`]), '/story-club', '/vi/story-club']) {
     const html = amp(await renderRoute(route));
     const main = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
     assert.doesNotMatch(main, ownership, `${route}: no ownership wording`);

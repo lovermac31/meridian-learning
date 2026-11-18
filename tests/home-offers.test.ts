@@ -27,20 +27,20 @@ const hrefsIn = (html: string) =>
 
 const REVENUE_HREFS = {
   en: [
-    '/ai-speaking/baseline',
+    'https://jurassicielts.com/ai-speaking/baseline',
     '/young-learners-speaking/#pricing',
     '/book-diagnostic',
-    '/ai-speaking',
-    '/ai-speaking/solutions',
-    '/ai-speaking/writing/demo',
+    'https://jurassicielts.com/ai-speaking',
+    '/ai-speaking/solutions', // held on JE for 30 days after C5
+    'https://jurassicielts.com/ai-speaking/writing/demo',
   ],
   vi: [
-    '/ai-speaking/baseline?lang=vi',
+    'https://jurassicielts.com/ai-speaking/baseline?lang=vi',
     '/vi/luyen-noi-ielts/#pricing',
     '/book-diagnostic', // no Vietnamese page; the VI copy says the form is in English
-    '/ai-speaking/vi',
+    'https://jurassicielts.com/ai-speaking/vi',
     '/ai-speaking/vi/solutions',
-    '/ai-speaking/vi/writing/demo',
+    'https://jurassicielts.com/ai-speaking/vi/writing/demo',
   ],
 } as const;
 
@@ -119,7 +119,7 @@ test('header: Option A doors (IELTS on JurassicIELTS.com, Story Club) in the vis
 
 test('AiSpeakingLaunch Writing card links the live demo and promises no launch date', () => {
   const src = read('src/components/AiSpeakingLaunch.tsx');
-  assert.match(src, /getLocalizedHref\('\/ai-speaking\/writing\/demo', locale\)\} onClick=\{\(\) => trackCtaClick\(\{ label: 'homepage_writing_intro_click'/);
+  assert.match(src, /href=\{getLocalizedHref\('\/ai-speaking\/writing\/demo', locale\)\} onClick=\{\(\) => trackCtaClick\(\{ label: 'homepage_writing_intro_click'/);
   for (const locale of ['en', 'vi'] as const) {
     const launch = getHomeContent(locale)?.hero.aiSpeakingLaunch;
     assert.ok(launch, locale);

@@ -135,7 +135,7 @@ function localiseLessonLinks(html) {
  * baselineHref in src/lib/baselineLink.ts). Rewrites href inside each
  * <a ... data-baseline-link ...> tag, whatever the attribute order.
  */
-export const VI_BASELINE_HREF = '/ai-speaking/baseline?lang=vi';
+export const VI_BASELINE_HREF = 'https://jurassicielts.com/ai-speaking/baseline?lang=vi'; // P7: straight to JI (baselineHref)
 function localiseBaselineLinks(html) {
   return html.replace(/<a\b[^>]*\sdata-baseline-link\b[^>]*>/g,
     (tag) => tag.replace(/\shref="[^"]*"/, ` href="${VI_BASELINE_HREF}"`));

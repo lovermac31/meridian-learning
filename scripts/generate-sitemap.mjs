@@ -213,11 +213,16 @@ function buildStaticUrl({ loc, changefreq, priority }) {
   ].join('\n');
 }
 
+// IELTS migration P7: the exam, solutions and ladder pages stay served on JE for 30 days after C5 (saved reports and bookings
+// live in JE-origin storage), but their canonical moves to jurassicielts.com after C4, so they are not advertised from JE.
+// Remove with the vercel.json hold.
+const isHeldAiSpeaking = (pathname) => /^\/ai-speaking\/(?:vi\/)?(?:exam|solutions|ladder)(?:\/|$)/.test(pathname);
+
 async function main() {
   // Pages moved to jurassicielts.com (redirected in vercel.json) leave the sitemap.
-  const routes  = getExpectedPublicIndexableRoutes().filter((route) => !isMovedToJurassicielts(typeof route === 'string' ? route : route.path ?? route));
+  const routes  = getExpectedPublicIndexableRoutes().filter((route) => { const p = typeof route === 'string' ? route : route.path ?? route; return !isMovedToJurassicielts(p) && !isHeldAiSpeaking(p); });
   const urlTags = routes.map(buildUrl).join('\n');
-  const extraTags = STATIC_EXTRA_URLS.filter((entry) => !isMovedToJurassicielts(new URL(entry.loc).pathname)).map(buildStaticUrl).join('\n');
+  const extraTags = STATIC_EXTRA_URLS.filter((entry) => !isMovedToJurassicielts(new URL(entry.loc).pathname) && !isHeldAiSpeaking(new URL(entry.loc).pathname)).map(buildStaticUrl).join('\n');
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',

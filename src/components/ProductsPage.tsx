@@ -25,6 +25,7 @@ import {
   type ProductSectionId,
   type ProductSegmentId,
 } from '../i18n/content/products';
+import { LIBRARY_COPY, LIBRARY_TITLES, isLibraryPreview, libraryAnchorId, libraryIncludedHref, libraryWaitlistHref, LIBRARY_ANCHOR } from '../i18n/content/readingLibrary';
 import { fetchSampleText, type SampleTextDocument } from '../lib/sampleText';
 import { SamplePackForm } from './SamplePackForm';
 import { PAUSED_COPY, PRODUCT_FORMER_IDS, pausedWaitlistHref } from '../i18n/content/products';
@@ -92,6 +93,12 @@ export function CardLink({ card, locale }: { card: ProductCard; locale: Locale }
 export function CreditLine({ card }: { card: ProductCard }) {
   if (!card.credit) return null;
   return <p className="mt-3 rounded-lg border-l-4 border-[#9B1C31] bg-[#F3E8CF] px-3 py-2 text-sm font-medium text-[#13294B]" data-ai-credit={card.id}>{card.credit}</p>;
+}
+
+/** The buyer's licence in full, above the price (Thinking Expeditions L1, 17 Nov 2026); only for products that set one. */
+export function LicenceLine({ card }: { card: Pick<ProductCard, 'id' | 'licence'> }) {
+  if (!card.licence) return null;
+  return <p className="mt-3 rounded-lg border border-[#13294B]/25 bg-[#FBF6EA] px-3 py-2 text-sm text-[#13294B]" data-licence={card.id}>{card.licence}</p>;
 }
 
 /** Audit fix 4 (11 Nov 2026): a paused product shows this instead of every buy, VietQR, PayPal and Zalo order button. */
@@ -604,6 +611,7 @@ export function productAnchor(hash: string, locale: Locale) {
   if (anchor === WORKBOOKS_SEGMENT) return { section: WORKBOOKS_SEGMENT as ProductSegmentId, product: null, sample: false, target: anchor };
   // #phonics is the Phonics tile and book picker (15 Nov 2026); its cards are Families data, like Story Workbooks.
   if (anchor === PHONICS_SEGMENT) return { section: PHONICS_SEGMENT as ProductSegmentId, product: null, sample: false, target: anchor };
+  if (anchor === LIBRARY_ANCHOR || /^rl-[a-z0-9-]+$/.test(anchor)) return { section: null as ProductSegmentId | null, product: null, sample: false, target: anchor };
   const section = sections.find((entry) => entry.id === anchor || (entry.id === 'ielts' && IELTS_GROUPS.some((group) => anchor === `ielts-${group}`)));
   if (section) return { section: section.id as ProductSegmentId, product: null, sample: false, target: anchor };
   const sample = anchor.endsWith('-sample');
@@ -701,6 +709,9 @@ export function ProductsPage({ locale }: { locale: Locale }) {
   const source = useVisitorSource();
   const touch = useFirstTouch();
   const [viewer, setViewer] = useState<ProductCard | null>(null);
+  // Reading & Reasoning Library preview: only with ?library-preview=1, read after hydration so the default HTML is unchanged.
+  const [libraryPreview, setLibraryPreview] = useState(false);
+  useEffect(() => { setLibraryPreview(isLibraryPreview(window.location.search)); }, []);
   // The segment filter. SSR and the first client render show every section; a segment narrows the page to its cards.
   const [filter, setFilter] = useState<ProductSegmentId | null>(null);
   // Every product shows by default (Jay, 4 Nov 2026: the books must be visible without a click). The segment tiles still
@@ -834,8 +845,9 @@ export function ProductsPage({ locale }: { locale: Locale }) {
             <ul aria-label={c.workbooksBand.levels}>
               {workbookCards.map((card) => {
                 // A single book (the Mango pilot, 11 Nov 2026) is named, with its level; the bundles stay "Level N".
+                // The level is the id's -lN part, at the end (mango-l2) or inside it (rr-l1-wind-sun-yellow-coat, 16 Nov 2026).
                 const single = card.books?.length === 1;
-                const level = single ? card.id.match(/-l(\d)$/)?.[1] : card.title.match(/\d/)?.[0];
+                const level = single ? card.id.match(/-l(\d)(?:-|$)/)?.[1] : card.title.match(/\d/)?.[0];
                 const count = card.unit.match(/\d+/)?.[0];
                 const ages = WORKBOOK_AGES[card.id] ?? '';
                 return (
@@ -845,6 +857,32 @@ export function ProductsPage({ locale }: { locale: Locale }) {
                       <span>{single ? `${c.workbooksBand.singleLevel.replace('{level}', level ?? '')} · ` : ''}{(ages.endsWith('+') ? c.workbooksBand.agesFrom : c.workbooksBand.ages).replace('{ages}', ages.replace('+', ''))}</span>
                       <span>{single ? c.workbooksBand.single : c.workbooksBand.count.replace('{n}', count ?? '')} · <b>{card.price}</b></span>
                     </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+      {libraryPreview ? (
+        <section id={LIBRARY_ANCHOR} aria-labelledby={`${LIBRARY_ANCHOR}-h`} className="products-library scroll-mt-24 max-md:scroll-mt-36" hidden={filter !== null} data-library-band="">
+          <div className="products-library-inner">
+            <h2 id={`${LIBRARY_ANCHOR}-h`}>{LIBRARY_COPY[locale].heading}</h2>
+            <p>{LIBRARY_COPY[locale].intro}</p>
+            <ul className="products-library-grid">
+              {LIBRARY_TITLES.map((t) => {
+                const lc = LIBRARY_COPY[locale];
+                return (
+                  <li key={t.id} id={libraryAnchorId(t.id)} data-library-title={t.id} data-availability={t.availability} className="products-library-card">
+                    <div className="products-library-cover" role="img" aria-label={lc.cover(t.title)}><span lang="en">{t.title}</span></div>
+                    <p className="products-library-eyebrow">{lc.level} {t.level} · {lc.ages(t.ages)}</p>
+                    <h3 lang="en">{t.title}</h3>
+                    <p className="products-library-pill" data-library-pill="">{lc.pill}</p>
+                    <p>{t[locale].synopsis}</p>
+                    <p className="products-library-includes"><strong>{lc.includesLabel}:</strong> {[t.includes.reader && lc.reader, t.includes.workbook && lc.workbook, t.includes.guide && lc.guide].filter(Boolean).join(' · ')}</p>
+                    <p className="products-library-note">{lc.notForSale} {lc.licence}</p>
+                    <p className="products-library-note" data-library-included={t.id}>{lc.included} <a href={libraryIncludedHref(t.level, locale, 'products')} data-library-included-link={t.id}>{lc.includedLink(t.level)}</a>.</p>
+                    <a href={libraryWaitlistHref(t.id, 'products')} data-library-waitlist={t.id} target="_blank" rel="noopener noreferrer nofollow">{lc.waitlist}</a>
                   </li>
                 );
               })}

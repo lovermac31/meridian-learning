@@ -160,28 +160,16 @@ export async function markStoryClubReservationPaid(memo: string): Promise<StoryC
 
 /** Read only the payment boolean for a single canonical memo using the server-only key. */
 export async function getStoryClubPaymentStatus(memo: string): Promise<StoryClubPaymentStatusResult> {
-  const config = resolveConfig();
-  if (!config) return { ok: false, reason: 'not_configured' };
-  const query = new URLSearchParams({ select: 'paid_at', memo: `eq.${memo}`, limit: '1' });
-  try {
-    const response = await fetch(`${config.url}/rest/v1/story_club_reservations?${query}`, {
-      method: 'GET', headers: supabaseHeaders(config.writeKey), signal: AbortSignal.timeout(5_000),
-    });
-    if (!response.ok) {
-      console.error('[supabase] Story Club payment status read failed', { status: response.status });
-      return { ok: false, reason: 'api_error' };
-    }
-    const rows = await response.json() as unknown;
-    if (!Array.isArray(rows) || rows.length > 1 || (rows.length === 1 && (typeof rows[0] !== 'object' || rows[0] === null || !('paid_at' in rows[0])))) {
-      console.error('[supabase] Story Club payment status response invalid');
-      return { ok: false, reason: 'invalid_response' };
-    }
-    return { ok: true, paid: rows.length === 1 && rows[0].paid_at !== null };
-  } catch (error) {
-    const reason = error instanceof Error && error.name === 'TimeoutError' ? 'timeout' : 'network_error';
-    console.error('[supabase] Story Club payment status read failed', { reason });
-    return { ok: false, reason: 'network_error' };
+  // Through a definer RPC: service_role has no table privileges on story_club_reservations (20261029000002),
+  // so a direct REST read answers 403. The RPC returns only {status: paid|unpaid|not_found}.
+  const result = await callStoryClubRpc<{ status?: unknown }>('story_club_payment_status', { p_memo: memo });
+  if (result.ok === false) return { ok: false, reason: result.reason === 'not_configured' ? 'not_configured' : result.reason === 'network_error' || result.reason === 'timeout' ? 'network_error' : 'api_error' };
+  const status = result.data?.status;
+  if (status !== 'paid' && status !== 'unpaid' && status !== 'not_found') {
+    console.error('[supabase] Story Club payment status response invalid');
+    return { ok: false, reason: 'invalid_response' };
   }
+  return { ok: true, paid: status === 'paid' };
 }
 
 function resolveConfig(): SupabaseConfig | null {

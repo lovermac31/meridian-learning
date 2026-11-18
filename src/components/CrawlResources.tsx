@@ -1,6 +1,13 @@
 import { getCurrentLocale } from '../i18n/routing';
 import groups from '../content/crawlResources.json';
-import { isMovedToJurassicielts } from '../config/movedToJurassicielts';
+import { isMovedToJurassicielts, movedHref } from '../config/movedToJurassicielts';
+
+/** Older moved pages (Stage 2 articles) leave the list; AI Speaking pages (P7) stay and link straight to jurassicielts.com. */
+export function crawlResourceLinks<T extends { href: string }>(links: T[]): T[] {
+  return links
+    .filter(({ href }) => href.startsWith('/ai-speaking') || !isMovedToJurassicielts(href))
+    .map((link) => ({ ...link, href: movedHref(link.href) }));
+}
 export function CrawlResources({ context }: { context: 'home' | 'products' | 'framework' }) {
   if (getCurrentLocale() === 'vi') return null;
   const intros = {
@@ -13,7 +20,7 @@ export function CrawlResources({ context }: { context: 'home' | 'products' | 'fr
     <p className="my-4 max-w-3xl">{intros[context]}</p>
     {Object.entries(groups).map(([title, links]) => <details key={title} className="my-4 rounded border p-4">
       <summary className="cursor-pointer font-bold">{title}</summary>
-      <ul className="mt-4 grid gap-3 md:grid-cols-2">{links.filter(({ href }) => !isMovedToJurassicielts(href)).map(({ href, label }) => <li key={href}><a className="underline underline-offset-4" href={context === 'products' ? `${href}?utm_source=products` : href}>{label}</a></li>)}</ul>
+      <ul className="mt-4 grid gap-3 md:grid-cols-2">{crawlResourceLinks(links).map(({ href, label }) => <li key={href}><a className="underline underline-offset-4" href={context === 'products' ? `${href}?utm_source=products` : href}>{label}</a></li>)}</ul>
     </details>)}
   </section>;
 }

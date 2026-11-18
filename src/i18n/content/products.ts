@@ -130,18 +130,21 @@ export type Product = {
   // The pre-purchase credit line (audit fix 7, 11 Nov 2026): how the book was made, shown above the price, matching
   // the line printed in the PDF.
   credit?: { en: string; vi: string };
+  // The licence the buyer gets, in full, shown above the price on the product page and in the checkout summary
+  // (Thinking Expeditions L1, 17 Nov 2026). Products without it keep their licence wording in "Who it's for".
+  licence?: { en: string; vi: string };
   en: CardText;
   vi: CardText;
 };
 
 // Story Workbooks, Levels 1 to 5 (Jay, 3 Nov 2026): the original Jurassic English storybooks as print-ready A4 workbooks
-// (30 pages each: cover, six chapters with a write-in page each, activities, teacher guide, answer key). Level 1 is 10
-// workbooks (11 Nov 2026: Lina and the Orchard Map is held over art provenance and is not sold), Levels 2 to 5 are 3 each. One card per level, in Families under "Workbooks", with a pointer from Teachers.
+// (30 pages each: cover, six chapters with a write-in page each, activities, teacher guide, answer key). Level 1 is 11
+// workbooks (16 Nov 2026: Lina and the Orchard Map is back, with the art Jay approved on 11 Nov, as book 11), Levels 2 to 5 are 3 each. One card per level, in Families under "Workbooks", with a pointer from Teachers.
 // The sample is 3 watermarked pages of one lead book per level, view-only (no PDF is published). Each full PDF carries
 // the licence line and file properties (security Tier 1) and is delivered only after payment.
 /** The books in each level: the original Jurassic English storybooks, in the order of the print PDFs. */
 export const WORKBOOK_BOOKS: Record<1 | 2 | 3 | 4 | 5, string[]> = {
-  1: ['Mina and the Midnight Drum', 'The Lantern With Two Handles', 'Kim and the Thunder Inside', 'The Song Across the Lake', 'Not Now, Rosa!', 'Ivy and the Big Umbrella', 'Tess Tells Tales', 'Skip and the Red Roof', 'The Wind, the Sun and the Yellow Coat', 'Grandpa’s Sunflowers'],
+  1: ['Mina and the Midnight Drum', 'The Lantern With Two Handles', 'Kim and the Thunder Inside', 'The Song Across the Lake', 'Not Now, Rosa!', 'Ivy and the Big Umbrella', 'Tess Tells Tales', 'Skip and the Red Roof', 'The Wind, the Sun and the Yellow Coat', 'Grandpa’s Sunflowers', 'Lina and the Orchard Map'],
   // Level 2 is nine books here: the tenth, Mango, the Market Cat, is its own pilot product (mango-l2) and stays untouched.
   2: ['The Bell That Rang Too Early', 'The Rain on Platform Seven', 'The River Promise', 'The New Boy and the Night Sky', 'The Paper Bird Shop', 'The Torch on the Harbour Wall', 'The Kingdom Behind the Bamboo', 'Nia’s New Word', 'The Golden Fig'],
   3: ['The Song They Took Out', 'The Last Clue on Lantern Street', 'The Last Seat on the Night Ferry', 'Kit and the Invisible Line', 'The Unsent Weather Report', 'Mai and the Season of Seeds', 'The Voice in Maya’s Tablet', 'The Honest Scale', 'The Captain of the Old Van', 'Leo and the Paper Theatre'],
@@ -158,6 +161,31 @@ export const WORKBOOK_CREDIT = {
 export const MANGO_CREDIT = {
   en: 'Original story by Jurassic English; activities AI-assisted and human-edited; illustrations AI-generated.',
   vi: 'Truyện gốc của Jurassic English; phần hoạt động có AI hỗ trợ và được người biên tập; tranh minh họa do AI tạo.',
+};
+/**
+ * Reading & Reasoning Library pilot (WW-20261116-RL20): the credit line printed in the JE-L1-18 commercial build 16b PDFs.
+ * A retelling of a public-domain fable with no recorded human editor, so it never uses the Story Workbooks or Mango line.
+ */
+export const RR_CREDIT = {
+  en: 'Retold by Jurassic English from Aesop’s fable (public domain), with new characters, setting and words. Text drafted with AI assistance; illustrations AI-generated.',
+  vi: 'Jurassic English kể lại từ truyện ngụ ngôn của Aesop (phạm vi công cộng), với nhân vật, bối cảnh và lời văn mới. Phần chữ được soạn với sự hỗ trợ của AI; tranh minh họa do AI tạo.',
+};
+/**
+ * Thinking Expeditions Level 1 (WW-20261117-CT60): the credit printed on the copyright page (p3) of the first edition v1.0 PDF
+ * ("Text and puzzles: Jurassic English, written with AI assistance. Illustrations ... painted for this book with AI image
+ * generation (ChatGPT, OpenAI) to Jurassic English art direction. Diagrams, grids and tables: drawn by Jurassic English.").
+ */
+export const CT_CREDIT = {
+  en: 'Text and puzzles by Jurassic English, written with AI assistance; illustrations painted with AI image generation (ChatGPT, OpenAI) to Jurassic English art direction; diagrams, grids and tables drawn by Jurassic English.',
+  vi: 'Phần chữ và câu đố của Jurassic English, được viết với sự hỗ trợ của AI; tranh minh họa vẽ bằng công cụ tạo ảnh AI (ChatGPT, OpenAI) theo chỉ đạo mỹ thuật của Jurassic English; sơ đồ, lưới và bảng do Jurassic English vẽ.',
+};
+/**
+ * Thinking Expeditions Level 1 licence (Jay, KING MASTER EXECUTION DIRECTIVE, 17 Nov 2026), verbatim. Shown in full on the
+ * product page and at checkout; the card's "Who it's for" carries a shortened form with the same meaning.
+ */
+export const CT_LICENCE = {
+  en: "Personal licence — one learner. This digital workbook is licensed for use by one individual learner. A parent or guardian may assist that learner and print copies for that learner's personal educational use. This licence does not permit sharing, redistribution, resale, or reproduction for multiple learners, families, classrooms, schools or organisations. Separate licences are required for additional learners or classroom use.",
+  vi: 'Giấy phép sử dụng cá nhân — một học viên. Sách bài tập điện tử này được cấp phép sử dụng cho một học viên duy nhất. Cha mẹ hoặc người giám hộ có thể hỗ trợ và in bản phục vụ việc học cá nhân của học viên đó. Giấy phép không cho phép chia sẻ, phân phối lại, bán lại hoặc sao chép để sử dụng cho nhiều học viên, gia đình, lớp học, trường học hoặc tổ chức. Cần có giấy phép riêng cho học viên bổ sung hoặc việc sử dụng trong lớp học.',
 };
 /** Paused products (audit fix 4, 11 Nov 2026): shown instead of every buy button. */
 export const PAUSED_COPY: Record<Locale, { note: string; cta: string }> = {
@@ -201,11 +229,12 @@ export const PHONICS_CREDIT = {
 export const phonicsReaderHref = (product: { id: string; reader?: string }, source = 'products') =>
   `${READER_URL}/book.html?utm_content=${product.id}&utm_source=${source}#${product.reader}`;
 
-// Jurassic English Phonics, Books 1 and 2 (Jay, 14 Nov 2026: "GO, these prices"; 15 Nov: D1 to D9). Books 3 to 5 and the
-// Complete Series join one PR each as their gates clear: a book with no PASS has no card at all. Series name as on the
+// Jurassic English Phonics, Books 1 and 2 (Jay, 14 Nov 2026: "GO, these prices"; 15 Nov: D1 to D9). Books 3 to 5 (16 Nov 2026,
+// DRAFT: same approved prices, 129.000₫ / US$7.99; listed only when each book's gate clears, so drop any book still held before
+// merging). The Complete Series joins last: a book with no PASS has no card at all. Series name as on the
 // covers, no ™; nothing about who holds the rights (record still open). Copy from PHONICS-LISTING-PACK-2026-11-14 ("what the buyer
 // gets", licence line, disclosure). Order: Zalo (written summary, then VietQR) or PayPal US$7.99; no Buy now.
-const phonicsBook = (n: 1 | 2, title: { en: string; vi: string }, price: string, tracks: number, clipSeconds: number, problem: { en: string; vi: string }): Product => ({
+const phonicsBook = (n: 1 | 2 | 3 | 4 | 5, title: { en: string; vi: string }, price: string, tracks: number, clipSeconds: number, problem: { en: string; vi: string }, units = 8): Product => ({
   id: `phonics-b${n}`,
   live: true,
   section: 'families',
@@ -225,7 +254,7 @@ const phonicsBook = (n: 1 | 2, title: { en: string; vi: string }, price: string,
     label: 'Digital download · Phonics · New',
     title: `Jurassic English Phonics, Book ${n}: ${title.en}`,
     problem: problem.en,
-    inside: `Listen, read, write, play: 8 themed units, 2 review units and a challenge, with audio tracks for every listening page (${tracks} MP3s), an answer key, a teacher guide and parent homework sheets in English and Vietnamese. A colour, print-friendly PDF.`,
+    inside: `Listen, read, write, play: ${units} themed units, 2 review units and a challenge, with audio tracks for every listening page (${tracks} MP3s), an answer key, a teacher guide and parent homework sheets in English and Vietnamese. A colour, print-friendly PDF.`,
     forWho: 'Children aged 4–7 (CEFR Pre-A1 → A1). Start here, before Story Workbooks. Licensed for one family or one teacher/tutor. Please do not copy, resell or share the files.',
     unit: 'one-time · 1 book with audio',
     cta: 'Order on Zalo',
@@ -234,7 +263,7 @@ const phonicsBook = (n: 1 | 2, title: { en: string; vi: string }, price: string,
     label: 'Tài liệu số · Phonics · Mới',
     title: `Jurassic English Phonics, Quyển ${n}: ${title.vi}`,
     problem: problem.vi,
-    inside: `Nghe, đọc, viết, chơi: 8 bài theo chủ đề, 2 bài ôn tập và 1 phần thử thách, có file âm thanh cho mọi bài nghe (${tracks} file MP3), đáp án, hướng dẫn cho giáo viên và phiếu bài tập về nhà cho phụ huynh bằng tiếng Anh và tiếng Việt. File PDF màu, dễ in.`,
+    inside: `Nghe, đọc, viết, chơi: ${units} bài theo chủ đề, 2 bài ôn tập và 1 phần thử thách, có file âm thanh cho mọi bài nghe (${tracks} file MP3), đáp án, hướng dẫn cho giáo viên và phiếu bài tập về nhà cho phụ huynh bằng tiếng Anh và tiếng Việt. File PDF màu, dễ in.`,
     forWho: 'Bé 4–7 tuổi (CEFR Pre-A1 → A1). Bắt đầu từ đây, trước Sách truyện bài tập. Dùng cho một gia đình hoặc một giáo viên. Vui lòng không sao chép, bán lại hoặc chia sẻ file.',
     unit: 'mua một lần · 1 quyển có âm thanh',
     cta: 'Đặt mua qua Zalo',
@@ -249,26 +278,74 @@ export const PHONICS_BOOKS: Product[] = [
     en: 'Your child knows the letters but cannot yet sound out short words such as cat, hen, pig, dog and sun.',
     vi: 'Con đã biết các chữ cái nhưng chưa tự đánh vần được những từ ngắn như cat, hen, pig, dog và sun.',
   }),
+  phonicsBook(3, { en: 'Long Vowels', vi: 'Nguyên âm dài' }, '129.000₫', 43, 12, {
+    en: 'Your child can sound out short words such as cap and kit, but reads cape as “cap” and kite as “kit”: the silent e is still a mystery.',
+    vi: 'Con đã đánh vần được từ ngắn như cap và kit, nhưng vẫn đọc cape thành “cap”, kite thành “kit”: con chưa hiểu chữ e câm ở cuối từ.',
+  }, 7),
+  phonicsBook(4, { en: 'Letter Pairs', vi: 'Cặp chữ cái' }, '129.000₫', 47, 20, {
+    en: 'Your child reads short words but gets stuck when two letters work together, as in black, frog, ship, chick and thumb.',
+    vi: 'Con đọc được từ ngắn nhưng còn lúng túng khi hai chữ cái đi cùng nhau, như trong black, frog, ship, chick và thumb.',
+  }),
+  phonicsBook(5, { en: 'Vowel Teams and Bossy R', vi: 'Nhóm nguyên âm và âm R' }, '129.000₫', 47, 11, {
+    en: 'Your child reads short words but stumbles when two vowels team up or an r changes the sound, as in tree, boat, rain, car and bird.',
+    vi: 'Con đọc được từ ngắn nhưng còn vấp khi hai nguyên âm đi cùng nhau hoặc chữ r làm đổi âm, như trong tree, boat, rain, car và bird.',
+  }),
 ];
 
 /** The age range each level's card states in "Who it's for" (a test keeps the two in step); shown on the level picker. */
 export const WORKBOOK_AGES: Record<string, string> = {
-  'story-workbooks-l1': '4–8', 'story-workbooks-l2': '8–10', 'mango-l2': '8–10', 'story-workbooks-l3': '10–12', 'story-workbooks-l4': '12–14', 'story-workbooks-l5': '14+',
+  'story-workbooks-l1': '4–8', 'rr-l1-wind-sun-yellow-coat': '4–8', 'story-workbooks-l2': '8–10', 'mango-l2': '8–10', 'story-workbooks-l3': '10–12', 'story-workbooks-l4': '12–14', 'story-workbooks-l5': '14+',
 };
 
 export const MANGO_ID = 'mango-l2';
+export const RR_WIND_SUN_ID = 'rr-l1-wind-sun-yellow-coat';
 const STORY_WORKBOOKS: Product[] = [
-  storyWorkbook(1, '290.000₫', 10, {
+  storyWorkbook(1, '290.000₫', 11, {
     title: 'Level 1 Story Workbooks',
     problem: 'Your child enjoys stories, but you want pages to write on, questions that check they understood, and a reason to talk about the story together.',
-    inside: '10 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in six short chapters, a fill-in, circle and draw page for every chapter, a word search, a reading log, a teacher guide and an answer key.',
+    inside: '11 original Jurassic English storybooks as print-ready workbooks, 30 A4 pages each: the story in six short chapters, a fill-in, circle and draw page for every chapter, a word search, a reading log, a teacher guide and an answer key.',
     forWho: 'Children aged 4–8 (CEFR Pre-A1 → A1), read with a parent or teacher. One-learner licence: print for your own child. Teachers and tutors can ask on Zalo about using them with a class.',
   }, {
     title: 'Sách truyện bài tập Level 1',
     problem: 'Con thích nghe truyện, nhưng bố mẹ muốn có trang để con viết, câu hỏi kiểm tra con hiểu truyện chưa, và lý do để hai bố con cùng trò chuyện về câu chuyện.',
-    inside: '10 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
+    inside: '11 truyện gốc của Jurassic English thành sách bài tập in sẵn, mỗi cuốn 30 trang A4: truyện chia sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và vẽ, thêm trò tìm từ, nhật ký đọc, hướng dẫn cho giáo viên và đáp án.',
     forWho: 'Trẻ 4–8 tuổi (CEFR Pre-A1 → A1), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Giáo viên và gia sư muốn dùng cho lớp xin nhắn Zalo.',
   }),
+  // Reading & Reasoning Library pilot (WW-20261116-RL20; master, 16 Nov 2026: option A, the approved Mango single-story price,
+  // 49.000₫, VND only, so no PayPal). One Level 1 story, three PDFs (reader, workbook, teacher and parent guide) from the
+  // JE-L1-18 commercial build 16b. Order code WINDSUN-L1 (productsSource.ts FIXED_ORDER_CODES); samples are the 3 pages of
+  // its watermarked preview.pdf (cover, story page 1, its workbook page). Portal buy stays off until the portal product is active.
+  {
+    id: RR_WIND_SUN_ID,
+    live: true,
+    section: 'families',
+    category: 'workbooks',
+    books: ['The Wind, the Sun and the Yellow Coat'],
+    price: '49.000₫',
+    href: 'zalo',
+    image: RR_WIND_SUN_ID,
+    sample: RR_WIND_SUN_ID,
+    delivery: true,
+    credit: RR_CREDIT,
+    en: {
+      label: 'Digital download · Reading & Reasoning · New',
+      title: 'The Wind, the Sun and the Yellow Coat',
+      problem: 'Your child can follow a short story, but you want them to point to the clue in the text and say why, not just guess.',
+      inside: 'A new Jurassic English retelling of Aesop’s fable, with a new girl, Ruby, and her yellow coat. Three print-ready A4 PDFs: a story reader (6 illustrated story pages, glossary and index; 14 pages), a workbook (numbered questions for every story page, four Think pages, Listen and choose, Put the story in order, and an answer key; 21 pages), and a teacher and parent guide (three 25-minute sessions, expected answers, a rubric and ideas for different learners; 18 pages).',
+      forWho: 'Children aged 4–8, Level 1 · Foundation (intended CEFR Pre-A1 → A1, a design target, not a certificate), read with a parent or teacher. One-learner licence: print for your own child. An earlier edition of this story is one of the 10 books in the Level 1 Story Workbooks; this Reading & Reasoning edition is new and is sold on its own.',
+      unit: 'one-time · 1 story: reader, workbook and guide',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · Đọc & Tư duy · Mới',
+      title: 'The Wind, the Sun and the Yellow Coat',
+      problem: 'Con theo được một câu chuyện ngắn, nhưng bố mẹ muốn con chỉ ra chi tiết trong truyện và nói được vì sao, chứ không chỉ đoán.',
+      inside: 'Một bản kể lại mới của Jurassic English từ truyện ngụ ngôn Aesop, với cô bé Ruby và chiếc áo khoác vàng. Ba file PDF khổ A4 in sẵn: sách truyện (6 trang truyện có tranh, bảng từ và mục lục tra cứu; 14 trang), sách bài tập (câu hỏi đánh số cho từng trang truyện, bốn trang Suy nghĩ, Nghe và chọn, Sắp xếp câu chuyện, và đáp án; 21 trang), và hướng dẫn cho giáo viên và phụ huynh (ba buổi 25 phút, đáp án mong đợi, thang đánh giá và gợi ý cho từng nhóm học sinh; 18 trang).',
+      forWho: 'Trẻ 4–8 tuổi, Level 1 · Foundation (CEFR dự kiến Pre-A1 → A1, là mục tiêu thiết kế, không phải chứng chỉ), đọc cùng bố mẹ hoặc giáo viên. Bản quyền cho một học viên: in cho con bạn. Một phiên bản trước của truyện này nằm trong 10 cuốn của bộ Sách truyện bài tập Level 1; phiên bản Đọc & Tư duy này là bản mới và được bán riêng.',
+      unit: 'mua một lần · 1 truyện: sách truyện, sách bài tập và hướng dẫn',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
   { ...storyWorkbook(2, '290.000₫', 9, {
     title: 'Level 2 Story Workbooks',
     problem: 'Your child reads short texts, but you can’t tell whether they understand the story or only decode the words.',
@@ -300,7 +377,7 @@ const STORY_WORKBOOKS: Product[] = [
       title: 'Mango, the Market Cat',
       problem: 'Your child reads English but struggles to explain why a character did something.',
       inside: 'One original Jurassic English storybook as a print-ready workbook, 30 A4 pages: three neighbours claim the same orange cat, and a notebook helps one child find the truth. Six short chapters, a fill-in, circle and write page for every chapter, a Thinking Cycle page, word games, parent and teacher pages and an answer key.',
-      forWho: 'Children aged 8–10 (CEFR A1 → A2). One-learner licence: print for your own child. Mango is one of the three books in the Level 2 Story Workbooks.',
+      forWho: 'Children aged 8–10 (CEFR A1 → A2). One-learner licence: print for your own child. Mango is sold on its own; it is not one of the nine books in the Level 2 Story Workbooks.',
       unit: 'one-time · 1 workbook',
       cta: 'Order on Zalo',
     },
@@ -309,7 +386,7 @@ const STORY_WORKBOOKS: Product[] = [
       title: 'Mango, the Market Cat',
       problem: 'Con đọc được tiếng Anh nhưng chưa giải thích được vì sao nhân vật làm vậy.',
       inside: 'Một truyện gốc của Jurassic English thành sách bài tập in sẵn, 30 trang A4: một chú mèo cam ở chợ, ba người hàng xóm đều nói mèo là của mình, và một cuốn sổ tay giúp bé tìm ra sự thật. Sáu chương ngắn, mỗi chương một trang điền từ, khoanh đáp án và viết, trang Chu trình Tư duy, trò chơi từ vựng, trang cho phụ huynh và giáo viên, và đáp án.',
-      forWho: 'Trẻ 8–10 tuổi (CEFR A1 → A2). Bản quyền cho một học viên: in cho con bạn. Mango là một trong ba cuốn của bộ Sách truyện bài tập Level 2.',
+      forWho: 'Trẻ 8–10 tuổi (CEFR A1 → A2). Bản quyền cho một học viên: in cho con bạn. Mango được bán riêng, không nằm trong 9 cuốn của bộ Sách truyện bài tập Level 2.',
       unit: 'mua một lần · 1 cuốn',
       cta: 'Đặt mua qua Zalo',
     },
@@ -586,6 +663,77 @@ export const PRODUCTS: Product[] = [
       cta: 'Đặt mua qua Zalo',
     },
   },
+  {
+    // Thinking Expeditions Level 1 (WW-20261117-CT60; Jay's "GO 190k", relayed by the master, 17 Nov 2026): the Level 1 critical
+    // thinking workbook, first edition v1.0, 142 pages, passed its final gate 16 Nov 2026. 190.000₫, VND only (no US$ price was
+    // approved, so no PayPal). Sample = the free Level 1 Unit 1 sample PDF: its cover and the whole ten-page unit (pages 7-16),
+    // no answer key. Portal buy stays off until the portal product is active. Licence (Jay, 17 Nov 2026): personal, ONE LEARNER
+    // (CT_LICENCE, verbatim); classroom use needs a separate licence and is never included in this price.
+    id: 'thinking-expeditions-l1',
+    live: true,
+    section: 'families',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'thinking-expeditions-l1',
+    sample: 'thinking-expeditions-l1',
+    delivery: true,
+    credit: CT_CREDIT,
+    licence: CT_LICENCE,
+    en: {
+      label: 'Digital download · Critical thinking · New',
+      title: 'Thinking Expeditions Level 1: Foundation',
+      problem: 'Your child picks an answer but can’t yet say why. You want them to look closely, compare and give a reason with “because”.',
+      inside: 'A full-year critical thinking workbook: 142 print-ready A4 pages. Eight picture-led units with Professor Rex, Mai and Leo (Same, Different, Odd One Out; What Comes Next?; First, Next, Last; Sort the Dig; Clue Hunt; Because Detectives; Kind and Fair; Rex’s Choices), ten pages each in the same nine steps, plus a pre-check, a post-check, a certificate, an answer key with what to accept, notes for teachers and parents, a glossary and an index. The sample shows all of Unit 1.',
+      forWho: 'Children aged about 6–8, Level 1 · Foundation (intended English level Pre-A1 to A1, a design target, not a certificate), with a parent or teacher. The pictures carry the thinking, so reading is never the obstacle. About 16 sessions of 25 minutes. Personal licence — one learner: for one learner’s personal use only. Separate licences are required for additional learners or classroom use.',
+      unit: 'one-time · 1 book, 8 units (PDF)',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · Tư duy phản biện · Mới',
+      title: 'Thinking Expeditions Level 1: Foundation',
+      problem: 'Con chọn được đáp án nhưng chưa nói được vì sao. Bố mẹ muốn con quan sát kỹ, so sánh và đưa ra lý do bằng “because”.',
+      inside: 'Sách bài tập tư duy phản biện cho cả năm: 142 trang A4 in sẵn. Tám bài học bằng tranh cùng Giáo sư Rex, Mai và Leo (Same, Different, Odd One Out; What Comes Next?; First, Next, Last; Sort the Dig; Clue Hunt; Because Detectives; Kind and Fair; Rex’s Choices), mỗi bài mười trang theo cùng chín bước, kèm bài kiểm tra đầu vào, bài kiểm tra cuối, giấy khen, đáp án có hướng dẫn chấp nhận câu trả lời, ghi chú cho giáo viên và phụ huynh, bảng từ và mục lục tra cứu. Trang mẫu có trọn Unit 1.',
+      forWho: 'Trẻ khoảng 6–8 tuổi, Level 1 · Foundation (trình độ tiếng Anh dự kiến Pre-A1 đến A1, là mục tiêu thiết kế, không phải chứng chỉ), học cùng bố mẹ hoặc giáo viên. Tranh minh họa mang phần tư duy, nên việc đọc không bao giờ là rào cản. Khoảng 16 buổi, mỗi buổi 25 phút. Giấy phép sử dụng cá nhân — một học viên: chỉ dùng cho việc học cá nhân của một học viên. Cần có giấy phép riêng cho học viên bổ sung hoặc việc sử dụng trong lớp học.',
+      unit: 'mua một lần · 1 cuốn, 8 bài (PDF)',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
+  {
+    // Thinking Expeditions Level 2 (WW-20261117-CT62; Jay's "Finish Thinking Expeditions Level 2", relayed by the master, 17 Nov 2026):
+    // the Level 2 critical thinking workbook, first edition v1.0, 144 pages, passed its final gate 17 Nov 2026. 190.000₫ is the master's
+    // proposal, the same as Level 1; Jay's merge of the site PR is his approval of the price. VND only (no US$ price, so no PayPal).
+    // Sample = the free Level 2 Unit 2 sample PDF: its cover and the whole ten-page unit (pages 7-16), no answer key. Portal buy stays
+    // off until the portal product is active. Licence (Jay, 17 Nov 2026, D4): personal, ONE LEARNER (CT_LICENCE, verbatim, the same
+    // as Level 1); classroom use needs a separate licence and is never included in this price.
+    id: 'thinking-expeditions-l2',
+    live: true,
+    section: 'families',
+    price: '190.000₫',
+    href: 'zalo',
+    image: 'thinking-expeditions-l2',
+    sample: 'thinking-expeditions-l2',
+    delivery: true,
+    credit: CT_CREDIT,
+    licence: CT_LICENCE,
+    en: {
+      label: 'Digital download · Critical thinking · New',
+      title: 'Thinking Expeditions Level 2: Development',
+      problem: 'Your child gives an answer but can’t yet tell a clue from a guess or back a claim with evidence. You want them to test an idea, not just state it.',
+      inside: 'A full-year critical thinking workbook: 144 print-ready A4 pages. Eight picture-led units at River Bend Camp with Professor Rex, Nia and Bao (Fossil Analogies; Clue or Guess?; Chains of Cause; Patterns and Rules; Two-Way Sorting; Whose Point of View?; Claim and Evidence; Plan a Fair Test), ten pages each, plus a pre-check, a post-check, a certificate, an answer key with what to accept, notes for teachers and parents, a glossary and an index. The sample shows all of Unit 2, Clue or Guess?.',
+      forWho: 'Children aged about 8–10, Level 2 · Development (intended English level A1 to A2, a design target, not a certificate), with a parent or teacher. Short sentences and pictures keep the thinking, not the reading, as the challenge. About 16 sessions of 30 minutes. Personal licence — one learner: for one learner’s personal use only. Separate licences are required for additional learners or classroom use.',
+      unit: 'one-time · 1 book, 8 units (PDF)',
+      cta: 'Order on Zalo',
+    },
+    vi: {
+      label: 'Tài liệu số · Tư duy phản biện · Mới',
+      title: 'Thinking Expeditions Level 2: Development',
+      problem: 'Con đưa ra được câu trả lời nhưng chưa phân biệt được manh mối với đoán mò, hay nêu bằng chứng cho nhận định của mình. Bố mẹ muốn con thử nghiệm một ý tưởng chứ không chỉ phát biểu.',
+      inside: 'Sách bài tập tư duy phản biện cho cả năm: 144 trang A4 in sẵn. Tám bài học bằng tranh tại River Bend Camp cùng Giáo sư Rex, Nia và Bao (Fossil Analogies; Clue or Guess?; Chains of Cause; Patterns and Rules; Two-Way Sorting; Whose Point of View?; Claim and Evidence; Plan a Fair Test), mỗi bài mười trang, kèm bài kiểm tra đầu vào, bài kiểm tra cuối, giấy khen, đáp án có hướng dẫn chấp nhận câu trả lời, ghi chú cho giáo viên và phụ huynh, bảng từ và mục lục tra cứu. Trang mẫu có trọn Unit 2, Clue or Guess?.',
+      forWho: 'Trẻ khoảng 8–10 tuổi, Level 2 · Development (trình độ tiếng Anh dự kiến A1 đến A2, là mục tiêu thiết kế, không phải chứng chỉ), học cùng bố mẹ hoặc giáo viên. Câu ngắn và tranh minh họa giữ cho thử thách nằm ở tư duy chứ không ở việc đọc. Khoảng 16 buổi, mỗi buổi 30 phút. Giấy phép sử dụng cá nhân — một học viên: chỉ dùng cho việc học cá nhân của một học viên. Cần có giấy phép riêng cho học viên bổ sung hoặc việc sử dụng trong lớp học.',
+      unit: 'mua một lần · 1 cuốn, 8 bài (PDF)',
+      cta: 'Đặt mua qua Zalo',
+    },
+  },
   ...PHONICS_BOOKS,
   ...STORY_WORKBOOKS,
   {
@@ -603,7 +751,7 @@ export const PRODUCTS: Product[] = [
       label: 'Digital download · one teacher',
       title: 'Level 1 Teacher Pack',
       problem: 'You teach young children privately and spend your evenings planning lessons from scratch.',
-      inside: 'The Level 1 course and its method, and 40 ready lesson plans (126 A4 pages), each built on one of ten original Jurassic English stories. Also the ten Teacher Books, one for each story: how to teach it, a unit plan, a rubric and the answer key. 11 PDFs.',
+      inside: 'The Level 1 course and its method, and 40 ready lesson plans, each built on one of ten original Jurassic English stories, plus four bonus lessons on Lina and the Orchard Map (139 A4 pages in all). Also eleven Teacher Books, one for each of those stories and one for Lina and the Orchard Map: how to teach it, a unit plan, a rubric and the answer key. 12 PDFs.',
       forWho: 'One named tutor or teacher, for their own classes (ages 4–8, CEFR Pre-A1 → A1). Not for use across a centre; centres need the Centre Licence. Students read the stories in the Level 1 Story Workbooks (sold separately).',
       unit: 'one-time',
       cta: 'Order on Zalo',
@@ -612,7 +760,7 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · một giáo viên',
       title: 'Bộ tài liệu Giáo viên Level 1',
       problem: 'Thầy cô dạy kèm các bé và mất cả buổi tối để tự soạn bài từ đầu.',
-      inside: 'Khóa học Level 1 và phương pháp, cùng 40 giáo án soạn sẵn (126 trang A4), mỗi giáo án dựa trên một trong mười truyện gốc của Jurassic English. Kèm mười Sách giáo viên, mỗi truyện một cuốn: cách dạy, kế hoạch bài học, thang đánh giá và đáp án. 11 tệp PDF.',
+      inside: 'Khóa học Level 1 và phương pháp, cùng 40 giáo án soạn sẵn, mỗi giáo án dựa trên một trong mười truyện gốc của Jurassic English, và bốn giáo án bổ sung về Lina and the Orchard Map (tổng cộng 139 trang A4). Kèm mười một Sách giáo viên, một cuốn cho mỗi truyện đó và một cuốn cho Lina and the Orchard Map: cách dạy, kế hoạch bài học, thang đánh giá và đáp án. 12 tệp PDF.',
       forWho: 'Một giáo viên đứng tên, dùng cho lớp của chính mình (4–8 tuổi, CEFR Pre-A1 → A1). Không dùng cho cả trung tâm; trung tâm cần Giấy phép Trung tâm. Học viên đọc truyện trong bộ Sách truyện bài tập Level 1 (bán riêng).',
       unit: 'mua một lần',
       cta: 'Đặt mua qua Zalo',
@@ -753,7 +901,7 @@ export const PRODUCTS: Product[] = [
       label: 'Digital download · one teacher · Levels 1–5',
       title: 'Complete Teacher Bundle, Levels 1–5',
       problem: 'You teach several age groups and want one consistent programme from age 4 to 14+, not five different sets of notes.',
-      inside: 'All five Teacher Packs: the course and 40 lesson plans for each level (200 lesson plans in all), each built on original Jurassic English stories, and the Teacher Books for every level’s stories (49 in all).',
+      inside: 'All five Teacher Packs: the course and 40 lesson plans for each level (200 lesson plans in all), each built on original Jurassic English stories, and the Teacher Books for every level’s stories (50 in all).',
       forWho: 'One named tutor or teacher who teaches across levels. Bought separately, the five packs cost 3.450.000₫. Students read the stories in the Story Workbooks for each level (sold separately).',
       unit: 'one-time · all 5 levels',
       cta: 'Order on Zalo',
@@ -762,7 +910,7 @@ export const PRODUCTS: Product[] = [
       label: 'Tài liệu số · một giáo viên · Level 1–5',
       title: 'Trọn bộ tài liệu Giáo viên Level 1–5',
       problem: 'Thầy cô dạy nhiều lứa tuổi và muốn một chương trình thống nhất từ 4 đến trên 14 tuổi, thay vì năm bộ ghi chú khác nhau.',
-      inside: 'Cả năm Bộ tài liệu Giáo viên: khóa học và 40 giáo án cho mỗi cấp độ (tổng cộng 200 giáo án), mỗi giáo án dựa trên truyện gốc của Jurassic English, cùng Sách giáo viên cho các truyện của mọi cấp độ (tổng cộng 49 cuốn).',
+      inside: 'Cả năm Bộ tài liệu Giáo viên: khóa học và 40 giáo án cho mỗi cấp độ (tổng cộng 200 giáo án), mỗi giáo án dựa trên truyện gốc của Jurassic English, cùng Sách giáo viên cho các truyện của mọi cấp độ (tổng cộng 50 cuốn).',
       forWho: 'Một giáo viên đứng tên dạy nhiều cấp độ. Mua lẻ, năm bộ có giá 3.450.000₫. Học viên đọc truyện trong các bộ Sách truyện bài tập của từng cấp độ (bán riêng).',
       unit: 'mua một lần · cả 5 cấp độ',
       cta: 'Đặt mua qua Zalo',
@@ -789,7 +937,7 @@ export const PRODUCTS: Product[] = [
       title: 'Level 1 Student Workbook',
       problem: 'Your Level 1 learners need their own page for every lesson, and copying worksheets together each week takes hours.',
       inside: '63 printable A4 pages: 40 lesson pages in the order of the Level 1 Teacher Pack, 10 story opener pages and 4 keepsake pages (Thinking Tools, Thinking Passport and a certificate). One PDF.',
-      forWho: 'Learners (ages 4–8, CEFR Pre-A1 → A1) doing Level 1 with a teacher, tutor or parent. The ten stories are original Jurassic English storybooks, sold as the Level 1 Story Workbooks; no published book is needed. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
+      forWho: 'Learners (ages 4–8, CEFR Pre-A1 → A1) doing Level 1 with a teacher, tutor or parent. The ten lesson stories are original Jurassic English storybooks, all included in the Level 1 Story Workbooks; no published book is needed. One learner per licence; a class set for 10 learners is 1.490.000₫ on Zalo.',
       unit: 'per learner · class set of 10: 1.490.000₫',
       cta: 'Order on Zalo',
     },
@@ -798,7 +946,7 @@ export const PRODUCTS: Product[] = [
       title: 'Sách bài tập học viên Level 1',
       problem: 'Học viên Level 1 cần trang riêng cho mỗi bài học, còn tự photo phiếu bài tập mỗi tuần thì tốn hàng giờ.',
       inside: '63 trang A4 in được: 40 trang theo từng bài, đúng thứ tự Bộ tài liệu Giáo viên Level 1, 10 trang mở đầu truyện và 4 trang lưu niệm (Công cụ tư duy, Hộ chiếu tư duy và giấy khen). Một tệp PDF.',
-      forWho: 'Học viên (4–8 tuổi, CEFR Pre-A1 → A1) học Level 1 cùng giáo viên, gia sư hoặc phụ huynh. Mười truyện là truyện gốc của Jurassic English, bán trong bộ Sách truyện bài tập Level 1; không cần sách đã xuất bản. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
+      forWho: 'Học viên (4–8 tuổi, CEFR Pre-A1 → A1) học Level 1 cùng giáo viên, gia sư hoặc phụ huynh. Mười truyện dùng trong bài học là truyện gốc của Jurassic English, đều có trong bộ Sách truyện bài tập Level 1; không cần sách đã xuất bản. Mỗi bản quyền cho một học viên; bộ cho lớp 10 học viên giá 1.490.000₫ qua Zalo.',
       unit: 'mỗi học viên · bộ 10 học viên: 1.490.000₫',
       cta: 'Đặt mua qua Zalo',
     },
@@ -1735,6 +1883,7 @@ export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'de
   link?: { href: string; label: string };
   paused?: boolean;
   credit?: string;
+  licence?: string;
 };
 
 /** A product's extra link in one language. */
@@ -1753,8 +1902,8 @@ export function productsPage(locale: Locale) {
       // The IELTS section has no cards on /products after P6; ProductsPage shows the one moved card instead.
       cards: PRODUCTS.filter((p) => p.live && p.section === id && id !== IELTS_MOVED_SECTION).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, usd, orderOnly, reader, clip, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, usd, orderOnly, reader, clip, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).

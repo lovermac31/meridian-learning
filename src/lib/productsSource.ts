@@ -64,7 +64,8 @@ export function readVisitorSource(search: string, storage: SourceStorage | null)
 
 // A product whose code is fixed in its campaign posts (Mango pilot, 11 Nov 2026: "Nhắn Zalo, ghi mã MANGO-L2"): the
 // page always shows that code, whatever the source; the utm still reaches analytics and the Zalo link.
-export const FIXED_ORDER_CODES: Record<string, string> = { 'mango-l2': 'MANGO-L2' };
+// The Reading & Reasoning single story (16 Nov 2026) has its own fixed code, WINDSUN-L1, in the same style.
+export const FIXED_ORDER_CODES: Record<string, string> = { 'mango-l2': 'MANGO-L2', 'rr-l1-wind-sun-yellow-coat': 'WINDSUN-L1' };
 
 /**
  * A Zalo link from the checkout page (Mango pilot, 11 Nov 2026). A product with a fixed order code goes to its own Zalo

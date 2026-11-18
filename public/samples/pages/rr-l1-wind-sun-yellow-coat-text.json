@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "productId": "rr-l1-wind-sun-yellow-coat",
+  "sampleStem": "rr-l1-wind-sun-yellow-coat",
+  "pageCount": 3,
+  "source": {
+    "file": "rr-l1-wind-sun-yellow-coat-sample.pdf",
+    "sha256": "6ef3236792ec8159c53b02b0af7e89d88505df77deb185d9e9dcd4d8b814d8bb"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "rr-l1-wind-sun-yellow-coat-pg01.webp",
+      "imageSha256": "424ee6eb49c92a8e6a303a7ffadbd5c270f7bd6ba13627d3fbb55ed4bd1da287",
+      "text": "RETOLD FROM AESOP'S FABLE\nThe Wind, the Sun and the Yellow Coat\nLevel 1 · Foundation Ages 4-8 Story + Workbook\nSample only. Not for resale.",
+      "textSha256": "af04b4a8abc657c9521fb6ff4675841556bd149de72d1413a01abf582f848911",
+      "method": "pdf-text"
+    },
+    {
+      "page": 2,
+      "image": "rr-l1-wind-sun-yellow-coat-pg02.webp",
+      "imageSha256": "539e5ea58b3ed060dc86e24d7436c8a70a79bf78438cf1c31397b1c900e93402",
+      "text": "Story page 1: Who is stronger?\nHigh in the sky, the Wind and the Sun talk.\n‘I am stronger than you,’ says the Wind.\n‘Let’s see,’ says the Sun. ‘Look at that girl on the bike.’\nSample only. Not for resale.",
+      "textSha256": "2e73ac1c090fe9231b4357967ea42b027f36ba3820f14e8564feaab1d8d02039",
+      "method": "pdf-text"
+    },
+    {
+      "page": 3,
+      "image": "rr-l1-wind-sun-yellow-coat-pg03.webp",
+      "imageSha256": "13309c763a7300afa2b73146c06a3185612ca4bf80bfae7fe1cf16466712287c",
+      "text": "Story page 1: Who is stronger?\nHigh in the sky, the Wind and the Sun talk.\n‘I am stronger than you,’ says the Wind.\n‘Let’s see,’ says the Sun. ‘Look at that girl on the bike.’\nQ1 · finding evidence\nWho talks in the sky?\nTwo birds\nThe Wind and the Sun\nThe Moon and a star\nQ2 · inference\nWhat does the Wind think?\nHe is stronger than the Sun.\nThe Sun is much stronger.\nThe girl is very strong.\nQ3 · word meaning\nWord: stronger\nWhat does it mean? Say it, act it or draw it.\nSample only. Not for resale.",
+      "textSha256": "5414509005a7f55f5390dc81f36ffc82b412681429f390358c409b15f0712651",
+      "method": "pdf-text"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "productId": "phonics-b3",
+  "sampleStem": "phonics-b3",
+  "pageCount": 14,
+  "source": {
+    "file": "phonics-b3-sample.pdf",
+    "sha256": "55d2ea5e6163feba13f58e25178bfc873677dafadc966a65377a39c48e9b8d99"
+  },
+  "pages": [
+    {
+      "page": 1,
+      "image": "phonics-b3-pg01.webp",
+      "imageSha256": "5053453a9ee133a4ff22debe2536603fe66885fd6749f2c7d26b322f2d478535",
+      "text": "Jurassic English Phonics\nBook 3\nLong Vowels\na_e i_e o_e u_e\nListen · Read · Write · Play\nby Matthew Goslee\nWorldWise Learning",
+      "textSha256": "9cfc569e03fc0556798302ed7838811f50f8d2aa767a998ca68cd9a2513ec191",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 2,
+      "image": "phonics-b3-pg02.webp",
+      "imageSha256": "646c33b74f4e632e84533faa83f3cc615870b390aa49c4ba31d20ca57aed3620",
+      "text": "Jurassic English Phonics\nBook 3 · Long Vowels\nby Matthew Goslee\nLong vowels a_e, i_e, o_e, u_e\n7 units · 2 review units · Challenge\nWords, sounds, stories and games\nWorldWise Learning",
+      "textSha256": "b1b08f351237a17bdb4353e8c4709b762b68971850511d00f67a34d1efa63972",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 3,
+      "image": "phonics-b3-pg03.webp",
+      "imageSha256": "f367a303a5c75076f6d5de45a83ebedc4049328940d9282d328a94a89ef4f7c2",
+      "text": "Contents\nUnit 1 · Long Vowel a · A Bakery · page 4: cake, lake, rake, bake, tape, cape, cave, wave\nUnit 2 · Long Vowel a · Camping by the Lake · page 12: name, game, gate, date, cane, mane, vase, case\nUnit 3 · Long Vowel i · Superhero Dress-Up · page 20: nine, pine, line, vine, time, dime, bike, mike\nUnit 4 · Long Vowel i · Dinosaur Valley · page 28: fire, tire, five, dive, pipe, wipe, bite, kite\nReview 1 · Long Vowels a / i · Chant, Game, Story · Units 1–4 · page 36",
+      "textSha256": "32b256c9b2a50183de005c918c9834c983cb8a23d9561551125c56ed6178bd8b",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 4,
+      "image": "phonics-b3-pg04.webp",
+      "imageSha256": "5d77f17dfe11322cea2f127e2f06d8e4cc3b3c836b6e9563d75f77e721edd605",
+      "text": "Contents\nUnit 5 · Long Vowel o · Space Trip · page 44: nose, rose, rope, hope, vote, note\nUnit 6 · Long Vowel o · At the Zoo · page 52: cone, bone, pole, hole, home, dome\nUnit 7 · Long Vowel u · Aquarium · page 60: cube, tube, June, tune, dune, mule, fuse, cute\nReview 2 · Long Vowels o / u · Chant, Game, Story · Units 5–7 · page 68\nChallenge · Long Vowels a / i / o / u · Pirate Ship · Game, Puzzles, Story · page 76\nTest and Key Vocabulary · Listening, Reading & Writing · 30 questions · Key Vocabulary on page 92 · page 84",
+      "textSha256": "9f136a32d8204770ac32f6261cf4038371053c7fa8154bd7a715080a5bc0543e",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 5,
+      "image": "phonics-b3-pg05.webp",
+      "imageSha256": "6ddb4c011ab4d469c8af1a9d9f950950704184b4552e9fcaf7688be22c9eeaa1",
+      "text": "Unit 1 · Long Vowel a\n1 Words and Pictures (Track 01)\nListen, repeat, and say.\ncake, lake, rake, bake, tape, cape, cave, wave",
+      "textSha256": "a4edc97a94d1df7a8338e345063118ce82086e156a3610a2a30c607a2815fc9e",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 6,
+      "image": "phonics-b3-pg06.webp",
+      "imageSha256": "dbde7a8a582844b5e4673e0a81b42406c64bf069b41d55a437e5b6363ed68513",
+      "text": "A Listen and repeat. (Track 02)\nc-ake, cake. l-ake, lake. r-ake, rake. b-ake, bake.\nt-ape, tape. c-ape, cape. c-ave, cave. w-ave, wave.",
+      "textSha256": "5505bb227966246eac19b7a76cac96350b9d93dbcbd2ceac0f509b81aa0c5a9a",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 7,
+      "image": "phonics-b3-pg07.webp",
+      "imageSha256": "7038aa7a83e0c4021732155b4b7379b84e12d4fd4a86dae0719d15892e910c45",
+      "text": "B Circle the picture that rhymes.\nSay the word part. Then say each picture.\n1 -ake\n2 -ape\n3 -ave\n4 -ake\n5 -ape\n6 -ave",
+      "textSha256": "bee1e4f64da75d65f571953f00986d80af3e80b998cee219efd55c596060a9d4",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 8,
+      "image": "phonics-b3-pg08.webp",
+      "imageSha256": "894822c45ad43200c1b311b361cd51a21dcbde9a8deb7214abf620cb3b21edf2",
+      "text": "C Circle the word for the picture. Then write the word on the line.\n1 tap / tape (example: tape)\n2 cave / can\n3 back / bake\n4 cake / cat\n5 cap / cape\n6 rat / rake",
+      "textSha256": "443b02efba0f896ed74fcdb7c08cd959f4b9a51cad4ddeb86c3dabe53003d132",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 9,
+      "image": "phonics-b3-pg09.webp",
+      "imageSha256": "f0a80387c4586b4e56d33db69728cfe7a5318792e1e82ce610a102f3f69cfe5e",
+      "text": "D Listen and circle the picture. (Track 03)\nEight rows of three pictures: listen to the word and circle the picture you hear.",
+      "textSha256": "e78196e5c20056d1cc338ba1d8fbb944c8dfc46cd566baac95db2a4860e77747",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 10,
+      "image": "phonics-b3-pg10.webp",
+      "imageSha256": "1ca3b18c632244e874ab1d442fa3d801ebfd0247f4cff6e5a65f539c7e5c59e3",
+      "text": "E Listen and fill in the circle. (Track 04)\nChoose the sentence you hear. Sight words: and, a, the, into, in, on\n1 Dane and Kate bake a cake. / Dane and Kate bake a cape. / Dane and Kate bake a lake.\n2 A fox runs into the wave. / A fox runs into the lake. / A fox runs into the cave.\n3 A bear naps in a red cake. / A bear naps in a red cape. / A bear naps in a red tape.\n4 A red tape sits on the bed. / A red cake sits on the bed. / A red cape sits on the bed.",
+      "textSha256": "eb564a265dea858144cf600e5dce5eb644c33b3d4cba1618c2b4c1926cffac1e",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 11,
+      "image": "phonics-b3-pg11.webp",
+      "imageSha256": "5548d584b011ecd3cb1b7317a71db9a9e836f60c0d77504de37579596a64bba6",
+      "text": "F Say the word. Write it in the puzzle.\nAcross and down: six picture clues.\nWords: cape, rake, tape, lake, wave, bake (example: rake)",
+      "textSha256": "801f0d838a745572c6478aafea130f125656c8cf4b2c6ecde7e8fb1d7ffe4c50",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 12,
+      "image": "phonics-b3-pg12.webp",
+      "imageSha256": "01d920c2b2fae8c3e566bcdf3a14c9211714a7713ae49f1f59b9a20f8fd82943",
+      "text": "G Look and write the missing word. Circle the word. Then write it on the line.\n1 Dad has a ___. (rake, cake) Example: rake\n2 There is a ___ by the lake. (cape, rake)\n3 The fox is by the ___. (lake, cave)\n4 The fox is in the ___. (wave, cave)\nI finished Unit 1!",
+      "textSha256": "c567e5c131b4ea0b8ca95295524d394f881ebcbef7c4ae0a7fd2e52c49ed4926",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 13,
+      "image": "phonics-b3-pg13.webp",
+      "imageSha256": "ad740cc3c33b3023a93dd0dbfaa99f7778f53fde71ee31cc1e4971d2b09954ce",
+      "text": "Audio and Credits\nListen: this book has 43 audio tracks (MP3). The track number in each headphone tag, for example Track 07, matches the file name Book3_Track07.mp3. Find the files in the Audio folder of your download. Play them on any phone, tablet or computer, as often as you like. Press play, listen, pause, then answer. Most tracks are played twice. No audio yet? Teachers can read the scripts aloud from the Teacher's Guide.\nCredits: Jurassic English Phonics · Book 3 · Long Vowels. Text and activities by Matthew Goslee. Published by WorldWise Learning / Jurassic English. Illustrations are made with AI image tools and edited by the publisher. The audio is synthetic text-to-speech. © 2026 Jurassic English. All rights reserved. For use by the purchasing family, teacher or school. Please do not copy, resell or share the files. Questions: www.jurassicenglish.com",
+      "textSha256": "a764d74dd40d3795bfd9bfbf502c82966fe64de17c45a47ddcbba2c7e8acb104",
+      "method": "pdf-text+reviewed-ocr"
+    },
+    {
+      "page": 14,
+      "image": "phonics-b3-pg14.webp",
+      "imageSha256": "788f4c263683b5c054eeec4cfd6a3a201af31cfd713b5cd9377dbc181b04e397",
+      "text": "Jurassic English Phonics\nBook 3 · Long Vowels\nJurassic English Phonics is a five-book series that helps young learners read and spell English with confidence.\nIn Book 3, children learn the long vowels a_e, i_e, o_e and u_e through themed units, songs, games and stories.\n7 themed units, 2 review units and a Challenge · Listening tracks, word games and picture stories · A test and key vocabulary list at the back\nThe series: Book 1, Book 2, Book 3, Book 4, Book 5\nby Matthew Goslee · WorldWise Learning · www.jurassicenglish.com",
+      "textSha256": "3b1f2c004491f1c2bd85396c85c95e11c7405aed335904da3b26e989154d1a4b",
+      "method": "pdf-text+reviewed-ocr"
+    }
+  ]
+}

@@ -15,6 +15,7 @@
  */
 import { BASELINE_PATH, baselineHref } from '../lib/baselineLink';
 import { getExpectedPublicIndexableRoutes } from '../lib/routeMetadata';
+import { movedHref } from '../config/movedToJurassicielts';
 import { DEFAULT_LOCALE, type Locale } from './locales';
 import { getLocaleForPathname, localizeRouteTarget } from './routing';
 
@@ -42,7 +43,13 @@ function isIndexableRoute(pathname: string) {
   return indexableRoutes.has(pathname);
 }
 
+/** IELTS migration P7: AI Speaking pages moved to jurassicielts.com; the held pages (exam, solutions, ladder) stay on JE. */
 export function getLocalizedHref(href: string, locale: Locale): string {
+  const resolved = resolveLocalizedHref(href, locale);
+  return resolved.startsWith('/ai-speaking') ? movedHref(resolved) : resolved;
+}
+
+function resolveLocalizedHref(href: string, locale: Locale): string {
   if (locale === DEFAULT_LOCALE) return href;
 
   const staticHref = LOCALIZED_STATIC_HREFS[href]?.[locale];

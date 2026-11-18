@@ -8,12 +8,11 @@ import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from '../src/i18n/content/s
 import { fetchSampleText, SAMPLE_TEXT_MAX_BYTES, validateSampleText } from '../src/lib/sampleText';
 const fixture = () => JSON.parse(readFileSync('public/samples/pages/story-club-text.json', 'utf8'));
 
-test('all 46 sample-bearing products expose exactly their 406 approved public sample pages, with bound image and text hashes', () => {
+test('all 52 sample-bearing products expose their 473 approved public sample pages, with bound image and text hashes', () => {
   const sha = (value: string | Buffer) => createHash('sha256').update(value).digest('hex');
-  const products = PRODUCTS.filter(p => p.live && p.group !== 'bundles'); // the three IELTS bundles are checked in the next test
-  // 44 packs, plus Phonics Books 1 and 2 (15 Nov 2026, 14 pages each, reviewed transcription: their PDFs have no text layer).
-  assert.equal(products.length, 46);
-  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json')).length, 49, '46 packs + 3 bundles');
+  const products = PRODUCTS.filter(p => p.live && p.group !== 'bundles');
+  assert.equal(products.length, 52);
+  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json')).length, 55, '52 packs + 3 bundles');
   let pages = 0, ocr = 0;
   for (const product of products) {
     const count = SAMPLE_PAGE_COUNTS[product.sample!];
@@ -27,8 +26,8 @@ test('all 46 sample-bearing products expose exactly their 406 approved public sa
     }
     pages += doc.pageCount;
   }
-  assert.equal(pages, 406);
-  assert.equal(ocr, 42);
+  assert.equal(pages, 473);
+  assert.equal(ocr, 84);
   assert.equal(readdirSync('public/samples').filter(p => p.endsWith('.pdf')).length, 0, 'no sample PDF is published');
 });
 

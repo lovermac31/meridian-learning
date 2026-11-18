@@ -22,7 +22,7 @@ for (const locale of ['en', 'vi'] as const) {
     assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'phonics', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Phonics, then Story Workbooks, right after Families (15 Nov 2026)');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
     assert.equal(total, ON_PRODUCTS.length);
-    assert.equal(total, 35, '35 cards: the 14 IELTS cards moved to jurassicielts.com');
+assert.equal(total, PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 'one card per live non-IELTS product (41 with Phonics B3-B5 + TE L1-L2 + RR L1)');
     assert.ok(!productsPage(locale).sections.some((section) => section.id === IELTS_MOVED_SECTION), 'no IELTS section in the catalogue data');
     assert.match(html, /<section id="ielts" aria-labelledby="ielts-h" class="[^"]*products-category[^"]*" data-ielts-moved="">/, 'the one moved IELTS card');
     for (const section of productsPage(locale).sections) {
@@ -35,9 +35,9 @@ for (const locale of ['en', 'vi'] as const) {
       assert.ok(tile.includes(`${price}₫`));
     }
     // The Story Workbooks tile counts the five level cards and the Mango single book (they stay in the Families data) and
-    // starts at Mango's price (11 Nov 2026).
+    // starts at Mango's price (11 Nov 2026); the Reading & Reasoning single story (16 Nov 2026, also 49.000₫) makes 7.
     const workbookTile = html.match(/data-category-tile="story-workbooks"[\s\S]*?<\/button>/)![0];
-    assert.ok(workbookTile.includes(`6 ${locale === 'vi' ? 'sản phẩm' : 'products'}`) && workbookTile.includes('49.000₫'), 'workbooks tile: 6 products from 49.000₫');
+    assert.ok(workbookTile.includes(`7 ${locale === 'vi' ? 'sản phẩm' : 'products'}`) && workbookTile.includes('49.000₫'), 'workbooks tile: 7 products from 49.000₫');
     assert.equal(FEATURED_PRODUCTS.length, 5, 'five featured: the IELTS Speaking Ladder left with the IELTS cards');
     assert.ok(!(FEATURED_PRODUCTS as readonly string[]).includes('ielts-speaking-ladder'), 'the IELTS Speaking Ladder is not featured');
     assert.deepEqual(FEATURED_PRODUCTS.slice(0, 3), ['story-club', 'baseline', 'one-to-one'], 'the three live services lead');
@@ -131,9 +131,10 @@ for (const locale of ['en', 'vi'] as const) {
     assert.ok(band, 'the band renders (visible by default: no hidden attribute)');
     assert.doesNotMatch(band.slice(0, band.indexOf('>')), /hidden/, 'visible before any tile is pressed');
     assert.ok(html.indexOf('data-products-mini-nav') < html.indexOf('data-story-workbooks-band') && html.indexOf('data-story-workbooks-band') < html.indexOf('data-category-panel="families"'), 'tiles, then the level picker, then the catalogue');
-    const ids = ['story-workbooks-l1', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5'];
-    assert.deepEqual([...band.matchAll(/href="#([^"]+)" data-workbooks-level/g)].map((m) => m[1]), ids, 'one link per level, and the Mango single book after Level 2');
+    const ids = ['story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5'];
+    assert.deepEqual([...band.matchAll(/href="#([^"]+)" data-workbooks-level/g)].map((m) => m[1]), ids, 'one link per level, the Reading & Reasoning single story after Level 1 and the Mango single book after Level 2');
     assert.match(band.match(/data-workbooks-level="mango-l2"[^>]*>[\s\S]*?<\/a>/)![0], /<strong>Mango, the Market Cat<\/strong>/, 'the single book is named');
+    assert.match(band.match(/data-workbooks-level="rr-l1-wind-sun-yellow-coat"[^>]*>[\s\S]*?<\/a>/)![0], /<strong>The Wind, the Sun and the Yellow Coat<\/strong><span>Level 1 · /, 'the single story is named, with its level');
     for (const id of ids) {
       const card = productsPage(locale).sections.flatMap((s) => s.cards).find((c) => c.id === id)!;
       const link = band.match(new RegExp(`data-workbooks-level="${id}"[^>]*>[\\s\\S]*?</a>`))![0];

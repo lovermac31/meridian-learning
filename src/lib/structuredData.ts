@@ -6,6 +6,8 @@ import { hasRegionalPrice, regionalUsd } from './regionalPrice';
 import type { Product } from '../i18n/content/products';
 
 const SITE_URL = 'https://jurassicenglish.com';
+/** Sister brand of World Wise Learning (IELTS migration P10). */
+const JURASSICIELTS_URL = 'https://jurassicielts.com';
 
 export type JsonLd = Record<string, unknown>;
 
@@ -40,10 +42,16 @@ export function createOrganizationJsonLd(locale: Locale = 'en'): JsonLd {
       '@type': 'Brand',
       name: 'Jurassic English™',
     },
+    // IELTS migration P10: JurassicIELTS (jurassicielts.com) is the sister brand where all IELTS products, practice and guides
+    // live; it is listed here as a brand of the same parent. No IELTS Product, Offer or Course node stays on this site.
     parentOrganization: {
       '@type': 'Organization',
       name: 'World Wise Learning',
       url: WORLDWISE_SITE_URL,
+      brand: [
+        { '@type': 'Brand', name: 'Jurassic English™', url: SITE_URL },
+        { '@type': 'Brand', name: 'JurassicIELTS', url: JURASSICIELTS_URL },
+      ],
     },
     logo: `${SITE_URL}/icon-512.png`,
   };

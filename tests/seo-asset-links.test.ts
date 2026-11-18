@@ -26,7 +26,7 @@ test('asset inventory covers published IELTS SEO pages, with localized anchors a
       else assert.ok(['books.jurassicenglish.com', 'story-quest.jurassicenglish.com', 'jurassicielts.com'].includes(url.hostname));
     }
     if (/ielts|insights|cong-cu/.test(card.path)) {
-      assert.ok(card.links.some(link => link.href.startsWith('/ai-speaking/baseline?')));
+      assert.ok(card.links.some(link => link.href.startsWith('https://jurassicielts.com/ai-speaking/baseline?')));
       assert.ok(card.links.some(link => /^https:\/\/jurassicielts\.com\/(?:vi\/)?solutions\/[a-z0-9-]+\/\?/.test(link.href)));
       assert.ok(card.links.every(link => !/\/products\/ielts-|live-speaking-check/.test(link.href) || link.href.startsWith('https://jurassicielts.com/')));
       assert.ok(card.links.every(link => !/books\.|story-quest|story-club/.test(link.href)));
