@@ -18,7 +18,7 @@ const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf(
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
-  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['thinking-expeditions-l1', '190.000₫'], ['thinking-expeditions-l2', '190.000₫'], ['phonics-b1', '79.000₫'], ['phonics-b2', '129.000₫'], ['phonics-b3', '129.000₫'], ['phonics-b4', '129.000₫'], ['phonics-b5', '129.000₫'], ['story-workbooks-l1', '290.000₫'], ['rr-l1-wind-sun-yellow-coat', '49.000₫'], ['story-workbooks-l2', '290.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '290.000₫'], ['story-workbooks-l4', '290.000₫'], ['story-workbooks-l5', '290.000₫']],
+  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['thinking-expeditions-l1', '190.000₫'], ['thinking-expeditions-l2', '190.000₫'], ['phonics-b1', '79.000₫'], ['phonics-b2', '129.000₫'], ['story-workbooks-l1', '290.000₫'], ['rr-l1-wind-sun-yellow-coat', '49.000₫'], ['story-workbooks-l2', '290.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '290.000₫'], ['story-workbooks-l4', '290.000₫'], ['story-workbooks-l5', '290.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
@@ -141,7 +141,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'thinking-expeditions-l1', 'thinking-expeditions-l2', 'phonics-b1', 'phonics-b2', 'phonics-b3', 'phonics-b4', 'phonics-b5', 'story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'thinking-expeditions-l1', 'thinking-expeditions-l2', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
     // IELTS migration P6: the IELTS cards (and their delivery lines) left /products.
     for (const [id] of SHOWN[IELTS_MOVED_SECTION]) assert.ok(!main.includes(`data-delivery="${id}"`), `${route} ${id}: no IELTS delivery line`);
     for (const m of delivered) assert.equal(m[2], line, route);
@@ -263,7 +263,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'centre-licence': 'centre-licence', 'teacher-training-course': 'teacher-training-course',
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
     // Phonics Books 1 and 2 (15 Nov 2026): the book cover on a champagne square.
-    'phonics-b1': 'phonics-b1', 'phonics-b2': 'phonics-b2', 'phonics-b3': 'phonics-b3', 'phonics-b4': 'phonics-b4', 'phonics-b5': 'phonics-b5',
+    'phonics-b1': 'phonics-b1', 'phonics-b2': 'phonics-b2',
   };
   const { PRODUCTS, IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
   // IELTS migration P6: the IELTS cards left /products; their images stay on their entries (the product pages still build).
@@ -327,7 +327,7 @@ const SAMPLE_STEMS: Record<string, string> = {
   'ielts-essay-bank-task2': 'ielts-essay-bank-task2', 'parent-pack-l3': 'parent-pack-l3', 'holiday-reading-challenge': 'holiday-challenge',
   'thinking-cycle-posters': 'thinking-cycle-posters', 'word-fossil-flashcards-l1': 'word-fossil-flashcards-l1',
   // Jurassic English Phonics Books 1 and 2 (15 Nov 2026): stem = id; the 14 pages of each approved free sample.
-  'phonics-b1': 'phonics-b1', 'phonics-b2': 'phonics-b2', 'phonics-b3': 'phonics-b3', 'phonics-b4': 'phonics-b4', 'phonics-b5': 'phonics-b5',
+  'phonics-b1': 'phonics-b1', 'phonics-b2': 'phonics-b2',
   // Story Workbooks L1-L5 (Jay, 3 Nov 2026): stem = id; 3 sample pages each.
   'story-workbooks-l1': 'story-workbooks-l1-v2', 'story-workbooks-l2': 'story-workbooks-l2-v2', 'story-workbooks-l3': 'story-workbooks-l3-v2', 'story-workbooks-l4': 'story-workbooks-l4-v2', 'story-workbooks-l5': 'story-workbooks-l5-v2', 'mango-l2': 'mango-l2',
   // Reading & Reasoning single story (16 Nov 2026): stem = id; the 3 pages of its watermarked preview.pdf.
@@ -354,9 +354,10 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
   assert.deepEqual(Object.keys(SAMPLE_STEMS).sort(), withSample.map((p) => p.id).sort(), 'one stem per product');
   for (const p of PRODUCTS.filter((entry) => entry.sample)) assert.equal(p.sample, SAMPLE_STEMS[p.id], `${p.id}: stem from the spec`);
   const stems = PRODUCTS.filter((p) => p.sample).map((p) => p.sample!).sort();
-  const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages' && f !== 'small');
+  const isHeldPhonics = (f: string) => /^phonics-b[3-5](?:-|$)/.test(f);
+  const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages' && f !== 'small' && !isHeldPhonics(f));
   // Perf: every thumbnail has a 300 px copy in small/ (its srcset's small candidate), and nothing else is there.
-  assert.deepEqual(readdirSync('public/samples/small').filter((f) => !f.startsWith('.')).sort(), [...thumbs].sort(), 'small/ ↔ thumbnails');
+  assert.deepEqual(readdirSync('public/samples/small').filter((f) => !f.startsWith('.') && !isHeldPhonics(f)).sort(), [...thumbs].sort(), 'small/ ↔ thumbnails');
   for (const file of thumbs) assert.match(file, SAMPLE_FILE, `public/samples/${file}`);
   assert.deepEqual([...new Set(thumbs.map((file) => file.match(SAMPLE_FILE)![1]))].sort(), stems, 'thumbnails ↔ products with a sample');
   for (const stem of stems) for (const n of [1, 2, 3]) {
@@ -365,7 +366,7 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
     assert.ok(page.length < 80 * 1024, `${stem}-p${n}: < 80 KB (${page.length})`);
   }
   // Viewer page sets: public/samples/pages/<stem>-pgNN.webp, 01…N, exactly as samplePages.ts lists them.
-  const allPageAssets = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.'));
+  const allPageAssets = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.') && !isHeldPhonics(f));
   assert.deepEqual(allPageAssets.filter(f => f.endsWith('-text.json')).sort(), withSample.map(p => `${p.id}-text.json`).sort(), 'one approved text asset per product');
   const pages = allPageAssets.filter(f => !f.endsWith('-text.json'));
   for (const file of pages) assert.match(file, PAGE_FILE, `pages/${file}`);

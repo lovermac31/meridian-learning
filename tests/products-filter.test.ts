@@ -22,7 +22,7 @@ for (const locale of ['en', 'vi'] as const) {
     assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'phonics', 'story-workbooks', 'teachers', 'centres', 'ielts'], 'Phonics, then Story Workbooks, right after Families (15 Nov 2026)');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);
     assert.equal(total, ON_PRODUCTS.length);
-assert.equal(total, PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 'one card per live non-IELTS product (41 with Phonics B3-B5 + TE L1-L2 + RR L1)');
+    assert.equal(total, PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 'one card per live non-IELTS product, read from the data (38 on 17 Nov 2026 with Thinking Expeditions Level 2; the Reading & Reasoning single story, 16 Nov 2026; Thinking Expeditions Level 1, 17 Nov 2026): the 14 IELTS cards moved to jurassicielts.com');
     assert.ok(!productsPage(locale).sections.some((section) => section.id === IELTS_MOVED_SECTION), 'no IELTS section in the catalogue data');
     assert.match(html, /<section id="ielts" aria-labelledby="ielts-h" class="[^"]*products-category[^"]*" data-ielts-moved="">/, 'the one moved IELTS card');
     for (const section of productsPage(locale).sections) {
