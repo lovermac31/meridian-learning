@@ -37,6 +37,7 @@ import { getLocalizedSyllabusByRoutePath } from './i18n/content/syllabus';
 import { IeltsBandCalculatorPage, IeltsSpeakingTimerPage } from './components/IeltsToolsPage';
 import { StoryClubPage } from './components/StoryClubPage';
 import { CentreLicencePage } from './components/CentreLicencePage';
+import { FreeStoriesPage } from './components/FreeStoriesPage';
 import { ZhPreviewPage } from './components/ZhPreviewPage';
 import { getZhPreviewPage } from './i18n/content/zhPreview';
 import { StoryClubReservePage } from './components/StoryClubReservePage';
@@ -200,6 +201,7 @@ function App() {
   const isTimerToolView = routePathname === '/tools/ielts-speaking-part-2-timer';
   const isStoryClubView = routePathname === '/story-club';
   const isCentreLicenceView = routePathname === '/centres/level-1';
+  const isFreeStoriesView = routePathname === '/free-stories';
   // Unlisted Chinese preview pages (noindex): see src/i18n/content/zhPreview.ts.
   const isZhPreviewView = getZhPreviewPage(pathname) !== undefined;
   const isStoryClubReserveView = routePathname === '/story-club/reserve';
@@ -246,6 +248,7 @@ function App() {
     isBandToolView ||
     isTimerToolView ||
     isStoryClubView ||
+    isFreeStoriesView ||
     isStoryClubReserveView ||
     isProductsView ||
     isProductPageView;
@@ -272,6 +275,7 @@ function App() {
     isBandToolView ||
     isTimerToolView ||
     isStoryClubView ||
+    isFreeStoriesView ||
     isCentreLicenceView ||
     isZhPreviewView ||
     isStoryClubReserveView ||
@@ -489,6 +493,8 @@ function App() {
         <IeltsSpeakingTimerPage locale={locale} />
       ) : isStoryClubView ? (
         <StoryClubPage locale={locale} />
+      ) : isFreeStoriesView ? (
+        <FreeStoriesPage locale={locale} />
       ) : isCentreLicenceView ? (
         <CentreLicencePage locale={locale} />
       ) : isZhPreviewView ? (

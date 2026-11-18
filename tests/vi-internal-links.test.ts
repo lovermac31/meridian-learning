@@ -140,6 +140,8 @@ test('(b) no link on a Vietnamese page points to a noindex placeholder or a miss
       const path = pathOf(href);
       // The unlisted centre-licence page's language switch links its own noindex twin.
       if (ROUTES_WITHOUT_SITE_NAVBAR.has(route) && ROUTES_WITHOUT_SITE_NAVBAR.has(path)) continue;
+      // The draft free-stories page is noindex too; its language switch links its own EN twin (draft, 15 Nov 2026).
+      if (route === '/vi/free-stories' && path === '/free-stories') continue;
       const isViPath = path === '/vi' || path.startsWith('/vi/');
       const isPlaceholder = NOINDEX_PLACEHOLDERS.has(path) || (isViPath && !INDEXABLE.has(path) && !REWRITE_SERVED_VI.has(path));
       if (isPlaceholder && (chromeHrefs.has(href) || !KNOWN_CONTENT_PLACEHOLDER_LINK.test(href))) {

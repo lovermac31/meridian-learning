@@ -1,0 +1,16 @@
+/* Free stories page (draft): champagne, navy and crimson; no white fills. */
+.free-stories-page .ielts-tool-content { background: #F3E8CF; color: #13294B; }
+.free-stories-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 640px) { .free-stories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .free-stories-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.free-story-card { min-width: 0; display: flex; flex-direction: column; gap: .5rem; padding: 1rem; background: #EADBB5; border: 1px solid rgb(19 41 75 / .3); border-radius: 1rem; font-size: .9rem; line-height: 1.55; overflow-wrap: anywhere; color: #13294B; }
+.free-story-card h2 { font-size: 1.15rem; font-weight: 800; color: #13294B; }
+.free-story-cover { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 2; padding: .75rem; background: #13294B; color: #F3E8CF; border-radius: .7rem; font-weight: 800; text-align: center; }
+.free-story-eyebrow { font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #9B1C31; }
+.free-story-teen { align-self: flex-start; padding: .15rem .6rem; border: 1px solid #9B1C31; border-radius: 999px; font-size: .75rem; font-weight: 800; color: #9B1C31; }
+.free-story-free { color: #13294B; }
+.free-story-note, .free-story-pending { font-size: .8rem; }
+.free-story-link { display: inline-flex; align-items: center; min-height: 44px; font-weight: 800; color: #13294B; text-decoration: underline; text-underline-offset: 4px; }
+.free-story-link:focus-visible { outline: 3px solid #9B1C31; outline-offset: 2px; }
+.free-story-card .free-story-link:first-of-type { margin-top: auto; }
+.free-stories-note { margin-top: 1.25rem; font-size: .85rem; color: #13294B; }

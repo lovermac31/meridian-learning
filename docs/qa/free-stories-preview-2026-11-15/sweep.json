@@ -1,0 +1,184 @@
+{
+  "generatedAt": "2026-11-15T10:06:23.460Z",
+  "entries": 16,
+  "passed": 16,
+  "failed": 0,
+  "results": [
+    {
+      "lang": "en",
+      "width": 360,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-en-360.png"
+    },
+    {
+      "lang": "en",
+      "width": 375,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-en-375.png"
+    },
+    {
+      "lang": "en",
+      "width": 390,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-en-390.png"
+    },
+    {
+      "lang": "en",
+      "width": 414,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 414,
+      "innerWidth": 414,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-en-414.png"
+    },
+    {
+      "lang": "en",
+      "width": 768,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 768,
+      "innerWidth": 768,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-en-768.png"
+    },
+    {
+      "lang": "en",
+      "width": 1024,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 1024,
+      "innerWidth": 1024,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-en-1024.png"
+    },
+    {
+      "lang": "en",
+      "width": 1440,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-en-1440.png"
+    },
+    {
+      "lang": "en",
+      "width": 1920,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-en-1920.png"
+    },
+    {
+      "lang": "vi",
+      "width": 360,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 360,
+      "innerWidth": 360,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-vi-360.png"
+    },
+    {
+      "lang": "vi",
+      "width": 375,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 375,
+      "innerWidth": 375,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-vi-375.png"
+    },
+    {
+      "lang": "vi",
+      "width": 390,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 390,
+      "innerWidth": 390,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-vi-390.png"
+    },
+    {
+      "lang": "vi",
+      "width": 414,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 414,
+      "innerWidth": 414,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-vi-414.png"
+    },
+    {
+      "lang": "vi",
+      "width": 768,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 768,
+      "innerWidth": 768,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-vi-768.png"
+    },
+    {
+      "lang": "vi",
+      "width": 1024,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 1024,
+      "innerWidth": 1024,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-vi-1024.png"
+    },
+    {
+      "lang": "vi",
+      "width": 1440,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-vi-1440.png"
+    },
+    {
+      "lang": "vi",
+      "width": 1920,
+      "ok": true,
+      "failures": [],
+      "scrollWidth": 1920,
+      "innerWidth": 1920,
+      "cards": 7,
+      "overlap": 0,
+      "screenshot": "free-stories-vi-1920.png"
+    }
+  ]
+}
