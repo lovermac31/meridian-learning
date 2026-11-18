@@ -185,6 +185,43 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
       description: 'Nghe, đọc, viết, chơi: học phonics cho bé 4 đến 7 tuổi, có âm thanh và hướng dẫn cho giáo viên. Quyển 2: nguyên âm ngắn a, e, i, o, u. 129.000₫.',
     },
   },
+  // Books 3 to 5 (16 Nov 2026, draft): blueprint 6.1 titles (Book 4 states ages 4–7, the age on its card, not 5–7).
+  'phonics-b3': {
+    en: {
+      keyword: 'long vowels phonics book for kids',
+      title: 'Phonics Book 3 for Kids 4–7: Long Vowels, with Audio',
+      description: 'Listen, read, write, play: phonics for ages 4 to 7, with audio and a teacher guide. Book 3 teaches long vowels and the silent e. 129.000₫.',
+    },
+    vi: {
+      keyword: 'sách phonics nguyên âm dài',
+      title: 'Sách Phonics Quyển 3: Nguyên âm dài, có âm thanh',
+      description: 'Nghe, đọc, viết, chơi: học phonics cho bé 4 đến 7 tuổi, có âm thanh và hướng dẫn cho giáo viên. Quyển 3: nguyên âm dài và chữ e câm. 129.000₫.',
+    },
+  },
+  'phonics-b4': {
+    en: {
+      keyword: 'blends and digraphs phonics book for kids',
+      title: 'Phonics Book 4 for Kids 4–7: Letter Pairs, with Audio',
+      description: 'Listen, read, write, play: phonics for ages 4 to 7, with audio and a teacher guide. Book 4 teaches letter pairs: bl, st, sh, ch, th and more. 129.000₫.',
+    },
+    vi: {
+      keyword: 'sách phonics cặp chữ cái',
+      title: 'Sách Phonics Quyển 4: Cặp chữ cái, có âm thanh',
+      description: 'Nghe, đọc, viết, chơi: học phonics cho bé 4 đến 7 tuổi, có âm thanh và hướng dẫn cho giáo viên. Quyển 4: cặp chữ cái như bl, st, sh, ch, th. 129.000₫.',
+    },
+  },
+  'phonics-b5': {
+    en: {
+      keyword: 'vowel teams phonics book for kids',
+      title: 'Phonics Book 5: Vowel Teams and Bossy R, with Audio',
+      description: 'Listen, read, write, play: phonics for ages 4 to 7, with audio and a teacher guide. Book 5 teaches vowel teams and bossy r. 129.000₫.',
+    },
+    vi: {
+      keyword: 'sách phonics nhóm nguyên âm',
+      title: 'Sách Phonics Quyển 5: Nhóm nguyên âm và âm R',
+      description: 'Nghe, đọc, viết, chơi: học phonics cho bé 4 đến 7 tuổi, có âm thanh và hướng dẫn cho giáo viên. Quyển 5: nhóm nguyên âm và âm R. 129.000₫.',
+    },
+  },
   'story-workbooks-l1': {
     en: {
       keyword: 'english story workbook for kids',

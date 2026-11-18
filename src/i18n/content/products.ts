@@ -229,11 +229,12 @@ export const PHONICS_CREDIT = {
 export const phonicsReaderHref = (product: { id: string; reader?: string }, source = 'products') =>
   `${READER_URL}/book.html?utm_content=${product.id}&utm_source=${source}#${product.reader}`;
 
-// Jurassic English Phonics, Books 1 and 2 (Jay, 14 Nov 2026: "GO, these prices"; 15 Nov: D1 to D9). Books 3 to 5 and the
-// Complete Series join one PR each as their gates clear: a book with no PASS has no card at all. Series name as on the
+// Jurassic English Phonics, Books 1 and 2 (Jay, 14 Nov 2026: "GO, these prices"; 15 Nov: D1 to D9). Books 3 to 5 (16 Nov 2026,
+// DRAFT: same approved prices, 129.000₫ / US$7.99; listed only when each book's gate clears, so drop any book still held before
+// merging). The Complete Series joins last: a book with no PASS has no card at all. Series name as on the
 // covers, no ™; nothing about who holds the rights (record still open). Copy from PHONICS-LISTING-PACK-2026-11-14 ("what the buyer
 // gets", licence line, disclosure). Order: Zalo (written summary, then VietQR) or PayPal US$7.99; no Buy now.
-const phonicsBook = (n: 1 | 2, title: { en: string; vi: string }, price: string, tracks: number, clipSeconds: number, problem: { en: string; vi: string }): Product => ({
+const phonicsBook = (n: 1 | 2 | 3 | 4 | 5, title: { en: string; vi: string }, price: string, tracks: number, clipSeconds: number, problem: { en: string; vi: string }, units = 8): Product => ({
   id: `phonics-b${n}`,
   live: true,
   section: 'families',
@@ -253,7 +254,7 @@ const phonicsBook = (n: 1 | 2, title: { en: string; vi: string }, price: string,
     label: 'Digital download · Phonics · New',
     title: `Jurassic English Phonics, Book ${n}: ${title.en}`,
     problem: problem.en,
-    inside: `Listen, read, write, play: 8 themed units, 2 review units and a challenge, with audio tracks for every listening page (${tracks} MP3s), an answer key, a teacher guide and parent homework sheets in English and Vietnamese. A colour, print-friendly PDF.`,
+    inside: `Listen, read, write, play: ${units} themed units, 2 review units and a challenge, with audio tracks for every listening page (${tracks} MP3s), an answer key, a teacher guide and parent homework sheets in English and Vietnamese. A colour, print-friendly PDF.`,
     forWho: 'Children aged 4–7 (CEFR Pre-A1 → A1). Start here, before Story Workbooks. Licensed for one family or one teacher/tutor. Please do not copy, resell or share the files.',
     unit: 'one-time · 1 book with audio',
     cta: 'Order on Zalo',
@@ -262,7 +263,7 @@ const phonicsBook = (n: 1 | 2, title: { en: string; vi: string }, price: string,
     label: 'Tài liệu số · Phonics · Mới',
     title: `Jurassic English Phonics, Quyển ${n}: ${title.vi}`,
     problem: problem.vi,
-    inside: `Nghe, đọc, viết, chơi: 8 bài theo chủ đề, 2 bài ôn tập và 1 phần thử thách, có file âm thanh cho mọi bài nghe (${tracks} file MP3), đáp án, hướng dẫn cho giáo viên và phiếu bài tập về nhà cho phụ huynh bằng tiếng Anh và tiếng Việt. File PDF màu, dễ in.`,
+    inside: `Nghe, đọc, viết, chơi: ${units} bài theo chủ đề, 2 bài ôn tập và 1 phần thử thách, có file âm thanh cho mọi bài nghe (${tracks} file MP3), đáp án, hướng dẫn cho giáo viên và phiếu bài tập về nhà cho phụ huynh bằng tiếng Anh và tiếng Việt. File PDF màu, dễ in.`,
     forWho: 'Bé 4–7 tuổi (CEFR Pre-A1 → A1). Bắt đầu từ đây, trước Sách truyện bài tập. Dùng cho một gia đình hoặc một giáo viên. Vui lòng không sao chép, bán lại hoặc chia sẻ file.',
     unit: 'mua một lần · 1 quyển có âm thanh',
     cta: 'Đặt mua qua Zalo',
@@ -276,6 +277,18 @@ export const PHONICS_BOOKS: Product[] = [
   phonicsBook(2, { en: 'Short Vowels', vi: 'Nguyên âm ngắn' }, '129.000₫', 55, 20, {
     en: 'Your child knows the letters but cannot yet sound out short words such as cat, hen, pig, dog and sun.',
     vi: 'Con đã biết các chữ cái nhưng chưa tự đánh vần được những từ ngắn như cat, hen, pig, dog và sun.',
+  }),
+  phonicsBook(3, { en: 'Long Vowels', vi: 'Nguyên âm dài' }, '129.000₫', 43, 12, {
+    en: 'Your child can sound out short words such as cap and kit, but reads cape as “cap” and kite as “kit”: the silent e is still a mystery.',
+    vi: 'Con đã đánh vần được từ ngắn như cap và kit, nhưng vẫn đọc cape thành “cap”, kite thành “kit”: con chưa hiểu chữ e câm ở cuối từ.',
+  }, 7),
+  phonicsBook(4, { en: 'Letter Pairs', vi: 'Cặp chữ cái' }, '129.000₫', 47, 20, {
+    en: 'Your child reads short words but gets stuck when two letters work together, as in black, frog, ship, chick and thumb.',
+    vi: 'Con đọc được từ ngắn nhưng còn lúng túng khi hai chữ cái đi cùng nhau, như trong black, frog, ship, chick và thumb.',
+  }),
+  phonicsBook(5, { en: 'Vowel Teams and Bossy R', vi: 'Nhóm nguyên âm và âm R' }, '129.000₫', 47, 11, {
+    en: 'Your child reads short words but stumbles when two vowels team up or an r changes the sound, as in tree, boat, rain, car and bird.',
+    vi: 'Con đọc được từ ngắn nhưng còn vấp khi hai nguyên âm đi cùng nhau hoặc chữ r làm đổi âm, như trong tree, boat, rain, car và bird.',
   }),
 ];
 
