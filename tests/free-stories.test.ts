@@ -40,6 +40,32 @@ test('EN and VI render the seven cards, the free line, pending PDFs, links to ex
   }
 });
 
+test('preview copy identifies pending PDFs and labels the paid workbook destinations in both locales', async () => {
+  const { renderRoute } = await import('../src/entry-server');
+  const cases = [
+    {
+      route: '/free-stories',
+      lead: 'Browse the free story samples below. Each card shows whether its PDF is available.',
+      description: 'Preview free Jurassic English story samples and check PDF availability.',
+      paidLabel: 'View paid workbook',
+    },
+    {
+      route: '/vi/free-stories',
+      lead: 'Xem các bản đọc thử miễn phí bên dưới. Mỗi mục cho biết bản PDF đã có hay chưa.',
+      description: 'Xem trước các bản đọc thử miễn phí của Jurassic English và kiểm tra bản PDF đã có hay chưa.',
+      paidLabel: 'Xem sách bài tập trả phí',
+    },
+  ];
+  for (const { route, lead, description, paidLabel } of cases) {
+    const html = amp(await renderRoute(route));
+    assert.ok(html.includes(lead), `${route}: PDF availability in the lead`);
+    assert.ok(resolveRouteMetadata(route).description.startsWith(description), `${route}: PDF availability in metadata`);
+    const workbookLinks = [...html.matchAll(/<a[^>]*data-free-story-whole="[^"]+"[^>]*>([^<]*)<\/a>/g)];
+    assert.equal(workbookLinks.length, 7, route);
+    assert.ok(workbookLinks.every(([, label]) => label.startsWith(paidLabel)), `${route}: each workbook link identifies its paid destination`);
+  }
+});
+
 test('twins: EN/VI copy keys match, VI marked NEEDS-NATIVE-READ, neutral headings, hreflang-free noindex draft', () => {
   assert.deepEqual(Object.keys(freeStoriesContent.en).sort(), Object.keys(freeStoriesContent.vi).sort());
   assert.equal(freeStoriesContent.en.title, 'Free stories');
