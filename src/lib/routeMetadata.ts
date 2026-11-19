@@ -213,7 +213,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   '/products': {
     title: 'English Workbooks, Storybooks & Lessons | Jurassic English™',
     description:
-      'Browse English storybooks, printable reading workbooks, phonics books, teacher resources and online lessons. Compare ages, formats, prices and licences.',
+      'Browse English storybooks, reading workbooks, phonics, Level 1–5 teacher resources and online lessons. Compare ages, formats, prices and licences.',
     canonicalPath: '/products',
     // Product + Offer (VND) for every card on the page, in the page language.
     jsonLdFor: (locale) => [createProductListJsonLd(locale)],
@@ -225,7 +225,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       vi: {
         title: 'Sách bài tập, truyện & lớp tiếng Anh | Jurassic English™',
         description:
-          'Xem truyện tiếng Anh, sách bài tập đọc hiểu PDF, sách phonics, tài liệu giáo viên và lớp học trực tuyến. So sánh độ tuổi, định dạng, giá và giấy phép.',
+          'Xem truyện tiếng Anh, sách bài tập đọc hiểu PDF, sách phonics, tài liệu giáo viên Level 1–5 và lớp học trực tuyến. So sánh độ tuổi, định dạng, giá và giấy phép.',
         breadcrumbs: [
           { name: 'Trang chủ', path: '/' },
           { name: 'Sản phẩm', path: '/products' },
