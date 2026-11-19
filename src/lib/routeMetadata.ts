@@ -518,14 +518,14 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   // Free stories (DRAFT preview, 15 Nov 2026): unlisted and noindex until Jay approves; out of the sitemap, no canonical or alternates.
   '/free-stories': {
     title: 'Free stories | Jurassic English™',
-    description: 'Read the first half of a Jurassic English story for free, with three activity pages, then read the whole story.',
+    description: 'Preview free Jurassic English story samples and check PDF availability. Each sample includes half a story and three activity pages.',
     canonicalPath: '/free-stories',
     shouldIndex: false,
     breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Free stories', path: '/free-stories' }],
     localized: {
       vi: {
         title: 'Truyện miễn phí | Jurassic English™',
-        description: 'Đọc miễn phí nửa đầu một truyện của Jurassic English, kèm ba trang hoạt động, rồi đọc trọn câu chuyện.',
+        description: 'Xem trước các bản đọc thử miễn phí của Jurassic English và kiểm tra bản PDF đã có hay chưa. Mỗi bản có nửa đầu truyện và ba trang hoạt động.',
         breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Truyện miễn phí', path: '/free-stories' }],
       },
     },
