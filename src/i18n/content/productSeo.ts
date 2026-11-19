@@ -43,7 +43,7 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
   'one-to-one': {
     en: {
       keyword: 'online 1-to-1 english lessons',
-      title: 'Online 1-to-1 English & IELTS Speaking Lessons',
+      title: 'Online English Tutor: Private 1-to-1 Lessons | Mr. Jay',
       description: 'Private 60-minute online lessons with Mr. Jay Adams (CELTA, 120-hour TEFL), built on a speaking diagnosis. 800.000₫ a lesson, 8 lessons 5.600.000₫.',
     },
     vi: {
