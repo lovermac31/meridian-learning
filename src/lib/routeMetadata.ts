@@ -93,14 +93,11 @@ type StaticRouteDefinition = {
   localized?: Partial<Record<Locale, Pick<StaticRouteDefinition, 'title' | 'description' | 'breadcrumbs'> & { faqJsonLd?: JsonLd }>>;
 };
 
-// P1 — widened homepage positioning. The previous title scoped the brand
-// to "Schools" only, but the live site already serves three audiences
-// (parents arriving from social, schools, and IELTS-Speaking families).
-// The widened title + description and the FAQ/Service JSON-LD below give
-// search engines and the FB crawler clearer audience signals.
-const homeTitle = 'Jurassic English™ | IELTS Speaking & Academic English';
+// Search discovery follows the live general-English catalogue. IELTS destination
+// pages remain on JurassicIELTS; no country-specific availability is implied.
+const homeTitle = 'English Tutors, Storybooks & Workbooks | Jurassic English™';
 const homeDescription =
-  '1-on-1 online IELTS Speaking with Mr. Jay, plus academic English, critical thinking and literature courses for students, parents and schools.';
+  'Explore online English tutoring, original storybooks, printable workbooks and literature-based learning with Mr. Jay for children, families and teachers.';
 
 // FAQPage must mirror the FAQ visible on the page (human-centered overhaul,
 // Oct 2026): the homepage's six-section layout ends with three questions in
@@ -206,17 +203,17 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     localized: {
       vi: {
         title:
-          'Jurassic English™ | Tư duy phản biện & luyện nói IELTS',
+          'Truyện, sách bài tập & học tiếng Anh | Jurassic English™',
         description:
-          'Jurassic English™ giúp học sinh, phụ huynh, nhà trường và trung tâm đào tạo phát triển tiếng Anh học thuật, tư duy phản biện, lập luận dựa trên văn học và sự tự tin khi nói theo chuẩn IELTS.',
+          'Khám phá truyện tiếng Anh, sách bài tập PDF, tài liệu giáo viên và lớp học trực tuyến cùng thầy Jay, dành cho trẻ em, gia đình và nhà trường.',
         faqJsonLd: createFaqJsonLd(homeFaqEntries('vi')),
       },
     },
   },
   '/products': {
-    title: 'Products and Prices | Jurassic English™',
+    title: 'English Workbooks, Storybooks & Lessons | Jurassic English™',
     description:
-      'Every Jurassic English product and price: Story Club, Speaking Baseline, 1-to-1 lessons, Level 1–5 Teacher Packs, teaching kits, centre licence and training.',
+      'Browse English storybooks, reading workbooks, phonics, Level 1–5 teacher resources and online lessons. Compare ages, formats, prices and licences.',
     canonicalPath: '/products',
     // Product + Offer (VND) for every card on the page, in the page language.
     jsonLdFor: (locale) => [createProductListJsonLd(locale)],
@@ -226,9 +223,9 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
     ],
     localized: {
       vi: {
-        title: 'Sản phẩm và học phí | Jurassic English™',
+        title: 'Sách bài tập, truyện & lớp tiếng Anh | Jurassic English™',
         description:
-          'Mọi sản phẩm Jurassic English kèm giá: Câu lạc bộ Truyện, Đánh giá Nói, học 1 kèm 1, tài liệu giáo viên Level 1–5, bộ công cụ dạy học, giấy phép, đào tạo.',
+          'Xem truyện tiếng Anh, sách bài tập đọc hiểu PDF, sách phonics, tài liệu giáo viên Level 1–5 và lớp học trực tuyến. So sánh độ tuổi, định dạng, giá và giấy phép.',
         breadcrumbs: [
           { name: 'Trang chủ', path: '/' },
           { name: 'Sản phẩm', path: '/products' },

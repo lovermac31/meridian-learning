@@ -26,7 +26,7 @@ test('metadata: the description covers the whole range in EN and VI, OG matches 
     const meta = resolveRouteMetadata(path);
     assert.ok(meta.description.length >= 80 && meta.description.length <= 160, `${path}: ${meta.description.length} chars`);
     assert.match(meta.description, /Level 1–5/, path);
-    assert.match(meta.description, locale === 'en' ? /Story Club.*Baseline.*1-to-1.*centre licence/ : /Câu lạc bộ Truyện.*Đánh giá Nói.*1 kèm 1.*giấy phép/, path);
+    assert.match(meta.description, locale === 'en' ? /storybooks.*workbooks.*phonics.*teacher resources.*online lessons.*licences/ : /truyện tiếng Anh.*sách bài tập.*phonics.*tài liệu giáo viên.*lớp học trực tuyến.*giấy phép/, path);
     assert.doesNotMatch(meta.description, /Level 1 materials|tài liệu Level 1 cho/, `${path}: not the old Level 1-only text`);
     assert.equal(meta.og.description, meta.description, `${path}: OG text`);
     assert.equal(meta.twitter.description, meta.description, `${path}: Twitter text`);
