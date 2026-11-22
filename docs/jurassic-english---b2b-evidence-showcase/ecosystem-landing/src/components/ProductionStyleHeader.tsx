@@ -30,8 +30,12 @@ const PRODUCTS_NEW = true;
 // width, so it shows from 2xl in a 1600px row (as in Navbar.tsx); below that the menu carries the doors. (Measured:
 // in the old 1280px row, adding Products pushed Pricing under the language switch at 1280-1920; Pricing is gone since
 // Option A.) Labels and hrefs live in ./headerProducts.
-// The Live Speaking Baseline booking page (AI Speaking app), as on every other page of the site.
-const CTA_HREF = "/ai-speaking/baseline";
+// The Live Speaking Baseline booking page, linked straight to JurassicIELTS. This app is built and deployed on its own,
+// so the main site's scripts/rewrite-moved-links.mjs never sees its HTML: moved addresses must be written out here.
+const CTA_HREF: Record<HeaderLang, string> = {
+  en: "https://jurassicielts.com/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+  vi: "https://jurassicielts.com/ai-speaking/vi/baseline?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move",
+};
 // The desktop row drops a bracketed suffix ("Kids Academy (5–12)" shows "Kids Academy"): the full label
 // pushes the last item under the language switch (same header as the main site, measured 26 Oct).
 // The mobile menu, aria-label and title keep the full label.
@@ -106,7 +110,7 @@ export function ProductionStyleHeader({ lang = "en" }: { lang?: HeaderLang }) {
             <span className="max-md:hidden">{products.label}</span>
           </a>
           {/* Below 640px the CTA label may wrap to two lines and drops its arrow so the Products link keeps its place in the bar. */}
-          <a href={CTA_HREF} className={`${CTA} max-[639px]:max-w-[6.5rem] max-[639px]:whitespace-normal max-[639px]:text-center max-[639px]:text-xs max-[639px]:leading-[1.15]`}>
+          <a href={CTA_HREF[lang]} className={`${CTA} max-[639px]:max-w-[6.5rem] max-[639px]:whitespace-normal max-[639px]:text-center max-[639px]:text-xs max-[639px]:leading-[1.15]`}>
             <span className="hidden sm:inline">Book Baseline · 690k₫</span>
             <span className="sm:hidden">Baseline · 690k₫</span>
             <ArrowRight aria-hidden="true" className="hidden h-4 w-4 sm:block" />
@@ -119,7 +123,7 @@ export function ProductionStyleHeader({ lang = "en" }: { lang?: HeaderLang }) {
               <Menu aria-hidden="true" className="h-5 w-5" />
             </summary>
             <div className="absolute right-0 top-12 flex w-[min(18rem,calc(100vw-1.5rem))] flex-col gap-2 rounded-2xl border border-[#E6DEC8] bg-[#FAF7F2] p-4 shadow-lg">
-              <a href={CTA_HREF} className={`${CTA} w-full justify-center py-3 text-base`}>
+              <a href={CTA_HREF[lang]} className={`${CTA} w-full justify-center py-3 text-base`}>
                 Book Baseline · 690k₫
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </a>

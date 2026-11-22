@@ -7,9 +7,9 @@ import { ROUTE as FAMILY_REWARDS_ROUTE } from "@/lib/familyRewards/terms";
 const LINKS = [
   { label: "Reading & Story Adventures", href: "/student-academy" },
   { label: "Speaking & Teen IELTS", href: "/young-learners-speaking/" },
-  { label: "Adult IELTS Practice", href: "/ai-speaking" },
-  { label: "IELTS Writing Task 2 (Coming Soon)", href: "/ai-speaking/writing" },
-  { label: "Live Speaking Baseline", href: "/ai-speaking/baseline" },
+  { label: "Adult IELTS Practice", href: "https://jurassicielts.com/ai-speaking?utm_source=jurassicenglish&utm_medium=footer&utm_campaign=ielts-move" },
+  { label: "IELTS Writing Task 2 (Coming Soon)", href: "https://jurassicielts.com/ai-speaking/writing?utm_source=jurassicenglish&utm_medium=footer&utm_campaign=ielts-move" },
+  { label: "Live Speaking Baseline", href: "https://jurassicielts.com/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=footer&utm_campaign=ielts-move" },
   { label: "Academic Framework", href: "/framework" },
   { label: "Privacy", href: "/legal/privacy" },
   { label: "Terms", href: "/legal/terms" },

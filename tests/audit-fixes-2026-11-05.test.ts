@@ -47,7 +47,8 @@ test('ecosystem header renders Products in the bar and in the menu, and the Viet
   assert.match(header, /IELTS · JurassicIELTS\.com/, 'IELTS accessible name');
   assert.ok(!header.includes('"/#pricing-options"'), 'Option A: no Pricing door');
   assert.doesNotMatch(header, /AI Speaking Mocks|Ages 9–18|label: "Pricing"/, 'Option A: old labels gone');
-  assert.ok(header.includes('CTA_HREF = "/ai-speaking/baseline"'));
+  assert.ok(header.includes('en: "https://jurassicielts.com/ai-speaking/baseline?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move"'));
+  assert.ok(header.includes('vi: "https://jurassicielts.com/ai-speaking/vi/baseline?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move"'));
   const shell = read('docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/components/RootShell.tsx');
   assert.match(shell, /<ProductionStyleHeader lang=\{lang\} \/>/);
   assert.match(read('docs/jurassic-english---b2b-evidence-showcase/ecosystem-landing/src/app/(vi)/layout.tsx'), /<RootShell lang="vi">/);
