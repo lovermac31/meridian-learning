@@ -101,12 +101,12 @@ test('the JE sitemap leaves out moved and held AI Speaking pages', async () => {
 import { createOrganizationJsonLd } from '../src/lib/structuredData.ts';
 
 test('rewriteAiSpeakingLinks also points moved country pages at jurassicielts.com; held and unmoved pages stay', () => {
-  const html = '<a href="/ielts-speaking-online/india">a</a><a href="/ielts-speaking-online">b</a><a href="/young-learners-speaking/">c</a><a href="/ai-speaking/exam">d</a>';
+  const html = '<a href="/ielts-speaking-online/india">a</a><a href="/ielts-speaking-online">b</a><a href="/student-academy">c</a><a href="/ai-speaking/exam">d</a>';
   const { html: out, changed } = rewriteAiSpeakingLinks(html);
   assert.equal(changed, 2);
   assert.doesNotMatch(out, /href="\/ielts-speaking-online/);
   assert.match(out, /href="https:\/\/jurassicielts\.com\//);
-  assert.match(out, /href="\/young-learners-speaking\/"/);
+  assert.match(out, /href="\/student-academy"/); // P10b: /young-learners-speaking/ moved, so an unmoved page stands in here
   assert.match(out, /href="\/ai-speaking\/exam"/);
 });
 

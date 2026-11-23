@@ -193,7 +193,8 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
         name: 'IELTS Speaking Coaching for Ages 9-18',
         description:
           'IELTS-aligned 1-to-1 and small-group speaking coaching for young learners ages 9-18, built around the public IELTS Speaking criteria, starting with a Live Speaking Baseline (690.000₫) for new families.',
-        url: `${SITE_URL}/young-learners-speaking/`,
+        // P10b (23 Nov 2026): the page moved to jurassicielts.com (308 from the old address); the structured data names its new home.
+        url: 'https://jurassicielts.com/young-learners-speaking/',
         serviceType: 'IELTS Speaking coaching, English speaking evaluation, young-learner speaking coaching',
         areaServed: 'Vietnam, Asia, Online',
         audienceRole: 'student',
