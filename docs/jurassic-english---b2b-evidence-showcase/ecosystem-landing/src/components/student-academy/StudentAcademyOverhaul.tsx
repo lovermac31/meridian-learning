@@ -219,7 +219,7 @@ export function StudentAcademyOverhaul({ familyRewards = false }: { familyReward
               Play the free 2-minute Story Quest
             </a>{" "}
             (ages 6–12). Is your child already a confident reader who is quiet out loud?{" "}
-            <a href="/young-learners-speaking/" className="font-bold text-[#1E4D3B] underline underline-offset-4">See Speaking Confidence &amp; Teen IELTS</a>.
+            <a href="https://jurassicielts.com/young-learners-speaking/" className="font-bold text-[#1E4D3B] underline underline-offset-4">See Speaking Confidence &amp; Teen IELTS</a>.
           </p>
           <a href={PRODUCTS} className={`${SECONDARY} mt-5`} data-link="academy-products">
             See all products and prices <ArrowRight aria-hidden="true" className="h-4 w-4" />

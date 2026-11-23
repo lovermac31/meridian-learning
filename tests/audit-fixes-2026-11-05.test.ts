@@ -43,7 +43,7 @@ test('ecosystem header renders Products in the bar and in the menu, and the Viet
   // The CTA wraps below 640px so Products keeps its place.
   assert.match(header, /max-\[639px\]:max-w-\[6\.5rem\]/);
   // Nothing else changed: the doors, the Baseline CTA and the language switch are still there.
-  for (const href of ['/student-academy', '/young-learners-speaking/', '/story-club', '/vi', 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move', 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move']) assert.ok(header.includes(`"${href}"`), href);
+  for (const href of ['/student-academy', 'https://jurassicielts.com/young-learners-speaking/', '/story-club', '/vi', 'https://jurassicielts.com/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move', 'https://jurassicielts.com/vi/?utm_source=jurassicenglish&utm_medium=header&utm_campaign=ielts-move']) assert.ok(header.includes(`"${href}"`), href);
   assert.match(header, /IELTS · JurassicIELTS\.com/, 'IELTS accessible name');
   assert.ok(!header.includes('"/#pricing-options"'), 'Option A: no Pricing door');
   assert.doesNotMatch(header, /AI Speaking Mocks|Ages 9–18|label: "Pricing"/, 'Option A: old labels gone');
