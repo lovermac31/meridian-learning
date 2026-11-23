@@ -50,8 +50,8 @@ test('card → level collection → next step, carrying only non-personal contex
       assert.equal(continueHref(l.level), `/story-club/?level=${l.level}&utm_source=academy`);
       assert.equal(continueHref(l.level, 'vi'), `/vi/story-club/?level=${l.level}&utm_source=academy`);
     } else {
-      assert.equal(continueHref(l.level), `/ai-speaking/baseline?utm_source=academy&level=${l.level}`);
-      assert.equal(continueHref(l.level, 'vi'), `/ai-speaking/vi/baseline?utm_source=academy&level=${l.level}`);
+      assert.equal(continueHref(l.level), `https://jurassicielts.com/ai-speaking/baseline?utm_source=academy&level=${l.level}`);
+      assert.equal(continueHref(l.level, 'vi'), `https://jurassicielts.com/ai-speaking/vi/baseline?utm_source=academy&level=${l.level}`);
     }
     assert.doesNotMatch(continueHref(l.level), /[?&]src=/, 'utm_source, not src');
   }

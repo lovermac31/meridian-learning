@@ -167,5 +167,5 @@ export function samplePackHref(locale: Locale = "en"): string {
  */
 export function continueHref(level: number, locale: Locale = "en"): string {
   if (level <= 2) return `${locale === "vi" ? "/vi" : ""}/story-club/?level=${level}&utm_source=academy`;
-  return `/ai-speaking/${locale === "vi" ? "vi/" : ""}baseline?utm_source=academy&level=${level}`;
+  return `https://jurassicielts.com/ai-speaking/${locale === "vi" ? "vi/" : ""}baseline?utm_source=academy&level=${level}`;
 }
