@@ -22,16 +22,6 @@
 - PayPal USD: not listed
 - Sample: view-only pages on the product page
 
-### Live Speaking Baseline
-- ID: `baseline`
-- English: https://jurassicenglish.com/products/baseline
-- Vietnamese: https://jurassicenglish.com/vi/products/baseline
-- English description: A live 15–20 minute speaking session with Mr. Jay, then a written plan: four criterion bands, an overall band and what to work on next. 690.000₫.
-- Vietnamese title: Kiểm tra trình độ nói tiếng Anh cho con 9–18 tuổi
-- VND price: 690.000 VND
-- PayPal USD: not listed
-- Sample: view-only pages on the product page
-
 ### 1-to-1 lessons with Mr. Jay
 - ID: `one-to-one`
 - English: https://jurassicenglish.com/products/one-to-one
