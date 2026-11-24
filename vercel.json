@@ -1171,6 +1171,26 @@
       "permanent": true
     },
     {
+      "source": "/products/baseline",
+      "destination": "https://jurassicielts.com/solutions/speaking-baseline/",
+      "permanent": true
+    },
+    {
+      "source": "/products/baseline/",
+      "destination": "https://jurassicielts.com/solutions/speaking-baseline/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/baseline",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-baseline/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/products/baseline/",
+      "destination": "https://jurassicielts.com/vi/solutions/speaking-baseline/",
+      "permanent": true
+    },
+    {
       "source": "/ai-speaking/one-to-one{/}?",
       "destination": "https://jurassicielts.com/ai-speaking/solutions",
       "permanent": true
