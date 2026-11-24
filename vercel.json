@@ -1151,6 +1151,26 @@
       "permanent": true
     },
     {
+      "source": "/young-learners-speaking",
+      "destination": "https://jurassicielts.com/young-learners-speaking/",
+      "permanent": true
+    },
+    {
+      "source": "/young-learners-speaking/",
+      "destination": "https://jurassicielts.com/young-learners-speaking/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/luyen-noi-ielts",
+      "destination": "https://jurassicielts.com/vi/young-learners-speaking/",
+      "permanent": true
+    },
+    {
+      "source": "/vi/luyen-noi-ielts/",
+      "destination": "https://jurassicielts.com/vi/young-learners-speaking/",
+      "permanent": true
+    },
+    {
       "source": "/ai-speaking/one-to-one{/}?",
       "destination": "https://jurassicielts.com/ai-speaking/solutions",
       "permanent": true

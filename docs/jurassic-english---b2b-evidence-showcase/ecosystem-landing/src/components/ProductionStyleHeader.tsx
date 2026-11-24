@@ -11,7 +11,7 @@ import { getHeaderProducts, type HeaderLang } from "./headerProducts";
 
 const NAV = [
   { label: "Kids Academy (5–12)", desc: "Reading & Story Adventures", href: "/student-academy" },
-  { label: "Speaking 9–18", desc: "Speaking Confidence & Teen IELTS", href: "/young-learners-speaking/" },
+  { label: "Speaking 9–18", desc: "Speaking Confidence & Teen IELTS", href: "https://jurassicielts.com/young-learners-speaking/" },
 ];
 // IELTS (Jay, 15 Nov 2026: "Move IELTS to jurassicielts.com"): one plain link, same tab. The New badge sits on Books &
 // Prices during the Phonics launch (main site flag PRODUCTS_NEW_HIGHLIGHT, until 13 Dec 2026), so none here.

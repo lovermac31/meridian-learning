@@ -65,8 +65,10 @@ const RATES = ['700.000₫', '625.000₫', '575.000₫'];
 const PAGES = [
   { route: '/', site: 'main', local: 'dist/index.html', ceiling: 1250, lang: 'en', spa: true, policy: true, example: true },
   { route: '/vi', site: 'main', local: 'dist/vi/index.html', lang: 'vi', spa: true, policy: true },
-  { route: '/young-learners-speaking/', site: 'main', local: 'dist/young-learners-speaking/index.html', ceiling: 825, lang: 'en', policy: true, bands: true },
-  { route: '/vi/luyen-noi-ielts/', site: 'main', local: 'dist/vi/luyen-noi-ielts/index.html', lang: 'vi', policy: true, bands: true },
+  // P10b (23 Nov 2026): these two pages moved to jurassicielts.com (308). The page source stays in the build until P12, so the local
+  // checks still run; live mode skips them because the live address now answers with the JurassicIELTS page.
+  { route: '/young-learners-speaking/', site: 'main', local: 'dist/young-learners-speaking/index.html', ceiling: 825, lang: 'en', policy: true, bands: true, moved: true },
+  { route: '/vi/luyen-noi-ielts/', site: 'main', local: 'dist/vi/luyen-noi-ielts/index.html', lang: 'vi', policy: true, bands: true, moved: true },
   { route: '/framework', site: 'main', local: 'dist/framework/index.html', lang: 'en', spa: true, family: false },
   { route: '/vi/framework', site: 'main', local: 'dist/vi/framework/index.html', lang: 'vi', spa: true, family: false },
   { route: '/methodology', site: 'main', local: 'dist/methodology/index.html', lang: 'en', spa: true, family: false },
@@ -200,6 +202,10 @@ async function main() {
   for (const page of PAGES) {
     let html = '';
     if (LIVE) {
+      if (page.moved) {
+        record(true, `skip ${page.route}`, 'moved to jurassicielts.com (P10b); live address redirects');
+        continue;
+      }
       const base = bases[page.site];
       if (!base) {
         record(true, `skip ${page.route}`, `no --${page.site} base given`);
