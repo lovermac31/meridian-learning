@@ -11,12 +11,15 @@
  * first paid session Saturday 21 Nov 2026; 50% off until Sat 21 Nov 13:00; second offer until Sat 28 Nov 13:00.
  * The second price is 440.000₫ (25% off would be 442.500₫; 440.000₫ is the master's round figure, Jay can change it HERE).
  * 440.000₫ is 25.4% off, so the pages state amounts and end dates, never a percentage. No countdown timers.
+ * Moved again on 25 Nov 2026 (Jay chose "Start Sat 5 Dec" in chat; no child had paid for 21 Nov): first paid session
+ * Saturday 5 Dec 2026, 13:00. The expired 295.000₫ tier (until Sat 21 Nov) is deleted; 440.000₫ stays until Sat 28 Nov 13:00,
+ * then the list price. No transfer at 295.000₫ is on record (Fossil Ledger 24 Nov: Story Club 0 paid), so nothing is lost.
  * After the last end date, delete the tiers and the pages return to the list price on their own.
  */
 export const STORY_CLUB_LIST_PRICE_VND = 590_000;
 export const STORY_CLUB_SESSIONS = 4;
 
-export const STORY_CLUB_FIRST_SESSION = { isoDate: '2026-11-21', time: '13:00', label: { en: 'Saturday 21 November 2026', vi: 'Thứ Bảy 21/11/2026' } } as const;
+export const STORY_CLUB_FIRST_SESSION = { isoDate: '2026-12-05', time: '13:00', label: { en: 'Saturday 5 December 2026', vi: 'Thứ Bảy 5/12/2026' } } as const;
 export const STORY_CLUB_WEEKLY_TIME = '13:00';
 /** A transfer that reaches the bank up to this long after a cut-off is still accepted at the price the QR carried (review fix 2, 12 Nov 2026). */
 export const STORY_CLUB_GRACE_MINUTES = 30;
@@ -31,7 +34,6 @@ export type StoryClubOfferTier = {
 };
 
 export const STORY_CLUB_OFFER_TIERS: readonly StoryClubOfferTier[] = [
-  { id: 'launch-first', until: '2026-11-21T13:00:00+07:00', untilLabel: { en: 'Saturday 21 November, 13:00', vi: 'Thứ Bảy 21/11, 13:00' }, priceVnd: 295_000 },
   { id: 'launch-second', until: '2026-11-28T13:00:00+07:00', untilLabel: { en: 'Saturday 28 November, 13:00', vi: 'Thứ Bảy 28/11, 13:00' }, priceVnd: 440_000 },
 ];
 
