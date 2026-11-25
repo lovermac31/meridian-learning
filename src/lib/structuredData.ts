@@ -1,5 +1,7 @@
 import type { Locale } from '../i18n/locales';
 import { IELTS_MOVED_SECTION, PRODUCT_IMAGE_DIR, PRODUCTS, PRODUCTS_PATH } from '../i18n/content/products';
+import { HOLIDAY_WINDOW, holidaySetPath, type HolidaySet } from '../config/holidaySets';
+import { holidaySetComponents, holidaySetText } from '../i18n/content/holidaySets';
 import { WORLDWISE_SITE_URL } from './contactConfig';
 import { usdFromVnd } from './paypal';
 import { hasRegionalPrice, regionalUsd } from './regionalPrice';
@@ -330,6 +332,41 @@ export function createProductListJsonLd(locale: Locale): JsonLd {
 
 // One product page (/products/<id>, Jay 27 Oct 2026): a Product with its VND Offer and, when the card takes PayPal,
 // the US$ Offer (ceil(VND ÷ 25,897), the price the PayPal button charges). Cards without PayPal get no USD offer.
+/**
+ * Product + Offer for one holiday set (28 Nov to 6 Dec 2026). The offer carries its own dates (validFrom, priceValidUntil), the
+ * sale price as `price` and the usual total as a ListPrice specification, so a reader of the markup sees the same dated deal as
+ * the page. Emitted by the set page only while the window is open (src/components/HolidaySetPage.tsx); the pages are noindex.
+ */
+export function createHolidaySetJsonLd(set: HolidaySet, locale: Locale): JsonLd {
+  const text = holidaySetText(set.id, locale);
+  const pageUrl = `${SITE_URL}${locale === 'vi' ? '/vi' : ''}${holidaySetPath(set.id)}`;
+  const parts = holidaySetComponents(set).map((product) => product[locale].title);
+  const offer = (price: number, priceCurrency: string, listPrice?: number) => ({
+    '@type': 'Offer',
+    price: String(price),
+    priceCurrency,
+    availability: 'https://schema.org/InStock',
+    url: pageUrl,
+    validFrom: HOLIDAY_WINDOW.firstDay,
+    priceValidUntil: HOLIDAY_WINDOW.lastDay,
+    seller: { '@id': organizationId },
+    ...(listPrice ? { priceSpecification: { '@type': 'UnitPriceSpecification', priceType: 'https://schema.org/ListPrice', price: String(listPrice), priceCurrency } } : {}),
+  });
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': `${pageUrl}#product`,
+    name: text.title,
+    description: `${text.problem} ${text.inside}`,
+    url: pageUrl,
+    sku: set.id,
+    image: `${SITE_URL}${PRODUCT_IMAGE_DIR}/${set.image}.webp`,
+    brand: { '@type': 'Brand', name: 'Jurassic English' },
+    category: parts.join(' + '),
+    offers: [offer(set.saleVnd, 'VND', set.listVnd), offer(set.usd, 'USD')],
+  };
+}
+
 export function createProductJsonLd(product: Product, locale: Locale, videoId?: string): JsonLd {
   const pageUrl = `${SITE_URL}${locale === 'vi' ? '/vi' : ''}${PRODUCTS_PATH}/${product.id}`;
   const vnd = vndPriceValue(product.price);

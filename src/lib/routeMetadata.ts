@@ -17,6 +17,8 @@ import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
 import marketPricing from '../content/marketPricing.json';
 import { PAGE_PRODUCTS, PRODUCT_PAGE_PATHS, PRODUCT_SEO, productFaq, productPath } from '../i18n/content/productSeo';
+import { HOLIDAY_SETS, holidaySetPath } from '../config/holidaySets';
+import { holidayPageSeo } from '../i18n/content/holidaySets';
 import { createVideoJsonLd, productPageVideo, storyClubVideos, videoId } from './videoSeo';
 import { getZhPreviewPage, zhPreviewPaths } from '../i18n/content/zhPreview';
 import { getSeoPageMeta as getSeoPage, seoPagePaths, seoEnglishPaths, isInternationalMarketPath, getInternationalAlternates } from './seoPageMeta';
@@ -186,6 +188,21 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
           breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Sản phẩm', path: '/products' }, ...(product.category === 'phonics' ? [{ name: 'Phonics', path: '/products#phonics' }] : []), { name: product.vi.title, path }],
         },
       },
+    } as StaticRouteDefinition];
+  })),
+  // Holiday sets (28 Nov to 6 Dec 2026): dated, temporary pages. shouldIndex false means robots noindex, no canonical, no hreflang,
+  // no JSON-LD in the head, and (because only indexable routes are listed) no sitemap entry. vercel.json adds X-Robots-Tag too.
+  ...Object.fromEntries(HOLIDAY_SETS.map((set) => {
+    const path = holidaySetPath(set.id);
+    const en = holidayPageSeo(set.id, 'en');
+    const vi = holidayPageSeo(set.id, 'vi');
+    return [path, {
+      title: en.title,
+      description: en.description,
+      canonicalPath: path,
+      shouldIndex: false,
+      ogImage: { url: `${SITE_URL}/images/products/${set.image}.webp`, width: 800, height: 800 },
+      localized: { vi: { title: vi.title, description: vi.description } },
     } as StaticRouteDefinition];
   })),
   '/': {

@@ -5,6 +5,7 @@ import { syllabusData } from './syllabus';
 import { thinkingCycleStages } from './thinkingCycle';
 import { seoEnglishPaths } from '../../lib/seoPageMeta';
 import { getProductByPath } from './productSeo';
+import { getHolidaySetByPath } from '../../config/holidaySets';
 
 export type PublicContentGroup =
   | 'home'
@@ -88,7 +89,7 @@ export function getPublicContentGroup(pathname: string): PublicContentGroup | nu
   if (pathname === '/companies') return 'companies';
   if (pathname === '/story-club' || pathname === '/story-club/reserve') return 'storyClub';
   if (pathname === '/centres/level-1') return 'centreLicence';
-  if (pathname === '/products' || pathname === '/live-speaking-check' || getProductByPath(pathname)) return 'products';
+  if (pathname === '/products' || pathname === '/live-speaking-check' || getProductByPath(pathname) || getHolidaySetByPath(pathname)) return 'products';
   if (pathname === '/series/compare') return 'seriesCompare';
   if (pathname === '/thinking-cycle/compare') return 'thinkingCycleCompare';
   if (seriesLevels.some((level) => level.path === pathname)) return 'series';

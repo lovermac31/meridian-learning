@@ -6,6 +6,7 @@ import { logEvent } from './_lib/observability.js';
 import { createStoryClubReservation } from './_lib/supabaseWriter.js';
 import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 import { storyClubPriceAt } from '../src/config/storyClubOffer.js';
+import { HOLIDAY_SETS, holidaySetClosedAt } from '../src/config/holidaySets.js';
 
 // Server-safe product map. Do not import src/config/payment.ts here — it uses import.meta.env (Vite) and crashes the serverless function.
 const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
@@ -66,6 +67,9 @@ const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
   'thinking-expeditions-l2': { prefix: 'PR1D', amount: 190000 },
   // Unlisted 30-minute Live Speaking Check (mirrors LIVE_CHECK_OFFER in src/config/payment.ts).
   'live-speaking-check': { prefix: 'LC', amount: 250000 },
+  // Holiday sets (28 Nov to 6 Dec 2026, Jay 25 Nov 2026): the sale price. src/config/holidaySets.ts is pure and import-safe here;
+  // holidaySetClosedAt() below refuses a payment code or an order outside the window, so the price cannot outlive it.
+  ...Object.fromEntries(HOLIDAY_SETS.map((set) => [set.id, { prefix: set.prefix, amount: set.saleVnd }])),
 };
 
 // Paused for sale (audit fix 4, 11 Nov 2026): no new payment code or order. Mirrors `paused: true` in products.ts (a test checks).
@@ -126,6 +130,7 @@ const ERRORS = {
     email: 'Enter a valid email address.',
     consent: 'Tick the box so we can send the sample.',
     failed: 'That didn’t send. Please try again.',
+    offer_closed: 'This holiday offer is not open. If you already paid before it ended, message Mr. Jay on Zalo with your payment code.',
   },
   vi: {
     contact: 'Vui lòng nhập số Zalo hoặc email.',
@@ -133,6 +138,7 @@ const ERRORS = {
     email: 'Vui lòng nhập địa chỉ email hợp lệ.',
     consent: 'Vui lòng đánh dấu ô đồng ý.',
     failed: 'Chưa gửi được. Vui lòng thử lại.',
+    offer_closed: 'Ưu đãi kỳ nghỉ hiện không mở. Nếu bạn đã thanh toán trước khi kết thúc, vui lòng nhắn thầy Jay qua Zalo kèm mã thanh toán.',
   },
 } as const;
 
@@ -174,8 +180,10 @@ function isSpam(startedAt: string, website: string, product: string, intent?: st
   return elapsed < (product ? MIN_RESERVE_SUBMISSION_DELAY_MS : MIN_SUBMISSION_DELAY_MS) || elapsed > MAX_SUBMISSION_AGE_MS;
 }
 
-export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' | 'name' | 'age' | 'group' | 'product' | 'submission' } {
+export function toSampleLead(input: Input, now = new Date()): SampleLead | { error: 'contact' | 'phone' | 'email' | 'consent' | 'name' | 'age' | 'group' | 'product' | 'submission' | 'offer_closed' } {
   if (input.product && (!paidOffer(input.product) || PAUSED_PRODUCTS.has(input.product))) return { error: 'product' };
+  // A holiday set is sold only inside its dated window (src/config/holidaySets.ts); outside it no order is taken.
+  if (holidaySetClosedAt(input.product, now)) return { error: 'offer_closed' };
   if (input.product) {
     if (!looksLikePhone(input.phone)) return { error: 'phone' };
     if (!input.name.trim()) return { error: 'name' };
@@ -319,6 +327,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const offer = PAUSED_PRODUCTS.has(input.product ?? '') ? undefined : paidOffer(input.product ?? '');
     if (!offer || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.submissionKey ?? '')) {
       return res.status(400).json({ ok: false, error: 'invalid_order' });
+    }
+    // A holiday set outside its window gets no payment code and no Notion lead: the server clock decides, never the page.
+    if (holidaySetClosedAt(input.product, new Date())) {
+      logEvent({ event: 'validation_failed', route: '/api/sample-pack', status: 400, clientHash: getClientHash(req), errorFields: ['offer_closed'], errorFieldCount: 1 });
+      return res.status(400).json({ ok: false, error: 'offer_closed' });
     }
     const submissionId = `JE-${offer.prefix}-${input.submissionKey!.toLowerCase()}`;
     let memo: string;

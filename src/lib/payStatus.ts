@@ -10,6 +10,7 @@
 //   anything else (BL) -> no status source; the pay step shows no status line.
 // Only status words are read. No payer data is requested, stored, logged or shown.
 
+import { HOLIDAY_SETS } from '../config/holidaySets';
 export const PAY_STATUSES = ['waiting', 'received', 'underpaid', 'overpaid'] as const;
 export type PayStatus = typeof PAY_STATUSES[number];
 export type PayCheck = PayStatus | 'rate' | 'unknown' | 'error';
@@ -20,6 +21,9 @@ export const isFinalPayState = (state: PayState | null | undefined): boolean => 
 // 5 s for the first 2 min, then 15 s, up to 30 min from the memo; 429 and errors double the interval up to 60 s.
 export const POLL = { fast: 5_000, fastFor: 120_000, slow: 15_000, max: 60_000, until: 1_800_000, timeout: 10_000 } as const;
 
+// Holiday-set codes (28 Nov to 6 Dec 2026) are matched by hand: the AI Speaking app's PR status table has no row for them, so
+// polling it would only wait and then say "expired". The pay step shows no status line and keeps the Zalo button.
+const HOLIDAY_SET_MEMO = new RegExp(`^(?:${HOLIDAY_SETS.map((set) => set.prefix).join('|')})-[A-Z0-9]{6}$`);
 export const AIS_STATUS_PATH = '/ai-speaking/api/pay/status';
 export const STORY_CLUB_STATUS_PATH = '/api/story-club/status';
 
@@ -32,6 +36,7 @@ export type PayStatusSource =
 export function payStatusSource(memo: unknown): PayStatusSource {
   if (typeof memo !== 'string') return { kind: 'none' };
   const query = `?${new URLSearchParams({ code: memo })}`;
+  if (HOLIDAY_SET_MEMO.test(memo)) return { kind: 'none' };
   if (/^PR[A-Z0-9]{2}-[A-Z0-9]{6}$/.test(memo)) return { kind: 'auto', family: 'product', url: AIS_STATUS_PATH + query };
   if (/^LC-[A-Z0-9]{6}$/.test(memo)) return { kind: 'auto', family: 'live-check', url: AIS_STATUS_PATH + query };
   if (/^SC-[A-Z0-9]{6}$/.test(memo)) return { kind: 'auto', family: 'story-club', url: STORY_CLUB_STATUS_PATH + query };

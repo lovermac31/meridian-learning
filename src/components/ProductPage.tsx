@@ -21,7 +21,7 @@ const COPY: Record<Locale, { home: string; products: string; faq: string; relate
   vi: { home: 'Trang chủ', products: 'Sản phẩm', faq: 'Câu hỏi thường gặp', related: 'Có thể bạn cũng cần', all: 'Tất cả sản phẩm và học phí' },
 };
 
-const toCard = (product: Product, locale: Locale): ProductCard => {
+export const toCard = (product: Product, locale: Locale): ProductCard => {
   const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, usd, orderOnly, reader, clip } = product;
   return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...product[locale] };
 };

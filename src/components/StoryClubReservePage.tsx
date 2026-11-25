@@ -23,11 +23,13 @@ const copy = {
     title: 'Reserve a Story Club seat', intro: 'A small, friendly English story group with Mr. Jay. Paid sessions run on Saturdays at 13:00 Vietnam time. The free Story Time is postponed (new date coming soon); you can ask Mr. Jay on Zalo before paying.', sample: 'Read a free Story 1 first', sampleTitle: 'Mina and the Midnight Drum · Level 1', price: 'Story Club with Mr. Jay', amount: '590,000₫ · 4 weeks', details: 'Online on Google Meet · Ages 5–8 · Up to 6 children', groupDetails: 'The group meets weekly for four weeks. Mr. Jay reads an original Jurassic English story, leads a short discussion, and gives children one small follow-up task.', next: 'Next group:', form: 'Ask for a place', formDetails: 'Pay with the QR first. Then enter your contact details so we can confirm and deliver your order.', name: 'Your name', email: 'Email address for your order', location: 'Country or location', phone: 'Phone / Zalo number', phoneHint: 'Choose your country, then enter your phone number.', age: "Child's age", group: 'Preferred group', consent: 'I agree Jurassic English may use these details to confirm and deliver this purchase. See the privacy notice.', submit: 'Send my details', invalid: 'Please check your name, email address, location and phone number. Age and group are optional.', failed: 'We could not send your request. Please try again or message Mr. Jay on Zalo.', thanks: 'Thank you. Your request has been received.', pay: 'Pay now', transfer: 'Transfer memo', qrFallback: 'Mr. Jay will send the payment QR on Zalo within the day', zalo: 'Ask Mr. Jay on Zalo', privacy: 'Privacy notice', required: 'Please agree before sending your request.', ivePaid: 'I’ve paid — enter my details', question: 'Have a question before paying? Ask on Zalo',
     getCodeHeading: 'Get your payment code', getCodeText: 'When you have read the summary above and want to join the paid round, press the button. We then create your payment QR with the exact amount and a unique transfer memo. Pressing it does not charge you, and this page never asks for card details.', getCode: 'Get my payment code', getCodePreparing: 'Preparing your code…',
     getCodeTextProduct: 'Press the button when you are ready to buy. We then create your payment QR with the exact amount and a unique transfer memo. Pressing it does not charge you, and this page never asks for card details.',
+    closed: 'This holiday offer is not open, so no payment code was made. If you already paid before it ended, message Mr. Jay on Zalo with your payment code.',
   },
   vi: {
     title: 'Đặt chỗ Câu lạc bộ Truyện', intro: 'Nhóm tiếng Anh qua truyện nhỏ, thân thiện cùng thầy Jay. Các buổi có phí diễn ra vào thứ Bảy lúc 13:00 giờ Việt Nam. Giờ kể chuyện miễn phí tạm hoãn (sẽ báo ngày mới sớm); bạn có thể hỏi thầy Jay qua Zalo trước khi thanh toán.', sample: 'Đọc thử Truyện 1 miễn phí trước', sampleTitle: 'Mina và chiếc trống lúc nửa đêm · Cấp độ 1', price: 'Câu lạc bộ Truyện cùng thầy Jay', amount: '590.000₫ · 4 tuần', details: 'Học trực tuyến qua Google Meet · Bé 5–8 tuổi · Tối đa 6 bé', groupDetails: 'Nhóm gặp nhau mỗi tuần trong bốn tuần. Thầy Jay đọc truyện gốc của Jurassic English, cùng các bé trò chuyện và giao một hoạt động nhỏ sau buổi học.', next: 'Nhóm tiếp theo:', form: 'Đăng ký chỗ', formDetails: 'Quét mã QR để thanh toán trước. Sau đó nhập thông tin liên hệ để chúng tôi xác nhận và giao sản phẩm.', name: 'Họ tên', email: 'Địa chỉ email nhận đơn hàng', location: 'Quốc gia hoặc khu vực', phone: 'Số điện thoại / Zalo', phoneHint: 'Chọn quốc gia, sau đó nhập số điện thoại.', age: 'Tuổi của bé', group: 'Nhóm mong muốn', consent: 'Tôi đồng ý để Jurassic English sử dụng thông tin này để xác nhận và giao đơn hàng. Xem thông báo quyền riêng tư.', submit: 'Gửi thông tin của tôi', invalid: 'Vui lòng kiểm tra họ tên, email, khu vực và số điện thoại. Tuổi và nhóm không bắt buộc.', failed: 'Chưa gửi được yêu cầu. Vui lòng thử lại hoặc nhắn thầy Jay qua Zalo.', thanks: 'Cảm ơn bạn. Chúng tôi đã nhận được yêu cầu.', pay: 'Thanh toán ngay', transfer: 'Nội dung chuyển khoản', qrFallback: 'Thầy Jay sẽ gửi mã QR thanh toán qua Zalo trong ngày hôm nay', zalo: 'Hỏi thầy Jay qua Zalo', privacy: 'Thông báo quyền riêng tư', required: 'Vui lòng đồng ý trước khi gửi yêu cầu.', ivePaid: 'Tôi đã thanh toán — nhập thông tin', question: 'Có câu hỏi trước khi thanh toán? Hỏi qua Zalo',
     getCodeHeading: 'Lấy mã thanh toán', getCodeText: 'Khi bạn đã đọc bản tóm tắt ở trên và muốn tham gia vòng học có phí, hãy bấm nút bên dưới. Chúng tôi sẽ tạo mã QR thanh toán với đúng số tiền và nội dung chuyển khoản riêng. Bấm nút không bị trừ tiền, và trang này không bao giờ yêu cầu thông tin thẻ.', getCode: 'Lấy mã thanh toán của tôi', getCodePreparing: 'Đang chuẩn bị mã…',
     getCodeTextProduct: 'Bấm nút khi bạn sẵn sàng mua. Chúng tôi sẽ tạo mã QR thanh toán với đúng số tiền và nội dung chuyển khoản riêng. Bấm nút không bị trừ tiền, và trang này không bao giờ yêu cầu thông tin thẻ.',
+    closed: 'Ưu đãi kỳ nghỉ hiện không mở, nên chưa tạo mã thanh toán. Nếu bạn đã thanh toán trước khi kết thúc, vui lòng nhắn thầy Jay qua Zalo kèm mã thanh toán.',
   },
 } as const;
 
@@ -52,6 +54,8 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
   const firstTouch = useFirstTouch();
   const [preparing, setPreparing] = useState(false);
   const [prepareError, setPrepareError] = useState('');
+  // The server refused a holiday-set code or order because the window is closed (api/sample-pack.ts): say so, never "try again".
+  const [offerClosed, setOfferClosed] = useState(false);
   const [contactSent, setContactSent] = useState(false);
   const [error, setError] = useState('');
   const [sending, setSending] = useState(false);
@@ -66,6 +70,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
     if (!offer || confirmation || preparing) return;
     setPreparing(true);
     setPrepareError('');
+    setOfferClosed(false);
     const key = submissionKey.current ??= window.crypto.randomUUID();
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 15_000);
@@ -74,7 +79,11 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
         method: 'POST', signal: controller.signal, headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ intent: 'prepare_payment', product: productId, submissionKey: key, startedAt, website: '' }),
       });
-      if (!response.ok) throw new Error('Could not prepare payment');
+      if (!response.ok) {
+        const refusal = await response.json().catch(() => null) as { error?: unknown } | null;
+        if (refusal?.error === 'offer_closed') { setOfferClosed(true); return; }
+        throw new Error('Could not prepare payment');
+      }
       const result = await response.json() as { memo?: unknown; amount?: unknown };
       if (typeof result.memo !== 'string' || !new RegExp(`^${offer.prefix}-[A-Z0-9]{6}$`).test(result.memo)) throw new Error('Invalid payment reference');
       // Story Club: the server returns the dated launch-offer amount (storyClubOffer.ts); a missing value falls back to the same function here.
@@ -145,7 +154,11 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
           product: productId, group: values.group, website: String(form.get('website') ?? ''), startedAt,
         }),
       });
-      if (!response.ok) throw new Error('Request failed');
+      if (!response.ok) {
+        const refusal = await response.json().catch(() => null) as { error?: unknown } | null;
+        if (refusal?.error === 'offer_closed') { setError(t.closed); return; }
+        throw new Error('Request failed');
+      }
       const result = await response.json() as { memo?: unknown; submissionId?: string };
       if (!offer || typeof result.memo !== 'string' || !new RegExp(`^${offer.prefix}-[A-Z0-9]{6}$`).test(result.memo)) throw new Error('Missing canonical reserve memo');
       if (typeof result.memo !== 'string' || result.memo !== confirmation?.memo) throw new Error('Order reference mismatch');
@@ -211,6 +224,7 @@ export function StoryClubReservePage({ locale, productId = 'story-club', intro, 
             <h2 className="text-2xl font-bold">{t.getCodeHeading}</h2>
             <p className="mt-2">{isStory ? t.getCodeText : t.getCodeTextProduct}</p>
             <button type="button" className="insights-button-primary mt-4 w-full max-w-md" onClick={() => void preparePayment()} disabled={preparing} aria-busy={preparing} data-get-payment-code>{preparing ? t.getCodePreparing : t.getCode}</button>
+            {offerClosed ? <><p role="alert" className="mt-3 font-semibold text-red-700" data-offer-closed>{t.closed}</p><p className="mt-3"><a rel="nofollow" className="underline" href={withFirstTouch(checkoutZaloHref(productId, 'checkout', 'offer-closed'), firstTouch)}>{t.zalo}</a></p></> : null}
             {prepareError ? <><p role="alert" className="mt-3 font-semibold text-red-700">{prepareError}</p><p className="mt-3" data-prepare-fallback>{t.qrFallback}: <a rel="nofollow" className="underline" href={withFirstTouch(checkoutZaloHref(productId, 'checkout', 'prepare-failed'), firstTouch)}>{t.zalo}</a></p></> : null}
             {FIXED_ORDER_CODES[productId] ? <p className="mt-3 text-sm" data-checkout-order-code={productId}>{ORDER_CODE_COPY[locale].before} <strong>{FIXED_ORDER_CODES[productId]}</strong>{ORDER_CODE_COPY[locale].after}</p> : null}
           </section>

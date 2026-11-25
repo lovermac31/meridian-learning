@@ -1,5 +1,6 @@
 import { canonicalPaymentMemo } from '../src/config/payment.js';
 import { sepayTransactionTime, storyClubMinimumAmountAt } from '../src/config/storyClubOffer.js';
+import { holidayWindowStatus, isHolidaySetMemo } from '../src/config/holidaySets.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { timingSafeEqual } from 'node:crypto';
 import { markStoryClubReservationPaid } from './_lib/supabaseWriter.js';
@@ -8,6 +9,13 @@ import { alertPaymentEvent, sepayAlertEvent } from './_lib/paymentAlert.js';
 const MAX_BODY_BYTES = 4_096;
 // The Story Club minimum is the dated price in src/config/storyClubOffer.ts at the time of the transfer. A short or late payment
 // is never auto-confirmed: it goes to manual review and the owner alert.
+
+/** SePay's "YYYY-MM-DD HH:mm:ss" read as Vietnam time; `fallback` when it is absent or not that shape. */
+function bankTransactionTime(value: unknown, fallback: Date): Date {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}$/.test(value.trim())) return fallback;
+  const parsed = new Date(`${value.trim().replace(' ', 'T')}+07:00`);
+  return Number.isNaN(parsed.getTime()) ? fallback : parsed;
+}
 
 function matchesConfiguredKey(header: unknown, configuredKey: string): boolean {
   if (typeof header !== 'string' || !header.startsWith('Apikey ')) return false;
@@ -76,7 +84,14 @@ async function respond(req: VercelRequest, res: VercelResponse, decision: Decisi
   }
 
   if (!memo.startsWith('SC-')) {
-    note('sepay_product_payment', memo, 'needs_review');
+    // Holiday sets (28 Nov to 6 Dec 2026) are matched by hand like every PR product. The outcome says whether the transfer reached the
+    // bank inside the dated window, so the owner alert tells Jay at a glance if a set payment arrived late (a refund, not a sale).
+    // This is a label for Jay, not a price tier: the bank's own stamp is used as it is (no one-hour guard, which would swap in a
+    // late delivery's receipt time), and the receipt time only when the stamp is missing or unreadable.
+    const outcome = isHolidaySetMemo(memo)
+      ? holidayWindowStatus(bankTransactionTime(body.transactionDate, new Date())) === 'open' ? 'needs_review_holiday_set' : 'needs_review_holiday_set_outside_window'
+      : 'needs_review';
+    note('sepay_product_payment', memo, outcome);
     return done(200, true);
   }
 

@@ -1,5 +1,7 @@
 import { PRODUCTS } from '../i18n/content/products.js';
 import type { Locale } from '../i18n/locales';
+import { HOLIDAY_SETS } from './holidaySets.js';
+import { HOLIDAY_OFFER_TITLES } from '../i18n/content/holidaySets.js';
 
 const PRODUCT_MEMO_CODES: Record<string, string> = {
   'printable-pack': 'PR03',
@@ -77,8 +79,12 @@ export const LIVE_CHECK_OFFER = {
   title: { en: { title: '30-minute Live Speaking Check' }, vi: { title: 'Kiểm tra Nói trực tiếp 30 phút' } },
 } as const;
 export const LIVE_CHECK_PATH = '/live-speaking-check';
+// Holiday sets (28 Nov to 6 Dec 2026, Jay 25 Nov 2026): two dated bundles. Like the Live Check they are NOT PRODUCTS entries, so
+// they never reach the sitemap, the llms catalogue, the Product JSON-LD or the price lists. Their amount is the sale price;
+// the window itself is enforced by src/config/holidaySets.ts (the page after load, api/sample-pack.ts on the server).
+export const HOLIDAY_OFFERS = HOLIDAY_SETS.map(set => ({ id: set.id, amount: set.saleVnd, prefix: set.prefix, title: HOLIDAY_OFFER_TITLES[set.id] }));
 type OfferLike = { id: string; amount: number; prefix: string; title: Record<'en' | 'vi', { title: string }> };
-export const paidOffer = (id: string): OfferLike | undefined => id === LIVE_CHECK_OFFER.id ? LIVE_CHECK_OFFER : PAID_OFFERS.find(offer => offer.id === id);
+export const paidOffer = (id: string): OfferLike | undefined => id === LIVE_CHECK_OFFER.id ? LIVE_CHECK_OFFER : HOLIDAY_OFFERS.find(offer => offer.id === id) ?? PAID_OFFERS.find(offer => offer.id === id);
 export const paymentHref = (id: string, locale: Locale) => id === LIVE_CHECK_OFFER.id ? `${LIVE_CHECK_PATH}${locale === 'vi' ? '?lang=vi' : ''}` : id === 'story-club' ? `${locale === 'en' ? '/en' : ''}/story-club/reserve` : `${locale === 'vi' ? '/vi' : ''}/products/${encodeURIComponent(id)}?checkout=1`;
 export const paymentAmount = (amount: number, locale: Locale) => `${new Intl.NumberFormat(locale === 'vi' ? 'vi-VN' : 'en-US').format(amount)}₫`;
 export const reserveCta = (locale: Locale) => locale === 'vi' ? 'Đặt chỗ Story Club' : 'Reserve Story Club';
@@ -99,7 +105,8 @@ export function paymentQrUrl(amount: number, memo: string, config = BANK_CONFIG)
 
 export function canonicalPaymentMemo(content: unknown): string | null {
   if (typeof content !== 'string' || content.length > 2000) return null;
-  const prefixes = [...PAID_OFFERS.map(offer => offer.prefix), LIVE_CHECK_OFFER.prefix].join('|');
+  // Set prefixes are recognised even after the window: a late transfer must still read as a set payment (manual review).
+  const prefixes = [...PAID_OFFERS.map(offer => offer.prefix), ...HOLIDAY_OFFERS.map(offer => offer.prefix), LIVE_CHECK_OFFER.prefix].join('|');
   const match = new RegExp(`(?:^|[^A-Z0-9])(${prefixes})[-\\s]?([A-Z0-9]{6})(?![A-Z0-9])`, 'i').exec(content);
   return match ? `${match[1].toUpperCase()}-${match[2].toUpperCase()}` : null;
 }
