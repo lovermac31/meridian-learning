@@ -4,6 +4,7 @@ import { WORLDWISE_SITE_URL } from './contactConfig';
 import { usdFromVnd } from './paypal';
 import { hasRegionalPrice, regionalUsd } from './regionalPrice';
 import type { Product } from '../i18n/content/products';
+import sameAsSource from '../../docs/SAMEAS.json';
 
 const SITE_URL = 'https://jurassicenglish.com';
 /** Sister brand of World Wise Learning (IELTS migration P10). */
@@ -34,6 +35,8 @@ export function createOrganizationJsonLd(locale: Locale = 'en'): JsonLd {
     '@type': 'EducationalOrganization',
     '@id': organizationId,
     name: 'Jurassic English™',
+    alternateName: 'Jurassic English',
+    ...(sameAsSource.sameAs.length ? { sameAs: sameAsSource.sameAs } : {}),
     description:
       'Jurassic English™ is a literature-based critical thinking curriculum for schools, providing teacher training, school licensing, curriculum review, and academic consulting.',
     url: SITE_URL,

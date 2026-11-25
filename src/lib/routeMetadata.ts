@@ -42,9 +42,23 @@ const SITE_URL = 'https://jurassicenglish.com';
 // boundary rather than changing the source-of-truth date format.
 const toProfileDateTime = (date: string): string =>
   date.includes('T') ? date : `${date}T00:00:00+07:00`;
-const DEFAULT_OG_IMAGE = `${SITE_URL}/images/hero-compass-960.webp`;
-const DEFAULT_OG_IMAGE_WIDTH = 960;
-const DEFAULT_OG_IMAGE_HEIGHT = 640;
+const DEFAULT_OG_IMAGE_WIDTH = 1200;
+const DEFAULT_OG_IMAGE_HEIGHT = 630;
+const shareImageFor = (url: string): string => {
+  const path = new URL(url, SITE_URL).pathname.replace(/^\/vi(?=\/|$)/, '') || '/';
+  if (path.startsWith('/products/')) {
+    if (path === '/products/one-to-one') return 'one-to-one';
+    if (path === '/products/story-club') return 'story-club';
+    if (path === '/products/printable-pack') return 'printable-pack';
+    if (path.startsWith('/products/story-workbooks')) return 'story-workbooks';
+    return 'products';
+  }
+  if (path === '/products') return 'products';
+  if (path.startsWith('/series/')) return 'series';
+  if (path === '/story-club' || path === '/story-club/reserve') return 'story-club';
+  if (path === '/ve-thay-jay-adams') return 'jay-adams';
+  return 'home';
+};
 const SITE_NAME = 'Jurassic English™';
 
 type BaseMetadata = {
@@ -65,6 +79,7 @@ export type RouteMetadata = BaseMetadata & {
     image: string;
     imageWidth: number;
     imageHeight: number;
+    imageAlt: string;
     type: string;
     siteName: string;
     locale: string;
@@ -77,8 +92,6 @@ export type RouteMetadata = BaseMetadata & {
   };
 };
 
-type OgImage = { url: string; width: number; height: number };
-
 type StaticRouteDefinition = {
   title: string;
   description: string;
@@ -88,8 +101,6 @@ type StaticRouteDefinition = {
   jsonLd?: JsonLd[];
   // JSON-LD built for the page language (used instead of `jsonLd`).
   jsonLdFor?: (locale: Locale) => JsonLd[];
-  // The share image (Facebook, Zalo, X) when the page has its own, e.g. a product's square image.
-  ogImage?: OgImage;
   localized?: Partial<Record<Locale, Pick<StaticRouteDefinition, 'title' | 'description' | 'breadcrumbs'> & { faqJsonLd?: JsonLd }>>;
 };
 
@@ -168,7 +179,6 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       // Phonics (blueprint 6.2): Home → Products → Phonics → Book N.
       breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Products', path: '/products' }, ...(product.category === 'phonics' ? [{ name: 'Phonics', path: '/products#phonics' }] : []), { name: product.en.title, path }],
       // Shared links show the product (image studio, 27 Oct 2026), not the site's generic compass image.
-      ...(product.image ? { ogImage: { url: `${SITE_URL}/images/products/${product.image}.webp`, width: 800, height: 800 } } : {}),
       localized: {
         vi: {
           title: seo.vi.title,
@@ -226,7 +236,7 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
       vi: {
         title: 'Sách bài tập, truyện & lớp tiếng Anh | Jurassic English™',
         description:
-          'Xem truyện tiếng Anh, sách bài tập đọc hiểu PDF, sách phonics, tài liệu giáo viên Level 1–5 và lớp học trực tuyến. So sánh độ tuổi, định dạng, giá và giấy phép.',
+          'Xem truyện tiếng Anh, sách bài tập PDF, phonics, tài liệu giáo viên Level 1–5 và lớp học trực tuyến. So sánh độ tuổi, định dạng, giá và giấy phép.',
         breadcrumbs: [
           { name: 'Trang chủ', path: '/' },
           { name: 'Sản phẩm', path: '/products' },
@@ -259,13 +269,13 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   },
   '/story-club/reserve': {
     title: 'Reserve a Story Club seat — Jurassic English™',
-    description: 'Reserve a place in Story Club with Mr. Jay: a small online English story group for children aged 5–8. You see the summary and refund rule before you pay.',
+    description: 'Reserve a Story Club place with Mr. Jay for ages 5–8. Review the small online group, booking summary and refund rule before you pay.',
     canonicalPath: '/story-club/reserve',
     breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Story Club', path: '/story-club' }, { name: 'Reserve a seat', path: '/story-club/reserve' }],
     localized: {
       vi: {
         title: 'Đặt chỗ Câu lạc bộ Truyện — Jurassic English™',
-        description: 'Đăng ký một chỗ trong Câu lạc bộ Truyện cùng thầy Jay: nhóm tiếng Anh trực tuyến nhỏ cho trẻ 5–8 tuổi. Xem tóm tắt và quy định hoàn tiền trước khi thanh toán.',
+        description: 'Đặt chỗ Câu lạc bộ Truyện cùng thầy Jay cho trẻ 5–8 tuổi. Xem thông tin nhóm học trực tuyến và quy định hoàn tiền trước khi thanh toán.',
         breadcrumbs: [{ name: 'Trang chủ', path: '/' }, { name: 'Câu lạc bộ Truyện', path: '/story-club' }, { name: 'Đặt chỗ', path: '/story-club/reserve' }],
       },
     },
@@ -646,19 +656,20 @@ function createMetadata({
   ogTitle,
   ogDescription,
   ogUrl,
-  ogImage,
   locale = 'en',
 }: BaseMetadata & {
   ogTitle?: string;
   ogDescription?: string;
   ogUrl?: string;
-  ogImage?: OgImage;
   locale?: Locale | 'es' | 'pt-BR' | 'id' | 'ms' | 'th' | 'ar' | 'ur' | 'bn' | 'zh-Hans' | 'zh-Hant';
 }): RouteMetadata {
   const normalizedDescription = fitMetaDescription(normalizeDescription(description));
   const socialTitle = ogTitle ?? title;
   const socialDescription = normalizeDescription(ogDescription ?? normalizedDescription);
   const socialUrl = ogUrl ?? canonical ?? SITE_URL;
+  const shareName = shareImageFor(socialUrl);
+  const shareImage = `${SITE_URL}/images/og/${shareName}.jpg`;
+  const shareAlt = `Jurassic English ${shareName.replaceAll('-', ' ')} artwork and logo`;
 
   return {
     htmlLang: locale in { en: 1, vi: 1 } ? getLocaleDefinition(locale as Locale).htmlLang : locale,
@@ -672,19 +683,19 @@ function createMetadata({
       title: socialTitle,
       description: socialDescription,
       url: socialUrl,
-      image: ogImage?.url ?? DEFAULT_OG_IMAGE,
-      imageWidth: ogImage?.width ?? DEFAULT_OG_IMAGE_WIDTH,
-      imageHeight: ogImage?.height ?? DEFAULT_OG_IMAGE_HEIGHT,
+      image: shareImage,
+      imageWidth: DEFAULT_OG_IMAGE_WIDTH,
+      imageHeight: DEFAULT_OG_IMAGE_HEIGHT,
+      imageAlt: shareAlt,
       type: 'website',
       siteName: SITE_NAME,
       locale: ({ es: 'es_ES', 'pt-BR': 'pt_BR', id: 'id_ID', ms: 'ms_MY', th: 'th_TH', ar: 'ar_AR', ur: 'ur_PK', bn: 'bn_BD', 'zh-Hans': 'zh_CN', 'zh-Hant': 'zh_TW' } as Record<string, string>)[locale] ?? getLocaleDefinition(locale as Locale).ogLocale,
     },
     twitter: {
-      // A square share image is a "summary" card; the wide default stays "summary_large_image".
-      card: ogImage && ogImage.width === ogImage.height ? 'summary' : 'summary_large_image',
+      card: 'summary_large_image',
       title: socialTitle,
       description: socialDescription,
-      image: ogImage?.url ?? DEFAULT_OG_IMAGE,
+      image: shareImage,
     },
   };
 }
@@ -756,7 +767,6 @@ function resolveStaticRoute(pathname: string, locale: Locale): RouteMetadata | n
     alternates: route.shouldIndex === false ? undefined : createAlternates(route.canonicalPath, locale),
     jsonLd,
     ogUrl: shouldIndex ? canonical : toAbsoluteUrl(getCanonicalPath(route.canonicalPath, locale)),
-    ogImage: route.ogImage,
     locale,
   });
 }
@@ -776,7 +786,7 @@ const seriesLevelSeoDescriptions: Record<string, string> = {
 
 const viSeriesLevelSeoDescriptions: Record<string, string> = {
   'level-1-foundation':
-    'Jurassic English™ Cấp độ 1 phát triển tư duy phản biện cho 4–8 qua sách tranh, lập luận có hướng dẫn và những bài viết học thuật đầu tiên. CEFR từ Pre-A1 đến A1.',
+    'Jurassic English™ Cấp độ 1 cho trẻ 4–8 tuổi: sách tranh, lập luận có hướng dẫn và bài viết đầu tiên. Hỗ trợ CEFR từ Pre-A1 đến A1.',
   'level-2-development':
     'Jurassic English™ Cấp độ 2 xây dựng lập luận có cấu trúc cho 8–10 qua truyện chương hồi đầu cấp, viết dựa trên bằng chứng và đối thoại Socratic. CEFR từ A1 đến A2.',
   'level-3-expansion':

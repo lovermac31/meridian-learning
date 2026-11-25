@@ -174,6 +174,19 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
         </div>
       </section>
 
+      <section aria-label="JurassicIELTS" className="border-y border-sb-border bg-sb-forest px-4 py-5 text-white sm:px-6" data-ielts-handoff>
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="font-bold">{locale === 'vi' ? 'Luyện IELTS tại JurassicIELTS' : 'IELTS practice at JurassicIELTS'}</p>
+            <p className="text-sm">JurassicIELTS is a brand of World Wise Learning</p>
+          </div>
+          <nav aria-label="JurassicIELTS languages" className="flex flex-wrap gap-4 text-sm font-bold">
+            <a className="underline underline-offset-4 focus-visible:outline-2" href="https://jurassicielts.com/">English</a>
+            <a className="underline underline-offset-4 focus-visible:outline-2" href="https://jurassicielts.com/vi/">Tiếng Việt</a>
+          </nav>
+        </div>
+      </section>
+
       {/* 1b · Find what you need (master, 27 Oct 2026): one compact strip, a tile per /products section (2 clicks from
           home to any product: tile → section → the card's order button). Plain links, so #anchor lands on the heading. */}
       <section className="border-t border-sb-border bg-white px-4 py-8 sm:px-6" aria-labelledby="find-heading">

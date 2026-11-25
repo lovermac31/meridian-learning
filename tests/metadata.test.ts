@@ -135,8 +135,8 @@ test('resolver returns route-specific public metadata', () => {
   // (IELTS Speaking) + FAQPage (parent questions). Was 2 before the P1
   // SEO + bounce-rate pass; now 4.
   assert.equal(home.jsonLd?.length, 4);
-  assert.equal(home.og.imageWidth, 960);
-  assert.equal(home.og.imageHeight, 640);
+  assert.equal(home.og.imageWidth, 1200);
+  assert.equal(home.og.imageHeight, 630);
 
   assert.equal(framework.canonical, 'https://jurassicenglish.com/framework');
   assert.match(framework.description, /jurassic english™ framework integrates/i);

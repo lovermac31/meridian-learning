@@ -54,7 +54,7 @@ test('organisation JSON-LD links the parent organisation to its website', () => 
 
 test('no shipped source links to a retired or non-canonical WorldWise host', () => {
   const roots = ['src', 'young-learners-speaking', 'index.html'];
-  const bad = /worldwise-learning-services\.vercel\.app|https?:\/\/worldwiselearning\.app|https?:\/\/(www\.)?worldwiselearning\.com/i;
+  const bad = /worldwise-learning-services\.vercel\.app|https?:\/\/(www\.)?worldwiselearning\.com/i;
   const offenders: string[] = [];
   const walk = (p: string) => {
     if (statSync(p).isDirectory()) {
@@ -89,6 +89,7 @@ test('the site footer links both organisation mentions', () => {
   const html = renderToStaticMarkup(createElement(Footer, {}));
   const links = html.split(ANCHOR_OPEN).length - 1;
   assert.equal(links, 3, 'institutional line + copyright line + trademark line');
+  assert.ok(html.includes('href="https://worldwiselearning.app"'), 'footer links to the requested apex');
   // The legal mailbox is a mailto on a domain we own (worldwiselearning.com is not ours: parked for sale, 19 Oct 2026).
   assert.ok(html.includes('href="mailto:info@jurassicenglish.com"'));
   assert.ok(!html.includes('worldwiselearning.com"') && !html.includes('@worldwiselearning.com'), 'no mailbox on the unowned .com domain');

@@ -14,6 +14,7 @@ type HeadMetadata = {
     image: string;
     imageWidth?: number;
     imageHeight?: number;
+    imageAlt: string;
     type: string;
     siteName: string;
     locale?: string;
@@ -127,6 +128,7 @@ export function applyHeadMetadata(metadata: HeadMetadata) {
   upsertMetaByProperty('og:description', metadata.og?.description);
   upsertMetaByProperty('og:url', metadata.og?.url);
   upsertMetaByProperty('og:image', metadata.og?.image);
+  upsertMetaByProperty('og:image:alt', metadata.og?.imageAlt);
   upsertMetaByProperty(
     'og:image:width',
     metadata.og?.imageWidth ? String(metadata.og.imageWidth) : undefined,
