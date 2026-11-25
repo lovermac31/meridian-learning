@@ -43,6 +43,8 @@ import { getZhPreviewPage } from './i18n/content/zhPreview';
 import { StoryClubReservePage } from './components/StoryClubReservePage';
 import { ProductsPage } from './components/ProductsPage';
 import { ProductPage } from './components/ProductPage';
+import { HolidaySetPage } from './components/HolidaySetPage';
+import { getHolidaySetByPath } from './config/holidaySets';
 import { getProductByPath } from './i18n/content/productSeo';
 import { isInternationalMarketPath } from './lib/seoPageMeta';
 import { getCurrentLocation } from './lib/ssrLocation';
@@ -209,6 +211,9 @@ function App() {
   // /products/<id> for a live product; any other id falls through to the 404 view.
   const productPageProduct = getProductByPath(routePathname);
   const isProductPageView = productPageProduct !== null;
+  // Holiday sets (28 Nov to 6 Dec 2026): /products/<set id>, noindex, dated on the page and on the server.
+  const holidaySetPage = getHolidaySetByPath(routePathname);
+  const isHolidaySetView = holidaySetPage !== null;
   const isInsightsView = routePathname === '/insights' || routePathname.startsWith('/insights/') || routePathname === '/about/nathaniel-jay-adams' || isInternationalMarketPath(routePathname);
   const isPlansPricingAccessView = routePathname === '/plans-pricing-access';
   const isLiveSpeakingCheckView = routePathname === '/live-speaking-check';
@@ -251,7 +256,8 @@ function App() {
     isFreeStoriesView ||
     isStoryClubReserveView ||
     isProductsView ||
-    isProductPageView;
+    isProductPageView ||
+    isHolidaySetView;
   const isBotUIPilotVisible = isBotUIRouteAllowed(pathname) && !isPricingModalOpen && !isComingSoonOpen;
   const isSubpageView =
     isGetStartedView ||
@@ -281,6 +287,7 @@ function App() {
     isStoryClubReserveView ||
     isProductsView ||
     isProductPageView ||
+    isHolidaySetView ||
     isSeriesView ||
     isSyllabusView ||
     isSeriesComparisonView ||
@@ -505,6 +512,8 @@ function App() {
         <ProductsPage locale={locale} />
       ) : productPageProduct ? (
         <ProductPage product={productPageProduct} locale={locale} />
+      ) : holidaySetPage ? (
+        <HolidaySetPage set={holidaySetPage} locale={locale} />
       ) : isInsightsView ? (
         <SearchInsightsPage pathname={pathname} onNavigate={navigateTo} />
       ) : isUnknownRouteView ? (

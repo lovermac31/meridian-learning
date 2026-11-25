@@ -1,3 +1,4 @@
+import { HolidaySetsBand } from './HolidaySetPage';
 import { buyCta, paymentHref, paidOffer } from '../config/payment';
 import { CrawlResources } from './CrawlResources';
 import { useEffect, useId, useRef, useState, type SyntheticEvent } from 'react';
@@ -796,6 +797,8 @@ export function ProductsPage({ locale }: { locale: Locale }) {
       <AudienceHeroes locale={locale} sections={c.sections} sampleOpen={c.sample.open} categoryNames={categoryCopy.names} countLabel={categoryCopy.count} />
       {/* IELTS app, one row at the top of the catalogue (coverage audit, 2 Nov 2026: the card below sat 31,500 px down). */}
       <IeltsAppEntrance placement="products" locale={locale} variant="banner" />
+      {/* Holiday sets, 28 Nov to 6 Dec 2026: rendered only after load and only while the window is open (no price here). */}
+      <HolidaySetsBand locale={locale} />
       <nav aria-label={categoryCopy.label} className="products-overview" data-products-mini-nav="">
         <ul>
           {PRODUCT_SEGMENTS.map((id) => {

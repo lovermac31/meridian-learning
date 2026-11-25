@@ -5,6 +5,7 @@ import { thinkingCycleStages } from '../lib/thinkingCycleContent';
 import { getCurrentPathname } from '../lib/ssrLocation';
 import { seoEnglishPaths, seoPathPairs } from '../lib/seoPageMeta';
 import { PRODUCT_PAGE_PATHS } from './content/productSeo';
+import { HOLIDAY_SET_PATHS } from '../config/holidaySets';
 import {
   DEFAULT_LOCALE,
   SECONDARY_LOCALE,
@@ -57,6 +58,8 @@ const LOCALIZABLE_PUBLIC_PATHS = new Set([
   ...thinkingCycleStages.map((stage) => stage.path),
   ...Object.keys(legalDocuments),
   ...PRODUCT_PAGE_PATHS,
+  // Holiday sets (28 Nov to 6 Dec 2026): localizable (a /vi twin) but noindex and never in the sitemap (routeMetadata.ts).
+  ...HOLIDAY_SET_PATHS,
   '/insights',
   ...seoEnglishPaths,
 ]);

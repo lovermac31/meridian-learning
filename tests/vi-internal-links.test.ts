@@ -7,6 +7,7 @@
  * injects into dist/<route>/index.html — so this checks what ships, without
  * needing a build (CI runs `npm test` before `npm run build`).
  */
+import { HOLIDAY_SET_PATHS } from '../src/config/holidaySets';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createElement } from 'react';
@@ -142,6 +143,8 @@ test('(b) no link on a Vietnamese page points to a noindex placeholder or a miss
       if (ROUTES_WITHOUT_SITE_NAVBAR.has(route) && ROUTES_WITHOUT_SITE_NAVBAR.has(path)) continue;
       // The draft free-stories page is noindex too; its language switch links its own EN twin (draft, 15 Nov 2026).
       if (route === '/vi/free-stories' && path === '/free-stories') continue;
+      // The holiday-set pages (28 Nov to 6 Dec 2026) are noindex too; each language switch links its own EN twin.
+      if (HOLIDAY_SET_PATHS.includes(path) && route === `/vi${path}`) continue;
       const isViPath = path === '/vi' || path.startsWith('/vi/');
       const isPlaceholder = NOINDEX_PLACEHOLDERS.has(path) || (isViPath && !INDEXABLE.has(path) && !REWRITE_SERVED_VI.has(path));
       if (isPlaceholder && (chromeHrefs.has(href) || !KNOWN_CONTENT_PLACEHOLDER_LINK.test(href))) {

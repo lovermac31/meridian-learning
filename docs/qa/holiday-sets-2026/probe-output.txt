@@ -1,0 +1,57 @@
+ok   holiday-reading-set-l1: usual total = sum of the three usual prices  (588000)
+ok   holiday-reading-set-l1: sale below usual total  (399000 < 588000)
+ok   holiday-reading-set-l1: checkout offer amount = sale
+ok   holiday-reading-set-l1: buy button shows the sale  (Buy now · 399,000₫)
+ok   holiday-reading-set-l1: QR amount = sale, memo carries the set prefix
+ok   holiday-reading-set-l1: en JSON-LD VND = sale, USD = set price
+ok   holiday-reading-set-l1: vi JSON-LD VND = sale, USD = set price
+ok   holiday-reading-set-l1: PayPal link charges the set US$ price  (US$16)
+ok   holiday-reading-set-l1: payment code minted in the window  (PR1E-K76LC3)
+ok   holiday-reading-set-l1: minted amount = sale  (399000)
+ok   holiday-reading-set-l1: lead stored for the prepared code
+ok   holiday-reading-set-l1: same submission gets the same code
+ok   holiday-reading-set-l1: contact-form order accepted in the window, same memo  (status 200)
+ok   holiday-reading-set-l1: webhook reads the memo (plain)  (200 needs_review_holiday_set)
+ok   holiday-reading-set-l1: webhook reads the memo (dashless)  (200 needs_review_holiday_set)
+ok   holiday-reading-set-l1: webhook reads the memo (lower case in bank text)  (200 needs_review_holiday_set)
+ok   holiday-reading-set-l1: a transfer after the window is flagged outside_window  (needs_review_holiday_set_outside_window)
+ok   holiday-reading-set-l1: webhook with a wrong key is refused
+ok   holiday-reading-set-l1: canonicalPaymentMemo parses the code after the window too
+ok   holiday-reading-set-l1: code REFUSED at 27 Nov 23:59:59.999, no memo, no lead  (status 400 offer_closed)
+ok   holiday-reading-set-l1: code minted at 28 Nov 00:00:00.000  (status 200)
+ok   holiday-reading-set-l1: code minted at 6 Dec 23:59:59.999  (status 200)
+ok   holiday-reading-set-l1: code REFUSED at 7 Dec 00:00:00.000, no memo, no lead  (status 400 offer_closed)
+ok   holiday-reading-set-l1: contact-form order REFUSED after the window, no lead  (status 400)
+ok   holiday-reading-set-l1: contact-form order REFUSED before the window
+ok   teacher-starter-set: usual total = sum of the three usual prices  (1570000)
+ok   teacher-starter-set: sale below usual total  (1190000 < 1570000)
+ok   teacher-starter-set: checkout offer amount = sale
+ok   teacher-starter-set: buy button shows the sale  (Buy now · 1,190,000₫)
+ok   teacher-starter-set: QR amount = sale, memo carries the set prefix
+ok   teacher-starter-set: en JSON-LD VND = sale, USD = set price
+ok   teacher-starter-set: vi JSON-LD VND = sale, USD = set price
+ok   teacher-starter-set: PayPal link charges the set US$ price  (US$47)
+ok   teacher-starter-set: payment code minted in the window  (PR1F-KX5MZE)
+ok   teacher-starter-set: minted amount = sale  (1190000)
+ok   teacher-starter-set: lead stored for the prepared code
+ok   teacher-starter-set: same submission gets the same code
+ok   teacher-starter-set: contact-form order accepted in the window, same memo  (status 200)
+ok   teacher-starter-set: webhook reads the memo (plain)  (200 needs_review_holiday_set)
+ok   teacher-starter-set: webhook reads the memo (dashless)  (200 needs_review_holiday_set)
+ok   teacher-starter-set: webhook reads the memo (lower case in bank text)  (200 needs_review_holiday_set)
+ok   teacher-starter-set: a transfer after the window is flagged outside_window  (needs_review_holiday_set_outside_window)
+ok   teacher-starter-set: webhook with a wrong key is refused
+ok   teacher-starter-set: canonicalPaymentMemo parses the code after the window too
+ok   teacher-starter-set: code REFUSED at 27 Nov 23:59:59.999, no memo, no lead  (status 400 offer_closed)
+ok   teacher-starter-set: code minted at 28 Nov 00:00:00.000  (status 200)
+ok   teacher-starter-set: code minted at 6 Dec 23:59:59.999  (status 200)
+ok   teacher-starter-set: code REFUSED at 7 Dec 00:00:00.000, no memo, no lead  (status 400 offer_closed)
+ok   teacher-starter-set: contact-form order REFUSED after the window, no lead  (status 400)
+ok   teacher-starter-set: contact-form order REFUSED before the window
+ok   parent-pack-l1: still minted after the window at its usual price  (249000 vs 249000)
+ok   holiday-reading-challenge: still minted after the window at its usual price  (149000 vs 149000)
+ok   word-fossil-flashcards-l1: still minted after the window at its usual price  (190000 vs 190000)
+ok   teacher-pack-l1: still minted after the window at its usual price  (690000 vs 690000)
+ok   thinking-cycle-set: still minted after the window at its usual price  (490000 vs 490000)
+ok   reasoning-assessment-kit: still minted after the window at its usual price  (390000 vs 390000)
+PROBE PASSED: 56 checks (local only: frozen clock, mocked Notion, no other network, no production data)

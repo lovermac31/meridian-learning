@@ -1,5 +1,6 @@
 import { canonicalPaymentMemo } from '../src/config/payment.js';
 import { sepayTransactionTime, storyClubMinimumAmountAt } from '../src/config/storyClubOffer.js';
+import { holidayWindowStatus, isHolidaySetMemo } from '../src/config/holidaySets.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { timingSafeEqual } from 'node:crypto';
 import { markStoryClubReservationPaid } from './_lib/supabaseWriter.js';
@@ -76,7 +77,12 @@ async function respond(req: VercelRequest, res: VercelResponse, decision: Decisi
   }
 
   if (!memo.startsWith('SC-')) {
-    note('sepay_product_payment', memo, 'needs_review');
+    // Holiday sets (28 Nov to 6 Dec 2026) are matched by hand like every PR product. The outcome says whether the transfer reached the
+    // bank inside the dated window, so the owner alert tells Jay at a glance if a set payment arrived late (a refund, not a sale).
+    const outcome = isHolidaySetMemo(memo)
+      ? holidayWindowStatus(sepayTransactionTime(body.transactionDate, new Date())) === 'open' ? 'needs_review_holiday_set' : 'needs_review_holiday_set_outside_window'
+      : 'needs_review';
+    note('sepay_product_payment', memo, outcome);
     return done(200, true);
   }
 

@@ -34,7 +34,8 @@
     "qr:zalo": "node scripts/generate-zalo-qr.mjs",
     "test:browser:collections": "playwright test -c playwright.collections.config.ts",
     "test:sweep:free-stories": "node scripts/free-stories-sweep.mjs",
-    "test:sweep:reading-library": "node scripts/reading-library-sweep.mjs"
+    "test:sweep:reading-library": "node scripts/reading-library-sweep.mjs",
+    "probe:holiday-sets": "node --import tsx scripts/probe-holiday-sets.mts"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",
