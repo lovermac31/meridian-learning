@@ -1,7 +1,18 @@
 // Durable rate-limit storage adapter.
 // In-memory store preserves Phase-0 ergonomics; Upstash store provides
-// cross-instance durability when ENABLE_DURABLE_RATE_LIMIT=true and the
-// UPSTASH_REDIS_REST_* env vars are populated.
+// cross-instance durability.
+//
+// Store selection:
+//   - Upstash REST credentials present -> durable store (automatic).
+//     Names accepted: UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN, or the
+//     names the Vercel Upstash integration creates: KV_REST_API_URL /
+//     KV_REST_API_TOKEN (the UPSTASH_* names win when both are set).
+//   - ENABLE_DURABLE_RATE_LIMIT=false (or 0 / off / no) is an explicit
+//     off-switch and always selects the in-memory store.
+//   - No credentials -> in-memory store.
+// If the durable store errors at request time (timeout, transport, REST error)
+// the request is counted in the in-memory store instead, so the limiter fails
+// open to per-instance limiting rather than denying or ignoring traffic.
 
 export type RateLimitConsumeOk = {
   ok: true;
@@ -86,9 +97,18 @@ type UpstashConfig = {
   timeoutMs: number;
 };
 
+function firstNonEmpty(...values: Array<string | undefined>): string | undefined {
+  for (const value of values) {
+    const trimmed = value?.trim();
+    if (trimmed) return trimmed;
+  }
+  return undefined;
+}
+
 function readUpstashConfig(): UpstashConfig | null {
-  const restUrl = process.env.UPSTASH_REDIS_REST_URL?.trim();
-  const restToken = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  // UPSTASH_* names win; KV_REST_API_* are the Vercel Upstash integration names.
+  const restUrl = firstNonEmpty(process.env.UPSTASH_REDIS_REST_URL, process.env.KV_REST_API_URL);
+  const restToken = firstNonEmpty(process.env.UPSTASH_REDIS_REST_TOKEN, process.env.KV_REST_API_TOKEN);
   if (!restUrl || !restToken) return null;
 
   const prefix = process.env.UPSTASH_RATELIMIT_KEY_PREFIX?.trim() || 'je:rl:';
@@ -202,27 +222,55 @@ function makeUpstashStore(config: UpstashConfig): RateLimitStore {
 }
 
 // ---------------------------------------------------------------------------
+// Fallback wrapper — durable first, in-memory when the durable store errors.
+
+const FALLBACK_WARN_INTERVAL_MS = 60_000;
+let lastFallbackWarnAt = 0;
+
+function withInMemoryFallback(durable: RateLimitStore): RateLimitStore {
+  return {
+    kind: durable.kind,
+    async consume(scopedKey, windowMs, max) {
+      const result = await durable.consume(scopedKey, windowMs, max);
+      if (result.ok) return result;
+      const failure = result as RateLimitConsumeError;
+
+      const now = Date.now();
+      if (now - lastFallbackWarnAt >= FALLBACK_WARN_INTERVAL_MS) {
+        lastFallbackWarnAt = now;
+        console.warn('[rate-limit] durable store error; using in-memory fallback', { reason: failure.reason });
+      }
+      return inMemoryRateLimitStore.consume(scopedKey, windowMs, max);
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Factory + diagnostics
 
 let cachedStore: RateLimitStore | null = null;
 let cachedSelectionLogged = false;
 
+function isExplicitlyDisabled(): boolean {
+  const flag = process.env.ENABLE_DURABLE_RATE_LIMIT?.trim().toLowerCase();
+  return flag === 'false' || flag === '0' || flag === 'off' || flag === 'no';
+}
+
 function selectStore(): RateLimitStore {
-  const enabled = process.env.ENABLE_DURABLE_RATE_LIMIT === 'true';
-  if (!enabled) {
+  if (isExplicitlyDisabled()) {
     return inMemoryRateLimitStore;
   }
 
   const config = readUpstashConfig();
   if (!config) {
-    if (!cachedSelectionLogged) {
-      console.warn('[rate-limit] ENABLE_DURABLE_RATE_LIMIT=true but UPSTASH_REDIS_REST_URL/TOKEN missing; falling back to in-memory store');
+    if (process.env.ENABLE_DURABLE_RATE_LIMIT === 'true' && !cachedSelectionLogged) {
+      console.warn('[rate-limit] ENABLE_DURABLE_RATE_LIMIT=true but Upstash REST URL/TOKEN missing (UPSTASH_REDIS_REST_* or KV_REST_API_*); falling back to in-memory store');
       cachedSelectionLogged = true;
     }
     return inMemoryRateLimitStore;
   }
 
-  return makeUpstashStore(config);
+  return withInMemoryFallback(makeUpstashStore(config));
 }
 
 export function getRateLimitStore(): RateLimitStore {
@@ -241,5 +289,6 @@ export function getRateLimitStore(): RateLimitStore {
 export function __resetRateLimitStoreForTests() {
   cachedStore = null;
   cachedSelectionLogged = false;
+  lastFallbackWarnAt = 0;
   globalThis.__jeRateLimitStore__ = undefined;
 }
