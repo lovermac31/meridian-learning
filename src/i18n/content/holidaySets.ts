@@ -8,8 +8,8 @@
  * The Vietnamese copy is machine-drafted and needs a native read, like the rest of the product copy.
  */
 import type { Locale } from '../locales';
-import { HOLIDAY_SETS, holidaySetById, type HolidaySet } from '../../config/holidaySets';
-import { PRODUCTS, type Product } from './products';
+import { HOLIDAY_SETS, holidaySetById, type HolidaySet } from '../../config/holidaySets.js';
+import { PRODUCTS, type Product } from './products.js';
 
 type SetText = { label: string; title: string; problem: string; inside: string; forWho: string; unit: string };
 
