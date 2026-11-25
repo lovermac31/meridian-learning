@@ -109,6 +109,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
           </WorldWiseLink>
           .
         </p>
+        <p className="mt-2 text-sm"><a className="font-semibold text-sb-forest underline underline-offset-4" href="https://worldwiselearning.app">World Wise Learning</a></p>
 
         <p className="mt-4 max-w-4xl border-t border-sb-border pt-4 text-xs leading-relaxed text-sb-slate">
           {footer.notice}
