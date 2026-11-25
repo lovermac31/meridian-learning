@@ -35,7 +35,8 @@
     "test:browser:collections": "playwright test -c playwright.collections.config.ts",
     "test:sweep:free-stories": "node scripts/free-stories-sweep.mjs",
     "test:sweep:reading-library": "node scripts/reading-library-sweep.mjs",
-    "probe:holiday-sets": "node --import tsx scripts/probe-holiday-sets.mts"
+    "probe:holiday-sets": "node --import tsx scripts/probe-holiday-sets.mts",
+    "probe:holiday-sets:esm": "node scripts/probe-holiday-sets-esm.mjs"
   },
   "dependencies": {
     "@botui/react": "^1.1.5",
