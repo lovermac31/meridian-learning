@@ -164,6 +164,13 @@ test('webhook: a set transfer is acknowledged and logged as a set needs-review, 
   assert.deepEqual([inside.status, inside.memo, inside.outcome], [200, memo, 'needs_review_holiday_set']);
   const late = await callWebhook({ id: 2, transferType: 'in', content: memo, transferAmount: HOLIDAY_SETS[0].saleVnd, transactionDate: '2026-12-07 00:20:00' }, '2026-12-07T00:20:30+07:00');
   assert.deepEqual([late.status, late.outcome], [200, 'needs_review_holiday_set_outside_window']);
+  // Codex review (25 Nov): the label follows the bank's own stamp even when SePay delivers it hours later.
+  const delayedInside = await callWebhook({ id: 5, transferType: 'in', content: memo, transferAmount: HOLIDAY_SETS[0].saleVnd, transactionDate: '2026-12-06 23:59:59' }, '2026-12-07T01:00:00+07:00');
+  assert.equal(delayedInside.outcome, 'needs_review_holiday_set', 'paid at 23:59:59 on 6 Dec, delivered 01:00 on 7 Dec: still inside');
+  const delayedBefore = await callWebhook({ id: 6, transferType: 'in', content: memo, transferAmount: HOLIDAY_SETS[0].saleVnd, transactionDate: '2026-11-27 23:30:00' }, '2026-11-29T09:00:00+07:00');
+  assert.equal(delayedBefore.outcome, 'needs_review_holiday_set_outside_window', 'paid before opening, delivered later: outside');
+  const noStamp = await callWebhook({ id: 7, transferType: 'in', content: memo, transferAmount: HOLIDAY_SETS[0].saleVnd }, T.mid);
+  assert.equal(noStamp.outcome, 'needs_review_holiday_set', 'no stamp: the receipt time is used');
   const other = await callWebhook({ id: 3, transferType: 'in', content: 'PR04-AB12CD', transferAmount: 249_000, transactionDate: '2026-12-02 14:35:00' }, T.mid);
   assert.equal(other.outcome, 'needs_review', 'every other PR product keeps its existing outcome');
   assert.equal((await callWebhook({ id: 4, transferType: 'in', content: memo, transferAmount: 1 }, T.mid, 'Apikey wrong')).status, 401);
@@ -190,6 +197,13 @@ test('pages: the set page renders its three items and samples but no price and n
     assert.ok(main.includes('data-holiday-checking'), `${path}: says the dates are being checked`);
     assert.ok(main.includes(HOLIDAY_WINDOW.label[locale]), `${path}: states the offer dates`);
   }
+});
+
+test('pages: the set page re-checks the clock while open, and an open checkout is not torn down at the end', () => {
+  const source = readFileSync('src/components/HolidaySetPage.tsx', 'utf8');
+  assert.match(source, /setInterval\(\(\) => setNow\(new Date\(\)\), intervalMs\)/, 'ticks');
+  assert.match(source, /checkoutOpened/, 'an already open checkout stays open');
+  assert.ok(!source.includes("useNow"), 'no one-shot clock left in the page');
 });
 
 test('pages: the hub renders as it always did (the band is client-only, and shows no price)', async () => {

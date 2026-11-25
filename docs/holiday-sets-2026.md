@@ -20,7 +20,7 @@ Window: **Saturday 28 Nov 2026 00:00 to Sunday 6 Dec 2026 23:59:59.999, Vietnam 
 
 ## How the window works (no deploy needed)
 
-- **Page**: after load it checks the visitor's clock. Prerendered HTML has no price and no buy button, only the three items with their real sample pages and "Checking the offer dates…". Inside the window the price, buy button, Zalo link, PayPal link and Product JSON-LD appear. Before 28 Nov it says when the set opens; after 6 Dec it says the offer has ended and links the three items at their usual prices. `/products` shows the two set cards only inside the window, with no price on the listing.
+- **Page**: after load it checks the visitor's clock and re-checks it every 15 seconds, so a page left open moves across 28 Nov and 6 Dec by itself (a checkout already open stays open, so a buyer holding a code at 23:59 keeps their QR). Prerendered HTML has no price and no buy button, only the three items with their real sample pages and "Checking the offer dates…". Inside the window the price, buy button, Zalo link, PayPal link and Product JSON-LD appear. Before 28 Nov it says when the set opens; after 6 Dec it says the offer has ended and links the three items at their usual prices. `/products` shows the two set cards only inside the window, with no price on the listing.
 - **Server**: the server clock decides. The page cannot be used to get a code outside the window.
 - A buyer who paid before the end but submits the contact form after it gets "message Mr. Jay on Zalo with your code" (the code is already stored as a lead from the prepare step).
 
@@ -49,7 +49,7 @@ https://jurassicenglish.com/vi/products/teacher-starter-set?utm_source=fb-teache
 node --import tsx scripts/probe-holiday-sets.mts
 ```
 
-Runs the real handlers in-process with a frozen clock, a mocked Notion and **no other network** (any other URL throws). 56 checks: card price = QR amount = server-minted amount = JSON-LD price; a code minted in the window and stable per submission; the contact-form order; the webhook reading the memo (plain, dashless, in bank text), a late transfer flagged, a wrong key refused; refusal at 27 Nov 23:59:59.999 and 7 Dec 00:00:00.000, acceptance at 28 Nov 00:00:00.000 and 6 Dec 23:59:59.999; every other product still minting its usual amount after the window. Output saved in `docs/qa/holiday-sets-2026/probe-output.txt`. Never run it against production.
+Runs the real handlers in-process with a frozen clock, a mocked Notion and **no other network** (any other URL throws). 58 checks: card price = QR amount = server-minted amount = JSON-LD price; a code minted in the window and stable per submission; the contact-form order; the webhook reading the memo (plain, dashless, in bank text), a late transfer flagged, a wrong key refused; refusal at 27 Nov 23:59:59.999 and 7 Dec 00:00:00.000, acceptance at 28 Nov 00:00:00.000 and 6 Dec 23:59:59.999; every other product still minting its usual amount after the window. Output saved in `docs/qa/holiday-sets-2026/probe-output.txt`. Never run it against production.
 
 ## Rollback and removal
 

@@ -82,6 +82,8 @@ for (const set of HOLIDAY_SETS) {
   }
   const late = await callWebhook({ id: ++counter, transferType: 'in', content: memo, transferAmount: set.saleVnd, transactionDate: stamp('2026-12-07T00:20:00') }, '2026-12-07T00:20:30+07:00');
   check(`${set.id}: a transfer after the window is flagged outside_window`, late.status === 200 && late.outcome === 'needs_review_holiday_set_outside_window', String(late.outcome));
+  const delayed = await callWebhook({ id: ++counter, transferType: 'in', content: memo, transferAmount: set.saleVnd, transactionDate: stamp('2026-12-06T23:59:59') }, '2026-12-07T01:00:00+07:00');
+  check(`${set.id}: a transfer stamped 6 Dec 23:59:59 but delivered 7 Dec 01:00 still reads as inside`, delayed.outcome === 'needs_review_holiday_set', String(delayed.outcome));
   const noKey = await callWebhook({ id: ++counter, transferType: 'in', content: memo, transferAmount: set.saleVnd }, T.mid, 'Apikey wrong');
   check(`${set.id}: webhook with a wrong key is refused`, noKey.status === 401);
   check(`${set.id}: canonicalPaymentMemo parses the code after the window too`, canonicalPaymentMemo(`x ${memo.replace('-', '')} y`) === memo);

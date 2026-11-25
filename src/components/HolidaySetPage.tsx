@@ -16,13 +16,26 @@ import { ToolHero } from './IeltsToolsPage';
 import { Sample, SampleViewer, coverAlt, productHref, useVisitorSource } from './ProductsPage';
 import { StoryClubReservePage } from './StoryClubReservePage';
 import { toCard } from './ProductPage';
-import { useNow } from './StoryClubLiveLine';
+
+/**
+ * `null` on the server and on the first client render (so the prerender and hydration match), then the real time, refreshed
+ * every 15 s: a page left open moves to "ended" (price, buy and PayPal links gone) or to "open" without a reload.
+ */
+function useTickingNow(intervalMs = 15_000): Date | null {
+  const [now, setNow] = useState<Date | null>(null);
+  useEffect(() => {
+    setNow(new Date());
+    const timer = setInterval(() => setNow(new Date()), intervalMs);
+    return () => clearInterval(timer);
+  }, [intervalMs]);
+  return now;
+}
 
 /**
  * One holiday set's own page (28 Nov to 6 Dec 2026). Same blocks as a product page, in the same order: the three items with
  * their real sample pages, THEN the price and the buy buttons (Jay's samples-before-price rule).
  *
- * The window is a date check after load (`useNow`: null on the server and on the first client render, the real time after
+ * The window is a date check after load (`useTickingNow`: null on the server and on the first client render, the real time after
  * mount), so no deploy is needed when it passes. Prerendered, the page shows the contents and samples but no price and no buy
  * button; the price block appears only while the window is open, and `api/sample-pack.ts` refuses a code or an order outside
  * it on the server. The page is noindex (routeMetadata.ts, vercel.json): it is dated and temporary, so it never enters the
@@ -33,7 +46,7 @@ export function HolidaySetPage({ set, locale }: { set: HolidaySet; locale: Local
   const t = HOLIDAY_PAGE_COPY[locale];
   const text = holidaySetText(set.id, locale);
   const items = holidaySetComponents(set);
-  const now = useNow();
+  const now = useTickingNow();
   const status = now ? holidayWindowStatus(now) : null;
   const source = useVisitorSource();
   const touch = useFirstTouch();
@@ -49,8 +62,11 @@ export function HolidaySetPage({ set, locale }: { set: HolidaySet; locale: Local
     setViewer(null);
     if (window.location.hash.endsWith('-sample')) window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
   };
-  // No checkout outside the window, even from an old ?checkout=1 link; the server refuses it too.
-  if (checkout && status === 'open') return <StoryClubReservePage locale={locale} productId={set.id} />;
+  // No checkout can START outside the window, even from an old ?checkout=1 link (the server refuses a code too). One already open
+  // stays open past the end, so a buyer who has a code and a QR on screen at 23:59 does not lose them at midnight.
+  const [checkoutOpened, setCheckoutOpened] = useState(false);
+  useEffect(() => { if (checkout && status === 'open') setCheckoutOpened(true); }, [checkout, status]);
+  if (checkout && (status === 'open' || checkoutOpened)) return <StoryClubReservePage locale={locale} productId={set.id} />;
 
   const path = holidaySetPath(set.id);
   const code = ORDER_CODE_COPY[locale];
@@ -158,7 +174,7 @@ export function HolidaySetPage({ set, locale }: { set: HolidaySet; locale: Local
  * first render are the catalogue as it always was). No price here: the price lives on each set's page, with the samples.
  */
 export function HolidaySetsBand({ locale }: { locale: Locale }) {
-  const now = useNow();
+  const now = useTickingNow();
   const t = HOLIDAY_PAGE_COPY[locale];
   if (!now || holidayWindowStatus(now) !== 'open') return null;
   return (

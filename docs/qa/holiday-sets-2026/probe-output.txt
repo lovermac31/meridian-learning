@@ -15,6 +15,7 @@ ok   holiday-reading-set-l1: webhook reads the memo (plain)  (200 needs_review_h
 ok   holiday-reading-set-l1: webhook reads the memo (dashless)  (200 needs_review_holiday_set)
 ok   holiday-reading-set-l1: webhook reads the memo (lower case in bank text)  (200 needs_review_holiday_set)
 ok   holiday-reading-set-l1: a transfer after the window is flagged outside_window  (needs_review_holiday_set_outside_window)
+ok   holiday-reading-set-l1: a transfer stamped 6 Dec 23:59:59 but delivered 7 Dec 01:00 still reads as inside  (needs_review_holiday_set)
 ok   holiday-reading-set-l1: webhook with a wrong key is refused
 ok   holiday-reading-set-l1: canonicalPaymentMemo parses the code after the window too
 ok   holiday-reading-set-l1: code REFUSED at 27 Nov 23:59:59.999, no memo, no lead  (status 400 offer_closed)
@@ -31,7 +32,7 @@ ok   teacher-starter-set: QR amount = sale, memo carries the set prefix
 ok   teacher-starter-set: en JSON-LD VND = sale, USD = set price
 ok   teacher-starter-set: vi JSON-LD VND = sale, USD = set price
 ok   teacher-starter-set: PayPal link charges the set US$ price  (US$47)
-ok   teacher-starter-set: payment code minted in the window  (PR1F-KX5MZE)
+ok   teacher-starter-set: payment code minted in the window  (PR1F-OZA4JD)
 ok   teacher-starter-set: minted amount = sale  (1190000)
 ok   teacher-starter-set: lead stored for the prepared code
 ok   teacher-starter-set: same submission gets the same code
@@ -40,6 +41,7 @@ ok   teacher-starter-set: webhook reads the memo (plain)  (200 needs_review_holi
 ok   teacher-starter-set: webhook reads the memo (dashless)  (200 needs_review_holiday_set)
 ok   teacher-starter-set: webhook reads the memo (lower case in bank text)  (200 needs_review_holiday_set)
 ok   teacher-starter-set: a transfer after the window is flagged outside_window  (needs_review_holiday_set_outside_window)
+ok   teacher-starter-set: a transfer stamped 6 Dec 23:59:59 but delivered 7 Dec 01:00 still reads as inside  (needs_review_holiday_set)
 ok   teacher-starter-set: webhook with a wrong key is refused
 ok   teacher-starter-set: canonicalPaymentMemo parses the code after the window too
 ok   teacher-starter-set: code REFUSED at 27 Nov 23:59:59.999, no memo, no lead  (status 400 offer_closed)
@@ -54,4 +56,4 @@ ok   word-fossil-flashcards-l1: still minted after the window at its usual price
 ok   teacher-pack-l1: still minted after the window at its usual price  (690000 vs 690000)
 ok   thinking-cycle-set: still minted after the window at its usual price  (490000 vs 490000)
 ok   reasoning-assessment-kit: still minted after the window at its usual price  (390000 vs 390000)
-PROBE PASSED: 56 checks (local only: frozen clock, mocked Notion, no other network, no production data)
+PROBE PASSED: 58 checks (local only: frozen clock, mocked Notion, no other network, no production data)
