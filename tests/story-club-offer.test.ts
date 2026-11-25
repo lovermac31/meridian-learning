@@ -8,12 +8,11 @@ const at = (iso: string) => new Date(iso);
 
 test('tiers by transfer time: one second before and after each Vietnam-time cut-off', () => {
   const cases: Array<[string, number]> = [
-    ['2026-11-12T00:00:00+07:00', 295000],
-    ['2026-11-21T12:59:59+07:00', 295000],
-    ['2026-11-21T13:00:00+07:00', 295000], // the cut-off instant itself still counts
+    ['2026-11-12T00:00:00+07:00', 440000], // the 295000 tier (until Sat 21 Nov) was deleted on 25 Nov 2026
+    ['2026-11-21T12:59:59+07:00', 440000],
     ['2026-11-21T13:00:01+07:00', 440000],
     ['2026-11-28T12:59:59+07:00', 440000],
-    ['2026-11-28T13:00:00+07:00', 440000],
+    ['2026-11-28T13:00:00+07:00', 440000], // the cut-off instant itself still counts
     ['2026-11-28T13:00:01+07:00', 590000],
     ['2026-12-31T00:00:00+07:00', 590000],
   ];
@@ -22,21 +21,20 @@ test('tiers by transfer time: one second before and after each Vietnam-time cut-
 });
 
 test('the same instant is the same tier whatever the viewer time zone: cut-offs are fixed instants', () => {
-  assert.equal(storyClubPriceAt(at('2026-11-21T05:59:59Z')).priceVnd, 295000); // 12:59:59 in Vietnam
-  assert.equal(storyClubPriceAt(at('2026-11-21T06:00:01Z')).priceVnd, 440000); // 13:00:01 in Vietnam
+  assert.equal(storyClubPriceAt(at('2026-11-28T05:59:59Z')).priceVnd, 440000); // 12:59:59 in Vietnam
+  assert.equal(storyClubPriceAt(at('2026-11-28T06:00:01Z')).priceVnd, 590000); // 13:00:01 in Vietnam
 });
 
-test('tier data: list price 590000 stays, half price, then 440000', () => {
+test('tier data: list price 590000 stays; one offer tier left, 440000 until Sat 28 Nov 13:00', () => {
   assert.equal(STORY_CLUB_LIST_PRICE_VND, 590000);
-  assert.deepEqual(STORY_CLUB_OFFER_TIERS.map((tier) => tier.priceVnd), [295000, 440000]);
-  assert.equal(STORY_CLUB_OFFER_TIERS[0].priceVnd * 2, STORY_CLUB_LIST_PRICE_VND);
+  assert.deepEqual(STORY_CLUB_OFFER_TIERS.map((tier) => tier.priceVnd), [440000]);
+  assert.equal(STORY_CLUB_OFFER_TIERS[0].until, '2026-11-28T13:00:00+07:00');
 });
 
 test('webhook minimum: the price valid 30 minutes earlier (grace), literal boundaries', () => {
   const cases: Array<[string, number]> = [
-    ['2026-11-21T13:00:01+07:00', 295000],
-    ['2026-11-21T13:30:00+07:00', 295000],
-    ['2026-11-21T13:30:01+07:00', 440000],
+    ['2026-11-21T13:00:01+07:00', 440000],
+    ['2026-11-28T13:00:01+07:00', 440000],
     ['2026-11-28T13:30:00+07:00', 440000],
     ['2026-11-28T13:30:01+07:00', 590000],
   ];
@@ -54,7 +52,8 @@ test('SePay transaction time: Vietnam time, but only if it is not in the future 
 });
 
 test('tier for a quoted amount (for the valid-until line)', () => {
-  assert.equal(storyClubTierForAmount(295000)?.untilLabel.en, 'Saturday 21 November, 13:00');
+  assert.equal(storyClubTierForAmount(295000), null, 'the expired 295000 tier is gone');
+  assert.equal(storyClubTierForAmount(440000)?.untilLabel.en, 'Saturday 28 November, 13:00');
   assert.equal(storyClubTierForAmount(440000)?.untilLabel.vi, 'Thứ Bảy 28/11, 13:00');
   assert.equal(storyClubTierForAmount(590000), null);
 });
@@ -62,9 +61,9 @@ test('tier for a quoted amount (for the valid-until line)', () => {
 test('lines drop what has passed, with no deploy: schedule after the first session, offers after each cut-off', () => {
   for (const locale of ['en', 'vi'] as const) {
     const whole = `${storyClubScheduleLine(locale)} ${storyClubOfferLine(locale)}`;
-    assert.ok(whole.includes('21') && whole.includes('295') && whole.includes('440'), `${locale} prerendered: the whole plan`);
-    const afterFirstSession = at('2026-11-21T14:00:00+07:00');
-    assert.ok(!storyClubScheduleLine(locale, afterFirstSession).includes('21'), `${locale}: no first-session date after it happened`);
+    assert.ok(whole.includes(locale === 'en' ? '5 December 2026' : '5/12/2026') && !whole.includes('295') && whole.includes('440') && !whole.includes('21 November') && !whole.includes('21/11'), `${locale} prerendered: the whole plan, no expired dates or tiers`);
+    const afterFirstSession = at('2026-12-05T14:00:00+07:00');
+    assert.ok(!storyClubScheduleLine(locale, afterFirstSession).includes(locale === 'en' ? 'December' : '5/12'), `${locale}: no first-session date after it happened`);
     assert.ok(storyClubScheduleLine(locale, afterFirstSession).includes('13:00'), `${locale}: the weekly time stays`);
     const between = storyClubOfferLine(locale, at('2026-11-22T00:00:00+07:00'));
     assert.ok(!between.includes('295') && between.includes('440') && between.includes('590'), `${locale}: only the second offer is left`);
@@ -77,7 +76,8 @@ test('lines drop what has passed, with no deploy: schedule after the first sessi
 test('copy states end dates and amounts, never a percentage or a countdown, never "Founding price"', () => {
   for (const locale of ['en', 'vi'] as const) {
     const text = `${storyClubOfferLine(locale)} ${storyClubScheduleLine(locale)}`;
-    for (const needle of ['590', '295', '440', '13:00', '21', '28']) assert.ok(text.includes(needle), `${locale}: ${needle}`);
+    for (const needle of ['590', '440', '13:00', '28', locale === 'en' ? '5 December' : '5/12']) assert.ok(text.includes(needle), `${locale}: ${needle}`);
+    assert.ok(!text.includes('295') && !text.includes('21 November') && !text.includes('21/11'), `${locale}: no expired tier or date`);
     assert.ok(!/%|founding|countdown|giá ưu đãi cho nhóm/i.test(text), locale);
   }
 });
