@@ -34,7 +34,14 @@ for (const number of [1, 2]) {
       if (locale === 'vi') assert.match(html, /VI DRAFT: native read needed/);
     }
     const doc = validateSampleText(JSON.parse(readFileSync(`public/samples/pages/${id}-text.json`, 'utf8')), id, id, 7);
-    for (const page of doc.pages) assert.doesNotMatch(page.text, banned, `sample ${page.page}`);
+    // The delivered books print two honest NEGATIVE disclaimers. Allow exactly these phrases, nothing wider,
+    // and still ban every positive claim (approved, pass as a promise, official as a claim, scores, shields...).
+    const allowedDisclaimers = [/There is no pass or fail\./gi, /not an official Cambridge English test\./gi];
+    for (const page of doc.pages) {
+      let text = page.text.replace(/\s+/g, ' ');
+      for (const phrase of allowedDisclaimers) text = text.replace(phrase, '');
+      assert.doesNotMatch(text, banned, `sample ${page.page}`);
+    }
     // Contents can name the key/scripts; none of those answer-bearing pages is in the sample set.
     assert.match(doc.pages[3].text, /Look and read/);
     assert.match(doc.pages[4].text, /There is one example/);
