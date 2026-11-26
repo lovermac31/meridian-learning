@@ -1286,6 +1286,10 @@
       "destination": "/api/go/zalo?product=:product"
     },
     {
+      "source": "/go/:campaign",
+      "destination": "/api/go?campaign=:campaign"
+    },
+    {
       "source": "/challenges/one-change",
       "destination": "/challenges/one-change/index.html"
     },
