@@ -1,65 +1,55 @@
 # Gulf IELTS click count
 
-After a separately authorized deployment, use these links on the site's existing domain:
+Links to share (site domain):
 
-- `/go/gulf-ielts-test-1` (Ko-fi, default)
-- `/go/gulf-ielts-test-1?dest=calendly` (paid baseline booking)
+- `https://jurassicenglish.com/go/gulf-ielts-test-1?src=linkedin` (Ko-fi, the default destination)
+- `https://jurassicenglish.com/go/gulf-ielts-test-1?src=dm&dest=calendly` (paid baseline booking)
 
-Only `gulf-ielts-test-1` and the two approved destinations in
-`api/_lib/goConfig.ts` are accepted. Add campaigns only to that constant list.
-Unknown campaigns/destinations return 404. Only GET is supported; HEAD and other
-methods return 405 without counting. The existing Zalo redirect is unchanged.
+`src` says where the link was shared: `linkedin`, `facebook`, `wechat`, `dm`, `email`, `poster`, or `test`
+(our own checks, excluded from counts). Any other value is stored as `direct`. Only `gulf-ielts-test-1` and the two
+approved destinations in `api/_lib/goConfig.ts` are accepted; anything else returns 404, so this can never be used as
+an open redirect. Only GET is supported.
 
-Each successful GET returns an uncached 302 and emits exactly one JSON message:
+## What is counted
 
-```json
-{"evt":"go_click","campaign":"gulf-ielts-test-1","dest":"kofi","ref_host":"l.facebook.com","ts":"2026-11-26T00:00:00.000Z"}
+Each human GET returns an uncached 302 and writes **one row to `je_events`** through the existing anonymous
+`record_je_event` RPC (same path and privacy rules as Zalo clicks):
+
+| column | value |
+|---|---|
+| event | `checkout_start` (the visitor was sent to a payment page) |
+| path | `/go/gulf-ielts-test-1` |
+| product_id | `gulf-baseline-kofi` or `gulf-baseline-calendly` |
+| utm_source / utm_medium / utm_campaign | `src` / `social` / `gulf-ielts-test-1` |
+| referrer_host | a known public host (LinkedIn, Facebook, Google…) or empty |
+
+Bots, link-preview fetchers (LinkedIn, Facebook, WhatsApp…), monitors, HTTP libraries and requests with no user
+agent are redirected but **not counted** (`api/_lib/automation.ts`, response header `X-JE-Click: skipped:<reason>`).
+No IP, user agent, cookie or personal data is stored. A database error never blocks the redirect (fail-open). A
+one-line JSON `go_click` message is also written to the runtime log for debugging; the database row is the count.
+
+No database change was needed: `checkout_start` is already an allowed event. The `path` and `product_id` keep these
+rows apart from the product-card `checkout_start` events.
+
+## Count the clicks
+
+```sql
+select coalesce(utm_source,'direct') as src, product_id, count(*) as clicks
+from public.je_events
+where event = 'checkout_start' and path = '/go/gulf-ielts-test-1'
+  and coalesce(utm_source,'') <> 'test'
+group by 1, 2 order by 3 desc;
 ```
 
-UTMs are fixed: `utm_source=gulf`, `utm_medium=paid_social`, and
-`utm_campaign=gulf-ielts-test-1`. Existing destination query parameters survive;
-caller query parameters are never forwarded. No IP, user agent, cookies, query,
-path, credentials or personal records are logged by this function. `ref_host`
-is a known public host from the config list, otherwise null, including IP hosts.
-The response suppresses the referrer sent to the destination.
-
-## Count runtime logs
-
-1. Open this project's Vercel runtime logs, select production and the test's UTC
-   start/end times, and filter for `go_click` and `gulf-ielts-test-1`.
-2. Count only JSON messages matching `evt`, `campaign`, and the intended `dest`.
-   For the Ko-fi stop rule use `dest=kofi`; keep Calendly counts separate.
-3. For a reproducible count, save just the matching JSON **message bodies** (one
-   per line, without platform wrappers) as `gulf-clicks.jsonl`, then run:
-
-```sh
-jq -s '[.[] | select(.evt == "go_click" and .campaign == "gulf-ielts-test-1" and .dest == "kofi")] | length' gulf-clicks.jsonl
-```
-
-Check the time window and log retention before starting the campaign; preserve
-the messages before they expire. Do not export unrelated platform request data.
-Use the same time window when manually comparing paid outcomes; this function
-does not read payments or prove purchases.
-
-These are request counts, **not unique or verified human clicks**. GET previews,
-bots, retries, repeat visits, direct API calls and your own smoke tests also count.
-Record and subtract known tests and review traffic provenance before applying
-“0 paid after 100 verified clicks.” No identity-based deduplication or bot
-verification is attempted. Logs can be incomplete or delayed; they are not a
-transactional ledger. Fixed UTMs assume Gulf paid social traffic.
+For the stop rule ("0 paid after 100 verified clicks") use the `gulf-baseline-kofi` rows. These are filtered
+requests, not proven unique people: a person who taps twice counts twice.
 
 ## Verify and rollback
 
-Locally: `node --import tsx --test tests/go-click.test.ts tests/api-import-extensions.test.ts`,
-`npm test`, `npm run lint` (also the repo's TypeScript check), and
-`node scripts/check-api-handlers.mjs go`. Tests use synthetic requests only.
-No environment variables, secrets, database, or external calls are required.
+Locally: `npm test`, `npm run lint`, `node scripts/check-api-handlers.mjs`.
+After deploy: a `curl` GET must return 302 to the approved URL with `X-JE-Click: skipped:user-agent` (curl is never
+counted). A browser-style GET with `src=test` returns `X-JE-Click: recorded` and adds one `test` row, which the query
+above excludes.
 
-After an authorized deployment, one manual GET should produce a 302 to the
-approved URL with UTMs and one matching runtime log; exclude that test click.
-Vite alone does not run Vercel functions. Missing logs or a SPA response indicate
-the wrong deployment, log filter/window, or rewrite routing.
-
-Rollback: revert the click-redirect commit and have the deployment owner release
-that revert. Restore original destination links if used in campaign materials.
-No schema changes or data cleanup are needed. No deployment was performed here.
+Rollback: revert the click-redirect merge commit, or promote the previous production deployment in Vercel. Links
+already shared would then 404 on the site, so switch them back to the direct Ko-fi link. No data cleanup is needed.
