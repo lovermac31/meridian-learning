@@ -88,6 +88,7 @@ export type Product = {
   // Shown on the page only when true. A factory-built pack stays false until its Drive 00 READ ME says "Cleared"
   // (copyright and buyer-facing checks done) and Jay has approved its price.
   live: boolean;
+  draftPreview?: { price: string; licence: string; credit: string; delivery: string; independence: string };
   section: ProductSectionId;
   price: string;
   // Internal path (localized and tagged by the page) or 'zalo'.
@@ -413,7 +414,38 @@ const STORY_WORKBOOKS: Product[] = [
   }),
 ];
 
+// Proposed amount only: never an active offer. Jay must confirm before release.
+export const STARTERS_DRAFT_PRICE_VND = 99_000;
+export const STARTERS_DRAFT_PRICE = '[JAY TO CONFIRM: proposed 99.000 VND / US$4]';
+export const STARTERS_DRAFT = {
+  price: STARTERS_DRAFT_PRICE,
+  licence: '[JAY TO CONFIRM: wording A or B in LISTING-PLAN section 2.1]',
+  credit: '[JAY TO CONFIRM: credit/AI-disclosure line — AI-generated pictures; synthetic voices.]',
+  delivery: '[JAY TO CONFIRM: delivery line — hand-checked payment and own-domain download link.]',
+  independence: '[ADVISER TO CONFIRM: independence sentence and factual format reference wording.]',
+};
 export const PRODUCTS: Product[] = [
+  ...[1, 2].map((number): Product => ({
+    id: `starters-practice-test-${number}`, live: false, section: 'families',
+    price: String(STARTERS_DRAFT_PRICE_VND), href: 'zalo',
+    image: `starters-practice-test-${number}`, sample: `starters-practice-test-${number}`,
+    draftPreview: STARTERS_DRAFT,
+    clip: { src: `/audio/starters/starters-practice-test-${number}-clip.mp3`, seconds: number === 1 ? 17.300 : 16.700 },
+    en: {
+      label: 'Draft preview · unavailable to buy', title: `Pre A1 Starters-format practice test ${number}`,
+      problem: 'Ages 6 to 8. One 21-page A4 practice test with Reading and Writing, Listening and Speaking.',
+      inside: 'Five Reading and Writing parts, four Listening parts and four Speaking parts; colour and greyscale editions, answer key and read-aloud scripts.',
+      forWho: 'For a child with a parent or tutor. Intended level Pre-A1 is a design target, not a certificate. Written by Jurassic English; the illustrated cast is fictional.',
+      unit: 'per test', cta: 'Draft — buying disabled',
+    },
+    vi: {
+      label: '[VI DRAFT: native read needed] Bản xem trước', title: `Pre A1 Starters-format practice test ${number}`,
+      problem: '[VI DRAFT: native read needed] Dành cho trẻ 6 đến 8 tuổi. Bài luyện tập 21 trang A4 gồm Đọc và Viết, Nghe và Nói.',
+      inside: '[VI DRAFT: native read needed] Năm phần Đọc và Viết, bốn phần Nghe và bốn phần Nói; bản màu và thang xám, đáp án và kịch bản đọc.',
+      forWho: '[VI DRAFT: native read needed] Trẻ học cùng cha mẹ hoặc gia sư. Pre-A1 là mục tiêu thiết kế, không phải chứng chỉ. Nhân vật minh họa là hư cấu.',
+      unit: '[VI DRAFT: native read needed] mỗi bài', cta: '[VI DRAFT: native read needed] Chưa mở bán',
+    },
+  })),
   {
     id: 'story-club',
     video: 'story-club',
@@ -1866,7 +1898,7 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books' | 'usd' | 'orderOnly' | 'reader' | 'clip'> & {
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books' | 'usd' | 'orderOnly' | 'reader' | 'clip' | 'draftPreview'> & {
   link?: { href: string; label: string };
   paused?: boolean;
   credit?: string;

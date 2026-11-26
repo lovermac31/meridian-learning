@@ -8,6 +8,12 @@ import { applyCors, handlePreflight } from './_lib/corsSecurity.js';
 import { storyClubPriceAt } from '../src/config/storyClubOffer.js';
 import { HOLIDAY_SETS, holidaySetClosedAt } from '../src/config/holidaySets.js';
 
+// Reserved draft table, deliberately excluded from PRODUCT_MAP and paidOffer.
+export const DRAFT_STARTERS_PRODUCTS = {
+  'starters-practice-test-1': { prefix: 'PR1G', amount: 99000 },
+  'starters-practice-test-2': { prefix: 'PR1H', amount: 99000 },
+} as const;
+
 // Server-safe product map. Do not import src/config/payment.ts here — it uses import.meta.env (Vite) and crashes the serverless function.
 const PRODUCT_MAP: Record<string, { prefix: string; amount: number }> = {
   'story-club': { prefix: 'SC', amount: 590000 },
