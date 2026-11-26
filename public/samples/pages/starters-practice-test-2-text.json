@@ -5,7 +5,7 @@
   "pageCount": 7,
   "source": {
     "file": "starters-practice-test-2-sample.pdf",
-    "sha256": "475f651d76d8e19bbed8c069d3082690d470fc695bdb90d3a6cf1e2a6f2ab150"
+    "sha256": "10ad27efdb64c971f46fc0e65325621cc4e2ba80e66c3bd2f6ae608e73dc8a58"
   },
   "pages": [
     {
@@ -35,9 +35,9 @@
     {
       "page": 4,
       "image": "starters-practice-test-2-pg04.webp",
-      "imageSha256": "2120490d30da826c45e0e98050c4deb91f0f82037a8eaa3dc391f8b75ecc3bf4",
-      "text": "Part 1\n5 questions\nLook and read. Write yes or no. There is one example.\nEx\nDad is reading a book.\nyes\n1\nMum is next to the window.\n2\nThe baby is eating an egg.\n3\nA boy is drinking milk.\n4\nThere is a cake on the table.\n5\nDad is eating bread.\nJurassic English · Pre A1 Starters Practice Test 2\nReading and Writing\n© 2026 Jurassic English · jurassicenglish.com\nPractice test for Jurassic English classes, not an official Cambridge English test.\n6\nSAMPLE - preview only",
-      "textSha256": "615b0e86822738dea574793270de1e0c751ac21a292f90e626541a1968c39b90",
+      "imageSha256": "a5ae5629a6ddec091bee32cfd6421d8119f884a58f04db5bf104900e2c239235",
+      "text": "Part 2\n5 questions\nLook and read. Write yes or no. There is one example.\nEx\nDad is reading a book.\nyes\n1\nMum is next to the window.\n2\nThe baby is eating an egg.\n3\nA boy is drinking milk.\n4\nThere is a cake on the table.\n5\nDad is eating bread.\nJurassic English · Pre A1 Starters Practice Test 2\nReading and Writing\n© 2026 Jurassic English · jurassicenglish.com\nPractice test for Jurassic English classes, not an official Cambridge English test.\n7\nSAMPLE - preview only",
+      "textSha256": "beb1d1c16e69ef3eff3a4085e1007c298cc0a857ce089d1d07c6bab7a9250daa",
       "method": "pdf-text"
     },
     {

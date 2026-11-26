@@ -5,7 +5,7 @@
   "pageCount": 7,
   "source": {
     "file": "starters-practice-test-1-sample.pdf",
-    "sha256": "8a269cd3d3c2cfd5b79e3539854afd2410b7141926035a86f296af861d7891bf"
+    "sha256": "bd11122c547965d5235ce81db347621b58709a2d6fca813758cf0aa902464ba0"
   },
   "pages": [
     {
@@ -35,9 +35,9 @@
     {
       "page": 4,
       "image": "starters-practice-test-1-pg04.webp",
-      "imageSha256": "d45580ee01ee6d4c358d8b72bb17f3905a3c4324c178dc6c0ed9741bd179ead2",
-      "text": "Part 1\n5 questions\nLook and read. Write yes or no. There is one example.\nEx\nTwo boys are playing football.\nyes\n1\nA girl has got her arms up.\n2\nThe teacher is behind the tree.\n3\nA girl is sitting next to a bag.\n4\nThere are three boys.\n5\nThe ball is under the tree.\nJurassic English · Pre A1 Starters Practice Test 1\nReading and Writing\n© 2026 Jurassic English · jurassicenglish.com\nPractice test for Jurassic English classes, not an official Cambridge English test.\n6\nSAMPLE - preview only",
-      "textSha256": "09fd52618d3d50347a56ddd095f9787da573620051af563711b3c75389a04436",
+      "imageSha256": "25781145f64cf1dc33970d1950ba1bf8dd22f9dbe749f7d88b409caa6f07c8c1",
+      "text": "Part 2\n5 questions\nLook and read. Write yes or no. There is one example.\nEx\nTwo boys are playing football.\nyes\n1\nA girl has got her arms up.\n2\nThe teacher is behind the tree.\n3\nA girl is sitting next to a bag.\n4\nThere are three boys.\n5\nThe ball is under the tree.\nJurassic English · Pre A1 Starters Practice Test 1\nReading and Writing\n© 2026 Jurassic English · jurassicenglish.com\nPractice test for Jurassic English classes, not an official Cambridge English test.\n7\nSAMPLE - preview only",
+      "textSha256": "6f4e3a8201148cc34eb1cccb0688f8a84c089e2317cde4c57e4ca203349ce8b0",
       "method": "pdf-text"
     },
     {
