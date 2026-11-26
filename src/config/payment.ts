@@ -3,7 +3,7 @@ import type { Locale } from '../i18n/locales';
 import { HOLIDAY_SETS } from './holidaySets.js';
 import { HOLIDAY_OFFER_TITLES } from '../i18n/content/holidaySets.js';
 
-export const PRODUCT_MEMO_CODES: Record<string, string> = {
+const PRODUCT_MEMO_CODES: Record<string, string> = {
   'printable-pack': 'PR03',
   'parent-pack-l1': 'PR04',
   'parent-pack-l2': 'PR05',
@@ -55,15 +55,11 @@ export const PRODUCT_MEMO_CODES: Record<string, string> = {
   'thinking-expeditions-l1': 'PR1C',
   // Thinking Expeditions Level 2 (17 Nov 2026, 190.000₫).
   'thinking-expeditions-l2': 'PR1D',
-  'starters-practice-test-1': 'PR1G',
-  'starters-practice-test-2': 'PR1H',
-  'starters-practice-test-3': 'PR1J',
-  'starters-practice-tests-pack': 'PR1K',
 };
 
 // The pack total is already published in the catalogue; keep it tied to that copy. Order-only products (Phonics, 15 Nov
 // 2026) are not here: they are ordered on Zalo (written summary, then VietQR with Jay's PH- reference) or by PayPal.
-export const PAID_OFFERS = PRODUCTS.filter(product => !product.orderOnly && !product.draftPreview).map(product => ({
+export const PAID_OFFERS = PRODUCTS.filter(product => !product.orderOnly).map(product => ({
   id: product.id,
   amount: Number((product.id === 'one-to-one'
     ? product.en.unit.match(/8 lessons ([\d.]+)₫/)![1]
@@ -102,7 +98,6 @@ export const BANK_CONFIG = {
   name: env.VITE_VIETQR_ACCOUNT_NAME ?? 'ADAMS NATHANIEL JAY',
 };
 export function paymentQrUrl(amount: number, memo: string, config = BANK_CONFIG): string | null {
-  if (/^PR1[GHJK]-/.test(memo)) return null; // Reserved draft prefixes must never produce a payable QR.
   if (!/^[A-Za-z0-9]+$/.test(config.bank) || !/^\d{6,20}$/.test(config.account) || !config.name.trim()) return null;
   if (!Number.isSafeInteger(amount) || amount <= 0 || !/^(SC|BL|1T|LC|PR[A-Z0-9]{2})-[A-Z0-9]{6}$/.test(memo)) throw new Error('Invalid payment instructions');
   return `https://qr.sepay.vn/img?${new URLSearchParams({ acc: config.account, bank: config.bank, amount: String(amount), des: memo })}`;

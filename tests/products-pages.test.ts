@@ -1,4 +1,3 @@
-import { DRAFT_HIDDEN_PRODUCT_IDS } from './helpers/draft-hidden-products';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
@@ -115,9 +114,8 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
 // 35-today plan (Jay, 27 Oct 2026): the eight new products are live, each with its page, JSON-LD and sitemap entry.
 test('35-today: all 52 products are live (35, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Levels 1 and 2, the IELTS Reading and Listening packs, the three IELTS bundles and Phonics Books 1 and 2), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
-  const liveProducts = PRODUCTS.filter(p => !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id));
-  assert.equal(liveProducts.length, 52); // 52 with Thinking Expeditions Level 2 (17 Nov 2026)
-  assert.equal(liveProducts.filter((p) => !p.live).length, 0);
+  assert.equal(PRODUCTS.length, 52); // 52 with Thinking Expeditions Level 2 (17 Nov 2026)
+  assert.equal(PRODUCTS.filter((p) => !p.live).length, 0);
   const fresh = ['writing-baseline', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'ielts-essay-bank-task2', 'parent-pack-l3',
     'holiday-reading-challenge', 'thinking-cycle-posters', 'word-fossil-flashcards-l1'];
   for (const id of fresh) {

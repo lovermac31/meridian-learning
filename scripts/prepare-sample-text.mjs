@@ -11,7 +11,7 @@ const publicPages = path.join(root, 'public/samples/pages');
 const hash = (value) => createHash('sha256').update(value).digest('hex');
 // The 44 packs are extracted from their approved sample PDFs. The three IELTS bundles (12 Nov 2026) have no PDF of their own:
 // their pages are byte-identical copies of pages of the packs inside, so they are only validated here (bundleConfig).
-const all = PRODUCTS.filter(p => (p.live || p.draftPreview) && p.sample).map(p => ({ id: p.id, stem: p.sample, count: SAMPLE_PAGE_COUNTS[p.sample], bundle: p.group === 'bundles' }));
+const all = PRODUCTS.filter(p => p.live && p.sample).map(p => ({ id: p.id, stem: p.sample, count: SAMPLE_PAGE_COUNTS[p.sample], bundle: p.group === 'bundles' }));
 const config = all.filter(p => !p.bundle);
 const bundleConfig = all.filter(p => p.bundle);
 const args = process.argv.slice(2);
@@ -31,8 +31,7 @@ const generate = explicitGenerate || Boolean(sourceRoot);
 // 47 with the Reading & Reasoning single story (16 Nov 2026), sampled from its watermarked preview.pdf.
 // 48 with Thinking Expeditions Level 1 (17 Nov 2026), sampled from its free Unit 1 sample PDF (cover and pages 7-16).
 // 49 with Thinking Expeditions Level 2 (17 Nov 2026), sampled from its free Unit 2 sample PDF (cover and pages 7-16).
-// 53 sets: 49 cleared products plus four hidden Starters draft previews (Tests 1 to 3 and the 3-test pack).
-if (config.length !== 53 || new Set(config.map(p => p.stem)).size !== 53 || config.some(p => !p.count)) throw new Error('Expected 49 cleared and 4 hidden draft sample sets');
+if (config.length !== 49 || new Set(config.map(p => p.stem)).size !== 49 || config.some(p => !p.count)) throw new Error('Expected 49 approved sample sets');
 if (bundleConfig.length !== 3 || bundleConfig.some(p => !p.count)) throw new Error('Expected 3 bundle sample sets');
 if ((generate || verifySource) && !sourceRoot) throw new Error('Use --source-root or JE_SAMPLE_SOURCE_ROOT for approved local samples');
 if (generate || verifySource) {

@@ -6,10 +6,6 @@
 // Band-Up pages 1, 3 and 5 of each of their 3 packs, Four-Skill Kit pages 1 and 3 of each of its 7 packs, in the order the
 // bundle's product text names the packs. No new images.
 export const SAMPLE_PAGE_COUNTS: Record<string, number> = {
-  'starters-practice-test-1': 7,
-  'starters-practice-test-2': 7,
-  'starters-practice-test-3': 7,
-  'starters-practice-tests-pack': 9,
   'baseline': 8,
   'centre-licence': 19,
   'curriculum-overview': 11,

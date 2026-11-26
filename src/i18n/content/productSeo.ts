@@ -16,14 +16,6 @@ type SeoText = { keyword: string; title: string; description: string };
 export type ProductSeo = Record<Locale, SeoText>;
 
 export const PRODUCT_SEO: Record<string, ProductSeo> = {
-  ...Object.fromEntries([1, 2, 3].map(number => [`starters-practice-test-${number}`, {
-    en: { keyword: 'Pre A1 Starters-format practice test', title: `Pre A1 Starters-format practice test ${number} | Draft`, description: 'Draft preview for ages 6 to 8: explore seven real sample pages and an example audio clip. Intended level Pre-A1 is a design target.' },
-    vi: { keyword: 'Pre A1 Starters-format practice test', title: `Pre A1 Starters-format practice test ${number} | VI DRAFT`, description: '[VI DRAFT: native read needed] Bản xem trước cho trẻ 6 đến 8 tuổi: bảy trang mẫu và đoạn âm thanh ví dụ. Chưa mở bán.' },
-  }])),
-  'starters-practice-tests-pack': {
-    en: { keyword: 'Pre A1 Starters-format practice tests, set of three', title: 'Pre A1 Starters-format practice tests 1 to 3 | Draft', description: 'Draft preview for ages 6 to 8: three practice tests; explore nine real sample pages and an example audio clip. Intended level Pre-A1 is a design target.' },
-    vi: { keyword: 'Pre A1 Starters-format practice tests, set of three', title: 'Pre A1 Starters-format practice tests 1 to 3 | VI DRAFT', description: '[VI DRAFT: native read needed] Bản xem trước cho trẻ 6 đến 8 tuổi: ba bài luyện tập, chín trang mẫu và đoạn âm thanh ví dụ. Chưa mở bán.' },
-  },
   'story-club': {
     en: {
       keyword: 'online english story club for kids',
@@ -658,14 +650,12 @@ export const productPath = (id: string) => `/products/${id}`;
 /** The live products that have a page, in list order. */
 export const PAGE_PRODUCTS: Product[] = PRODUCTS.filter((product) => product.live && PRODUCT_SEO[product.id]);
 /** English paths of every product page (the /vi twin comes from the locale routing). */
-export const PREVIEW_PRODUCTS = PRODUCTS.filter(product => product.draftPreview);
-export const PREVIEW_PRODUCT_PATHS = PREVIEW_PRODUCTS.map(product => productPath(product.id));
 export const PRODUCT_PAGE_PATHS = PAGE_PRODUCTS.map((product) => productPath(product.id));
 
 /** The live product a /products/<id> path names, or null (an unknown id stays a 404). */
 export function getProductByPath(pathname: string): Product | null {
   const id = pathname.match(/^\/products\/([^/]+)$/)?.[1];
-  return (id && [...PAGE_PRODUCTS, ...PREVIEW_PRODUCTS].find((product) => product.id === id)) || null;
+  return (id && PAGE_PRODUCTS.find((product) => product.id === id)) || null;
 }
 
 // "You may also need" picks that lead the list (blueprint section 5, 15 Nov 2026): Level 1 Story Workbooks names Phonics Book 1.

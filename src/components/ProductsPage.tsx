@@ -374,7 +374,7 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
             <ChevronRight aria-hidden="true" className="h-5 w-5" />
           </button>
         </div>
-        {page === last && !card.draftPreview ? (
+        {page === last ? (
           <div className="mt-3 text-center" data-viewer-end>
             <p className="text-sm font-bold">{copy.end}</p>
             <p className="mt-1 text-lg font-bold">{card.price} <span className="text-sm font-semibold">{card.unit}</span></p>

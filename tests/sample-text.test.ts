@@ -1,4 +1,3 @@
-import { DRAFT_HIDDEN_PRODUCT_IDS, isDraftHiddenSampleAsset } from './helpers/draft-hidden-products';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -11,13 +10,13 @@ const fixture = () => JSON.parse(readFileSync('public/samples/pages/story-club-t
 
 test('all 49 sample-bearing products expose exactly their 431 approved public sample pages, with bound image and text hashes', () => {
   const sha = (value: string | Buffer) => createHash('sha256').update(value).digest('hex');
-  const products = PRODUCTS.filter(p => p.live && !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id) && p.group !== 'bundles'); // the three IELTS bundles are checked in the next test
+  const products = PRODUCTS.filter(p => p.live && p.group !== 'bundles'); // the three IELTS bundles are checked in the next test
   // 44 packs, plus Phonics Books 1 and 2 (15 Nov 2026, 14 pages each, reviewed transcription: their PDFs have no text layer).
   // 47 with the Reading & Reasoning single story (16 Nov 2026, 3 pages of its watermarked preview.pdf).
   // 48 with Thinking Expeditions Level 1 (17 Nov 2026, 11 pages of its free Unit 1 sample PDF).
   // 49 with Thinking Expeditions Level 2 (17 Nov 2026, 11 pages of its free Unit 2 sample PDF).
   assert.equal(products.length, 49);
-  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json') && !isDraftHiddenSampleAsset(p) && !/^phonics-b[3-5]-text\.json$/.test(p)).length, 52, '49 packs + 3 bundles');
+  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json') && !/^phonics-b[3-5]-text\.json$/.test(p)).length, 52, '49 packs + 3 bundles');
   let pages = 0, ocr = 0;
   for (const product of products) {
     const count = SAMPLE_PAGE_COUNTS[product.sample!];

@@ -1,4 +1,3 @@
-import { DRAFT_HIDDEN_PRODUCT_IDS } from './helpers/draft-hidden-products';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import test from 'node:test';
@@ -25,8 +24,7 @@ test('films: every mapped film has its video, poster and one subtitle file per l
 
 test('films: each sales film sits on its own product', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
-  const liveProducts = PRODUCTS.filter(p => !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id));
-  const mapped = Object.fromEntries(liveProducts.filter((p) => p.video).map((p) => [p.id, p.video]));
+  const mapped = Object.fromEntries(PRODUCTS.filter((p) => p.video).map((p) => [p.id, p.video]));
   // Every product has its own film, in public/videos/<product id>/.
   // Except the five Story Workbooks and the IELTS Reading and Listening packs (3 Nov 2026), whose films come later: the
   // card and page show the sample without one.
@@ -34,7 +32,7 @@ test('films: each sales film sits on its own product', async () => {
   // Phonics Books 1 and 2 (15 Nov 2026): a 20 s audio clip and the reader sample; no film yet.
   // The Reading & Reasoning single story (16 Nov 2026) and Thinking Expeditions Level 1 (17 Nov 2026): samples only, no film yet.
   const noFilmYet = (id: string) => id.startsWith('story-workbooks-') || id.startsWith('phonics-') || id === 'mango-l2' || id === 'rr-l1-wind-sun-yellow-coat' || id === 'thinking-expeditions-l1' || id === 'thinking-expeditions-l2' || id === 'ielts-reading-ladder' || id === 'ielts-listening-profiler' || id === 'ielts-diagnostic-mock' || ['ielts-writing-band-up', 'ielts-speaking-band-up', 'ielts-four-skill-kit'].includes(id);
-  assert.deepEqual(mapped, Object.fromEntries(liveProducts.filter((p) => !noFilmYet(p.id)).map((p) => [p.id, p.id])));
+  assert.deepEqual(mapped, Object.fromEntries(PRODUCTS.filter((p) => !noFilmYet(p.id)).map((p) => [p.id, p.id])));
 
 });
 

@@ -7,10 +7,6 @@
  */
 
 export const PORTAL_BUY_FLAGS: Record<string, boolean> = {
-  'starters-practice-test-1': false,
-  'starters-practice-test-2': false,
-  'starters-practice-test-3': false,
-  'starters-practice-tests-pack': false,
   'story-club': false,
   'baseline': false,
   'one-to-one': false,
