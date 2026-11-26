@@ -434,7 +434,8 @@ export const PRODUCTS: Product[] = [
     price: String(STARTERS_DRAFT_PRICE_VND), href: 'zalo',
     image: `starters-practice-test-${number}`, sample: `starters-practice-test-${number}`,
     draftPreview: STARTERS_DRAFT,
-    clip: { src: `/audio/starters/starters-practice-test-${number}-clip.mp3`, seconds: number === 1 ? 17.300 : number === 2 ? 16.700 : 15.700 },
+    // Test 3's example clip is withheld until a person has listened to the Test 3 tracks (Tests 1 and 2 were listened to and passed).
+    ...(number === 3 ? {} : { clip: { src: `/audio/starters/starters-practice-test-${number}-clip.mp3`, seconds: number === 1 ? 17.300 : 16.700 } }),
     en: {
       label: 'Draft preview · unavailable to buy', title: `Pre A1 Starters-format practice test ${number}`,
       problem: 'Ages 6 to 8. One 21-page A4 practice test with Reading and Writing, Listening and Speaking.',

@@ -29,7 +29,7 @@ const allowedStartersAsset = (file: string): string | null => {
     if (new RegExp(`^public/samples/(?:small/)?${id}-p[123]\\.webp$`).test(file)) return 'sample thumbnail';
     if (new RegExp(`^public/images/products/(?:w/)?${id}(?:-400|-600)?\\.webp$`).test(file)) return 'product image';
     if (file === `docs/qa/pay-everywhere/qr-fixtures/${id}.png`) return statSync(file).size <= 20_000 ? 'draft placeholder' : 'fixture is too large to be the no-QR placeholder';
-    if (file === `public/audio/starters/${id}-clip.mp3`) return statSync(file).size <= MAX_CLIP_BYTES ? 'example clip' : `clip is ${statSync(file).size} bytes: that is a full track, not an example clip`;
+    if (file === `public/audio/starters/${id}-clip.mp3` && id !== 'starters-practice-test-3') return statSync(file).size <= MAX_CLIP_BYTES ? 'example clip' : `clip is ${statSync(file).size} bytes: that is a full track, not an example clip`;
   }
   return null;
 };
@@ -52,12 +52,12 @@ test('Starters files are only listing code, the approved sample pages, product i
 
 test('public/audio/starters holds only the example clips, none longer than the size cap', () => {
   const audio = files.filter(f => f.startsWith('public/audio/starters/'));
-  assert.deepEqual(audio.sort(), ids.filter(id => id !== 'starters-practice-tests-pack').map(id => `public/audio/starters/${id}-clip.mp3`).sort());
+  assert.deepEqual(audio.sort(), ids.filter(id => id !== 'starters-practice-tests-pack' && id !== 'starters-practice-test-3').map(id => `public/audio/starters/${id}-clip.mp3`).sort());
   for (const f of audio) assert.ok(statSync(f).size <= MAX_CLIP_BYTES, `${f} is too large to be an example clip`);
 });
 
 test('no PDF or audio other than the three example clips is tracked next to a Starters name or folder', () => {
   const media = files.filter(f => /\.(?:pdf|mp3|m4a|wav|zip)$/i.test(f) && /starters|practice[-_ ]?test/i.test(f));
-  const allowed = new Set(ids.filter(id => id !== 'starters-practice-tests-pack').map(id => `public/audio/starters/${id}-clip.mp3`));
+  const allowed = new Set(ids.filter(id => id !== 'starters-practice-tests-pack' && id !== 'starters-practice-test-3').map(id => `public/audio/starters/${id}-clip.mp3`));
   assert.deepEqual(media.filter(f => !allowed.has(f)), []);
 });

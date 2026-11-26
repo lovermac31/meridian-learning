@@ -37,11 +37,8 @@ test('Starters prefixes reserved uniquely, manual status, all payment paths clos
       const viewer = renderToStaticMarkup(createElement(SampleViewer, { card: toCard(product, locale), locale, source: null, copy: productsPage(locale).viewer, onClose() {}, initialPage: 6 }));
       assert.doesNotMatch(viewer, /data-viewer-order|data-buy|checkout=|qr\.sepay/);
       const path = `${locale === 'vi' ? '/vi' : ''}/products/${id}`;
-      assert.ok(getPrerenderRoutes().includes(path));
-      const meta = resolveRouteMetadata(path);
-      assert.match(meta.robots, /noindex/);
-      assert.equal(meta.canonical, undefined);
-      assert.ok(!JSON.stringify(meta.jsonLd ?? []).includes(id));
+      // Hide-fix: the draft pages are not routed at all while STARTERS_DRAFTS_PUBLIC is false (see starters-hidden-routes.test.ts).
+      assert.ok(!getPrerenderRoutes().includes(path));
     }
   }
 });
