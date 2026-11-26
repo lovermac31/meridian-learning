@@ -1,3 +1,4 @@
+import { DRAFT_HIDDEN_PRODUCT_IDS, isDraftHiddenSampleAsset } from './helpers/draft-hidden-products';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
@@ -295,16 +296,29 @@ test('packs marked live: false stay in the data, off the page and without a prod
   for (const p of PRODUCTS) assert.equal(typeof p.live, 'boolean', `${p.id}: live is set`);
   const hidden = PRODUCTS.filter((p) => !p.live).map((p) => p.id);
   // 35-today plan (Jay, 27 Oct 2026): every new product went live once the master approved its sample. A future
-  // pack can still ship hidden with live: false.
-  assert.deepEqual(hidden, []);
+  // pack can still ship hidden with live: false. Only the two explicit Starters drafts are hidden today.
+  assert.deepEqual([...hidden].sort(), [...DRAFT_HIDDEN_PRODUCT_IDS].sort());
+  assert.equal(PRODUCTS.filter(p => !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id)).every(p => p.live), true);
+  const indexable = getExpectedPublicIndexableRoutes();
   const { PRODUCT_PAGE_PATHS } = await import('../src/i18n/content/productSeo');
   for (const route of [EN, VI]) {
     const html = await renderRoute(route);
-    for (const id of hidden) assert.ok(!html.includes(`id="${id}"`) && !html.includes(`product-${id}`), `${route}: ${id} hidden`);
+    for (const id of hidden) assert.ok(!html.includes(id), `${route}: ${id} hidden`);
   }
   for (const id of hidden) {
-    assert.ok(!PRODUCT_PAGE_PATHS.includes(`/products/${id}`), `${id}: no product page, so nothing in the sitemap`);
-    assert.equal((await renderRoute(`/products/${id}`)).includes(`data-product-page-main="${id}"`), false, `${id}: /products/${id} is not served`);
+    assert.ok(!indexable.some(path => path.includes(id)), `${id}: no public indexable route or sitemap entry`);
+    for (const prefix of ['', '/vi']) {
+      const path = `${prefix}/products/${id}`;
+      assert.ok(!PRODUCT_PAGE_PATHS.includes(path), `${id}: no public product page`);
+      const html = await renderRoute(path);
+      if (DRAFT_HIDDEN_PRODUCT_IDS.includes(id)) {
+        // Explicit drafts have direct preview routes, but never public, indexable sales pages.
+        assert.match(resolveRouteMetadata(path).robots, /noindex/, `${path}: preview stays noindex`);
+        assert.doesNotMatch(html, /data-buy-now|data-portal-buy|data-payment-instructions|qr\.sepay|checkout=1/, `${path}: no purchase path`);
+      } else {
+        assert.equal(html.includes(`data-product-page-main="${id}"`), false, `${path}: hidden pack is not served`);
+      }
+    }
   }
 });
 
@@ -350,14 +364,14 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
   // Jay, 27 Oct 2026: no PDF download. Nothing under public/samples may be a PDF.
   assert.deepEqual(filesUnder('public/samples').filter((file) => /\.pdf$/i.test(file)), [], 'no PDF under public/samples');
   // The three IELTS bundles (12 Nov 2026) show copies of pages from the packs inside, so every product has a sample.
-  const withSample = PRODUCTS;
+  const withSample = PRODUCTS.filter(p => !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id));
   assert.deepEqual(Object.keys(SAMPLE_STEMS).sort(), withSample.map((p) => p.id).sort(), 'one stem per product');
-  for (const p of PRODUCTS.filter((entry) => entry.sample)) assert.equal(p.sample, SAMPLE_STEMS[p.id], `${p.id}: stem from the spec`);
-  const stems = PRODUCTS.filter((p) => p.sample).map((p) => p.sample!).sort();
+  for (const p of withSample.filter((entry) => entry.sample)) assert.equal(p.sample, SAMPLE_STEMS[p.id], `${p.id}: stem from the spec`);
+  const stems = withSample.filter((p) => p.sample).map((p) => p.sample!).sort();
   const isHeldPhonics = (f: string) => /^phonics-b[3-5](?:-|$)/.test(f);
-  const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages' && f !== 'small' && !isHeldPhonics(f));
+  const thumbs = readdirSync('public/samples').filter((f) => !f.startsWith('.') && f !== 'pages' && f !== 'small' && !isHeldPhonics(f) && !isDraftHiddenSampleAsset(f));
   // Perf: every thumbnail has a 300 px copy in small/ (its srcset's small candidate), and nothing else is there.
-  assert.deepEqual(readdirSync('public/samples/small').filter((f) => !f.startsWith('.') && !isHeldPhonics(f)).sort(), [...thumbs].sort(), 'small/ ↔ thumbnails');
+  assert.deepEqual(readdirSync('public/samples/small').filter((f) => !f.startsWith('.') && !isHeldPhonics(f) && !isDraftHiddenSampleAsset(f)).sort(), [...thumbs].sort(), 'small/ ↔ thumbnails');
   for (const file of thumbs) assert.match(file, SAMPLE_FILE, `public/samples/${file}`);
   assert.deepEqual([...new Set(thumbs.map((file) => file.match(SAMPLE_FILE)![1]))].sort(), stems, 'thumbnails ↔ products with a sample');
   for (const stem of stems) for (const n of [1, 2, 3]) {
@@ -366,14 +380,15 @@ test('samples: no PDF is published; every card has three thumbnails and every pa
     assert.ok(page.length < 80 * 1024, `${stem}-p${n}: < 80 KB (${page.length})`);
   }
   // Viewer page sets: public/samples/pages/<stem>-pgNN.webp, 01…N, exactly as samplePages.ts lists them.
-  const allPageAssets = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.') && !isHeldPhonics(f));
+  const allPageAssets = readdirSync('public/samples/pages').filter((f) => !f.startsWith('.') && !isHeldPhonics(f) && !isDraftHiddenSampleAsset(f));
   assert.deepEqual(allPageAssets.filter(f => f.endsWith('-text.json')).sort(), withSample.map(p => `${p.id}-text.json`).sort(), 'one approved text asset per product');
   const pages = allPageAssets.filter(f => !f.endsWith('-text.json'));
   for (const file of pages) assert.match(file, PAGE_FILE, `pages/${file}`);
   const found: Record<string, number> = {};
   for (const file of pages) { const [, stem] = file.match(PAGE_FILE)!; found[stem] = (found[stem] ?? 0) + 1; }
-  assert.deepEqual(found, SAMPLE_PAGE_COUNTS, 'page files ↔ manifest');
-  for (const [stem, count] of Object.entries(SAMPLE_PAGE_COUNTS)) {
+  const livePageCounts = Object.fromEntries(Object.entries(SAMPLE_PAGE_COUNTS).filter(([stem]) => !DRAFT_HIDDEN_PRODUCT_IDS.includes(stem)));
+  assert.deepEqual(found, livePageCounts, 'page files ↔ manifest');
+  for (const [stem, count] of Object.entries(livePageCounts)) {
     assert.ok(stems.includes(stem), `${stem}: a product's sample`);
     for (let n = 1; n <= count; n += 1) {
       const file = readFileSync(`public/samples/pages/${stem}-pg${String(n).padStart(2, '0')}.webp`);

@@ -1,3 +1,4 @@
+import { DRAFT_HIDDEN_PRODUCT_IDS } from './helpers/draft-hidden-products';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createElement } from 'react';
@@ -20,7 +21,7 @@ test('Story Club first screen states the approved offer and has one unchanged pu
 });
 
 test('other products retain the purchase block within their image/content card', () => {
-  for (const product of PRODUCTS.filter(p => p.id !== 'story-club')) for (const locale of ['en', 'vi'] as const) {
+  for (const product of PRODUCTS.filter(p => p.id !== 'story-club' && !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id))) for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(ProductPage, { product, locale }));
     assert.ok(!html.includes('data-story-club-first-screen'));
     assert.ok(html.indexOf(`data-price="${product.id}"`) > html.indexOf(`data-product="${product.id}"`));
