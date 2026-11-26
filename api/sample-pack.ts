@@ -12,6 +12,8 @@ import { HOLIDAY_SETS, holidaySetClosedAt } from '../src/config/holidaySets.js';
 export const DRAFT_STARTERS_PRODUCTS = {
   'starters-practice-test-1': { prefix: 'PR1G', amount: 99000 },
   'starters-practice-test-2': { prefix: 'PR1H', amount: 99000 },
+  'starters-practice-test-3': { prefix: 'PR1J', amount: 99000 },
+  'starters-practice-tests-pack': { prefix: 'PR1K', amount: 249000 },
 } as const;
 
 // Server-safe product map. Do not import src/config/payment.ts here — it uses import.meta.env (Vite) and crashes the serverless function.

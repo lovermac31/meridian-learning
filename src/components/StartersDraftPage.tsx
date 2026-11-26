@@ -3,6 +3,9 @@ import type { Locale } from '../i18n/locales';
 import { productsPage, type Product } from '../i18n/content/products';
 import { Sample, SampleViewer } from './ProductsPage';
 import { toCard } from './ProductPage';
+import { SAMPLE_PAGE_COUNTS } from '../i18n/content/samplePages';
+
+const COUNT_WORDS: Record<number, string> = { 7: 'seven', 9: 'nine' };
 
 /** Fail closed if an unfinished preview is accidentally switched live. */
 export function assertStartersDraft(product: Product) {
@@ -16,6 +19,8 @@ export function StartersDraftPage({ product, locale }: { product: Product; local
   const text = product[locale];
   const draft = product.draftPreview!;
   const card = toCard(product, locale);
+  const pages = SAMPLE_PAGE_COUNTS[product.sample!];
+  const isPack = product.id === 'starters-practice-tests-pack';
   return <main id="main-content" tabIndex={-1} lang={locale} className="insights-page products-page min-h-screen" data-product-page-main={product.id}>
     <style>{'@media print { body { display: none !important; } }'}</style>
     <div className="mx-auto max-w-3xl space-y-6 px-5 py-14">
@@ -23,8 +28,8 @@ export function StartersDraftPage({ product, locale }: { product: Product; local
       <h1 className="text-3xl font-bold sm:text-4xl">{text.title}</h1>
       <p className="text-lg">{text.problem}</p>
       <section className="rounded-2xl bg-white p-6 shadow-sm" aria-label="Real sample" data-starters-sample={product.id}>
-        <h2 className="text-2xl font-bold">{locale === 'vi' ? '[VI DRAFT: native read needed] Xem trang mẫu' : 'Explore seven real sample pages'}</h2>
-        <p className="my-3 text-sm">Cover, abstract, contents, Reading and Writing picture task, Listening Parts 1 and 2, colouring task, and Speaking picture.</p>
+        <h2 className="text-2xl font-bold">{locale === 'vi' ? '[VI DRAFT: native read needed] Xem trang mẫu' : `Explore ${COUNT_WORDS[pages]} real sample pages`}</h2>
+        <p className="my-3 text-sm">{isPack ? 'The cover, a Reading and Writing picture task and the Listening Parts 1 and 2 page from each of the three tests.' : 'Cover, abstract, contents, Reading and Writing picture task, Listening Parts 1 and 2, colouring task, and Speaking picture.'}</p>
         <Sample card={card} copy={copy.sample} onOpen={() => setViewer(true)} />
         <div className="mt-6" data-starters-audio={product.id}>
           <h3 className="font-bold">Listening Part 1: example clip</h3>

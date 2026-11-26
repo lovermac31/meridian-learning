@@ -31,8 +31,8 @@ const generate = explicitGenerate || Boolean(sourceRoot);
 // 47 with the Reading & Reasoning single story (16 Nov 2026), sampled from its watermarked preview.pdf.
 // 48 with Thinking Expeditions Level 1 (17 Nov 2026), sampled from its free Unit 1 sample PDF (cover and pages 7-16).
 // 49 with Thinking Expeditions Level 2 (17 Nov 2026), sampled from its free Unit 2 sample PDF (cover and pages 7-16).
-// 51 sets: 49 cleared products plus two hidden Starters draft previews.
-if (config.length !== 51 || new Set(config.map(p => p.stem)).size !== 51 || config.some(p => !p.count)) throw new Error('Expected 49 cleared and 2 hidden draft sample sets');
+// 53 sets: 49 cleared products plus four hidden Starters draft previews (Tests 1 to 3 and the 3-test pack).
+if (config.length !== 53 || new Set(config.map(p => p.stem)).size !== 53 || config.some(p => !p.count)) throw new Error('Expected 49 cleared and 4 hidden draft sample sets');
 if (bundleConfig.length !== 3 || bundleConfig.some(p => !p.count)) throw new Error('Expected 3 bundle sample sets');
 if ((generate || verifySource) && !sourceRoot) throw new Error('Use --source-root or JE_SAMPLE_SOURCE_ROOT for approved local samples');
 if (generate || verifySource) {

@@ -5,8 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { PRODUCTS } from '../src/i18n/content/products';
 import { ProductPage } from '../src/components/ProductPage';
 
-for (const number of [1, 2]) test(`Starters ${number}: licence decision remains explicit before price and disabled buy`, () => {
-  const id = `starters-practice-test-${number}`;
+for (const id of ['starters-practice-test-1', 'starters-practice-test-2', 'starters-practice-test-3', 'starters-practice-tests-pack']) test(`${id}: licence decision remains explicit before price and disabled buy`, () => {
   const product = PRODUCTS.find(p => p.id === id)!;
   assert.equal(product.draftPreview?.licence, '[JAY TO CONFIRM: wording A or B in LISTING-PLAN section 2.1]');
   for (const locale of ['en', 'vi'] as const) {

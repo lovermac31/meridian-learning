@@ -17,18 +17,19 @@ import { DRAFT_STARTERS_PRODUCTS } from '../api/sample-pack';
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-const ids = ['starters-practice-test-1', 'starters-practice-test-2'];
+const ids = ['starters-practice-test-1', 'starters-practice-test-2', 'starters-practice-test-3', 'starters-practice-tests-pack'];
+const amounts: Record<string, number> = { 'starters-practice-test-1': 99000, 'starters-practice-test-2': 99000, 'starters-practice-test-3': 99000, 'starters-practice-tests-pack': 249000 };
 test('Starters prefixes reserved uniquely, manual status, all payment paths closed', () => {
   assert.equal(new Set([...Object.values(PRODUCT_MEMO_CODES), ...HOLIDAY_SETS.map(s => s.prefix)]).size, Object.values(PRODUCT_MEMO_CODES).length + HOLIDAY_SETS.length);
   for (const id of ids) {
     const prefix = PRODUCT_MEMO_CODES[id];
     assert.equal(DRAFT_STARTERS_PRODUCTS[id as keyof typeof DRAFT_STARTERS_PRODUCTS].prefix, prefix);
-    assert.equal(DRAFT_STARTERS_PRODUCTS[id as keyof typeof DRAFT_STARTERS_PRODUCTS].amount, 99000);
+    assert.equal(DRAFT_STARTERS_PRODUCTS[id as keyof typeof DRAFT_STARTERS_PRODUCTS].amount, amounts[id]);
     assert.equal(paidOffer(id), undefined);
     assert.ok(!PAID_OFFERS.some(p => p.id === id));
     assert.equal(isPortalBuyEnabled(id), false);
     assert.deepEqual(payStatusSource(`${prefix}-AB12CD`), { kind: 'manual' });
-    assert.equal(paymentQrUrl(99000, `${prefix}-AB12CD`), null);
+    assert.equal(paymentQrUrl(amounts[id], `${prefix}-AB12CD`), null);
     for (const locale of ['en', 'vi'] as const) {
       const checkout = renderToStaticMarkup(createElement(StoryClubReservePage, { locale, productId: id, initialMemo: `${prefix}-AB12CD` }));
       assert.doesNotMatch(checkout, /data-payment|data-buy|<form|<img|<audio/);

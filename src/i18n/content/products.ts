@@ -424,13 +424,17 @@ export const STARTERS_DRAFT = {
   delivery: '[JAY TO CONFIRM: delivery line — hand-checked payment and own-domain download link.]',
   independence: '[ADVISER TO CONFIRM: independence sentence and factual format reference wording.]',
 };
+// The 3-test set: its own proposed amount (never an offer) and the same unresolved decisions.
+export const STARTERS_PACK_DRAFT_PRICE_VND = 249_000;
+export const STARTERS_PACK_DRAFT_PRICE = '[JAY TO CONFIRM: proposed 249.000 VND / US$10]';
+export const STARTERS_PACK_DRAFT = { ...STARTERS_DRAFT, price: STARTERS_PACK_DRAFT_PRICE };
 export const PRODUCTS: Product[] = [
-  ...[1, 2].map((number): Product => ({
+  ...[1, 2, 3].map((number): Product => ({
     id: `starters-practice-test-${number}`, live: false, section: 'families',
     price: String(STARTERS_DRAFT_PRICE_VND), href: 'zalo',
     image: `starters-practice-test-${number}`, sample: `starters-practice-test-${number}`,
     draftPreview: STARTERS_DRAFT,
-    clip: { src: `/audio/starters/starters-practice-test-${number}-clip.mp3`, seconds: number === 1 ? 17.300 : 16.700 },
+    clip: { src: `/audio/starters/starters-practice-test-${number}-clip.mp3`, seconds: number === 1 ? 17.300 : number === 2 ? 16.700 : 15.700 },
     en: {
       label: 'Draft preview · unavailable to buy', title: `Pre A1 Starters-format practice test ${number}`,
       problem: 'Ages 6 to 8. One 21-page A4 practice test with Reading and Writing, Listening and Speaking.',
@@ -446,6 +450,27 @@ export const PRODUCTS: Product[] = [
       unit: '[VI DRAFT: native read needed] mỗi bài', cta: '[VI DRAFT: native read needed] Chưa mở bán',
     },
   })),
+  {
+    id: 'starters-practice-tests-pack', live: false, section: 'families',
+    price: String(STARTERS_PACK_DRAFT_PRICE_VND), href: 'zalo',
+    image: 'starters-practice-tests-pack', sample: 'starters-practice-tests-pack',
+    draftPreview: STARTERS_PACK_DRAFT,
+    clip: { src: '/audio/starters/starters-practice-test-1-clip.mp3', seconds: 17.300 },
+    en: {
+      label: 'Draft preview · unavailable to buy', title: 'Pre A1 Starters-format practice tests 1 to 3',
+      problem: 'Ages 6 to 8. Three 21-page A4 practice tests, each with Reading and Writing, Listening and Speaking.',
+      inside: 'Three complete tests: each has five Reading and Writing parts, four Listening parts and four Speaking parts; colour and greyscale editions, answer keys and read-aloud scripts.',
+      forWho: 'For a child with a parent or tutor. Intended level Pre-A1 is a design target, not a certificate. Written by Jurassic English; the illustrated cast is fictional.',
+      unit: 'for three tests', cta: 'Draft — buying disabled',
+    },
+    vi: {
+      label: '[VI DRAFT: native read needed] Bản xem trước', title: 'Pre A1 Starters-format practice tests 1 to 3',
+      problem: '[VI DRAFT: native read needed] Dành cho trẻ 6 đến 8 tuổi. Ba bài luyện tập 21 trang A4, mỗi bài gồm Đọc và Viết, Nghe và Nói.',
+      inside: '[VI DRAFT: native read needed] Ba bài hoàn chỉnh: mỗi bài có năm phần Đọc và Viết, bốn phần Nghe và bốn phần Nói; bản màu và thang xám, đáp án và kịch bản đọc.',
+      forWho: '[VI DRAFT: native read needed] Trẻ học cùng cha mẹ hoặc gia sư. Pre-A1 là mục tiêu thiết kế, không phải chứng chỉ. Nhân vật minh họa là hư cấu.',
+      unit: '[VI DRAFT: native read needed] cho ba bài', cta: '[VI DRAFT: native read needed] Chưa mở bán',
+    },
+  },
   {
     id: 'story-club',
     video: 'story-club',

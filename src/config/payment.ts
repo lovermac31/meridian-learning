@@ -57,6 +57,8 @@ export const PRODUCT_MEMO_CODES: Record<string, string> = {
   'thinking-expeditions-l2': 'PR1D',
   'starters-practice-test-1': 'PR1G',
   'starters-practice-test-2': 'PR1H',
+  'starters-practice-test-3': 'PR1J',
+  'starters-practice-tests-pack': 'PR1K',
 };
 
 // The pack total is already published in the catalogue; keep it tied to that copy. Order-only products (Phonics, 15 Nov
@@ -100,7 +102,7 @@ export const BANK_CONFIG = {
   name: env.VITE_VIETQR_ACCOUNT_NAME ?? 'ADAMS NATHANIEL JAY',
 };
 export function paymentQrUrl(amount: number, memo: string, config = BANK_CONFIG): string | null {
-  if (/^PR1[GH]-/.test(memo)) return null; // Reserved draft prefixes must never produce a payable QR.
+  if (/^PR1[GHJK]-/.test(memo)) return null; // Reserved draft prefixes must never produce a payable QR.
   if (!/^[A-Za-z0-9]+$/.test(config.bank) || !/^\d{6,20}$/.test(config.account) || !config.name.trim()) return null;
   if (!Number.isSafeInteger(amount) || amount <= 0 || !/^(SC|BL|1T|LC|PR[A-Z0-9]{2})-[A-Z0-9]{6}$/.test(memo)) throw new Error('Invalid payment instructions');
   return `https://qr.sepay.vn/img?${new URLSearchParams({ acc: config.account, bank: config.bank, amount: String(amount), des: memo })}`;

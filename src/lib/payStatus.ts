@@ -36,7 +36,7 @@ export type PayStatusSource =
 export function payStatusSource(memo: unknown): PayStatusSource {
   if (typeof memo !== 'string') return { kind: 'none' };
   const query = `?${new URLSearchParams({ code: memo })}`;
-  if (/^PR1[GH]-[A-Z0-9]{6}$/.test(memo)) return { kind: 'manual' };
+  if (/^PR1[GHJK]-[A-Z0-9]{6}$/.test(memo)) return { kind: 'manual' };
   if (HOLIDAY_SET_MEMO.test(memo)) return { kind: 'none' };
   if (/^PR[A-Z0-9]{2}-[A-Z0-9]{6}$/.test(memo)) return { kind: 'auto', family: 'product', url: AIS_STATUS_PATH + query };
   if (/^LC-[A-Z0-9]{6}$/.test(memo)) return { kind: 'auto', family: 'live-check', url: AIS_STATUS_PATH + query };
