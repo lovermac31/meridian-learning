@@ -5,7 +5,8 @@ import { callSamplePack, prepareBody, formBody } from './lib/holiday-harness.mjs
 import { PRODUCTS } from '../src/i18n/content/products.js';
 import { PRODUCT_MEMO_CODES, paidOffer, paymentQrUrl } from '../src/config/payment.js';
 import { payStatusSource } from '../src/lib/payStatus.js';
-import { resolveRouteMetadata, getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.js';
+import { getExpectedPublicIndexableRoutes } from '../src/lib/routeMetadata.js';
+import { getProductByPath } from '../src/i18n/content/productSeo.js';
 
 const at = '2026-11-26T16:00:00+07:00';
 let checks = 0;
@@ -18,11 +19,8 @@ for (const n of [1, 2]) {
   assert.equal(paymentQrUrl(99000, `${prefix}-AB12CD`), null);
   assert.deepEqual(payStatusSource(`${prefix}-AB12CD`), { kind: 'manual' });
   assert.ok(!getExpectedPublicIndexableRoutes().some(path => path.includes(id)));
-  for (const locale of ['', '/vi']) {
-    const meta = resolveRouteMetadata(`${locale}/products/${id}`);
-    assert.match(meta.robots, /noindex/);
-    assert.ok(!JSON.stringify(meta.jsonLd ?? []).includes('Offer'));
-  }
+  // Hide-fix: the draft pages are not routed (STARTERS_DRAFTS_PUBLIC is false), so there is no route metadata to check.
+  assert.equal(getProductByPath(`/products/${id}`), null);
   for (const body of [prepareBody(id, n + 1000), formBody(id, n + 2000, at)]) {
     const result = await callSamplePack(body, at);
     assert.equal(result.status, 400);

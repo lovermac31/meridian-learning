@@ -31,11 +31,11 @@ export function StartersDraftPage({ product, locale }: { product: Product; local
         <h2 className="text-2xl font-bold">{locale === 'vi' ? '[VI DRAFT: native read needed] Xem trang mẫu' : `Explore ${COUNT_WORDS[pages]} real sample pages`}</h2>
         <p className="my-3 text-sm">{isPack ? 'The cover, a Reading and Writing picture task and the Listening Parts 1 and 2 page from each of the three tests.' : 'Cover, abstract, contents, Reading and Writing picture task, Listening Parts 1 and 2, colouring task, and Speaking picture.'}</p>
         <Sample card={card} copy={copy.sample} onOpen={() => setViewer(true)} />
-        <div className="mt-6" data-starters-audio={product.id}>
+        {product.clip ? <div className="mt-6" data-starters-audio={product.id}>
           <h3 className="font-bold">Listening Part 1: example clip</h3>
-          <p className="mb-2 text-sm">Synthetic voices · {product.clip!.seconds.toFixed(1)} seconds · press play to listen. Muted initially; use the audio controls to unmute.</p>
-          <audio controls muted preload="none" src={product.clip!.src} aria-label={`${text.title}: Listening Part 1 example`} className="w-full" />
-        </div>
+          <p className="mb-2 text-sm">Synthetic voices · {product.clip.seconds.toFixed(1)} seconds · press play to listen. Muted initially; use the audio controls to unmute.</p>
+          <audio controls muted preload="none" src={product.clip.src} aria-label={`${text.title}: Listening Part 1 example`} className="w-full" />
+        </div> : null}
       </section>
       <p data-licence={product.id}>{draft.licence}</p>
       <p className="text-2xl font-bold" data-price={product.id}>{draft.price}</p>

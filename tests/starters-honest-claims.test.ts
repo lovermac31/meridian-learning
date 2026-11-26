@@ -29,11 +29,17 @@ for (const id of ['starters-practice-test-1', 'starters-practice-test-2', 'start
       assert.ok(html.includes(draftPrice));
       assert.doesNotMatch(PRODUCT_SEO[id][locale].title + PRODUCT_SEO[id][locale].description + product[locale].title, /Cambridge/i);
       const at = (marker: string) => html.indexOf(`${marker}="${id}"`);
-      assert.ok(at('data-starters-sample') < at('data-starters-audio'));
-      assert.ok(at('data-starters-audio') < at('data-licence'));
+      if (product.clip) {
+        assert.ok(at('data-starters-sample') < at('data-starters-audio'));
+        assert.ok(at('data-starters-audio') < at('data-licence'));
+        assert.match(html, /<audio[^>]*controls=""[^>]*muted=""[^>]*preload="none"/);
+      } else {
+        // Test 3: no clip until its tracks are listened to.
+        assert.ok(!html.includes('<audio') && !html.includes('data-starters-audio'));
+        assert.ok(at('data-starters-sample') < at('data-licence'));
+      }
       assert.ok(at('data-licence') < at('data-price'));
       assert.ok(at('data-price') < at('data-draft-buy'));
-      assert.match(html, /<audio[^>]*controls=""[^>]*muted=""[^>]*preload="none"/);
       if (locale === 'vi') assert.match(html, /VI DRAFT: native read needed/);
     }
     const doc = validateSampleText(JSON.parse(readFileSync(`public/samples/pages/${id}-text.json`, 'utf8')), id, id, pageCount);

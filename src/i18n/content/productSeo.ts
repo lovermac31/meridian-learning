@@ -658,7 +658,11 @@ export const productPath = (id: string) => `/products/${id}`;
 /** The live products that have a page, in list order. */
 export const PAGE_PRODUCTS: Product[] = PRODUCTS.filter((product) => product.live && PRODUCT_SEO[product.id]);
 /** English paths of every product page (the /vi twin comes from the locale routing). */
-export const PREVIEW_PRODUCTS = PRODUCTS.filter(product => product.draftPreview);
+// Hide-fix (26 Nov 2026): the Starters drafts were merged by mistake and are NOT routed on the public site. While this is
+// false the four /products/starters-* paths are not prerendered, not localized and not resolved, so they return 404.
+// Flip it only after Jay has settled price, licence, credit, delivery, adviser and Vietnamese wording and the Test 3 audio is listened to.
+export const STARTERS_DRAFTS_PUBLIC = false;
+export const PREVIEW_PRODUCTS = STARTERS_DRAFTS_PUBLIC ? PRODUCTS.filter(product => product.draftPreview) : [];
 export const PREVIEW_PRODUCT_PATHS = PREVIEW_PRODUCTS.map(product => productPath(product.id));
 export const PRODUCT_PAGE_PATHS = PAGE_PRODUCTS.map((product) => productPath(product.id));
 
