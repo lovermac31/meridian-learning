@@ -16,7 +16,7 @@ import { getLocalizedThinkingCycleStageByPath } from '../i18n/content/thinkingCy
 import { getLocalizedLegalDocument } from '../i18n/content/legal';
 import { getPublishedInsightArticles, INSIGHTS_BASE_PATH } from './insightsContent';
 import marketPricing from '../content/marketPricing.json';
-import { PAGE_PRODUCTS, PRODUCT_PAGE_PATHS, PRODUCT_SEO, productFaq, productPath } from '../i18n/content/productSeo';
+import { PREVIEW_PRODUCTS, PAGE_PRODUCTS, PRODUCT_PAGE_PATHS, PRODUCT_SEO, productFaq, productPath } from '../i18n/content/productSeo';
 import { HOLIDAY_SETS, holidaySetPath } from '../config/holidaySets';
 import { holidayPageSeo } from '../i18n/content/holidaySets';
 import { createVideoJsonLd, productPageVideo, storyClubVideos, videoId } from './videoSeo';
@@ -163,6 +163,11 @@ const staticRoutes: Record<string, StaticRouteDefinition> = {
   } as StaticRouteDefinition])),
   // One page per live product (Jay, 27 Oct 2026): its own title and description (productSeo.ts), Product + Offer
   // (VND, and USD where PayPal is offered), the FAQ shown on the page, and Home → Products → product breadcrumbs.
+  ...Object.fromEntries(PREVIEW_PRODUCTS.map(product => [productPath(product.id), {
+    title: PRODUCT_SEO[product.id].en.title, description: PRODUCT_SEO[product.id].en.description,
+    canonicalPath: productPath(product.id), shouldIndex: false,
+    localized: { vi: { title: PRODUCT_SEO[product.id].vi.title, description: PRODUCT_SEO[product.id].vi.description } },
+  } as StaticRouteDefinition])),
   ...Object.fromEntries(PAGE_PRODUCTS.map((product) => {
     const path = productPath(product.id);
     const seo = PRODUCT_SEO[product.id];

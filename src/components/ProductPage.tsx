@@ -1,3 +1,4 @@
+import { StartersDraftPage } from './StartersDraftPage';
 import { StoryClubReservePage } from './StoryClubReservePage';
 import { buyCta, paymentHref } from '../config/payment';
 import { useEffect, useState } from 'react';
@@ -22,14 +23,18 @@ const COPY: Record<Locale, { home: string; products: string; faq: string; relate
 };
 
 export const toCard = (product: Product, locale: Locale): ProductCard => {
-  const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, usd, orderOnly, reader, clip } = product;
-  return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...product[locale] };
+  const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, usd, orderOnly, reader, clip, draftPreview } = product;
+  return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, draftPreview, link: cardLink(product, locale), ...product[locale] };
 };
 
 // One product's own page (Jay, 27 Oct 2026: every product findable on Google and Bing). Same copy, sample viewer,
 // price and order buttons as its card on /products, plus breadcrumbs, a FAQ answered from the approved page copy and
 // three related products. The hub card stays; this page is what search engines index for the product.
 export function ProductPage({ product, locale }: { product: Product; locale: Locale }) {
+  if (product.draftPreview) return <StartersDraftPage product={product} locale={locale} />;
+  return <PublishedProductPage product={product} locale={locale} />;
+}
+function PublishedProductPage({ product, locale }: { product: Product; locale: Locale }) {
   const c = productsPage(locale);
   const t = COPY[locale];
   const card = toCard(product, locale);
