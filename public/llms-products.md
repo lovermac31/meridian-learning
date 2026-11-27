@@ -195,7 +195,9 @@
 ### Starters Practice Test 1
 - ID: `starters-practice-test-1`
 - English: https://jurassicenglish.com/products/starters-practice-test-1
+- Vietnamese: https://jurassicenglish.com/vi/products/starters-practice-test-1
 - English description: Practice Test 1: a complete original test for ages 6 to 8 with Reading and Writing, Listening with audio, and Speaking. Printable PDF and key. 99.000₫.
+- Vietnamese title: Bài luyện tập Starters 1 cho bé 6–8 tuổi, có âm thanh
 - VND price: 99.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
@@ -203,7 +205,9 @@
 ### Starters Practice Test 2
 - ID: `starters-practice-test-2`
 - English: https://jurassicenglish.com/products/starters-practice-test-2
+- Vietnamese: https://jurassicenglish.com/vi/products/starters-practice-test-2
 - English description: Practice Test 2: a complete original test for ages 6 to 8 with Reading and Writing, Listening with audio, and Speaking. Printable PDF and key. 99.000₫.
+- Vietnamese title: Bài luyện tập Starters 2 cho bé 6–8 tuổi, có âm thanh
 - VND price: 99.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
@@ -211,7 +215,9 @@
 ### Starters Practice Test 3
 - ID: `starters-practice-test-3`
 - English: https://jurassicenglish.com/products/starters-practice-test-3
+- Vietnamese: https://jurassicenglish.com/vi/products/starters-practice-test-3
 - English description: Practice Test 3: a complete original test for ages 6 to 8 with Reading and Writing, Listening with audio, and Speaking. Printable PDF and key. 99.000₫.
+- Vietnamese title: Bài luyện tập Starters 3 cho bé 6–8 tuổi, có âm thanh
 - VND price: 99.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
@@ -219,7 +225,9 @@
 ### Starters Practice Tests 1 to 3
 - ID: `starters-practice-tests-pack`
 - English: https://jurassicenglish.com/products/starters-practice-tests-pack
+- Vietnamese: https://jurassicenglish.com/vi/products/starters-practice-tests-pack
 - English description: Three complete original practice tests for ages 6 to 8, with twelve listening tracks, answer keys and printable PDFs. Set of three: 249.000₫.
+- Vietnamese title: Bộ 3 bài luyện tập Starters có âm thanh cho bé 6–8 tuổi
 - VND price: 249.000 VND
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page

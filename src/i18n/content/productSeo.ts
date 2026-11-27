@@ -40,7 +40,7 @@ export const PRODUCT_SEO: Record<string, ProductSeo> = {
     vi: {
       keyword: 'bộ ba bài luyện tập starters',
       title: 'Bộ 3 bài luyện tập Starters có âm thanh cho bé 6–8 tuổi',
-      description: 'Ba bài luyện tập gốc hoàn chỉnh cho bé 6 đến 8 tuổi, có mười hai bài nghe, đáp án và PDF in được. Bộ ba bài: 249.000₫.',
+      description: 'Ba bài luyện tập gốc hoàn chỉnh cho bé 6 đến 8 tuổi, có mười hai bài nghe, đáp án và PDF in được. Bộ ba bài: 249.000₫. Đặt qua Zalo.',
     },
   },
   'story-club': {
