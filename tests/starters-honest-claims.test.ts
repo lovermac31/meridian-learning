@@ -43,12 +43,13 @@ for (const id of ['starters-practice-test-1', 'starters-practice-test-2', 'start
       if (locale === 'vi') assert.match(html, /VI DRAFT: native read needed/);
     }
     const doc = validateSampleText(JSON.parse(readFileSync(`public/samples/pages/${id}-text.json`, 'utf8')), id, id, pageCount);
-    // The delivered books print two honest NEGATIVE disclaimers. Allow exactly these phrases, nothing wider,
+    // The delivered books print two honest NEGATIVE disclaimers (no exam board is named). Allow exactly these phrases, nothing wider,
     // and still ban every positive claim (approved, pass as a promise, official as a claim, scores, shields...).
-    const allowedDisclaimers = [/There is no pass or fail\./gi, /not an official Cambridge English test\./gi];
+    const allowedDisclaimers = [/There is no pass or fail\./gi, /not an official exam\./gi];
     for (const page of doc.pages) {
       let text = page.text.replace(/\s+/g, ' ');
       for (const phrase of allowedDisclaimers) text = text.replace(phrase, '');
+      assert.doesNotMatch(text, /Cambridge/i, `sample ${page.page}: no exam board is named (Jay, 27 Nov 2026)`);
       assert.doesNotMatch(text, banned, `sample ${page.page}`);
     }
     // Contents can name the key/scripts; none of those answer-bearing pages is in the sample set.
