@@ -765,7 +765,7 @@ export function productFaq(product: Product, locale: Locale): Array<{ question: 
       { question: PHONICS_FAQ[locale].age, answer: PHONICS_FAQ[locale].ageAnswer },
     ] : []),
     ...(product.category === 'practice-tests' ? [
-      { question: PRACTICE_FAQ[locale].audio, answer: PRACTICE_FAQ[locale].audioAnswer },
+      { question: PRACTICE_FAQ[locale].audio, answer: product.clip ? PRACTICE_FAQ[locale].audioAnswer : PRACTICE_FAQ[locale].audioAnswer.split(/ (?:The sample has|Bản mẫu có)/)[0] }, // Test 3 has no example clip until its tracks are listened to
       { question: PRACTICE_FAQ[locale].official, answer: PRACTICE_FAQ[locale].officialAnswer },
     ] : []),
     { question: q.unsure, answer: page.closing.body },

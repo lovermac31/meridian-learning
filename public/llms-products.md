@@ -208,6 +208,22 @@
 - PayPal USD: available on the product page
 - Sample: view-only pages on the product page
 
+### Starters Practice Test 3
+- ID: `starters-practice-test-3`
+- English: https://jurassicenglish.com/products/starters-practice-test-3
+- English description: Practice Test 3: a complete original test for ages 6 to 8 with Reading and Writing, Listening with audio, and Speaking. Printable PDF and key. 99.000₫.
+- VND price: 99.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
+### Starters Practice Tests 1 to 3
+- ID: `starters-practice-tests-pack`
+- English: https://jurassicenglish.com/products/starters-practice-tests-pack
+- English description: Three complete original practice tests for ages 6 to 8, with twelve listening tracks, answer keys and printable PDFs. Set of three: 249.000₫.
+- VND price: 249.000 VND
+- PayPal USD: available on the product page
+- Sample: view-only pages on the product page
+
 ### Level 1 Teacher Pack
 - ID: `teacher-pack-l1`
 - English: https://jurassicenglish.com/products/teacher-pack-l1

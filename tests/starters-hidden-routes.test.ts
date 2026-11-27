@@ -8,24 +8,24 @@ import { isPublicContentReleased } from '../src/i18n/content';
 import { getExpectedPublicIndexableRoutes, getPrerenderRoutes, resolveRouteMetadata } from '../src/lib/routeMetadata';
 
 /**
- * Starters launch (27 Nov 2026). What a visitor sees on production after Jay merges the launch PR, with both flags at their default:
- *   Tests 1 and 2: live in English (page, card, sitemap, JSON-LD, llms catalogue);
- *   their Vietnamese twins: not routed (the site's "Available soon" holding page, noindex), not on /vi/products, not in the sitemap;
- *   Test 3 and the 3-test set: nothing at all, in either language.
+ * Starters (27 Nov 2026). What a visitor sees on production after this PR (Jay: "Make the Test 3 and set pages live"):
+ *   Tests 1 and 2, Test 3 and the 3-test set: live in English (page, card, sitemap, JSON-LD, llms catalogue);
+ *   their Vietnamese twins: not routed (the site's "Available soon" holding page, noindex), not on /vi/products, not in the sitemap
+ *   (STARTERS_VI_PUBLIC stays false until a native read);
+ *   the Test 3 example clip: still not in the repo (the Test 3 tracks have no recorded listen), so the Test 3 page has no audio player.
  */
-const LIVE = ['starters-practice-test-1', 'starters-practice-test-2'];
-const HELD = ['starters-practice-test-3', 'starters-practice-tests-pack'];
+const LIVE = ['starters-practice-test-1', 'starters-practice-test-2', 'starters-practice-test-3', 'starters-practice-tests-pack'];
+const HELD: string[] = []; // nothing is held back once STARTERS_TEST3_AND_SET_PUBLIC is true; the ids that flag governs are in STARTERS_HELD_IDS
 
-test('the two release flags default to false, and only the held ids depend on the first one', () => {
-  assert.equal(STARTERS_TEST3_AND_SET_PUBLIC, false);
+test('flags: Test 3 and the set are public (Jay, 27 Nov), the Vietnamese stays held, and all four products are live', () => {
+  assert.equal(STARTERS_TEST3_AND_SET_PUBLIC, true);
   assert.equal(STARTERS_VI_PUBLIC, false);
-  assert.deepEqual([...STARTERS_HELD_IDS], HELD);
-  assert.deepEqual([...STARTERS_IDS].sort(), [...LIVE, ...HELD].sort());
+  assert.deepEqual([...STARTERS_HELD_IDS], ['starters-practice-test-3', 'starters-practice-tests-pack']);
+  assert.deepEqual([...STARTERS_IDS].sort(), [...LIVE].sort());
   for (const id of LIVE) assert.equal(PRODUCTS.find(p => p.id === id)!.live, true, id);
-  for (const id of HELD) assert.equal(PRODUCTS.find(p => p.id === id)!.live, false, id);
 });
 
-test('Tests 1 and 2 are routed, prerendered and indexable in English', () => {
+test('all four Starters products are routed, prerendered and indexable in English', () => {
   const prerender = getPrerenderRoutes();
   const indexable = getExpectedPublicIndexableRoutes();
   for (const id of LIVE) {
@@ -42,7 +42,7 @@ test('Tests 1 and 2 are routed, prerendered and indexable in English', () => {
   }
 });
 
-test('the Vietnamese twins of Tests 1 and 2 are held: no product, not indexable, not on /vi/products, never suggested', async () => {
+test('the Vietnamese twins of all four are held: no product, not indexable, not on /vi/products, never suggested', async () => {
   const { renderRoute } = await import('../src/entry-server');
   const indexable = getExpectedPublicIndexableRoutes();
   for (const id of LIVE) {
@@ -61,24 +61,22 @@ test('the Vietnamese twins of Tests 1 and 2 are held: no product, not indexable,
   for (const p of PAGE_PRODUCTS) assert.ok(!relatedProducts(p.id, 3, 'vi').some(r => STARTERS_IDS.includes(r.id)), `${p.id}: no Starters pick on a /vi page`);
 });
 
-test('Test 3 and the 3-test set are hidden everywhere (EN and VI): no page, no card, no route, no clip file, not in llms-products.md', async () => {
+test('Test 3 and the 3-test set are live in English with their own page, card, sitemap entry and llms line, and have no order path beyond Zalo and PayPal', async () => {
   const { renderRoute } = await import('../src/entry-server');
   const { readFileSync } = await import('node:fs');
-  const prerender = getPrerenderRoutes();
   const indexable = getExpectedPublicIndexableRoutes();
   const llms = readFileSync('public/llms-products.md', 'utf8');
-  for (const id of HELD) {
-    assert.equal(getProductByPath(`/products/${id}`), null, id);
-    assert.ok(!PAGE_PRODUCTS.some(p => p.id === id));
-    for (const path of [`/products/${id}`, `/vi/products/${id}`]) {
-      assert.ok(!PRODUCT_PAGE_PATHS.includes(path), path);
-      assert.ok(!indexable.includes(path), path);
-      const html = await renderRoute(path);
-      assert.equal(html.includes(`data-product-page-main="${id}"`), false, `${path}: not served`);
-    }
-    for (const route of ['/products', '/vi/products']) assert.ok(!(await renderRoute(route)).includes(id), `${route}: ${id} absent`);
-    assert.ok(!llms.includes(id), `llms-products.md: ${id} absent`);
-    assert.ok(!prerender.includes(`/products/${id}`), id);
+  const hub = await renderRoute('/products');
+  for (const id of ['starters-practice-test-3', 'starters-practice-tests-pack']) {
+    assert.equal(getProductByPath(`/products/${id}`)?.id, id);
+    assert.ok(indexable.includes(`/products/${id}`), `${id}: in the sitemap source`);
+    const html = await renderRoute(`/products/${id}`);
+    assert.equal(html.includes(`data-product-page-main="${id}"`), true, `${id}: page served`);
+    assert.doesNotMatch(html, /data-buy-now|data-portal-buy|qr\.sepay|checkout=1/, `${id}: no automatic checkout`);
+    assert.doesNotMatch(html, /authentic|TO CONFIRM|VI DRAFT/i, `${id}: no placeholder or banned word (the site-wide footer's Cambridge disclaimer is not product copy)`);
+    assert.ok(hub.includes(id), `/products: ${id} card present`);
+    if (id === 'starters-practice-test-3') assert.doesNotMatch(html, /audio example|example clip|<audio/, 'Test 3 promises no audio example while it has no clip');
+    assert.ok(llms.includes(id), `llms-products.md: ${id} present`);
   }
 });
 
