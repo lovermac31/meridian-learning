@@ -1,3 +1,4 @@
+import { expectedInLocale } from './helpers/starters-locale';
 import { DRAFT_HIDDEN_PRODUCT_IDS } from './helpers/draft-hidden-products';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -15,7 +16,8 @@ import { hasRegionalPrice, regionalUsd } from '../src/lib/regionalPrice';
 // One indexable page per product (Jay, 27 Oct 2026): /products/<id> and /vi/products/<id> for every live card.
 const SITE = 'https://jurassicenglish.com';
 const LIVE = PRODUCTS.filter((p) => p.live);
-const pages = LIVE.flatMap((p) => [[`/products/${p.id}`, 'en', p], [`/vi/products/${p.id}`, 'vi', p]] as const);
+// A Starters product has only its English page until a native Vietnamese read (startersFlags.ts); starters-hidden-routes.test.ts pins the /vi side.
+const pages = LIVE.flatMap((p) => [[`/products/${p.id}`, 'en', p], [`/vi/products/${p.id}`, 'vi', p]] as const).filter(([, locale, p]) => expectedInLocale(p.id, locale));
 
 test('every live product has search copy and two indexable, prerendered routes', () => {
   assert.equal(PAGE_PRODUCTS.length, LIVE.length);
@@ -41,7 +43,7 @@ test('metadata: unique title ≤ 60 and description 80–160, self canonical, EN
     assert.equal(meta.canonical, `${SITE}${path}`);
     assert.deepEqual(meta.alternates, [
       { hrefLang: 'en', href: `${SITE}/products/${p.id}` },
-      { hrefLang: 'vi', href: `${SITE}/vi/products/${p.id}` },
+      ...(expectedInLocale(p.id, 'vi') ? [{ hrefLang: 'vi', href: `${SITE}/vi/products/${p.id}` }] : []),
       { hrefLang: 'x-default', href: `${SITE}/products/${p.id}` },
     ]);
   }
@@ -63,7 +65,8 @@ test('JSON-LD: Product with a VND Offer, a USD Offer only where PayPal is offere
     assert.ok(faq.mainEntity.length >= 1, path);
     const crumbs = blocks.find((b) => b['@type'] === 'BreadcrumbList')!;
     // Phonics adds its tile: Home → Products → Phonics → Book N (blueprint 6.2).
-    assert.equal(crumbs.itemListElement.length, p.category === 'phonics' ? 4 : 3, path);
+    // Practice tests add theirs: Home → Products → Practice tests → Test N (27 Nov 2026).
+    assert.equal(crumbs.itemListElement.length, p.category === 'phonics' || p.category === 'practice-tests' ? 4 : 3, path);
     assert.equal(crumbs.itemListElement.at(-1).item, `${SITE}${path}`);
   }
 });
@@ -102,7 +105,7 @@ test('the /products hub links every card title to its own page', () => {
   for (const locale of ['en', 'vi'] as const) {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     // IELTS migration P6: the IELTS cards left the hub (their pages redirect to jurassicielts.com), so no title link.
-    for (const p of LIVE.filter((entry) => entry.section !== IELTS_MOVED_SECTION)) assert.match(html, new RegExp(`href="${locale === 'vi' ? '/vi' : ''}/products/${p.id}" [^>]*data-product-page="${p.id}"`), `${locale} ${p.id}`);
+    for (const p of LIVE.filter((entry) => entry.section !== IELTS_MOVED_SECTION && expectedInLocale(entry.id, locale))) assert.match(html, new RegExp(`href="${locale === 'vi' ? '/vi' : ''}/products/${p.id}" [^>]*data-product-page="${p.id}"`), `${locale} ${p.id}`);
     for (const p of LIVE.filter((entry) => entry.section === IELTS_MOVED_SECTION)) assert.ok(!html.includes(`data-product-page="${p.id}"`), `${locale} ${p.id}: no IELTS card title link`);
   }
 });
@@ -113,10 +116,10 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
 });
 
 // 35-today plan (Jay, 27 Oct 2026): the eight new products are live, each with its page, JSON-LD and sitemap entry.
-test('35-today: all 52 products are live (35, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Levels 1 and 2, the IELTS Reading and Listening packs, the three IELTS bundles and Phonics Books 1 and 2), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
+test('35-today: all 54 products are live (35, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Levels 1 and 2, the IELTS Reading and Listening packs, the three IELTS bundles, Phonics Books 1 and 2 and Starters Practice Tests 1 and 2), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
   const liveProducts = PRODUCTS.filter(p => !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id));
-  assert.equal(liveProducts.length, 52); // 52 with Thinking Expeditions Level 2 (17 Nov 2026)
+  assert.equal(liveProducts.length, 54); // 52 with Thinking Expeditions Level 2 (17 Nov 2026); 54 with Starters Practice Tests 1 and 2 (27 Nov 2026; Test 3 and the set are the explicit held exceptions)
   assert.equal(liveProducts.filter((p) => !p.live).length, 0);
   const fresh = ['writing-baseline', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'ielts-essay-bank-task2', 'parent-pack-l3',
     'holiday-reading-challenge', 'thinking-cycle-posters', 'word-fossil-flashcards-l1'];

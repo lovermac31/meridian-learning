@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { IELTS_MOVED_SECTION, PRODUCTS } from '../src/i18n/content/products.ts';
 import { PRODUCT_SEO } from '../src/i18n/content/productSeo.ts';
 import { isMovedToJurassicielts } from '../src/config/movedToJurassicielts.ts';
+import { isStartersVietnameseHeld } from '../src/i18n/content/startersFlags.ts';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const site = 'https://jurassicenglish.com';
@@ -28,9 +29,11 @@ for (const product of products) {
   lines.push(`### ${product.en.title}`);
   lines.push(`- ID: \`${product.id}\``);
   lines.push(`- English: ${site}/products/${product.id}`);
-  lines.push(`- Vietnamese: ${site}/vi/products/${product.id}`);
+  // The Starters Vietnamese pages are held until a native read (startersFlags.ts): no Vietnamese URL or title is listed.
+  const viHeld = isStartersVietnameseHeld(`/products/${product.id}`);
+  if (!viHeld) lines.push(`- Vietnamese: ${site}/vi/products/${product.id}`);
   lines.push(`- English description: ${seo.description}`);
-  lines.push(`- Vietnamese title: ${vi.title}`);
+  if (!viHeld) lines.push(`- Vietnamese title: ${vi.title}`);
   lines.push(`- VND price: ${product.price.replace(/₫/g, ' VND')}`);
   // Paused products (audit fix 4, 11 Nov 2026) keep their page but are not for sale.
   if (product.paused) lines.push('- Availability: paused, not for sale; being rewritten onto original Jurassic English stories (waitlist on Zalo)');

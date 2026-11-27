@@ -9,20 +9,39 @@
  * a native read, like the hub's.
  */
 import type { Locale } from '../locales';
-import { PRODUCTS, PRODUCT_SECTIONS, productsPage, type Product } from './products';
+import { PRODUCTS, PRODUCT_SECTIONS, STARTERS_INDEPENDENCE, productsPage, type Product } from './products';
 import { PAYPAL_CARD_COPY } from '../../lib/productsSource';
+import { isStartersVietnameseHeld } from './startersFlags';
 
 type SeoText = { keyword: string; title: string; description: string };
 export type ProductSeo = Record<Locale, SeoText>;
 
 export const PRODUCT_SEO: Record<string, ProductSeo> = {
+  // Starters Practice Tests (27 Nov 2026, blueprint section 5): titles under 60 characters, no exam board named, no pass promise.
+  // The Vietnamese lines are a machine draft with no native read: they are not routed while STARTERS_VI_PUBLIC is false.
   ...Object.fromEntries([1, 2, 3].map(number => [`starters-practice-test-${number}`, {
-    en: { keyword: 'Pre A1 Starters-format practice test', title: `Pre A1 Starters-format practice test ${number} | Draft`, description: 'Draft preview for ages 6 to 8: explore seven real sample pages and an example audio clip. Intended level Pre-A1 is a design target.' },
-    vi: { keyword: 'Pre A1 Starters-format practice test', title: `Pre A1 Starters-format practice test ${number} | VI DRAFT`, description: '[VI DRAFT: native read needed] Bản xem trước cho trẻ 6 đến 8 tuổi: bảy trang mẫu và đoạn âm thanh ví dụ. Chưa mở bán.' },
+    en: {
+      keyword: 'starters practice test for kids',
+      title: `Pre A1 Starters-format Practice Test ${number} for Kids 6 to 8`,
+      description: `Practice Test ${number}: a complete original test for ages 6 to 8 with Reading and Writing, Listening with audio, and Speaking. Printable PDF and key. 99.000₫.`,
+    },
+    vi: {
+      keyword: 'bài luyện tập starters cho bé',
+      title: `Bài luyện tập Starters ${number} cho bé 6–8 tuổi, có âm thanh`,
+      description: `Bài luyện tập số ${number}, gốc và hoàn chỉnh cho bé 6 đến 8 tuổi: Đọc và Viết, Nghe có âm thanh và Nói. PDF in được, có đáp án. 99.000₫.`,
+    },
   }])),
   'starters-practice-tests-pack': {
-    en: { keyword: 'Pre A1 Starters-format practice tests, set of three', title: 'Pre A1 Starters-format practice tests 1 to 3 | Draft', description: 'Draft preview for ages 6 to 8: three practice tests; explore nine real sample pages and an example audio clip. Intended level Pre-A1 is a design target.' },
-    vi: { keyword: 'Pre A1 Starters-format practice tests, set of three', title: 'Pre A1 Starters-format practice tests 1 to 3 | VI DRAFT', description: '[VI DRAFT: native read needed] Bản xem trước cho trẻ 6 đến 8 tuổi: ba bài luyện tập, chín trang mẫu và đoạn âm thanh ví dụ. Chưa mở bán.' },
+    en: {
+      keyword: 'starters practice tests set of three',
+      title: 'Practice Tests 1 to 3: Starters-format Set with Audio',
+      description: 'Three complete original practice tests for ages 6 to 8, with twelve listening tracks, answer keys and printable PDFs. Set of three: 249.000₫.',
+    },
+    vi: {
+      keyword: 'bộ ba bài luyện tập starters',
+      title: 'Bộ 3 bài luyện tập Starters có âm thanh cho bé 6–8 tuổi',
+      description: 'Ba bài luyện tập gốc hoàn chỉnh cho bé 6 đến 8 tuổi, có mười hai bài nghe, đáp án và PDF in được. Bộ ba bài: 249.000₫.',
+    },
   },
   'story-club': {
     en: {
@@ -658,33 +677,31 @@ export const productPath = (id: string) => `/products/${id}`;
 /** The live products that have a page, in list order. */
 export const PAGE_PRODUCTS: Product[] = PRODUCTS.filter((product) => product.live && PRODUCT_SEO[product.id]);
 /** English paths of every product page (the /vi twin comes from the locale routing). */
-// Hide-fix (26 Nov 2026): the Starters drafts were merged by mistake and are NOT routed on the public site. While this is
-// false the four /products/starters-* paths are not prerendered, not localized and not resolved, so they return 404.
-// Flip it only after Jay has settled price, licence, credit, delivery, adviser and Vietnamese wording and the Test 3 audio is listened to.
-export const STARTERS_DRAFTS_PUBLIC = false;
-export const PREVIEW_PRODUCTS = STARTERS_DRAFTS_PUBLIC ? PRODUCTS.filter(product => product.draftPreview) : [];
-export const PREVIEW_PRODUCT_PATHS = PREVIEW_PRODUCTS.map(product => productPath(product.id));
 export const PRODUCT_PAGE_PATHS = PAGE_PRODUCTS.map((product) => productPath(product.id));
 
 /** The live product a /products/<id> path names, or null (an unknown id stays a 404). */
-export function getProductByPath(pathname: string): Product | null {
+export function getProductByPath(pathname: string, locale: Locale = 'en'): Product | null {
   const id = pathname.match(/^\/products\/([^/]+)$/)?.[1];
-  return (id && [...PAGE_PRODUCTS, ...PREVIEW_PRODUCTS].find((product) => product.id === id)) || null;
+  // The Vietnamese Starters pages are held (no native read yet): no product for a /vi Starters path until STARTERS_VI_PUBLIC.
+  if (locale === 'vi' && isStartersVietnameseHeld(pathname)) return null;
+  return (id && PAGE_PRODUCTS.find((product) => product.id === id)) || null;
 }
 
 // "You may also need" picks that lead the list (blueprint section 5, 15 Nov 2026): Level 1 Story Workbooks names Phonics Book 1.
 export const RELATED_FIRST: Record<string, string[]> = { 'story-workbooks-l1': ['phonics-b1'] };
 
 /** Three related products: the next live cards in the same section (wrapping), topped up from the next sections. */
-export function relatedProducts(id: string, count = 3): Product[] {
+export function relatedProducts(id: string, count = 3, locale: Locale = 'en'): Product[] {
   const product = PAGE_PRODUCTS.find((entry) => entry.id === id);
   if (!product) return [];
-  const first = (RELATED_FIRST[id] ?? []).map((pick) => PAGE_PRODUCTS.find((entry) => entry.id === pick)).filter((entry): entry is Product => Boolean(entry));
+  // A held Vietnamese Starters page (no native read yet) is never suggested on a /vi page.
+  const pages = PAGE_PRODUCTS.filter((entry) => !(locale === 'vi' && isStartersVietnameseHeld(productPath(entry.id))));
+  const first = (RELATED_FIRST[id] ?? []).map((pick) => pages.find((entry) => entry.id === pick)).filter((entry): entry is Product => Boolean(entry));
   const sectionOrder = [product.section, ...PRODUCT_SECTIONS.filter((section) => section !== product.section)];
-  const sameSection = PAGE_PRODUCTS.filter((entry) => entry.section === product.section);
+  const sameSection = pages.filter((entry) => entry.section === product.section);
   const at = sameSection.indexOf(product);
   const wrapped = [...sameSection.slice(at + 1), ...sameSection.slice(0, at)];
-  const others = sectionOrder.slice(1).flatMap((section) => PAGE_PRODUCTS.filter((entry) => entry.section === section));
+  const others = sectionOrder.slice(1).flatMap((section) => pages.filter((entry) => entry.section === section));
   return [...first, ...[...wrapped, ...others].filter((entry) => !first.includes(entry))].slice(0, count);
 }
 
@@ -701,6 +718,22 @@ export const PHONICS_FAQ: Record<Locale, { audio: string; audioAnswer: (tracks: 
     audioAnswer: (tracks) => `Có. Bạn nhận ${tracks} file MP3, mỗi bài nghe một file, đặt tên BookN_TrackNN.mp3 khớp với số track in trong sách. Bản mẫu miễn phí có các track của Bài 1.`,
     age: 'Sách dành cho bé mấy tuổi?',
     ageAnswer: 'Bé 4–7 tuổi (CEFR Pre-A1 → A1), học cùng bố mẹ hoặc giáo viên. Bắt đầu từ đây, trước Sách truyện bài tập.',
+  },
+};
+
+// Practice test pages add two questions (blueprint section 5, 27 Nov 2026): the audio, and "Is this an official test?" (no).
+export const PRACTICE_FAQ: Record<Locale, { audio: string; audioAnswer: string; official: string; officialAnswer: string }> = {
+  en: {
+    audio: 'Is the audio included?',
+    audioAnswer: 'Yes. Each test has its own four listening tracks (MP3), shared with the PDF in your private Google Drive folder. The sample has a short Part 1 example clip so you can hear the voices first.',
+    official: 'Is this an official test?',
+    officialAnswer: `No. ${STARTERS_INDEPENDENCE.en}`,
+  },
+  vi: {
+    audio: 'Có kèm file âm thanh không?',
+    audioAnswer: 'Có. Mỗi bài có bốn bài nghe riêng (MP3), được chia sẻ cùng file PDF trong thư mục Google Drive riêng của bạn. Bản mẫu có một đoạn ví dụ ngắn của Phần 1 để bạn nghe thử giọng đọc trước.',
+    official: 'Đây có phải bài thi chính thức không?',
+    officialAnswer: `Không. ${STARTERS_INDEPENDENCE.vi}`,
   },
 };
 
@@ -725,11 +758,15 @@ export function productFaq(product: Product, locale: Locale): Array<{ question: 
   const q = FAQ_QUESTIONS[locale];
   return [
     ...(product.sample ? [{ question: q.sample, answer: `${page.sample.note} ${page.viewer.viewOnly}` }] : []),
-    ...(product.delivery ? [{ question: q.pay, answer: page.delivery }] : []),
+    ...(product.delivery ? [{ question: q.pay, answer: product.deliveryLine?.[locale] ?? page.delivery }] : []),
     ...(product.paypal ? [{ question: q.abroad, answer: PAYPAL_CARD_COPY[locale].note }] : []),
     ...(product.category === 'phonics' ? [
       { question: PHONICS_FAQ[locale].audio, answer: PHONICS_FAQ[locale].audioAnswer(product.en.inside.match(/\((\d+) MP3s\)/)?.[1] ?? '') },
       { question: PHONICS_FAQ[locale].age, answer: PHONICS_FAQ[locale].ageAnswer },
+    ] : []),
+    ...(product.category === 'practice-tests' ? [
+      { question: PRACTICE_FAQ[locale].audio, answer: PRACTICE_FAQ[locale].audioAnswer },
+      { question: PRACTICE_FAQ[locale].official, answer: PRACTICE_FAQ[locale].officialAnswer },
     ] : []),
     { question: q.unsure, answer: page.closing.body },
   ];

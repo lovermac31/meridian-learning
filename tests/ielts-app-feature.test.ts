@@ -1,3 +1,4 @@
+import { expectedInLocale } from './helpers/starters-locale';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -48,6 +49,6 @@ test('/products: the free IELTS app card tops the IELTS group with utm_content=p
     assert.ok(section.includes(`href="${solutions}"`), `${locale}: the moved card links JurassicIELTS /solutions/`);
     assert.ok(html.includes(`href="${ieltsAppHref('products', locale)}"`), `${locale}: entrance link (banner)`);
     assert.doesNotMatch(section, /<li |data-price=/, `${locale}: not a priced product card`);
-    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, `${locale}: one card per live non-IELTS product, read from the data (38 on 17 Nov 2026 with Thinking Expeditions Level 2; Phonics Books 1 and 2, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Level 1 and the rest; the 14 IELTS cards moved to jurassicielts.com)`);
+    assert.equal((html.match(/<li [^>]*id="/g) ?? []).length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts' && expectedInLocale(p.id, locale)).length, `${locale}: one card per live non-IELTS product (a held Starters product has no /vi card), read from the data (38 on 17 Nov 2026 with Thinking Expeditions Level 2; Phonics Books 1 and 2, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Level 1 and the rest; the 14 IELTS cards moved to jurassicielts.com)`);
   }
 });

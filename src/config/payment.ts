@@ -62,8 +62,8 @@ export const PRODUCT_MEMO_CODES: Record<string, string> = {
 };
 
 // The pack total is already published in the catalogue; keep it tied to that copy. Order-only products (Phonics, 15 Nov
-// 2026) are not here: they are ordered on Zalo (written summary, then VietQR with Jay's PH- reference) or by PayPal.
-export const PAID_OFFERS = PRODUCTS.filter(product => !product.orderOnly && !product.draftPreview).map(product => ({
+// 2026; Starters Practice Tests, 27 Nov 2026) are not here: they are ordered on Zalo (written summary, then VietQR with Jay's PH- reference) or by PayPal.
+export const PAID_OFFERS = PRODUCTS.filter(product => !product.orderOnly).map(product => ({
   id: product.id,
   amount: Number((product.id === 'one-to-one'
     ? product.en.unit.match(/8 lessons ([\d.]+)₫/)![1]

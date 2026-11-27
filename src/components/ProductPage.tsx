@@ -1,4 +1,3 @@
-import { StartersDraftPage } from './StartersDraftPage';
 import { StoryClubReservePage } from './StoryClubReservePage';
 import { buyCta, paymentHref } from '../config/payment';
 import { useEffect, useState } from 'react';
@@ -23,18 +22,14 @@ const COPY: Record<Locale, { home: string; products: string; faq: string; relate
 };
 
 export const toCard = (product: Product, locale: Locale): ProductCard => {
-  const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, usd, orderOnly, reader, clip, draftPreview } = product;
-  return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, draftPreview, link: cardLink(product, locale), ...product[locale] };
+  const { id, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, deliveryLine, usd, orderOnly, reader, clip } = product;
+  return { id, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], deliveryLine: deliveryLine?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...product[locale] };
 };
 
 // One product's own page (Jay, 27 Oct 2026: every product findable on Google and Bing). Same copy, sample viewer,
 // price and order buttons as its card on /products, plus breadcrumbs, a FAQ answered from the approved page copy and
 // three related products. The hub card stays; this page is what search engines index for the product.
 export function ProductPage({ product, locale }: { product: Product; locale: Locale }) {
-  if (product.draftPreview) return <StartersDraftPage product={product} locale={locale} />;
-  return <PublishedProductPage product={product} locale={locale} />;
-}
-function PublishedProductPage({ product, locale }: { product: Product; locale: Locale }) {
   const c = productsPage(locale);
   const t = COPY[locale];
   const card = toCard(product, locale);
@@ -109,7 +104,7 @@ function PublishedProductPage({ product, locale }: { product: Product; locale: L
                 {code.before} <strong>{orderCode(source, card.id)}</strong>{code.after}
               </p>
             ) : null}
-            {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{c.delivery}</p> : null}
+            {card.delivery ? <p className="mt-2 text-sm" data-delivery={card.id}>{card.deliveryLine ?? c.delivery}</p> : null}
             {card.paypal ? <PayPalOption card={card} locale={locale} source={source} /> : null}
             <LemonSqueezyOption card={card} locale={locale} source={source} touch={touch} />
             {card.group ? <IeltsHomeLink group={card.group} locale={locale} label={c.ielts.home[card.group]} id={card.id} /> : null}
@@ -152,6 +147,12 @@ function PublishedProductPage({ product, locale }: { product: Product; locale: L
             {card.category === 'phonics' ? (
               <>
                 <li><a href={productHref(`${PRODUCTS_PATH}#phonics`, locale)} className="underline underline-offset-4" data-crumb-phonics="">{c.phonicsBand.heading}</a></li>
+                <li aria-hidden="true">›</li>
+              </>
+            ) : null}
+            {card.category === 'practice-tests' ? (
+              <>
+                <li><a href={productHref(`${PRODUCTS_PATH}#practice-tests`, locale)} className="underline underline-offset-4" data-crumb-practice-tests="">{c.practiceBand.heading}</a></li>
                 <li aria-hidden="true">›</li>
               </>
             ) : null}
@@ -212,9 +213,9 @@ function PublishedProductPage({ product, locale }: { product: Product; locale: L
         <section aria-labelledby="product-related-h">
           <h2 id="product-related-h" className="text-2xl font-bold">{t.related}</h2>
           <ul className="mt-4 grid gap-4 sm:grid-cols-3">
-            {relatedProducts(product.id).map((related) => (
+            {relatedProducts(product.id, 3, locale).map((related) => (
               <li key={related.id} className="rounded-2xl bg-white p-4 shadow-sm" data-related={related.id}>
-                <a href={related.category === 'phonics' ? productHref(productPath(related.id), locale) : getLocalizedHref(productPath(related.id), locale)} className="font-bold underline underline-offset-4">
+                <a href={related.category === 'phonics' || related.category === 'practice-tests' ? productHref(productPath(related.id), locale) : getLocalizedHref(productPath(related.id), locale)} className="font-bold underline underline-offset-4">
                   {related[locale].title}
                 </a>
                 <p className="mt-1 text-sm">{related.price} · {related[locale].unit}</p>

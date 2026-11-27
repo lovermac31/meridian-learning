@@ -1,5 +1,6 @@
 import type { Locale } from '../i18n/locales';
 import { IELTS_MOVED_SECTION, PRODUCT_IMAGE_DIR, PRODUCTS, PRODUCTS_PATH } from '../i18n/content/products';
+import { STARTERS_IDS, STARTERS_VI_PUBLIC } from '../i18n/content/startersFlags';
 import { HOLIDAY_WINDOW, holidaySetPath, type HolidaySet } from '../config/holidaySets';
 import { holidaySetComponents, holidaySetText } from '../i18n/content/holidaySets';
 import { WORLDWISE_SITE_URL } from './contactConfig';
@@ -300,7 +301,8 @@ export const vndPriceValue = (price: string) => price.replace(/\D/g, '');
 export function createProductListJsonLd(locale: Locale): JsonLd {
   const pageUrl = `${SITE_URL}${locale === 'vi' ? '/vi' : ''}${PRODUCTS_PATH}`;
   // IELTS migration P6: IELTS products are sold on jurassicielts.com and are no longer on /products.
-  const live = PRODUCTS.filter((product) => product.live && product.section !== IELTS_MOVED_SECTION);
+  // The Vietnamese Starters copy is held until a native read (startersFlags.ts): not listed in the /vi/products structured data.
+  const live = PRODUCTS.filter((product) => product.live && product.section !== IELTS_MOVED_SECTION && (locale === 'en' || STARTERS_VI_PUBLIC || !STARTERS_IDS.includes(product.id)));
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',

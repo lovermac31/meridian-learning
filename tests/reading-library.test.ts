@@ -1,3 +1,4 @@
+import { expectedInLocale } from './helpers/starters-locale';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -44,7 +45,7 @@ test('AC2: default render has zero library cards (EN + VI /products; the hub row
   for (const route of ['/products', '/vi/products']) {
     const html = amp(await renderRoute(route));
     assert.deepEqual(libraryMarkup(html), [], `${route}: no library markup`);
-    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, LIVE_CARDS(), `${route}: one card per live non-IELTS product`);
+    assert.equal([...html.matchAll(/<li class="product-row[^"]*" id="/g)].length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts' && expectedInLocale(p.id, route === '/vi/products' ? 'vi' : 'en')).length, `${route}: one card per live non-IELTS product (the two live Starters tests have no /vi card while their Vietnamese is held)`);
   }
 });
 
@@ -90,7 +91,7 @@ test('AC2 guard: library ids are not in PRODUCTS, PAID_OFFERS, portal flags, JSO
   for (const locale of ['en', 'vi'] as const) {
     const list = JSON.stringify(createProductListJsonLd(locale));
     for (const id of ids) assert.ok(!list.includes(id), `${locale}: ${id} not in the ItemList`);
-    assert.equal((list.match(/https:\/\/schema\.org\/InStock/g) ?? []).length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length);
+    assert.equal((list.match(/https:\/\/schema\.org\/InStock/g) ?? []).length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts' && expectedInLocale(p.id, locale)).length);
     for (const p of PRODUCTS.filter((x) => x.live && x.section !== 'ielts').slice(0, 3)) assert.ok(JSON.stringify(createProductJsonLd(p, locale)).includes(p.id));
   }
   assert.doesNotMatch(read('scripts/generate-sitemap.mjs'), /rl-je-|reading-library/);
@@ -150,7 +151,7 @@ test('existing cards untouched: the story-workbook, teacher-pack and phonics ent
   assert.equal(price('phonics-b1'), '79.000₫');
   assert.equal(price('phonics-b2'), '129.000₫');
   // Pinned on purpose (a regression guard, not a guess): 36 since #350, 37 with Thinking Expeditions Level 1 (#355), 38 with Level 2. Read from the data on 17 Nov 2026.
-  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 38);
+  assert.equal(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, 40); // 40 with Starters Practice Tests 1 and 2 (27 Nov 2026)
 });
 
 test('copy says the story is already inside Story Workbooks Level N, with a link to the existing product page and no sale wording', () => {

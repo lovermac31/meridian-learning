@@ -1,4 +1,6 @@
+import { expectedInLocale } from './helpers/starters-locale';
 import { DRAFT_HIDDEN_PRODUCT_IDS, isDraftHiddenSampleAsset } from './helpers/draft-hidden-products';
+import { STARTERS_IDS } from '../src/i18n/content/startersFlags';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
@@ -19,7 +21,7 @@ const mainOf = (html: string) => html.slice(html.indexOf('<main'), html.indexOf(
 const amp = (s: string) => s.replaceAll('&amp;', '&');
 
 const EXPECTED: Record<string, [string, string][]> = {
-  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['thinking-expeditions-l1', '190.000₫'], ['thinking-expeditions-l2', '190.000₫'], ['phonics-b1', '79.000₫'], ['phonics-b2', '129.000₫'], ['story-workbooks-l1', '290.000₫'], ['rr-l1-wind-sun-yellow-coat', '49.000₫'], ['story-workbooks-l2', '290.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '290.000₫'], ['story-workbooks-l4', '290.000₫'], ['story-workbooks-l5', '290.000₫']],
+  families: [['story-club', '590.000₫'], ['baseline', '690.000₫'], ['one-to-one', '800.000₫'], ['printable-pack', '149.000₫'], ['parent-pack-l1', '249.000₫'], ['parent-pack-l2', '249.000₫'], ['parent-pack-l3', '249.000₫'], ['holiday-reading-challenge', '149.000₫'], ['thinking-expeditions-l1', '190.000₫'], ['thinking-expeditions-l2', '190.000₫'], ['phonics-b1', '79.000₫'], ['phonics-b2', '129.000₫'], ['story-workbooks-l1', '290.000₫'], ['rr-l1-wind-sun-yellow-coat', '49.000₫'], ['story-workbooks-l2', '290.000₫'], ['mango-l2', '49.000₫'], ['story-workbooks-l3', '290.000₫'], ['story-workbooks-l4', '290.000₫'], ['story-workbooks-l5', '290.000₫'], ['starters-practice-test-1', '99.000₫'], ['starters-practice-test-2', '99.000₫']],
   teachers: [
     ['teacher-pack-l1', '690.000₫'], ['teacher-pack-l2', '690.000₫'], ['teacher-pack-l3', '690.000₫'], ['teacher-pack-l4', '690.000₫'],
     ['teacher-pack-l5', '690.000₫'], ['teacher-bundle', '2.900.000₫'], ['student-workbook-l1', '190.000₫'], ['student-workbook-l2', '190.000₫'], ['student-workbook-l3', '190.000₫'], ['student-workbook-l4', '190.000₫'], ['student-workbook-l5', '190.000₫'], ['word-fossil-flashcards-l1', '190.000₫'], ['thinking-cycle-set', '490.000₫'], ['thinking-cycle-posters', '149.000₫'],
@@ -79,8 +81,10 @@ test('sections in order, each card with its price and exactly one CTA', async ()
         assert.equal([...block.matchAll(/data-cta=/g)].length, 0, `${route}: no order CTA in #ielts`);
         continue;
       }
-      assert.deepEqual(ids, cards.map(([id]) => id), `${route} ${section}`);
-      for (const [id, price] of cards) {
+      // Starters Practice Tests 1 and 2 are English only until a native Vietnamese read (startersFlags.ts).
+      const shown = cards.filter(([id]) => expectedInLocale(id, route === VI ? 'vi' : 'en'));
+      assert.deepEqual(ids, shown.map(([id]) => id), `${route} ${section}`);
+      for (const [id, price] of shown) {
         const card = block.slice(block.indexOf(`id="${id}"`), block.indexOf('</li>', block.indexOf(`id="${id}"`)));
         if (PAUSED.has(id)) {
           assert.equal([...card.matchAll(/data-cta=/g)].length, 0, `${route} ${id}: paused, no order CTA`);
@@ -142,7 +146,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'thinking-expeditions-l1', 'thinking-expeditions-l2', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'thinking-expeditions-l1', 'thinking-expeditions-l2', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...(route === EN ? ['starters-practice-test-1', 'starters-practice-test-2'] : []), ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
     // IELTS migration P6: the IELTS cards (and their delivery lines) left /products.
     for (const [id] of SHOWN[IELTS_MOVED_SECTION]) assert.ok(!main.includes(`data-delivery="${id}"`), `${route} ${id}: no IELTS delivery line`);
     for (const m of delivered) assert.equal(m[2], line, route);
@@ -214,7 +218,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
   for (const locale of ['en', 'vi'] as const) {
     const ids = productsPage(locale).sections.flatMap((s) => s.cards.map((c) => c.id));
     // IELTS migration P6: live IELTS entries stay in PRODUCTS (their pages still build) but are no card on /products.
-    assert.deepEqual(ids, PRODUCTS.filter((p) => p.live && p.section !== IELTS_MOVED_SECTION).map((p) => p.id), `${locale}: every live entry is a card, in list order`);
+    assert.deepEqual(ids, PRODUCTS.filter((p) => p.live && p.section !== IELTS_MOVED_SECTION && expectedInLocale(p.id, locale)).map((p) => p.id), `${locale}: every live entry is a card, in list order (a held Starters entry has no /vi card)`);
     for (const p of PRODUCTS.filter((entry) => entry.live && entry.section === IELTS_MOVED_SECTION)) assert.ok(!ids.includes(p.id), `${locale}: ${p.id} is no card`);
   }
   // Each image an entry names exists in public/images/products.
@@ -233,7 +237,7 @@ test('cards are data-driven from PRODUCTS; a product image shows as a square whe
     const teachers = html.slice(html.indexOf('<section id="teachers"'), html.indexOf('</section>', html.indexOf('<section id="teachers"')));
     assert.deepEqual([...teachers.matchAll(/<li [^>]*id="([^"]+)"/g)].map((m) => m[1]), [...SHOWN.teachers.map(([id]) => id), 'test-extra']);
     assert.match(teachers, /<img src="\/images\/products\/teacher-bundle\.webp" srcSet="[^"]*\/images\/products\/w\/teacher-bundle-400\.webp 400w[^"]*" sizes="[^"]+" alt="[^"]+ cover" width="480" height="480"[^>]*aspect-square[^>]*data-product-image="test-extra"/);
-    assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.live && p.image && p.section !== IELTS_MOVED_SECTION).length);
+    assert.equal([...html.matchAll(/data-product-image=/g)].length, PRODUCTS.filter((p) => p.live && p.image && p.section !== IELTS_MOVED_SECTION && expectedInLocale(p.id, 'en')).length);
   } finally {
     PRODUCTS.pop();
   }
@@ -265,6 +269,8 @@ test('the ChatGPT product images are on their cards, square and light', async ()
     'pilot-class-kit': 'pilot-class-kit', 'curriculum-overview': 'curriculum-overview',
     // Phonics Books 1 and 2 (15 Nov 2026): the book cover on a champagne square.
     'phonics-b1': 'phonics-b1', 'phonics-b2': 'phonics-b2',
+    // Starters Practice Tests 1 and 2 (27 Nov 2026): image = id, 800 px square (Test 3 and the set are held; their images are checked with the other products' files below).
+    ...Object.fromEntries(STARTERS_IDS.filter((id) => !DRAFT_HIDDEN_PRODUCT_IDS.includes(id)).map((id) => [id, id])),
   };
   const { PRODUCTS, IELTS_MOVED_SECTION } = await import('../src/i18n/content/products');
   // IELTS migration P6: the IELTS cards left /products; their images stay on their entries (the product pages still build).
@@ -272,7 +278,7 @@ test('the ChatGPT product images are on their cards, square and light', async ()
   for (const locale of ['en', 'vi'] as const) {
     setServerLocation(locale === 'en' ? EN : VI);
     const cards = productsContent[locale].sections.flatMap((s) => s.cards);
-    assert.deepEqual(Object.fromEntries(cards.filter((c) => c.image).map((c) => [c.id, c.image])), Object.fromEntries(Object.entries(expected).filter(([id]) => !moved.has(id))), locale);
+    assert.deepEqual(Object.fromEntries(cards.filter((c) => c.image).map((c) => [c.id, c.image])), Object.fromEntries(Object.entries(expected).filter(([id]) => !moved.has(id) && expectedInLocale(id, locale))), locale);
     assert.ok(!cards.some((c) => moved.has(c.id)), `${locale}: no IELTS card`);
   }
   for (const id of moved) assert.equal(PRODUCTS.find((p) => p.id === id)!.image, expected[id], `${id}: image kept on the entry`);
@@ -296,7 +302,7 @@ test('packs marked live: false stay in the data, off the page and without a prod
   for (const p of PRODUCTS) assert.equal(typeof p.live, 'boolean', `${p.id}: live is set`);
   const hidden = PRODUCTS.filter((p) => !p.live).map((p) => p.id);
   // 35-today plan (Jay, 27 Oct 2026): every new product went live once the master approved its sample. A future
-  // pack can still ship hidden with live: false. Only the two explicit Starters drafts are hidden today.
+  // pack can still ship hidden with live: false. Only Starters Test 3 and the 3-test set are hidden today (STARTERS_TEST3_AND_SET_PUBLIC is false).
   assert.deepEqual([...hidden].sort(), [...DRAFT_HIDDEN_PRODUCT_IDS].sort());
   assert.equal(PRODUCTS.filter(p => !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id)).every(p => p.live), true);
   const indexable = getExpectedPublicIndexableRoutes();
@@ -311,13 +317,8 @@ test('packs marked live: false stay in the data, off the page and without a prod
       const path = `${prefix}/products/${id}`;
       assert.ok(!PRODUCT_PAGE_PATHS.includes(path), `${id}: no public product page`);
       const html = await renderRoute(path);
-      if (DRAFT_HIDDEN_PRODUCT_IDS.includes(id)) {
-        // Explicit drafts have direct preview routes, but never public, indexable sales pages.
-        assert.match(resolveRouteMetadata(path).robots, /noindex/, `${path}: preview stays noindex`);
-        assert.doesNotMatch(html, /data-buy-now|data-portal-buy|data-payment-instructions|qr\.sepay|checkout=1/, `${path}: no purchase path`);
-      } else {
-        assert.equal(html.includes(`data-product-page-main="${id}"`), false, `${path}: hidden pack is not served`);
-      }
+      // A hidden pack (including Starters Test 3 and the 3-test set behind STARTERS_TEST3_AND_SET_PUBLIC) has no route at all.
+      assert.equal(html.includes(`data-product-page-main="${id}"`), false, `${path}: hidden pack is not served`);
     }
   }
 });
@@ -352,6 +353,9 @@ const SAMPLE_STEMS: Record<string, string> = {
   'thinking-expeditions-l2': 'thinking-expeditions-l2',
   // IELTS Reading and Listening (3 Nov 2026): stem = id.
   'ielts-reading-ladder': 'ielts-reading-ladder', 'ielts-listening-profiler': 'ielts-listening-profiler', 'ielts-diagnostic-mock': 'ielts-diagnostic-mock',
+  // Starters Practice Tests 1 and 2 (27 Nov 2026): stem = id; seven watermarked pages each. Test 3 and the 3-test set (9 pages) are in this
+  // list only once STARTERS_TEST3_AND_SET_PUBLIC makes them live (until then they are the explicit exceptions in the draft-hidden helper).
+  ...Object.fromEntries(STARTERS_IDS.filter(id => !DRAFT_HIDDEN_PRODUCT_IDS.includes(id)).map(id => [id, id])),
 };
 const SAMPLE_FILE = /^(.+)-p[123]\.webp$/;
 const PAGE_FILE = /^(.+)-pg(\d\d)\.webp$/;
@@ -405,7 +409,7 @@ test('samples: the block sits above the price; one button opens the viewer; no l
     setServerLocation(route);
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     // IELTS migration P6: the IELTS cards (and their sample blocks) left /products.
-    assert.deepEqual([...html.matchAll(/data-sample="([^"]+)"/g)].map((m) => m[1]), PRODUCTS.filter((p) => p.live && p.sample && p.section !== IELTS_MOVED_SECTION).map((p) => p.id), locale);
+    assert.deepEqual([...html.matchAll(/data-sample="([^"]+)"/g)].map((m) => m[1]), PRODUCTS.filter((p) => p.live && p.sample && p.section !== IELTS_MOVED_SECTION && expectedInLocale(p.id, locale)).map((p) => p.id), locale);
     for (const p of PRODUCTS.filter((entry) => entry.live && entry.section === IELTS_MOVED_SECTION)) assert.ok(!html.includes(`data-sample="${p.id}"`), `${locale} ${p.id}: no IELTS sample block`);
     assert.doesNotMatch(html, /href="[^"]*\.pdf/i, `${locale}: no PDF link`);
     assert.doesNotMatch(html, /data-sample-viewer=/, `${locale}: the viewer opens only on request`);

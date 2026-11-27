@@ -5,6 +5,7 @@ import { syllabusData } from './syllabus';
 import { thinkingCycleStages } from './thinkingCycle';
 import { seoEnglishPaths } from '../../lib/seoPageMeta';
 import { getProductByPath } from './productSeo';
+import { isStartersVietnameseHeld } from './startersFlags';
 import { getHolidaySetByPath } from '../../config/holidaySets';
 
 export type PublicContentGroup =
@@ -105,6 +106,9 @@ export function isPublicContentReleased(pathname: string, locale: Locale) {
   if (!group) {
     return false;
   }
+
+  // The Vietnamese Starters pages wait for a native read (startersFlags.ts): not prerendered, not in the sitemap, no hreflang.
+  if (locale === 'vi' && isStartersVietnameseHeld(pathname)) return false;
 
   return publicContentReleaseMap[group][locale];
 }

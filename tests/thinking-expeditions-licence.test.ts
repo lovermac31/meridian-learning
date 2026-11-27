@@ -1,3 +1,4 @@
+import { STARTERS_IDS } from '../src/i18n/content/startersFlags';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createElement } from 'react';
@@ -58,5 +59,7 @@ for (const ID of IDS) {
 }
 
 test('licence lines appear only on products that set one (no other product changes its rights)', () => {
-  assert.deepEqual(PRODUCTS.filter((p) => p.licence).map((p) => p.id), [...IDS]);
+  // The Starters Practice Tests (27 Nov 2026, D8) set their own licence line (starters-honest-claims.test.ts pins its wording).
+  assert.deepEqual(PRODUCTS.filter((p) => p.licence && !STARTERS_IDS.includes(p.id)).map((p) => p.id), [...IDS]);
+  assert.deepEqual(PRODUCTS.filter((p) => p.licence && STARTERS_IDS.includes(p.id)).map((p) => p.id).sort(), [...STARTERS_IDS].sort());
 });

@@ -1,3 +1,4 @@
+import { expectedInLocale } from './helpers/starters-locale';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { renderRoute } from '../src/entry-server';
@@ -87,6 +88,8 @@ const USD: Record<string, number> = {
   'phonics-b1': 7.99, 'phonics-b2': 7.99,
   // Story Workbooks: the DEFAULT (highest tier) US$ price; regional prices are tested below (3 Nov 2026).
   'story-workbooks-l1': 15, 'story-workbooks-l2': 10, 'story-workbooks-l3': 10, 'story-workbooks-l4': 10, 'story-workbooks-l5': 10,
+  // Starters Practice Tests (27 Nov 2026, D5): US$4 a test, US$10 for the set of three; fixed prices, PayPal only (no Buy now).
+  'starters-practice-test-1': 4, 'starters-practice-test-2': 4, 'starters-practice-test-3': 4, 'starters-practice-tests-pack': 10,
   'teacher-pack-l1': 27, 'teacher-pack-l2': 27, 'teacher-pack-l3': 27, 'teacher-pack-l4': 27, 'teacher-pack-l5': 27, 'teacher-bundle': 112,
   'student-workbook-l1': 8, 'student-workbook-l2': 8, 'student-workbook-l3': 8, 'student-workbook-l4': 8, 'student-workbook-l5': 8,
   'word-fossil-flashcards-l1': 8, 'thinking-cycle-set': 19, 'thinking-cycle-posters': 6, 'reasoning-assessment-kit': 16,
@@ -134,9 +137,9 @@ test('S1: each PayPal card shows the US$ option after the VND order button, with
   ] as const) {
     const html = amp((await renderRoute(route)).replaceAll('<!-- -->', ''));
     // IELTS migration P6: the IELTS PayPal cards left /products (their prices stay in the data above).
-    const onProducts = LIVE_USD.filter((id) => PRODUCTS.find((p) => p.id === id)!.section !== IELTS_MOVED_SECTION);
+    const onProducts = LIVE_USD.filter((id) => PRODUCTS.find((p) => p.id === id)!.section !== IELTS_MOVED_SECTION && expectedInLocale(id, route === '/vi/products' ? 'vi' : 'en'));
     assert.deepEqual([...html.matchAll(/data-paypal="([^"]+)"/g)].map((m) => m[1]), onProducts, route);
-    for (const id of LIVE_USD.filter((entry) => !onProducts.includes(entry))) assert.ok(!html.includes(`data-paypal="${id}"`), `${route} ${id}: no IELTS PayPal card on /products`);
+    for (const id of LIVE_USD.filter((entry) => !onProducts.includes(entry))) assert.ok(!html.includes(`data-paypal="${id}"`), `${route} ${id}: no IELTS (or held Starters Vietnamese) PayPal card on /products`);
     for (const id of onProducts) {
       const card = html.slice(html.indexOf(`id="${id}"`), html.indexOf('</li>', html.indexOf(`id="${id}"`)));
       assert.ok(card.indexOf(`data-cta="product-${id}"`) < card.indexOf(`data-paypal="${id}"`), `${route} ${id}: VND first`);
