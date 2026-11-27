@@ -1191,6 +1191,16 @@
       "permanent": true
     },
     {
+      "source": "/ai-speaking/writing/:page(buy|photo){/}?",
+      "destination": "https://jurassicielts.com/ai-speaking/writing",
+      "permanent": true
+    },
+    {
+      "source": "/ai-speaking/vi/writing/:page(buy|photo){/}?",
+      "destination": "https://jurassicielts.com/ai-speaking/vi/writing",
+      "permanent": true
+    },
+    {
       "source": "/ai-speaking/one-to-one{/}?",
       "destination": "https://jurassicielts.com/ai-speaking/solutions",
       "permanent": true
