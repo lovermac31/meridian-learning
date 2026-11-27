@@ -476,7 +476,7 @@ const startersTest = (number: 1 | 2 | 3): Product => ({
     title: `Starters Practice Test ${number}`,
     problem: 'Con bạn 6 đến 8 tuổi và bạn muốn một bài luyện tập hoàn chỉnh để con làm tại bàn học: Đọc và Viết, Nghe có âm thanh, và Nói, sẵn sàng để in và phát.',
     inside: `Một bài luyện tập 21 trang A4: năm phần Đọc và Viết, bốn phần Nghe và bốn phần Nói, kèm đáp án, bảng chấm điểm và kịch bản đọc to cho người lớn. File PDF màu và thang xám cùng bốn bài nghe (MP3). Bản mẫu có bảy trang thật${number === 3 ? '.' : ' và một đoạn âm thanh ví dụ ngắn.'}`,
-    forWho: `${STARTERS_INDEPENDENCE.vi} Nên dùng cùng cha mẹ hoặc gia sư. Mức Pre A1 là mục tiêu thiết kế, không phải chứng chỉ; nhân vật minh họa là hư cấu. ${STARTERS_LICENCE.vi}`,
+    forWho: `${STARTERS_INDEPENDENCE.vi} Nên dùng cùng bố mẹ hoặc gia sư. Mức Pre A1 là mục tiêu thiết kế, không phải chứng chỉ; nhân vật minh họa là hư cấu. ${STARTERS_LICENCE.vi}`,
     unit: 'mua một lần · 1 bài, PDF + 4 bài nghe', cta: 'Đặt mua qua Zalo',
   },
 });
@@ -504,7 +504,7 @@ const STARTERS_PRODUCTS: Product[] = [
       title: 'Starters Practice Tests 1 to 3',
       problem: 'Con bạn 6 đến 8 tuổi và bạn muốn ba bài luyện tập hoàn chỉnh để luyện đều đặn, nhẹ nhàng trong vài tuần: Đọc và Viết, Nghe có âm thanh, và Nói.',
       inside: 'Ba bài luyện tập hoàn chỉnh, mỗi bài 21 trang A4: năm phần Đọc và Viết, bốn phần Nghe và bốn phần Nói, kèm đáp án, bảng chấm điểm và kịch bản đọc to cho người lớn. File PDF màu và thang xám cùng mười hai bài nghe (MP3). Bản mẫu có chín trang thật, ba trang từ mỗi bài, và một đoạn âm thanh ví dụ ngắn.',
-      forWho: `${STARTERS_INDEPENDENCE.vi} Nên dùng cùng cha mẹ hoặc gia sư. Mức Pre A1 là mục tiêu thiết kế, không phải chứng chỉ; nhân vật minh họa là hư cấu. ${STARTERS_LICENCE.vi}`,
+      forWho: `${STARTERS_INDEPENDENCE.vi} Nên dùng cùng bố mẹ hoặc gia sư. Mức Pre A1 là mục tiêu thiết kế, không phải chứng chỉ; nhân vật minh họa là hư cấu. ${STARTERS_LICENCE.vi}`,
       unit: 'mua một lần · 3 bài, PDF + 12 bài nghe', cta: 'Đặt mua qua Zalo',
     },
   },
