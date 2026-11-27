@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { statSync, existsSync } from 'node:fs';
-import { DRAFT_HIDDEN_PRODUCT_IDS } from './helpers/draft-hidden-products';
+import { STARTERS_IDS } from '../src/i18n/content/startersFlags';
 import { SAMPLE_PAGE_COUNTS } from '../src/i18n/content/samplePages';
 
 /**
@@ -16,7 +16,7 @@ const files = execFileSync('git', ['ls-files', '--cached', '--others', '--exclud
   .split('\n').filter(Boolean).filter(f => existsSync(f));
 
 const PAID_NAME = /(answer[-_ ]?keys?\b|audio[-_ ]?scripts?|mark[-_ ]?sheets?|speaking[-_ ]?(?:script|cards?|pack)|\bPT\d+[-_ ]S\d+\.\d|starters\d?[-_](?:colou?r|gr[ae]y)|starters[-_]practice[-_]test[-_]?\d?[-_](?:full|colou?r|gr[ae]y|web|print|key|script|track)|AUDIO-BUILD-LOG|tracks[-_]t\d|vids[-_]t\d|\bS[1-4]\.[1-4]\.mp3)/i;
-const ids = DRAFT_HIDDEN_PRODUCT_IDS;
+const ids = STARTERS_IDS; // all four products: the leak rules cover the live Tests 1 and 2 and the held Test 3 and set alike
 const MAX_CLIP_BYTES = 400_000; // a 15 to 18 s example clip is about 250 to 280 kB; a full 2-minute track is about 2 MB
 const CODE = /\.(?:ts|tsx|mts|mjs|js)$/;
 

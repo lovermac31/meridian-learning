@@ -5,6 +5,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { paymentAmount } from '../../src/config/payment';
 import { storyClubPriceAt } from '../../src/config/storyClubOffer';
 import { PRODUCTS } from '../../src/i18n/content/products';
+import { expectedInLocale } from '../helpers/starters-locale';
 
 // Synthetic form responses below override this guard; every other API or
 // third-party request is blocked, even if a local backend happens to be running.
@@ -30,7 +31,7 @@ test('products keep named controls, labelled sample forms and a contained mobile
     await page.setViewportSize({ width, height: 900 });
     await page.goto(locale === 'vi' ? '/vi/products' : '/products');
     await expect(page.locator('[data-category-tile="families"]')).toHaveAttribute('aria-pressed', 'false');
-    await expect(page.locator('.products-page li[id]')).toHaveCount(PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length); // one card per live non-IELTS product, read from the data (37 on 17 Nov 2026 with Thinking Expeditions Level 1, #355). 16 Nov 2026: + The Wind, the Sun and the Yellow Coat (#350), 35 -> 36. IELTS migration P6 (15 Nov 2026): the 14 IELTS cards moved to jurassicielts.com, 49 -> 35; + Phonics Books 1 and 2 (15 Nov 2026); + Mango single workbook (11 Nov 2026); + IELTS Diagnostic Mock (9 Nov 2026); 35 plus the five Story Workbooks, IELTS Reading and Listening (3 Nov 2026) and the three IELTS bundles (5 Nov 2026)
+    await expect(page.locator('.products-page li[id]')).toHaveCount(PRODUCTS.filter((p) => p.live && p.section !== 'ielts' && expectedInLocale(p.id, locale as 'en' | 'vi')).length); // one card per live non-IELTS product, read from the data (37 on 17 Nov 2026 with Thinking Expeditions Level 1, #355). 16 Nov 2026: + The Wind, the Sun and the Yellow Coat (#350), 35 -> 36. IELTS migration P6 (15 Nov 2026): the 14 IELTS cards moved to jurassicielts.com, 49 -> 35; + Phonics Books 1 and 2 (15 Nov 2026); + Mango single workbook (11 Nov 2026); + IELTS Diagnostic Mock (9 Nov 2026); 35 plus the five Story Workbooks, IELTS Reading and Listening (3 Nov 2026) and the three IELTS bundles (5 Nov 2026)
     await checkAccessibility(page);
     if (width === 375) {
       await mkdir(resolve('docs/qa/site-quality'), { recursive: true });

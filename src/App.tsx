@@ -209,7 +209,7 @@ function App() {
   const isStoryClubReserveView = routePathname === '/story-club/reserve';
   const isProductsView = routePathname === '/products';
   // /products/<id> for a live product; any other id falls through to the 404 view.
-  const productPageProduct = getProductByPath(routePathname);
+  const productPageProduct = getProductByPath(routePathname, locale);
   const isProductPageView = productPageProduct !== null;
   // Holiday sets (28 Nov to 6 Dec 2026): /products/<set id>, noindex, dated on the page and on the server.
   const holidaySetPage = getHolidaySetByPath(routePathname);

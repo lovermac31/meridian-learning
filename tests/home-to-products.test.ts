@@ -48,11 +48,12 @@ test('home: one "Find what you need" strip right under the hero, a tile per /pro
 test('/products: segment filter row (Families · Story Workbooks · Teachers · Centres · IELTS) names its section; reduced-motion-safe scrolling', async () => {
   const { renderRoute } = await import('../src/entry-server');
   // IELTS migration P6: the IELTS section has no cards on /products, so it has no tile; one moved card stands in its place.
-  for (const [route, labels, solutions] of [['/products', ['Families', 'Phonics', 'Story Workbooks', 'Teachers', 'Centres'], 'https://jurassicielts.com/solutions/'], ['/vi/products', ['Gia đình', 'Phonics', 'Sách truyện bài tập', 'Giáo viên', 'Trung tâm'], 'https://jurassicielts.com/vi/solutions/']] as const) {
+  for (const [route, labels, solutions] of [['/products', ['Families', 'Phonics', 'Story Workbooks', 'Practice tests', 'Teachers', 'Centres'], 'https://jurassicielts.com/solutions/'], ['/vi/products', ['Gia đình', 'Phonics', 'Sách truyện bài tập', 'Giáo viên', 'Trung tâm'], 'https://jurassicielts.com/vi/solutions/']] as const) {
     const html = await renderRoute(route);
     const nav = html.match(/<nav aria-label="[^"]+" class="products-overview" data-products-mini-nav="">[\s\S]*?<\/nav>/)?.[0] ?? '';
     const tiles = [...nav.matchAll(/<button type="button" aria-pressed="(?:true|false)" aria-controls="([^"]+)" data-category-tile="([^"]+)">([\s\S]*?)<\/button>/g)];
-    assert.deepEqual(tiles.map((m) => m[2]), ['families', 'phonics', 'story-workbooks', 'teachers', 'centres'], route);
+    // Practice tests (27 Nov 2026) sits after Story Workbooks in English; the Vietnamese Starters copy is held, so /vi/products has no such tile yet.
+    assert.deepEqual(tiles.map((m) => m[2]), route === '/products' ? ['families', 'phonics', 'story-workbooks', 'practice-tests', 'teachers', 'centres'] : ['families', 'phonics', 'story-workbooks', 'teachers', 'centres'], route);
     for (let i = 0; i < tiles.length; i++) {
       assert.ok(tiles[i][3].includes(labels[i]), `${route}: translated category name`);
       assert.ok(html.includes(`id="${tiles[i][1]}"`), `${route}: tile controls a real panel`);

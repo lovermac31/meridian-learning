@@ -9,15 +9,16 @@ import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from '../src/i18n/content/s
 import { fetchSampleText, SAMPLE_TEXT_MAX_BYTES, validateSampleText } from '../src/lib/sampleText';
 const fixture = () => JSON.parse(readFileSync('public/samples/pages/story-club-text.json', 'utf8'));
 
-test('all 49 sample-bearing products expose exactly their 431 approved public sample pages, with bound image and text hashes', () => {
+test('all 51 sample-bearing products expose exactly their 445 approved public sample pages, with bound image and text hashes', () => {
   const sha = (value: string | Buffer) => createHash('sha256').update(value).digest('hex');
   const products = PRODUCTS.filter(p => p.live && !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id) && p.group !== 'bundles'); // the three IELTS bundles are checked in the next test
   // 44 packs, plus Phonics Books 1 and 2 (15 Nov 2026, 14 pages each, reviewed transcription: their PDFs have no text layer).
   // 47 with the Reading & Reasoning single story (16 Nov 2026, 3 pages of its watermarked preview.pdf).
   // 48 with Thinking Expeditions Level 1 (17 Nov 2026, 11 pages of its free Unit 1 sample PDF).
   // 49 with Thinking Expeditions Level 2 (17 Nov 2026, 11 pages of its free Unit 2 sample PDF).
-  assert.equal(products.length, 49);
-  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json') && !isDraftHiddenSampleAsset(p) && !/^phonics-b[3-5]-text\.json$/.test(p)).length, 52, '49 packs + 3 bundles');
+  // 51 with Starters Practice Tests 1 and 2 (27 Nov 2026, 7 watermarked pages each); Test 3 and the 3-test set are held and excluded here.
+  assert.equal(products.length, 51);
+  assert.equal(readdirSync('public/samples/pages').filter(p => p.endsWith('-text.json') && !isDraftHiddenSampleAsset(p) && !/^phonics-b[3-5]-text\.json$/.test(p)).length, 54, '51 packs + 3 bundles');
   let pages = 0, ocr = 0;
   for (const product of products) {
     const count = SAMPLE_PAGE_COUNTS[product.sample!];
@@ -31,7 +32,7 @@ test('all 49 sample-bearing products expose exactly their 431 approved public sa
     }
     pages += doc.pageCount;
   }
-  assert.equal(pages, 431);
+  assert.equal(pages, 445);
   assert.equal(ocr, 42);
   assert.equal(readdirSync('public/samples').filter(p => p.endsWith('.pdf')).length, 0, 'no sample PDF is published');
 });

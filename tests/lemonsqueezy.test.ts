@@ -31,7 +31,7 @@ test('config: only https lemonsqueezy.com URLs for digital products survive; ser
   assert.deepEqual(parseLemonSqueezyCheckouts(undefined), {});
   // Every eligible product is a digital download with PayPal already; the five services are excluded by data.
   const eligible = PRODUCTS.filter((p) => p.paypal).map((p) => p.id);
-  assert.equal(eligible.length, 43); // Phonics Books 1 and 2 (15 Nov 2026), 30, the five Story Workbooks, the IELTS Reading and Listening packs (3 Nov 2026) and the three IELTS bundles (5 Nov 2026)
+  assert.equal(eligible.length, 47); // 47 with the four Starters Practice Tests products (27 Nov 2026; PayPal data, hidden ones included); Phonics Books 1 and 2 (15 Nov 2026), 30, the five Story Workbooks, the IELTS Reading and Listening packs (3 Nov 2026) and the three IELTS bundles (5 Nov 2026)
   for (const id of ['story-club', 'baseline', 'one-to-one', 'writing-baseline', 'centre-licence']) assert.ok(!eligible.includes(id), id);
 });
 

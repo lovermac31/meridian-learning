@@ -9,6 +9,7 @@ import {
   IELTS_GROUPS,
   IELTS_HOME,
   PHONICS_SEGMENT,
+  PRACTICE_TESTS_SEGMENT,
   PRODUCT_SEGMENTS,
   phonicsReaderHref,
   PRODUCTS_PATH,
@@ -374,7 +375,7 @@ export function SampleViewer({ card, locale, source, copy, onClose, initialPage 
             <ChevronRight aria-hidden="true" className="h-5 w-5" />
           </button>
         </div>
-        {page === last && !card.draftPreview ? (
+        {page === last ? (
           <div className="mt-3 text-center" data-viewer-end>
             <p className="text-sm font-bold">{copy.end}</p>
             <p className="mt-1 text-lg font-bold">{card.price} <span className="text-sm font-semibold">{card.unit}</span></p>
@@ -489,9 +490,9 @@ export function LemonSqueezyOption({ card, locale, source, touch, compact = fals
 }
 
 const CATEGORY_COPY = {
-  en: { label: 'Product sections', names: { families: 'Families', phonics: 'Phonics', 'story-workbooks': 'Story Workbooks', teachers: 'Teachers', centres: 'Centres', ielts: 'IELTS' }, count: 'products', from: 'from', workbooksSub: 'Levels 1–5 · print-ready A4', phonicsCount: 'books', phonicsSub: 'Ages 4–7 · with audio', isNew: 'New' },
-  vi: { label: 'Các nhóm sản phẩm', names: { families: 'Gia đình', phonics: 'Phonics', 'story-workbooks': 'Sách truyện bài tập', teachers: 'Giáo viên', centres: 'Trung tâm', ielts: 'IELTS' }, count: 'sản phẩm', from: 'từ', workbooksSub: 'Level 1–5 · in sẵn khổ A4', phonicsCount: 'quyển', phonicsSub: 'Bé 4–7 tuổi · có âm thanh', isNew: 'Mới' },
-} satisfies Record<Locale, { label: string; names: Record<ProductSegmentId, string>; count: string; from: string; workbooksSub: string; phonicsCount: string; phonicsSub: string; isNew: string }>;
+  en: { label: 'Product sections', names: { families: 'Families', phonics: 'Phonics', 'story-workbooks': 'Story Workbooks', 'practice-tests': 'Practice tests', teachers: 'Teachers', centres: 'Centres', ielts: 'IELTS' }, count: 'products', from: 'from', workbooksSub: 'Levels 1–5 · print-ready A4', phonicsCount: 'books', phonicsSub: 'Ages 4–7 · with audio', isNew: 'New', practiceSub: 'Ages 6–8 · with audio' },
+  vi: { label: 'Các nhóm sản phẩm', names: { families: 'Gia đình', phonics: 'Phonics', 'story-workbooks': 'Sách truyện bài tập', 'practice-tests': 'Bài luyện tập', teachers: 'Giáo viên', centres: 'Trung tâm', ielts: 'IELTS' }, count: 'sản phẩm', from: 'từ', workbooksSub: 'Level 1–5 · in sẵn khổ A4', phonicsCount: 'quyển', phonicsSub: 'Bé 4–7 tuổi · có âm thanh', isNew: 'Mới', practiceSub: 'Bé 6–8 tuổi · có âm thanh' },
+} satisfies Record<Locale, { label: string; names: Record<ProductSegmentId, string>; count: string; from: string; workbooksSub: string; phonicsCount: string; phonicsSub: string; isNew: string; practiceSub: string }>;
 
 // Hub-only labels for the Stitch layout (Jay's mock, 2 Nov 2026). The layout comes from the mock; every line of copy comes
 // from the product data or copy already on the site (Story Club, the Baseline, 1-to-1, the sample and payment lines),
@@ -612,6 +613,8 @@ export function productAnchor(hash: string, locale: Locale) {
   if (anchor === WORKBOOKS_SEGMENT) return { section: WORKBOOKS_SEGMENT as ProductSegmentId, product: null, sample: false, target: anchor };
   // #phonics is the Phonics tile and book picker (15 Nov 2026); its cards are Families data, like Story Workbooks.
   if (anchor === PHONICS_SEGMENT) return { section: PHONICS_SEGMENT as ProductSegmentId, product: null, sample: false, target: anchor };
+  // #practice-tests is the Practice tests tile (27 Nov 2026); its cards are Families data, like Story Workbooks and Phonics.
+  if (anchor === PRACTICE_TESTS_SEGMENT) return { section: PRACTICE_TESTS_SEGMENT as ProductSegmentId, product: null, sample: false, target: anchor };
   if (anchor === LIBRARY_ANCHOR || /^rl-[a-z0-9-]+$/.test(anchor)) return { section: null as ProductSegmentId | null, product: null, sample: false, target: anchor };
   const section = sections.find((entry) => entry.id === anchor || (entry.id === 'ielts' && IELTS_GROUPS.some((group) => anchor === `ielts-${group}`)));
   if (section) return { section: section.id as ProductSegmentId, product: null, sample: false, target: anchor };
@@ -619,7 +622,7 @@ export function productAnchor(hash: string, locale: Locale) {
   const id = sample ? anchor.slice(0, -7) : anchor;
   for (const entry of sections) {
     const card = entry.cards.find((card) => card.id === id || PRODUCT_FORMER_IDS[card.id]?.includes(id));
-    if (card) return { section: (card.category === 'workbooks' ? WORKBOOKS_SEGMENT : card.category === 'phonics' ? PHONICS_SEGMENT : entry.id) as ProductSegmentId, product: card.id, sample: sample && !!card.sample, target: card.id };
+    if (card) return { section: (card.category === 'workbooks' ? WORKBOOKS_SEGMENT : card.category === 'phonics' ? PHONICS_SEGMENT : card.category === 'practice-tests' ? PRACTICE_TESTS_SEGMENT : entry.id) as ProductSegmentId, product: card.id, sample: sample && !!card.sample, target: card.id };
   }
   return null;
 }
@@ -719,14 +722,15 @@ export function ProductsPage({ locale }: { locale: Locale }) {
   // narrow the page to one section, and "Show all" brings the full catalogue back after a filter.
   const [showAll, setShowAll] = useState(true);
   const isVisible = (card: { id: string; category?: string }, section: ProductSectionId) =>
-    filter === WORKBOOKS_SEGMENT ? card.category === 'workbooks' : filter === PHONICS_SEGMENT ? card.category === 'phonics' : filter ? filter === section : showAll || (FEATURED_PRODUCTS as readonly string[]).includes(card.id);
+    filter === WORKBOOKS_SEGMENT ? card.category === 'workbooks' : filter === PHONICS_SEGMENT ? card.category === 'phonics' : filter === PRACTICE_TESTS_SEGMENT ? card.category === 'practice-tests' : filter ? filter === section : showAll || (FEATURED_PRODUCTS as readonly string[]).includes(card.id);
   const categoryCopy = CATEGORY_COPY[locale];
   const total = c.sections.reduce((sum, section) => sum + section.cards.length, 0);
   const shown = c.sections.reduce((sum, section) => sum + section.cards.filter((card) => isVisible(card, section.id)).length, 0);
   const workbookCards = c.sections.flatMap((section) => section.cards).filter((card) => card.category === 'workbooks');
   const phonicsCards = c.sections.flatMap((section) => section.cards).filter((card) => card.category === 'phonics');
-  // A cross-section tile (Story Workbooks, Phonics) shows only its cards, without the section headings.
-  const workbooksOnly = filter === WORKBOOKS_SEGMENT || filter === PHONICS_SEGMENT;
+  const practiceCards = c.sections.flatMap((section) => section.cards).filter((card) => card.category === 'practice-tests');
+  // A cross-section tile (Story Workbooks, Phonics, Practice tests) shows only its cards, without the section headings.
+  const workbooksOnly = filter === WORKBOOKS_SEGMENT || filter === PHONICS_SEGMENT || filter === PRACTICE_TESTS_SEGMENT;
   const phonicsOnly = filter === PHONICS_SEGMENT;
   const faq = [
     { question: FAQ_QUESTIONS[locale].sample, answer: `${c.sample.note} ${c.viewer.viewOnly}` },
@@ -803,7 +807,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
         <ul>
           {PRODUCT_SEGMENTS.map((id) => {
             // Story Workbooks is a cross-section tile: its cards are the Families "Workbooks" group (Jay, 3 Nov 2026).
-            const cards = id === WORKBOOKS_SEGMENT ? workbookCards : id === PHONICS_SEGMENT ? phonicsCards : c.sections.find((section) => section.id === id)?.cards;
+            const cards = id === WORKBOOKS_SEGMENT ? workbookCards : id === PHONICS_SEGMENT ? phonicsCards : id === PRACTICE_TESTS_SEGMENT ? practiceCards : c.sections.find((section) => section.id === id)?.cards;
             if (!cards?.length) return null;
             const lowest = Math.min(...cards.map((card) => Number(card.price.replace(/[^\d]/g, ''))));
             return <li key={id}>
@@ -813,6 +817,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
                 {id === PHONICS_SEGMENT ? <span className="products-overview-sub">{categoryCopy.phonicsSub}</span> : null}
                 {id === 'ielts' ? <span className="products-overview-sub">{IELTS_GROUPS.filter((group) => cards.some((card) => card.group === group)).map((group) => c.ielts.groups[group]).join(' · ')}</span> : null}
                 {id === WORKBOOKS_SEGMENT ? <span className="products-overview-sub">{categoryCopy.workbooksSub}</span> : null}
+                {id === PRACTICE_TESTS_SEGMENT ? <span className="products-overview-sub">{categoryCopy.practiceSub}</span> : null}
               </button>
             </li>;
           })}
@@ -863,6 +868,25 @@ export function ProductsPage({ locale }: { locale: Locale }) {
                   </li>
                 );
               })}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+      {/* Practice tests tile (Jay, 27 Nov 2026, D1/D2): placed after Story Workbooks. Intro line, then a test picker; a test opens its card. */}
+      {practiceCards.length ? (
+        <section id={PRACTICE_TESTS_SEGMENT} aria-labelledby={`${PRACTICE_TESTS_SEGMENT}-h`} className="products-workbooks products-practice-tests scroll-mt-24 max-md:scroll-mt-36" hidden={filter !== null && filter !== PRACTICE_TESTS_SEGMENT} data-practice-tests-band="">
+          <div className="products-workbooks-inner">
+            <h2 id={`${PRACTICE_TESTS_SEGMENT}-h`}>{c.practiceBand.heading}</h2>
+            <p data-practice-tests-intro="">{c.practiceBand.intro}</p>
+            <ul aria-label={c.practiceBand.tests}>
+              {practiceCards.map((card) => (
+                <li key={card.id}>
+                  <a href={`#${card.id}`} data-practice-test={card.id}>
+                    <strong>{card.id.endsWith('-pack') ? c.practiceBand.set : c.practiceBand.test.replace('{n}', card.id.match(/\d+$/)?.[0] ?? '')}</strong>
+                    <span>{c.practiceBand.ages} · <b>{card.price}</b></span>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </section>
@@ -923,11 +947,12 @@ export function ProductsPage({ locale }: { locale: Locale }) {
               </div>
             ) : null}
             {(section.id === 'ielts'
-              ? IELTS_GROUPS.map((group) => ({ group, workbooks: false, phonics: false, cards: section.cards.filter((card) => card.group === group) }))
-              : [{ group: null, workbooks: false, phonics: false, cards: section.cards.filter((card) => !card.category) }, { group: null, workbooks: false, phonics: true, cards: section.cards.filter((card) => card.category === 'phonics') }, { group: null, workbooks: true, phonics: false, cards: section.cards.filter((card) => card.category === 'workbooks') }]
-            ).filter((list) => list.cards.length > 0).map(({ group, workbooks, phonics, cards }) => (
-              <div key={group ?? (workbooks ? 'workbooks' : phonics ? 'phonics' : 'all')} data-ielts-group={group ?? undefined} data-workbooks-group={workbooks ? section.id : undefined} data-phonics-group={phonics ? section.id : undefined}>
+              ? IELTS_GROUPS.map((group) => ({ group, workbooks: false, phonics: false, practice: false, cards: section.cards.filter((card) => card.group === group) }))
+              : [{ group: null, workbooks: false, phonics: false, practice: false, cards: section.cards.filter((card) => !card.category) }, { group: null, workbooks: false, phonics: true, practice: false, cards: section.cards.filter((card) => card.category === 'phonics') }, { group: null, workbooks: true, phonics: false, practice: false, cards: section.cards.filter((card) => card.category === 'workbooks') }, { group: null, workbooks: false, phonics: false, practice: true, cards: section.cards.filter((card) => card.category === 'practice-tests') }]
+            ).filter((list) => list.cards.length > 0).map(({ group, workbooks, phonics, practice, cards }) => (
+              <div key={group ?? (workbooks ? 'workbooks' : phonics ? 'phonics' : practice ? 'practice-tests' : 'all')} data-ielts-group={group ?? undefined} data-workbooks-group={workbooks ? section.id : undefined} data-phonics-group={phonics ? section.id : undefined} data-practice-tests-group={practice ? section.id : undefined}>
                 {phonics ? <h3 id={`${section.id}-phonics`} className="products-ielts-heading scroll-mt-24" hidden={workbooksOnly || !cards.some((card) => isVisible(card, section.id))}>{c.phonicsBand.heading}</h3> : null}
+                {practice ? <h3 id={`${section.id}-practice-tests`} className="products-ielts-heading scroll-mt-24" hidden={workbooksOnly || !cards.some((card) => isVisible(card, section.id))}>{c.practiceBand.heading}</h3> : null}
                 {group ? <h3 id={`ielts-${group}`} className="products-ielts-heading scroll-mt-24" hidden={!cards.some((card) => isVisible(card, section.id))}>{c.ielts.groups[group]}</h3> : null}
                 {workbooks ? <h3 id={`${section.id}-workbooks`} className="products-ielts-heading scroll-mt-24" hidden={workbooksOnly || !cards.some((card) => isVisible(card, section.id))}>{c.workbooks}</h3> : null}
                 <ul className="products-rows">
@@ -945,7 +970,7 @@ export function ProductsPage({ locale }: { locale: Locale }) {
         {/* IELTS migration P6: one card instead of the IELTS product cards; their JE pages redirect to jurassicielts.com.
             id="ielts" keeps old #ielts links landing here. Shown with no filter and under Teachers and Centres (IELTS teaching
             materials lived there); hidden only under the children's filters. */}
-        <section id="ielts" aria-labelledby="ielts-h" className="products-category scroll-mt-24 max-md:scroll-mt-36" hidden={filter === 'families' || filter === PHONICS_SEGMENT || filter === WORKBOOKS_SEGMENT} data-ielts-moved="">
+        <section id="ielts" aria-labelledby="ielts-h" className="products-category scroll-mt-24 max-md:scroll-mt-36" hidden={filter === 'families' || filter === PHONICS_SEGMENT || filter === WORKBOOKS_SEGMENT || filter === PRACTICE_TESTS_SEGMENT} data-ielts-moved="">
           <div className="products-category-head">
             <h2 id="ielts-h">{c.ieltsMovedSection.heading}</h2>
             <p className="products-category-intro">{c.ieltsMovedSection.intro}</p>

@@ -24,6 +24,7 @@
  */
 import type { Locale } from '../locales';
 import { SAMPLE_PAGE_COUNTS, SAMPLE_PAGE_REVISIONS } from './samplePages.js';
+import { STARTERS_IDS, STARTERS_VI_PUBLIC, startersIsLive } from './startersFlags.js';
 
 export const PRODUCTS_PATH = '/products';
 export const PRODUCTS_VI_PATH = '/vi/products';
@@ -58,7 +59,10 @@ export const WORKBOOKS_SEGMENT = 'story-workbooks';
 // Jurassic English Phonics (Jay, 15 Nov 2026: "GO, your recommendations D1 to D9"): a tile second in the row, built like
 // Story Workbooks: the book cards stay in Families data, the tile is a view of them, each book has its own page.
 export const PHONICS_SEGMENT = 'phonics';
-export const PRODUCT_SEGMENTS = ['families', PHONICS_SEGMENT, WORKBOOKS_SEGMENT, 'teachers', 'centres', 'ielts'] as const;
+// Practice tests (Jay, 27 Nov 2026, D1): a tile after Story Workbooks, built the same way: the cards stay in Families data and the
+// tile is a view of them. No series hub, no new menu item, no header badge.
+export const PRACTICE_TESTS_SEGMENT = 'practice-tests';
+export const PRODUCT_SEGMENTS = ['families', PHONICS_SEGMENT, WORKBOOKS_SEGMENT, PRACTICE_TESTS_SEGMENT, 'teachers', 'centres', 'ielts'] as const;
 export type ProductSegmentId = (typeof PRODUCT_SEGMENTS)[number];
 
 export const IELTS_GROUPS = ['speaking', 'writing', 'reading', 'listening', 'bundles'] as const;
@@ -88,7 +92,6 @@ export type Product = {
   // Shown on the page only when true. A factory-built pack stays false until its Drive 00 READ ME says "Cleared"
   // (copyright and buyer-facing checks done) and Jay has approved its price.
   live: boolean;
-  draftPreview?: { price: string; licence: string; credit: string; delivery: string; independence: string };
   section: ProductSectionId;
   price: string;
   // Internal path (localized and tagged by the page) or 'zalo'.
@@ -111,7 +114,8 @@ export type Product = {
   group?: IeltsGroup;
   // 'workbooks': listed under a "Workbooks" heading at the end of its section (Families and Teachers). Jay, 3 Nov 2026.
   // 'phonics': a Jurassic English Phonics book, shown in the Phonics tile (15 Nov 2026).
-  category?: 'workbooks' | 'phonics';
+  // 'practice-tests': a Starters Practice Test or the 3-test set, shown in the Practice tests tile (27 Nov 2026).
+  category?: 'workbooks' | 'phonics' | 'practice-tests';
   // A fixed US$ price approved by Jay (Phonics, 14 Nov 2026: US$7.99 a book); otherwise ceil(VND ÷ 25,897) or the regional tier.
   usd?: number;
   // Ordered only through Zalo (written order summary, then VietQR) or PayPal: no Buy now button and no automatic
@@ -134,6 +138,8 @@ export type Product = {
   // The licence the buyer gets, in full, shown above the price on the product page and in the checkout summary
   // (Thinking Expeditions L1, 17 Nov 2026). Products without it keep their licence wording in "Who it's for".
   licence?: { en: string; vi: string };
+  // The product's own delivery line (Starters, 27 Nov 2026), shown instead of the generic one under the price.
+  deliveryLine?: { en: string; vi: string };
   en: CardText;
   vi: CardText;
 };
@@ -414,64 +420,96 @@ const STORY_WORKBOOKS: Product[] = [
   }),
 ];
 
-// Proposed amount only: never an active offer. Jay must confirm before release.
-export const STARTERS_DRAFT_PRICE_VND = 99_000;
-export const STARTERS_DRAFT_PRICE = '[JAY TO CONFIRM: proposed 99.000 VND / US$4]';
-export const STARTERS_DRAFT = {
-  price: STARTERS_DRAFT_PRICE,
-  licence: '[JAY TO CONFIRM: wording A or B in LISTING-PLAN section 2.1]',
-  credit: '[JAY TO CONFIRM: credit/AI-disclosure line — AI-generated pictures; synthetic voices.]',
-  delivery: '[JAY TO CONFIRM: delivery line — hand-checked payment and own-domain download link.]',
-  independence: '[ADVISER TO CONFIRM: independence sentence and factual format reference wording.]',
+// Starters Practice Tests (Jay, 27 Nov 2026, D1 to D8): original Pre A1 practice material for ages 6 to 8, written and designed by
+// Jurassic English. Tests 1 and 2 are live in English from the launch PR; Test 3 and the 3-test set follow only after Jay has listened
+// to the Test 3 tracks (STARTERS_TEST3_AND_SET_PUBLIC, startersFlags.ts); the Vietnamese copy stays unrouted until a native read
+// (STARTERS_VI_PUBLIC). Order: Zalo (written summary, then VietQR), or PayPal US$ outside Vietnam, then a private Drive folder within
+// 24 hours: manual, exactly like Phonics (orderOnly: no Buy now, no automatic checkout, no portal). Prices (D5, a test price, review at
+// 14 days): 99.000₫ / US$4 a test, 249.000₫ / US$10 for the set. Sample (D6): the site's own view-only viewer plus a 16 s Part 1
+// example clip (Tests 1 and 2 only). No film (D7). Licence scope (D8): one learner or one classroom, as printed in the books.
+// Wording is the "approved for review" text of WORDING-FOR-APPROVAL.md (sections 1 to 4), listed in the PR body. No exam board is named
+// anywhere (Jay, 27 Nov 2026), and neither is "authentic", "official" as a claim, "approved" or any pass promise.
+export const STARTERS_LICENCE = {
+  en: 'Licence: one learner or one classroom. Print the book and play the audio for those learners only. Please do not share the files, post them online or resell them. Schools and centres: ask us about a centre licence.',
+  vi: 'Giấy phép: một học viên hoặc một lớp học. Bạn được in sách và phát âm thanh cho các học viên đó. Vui lòng không chia sẻ tệp, đăng lên mạng hoặc bán lại. Trường và trung tâm: hãy hỏi chúng tôi về giấy phép trung tâm.',
 };
-// The 3-test set: its own proposed amount (never an offer) and the same unresolved decisions.
-export const STARTERS_PACK_DRAFT_PRICE_VND = 249_000;
-export const STARTERS_PACK_DRAFT_PRICE = '[JAY TO CONFIRM: proposed 249.000 VND / US$10]';
-export const STARTERS_PACK_DRAFT = { ...STARTERS_DRAFT, price: STARTERS_PACK_DRAFT_PRICE };
-export const PRODUCTS: Product[] = [
-  ...[1, 2, 3].map((number): Product => ({
-    id: `starters-practice-test-${number}`, live: false, section: 'families',
-    price: String(STARTERS_DRAFT_PRICE_VND), href: 'zalo',
-    image: `starters-practice-test-${number}`, sample: `starters-practice-test-${number}`,
-    draftPreview: STARTERS_DRAFT,
-    // Test 3's example clip is withheld until a person has listened to the Test 3 tracks (Tests 1 and 2 were listened to and passed).
-    ...(number === 3 ? {} : { clip: { src: `/audio/starters/starters-practice-test-${number}-clip.mp3`, seconds: number === 1 ? 17.300 : 16.700 } }),
-    en: {
-      label: 'Draft preview · unavailable to buy', title: `Pre A1 Starters-format practice test ${number}`,
-      problem: 'Ages 6 to 8. One 21-page A4 practice test with Reading and Writing, Listening and Speaking.',
-      inside: 'Five Reading and Writing parts, four Listening parts and four Speaking parts; colour and greyscale editions, answer key and read-aloud scripts.',
-      forWho: 'For a child with a parent or tutor. Intended level Pre-A1 is a design target, not a certificate. Written by Jurassic English; the illustrated cast is fictional.',
-      unit: 'per test', cta: 'Draft — buying disabled',
-    },
-    vi: {
-      label: '[VI DRAFT: native read needed] Bản xem trước', title: `Pre A1 Starters-format practice test ${number}`,
-      problem: '[VI DRAFT: native read needed] Dành cho trẻ 6 đến 8 tuổi. Bài luyện tập 21 trang A4 gồm Đọc và Viết, Nghe và Nói.',
-      inside: '[VI DRAFT: native read needed] Năm phần Đọc và Viết, bốn phần Nghe và bốn phần Nói; bản màu và thang xám, đáp án và kịch bản đọc.',
-      forWho: '[VI DRAFT: native read needed] Trẻ học cùng cha mẹ hoặc gia sư. Pre-A1 là mục tiêu thiết kế, không phải chứng chỉ. Nhân vật minh họa là hư cấu.',
-      unit: '[VI DRAFT: native read needed] mỗi bài', cta: '[VI DRAFT: native read needed] Chưa mở bán',
-    },
-  })),
+export const STARTERS_CREDIT = {
+  en: 'Pictures were made with AI image tools and arranged by Jurassic English. The audio uses synthetic AI voices.',
+  vi: 'Hình minh họa được tạo bằng công cụ AI và do Jurassic English sắp xếp. Âm thanh dùng giọng đọc AI tổng hợp.',
+};
+export const STARTERS_DELIVERY = {
+  en: 'Digital download. After you confirm your order on Zalo and your VietQR payment arrives, we share a private Google Drive folder with the PDF (colour and greyscale) and the four listening tracks, within 24 hours.',
+  vi: 'Tải về kỹ thuật số. Sau khi bạn xác nhận đơn trên Zalo và thanh toán VietQR được ghi nhận, chúng tôi chia sẻ thư mục Google Drive riêng gồm tệp PDF (bản màu và thang xám) cùng bốn bài nghe, trong vòng 24 giờ.',
+};
+// The set: the same approved line with "the PDF" and "the four listening tracks" made plural for three tests (flagged in the PR).
+export const STARTERS_SET_DELIVERY = {
+  en: 'Digital download. After you confirm your order on Zalo and your VietQR payment arrives, we share a private Google Drive folder with the three PDFs (colour and greyscale) and the twelve listening tracks, within 24 hours.',
+  vi: 'Tải về kỹ thuật số. Sau khi bạn xác nhận đơn trên Zalo và thanh toán VietQR được ghi nhận, chúng tôi chia sẻ thư mục Google Drive riêng gồm ba tệp PDF (bản màu và thang xám) cùng mười hai bài nghe, trong vòng 24 giờ.',
+};
+export const STARTERS_INDEPENDENCE = {
+  en: 'Original practice material written and designed by Jurassic English for ages 6 to 8, at the Pre A1 level. It is a practice test, not an official exam.',
+  vi: 'Tài liệu luyện tập gốc do Jurassic English biên soạn và thiết kế cho trẻ 6 đến 8 tuổi, ở mức Pre A1. Đây là bài luyện tập, không phải kỳ thi chính thức.',
+};
+const STARTERS_COMMON = {
+  section: 'families', category: 'practice-tests', href: 'zalo', orderOnly: true, delivery: true, paypal: true,
+  credit: STARTERS_CREDIT, licence: STARTERS_LICENCE,
+} as const satisfies Partial<Product>;
+const startersTest = (number: 1 | 2 | 3): Product => ({
+  ...STARTERS_COMMON,
+  id: `starters-practice-test-${number}`,
+  live: startersIsLive(`starters-practice-test-${number}`),
+  price: '99.000₫', usd: 4,
+  image: `starters-practice-test-${number}`, sample: `starters-practice-test-${number}`,
+  deliveryLine: STARTERS_DELIVERY,
+  // Test 3's example clip stays out of the repo until a person has listened to the Test 3 tracks (Tests 1 and 2 were listened to and passed).
+  ...(number === 3 ? {} : { clip: { src: `/audio/starters/starters-practice-test-${number}-clip.mp3`, seconds: number === 1 ? 17.300 : 16.700 } }),
+  en: {
+    label: 'Digital download · Practice test · New',
+    title: `Starters Practice Test ${number}`,
+    problem: 'Your child is 6 to 8 and you want one complete practice test to sit at the table: Reading and Writing, Listening with audio, and Speaking, ready to print and play.',
+    inside: 'One 21-page A4 practice test: five Reading and Writing parts, four Listening parts and four Speaking parts, with an answer key, a mark sheet and read-aloud scripts for the adult. Colour and greyscale PDFs and four listening tracks (MP3). The sample shows seven real pages and a short audio example.',
+    forWho: `${STARTERS_INDEPENDENCE.en} Best used with a parent or tutor. The Pre A1 level is a design target, not a certificate; the illustrated cast is fictional. ${STARTERS_LICENCE.en}`,
+    unit: 'one-time · 1 test, PDF + 4 audio tracks', cta: 'Order on Zalo',
+  },
+  vi: {
+    label: 'Tài liệu số · Bài luyện tập · Mới',
+    title: `Starters Practice Test ${number}`,
+    problem: 'Con bạn 6 đến 8 tuổi và bạn muốn một bài luyện tập hoàn chỉnh để con làm tại bàn học: Đọc và Viết, Nghe có âm thanh, và Nói, sẵn sàng để in và phát.',
+    inside: 'Một bài luyện tập 21 trang A4: năm phần Đọc và Viết, bốn phần Nghe và bốn phần Nói, kèm đáp án, bảng chấm điểm và kịch bản đọc to cho người lớn. File PDF màu và thang xám cùng bốn bài nghe (MP3). Bản mẫu có bảy trang thật và một đoạn âm thanh ví dụ ngắn.',
+    forWho: `${STARTERS_INDEPENDENCE.vi} Nên dùng cùng cha mẹ hoặc gia sư. Mức Pre A1 là mục tiêu thiết kế, không phải chứng chỉ; nhân vật minh họa là hư cấu. ${STARTERS_LICENCE.vi}`,
+    unit: 'mua một lần · 1 bài, PDF + 4 bài nghe', cta: 'Đặt mua qua Zalo',
+  },
+});
+const STARTERS_PRODUCTS: Product[] = [
+  startersTest(1), startersTest(2), startersTest(3),
   {
-    id: 'starters-practice-tests-pack', live: false, section: 'families',
-    price: String(STARTERS_PACK_DRAFT_PRICE_VND), href: 'zalo',
+    ...STARTERS_COMMON,
+    id: 'starters-practice-tests-pack',
+    live: startersIsLive('starters-practice-tests-pack'),
+    price: '249.000₫', usd: 10,
     image: 'starters-practice-tests-pack', sample: 'starters-practice-tests-pack',
-    draftPreview: STARTERS_PACK_DRAFT,
+    deliveryLine: STARTERS_SET_DELIVERY,
+    // The set reuses the Test 1 Part 1 example clip (Test 3's clip stays withheld).
     clip: { src: '/audio/starters/starters-practice-test-1-clip.mp3', seconds: 17.300 },
     en: {
-      label: 'Draft preview · unavailable to buy', title: 'Pre A1 Starters-format practice tests 1 to 3',
-      problem: 'Ages 6 to 8. Three 21-page A4 practice tests, each with Reading and Writing, Listening and Speaking.',
-      inside: 'Three complete tests: each has five Reading and Writing parts, four Listening parts and four Speaking parts; colour and greyscale editions, answer keys and read-aloud scripts.',
-      forWho: 'For a child with a parent or tutor. Intended level Pre-A1 is a design target, not a certificate. Written by Jurassic English; the illustrated cast is fictional.',
-      unit: 'for three tests', cta: 'Draft — buying disabled',
+      label: 'Digital download · Practice tests · New',
+      title: 'Starters Practice Tests 1 to 3',
+      problem: 'Your child is 6 to 8 and you want three complete practice tests for a few weeks of calm, regular practice: Reading and Writing, Listening with audio, and Speaking.',
+      inside: 'Three complete 21-page A4 practice tests: each has five Reading and Writing parts, four Listening parts and four Speaking parts, with answer keys, mark sheets and read-aloud scripts for the adult. Colour and greyscale PDFs and twelve listening tracks (MP3). The sample shows nine real pages, three from each test, and a short audio example.',
+      forWho: `${STARTERS_INDEPENDENCE.en} Best used with a parent or tutor. The Pre A1 level is a design target, not a certificate; the illustrated cast is fictional. ${STARTERS_LICENCE.en}`,
+      unit: 'one-time · 3 tests, PDFs + 12 audio tracks', cta: 'Order on Zalo',
     },
     vi: {
-      label: '[VI DRAFT: native read needed] Bản xem trước', title: 'Pre A1 Starters-format practice tests 1 to 3',
-      problem: '[VI DRAFT: native read needed] Dành cho trẻ 6 đến 8 tuổi. Ba bài luyện tập 21 trang A4, mỗi bài gồm Đọc và Viết, Nghe và Nói.',
-      inside: '[VI DRAFT: native read needed] Ba bài hoàn chỉnh: mỗi bài có năm phần Đọc và Viết, bốn phần Nghe và bốn phần Nói; bản màu và thang xám, đáp án và kịch bản đọc.',
-      forWho: '[VI DRAFT: native read needed] Trẻ học cùng cha mẹ hoặc gia sư. Pre-A1 là mục tiêu thiết kế, không phải chứng chỉ. Nhân vật minh họa là hư cấu.',
-      unit: '[VI DRAFT: native read needed] cho ba bài', cta: '[VI DRAFT: native read needed] Chưa mở bán',
+      label: 'Tài liệu số · Bài luyện tập · Mới',
+      title: 'Starters Practice Tests 1 to 3',
+      problem: 'Con bạn 6 đến 8 tuổi và bạn muốn ba bài luyện tập hoàn chỉnh để luyện đều đặn, nhẹ nhàng trong vài tuần: Đọc và Viết, Nghe có âm thanh, và Nói.',
+      inside: 'Ba bài luyện tập hoàn chỉnh, mỗi bài 21 trang A4: năm phần Đọc và Viết, bốn phần Nghe và bốn phần Nói, kèm đáp án, bảng chấm điểm và kịch bản đọc to cho người lớn. File PDF màu và thang xám cùng mười hai bài nghe (MP3). Bản mẫu có chín trang thật, ba trang từ mỗi bài, và một đoạn âm thanh ví dụ ngắn.',
+      forWho: `${STARTERS_INDEPENDENCE.vi} Nên dùng cùng cha mẹ hoặc gia sư. Mức Pre A1 là mục tiêu thiết kế, không phải chứng chỉ; nhân vật minh họa là hư cấu. ${STARTERS_LICENCE.vi}`,
+      unit: 'mua một lần · 3 bài, PDF + 12 bài nghe', cta: 'Đặt mua qua Zalo',
     },
   },
+];
+export const PRODUCTS: Product[] = [
   {
     id: 'story-club',
     video: 'story-club',
@@ -781,6 +819,7 @@ export const PRODUCTS: Product[] = [
   },
   ...PHONICS_BOOKS,
   ...STORY_WORKBOOKS,
+  ...STARTERS_PRODUCTS,
   {
     id: 'teacher-pack-l1',
     live: true,
@@ -1817,6 +1856,7 @@ type PageCopy = {
   sections: Record<ProductSectionId, { heading: string; intro: string }>;
   workbooks: string;
   workbooksBand: { heading: string; intro: string; levels: string; ages: string; agesFrom: string; count: string; single: string; singleLevel: string };
+  practiceBand: { heading: string; intro: string; tests: string; test: string; set: string; ages: string };
   phonicsBand: { heading: string; intro: string; books: string; book: string; ages: string; isNew: string; listen: string; listenLabel: string; reader: string; readerNote: string };
   ielts: { groups: Record<IeltsGroup, string>; home: Partial<Record<IeltsGroup, string>>; crumb: string };
   /** IELTS migration P6: the one card that replaces the IELTS product cards on /products. */
@@ -1848,6 +1888,14 @@ const PAGE: Record<Locale, PageCopy> = {
       count: '{n} workbooks',
       single: '1 workbook',
       singleLevel: 'Level {level} · one book',
+    },
+    practiceBand: {
+      heading: 'Practice tests',
+      intro: 'Original Pre A1 practice tests written and designed by Jurassic English for ages 6 to 8. A practice test, not an official exam. Print the PDF, play the audio, and see real sample pages before you order.',
+      tests: 'Starters practice tests',
+      test: 'Test {n}',
+      set: 'Tests 1 to 3',
+      ages: 'Ages 6–8 · with audio',
     },
     phonicsBand: {
       heading: 'Jurassic English Phonics',
@@ -1896,6 +1944,14 @@ const PAGE: Record<Locale, PageCopy> = {
       single: '1 cuốn',
       singleLevel: 'Level {level} · một cuốn',
     },
+    practiceBand: {
+      heading: 'Bài luyện tập',
+      intro: 'Bài luyện tập Pre A1 gốc do Jurassic English biên soạn và thiết kế cho trẻ 6 đến 8 tuổi. Đây là bài luyện tập, không phải kỳ thi chính thức. In PDF, phát âm thanh và xem trang mẫu thật trước khi đặt mua.',
+      tests: 'Các bài luyện tập Starters',
+      test: 'Bài {n}',
+      set: 'Bài 1 đến 3',
+      ages: 'Bé 6–8 tuổi · có âm thanh',
+    },
     phonicsBand: {
       heading: 'Jurassic English Phonics',
       intro: 'Học đọc cùng Dane và Kate',
@@ -1924,11 +1980,12 @@ const PAGE: Record<Locale, PageCopy> = {
   },
 };
 
-export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books' | 'usd' | 'orderOnly' | 'reader' | 'clip' | 'draftPreview'> & {
+export type ProductCard = CardText & Pick<Product, 'id' | 'price' | 'href' | 'delivery' | 'image' | 'sample' | 'paypal' | 'video' | 'group' | 'category' | 'books' | 'usd' | 'orderOnly' | 'reader' | 'clip'> & {
   link?: { href: string; label: string };
   paused?: boolean;
   credit?: string;
   licence?: string;
+  deliveryLine?: string;
 };
 
 /** A product's extra link in one language. */
@@ -1945,10 +2002,11 @@ export function productsPage(locale: Locale) {
       id,
       ...copy.sections[id],
       // The IELTS section has no cards on /products after P6; ProductsPage shows the one moved card instead.
-      cards: PRODUCTS.filter((p) => p.live && p.section === id && id !== IELTS_MOVED_SECTION).map(
+      // The Vietnamese Starters copy has no native read yet: no /vi card until STARTERS_VI_PUBLIC (startersFlags.ts).
+      cards: PRODUCTS.filter((p) => p.live && p.section === id && id !== IELTS_MOVED_SECTION && (locale === 'en' || STARTERS_VI_PUBLIC || !STARTERS_IDS.includes(p.id))).map(
         (product): ProductCard => {
-          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, usd, orderOnly, reader, clip, [locale]: text } = product;
-          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
+          const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, deliveryLine, usd, orderOnly, reader, clip, [locale]: text } = product;
+          return { id: cardId, price, href, delivery, image, sample, paypal: paused ? undefined : paypal, video, group, category, books, paused, credit: credit?.[locale], licence: licence?.[locale], deliveryLine: deliveryLine?.[locale], usd, orderOnly, reader, clip, link: cardLink(product, locale), ...text };
         },
       ),
       // One-line pointers to a card listed in another section ({link} becomes a link to that card).

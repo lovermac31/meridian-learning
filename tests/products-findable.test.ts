@@ -1,3 +1,4 @@
+import { expectedInLocale } from './helpers/starters-locale';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -45,8 +46,9 @@ test('JSON-LD: one Product with a VND Offer for every live card, in the page lan
     assert.ok(blocks.some((b) => b['@type'] === 'BreadcrumbList'), `${path}: breadcrumbs kept`);
     const list = blocks.find((b) => b['@type'] === 'ItemList')!;
     // IELTS migration P6: the 14 IELTS products moved to jurassicielts.com and leave the /products JSON-LD; the rest are unchanged.
-    const onPage = LIVE.filter((p) => p.section !== IELTS_MOVED_SECTION);
-    assert.equal(onPage.length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts').length, path); // read from the data (38 on 17 Nov 2026 with Thinking Expeditions Level 2); 36 with the Reading & Reasoning single story (16 Nov 2026); 37 with Thinking Expeditions Level 1 (17 Nov 2026)
+    // A held Starters product (Vietnamese not yet read natively) has no /vi entry (startersFlags.ts).
+    const onPage = LIVE.filter((p) => p.section !== IELTS_MOVED_SECTION && expectedInLocale(p.id, locale));
+    assert.equal(onPage.length, PRODUCTS.filter((p) => p.live && p.section !== 'ielts' && expectedInLocale(p.id, locale)).length, path); // read from the data (38 on 17 Nov 2026 with Thinking Expeditions Level 2); 36 with the Reading & Reasoning single story (16 Nov 2026); 37 with Thinking Expeditions Level 1 (17 Nov 2026)
     assert.equal(list.numberOfItems, onPage.length, path);
     assert.ok(list.itemListElement.every((entry: Record<string, any>) => !LIVE.some((p) => p.section === IELTS_MOVED_SECTION && entry.item.url.endsWith(`#${p.id}`))), `${path}: no IELTS product in the JSON-LD`);
     const page = `https://jurassicenglish.com${locale === 'vi' ? '/vi' : ''}/products`;
@@ -199,7 +201,7 @@ test('order codes: every Order on Zalo button shows its code line (EN + VI); oth
   for (const [route, before] of [['/products', 'When you message, mention code'], ['/vi/products', 'Khi nhắn tin, hãy nhắc mã']] as const) {
     const html = await renderRoute(route);
     const lines = [...html.replaceAll('<!-- -->', '').matchAll(/<p class="mt-2 text-xs" data-order-code="([^"]+)">([^<]*)<strong>([^<]+)<\/strong>\.<\/p>/g)];
-    assert.deepEqual(lines.map((m) => m[1]), zalo, route);
+    assert.deepEqual(lines.map((m) => m[1]), zalo.filter((id) => expectedInLocale(id, route === '/vi/products' ? 'vi' : 'en')), route);
     for (const id of moved) assert.ok(!html.includes(`data-order-code="${id}"`), `${route} ${id}: no IELTS order code on /products`);
     for (const [, id, text, code] of lines) {
       assert.equal(text.trim(), before, `${route} ${id}`);
