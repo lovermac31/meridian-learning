@@ -11,7 +11,7 @@
  * /vi card, Vietnamese JSON-LD or hreflang alternate exists for them; /vi/products/starters-* shows the site's standard "Available soon"
  * holding page (noindex). Flip it only after a native Vietnamese read of every Starters line in products.ts and productSeo.ts.
  */
-export const STARTERS_TEST3_AND_SET_PUBLIC = false;
+export const STARTERS_TEST3_AND_SET_PUBLIC = true; // Jay, 27 Nov 2026: "Make the Test 3 and set pages live". The Test 3 example clip is still NOT in the repo.
 export const STARTERS_VI_PUBLIC = false;
 
 export const STARTERS_TEST_IDS = ['starters-practice-test-1', 'starters-practice-test-2', 'starters-practice-test-3'] as const;

@@ -116,10 +116,10 @@ test('Bing site verification survives: meta tag in index.html and BingSiteAuth.x
 });
 
 // 35-today plan (Jay, 27 Oct 2026): the eight new products are live, each with its page, JSON-LD and sitemap entry.
-test('35-today: all 54 products are live (35, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Levels 1 and 2, the IELTS Reading and Listening packs, the three IELTS bundles, Phonics Books 1 and 2 and Starters Practice Tests 1 and 2), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
+test('35-today: all 56 products are live (35, the five Story Workbooks, the Mango single workbook, the Reading & Reasoning single story, Thinking Expeditions Levels 1 and 2, the IELTS Reading and Listening packs, the three IELTS bundles, Phonics Books 1 and 2 and Starters Practice Tests 1 and 2), and the eight new ones have EN + VI pages with search copy and a sample', async () => {
   const { PRODUCTS } = await import('../src/i18n/content/products');
   const liveProducts = PRODUCTS.filter(p => !DRAFT_HIDDEN_PRODUCT_IDS.includes(p.id));
-  assert.equal(liveProducts.length, 54); // 52 with Thinking Expeditions Level 2 (17 Nov 2026); 54 with Starters Practice Tests 1 and 2 (27 Nov 2026; Test 3 and the set are the explicit held exceptions)
+  assert.equal(liveProducts.length, 56); // 52 with Thinking Expeditions Level 2 (17 Nov 2026); 54 with Starters Practice Tests 1 and 2 (27 Nov 2026); 56 with Test 3 and the 3-test set (27 Nov 2026, Jay's go; they were Test 3 and the set are the explicit held exceptions)
   assert.equal(liveProducts.filter((p) => !p.live).length, 0);
   const fresh = ['writing-baseline', 'ielts-one-to-one-starter', 'ielts-cue-card-bank', 'ielts-essay-bank-task2', 'parent-pack-l3',
     'holiday-reading-challenge', 'thinking-cycle-posters', 'word-fossil-flashcards-l1'];
