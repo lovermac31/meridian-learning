@@ -1211,12 +1211,12 @@
       "permanent": true
     },
     {
-      "source": "/ai-speaking/:path((?:vi/)?(?:exam|solutions|ladder|ladder/.+))/",
+      "source": "/ai-speaking/:path((?:vi/)?(?:ladder|ladder/.+))/",
       "destination": "/ai-speaking/:path",
       "permanent": true
     },
     {
-      "source": "/ai-speaking/:path((?!(?:api|_next|assets|brand|email|report|sample|social|voice)/|(?:vi/)?(?:(?:exam|solutions)/?$|ladder(?:/|$))).+)/",
+      "source": "/ai-speaking/:path((?!(?:api|_next|assets|brand|email|report|sample|social|voice)/|(?:vi/)?ladder(?:/|$)).+)/",
       "destination": "https://jurassicielts.com/ai-speaking/:path",
       "permanent": true
     },
@@ -1226,7 +1226,7 @@
       "permanent": true
     },
     {
-      "source": "/ai-speaking/:path((?!(?:api|_next|assets|brand|email|report|sample|social|voice)/|(?:vi/)?(?:(?:exam|solutions)/?$|ladder(?:/|$))).+)",
+      "source": "/ai-speaking/:path((?!(?:api|_next|assets|brand|email|report|sample|social|voice)/|(?:vi/)?ladder(?:/|$)).+)",
       "destination": "https://jurassicielts.com/ai-speaking/:path",
       "permanent": true
     },
