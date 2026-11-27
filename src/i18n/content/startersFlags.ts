@@ -1,18 +1,16 @@
 /**
- * Starters Practice Tests: the two release flags (27 Nov 2026). Both default to false and only Jay flips them, in a PR he merges.
+ * Starters Practice Tests: the two release flags (27 Nov 2026). Only Jay flips them, in a PR he merges. Both are now true.
  *
- * Tests 1 and 2 are normal live products (EN) from the launch PR: they have no flag.
+ * Tests 1 and 2 are normal live products from the launch PR (#383): they have no flag.
  *
- * STARTERS_TEST3_AND_SET_PUBLIC (D3): Test 3 and the 3-test set stay `live: false` (no card, no page, no sitemap entry, no llms line,
- * no search result) until Jay has listened to the Test 3 listening tracks. Flip it only after that. The Test 3 example clip is
- * deliberately NOT in the repo; re-adding it is a separate step after the same listen.
+ * STARTERS_TEST3_AND_SET_PUBLIC: Test 3 and the 3-test set went live on Jay's go (PR #384), without a recorded listen of the Test 3
+ * tracks (his waiver). The Test 3 example clip is deliberately NOT in the repo; adding it is a separate step after a listen.
  *
- * STARTERS_VI_PUBLIC: the Vietnamese copy of the four products is a machine draft with no native read. While false, no /vi page,
- * /vi card, Vietnamese JSON-LD or hreflang alternate exists for them; /vi/products/starters-* shows the site's standard "Available soon"
- * holding page (noindex). Flip it only after a native Vietnamese read of every Starters line in products.ts and productSeo.ts.
+ * STARTERS_VI_PUBLIC: the Vietnamese copy of the four products was read by a native speaker (Jay's wife, no corrections, 27 Nov 2026)
+ * and is published. Set it back to false to return /vi/products/starters-* to the site's "Available soon" holding page (noindex).
  */
 export const STARTERS_TEST3_AND_SET_PUBLIC = true; // Jay, 27 Nov 2026: "Make the Test 3 and set pages live". The Test 3 example clip is still NOT in the repo.
-export const STARTERS_VI_PUBLIC = false;
+export const STARTERS_VI_PUBLIC = true; // Jay, 27 Nov 2026: native Vietnamese read done by his wife, no corrections: "Everything looks good."
 
 export const STARTERS_TEST_IDS = ['starters-practice-test-1', 'starters-practice-test-2', 'starters-practice-test-3'] as const;
 export const STARTERS_SET_ID = 'starters-practice-tests-pack';

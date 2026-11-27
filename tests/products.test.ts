@@ -81,7 +81,7 @@ test('sections in order, each card with its price and exactly one CTA', async ()
         assert.equal([...block.matchAll(/data-cta=/g)].length, 0, `${route}: no order CTA in #ielts`);
         continue;
       }
-      // Starters Practice Tests 1 and 2 are English only until a native Vietnamese read (startersFlags.ts).
+      // The Starters products are on /vi too since the native Vietnamese read (27 Nov 2026, startersFlags.ts).
       const shown = cards.filter(([id]) => expectedInLocale(id, route === VI ? 'vi' : 'en'));
       assert.deepEqual(ids, shown.map(([id]) => id), `${route} ${section}`);
       for (const [id, price] of shown) {
@@ -146,7 +146,7 @@ test('digital products state payment and delivery; the Teacher Pack names no pub
     const main = mainOf(await renderRoute(route));
     const delivered = [...main.matchAll(/data-delivery="([^"]+)">([^<]+)</g)];
     // The Writing Baseline is a service (an essay read by hand), not a download: no Drive delivery line.
-    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'thinking-expeditions-l1', 'thinking-expeditions-l2', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', ...(route === EN ? ['starters-practice-test-1', 'starters-practice-test-2', 'starters-practice-test-3', 'starters-practice-tests-pack'] : []), ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
+    assert.deepEqual(delivered.map((m) => m[1]), ['printable-pack', 'parent-pack-l1', 'parent-pack-l2', 'parent-pack-l3', 'holiday-reading-challenge', 'thinking-expeditions-l1', 'thinking-expeditions-l2', 'phonics-b1', 'phonics-b2', 'story-workbooks-l1', 'rr-l1-wind-sun-yellow-coat', 'story-workbooks-l2', 'mango-l2', 'story-workbooks-l3', 'story-workbooks-l4', 'story-workbooks-l5', 'starters-practice-test-1', 'starters-practice-test-2', 'starters-practice-test-3', 'starters-practice-tests-pack', ...SHOWN.teachers.map(([id]) => id).filter((id) => !PAUSED.has(id)), ...SHOWN.centres.map(([id]) => id)], route);
     // IELTS migration P6: the IELTS cards (and their delivery lines) left /products.
     for (const [id] of SHOWN[IELTS_MOVED_SECTION]) assert.ok(!main.includes(`data-delivery="${id}"`), `${route} ${id}: no IELTS delivery line`);
     for (const m of delivered) assert.equal(m[2], line, route);

@@ -2002,7 +2002,7 @@ export function productsPage(locale: Locale) {
       id,
       ...copy.sections[id],
       // The IELTS section has no cards on /products after P6; ProductsPage shows the one moved card instead.
-      // The Vietnamese Starters copy has no native read yet: no /vi card until STARTERS_VI_PUBLIC (startersFlags.ts).
+      // The Vietnamese Starters copy is read by a native (27 Nov 2026) and shown when STARTERS_VI_PUBLIC is true (startersFlags.ts).
       cards: PRODUCTS.filter((p) => p.live && p.section === id && id !== IELTS_MOVED_SECTION && (locale === 'en' || STARTERS_VI_PUBLIC || !STARTERS_IDS.includes(p.id))).map(
         (product): ProductCard => {
           const { id: cardId, price, href, delivery, image, sample, paypal, video, group, category, books, paused, credit, licence, deliveryLine, usd, orderOnly, reader, clip, [locale]: text } = product;

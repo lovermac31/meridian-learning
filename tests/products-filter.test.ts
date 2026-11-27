@@ -13,7 +13,7 @@ import { FEATURED_PRODUCTS } from '../src/components/ProductsPage';
 // IELTS migration P6 (15 Nov 2026): the IELTS cards left /products for jurassicielts.com. Their section has no cards, no
 // tile and no hero; one moved card (#ielts, data-ielts-moved) links JurassicIELTS /solutions/ instead.
 const ON_ALL = PRODUCTS.filter((p) => p.live && p.section !== IELTS_MOVED_SECTION);
-// A held Starters product (Vietnamese not yet read natively) has no /vi card, so the /vi page lists two fewer products (startersFlags.ts).
+// A held Starters product (STARTERS_VI_PUBLIC false) has no /vi card; with the flag true (27 Nov 2026) expectedInLocale lists them on /vi too.
 const onProducts = (locale: 'en' | 'vi') => ON_ALL.filter((p) => expectedInLocale(p.id, locale));
 const MOVED = PRODUCTS.filter((p) => p.live && p.section === IELTS_MOVED_SECTION);
 for (const locale of ['en', 'vi'] as const) {
@@ -21,7 +21,7 @@ for (const locale of ['en', 'vi'] as const) {
   test(`filter ${locale}: five segment tiles (Story Workbooks included) with real counts and lowest prices; six featured cards show, the rest wait behind the filters`, () => {
     const html = renderToStaticMarkup(createElement(ProductsPage, { locale }));
     const tiles = [...html.matchAll(/aria-pressed="(true|false)" aria-controls="([^"]+)" data-category-tile="([^"]+)"/g)];
-    assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.filter((id) => id !== IELTS_MOVED_SECTION && (locale === 'en' || id !== 'practice-tests')).map((id) => [id, 'false', id]), 'the Practice tests tile follows Story Workbooks in English; it has no cards (so no tile) in Vietnamese while the Starters Vietnamese is held');
+    assert.deepEqual(tiles.map((m) => [m[3], m[1], m[2]]), PRODUCT_SEGMENTS.filter((id) => id !== IELTS_MOVED_SECTION).map((id) => [id, 'false', id]), 'the Practice tests tile follows Story Workbooks in both languages (the Starters Vietnamese is published since the native read, 27 Nov 2026)');
     assert.doesNotMatch(html, /data-category-tile="ielts"/, 'no IELTS tile (its section has no cards)');
     assert.deepEqual(PRODUCT_SEGMENTS, ['families', 'phonics', 'story-workbooks', 'practice-tests', 'teachers', 'centres', 'ielts'], 'Phonics, then Story Workbooks, right after Families (15 Nov 2026); Practice tests after Story Workbooks (27 Nov 2026)');
     const total = productsPage(locale).sections.reduce((sum, section) => sum + section.cards.length, 0);

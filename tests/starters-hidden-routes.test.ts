@@ -10,16 +10,15 @@ import { getExpectedPublicIndexableRoutes, getPrerenderRoutes, resolveRouteMetad
 /**
  * Starters (27 Nov 2026). What a visitor sees on production after this PR (Jay: "Make the Test 3 and set pages live"):
  *   Tests 1 and 2, Test 3 and the 3-test set: live in English (page, card, sitemap, JSON-LD, llms catalogue);
- *   their Vietnamese twins: not routed (the site's "Available soon" holding page, noindex), not on /vi/products, not in the sitemap
- *   (STARTERS_VI_PUBLIC stays false until a native read);
+ *   their Vietnamese twins: published once the native read was done (Jay's wife, no corrections, 27 Nov 2026; STARTERS_VI_PUBLIC true);
  *   the Test 3 example clip: still not in the repo (the Test 3 tracks have no recorded listen), so the Test 3 page has no audio player.
  */
 const LIVE = ['starters-practice-test-1', 'starters-practice-test-2', 'starters-practice-test-3', 'starters-practice-tests-pack'];
 const HELD: string[] = []; // nothing is held back once STARTERS_TEST3_AND_SET_PUBLIC is true; the ids that flag governs are in STARTERS_HELD_IDS
 
-test('flags: Test 3 and the set are public (Jay, 27 Nov), the Vietnamese stays held, and all four products are live', () => {
+test('flags: Test 3 and the set are public (Jay, 27 Nov), the Vietnamese is published after the native read, and all four products are live', () => {
   assert.equal(STARTERS_TEST3_AND_SET_PUBLIC, true);
-  assert.equal(STARTERS_VI_PUBLIC, false);
+  assert.equal(STARTERS_VI_PUBLIC, true);
   assert.deepEqual([...STARTERS_HELD_IDS], ['starters-practice-test-3', 'starters-practice-tests-pack']);
   assert.deepEqual([...STARTERS_IDS].sort(), [...LIVE].sort());
   for (const id of LIVE) assert.equal(PRODUCTS.find(p => p.id === id)!.live, true, id);
@@ -37,28 +36,30 @@ test('all four Starters products are routed, prerendered and indexable in Englis
     const meta = resolveRouteMetadata(path);
     assert.match(meta.robots ?? '', /^index/, `${path}: indexable`);
     assert.equal(meta.canonical, `https://jurassicenglish.com${path}`);
-    // hreflang: the Vietnamese twin is held, so the English page has no alternates pointing at it.
-    assert.ok(!JSON.stringify(meta.alternates ?? []).includes('/vi/'), `${path}: no /vi alternate while the Vietnamese is held`);
+    // hreflang: the Vietnamese twin is published, so the English page points at it.
+    assert.ok(JSON.stringify(meta.alternates ?? []).includes(`/vi/products/${id}`), `${path}: /vi alternate present`);
   }
 });
 
-test('the Vietnamese twins of all four are held: no product, not indexable, not on /vi/products, never suggested', async () => {
+test('the Vietnamese twins of all four are published: own page in Vietnamese, indexable, in the sitemap, on /vi/products, no placeholder text', async () => {
   const { renderRoute } = await import('../src/entry-server');
   const indexable = getExpectedPublicIndexableRoutes();
+  const hub = await renderRoute('/vi/products');
   for (const id of LIVE) {
     const path = `/vi/products/${id}`;
-    assert.equal(isStartersVietnameseHeld(`/products/${id}`), true);
-    assert.equal(isPublicContentReleased(`/products/${id}`, 'vi'), false);
-    assert.equal(getProductByPath(`/products/${id}`, 'vi'), null, id);
-    assert.ok(!indexable.includes(path), `${path}: not in the sitemap source`);
-    assert.match(resolveRouteMetadata(path).robots ?? '', /noindex/, `${path}: holding page is noindex`);
+    assert.equal(isStartersVietnameseHeld(`/products/${id}`), false);
+    assert.equal(isPublicContentReleased(`/products/${id}`, 'vi'), true);
+    assert.equal(getProductByPath(`/products/${id}`, 'vi')?.id, id, id);
+    assert.ok(indexable.includes(path), `${path}: in the sitemap source`);
+    assert.match(resolveRouteMetadata(path).robots ?? '', /^index/, `${path}: indexable`);
     const html = await renderRoute(path);
-    assert.equal(html.includes(`data-product-page-main="${id}"`), false, `${path}: the product is not served`);
-    assert.doesNotMatch(html, /data-buy-now|data-paypal-link|data-order-code|data-price=/, `${path}: no order path`);
+    assert.equal(html.includes(`data-product-page-main="${id}"`), true, `${path}: the product is served`);
+    assert.match(html, /Đặt mua qua Zalo/, `${path}: Vietnamese call to action`);
+    assert.match(html, id === 'starters-practice-tests-pack' ? /249\.000₫/ : /99\.000₫/, `${path}: price`);
+    assert.doesNotMatch(html, /authentic|TO CONFIRM|VI DRAFT|native read/i, `${path}: no placeholder or banned word`);
+    assert.doesNotMatch(html, /data-buy-now|data-portal-buy|qr\.sepay|checkout=1/, `${path}: no automatic checkout`);
+    assert.ok(hub.includes(id), `/vi/products: ${id} card present`);
   }
-  const hub = await renderRoute('/vi/products');
-  for (const id of STARTERS_IDS) assert.ok(!hub.includes(id), `/vi/products: ${id} absent`);
-  for (const p of PAGE_PRODUCTS) assert.ok(!relatedProducts(p.id, 3, 'vi').some(r => STARTERS_IDS.includes(r.id)), `${p.id}: no Starters pick on a /vi page`);
 });
 
 test('Test 3 and the 3-test set are live in English with their own page, card, sitemap entry and llms line, and have no order path beyond Zalo and PayPal', async () => {
