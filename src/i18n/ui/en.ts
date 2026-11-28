@@ -107,6 +107,12 @@ export const enUi = {
       'This section encountered an unexpected error. The rest of the site continues to work normally.',
     retry: 'Try Again',
   },
+  languageBanner: {
+    ariaLabel: 'Offer to read this page in Vietnamese',
+    message: 'View this page in Vietnamese',
+    action: 'View',
+    dismiss: 'Dismiss',
+  },
   languageSwitcher: {
     ariaLabel: 'Language switcher',
     options: {

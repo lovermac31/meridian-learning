@@ -107,6 +107,12 @@ export const viUi = {
       'Phần này gặp lỗi ngoài dự kiến. Các phần còn lại của website vẫn tiếp tục hoạt động bình thường.',
     retry: 'Thử lại',
   },
+  languageBanner: {
+    ariaLabel: 'Gợi ý xem trang bằng tiếng Việt',
+    message: 'Xem trang này bằng tiếng Việt',
+    action: 'Xem',
+    dismiss: 'Đóng',
+  },
   languageSwitcher: {
     ariaLabel: 'Bộ chuyển ngôn ngữ',
     options: {
