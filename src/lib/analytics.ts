@@ -8,6 +8,7 @@
 import { track as vercelTrack } from '@vercel/analytics';
 import { ga4Event } from './ga4';
 import { countingAllowed } from './analyticsConsent';
+import type { EngagedTrigger } from './engagement';
 
 /** Every event goes to Vercel Web Analytics (cookie-free) and, only if a visitor opted in earlier, to GA4 (same name and fields). */
 function track(name: string, params: Record<string, string | number | boolean | undefined>) {
@@ -19,6 +20,15 @@ function track(name: string, params: Record<string, string | number | boolean | 
 /** Money-path events (reserve, Zalo, buy): see conversionEvents.ts. */
 export function trackConversion(name: string, params: Record<string, string>) {
   track(name, params);
+}
+
+/** One per visit: the visitor scrolled past the middle of a page, stayed 20 seconds, or viewed a second page (see engagement.ts). */
+export function trackEngaged(trigger: EngagedTrigger) {
+  track('engaged', {
+    trigger,
+    page:     window.location.pathname,
+    language: (typeof document !== 'undefined' && document.documentElement.lang) || 'en',
+  });
 }
 
 export type CtaType       = 'primary' | 'secondary' | 'low_friction';

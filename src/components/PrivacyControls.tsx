@@ -1,8 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import { analyticsAllowed, countingAllowed, CONSENT_EVENT, CONSENT_KEY, consentBeforeSend } from '../lib/analyticsConsent';
+import { analyticsAllowed, applyIgnoreParam, countingAllowed, CONSENT_EVENT, CONSENT_KEY, consentBeforeSend } from '../lib/analyticsConsent';
+import { trackEngaged } from '../lib/analytics';
+import { startEngagementWatch } from '../lib/engagement';
 import { loadGa4, stopGa4 } from '../lib/ga4';
+
+/** Sends one anonymous `engaged` event per visit (engagement.ts). Mounted only while counting is allowed. */
+function EngagementWatch() {
+  useEffect(() => startEngagementWatch(trackEngaged), []);
+  return null;
+}
 
 /**
  * Visitor counting without a banner (5 Nov 2026, Jay's decision). Vercel Analytics and Speed Insights are cookie-free and anonymous,
@@ -19,10 +27,11 @@ export function OptionalAnalytics({ route }: { route: string }) {
       if (analyticsAllowed()) loadGa4(); else stopGa4();
     };
     const storage = (event: StorageEvent) => { if (event.key === CONSENT_KEY || event.key === null) sync(); };
+    applyIgnoreParam(window.location.search);
     sync();
     window.addEventListener(CONSENT_EVENT, sync);
     window.addEventListener('storage', storage);
     return () => { window.removeEventListener(CONSENT_EVENT, sync); window.removeEventListener('storage', storage); };
   }, []);
-  return counting ? <><Analytics beforeSend={consentBeforeSend} /><SpeedInsights route={route} beforeSend={consentBeforeSend} /></> : null;
+  return counting ? <><Analytics beforeSend={consentBeforeSend} /><SpeedInsights route={route} beforeSend={consentBeforeSend} /><EngagementWatch /></> : null;
 }
