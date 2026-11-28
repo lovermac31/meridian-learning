@@ -37,7 +37,30 @@ export function saveAnalyticsConsent(choice: Exclude<AnalyticsConsent, null>): v
 export function countingAllowed(): boolean {
   if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
   return readAnalyticsConsent() !== 'rejected' && navigator.doNotTrack !== '1' &&
-    (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl !== true;
+    (navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl !== true &&
+    !ignoredVisitor();
+}
+
+/**
+ * Staff browsers: a browser that carries this flag is never counted, so our own visits and tests stay out of the numbers.
+ * Switch it on once per browser by opening any page with ?ignore-analytics=1, and off again with ?ignore-analytics=0.
+ * The flag lives only in that browser's local storage; it is not a consent choice and sends nothing anywhere.
+ */
+export const IGNORE_KEY = 'je-ignore-analytics';
+export function ignoredVisitor(): boolean {
+  if (typeof window === 'undefined') return false;
+  try { return window.localStorage.getItem(IGNORE_KEY) === '1'; } catch { return false; }
+}
+/** Reads ?ignore-analytics=1 or =0 from a query string and stores or clears the flag. Returns the new state, or null when the parameter is absent. */
+export function applyIgnoreParam(search: string): boolean | null {
+  if (typeof window === 'undefined') return null;
+  const value = new URLSearchParams(search).get('ignore-analytics');
+  if (value !== '1' && value !== '0') return null;
+  try {
+    if (value === '1') window.localStorage.setItem(IGNORE_KEY, '1'); else window.localStorage.removeItem(IGNORE_KEY);
+  } catch { /* Storage unavailable: the flag applies to nothing, so counting is unchanged. */ }
+  window.dispatchEvent(new Event(CONSENT_EVENT));
+  return value === '1';
 }
 /** SDK middleware is evaluated at send time, including after a withdrawal. */
 export function consentBeforeSend<T>(event: T): T | null {
