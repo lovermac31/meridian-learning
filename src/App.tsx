@@ -4,6 +4,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { OptionalAnalytics } from './components/PrivacyControls';
 import { GlobalContactPanel } from './components/GlobalContactPanel';
 import { ZaloFloat } from './components/ZaloFloat';
+import { VietnameseBanner } from './components/VietnameseBanner';
 import { isZaloFloatHidden } from './lib/zaloFloat';
 import { captureFirstTouchFromLocation } from './lib/utmFirstTouch';
 import { recordPageView } from './lib/tracker';
@@ -679,6 +680,7 @@ function App() {
       {/* Floating Zalo button, bottom-right on every public page (owner, 1 Nov 2026). Off on checkout pay steps, where it
           would cover the VietQR, and on the private portals; it keeps clear of the assistant launcher and the privacy banner. */}
       <ZaloFloat locale={locale} hidden={isZaloFloatHidden(routePathname, getCurrentLocation().search)} />
+      {!hideSiteChrome ? <VietnameseBanner route={route} onNavigate={pushRoute} /> : null}
       {isBotUIPilotVisible ? (
         <Suspense fallback={null}>
           <BotUIChat currentPathname={pathname} onNavigate={navigateTo} />

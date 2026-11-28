@@ -21,6 +21,11 @@ export function trackConversion(name: string, params: Record<string, string>) {
   track(name, params);
 }
 
+/** The "view this page in Vietnamese" line on English pages: the visitor accepted it or dismissed it. */
+export function trackLanguageBanner(action: 'accept' | 'dismiss') {
+  track('language_banner', { action, page: window.location.pathname });
+}
+
 export type CtaType       = 'primary' | 'secondary' | 'low_friction';
 export type AudienceSegment = 'institutional' | 'institutional_snapshot' | 'parent_student' | 'unknown';
 
