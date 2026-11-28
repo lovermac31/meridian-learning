@@ -65,6 +65,7 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
   const locale = getCurrentLocale();
   const { home, nav } = getOverhaulContent(locale);
   const { hero, find, paths, lesson, jay, pricing, faq } = home;
+  const heroPrimary = hero.primaryOptions[HOME_PRIMARY_OPTION];
 
   return (
     <div className="bg-sb-cream text-sb-ink">
@@ -121,8 +122,12 @@ export function HomeOverhaul({ onNavigate }: { onNavigate: (path: string) => voi
             <h1 className="mt-4 font-display text-[2.1rem] leading-[1.06] tracking-tight text-sb-forest sm:text-[2.8rem] lg:text-[3.2rem]">{hero.title}</h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-sb-slate sm:text-lg">{hero.body}</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <CtaLink link={{ label: hero.primaryOptions[HOME_PRIMARY_OPTION].label, href: hero.primaryOptions[HOME_PRIMARY_OPTION].href, kind: 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track={hero.primaryOptions[HOME_PRIMARY_OPTION].track} />
-              <CtaLink link={{ label: hero.secondary, href: '/products?utm_source=home-hero', kind: 'page' }} className={SECONDARY_BTN} onNavigate={onNavigate} track="home_hero_products" />
+              <CtaLink link={{ label: heroPrimary.label, href: heroPrimary.href, kind: heroPrimary.href.startsWith('#') ? 'anchor' : 'native' }} className={PRIMARY_BTN} onNavigate={onNavigate} track={heroPrimary.track} />
+              {/* With the sample pack as the main button (option C), Try Mango takes the second place; "See all products" stays one tap
+                  away in the row above the hero. With A or B the second button is "See all products", as before. */}
+              {HOME_PRIMARY_OPTION === 'C'
+                ? <CtaLink link={{ label: hero.primaryOptions.A.label, href: hero.primaryOptions.A.href, kind: 'native' }} className={SECONDARY_BTN} onNavigate={onNavigate} track={hero.primaryOptions.A.track} />
+                : <CtaLink link={{ label: hero.secondary, href: '/products?utm_source=home-hero', kind: 'page' }} className={SECONDARY_BTN} onNavigate={onNavigate} track="home_hero_products" />}
             </div>
           </div>
           <figure className="relative">

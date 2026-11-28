@@ -156,9 +156,11 @@ for (const locale of ['vi', 'en'] as const) for (const width of [375, 1440]) {
     const option = getOverhaulContent(locale).home.hero.primaryOptions[HOME_PRIMARY_OPTION];
     for (const path of locale === 'vi' ? ['/vi'] : ['/', '/en/']) {
       await page.goto(path);
-      const main = page.getByRole('link', { name: option.label, exact: true }).filter({ visible: true }).first();
+      // Scoped to <main>: the header carries its own "Free sample pack" button, which is not the hero.
+      const main = page.locator('main').getByRole('link', { name: option.label, exact: true }).filter({ visible: true }).first();
       await expect(main, `home main button on ${path}`).toBeVisible();
-      await expect(main).toHaveAttribute('href', locale === 'vi' ? `/vi${option.href}` : option.href);
+      // An in-page anchor (the sample pack option) is never locale-prefixed; product links are.
+      await expect(main).toHaveAttribute('href', option.href.startsWith('#') || locale !== 'vi' ? option.href : `/vi${option.href}`);
       const box = (await main.boundingBox())!;
       expect(box.y + box.height).toBeLessThanOrEqual(900);
       await expect(page.locator('main').getByRole('link', { name: reserveCta(locale), exact: true })).toHaveCount(0);
