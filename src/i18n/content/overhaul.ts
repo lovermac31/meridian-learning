@@ -30,8 +30,12 @@ export const IMG = '/images/overhaul';
  */
 export const PRODUCTS_NEW_HIGHLIGHT = true;
 export const PRODUCTS_NEW_HREF = '/products?utm_source=header-new#phonics';
-/** Which home main-button option is live (audit fix 2, 11 Nov 2026). Jay picks; swapping to 'B' is this one line. */
-export const HOME_PRIMARY_OPTION: 'A' | 'B' = 'A';
+/**
+ * Which home main-button option is live (audit fix 2, 11 Nov 2026). Jay picks; swapping is this one line.
+ * 'C' (28 Nov 2026, Jay): the free sample pack first, in line with "a sample before a price"; Try Mango (A) moves to the second button.
+ * 'A' is the earlier live choice (Try Mango), 'B' the other option (Level 1 workbooks).
+ */
+export const HOME_PRIMARY_OPTION: 'A' | 'B' | 'C' = 'C';
 /** IELTS migration P10: the one door from jurassicenglish.com to JurassicIELTS (a sister brand of World Wise Learning), tagged by placement. */
 const jiDoor = (locale: 'en' | 'vi', medium: string) =>
   `https://jurassicielts.com/${locale === 'vi' ? 'vi/' : ''}?utm_source=jurassicenglish&utm_medium=${medium}&utm_campaign=ielts-move`;
@@ -106,6 +110,8 @@ const en = {
       primaryOptions: {
         A: { label: 'Try Mango, a story workbook · 49,000₫', href: '/products/mango-l2?utm_source=home-hero', track: 'home_hero_mango' },
         B: { label: 'See Level 1 Story Workbooks · 290,000₫', href: '/products/story-workbooks-l1?utm_source=home-hero', track: 'home_hero_workbooks_l1' },
+        // Same wording as the header button; the form is further down this same page (#free-sample-pack).
+        C: { label: 'Free sample pack', href: '#free-sample-pack', track: 'home_hero_sample' },
       },
       // One clear secondary button to the products (master, 27 Oct 2026: a clean path from home to /products).
       secondary: 'See all products',
@@ -326,6 +332,7 @@ const vi: OverhaulContent = {
       primaryOptions: {
         A: { label: 'Thử sách truyện Mango · 49.000₫', href: '/products/mango-l2?utm_source=home-hero', track: 'home_hero_mango' },
         B: { label: 'Sách truyện Level 1 · 290.000₫', href: '/products/story-workbooks-l1?utm_source=home-hero', track: 'home_hero_workbooks_l1' },
+        C: { label: 'Nhận bộ mẫu miễn phí', href: '#free-sample-pack', track: 'home_hero_sample' },
       },
       secondary: 'Xem tất cả sản phẩm',
       imageAlt: 'Tranh minh hoạ truyện: Giáo sư Rex và các nhà thám hiểm nhỏ quây quanh tấm bản đồ các thế giới truyện',

@@ -5,6 +5,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { HomeOverhaul } from '../src/components/HomeOverhaul';
 import { PRODUCTS } from '../src/i18n/content/products';
+import { getOverhaulContent, HOME_PRIMARY_OPTION } from '../src/i18n/content/overhaul';
 import { setServerLocation } from '../src/lib/ssrLocation';
 import { orderCode } from '../src/lib/productsSource';
 
@@ -19,11 +20,23 @@ const render = (path: string) => {
   return html;
 };
 
-test('home: "See all products" beside the main hero button, tagged home-hero (EN + VI)', () => {
-  for (const [path, href, label] of [['/', '/products?utm_source=home-hero', 'See all products'], ['/vi', '/vi/products?utm_source=home-hero', 'Xem tất cả sản phẩm']]) {
+test('home: one main and one secondary hero button, tagged home-hero, and "See all products" one tap away (EN + VI)', () => {
+  for (const [path, locale, seeAllLabel] of [['/', 'en', 'See all products'], ['/vi', 'vi', 'Xem tất cả sản phẩm']] as const) {
     const html = render(path);
     const hero = html.slice(html.indexOf('<section'), html.indexOf('</section>'));
-    assert.match(hero, new RegExp(`<a href="${href.replace('?', '\\?')}"[^>]*>${label}<`), path);
+    const content = getOverhaulContent(locale).home.hero;
+    const prefix = locale === 'vi' ? '/vi' : '';
+    const link = (href: string, label: string) => new RegExp(`<a href="${href.replaceAll('?', '\\?')}"[^>]*>${label}<`);
+    const main = content.primaryOptions[HOME_PRIMARY_OPTION];
+    // An in-page anchor (the free sample pack) keeps its own href; product links get the locale prefix.
+    assert.match(hero, link(main.href.startsWith('#') ? main.href : `${prefix}${main.href}`, main.label), `${path}: main button`);
+    if (HOME_PRIMARY_OPTION === 'C') {
+      // Sample pack first: Try Mango takes the second place, and "See all products" stays in the row above the hero.
+      assert.match(hero, link(`${prefix}${content.primaryOptions.A.href}`, content.primaryOptions.A.label), `${path}: Try Mango as the second button`);
+      assert.match(html, new RegExp(`<a href="${prefix}/products\\?utm_source=home-top"[^>]*data-home-top-all-products[^>]*>${seeAllLabel}`), `${path}: See all products stays one tap away`);
+    } else {
+      assert.match(hero, link(`${prefix}/products?utm_source=home-hero`, seeAllLabel), `${path}: See all products beside the main button`);
+    }
     assert.equal([...hero.matchAll(/<a href=/g)].length, 2, `${path}: one main and one secondary button`);
   }
 });
