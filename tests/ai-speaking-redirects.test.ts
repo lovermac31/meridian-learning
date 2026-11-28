@@ -114,19 +114,7 @@ const PROXIED = [
   '/ai-speaking/social/ai-speaking-card.png',
   '/ai-speaking/voice/us/p1q1.mp3',
   '/76921473805ca108/_next/static/x.js',
-  // Transition hold (security review MEDIUM 4, 30 Nov 2026 plan): saved speaking reports (localStorage je-reports-v1,
-  // 30-day expiry) and unpaid session bookings live only on the jurassicenglish.com origin, so these four pages stay
-  // served by the JE proxy. REMOVE THIS HOLD (here and in vercel.json) 30 days after C5.
-  '/ai-speaking/exam',
-  '/ai-speaking/vi/exam',
-  '/ai-speaking/solutions',
-  '/ai-speaking/vi/solutions',
-  '/ai-speaking/exam/',
-  '/ai-speaking/vi/exam/',
-  '/ai-speaking/solutions/',
-  '/ai-speaking/vi/solutions/',
-  '/ai-speaking/exam?x=1',
-  // Lesson ladder: access code and lesson progress live only in JE-origin localStorage (same 30-day hold).
+  // Lesson ladder: access code and lesson progress live only in JE-origin localStorage; still held (404 on both hosts).
   '/ai-speaking/ladder',
   '/ai-speaking/ladder/lesson/abc',
   '/ai-speaking/ladder/lesson/abc?x=1',
@@ -134,7 +122,6 @@ const PROXIED = [
   '/ai-speaking/vi/ladder/lesson/abc',
   '/ai-speaking/ladder/',
   '/ai-speaking/vi/ladder/lesson/abc/',
-  '/ai-speaking/vi/solutions?x=1',
 ];
 
 for (const from of PROXIED) {
@@ -150,6 +137,33 @@ for (const from of PROXIED) {
       assert.equal(r.kind, 'rewrite');
       if (r.kind === 'rewrite') assert.match(r.destination, /^https:\/\/jurassic-ai-speaking\.vercel\.app\//);
     }
+  });
+}
+
+// IELTS migration G7 (#386): the exam and solutions pages left the 30-day hold and now take one permanent hop to JI.
+const G7_MOVED: Array<[string, string]> = [
+  ['/ai-speaking/exam', `${JI}/ai-speaking/exam`],
+  ['/ai-speaking/vi/exam', `${JI}/ai-speaking/vi/exam`],
+  ['/ai-speaking/solutions', `${JI}/ai-speaking/solutions`],
+  ['/ai-speaking/vi/solutions', `${JI}/ai-speaking/vi/solutions`],
+  ['/ai-speaking/exam/', `${JI}/ai-speaking/exam`],
+  ['/ai-speaking/vi/exam/', `${JI}/ai-speaking/vi/exam`],
+  ['/ai-speaking/solutions/', `${JI}/ai-speaking/solutions`],
+  ['/ai-speaking/vi/solutions/', `${JI}/ai-speaking/vi/solutions`],
+  ['/ai-speaking/exam?x=1', `${JI}/ai-speaking/exam?x=1`],
+  ['/ai-speaking/vi/solutions?x=1', `${JI}/ai-speaking/vi/solutions?x=1`],
+  // G7 follow-up (#387): Writing buy and photo go to the Writing hub.
+  ['/ai-speaking/writing/buy', `${JI}/ai-speaking/writing`],
+  ['/ai-speaking/vi/writing/photo', `${JI}/ai-speaking/vi/writing`],
+];
+
+for (const [from, to] of G7_MOVED) {
+  test(`JE ${from} -> one permanent hop to ${to} (G7)`, () => {
+    const r = resolve(from);
+    assert.equal(r.kind, 'redirect');
+    if (r.kind !== 'redirect') return;
+    assert.equal(r.status, 308);
+    assert.equal(r.location, to);
   });
 }
 

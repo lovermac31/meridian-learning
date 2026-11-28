@@ -31,7 +31,7 @@ const REVENUE_HREFS = {
     '/young-learners-speaking/#pricing',
     '/book-diagnostic',
     'https://jurassicielts.com/ai-speaking',
-    '/ai-speaking/solutions', // held on JE for 30 days after C5
+    'https://jurassicielts.com/ai-speaking/solutions', // moved to JI by G7 (#386)
     'https://jurassicielts.com/ai-speaking/writing/demo',
   ],
   vi: [
@@ -39,7 +39,7 @@ const REVENUE_HREFS = {
     '/vi/luyen-noi-ielts/#pricing',
     '/book-diagnostic', // no Vietnamese page; the VI copy says the form is in English
     'https://jurassicielts.com/ai-speaking/vi',
-    '/ai-speaking/vi/solutions',
+    'https://jurassicielts.com/ai-speaking/vi/solutions',
     'https://jurassicielts.com/ai-speaking/vi/writing/demo',
   ],
 } as const;

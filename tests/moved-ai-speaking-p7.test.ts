@@ -15,11 +15,20 @@ test('/ai-speaking addresses go straight to JI with query and fragment kept', ()
   assert.equal(movedHref('/ai-speaking/samples/basic'), `${JI}/ai-speaking/samples`);
 });
 
-test('API, assets and the 30-day held pages stay on JE as links', () => {
-  for (const p of ['/ai-speaking/api/health', '/ai-speaking/_next/static/x.js', '/ai-speaking/assets/pay/vietqr.png', '/ai-speaking/exam', '/ai-speaking/vi/exam', '/ai-speaking/solutions', '/ai-speaking/vi/solutions?x=1', '/ai-speaking/ladder', '/ai-speaking/vi/ladder/lesson/abc']) {
+test('API, assets and the still-held ladder pages stay on JE as links', () => {
+  for (const p of ['/ai-speaking/api/health', '/ai-speaking/_next/static/x.js', '/ai-speaking/assets/pay/vietqr.png', '/ai-speaking/ladder', '/ai-speaking/vi/ladder/lesson/abc']) {
     assert.equal(movedHref(p), p, p);
     assert.equal(isMovedToJurassicielts(p.split('?')[0]), false, p);
   }
+});
+
+test('G7: exam and solutions (EN and VI) now go to JI', () => {
+  assert.equal(movedHref('/ai-speaking/exam'), `${JI}/ai-speaking/exam`);
+  assert.equal(movedHref('/ai-speaking/vi/exam'), `${JI}/ai-speaking/vi/exam`);
+  assert.equal(movedHref('/ai-speaking/solutions'), `${JI}/ai-speaking/solutions`);
+  assert.equal(movedHref('/ai-speaking/vi/solutions?x=1'), `${JI}/ai-speaking/vi/solutions?x=1`);
+  assert.equal(isMovedToJurassicielts('/ai-speaking/exam'), true);
+  assert.equal(isMovedToJurassicielts('/ai-speaking/vi/solutions'), true);
 });
 
 test('isMovedToJurassicielts is pattern aware', () => {
@@ -34,8 +43,8 @@ test('older exact rows keep their behaviour: query dropped, other paths unchange
 });
 
 test('rewriteMovedLinks rewrites hrefs in HTML, keeping &amp; queries', () => {
-  const html = '<a href="/ai-speaking/lessons?pack=lesson_month&amp;market=uae">x</a><a href="/ai-speaking/exam">y</a>';
-  assert.equal(rewriteMovedLinks(html), `<a href="${JI}/ai-speaking/lessons?pack=lesson_month&amp;market=uae">x</a><a href="/ai-speaking/exam">y</a>`);
+  const html = '<a href="/ai-speaking/lessons?pack=lesson_month&amp;market=uae">x</a><a href="/ai-speaking/ladder">y</a>';
+  assert.equal(rewriteMovedLinks(html), `<a href="${JI}/ai-speaking/lessons?pack=lesson_month&amp;market=uae">x</a><a href="/ai-speaking/ladder">y</a>`);
 });
 
 // Build-time pass and the plain-Node twin used by the check scripts.
@@ -43,11 +52,11 @@ import { rewriteAiSpeakingLinks } from '../scripts/rewrite-moved-links.mjs';
 import { AIS_PAGE_ROUTE, movedPathMatcher } from '../scripts/lib/moved-patterns.mjs';
 import vercel from '../vercel.json';
 
-test('rewriteAiSpeakingLinks points built anchors at JI and leaves held pages, API and other links alone', () => {
+test('rewriteAiSpeakingLinks points built anchors at JI and leaves held ladder, API and other links alone', () => {
   const html = [
     '<a href="/ai-speaking?utm_source=home-ielts-app">a</a>',
     '<a class="x" href="https://jurassicenglish.com/ai-speaking/baseline?market=uae&amp;x=1#h">b</a>',
-    '<a href="/ai-speaking/exam">held</a>',
+    '<a href="/ai-speaking/ladder">held</a>',
     '<a href="/ai-speaking/api/health">api</a>',
     '<a href="/student-academy">other</a>',
     '<link rel="canonical" href="/ai-speaking/pricing">',
@@ -56,7 +65,7 @@ test('rewriteAiSpeakingLinks points built anchors at JI and leaves held pages, A
   assert.equal(changed, 2);
   assert.match(out, /href="https:\/\/jurassicielts\.com\/ai-speaking\?utm_source=home-ielts-app"/);
   assert.match(out, /href="https:\/\/jurassicielts\.com\/ai-speaking\/baseline\?market=uae&amp;x=1#h"/);
-  assert.match(out, /href="\/ai-speaking\/exam"/);
+  assert.match(out, /href="\/ai-speaking\/ladder"/);
   assert.match(out, /href="\/ai-speaking\/api\/health"/);
   assert.match(out, /<link rel="canonical" href="\/ai-speaking\/pricing">/);
 });
@@ -74,19 +83,15 @@ test('movedPathMatcher (check scripts) agrees with isMovedToJurassicielts on eve
 import { crawlResourceLinks } from '../src/components/CrawlResources.tsx';
 import resources from '../src/content/crawlResources.json';
 
-test('CrawlResources keeps no IELTS practice list: only the held AI Speaking solutions link stays on JE', () => {
-  // IELTS migration P10: crawlResources.json holds the direct jurassicielts.com address, so no entry hops through a redirect.
+test('CrawlResources keeps no IELTS practice list: its one AI Speaking link (solutions) is rendered straight to JI', () => {
+  // IELTS migration P10 + G7: the JSON may still name the JE solutions address, but it moved to JI, so the rendered link goes direct.
   const all = Object.values(resources).flat();
   const ai = all.filter((l) => /\/ai-speaking/.test(l.href));
-  assert.equal(ai.length, 1, 'only the held solutions link remains; the JurassicIELTS card is the IELTS entry');
-  assert.ok(!all.some((l) => l.href.startsWith('/ai-speaking') && !/\/ai-speaking\/(?:vi\/)?solutions$/.test(l.href)), 'no JE address of a moved AI Speaking page');
+  assert.equal(ai.length, 1, 'only the solutions link remains; the JurassicIELTS card is the IELTS entry');
+  assert.ok(/\/ai-speaking\/(?:vi\/)?solutions$/.test(ai[0].href), 'the one remaining link is the solutions page');
   const out = Object.values(resources).flatMap((links) => crawlResourceLinks(links)).filter((l) => /\/ai-speaking/.test(l.href));
   assert.equal(out.length, ai.length, 'no AI Speaking link is dropped');
-  for (const link of out) {
-    if (/\/ai-speaking\/(?:vi\/)?solutions$/.test(link.href)) assert.ok(link.href.startsWith('/ai-speaking'), link.href);
-    else assert.ok(link.href.startsWith(`${JI}/ai-speaking`), link.href);
-  }
-  for (const l of all) assert.ok(!isMovedToJurassicielts(l.href) || /\/ai-speaking\/(?:vi\/)?solutions$/.test(l.href), `${l.href} is not a moved JE address`);
+  for (const link of out) assert.ok(link.href.startsWith(`${JI}/ai-speaking/`), link.href);
 });
 
 test('the JE sitemap leaves out moved and held AI Speaking pages', async () => {
@@ -101,13 +106,13 @@ test('the JE sitemap leaves out moved and held AI Speaking pages', async () => {
 import { createOrganizationJsonLd } from '../src/lib/structuredData.ts';
 
 test('rewriteAiSpeakingLinks also points moved country pages at jurassicielts.com; held and unmoved pages stay', () => {
-  const html = '<a href="/ielts-speaking-online/india">a</a><a href="/ielts-speaking-online">b</a><a href="/student-academy">c</a><a href="/ai-speaking/exam">d</a>';
+  const html = '<a href="/ielts-speaking-online/india">a</a><a href="/ielts-speaking-online">b</a><a href="/student-academy">c</a><a href="/ai-speaking/ladder">d</a>';
   const { html: out, changed } = rewriteAiSpeakingLinks(html);
   assert.equal(changed, 2);
   assert.doesNotMatch(out, /href="\/ielts-speaking-online/);
   assert.match(out, /href="https:\/\/jurassicielts\.com\//);
   assert.match(out, /href="\/student-academy"/); // P10b: /young-learners-speaking/ moved, so an unmoved page stands in here
-  assert.match(out, /href="\/ai-speaking\/exam"/);
+  assert.match(out, /href="\/ai-speaking\/ladder"/);
 });
 
 test('the Organization node lists JurassicIELTS as a sister brand of World Wise Learning', () => {
